@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class FileInfoDataView;
 
 class FileInfo;
@@ -31,7 +30,6 @@ using FileInfoPtr = mojo::StructPtr<FileInfo>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_FILE_INFO_MOJOM_FORWARD_H_

@@ -21,8 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos_camera {
-namespace mojom {
+
+
+namespace chromeos_camera::mojom {
 namespace internal {
 class DmaBufPlane_Data;
 class DmaBufVideoFrame_Data;
@@ -137,7 +138,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace chromeos_camera
+
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_DMABUF_MOJOM_SHARED_INTERNAL_H_

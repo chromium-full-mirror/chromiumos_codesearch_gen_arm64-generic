@@ -18,13 +18,15 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace mojo {
-namespace interface_control {
+
+
+namespace mojo::interface_control {
 namespace internal {
 
 }  // namespace internal
-}  // namespace interface_control
-}  // namespace mojo
+
+
+}  // mojo::interface_control
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

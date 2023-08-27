@@ -36,9 +36,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class UsbEventInfoDataView;
 
 class ThunderboltEventInfoDataView;
@@ -87,9 +85,7 @@ class StylusEventInfoDataView;
 class EventInfoDataView;
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -273,9 +269,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::EventInfoDataView> {
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 enum class InputTouchButton : int32_t {
@@ -1877,9 +1871,7 @@ class EventInfoDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -3603,9 +3595,7 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 inline void UsbEventInfoDataView::GetVendorDataView(
     mojo::StringDataView* output) {
@@ -3850,9 +3840,7 @@ inline void EventInfoDataView::GetCrashEventInfoDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace device {
-namespace mojom {
+
+
+namespace device::mojom {
 namespace internal {
 class SensorConfiguration_Data;
 
@@ -136,7 +137,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace device
+
+}  // device::mojom
 
 #endif  // SERVICES_DEVICE_PUBLIC_MOJOM_SENSOR_MOJOM_SHARED_INTERNAL_H_

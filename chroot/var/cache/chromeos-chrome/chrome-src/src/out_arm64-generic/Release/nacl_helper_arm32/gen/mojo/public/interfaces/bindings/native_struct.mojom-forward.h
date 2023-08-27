@@ -20,8 +20,7 @@
 
 
 
-namespace mojo {
-namespace native {
+namespace mojo::native {
 class SerializedHandleDataView;
 
 class NativeStructDataView;
@@ -37,7 +36,6 @@ using NativeStructPtr = mojo::StructPtr<NativeStruct>;
 
 
 
-}  // namespace native
-}  // namespace mojo
+}  // mojo::native
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_NATIVE_STRUCT_MOJOM_FORWARD_H_

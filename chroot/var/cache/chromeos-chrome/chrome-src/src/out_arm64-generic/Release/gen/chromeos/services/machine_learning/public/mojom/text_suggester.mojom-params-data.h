@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) TextSuggester_Suggest_Params_Data {
  public:
@@ -122,9 +122,9 @@ inline void TextSuggester_Suggest_ResponseParamsDataView::GetResultDataView(
   *output = TextSuggesterResultDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+
+}  // chromeos::machine_learning::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

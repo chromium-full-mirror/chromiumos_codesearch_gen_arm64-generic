@@ -22,15 +22,13 @@ enum class NativeEnum;
 }  // namespace mojo
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 using ConnectionInfo = mojo::NativeEnum;
 using EffectiveConnectionType = mojo::NativeEnum;
 using CTPolicyCompliance = mojo::NativeEnum;
 
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 #endif  // SERVICES_NETWORK_PUBLIC_MOJOM_NETWORK_TYPES_MOJOM_FORWARD_H_

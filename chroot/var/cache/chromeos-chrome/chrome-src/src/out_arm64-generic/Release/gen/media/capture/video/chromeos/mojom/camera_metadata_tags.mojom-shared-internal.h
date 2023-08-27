@@ -16,8 +16,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 
 struct CameraMetadataSection_Data {
@@ -2815,7 +2816,7 @@ struct AndroidAutomotiveLensFacing_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_METADATA_TAGS_MOJOM_SHARED_INTERNAL_H_

@@ -21,8 +21,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class BitstreamBufferDataView;
 
 class PictureDataView;
@@ -57,7 +56,6 @@ class VideoDecodeClient;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_DECODE_ACCELERATOR_MOJOM_FORWARD_H_

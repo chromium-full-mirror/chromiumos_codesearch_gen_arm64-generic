@@ -1038,11 +1038,11 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   /* ./auth_factor/auth_factor_manager.cc */
   kLocAuthFactorManagerGetPathFailedInSave = 606,
   /* ./auth_factor/auth_factor_manager.cc */
-  kLocAuthFactorManagerGetPathFailedInRemove = 607,
+  kLocAuthFactorManagerGetPathFailedInDelete = 607,
   /* ./auth_factor/auth_factor_manager.cc */
   kLocAuthFactorManagerPrepareForRemovalFailedInRemove = 608,
   /* ./auth_factor/auth_factor_manager.cc */
-  kLocAuthFactorManagerDeleteFailedInRemove = 609,
+  kLocAuthFactorManagerDeleteFailedInDelete = 609,
   /* ./auth_session.cc */
   kLocAuthSessionRemoveVKFailedInRemoveAuthFactor = 610,
   /* ./auth_session.cc */
@@ -1419,6 +1419,30 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocRecoveryAuthBlockNoUserGaiaIdInCreate = 2121,
   /* ./auth_session.cc */
   kLocAuthSessionFactorAlreadyExistsInAddAuthFactor = 2122,
+  /* ./auth_session.cc */
+  kLocAuthSessionNoOldLabelInRelabelAuthFactor = 2123,
+  /* ./auth_session.cc */
+  kLocAuthSessionFactorNotFoundInRelabelAuthFactor = 2124,
+  /* ./auth_session.cc */
+  kLocAuthSessionFactorIsVaultKeysetInRelabelAuthFactor = 2125,
+  /* ./userdataauth.cc */
+  kLocUserDataAuthNoAuthSessionInRelabelAuthFactor = 2126,
+  /* ./userdataauth.cc */
+  kLocCouldntLoadUserPolicyFileInRelabelAuthFactor = 2127,
+  /* ./userdataauth.cc */
+  kLocUserDataAuthUnauthedInRelabelAuthFactor = 2128,
+  /* ./auth_session.cc */
+  kLocAuthSessionInvalidNewLabelInRelabelAuthFactor = 2129,
+  /* ./auth_session.cc */
+  kLocAuthSessionNewLabelAlreadyExistsInRelabelAuthFactor = 2130,
+  /* ./auth_session.cc */
+  kLocAuthSessionSaveCopyFailedInRelabelAuthFactor = 2131,
+  /* ./auth_session.cc */
+  kLocAuthSessionRenameWrappedKeyFailedInRelabelAuthFactor = 2132,
+  /* ./auth_session.cc */
+  kLocAuthSessionEncryptFailedInRelabelAuthFactor = 2133,
+  /* ./auth_session.cc */
+  kLocAuthSessionPersistUssFailedInRelabelAuthFactor = 2134,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2300
   //// See location_db.py for more info.
@@ -1450,6 +1474,8 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   /* ./userdataauth.cc */
   kLocUserDataAuthNoAuthSessionInCreateVaultKeyset = 2312,
   /* ./create_vault_keyset_rpc_impl.cc */
+  kLocCreateVaultKeysetRpcImplNoAuthFactorType = 2313,
+  /* ./create_vault_keyset_rpc_impl.cc */
   kLocCreateVaultKeysetRpcImplUnauthedInCreateVaultKeyset = 2314,
   /* ./create_vault_keyset_rpc_impl.cc */
   kLocCreateVaultKeysetRpcImplyInvalidBlockType = 2315,
@@ -1459,6 +1485,8 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocCreateVaultKeysetRpcImplCreateFailedInAddKeyset = 2317,
   /* ./create_vault_keyset_rpc_impl.cc */
   kLocCreateVaultKeysetRpcImplAddVaultKeysetFailed = 2318,
+  /* ./create_vault_keyset_rpc_impl.cc */
+  kLocCreateVaultKeysetRpcImplNoInitialVaultKeyset = 2319,
   /* ./create_vault_keyset_rpc_impl.cc */
   kLocCreateVaultKeysetRpcImplClearKeyDataFromInitialKeysetFailed = 2320,
   /* ./create_vault_keyset_rpc_impl.cc */

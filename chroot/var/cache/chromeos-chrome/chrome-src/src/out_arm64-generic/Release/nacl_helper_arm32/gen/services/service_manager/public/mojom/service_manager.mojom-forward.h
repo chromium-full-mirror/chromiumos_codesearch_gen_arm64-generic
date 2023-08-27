@@ -21,8 +21,7 @@
 
 
 
-namespace service_manager {
-namespace mojom {
+namespace service_manager::mojom {
 class RunningServiceInfoDataView;
 
 
@@ -37,7 +36,6 @@ class ServiceManager;
 
 
 
-}  // namespace mojom
-}  // namespace service_manager
+}  // service_manager::mojom
 
 #endif  // SERVICES_SERVICE_MANAGER_PUBLIC_MOJOM_SERVICE_MANAGER_MOJOM_FORWARD_H_

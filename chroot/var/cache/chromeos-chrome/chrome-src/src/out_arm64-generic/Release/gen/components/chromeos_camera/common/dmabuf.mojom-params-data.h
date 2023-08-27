@@ -18,13 +18,15 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos_camera {
-namespace mojom {
+
+
+namespace chromeos_camera::mojom {
 namespace internal {
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace chromeos_camera
+
+
+}  // chromeos_camera::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -10,8 +10,7 @@
 #include "media/capture/video/chromeos/mojom/cros_camera_service.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class  CameraHalDispatcherInterceptorForTesting : public CameraHalDispatcher {
@@ -103,7 +102,6 @@ class  CameraHalServerCallbacksAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CROS_CAMERA_SERVICE_MOJOM_TEST_UTILS_H_

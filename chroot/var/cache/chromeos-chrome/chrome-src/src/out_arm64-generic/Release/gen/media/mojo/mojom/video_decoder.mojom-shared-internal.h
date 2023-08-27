@@ -26,8 +26,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace media {
-namespace mojom {
+
+
+namespace media::mojom {
 namespace internal {
 class SupportedVideoDecoderConfig_Data;
 class CommandBufferId_Data;
@@ -142,7 +143,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace media
+
+}  // media::mojom
 
 #endif  // MEDIA_MOJO_MOJOM_VIDEO_DECODER_MOJOM_SHARED_INTERNAL_H_

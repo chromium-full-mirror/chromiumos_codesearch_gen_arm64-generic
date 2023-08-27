@@ -34,9 +34,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class MemoryRoutineArgumentDataView;
 
 class RoutineStateDataView;
@@ -58,9 +56,7 @@ class RoutineStateUnionDataView;
 class RoutineDetailDataView;
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -146,9 +142,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineDetailDataView> {
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 enum class MemtesterTestItemEnum : int32_t {
@@ -645,9 +639,7 @@ class RoutineDetailDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -1252,9 +1244,7 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 
@@ -1336,9 +1326,7 @@ inline void RoutineDetailDataView::GetMemoryDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

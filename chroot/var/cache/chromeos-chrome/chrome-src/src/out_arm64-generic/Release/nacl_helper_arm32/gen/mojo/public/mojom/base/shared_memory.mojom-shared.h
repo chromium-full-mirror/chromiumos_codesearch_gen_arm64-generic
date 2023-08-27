@@ -33,8 +33,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class ReadOnlySharedMemoryRegionDataView;
 
 class WritableSharedMemoryRegionDataView;
@@ -43,8 +42,7 @@ class UnsafeSharedMemoryRegionDataView;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -74,8 +72,7 @@ struct MojomTypeTraits<::mojo_base::mojom::UnsafeSharedMemoryRegionDataView> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class ReadOnlySharedMemoryRegionDataView {
@@ -150,8 +147,7 @@ class UnsafeSharedMemoryRegionDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace std {
 
@@ -270,8 +266,7 @@ struct Serializer<::mojo_base::mojom::UnsafeSharedMemoryRegionDataView, MaybeCon
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
@@ -280,8 +275,7 @@ namespace mojom {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -35,6 +35,11 @@ class MissivedInterface {
   virtual void ConfirmRecordUpload(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<::reporting::ConfirmRecordUploadResponse>> response,
       const ::reporting::ConfirmRecordUploadRequest& in_request) = 0;
+  // Sent by Chrome to update the list of blocked destinations and other
+  // data from the configuration file fetched from the server.
+  virtual void UpdateConfigInMissive(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<::reporting::UpdateConfigInMissiveResponse>> response,
+      const ::reporting::UpdateConfigInMissiveRequest& in_request) = 0;
   // Sent by Chrome to update the Missive Daemon Encryption Key.
   virtual void UpdateEncryptionKey(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<::reporting::UpdateEncryptionKeyResponse>> response,
@@ -65,6 +70,10 @@ class MissivedAdaptor {
         base::Unretained(interface_),
         &MissivedInterface::ConfirmRecordUpload);
     itf->AddMethodHandler(
+        "UpdateConfigInMissive",
+        base::Unretained(interface_),
+        &MissivedInterface::UpdateConfigInMissive);
+    itf->AddMethodHandler(
         "UpdateEncryptionKey",
         base::Unretained(interface_),
         &MissivedInterface::UpdateEncryptionKey);
@@ -86,6 +95,10 @@ class MissivedAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"ConfirmRecordUpload\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"UpdateConfigInMissive\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

@@ -18,13 +18,15 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace smbfs {
-namespace mojom {
+
+
+namespace smbfs::mojom {
 namespace internal {
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace smbfs
+
+
+}  // smbfs::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

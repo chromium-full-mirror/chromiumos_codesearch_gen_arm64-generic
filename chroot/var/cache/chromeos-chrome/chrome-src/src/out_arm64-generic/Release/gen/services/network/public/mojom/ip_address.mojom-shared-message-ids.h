@@ -8,15 +8,15 @@
 #define SERVICES_NETWORK_PUBLIC_MOJOM_IP_ADDRESS_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace network {
-namespace mojom {
 
+
+namespace network::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network
+
+}  // network::mojom
 
 #endif  // SERVICES_NETWORK_PUBLIC_MOJOM_IP_ADDRESS_MOJOM_SHARED_MESSAGE_IDS_H_

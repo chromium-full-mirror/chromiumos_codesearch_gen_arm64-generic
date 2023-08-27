@@ -8,10 +8,9 @@
 #define COMPONENTS_ML_MOJOM_WEB_PLATFORM_MODEL_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ml {
-namespace model_loader {
-namespace mojom {
 
+
+namespace ml::model_loader::mojom {
 namespace internal {
 
 
@@ -19,8 +18,7 @@ constexpr uint32_t kModelLoader_Load_Name = 0;
 constexpr uint32_t kModel_Compute_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+
+}  // ml::model_loader::mojom
 
 #endif  // COMPONENTS_ML_MOJOM_WEB_PLATFORM_MODEL_MOJOM_SHARED_MESSAGE_IDS_H_

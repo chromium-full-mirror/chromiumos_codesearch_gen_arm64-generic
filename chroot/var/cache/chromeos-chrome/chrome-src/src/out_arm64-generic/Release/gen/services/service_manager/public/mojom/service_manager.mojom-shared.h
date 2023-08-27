@@ -34,14 +34,12 @@
 
 
 
-namespace service_manager {
-namespace mojom {
+namespace service_manager::mojom {
 class RunningServiceInfoDataView;
 
 
 
-}  // namespace mojom
-}  // namespace service_manager
+}  // service_manager::mojom
 
 namespace mojo {
 namespace internal {
@@ -57,8 +55,7 @@ struct MojomTypeTraits<::service_manager::mojom::RunningServiceInfoDataView> {
 }  // namespace mojo
 
 
-namespace service_manager {
-namespace mojom {
+namespace service_manager::mojom {
 
 
 enum class InstanceState : int32_t {
@@ -139,8 +136,7 @@ class RunningServiceInfoDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace service_manager
+}  // service_manager::mojom
 
 namespace std {
 
@@ -219,8 +215,7 @@ struct Serializer<::service_manager::mojom::RunningServiceInfoDataView, MaybeCon
 }  // namespace mojo
 
 
-namespace service_manager {
-namespace mojom {
+namespace service_manager::mojom {
 
 inline void RunningServiceInfoDataView::GetIdentityDataView(
     ::service_manager::mojom::IdentityDataView* output) {
@@ -230,8 +225,7 @@ inline void RunningServiceInfoDataView::GetIdentityDataView(
 
 
 
-}  // namespace mojom
-}  // namespace service_manager
+}  // service_manager::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

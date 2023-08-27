@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class GenericPendingReceiverDataView;
 
 class GenericPendingReceiver;
@@ -31,7 +30,6 @@ using GenericPendingReceiverPtr = mojo::StructPtr<GenericPendingReceiver>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_GENERIC_PENDING_RECEIVER_MOJOM_FORWARD_H_

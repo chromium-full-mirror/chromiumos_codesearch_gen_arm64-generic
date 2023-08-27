@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chrome {
-namespace mojom {
+
+
+namespace chrome::mojom {
 namespace internal {
 class  NetworkDiagnostics_RunNetworkDiagnostics_Params_Data {
  public:
@@ -146,8 +147,9 @@ inline void NetworkDiagnostics_RunNetworkDiagnostics_ParamsDataView::GetFailedUr
 
 
 
-}  // namespace mojom
-}  // namespace chrome
+
+
+}  // chrome::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

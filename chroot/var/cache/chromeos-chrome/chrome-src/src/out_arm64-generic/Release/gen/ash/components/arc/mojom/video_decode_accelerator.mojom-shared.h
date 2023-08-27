@@ -35,8 +35,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class BitstreamBufferDataView;
 
 class PictureDataView;
@@ -49,8 +48,7 @@ class BufferModifierDataView;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace mojo {
 namespace internal {
@@ -94,8 +92,7 @@ struct MojomTypeTraits<::arc::mojom::BufferModifierDataView> {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 enum class VideoDecodeAccelerator_Result : int32_t {
@@ -285,8 +282,7 @@ class BufferModifierDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace std {
 
@@ -507,8 +503,7 @@ struct Serializer<::arc::mojom::BufferModifierDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 
@@ -531,8 +526,7 @@ inline void PictureBufferFormatDataView::GetCodedSizeDataView(
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -44,6 +44,8 @@ enum class EventCategory {
   kTouchpadButton,
   kTouchpadTouch,
   kTouchpadConnected,
+  kTouchscreenTouch,
+  kTouchscreenConnected,
   kExternalDisplay,
   kStylusTouch,
   kStylusConnected,
@@ -988,6 +990,93 @@ struct TouchpadConnectedEventInfo {
 
 };
 
+struct TouchscreenTouchEventInfo {
+  TouchscreenTouchEventInfo();
+  ~TouchscreenTouchEventInfo();
+  TouchscreenTouchEventInfo(const TouchscreenTouchEventInfo&) = delete;
+  TouchscreenTouchEventInfo& operator=(const TouchscreenTouchEventInfo&) = delete;
+  TouchscreenTouchEventInfo(TouchscreenTouchEventInfo&& rhs);
+  TouchscreenTouchEventInfo& operator=(TouchscreenTouchEventInfo&& rhs);
+
+  // Populates a TouchscreenTouchEventInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, TouchscreenTouchEventInfo& out);
+
+  // Populates a TouchscreenTouchEventInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TouchscreenTouchEventInfo& out);
+
+  // Creates a deep copy of TouchscreenTouchEventInfo.
+  TouchscreenTouchEventInfo Clone() const;
+
+  // Creates a TouchscreenTouchEventInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<TouchscreenTouchEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TouchscreenTouchEventInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<TouchscreenTouchEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a TouchscreenTouchEventInfo object from a base::Value, or nullopt
+  // on failure.
+  static absl::optional<TouchscreenTouchEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTouchscreenTouchEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The touch points reported by the touchscreen.
+  std::vector<TouchPointInfo> touch_points;
+
+};
+
+struct TouchscreenConnectedEventInfo {
+  TouchscreenConnectedEventInfo();
+  ~TouchscreenConnectedEventInfo();
+  TouchscreenConnectedEventInfo(const TouchscreenConnectedEventInfo&) = delete;
+  TouchscreenConnectedEventInfo& operator=(const TouchscreenConnectedEventInfo&) = delete;
+  TouchscreenConnectedEventInfo(TouchscreenConnectedEventInfo&& rhs);
+  TouchscreenConnectedEventInfo& operator=(TouchscreenConnectedEventInfo&& rhs);
+
+  // Populates a TouchscreenConnectedEventInfo object from a base::Value&
+  // instance. Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, TouchscreenConnectedEventInfo& out);
+
+  // Populates a TouchscreenConnectedEventInfo object from a Dict& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TouchscreenConnectedEventInfo& out);
+
+  // Creates a deep copy of TouchscreenConnectedEventInfo.
+  TouchscreenConnectedEventInfo Clone() const;
+
+  // Creates a TouchscreenConnectedEventInfo object from a base::Value, or NULL
+  // on failure.
+  static std::unique_ptr<TouchscreenConnectedEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TouchscreenConnectedEventInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<TouchscreenConnectedEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a TouchscreenConnectedEventInfo object from a base::Value, or
+  // nullopt on failure.
+  static absl::optional<TouchscreenConnectedEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTouchscreenConnectedEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The maximum possible x position of touch points.
+  absl::optional<int> max_x;
+
+  // The maximum possible y position of touch points.
+  absl::optional<int> max_y;
+
+  // The maximum possible pressure of touch points, or 0 if pressure is not
+  // supported.
+  absl::optional<int> max_pressure;
+
+};
+
 struct StylusTouchPointInfo {
   StylusTouchPointInfo();
   ~StylusTouchPointInfo();
@@ -1282,6 +1371,20 @@ extern const char kEventName[];  // "os.events.onTouchpadConnectedEvent"
 
 base::Value::List Create(const TouchpadConnectedEventInfo& event_info);
 }  // namespace OnTouchpadConnectedEvent
+
+namespace OnTouchscreenTouchEvent {
+
+extern const char kEventName[];  // "os.events.onTouchscreenTouchEvent"
+
+base::Value::List Create(const TouchscreenTouchEventInfo& event_info);
+}  // namespace OnTouchscreenTouchEvent
+
+namespace OnTouchscreenConnectedEvent {
+
+extern const char kEventName[];  // "os.events.onTouchscreenConnectedEvent"
+
+base::Value::List Create(const TouchscreenConnectedEventInfo& event_info);
+}  // namespace OnTouchscreenConnectedEvent
 
 namespace OnStylusTouchEvent {
 

@@ -21,10 +21,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
+namespace ash::cros_healthd::internal::mojom {
 class TouchscreenDeviceDataView;
 
 class InputDeviceDataView;
@@ -42,9 +39,6 @@ class ChromiumDataCollector;
 
 
 
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::internal::mojom
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PRIVATE_MOJOM_CROS_HEALTHD_INTERNAL_MOJOM_FORWARD_H_

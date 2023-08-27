@@ -292,7 +292,6 @@
 #include <stddef.h>
 #include <type_traits>
 
-// gen_amalgamated expanded: #include "perfetto/base/build_config.h"
 // gen_amalgamated expanded: #include "perfetto/public/compiler.h"
 
 // __has_attribute is supported only by clang and recent versions of GCC.
@@ -345,16 +344,6 @@
   __attribute__((__format__(__printf__, x, y)))
 #else
 #define PERFETTO_PRINTF_FORMAT(x, y)
-#endif
-
-#if PERFETTO_BUILDFLAG(PERFETTO_OS_IOS)
-// TODO(b/158814068): For iOS builds, thread_local is only supported since iOS
-// 8. We'd have to use pthread for thread local data instead here. For now, just
-// define it to nothing since we don't support running perfetto or the client
-// lib on iOS right now.
-#define PERFETTO_THREAD_LOCAL
-#else
-#define PERFETTO_THREAD_LOCAL thread_local
 #endif
 
 #if defined(__GNUC__) || defined(__clang__)
@@ -9188,9 +9177,6 @@ class PERFETTO_EXPORT_COMPONENT DataSourceType {
   // per data-source *instance*.
   template <typename DataSourceTraits>
   DataSourceThreadLocalState* GetOrCreateDataSourceTLS() {
-#if PERFETTO_BUILDFLAG(PERFETTO_OS_IOS)
-    PERFETTO_FATAL("Data source TLS not supported on iOS, see b/158814068");
-#endif
     auto* tracing_impl = TracingMuxer::Get();
     TracingTLS* root_tls = tracing_impl->GetOrCreateTracingTLS();
     DataSourceThreadLocalState* ds_tls =
@@ -11234,13 +11220,12 @@ class DataSource : public DataSourceBase {
   // destructors) that we need to defer to the embedder. In chromium's platform
   // implementation, for instance, the tls slot is implemented using
   // chromium's base::ThreadLocalStorage.
-  static PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState* tls_state_;
+  static thread_local internal::DataSourceThreadLocalState* tls_state_;
 };
 
 // static
 template <typename T, typename D>
-PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState*
-    DataSource<T, D>::tls_state_;
+thread_local internal::DataSourceThreadLocalState* DataSource<T, D>::tls_state_;
 
 }  // namespace perfetto
 

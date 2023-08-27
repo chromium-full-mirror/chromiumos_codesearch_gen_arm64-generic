@@ -17,8 +17,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace mojo_base {
-namespace mojom {
+
+
+namespace mojo_base::mojom {
 namespace internal {
 
 struct FileError_Data {
@@ -65,7 +66,7 @@ struct FileError_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_base
+
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_FILE_ERROR_MOJOM_SHARED_INTERNAL_H_

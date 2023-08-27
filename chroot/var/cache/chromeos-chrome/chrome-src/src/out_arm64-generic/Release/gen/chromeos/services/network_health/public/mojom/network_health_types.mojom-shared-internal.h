@@ -22,9 +22,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+
+
+namespace chromeos::network_health::mojom {
 namespace internal {
 class UInt32Value_Data;
 class SignalStrengthStats_Data;
@@ -272,8 +272,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+
+}  // chromeos::network_health::mojom
 
 #endif  // CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_TYPES_MOJOM_SHARED_INTERNAL_H_

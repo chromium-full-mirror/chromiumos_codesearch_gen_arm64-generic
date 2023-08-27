@@ -42,10 +42,7 @@
 #include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 const char SensorHalServer::Name_[] = "chromeos.sensors.mojom.SensorHalServer";
 
 SensorHalServer::IPCStableHashFunction SensorHalServer::MessageToMethodInfo_(mojo::Message& message) {
@@ -381,9 +378,7 @@ bool SensorHalClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 
 namespace mojo {
@@ -395,9 +390,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
 void SensorHalServerInterceptorForTesting::CreateChannel(::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService> sensor_service_request) {
@@ -424,9 +417,7 @@ SensorHalClientAsyncWaiter::~SensorHalClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 
 #if defined(__clang__)

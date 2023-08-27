@@ -41,16 +41,12 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class ServiceStatusDataView;
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -66,9 +62,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::ServiceStatusDataView> {
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 // Interface base classes. They are used for type safety check.
 class CrosHealthdServiceFactoryInterfaceBase {};
 
@@ -153,9 +147,7 @@ class ServiceStatusDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -197,16 +189,12 @@ struct Serializer<::ash::cros_healthd::mojom::ServiceStatusDataView, MaybeConstU
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

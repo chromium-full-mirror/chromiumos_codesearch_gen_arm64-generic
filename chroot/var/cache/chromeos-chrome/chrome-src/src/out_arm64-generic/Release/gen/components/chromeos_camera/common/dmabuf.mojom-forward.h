@@ -21,8 +21,7 @@
 
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 class DmaBufPlaneDataView;
 
 class DmaBufVideoFrameDataView;
@@ -36,7 +35,6 @@ using DmaBufVideoFramePtr = mojo::StructPtr<DmaBufVideoFrame>;
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_DMABUF_MOJOM_FORWARD_H_

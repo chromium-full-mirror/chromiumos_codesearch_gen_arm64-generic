@@ -10,13 +10,11 @@
 #include "services/network/public/mojom/ip_address.mojom.h"
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 #endif  // SERVICES_NETWORK_PUBLIC_MOJOM_IP_ADDRESS_MOJOM_TEST_UTILS_H_

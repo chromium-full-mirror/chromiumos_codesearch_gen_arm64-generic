@@ -10,13 +10,11 @@
 #include "ash/components/arc/mojom/video_common.mojom.h"
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_COMMON_MOJOM_TEST_UTILS_H_

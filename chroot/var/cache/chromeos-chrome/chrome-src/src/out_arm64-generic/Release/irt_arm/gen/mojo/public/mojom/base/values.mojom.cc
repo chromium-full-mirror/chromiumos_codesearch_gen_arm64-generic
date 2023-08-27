@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/values.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 DictionaryValue::DictionaryValue()
     : storage() {}
 
@@ -228,8 +226,7 @@ bool Value::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -336,14 +333,12 @@ bool UnionTraits<::mojo_base::mojom::Value::DataView, ::mojo_base::mojom::ValueP
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

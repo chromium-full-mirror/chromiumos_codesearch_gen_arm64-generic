@@ -10,9 +10,7 @@
 #include "chromeos/components/sensors/mojom/cros_sensor_service.mojom.h"
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
 class  SensorHalServerInterceptorForTesting : public SensorHalServer {
@@ -53,8 +51,6 @@ class  SensorHalClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 #endif  // CHROMEOS_COMPONENTS_SENSORS_MOJOM_CROS_SENSOR_SERVICE_MOJOM_TEST_UTILS_H_

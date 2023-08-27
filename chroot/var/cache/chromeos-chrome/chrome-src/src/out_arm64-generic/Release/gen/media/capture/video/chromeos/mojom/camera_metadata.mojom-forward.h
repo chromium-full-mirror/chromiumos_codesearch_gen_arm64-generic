@@ -21,8 +21,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class CameraMetadataEntryDataView;
 
 class CameraMetadataDataView;
@@ -38,7 +37,6 @@ using CameraMetadataPtr = mojo::StructPtr<CameraMetadata>;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_METADATA_MOJOM_FORWARD_H_

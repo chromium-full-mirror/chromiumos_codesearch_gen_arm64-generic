@@ -42,10 +42,7 @@
 #include "chrome/services/wilco_dtc_supportd/public/mojom/wilco_dtc_supportd.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+namespace chromeos::wilco_dtc_supportd::mojom {
 const char WilcoDtcSupportdServiceFactory::Name_[] = "chromeos.wilco_dtc_supportd.mojom.WilcoDtcSupportdServiceFactory";
 
 WilcoDtcSupportdServiceFactory::IPCStableHashFunction WilcoDtcSupportdServiceFactory::MessageToMethodInfo_(mojo::Message& message) {
@@ -1845,9 +1842,7 @@ bool WilcoDtcSupportdClientResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+}  // chromeos::wilco_dtc_supportd::mojom
 
 
 namespace mojo {
@@ -1859,9 +1854,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+namespace chromeos::wilco_dtc_supportd::mojom {
 
 
 void WilcoDtcSupportdServiceFactoryInterceptorForTesting::GetService(::mojo::PendingReceiver<WilcoDtcSupportdService> service, ::mojo::PendingRemote<WilcoDtcSupportdClient> client, GetServiceCallback callback) {
@@ -2026,9 +2019,7 @@ std::string WilcoDtcSupportdClientAsyncWaiter::GetConfigurationData(
 
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+}  // chromeos::wilco_dtc_supportd::mojom
 
 
 #if defined(__clang__)

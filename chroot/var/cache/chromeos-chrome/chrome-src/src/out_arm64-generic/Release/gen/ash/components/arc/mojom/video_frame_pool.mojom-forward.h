@@ -21,8 +21,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class VideoFrameDataView;
 
 class VideoFrame;
@@ -35,7 +34,6 @@ class VideoFramePoolClient;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_FRAME_POOL_MOJOM_FORWARD_H_

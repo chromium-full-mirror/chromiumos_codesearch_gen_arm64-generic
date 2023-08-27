@@ -86,6 +86,40 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Sets SANE options for the specified scanner.  The scanner must have been
+  // previously opened with OpenScanner.
+  virtual bool SetOptions(
+      const ::lorgnette::SetOptionsRequest& in_request,
+      ::lorgnette::SetOptionsResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Sets SANE options for the specified scanner.  The scanner must have been
+  // previously opened with OpenScanner.
+  virtual void SetOptionsAsync(
+      const ::lorgnette::SetOptionsRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::SetOptionsResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Starts a scan using the currently configured options.  Options should
+  // be set with SetOptions first if needed.  If the result is successful,
+  // the caller can read scanned data with ReadScanData.
+  virtual bool StartPreparedScan(
+      const ::lorgnette::StartPreparedScanRequest& in_request,
+      ::lorgnette::StartPreparedScanResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Starts a scan using the currently configured options.  Options should
+  // be set with SetOptions first if needed.  If the result is successful,
+  // the caller can read scanned data with ReadScanData.
+  virtual void StartPreparedScanAsync(
+      const ::lorgnette::StartPreparedScanRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::StartPreparedScanResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
@@ -101,6 +135,20 @@ class ManagerProxyInterface {
   virtual void StartScanAsync(
       const ::lorgnette::StartScanRequest& in_start_scan_request,
       base::OnceCallback<void(const ::lorgnette::StartScanResponse& /*start_scan_response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Reads the next chunk of data from an in-progress scan job.
+  virtual bool ReadScanData(
+      const ::lorgnette::ReadScanDataRequest& in_request,
+      ::lorgnette::ReadScanDataResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Reads the next chunk of data from an in-progress scan job.
+  virtual void ReadScanDataAsync(
+      const ::lorgnette::ReadScanDataRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::ReadScanDataResponse& /*response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -394,6 +442,78 @@ class ManagerProxy final : public ManagerProxyInterface {
         in_request);
   }
 
+  // Sets SANE options for the specified scanner.  The scanner must have been
+  // previously opened with OpenScanner.
+  bool SetOptions(
+      const ::lorgnette::SetOptionsRequest& in_request,
+      ::lorgnette::SetOptionsResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "SetOptions",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Sets SANE options for the specified scanner.  The scanner must have been
+  // previously opened with OpenScanner.
+  void SetOptionsAsync(
+      const ::lorgnette::SetOptionsRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::SetOptionsResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "SetOptions",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  // Starts a scan using the currently configured options.  Options should
+  // be set with SetOptions first if needed.  If the result is successful,
+  // the caller can read scanned data with ReadScanData.
+  bool StartPreparedScan(
+      const ::lorgnette::StartPreparedScanRequest& in_request,
+      ::lorgnette::StartPreparedScanResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "StartPreparedScan",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Starts a scan using the currently configured options.  Options should
+  // be set with SetOptions first if needed.  If the result is successful,
+  // the caller can read scanned data with ReadScanData.
+  void StartPreparedScanAsync(
+      const ::lorgnette::StartPreparedScanRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::StartPreparedScanResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "StartPreparedScan",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
@@ -429,6 +549,39 @@ class ManagerProxy final : public ManagerProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_start_scan_request);
+  }
+
+  // Reads the next chunk of data from an in-progress scan job.
+  bool ReadScanData(
+      const ::lorgnette::ReadScanDataRequest& in_request,
+      ::lorgnette::ReadScanDataResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "ReadScanData",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Reads the next chunk of data from an in-progress scan job.
+  void ReadScanDataAsync(
+      const ::lorgnette::ReadScanDataRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::ReadScanDataResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "ReadScanData",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
   }
 
   // Reads the next image for the given scan job and outputs image data to

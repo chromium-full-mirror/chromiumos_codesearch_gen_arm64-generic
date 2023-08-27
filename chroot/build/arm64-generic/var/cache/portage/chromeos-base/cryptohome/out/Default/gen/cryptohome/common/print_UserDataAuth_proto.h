@@ -295,56 +295,6 @@ std::string GetProtoDebugStringWithIndent(const GetArcDiskFeaturesReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const GetArcDiskFeaturesReply& value);
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcUidRequest& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const GetCurrentSpaceForArcUidRequest& value);
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcUidReply& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const GetCurrentSpaceForArcUidReply& value);
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcGidRequest& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const GetCurrentSpaceForArcGidRequest& value);
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcGidReply& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const GetCurrentSpaceForArcGidReply& value);
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcProjectIdRequest& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const GetCurrentSpaceForArcProjectIdRequest& value);
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcProjectIdReply& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const GetCurrentSpaceForArcProjectIdReply& value);
-std::string GetProtoDebugStringWithIndent(
-    const SetMediaRWDataFileProjectIdRequest& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const SetMediaRWDataFileProjectIdRequest& value);
-std::string GetProtoDebugStringWithIndent(
-    const SetMediaRWDataFileProjectIdReply& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const SetMediaRWDataFileProjectIdReply& value);
-std::string GetProtoDebugStringWithIndent(
-    const SetMediaRWDataFileProjectInheritanceFlagRequest& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const SetMediaRWDataFileProjectInheritanceFlagRequest& value);
-std::string GetProtoDebugStringWithIndent(
-    const SetMediaRWDataFileProjectInheritanceFlagReply& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const SetMediaRWDataFileProjectInheritanceFlagReply& value);
 std::string GetProtoDebugStringWithIndent(const TpmTokenInfo& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const TpmTokenInfo& value);
@@ -574,6 +524,22 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const UpdateAuthFactorMetadataReply& value);
+std::string GetProtoDebugStringWithIndent(const RelabelAuthFactorRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const RelabelAuthFactorRequest& value);
+std::string GetProtoDebugStringWithIndent(const RelabelAuthFactorReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const RelabelAuthFactorReply& value);
+std::string GetProtoDebugStringWithIndent(const ReplaceAuthFactorRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const ReplaceAuthFactorRequest& value);
+std::string GetProtoDebugStringWithIndent(const ReplaceAuthFactorReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const ReplaceAuthFactorReply& value);
 std::string GetProtoDebugStringWithIndent(const RemoveAuthFactorRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
@@ -694,6 +660,16 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const AuthenticateAuthFactorCompleted& value);
+std::string GetProtoDebugStringWithIndent(
+    const AuthenticateAuthFactorCompletedSuccess& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const AuthenticateAuthFactorCompletedSuccess& value);
+std::string GetProtoDebugStringWithIndent(
+    const AuthenticateAuthFactorCompletedFailure& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const AuthenticateAuthFactorCompletedFailure& value);
 
 }  // namespace user_data_auth
 

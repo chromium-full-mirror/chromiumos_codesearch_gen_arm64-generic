@@ -33,9 +33,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class NextWordCompletionCandidateDataView;
 
 class TextSuggesterQueryDataView;
@@ -49,9 +47,7 @@ class TextSuggesterSpecDataView;
 class TextSuggestionCandidateDataView;
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 namespace internal {
@@ -102,9 +98,7 @@ struct MojomTypeTraits<::chromeos::machine_learning::mojom::TextSuggestionCandid
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 enum class TextSuggestionMode : int32_t {
@@ -404,9 +398,7 @@ class TextSuggestionCandidateDataView {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace std {
 
@@ -763,9 +755,7 @@ struct Serializer<::chromeos::machine_learning::mojom::TextSuggestionCandidateDa
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 inline void NextWordCompletionCandidateDataView::GetTextDataView(
     mojo::StringDataView* output) {
@@ -809,9 +799,7 @@ inline void TextSuggestionCandidateDataView::GetMultiWordDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

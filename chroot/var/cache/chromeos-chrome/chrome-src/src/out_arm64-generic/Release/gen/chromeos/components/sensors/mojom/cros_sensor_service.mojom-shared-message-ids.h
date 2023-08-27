@@ -8,10 +8,9 @@
 #define CHROMEOS_COMPONENTS_SENSORS_MOJOM_CROS_SENSOR_SERVICE_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace sensors {
-namespace mojom {
 
+
+namespace chromeos::sensors::mojom {
 namespace internal {
 
 
@@ -19,8 +18,7 @@ constexpr uint32_t kSensorHalServer_CreateChannel_Name = 0;
 constexpr uint32_t kSensorHalClient_SetUpChannel_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+
+}  // chromeos::sensors::mojom
 
 #endif  // CHROMEOS_COMPONENTS_SENSORS_MOJOM_CROS_SENSOR_SERVICE_MOJOM_SHARED_MESSAGE_IDS_H_

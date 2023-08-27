@@ -36,8 +36,7 @@
 
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 
 
 
@@ -206,8 +205,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 namespace mojo {
 

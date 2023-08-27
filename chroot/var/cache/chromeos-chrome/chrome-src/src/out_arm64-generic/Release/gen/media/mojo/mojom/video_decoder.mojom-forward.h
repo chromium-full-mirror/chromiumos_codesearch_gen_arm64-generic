@@ -21,8 +21,7 @@
 
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 class SupportedVideoDecoderConfigDataView;
 
 class CommandBufferIdDataView;
@@ -47,7 +46,6 @@ class VideoDecoderClient;
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 #endif  // MEDIA_MOJO_MOJOM_VIDEO_DECODER_MOJOM_FORWARD_H_

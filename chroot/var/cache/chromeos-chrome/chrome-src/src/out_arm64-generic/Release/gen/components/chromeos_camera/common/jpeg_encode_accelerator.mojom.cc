@@ -42,9 +42,7 @@
 #include "components/chromeos_camera/common/jpeg_encode_accelerator.mojom-test-utils.h"
 
 
-
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 const char JpegEncodeAccelerator::Name_[] = "chromeos_camera.mojom.JpegEncodeAccelerator";
 
 JpegEncodeAccelerator::IPCStableHashFunction JpegEncodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
@@ -1004,8 +1002,7 @@ bool JpegEncodeAcceleratorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 
 namespace mojo {
@@ -1017,8 +1014,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 void JpegEncodeAcceleratorInterceptorForTesting::Initialize(InitializeCallback callback) {
@@ -1111,8 +1107,7 @@ void JpegEncodeAcceleratorAsyncWaiter::EncodeWithDmaBuf(
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 
 #if defined(__clang__)

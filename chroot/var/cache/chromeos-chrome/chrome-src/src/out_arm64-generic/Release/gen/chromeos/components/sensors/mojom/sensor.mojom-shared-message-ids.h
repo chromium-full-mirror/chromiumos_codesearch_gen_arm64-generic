@@ -8,10 +8,9 @@
 #define CHROMEOS_COMPONENTS_SENSORS_MOJOM_SENSOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace sensors {
-namespace mojom {
 
+
+namespace chromeos::sensors::mojom {
 namespace internal {
 
 
@@ -33,8 +32,7 @@ constexpr uint32_t kSensorDeviceSamplesObserver_OnErrorOccurred_Name = 1;
 constexpr uint32_t kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+
+}  // chromeos::sensors::mojom
 
 #endif  // CHROMEOS_COMPONENTS_SENSORS_MOJOM_SENSOR_MOJOM_SHARED_MESSAGE_IDS_H_

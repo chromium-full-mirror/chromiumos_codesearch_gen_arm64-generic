@@ -42,9 +42,7 @@
 #include "services/device/public/mojom/sensor.mojom-test-utils.h"
 
 
-
-namespace device {
-namespace mojom {
+namespace device::mojom {
 SensorConfiguration::SensorConfiguration()
     : frequency() {}
 
@@ -1177,8 +1175,7 @@ bool SensorClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace device
+}  // device::mojom
 
 
 namespace mojo {
@@ -1204,8 +1201,7 @@ bool StructTraits<::device::mojom::SensorConfiguration::DataView, ::device::mojo
 // separate .cc file to save compile time.
 
 
-namespace device {
-namespace mojom {
+namespace device::mojom {
 
 
 void SensorInterceptorForTesting::GetDefaultConfiguration(GetDefaultConfigurationCallback callback) {
@@ -1296,8 +1292,7 @@ SensorClientAsyncWaiter::~SensorClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace device
+}  // device::mojom
 
 
 #if defined(__clang__)

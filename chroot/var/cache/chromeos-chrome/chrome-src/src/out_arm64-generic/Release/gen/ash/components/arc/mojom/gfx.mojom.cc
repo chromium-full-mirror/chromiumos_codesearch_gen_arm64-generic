@@ -42,9 +42,7 @@
 #include "ash/components/arc/mojom/gfx.mojom-test-utils.h"
 
 
-
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 Rect::Rect()
     : left(),
       top(),
@@ -191,8 +189,7 @@ bool Size::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 namespace mojo {
@@ -256,14 +253,12 @@ bool StructTraits<::arc::mojom::Size::DataView, ::arc::mojom::SizePtr>::Read(
 // separate .cc file to save compile time.
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 #if defined(__clang__)

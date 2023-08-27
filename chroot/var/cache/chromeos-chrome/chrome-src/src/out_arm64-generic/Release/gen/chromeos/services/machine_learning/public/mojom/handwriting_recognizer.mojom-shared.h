@@ -34,9 +34,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class InkPointDataView;
 
 class InkStrokeDataView;
@@ -61,9 +59,7 @@ class HandwritingRecognizerSpecDataView;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 namespace internal {
@@ -149,9 +145,7 @@ struct MojomTypeTraits<::chromeos::machine_learning::mojom::HandwritingRecognize
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 enum class LoadHandwritingModelResult : int32_t {
@@ -656,9 +650,7 @@ static_assert(
 };
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace std {
 
@@ -1211,9 +1203,7 @@ struct Serializer<::chromeos::machine_learning::mojom::HandwritingRecognizerSpec
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 inline void InkPointDataView::GetTDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
@@ -1315,9 +1305,7 @@ inline void HandwritingRecognizerSpecDataView::GetLibraryDlcPathDataView(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

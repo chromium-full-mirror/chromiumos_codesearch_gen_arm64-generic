@@ -11,8 +11,7 @@
 #include "base/component_export.h"
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 class COMPONENT_EXPORT(SMBFS_MOJOM) SmbFsBootstrapInterceptorForTesting : public SmbFsBootstrap {
@@ -84,7 +83,6 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) SmbFsDelegateAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 #endif  // CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_SMBFS_MOJOM_TEST_UTILS_H_

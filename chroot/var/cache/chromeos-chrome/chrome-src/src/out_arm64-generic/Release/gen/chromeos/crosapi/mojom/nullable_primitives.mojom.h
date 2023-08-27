@@ -35,8 +35,7 @@
 
 
 
-namespace crosapi {
-namespace mojom {
+namespace crosapi::mojom {
 
 
 
@@ -1190,8 +1189,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace crosapi
+}  // crosapi::mojom
 
 namespace mojo {
 

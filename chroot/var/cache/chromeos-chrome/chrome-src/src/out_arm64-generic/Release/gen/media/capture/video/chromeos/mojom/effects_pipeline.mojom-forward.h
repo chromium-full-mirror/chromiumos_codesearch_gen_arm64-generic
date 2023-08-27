@@ -21,8 +21,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class EffectsConfigDataView;
 
 
@@ -41,7 +40,6 @@ using EffectsConfigPtr = mojo::StructPtr<EffectsConfig>;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_EFFECTS_PIPELINE_MOJOM_FORWARD_H_

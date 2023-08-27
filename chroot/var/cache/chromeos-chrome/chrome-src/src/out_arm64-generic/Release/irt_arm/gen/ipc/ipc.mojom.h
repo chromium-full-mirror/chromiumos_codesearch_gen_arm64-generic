@@ -40,8 +40,7 @@
 
 
 
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 
 class ChannelProxy;
 
@@ -436,8 +435,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 namespace mojo {
 

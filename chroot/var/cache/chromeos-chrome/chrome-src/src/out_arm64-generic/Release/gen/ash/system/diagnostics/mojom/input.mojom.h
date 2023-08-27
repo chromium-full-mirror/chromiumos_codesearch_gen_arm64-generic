@@ -35,9 +35,7 @@
 
 
 
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+namespace ash::diagnostics::mojom {
 
 
 
@@ -481,9 +479,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+}  // ash::diagnostics::mojom
 
 namespace mojo {
 

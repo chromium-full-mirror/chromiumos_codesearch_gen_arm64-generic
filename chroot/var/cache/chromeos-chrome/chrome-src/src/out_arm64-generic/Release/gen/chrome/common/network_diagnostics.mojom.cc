@@ -42,9 +42,7 @@
 #include "chrome/common/network_diagnostics.mojom-test-utils.h"
 
 
-
-namespace chrome {
-namespace mojom {
+namespace chrome::mojom {
 const char NetworkDiagnostics::Name_[] = "chrome.mojom.NetworkDiagnostics";
 
 NetworkDiagnostics::IPCStableHashFunction NetworkDiagnostics::MessageToMethodInfo_(mojo::Message& message) {
@@ -464,8 +462,7 @@ bool NetworkDiagnosticsClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace chrome
+}  // chrome::mojom
 
 
 namespace mojo {
@@ -477,8 +474,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chrome {
-namespace mojom {
+namespace chrome::mojom {
 
 
 void NetworkDiagnosticsInterceptorForTesting::RunNetworkDiagnostics(const ::GURL& failed_url) {
@@ -508,8 +504,7 @@ NetworkDiagnosticsClientAsyncWaiter::~NetworkDiagnosticsClientAsyncWaiter() = de
 
 
 
-}  // namespace mojom
-}  // namespace chrome
+}  // chrome::mojom
 
 
 #if defined(__clang__)

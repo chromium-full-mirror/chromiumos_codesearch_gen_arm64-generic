@@ -20,8 +20,7 @@
 
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 enum class EncodeStatus : int32_t;
 class JpegEncodeAccelerator;
@@ -29,7 +28,6 @@ class JpegEncodeAccelerator;
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_JPEG_ENCODE_ACCELERATOR_MOJOM_FORWARD_H_

@@ -28,6 +28,9 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/map.h>  // IWYU pragma: export
+#include <google/protobuf/map_entry_lite.h>
+#include <google/protobuf/map_field_lite.h>
 #include <google/protobuf/generated_enum_util.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -49,6 +52,12 @@ extern CancelScanRequestDefaultTypeInternal _CancelScanRequest_default_instance_
 class CancelScanResponse;
 struct CancelScanResponseDefaultTypeInternal;
 extern CancelScanResponseDefaultTypeInternal _CancelScanResponse_default_instance_;
+class CloseScannerRequest;
+struct CloseScannerRequestDefaultTypeInternal;
+extern CloseScannerRequestDefaultTypeInternal _CloseScannerRequest_default_instance_;
+class CloseScannerResponse;
+struct CloseScannerResponseDefaultTypeInternal;
+extern CloseScannerResponseDefaultTypeInternal _CloseScannerResponse_default_instance_;
 class DocumentSource;
 struct DocumentSourceDefaultTypeInternal;
 extern DocumentSourceDefaultTypeInternal _DocumentSource_default_instance_;
@@ -61,6 +70,24 @@ extern GetNextImageResponseDefaultTypeInternal _GetNextImageResponse_default_ins
 class ListScannersResponse;
 struct ListScannersResponseDefaultTypeInternal;
 extern ListScannersResponseDefaultTypeInternal _ListScannersResponse_default_instance_;
+class OpenScannerRequest;
+struct OpenScannerRequestDefaultTypeInternal;
+extern OpenScannerRequestDefaultTypeInternal _OpenScannerRequest_default_instance_;
+class OpenScannerResponse;
+struct OpenScannerResponseDefaultTypeInternal;
+extern OpenScannerResponseDefaultTypeInternal _OpenScannerResponse_default_instance_;
+class OptionConstraint;
+struct OptionConstraintDefaultTypeInternal;
+extern OptionConstraintDefaultTypeInternal _OptionConstraint_default_instance_;
+class OptionConstraint_FixedRange;
+struct OptionConstraint_FixedRangeDefaultTypeInternal;
+extern OptionConstraint_FixedRangeDefaultTypeInternal _OptionConstraint_FixedRange_default_instance_;
+class OptionConstraint_IntRange;
+struct OptionConstraint_IntRangeDefaultTypeInternal;
+extern OptionConstraint_IntRangeDefaultTypeInternal _OptionConstraint_IntRange_default_instance_;
+class OptionGroup;
+struct OptionGroupDefaultTypeInternal;
+extern OptionGroupDefaultTypeInternal _OptionGroup_default_instance_;
 class ScanRegion;
 struct ScanRegionDefaultTypeInternal;
 extern ScanRegionDefaultTypeInternal _ScanRegion_default_instance_;
@@ -76,12 +103,33 @@ extern ScannableAreaDefaultTypeInternal _ScannableArea_default_instance_;
 class ScannerCapabilities;
 struct ScannerCapabilitiesDefaultTypeInternal;
 extern ScannerCapabilitiesDefaultTypeInternal _ScannerCapabilities_default_instance_;
+class ScannerConfig;
+struct ScannerConfigDefaultTypeInternal;
+extern ScannerConfigDefaultTypeInternal _ScannerConfig_default_instance_;
+class ScannerConfig_OptionsEntry_DoNotUse;
+struct ScannerConfig_OptionsEntry_DoNotUseDefaultTypeInternal;
+extern ScannerConfig_OptionsEntry_DoNotUseDefaultTypeInternal _ScannerConfig_OptionsEntry_DoNotUse_default_instance_;
+class ScannerHandle;
+struct ScannerHandleDefaultTypeInternal;
+extern ScannerHandleDefaultTypeInternal _ScannerHandle_default_instance_;
+class ScannerId;
+struct ScannerIdDefaultTypeInternal;
+extern ScannerIdDefaultTypeInternal _ScannerId_default_instance_;
 class ScannerInfo;
 struct ScannerInfoDefaultTypeInternal;
 extern ScannerInfoDefaultTypeInternal _ScannerInfo_default_instance_;
 class ScannerListChangedSignal;
 struct ScannerListChangedSignalDefaultTypeInternal;
 extern ScannerListChangedSignalDefaultTypeInternal _ScannerListChangedSignal_default_instance_;
+class ScannerOption;
+struct ScannerOptionDefaultTypeInternal;
+extern ScannerOptionDefaultTypeInternal _ScannerOption_default_instance_;
+class ScannerOption_FixedValues;
+struct ScannerOption_FixedValuesDefaultTypeInternal;
+extern ScannerOption_FixedValuesDefaultTypeInternal _ScannerOption_FixedValues_default_instance_;
+class ScannerOption_IntValues;
+struct ScannerOption_IntValuesDefaultTypeInternal;
+extern ScannerOption_IntValuesDefaultTypeInternal _ScannerOption_IntValues_default_instance_;
 class SetDebugConfigRequest;
 struct SetDebugConfigRequestDefaultTypeInternal;
 extern SetDebugConfigRequestDefaultTypeInternal _SetDebugConfigRequest_default_instance_;
@@ -110,17 +158,32 @@ extern StopScannerDiscoveryResponseDefaultTypeInternal _StopScannerDiscoveryResp
 PROTOBUF_NAMESPACE_OPEN
 template<> ::lorgnette::CancelScanRequest* Arena::CreateMaybeMessage<::lorgnette::CancelScanRequest>(Arena*);
 template<> ::lorgnette::CancelScanResponse* Arena::CreateMaybeMessage<::lorgnette::CancelScanResponse>(Arena*);
+template<> ::lorgnette::CloseScannerRequest* Arena::CreateMaybeMessage<::lorgnette::CloseScannerRequest>(Arena*);
+template<> ::lorgnette::CloseScannerResponse* Arena::CreateMaybeMessage<::lorgnette::CloseScannerResponse>(Arena*);
 template<> ::lorgnette::DocumentSource* Arena::CreateMaybeMessage<::lorgnette::DocumentSource>(Arena*);
 template<> ::lorgnette::GetNextImageRequest* Arena::CreateMaybeMessage<::lorgnette::GetNextImageRequest>(Arena*);
 template<> ::lorgnette::GetNextImageResponse* Arena::CreateMaybeMessage<::lorgnette::GetNextImageResponse>(Arena*);
 template<> ::lorgnette::ListScannersResponse* Arena::CreateMaybeMessage<::lorgnette::ListScannersResponse>(Arena*);
+template<> ::lorgnette::OpenScannerRequest* Arena::CreateMaybeMessage<::lorgnette::OpenScannerRequest>(Arena*);
+template<> ::lorgnette::OpenScannerResponse* Arena::CreateMaybeMessage<::lorgnette::OpenScannerResponse>(Arena*);
+template<> ::lorgnette::OptionConstraint* Arena::CreateMaybeMessage<::lorgnette::OptionConstraint>(Arena*);
+template<> ::lorgnette::OptionConstraint_FixedRange* Arena::CreateMaybeMessage<::lorgnette::OptionConstraint_FixedRange>(Arena*);
+template<> ::lorgnette::OptionConstraint_IntRange* Arena::CreateMaybeMessage<::lorgnette::OptionConstraint_IntRange>(Arena*);
+template<> ::lorgnette::OptionGroup* Arena::CreateMaybeMessage<::lorgnette::OptionGroup>(Arena*);
 template<> ::lorgnette::ScanRegion* Arena::CreateMaybeMessage<::lorgnette::ScanRegion>(Arena*);
 template<> ::lorgnette::ScanSettings* Arena::CreateMaybeMessage<::lorgnette::ScanSettings>(Arena*);
 template<> ::lorgnette::ScanStatusChangedSignal* Arena::CreateMaybeMessage<::lorgnette::ScanStatusChangedSignal>(Arena*);
 template<> ::lorgnette::ScannableArea* Arena::CreateMaybeMessage<::lorgnette::ScannableArea>(Arena*);
 template<> ::lorgnette::ScannerCapabilities* Arena::CreateMaybeMessage<::lorgnette::ScannerCapabilities>(Arena*);
+template<> ::lorgnette::ScannerConfig* Arena::CreateMaybeMessage<::lorgnette::ScannerConfig>(Arena*);
+template<> ::lorgnette::ScannerConfig_OptionsEntry_DoNotUse* Arena::CreateMaybeMessage<::lorgnette::ScannerConfig_OptionsEntry_DoNotUse>(Arena*);
+template<> ::lorgnette::ScannerHandle* Arena::CreateMaybeMessage<::lorgnette::ScannerHandle>(Arena*);
+template<> ::lorgnette::ScannerId* Arena::CreateMaybeMessage<::lorgnette::ScannerId>(Arena*);
 template<> ::lorgnette::ScannerInfo* Arena::CreateMaybeMessage<::lorgnette::ScannerInfo>(Arena*);
 template<> ::lorgnette::ScannerListChangedSignal* Arena::CreateMaybeMessage<::lorgnette::ScannerListChangedSignal>(Arena*);
+template<> ::lorgnette::ScannerOption* Arena::CreateMaybeMessage<::lorgnette::ScannerOption>(Arena*);
+template<> ::lorgnette::ScannerOption_FixedValues* Arena::CreateMaybeMessage<::lorgnette::ScannerOption_FixedValues>(Arena*);
+template<> ::lorgnette::ScannerOption_IntValues* Arena::CreateMaybeMessage<::lorgnette::ScannerOption_IntValues>(Arena*);
 template<> ::lorgnette::SetDebugConfigRequest* Arena::CreateMaybeMessage<::lorgnette::SetDebugConfigRequest>(Arena*);
 template<> ::lorgnette::SetDebugConfigResponse* Arena::CreateMaybeMessage<::lorgnette::SetDebugConfigResponse>(Arena*);
 template<> ::lorgnette::StartScanRequest* Arena::CreateMaybeMessage<::lorgnette::StartScanRequest>(Arena*);
@@ -132,6 +195,31 @@ template<> ::lorgnette::StopScannerDiscoveryResponse* Arena::CreateMaybeMessage<
 PROTOBUF_NAMESPACE_CLOSE
 namespace lorgnette {
 
+enum OptionConstraint_ConstraintType : int {
+  OptionConstraint_ConstraintType_CONSTRAINT_NONE = 0,
+  OptionConstraint_ConstraintType_CONSTRAINT_INT_RANGE = 1,
+  OptionConstraint_ConstraintType_CONSTRAINT_FIXED_RANGE = 2,
+  OptionConstraint_ConstraintType_CONSTRAINT_INT_LIST = 3,
+  OptionConstraint_ConstraintType_CONSTRAINT_FIXED_LIST = 4,
+  OptionConstraint_ConstraintType_CONSTRAINT_STRING_LIST = 5,
+  OptionConstraint_ConstraintType_OptionConstraint_ConstraintType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  OptionConstraint_ConstraintType_OptionConstraint_ConstraintType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool OptionConstraint_ConstraintType_IsValid(int value);
+constexpr OptionConstraint_ConstraintType OptionConstraint_ConstraintType_ConstraintType_MIN = OptionConstraint_ConstraintType_CONSTRAINT_NONE;
+constexpr OptionConstraint_ConstraintType OptionConstraint_ConstraintType_ConstraintType_MAX = OptionConstraint_ConstraintType_CONSTRAINT_STRING_LIST;
+constexpr int OptionConstraint_ConstraintType_ConstraintType_ARRAYSIZE = OptionConstraint_ConstraintType_ConstraintType_MAX + 1;
+
+const std::string& OptionConstraint_ConstraintType_Name(OptionConstraint_ConstraintType value);
+template<typename T>
+inline const std::string& OptionConstraint_ConstraintType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, OptionConstraint_ConstraintType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function OptionConstraint_ConstraintType_Name.");
+  return OptionConstraint_ConstraintType_Name(static_cast<OptionConstraint_ConstraintType>(enum_t_value));
+}
+bool OptionConstraint_ConstraintType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OptionConstraint_ConstraintType* value);
 enum ScannerListChangedSignal_ScannerListEvent : int {
   ScannerListChangedSignal_ScannerListEvent_UNKNOWN_EVENT = 0,
   ScannerListChangedSignal_ScannerListEvent_SCANNER_ADDED = 1,
@@ -275,6 +363,94 @@ inline const std::string& ScanFailureMode_Name(T enum_t_value) {
 }
 bool ScanFailureMode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ScanFailureMode* value);
+enum OperationResult : int {
+  OPERATION_RESULT_UNKNOWN = 0,
+  OPERATION_RESULT_SUCCESS = 1,
+  OPERATION_RESULT_UNSUPPORTED = 2,
+  OPERATION_RESULT_CANCELLED = 3,
+  OPERATION_RESULT_DEVICE_BUSY = 4,
+  OPERATION_RESULT_INVALID = 5,
+  OPERATION_RESULT_WRONG_TYPE = 6,
+  OPERATION_RESULT_EOF = 7,
+  OPERATION_RESULT_ADF_JAMMED = 8,
+  OPERATION_RESULT_ADF_EMPTY = 9,
+  OPERATION_RESULT_COVER_OPEN = 10,
+  OPERATION_RESULT_IO_ERROR = 11,
+  OPERATION_RESULT_ACCESS_DENIED = 12,
+  OPERATION_RESULT_NO_MEMORY = 13,
+  OPERATION_RESULT_UNREACHABLE = 14,
+  OPERATION_RESULT_MISSING = 15,
+  OPERATION_RESULT_INTERNAL_ERROR = 16,
+  OperationResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  OperationResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool OperationResult_IsValid(int value);
+constexpr OperationResult OperationResult_MIN = OPERATION_RESULT_UNKNOWN;
+constexpr OperationResult OperationResult_MAX = OPERATION_RESULT_INTERNAL_ERROR;
+constexpr int OperationResult_ARRAYSIZE = OperationResult_MAX + 1;
+
+const std::string& OperationResult_Name(OperationResult value);
+template<typename T>
+inline const std::string& OperationResult_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, OperationResult>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function OperationResult_Name.");
+  return OperationResult_Name(static_cast<OperationResult>(enum_t_value));
+}
+bool OperationResult_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OperationResult* value);
+enum OptionType : int {
+  TYPE_UNKNOWN = 0,
+  TYPE_BOOL = 1,
+  TYPE_INT = 2,
+  TYPE_FIXED = 3,
+  TYPE_STRING = 4,
+  TYPE_BUTTON = 5,
+  TYPE_GROUP = 6,
+  OptionType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  OptionType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool OptionType_IsValid(int value);
+constexpr OptionType OptionType_MIN = TYPE_UNKNOWN;
+constexpr OptionType OptionType_MAX = TYPE_GROUP;
+constexpr int OptionType_ARRAYSIZE = OptionType_MAX + 1;
+
+const std::string& OptionType_Name(OptionType value);
+template<typename T>
+inline const std::string& OptionType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, OptionType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function OptionType_Name.");
+  return OptionType_Name(static_cast<OptionType>(enum_t_value));
+}
+bool OptionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OptionType* value);
+enum OptionUnit : int {
+  UNIT_NONE = 0,
+  UNIT_PIXEL = 1,
+  UNIT_BIT = 2,
+  UNIT_MM = 3,
+  UNIT_DPI = 4,
+  UNIT_PERCENT = 5,
+  UNIT_MICROSECOND = 6,
+  OptionUnit_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  OptionUnit_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool OptionUnit_IsValid(int value);
+constexpr OptionUnit OptionUnit_MIN = UNIT_NONE;
+constexpr OptionUnit OptionUnit_MAX = UNIT_MICROSECOND;
+constexpr int OptionUnit_ARRAYSIZE = OptionUnit_MAX + 1;
+
+const std::string& OptionUnit_Name(OptionUnit value);
+template<typename T>
+inline const std::string& OptionUnit_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, OptionUnit>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function OptionUnit_Name.");
+  return OptionUnit_Name(static_cast<OptionUnit>(enum_t_value));
+}
+bool OptionUnit_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OptionUnit* value);
 enum BackendDownloadPolicy : int {
   DOWNLOAD_IF_NEEDED = 0,
   DOWNLOAD_NEVER = 1,
@@ -1487,6 +1663,1876 @@ class ScanSettings final :
 };
 // -------------------------------------------------------------------
 
+class ScannerId final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.ScannerId) */ {
+ public:
+  inline ScannerId() : ScannerId(nullptr) {}
+  ~ScannerId() override;
+  explicit PROTOBUF_CONSTEXPR ScannerId(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ScannerId(const ScannerId& from);
+  ScannerId(ScannerId&& from) noexcept
+    : ScannerId() {
+    *this = ::std::move(from);
+  }
+
+  inline ScannerId& operator=(const ScannerId& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ScannerId& operator=(ScannerId&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ScannerId& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ScannerId* internal_default_instance() {
+    return reinterpret_cast<const ScannerId*>(
+               &_ScannerId_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(ScannerId& a, ScannerId& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ScannerId* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ScannerId* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ScannerId* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ScannerId>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ScannerId& from);
+  void MergeFrom(const ScannerId& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ScannerId* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.ScannerId";
+  }
+  protected:
+  explicit ScannerId(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kConnectionStringFieldNumber = 1,
+  };
+  // string connection_string = 1;
+  void clear_connection_string();
+  const std::string& connection_string() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_connection_string(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_connection_string();
+  PROTOBUF_NODISCARD std::string* release_connection_string();
+  void set_allocated_connection_string(std::string* connection_string);
+  private:
+  const std::string& _internal_connection_string() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_connection_string(const std::string& value);
+  std::string* _internal_mutable_connection_string();
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.ScannerId)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr connection_string_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ScannerHandle final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.ScannerHandle) */ {
+ public:
+  inline ScannerHandle() : ScannerHandle(nullptr) {}
+  ~ScannerHandle() override;
+  explicit PROTOBUF_CONSTEXPR ScannerHandle(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ScannerHandle(const ScannerHandle& from);
+  ScannerHandle(ScannerHandle&& from) noexcept
+    : ScannerHandle() {
+    *this = ::std::move(from);
+  }
+
+  inline ScannerHandle& operator=(const ScannerHandle& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ScannerHandle& operator=(ScannerHandle&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ScannerHandle& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ScannerHandle* internal_default_instance() {
+    return reinterpret_cast<const ScannerHandle*>(
+               &_ScannerHandle_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(ScannerHandle& a, ScannerHandle& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ScannerHandle* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ScannerHandle* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ScannerHandle* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ScannerHandle>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ScannerHandle& from);
+  void MergeFrom(const ScannerHandle& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ScannerHandle* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.ScannerHandle";
+  }
+  protected:
+  explicit ScannerHandle(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTokenFieldNumber = 1,
+  };
+  // string token = 1;
+  void clear_token();
+  const std::string& token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_token();
+  PROTOBUF_NODISCARD std::string* release_token();
+  void set_allocated_token(std::string* token);
+  private:
+  const std::string& _internal_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(const std::string& value);
+  std::string* _internal_mutable_token();
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.ScannerHandle)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OptionGroup final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.OptionGroup) */ {
+ public:
+  inline OptionGroup() : OptionGroup(nullptr) {}
+  ~OptionGroup() override;
+  explicit PROTOBUF_CONSTEXPR OptionGroup(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OptionGroup(const OptionGroup& from);
+  OptionGroup(OptionGroup&& from) noexcept
+    : OptionGroup() {
+    *this = ::std::move(from);
+  }
+
+  inline OptionGroup& operator=(const OptionGroup& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OptionGroup& operator=(OptionGroup&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const OptionGroup& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OptionGroup* internal_default_instance() {
+    return reinterpret_cast<const OptionGroup*>(
+               &_OptionGroup_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(OptionGroup& a, OptionGroup& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OptionGroup* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OptionGroup* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OptionGroup* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OptionGroup>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OptionGroup& from);
+  void MergeFrom(const OptionGroup& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OptionGroup* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.OptionGroup";
+  }
+  protected:
+  explicit OptionGroup(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMembersFieldNumber = 2,
+    kTitleFieldNumber = 1,
+  };
+  // repeated string members = 2;
+  int members_size() const;
+  private:
+  int _internal_members_size() const;
+  public:
+  void clear_members();
+  const std::string& members(int index) const;
+  std::string* mutable_members(int index);
+  void set_members(int index, const std::string& value);
+  void set_members(int index, std::string&& value);
+  void set_members(int index, const char* value);
+  void set_members(int index, const char* value, size_t size);
+  std::string* add_members();
+  void add_members(const std::string& value);
+  void add_members(std::string&& value);
+  void add_members(const char* value);
+  void add_members(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& members() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_members();
+  private:
+  const std::string& _internal_members(int index) const;
+  std::string* _internal_add_members();
+  public:
+
+  // string title = 1;
+  void clear_title();
+  const std::string& title() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_title(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_title();
+  PROTOBUF_NODISCARD std::string* release_title();
+  void set_allocated_title(std::string* title);
+  private:
+  const std::string& _internal_title() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_title(const std::string& value);
+  std::string* _internal_mutable_title();
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.OptionGroup)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> members_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr title_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OptionConstraint_IntRange final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.OptionConstraint.IntRange) */ {
+ public:
+  inline OptionConstraint_IntRange() : OptionConstraint_IntRange(nullptr) {}
+  ~OptionConstraint_IntRange() override;
+  explicit PROTOBUF_CONSTEXPR OptionConstraint_IntRange(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OptionConstraint_IntRange(const OptionConstraint_IntRange& from);
+  OptionConstraint_IntRange(OptionConstraint_IntRange&& from) noexcept
+    : OptionConstraint_IntRange() {
+    *this = ::std::move(from);
+  }
+
+  inline OptionConstraint_IntRange& operator=(const OptionConstraint_IntRange& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OptionConstraint_IntRange& operator=(OptionConstraint_IntRange&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const OptionConstraint_IntRange& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OptionConstraint_IntRange* internal_default_instance() {
+    return reinterpret_cast<const OptionConstraint_IntRange*>(
+               &_OptionConstraint_IntRange_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(OptionConstraint_IntRange& a, OptionConstraint_IntRange& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OptionConstraint_IntRange* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OptionConstraint_IntRange* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OptionConstraint_IntRange* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OptionConstraint_IntRange>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OptionConstraint_IntRange& from);
+  void MergeFrom(const OptionConstraint_IntRange& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OptionConstraint_IntRange* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.OptionConstraint.IntRange";
+  }
+  protected:
+  explicit OptionConstraint_IntRange(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMinFieldNumber = 1,
+    kMaxFieldNumber = 2,
+    kQuantFieldNumber = 3,
+  };
+  // int32 min = 1;
+  void clear_min();
+  int32_t min() const;
+  void set_min(int32_t value);
+  private:
+  int32_t _internal_min() const;
+  void _internal_set_min(int32_t value);
+  public:
+
+  // int32 max = 2;
+  void clear_max();
+  int32_t max() const;
+  void set_max(int32_t value);
+  private:
+  int32_t _internal_max() const;
+  void _internal_set_max(int32_t value);
+  public:
+
+  // int32 quant = 3;
+  void clear_quant();
+  int32_t quant() const;
+  void set_quant(int32_t value);
+  private:
+  int32_t _internal_quant() const;
+  void _internal_set_quant(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.OptionConstraint.IntRange)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int32_t min_;
+  int32_t max_;
+  int32_t quant_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OptionConstraint_FixedRange final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.OptionConstraint.FixedRange) */ {
+ public:
+  inline OptionConstraint_FixedRange() : OptionConstraint_FixedRange(nullptr) {}
+  ~OptionConstraint_FixedRange() override;
+  explicit PROTOBUF_CONSTEXPR OptionConstraint_FixedRange(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OptionConstraint_FixedRange(const OptionConstraint_FixedRange& from);
+  OptionConstraint_FixedRange(OptionConstraint_FixedRange&& from) noexcept
+    : OptionConstraint_FixedRange() {
+    *this = ::std::move(from);
+  }
+
+  inline OptionConstraint_FixedRange& operator=(const OptionConstraint_FixedRange& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OptionConstraint_FixedRange& operator=(OptionConstraint_FixedRange&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const OptionConstraint_FixedRange& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OptionConstraint_FixedRange* internal_default_instance() {
+    return reinterpret_cast<const OptionConstraint_FixedRange*>(
+               &_OptionConstraint_FixedRange_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(OptionConstraint_FixedRange& a, OptionConstraint_FixedRange& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OptionConstraint_FixedRange* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OptionConstraint_FixedRange* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OptionConstraint_FixedRange* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OptionConstraint_FixedRange>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OptionConstraint_FixedRange& from);
+  void MergeFrom(const OptionConstraint_FixedRange& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OptionConstraint_FixedRange* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.OptionConstraint.FixedRange";
+  }
+  protected:
+  explicit OptionConstraint_FixedRange(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMinFieldNumber = 1,
+    kMaxFieldNumber = 2,
+    kQuantFieldNumber = 3,
+  };
+  // double min = 1;
+  void clear_min();
+  double min() const;
+  void set_min(double value);
+  private:
+  double _internal_min() const;
+  void _internal_set_min(double value);
+  public:
+
+  // double max = 2;
+  void clear_max();
+  double max() const;
+  void set_max(double value);
+  private:
+  double _internal_max() const;
+  void _internal_set_max(double value);
+  public:
+
+  // double quant = 3;
+  void clear_quant();
+  double quant() const;
+  void set_quant(double value);
+  private:
+  double _internal_quant() const;
+  void _internal_set_quant(double value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.OptionConstraint.FixedRange)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  double min_;
+  double max_;
+  double quant_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OptionConstraint final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.OptionConstraint) */ {
+ public:
+  inline OptionConstraint() : OptionConstraint(nullptr) {}
+  ~OptionConstraint() override;
+  explicit PROTOBUF_CONSTEXPR OptionConstraint(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OptionConstraint(const OptionConstraint& from);
+  OptionConstraint(OptionConstraint&& from) noexcept
+    : OptionConstraint() {
+    *this = ::std::move(from);
+  }
+
+  inline OptionConstraint& operator=(const OptionConstraint& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OptionConstraint& operator=(OptionConstraint&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const OptionConstraint& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OptionConstraint* internal_default_instance() {
+    return reinterpret_cast<const OptionConstraint*>(
+               &_OptionConstraint_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(OptionConstraint& a, OptionConstraint& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OptionConstraint* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OptionConstraint* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OptionConstraint* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OptionConstraint>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OptionConstraint& from);
+  void MergeFrom(const OptionConstraint& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OptionConstraint* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.OptionConstraint";
+  }
+  protected:
+  explicit OptionConstraint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef OptionConstraint_IntRange IntRange;
+  typedef OptionConstraint_FixedRange FixedRange;
+
+  typedef OptionConstraint_ConstraintType ConstraintType;
+  static constexpr ConstraintType CONSTRAINT_NONE =
+    OptionConstraint_ConstraintType_CONSTRAINT_NONE;
+  static constexpr ConstraintType CONSTRAINT_INT_RANGE =
+    OptionConstraint_ConstraintType_CONSTRAINT_INT_RANGE;
+  static constexpr ConstraintType CONSTRAINT_FIXED_RANGE =
+    OptionConstraint_ConstraintType_CONSTRAINT_FIXED_RANGE;
+  static constexpr ConstraintType CONSTRAINT_INT_LIST =
+    OptionConstraint_ConstraintType_CONSTRAINT_INT_LIST;
+  static constexpr ConstraintType CONSTRAINT_FIXED_LIST =
+    OptionConstraint_ConstraintType_CONSTRAINT_FIXED_LIST;
+  static constexpr ConstraintType CONSTRAINT_STRING_LIST =
+    OptionConstraint_ConstraintType_CONSTRAINT_STRING_LIST;
+  static inline bool ConstraintType_IsValid(int value) {
+    return OptionConstraint_ConstraintType_IsValid(value);
+  }
+  static constexpr ConstraintType ConstraintType_MIN =
+    OptionConstraint_ConstraintType_ConstraintType_MIN;
+  static constexpr ConstraintType ConstraintType_MAX =
+    OptionConstraint_ConstraintType_ConstraintType_MAX;
+  static constexpr int ConstraintType_ARRAYSIZE =
+    OptionConstraint_ConstraintType_ConstraintType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& ConstraintType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, ConstraintType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function ConstraintType_Name.");
+    return OptionConstraint_ConstraintType_Name(enum_t_value);
+  }
+  static inline bool ConstraintType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      ConstraintType* value) {
+    return OptionConstraint_ConstraintType_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kValidIntFieldNumber = 4,
+    kValidFixedFieldNumber = 5,
+    kValidStringFieldNumber = 6,
+    kIntRangeFieldNumber = 2,
+    kFixedRangeFieldNumber = 3,
+    kConstraintTypeFieldNumber = 1,
+  };
+  // repeated int32 valid_int = 4;
+  int valid_int_size() const;
+  private:
+  int _internal_valid_int_size() const;
+  public:
+  void clear_valid_int();
+  private:
+  int32_t _internal_valid_int(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+      _internal_valid_int() const;
+  void _internal_add_valid_int(int32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+      _internal_mutable_valid_int();
+  public:
+  int32_t valid_int(int index) const;
+  void set_valid_int(int index, int32_t value);
+  void add_valid_int(int32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+      valid_int() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+      mutable_valid_int();
+
+  // repeated double valid_fixed = 5;
+  int valid_fixed_size() const;
+  private:
+  int _internal_valid_fixed_size() const;
+  public:
+  void clear_valid_fixed();
+  private:
+  double _internal_valid_fixed(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      _internal_valid_fixed() const;
+  void _internal_add_valid_fixed(double value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      _internal_mutable_valid_fixed();
+  public:
+  double valid_fixed(int index) const;
+  void set_valid_fixed(int index, double value);
+  void add_valid_fixed(double value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      valid_fixed() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      mutable_valid_fixed();
+
+  // repeated string valid_string = 6;
+  int valid_string_size() const;
+  private:
+  int _internal_valid_string_size() const;
+  public:
+  void clear_valid_string();
+  const std::string& valid_string(int index) const;
+  std::string* mutable_valid_string(int index);
+  void set_valid_string(int index, const std::string& value);
+  void set_valid_string(int index, std::string&& value);
+  void set_valid_string(int index, const char* value);
+  void set_valid_string(int index, const char* value, size_t size);
+  std::string* add_valid_string();
+  void add_valid_string(const std::string& value);
+  void add_valid_string(std::string&& value);
+  void add_valid_string(const char* value);
+  void add_valid_string(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& valid_string() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_valid_string();
+  private:
+  const std::string& _internal_valid_string(int index) const;
+  std::string* _internal_add_valid_string();
+  public:
+
+  // optional .lorgnette.OptionConstraint.IntRange int_range = 2;
+  bool has_int_range() const;
+  private:
+  bool _internal_has_int_range() const;
+  public:
+  void clear_int_range();
+  const ::lorgnette::OptionConstraint_IntRange& int_range() const;
+  PROTOBUF_NODISCARD ::lorgnette::OptionConstraint_IntRange* release_int_range();
+  ::lorgnette::OptionConstraint_IntRange* mutable_int_range();
+  void set_allocated_int_range(::lorgnette::OptionConstraint_IntRange* int_range);
+  private:
+  const ::lorgnette::OptionConstraint_IntRange& _internal_int_range() const;
+  ::lorgnette::OptionConstraint_IntRange* _internal_mutable_int_range();
+  public:
+  void unsafe_arena_set_allocated_int_range(
+      ::lorgnette::OptionConstraint_IntRange* int_range);
+  ::lorgnette::OptionConstraint_IntRange* unsafe_arena_release_int_range();
+
+  // optional .lorgnette.OptionConstraint.FixedRange fixed_range = 3;
+  bool has_fixed_range() const;
+  private:
+  bool _internal_has_fixed_range() const;
+  public:
+  void clear_fixed_range();
+  const ::lorgnette::OptionConstraint_FixedRange& fixed_range() const;
+  PROTOBUF_NODISCARD ::lorgnette::OptionConstraint_FixedRange* release_fixed_range();
+  ::lorgnette::OptionConstraint_FixedRange* mutable_fixed_range();
+  void set_allocated_fixed_range(::lorgnette::OptionConstraint_FixedRange* fixed_range);
+  private:
+  const ::lorgnette::OptionConstraint_FixedRange& _internal_fixed_range() const;
+  ::lorgnette::OptionConstraint_FixedRange* _internal_mutable_fixed_range();
+  public:
+  void unsafe_arena_set_allocated_fixed_range(
+      ::lorgnette::OptionConstraint_FixedRange* fixed_range);
+  ::lorgnette::OptionConstraint_FixedRange* unsafe_arena_release_fixed_range();
+
+  // .lorgnette.OptionConstraint.ConstraintType constraint_type = 1;
+  void clear_constraint_type();
+  ::lorgnette::OptionConstraint_ConstraintType constraint_type() const;
+  void set_constraint_type(::lorgnette::OptionConstraint_ConstraintType value);
+  private:
+  ::lorgnette::OptionConstraint_ConstraintType _internal_constraint_type() const;
+  void _internal_set_constraint_type(::lorgnette::OptionConstraint_ConstraintType value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.OptionConstraint)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t > valid_int_;
+  mutable std::atomic<int> _valid_int_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > valid_fixed_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> valid_string_;
+  ::lorgnette::OptionConstraint_IntRange* int_range_;
+  ::lorgnette::OptionConstraint_FixedRange* fixed_range_;
+  int constraint_type_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ScannerOption_IntValues final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.ScannerOption.IntValues) */ {
+ public:
+  inline ScannerOption_IntValues() : ScannerOption_IntValues(nullptr) {}
+  ~ScannerOption_IntValues() override;
+  explicit PROTOBUF_CONSTEXPR ScannerOption_IntValues(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ScannerOption_IntValues(const ScannerOption_IntValues& from);
+  ScannerOption_IntValues(ScannerOption_IntValues&& from) noexcept
+    : ScannerOption_IntValues() {
+    *this = ::std::move(from);
+  }
+
+  inline ScannerOption_IntValues& operator=(const ScannerOption_IntValues& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ScannerOption_IntValues& operator=(ScannerOption_IntValues&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ScannerOption_IntValues& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ScannerOption_IntValues* internal_default_instance() {
+    return reinterpret_cast<const ScannerOption_IntValues*>(
+               &_ScannerOption_IntValues_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(ScannerOption_IntValues& a, ScannerOption_IntValues& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ScannerOption_IntValues* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ScannerOption_IntValues* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ScannerOption_IntValues* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ScannerOption_IntValues>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ScannerOption_IntValues& from);
+  void MergeFrom(const ScannerOption_IntValues& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ScannerOption_IntValues* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.ScannerOption.IntValues";
+  }
+  protected:
+  explicit ScannerOption_IntValues(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kValueFieldNumber = 1,
+  };
+  // repeated int32 value = 1;
+  int value_size() const;
+  private:
+  int _internal_value_size() const;
+  public:
+  void clear_value();
+  private:
+  int32_t _internal_value(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+      _internal_value() const;
+  void _internal_add_value(int32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+      _internal_mutable_value();
+  public:
+  int32_t value(int index) const;
+  void set_value(int index, int32_t value);
+  void add_value(int32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+      value() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+      mutable_value();
+
+  // @@protoc_insertion_point(class_scope:lorgnette.ScannerOption.IntValues)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t > value_;
+  mutable std::atomic<int> _value_cached_byte_size_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ScannerOption_FixedValues final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.ScannerOption.FixedValues) */ {
+ public:
+  inline ScannerOption_FixedValues() : ScannerOption_FixedValues(nullptr) {}
+  ~ScannerOption_FixedValues() override;
+  explicit PROTOBUF_CONSTEXPR ScannerOption_FixedValues(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ScannerOption_FixedValues(const ScannerOption_FixedValues& from);
+  ScannerOption_FixedValues(ScannerOption_FixedValues&& from) noexcept
+    : ScannerOption_FixedValues() {
+    *this = ::std::move(from);
+  }
+
+  inline ScannerOption_FixedValues& operator=(const ScannerOption_FixedValues& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ScannerOption_FixedValues& operator=(ScannerOption_FixedValues&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ScannerOption_FixedValues& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ScannerOption_FixedValues* internal_default_instance() {
+    return reinterpret_cast<const ScannerOption_FixedValues*>(
+               &_ScannerOption_FixedValues_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(ScannerOption_FixedValues& a, ScannerOption_FixedValues& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ScannerOption_FixedValues* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ScannerOption_FixedValues* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ScannerOption_FixedValues* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ScannerOption_FixedValues>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ScannerOption_FixedValues& from);
+  void MergeFrom(const ScannerOption_FixedValues& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ScannerOption_FixedValues* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.ScannerOption.FixedValues";
+  }
+  protected:
+  explicit ScannerOption_FixedValues(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kValueFieldNumber = 1,
+  };
+  // repeated double value = 1;
+  int value_size() const;
+  private:
+  int _internal_value_size() const;
+  public:
+  void clear_value();
+  private:
+  double _internal_value(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      _internal_value() const;
+  void _internal_add_value(double value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      _internal_mutable_value();
+  public:
+  double value(int index) const;
+  void set_value(int index, double value);
+  void add_value(double value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      value() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      mutable_value();
+
+  // @@protoc_insertion_point(class_scope:lorgnette.ScannerOption.FixedValues)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > value_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ScannerOption final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.ScannerOption) */ {
+ public:
+  inline ScannerOption() : ScannerOption(nullptr) {}
+  ~ScannerOption() override;
+  explicit PROTOBUF_CONSTEXPR ScannerOption(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ScannerOption(const ScannerOption& from);
+  ScannerOption(ScannerOption&& from) noexcept
+    : ScannerOption() {
+    *this = ::std::move(from);
+  }
+
+  inline ScannerOption& operator=(const ScannerOption& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ScannerOption& operator=(ScannerOption&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ScannerOption& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ValueCase {
+    kBoolValue = 7,
+    kIntValue = 8,
+    kFixedValue = 9,
+    kStringValue = 10,
+    VALUE_NOT_SET = 0,
+  };
+
+  static inline const ScannerOption* internal_default_instance() {
+    return reinterpret_cast<const ScannerOption*>(
+               &_ScannerOption_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(ScannerOption& a, ScannerOption& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ScannerOption* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ScannerOption* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ScannerOption* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ScannerOption>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ScannerOption& from);
+  void MergeFrom(const ScannerOption& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ScannerOption* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.ScannerOption";
+  }
+  protected:
+  explicit ScannerOption(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef ScannerOption_IntValues IntValues;
+  typedef ScannerOption_FixedValues FixedValues;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kTitleFieldNumber = 2,
+    kDescriptionFieldNumber = 3,
+    kConstraintFieldNumber = 6,
+    kOptionTypeFieldNumber = 4,
+    kUnitFieldNumber = 5,
+    kDetectableFieldNumber = 11,
+    kSwSettableFieldNumber = 12,
+    kHwSettableFieldNumber = 13,
+    kAutoSettableFieldNumber = 14,
+    kEmulatedFieldNumber = 15,
+    kActiveFieldNumber = 16,
+    kAdvancedFieldNumber = 17,
+    kBoolValueFieldNumber = 7,
+    kIntValueFieldNumber = 8,
+    kFixedValueFieldNumber = 9,
+    kStringValueFieldNumber = 10,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string title = 2;
+  void clear_title();
+  const std::string& title() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_title(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_title();
+  PROTOBUF_NODISCARD std::string* release_title();
+  void set_allocated_title(std::string* title);
+  private:
+  const std::string& _internal_title() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_title(const std::string& value);
+  std::string* _internal_mutable_title();
+  public:
+
+  // string description = 3;
+  void clear_description();
+  const std::string& description() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_description(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_description();
+  PROTOBUF_NODISCARD std::string* release_description();
+  void set_allocated_description(std::string* description);
+  private:
+  const std::string& _internal_description() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_description(const std::string& value);
+  std::string* _internal_mutable_description();
+  public:
+
+  // optional .lorgnette.OptionConstraint constraint = 6;
+  bool has_constraint() const;
+  private:
+  bool _internal_has_constraint() const;
+  public:
+  void clear_constraint();
+  const ::lorgnette::OptionConstraint& constraint() const;
+  PROTOBUF_NODISCARD ::lorgnette::OptionConstraint* release_constraint();
+  ::lorgnette::OptionConstraint* mutable_constraint();
+  void set_allocated_constraint(::lorgnette::OptionConstraint* constraint);
+  private:
+  const ::lorgnette::OptionConstraint& _internal_constraint() const;
+  ::lorgnette::OptionConstraint* _internal_mutable_constraint();
+  public:
+  void unsafe_arena_set_allocated_constraint(
+      ::lorgnette::OptionConstraint* constraint);
+  ::lorgnette::OptionConstraint* unsafe_arena_release_constraint();
+
+  // .lorgnette.OptionType option_type = 4;
+  void clear_option_type();
+  ::lorgnette::OptionType option_type() const;
+  void set_option_type(::lorgnette::OptionType value);
+  private:
+  ::lorgnette::OptionType _internal_option_type() const;
+  void _internal_set_option_type(::lorgnette::OptionType value);
+  public:
+
+  // .lorgnette.OptionUnit unit = 5;
+  void clear_unit();
+  ::lorgnette::OptionUnit unit() const;
+  void set_unit(::lorgnette::OptionUnit value);
+  private:
+  ::lorgnette::OptionUnit _internal_unit() const;
+  void _internal_set_unit(::lorgnette::OptionUnit value);
+  public:
+
+  // bool detectable = 11;
+  void clear_detectable();
+  bool detectable() const;
+  void set_detectable(bool value);
+  private:
+  bool _internal_detectable() const;
+  void _internal_set_detectable(bool value);
+  public:
+
+  // bool sw_settable = 12;
+  void clear_sw_settable();
+  bool sw_settable() const;
+  void set_sw_settable(bool value);
+  private:
+  bool _internal_sw_settable() const;
+  void _internal_set_sw_settable(bool value);
+  public:
+
+  // bool hw_settable = 13;
+  void clear_hw_settable();
+  bool hw_settable() const;
+  void set_hw_settable(bool value);
+  private:
+  bool _internal_hw_settable() const;
+  void _internal_set_hw_settable(bool value);
+  public:
+
+  // bool auto_settable = 14;
+  void clear_auto_settable();
+  bool auto_settable() const;
+  void set_auto_settable(bool value);
+  private:
+  bool _internal_auto_settable() const;
+  void _internal_set_auto_settable(bool value);
+  public:
+
+  // bool emulated = 15;
+  void clear_emulated();
+  bool emulated() const;
+  void set_emulated(bool value);
+  private:
+  bool _internal_emulated() const;
+  void _internal_set_emulated(bool value);
+  public:
+
+  // bool active = 16;
+  void clear_active();
+  bool active() const;
+  void set_active(bool value);
+  private:
+  bool _internal_active() const;
+  void _internal_set_active(bool value);
+  public:
+
+  // bool advanced = 17;
+  void clear_advanced();
+  bool advanced() const;
+  void set_advanced(bool value);
+  private:
+  bool _internal_advanced() const;
+  void _internal_set_advanced(bool value);
+  public:
+
+  // bool bool_value = 7;
+  bool has_bool_value() const;
+  private:
+  bool _internal_has_bool_value() const;
+  public:
+  void clear_bool_value();
+  bool bool_value() const;
+  void set_bool_value(bool value);
+  private:
+  bool _internal_bool_value() const;
+  void _internal_set_bool_value(bool value);
+  public:
+
+  // .lorgnette.ScannerOption.IntValues int_value = 8;
+  bool has_int_value() const;
+  private:
+  bool _internal_has_int_value() const;
+  public:
+  void clear_int_value();
+  const ::lorgnette::ScannerOption_IntValues& int_value() const;
+  PROTOBUF_NODISCARD ::lorgnette::ScannerOption_IntValues* release_int_value();
+  ::lorgnette::ScannerOption_IntValues* mutable_int_value();
+  void set_allocated_int_value(::lorgnette::ScannerOption_IntValues* int_value);
+  private:
+  const ::lorgnette::ScannerOption_IntValues& _internal_int_value() const;
+  ::lorgnette::ScannerOption_IntValues* _internal_mutable_int_value();
+  public:
+  void unsafe_arena_set_allocated_int_value(
+      ::lorgnette::ScannerOption_IntValues* int_value);
+  ::lorgnette::ScannerOption_IntValues* unsafe_arena_release_int_value();
+
+  // .lorgnette.ScannerOption.FixedValues fixed_value = 9;
+  bool has_fixed_value() const;
+  private:
+  bool _internal_has_fixed_value() const;
+  public:
+  void clear_fixed_value();
+  const ::lorgnette::ScannerOption_FixedValues& fixed_value() const;
+  PROTOBUF_NODISCARD ::lorgnette::ScannerOption_FixedValues* release_fixed_value();
+  ::lorgnette::ScannerOption_FixedValues* mutable_fixed_value();
+  void set_allocated_fixed_value(::lorgnette::ScannerOption_FixedValues* fixed_value);
+  private:
+  const ::lorgnette::ScannerOption_FixedValues& _internal_fixed_value() const;
+  ::lorgnette::ScannerOption_FixedValues* _internal_mutable_fixed_value();
+  public:
+  void unsafe_arena_set_allocated_fixed_value(
+      ::lorgnette::ScannerOption_FixedValues* fixed_value);
+  ::lorgnette::ScannerOption_FixedValues* unsafe_arena_release_fixed_value();
+
+  // string string_value = 10;
+  bool has_string_value() const;
+  private:
+  bool _internal_has_string_value() const;
+  public:
+  void clear_string_value();
+  const std::string& string_value() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_string_value(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_string_value();
+  PROTOBUF_NODISCARD std::string* release_string_value();
+  void set_allocated_string_value(std::string* string_value);
+  private:
+  const std::string& _internal_string_value() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_string_value(const std::string& value);
+  std::string* _internal_mutable_string_value();
+  public:
+
+  void clear_value();
+  ValueCase value_case() const;
+  // @@protoc_insertion_point(class_scope:lorgnette.ScannerOption)
+ private:
+  class _Internal;
+  void set_has_bool_value();
+  void set_has_int_value();
+  void set_has_fixed_value();
+  void set_has_string_value();
+
+  inline bool has_value() const;
+  inline void clear_has_value();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr title_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr description_;
+  ::lorgnette::OptionConstraint* constraint_;
+  int option_type_;
+  int unit_;
+  bool detectable_;
+  bool sw_settable_;
+  bool hw_settable_;
+  bool auto_settable_;
+  bool emulated_;
+  bool active_;
+  bool advanced_;
+  union ValueUnion {
+    constexpr ValueUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    bool bool_value_;
+    ::lorgnette::ScannerOption_IntValues* int_value_;
+    ::lorgnette::ScannerOption_FixedValues* fixed_value_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr string_value_;
+  } value_;
+  uint32_t _oneof_case_[1];
+
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ScannerConfig_OptionsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<ScannerConfig_OptionsEntry_DoNotUse, 
+    std::string, ::lorgnette::ScannerOption,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<ScannerConfig_OptionsEntry_DoNotUse, 
+    std::string, ::lorgnette::ScannerOption,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
+  ScannerConfig_OptionsEntry_DoNotUse();
+  explicit PROTOBUF_CONSTEXPR ScannerConfig_OptionsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit ScannerConfig_OptionsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const ScannerConfig_OptionsEntry_DoNotUse& other);
+  static const ScannerConfig_OptionsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const ScannerConfig_OptionsEntry_DoNotUse*>(&_ScannerConfig_OptionsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "lorgnette.ScannerConfig.OptionsEntry.key");
+ }
+  static bool ValidateValue(void*) { return true; }
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+
+// -------------------------------------------------------------------
+
+class ScannerConfig final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.ScannerConfig) */ {
+ public:
+  inline ScannerConfig() : ScannerConfig(nullptr) {}
+  ~ScannerConfig() override;
+  explicit PROTOBUF_CONSTEXPR ScannerConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ScannerConfig(const ScannerConfig& from);
+  ScannerConfig(ScannerConfig&& from) noexcept
+    : ScannerConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline ScannerConfig& operator=(const ScannerConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ScannerConfig& operator=(ScannerConfig&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ScannerConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ScannerConfig* internal_default_instance() {
+    return reinterpret_cast<const ScannerConfig*>(
+               &_ScannerConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(ScannerConfig& a, ScannerConfig& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ScannerConfig* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ScannerConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ScannerConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ScannerConfig>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ScannerConfig& from);
+  void MergeFrom(const ScannerConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ScannerConfig* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.ScannerConfig";
+  }
+  protected:
+  explicit ScannerConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kOptionsFieldNumber = 2,
+    kOptionGroupsFieldNumber = 3,
+    kScannerFieldNumber = 1,
+  };
+  // map<string, .lorgnette.ScannerOption> options = 2;
+  int options_size() const;
+  private:
+  int _internal_options_size() const;
+  public:
+  void clear_options();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::lorgnette::ScannerOption >&
+      _internal_options() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::lorgnette::ScannerOption >*
+      _internal_mutable_options();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::lorgnette::ScannerOption >&
+      options() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::lorgnette::ScannerOption >*
+      mutable_options();
+
+  // repeated .lorgnette.OptionGroup option_groups = 3;
+  int option_groups_size() const;
+  private:
+  int _internal_option_groups_size() const;
+  public:
+  void clear_option_groups();
+  ::lorgnette::OptionGroup* mutable_option_groups(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::lorgnette::OptionGroup >*
+      mutable_option_groups();
+  private:
+  const ::lorgnette::OptionGroup& _internal_option_groups(int index) const;
+  ::lorgnette::OptionGroup* _internal_add_option_groups();
+  public:
+  const ::lorgnette::OptionGroup& option_groups(int index) const;
+  ::lorgnette::OptionGroup* add_option_groups();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::lorgnette::OptionGroup >&
+      option_groups() const;
+
+  // .lorgnette.ScannerHandle scanner = 1;
+  bool has_scanner() const;
+  private:
+  bool _internal_has_scanner() const;
+  public:
+  void clear_scanner();
+  const ::lorgnette::ScannerHandle& scanner() const;
+  PROTOBUF_NODISCARD ::lorgnette::ScannerHandle* release_scanner();
+  ::lorgnette::ScannerHandle* mutable_scanner();
+  void set_allocated_scanner(::lorgnette::ScannerHandle* scanner);
+  private:
+  const ::lorgnette::ScannerHandle& _internal_scanner() const;
+  ::lorgnette::ScannerHandle* _internal_mutable_scanner();
+  public:
+  void unsafe_arena_set_allocated_scanner(
+      ::lorgnette::ScannerHandle* scanner);
+  ::lorgnette::ScannerHandle* unsafe_arena_release_scanner();
+
+  // @@protoc_insertion_point(class_scope:lorgnette.ScannerConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
+      ScannerConfig_OptionsEntry_DoNotUse,
+      std::string, ::lorgnette::ScannerOption,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> options_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::lorgnette::OptionGroup > option_groups_;
+  ::lorgnette::ScannerHandle* scanner_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class StartScanRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.StartScanRequest) */ {
  public:
@@ -1526,7 +3572,7 @@ class StartScanRequest final :
                &_StartScanRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    18;
 
   friend void swap(StartScanRequest& a, StartScanRequest& b) {
     a.Swap(&b);
@@ -1678,7 +3724,7 @@ class StartScanResponse final :
                &_StartScanResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    19;
 
   friend void swap(StartScanResponse& a, StartScanResponse& b) {
     a.Swap(&b);
@@ -1848,7 +3894,7 @@ class GetNextImageRequest final :
                &_GetNextImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    20;
 
   friend void swap(GetNextImageRequest& a, GetNextImageRequest& b) {
     a.Swap(&b);
@@ -1980,7 +4026,7 @@ class GetNextImageResponse final :
                &_GetNextImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    21;
 
   friend void swap(GetNextImageResponse& a, GetNextImageResponse& b) {
     a.Swap(&b);
@@ -2134,7 +4180,7 @@ class CancelScanRequest final :
                &_CancelScanRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    22;
 
   friend void swap(CancelScanRequest& a, CancelScanRequest& b) {
     a.Swap(&b);
@@ -2266,7 +4312,7 @@ class CancelScanResponse final :
                &_CancelScanResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    23;
 
   friend void swap(CancelScanResponse& a, CancelScanResponse& b) {
     a.Swap(&b);
@@ -2409,7 +4455,7 @@ class ScanStatusChangedSignal final :
                &_ScanStatusChangedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    24;
 
   friend void swap(ScanStatusChangedSignal& a, ScanStatusChangedSignal& b) {
     a.Swap(&b);
@@ -2612,7 +4658,7 @@ class SetDebugConfigRequest final :
                &_SetDebugConfigRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    25;
 
   friend void swap(SetDebugConfigRequest& a, SetDebugConfigRequest& b) {
     a.Swap(&b);
@@ -2739,7 +4785,7 @@ class SetDebugConfigResponse final :
                &_SetDebugConfigResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    26;
 
   friend void swap(SetDebugConfigResponse& a, SetDebugConfigResponse& b) {
     a.Swap(&b);
@@ -2877,7 +4923,7 @@ class StartScannerDiscoveryRequest final :
                &_StartScannerDiscoveryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    27;
 
   friend void swap(StartScannerDiscoveryRequest& a, StartScannerDiscoveryRequest& b) {
     a.Swap(&b);
@@ -3042,7 +5088,7 @@ class StartScannerDiscoveryResponse final :
                &_StartScannerDiscoveryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    28;
 
   friend void swap(StartScannerDiscoveryResponse& a, StartScannerDiscoveryResponse& b) {
     a.Swap(&b);
@@ -3185,7 +5231,7 @@ class ScannerListChangedSignal final :
                &_ScannerListChangedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    29;
 
   friend void swap(ScannerListChangedSignal& a, ScannerListChangedSignal& b) {
     a.Swap(&b);
@@ -3380,7 +5426,7 @@ class StopScannerDiscoveryRequest final :
                &_StopScannerDiscoveryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    30;
 
   friend void swap(StopScannerDiscoveryRequest& a, StopScannerDiscoveryRequest& b) {
     a.Swap(&b);
@@ -3512,7 +5558,7 @@ class StopScannerDiscoveryResponse final :
                &_StopScannerDiscoveryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    31;
 
   friend void swap(StopScannerDiscoveryResponse& a, StopScannerDiscoveryResponse& b) {
     a.Swap(&b);
@@ -3595,6 +5641,609 @@ class StopScannerDiscoveryResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   bool stopped_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OpenScannerRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.OpenScannerRequest) */ {
+ public:
+  inline OpenScannerRequest() : OpenScannerRequest(nullptr) {}
+  ~OpenScannerRequest() override;
+  explicit PROTOBUF_CONSTEXPR OpenScannerRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OpenScannerRequest(const OpenScannerRequest& from);
+  OpenScannerRequest(OpenScannerRequest&& from) noexcept
+    : OpenScannerRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline OpenScannerRequest& operator=(const OpenScannerRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OpenScannerRequest& operator=(OpenScannerRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const OpenScannerRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OpenScannerRequest* internal_default_instance() {
+    return reinterpret_cast<const OpenScannerRequest*>(
+               &_OpenScannerRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    32;
+
+  friend void swap(OpenScannerRequest& a, OpenScannerRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OpenScannerRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OpenScannerRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OpenScannerRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OpenScannerRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OpenScannerRequest& from);
+  void MergeFrom(const OpenScannerRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OpenScannerRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.OpenScannerRequest";
+  }
+  protected:
+  explicit OpenScannerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kClientIdFieldNumber = 2,
+    kScannerIdFieldNumber = 1,
+  };
+  // string client_id = 2;
+  void clear_client_id();
+  const std::string& client_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_client_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_client_id();
+  PROTOBUF_NODISCARD std::string* release_client_id();
+  void set_allocated_client_id(std::string* client_id);
+  private:
+  const std::string& _internal_client_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_client_id(const std::string& value);
+  std::string* _internal_mutable_client_id();
+  public:
+
+  // .lorgnette.ScannerId scanner_id = 1;
+  bool has_scanner_id() const;
+  private:
+  bool _internal_has_scanner_id() const;
+  public:
+  void clear_scanner_id();
+  const ::lorgnette::ScannerId& scanner_id() const;
+  PROTOBUF_NODISCARD ::lorgnette::ScannerId* release_scanner_id();
+  ::lorgnette::ScannerId* mutable_scanner_id();
+  void set_allocated_scanner_id(::lorgnette::ScannerId* scanner_id);
+  private:
+  const ::lorgnette::ScannerId& _internal_scanner_id() const;
+  ::lorgnette::ScannerId* _internal_mutable_scanner_id();
+  public:
+  void unsafe_arena_set_allocated_scanner_id(
+      ::lorgnette::ScannerId* scanner_id);
+  ::lorgnette::ScannerId* unsafe_arena_release_scanner_id();
+
+  // @@protoc_insertion_point(class_scope:lorgnette.OpenScannerRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr client_id_;
+  ::lorgnette::ScannerId* scanner_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OpenScannerResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.OpenScannerResponse) */ {
+ public:
+  inline OpenScannerResponse() : OpenScannerResponse(nullptr) {}
+  ~OpenScannerResponse() override;
+  explicit PROTOBUF_CONSTEXPR OpenScannerResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OpenScannerResponse(const OpenScannerResponse& from);
+  OpenScannerResponse(OpenScannerResponse&& from) noexcept
+    : OpenScannerResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline OpenScannerResponse& operator=(const OpenScannerResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OpenScannerResponse& operator=(OpenScannerResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const OpenScannerResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OpenScannerResponse* internal_default_instance() {
+    return reinterpret_cast<const OpenScannerResponse*>(
+               &_OpenScannerResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    33;
+
+  friend void swap(OpenScannerResponse& a, OpenScannerResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OpenScannerResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OpenScannerResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OpenScannerResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OpenScannerResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OpenScannerResponse& from);
+  void MergeFrom(const OpenScannerResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OpenScannerResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.OpenScannerResponse";
+  }
+  protected:
+  explicit OpenScannerResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kScannerIdFieldNumber = 1,
+    kConfigFieldNumber = 3,
+    kResultFieldNumber = 2,
+  };
+  // .lorgnette.ScannerId scanner_id = 1;
+  bool has_scanner_id() const;
+  private:
+  bool _internal_has_scanner_id() const;
+  public:
+  void clear_scanner_id();
+  const ::lorgnette::ScannerId& scanner_id() const;
+  PROTOBUF_NODISCARD ::lorgnette::ScannerId* release_scanner_id();
+  ::lorgnette::ScannerId* mutable_scanner_id();
+  void set_allocated_scanner_id(::lorgnette::ScannerId* scanner_id);
+  private:
+  const ::lorgnette::ScannerId& _internal_scanner_id() const;
+  ::lorgnette::ScannerId* _internal_mutable_scanner_id();
+  public:
+  void unsafe_arena_set_allocated_scanner_id(
+      ::lorgnette::ScannerId* scanner_id);
+  ::lorgnette::ScannerId* unsafe_arena_release_scanner_id();
+
+  // optional .lorgnette.ScannerConfig config = 3;
+  bool has_config() const;
+  private:
+  bool _internal_has_config() const;
+  public:
+  void clear_config();
+  const ::lorgnette::ScannerConfig& config() const;
+  PROTOBUF_NODISCARD ::lorgnette::ScannerConfig* release_config();
+  ::lorgnette::ScannerConfig* mutable_config();
+  void set_allocated_config(::lorgnette::ScannerConfig* config);
+  private:
+  const ::lorgnette::ScannerConfig& _internal_config() const;
+  ::lorgnette::ScannerConfig* _internal_mutable_config();
+  public:
+  void unsafe_arena_set_allocated_config(
+      ::lorgnette::ScannerConfig* config);
+  ::lorgnette::ScannerConfig* unsafe_arena_release_config();
+
+  // .lorgnette.OperationResult result = 2;
+  void clear_result();
+  ::lorgnette::OperationResult result() const;
+  void set_result(::lorgnette::OperationResult value);
+  private:
+  ::lorgnette::OperationResult _internal_result() const;
+  void _internal_set_result(::lorgnette::OperationResult value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.OpenScannerResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::lorgnette::ScannerId* scanner_id_;
+  ::lorgnette::ScannerConfig* config_;
+  int result_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CloseScannerRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.CloseScannerRequest) */ {
+ public:
+  inline CloseScannerRequest() : CloseScannerRequest(nullptr) {}
+  ~CloseScannerRequest() override;
+  explicit PROTOBUF_CONSTEXPR CloseScannerRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CloseScannerRequest(const CloseScannerRequest& from);
+  CloseScannerRequest(CloseScannerRequest&& from) noexcept
+    : CloseScannerRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CloseScannerRequest& operator=(const CloseScannerRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CloseScannerRequest& operator=(CloseScannerRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const CloseScannerRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CloseScannerRequest* internal_default_instance() {
+    return reinterpret_cast<const CloseScannerRequest*>(
+               &_CloseScannerRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    34;
+
+  friend void swap(CloseScannerRequest& a, CloseScannerRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(CloseScannerRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CloseScannerRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CloseScannerRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CloseScannerRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const CloseScannerRequest& from);
+  void MergeFrom(const CloseScannerRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CloseScannerRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.CloseScannerRequest";
+  }
+  protected:
+  explicit CloseScannerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kScannerFieldNumber = 1,
+  };
+  // .lorgnette.ScannerHandle scanner = 1;
+  bool has_scanner() const;
+  private:
+  bool _internal_has_scanner() const;
+  public:
+  void clear_scanner();
+  const ::lorgnette::ScannerHandle& scanner() const;
+  PROTOBUF_NODISCARD ::lorgnette::ScannerHandle* release_scanner();
+  ::lorgnette::ScannerHandle* mutable_scanner();
+  void set_allocated_scanner(::lorgnette::ScannerHandle* scanner);
+  private:
+  const ::lorgnette::ScannerHandle& _internal_scanner() const;
+  ::lorgnette::ScannerHandle* _internal_mutable_scanner();
+  public:
+  void unsafe_arena_set_allocated_scanner(
+      ::lorgnette::ScannerHandle* scanner);
+  ::lorgnette::ScannerHandle* unsafe_arena_release_scanner();
+
+  // @@protoc_insertion_point(class_scope:lorgnette.CloseScannerRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::lorgnette::ScannerHandle* scanner_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CloseScannerResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.CloseScannerResponse) */ {
+ public:
+  inline CloseScannerResponse() : CloseScannerResponse(nullptr) {}
+  ~CloseScannerResponse() override;
+  explicit PROTOBUF_CONSTEXPR CloseScannerResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CloseScannerResponse(const CloseScannerResponse& from);
+  CloseScannerResponse(CloseScannerResponse&& from) noexcept
+    : CloseScannerResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline CloseScannerResponse& operator=(const CloseScannerResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CloseScannerResponse& operator=(CloseScannerResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const CloseScannerResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CloseScannerResponse* internal_default_instance() {
+    return reinterpret_cast<const CloseScannerResponse*>(
+               &_CloseScannerResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    35;
+
+  friend void swap(CloseScannerResponse& a, CloseScannerResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(CloseScannerResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CloseScannerResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CloseScannerResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CloseScannerResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const CloseScannerResponse& from);
+  void MergeFrom(const CloseScannerResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CloseScannerResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.CloseScannerResponse";
+  }
+  protected:
+  explicit CloseScannerResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kScannerFieldNumber = 1,
+    kResultFieldNumber = 2,
+  };
+  // .lorgnette.ScannerHandle scanner = 1;
+  bool has_scanner() const;
+  private:
+  bool _internal_has_scanner() const;
+  public:
+  void clear_scanner();
+  const ::lorgnette::ScannerHandle& scanner() const;
+  PROTOBUF_NODISCARD ::lorgnette::ScannerHandle* release_scanner();
+  ::lorgnette::ScannerHandle* mutable_scanner();
+  void set_allocated_scanner(::lorgnette::ScannerHandle* scanner);
+  private:
+  const ::lorgnette::ScannerHandle& _internal_scanner() const;
+  ::lorgnette::ScannerHandle* _internal_mutable_scanner();
+  public:
+  void unsafe_arena_set_allocated_scanner(
+      ::lorgnette::ScannerHandle* scanner);
+  ::lorgnette::ScannerHandle* unsafe_arena_release_scanner();
+
+  // .lorgnette.OperationResult result = 2;
+  void clear_result();
+  ::lorgnette::OperationResult result() const;
+  void set_result(::lorgnette::OperationResult value);
+  private:
+  ::lorgnette::OperationResult _internal_result() const;
+  void _internal_set_result(::lorgnette::OperationResult value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.CloseScannerResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::lorgnette::ScannerHandle* scanner_;
+  int result_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_lorgnette_5fservice_2eproto;
 };
@@ -4571,6 +7220,1707 @@ inline void ScanSettings::_internal_set_image_format(::lorgnette::ImageFormat va
 inline void ScanSettings::set_image_format(::lorgnette::ImageFormat value) {
   _internal_set_image_format(value);
   // @@protoc_insertion_point(field_set:lorgnette.ScanSettings.image_format)
+}
+
+// -------------------------------------------------------------------
+
+// ScannerId
+
+// string connection_string = 1;
+inline void ScannerId::clear_connection_string() {
+  connection_string_.ClearToEmpty();
+}
+inline const std::string& ScannerId::connection_string() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerId.connection_string)
+  return _internal_connection_string();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ScannerId::set_connection_string(ArgT0&& arg0, ArgT... args) {
+ 
+ connection_string_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerId.connection_string)
+}
+inline std::string* ScannerId::mutable_connection_string() {
+  std::string* _s = _internal_mutable_connection_string();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerId.connection_string)
+  return _s;
+}
+inline const std::string& ScannerId::_internal_connection_string() const {
+  return connection_string_.Get();
+}
+inline void ScannerId::_internal_set_connection_string(const std::string& value) {
+  
+  connection_string_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ScannerId::_internal_mutable_connection_string() {
+  
+  return connection_string_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ScannerId::release_connection_string() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerId.connection_string)
+  return connection_string_.Release();
+}
+inline void ScannerId::set_allocated_connection_string(std::string* connection_string) {
+  if (connection_string != nullptr) {
+    
+  } else {
+    
+  }
+  connection_string_.SetAllocated(connection_string, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (connection_string_.IsDefault()) {
+    connection_string_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerId.connection_string)
+}
+
+// -------------------------------------------------------------------
+
+// ScannerHandle
+
+// string token = 1;
+inline void ScannerHandle::clear_token() {
+  token_.ClearToEmpty();
+}
+inline const std::string& ScannerHandle::token() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerHandle.token)
+  return _internal_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ScannerHandle::set_token(ArgT0&& arg0, ArgT... args) {
+ 
+ token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerHandle.token)
+}
+inline std::string* ScannerHandle::mutable_token() {
+  std::string* _s = _internal_mutable_token();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerHandle.token)
+  return _s;
+}
+inline const std::string& ScannerHandle::_internal_token() const {
+  return token_.Get();
+}
+inline void ScannerHandle::_internal_set_token(const std::string& value) {
+  
+  token_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ScannerHandle::_internal_mutable_token() {
+  
+  return token_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ScannerHandle::release_token() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerHandle.token)
+  return token_.Release();
+}
+inline void ScannerHandle::set_allocated_token(std::string* token) {
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  token_.SetAllocated(token, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (token_.IsDefault()) {
+    token_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerHandle.token)
+}
+
+// -------------------------------------------------------------------
+
+// OptionGroup
+
+// string title = 1;
+inline void OptionGroup::clear_title() {
+  title_.ClearToEmpty();
+}
+inline const std::string& OptionGroup::title() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionGroup.title)
+  return _internal_title();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void OptionGroup::set_title(ArgT0&& arg0, ArgT... args) {
+ 
+ title_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.OptionGroup.title)
+}
+inline std::string* OptionGroup::mutable_title() {
+  std::string* _s = _internal_mutable_title();
+  // @@protoc_insertion_point(field_mutable:lorgnette.OptionGroup.title)
+  return _s;
+}
+inline const std::string& OptionGroup::_internal_title() const {
+  return title_.Get();
+}
+inline void OptionGroup::_internal_set_title(const std::string& value) {
+  
+  title_.Set(value, GetArenaForAllocation());
+}
+inline std::string* OptionGroup::_internal_mutable_title() {
+  
+  return title_.Mutable(GetArenaForAllocation());
+}
+inline std::string* OptionGroup::release_title() {
+  // @@protoc_insertion_point(field_release:lorgnette.OptionGroup.title)
+  return title_.Release();
+}
+inline void OptionGroup::set_allocated_title(std::string* title) {
+  if (title != nullptr) {
+    
+  } else {
+    
+  }
+  title_.SetAllocated(title, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (title_.IsDefault()) {
+    title_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.OptionGroup.title)
+}
+
+// repeated string members = 2;
+inline int OptionGroup::_internal_members_size() const {
+  return members_.size();
+}
+inline int OptionGroup::members_size() const {
+  return _internal_members_size();
+}
+inline void OptionGroup::clear_members() {
+  members_.Clear();
+}
+inline std::string* OptionGroup::add_members() {
+  std::string* _s = _internal_add_members();
+  // @@protoc_insertion_point(field_add_mutable:lorgnette.OptionGroup.members)
+  return _s;
+}
+inline const std::string& OptionGroup::_internal_members(int index) const {
+  return members_.Get(index);
+}
+inline const std::string& OptionGroup::members(int index) const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionGroup.members)
+  return _internal_members(index);
+}
+inline std::string* OptionGroup::mutable_members(int index) {
+  // @@protoc_insertion_point(field_mutable:lorgnette.OptionGroup.members)
+  return members_.Mutable(index);
+}
+inline void OptionGroup::set_members(int index, const std::string& value) {
+  members_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionGroup.members)
+}
+inline void OptionGroup::set_members(int index, std::string&& value) {
+  members_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:lorgnette.OptionGroup.members)
+}
+inline void OptionGroup::set_members(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  members_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:lorgnette.OptionGroup.members)
+}
+inline void OptionGroup::set_members(int index, const char* value, size_t size) {
+  members_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:lorgnette.OptionGroup.members)
+}
+inline std::string* OptionGroup::_internal_add_members() {
+  return members_.Add();
+}
+inline void OptionGroup::add_members(const std::string& value) {
+  members_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:lorgnette.OptionGroup.members)
+}
+inline void OptionGroup::add_members(std::string&& value) {
+  members_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:lorgnette.OptionGroup.members)
+}
+inline void OptionGroup::add_members(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  members_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:lorgnette.OptionGroup.members)
+}
+inline void OptionGroup::add_members(const char* value, size_t size) {
+  members_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:lorgnette.OptionGroup.members)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+OptionGroup::members() const {
+  // @@protoc_insertion_point(field_list:lorgnette.OptionGroup.members)
+  return members_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+OptionGroup::mutable_members() {
+  // @@protoc_insertion_point(field_mutable_list:lorgnette.OptionGroup.members)
+  return &members_;
+}
+
+// -------------------------------------------------------------------
+
+// OptionConstraint_IntRange
+
+// int32 min = 1;
+inline void OptionConstraint_IntRange::clear_min() {
+  min_ = 0;
+}
+inline int32_t OptionConstraint_IntRange::_internal_min() const {
+  return min_;
+}
+inline int32_t OptionConstraint_IntRange::min() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.IntRange.min)
+  return _internal_min();
+}
+inline void OptionConstraint_IntRange::_internal_set_min(int32_t value) {
+  
+  min_ = value;
+}
+inline void OptionConstraint_IntRange::set_min(int32_t value) {
+  _internal_set_min(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.IntRange.min)
+}
+
+// int32 max = 2;
+inline void OptionConstraint_IntRange::clear_max() {
+  max_ = 0;
+}
+inline int32_t OptionConstraint_IntRange::_internal_max() const {
+  return max_;
+}
+inline int32_t OptionConstraint_IntRange::max() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.IntRange.max)
+  return _internal_max();
+}
+inline void OptionConstraint_IntRange::_internal_set_max(int32_t value) {
+  
+  max_ = value;
+}
+inline void OptionConstraint_IntRange::set_max(int32_t value) {
+  _internal_set_max(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.IntRange.max)
+}
+
+// int32 quant = 3;
+inline void OptionConstraint_IntRange::clear_quant() {
+  quant_ = 0;
+}
+inline int32_t OptionConstraint_IntRange::_internal_quant() const {
+  return quant_;
+}
+inline int32_t OptionConstraint_IntRange::quant() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.IntRange.quant)
+  return _internal_quant();
+}
+inline void OptionConstraint_IntRange::_internal_set_quant(int32_t value) {
+  
+  quant_ = value;
+}
+inline void OptionConstraint_IntRange::set_quant(int32_t value) {
+  _internal_set_quant(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.IntRange.quant)
+}
+
+// -------------------------------------------------------------------
+
+// OptionConstraint_FixedRange
+
+// double min = 1;
+inline void OptionConstraint_FixedRange::clear_min() {
+  min_ = 0;
+}
+inline double OptionConstraint_FixedRange::_internal_min() const {
+  return min_;
+}
+inline double OptionConstraint_FixedRange::min() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.FixedRange.min)
+  return _internal_min();
+}
+inline void OptionConstraint_FixedRange::_internal_set_min(double value) {
+  
+  min_ = value;
+}
+inline void OptionConstraint_FixedRange::set_min(double value) {
+  _internal_set_min(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.FixedRange.min)
+}
+
+// double max = 2;
+inline void OptionConstraint_FixedRange::clear_max() {
+  max_ = 0;
+}
+inline double OptionConstraint_FixedRange::_internal_max() const {
+  return max_;
+}
+inline double OptionConstraint_FixedRange::max() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.FixedRange.max)
+  return _internal_max();
+}
+inline void OptionConstraint_FixedRange::_internal_set_max(double value) {
+  
+  max_ = value;
+}
+inline void OptionConstraint_FixedRange::set_max(double value) {
+  _internal_set_max(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.FixedRange.max)
+}
+
+// double quant = 3;
+inline void OptionConstraint_FixedRange::clear_quant() {
+  quant_ = 0;
+}
+inline double OptionConstraint_FixedRange::_internal_quant() const {
+  return quant_;
+}
+inline double OptionConstraint_FixedRange::quant() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.FixedRange.quant)
+  return _internal_quant();
+}
+inline void OptionConstraint_FixedRange::_internal_set_quant(double value) {
+  
+  quant_ = value;
+}
+inline void OptionConstraint_FixedRange::set_quant(double value) {
+  _internal_set_quant(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.FixedRange.quant)
+}
+
+// -------------------------------------------------------------------
+
+// OptionConstraint
+
+// .lorgnette.OptionConstraint.ConstraintType constraint_type = 1;
+inline void OptionConstraint::clear_constraint_type() {
+  constraint_type_ = 0;
+}
+inline ::lorgnette::OptionConstraint_ConstraintType OptionConstraint::_internal_constraint_type() const {
+  return static_cast< ::lorgnette::OptionConstraint_ConstraintType >(constraint_type_);
+}
+inline ::lorgnette::OptionConstraint_ConstraintType OptionConstraint::constraint_type() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.constraint_type)
+  return _internal_constraint_type();
+}
+inline void OptionConstraint::_internal_set_constraint_type(::lorgnette::OptionConstraint_ConstraintType value) {
+  
+  constraint_type_ = value;
+}
+inline void OptionConstraint::set_constraint_type(::lorgnette::OptionConstraint_ConstraintType value) {
+  _internal_set_constraint_type(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.constraint_type)
+}
+
+// optional .lorgnette.OptionConstraint.IntRange int_range = 2;
+inline bool OptionConstraint::_internal_has_int_range() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || int_range_ != nullptr);
+  return value;
+}
+inline bool OptionConstraint::has_int_range() const {
+  return _internal_has_int_range();
+}
+inline void OptionConstraint::clear_int_range() {
+  if (int_range_ != nullptr) int_range_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::lorgnette::OptionConstraint_IntRange& OptionConstraint::_internal_int_range() const {
+  const ::lorgnette::OptionConstraint_IntRange* p = int_range_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::OptionConstraint_IntRange&>(
+      ::lorgnette::_OptionConstraint_IntRange_default_instance_);
+}
+inline const ::lorgnette::OptionConstraint_IntRange& OptionConstraint::int_range() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.int_range)
+  return _internal_int_range();
+}
+inline void OptionConstraint::unsafe_arena_set_allocated_int_range(
+    ::lorgnette::OptionConstraint_IntRange* int_range) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(int_range_);
+  }
+  int_range_ = int_range;
+  if (int_range) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.OptionConstraint.int_range)
+}
+inline ::lorgnette::OptionConstraint_IntRange* OptionConstraint::release_int_range() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::lorgnette::OptionConstraint_IntRange* temp = int_range_;
+  int_range_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::OptionConstraint_IntRange* OptionConstraint::unsafe_arena_release_int_range() {
+  // @@protoc_insertion_point(field_release:lorgnette.OptionConstraint.int_range)
+  _has_bits_[0] &= ~0x00000001u;
+  ::lorgnette::OptionConstraint_IntRange* temp = int_range_;
+  int_range_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::OptionConstraint_IntRange* OptionConstraint::_internal_mutable_int_range() {
+  _has_bits_[0] |= 0x00000001u;
+  if (int_range_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::OptionConstraint_IntRange>(GetArenaForAllocation());
+    int_range_ = p;
+  }
+  return int_range_;
+}
+inline ::lorgnette::OptionConstraint_IntRange* OptionConstraint::mutable_int_range() {
+  ::lorgnette::OptionConstraint_IntRange* _msg = _internal_mutable_int_range();
+  // @@protoc_insertion_point(field_mutable:lorgnette.OptionConstraint.int_range)
+  return _msg;
+}
+inline void OptionConstraint::set_allocated_int_range(::lorgnette::OptionConstraint_IntRange* int_range) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete int_range_;
+  }
+  if (int_range) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(int_range);
+    if (message_arena != submessage_arena) {
+      int_range = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, int_range, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  int_range_ = int_range;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.OptionConstraint.int_range)
+}
+
+// optional .lorgnette.OptionConstraint.FixedRange fixed_range = 3;
+inline bool OptionConstraint::_internal_has_fixed_range() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || fixed_range_ != nullptr);
+  return value;
+}
+inline bool OptionConstraint::has_fixed_range() const {
+  return _internal_has_fixed_range();
+}
+inline void OptionConstraint::clear_fixed_range() {
+  if (fixed_range_ != nullptr) fixed_range_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::lorgnette::OptionConstraint_FixedRange& OptionConstraint::_internal_fixed_range() const {
+  const ::lorgnette::OptionConstraint_FixedRange* p = fixed_range_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::OptionConstraint_FixedRange&>(
+      ::lorgnette::_OptionConstraint_FixedRange_default_instance_);
+}
+inline const ::lorgnette::OptionConstraint_FixedRange& OptionConstraint::fixed_range() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.fixed_range)
+  return _internal_fixed_range();
+}
+inline void OptionConstraint::unsafe_arena_set_allocated_fixed_range(
+    ::lorgnette::OptionConstraint_FixedRange* fixed_range) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(fixed_range_);
+  }
+  fixed_range_ = fixed_range;
+  if (fixed_range) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.OptionConstraint.fixed_range)
+}
+inline ::lorgnette::OptionConstraint_FixedRange* OptionConstraint::release_fixed_range() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::lorgnette::OptionConstraint_FixedRange* temp = fixed_range_;
+  fixed_range_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::OptionConstraint_FixedRange* OptionConstraint::unsafe_arena_release_fixed_range() {
+  // @@protoc_insertion_point(field_release:lorgnette.OptionConstraint.fixed_range)
+  _has_bits_[0] &= ~0x00000002u;
+  ::lorgnette::OptionConstraint_FixedRange* temp = fixed_range_;
+  fixed_range_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::OptionConstraint_FixedRange* OptionConstraint::_internal_mutable_fixed_range() {
+  _has_bits_[0] |= 0x00000002u;
+  if (fixed_range_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::OptionConstraint_FixedRange>(GetArenaForAllocation());
+    fixed_range_ = p;
+  }
+  return fixed_range_;
+}
+inline ::lorgnette::OptionConstraint_FixedRange* OptionConstraint::mutable_fixed_range() {
+  ::lorgnette::OptionConstraint_FixedRange* _msg = _internal_mutable_fixed_range();
+  // @@protoc_insertion_point(field_mutable:lorgnette.OptionConstraint.fixed_range)
+  return _msg;
+}
+inline void OptionConstraint::set_allocated_fixed_range(::lorgnette::OptionConstraint_FixedRange* fixed_range) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete fixed_range_;
+  }
+  if (fixed_range) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fixed_range);
+    if (message_arena != submessage_arena) {
+      fixed_range = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, fixed_range, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  fixed_range_ = fixed_range;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.OptionConstraint.fixed_range)
+}
+
+// repeated int32 valid_int = 4;
+inline int OptionConstraint::_internal_valid_int_size() const {
+  return valid_int_.size();
+}
+inline int OptionConstraint::valid_int_size() const {
+  return _internal_valid_int_size();
+}
+inline void OptionConstraint::clear_valid_int() {
+  valid_int_.Clear();
+}
+inline int32_t OptionConstraint::_internal_valid_int(int index) const {
+  return valid_int_.Get(index);
+}
+inline int32_t OptionConstraint::valid_int(int index) const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.valid_int)
+  return _internal_valid_int(index);
+}
+inline void OptionConstraint::set_valid_int(int index, int32_t value) {
+  valid_int_.Set(index, value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.valid_int)
+}
+inline void OptionConstraint::_internal_add_valid_int(int32_t value) {
+  valid_int_.Add(value);
+}
+inline void OptionConstraint::add_valid_int(int32_t value) {
+  _internal_add_valid_int(value);
+  // @@protoc_insertion_point(field_add:lorgnette.OptionConstraint.valid_int)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+OptionConstraint::_internal_valid_int() const {
+  return valid_int_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+OptionConstraint::valid_int() const {
+  // @@protoc_insertion_point(field_list:lorgnette.OptionConstraint.valid_int)
+  return _internal_valid_int();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+OptionConstraint::_internal_mutable_valid_int() {
+  return &valid_int_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+OptionConstraint::mutable_valid_int() {
+  // @@protoc_insertion_point(field_mutable_list:lorgnette.OptionConstraint.valid_int)
+  return _internal_mutable_valid_int();
+}
+
+// repeated double valid_fixed = 5;
+inline int OptionConstraint::_internal_valid_fixed_size() const {
+  return valid_fixed_.size();
+}
+inline int OptionConstraint::valid_fixed_size() const {
+  return _internal_valid_fixed_size();
+}
+inline void OptionConstraint::clear_valid_fixed() {
+  valid_fixed_.Clear();
+}
+inline double OptionConstraint::_internal_valid_fixed(int index) const {
+  return valid_fixed_.Get(index);
+}
+inline double OptionConstraint::valid_fixed(int index) const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.valid_fixed)
+  return _internal_valid_fixed(index);
+}
+inline void OptionConstraint::set_valid_fixed(int index, double value) {
+  valid_fixed_.Set(index, value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.valid_fixed)
+}
+inline void OptionConstraint::_internal_add_valid_fixed(double value) {
+  valid_fixed_.Add(value);
+}
+inline void OptionConstraint::add_valid_fixed(double value) {
+  _internal_add_valid_fixed(value);
+  // @@protoc_insertion_point(field_add:lorgnette.OptionConstraint.valid_fixed)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+OptionConstraint::_internal_valid_fixed() const {
+  return valid_fixed_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+OptionConstraint::valid_fixed() const {
+  // @@protoc_insertion_point(field_list:lorgnette.OptionConstraint.valid_fixed)
+  return _internal_valid_fixed();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+OptionConstraint::_internal_mutable_valid_fixed() {
+  return &valid_fixed_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+OptionConstraint::mutable_valid_fixed() {
+  // @@protoc_insertion_point(field_mutable_list:lorgnette.OptionConstraint.valid_fixed)
+  return _internal_mutable_valid_fixed();
+}
+
+// repeated string valid_string = 6;
+inline int OptionConstraint::_internal_valid_string_size() const {
+  return valid_string_.size();
+}
+inline int OptionConstraint::valid_string_size() const {
+  return _internal_valid_string_size();
+}
+inline void OptionConstraint::clear_valid_string() {
+  valid_string_.Clear();
+}
+inline std::string* OptionConstraint::add_valid_string() {
+  std::string* _s = _internal_add_valid_string();
+  // @@protoc_insertion_point(field_add_mutable:lorgnette.OptionConstraint.valid_string)
+  return _s;
+}
+inline const std::string& OptionConstraint::_internal_valid_string(int index) const {
+  return valid_string_.Get(index);
+}
+inline const std::string& OptionConstraint::valid_string(int index) const {
+  // @@protoc_insertion_point(field_get:lorgnette.OptionConstraint.valid_string)
+  return _internal_valid_string(index);
+}
+inline std::string* OptionConstraint::mutable_valid_string(int index) {
+  // @@protoc_insertion_point(field_mutable:lorgnette.OptionConstraint.valid_string)
+  return valid_string_.Mutable(index);
+}
+inline void OptionConstraint::set_valid_string(int index, const std::string& value) {
+  valid_string_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.valid_string)
+}
+inline void OptionConstraint::set_valid_string(int index, std::string&& value) {
+  valid_string_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:lorgnette.OptionConstraint.valid_string)
+}
+inline void OptionConstraint::set_valid_string(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  valid_string_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:lorgnette.OptionConstraint.valid_string)
+}
+inline void OptionConstraint::set_valid_string(int index, const char* value, size_t size) {
+  valid_string_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:lorgnette.OptionConstraint.valid_string)
+}
+inline std::string* OptionConstraint::_internal_add_valid_string() {
+  return valid_string_.Add();
+}
+inline void OptionConstraint::add_valid_string(const std::string& value) {
+  valid_string_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:lorgnette.OptionConstraint.valid_string)
+}
+inline void OptionConstraint::add_valid_string(std::string&& value) {
+  valid_string_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:lorgnette.OptionConstraint.valid_string)
+}
+inline void OptionConstraint::add_valid_string(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  valid_string_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:lorgnette.OptionConstraint.valid_string)
+}
+inline void OptionConstraint::add_valid_string(const char* value, size_t size) {
+  valid_string_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:lorgnette.OptionConstraint.valid_string)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+OptionConstraint::valid_string() const {
+  // @@protoc_insertion_point(field_list:lorgnette.OptionConstraint.valid_string)
+  return valid_string_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+OptionConstraint::mutable_valid_string() {
+  // @@protoc_insertion_point(field_mutable_list:lorgnette.OptionConstraint.valid_string)
+  return &valid_string_;
+}
+
+// -------------------------------------------------------------------
+
+// ScannerOption_IntValues
+
+// repeated int32 value = 1;
+inline int ScannerOption_IntValues::_internal_value_size() const {
+  return value_.size();
+}
+inline int ScannerOption_IntValues::value_size() const {
+  return _internal_value_size();
+}
+inline void ScannerOption_IntValues::clear_value() {
+  value_.Clear();
+}
+inline int32_t ScannerOption_IntValues::_internal_value(int index) const {
+  return value_.Get(index);
+}
+inline int32_t ScannerOption_IntValues::value(int index) const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.IntValues.value)
+  return _internal_value(index);
+}
+inline void ScannerOption_IntValues::set_value(int index, int32_t value) {
+  value_.Set(index, value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.IntValues.value)
+}
+inline void ScannerOption_IntValues::_internal_add_value(int32_t value) {
+  value_.Add(value);
+}
+inline void ScannerOption_IntValues::add_value(int32_t value) {
+  _internal_add_value(value);
+  // @@protoc_insertion_point(field_add:lorgnette.ScannerOption.IntValues.value)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+ScannerOption_IntValues::_internal_value() const {
+  return value_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+ScannerOption_IntValues::value() const {
+  // @@protoc_insertion_point(field_list:lorgnette.ScannerOption.IntValues.value)
+  return _internal_value();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+ScannerOption_IntValues::_internal_mutable_value() {
+  return &value_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+ScannerOption_IntValues::mutable_value() {
+  // @@protoc_insertion_point(field_mutable_list:lorgnette.ScannerOption.IntValues.value)
+  return _internal_mutable_value();
+}
+
+// -------------------------------------------------------------------
+
+// ScannerOption_FixedValues
+
+// repeated double value = 1;
+inline int ScannerOption_FixedValues::_internal_value_size() const {
+  return value_.size();
+}
+inline int ScannerOption_FixedValues::value_size() const {
+  return _internal_value_size();
+}
+inline void ScannerOption_FixedValues::clear_value() {
+  value_.Clear();
+}
+inline double ScannerOption_FixedValues::_internal_value(int index) const {
+  return value_.Get(index);
+}
+inline double ScannerOption_FixedValues::value(int index) const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.FixedValues.value)
+  return _internal_value(index);
+}
+inline void ScannerOption_FixedValues::set_value(int index, double value) {
+  value_.Set(index, value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.FixedValues.value)
+}
+inline void ScannerOption_FixedValues::_internal_add_value(double value) {
+  value_.Add(value);
+}
+inline void ScannerOption_FixedValues::add_value(double value) {
+  _internal_add_value(value);
+  // @@protoc_insertion_point(field_add:lorgnette.ScannerOption.FixedValues.value)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+ScannerOption_FixedValues::_internal_value() const {
+  return value_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+ScannerOption_FixedValues::value() const {
+  // @@protoc_insertion_point(field_list:lorgnette.ScannerOption.FixedValues.value)
+  return _internal_value();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+ScannerOption_FixedValues::_internal_mutable_value() {
+  return &value_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+ScannerOption_FixedValues::mutable_value() {
+  // @@protoc_insertion_point(field_mutable_list:lorgnette.ScannerOption.FixedValues.value)
+  return _internal_mutable_value();
+}
+
+// -------------------------------------------------------------------
+
+// ScannerOption
+
+// string name = 1;
+inline void ScannerOption::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& ScannerOption::name() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ScannerOption::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.name)
+}
+inline std::string* ScannerOption::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerOption.name)
+  return _s;
+}
+inline const std::string& ScannerOption::_internal_name() const {
+  return name_.Get();
+}
+inline void ScannerOption::_internal_set_name(const std::string& value) {
+  
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ScannerOption::_internal_mutable_name() {
+  
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ScannerOption::release_name() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerOption.name)
+  return name_.Release();
+}
+inline void ScannerOption::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerOption.name)
+}
+
+// string title = 2;
+inline void ScannerOption::clear_title() {
+  title_.ClearToEmpty();
+}
+inline const std::string& ScannerOption::title() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.title)
+  return _internal_title();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ScannerOption::set_title(ArgT0&& arg0, ArgT... args) {
+ 
+ title_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.title)
+}
+inline std::string* ScannerOption::mutable_title() {
+  std::string* _s = _internal_mutable_title();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerOption.title)
+  return _s;
+}
+inline const std::string& ScannerOption::_internal_title() const {
+  return title_.Get();
+}
+inline void ScannerOption::_internal_set_title(const std::string& value) {
+  
+  title_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ScannerOption::_internal_mutable_title() {
+  
+  return title_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ScannerOption::release_title() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerOption.title)
+  return title_.Release();
+}
+inline void ScannerOption::set_allocated_title(std::string* title) {
+  if (title != nullptr) {
+    
+  } else {
+    
+  }
+  title_.SetAllocated(title, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (title_.IsDefault()) {
+    title_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerOption.title)
+}
+
+// string description = 3;
+inline void ScannerOption::clear_description() {
+  description_.ClearToEmpty();
+}
+inline const std::string& ScannerOption::description() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.description)
+  return _internal_description();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ScannerOption::set_description(ArgT0&& arg0, ArgT... args) {
+ 
+ description_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.description)
+}
+inline std::string* ScannerOption::mutable_description() {
+  std::string* _s = _internal_mutable_description();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerOption.description)
+  return _s;
+}
+inline const std::string& ScannerOption::_internal_description() const {
+  return description_.Get();
+}
+inline void ScannerOption::_internal_set_description(const std::string& value) {
+  
+  description_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ScannerOption::_internal_mutable_description() {
+  
+  return description_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ScannerOption::release_description() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerOption.description)
+  return description_.Release();
+}
+inline void ScannerOption::set_allocated_description(std::string* description) {
+  if (description != nullptr) {
+    
+  } else {
+    
+  }
+  description_.SetAllocated(description, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (description_.IsDefault()) {
+    description_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerOption.description)
+}
+
+// .lorgnette.OptionType option_type = 4;
+inline void ScannerOption::clear_option_type() {
+  option_type_ = 0;
+}
+inline ::lorgnette::OptionType ScannerOption::_internal_option_type() const {
+  return static_cast< ::lorgnette::OptionType >(option_type_);
+}
+inline ::lorgnette::OptionType ScannerOption::option_type() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.option_type)
+  return _internal_option_type();
+}
+inline void ScannerOption::_internal_set_option_type(::lorgnette::OptionType value) {
+  
+  option_type_ = value;
+}
+inline void ScannerOption::set_option_type(::lorgnette::OptionType value) {
+  _internal_set_option_type(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.option_type)
+}
+
+// .lorgnette.OptionUnit unit = 5;
+inline void ScannerOption::clear_unit() {
+  unit_ = 0;
+}
+inline ::lorgnette::OptionUnit ScannerOption::_internal_unit() const {
+  return static_cast< ::lorgnette::OptionUnit >(unit_);
+}
+inline ::lorgnette::OptionUnit ScannerOption::unit() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.unit)
+  return _internal_unit();
+}
+inline void ScannerOption::_internal_set_unit(::lorgnette::OptionUnit value) {
+  
+  unit_ = value;
+}
+inline void ScannerOption::set_unit(::lorgnette::OptionUnit value) {
+  _internal_set_unit(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.unit)
+}
+
+// optional .lorgnette.OptionConstraint constraint = 6;
+inline bool ScannerOption::_internal_has_constraint() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || constraint_ != nullptr);
+  return value;
+}
+inline bool ScannerOption::has_constraint() const {
+  return _internal_has_constraint();
+}
+inline void ScannerOption::clear_constraint() {
+  if (constraint_ != nullptr) constraint_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::lorgnette::OptionConstraint& ScannerOption::_internal_constraint() const {
+  const ::lorgnette::OptionConstraint* p = constraint_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::OptionConstraint&>(
+      ::lorgnette::_OptionConstraint_default_instance_);
+}
+inline const ::lorgnette::OptionConstraint& ScannerOption::constraint() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.constraint)
+  return _internal_constraint();
+}
+inline void ScannerOption::unsafe_arena_set_allocated_constraint(
+    ::lorgnette::OptionConstraint* constraint) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(constraint_);
+  }
+  constraint_ = constraint;
+  if (constraint) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.ScannerOption.constraint)
+}
+inline ::lorgnette::OptionConstraint* ScannerOption::release_constraint() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::lorgnette::OptionConstraint* temp = constraint_;
+  constraint_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::OptionConstraint* ScannerOption::unsafe_arena_release_constraint() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerOption.constraint)
+  _has_bits_[0] &= ~0x00000001u;
+  ::lorgnette::OptionConstraint* temp = constraint_;
+  constraint_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::OptionConstraint* ScannerOption::_internal_mutable_constraint() {
+  _has_bits_[0] |= 0x00000001u;
+  if (constraint_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::OptionConstraint>(GetArenaForAllocation());
+    constraint_ = p;
+  }
+  return constraint_;
+}
+inline ::lorgnette::OptionConstraint* ScannerOption::mutable_constraint() {
+  ::lorgnette::OptionConstraint* _msg = _internal_mutable_constraint();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerOption.constraint)
+  return _msg;
+}
+inline void ScannerOption::set_allocated_constraint(::lorgnette::OptionConstraint* constraint) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete constraint_;
+  }
+  if (constraint) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(constraint);
+    if (message_arena != submessage_arena) {
+      constraint = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, constraint, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  constraint_ = constraint;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerOption.constraint)
+}
+
+// bool bool_value = 7;
+inline bool ScannerOption::_internal_has_bool_value() const {
+  return value_case() == kBoolValue;
+}
+inline bool ScannerOption::has_bool_value() const {
+  return _internal_has_bool_value();
+}
+inline void ScannerOption::set_has_bool_value() {
+  _oneof_case_[0] = kBoolValue;
+}
+inline void ScannerOption::clear_bool_value() {
+  if (_internal_has_bool_value()) {
+    value_.bool_value_ = false;
+    clear_has_value();
+  }
+}
+inline bool ScannerOption::_internal_bool_value() const {
+  if (_internal_has_bool_value()) {
+    return value_.bool_value_;
+  }
+  return false;
+}
+inline void ScannerOption::_internal_set_bool_value(bool value) {
+  if (!_internal_has_bool_value()) {
+    clear_value();
+    set_has_bool_value();
+  }
+  value_.bool_value_ = value;
+}
+inline bool ScannerOption::bool_value() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.bool_value)
+  return _internal_bool_value();
+}
+inline void ScannerOption::set_bool_value(bool value) {
+  _internal_set_bool_value(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.bool_value)
+}
+
+// .lorgnette.ScannerOption.IntValues int_value = 8;
+inline bool ScannerOption::_internal_has_int_value() const {
+  return value_case() == kIntValue;
+}
+inline bool ScannerOption::has_int_value() const {
+  return _internal_has_int_value();
+}
+inline void ScannerOption::set_has_int_value() {
+  _oneof_case_[0] = kIntValue;
+}
+inline void ScannerOption::clear_int_value() {
+  if (_internal_has_int_value()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete value_.int_value_;
+    }
+    clear_has_value();
+  }
+}
+inline ::lorgnette::ScannerOption_IntValues* ScannerOption::release_int_value() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerOption.int_value)
+  if (_internal_has_int_value()) {
+    clear_has_value();
+    ::lorgnette::ScannerOption_IntValues* temp = value_.int_value_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    value_.int_value_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::lorgnette::ScannerOption_IntValues& ScannerOption::_internal_int_value() const {
+  return _internal_has_int_value()
+      ? *value_.int_value_
+      : reinterpret_cast< ::lorgnette::ScannerOption_IntValues&>(::lorgnette::_ScannerOption_IntValues_default_instance_);
+}
+inline const ::lorgnette::ScannerOption_IntValues& ScannerOption::int_value() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.int_value)
+  return _internal_int_value();
+}
+inline ::lorgnette::ScannerOption_IntValues* ScannerOption::unsafe_arena_release_int_value() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:lorgnette.ScannerOption.int_value)
+  if (_internal_has_int_value()) {
+    clear_has_value();
+    ::lorgnette::ScannerOption_IntValues* temp = value_.int_value_;
+    value_.int_value_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ScannerOption::unsafe_arena_set_allocated_int_value(::lorgnette::ScannerOption_IntValues* int_value) {
+  clear_value();
+  if (int_value) {
+    set_has_int_value();
+    value_.int_value_ = int_value;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.ScannerOption.int_value)
+}
+inline ::lorgnette::ScannerOption_IntValues* ScannerOption::_internal_mutable_int_value() {
+  if (!_internal_has_int_value()) {
+    clear_value();
+    set_has_int_value();
+    value_.int_value_ = CreateMaybeMessage< ::lorgnette::ScannerOption_IntValues >(GetArenaForAllocation());
+  }
+  return value_.int_value_;
+}
+inline ::lorgnette::ScannerOption_IntValues* ScannerOption::mutable_int_value() {
+  ::lorgnette::ScannerOption_IntValues* _msg = _internal_mutable_int_value();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerOption.int_value)
+  return _msg;
+}
+
+// .lorgnette.ScannerOption.FixedValues fixed_value = 9;
+inline bool ScannerOption::_internal_has_fixed_value() const {
+  return value_case() == kFixedValue;
+}
+inline bool ScannerOption::has_fixed_value() const {
+  return _internal_has_fixed_value();
+}
+inline void ScannerOption::set_has_fixed_value() {
+  _oneof_case_[0] = kFixedValue;
+}
+inline void ScannerOption::clear_fixed_value() {
+  if (_internal_has_fixed_value()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete value_.fixed_value_;
+    }
+    clear_has_value();
+  }
+}
+inline ::lorgnette::ScannerOption_FixedValues* ScannerOption::release_fixed_value() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerOption.fixed_value)
+  if (_internal_has_fixed_value()) {
+    clear_has_value();
+    ::lorgnette::ScannerOption_FixedValues* temp = value_.fixed_value_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    value_.fixed_value_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::lorgnette::ScannerOption_FixedValues& ScannerOption::_internal_fixed_value() const {
+  return _internal_has_fixed_value()
+      ? *value_.fixed_value_
+      : reinterpret_cast< ::lorgnette::ScannerOption_FixedValues&>(::lorgnette::_ScannerOption_FixedValues_default_instance_);
+}
+inline const ::lorgnette::ScannerOption_FixedValues& ScannerOption::fixed_value() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.fixed_value)
+  return _internal_fixed_value();
+}
+inline ::lorgnette::ScannerOption_FixedValues* ScannerOption::unsafe_arena_release_fixed_value() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:lorgnette.ScannerOption.fixed_value)
+  if (_internal_has_fixed_value()) {
+    clear_has_value();
+    ::lorgnette::ScannerOption_FixedValues* temp = value_.fixed_value_;
+    value_.fixed_value_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ScannerOption::unsafe_arena_set_allocated_fixed_value(::lorgnette::ScannerOption_FixedValues* fixed_value) {
+  clear_value();
+  if (fixed_value) {
+    set_has_fixed_value();
+    value_.fixed_value_ = fixed_value;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.ScannerOption.fixed_value)
+}
+inline ::lorgnette::ScannerOption_FixedValues* ScannerOption::_internal_mutable_fixed_value() {
+  if (!_internal_has_fixed_value()) {
+    clear_value();
+    set_has_fixed_value();
+    value_.fixed_value_ = CreateMaybeMessage< ::lorgnette::ScannerOption_FixedValues >(GetArenaForAllocation());
+  }
+  return value_.fixed_value_;
+}
+inline ::lorgnette::ScannerOption_FixedValues* ScannerOption::mutable_fixed_value() {
+  ::lorgnette::ScannerOption_FixedValues* _msg = _internal_mutable_fixed_value();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerOption.fixed_value)
+  return _msg;
+}
+
+// string string_value = 10;
+inline bool ScannerOption::_internal_has_string_value() const {
+  return value_case() == kStringValue;
+}
+inline bool ScannerOption::has_string_value() const {
+  return _internal_has_string_value();
+}
+inline void ScannerOption::set_has_string_value() {
+  _oneof_case_[0] = kStringValue;
+}
+inline void ScannerOption::clear_string_value() {
+  if (_internal_has_string_value()) {
+    value_.string_value_.Destroy();
+    clear_has_value();
+  }
+}
+inline const std::string& ScannerOption::string_value() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.string_value)
+  return _internal_string_value();
+}
+template <typename ArgT0, typename... ArgT>
+inline void ScannerOption::set_string_value(ArgT0&& arg0, ArgT... args) {
+  if (!_internal_has_string_value()) {
+    clear_value();
+    set_has_string_value();
+    value_.string_value_.InitDefault();
+  }
+  value_.string_value_.Set( static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.string_value)
+}
+inline std::string* ScannerOption::mutable_string_value() {
+  std::string* _s = _internal_mutable_string_value();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerOption.string_value)
+  return _s;
+}
+inline const std::string& ScannerOption::_internal_string_value() const {
+  if (_internal_has_string_value()) {
+    return value_.string_value_.Get();
+  }
+  return ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
+}
+inline void ScannerOption::_internal_set_string_value(const std::string& value) {
+  if (!_internal_has_string_value()) {
+    clear_value();
+    set_has_string_value();
+    value_.string_value_.InitDefault();
+  }
+  value_.string_value_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ScannerOption::_internal_mutable_string_value() {
+  if (!_internal_has_string_value()) {
+    clear_value();
+    set_has_string_value();
+    value_.string_value_.InitDefault();
+  }
+  return value_.string_value_.Mutable(      GetArenaForAllocation());
+}
+inline std::string* ScannerOption::release_string_value() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerOption.string_value)
+  if (_internal_has_string_value()) {
+    clear_has_value();
+    return value_.string_value_.Release();
+  } else {
+    return nullptr;
+  }
+}
+inline void ScannerOption::set_allocated_string_value(std::string* string_value) {
+  if (has_value()) {
+    clear_value();
+  }
+  if (string_value != nullptr) {
+    set_has_string_value();
+    value_.string_value_.InitAllocated(string_value, GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerOption.string_value)
+}
+
+// bool detectable = 11;
+inline void ScannerOption::clear_detectable() {
+  detectable_ = false;
+}
+inline bool ScannerOption::_internal_detectable() const {
+  return detectable_;
+}
+inline bool ScannerOption::detectable() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.detectable)
+  return _internal_detectable();
+}
+inline void ScannerOption::_internal_set_detectable(bool value) {
+  
+  detectable_ = value;
+}
+inline void ScannerOption::set_detectable(bool value) {
+  _internal_set_detectable(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.detectable)
+}
+
+// bool sw_settable = 12;
+inline void ScannerOption::clear_sw_settable() {
+  sw_settable_ = false;
+}
+inline bool ScannerOption::_internal_sw_settable() const {
+  return sw_settable_;
+}
+inline bool ScannerOption::sw_settable() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.sw_settable)
+  return _internal_sw_settable();
+}
+inline void ScannerOption::_internal_set_sw_settable(bool value) {
+  
+  sw_settable_ = value;
+}
+inline void ScannerOption::set_sw_settable(bool value) {
+  _internal_set_sw_settable(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.sw_settable)
+}
+
+// bool hw_settable = 13;
+inline void ScannerOption::clear_hw_settable() {
+  hw_settable_ = false;
+}
+inline bool ScannerOption::_internal_hw_settable() const {
+  return hw_settable_;
+}
+inline bool ScannerOption::hw_settable() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.hw_settable)
+  return _internal_hw_settable();
+}
+inline void ScannerOption::_internal_set_hw_settable(bool value) {
+  
+  hw_settable_ = value;
+}
+inline void ScannerOption::set_hw_settable(bool value) {
+  _internal_set_hw_settable(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.hw_settable)
+}
+
+// bool auto_settable = 14;
+inline void ScannerOption::clear_auto_settable() {
+  auto_settable_ = false;
+}
+inline bool ScannerOption::_internal_auto_settable() const {
+  return auto_settable_;
+}
+inline bool ScannerOption::auto_settable() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.auto_settable)
+  return _internal_auto_settable();
+}
+inline void ScannerOption::_internal_set_auto_settable(bool value) {
+  
+  auto_settable_ = value;
+}
+inline void ScannerOption::set_auto_settable(bool value) {
+  _internal_set_auto_settable(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.auto_settable)
+}
+
+// bool emulated = 15;
+inline void ScannerOption::clear_emulated() {
+  emulated_ = false;
+}
+inline bool ScannerOption::_internal_emulated() const {
+  return emulated_;
+}
+inline bool ScannerOption::emulated() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.emulated)
+  return _internal_emulated();
+}
+inline void ScannerOption::_internal_set_emulated(bool value) {
+  
+  emulated_ = value;
+}
+inline void ScannerOption::set_emulated(bool value) {
+  _internal_set_emulated(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.emulated)
+}
+
+// bool active = 16;
+inline void ScannerOption::clear_active() {
+  active_ = false;
+}
+inline bool ScannerOption::_internal_active() const {
+  return active_;
+}
+inline bool ScannerOption::active() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.active)
+  return _internal_active();
+}
+inline void ScannerOption::_internal_set_active(bool value) {
+  
+  active_ = value;
+}
+inline void ScannerOption::set_active(bool value) {
+  _internal_set_active(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.active)
+}
+
+// bool advanced = 17;
+inline void ScannerOption::clear_advanced() {
+  advanced_ = false;
+}
+inline bool ScannerOption::_internal_advanced() const {
+  return advanced_;
+}
+inline bool ScannerOption::advanced() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerOption.advanced)
+  return _internal_advanced();
+}
+inline void ScannerOption::_internal_set_advanced(bool value) {
+  
+  advanced_ = value;
+}
+inline void ScannerOption::set_advanced(bool value) {
+  _internal_set_advanced(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerOption.advanced)
+}
+
+inline bool ScannerOption::has_value() const {
+  return value_case() != VALUE_NOT_SET;
+}
+inline void ScannerOption::clear_has_value() {
+  _oneof_case_[0] = VALUE_NOT_SET;
+}
+inline ScannerOption::ValueCase ScannerOption::value_case() const {
+  return ScannerOption::ValueCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// ScannerConfig
+
+// .lorgnette.ScannerHandle scanner = 1;
+inline bool ScannerConfig::_internal_has_scanner() const {
+  return this != internal_default_instance() && scanner_ != nullptr;
+}
+inline bool ScannerConfig::has_scanner() const {
+  return _internal_has_scanner();
+}
+inline void ScannerConfig::clear_scanner() {
+  if (GetArenaForAllocation() == nullptr && scanner_ != nullptr) {
+    delete scanner_;
+  }
+  scanner_ = nullptr;
+}
+inline const ::lorgnette::ScannerHandle& ScannerConfig::_internal_scanner() const {
+  const ::lorgnette::ScannerHandle* p = scanner_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::ScannerHandle&>(
+      ::lorgnette::_ScannerHandle_default_instance_);
+}
+inline const ::lorgnette::ScannerHandle& ScannerConfig::scanner() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerConfig.scanner)
+  return _internal_scanner();
+}
+inline void ScannerConfig::unsafe_arena_set_allocated_scanner(
+    ::lorgnette::ScannerHandle* scanner) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(scanner_);
+  }
+  scanner_ = scanner;
+  if (scanner) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.ScannerConfig.scanner)
+}
+inline ::lorgnette::ScannerHandle* ScannerConfig::release_scanner() {
+  
+  ::lorgnette::ScannerHandle* temp = scanner_;
+  scanner_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::ScannerHandle* ScannerConfig::unsafe_arena_release_scanner() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerConfig.scanner)
+  
+  ::lorgnette::ScannerHandle* temp = scanner_;
+  scanner_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::ScannerHandle* ScannerConfig::_internal_mutable_scanner() {
+  
+  if (scanner_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::ScannerHandle>(GetArenaForAllocation());
+    scanner_ = p;
+  }
+  return scanner_;
+}
+inline ::lorgnette::ScannerHandle* ScannerConfig::mutable_scanner() {
+  ::lorgnette::ScannerHandle* _msg = _internal_mutable_scanner();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerConfig.scanner)
+  return _msg;
+}
+inline void ScannerConfig::set_allocated_scanner(::lorgnette::ScannerHandle* scanner) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete scanner_;
+  }
+  if (scanner) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scanner);
+    if (message_arena != submessage_arena) {
+      scanner = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scanner, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  scanner_ = scanner;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerConfig.scanner)
+}
+
+// map<string, .lorgnette.ScannerOption> options = 2;
+inline int ScannerConfig::_internal_options_size() const {
+  return options_.size();
+}
+inline int ScannerConfig::options_size() const {
+  return _internal_options_size();
+}
+inline void ScannerConfig::clear_options() {
+  options_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::lorgnette::ScannerOption >&
+ScannerConfig::_internal_options() const {
+  return options_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::lorgnette::ScannerOption >&
+ScannerConfig::options() const {
+  // @@protoc_insertion_point(field_map:lorgnette.ScannerConfig.options)
+  return _internal_options();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::lorgnette::ScannerOption >*
+ScannerConfig::_internal_mutable_options() {
+  return options_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::lorgnette::ScannerOption >*
+ScannerConfig::mutable_options() {
+  // @@protoc_insertion_point(field_mutable_map:lorgnette.ScannerConfig.options)
+  return _internal_mutable_options();
+}
+
+// repeated .lorgnette.OptionGroup option_groups = 3;
+inline int ScannerConfig::_internal_option_groups_size() const {
+  return option_groups_.size();
+}
+inline int ScannerConfig::option_groups_size() const {
+  return _internal_option_groups_size();
+}
+inline void ScannerConfig::clear_option_groups() {
+  option_groups_.Clear();
+}
+inline ::lorgnette::OptionGroup* ScannerConfig::mutable_option_groups(int index) {
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerConfig.option_groups)
+  return option_groups_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::lorgnette::OptionGroup >*
+ScannerConfig::mutable_option_groups() {
+  // @@protoc_insertion_point(field_mutable_list:lorgnette.ScannerConfig.option_groups)
+  return &option_groups_;
+}
+inline const ::lorgnette::OptionGroup& ScannerConfig::_internal_option_groups(int index) const {
+  return option_groups_.Get(index);
+}
+inline const ::lorgnette::OptionGroup& ScannerConfig::option_groups(int index) const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerConfig.option_groups)
+  return _internal_option_groups(index);
+}
+inline ::lorgnette::OptionGroup* ScannerConfig::_internal_add_option_groups() {
+  return option_groups_.Add();
+}
+inline ::lorgnette::OptionGroup* ScannerConfig::add_option_groups() {
+  ::lorgnette::OptionGroup* _add = _internal_add_option_groups();
+  // @@protoc_insertion_point(field_add:lorgnette.ScannerConfig.option_groups)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::lorgnette::OptionGroup >&
+ScannerConfig::option_groups() const {
+  // @@protoc_insertion_point(field_list:lorgnette.ScannerConfig.option_groups)
+  return option_groups_;
 }
 
 // -------------------------------------------------------------------
@@ -5839,9 +10189,595 @@ inline void StopScannerDiscoveryResponse::set_stopped(bool value) {
   // @@protoc_insertion_point(field_set:lorgnette.StopScannerDiscoveryResponse.stopped)
 }
 
+// -------------------------------------------------------------------
+
+// OpenScannerRequest
+
+// .lorgnette.ScannerId scanner_id = 1;
+inline bool OpenScannerRequest::_internal_has_scanner_id() const {
+  return this != internal_default_instance() && scanner_id_ != nullptr;
+}
+inline bool OpenScannerRequest::has_scanner_id() const {
+  return _internal_has_scanner_id();
+}
+inline void OpenScannerRequest::clear_scanner_id() {
+  if (GetArenaForAllocation() == nullptr && scanner_id_ != nullptr) {
+    delete scanner_id_;
+  }
+  scanner_id_ = nullptr;
+}
+inline const ::lorgnette::ScannerId& OpenScannerRequest::_internal_scanner_id() const {
+  const ::lorgnette::ScannerId* p = scanner_id_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::ScannerId&>(
+      ::lorgnette::_ScannerId_default_instance_);
+}
+inline const ::lorgnette::ScannerId& OpenScannerRequest::scanner_id() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OpenScannerRequest.scanner_id)
+  return _internal_scanner_id();
+}
+inline void OpenScannerRequest::unsafe_arena_set_allocated_scanner_id(
+    ::lorgnette::ScannerId* scanner_id) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(scanner_id_);
+  }
+  scanner_id_ = scanner_id;
+  if (scanner_id) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.OpenScannerRequest.scanner_id)
+}
+inline ::lorgnette::ScannerId* OpenScannerRequest::release_scanner_id() {
+  
+  ::lorgnette::ScannerId* temp = scanner_id_;
+  scanner_id_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::ScannerId* OpenScannerRequest::unsafe_arena_release_scanner_id() {
+  // @@protoc_insertion_point(field_release:lorgnette.OpenScannerRequest.scanner_id)
+  
+  ::lorgnette::ScannerId* temp = scanner_id_;
+  scanner_id_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::ScannerId* OpenScannerRequest::_internal_mutable_scanner_id() {
+  
+  if (scanner_id_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::ScannerId>(GetArenaForAllocation());
+    scanner_id_ = p;
+  }
+  return scanner_id_;
+}
+inline ::lorgnette::ScannerId* OpenScannerRequest::mutable_scanner_id() {
+  ::lorgnette::ScannerId* _msg = _internal_mutable_scanner_id();
+  // @@protoc_insertion_point(field_mutable:lorgnette.OpenScannerRequest.scanner_id)
+  return _msg;
+}
+inline void OpenScannerRequest::set_allocated_scanner_id(::lorgnette::ScannerId* scanner_id) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete scanner_id_;
+  }
+  if (scanner_id) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scanner_id);
+    if (message_arena != submessage_arena) {
+      scanner_id = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scanner_id, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  scanner_id_ = scanner_id;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.OpenScannerRequest.scanner_id)
+}
+
+// string client_id = 2;
+inline void OpenScannerRequest::clear_client_id() {
+  client_id_.ClearToEmpty();
+}
+inline const std::string& OpenScannerRequest::client_id() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OpenScannerRequest.client_id)
+  return _internal_client_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void OpenScannerRequest::set_client_id(ArgT0&& arg0, ArgT... args) {
+ 
+ client_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.OpenScannerRequest.client_id)
+}
+inline std::string* OpenScannerRequest::mutable_client_id() {
+  std::string* _s = _internal_mutable_client_id();
+  // @@protoc_insertion_point(field_mutable:lorgnette.OpenScannerRequest.client_id)
+  return _s;
+}
+inline const std::string& OpenScannerRequest::_internal_client_id() const {
+  return client_id_.Get();
+}
+inline void OpenScannerRequest::_internal_set_client_id(const std::string& value) {
+  
+  client_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* OpenScannerRequest::_internal_mutable_client_id() {
+  
+  return client_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* OpenScannerRequest::release_client_id() {
+  // @@protoc_insertion_point(field_release:lorgnette.OpenScannerRequest.client_id)
+  return client_id_.Release();
+}
+inline void OpenScannerRequest::set_allocated_client_id(std::string* client_id) {
+  if (client_id != nullptr) {
+    
+  } else {
+    
+  }
+  client_id_.SetAllocated(client_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (client_id_.IsDefault()) {
+    client_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.OpenScannerRequest.client_id)
+}
+
+// -------------------------------------------------------------------
+
+// OpenScannerResponse
+
+// .lorgnette.ScannerId scanner_id = 1;
+inline bool OpenScannerResponse::_internal_has_scanner_id() const {
+  return this != internal_default_instance() && scanner_id_ != nullptr;
+}
+inline bool OpenScannerResponse::has_scanner_id() const {
+  return _internal_has_scanner_id();
+}
+inline void OpenScannerResponse::clear_scanner_id() {
+  if (GetArenaForAllocation() == nullptr && scanner_id_ != nullptr) {
+    delete scanner_id_;
+  }
+  scanner_id_ = nullptr;
+}
+inline const ::lorgnette::ScannerId& OpenScannerResponse::_internal_scanner_id() const {
+  const ::lorgnette::ScannerId* p = scanner_id_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::ScannerId&>(
+      ::lorgnette::_ScannerId_default_instance_);
+}
+inline const ::lorgnette::ScannerId& OpenScannerResponse::scanner_id() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OpenScannerResponse.scanner_id)
+  return _internal_scanner_id();
+}
+inline void OpenScannerResponse::unsafe_arena_set_allocated_scanner_id(
+    ::lorgnette::ScannerId* scanner_id) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(scanner_id_);
+  }
+  scanner_id_ = scanner_id;
+  if (scanner_id) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.OpenScannerResponse.scanner_id)
+}
+inline ::lorgnette::ScannerId* OpenScannerResponse::release_scanner_id() {
+  
+  ::lorgnette::ScannerId* temp = scanner_id_;
+  scanner_id_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::ScannerId* OpenScannerResponse::unsafe_arena_release_scanner_id() {
+  // @@protoc_insertion_point(field_release:lorgnette.OpenScannerResponse.scanner_id)
+  
+  ::lorgnette::ScannerId* temp = scanner_id_;
+  scanner_id_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::ScannerId* OpenScannerResponse::_internal_mutable_scanner_id() {
+  
+  if (scanner_id_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::ScannerId>(GetArenaForAllocation());
+    scanner_id_ = p;
+  }
+  return scanner_id_;
+}
+inline ::lorgnette::ScannerId* OpenScannerResponse::mutable_scanner_id() {
+  ::lorgnette::ScannerId* _msg = _internal_mutable_scanner_id();
+  // @@protoc_insertion_point(field_mutable:lorgnette.OpenScannerResponse.scanner_id)
+  return _msg;
+}
+inline void OpenScannerResponse::set_allocated_scanner_id(::lorgnette::ScannerId* scanner_id) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete scanner_id_;
+  }
+  if (scanner_id) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scanner_id);
+    if (message_arena != submessage_arena) {
+      scanner_id = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scanner_id, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  scanner_id_ = scanner_id;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.OpenScannerResponse.scanner_id)
+}
+
+// .lorgnette.OperationResult result = 2;
+inline void OpenScannerResponse::clear_result() {
+  result_ = 0;
+}
+inline ::lorgnette::OperationResult OpenScannerResponse::_internal_result() const {
+  return static_cast< ::lorgnette::OperationResult >(result_);
+}
+inline ::lorgnette::OperationResult OpenScannerResponse::result() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OpenScannerResponse.result)
+  return _internal_result();
+}
+inline void OpenScannerResponse::_internal_set_result(::lorgnette::OperationResult value) {
+  
+  result_ = value;
+}
+inline void OpenScannerResponse::set_result(::lorgnette::OperationResult value) {
+  _internal_set_result(value);
+  // @@protoc_insertion_point(field_set:lorgnette.OpenScannerResponse.result)
+}
+
+// optional .lorgnette.ScannerConfig config = 3;
+inline bool OpenScannerResponse::_internal_has_config() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || config_ != nullptr);
+  return value;
+}
+inline bool OpenScannerResponse::has_config() const {
+  return _internal_has_config();
+}
+inline void OpenScannerResponse::clear_config() {
+  if (config_ != nullptr) config_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::lorgnette::ScannerConfig& OpenScannerResponse::_internal_config() const {
+  const ::lorgnette::ScannerConfig* p = config_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::ScannerConfig&>(
+      ::lorgnette::_ScannerConfig_default_instance_);
+}
+inline const ::lorgnette::ScannerConfig& OpenScannerResponse::config() const {
+  // @@protoc_insertion_point(field_get:lorgnette.OpenScannerResponse.config)
+  return _internal_config();
+}
+inline void OpenScannerResponse::unsafe_arena_set_allocated_config(
+    ::lorgnette::ScannerConfig* config) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(config_);
+  }
+  config_ = config;
+  if (config) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.OpenScannerResponse.config)
+}
+inline ::lorgnette::ScannerConfig* OpenScannerResponse::release_config() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::lorgnette::ScannerConfig* temp = config_;
+  config_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::ScannerConfig* OpenScannerResponse::unsafe_arena_release_config() {
+  // @@protoc_insertion_point(field_release:lorgnette.OpenScannerResponse.config)
+  _has_bits_[0] &= ~0x00000001u;
+  ::lorgnette::ScannerConfig* temp = config_;
+  config_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::ScannerConfig* OpenScannerResponse::_internal_mutable_config() {
+  _has_bits_[0] |= 0x00000001u;
+  if (config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::ScannerConfig>(GetArenaForAllocation());
+    config_ = p;
+  }
+  return config_;
+}
+inline ::lorgnette::ScannerConfig* OpenScannerResponse::mutable_config() {
+  ::lorgnette::ScannerConfig* _msg = _internal_mutable_config();
+  // @@protoc_insertion_point(field_mutable:lorgnette.OpenScannerResponse.config)
+  return _msg;
+}
+inline void OpenScannerResponse::set_allocated_config(::lorgnette::ScannerConfig* config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete config_;
+  }
+  if (config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(config);
+    if (message_arena != submessage_arena) {
+      config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, config, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  config_ = config;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.OpenScannerResponse.config)
+}
+
+// -------------------------------------------------------------------
+
+// CloseScannerRequest
+
+// .lorgnette.ScannerHandle scanner = 1;
+inline bool CloseScannerRequest::_internal_has_scanner() const {
+  return this != internal_default_instance() && scanner_ != nullptr;
+}
+inline bool CloseScannerRequest::has_scanner() const {
+  return _internal_has_scanner();
+}
+inline void CloseScannerRequest::clear_scanner() {
+  if (GetArenaForAllocation() == nullptr && scanner_ != nullptr) {
+    delete scanner_;
+  }
+  scanner_ = nullptr;
+}
+inline const ::lorgnette::ScannerHandle& CloseScannerRequest::_internal_scanner() const {
+  const ::lorgnette::ScannerHandle* p = scanner_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::ScannerHandle&>(
+      ::lorgnette::_ScannerHandle_default_instance_);
+}
+inline const ::lorgnette::ScannerHandle& CloseScannerRequest::scanner() const {
+  // @@protoc_insertion_point(field_get:lorgnette.CloseScannerRequest.scanner)
+  return _internal_scanner();
+}
+inline void CloseScannerRequest::unsafe_arena_set_allocated_scanner(
+    ::lorgnette::ScannerHandle* scanner) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(scanner_);
+  }
+  scanner_ = scanner;
+  if (scanner) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.CloseScannerRequest.scanner)
+}
+inline ::lorgnette::ScannerHandle* CloseScannerRequest::release_scanner() {
+  
+  ::lorgnette::ScannerHandle* temp = scanner_;
+  scanner_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::ScannerHandle* CloseScannerRequest::unsafe_arena_release_scanner() {
+  // @@protoc_insertion_point(field_release:lorgnette.CloseScannerRequest.scanner)
+  
+  ::lorgnette::ScannerHandle* temp = scanner_;
+  scanner_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::ScannerHandle* CloseScannerRequest::_internal_mutable_scanner() {
+  
+  if (scanner_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::ScannerHandle>(GetArenaForAllocation());
+    scanner_ = p;
+  }
+  return scanner_;
+}
+inline ::lorgnette::ScannerHandle* CloseScannerRequest::mutable_scanner() {
+  ::lorgnette::ScannerHandle* _msg = _internal_mutable_scanner();
+  // @@protoc_insertion_point(field_mutable:lorgnette.CloseScannerRequest.scanner)
+  return _msg;
+}
+inline void CloseScannerRequest::set_allocated_scanner(::lorgnette::ScannerHandle* scanner) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete scanner_;
+  }
+  if (scanner) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scanner);
+    if (message_arena != submessage_arena) {
+      scanner = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scanner, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  scanner_ = scanner;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.CloseScannerRequest.scanner)
+}
+
+// -------------------------------------------------------------------
+
+// CloseScannerResponse
+
+// .lorgnette.ScannerHandle scanner = 1;
+inline bool CloseScannerResponse::_internal_has_scanner() const {
+  return this != internal_default_instance() && scanner_ != nullptr;
+}
+inline bool CloseScannerResponse::has_scanner() const {
+  return _internal_has_scanner();
+}
+inline void CloseScannerResponse::clear_scanner() {
+  if (GetArenaForAllocation() == nullptr && scanner_ != nullptr) {
+    delete scanner_;
+  }
+  scanner_ = nullptr;
+}
+inline const ::lorgnette::ScannerHandle& CloseScannerResponse::_internal_scanner() const {
+  const ::lorgnette::ScannerHandle* p = scanner_;
+  return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::ScannerHandle&>(
+      ::lorgnette::_ScannerHandle_default_instance_);
+}
+inline const ::lorgnette::ScannerHandle& CloseScannerResponse::scanner() const {
+  // @@protoc_insertion_point(field_get:lorgnette.CloseScannerResponse.scanner)
+  return _internal_scanner();
+}
+inline void CloseScannerResponse::unsafe_arena_set_allocated_scanner(
+    ::lorgnette::ScannerHandle* scanner) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(scanner_);
+  }
+  scanner_ = scanner;
+  if (scanner) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.CloseScannerResponse.scanner)
+}
+inline ::lorgnette::ScannerHandle* CloseScannerResponse::release_scanner() {
+  
+  ::lorgnette::ScannerHandle* temp = scanner_;
+  scanner_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::lorgnette::ScannerHandle* CloseScannerResponse::unsafe_arena_release_scanner() {
+  // @@protoc_insertion_point(field_release:lorgnette.CloseScannerResponse.scanner)
+  
+  ::lorgnette::ScannerHandle* temp = scanner_;
+  scanner_ = nullptr;
+  return temp;
+}
+inline ::lorgnette::ScannerHandle* CloseScannerResponse::_internal_mutable_scanner() {
+  
+  if (scanner_ == nullptr) {
+    auto* p = CreateMaybeMessage<::lorgnette::ScannerHandle>(GetArenaForAllocation());
+    scanner_ = p;
+  }
+  return scanner_;
+}
+inline ::lorgnette::ScannerHandle* CloseScannerResponse::mutable_scanner() {
+  ::lorgnette::ScannerHandle* _msg = _internal_mutable_scanner();
+  // @@protoc_insertion_point(field_mutable:lorgnette.CloseScannerResponse.scanner)
+  return _msg;
+}
+inline void CloseScannerResponse::set_allocated_scanner(::lorgnette::ScannerHandle* scanner) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete scanner_;
+  }
+  if (scanner) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scanner);
+    if (message_arena != submessage_arena) {
+      scanner = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scanner, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  scanner_ = scanner;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.CloseScannerResponse.scanner)
+}
+
+// .lorgnette.OperationResult result = 2;
+inline void CloseScannerResponse::clear_result() {
+  result_ = 0;
+}
+inline ::lorgnette::OperationResult CloseScannerResponse::_internal_result() const {
+  return static_cast< ::lorgnette::OperationResult >(result_);
+}
+inline ::lorgnette::OperationResult CloseScannerResponse::result() const {
+  // @@protoc_insertion_point(field_get:lorgnette.CloseScannerResponse.result)
+  return _internal_result();
+}
+inline void CloseScannerResponse::_internal_set_result(::lorgnette::OperationResult value) {
+  
+  result_ = value;
+}
+inline void CloseScannerResponse::set_result(::lorgnette::OperationResult value) {
+  _internal_set_result(value);
+  // @@protoc_insertion_point(field_set:lorgnette.CloseScannerResponse.result)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -5889,12 +10825,16 @@ inline void StopScannerDiscoveryResponse::set_stopped(bool value) {
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::lorgnette::OptionConstraint_ConstraintType> : ::std::true_type {};
 template <> struct is_proto_enum< ::lorgnette::ScannerListChangedSignal_ScannerListEvent> : ::std::true_type {};
 template <> struct is_proto_enum< ::lorgnette::SourceType> : ::std::true_type {};
 template <> struct is_proto_enum< ::lorgnette::ColorMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::lorgnette::ImageFormat> : ::std::true_type {};
 template <> struct is_proto_enum< ::lorgnette::ScanState> : ::std::true_type {};
 template <> struct is_proto_enum< ::lorgnette::ScanFailureMode> : ::std::true_type {};
+template <> struct is_proto_enum< ::lorgnette::OperationResult> : ::std::true_type {};
+template <> struct is_proto_enum< ::lorgnette::OptionType> : ::std::true_type {};
+template <> struct is_proto_enum< ::lorgnette::OptionUnit> : ::std::true_type {};
 template <> struct is_proto_enum< ::lorgnette::BackendDownloadPolicy> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class  VideoHost_OnBootstrapVideoAcceleratorFactory_Params_Data {
  public:
@@ -389,8 +390,9 @@ inline void VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParamsDataView:
 
 
 
-}  // namespace mojom
-}  // namespace arc
+
+
+}  // arc::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

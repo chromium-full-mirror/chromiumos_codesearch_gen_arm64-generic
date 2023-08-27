@@ -23,8 +23,7 @@ enum class NativeEnum;
 }  // namespace mojo
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 class VideoEncodeAcceleratorSupportedProfileDataView;
 
 class VariableBitratePeakDataView;
@@ -129,7 +128,6 @@ class VideoEncodeAcceleratorClient;
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 #endif  // MEDIA_MOJO_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_FORWARD_H_

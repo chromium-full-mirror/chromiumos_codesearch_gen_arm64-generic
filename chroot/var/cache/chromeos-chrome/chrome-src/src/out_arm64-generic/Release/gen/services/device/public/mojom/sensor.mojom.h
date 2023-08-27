@@ -37,8 +37,7 @@
 
 
 
-namespace device {
-namespace mojom {
+namespace device::mojom {
 
 class SensorProxy;
 
@@ -480,8 +479,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace device
+}  // device::mojom
 
 namespace mojo {
 

@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace crosapi {
-namespace mojom {
+
+
+namespace crosapi::mojom {
 namespace internal {
 class DoubleValue_Data;
 class Int64Value_Data;
@@ -376,7 +377,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace crosapi
+
+}  // crosapi::mojom
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_NULLABLE_PRIMITIVES_MOJOM_SHARED_INTERNAL_H_

@@ -42,10 +42,7 @@
 #include "chromeos/services/machine_learning/public/mojom/soda.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 SodaConfig::SodaConfig()
     : channel_count(),
       sample_rate(),
@@ -1396,9 +1393,7 @@ bool SodaRecognizerRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -1601,9 +1596,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void SodaClientInterceptorForTesting::OnStart() {
@@ -1645,9 +1638,7 @@ SodaRecognizerAsyncWaiter::~SodaRecognizerAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

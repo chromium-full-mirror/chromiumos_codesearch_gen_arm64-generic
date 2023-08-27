@@ -8,9 +8,9 @@
 #define ASH_COMPONENTS_ARC_MOJOM_VIDEO_FRAME_POOL_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace arc {
-namespace mojom {
 
+
+namespace arc::mojom {
 namespace internal {
 
 
@@ -19,7 +19,7 @@ constexpr uint32_t kVideoFramePool_AddVideoFrame_Name = 1;
 constexpr uint32_t kVideoFramePoolClient_RequestVideoFrames_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_FRAME_POOL_MOJOM_SHARED_MESSAGE_IDS_H_

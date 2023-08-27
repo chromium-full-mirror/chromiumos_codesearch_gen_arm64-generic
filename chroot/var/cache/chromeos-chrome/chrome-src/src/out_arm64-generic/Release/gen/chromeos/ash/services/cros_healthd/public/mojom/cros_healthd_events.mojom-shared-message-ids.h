@@ -8,10 +8,9 @@
 #define CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
 
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 
 
@@ -40,8 +39,7 @@ constexpr uint32_t kCrosHealthdSdCardObserver_OnRemove_Name = 1;
 constexpr uint32_t kEventObserver_OnEvent_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::mojom
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_SHARED_MESSAGE_IDS_H_

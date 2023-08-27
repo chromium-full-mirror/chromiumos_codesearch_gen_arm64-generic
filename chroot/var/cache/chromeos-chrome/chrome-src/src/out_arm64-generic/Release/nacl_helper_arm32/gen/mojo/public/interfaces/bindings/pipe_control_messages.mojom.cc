@@ -42,9 +42,7 @@
 #include "mojo/public/interfaces/bindings/pipe_control_messages.mojom-test-utils.h"
 
 
-
-namespace mojo {
-namespace pipe_control {
+namespace mojo::pipe_control {
 RunOrClosePipeMessageParams::RunOrClosePipeMessageParams()
     : input() {}
 
@@ -282,8 +280,7 @@ bool RunOrClosePipeInput::Validate(
 }
 
 
-}  // namespace pipe_control
-}  // namespace mojo
+}  // mojo::pipe_control
 
 
 namespace mojo {
@@ -411,14 +408,12 @@ bool UnionTraits<::mojo::pipe_control::RunOrClosePipeInput::DataView, ::mojo::pi
 // separate .cc file to save compile time.
 
 
-namespace mojo {
-namespace pipe_control {
+namespace mojo::pipe_control {
 
 
 
 
-}  // namespace pipe_control
-}  // namespace mojo
+}  // mojo::pipe_control
 
 
 #if defined(__clang__)

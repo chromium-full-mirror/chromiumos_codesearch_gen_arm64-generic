@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+
+
+namespace chromeos::sensors::mojom {
 namespace internal {
 class  SensorService_GetDeviceIds_Params_Data {
  public:
@@ -1113,9 +1113,9 @@ inline void SensorServiceNewDevicesObserver_OnNewDeviceAdded_ParamsDataView::Get
   *output = mojo::ArrayDataView<DeviceType>(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+
+
+}  // chromeos::sensors::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

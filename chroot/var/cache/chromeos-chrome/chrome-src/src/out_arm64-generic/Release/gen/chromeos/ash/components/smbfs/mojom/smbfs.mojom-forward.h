@@ -22,8 +22,7 @@
 
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 class PasswordDataView;
 
 class KerberosConfigDataView;
@@ -66,7 +65,6 @@ class SmbFsDelegate;
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 #endif  // CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_SMBFS_MOJOM_FORWARD_H_

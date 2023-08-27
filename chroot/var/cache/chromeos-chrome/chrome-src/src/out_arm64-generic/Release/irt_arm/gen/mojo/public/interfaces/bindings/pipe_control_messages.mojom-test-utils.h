@@ -11,13 +11,11 @@
 #include "base/component_export.h"
 
 
-namespace mojo {
-namespace pipe_control {
+namespace mojo::pipe_control {
 
 
 
 
-}  // namespace pipe_control
-}  // namespace mojo
+}  // mojo::pipe_control
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_PIPE_CONTROL_MESSAGES_MOJOM_TEST_UTILS_H_

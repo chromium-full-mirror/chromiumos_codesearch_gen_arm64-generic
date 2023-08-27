@@ -61,13 +61,10 @@ class Executor final : public ash::cros_healthd::mojom::Executor {
   void RunIw(IwCommand cmd,
              const std::string& interface_name,
              RunIwCallback callback) override;
-  void RunMemtester(uint32_t test_mem_kib,
-                    RunMemtesterCallback callback) override;
-  void RunMemtesterV2(
+  void RunMemtester(
       uint32_t test_mem_kib,
       mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl> receiver)
       override;
-  void KillMemtester() override;
   void GetProcessIOContents(const std::vector<uint32_t>& pids,
                             GetProcessIOContentsCallback callback) override;
   void ReadMsr(const uint32_t msr_reg,
@@ -140,7 +137,6 @@ class Executor final : public ash::cros_healthd::mojom::Executor {
           observer,
       mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
           process_control_receiver) override;
-
   void RunFloatingPoint(
       base::TimeDelta exec_duration,
       mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
@@ -161,19 +157,6 @@ class Executor final : public ash::cros_healthd::mojom::Executor {
       base::OnceCallback<
           void(ash::cros_healthd::mojom::ExecutedProcessResultPtr)> callback,
       std::unique_ptr<brillo::ProcessImpl> process,
-      const siginfo_t& siginfo);
-  // (DEPRECATED: Use RunLongRunningProcess() instead) Like RunAndWaitprocess()
-  // above, but tracks the process internally so that it can be cancelled if
-  // necessary.
-  void RunTrackedBinary(
-      std::unique_ptr<SandboxedProcess> process,
-      base::OnceCallback<
-          void(ash::cros_healthd::mojom::ExecutedProcessResultPtr)> callback,
-      const std::string& binary_path);
-  void OnTrackedBinaryFinished(
-      base::OnceCallback<
-          void(ash::cros_healthd::mojom::ExecutedProcessResultPtr)> callback,
-      const std::string& binary_path_str,
       const siginfo_t& siginfo);
 
   // Runs a long running delegate process. Takes a ProcessControl which holds
@@ -202,10 +185,6 @@ class Executor final : public ash::cros_healthd::mojom::Executor {
 
   // Prevents multiple simultaneous writes to |processes_|.
   base::Lock lock_;
-
-  // Tracks running processes owned by the executor. Used to kill processes if
-  // requested.
-  std::map<std::string, std::unique_ptr<SandboxedProcess>> tracked_processes_;
 
   // Used to hold the child process and receiver. So the remote can reset the
   // mojo connection to terminate the child process.

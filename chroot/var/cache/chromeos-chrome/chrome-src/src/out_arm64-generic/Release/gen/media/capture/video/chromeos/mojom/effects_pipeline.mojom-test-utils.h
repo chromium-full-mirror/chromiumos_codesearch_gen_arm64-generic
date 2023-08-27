@@ -10,13 +10,11 @@
 #include "media/capture/video/chromeos/mojom/effects_pipeline.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_EFFECTS_PIPELINE_MOJOM_TEST_UTILS_H_

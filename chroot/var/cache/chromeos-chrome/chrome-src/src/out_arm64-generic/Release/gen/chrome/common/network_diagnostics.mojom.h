@@ -37,8 +37,7 @@
 
 
 
-namespace chrome {
-namespace mojom {
+namespace chrome::mojom {
 
 class NetworkDiagnosticsProxy;
 
@@ -263,8 +262,7 @@ class  NetworkDiagnosticsClientRequestValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace chrome
+}  // chrome::mojom
 
 namespace mojo {
 

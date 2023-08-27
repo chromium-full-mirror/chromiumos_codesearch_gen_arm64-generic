@@ -37,6 +37,9 @@ class UserDataAuthAdaptor
     service_->SetPrepareAuthFactorProgressCallback(base::BindRepeating(
         &UserDataAuthAdaptor::PrepareAuthFactorProgressCallback,
         base::Unretained(this)));
+    service_->SetAuthenticateAuthFactorCompletedCallback(base::BindRepeating(
+        &UserDataAuthAdaptor::AuthenticateAuthFactorCompletedCallback,
+        base::Unretained(this)));
   }
   UserDataAuthAdaptor(const UserDataAuthAdaptor&) = delete;
   UserDataAuthAdaptor& operator=(const UserDataAuthAdaptor&) = delete;
@@ -257,6 +260,16 @@ class UserDataAuthAdaptor
           user_data_auth::UpdateAuthFactorMetadataReply>> response,
       const user_data_auth::UpdateAuthFactorMetadataRequest& in_request);
 
+  void RelabelAuthFactor(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+          user_data_auth::RelabelAuthFactorReply>> response,
+      const user_data_auth::RelabelAuthFactorRequest& in_request) override;
+
+  void DoRelabelAuthFactor(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+          user_data_auth::RelabelAuthFactorReply>> response,
+      const user_data_auth::RelabelAuthFactorRequest& in_request);
+
   void RemoveAuthFactor(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
           user_data_auth::RemoveAuthFactorReply>> response,
@@ -383,72 +396,10 @@ class UserDataAuthAdaptor
   void PrepareAuthFactorProgressCallback(
       user_data_auth::PrepareAuthFactorProgress signal);
 
- private:
-  brillo::dbus_utils::DBusObject* dbus_object_;
-
-  // This is the object that holds most of the states that this adaptor uses,
-  // it also contains most of the actual logics.
-  // This object is owned by the parent dbus service daemon, and whose lifetime
-  // will cover the entire lifetime of this class.
-  UserDataAuth* service_;
-};
-
-class ArcQuotaAdaptor : public org::chromium::ArcQuotaInterface,
-                        public org::chromium::ArcQuotaAdaptor {
- public:
-  explicit ArcQuotaAdaptor(scoped_refptr<dbus::Bus> bus,
-                           brillo::dbus_utils::DBusObject* dbus_object,
-                           UserDataAuth* service)
-      : org::chromium::ArcQuotaAdaptor(this),
-        dbus_object_(dbus_object),
-        service_(service) {
-    // This is to silence the compiler's warning about unused fields. It will be
-    // removed once we start to use it.
-    (void)service_;
-  }
-  ArcQuotaAdaptor(const ArcQuotaAdaptor&) = delete;
-  ArcQuotaAdaptor& operator=(const ArcQuotaAdaptor&) = delete;
-
-  void RegisterAsync() { RegisterWithDBusObject(dbus_object_); }
-
-  // Interface overrides and related implementations
-  // Note that the documentation for all of the methods below can be found in
-  // either the DBus Introspection XML
-  // (cryptohome/dbus_bindings/org.chromium.UserDataAuth.xml), or the protobuf
-  // definition file (system_api/dbus/cryptohome/UserDataAuth.proto)
-  // TODO(b/229122701): Remove these methods after migrating them to spaced.
-  void GetArcDiskFeatures(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-          user_data_auth::GetArcDiskFeaturesReply>> response,
-      const user_data_auth::GetArcDiskFeaturesRequest& in_request) override;
-  void GetCurrentSpaceForArcUid(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-          user_data_auth::GetCurrentSpaceForArcUidReply>> response,
-      const user_data_auth::GetCurrentSpaceForArcUidRequest& in_request)
-      override;
-  void GetCurrentSpaceForArcGid(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-          user_data_auth::GetCurrentSpaceForArcGidReply>> response,
-      const user_data_auth::GetCurrentSpaceForArcGidRequest& in_request)
-      override;
-  void GetCurrentSpaceForArcProjectId(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-          user_data_auth::GetCurrentSpaceForArcProjectIdReply>> response,
-      const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& in_request)
-      override;
-  void SetMediaRWDataFileProjectId(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-          user_data_auth::SetMediaRWDataFileProjectIdReply>> response,
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request)
-      override;
-  void SetMediaRWDataFileProjectInheritanceFlag(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-          user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply>>
-          response,
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest&
-          in_request) override;
+  // This is called by UserDataAuth for processing the result of Authenticating
+  // the AuthFactor. All we do here is send the signal.
+  void AuthenticateAuthFactorCompletedCallback(
+      user_data_auth::AuthenticateAuthFactorCompleted signal);
 
  private:
   brillo::dbus_utils::DBusObject* dbus_object_;

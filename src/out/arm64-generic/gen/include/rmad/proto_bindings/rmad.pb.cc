@@ -467,6 +467,49 @@ struct RecordBrowserActionMetricReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RecordBrowserActionMetricReplyDefaultTypeInternal _RecordBrowserActionMetricReply_default_instance_;
+PROTOBUF_CONSTEXPR ExtractExternalDiagnosticsAppReply::ExtractExternalDiagnosticsAppReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.diagnostics_app_swbn_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.diagnostics_app_crx_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ExtractExternalDiagnosticsAppReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ExtractExternalDiagnosticsAppReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ExtractExternalDiagnosticsAppReplyDefaultTypeInternal() {}
+  union {
+    ExtractExternalDiagnosticsAppReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExtractExternalDiagnosticsAppReplyDefaultTypeInternal _ExtractExternalDiagnosticsAppReply_default_instance_;
+PROTOBUF_CONSTEXPR InstallExtractedDiagnosticsAppReply::InstallExtractedDiagnosticsAppReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct InstallExtractedDiagnosticsAppReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR InstallExtractedDiagnosticsAppReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~InstallExtractedDiagnosticsAppReplyDefaultTypeInternal() {}
+  union {
+    InstallExtractedDiagnosticsAppReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallExtractedDiagnosticsAppReplyDefaultTypeInternal _InstallExtractedDiagnosticsAppReply_default_instance_;
+PROTOBUF_CONSTEXPR GetInstalledDiagnosticsAppReply::GetInstalledDiagnosticsAppReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.diagnostics_app_swbn_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.diagnostics_app_crx_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct GetInstalledDiagnosticsAppReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetInstalledDiagnosticsAppReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetInstalledDiagnosticsAppReplyDefaultTypeInternal() {}
+  union {
+    GetInstalledDiagnosticsAppReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetInstalledDiagnosticsAppReplyDefaultTypeInternal _GetInstalledDiagnosticsAppReply_default_instance_;
 }  // namespace rmad
 namespace rmad {
 bool ProvisionStatus_Status_IsValid(int value) {
@@ -1859,13 +1902,14 @@ bool RmadErrorCode_IsValid(int value) {
     case 43:
     case 44:
     case 45:
+    case 46:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RmadErrorCode_strings[46] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RmadErrorCode_strings[47] = {};
 
 static const char RmadErrorCode_names[] =
   "RMAD_ERROR_ABORT_FAILED"
@@ -1880,6 +1924,7 @@ static const char RmadErrorCode_names[] =
   "RMAD_ERROR_CANNOT_WRITE"
   "RMAD_ERROR_DAEMON_INITIALIZATION_FAILED"
   "RMAD_ERROR_DEVICE_INFO_INVALID"
+  "RMAD_ERROR_DIAGNOSTICS_APP_NOT_FOUND"
   "RMAD_ERROR_EXPECT_REBOOT"
   "RMAD_ERROR_EXPECT_SHUTDOWN"
   "RMAD_ERROR_FINALIZATION_FAILED"
@@ -1928,89 +1973,91 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RmadErrorCode_entries[
   { {RmadErrorCode_names + 287, 23}, 42 },
   { {RmadErrorCode_names + 310, 39}, 39 },
   { {RmadErrorCode_names + 349, 30}, 26 },
-  { {RmadErrorCode_names + 379, 24}, 3 },
-  { {RmadErrorCode_names + 403, 26}, 4 },
-  { {RmadErrorCode_names + 429, 30}, 33 },
-  { {RmadErrorCode_names + 459, 47}, 34 },
-  { {RmadErrorCode_names + 506, 52}, 35 },
-  { {RmadErrorCode_names + 558, 48}, 36 },
-  { {RmadErrorCode_names + 606, 28}, 13 },
-  { {RmadErrorCode_names + 634, 18}, 0 },
-  { {RmadErrorCode_names + 652, 13}, 1 },
-  { {RmadErrorCode_names + 665, 27}, 32 },
-  { {RmadErrorCode_names + 692, 30}, 31 },
-  { {RmadErrorCode_names + 722, 39}, 20 },
-  { {RmadErrorCode_names + 761, 43}, 19 },
-  { {RmadErrorCode_names + 804, 40}, 18 },
-  { {RmadErrorCode_names + 844, 35}, 24 },
-  { {RmadErrorCode_names + 879, 36}, 25 },
-  { {RmadErrorCode_names + 915, 38}, 23 },
-  { {RmadErrorCode_names + 953, 34}, 21 },
-  { {RmadErrorCode_names + 987, 39}, 22 },
-  { {RmadErrorCode_names + 1026, 31}, 9 },
-  { {RmadErrorCode_names + 1057, 33}, 10 },
-  { {RmadErrorCode_names + 1090, 26}, 8 },
-  { {RmadErrorCode_names + 1116, 27}, 5 },
-  { {RmadErrorCode_names + 1143, 46}, 7 },
-  { {RmadErrorCode_names + 1189, 32}, 6 },
-  { {RmadErrorCode_names + 1221, 28}, 11 },
-  { {RmadErrorCode_names + 1249, 36}, 40 },
-  { {RmadErrorCode_names + 1285, 24}, 45 },
-  { {RmadErrorCode_names + 1309, 15}, 2 },
-  { {RmadErrorCode_names + 1324, 21}, 41 },
-  { {RmadErrorCode_names + 1345, 57}, 16 },
-  { {RmadErrorCode_names + 1402, 49}, 15 },
-  { {RmadErrorCode_names + 1451, 49}, 14 },
-  { {RmadErrorCode_names + 1500, 52}, 17 },
+  { {RmadErrorCode_names + 379, 36}, 46 },
+  { {RmadErrorCode_names + 415, 24}, 3 },
+  { {RmadErrorCode_names + 439, 26}, 4 },
+  { {RmadErrorCode_names + 465, 30}, 33 },
+  { {RmadErrorCode_names + 495, 47}, 34 },
+  { {RmadErrorCode_names + 542, 52}, 35 },
+  { {RmadErrorCode_names + 594, 48}, 36 },
+  { {RmadErrorCode_names + 642, 28}, 13 },
+  { {RmadErrorCode_names + 670, 18}, 0 },
+  { {RmadErrorCode_names + 688, 13}, 1 },
+  { {RmadErrorCode_names + 701, 27}, 32 },
+  { {RmadErrorCode_names + 728, 30}, 31 },
+  { {RmadErrorCode_names + 758, 39}, 20 },
+  { {RmadErrorCode_names + 797, 43}, 19 },
+  { {RmadErrorCode_names + 840, 40}, 18 },
+  { {RmadErrorCode_names + 880, 35}, 24 },
+  { {RmadErrorCode_names + 915, 36}, 25 },
+  { {RmadErrorCode_names + 951, 38}, 23 },
+  { {RmadErrorCode_names + 989, 34}, 21 },
+  { {RmadErrorCode_names + 1023, 39}, 22 },
+  { {RmadErrorCode_names + 1062, 31}, 9 },
+  { {RmadErrorCode_names + 1093, 33}, 10 },
+  { {RmadErrorCode_names + 1126, 26}, 8 },
+  { {RmadErrorCode_names + 1152, 27}, 5 },
+  { {RmadErrorCode_names + 1179, 46}, 7 },
+  { {RmadErrorCode_names + 1225, 32}, 6 },
+  { {RmadErrorCode_names + 1257, 28}, 11 },
+  { {RmadErrorCode_names + 1285, 36}, 40 },
+  { {RmadErrorCode_names + 1321, 24}, 45 },
+  { {RmadErrorCode_names + 1345, 15}, 2 },
+  { {RmadErrorCode_names + 1360, 21}, 41 },
+  { {RmadErrorCode_names + 1381, 57}, 16 },
+  { {RmadErrorCode_names + 1438, 49}, 15 },
+  { {RmadErrorCode_names + 1487, 49}, 14 },
+  { {RmadErrorCode_names + 1536, 52}, 17 },
 };
 
 static const int RmadErrorCode_entries_by_number[] = {
-  19, // 0 -> RMAD_ERROR_NOT_SET
-  20, // 1 -> RMAD_ERROR_OK
-  40, // 2 -> RMAD_ERROR_WAIT
-  12, // 3 -> RMAD_ERROR_EXPECT_REBOOT
-  13, // 4 -> RMAD_ERROR_EXPECT_SHUTDOWN
-  34, // 5 -> RMAD_ERROR_RMA_NOT_REQUIRED
-  36, // 6 -> RMAD_ERROR_STATE_HANDLER_MISSING
-  35, // 7 -> RMAD_ERROR_STATE_HANDLER_INITIALIZATION_FAILED
-  33, // 8 -> RMAD_ERROR_REQUEST_INVALID
-  31, // 9 -> RMAD_ERROR_REQUEST_ARGS_MISSING
-  32, // 10 -> RMAD_ERROR_REQUEST_ARGS_VIOLATION
-  37, // 11 -> RMAD_ERROR_TRANSITION_FAILED
+  20, // 0 -> RMAD_ERROR_NOT_SET
+  21, // 1 -> RMAD_ERROR_OK
+  41, // 2 -> RMAD_ERROR_WAIT
+  13, // 3 -> RMAD_ERROR_EXPECT_REBOOT
+  14, // 4 -> RMAD_ERROR_EXPECT_SHUTDOWN
+  35, // 5 -> RMAD_ERROR_RMA_NOT_REQUIRED
+  37, // 6 -> RMAD_ERROR_STATE_HANDLER_MISSING
+  36, // 7 -> RMAD_ERROR_STATE_HANDLER_INITIALIZATION_FAILED
+  34, // 8 -> RMAD_ERROR_REQUEST_INVALID
+  32, // 9 -> RMAD_ERROR_REQUEST_ARGS_MISSING
+  33, // 10 -> RMAD_ERROR_REQUEST_ARGS_VIOLATION
+  38, // 11 -> RMAD_ERROR_TRANSITION_FAILED
   0, // 12 -> RMAD_ERROR_ABORT_FAILED
-  18, // 13 -> RMAD_ERROR_MISSING_COMPONENT
-  44, // 14 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_RSU_NO_CHALLENGE
-  43, // 15 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_RSU_CODE_INVALID
-  42, // 16 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_BATTERY_NOT_DISCONNECTED
-  45, // 17 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_SIGNAL_NOT_DETECTED
-  25, // 18 -> RMAD_ERROR_REIMAGING_DOWNLOAD_NO_NETWORK
-  24, // 19 -> RMAD_ERROR_REIMAGING_DOWNLOAD_NETWORK_ERROR
-  23, // 20 -> RMAD_ERROR_REIMAGING_DOWNLOAD_CANCELLED
-  29, // 21 -> RMAD_ERROR_REIMAGING_USB_NOT_FOUND
-  30, // 22 -> RMAD_ERROR_REIMAGING_USB_TOO_MANY_FOUND
-  28, // 23 -> RMAD_ERROR_REIMAGING_USB_INVALID_IMAGE
-  26, // 24 -> RMAD_ERROR_REIMAGING_IMAGING_FAILED
-  27, // 25 -> RMAD_ERROR_REIMAGING_UNKNOWN_FAILURE
+  19, // 13 -> RMAD_ERROR_MISSING_COMPONENT
+  45, // 14 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_RSU_NO_CHALLENGE
+  44, // 15 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_RSU_CODE_INVALID
+  43, // 16 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_BATTERY_NOT_DISCONNECTED
+  46, // 17 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_SIGNAL_NOT_DETECTED
+  26, // 18 -> RMAD_ERROR_REIMAGING_DOWNLOAD_NO_NETWORK
+  25, // 19 -> RMAD_ERROR_REIMAGING_DOWNLOAD_NETWORK_ERROR
+  24, // 20 -> RMAD_ERROR_REIMAGING_DOWNLOAD_CANCELLED
+  30, // 21 -> RMAD_ERROR_REIMAGING_USB_NOT_FOUND
+  31, // 22 -> RMAD_ERROR_REIMAGING_USB_TOO_MANY_FOUND
+  29, // 23 -> RMAD_ERROR_REIMAGING_USB_INVALID_IMAGE
+  27, // 24 -> RMAD_ERROR_REIMAGING_IMAGING_FAILED
+  28, // 25 -> RMAD_ERROR_REIMAGING_UNKNOWN_FAILURE
   11, // 26 -> RMAD_ERROR_DEVICE_INFO_INVALID
   2, // 27 -> RMAD_ERROR_CALIBRATION_COMPONENT_MISSING
   4, // 28 -> RMAD_ERROR_CALIBRATION_STATUS_MISSING
   1, // 29 -> RMAD_ERROR_CALIBRATION_COMPONENT_INVALID
   3, // 30 -> RMAD_ERROR_CALIBRATION_FAILED
-  22, // 31 -> RMAD_ERROR_PROVISIONING_FAILED
-  21, // 32 -> RMAD_ERROR_POWERWASH_FAILED
-  14, // 33 -> RMAD_ERROR_FINALIZATION_FAILED
-  15, // 34 -> RMAD_ERROR_LOG_UPLOAD_FTP_SERVER_CANNOT_CONNECT
-  16, // 35 -> RMAD_ERROR_LOG_UPLOAD_FTP_SERVER_CONNECTION_REJECTED
-  17, // 36 -> RMAD_ERROR_LOG_UPLOAD_FTP_SERVER_TRANSFER_FAILED
+  23, // 31 -> RMAD_ERROR_PROVISIONING_FAILED
+  22, // 32 -> RMAD_ERROR_POWERWASH_FAILED
+  15, // 33 -> RMAD_ERROR_FINALIZATION_FAILED
+  16, // 34 -> RMAD_ERROR_LOG_UPLOAD_FTP_SERVER_CANNOT_CONNECT
+  17, // 35 -> RMAD_ERROR_LOG_UPLOAD_FTP_SERVER_CONNECTION_REJECTED
+  18, // 36 -> RMAD_ERROR_LOG_UPLOAD_FTP_SERVER_TRANSFER_FAILED
   5, // 37 -> RMAD_ERROR_CANNOT_CANCEL_RMA
   6, // 38 -> RMAD_ERROR_CANNOT_GET_LOG
   10, // 39 -> RMAD_ERROR_DAEMON_INITIALIZATION_FAILED
-  38, // 40 -> RMAD_ERROR_UPDATE_RO_FIRMWARE_FAILED
-  41, // 41 -> RMAD_ERROR_WP_ENABLED
+  39, // 40 -> RMAD_ERROR_UPDATE_RO_FIRMWARE_FAILED
+  42, // 41 -> RMAD_ERROR_WP_ENABLED
   9, // 42 -> RMAD_ERROR_CANNOT_WRITE
   8, // 43 -> RMAD_ERROR_CANNOT_SAVE_LOG
   7, // 44 -> RMAD_ERROR_CANNOT_RECORD_BROWSER_ACTION
-  39, // 45 -> RMAD_ERROR_USB_NOT_FOUND
+  40, // 45 -> RMAD_ERROR_USB_NOT_FOUND
+  12, // 46 -> RMAD_ERROR_DIAGNOSTICS_APP_NOT_FOUND
 };
 
 const std::string& RmadErrorCode_Name(
@@ -2019,12 +2066,12 @@ const std::string& RmadErrorCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RmadErrorCode_entries,
           RmadErrorCode_entries_by_number,
-          46, RmadErrorCode_strings);
+          47, RmadErrorCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RmadErrorCode_entries,
       RmadErrorCode_entries_by_number,
-      46, value);
+      47, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RmadErrorCode_strings[idx].get();
 }
@@ -2032,7 +2079,7 @@ bool RmadErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RmadErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RmadErrorCode_entries, 46, name, &int_value);
+      RmadErrorCode_entries, 47, name, &int_value);
   if (success) {
     *value = static_cast<RmadErrorCode>(int_value);
   }
@@ -11033,6 +11080,759 @@ std::string RecordBrowserActionMetricReply::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class ExtractExternalDiagnosticsAppReply::_Internal {
+ public:
+};
+
+ExtractExternalDiagnosticsAppReply::ExtractExternalDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:rmad.ExtractExternalDiagnosticsAppReply)
+}
+ExtractExternalDiagnosticsAppReply::ExtractExternalDiagnosticsAppReply(const ExtractExternalDiagnosticsAppReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ExtractExternalDiagnosticsAppReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.diagnostics_app_swbn_path_){}
+    , decltype(_impl_.diagnostics_app_crx_path_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.diagnostics_app_swbn_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.diagnostics_app_swbn_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_diagnostics_app_swbn_path().empty()) {
+    _this->_impl_.diagnostics_app_swbn_path_.Set(from._internal_diagnostics_app_swbn_path(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.diagnostics_app_crx_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.diagnostics_app_crx_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_diagnostics_app_crx_path().empty()) {
+    _this->_impl_.diagnostics_app_crx_path_.Set(from._internal_diagnostics_app_crx_path(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.error_ = from._impl_.error_;
+  // @@protoc_insertion_point(copy_constructor:rmad.ExtractExternalDiagnosticsAppReply)
+}
+
+inline void ExtractExternalDiagnosticsAppReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.diagnostics_app_swbn_path_){}
+    , decltype(_impl_.diagnostics_app_crx_path_){}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.diagnostics_app_swbn_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.diagnostics_app_swbn_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.diagnostics_app_crx_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.diagnostics_app_crx_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+ExtractExternalDiagnosticsAppReply::~ExtractExternalDiagnosticsAppReply() {
+  // @@protoc_insertion_point(destructor:rmad.ExtractExternalDiagnosticsAppReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ExtractExternalDiagnosticsAppReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.diagnostics_app_swbn_path_.Destroy();
+  _impl_.diagnostics_app_crx_path_.Destroy();
+}
+
+void ExtractExternalDiagnosticsAppReply::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ExtractExternalDiagnosticsAppReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:rmad.ExtractExternalDiagnosticsAppReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.diagnostics_app_swbn_path_.ClearToEmpty();
+  _impl_.diagnostics_app_crx_path_.ClearToEmpty();
+  _impl_.error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ExtractExternalDiagnosticsAppReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .rmad.RmadErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::rmad::RmadErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // string diagnostics_app_swbn_path = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_diagnostics_app_swbn_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string diagnostics_app_crx_path = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_diagnostics_app_crx_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ExtractExternalDiagnosticsAppReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:rmad.ExtractExternalDiagnosticsAppReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .rmad.RmadErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // string diagnostics_app_swbn_path = 2;
+  if (!this->_internal_diagnostics_app_swbn_path().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_diagnostics_app_swbn_path().data(), static_cast<int>(this->_internal_diagnostics_app_swbn_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_swbn_path");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_diagnostics_app_swbn_path(), target);
+  }
+
+  // string diagnostics_app_crx_path = 3;
+  if (!this->_internal_diagnostics_app_crx_path().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_diagnostics_app_crx_path().data(), static_cast<int>(this->_internal_diagnostics_app_crx_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_crx_path");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_diagnostics_app_crx_path(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:rmad.ExtractExternalDiagnosticsAppReply)
+  return target;
+}
+
+size_t ExtractExternalDiagnosticsAppReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:rmad.ExtractExternalDiagnosticsAppReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string diagnostics_app_swbn_path = 2;
+  if (!this->_internal_diagnostics_app_swbn_path().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_diagnostics_app_swbn_path());
+  }
+
+  // string diagnostics_app_crx_path = 3;
+  if (!this->_internal_diagnostics_app_crx_path().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_diagnostics_app_crx_path());
+  }
+
+  // .rmad.RmadErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ExtractExternalDiagnosticsAppReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ExtractExternalDiagnosticsAppReply*>(
+      &from));
+}
+
+void ExtractExternalDiagnosticsAppReply::MergeFrom(const ExtractExternalDiagnosticsAppReply& from) {
+  ExtractExternalDiagnosticsAppReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.ExtractExternalDiagnosticsAppReply)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_diagnostics_app_swbn_path().empty()) {
+    _this->_internal_set_diagnostics_app_swbn_path(from._internal_diagnostics_app_swbn_path());
+  }
+  if (!from._internal_diagnostics_app_crx_path().empty()) {
+    _this->_internal_set_diagnostics_app_crx_path(from._internal_diagnostics_app_crx_path());
+  }
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ExtractExternalDiagnosticsAppReply::CopyFrom(const ExtractExternalDiagnosticsAppReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:rmad.ExtractExternalDiagnosticsAppReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ExtractExternalDiagnosticsAppReply::IsInitialized() const {
+  return true;
+}
+
+void ExtractExternalDiagnosticsAppReply::InternalSwap(ExtractExternalDiagnosticsAppReply* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.diagnostics_app_swbn_path_, lhs_arena,
+      &other->_impl_.diagnostics_app_swbn_path_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.diagnostics_app_crx_path_, lhs_arena,
+      &other->_impl_.diagnostics_app_crx_path_, rhs_arena
+  );
+  swap(_impl_.error_, other->_impl_.error_);
+}
+
+std::string ExtractExternalDiagnosticsAppReply::GetTypeName() const {
+  return "rmad.ExtractExternalDiagnosticsAppReply";
+}
+
+
+// ===================================================================
+
+class InstallExtractedDiagnosticsAppReply::_Internal {
+ public:
+};
+
+InstallExtractedDiagnosticsAppReply::InstallExtractedDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:rmad.InstallExtractedDiagnosticsAppReply)
+}
+InstallExtractedDiagnosticsAppReply::InstallExtractedDiagnosticsAppReply(const InstallExtractedDiagnosticsAppReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  InstallExtractedDiagnosticsAppReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.error_ = from._impl_.error_;
+  // @@protoc_insertion_point(copy_constructor:rmad.InstallExtractedDiagnosticsAppReply)
+}
+
+inline void InstallExtractedDiagnosticsAppReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+InstallExtractedDiagnosticsAppReply::~InstallExtractedDiagnosticsAppReply() {
+  // @@protoc_insertion_point(destructor:rmad.InstallExtractedDiagnosticsAppReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void InstallExtractedDiagnosticsAppReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void InstallExtractedDiagnosticsAppReply::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void InstallExtractedDiagnosticsAppReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:rmad.InstallExtractedDiagnosticsAppReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* InstallExtractedDiagnosticsAppReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .rmad.RmadErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::rmad::RmadErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* InstallExtractedDiagnosticsAppReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:rmad.InstallExtractedDiagnosticsAppReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .rmad.RmadErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:rmad.InstallExtractedDiagnosticsAppReply)
+  return target;
+}
+
+size_t InstallExtractedDiagnosticsAppReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:rmad.InstallExtractedDiagnosticsAppReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .rmad.RmadErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void InstallExtractedDiagnosticsAppReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const InstallExtractedDiagnosticsAppReply*>(
+      &from));
+}
+
+void InstallExtractedDiagnosticsAppReply::MergeFrom(const InstallExtractedDiagnosticsAppReply& from) {
+  InstallExtractedDiagnosticsAppReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.InstallExtractedDiagnosticsAppReply)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void InstallExtractedDiagnosticsAppReply::CopyFrom(const InstallExtractedDiagnosticsAppReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:rmad.InstallExtractedDiagnosticsAppReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool InstallExtractedDiagnosticsAppReply::IsInitialized() const {
+  return true;
+}
+
+void InstallExtractedDiagnosticsAppReply::InternalSwap(InstallExtractedDiagnosticsAppReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.error_, other->_impl_.error_);
+}
+
+std::string InstallExtractedDiagnosticsAppReply::GetTypeName() const {
+  return "rmad.InstallExtractedDiagnosticsAppReply";
+}
+
+
+// ===================================================================
+
+class GetInstalledDiagnosticsAppReply::_Internal {
+ public:
+};
+
+GetInstalledDiagnosticsAppReply::GetInstalledDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:rmad.GetInstalledDiagnosticsAppReply)
+}
+GetInstalledDiagnosticsAppReply::GetInstalledDiagnosticsAppReply(const GetInstalledDiagnosticsAppReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetInstalledDiagnosticsAppReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.diagnostics_app_swbn_path_){}
+    , decltype(_impl_.diagnostics_app_crx_path_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.diagnostics_app_swbn_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.diagnostics_app_swbn_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_diagnostics_app_swbn_path().empty()) {
+    _this->_impl_.diagnostics_app_swbn_path_.Set(from._internal_diagnostics_app_swbn_path(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.diagnostics_app_crx_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.diagnostics_app_crx_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_diagnostics_app_crx_path().empty()) {
+    _this->_impl_.diagnostics_app_crx_path_.Set(from._internal_diagnostics_app_crx_path(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.error_ = from._impl_.error_;
+  // @@protoc_insertion_point(copy_constructor:rmad.GetInstalledDiagnosticsAppReply)
+}
+
+inline void GetInstalledDiagnosticsAppReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.diagnostics_app_swbn_path_){}
+    , decltype(_impl_.diagnostics_app_crx_path_){}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.diagnostics_app_swbn_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.diagnostics_app_swbn_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.diagnostics_app_crx_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.diagnostics_app_crx_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+GetInstalledDiagnosticsAppReply::~GetInstalledDiagnosticsAppReply() {
+  // @@protoc_insertion_point(destructor:rmad.GetInstalledDiagnosticsAppReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetInstalledDiagnosticsAppReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.diagnostics_app_swbn_path_.Destroy();
+  _impl_.diagnostics_app_crx_path_.Destroy();
+}
+
+void GetInstalledDiagnosticsAppReply::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void GetInstalledDiagnosticsAppReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:rmad.GetInstalledDiagnosticsAppReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.diagnostics_app_swbn_path_.ClearToEmpty();
+  _impl_.diagnostics_app_crx_path_.ClearToEmpty();
+  _impl_.error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetInstalledDiagnosticsAppReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .rmad.RmadErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::rmad::RmadErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // string diagnostics_app_swbn_path = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_diagnostics_app_swbn_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string diagnostics_app_crx_path = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_diagnostics_app_crx_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetInstalledDiagnosticsAppReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:rmad.GetInstalledDiagnosticsAppReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .rmad.RmadErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // string diagnostics_app_swbn_path = 2;
+  if (!this->_internal_diagnostics_app_swbn_path().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_diagnostics_app_swbn_path().data(), static_cast<int>(this->_internal_diagnostics_app_swbn_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_swbn_path");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_diagnostics_app_swbn_path(), target);
+  }
+
+  // string diagnostics_app_crx_path = 3;
+  if (!this->_internal_diagnostics_app_crx_path().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_diagnostics_app_crx_path().data(), static_cast<int>(this->_internal_diagnostics_app_crx_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_crx_path");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_diagnostics_app_crx_path(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:rmad.GetInstalledDiagnosticsAppReply)
+  return target;
+}
+
+size_t GetInstalledDiagnosticsAppReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:rmad.GetInstalledDiagnosticsAppReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string diagnostics_app_swbn_path = 2;
+  if (!this->_internal_diagnostics_app_swbn_path().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_diagnostics_app_swbn_path());
+  }
+
+  // string diagnostics_app_crx_path = 3;
+  if (!this->_internal_diagnostics_app_crx_path().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_diagnostics_app_crx_path());
+  }
+
+  // .rmad.RmadErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetInstalledDiagnosticsAppReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const GetInstalledDiagnosticsAppReply*>(
+      &from));
+}
+
+void GetInstalledDiagnosticsAppReply::MergeFrom(const GetInstalledDiagnosticsAppReply& from) {
+  GetInstalledDiagnosticsAppReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.GetInstalledDiagnosticsAppReply)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_diagnostics_app_swbn_path().empty()) {
+    _this->_internal_set_diagnostics_app_swbn_path(from._internal_diagnostics_app_swbn_path());
+  }
+  if (!from._internal_diagnostics_app_crx_path().empty()) {
+    _this->_internal_set_diagnostics_app_crx_path(from._internal_diagnostics_app_crx_path());
+  }
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetInstalledDiagnosticsAppReply::CopyFrom(const GetInstalledDiagnosticsAppReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:rmad.GetInstalledDiagnosticsAppReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetInstalledDiagnosticsAppReply::IsInitialized() const {
+  return true;
+}
+
+void GetInstalledDiagnosticsAppReply::InternalSwap(GetInstalledDiagnosticsAppReply* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.diagnostics_app_swbn_path_, lhs_arena,
+      &other->_impl_.diagnostics_app_swbn_path_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.diagnostics_app_crx_path_, lhs_arena,
+      &other->_impl_.diagnostics_app_crx_path_, rhs_arena
+  );
+  swap(_impl_.error_, other->_impl_.error_);
+}
+
+std::string GetInstalledDiagnosticsAppReply::GetTypeName() const {
+  return "rmad.GetInstalledDiagnosticsAppReply";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace rmad
 PROTOBUF_NAMESPACE_OPEN
@@ -11159,6 +11959,18 @@ Arena::CreateMaybeMessage< ::rmad::RecordBrowserActionMetricRequest >(Arena* are
 template<> PROTOBUF_NOINLINE ::rmad::RecordBrowserActionMetricReply*
 Arena::CreateMaybeMessage< ::rmad::RecordBrowserActionMetricReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::RecordBrowserActionMetricReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::rmad::ExtractExternalDiagnosticsAppReply*
+Arena::CreateMaybeMessage< ::rmad::ExtractExternalDiagnosticsAppReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::rmad::ExtractExternalDiagnosticsAppReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::rmad::InstallExtractedDiagnosticsAppReply*
+Arena::CreateMaybeMessage< ::rmad::InstallExtractedDiagnosticsAppReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::rmad::InstallExtractedDiagnosticsAppReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::rmad::GetInstalledDiagnosticsAppReply*
+Arena::CreateMaybeMessage< ::rmad::GetInstalledDiagnosticsAppReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::rmad::GetInstalledDiagnosticsAppReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

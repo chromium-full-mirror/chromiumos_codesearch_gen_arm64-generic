@@ -48,9 +48,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 class MachineLearningServiceProxy;
 
@@ -300,9 +298,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningServiceResponseValidator 
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 

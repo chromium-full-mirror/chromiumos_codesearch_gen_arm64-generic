@@ -42,10 +42,7 @@
 #include "chromeos/services/network_health/public/mojom/network_health_types.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 UInt32Value::UInt32Value()
     : value() {}
 
@@ -353,9 +350,7 @@ bool NetworkHealthState::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 
 namespace mojo {
@@ -447,16 +442,12 @@ bool StructTraits<::chromeos::network_health::mojom::NetworkHealthState::DataVie
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 
 #if defined(__clang__)

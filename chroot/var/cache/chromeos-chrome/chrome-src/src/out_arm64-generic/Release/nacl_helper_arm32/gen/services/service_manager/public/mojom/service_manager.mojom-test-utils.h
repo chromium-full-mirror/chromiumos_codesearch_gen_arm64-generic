@@ -11,8 +11,7 @@
 #include "base/component_export.h"
 
 
-namespace service_manager {
-namespace mojom {
+namespace service_manager::mojom {
 
 
 class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) ServiceManagerListenerInterceptorForTesting : public ServiceManagerListener {
@@ -58,7 +57,6 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) ServiceManagerAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace service_manager
+}  // service_manager::mojom
 
 #endif  // SERVICES_SERVICE_MANAGER_PUBLIC_MOJOM_SERVICE_MANAGER_MOJOM_TEST_UTILS_H_

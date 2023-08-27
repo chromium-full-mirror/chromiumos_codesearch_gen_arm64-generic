@@ -11,9 +11,7 @@
 #include "base/component_export.h"
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaClientInterceptorForTesting : public SodaClient {
@@ -59,8 +57,6 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) SodaRecognizerAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_SODA_MOJOM_TEST_UTILS_H_

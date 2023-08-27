@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/file.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 File::File()
     : fd(),
       async() {}
@@ -87,8 +85,7 @@ bool File::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -116,14 +113,12 @@ bool StructTraits<::mojo_base::mojom::File::DataView, ::mojo_base::mojom::FilePt
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

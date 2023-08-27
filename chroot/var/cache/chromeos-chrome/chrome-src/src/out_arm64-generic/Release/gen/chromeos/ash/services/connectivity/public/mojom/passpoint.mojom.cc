@@ -42,10 +42,7 @@
 #include "chromeos/ash/services/connectivity/public/mojom/passpoint.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+namespace chromeos::connectivity::mojom {
 PasspointSubscription::PasspointSubscription()
     : id(),
       domains(),
@@ -1281,9 +1278,7 @@ bool PasspointServiceResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+}  // chromeos::connectivity::mojom
 
 
 namespace mojo {
@@ -1319,9 +1314,7 @@ bool StructTraits<::chromeos::connectivity::mojom::PasspointSubscription::DataVi
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+namespace chromeos::connectivity::mojom {
 
 
 void PasspointEventsListenerInterceptorForTesting::OnPasspointSubscriptionAdded(PasspointSubscriptionPtr subscription) {
@@ -1429,9 +1422,7 @@ bool PasspointServiceAsyncWaiter::DeletePasspointSubscription(
 
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+}  // chromeos::connectivity::mojom
 
 
 #if defined(__clang__)

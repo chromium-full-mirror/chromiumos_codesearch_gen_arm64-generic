@@ -32,14 +32,10 @@
 
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 namespace mojo {
 namespace internal {
@@ -48,9 +44,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
 enum class DeviceType : int32_t {
@@ -218,9 +212,7 @@ using SensorServiceNewDevicesObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<SensorServiceNewDevicesObserverInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 namespace std {
 
@@ -327,14 +319,10 @@ struct Serializer<::chromeos::sensors::mojom::SensorDeviceDisconnectReason, Mayb
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

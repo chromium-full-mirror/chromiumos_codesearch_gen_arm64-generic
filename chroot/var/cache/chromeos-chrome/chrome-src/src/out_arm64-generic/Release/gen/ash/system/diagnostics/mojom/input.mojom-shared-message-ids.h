@@ -8,17 +8,15 @@
 #define ASH_SYSTEM_DIAGNOSTICS_MOJOM_INPUT_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ash {
-namespace diagnostics {
-namespace mojom {
 
+
+namespace ash::diagnostics::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+
+}  // ash::diagnostics::mojom
 
 #endif  // ASH_SYSTEM_DIAGNOSTICS_MOJOM_INPUT_MOJOM_SHARED_MESSAGE_IDS_H_

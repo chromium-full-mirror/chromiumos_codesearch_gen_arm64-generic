@@ -167,6 +167,34 @@ struct UpdateEncryptionKeyResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateEncryptionKeyResponseDefaultTypeInternal _UpdateEncryptionKeyResponse_default_instance_;
+PROTOBUF_CONSTEXPR UpdateConfigInMissiveRequest::UpdateConfigInMissiveRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.list_of_blocked_destinations_)*/nullptr} {}
+struct UpdateConfigInMissiveRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UpdateConfigInMissiveRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UpdateConfigInMissiveRequestDefaultTypeInternal() {}
+  union {
+    UpdateConfigInMissiveRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateConfigInMissiveRequestDefaultTypeInternal _UpdateConfigInMissiveRequest_default_instance_;
+PROTOBUF_CONSTEXPR UpdateConfigInMissiveResponse::UpdateConfigInMissiveResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.status_)*/nullptr} {}
+struct UpdateConfigInMissiveResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UpdateConfigInMissiveResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UpdateConfigInMissiveResponseDefaultTypeInternal() {}
+  union {
+    UpdateConfigInMissiveResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateConfigInMissiveResponseDefaultTypeInternal _UpdateConfigInMissiveResponse_default_instance_;
 }  // namespace reporting
 namespace reporting {
 
@@ -2612,6 +2640,430 @@ std::string UpdateEncryptionKeyResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class UpdateConfigInMissiveRequest::_Internal {
+ public:
+  using HasBits = decltype(std::declval<UpdateConfigInMissiveRequest>()._impl_._has_bits_);
+  static const ::reporting::ListOfBlockedDestinations& list_of_blocked_destinations(const UpdateConfigInMissiveRequest* msg);
+  static void set_has_list_of_blocked_destinations(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::reporting::ListOfBlockedDestinations&
+UpdateConfigInMissiveRequest::_Internal::list_of_blocked_destinations(const UpdateConfigInMissiveRequest* msg) {
+  return *msg->_impl_.list_of_blocked_destinations_;
+}
+void UpdateConfigInMissiveRequest::clear_list_of_blocked_destinations() {
+  if (_impl_.list_of_blocked_destinations_ != nullptr) _impl_.list_of_blocked_destinations_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+UpdateConfigInMissiveRequest::UpdateConfigInMissiveRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:reporting.UpdateConfigInMissiveRequest)
+}
+UpdateConfigInMissiveRequest::UpdateConfigInMissiveRequest(const UpdateConfigInMissiveRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UpdateConfigInMissiveRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.list_of_blocked_destinations_){nullptr}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_list_of_blocked_destinations()) {
+    _this->_impl_.list_of_blocked_destinations_ = new ::reporting::ListOfBlockedDestinations(*from._impl_.list_of_blocked_destinations_);
+  }
+  // @@protoc_insertion_point(copy_constructor:reporting.UpdateConfigInMissiveRequest)
+}
+
+inline void UpdateConfigInMissiveRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.list_of_blocked_destinations_){nullptr}
+  };
+}
+
+UpdateConfigInMissiveRequest::~UpdateConfigInMissiveRequest() {
+  // @@protoc_insertion_point(destructor:reporting.UpdateConfigInMissiveRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void UpdateConfigInMissiveRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.list_of_blocked_destinations_;
+}
+
+void UpdateConfigInMissiveRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void UpdateConfigInMissiveRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:reporting.UpdateConfigInMissiveRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(_impl_.list_of_blocked_destinations_ != nullptr);
+    _impl_.list_of_blocked_destinations_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* UpdateConfigInMissiveRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .reporting.ListOfBlockedDestinations list_of_blocked_destinations = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_list_of_blocked_destinations(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* UpdateConfigInMissiveRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:reporting.UpdateConfigInMissiveRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .reporting.ListOfBlockedDestinations list_of_blocked_destinations = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::list_of_blocked_destinations(this),
+        _Internal::list_of_blocked_destinations(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:reporting.UpdateConfigInMissiveRequest)
+  return target;
+}
+
+size_t UpdateConfigInMissiveRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:reporting.UpdateConfigInMissiveRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .reporting.ListOfBlockedDestinations list_of_blocked_destinations = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.list_of_blocked_destinations_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UpdateConfigInMissiveRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const UpdateConfigInMissiveRequest*>(
+      &from));
+}
+
+void UpdateConfigInMissiveRequest::MergeFrom(const UpdateConfigInMissiveRequest& from) {
+  UpdateConfigInMissiveRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:reporting.UpdateConfigInMissiveRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_list_of_blocked_destinations()) {
+    _this->_internal_mutable_list_of_blocked_destinations()->::reporting::ListOfBlockedDestinations::MergeFrom(
+        from._internal_list_of_blocked_destinations());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void UpdateConfigInMissiveRequest::CopyFrom(const UpdateConfigInMissiveRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:reporting.UpdateConfigInMissiveRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateConfigInMissiveRequest::IsInitialized() const {
+  return true;
+}
+
+void UpdateConfigInMissiveRequest::InternalSwap(UpdateConfigInMissiveRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.list_of_blocked_destinations_, other->_impl_.list_of_blocked_destinations_);
+}
+
+std::string UpdateConfigInMissiveRequest::GetTypeName() const {
+  return "reporting.UpdateConfigInMissiveRequest";
+}
+
+
+// ===================================================================
+
+class UpdateConfigInMissiveResponse::_Internal {
+ public:
+  using HasBits = decltype(std::declval<UpdateConfigInMissiveResponse>()._impl_._has_bits_);
+  static const ::reporting::StatusProto& status(const UpdateConfigInMissiveResponse* msg);
+  static void set_has_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::reporting::StatusProto&
+UpdateConfigInMissiveResponse::_Internal::status(const UpdateConfigInMissiveResponse* msg) {
+  return *msg->_impl_.status_;
+}
+void UpdateConfigInMissiveResponse::clear_status() {
+  if (_impl_.status_ != nullptr) _impl_.status_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+UpdateConfigInMissiveResponse::UpdateConfigInMissiveResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:reporting.UpdateConfigInMissiveResponse)
+}
+UpdateConfigInMissiveResponse::UpdateConfigInMissiveResponse(const UpdateConfigInMissiveResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UpdateConfigInMissiveResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){nullptr}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_status()) {
+    _this->_impl_.status_ = new ::reporting::StatusProto(*from._impl_.status_);
+  }
+  // @@protoc_insertion_point(copy_constructor:reporting.UpdateConfigInMissiveResponse)
+}
+
+inline void UpdateConfigInMissiveResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.status_){nullptr}
+  };
+}
+
+UpdateConfigInMissiveResponse::~UpdateConfigInMissiveResponse() {
+  // @@protoc_insertion_point(destructor:reporting.UpdateConfigInMissiveResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void UpdateConfigInMissiveResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.status_;
+}
+
+void UpdateConfigInMissiveResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void UpdateConfigInMissiveResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:reporting.UpdateConfigInMissiveResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(_impl_.status_ != nullptr);
+    _impl_.status_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* UpdateConfigInMissiveResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .reporting.StatusProto status = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* UpdateConfigInMissiveResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:reporting.UpdateConfigInMissiveResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .reporting.StatusProto status = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::status(this),
+        _Internal::status(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:reporting.UpdateConfigInMissiveResponse)
+  return target;
+}
+
+size_t UpdateConfigInMissiveResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:reporting.UpdateConfigInMissiveResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .reporting.StatusProto status = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.status_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UpdateConfigInMissiveResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const UpdateConfigInMissiveResponse*>(
+      &from));
+}
+
+void UpdateConfigInMissiveResponse::MergeFrom(const UpdateConfigInMissiveResponse& from) {
+  UpdateConfigInMissiveResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:reporting.UpdateConfigInMissiveResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_status()) {
+    _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
+        from._internal_status());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void UpdateConfigInMissiveResponse::CopyFrom(const UpdateConfigInMissiveResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:reporting.UpdateConfigInMissiveResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateConfigInMissiveResponse::IsInitialized() const {
+  return true;
+}
+
+void UpdateConfigInMissiveResponse::InternalSwap(UpdateConfigInMissiveResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.status_, other->_impl_.status_);
+}
+
+std::string UpdateConfigInMissiveResponse::GetTypeName() const {
+  return "reporting.UpdateConfigInMissiveResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace reporting
 PROTOBUF_NAMESPACE_OPEN
@@ -2654,6 +3106,14 @@ Arena::CreateMaybeMessage< ::reporting::UpdateEncryptionKeyRequest >(Arena* aren
 template<> PROTOBUF_NOINLINE ::reporting::UpdateEncryptionKeyResponse*
 Arena::CreateMaybeMessage< ::reporting::UpdateEncryptionKeyResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::reporting::UpdateEncryptionKeyResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::reporting::UpdateConfigInMissiveRequest*
+Arena::CreateMaybeMessage< ::reporting::UpdateConfigInMissiveRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::reporting::UpdateConfigInMissiveRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::reporting::UpdateConfigInMissiveResponse*
+Arena::CreateMaybeMessage< ::reporting::UpdateConfigInMissiveResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::reporting::UpdateConfigInMissiveResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

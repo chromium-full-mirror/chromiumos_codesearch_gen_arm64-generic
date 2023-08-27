@@ -21,8 +21,7 @@
 
 
 
-namespace blink {
-namespace mojom {
+namespace blink::mojom {
 class UInt32ValueDataView;
 
 class UInt64ValueDataView;
@@ -36,7 +35,6 @@ using UInt64ValuePtr = mojo::InlinedStructPtr<UInt64Value>;
 
 
 
-}  // namespace mojom
-}  // namespace blink
+}  // blink::mojom
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_CHROMEOS_SYSTEM_EXTENSIONS_MANAGED_DEVICE_HEALTH_SERVICES_TELEMETRY_NULLABLE_PRIMITIVES_MOJOM_FORWARD_H_

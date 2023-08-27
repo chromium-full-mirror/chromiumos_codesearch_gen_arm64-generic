@@ -21,8 +21,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class CropRotateScaleInfoDataView;
 
 class Camera3StreamDataView;
@@ -144,7 +143,6 @@ class Camera3DeviceOps;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA3_MOJOM_FORWARD_H_

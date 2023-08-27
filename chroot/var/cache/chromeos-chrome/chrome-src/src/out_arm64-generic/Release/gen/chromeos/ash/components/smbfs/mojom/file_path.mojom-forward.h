@@ -21,8 +21,7 @@
 
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 class FilePathDataView;
 
 class FilePath;
@@ -31,7 +30,6 @@ using FilePathPtr = mojo::InlinedStructPtr<FilePath>;
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 #endif  // CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_FILE_PATH_MOJOM_FORWARD_H_

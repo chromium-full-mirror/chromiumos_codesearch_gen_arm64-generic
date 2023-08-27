@@ -18,6 +18,8 @@
 
 #include <base/check.h>
 #include <base/check_op.h>
+#include <base/files/file_path.h>
+#include <base/functional/callback.h>
 #include <base/functional/bind.h>
 #include <base/functional/callback_forward.h>
 #include <base/json/json_writer.h>
@@ -38,11 +40,13 @@
 #include <cryptohome/proto_bindings/auth_factor.pb.h>
 #include <cryptohome/proto_bindings/UserDataAuth.pb.h>
 #include <dbus/cryptohome/dbus-constants.h>
+#include <dbus_adaptors/org.chromium.UserDataAuth.h>
 #include <featured/feature_library.h>
 #include <libhwsec/factory/factory_impl.h>
 #include <libhwsec/status.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 #include <libhwsec-foundation/crypto/sha.h>
+#include <libhwsec-foundation/utility/task_dispatching_framework.h>
 #include <metrics/timer.h>
 
 #include "cryptohome/auth_blocks/auth_block_utility_impl.h"
@@ -56,6 +60,7 @@
 #include "cryptohome/auth_factor/protobuf.h"
 #include "cryptohome/auth_factor/types/manager.h"
 #include "cryptohome/auth_factor/with_driver.h"
+#include "cryptohome/auth_input_utils.h"
 #include "cryptohome/auth_intent.h"
 #include "cryptohome/auth_session.h"
 #include "cryptohome/auth_session_flatbuffer.h"
@@ -65,7 +70,6 @@
 #include "cryptohome/cleanup/disk_cleanup.h"
 #include "cryptohome/cleanup/low_disk_space_handler.h"
 #include "cryptohome/cleanup/user_oldest_activity_timestamp_manager.h"
-#include "cryptohome/create_vault_keyset_rpc_impl.h"
 #include "cryptohome/credential_verifier.h"
 #include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_impl.h"
@@ -75,15 +79,10 @@
 #include "cryptohome/error/locations.h"
 #include "cryptohome/features.h"
 #include "cryptohome/filesystem_layout.h"
-#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
-#include "cryptohome/key_challenge_service.h"
 #include "cryptohome/key_challenge_service_factory.h"
 #include "cryptohome/keyset_management.h"
 #include "cryptohome/pkcs11/real_pkcs11_token_factory.h"
-#include "cryptohome/signature_sealing/structures_proto.h"
 #include "cryptohome/storage/cryptohome_vault.h"
-#include "cryptohome/storage/file_system_keyset.h"
-#include "cryptohome/storage/mount_utils.h"
 #include "cryptohome/user_secret_stash/storage.h"
 #include "cryptohome/user_secret_stash/user_metadata.h"
 #include "cryptohome/user_secret_stash/user_secret_stash.h"
@@ -218,7 +217,7 @@ void ReplyWithAuthFactorStatus(
     UserPolicyFile* user_policy_file,
     AuthFactorDriverManager* auth_factor_driver_manager,
     UserSession* user_session,
-    user_data_auth::AuthFactor auth_factor,
+    std::string auth_factor_label,
     base::OnceCallback<void(const ReplyType&)> on_done,
     CryptohomeStatus status) {
   ReplyType reply;
@@ -228,11 +227,13 @@ void ReplyWithAuthFactorStatus(
   }
 
   // These should be active and we expect these to be set always. Static assert
-  // is required as this function should only used for the three replies.
+  // is required as this function should only used for these specific replies.
   static_assert(
       std::is_same_v<ReplyType, user_data_auth::AddAuthFactorReply> ||
       std::is_same_v<ReplyType, user_data_auth::UpdateAuthFactorReply> ||
-      std::is_same_v<ReplyType, user_data_auth::UpdateAuthFactorMetadataReply>);
+      std::is_same_v<ReplyType,
+                     user_data_auth::UpdateAuthFactorMetadataReply> ||
+      std::is_same_v<ReplyType, user_data_auth::RelabelAuthFactorReply>);
   CHECK(auth_session);
   CHECK(auth_factor_driver_manager);
 
@@ -243,14 +244,12 @@ void ReplyWithAuthFactorStatus(
     auth_factor_with_status = GetAuthFactorWithStatus(
         auth_session->obfuscated_username(), user_policy_file,
         auth_factor_driver_manager,
-        user_session->FindCredentialVerifier(auth_factor.label()));
+        user_session->FindCredentialVerifier(auth_factor_label));
   } else {
-    auth_factor_with_status =
-        GetAuthFactorWithStatus(auth_session->obfuscated_username(),
-                                user_policy_file, auth_factor_driver_manager,
-                                auth_session->auth_factor_map()
-                                    .Find(auth_factor.label())
-                                    ->auth_factor());
+    auth_factor_with_status = GetAuthFactorWithStatus(
+        auth_session->obfuscated_username(), user_policy_file,
+        auth_factor_driver_manager,
+        auth_session->auth_factor_map().Find(auth_factor_label)->auth_factor());
   }
 
   if (!auth_factor_with_status.has_value()) {
@@ -274,6 +273,10 @@ void ReplyWithAuthFactorStatus(
                            ReplyType,
                            user_data_auth::UpdateAuthFactorMetadataReply>) {
     *reply.mutable_updated_auth_factor() =
+        std::move(auth_factor_with_status.value());
+  } else if constexpr (std::is_same_v<ReplyType,
+                                      user_data_auth::RelabelAuthFactorReply>) {
+    *reply.mutable_relabelled_auth_factor() =
         std::move(auth_factor_with_status.value());
   }
 
@@ -430,8 +433,6 @@ UserDataAuth::UserDataAuth()
       fscrypt_v2_(false),
       legacy_mount_(true),
       bind_mount_downloads_(true),
-      default_arc_disk_quota_(nullptr),
-      arc_disk_quota_(nullptr),
       default_features_(nullptr),
       features_(nullptr),
       async_init_features_(base::BindRepeating(&UserDataAuth::GetFeatures,
@@ -595,6 +596,9 @@ bool UserDataAuth::Initialize(scoped_refptr<::dbus::Bus> mount_thread_bus) {
     auth_session_manager_ = default_auth_session_manager_.get();
   }
 
+  create_vault_keyset_impl_ = std::make_unique<CreateVaultKeysetRpcImpl>(
+      keyset_management_, auth_block_utility_, auth_factor_driver_manager_);
+
   if (!vault_factory_) {
     auto container_factory =
         std::make_unique<EncryptedContainerFactory>(platform_);
@@ -675,14 +679,6 @@ bool UserDataAuth::Initialize(scoped_refptr<::dbus::Bus> mount_thread_bus) {
       disk_cleanup_critical_threshold_);
   low_disk_space_handler_->disk_cleanup()->set_target_free_space(
       disk_cleanup_target_free_space_);
-
-  if (!arc_disk_quota_) {
-    default_arc_disk_quota_ = std::make_unique<ArcDiskQuota>(
-        homedirs_, platform_, base::FilePath(kArcDiskHome));
-    arc_disk_quota_ = default_arc_disk_quota_.get();
-  }
-  // Initialize ARC Disk Quota Service.
-  arc_disk_quota_->Initialize();
 
   if (!mount_task_runner_) {
     base::Thread::Options options;
@@ -1380,6 +1376,12 @@ void UserDataAuth::SetPrepareAuthFactorProgressCallback(
   prepare_auth_factor_progress_callback_ = callback;
 }
 
+void UserDataAuth::SetAuthenticateAuthFactorCompletedCallback(
+    const base::RepeatingCallback<
+        void(user_data_auth::AuthenticateAuthFactorCompleted)>& callback) {
+  authenticate_auth_factor_completed_callback_ = callback;
+}
+
 void UserDataAuth::SetAuthFactorStatusUpdateCallback(
     const AuthFactorStatusUpdateCallback& callback) {
   auth_session_manager_->SetAuthFactorStatusUpdateCallback(callback);
@@ -1826,42 +1828,6 @@ int64_t UserDataAuth::GetAccountDiskUsage(const AccountIdentifier& account) {
   return homedirs_->ComputeDiskUsage(GetAccountId(account));
 }
 
-bool UserDataAuth::IsArcQuotaSupported() {
-  AssertOnOriginThread();
-  return arc_disk_quota_->IsQuotaSupported();
-}
-
-int64_t UserDataAuth::GetCurrentSpaceForArcUid(uid_t android_uid) {
-  AssertOnOriginThread();
-  return arc_disk_quota_->GetCurrentSpaceForUid(android_uid);
-}
-
-int64_t UserDataAuth::GetCurrentSpaceForArcGid(uid_t android_gid) {
-  AssertOnOriginThread();
-  return arc_disk_quota_->GetCurrentSpaceForGid(android_gid);
-}
-
-int64_t UserDataAuth::GetCurrentSpaceForArcProjectId(int project_id) {
-  AssertOnOriginThread();
-  return arc_disk_quota_->GetCurrentSpaceForProjectId(project_id);
-}
-
-bool UserDataAuth::SetMediaRWDataFileProjectId(int project_id,
-                                               int fd,
-                                               int* out_error) {
-  AssertOnOriginThread();
-  return arc_disk_quota_->SetMediaRWDataFileProjectId(project_id, fd,
-                                                      out_error);
-}
-
-bool UserDataAuth::SetMediaRWDataFileProjectInheritanceFlag(bool enable,
-                                                            int fd,
-                                                            int* out_error) {
-  AssertOnOriginThread();
-  return arc_disk_quota_->SetMediaRWDataFileProjectInheritanceFlag(enable, fd,
-                                                                   out_error);
-}
-
 bool UserDataAuth::Pkcs11IsTpmTokenReady() {
   AssertOnMountThread();
   // We touched the sessions_ object, so we need to be on mount thread.
@@ -2257,8 +2223,10 @@ bool UserDataAuth::OwnerUserExists() {
   return homedirs_->GetPlainOwner(&owner);
 }
 
-bool UserDataAuth::UnmountedAndroidUsersDoNotExist() {
+bool UserDataAuth::IsArcQuotaSupported() {
   AssertOnOriginThread();
+  // Quota is not supported if there are one or more unmounted Android users.
+  // (b/181159107)
   return homedirs_->GetUnmountedAndroidDataCount() == 0;
 }
 
@@ -3036,7 +3004,7 @@ void UserDataAuth::AddAuthFactor(
           auth_session_status->Get(), user_policy_file_status.value(),
           auth_factor_driver_manager_,
           sessions_->Find(auth_session_status.value()->username()),
-          request.auth_factor(), std::move(on_done)));
+          request.auth_factor().label(), std::move(on_done)));
 }
 
 void UserDataAuth::AuthenticateAuthFactor(
@@ -3046,13 +3014,44 @@ void UserDataAuth::AuthenticateAuthFactor(
   AssertOnMountThread();
   user_data_auth::AuthenticateAuthFactorReply reply;
 
+  // Wrap callback to signal AuthenticateAuthFactorCompleted.
+  base::OnceCallback<void(const user_data_auth::AuthenticateAuthFactorReply&)>
+      on_done_wrapped_with_signal_cb = base::BindOnce(
+          [](base::RepeatingCallback<void(
+                 user_data_auth::AuthenticateAuthFactorCompleted)>
+                 authenticate_auth_factor_result_callback,
+             base::OnceCallback<void(
+                 const user_data_auth::AuthenticateAuthFactorReply&)> cb,
+             user_data_auth::AuthFactorType auth_factor_type,
+             const user_data_auth::AuthenticateAuthFactorReply& reply) {
+            user_data_auth::AuthenticateAuthFactorCompleted completed_proto;
+
+            if (reply.has_error_info()) {
+              auto* failure_proto = completed_proto.mutable_failure();
+              failure_proto->set_error(reply.error());
+              auto* error_info = failure_proto->mutable_error_info();
+              *error_info = reply.error_info();
+            } else {
+              auto* success_proto = completed_proto.mutable_success();
+              success_proto->set_auth_factor_type(auth_factor_type);
+            }
+            if (!authenticate_auth_factor_result_callback.is_null()) {
+              authenticate_auth_factor_result_callback.Run(completed_proto);
+            }
+            std::move(cb).Run(reply);
+          },
+          authenticate_auth_factor_completed_callback_, std::move(on_done),
+          AuthFactorTypeToProto(
+              DetermineFactorTypeFromAuthInput(request.auth_input())
+                  .value_or(AuthFactorType::kUnspecified)));
+
   InUseAuthSession auth_session =
       auth_session_manager_->FindAuthSession(request.auth_session_id());
   CryptohomeStatus auth_session_status = auth_session.AuthSessionStatus();
   if (!auth_session_status.ok()) {
     LOG(ERROR) << "Invalid AuthSession token provided.";
     ReplyWithError(
-        std::move(on_done), reply,
+        std::move(on_done_wrapped_with_signal_cb), reply,
         MakeStatus<CryptohomeError>(
             CRYPTOHOME_ERR_LOC(kLocUserDataAuthSessionNotFoundInAuthAuthFactor),
             ErrorActionSet({PossibleAction::kDevCheckUnexpectedState,
@@ -3071,7 +3070,7 @@ void UserDataAuth::AuthenticateAuthFactor(
     LOG(ERROR) << "Cannot accept request with both auth_factor_label and "
                   "auth_factor_labels.";
     ReplyWithError(
-        std::move(on_done), reply,
+        std::move(on_done_wrapped_with_signal_cb), reply,
         MakeStatus<CryptohomeError>(
             CRYPTOHOME_ERR_LOC(kLocUserDataMalformedRequestInAuthAuthFactor),
             ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
@@ -3088,6 +3087,7 @@ void UserDataAuth::AuthenticateAuthFactor(
       auth_factor_labels.push_back(label);
     }
   }
+
   AuthSession::AuthenticateAuthFactorRequest authenticate_auth_factor_request{
       .auth_factor_labels = std::move(auth_factor_labels),
       .auth_input_proto = std::move(request.auth_input()),
@@ -3100,7 +3100,7 @@ void UserDataAuth::AuthenticateAuthFactor(
   auth_session_ptr->AuthenticateAuthFactor(
       authenticate_auth_factor_request,
       base::BindOnce(&HandleAuthenticationResult, std::move(auth_session),
-                     std::move(on_done)));
+                     std::move(on_done_wrapped_with_signal_cb)));
 }
 
 void UserDataAuth::UpdateAuthFactor(
@@ -3153,7 +3153,7 @@ void UserDataAuth::UpdateAuthFactor(
           auth_session_status->Get(), user_policy_file_status.value(),
           auth_factor_driver_manager_,
           sessions_->Find(auth_session_status.value()->username()),
-          request.auth_factor(), std::move(on_done)));
+          request.auth_factor().label(), std::move(on_done)));
 }
 
 void UserDataAuth::UpdateAuthFactorMetadata(
@@ -3194,7 +3194,59 @@ void UserDataAuth::UpdateAuthFactorMetadata(
                    auth_session_status->Get(), user_policy_file_status.value(),
                    auth_factor_driver_manager_,
                    sessions_->Find(auth_session_status.value()->username()),
-                   request.auth_factor(), std::move(on_done)));
+                   request.auth_factor().label(), std::move(on_done)));
+}
+
+void UserDataAuth::RelabelAuthFactor(
+    user_data_auth::RelabelAuthFactorRequest request,
+    base::OnceCallback<void(const user_data_auth::RelabelAuthFactorReply&)>
+        on_done) {
+  AssertOnMountThread();
+  user_data_auth::RelabelAuthFactorReply reply;
+
+  // Find the auth session.
+  CryptohomeStatusOr<InUseAuthSession> auth_session_status =
+      GetAuthenticatedAuthSession(request.auth_session_id());
+  if (!auth_session_status.ok()) {
+    ReplyWithError(std::move(on_done), reply,
+                   MakeStatus<CryptohomeError>(
+                       CRYPTOHOME_ERR_LOC(
+                           kLocUserDataAuthNoAuthSessionInRelabelAuthFactor))
+                       .Wrap(std::move(auth_session_status).err_status()));
+    return;
+  }
+  AuthSession& auth_session = **auth_session_status;
+  auto* session_decrypt = auth_session.GetAuthForDecrypt();
+  if (!session_decrypt) {
+    ReplyWithError(
+        std::move(on_done), reply,
+        MakeStatus<CryptohomeError>(
+            CRYPTOHOME_ERR_LOC(kLocUserDataAuthUnauthedInRelabelAuthFactor),
+            ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+            user_data_auth::CRYPTOHOME_ERROR_UNAUTHENTICATED_AUTH_SESSION));
+    return;
+  }
+
+  // Load the user policy, also needed for the final result.
+  auto user_policy_file =
+      LoadUserPolicyFile(auth_session.obfuscated_username());
+  if (!user_policy_file.ok()) {
+    ReplyWithError(std::move(on_done), reply,
+                   MakeStatus<CryptohomeError>(
+                       CRYPTOHOME_ERR_LOC(
+                           kLocCouldntLoadUserPolicyFileInRelabelAuthFactor))
+                       .Wrap(std::move(user_policy_file).err_status()));
+    return;
+  }
+
+  // Execute the actual relabel.
+  session_decrypt->RelabelAuthFactor(
+      request,
+      base::BindOnce(
+          &ReplyWithAuthFactorStatus<user_data_auth::RelabelAuthFactorReply>,
+          &auth_session, *user_policy_file, auth_factor_driver_manager_,
+          sessions_->Find(auth_session.username()),
+          request.new_auth_factor_label(), std::move(on_done)));
 }
 
 void UserDataAuth::RemoveAuthFactor(
@@ -3688,12 +3740,8 @@ void UserDataAuth::CreateVaultKeyset(
     return;
   }
 
-  CreateVaultKeysetRpcImpl create_vault_keyset_impl(
-      keyset_management_, auth_block_utility_, auth_factor_driver_manager_,
-      std::move(auth_session_status.value()));
-
-  create_vault_keyset_impl.CreateVaultKeyset(
-      request,
+  create_vault_keyset_impl_->CreateVaultKeyset(
+      request, auth_session_status.value(),
       base::BindOnce(&ReplyWithStatus<user_data_auth::CreateVaultKeysetReply>,
                      std::move(on_done)));
 }

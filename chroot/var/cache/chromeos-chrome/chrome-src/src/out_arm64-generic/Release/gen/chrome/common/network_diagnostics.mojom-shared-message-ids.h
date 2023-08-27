@@ -8,9 +8,9 @@
 #define CHROME_COMMON_NETWORK_DIAGNOSTICS_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chrome {
-namespace mojom {
 
+
+namespace chrome::mojom {
 namespace internal {
 
 
@@ -19,7 +19,7 @@ constexpr uint32_t kNetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_
 constexpr uint32_t kNetworkDiagnosticsClient_DNSProbeStatus_Name = 1;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace chrome
+
+}  // chrome::mojom
 
 #endif  // CHROME_COMMON_NETWORK_DIAGNOSTICS_MOJOM_SHARED_MESSAGE_IDS_H_

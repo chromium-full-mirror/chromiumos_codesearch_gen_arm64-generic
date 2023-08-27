@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/memory_allocator_dump_cross_process_uid.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 MemoryAllocatorDumpCrossProcessUid::MemoryAllocatorDumpCrossProcessUid()
     : value() {}
 
@@ -79,8 +77,7 @@ bool MemoryAllocatorDumpCrossProcessUid::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -106,14 +103,12 @@ bool StructTraits<::mojo_base::mojom::MemoryAllocatorDumpCrossProcessUid::DataVi
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

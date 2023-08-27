@@ -8,9 +8,9 @@
 #define COMPONENTS_CHROMEOS_CAMERA_COMMON_MJPEG_DECODE_ACCELERATOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos_camera {
-namespace mojom {
 
+
+namespace chromeos_camera::mojom {
 namespace internal {
 
 
@@ -20,7 +20,7 @@ constexpr uint32_t kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name = 3;
 constexpr uint32_t kMjpegDecodeAccelerator_Uninitialize_Name = 4;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace chromeos_camera
+
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_MJPEG_DECODE_ACCELERATOR_MOJOM_SHARED_MESSAGE_IDS_H_

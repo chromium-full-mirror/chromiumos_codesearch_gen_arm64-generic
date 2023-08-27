@@ -42,10 +42,7 @@
 #include "chromeos/components/sensors/mojom/sensor.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 const char kScale[] = "scale";
 const char kSamplingFrequencyAvailable[] = "sampling_frequency_available";
 const char kLocation[] = "location";
@@ -3064,9 +3061,7 @@ bool SensorServiceNewDevicesObserverRequestValidator::Accept(mojo::Message* mess
 
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 
 namespace mojo {
@@ -3078,9 +3073,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
 void SensorServiceInterceptorForTesting::GetDeviceIds(DeviceType type, GetDeviceIdsCallback callback) {
@@ -3349,9 +3342,7 @@ SensorServiceNewDevicesObserverAsyncWaiter::~SensorServiceNewDevicesObserverAsyn
 
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 
 #if defined(__clang__)

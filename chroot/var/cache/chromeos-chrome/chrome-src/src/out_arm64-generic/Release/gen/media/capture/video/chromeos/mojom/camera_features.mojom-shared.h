@@ -31,15 +31,13 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class PortraitModeConfigDataView;
 
 class Camera3StreamEffectDataView;
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -62,8 +60,7 @@ struct MojomTypeTraits<::cros::mojom::Camera3StreamEffectDataView> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class PortraitModeConfigDataView {
@@ -126,8 +123,7 @@ class Camera3StreamEffectDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -231,8 +227,7 @@ struct Serializer<::cros::mojom::Camera3StreamEffectDataView, MaybeConstUserType
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
@@ -243,8 +238,7 @@ inline void Camera3StreamEffectDataView::GetPortraitModeConfigDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

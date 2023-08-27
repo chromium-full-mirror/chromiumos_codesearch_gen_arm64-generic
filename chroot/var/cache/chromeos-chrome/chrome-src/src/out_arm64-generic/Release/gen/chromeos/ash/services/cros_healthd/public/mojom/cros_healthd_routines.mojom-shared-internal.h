@@ -22,9 +22,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 class MemoryRoutineArgument_Data;
 class RoutineState_Data;
@@ -667,8 +667,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::mojom
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_ROUTINES_MOJOM_SHARED_INTERNAL_H_

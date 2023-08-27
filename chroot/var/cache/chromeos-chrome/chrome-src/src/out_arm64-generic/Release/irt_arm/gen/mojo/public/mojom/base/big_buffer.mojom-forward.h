@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class BigBufferSharedMemoryRegionDataView;
 
 class BigBufferDataView;
@@ -36,7 +35,6 @@ using BigBufferPtr = mojo::StructPtr<BigBuffer>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_BIG_BUFFER_MOJOM_FORWARD_H_

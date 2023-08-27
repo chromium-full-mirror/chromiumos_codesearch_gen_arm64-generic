@@ -18,10 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::web_platform::mojom {
 namespace internal {
 class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) HandwritingRecognizer_GetPrediction_Params_Data {
  public:
@@ -149,10 +148,9 @@ inline void HandwritingRecognizer_GetPrediction_ResponseParamsDataView::GetPredi
   *output = mojo::ArrayDataView<HandwritingPredictionDataView>(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+
+
+}  // chromeos::machine_learning::web_platform::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

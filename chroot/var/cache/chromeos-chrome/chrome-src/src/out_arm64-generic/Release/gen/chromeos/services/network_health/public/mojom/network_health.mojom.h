@@ -37,9 +37,7 @@
 
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 class NetworkEventsObserverProxy;
 
@@ -311,9 +309,7 @@ class  NetworkHealthServiceResponseValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 namespace mojo {
 

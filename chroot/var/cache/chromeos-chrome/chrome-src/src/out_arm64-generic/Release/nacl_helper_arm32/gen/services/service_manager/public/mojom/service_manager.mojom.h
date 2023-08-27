@@ -38,8 +38,7 @@
 
 
 
-namespace service_manager {
-namespace mojom {
+namespace service_manager::mojom {
 
 class ServiceManagerListenerProxy;
 
@@ -483,8 +482,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace service_manager
+}  // service_manager::mojom
 
 namespace mojo {
 

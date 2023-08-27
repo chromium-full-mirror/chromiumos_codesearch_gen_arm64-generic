@@ -36,8 +36,7 @@
 
 
 
-namespace mojo {
-namespace pipe_control {
+namespace mojo::pipe_control {
 
 
 
@@ -1057,8 +1056,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace pipe_control
-}  // namespace mojo
+}  // mojo::pipe_control
 
 namespace mojo {
 

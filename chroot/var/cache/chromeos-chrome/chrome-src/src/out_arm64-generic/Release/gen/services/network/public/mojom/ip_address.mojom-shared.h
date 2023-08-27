@@ -31,14 +31,12 @@
 
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 class IPAddressDataView;
 
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 namespace mojo {
 namespace internal {
@@ -54,8 +52,7 @@ struct MojomTypeTraits<::network::mojom::IPAddressDataView> {
 }  // namespace mojo
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 
 
 class IPAddressDataView {
@@ -84,8 +81,7 @@ class IPAddressDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 namespace std {
 
@@ -139,8 +135,7 @@ struct Serializer<::network::mojom::IPAddressDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 
 inline void IPAddressDataView::GetAddressBytesDataView(
     mojo::ArrayDataView<uint8_t>* output) {
@@ -150,8 +145,7 @@ inline void IPAddressDataView::GetAddressBytesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

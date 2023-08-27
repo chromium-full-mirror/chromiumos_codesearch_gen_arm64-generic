@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos_camera {
-namespace mojom {
+
+
+namespace chromeos_camera::mojom {
 namespace internal {
 class  JpegEncodeAccelerator_Initialize_Params_Data {
  public:
@@ -387,8 +388,9 @@ inline void JpegEncodeAccelerator_EncodeWithDmaBuf_ParamsDataView::GetOutputPlan
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+
+
+}  // chromeos_camera::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -42,9 +42,7 @@
 #include "ash/components/arc/mojom/video_decode_accelerator.mojom-test-utils.h"
 
 
-
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 BitstreamBuffer::BitstreamBuffer()
     : bitstream_id(),
       handle_fd(),
@@ -1926,8 +1924,7 @@ bool VideoDecodeClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 namespace mojo {
@@ -2023,8 +2020,7 @@ bool StructTraits<::arc::mojom::BufferModifier::DataView, ::arc::mojom::BufferMo
 // separate .cc file to save compile time.
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 void VideoDecodeAcceleratorInterceptorForTesting::Initialize(VideoDecodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoDecodeClient> client, InitializeCallback callback) {
@@ -2147,8 +2143,7 @@ VideoDecodeClientAsyncWaiter::~VideoDecodeClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 #if defined(__clang__)

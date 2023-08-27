@@ -34,12 +34,10 @@
 
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 namespace mojo {
 namespace internal {
@@ -48,8 +46,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 enum class EncodeStatus : int32_t {
@@ -89,8 +86,7 @@ using JpegEncodeAcceleratorAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<JpegEncodeAcceleratorInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 namespace std {
 
@@ -125,12 +121,10 @@ struct Serializer<::chromeos_camera::mojom::EncodeStatus, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

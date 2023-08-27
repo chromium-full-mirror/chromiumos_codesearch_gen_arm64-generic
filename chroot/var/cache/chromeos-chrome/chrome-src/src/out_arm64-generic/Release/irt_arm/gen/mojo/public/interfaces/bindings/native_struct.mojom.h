@@ -36,8 +36,7 @@
 
 
 
-namespace mojo {
-namespace native {
+namespace mojo::native {
 
 
 
@@ -383,8 +382,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace native
-}  // namespace mojo
+}  // mojo::native
 
 namespace mojo {
 

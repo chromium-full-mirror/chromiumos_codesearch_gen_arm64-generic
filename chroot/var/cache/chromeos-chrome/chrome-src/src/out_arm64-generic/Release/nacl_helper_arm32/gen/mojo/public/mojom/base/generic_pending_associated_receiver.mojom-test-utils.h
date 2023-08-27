@@ -11,8 +11,7 @@
 #include "base/component_export.h"
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class COMPONENT_EXPORT(MOJO_BASE_MOJOM) GenericAssociatedInterfaceInterceptorForTesting : public GenericAssociatedInterface {
@@ -34,7 +33,6 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) GenericAssociatedInterfaceAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_GENERIC_PENDING_ASSOCIATED_RECEIVER_MOJOM_TEST_UTILS_H_

@@ -42,9 +42,7 @@
 #include "components/chromeos_camera/common/dmabuf.mojom-test-utils.h"
 
 
-
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 DmaBufPlane::DmaBufPlane()
     : fd_handle(),
       stride(),
@@ -211,8 +209,7 @@ bool DmaBufVideoFrame::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 
 namespace mojo {
@@ -268,14 +265,12 @@ bool StructTraits<::chromeos_camera::mojom::DmaBufVideoFrame::DataView, ::chrome
 // separate .cc file to save compile time.
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 
 #if defined(__clang__)

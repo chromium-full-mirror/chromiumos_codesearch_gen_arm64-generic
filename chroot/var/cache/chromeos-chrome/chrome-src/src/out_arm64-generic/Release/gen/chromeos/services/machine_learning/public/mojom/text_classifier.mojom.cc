@@ -42,10 +42,7 @@
 #include "chromeos/services/machine_learning/public/mojom/text_classifier.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 TextEntity::TextEntity()
     : name(),
       confidence_score(),
@@ -1332,9 +1329,7 @@ bool TextClassifierResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -1492,9 +1487,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::TextEntityData::DataView, 
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void TextClassifierInterceptorForTesting::Annotate(TextAnnotationRequestPtr request, AnnotateCallback callback) {
@@ -1585,9 +1578,7 @@ CodepointSpanPtr TextClassifierAsyncWaiter::REMOVED_1(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

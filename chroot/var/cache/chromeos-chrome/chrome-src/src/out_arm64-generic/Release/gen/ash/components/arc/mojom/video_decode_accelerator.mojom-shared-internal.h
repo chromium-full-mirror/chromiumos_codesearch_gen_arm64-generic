@@ -23,8 +23,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class BitstreamBuffer_Data;
 class Picture_Data;
@@ -315,7 +316,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_DECODE_ACCELERATOR_MOJOM_SHARED_INTERNAL_H_

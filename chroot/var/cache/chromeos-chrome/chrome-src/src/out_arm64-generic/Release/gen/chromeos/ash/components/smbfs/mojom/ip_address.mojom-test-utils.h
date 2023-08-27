@@ -11,13 +11,11 @@
 #include "base/component_export.h"
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 #endif  // CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_IP_ADDRESS_MOJOM_TEST_UTILS_H_

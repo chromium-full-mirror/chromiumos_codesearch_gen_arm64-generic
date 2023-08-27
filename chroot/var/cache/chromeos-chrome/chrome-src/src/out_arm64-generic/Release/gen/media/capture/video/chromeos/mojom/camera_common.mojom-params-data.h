@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class  CameraModuleCallbacks_CameraDeviceStatusChange_Params_Data {
  public:
@@ -1170,8 +1171,9 @@ inline void CameraModule_GetCameraInfo_ResponseParamsDataView::GetCameraInfoData
 
 
 
-}  // namespace mojom
-}  // namespace cros
+
+
+}  // cros::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -11,10 +11,7 @@
 #include "base/component_export.h"
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+namespace chromeos::machine_learning::web_platform::mojom {
 
 
 class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerInterceptorForTesting : public HandwritingRecognizer {
@@ -40,9 +37,6 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::web_platform::mojom
 
 #endif  // CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_WEB_PLATFORM_HANDWRITING_MOJOM_TEST_UTILS_H_

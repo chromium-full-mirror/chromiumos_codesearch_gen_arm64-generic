@@ -21,8 +21,7 @@
 
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 class IPAddressDataView;
 
 class IPAddress;
@@ -31,7 +30,6 @@ using IPAddressPtr = mojo::StructPtr<IPAddress>;
 
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 #endif  // SERVICES_NETWORK_PUBLIC_MOJOM_IP_ADDRESS_MOJOM_FORWARD_H_

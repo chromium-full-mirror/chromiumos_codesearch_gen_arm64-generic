@@ -8,9 +8,9 @@
 #define CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_SMBFS_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace smbfs {
-namespace mojom {
 
+
+namespace smbfs::mojom {
 namespace internal {
 
 
@@ -20,7 +20,7 @@ constexpr uint32_t kSmbFs_DeleteRecursively_Name = 1;
 constexpr uint32_t kSmbFsDelegate_RequestCredentials_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace smbfs
+
+}  // smbfs::mojom
 
 #endif  // CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_SMBFS_MOJOM_SHARED_MESSAGE_IDS_H_

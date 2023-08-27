@@ -42,9 +42,7 @@
 #include "mojo/public/interfaces/bindings/native_struct.mojom-test-utils.h"
 
 
-
-namespace mojo {
-namespace native {
+namespace mojo::native {
 SerializedHandle::SerializedHandle()
     : the_handle(),
       type() {}
@@ -127,8 +125,7 @@ bool NativeStruct::Validate(
 }
 
 
-}  // namespace native
-}  // namespace mojo
+}  // mojo::native
 
 
 namespace mojo {
@@ -172,14 +169,12 @@ bool StructTraits<::mojo::native::NativeStruct::DataView, ::mojo::native::Native
 // separate .cc file to save compile time.
 
 
-namespace mojo {
-namespace native {
+namespace mojo::native {
 
 
 
 
-}  // namespace native
-}  // namespace mojo
+}  // mojo::native
 
 
 #if defined(__clang__)

@@ -11,8 +11,7 @@
 #include "base/component_export.h"
 
 
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 
 
 class COMPONENT_EXPORT(IPC_MOJOM) ChannelInterceptorForTesting : public Channel {
@@ -54,7 +53,6 @@ class COMPONENT_EXPORT(IPC_MOJOM) ChannelBootstrapAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 #endif  // IPC_IPC_MOJOM_TEST_UTILS_H_

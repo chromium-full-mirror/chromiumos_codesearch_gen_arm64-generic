@@ -19,8 +19,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace mojo {
-namespace native {
+
+
+namespace mojo::native {
 namespace internal {
 class SerializedHandle_Data;
 class NativeStruct_Data;
@@ -155,7 +156,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace native
-}  // namespace mojo
+
+}  // mojo::native
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_NATIVE_STRUCT_MOJOM_SHARED_INTERNAL_H_

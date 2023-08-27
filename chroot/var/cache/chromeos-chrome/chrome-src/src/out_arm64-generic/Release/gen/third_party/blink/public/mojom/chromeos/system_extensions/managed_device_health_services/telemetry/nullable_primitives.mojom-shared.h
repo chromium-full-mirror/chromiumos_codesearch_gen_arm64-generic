@@ -32,16 +32,14 @@
 
 
 
-namespace blink {
-namespace mojom {
+namespace blink::mojom {
 class UInt32ValueDataView;
 
 class UInt64ValueDataView;
 
 
 
-}  // namespace mojom
-}  // namespace blink
+}  // blink::mojom
 
 namespace mojo {
 namespace internal {
@@ -64,8 +62,7 @@ struct MojomTypeTraits<::blink::mojom::UInt64ValueDataView> {
 }  // namespace mojo
 
 
-namespace blink {
-namespace mojom {
+namespace blink::mojom {
 
 
 class UInt32ValueDataView {
@@ -104,8 +101,7 @@ class UInt64ValueDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace blink
+}  // blink::mojom
 
 namespace std {
 
@@ -176,16 +172,14 @@ struct Serializer<::blink::mojom::UInt64ValueDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace blink {
-namespace mojom {
+namespace blink::mojom {
 
 
 
 
 
 
-}  // namespace mojom
-}  // namespace blink
+}  // blink::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

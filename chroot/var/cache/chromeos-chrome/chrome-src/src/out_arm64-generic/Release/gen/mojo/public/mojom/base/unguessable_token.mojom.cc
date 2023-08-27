@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/unguessable_token.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 UnguessableToken::UnguessableToken()
     : high(),
       low() {}
@@ -87,8 +85,7 @@ bool UnguessableToken::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -116,14 +113,12 @@ bool StructTraits<::mojo_base::mojom::UnguessableToken::DataView, ::mojo_base::m
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

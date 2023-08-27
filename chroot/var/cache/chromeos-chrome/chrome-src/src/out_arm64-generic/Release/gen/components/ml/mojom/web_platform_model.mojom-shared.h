@@ -33,9 +33,7 @@
 
 
 
-namespace ml {
-namespace model_loader {
-namespace mojom {
+namespace ml::model_loader::mojom {
 class CreateModelLoaderOptionsDataView;
 
 class TensorInfoDataView;
@@ -44,9 +42,7 @@ class ModelInfoDataView;
 
 
 
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+}  // ml::model_loader::mojom
 
 namespace mojo {
 namespace internal {
@@ -76,9 +72,7 @@ struct MojomTypeTraits<::ml::model_loader::mojom::ModelInfoDataView> {
 }  // namespace mojo
 
 
-namespace ml {
-namespace model_loader {
-namespace mojom {
+namespace ml::model_loader::mojom {
 
 
 enum class ModelFormat : int32_t {
@@ -370,9 +364,7 @@ class ModelInfoDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+}  // ml::model_loader::mojom
 
 namespace std {
 
@@ -664,9 +656,7 @@ struct Serializer<::ml::model_loader::mojom::ModelInfoDataView, MaybeConstUserTy
 }  // namespace mojo
 
 
-namespace ml {
-namespace model_loader {
-namespace mojom {
+namespace ml::model_loader::mojom {
 
 
 
@@ -690,9 +680,7 @@ inline void ModelInfoDataView::GetOutputTensorInfoDataView(
 
 
 
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+}  // ml::model_loader::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

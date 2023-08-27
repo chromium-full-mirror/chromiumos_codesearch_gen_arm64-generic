@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class  VideoEncodeAccelerator_GetSupportedProfiles_Params_Data {
  public:
@@ -677,8 +678,9 @@ inline void VideoEncodeClient_RequireBitstreamBuffers_ParamsDataView::GetInputCo
 
 
 
-}  // namespace mojom
-}  // namespace arc
+
+
+}  // arc::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

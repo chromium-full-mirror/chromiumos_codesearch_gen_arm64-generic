@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class  VideoDecodeAccelerator_Initialize_Params_Data {
  public:
@@ -698,8 +699,9 @@ inline void VideoDecodeClient_ProvidePictureBuffers_ParamsDataView::GetVisibleRe
   *output = ::arc::mojom::RectDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace arc
+
+
+}  // arc::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

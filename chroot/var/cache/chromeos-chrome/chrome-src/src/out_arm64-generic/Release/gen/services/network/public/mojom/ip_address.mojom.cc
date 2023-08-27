@@ -42,9 +42,7 @@
 #include "services/network/public/mojom/ip_address.mojom-test-utils.h"
 
 
-
-namespace network {
-namespace mojom {
+namespace network::mojom {
 IPAddress::IPAddress()
     : address_bytes() {}
 
@@ -75,8 +73,7 @@ bool IPAddress::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 
 namespace mojo {
@@ -102,14 +99,12 @@ bool StructTraits<::network::mojom::IPAddress::DataView, ::network::mojom::IPAdd
 // separate .cc file to save compile time.
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 
 #if defined(__clang__)

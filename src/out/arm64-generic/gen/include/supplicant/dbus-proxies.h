@@ -1,7 +1,10 @@
 // Automatic generation of D-Bus interfaces:
 //  - fi.w1.wpa_supplicant1.BSS
+//  - fi.w1.wpa_supplicant1.Group
 //  - fi.w1.wpa_supplicant1.Interface
 //  - fi.w1.wpa_supplicant1.Network
+//  - fi.w1.wpa_supplicant1.Interface.P2PDevice
+//  - fi.w1.wpa_supplicant1.Peer
 //  - fi.w1.wpa_supplicant1
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_SUPPLICANT_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_SUPPLICANT_DBUS_PROXIES_H
@@ -251,6 +254,209 @@ class BSSProxy final : public BSSProxyInterface {
 
   bool is_signal_valid() const override {
     return property_set_->signal.is_valid();
+  }
+
+ private:
+  scoped_refptr<dbus::Bus> bus_;
+  std::string service_name_;
+  dbus::ObjectPath object_path_;
+  dbus::ObjectProxy* dbus_object_proxy_;
+  std::unique_ptr<PropertySet> property_set_;
+
+};
+
+}  // namespace wpa_supplicant1
+}  // namespace w1
+}  // namespace fi
+
+namespace fi {
+namespace w1 {
+namespace wpa_supplicant1 {
+
+// Abstract interface proxy for fi::w1::wpa_supplicant1::Group.
+class GroupProxyInterface {
+ public:
+  virtual ~GroupProxyInterface() = default;
+
+  virtual void RegisterPeerJoinedSignalHandler(
+      const base::RepeatingCallback<void(const dbus::ObjectPath&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterPeerDisconnectedSignalHandler(
+      const base::RepeatingCallback<void(const dbus::ObjectPath&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  static const char* MembersName() { return "Members"; }
+  virtual const std::vector<dbus::ObjectPath>& members() const = 0;
+  virtual bool is_members_valid() const = 0;
+  static const char* RoleName() { return "Role"; }
+  virtual const std::string& role() const = 0;
+  virtual bool is_role_valid() const = 0;
+  static const char* SSIDName() { return "SSID"; }
+  virtual const std::vector<uint8_t>& ssid() const = 0;
+  virtual bool is_ssid_valid() const = 0;
+  static const char* BSSIDName() { return "BSSID"; }
+  virtual const std::vector<uint8_t>& bssid() const = 0;
+  virtual bool is_bssid_valid() const = 0;
+  static const char* FrequencyName() { return "Frequency"; }
+  virtual uint16_t frequency() const = 0;
+  virtual bool is_frequency_valid() const = 0;
+  static const char* PassphraseName() { return "Passphrase"; }
+  virtual const std::string& passphrase() const = 0;
+  virtual bool is_passphrase_valid() const = 0;
+
+  virtual const dbus::ObjectPath& GetObjectPath() const = 0;
+  virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
+
+  virtual void InitializeProperties(
+      const base::RepeatingCallback<void(GroupProxyInterface*, const std::string&)>& callback) = 0;
+};
+
+}  // namespace wpa_supplicant1
+}  // namespace w1
+}  // namespace fi
+
+namespace fi {
+namespace w1 {
+namespace wpa_supplicant1 {
+
+// Interface proxy for fi::w1::wpa_supplicant1::Group.
+class GroupProxy final : public GroupProxyInterface {
+ public:
+  class PropertySet : public dbus::PropertySet {
+   public:
+    PropertySet(dbus::ObjectProxy* object_proxy,
+                const PropertyChangedCallback& callback)
+        : dbus::PropertySet{object_proxy,
+                            "fi.w1.wpa_supplicant1.Group",
+                            callback} {
+      RegisterProperty(MembersName(), &members);
+      RegisterProperty(RoleName(), &role);
+      RegisterProperty(SSIDName(), &ssid);
+      RegisterProperty(BSSIDName(), &bssid);
+      RegisterProperty(FrequencyName(), &frequency);
+      RegisterProperty(PassphraseName(), &passphrase);
+    }
+    PropertySet(const PropertySet&) = delete;
+    PropertySet& operator=(const PropertySet&) = delete;
+
+    brillo::dbus_utils::Property<std::vector<dbus::ObjectPath>> members;
+    brillo::dbus_utils::Property<std::string> role;
+    brillo::dbus_utils::Property<std::vector<uint8_t>> ssid;
+    brillo::dbus_utils::Property<std::vector<uint8_t>> bssid;
+    brillo::dbus_utils::Property<uint16_t> frequency;
+    brillo::dbus_utils::Property<std::string> passphrase;
+
+  };
+
+  GroupProxy(
+      const scoped_refptr<dbus::Bus>& bus,
+      const std::string& service_name,
+      const dbus::ObjectPath& object_path) :
+          bus_{bus},
+          service_name_{service_name},
+          object_path_{object_path},
+          dbus_object_proxy_{
+              bus_->GetObjectProxy(service_name_, object_path_)} {
+  }
+
+  GroupProxy(const GroupProxy&) = delete;
+  GroupProxy& operator=(const GroupProxy&) = delete;
+
+  ~GroupProxy() override {
+  }
+
+  void RegisterPeerJoinedSignalHandler(
+      const base::RepeatingCallback<void(const dbus::ObjectPath&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Group",
+        "PeerJoined",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterPeerDisconnectedSignalHandler(
+      const base::RepeatingCallback<void(const dbus::ObjectPath&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Group",
+        "PeerDisconnected",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void ReleaseObjectProxy(base::OnceClosure callback) {
+    bus_->RemoveObjectProxy(service_name_, object_path_, std::move(callback));
+  }
+
+  const dbus::ObjectPath& GetObjectPath() const override {
+    return object_path_;
+  }
+
+  dbus::ObjectProxy* GetObjectProxy() const override {
+    return dbus_object_proxy_;
+  }
+
+  void InitializeProperties(
+      const base::RepeatingCallback<void(GroupProxyInterface*, const std::string&)>& callback) override {
+    property_set_.reset(
+        new PropertySet(dbus_object_proxy_, base::BindRepeating(callback, this)));
+    property_set_->ConnectSignals();
+    property_set_->GetAll();
+  }
+
+  const PropertySet* GetProperties() const { return &(*property_set_); }
+  PropertySet* GetProperties() { return &(*property_set_); }
+
+  const std::vector<dbus::ObjectPath>& members() const override {
+    return property_set_->members.value();
+  }
+
+  bool is_members_valid() const override {
+    return property_set_->members.is_valid();
+  }
+
+  const std::string& role() const override {
+    return property_set_->role.value();
+  }
+
+  bool is_role_valid() const override {
+    return property_set_->role.is_valid();
+  }
+
+  const std::vector<uint8_t>& ssid() const override {
+    return property_set_->ssid.value();
+  }
+
+  bool is_ssid_valid() const override {
+    return property_set_->ssid.is_valid();
+  }
+
+  const std::vector<uint8_t>& bssid() const override {
+    return property_set_->bssid.value();
+  }
+
+  bool is_bssid_valid() const override {
+    return property_set_->bssid.is_valid();
+  }
+
+  uint16_t frequency() const override {
+    return property_set_->frequency.value();
+  }
+
+  bool is_frequency_valid() const override {
+    return property_set_->frequency.is_valid();
+  }
+
+  const std::string& passphrase() const override {
+    return property_set_->passphrase.value();
+  }
+
+  bool is_passphrase_valid() const override {
+    return property_set_->passphrase.is_valid();
   }
 
  private:
@@ -1844,6 +2050,490 @@ class NetworkProxy final : public NetworkProxyInterface {
   void set_properties(const brillo::VariantDictionary& value,
                       base::OnceCallback<void(bool)> callback) override {
     property_set_->properties.Set(value, std::move(callback));
+  }
+
+ private:
+  scoped_refptr<dbus::Bus> bus_;
+  std::string service_name_;
+  dbus::ObjectPath object_path_;
+  dbus::ObjectProxy* dbus_object_proxy_;
+  std::unique_ptr<PropertySet> property_set_;
+
+};
+
+}  // namespace wpa_supplicant1
+}  // namespace w1
+}  // namespace fi
+
+namespace fi {
+namespace w1 {
+namespace wpa_supplicant1 {
+namespace Interface {
+
+// Abstract interface proxy for fi::w1::wpa_supplicant1::Interface::P2PDevice.
+class P2PDeviceProxyInterface {
+ public:
+  virtual ~P2PDeviceProxyInterface() = default;
+
+  virtual bool GroupAdd(
+      const brillo::VariantDictionary& in_args,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GroupAddAsync(
+      const brillo::VariantDictionary& in_args,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool Disconnect(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void DisconnectAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool AddPersistentGroup(
+      const brillo::VariantDictionary& in_args,
+      dbus::ObjectPath* out_path,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void AddPersistentGroupAsync(
+      const brillo::VariantDictionary& in_args,
+      base::OnceCallback<void(const dbus::ObjectPath& /*path*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool RemovePersistentGroup(
+      const dbus::ObjectPath& in_path,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void RemovePersistentGroupAsync(
+      const dbus::ObjectPath& in_path,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void RegisterGroupStartedSignalHandler(
+      const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterGroupFinishedSignalHandler(
+      const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  static const char* P2PDeviceConfigName() { return "P2PDeviceConfig"; }
+  virtual const brillo::VariantDictionary& p2_pdevice_config() const = 0;
+  virtual bool is_p2_pdevice_config_valid() const = 0;
+  virtual void set_p2_pdevice_config(const brillo::VariantDictionary& value,
+                                     base::OnceCallback<void(bool)> callback) = 0;
+  static const char* GroupName() { return "Group"; }
+  virtual const dbus::ObjectPath& group() const = 0;
+  virtual bool is_group_valid() const = 0;
+
+  virtual const dbus::ObjectPath& GetObjectPath() const = 0;
+  virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
+
+  virtual void InitializeProperties(
+      const base::RepeatingCallback<void(P2PDeviceProxyInterface*, const std::string&)>& callback) = 0;
+};
+
+}  // namespace Interface
+}  // namespace wpa_supplicant1
+}  // namespace w1
+}  // namespace fi
+
+namespace fi {
+namespace w1 {
+namespace wpa_supplicant1 {
+namespace Interface {
+
+// Interface proxy for fi::w1::wpa_supplicant1::Interface::P2PDevice.
+class P2PDeviceProxy final : public P2PDeviceProxyInterface {
+ public:
+  class PropertySet : public dbus::PropertySet {
+   public:
+    PropertySet(dbus::ObjectProxy* object_proxy,
+                const PropertyChangedCallback& callback)
+        : dbus::PropertySet{object_proxy,
+                            "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+                            callback} {
+      RegisterProperty(P2PDeviceConfigName(), &p2_pdevice_config);
+      RegisterProperty(GroupName(), &group);
+    }
+    PropertySet(const PropertySet&) = delete;
+    PropertySet& operator=(const PropertySet&) = delete;
+
+    brillo::dbus_utils::Property<brillo::VariantDictionary> p2_pdevice_config;
+    brillo::dbus_utils::Property<dbus::ObjectPath> group;
+
+  };
+
+  P2PDeviceProxy(
+      const scoped_refptr<dbus::Bus>& bus,
+      const std::string& service_name,
+      const dbus::ObjectPath& object_path) :
+          bus_{bus},
+          service_name_{service_name},
+          object_path_{object_path},
+          dbus_object_proxy_{
+              bus_->GetObjectProxy(service_name_, object_path_)} {
+  }
+
+  P2PDeviceProxy(const P2PDeviceProxy&) = delete;
+  P2PDeviceProxy& operator=(const P2PDeviceProxy&) = delete;
+
+  ~P2PDeviceProxy() override {
+  }
+
+  void RegisterGroupStartedSignalHandler(
+      const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "GroupStarted",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterGroupFinishedSignalHandler(
+      const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "GroupFinished",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void ReleaseObjectProxy(base::OnceClosure callback) {
+    bus_->RemoveObjectProxy(service_name_, object_path_, std::move(callback));
+  }
+
+  const dbus::ObjectPath& GetObjectPath() const override {
+    return object_path_;
+  }
+
+  dbus::ObjectProxy* GetObjectProxy() const override {
+    return dbus_object_proxy_;
+  }
+
+  void InitializeProperties(
+      const base::RepeatingCallback<void(P2PDeviceProxyInterface*, const std::string&)>& callback) override {
+    property_set_.reset(
+        new PropertySet(dbus_object_proxy_, base::BindRepeating(callback, this)));
+    property_set_->ConnectSignals();
+    property_set_->GetAll();
+  }
+
+  const PropertySet* GetProperties() const { return &(*property_set_); }
+  PropertySet* GetProperties() { return &(*property_set_); }
+
+  bool GroupAdd(
+      const brillo::VariantDictionary& in_args,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "GroupAdd",
+        error,
+        in_args);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void GroupAddAsync(
+      const brillo::VariantDictionary& in_args,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "GroupAdd",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_args);
+  }
+
+  bool Disconnect(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "Disconnect",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void DisconnectAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "Disconnect",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  bool AddPersistentGroup(
+      const brillo::VariantDictionary& in_args,
+      dbus::ObjectPath* out_path,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "AddPersistentGroup",
+        error,
+        in_args);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_path);
+  }
+
+  void AddPersistentGroupAsync(
+      const brillo::VariantDictionary& in_args,
+      base::OnceCallback<void(const dbus::ObjectPath& /*path*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "AddPersistentGroup",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_args);
+  }
+
+  bool RemovePersistentGroup(
+      const dbus::ObjectPath& in_path,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "RemovePersistentGroup",
+        error,
+        in_path);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void RemovePersistentGroupAsync(
+      const dbus::ObjectPath& in_path,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface.P2PDevice",
+        "RemovePersistentGroup",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_path);
+  }
+
+  const brillo::VariantDictionary& p2_pdevice_config() const override {
+    return property_set_->p2_pdevice_config.value();
+  }
+
+  bool is_p2_pdevice_config_valid() const override {
+    return property_set_->p2_pdevice_config.is_valid();
+  }
+
+  void set_p2_pdevice_config(const brillo::VariantDictionary& value,
+                             base::OnceCallback<void(bool)> callback) override {
+    property_set_->p2_pdevice_config.Set(value, std::move(callback));
+  }
+
+  const dbus::ObjectPath& group() const override {
+    return property_set_->group.value();
+  }
+
+  bool is_group_valid() const override {
+    return property_set_->group.is_valid();
+  }
+
+ private:
+  scoped_refptr<dbus::Bus> bus_;
+  std::string service_name_;
+  dbus::ObjectPath object_path_;
+  dbus::ObjectProxy* dbus_object_proxy_;
+  std::unique_ptr<PropertySet> property_set_;
+
+};
+
+}  // namespace Interface
+}  // namespace wpa_supplicant1
+}  // namespace w1
+}  // namespace fi
+
+namespace fi {
+namespace w1 {
+namespace wpa_supplicant1 {
+
+// Abstract interface proxy for fi::w1::wpa_supplicant1::Peer.
+class PeerProxyInterface {
+ public:
+  virtual ~PeerProxyInterface() = default;
+
+  virtual void RegisterPropertiesChangedSignalHandler(
+      const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  static const char* DeviceNameName() { return "DeviceName"; }
+  virtual const std::string& device_name() const = 0;
+  virtual bool is_device_name_valid() const = 0;
+  static const char* devicecapabilityName() { return "devicecapability"; }
+  virtual uint8_t devicecapability() const = 0;
+  virtual bool is_devicecapability_valid() const = 0;
+  static const char* groupcapabilityName() { return "groupcapability"; }
+  virtual uint8_t groupcapability() const = 0;
+  virtual bool is_groupcapability_valid() const = 0;
+  static const char* DeviceAddressName() { return "DeviceAddress"; }
+  virtual const std::vector<uint8_t>& device_address() const = 0;
+  virtual bool is_device_address_valid() const = 0;
+
+  virtual const dbus::ObjectPath& GetObjectPath() const = 0;
+  virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
+
+  virtual void InitializeProperties(
+      const base::RepeatingCallback<void(PeerProxyInterface*, const std::string&)>& callback) = 0;
+};
+
+}  // namespace wpa_supplicant1
+}  // namespace w1
+}  // namespace fi
+
+namespace fi {
+namespace w1 {
+namespace wpa_supplicant1 {
+
+// Interface proxy for fi::w1::wpa_supplicant1::Peer.
+class PeerProxy final : public PeerProxyInterface {
+ public:
+  class PropertySet : public dbus::PropertySet {
+   public:
+    PropertySet(dbus::ObjectProxy* object_proxy,
+                const PropertyChangedCallback& callback)
+        : dbus::PropertySet{object_proxy,
+                            "fi.w1.wpa_supplicant1.Peer",
+                            callback} {
+      RegisterProperty(DeviceNameName(), &device_name);
+      RegisterProperty(devicecapabilityName(), &devicecapability);
+      RegisterProperty(groupcapabilityName(), &groupcapability);
+      RegisterProperty(DeviceAddressName(), &device_address);
+    }
+    PropertySet(const PropertySet&) = delete;
+    PropertySet& operator=(const PropertySet&) = delete;
+
+    brillo::dbus_utils::Property<std::string> device_name;
+    brillo::dbus_utils::Property<uint8_t> devicecapability;
+    brillo::dbus_utils::Property<uint8_t> groupcapability;
+    brillo::dbus_utils::Property<std::vector<uint8_t>> device_address;
+
+  };
+
+  PeerProxy(
+      const scoped_refptr<dbus::Bus>& bus,
+      const std::string& service_name,
+      const dbus::ObjectPath& object_path) :
+          bus_{bus},
+          service_name_{service_name},
+          object_path_{object_path},
+          dbus_object_proxy_{
+              bus_->GetObjectProxy(service_name_, object_path_)} {
+  }
+
+  PeerProxy(const PeerProxy&) = delete;
+  PeerProxy& operator=(const PeerProxy&) = delete;
+
+  ~PeerProxy() override {
+  }
+
+  void RegisterPropertiesChangedSignalHandler(
+      const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Peer",
+        "PropertiesChanged",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void ReleaseObjectProxy(base::OnceClosure callback) {
+    bus_->RemoveObjectProxy(service_name_, object_path_, std::move(callback));
+  }
+
+  const dbus::ObjectPath& GetObjectPath() const override {
+    return object_path_;
+  }
+
+  dbus::ObjectProxy* GetObjectProxy() const override {
+    return dbus_object_proxy_;
+  }
+
+  void InitializeProperties(
+      const base::RepeatingCallback<void(PeerProxyInterface*, const std::string&)>& callback) override {
+    property_set_.reset(
+        new PropertySet(dbus_object_proxy_, base::BindRepeating(callback, this)));
+    property_set_->ConnectSignals();
+    property_set_->GetAll();
+  }
+
+  const PropertySet* GetProperties() const { return &(*property_set_); }
+  PropertySet* GetProperties() { return &(*property_set_); }
+
+  const std::string& device_name() const override {
+    return property_set_->device_name.value();
+  }
+
+  bool is_device_name_valid() const override {
+    return property_set_->device_name.is_valid();
+  }
+
+  uint8_t devicecapability() const override {
+    return property_set_->devicecapability.value();
+  }
+
+  bool is_devicecapability_valid() const override {
+    return property_set_->devicecapability.is_valid();
+  }
+
+  uint8_t groupcapability() const override {
+    return property_set_->groupcapability.value();
+  }
+
+  bool is_groupcapability_valid() const override {
+    return property_set_->groupcapability.is_valid();
+  }
+
+  const std::vector<uint8_t>& device_address() const override {
+    return property_set_->device_address.value();
+  }
+
+  bool is_device_address_valid() const override {
+    return property_set_->device_address.is_valid();
   }
 
  private:

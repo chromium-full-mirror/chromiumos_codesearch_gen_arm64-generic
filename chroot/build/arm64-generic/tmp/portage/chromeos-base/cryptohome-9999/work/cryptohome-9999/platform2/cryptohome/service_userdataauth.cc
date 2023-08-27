@@ -11,6 +11,7 @@
 #include <base/functional/callback.h>
 #include <brillo/cryptohome.h>
 #include <chromeos/constants/cryptohome.h>
+#include <cryptohome/proto_bindings/UserDataAuth.pb.h>
 #include <libhwsec-foundation/utility/task_dispatching_framework.h>
 
 #include "cryptohome/service_userdataauth.h"
@@ -405,6 +406,34 @@ void UserDataAuthAdaptor::DoUpdateAuthFactorMetadata(
           [](std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
                  user_data_auth::UpdateAuthFactorMetadataReply>> local_response,
              const user_data_auth::UpdateAuthFactorMetadataReply& reply) {
+            local_response->Return(reply);
+          },
+          std::move(response)));
+}
+
+void UserDataAuthAdaptor::RelabelAuthFactor(
+    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+        user_data_auth::RelabelAuthFactorReply>> response,
+    const user_data_auth::RelabelAuthFactorRequest& in_request) {
+  service_->PostTaskToMountThread(
+      FROM_HERE,
+      base::BindOnce(
+          &UserDataAuthAdaptor::DoRelabelAuthFactor, base::Unretained(this),
+          ThreadSafeDBusMethodResponse<user_data_auth::RelabelAuthFactorReply>::
+              MakeThreadSafe(std::move(response)),
+          in_request));
+}
+
+void UserDataAuthAdaptor::DoRelabelAuthFactor(
+    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+        user_data_auth::RelabelAuthFactorReply>> response,
+    const user_data_auth::RelabelAuthFactorRequest& in_request) {
+  service_->RelabelAuthFactor(
+      in_request,
+      base::BindOnce(
+          [](std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+                 user_data_auth::RelabelAuthFactorReply>> local_response,
+             const user_data_auth::RelabelAuthFactorReply& reply) {
             local_response->Return(reply);
           },
           std::move(response)));
@@ -847,73 +876,9 @@ void UserDataAuthAdaptor::PrepareAuthFactorProgressCallback(
   SendPrepareAuthFactorProgressSignal(signal);
 }
 
-void ArcQuotaAdaptor::GetArcDiskFeatures(
-    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::GetArcDiskFeaturesReply>> response,
-    const user_data_auth::GetArcDiskFeaturesRequest& in_request) {
-  user_data_auth::GetArcDiskFeaturesReply reply;
-  reply.set_quota_supported(service_->IsArcQuotaSupported());
-  response->Return(reply);
-}
-
-void ArcQuotaAdaptor::GetCurrentSpaceForArcUid(
-    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::GetCurrentSpaceForArcUidReply>> response,
-    const user_data_auth::GetCurrentSpaceForArcUidRequest& in_request) {
-  user_data_auth::GetCurrentSpaceForArcUidReply reply;
-  reply.set_cur_space(service_->GetCurrentSpaceForArcUid(in_request.uid()));
-  response->Return(reply);
-}
-
-void ArcQuotaAdaptor::GetCurrentSpaceForArcGid(
-    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::GetCurrentSpaceForArcGidReply>> response,
-    const user_data_auth::GetCurrentSpaceForArcGidRequest& in_request) {
-  user_data_auth::GetCurrentSpaceForArcGidReply reply;
-  reply.set_cur_space(service_->GetCurrentSpaceForArcGid(in_request.gid()));
-  response->Return(reply);
-}
-
-void ArcQuotaAdaptor::GetCurrentSpaceForArcProjectId(
-    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::GetCurrentSpaceForArcProjectIdReply>> response,
-    const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& in_request) {
-  user_data_auth::GetCurrentSpaceForArcProjectIdReply reply;
-  reply.set_cur_space(
-      service_->GetCurrentSpaceForArcProjectId(in_request.project_id()));
-  response->Return(reply);
-}
-
-void ArcQuotaAdaptor::SetMediaRWDataFileProjectId(
-    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::SetMediaRWDataFileProjectIdReply>> response,
-    const base::ScopedFD& in_fd,
-    const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request) {
-  int error = 0;
-  const bool success = service_->SetMediaRWDataFileProjectId(
-      in_request.project_id(), in_fd.get(), &error);
-  user_data_auth::SetMediaRWDataFileProjectIdReply reply;
-  reply.set_success(success);
-  if (!success)
-    reply.set_error(error);
-  response->Return(reply);
-}
-
-void ArcQuotaAdaptor::SetMediaRWDataFileProjectInheritanceFlag(
-    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply>>
-        response,
-    const base::ScopedFD& in_fd,
-    const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest&
-        in_request) {
-  int error = 0;
-  const bool success = service_->SetMediaRWDataFileProjectInheritanceFlag(
-      in_request.enable(), in_fd.get(), &error);
-  user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply reply;
-  reply.set_success(success);
-  if (!success)
-    reply.set_error(error);
-  response->Return(reply);
+void UserDataAuthAdaptor::AuthenticateAuthFactorCompletedCallback(
+    user_data_auth::AuthenticateAuthFactorCompleted signal) {
+  SendAuthenticateAuthFactorCompletedSignal(signal);
 }
 
 void Pkcs11Adaptor::Pkcs11IsTpmTokenReady(
@@ -1293,9 +1258,7 @@ void UserDataAuthAdaptor::GetArcDiskFeatures(
         user_data_auth::GetArcDiskFeaturesReply>> response,
     const user_data_auth::GetArcDiskFeaturesRequest& in_request) {
   user_data_auth::GetArcDiskFeaturesReply reply;
-  // Quota is not supported if there are one or more unmounted Android users.
-  // (b/181159107)
-  reply.set_quota_supported(service_->UnmountedAndroidUsersDoNotExist());
+  reply.set_quota_supported(service_->IsArcQuotaSupported());
   response->Return(reply);
 }
 

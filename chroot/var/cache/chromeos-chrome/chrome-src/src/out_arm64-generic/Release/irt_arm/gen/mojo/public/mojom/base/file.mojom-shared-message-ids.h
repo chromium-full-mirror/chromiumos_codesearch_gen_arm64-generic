@@ -8,15 +8,15 @@
 #define MOJO_PUBLIC_MOJOM_BASE_FILE_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace mojo_base {
-namespace mojom {
 
+
+namespace mojo_base::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_base
+
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_FILE_MOJOM_SHARED_MESSAGE_IDS_H_

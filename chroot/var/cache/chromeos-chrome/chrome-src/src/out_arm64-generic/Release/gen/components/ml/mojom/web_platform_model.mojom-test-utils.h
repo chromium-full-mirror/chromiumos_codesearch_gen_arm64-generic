@@ -10,9 +10,7 @@
 #include "components/ml/mojom/web_platform_model.mojom.h"
 
 
-namespace ml {
-namespace model_loader {
-namespace mojom {
+namespace ml::model_loader::mojom {
 
 
 class  ModelLoaderInterceptorForTesting : public ModelLoader {
@@ -59,8 +57,6 @@ class  ModelAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+}  // ml::model_loader::mojom
 
 #endif  // COMPONENTS_ML_MOJOM_WEB_PLATFORM_MODEL_MOJOM_TEST_UTILS_H_

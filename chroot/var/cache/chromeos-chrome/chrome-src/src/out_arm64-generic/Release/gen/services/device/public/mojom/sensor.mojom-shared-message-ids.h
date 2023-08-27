@@ -8,9 +8,9 @@
 #define SERVICES_DEVICE_PUBLIC_MOJOM_SENSOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace device {
-namespace mojom {
 
+
+namespace device::mojom {
 namespace internal {
 
 
@@ -24,7 +24,7 @@ constexpr uint32_t kSensorClient_RaiseError_Name = 0;
 constexpr uint32_t kSensorClient_SensorReadingChanged_Name = 1;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace device
+
+}  // device::mojom
 
 #endif  // SERVICES_DEVICE_PUBLIC_MOJOM_SENSOR_MOJOM_SHARED_MESSAGE_IDS_H_

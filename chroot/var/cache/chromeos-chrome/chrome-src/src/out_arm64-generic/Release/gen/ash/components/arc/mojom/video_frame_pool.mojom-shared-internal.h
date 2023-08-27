@@ -22,8 +22,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class VideoFrame_Data;
 
@@ -86,7 +87,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_FRAME_POOL_MOJOM_SHARED_INTERNAL_H_

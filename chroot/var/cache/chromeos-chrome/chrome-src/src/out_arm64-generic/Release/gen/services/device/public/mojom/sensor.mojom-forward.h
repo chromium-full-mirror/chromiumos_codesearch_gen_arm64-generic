@@ -21,8 +21,7 @@
 
 
 
-namespace device {
-namespace mojom {
+namespace device::mojom {
 class SensorConfigurationDataView;
 
 
@@ -39,7 +38,6 @@ class SensorClient;
 
 
 
-}  // namespace mojom
-}  // namespace device
+}  // device::mojom
 
 #endif  // SERVICES_DEVICE_PUBLIC_MOJOM_SENSOR_MOJOM_FORWARD_H_

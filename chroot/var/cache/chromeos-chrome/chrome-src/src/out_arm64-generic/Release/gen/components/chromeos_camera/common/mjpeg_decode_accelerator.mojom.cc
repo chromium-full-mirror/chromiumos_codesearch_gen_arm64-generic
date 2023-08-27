@@ -42,9 +42,7 @@
 #include "components/chromeos_camera/common/mjpeg_decode_accelerator.mojom-test-utils.h"
 
 
-
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 BitstreamBuffer::BitstreamBuffer()
     : id(),
       memory_handle(),
@@ -1086,8 +1084,7 @@ bool MjpegDecodeAcceleratorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 
 namespace mojo {
@@ -1127,8 +1124,7 @@ bool StructTraits<::chromeos_camera::mojom::BitstreamBuffer::DataView, ::chromeo
 // separate .cc file to save compile time.
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 void MjpegDecodeAcceleratorInterceptorForTesting::Initialize(InitializeCallback callback) {
@@ -1221,8 +1217,7 @@ void MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 
 #if defined(__clang__)

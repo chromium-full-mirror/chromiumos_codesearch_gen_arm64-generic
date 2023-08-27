@@ -8,15 +8,15 @@
 #define COMPONENTS_CHROMEOS_CAMERA_COMMON_DMABUF_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos_camera {
-namespace mojom {
 
+
+namespace chromeos_camera::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace chromeos_camera
+
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_DMABUF_MOJOM_SHARED_MESSAGE_IDS_H_

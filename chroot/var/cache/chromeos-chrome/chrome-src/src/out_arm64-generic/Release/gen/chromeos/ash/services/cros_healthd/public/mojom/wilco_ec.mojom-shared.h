@@ -32,18 +32,14 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class EcEventDataView;
 
 class GetEcTelemetryResponseDataView;
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -66,9 +62,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponseDataVie
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 enum class EcEvent_Reason : int32_t {
@@ -255,9 +249,7 @@ class GetEcTelemetryResponseDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -430,9 +422,7 @@ struct Serializer<::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView, Ma
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 inline void EcEventDataView::GetPayloadDataView(
     mojo::ArrayDataView<uint16_t>* output) {
@@ -449,9 +439,7 @@ inline void GetEcTelemetryResponseDataView::GetPayloadDataView(
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

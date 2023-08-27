@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+
+
+namespace ash::rollback_network_config::mojom {
 namespace internal {
 class  RollbackNetworkConfig_RollbackConfigImport_Params_Data {
  public:
@@ -191,9 +191,9 @@ inline void RollbackNetworkConfig_RollbackConfigExport_ResponseParamsDataView::G
   *output = mojo::StringDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+
+
+}  // ash::rollback_network_config::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

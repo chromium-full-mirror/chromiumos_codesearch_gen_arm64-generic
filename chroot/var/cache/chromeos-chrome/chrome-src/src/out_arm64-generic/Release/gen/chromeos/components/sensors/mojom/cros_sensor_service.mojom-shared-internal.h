@@ -21,9 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+
+
+namespace chromeos::sensors::mojom {
 namespace internal {
 
 #pragma pack(push, 1)
@@ -31,8 +31,7 @@ namespace internal {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+
+}  // chromeos::sensors::mojom
 
 #endif  // CHROMEOS_COMPONENTS_SENSORS_MOJOM_CROS_SENSOR_SERVICE_MOJOM_SHARED_INTERNAL_H_

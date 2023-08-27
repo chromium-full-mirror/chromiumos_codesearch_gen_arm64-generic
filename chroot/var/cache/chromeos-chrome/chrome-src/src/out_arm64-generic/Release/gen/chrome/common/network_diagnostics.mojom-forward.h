@@ -20,8 +20,7 @@
 
 
 
-namespace chrome {
-namespace mojom {
+namespace chrome::mojom {
 class NetworkDiagnostics;
 
 class NetworkDiagnosticsClient;
@@ -29,7 +28,6 @@ class NetworkDiagnosticsClient;
 
 
 
-}  // namespace mojom
-}  // namespace chrome
+}  // chrome::mojom
 
 #endif  // CHROME_COMMON_NETWORK_DIAGNOSTICS_MOJOM_FORWARD_H_

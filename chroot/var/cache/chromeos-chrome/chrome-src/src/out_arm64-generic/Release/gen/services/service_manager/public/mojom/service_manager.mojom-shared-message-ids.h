@@ -8,9 +8,9 @@
 #define SERVICES_SERVICE_MANAGER_PUBLIC_MOJOM_SERVICE_MANAGER_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace service_manager {
-namespace mojom {
 
+
+namespace service_manager::mojom {
 namespace internal {
 
 
@@ -23,7 +23,7 @@ constexpr uint32_t kServiceManagerListener_OnServiceStopped_Name = 5;
 constexpr uint32_t kServiceManager_AddListener_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace service_manager
+
+}  // service_manager::mojom
 
 #endif  // SERVICES_SERVICE_MANAGER_PUBLIC_MOJOM_SERVICE_MANAGER_MOJOM_SHARED_MESSAGE_IDS_H_

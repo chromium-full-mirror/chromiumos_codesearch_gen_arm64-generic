@@ -21,10 +21,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+namespace chromeos::machine_learning::web_platform::mojom {
 class HandwritingPointDataView;
 
 class HandwritingStrokeDataView;
@@ -65,9 +62,6 @@ class HandwritingRecognizer;
 
 
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::web_platform::mojom
 
 #endif  // CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_WEB_PLATFORM_HANDWRITING_MOJOM_FORWARD_H_

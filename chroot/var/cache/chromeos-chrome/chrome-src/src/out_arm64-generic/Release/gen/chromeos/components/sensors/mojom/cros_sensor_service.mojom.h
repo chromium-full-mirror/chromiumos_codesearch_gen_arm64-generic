@@ -38,9 +38,7 @@
 
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 class SensorHalServerProxy;
 
@@ -258,9 +256,7 @@ class  SensorHalClientRequestValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 namespace mojo {
 

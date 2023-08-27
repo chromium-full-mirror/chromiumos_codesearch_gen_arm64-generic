@@ -10,8 +10,7 @@
 #include "ash/components/arc/mojom/video_frame_pool.mojom.h"
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 class  VideoFramePoolInterceptorForTesting : public VideoFramePool {
@@ -56,7 +55,6 @@ class  VideoFramePoolClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_FRAME_POOL_MOJOM_TEST_UTILS_H_

@@ -42,10 +42,7 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 EcEvent::EcEvent()
     : type(),
       payload(),
@@ -314,9 +311,7 @@ bool WilcoEcObserverRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 namespace mojo {
@@ -362,9 +357,7 @@ bool StructTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponse::DataView, 
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 void WilcoEcObserverInterceptorForTesting::OnEcEvent(EcEventPtr ec_event) {
@@ -380,9 +373,7 @@ WilcoEcObserverAsyncWaiter::~WilcoEcObserverAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 #if defined(__clang__)

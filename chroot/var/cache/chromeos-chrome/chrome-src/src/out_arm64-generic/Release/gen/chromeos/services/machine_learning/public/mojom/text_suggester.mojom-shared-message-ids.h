@@ -8,18 +8,16 @@
 #define CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_TEXT_SUGGESTER_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
 
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 
 
 constexpr uint32_t kTextSuggester_Suggest_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+}  // chromeos::machine_learning::mojom
 
 #endif  // CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_TEXT_SUGGESTER_MOJOM_SHARED_MESSAGE_IDS_H_

@@ -32,9 +32,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class RunRoutineResponseDataView;
 
 class InteractiveRoutineUpdateDataView;
@@ -46,9 +44,7 @@ class RoutineUpdateDataView;
 class RoutineUpdateUnionDataView;
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -92,9 +88,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineUpdateUnionDataView> {
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 enum class DiagnosticRoutineEnum : int32_t {
@@ -637,9 +631,7 @@ class RoutineUpdateUnionDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -1088,9 +1080,7 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineUpdateUnionDataView, MaybeC
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 
@@ -1122,9 +1112,7 @@ inline void RoutineUpdateUnionDataView::GetNoninteractiveUpdateDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

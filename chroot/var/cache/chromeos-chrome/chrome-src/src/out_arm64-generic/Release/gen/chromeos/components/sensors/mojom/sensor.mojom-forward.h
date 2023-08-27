@@ -20,9 +20,7 @@
 
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 enum class DeviceType : int32_t;
 
@@ -72,8 +70,6 @@ class SensorServiceNewDevicesObserver;
 
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 #endif  // CHROMEOS_COMPONENTS_SENSORS_MOJOM_SENSOR_MOJOM_FORWARD_H_

@@ -21,9 +21,7 @@
 
 
 
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+namespace chromeos::network_diagnostics::mojom {
 class HttpsLatencyResultValueDataView;
 
 class RoutineResultDataView;
@@ -83,8 +81,6 @@ class NetworkDiagnosticsRoutines;
 
 
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+}  // chromeos::network_diagnostics::mojom
 
 #endif  // CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_DIAGNOSTICS_MOJOM_FORWARD_H_

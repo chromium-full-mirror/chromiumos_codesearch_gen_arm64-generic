@@ -31,9 +31,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class ExceptionDataView;
 
 class SupportedDataView;
@@ -44,9 +42,7 @@ class SupportStatusDataView;
 class UnsupportedReasonDataView;
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -90,9 +86,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::UnsupportedReasonDataView> {
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 enum class Exception_Reason : int32_t {
@@ -313,9 +307,7 @@ class UnsupportedReasonDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -611,9 +603,7 @@ struct Serializer<::ash::cros_healthd::mojom::UnsupportedReasonDataView, MaybeCo
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 inline void ExceptionDataView::GetDebugMessageDataView(
     mojo::StringDataView* output) {
@@ -654,9 +644,7 @@ inline void SupportStatusDataView::GetUnsupportedDataView(
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

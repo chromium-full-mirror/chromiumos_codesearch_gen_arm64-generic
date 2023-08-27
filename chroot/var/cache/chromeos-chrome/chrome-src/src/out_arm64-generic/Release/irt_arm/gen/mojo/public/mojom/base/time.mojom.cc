@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/time.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 Time::Time()
     : internal_value() {}
 
@@ -131,8 +129,7 @@ bool TimeTicks::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -186,14 +183,12 @@ bool StructTraits<::mojo_base::mojom::TimeTicks::DataView, ::mojo_base::mojom::T
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

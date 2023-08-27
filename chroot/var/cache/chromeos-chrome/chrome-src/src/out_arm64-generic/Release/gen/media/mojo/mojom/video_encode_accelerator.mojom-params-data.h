@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace media {
-namespace mojom {
+
+
+namespace media::mojom {
 namespace internal {
 class  VideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Params_Data {
  public:
@@ -904,8 +905,9 @@ inline void VideoEncodeAcceleratorClient_NotifyEncoderInfoChange_ParamsDataView:
   *output = ::media::mojom::VideoEncoderInfoDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace media
+
+
+}  // media::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

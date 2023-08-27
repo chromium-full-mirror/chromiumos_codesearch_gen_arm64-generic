@@ -10,13 +10,11 @@
 #include "chromeos/crosapi/mojom/nullable_primitives.mojom.h"
 
 
-namespace crosapi {
-namespace mojom {
+namespace crosapi::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace crosapi
+}  // crosapi::mojom
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_NULLABLE_PRIMITIVES_MOJOM_TEST_UTILS_H_

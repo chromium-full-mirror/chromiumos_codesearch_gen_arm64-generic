@@ -61,12 +61,18 @@ extern ComponentsRepairState_ComponentRepairStatusDefaultTypeInternal _Component
 class DeviceDestinationState;
 struct DeviceDestinationStateDefaultTypeInternal;
 extern DeviceDestinationStateDefaultTypeInternal _DeviceDestinationState_default_instance_;
+class ExtractExternalDiagnosticsAppReply;
+struct ExtractExternalDiagnosticsAppReplyDefaultTypeInternal;
+extern ExtractExternalDiagnosticsAppReplyDefaultTypeInternal _ExtractExternalDiagnosticsAppReply_default_instance_;
 class FinalizeState;
 struct FinalizeStateDefaultTypeInternal;
 extern FinalizeStateDefaultTypeInternal _FinalizeState_default_instance_;
 class FinalizeStatus;
 struct FinalizeStatusDefaultTypeInternal;
 extern FinalizeStatusDefaultTypeInternal _FinalizeStatus_default_instance_;
+class GetInstalledDiagnosticsAppReply;
+struct GetInstalledDiagnosticsAppReplyDefaultTypeInternal;
+extern GetInstalledDiagnosticsAppReplyDefaultTypeInternal _GetInstalledDiagnosticsAppReply_default_instance_;
 class GetLogReply;
 struct GetLogReplyDefaultTypeInternal;
 extern GetLogReplyDefaultTypeInternal _GetLogReply_default_instance_;
@@ -76,6 +82,9 @@ extern GetStateReplyDefaultTypeInternal _GetStateReply_default_instance_;
 class HardwareVerificationResult;
 struct HardwareVerificationResultDefaultTypeInternal;
 extern HardwareVerificationResultDefaultTypeInternal _HardwareVerificationResult_default_instance_;
+class InstallExtractedDiagnosticsAppReply;
+struct InstallExtractedDiagnosticsAppReplyDefaultTypeInternal;
+extern InstallExtractedDiagnosticsAppReplyDefaultTypeInternal _InstallExtractedDiagnosticsAppReply_default_instance_;
 class ProvisionDeviceState;
 struct ProvisionDeviceStateDefaultTypeInternal;
 extern ProvisionDeviceStateDefaultTypeInternal _ProvisionDeviceState_default_instance_;
@@ -144,11 +153,14 @@ template<> ::rmad::CheckCalibrationState* Arena::CreateMaybeMessage<::rmad::Chec
 template<> ::rmad::ComponentsRepairState* Arena::CreateMaybeMessage<::rmad::ComponentsRepairState>(Arena*);
 template<> ::rmad::ComponentsRepairState_ComponentRepairStatus* Arena::CreateMaybeMessage<::rmad::ComponentsRepairState_ComponentRepairStatus>(Arena*);
 template<> ::rmad::DeviceDestinationState* Arena::CreateMaybeMessage<::rmad::DeviceDestinationState>(Arena*);
+template<> ::rmad::ExtractExternalDiagnosticsAppReply* Arena::CreateMaybeMessage<::rmad::ExtractExternalDiagnosticsAppReply>(Arena*);
 template<> ::rmad::FinalizeState* Arena::CreateMaybeMessage<::rmad::FinalizeState>(Arena*);
 template<> ::rmad::FinalizeStatus* Arena::CreateMaybeMessage<::rmad::FinalizeStatus>(Arena*);
+template<> ::rmad::GetInstalledDiagnosticsAppReply* Arena::CreateMaybeMessage<::rmad::GetInstalledDiagnosticsAppReply>(Arena*);
 template<> ::rmad::GetLogReply* Arena::CreateMaybeMessage<::rmad::GetLogReply>(Arena*);
 template<> ::rmad::GetStateReply* Arena::CreateMaybeMessage<::rmad::GetStateReply>(Arena*);
 template<> ::rmad::HardwareVerificationResult* Arena::CreateMaybeMessage<::rmad::HardwareVerificationResult>(Arena*);
+template<> ::rmad::InstallExtractedDiagnosticsAppReply* Arena::CreateMaybeMessage<::rmad::InstallExtractedDiagnosticsAppReply>(Arena*);
 template<> ::rmad::ProvisionDeviceState* Arena::CreateMaybeMessage<::rmad::ProvisionDeviceState>(Arena*);
 template<> ::rmad::ProvisionStatus* Arena::CreateMaybeMessage<::rmad::ProvisionStatus>(Arena*);
 template<> ::rmad::RecordBrowserActionMetricReply* Arena::CreateMaybeMessage<::rmad::RecordBrowserActionMetricReply>(Arena*);
@@ -666,12 +678,13 @@ enum RmadErrorCode : int {
   RMAD_ERROR_CANNOT_SAVE_LOG = 43,
   RMAD_ERROR_CANNOT_RECORD_BROWSER_ACTION = 44,
   RMAD_ERROR_USB_NOT_FOUND = 45,
+  RMAD_ERROR_DIAGNOSTICS_APP_NOT_FOUND = 46,
   RmadErrorCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RmadErrorCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RmadErrorCode_IsValid(int value);
 constexpr RmadErrorCode RmadErrorCode_MIN = RMAD_ERROR_NOT_SET;
-constexpr RmadErrorCode RmadErrorCode_MAX = RMAD_ERROR_USB_NOT_FOUND;
+constexpr RmadErrorCode RmadErrorCode_MAX = RMAD_ERROR_DIAGNOSTICS_APP_NOT_FOUND;
 constexpr int RmadErrorCode_ARRAYSIZE = RmadErrorCode_MAX + 1;
 
 const std::string& RmadErrorCode_Name(RmadErrorCode value);
@@ -6580,6 +6593,460 @@ class RecordBrowserActionMetricReply final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_rmad_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ExtractExternalDiagnosticsAppReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:rmad.ExtractExternalDiagnosticsAppReply) */ {
+ public:
+  inline ExtractExternalDiagnosticsAppReply() : ExtractExternalDiagnosticsAppReply(nullptr) {}
+  ~ExtractExternalDiagnosticsAppReply() override;
+  explicit PROTOBUF_CONSTEXPR ExtractExternalDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ExtractExternalDiagnosticsAppReply(const ExtractExternalDiagnosticsAppReply& from);
+  ExtractExternalDiagnosticsAppReply(ExtractExternalDiagnosticsAppReply&& from) noexcept
+    : ExtractExternalDiagnosticsAppReply() {
+    *this = ::std::move(from);
+  }
+
+  inline ExtractExternalDiagnosticsAppReply& operator=(const ExtractExternalDiagnosticsAppReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ExtractExternalDiagnosticsAppReply& operator=(ExtractExternalDiagnosticsAppReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ExtractExternalDiagnosticsAppReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ExtractExternalDiagnosticsAppReply* internal_default_instance() {
+    return reinterpret_cast<const ExtractExternalDiagnosticsAppReply*>(
+               &_ExtractExternalDiagnosticsAppReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    31;
+
+  friend void swap(ExtractExternalDiagnosticsAppReply& a, ExtractExternalDiagnosticsAppReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ExtractExternalDiagnosticsAppReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ExtractExternalDiagnosticsAppReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ExtractExternalDiagnosticsAppReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ExtractExternalDiagnosticsAppReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ExtractExternalDiagnosticsAppReply& from);
+  void MergeFrom(const ExtractExternalDiagnosticsAppReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ExtractExternalDiagnosticsAppReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "rmad.ExtractExternalDiagnosticsAppReply";
+  }
+  protected:
+  explicit ExtractExternalDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDiagnosticsAppSwbnPathFieldNumber = 2,
+    kDiagnosticsAppCrxPathFieldNumber = 3,
+    kErrorFieldNumber = 1,
+  };
+  // string diagnostics_app_swbn_path = 2;
+  void clear_diagnostics_app_swbn_path();
+  const std::string& diagnostics_app_swbn_path() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_diagnostics_app_swbn_path(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_diagnostics_app_swbn_path();
+  PROTOBUF_NODISCARD std::string* release_diagnostics_app_swbn_path();
+  void set_allocated_diagnostics_app_swbn_path(std::string* diagnostics_app_swbn_path);
+  private:
+  const std::string& _internal_diagnostics_app_swbn_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_diagnostics_app_swbn_path(const std::string& value);
+  std::string* _internal_mutable_diagnostics_app_swbn_path();
+  public:
+
+  // string diagnostics_app_crx_path = 3;
+  void clear_diagnostics_app_crx_path();
+  const std::string& diagnostics_app_crx_path() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_diagnostics_app_crx_path(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_diagnostics_app_crx_path();
+  PROTOBUF_NODISCARD std::string* release_diagnostics_app_crx_path();
+  void set_allocated_diagnostics_app_crx_path(std::string* diagnostics_app_crx_path);
+  private:
+  const std::string& _internal_diagnostics_app_crx_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_diagnostics_app_crx_path(const std::string& value);
+  std::string* _internal_mutable_diagnostics_app_crx_path();
+  public:
+
+  // .rmad.RmadErrorCode error = 1;
+  void clear_error();
+  ::rmad::RmadErrorCode error() const;
+  void set_error(::rmad::RmadErrorCode value);
+  private:
+  ::rmad::RmadErrorCode _internal_error() const;
+  void _internal_set_error(::rmad::RmadErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:rmad.ExtractExternalDiagnosticsAppReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr diagnostics_app_swbn_path_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr diagnostics_app_crx_path_;
+    int error_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_rmad_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallExtractedDiagnosticsAppReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:rmad.InstallExtractedDiagnosticsAppReply) */ {
+ public:
+  inline InstallExtractedDiagnosticsAppReply() : InstallExtractedDiagnosticsAppReply(nullptr) {}
+  ~InstallExtractedDiagnosticsAppReply() override;
+  explicit PROTOBUF_CONSTEXPR InstallExtractedDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallExtractedDiagnosticsAppReply(const InstallExtractedDiagnosticsAppReply& from);
+  InstallExtractedDiagnosticsAppReply(InstallExtractedDiagnosticsAppReply&& from) noexcept
+    : InstallExtractedDiagnosticsAppReply() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallExtractedDiagnosticsAppReply& operator=(const InstallExtractedDiagnosticsAppReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallExtractedDiagnosticsAppReply& operator=(InstallExtractedDiagnosticsAppReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallExtractedDiagnosticsAppReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallExtractedDiagnosticsAppReply* internal_default_instance() {
+    return reinterpret_cast<const InstallExtractedDiagnosticsAppReply*>(
+               &_InstallExtractedDiagnosticsAppReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    32;
+
+  friend void swap(InstallExtractedDiagnosticsAppReply& a, InstallExtractedDiagnosticsAppReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallExtractedDiagnosticsAppReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallExtractedDiagnosticsAppReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallExtractedDiagnosticsAppReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallExtractedDiagnosticsAppReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallExtractedDiagnosticsAppReply& from);
+  void MergeFrom(const InstallExtractedDiagnosticsAppReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallExtractedDiagnosticsAppReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "rmad.InstallExtractedDiagnosticsAppReply";
+  }
+  protected:
+  explicit InstallExtractedDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorFieldNumber = 1,
+  };
+  // .rmad.RmadErrorCode error = 1;
+  void clear_error();
+  ::rmad::RmadErrorCode error() const;
+  void set_error(::rmad::RmadErrorCode value);
+  private:
+  ::rmad::RmadErrorCode _internal_error() const;
+  void _internal_set_error(::rmad::RmadErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:rmad.InstallExtractedDiagnosticsAppReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int error_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_rmad_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetInstalledDiagnosticsAppReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:rmad.GetInstalledDiagnosticsAppReply) */ {
+ public:
+  inline GetInstalledDiagnosticsAppReply() : GetInstalledDiagnosticsAppReply(nullptr) {}
+  ~GetInstalledDiagnosticsAppReply() override;
+  explicit PROTOBUF_CONSTEXPR GetInstalledDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetInstalledDiagnosticsAppReply(const GetInstalledDiagnosticsAppReply& from);
+  GetInstalledDiagnosticsAppReply(GetInstalledDiagnosticsAppReply&& from) noexcept
+    : GetInstalledDiagnosticsAppReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetInstalledDiagnosticsAppReply& operator=(const GetInstalledDiagnosticsAppReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetInstalledDiagnosticsAppReply& operator=(GetInstalledDiagnosticsAppReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetInstalledDiagnosticsAppReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetInstalledDiagnosticsAppReply* internal_default_instance() {
+    return reinterpret_cast<const GetInstalledDiagnosticsAppReply*>(
+               &_GetInstalledDiagnosticsAppReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    33;
+
+  friend void swap(GetInstalledDiagnosticsAppReply& a, GetInstalledDiagnosticsAppReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetInstalledDiagnosticsAppReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetInstalledDiagnosticsAppReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetInstalledDiagnosticsAppReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetInstalledDiagnosticsAppReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetInstalledDiagnosticsAppReply& from);
+  void MergeFrom(const GetInstalledDiagnosticsAppReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetInstalledDiagnosticsAppReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "rmad.GetInstalledDiagnosticsAppReply";
+  }
+  protected:
+  explicit GetInstalledDiagnosticsAppReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDiagnosticsAppSwbnPathFieldNumber = 2,
+    kDiagnosticsAppCrxPathFieldNumber = 3,
+    kErrorFieldNumber = 1,
+  };
+  // string diagnostics_app_swbn_path = 2;
+  void clear_diagnostics_app_swbn_path();
+  const std::string& diagnostics_app_swbn_path() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_diagnostics_app_swbn_path(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_diagnostics_app_swbn_path();
+  PROTOBUF_NODISCARD std::string* release_diagnostics_app_swbn_path();
+  void set_allocated_diagnostics_app_swbn_path(std::string* diagnostics_app_swbn_path);
+  private:
+  const std::string& _internal_diagnostics_app_swbn_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_diagnostics_app_swbn_path(const std::string& value);
+  std::string* _internal_mutable_diagnostics_app_swbn_path();
+  public:
+
+  // string diagnostics_app_crx_path = 3;
+  void clear_diagnostics_app_crx_path();
+  const std::string& diagnostics_app_crx_path() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_diagnostics_app_crx_path(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_diagnostics_app_crx_path();
+  PROTOBUF_NODISCARD std::string* release_diagnostics_app_crx_path();
+  void set_allocated_diagnostics_app_crx_path(std::string* diagnostics_app_crx_path);
+  private:
+  const std::string& _internal_diagnostics_app_crx_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_diagnostics_app_crx_path(const std::string& value);
+  std::string* _internal_mutable_diagnostics_app_crx_path();
+  public:
+
+  // .rmad.RmadErrorCode error = 1;
+  void clear_error();
+  ::rmad::RmadErrorCode error() const;
+  void set_error(::rmad::RmadErrorCode value);
+  private:
+  ::rmad::RmadErrorCode _internal_error() const;
+  void _internal_set_error(::rmad::RmadErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:rmad.GetInstalledDiagnosticsAppReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr diagnostics_app_swbn_path_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr diagnostics_app_crx_path_;
+    int error_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_rmad_2eproto;
+};
 // ===================================================================
 
 
@@ -10264,9 +10731,287 @@ inline void RecordBrowserActionMetricReply::set_error(::rmad::RmadErrorCode valu
   // @@protoc_insertion_point(field_set:rmad.RecordBrowserActionMetricReply.error)
 }
 
+// -------------------------------------------------------------------
+
+// ExtractExternalDiagnosticsAppReply
+
+// .rmad.RmadErrorCode error = 1;
+inline void ExtractExternalDiagnosticsAppReply::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::rmad::RmadErrorCode ExtractExternalDiagnosticsAppReply::_internal_error() const {
+  return static_cast< ::rmad::RmadErrorCode >(_impl_.error_);
+}
+inline ::rmad::RmadErrorCode ExtractExternalDiagnosticsAppReply::error() const {
+  // @@protoc_insertion_point(field_get:rmad.ExtractExternalDiagnosticsAppReply.error)
+  return _internal_error();
+}
+inline void ExtractExternalDiagnosticsAppReply::_internal_set_error(::rmad::RmadErrorCode value) {
+  
+  _impl_.error_ = value;
+}
+inline void ExtractExternalDiagnosticsAppReply::set_error(::rmad::RmadErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:rmad.ExtractExternalDiagnosticsAppReply.error)
+}
+
+// string diagnostics_app_swbn_path = 2;
+inline void ExtractExternalDiagnosticsAppReply::clear_diagnostics_app_swbn_path() {
+  _impl_.diagnostics_app_swbn_path_.ClearToEmpty();
+}
+inline const std::string& ExtractExternalDiagnosticsAppReply::diagnostics_app_swbn_path() const {
+  // @@protoc_insertion_point(field_get:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_swbn_path)
+  return _internal_diagnostics_app_swbn_path();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ExtractExternalDiagnosticsAppReply::set_diagnostics_app_swbn_path(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.diagnostics_app_swbn_path_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_swbn_path)
+}
+inline std::string* ExtractExternalDiagnosticsAppReply::mutable_diagnostics_app_swbn_path() {
+  std::string* _s = _internal_mutable_diagnostics_app_swbn_path();
+  // @@protoc_insertion_point(field_mutable:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_swbn_path)
+  return _s;
+}
+inline const std::string& ExtractExternalDiagnosticsAppReply::_internal_diagnostics_app_swbn_path() const {
+  return _impl_.diagnostics_app_swbn_path_.Get();
+}
+inline void ExtractExternalDiagnosticsAppReply::_internal_set_diagnostics_app_swbn_path(const std::string& value) {
+  
+  _impl_.diagnostics_app_swbn_path_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ExtractExternalDiagnosticsAppReply::_internal_mutable_diagnostics_app_swbn_path() {
+  
+  return _impl_.diagnostics_app_swbn_path_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ExtractExternalDiagnosticsAppReply::release_diagnostics_app_swbn_path() {
+  // @@protoc_insertion_point(field_release:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_swbn_path)
+  return _impl_.diagnostics_app_swbn_path_.Release();
+}
+inline void ExtractExternalDiagnosticsAppReply::set_allocated_diagnostics_app_swbn_path(std::string* diagnostics_app_swbn_path) {
+  if (diagnostics_app_swbn_path != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.diagnostics_app_swbn_path_.SetAllocated(diagnostics_app_swbn_path, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.diagnostics_app_swbn_path_.IsDefault()) {
+    _impl_.diagnostics_app_swbn_path_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_swbn_path)
+}
+
+// string diagnostics_app_crx_path = 3;
+inline void ExtractExternalDiagnosticsAppReply::clear_diagnostics_app_crx_path() {
+  _impl_.diagnostics_app_crx_path_.ClearToEmpty();
+}
+inline const std::string& ExtractExternalDiagnosticsAppReply::diagnostics_app_crx_path() const {
+  // @@protoc_insertion_point(field_get:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_crx_path)
+  return _internal_diagnostics_app_crx_path();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ExtractExternalDiagnosticsAppReply::set_diagnostics_app_crx_path(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.diagnostics_app_crx_path_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_crx_path)
+}
+inline std::string* ExtractExternalDiagnosticsAppReply::mutable_diagnostics_app_crx_path() {
+  std::string* _s = _internal_mutable_diagnostics_app_crx_path();
+  // @@protoc_insertion_point(field_mutable:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_crx_path)
+  return _s;
+}
+inline const std::string& ExtractExternalDiagnosticsAppReply::_internal_diagnostics_app_crx_path() const {
+  return _impl_.diagnostics_app_crx_path_.Get();
+}
+inline void ExtractExternalDiagnosticsAppReply::_internal_set_diagnostics_app_crx_path(const std::string& value) {
+  
+  _impl_.diagnostics_app_crx_path_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ExtractExternalDiagnosticsAppReply::_internal_mutable_diagnostics_app_crx_path() {
+  
+  return _impl_.diagnostics_app_crx_path_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ExtractExternalDiagnosticsAppReply::release_diagnostics_app_crx_path() {
+  // @@protoc_insertion_point(field_release:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_crx_path)
+  return _impl_.diagnostics_app_crx_path_.Release();
+}
+inline void ExtractExternalDiagnosticsAppReply::set_allocated_diagnostics_app_crx_path(std::string* diagnostics_app_crx_path) {
+  if (diagnostics_app_crx_path != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.diagnostics_app_crx_path_.SetAllocated(diagnostics_app_crx_path, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.diagnostics_app_crx_path_.IsDefault()) {
+    _impl_.diagnostics_app_crx_path_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:rmad.ExtractExternalDiagnosticsAppReply.diagnostics_app_crx_path)
+}
+
+// -------------------------------------------------------------------
+
+// InstallExtractedDiagnosticsAppReply
+
+// .rmad.RmadErrorCode error = 1;
+inline void InstallExtractedDiagnosticsAppReply::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::rmad::RmadErrorCode InstallExtractedDiagnosticsAppReply::_internal_error() const {
+  return static_cast< ::rmad::RmadErrorCode >(_impl_.error_);
+}
+inline ::rmad::RmadErrorCode InstallExtractedDiagnosticsAppReply::error() const {
+  // @@protoc_insertion_point(field_get:rmad.InstallExtractedDiagnosticsAppReply.error)
+  return _internal_error();
+}
+inline void InstallExtractedDiagnosticsAppReply::_internal_set_error(::rmad::RmadErrorCode value) {
+  
+  _impl_.error_ = value;
+}
+inline void InstallExtractedDiagnosticsAppReply::set_error(::rmad::RmadErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:rmad.InstallExtractedDiagnosticsAppReply.error)
+}
+
+// -------------------------------------------------------------------
+
+// GetInstalledDiagnosticsAppReply
+
+// .rmad.RmadErrorCode error = 1;
+inline void GetInstalledDiagnosticsAppReply::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::rmad::RmadErrorCode GetInstalledDiagnosticsAppReply::_internal_error() const {
+  return static_cast< ::rmad::RmadErrorCode >(_impl_.error_);
+}
+inline ::rmad::RmadErrorCode GetInstalledDiagnosticsAppReply::error() const {
+  // @@protoc_insertion_point(field_get:rmad.GetInstalledDiagnosticsAppReply.error)
+  return _internal_error();
+}
+inline void GetInstalledDiagnosticsAppReply::_internal_set_error(::rmad::RmadErrorCode value) {
+  
+  _impl_.error_ = value;
+}
+inline void GetInstalledDiagnosticsAppReply::set_error(::rmad::RmadErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:rmad.GetInstalledDiagnosticsAppReply.error)
+}
+
+// string diagnostics_app_swbn_path = 2;
+inline void GetInstalledDiagnosticsAppReply::clear_diagnostics_app_swbn_path() {
+  _impl_.diagnostics_app_swbn_path_.ClearToEmpty();
+}
+inline const std::string& GetInstalledDiagnosticsAppReply::diagnostics_app_swbn_path() const {
+  // @@protoc_insertion_point(field_get:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_swbn_path)
+  return _internal_diagnostics_app_swbn_path();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetInstalledDiagnosticsAppReply::set_diagnostics_app_swbn_path(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.diagnostics_app_swbn_path_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_swbn_path)
+}
+inline std::string* GetInstalledDiagnosticsAppReply::mutable_diagnostics_app_swbn_path() {
+  std::string* _s = _internal_mutable_diagnostics_app_swbn_path();
+  // @@protoc_insertion_point(field_mutable:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_swbn_path)
+  return _s;
+}
+inline const std::string& GetInstalledDiagnosticsAppReply::_internal_diagnostics_app_swbn_path() const {
+  return _impl_.diagnostics_app_swbn_path_.Get();
+}
+inline void GetInstalledDiagnosticsAppReply::_internal_set_diagnostics_app_swbn_path(const std::string& value) {
+  
+  _impl_.diagnostics_app_swbn_path_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetInstalledDiagnosticsAppReply::_internal_mutable_diagnostics_app_swbn_path() {
+  
+  return _impl_.diagnostics_app_swbn_path_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetInstalledDiagnosticsAppReply::release_diagnostics_app_swbn_path() {
+  // @@protoc_insertion_point(field_release:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_swbn_path)
+  return _impl_.diagnostics_app_swbn_path_.Release();
+}
+inline void GetInstalledDiagnosticsAppReply::set_allocated_diagnostics_app_swbn_path(std::string* diagnostics_app_swbn_path) {
+  if (diagnostics_app_swbn_path != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.diagnostics_app_swbn_path_.SetAllocated(diagnostics_app_swbn_path, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.diagnostics_app_swbn_path_.IsDefault()) {
+    _impl_.diagnostics_app_swbn_path_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_swbn_path)
+}
+
+// string diagnostics_app_crx_path = 3;
+inline void GetInstalledDiagnosticsAppReply::clear_diagnostics_app_crx_path() {
+  _impl_.diagnostics_app_crx_path_.ClearToEmpty();
+}
+inline const std::string& GetInstalledDiagnosticsAppReply::diagnostics_app_crx_path() const {
+  // @@protoc_insertion_point(field_get:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_crx_path)
+  return _internal_diagnostics_app_crx_path();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetInstalledDiagnosticsAppReply::set_diagnostics_app_crx_path(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.diagnostics_app_crx_path_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_crx_path)
+}
+inline std::string* GetInstalledDiagnosticsAppReply::mutable_diagnostics_app_crx_path() {
+  std::string* _s = _internal_mutable_diagnostics_app_crx_path();
+  // @@protoc_insertion_point(field_mutable:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_crx_path)
+  return _s;
+}
+inline const std::string& GetInstalledDiagnosticsAppReply::_internal_diagnostics_app_crx_path() const {
+  return _impl_.diagnostics_app_crx_path_.Get();
+}
+inline void GetInstalledDiagnosticsAppReply::_internal_set_diagnostics_app_crx_path(const std::string& value) {
+  
+  _impl_.diagnostics_app_crx_path_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetInstalledDiagnosticsAppReply::_internal_mutable_diagnostics_app_crx_path() {
+  
+  return _impl_.diagnostics_app_crx_path_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetInstalledDiagnosticsAppReply::release_diagnostics_app_crx_path() {
+  // @@protoc_insertion_point(field_release:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_crx_path)
+  return _impl_.diagnostics_app_crx_path_.Release();
+}
+inline void GetInstalledDiagnosticsAppReply::set_allocated_diagnostics_app_crx_path(std::string* diagnostics_app_crx_path) {
+  if (diagnostics_app_crx_path != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.diagnostics_app_crx_path_.SetAllocated(diagnostics_app_crx_path, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.diagnostics_app_crx_path_.IsDefault()) {
+    _impl_.diagnostics_app_crx_path_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:rmad.GetInstalledDiagnosticsAppReply.diagnostics_app_crx_path)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

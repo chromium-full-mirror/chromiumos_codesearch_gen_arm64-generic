@@ -10,9 +10,7 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd.mojom.h"
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class  CrosHealthdServiceFactoryInterceptorForTesting : public CrosHealthdServiceFactory {
@@ -353,8 +351,6 @@ class  WilcoEcServiceControllerAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_MOJOM_TEST_UTILS_H_

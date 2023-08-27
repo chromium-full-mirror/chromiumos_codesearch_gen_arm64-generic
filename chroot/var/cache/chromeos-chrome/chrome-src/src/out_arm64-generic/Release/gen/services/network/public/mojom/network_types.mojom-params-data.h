@@ -18,13 +18,15 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace network {
-namespace mojom {
+
+
+namespace network::mojom {
 namespace internal {
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network
+
+
+}  // network::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/generic_pending_receiver.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 GenericPendingReceiver::GenericPendingReceiver()
     : interface_name(),
       receiving_pipe() {}
@@ -87,8 +85,7 @@ bool GenericPendingReceiver::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -116,14 +113,12 @@ bool StructTraits<::mojo_base::mojom::GenericPendingReceiver::DataView, ::mojo_b
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

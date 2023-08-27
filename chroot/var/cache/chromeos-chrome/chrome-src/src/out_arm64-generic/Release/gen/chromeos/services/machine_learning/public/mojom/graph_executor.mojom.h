@@ -38,9 +38,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 class GraphExecutorProxy;
 
@@ -158,9 +156,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) GraphExecutorResponseValidator : public 
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 

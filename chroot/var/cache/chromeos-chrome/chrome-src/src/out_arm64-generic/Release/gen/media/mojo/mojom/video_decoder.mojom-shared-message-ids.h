@@ -8,9 +8,9 @@
 #define MEDIA_MOJO_MOJOM_VIDEO_DECODER_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace media {
-namespace mojom {
 
+
+namespace media::mojom {
 namespace internal {
 
 
@@ -26,7 +26,7 @@ constexpr uint32_t kVideoDecoderClient_OnWaiting_Name = 1;
 constexpr uint32_t kVideoDecoderClient_RequestOverlayInfo_Name = 2;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace media
+
+}  // media::mojom
 
 #endif  // MEDIA_MOJO_MOJOM_VIDEO_DECODER_MOJOM_SHARED_MESSAGE_IDS_H_

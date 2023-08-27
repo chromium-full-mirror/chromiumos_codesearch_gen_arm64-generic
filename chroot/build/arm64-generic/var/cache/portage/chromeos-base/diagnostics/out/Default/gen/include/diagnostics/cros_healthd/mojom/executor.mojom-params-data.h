@@ -533,7 +533,7 @@ class  Executor_RunMemtester_Params_Data {
 
   mojo::internal::StructHeader header_;
   uint32_t test_mem_kib;
-  uint8_t padfinal_[4];
+  mojo::internal::Handle_Data receiver;
 
  private:
   friend class mojo::internal::MessageFragment<Executor_RunMemtester_Params_Data>;
@@ -543,54 +543,6 @@ class  Executor_RunMemtester_Params_Data {
 };
 static_assert(sizeof(Executor_RunMemtester_Params_Data) == 16,
               "Bad sizeof(Executor_RunMemtester_Params_Data)");
-class  Executor_RunMemtester_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_RunMemtester_ResponseParams_Data>;
-
-  Executor_RunMemtester_ResponseParams_Data();
-  ~Executor_RunMemtester_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Executor_RunMemtester_ResponseParams_Data) == 16,
-              "Bad sizeof(Executor_RunMemtester_ResponseParams_Data)");
-class  Executor_RunMemtesterV2_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint32_t test_mem_kib;
-  mojo::internal::Handle_Data receiver;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_RunMemtesterV2_Params_Data>;
-
-  Executor_RunMemtesterV2_Params_Data();
-  ~Executor_RunMemtesterV2_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_RunMemtesterV2_Params_Data) == 16,
-              "Bad sizeof(Executor_RunMemtesterV2_Params_Data)");
-class  Executor_KillMemtester_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_KillMemtester_Params_Data>;
-
-  Executor_KillMemtester_Params_Data();
-  ~Executor_KillMemtester_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_KillMemtester_Params_Data) == 8,
-              "Bad sizeof(Executor_KillMemtester_Params_Data)");
 class  Executor_GetProcessIOContents_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2098,50 +2050,6 @@ class Executor_RunMemtester_ParamsDataView {
   Executor_RunMemtester_ParamsDataView(
       internal::Executor_RunMemtester_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  uint32_t test_mem_kib() const {
-    return data_->test_mem_kib;
-  }
- private:
-  internal::Executor_RunMemtester_Params_Data* data_ = nullptr;
-};
-
-
-class Executor_RunMemtester_ResponseParamsDataView {
- public:
-  Executor_RunMemtester_ResponseParamsDataView() = default;
-
-  Executor_RunMemtester_ResponseParamsDataView(
-      internal::Executor_RunMemtester_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      ExecutedProcessResultDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
-    
-    auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Executor_RunMemtester_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class Executor_RunMemtesterV2_ParamsDataView {
- public:
-  Executor_RunMemtesterV2_ParamsDataView() = default;
-
-  Executor_RunMemtesterV2_ParamsDataView(
-      internal::Executor_RunMemtesterV2_Params_Data* data,
-      mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
@@ -2158,23 +2066,8 @@ class Executor_RunMemtesterV2_ParamsDataView {
     return result;
   }
  private:
-  internal::Executor_RunMemtesterV2_Params_Data* data_ = nullptr;
+  internal::Executor_RunMemtester_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class Executor_KillMemtester_ParamsDataView {
- public:
-  Executor_KillMemtester_ParamsDataView() = default;
-
-  Executor_KillMemtester_ParamsDataView(
-      internal::Executor_KillMemtester_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::Executor_KillMemtester_Params_Data* data_ = nullptr;
 };
 
 
@@ -3523,17 +3416,6 @@ inline void Executor_RunIw_ResponseParamsDataView::GetResultDataView(
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
-
-
-
-
-inline void Executor_RunMemtester_ResponseParamsDataView::GetResultDataView(
-    ExecutedProcessResultDataView* output) {
-  auto pointer = data_->result.Get();
-  *output = ExecutedProcessResultDataView(pointer, message_);
-}
-
-
 
 
 

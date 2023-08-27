@@ -25,9 +25,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 class DocumentScannerConfig_Data;
 class DetectCornersResult_Data;
@@ -211,8 +211,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+}  // chromeos::machine_learning::mojom
 
 #endif  // CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_DOCUMENT_SCANNER_MOJOM_SHARED_INTERNAL_H_

@@ -10,8 +10,7 @@
 #include "ash/components/arc/mojom/video_encode_accelerator.mojom.h"
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 class  VideoEncodeAcceleratorInterceptorForTesting : public VideoEncodeAccelerator {
@@ -74,7 +73,6 @@ class  VideoEncodeClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_TEST_UTILS_H_

@@ -38,11 +38,23 @@ class ManagerInterface {
   // Close a previously opened scanner handle identified by |request|.
   virtual ::lorgnette::CloseScannerResponse CloseScanner(
       const ::lorgnette::CloseScannerRequest& in_request) = 0;
+  // Sets SANE options for the specified scanner.  The scanner must have been
+  // previously opened with OpenScanner.
+  virtual ::lorgnette::SetOptionsResponse SetOptions(
+      const ::lorgnette::SetOptionsRequest& in_request) = 0;
+  // Starts a scan using the currently configured options.  Options should
+  // be set with SetOptions first if needed.  If the result is successful,
+  // the caller can read scanned data with ReadScanData.
+  virtual ::lorgnette::StartPreparedScanResponse StartPreparedScan(
+      const ::lorgnette::StartPreparedScanRequest& in_request) = 0;
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
   virtual ::lorgnette::StartScanResponse StartScan(
       const ::lorgnette::StartScanRequest& in_start_scan_request) = 0;
+  // Reads the next chunk of data from an in-progress scan job.
+  virtual ::lorgnette::ReadScanDataResponse ReadScanData(
+      const ::lorgnette::ReadScanDataRequest& in_request) = 0;
   // Reads the next image for the given scan job and outputs image data to
   // out_fd.
   //
@@ -99,9 +111,21 @@ class ManagerAdaptor {
         base::Unretained(interface_),
         &ManagerInterface::CloseScanner);
     itf->AddSimpleMethodHandler(
+        "SetOptions",
+        base::Unretained(interface_),
+        &ManagerInterface::SetOptions);
+    itf->AddSimpleMethodHandler(
+        "StartPreparedScan",
+        base::Unretained(interface_),
+        &ManagerInterface::StartPreparedScan);
+    itf->AddSimpleMethodHandler(
         "StartScan",
         base::Unretained(interface_),
         &ManagerInterface::StartScan);
+    itf->AddSimpleMethodHandler(
+        "ReadScanData",
+        base::Unretained(interface_),
+        &ManagerInterface::ReadScanData);
     itf->AddMethodHandler(
         "GetNextImage",
         base::Unretained(interface_),
@@ -162,9 +186,21 @@ class ManagerAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <method name=\"SetOptions\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"StartPreparedScan\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
         "    <method name=\"StartScan\">\n"
         "      <arg name=\"start_scan_request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"start_scan_response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"ReadScanData\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetNextImage\">\n"
         "      <arg name=\"get_next_image_request\" type=\"ay\" direction=\"in\"/>\n"

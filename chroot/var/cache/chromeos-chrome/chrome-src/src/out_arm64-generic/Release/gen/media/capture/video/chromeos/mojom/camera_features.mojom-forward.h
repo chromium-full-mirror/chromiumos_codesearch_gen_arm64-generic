@@ -21,8 +21,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class PortraitModeConfigDataView;
 
 class Camera3StreamEffectDataView;
@@ -36,7 +35,6 @@ using Camera3StreamEffectPtr = mojo::StructPtr<Camera3StreamEffect>;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_FEATURES_MOJOM_FORWARD_H_

@@ -10,13 +10,11 @@
 #include "components/chromeos_camera/common/dmabuf.mojom.h"
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_DMABUF_MOJOM_TEST_UTILS_H_

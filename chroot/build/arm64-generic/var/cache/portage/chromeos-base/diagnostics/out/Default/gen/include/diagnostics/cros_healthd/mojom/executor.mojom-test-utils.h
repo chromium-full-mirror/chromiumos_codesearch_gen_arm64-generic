@@ -185,9 +185,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) override;
   void GetAllFanSpeed(GetAllFanSpeedCallback callback) override;
   void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) override;
-  void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) override;
-  void RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) override;
-  void KillMemtester() override;
+  void RunMemtester(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) override;
   void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) override;
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) override;
   void GetLidAngle(GetLidAngleCallback callback) override;
@@ -238,9 +236,6 @@ class  ExecutorAsyncWaiter {
   void RunIw(
       Executor::IwCommand cmd, const std::string& interface_name, ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr RunIw(Executor::IwCommand cmd, const std::string& interface_name);
-  void RunMemtester(
-      uint32_t test_mem_kib, ExecutedProcessResultPtr* out_result);
-  ExecutedProcessResultPtr RunMemtester(uint32_t test_mem_kib);
   void GetProcessIOContents(
       const std::vector<uint32_t>& pids, base::flat_map<uint32_t, std::string>* out_contents);
   base::flat_map<uint32_t, std::string> GetProcessIOContents(const std::vector<uint32_t>& pids);

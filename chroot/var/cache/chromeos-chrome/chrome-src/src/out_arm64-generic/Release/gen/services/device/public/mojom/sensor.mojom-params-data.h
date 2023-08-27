@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace device {
-namespace mojom {
+
+
+namespace device::mojom {
 namespace internal {
 class  Sensor_GetDefaultConfiguration_Params_Data {
  public:
@@ -404,8 +405,9 @@ inline void Sensor_RemoveConfiguration_ParamsDataView::GetConfigurationDataView(
 
 
 
-}  // namespace mojom
-}  // namespace device
+
+
+}  // device::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -16,9 +16,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace network_config {
-namespace mojom {
+
+
+namespace chromeos::network_config::mojom {
 namespace internal {
 
 struct ConnectionStateType_Data {
@@ -219,8 +219,7 @@ struct PortalState_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network_config
-}  // namespace chromeos
+
+}  // chromeos::network_config::mojom
 
 #endif  // CHROMEOS_SERVICES_NETWORK_CONFIG_PUBLIC_MOJOM_NETWORK_TYPES_MOJOM_SHARED_INTERNAL_H_

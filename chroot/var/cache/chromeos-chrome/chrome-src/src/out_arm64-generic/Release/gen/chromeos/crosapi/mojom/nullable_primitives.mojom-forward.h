@@ -21,8 +21,7 @@
 
 
 
-namespace crosapi {
-namespace mojom {
+namespace crosapi::mojom {
 class DoubleValueDataView;
 
 class Int64ValueDataView;
@@ -61,7 +60,6 @@ using BoolValuePtr = mojo::InlinedStructPtr<BoolValue>;
 
 
 
-}  // namespace mojom
-}  // namespace crosapi
+}  // crosapi::mojom
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_NULLABLE_PRIMITIVES_MOJOM_FORWARD_H_

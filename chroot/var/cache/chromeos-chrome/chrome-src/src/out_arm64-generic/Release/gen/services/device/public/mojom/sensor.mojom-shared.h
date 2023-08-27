@@ -32,14 +32,12 @@
 
 
 
-namespace device {
-namespace mojom {
+namespace device::mojom {
 class SensorConfigurationDataView;
 
 
 
-}  // namespace mojom
-}  // namespace device
+}  // device::mojom
 
 namespace mojo {
 namespace internal {
@@ -55,8 +53,7 @@ struct MojomTypeTraits<::device::mojom::SensorConfigurationDataView> {
 }  // namespace mojo
 
 
-namespace device {
-namespace mojom {
+namespace device::mojom {
 
 
 enum class SensorType : int32_t {
@@ -150,8 +147,7 @@ class SensorConfigurationDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace device
+}  // device::mojom
 
 namespace std {
 
@@ -240,14 +236,12 @@ struct Serializer<::device::mojom::SensorConfigurationDataView, MaybeConstUserTy
 }  // namespace mojo
 
 
-namespace device {
-namespace mojom {
+namespace device::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace device
+}  // device::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

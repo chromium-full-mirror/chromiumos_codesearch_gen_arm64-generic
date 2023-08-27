@@ -33,9 +33,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class ProbeErrorDataView;
 
 class MultipleProcessResultDataView;
@@ -200,9 +198,7 @@ class InputResultDataView;
 class SensorResultDataView;
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -883,9 +879,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorResultDataView> {
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 enum class CpuArchitectureEnum : int32_t {
@@ -8072,9 +8066,7 @@ class SensorResultDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -14941,9 +14933,7 @@ struct Serializer<::ash::cros_healthd::mojom::SensorResultDataView, MaybeConstUs
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 inline void ProbeErrorDataView::GetMsgDataView(
     mojo::StringDataView* output) {
@@ -16405,9 +16395,7 @@ inline void SensorResultDataView::GetErrorDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace service_manager {
-namespace mojom {
+
+
+namespace service_manager::mojom {
 namespace internal {
 class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM_SHARED) ServiceManagerListener_OnInit_Params_Data {
  public:
@@ -370,8 +371,9 @@ inline void ServiceManagerListener_OnServiceStopped_ParamsDataView::GetIdentityD
 
 
 
-}  // namespace mojom
-}  // namespace service_manager
+
+
+}  // service_manager::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -42,9 +42,7 @@
 #include "ui/gfx/range/mojom/range.mojom-test-utils.h"
 
 
-
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 Range::Range()
     : start(),
       end() {}
@@ -127,8 +125,7 @@ bool RangeF::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 
 namespace mojo {
@@ -172,14 +169,12 @@ bool StructTraits<::gfx::mojom::RangeF::DataView, ::gfx::mojom::RangeFPtr>::Read
 // separate .cc file to save compile time.
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 
 #if defined(__clang__)

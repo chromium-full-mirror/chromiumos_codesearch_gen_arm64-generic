@@ -8,15 +8,15 @@
 #define CHROMEOS_CROSAPI_MOJOM_NULLABLE_PRIMITIVES_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace crosapi {
-namespace mojom {
 
+
+namespace crosapi::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace crosapi
+
+}  // crosapi::mojom
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_NULLABLE_PRIMITIVES_MOJOM_SHARED_MESSAGE_IDS_H_

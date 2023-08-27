@@ -218,6 +218,12 @@ std::string GetProtoDebugStringWithIndent(CryptohomeErrorCode value,
   if (value == CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED) {
     return "CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED";
   }
+  if (value == CRYPTOHOME_RELABEL_CREDENTIALS_FAILED) {
+    return "CRYPTOHOME_RELABEL_CREDENTIALS_FAILED";
+  }
+  if (value == CRYPTOHOME_REPLACE_CREDENTIALS_FAILED) {
+    return "CRYPTOHOME_REPLACE_CREDENTIALS_FAILED";
+  }
   return "<unknown>";
 }
 
@@ -1923,213 +1929,6 @@ std::string GetProtoDebugStringWithIndent(const GetArcDiskFeaturesReply& value,
   return output;
 }
 
-std::string GetProtoDebugString(const GetCurrentSpaceForArcUidRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcUidRequest& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  uid: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")", value.uid(),
-                      value.uid());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const GetCurrentSpaceForArcUidReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcUidReply& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  cur_space: ";
-  base::StringAppendF(&output, "%" PRId64, value.cur_space());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const GetCurrentSpaceForArcGidRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcGidRequest& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  gid: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")", value.gid(),
-                      value.gid());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const GetCurrentSpaceForArcGidReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcGidReply& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  cur_space: ";
-  base::StringAppendF(&output, "%" PRId64, value.cur_space());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(
-    const GetCurrentSpaceForArcProjectIdRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcProjectIdRequest& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  project_id: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
-                      value.project_id(), value.project_id());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(
-    const GetCurrentSpaceForArcProjectIdReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const GetCurrentSpaceForArcProjectIdReply& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  cur_space: ";
-  base::StringAppendF(&output, "%" PRId64, value.cur_space());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(
-    const SetMediaRWDataFileProjectIdRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const SetMediaRWDataFileProjectIdRequest& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  project_id: ";
-  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
-                      value.project_id(), value.project_id());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const SetMediaRWDataFileProjectIdReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const SetMediaRWDataFileProjectIdReply& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  success: ";
-  base::StringAppendF(&output, "%s", value.success() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  error: ";
-  base::StringAppendF(&output, "%" PRId32, value.error());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(
-    const SetMediaRWDataFileProjectInheritanceFlagRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const SetMediaRWDataFileProjectInheritanceFlagRequest& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  enable: ";
-  base::StringAppendF(&output, "%s", value.enable() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(
-    const SetMediaRWDataFileProjectInheritanceFlagReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(
-    const SetMediaRWDataFileProjectInheritanceFlagReply& value,
-    int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  success: ";
-  base::StringAppendF(&output, "%s", value.success() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  error: ";
-  base::StringAppendF(&output, "%" PRId32, value.error());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
 std::string GetProtoDebugString(const TpmTokenInfo& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -3323,6 +3122,142 @@ std::string GetProtoDebugStringWithIndent(
   return output;
 }
 
+std::string GetProtoDebugString(const RelabelAuthFactorRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const RelabelAuthFactorRequest& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  auth_session_id: ";
+  base::StringAppendF(&output, "%s",
+                      base::HexEncode(value.auth_session_id().data(),
+                                      value.auth_session_id().size())
+                          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_factor_label: ";
+  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+  output += "\n";
+
+  output += indent + "  new_auth_factor_label: ";
+  base::StringAppendF(&output, "%s", value.new_auth_factor_label().c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const RelabelAuthFactorReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const RelabelAuthFactorReply& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  error: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  relabelled_auth_factor: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(
+                          value.relabelled_auth_factor(), indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const ReplaceAuthFactorRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const ReplaceAuthFactorRequest& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  auth_session_id: ";
+  base::StringAppendF(&output, "%s",
+                      base::HexEncode(value.auth_session_id().data(),
+                                      value.auth_session_id().size())
+                          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_factor_label: ";
+  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+  output += "\n";
+
+  output += indent + "  auth_factor: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_input: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_input(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const ReplaceAuthFactorReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const ReplaceAuthFactorReply& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  error: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  replacement_auth_factor: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(
+                          value.replacement_auth_factor(), indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const RemoveAuthFactorRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -4183,6 +4118,57 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
+  output += indent + "  success: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.success(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  failure: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.failure(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(
+    const AuthenticateAuthFactorCompletedSuccess& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const AuthenticateAuthFactorCompletedSuccess& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  auth_factor_type: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(
+    const AuthenticateAuthFactorCompletedFailure& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const AuthenticateAuthFactorCompletedFailure& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
   output += indent + "  error: ";
   base::StringAppendF(
       &output, "%s",
@@ -4193,13 +4179,6 @@ std::string GetProtoDebugStringWithIndent(
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  auth_factor_type: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
           .c_str());
   output += "\n";
 

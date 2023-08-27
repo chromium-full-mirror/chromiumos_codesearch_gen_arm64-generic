@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace network {
-namespace mojom {
+
+
+namespace network::mojom {
 namespace internal {
 class IPAddress_Data;
 
@@ -78,7 +79,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network
+
+}  // network::mojom
 
 #endif  // SERVICES_NETWORK_PUBLIC_MOJOM_IP_ADDRESS_MOJOM_SHARED_INTERNAL_H_

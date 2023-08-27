@@ -8,10 +8,9 @@
 #define CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace network_health {
-namespace mojom {
 
+
+namespace chromeos::network_health::mojom {
 namespace internal {
 
 
@@ -24,8 +23,7 @@ constexpr uint32_t kNetworkHealthService_GetHealthSnapshot_Name = 2;
 constexpr uint32_t kNetworkHealthService_GetRecentlyActiveNetworks_Name = 3;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+
+}  // chromeos::network_health::mojom
 
 #endif  // CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_MOJOM_SHARED_MESSAGE_IDS_H_

@@ -8,10 +8,9 @@
 #define CHROME_SERVICES_WILCO_DTC_SUPPORTD_PUBLIC_MOJOM_WILCO_DTC_SUPPORTD_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
 
+
+namespace chromeos::wilco_dtc_supportd::mojom {
 namespace internal {
 
 
@@ -26,8 +25,7 @@ constexpr uint32_t kWilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Name
 constexpr uint32_t kWilcoDtcSupportdClient_GetCrosHealthdProbeService_Name = 5;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+
+}  // chromeos::wilco_dtc_supportd::mojom
 
 #endif  // CHROME_SERVICES_WILCO_DTC_SUPPORTD_PUBLIC_MOJOM_WILCO_DTC_SUPPORTD_MOJOM_SHARED_MESSAGE_IDS_H_

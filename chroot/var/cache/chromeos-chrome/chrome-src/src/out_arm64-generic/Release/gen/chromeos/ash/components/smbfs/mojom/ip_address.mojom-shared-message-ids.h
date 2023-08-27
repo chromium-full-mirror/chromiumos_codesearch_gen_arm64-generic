@@ -8,15 +8,15 @@
 #define CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_IP_ADDRESS_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace smbfs {
-namespace mojom {
 
+
+namespace smbfs::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace smbfs
+
+}  // smbfs::mojom
 
 #endif  // CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_IP_ADDRESS_MOJOM_SHARED_MESSAGE_IDS_H_

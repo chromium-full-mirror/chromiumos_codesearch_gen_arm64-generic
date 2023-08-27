@@ -54,6 +54,9 @@ extern EncryptedRecordDefaultTypeInternal _EncryptedRecord_default_instance_;
 class EncryptionInfo;
 struct EncryptionInfoDefaultTypeInternal;
 extern EncryptionInfoDefaultTypeInternal _EncryptionInfo_default_instance_;
+class ListOfBlockedDestinations;
+struct ListOfBlockedDestinationsDefaultTypeInternal;
+extern ListOfBlockedDestinationsDefaultTypeInternal _ListOfBlockedDestinations_default_instance_;
 class Record;
 struct RecordDefaultTypeInternal;
 extern RecordDefaultTypeInternal _Record_default_instance_;
@@ -74,6 +77,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::reporting::CompressionInformation* Arena::CreateMaybeMessage<::reporting::CompressionInformation>(Arena*);
 template<> ::reporting::EncryptedRecord* Arena::CreateMaybeMessage<::reporting::EncryptedRecord>(Arena*);
 template<> ::reporting::EncryptionInfo* Arena::CreateMaybeMessage<::reporting::EncryptionInfo>(Arena*);
+template<> ::reporting::ListOfBlockedDestinations* Arena::CreateMaybeMessage<::reporting::ListOfBlockedDestinations>(Arena*);
 template<> ::reporting::Record* Arena::CreateMaybeMessage<::reporting::Record>(Arena*);
 template<> ::reporting::SequenceInformation* Arena::CreateMaybeMessage<::reporting::SequenceInformation>(Arena*);
 template<> ::reporting::SignedEncryptionInfo* Arena::CreateMaybeMessage<::reporting::SignedEncryptionInfo>(Arena*);
@@ -1712,6 +1716,151 @@ class SignedEncryptionInfo final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr public_asymmetric_key_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signature_;
     int32_t public_key_id_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_record_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListOfBlockedDestinations final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.ListOfBlockedDestinations) */ {
+ public:
+  inline ListOfBlockedDestinations() : ListOfBlockedDestinations(nullptr) {}
+  ~ListOfBlockedDestinations() override;
+  explicit PROTOBUF_CONSTEXPR ListOfBlockedDestinations(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListOfBlockedDestinations(const ListOfBlockedDestinations& from);
+  ListOfBlockedDestinations(ListOfBlockedDestinations&& from) noexcept
+    : ListOfBlockedDestinations() {
+    *this = ::std::move(from);
+  }
+
+  inline ListOfBlockedDestinations& operator=(const ListOfBlockedDestinations& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListOfBlockedDestinations& operator=(ListOfBlockedDestinations&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ListOfBlockedDestinations& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListOfBlockedDestinations* internal_default_instance() {
+    return reinterpret_cast<const ListOfBlockedDestinations*>(
+               &_ListOfBlockedDestinations_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(ListOfBlockedDestinations& a, ListOfBlockedDestinations& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListOfBlockedDestinations* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListOfBlockedDestinations* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ListOfBlockedDestinations* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ListOfBlockedDestinations>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ListOfBlockedDestinations& from);
+  void MergeFrom(const ListOfBlockedDestinations& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ListOfBlockedDestinations* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "reporting.ListOfBlockedDestinations";
+  }
+  protected:
+  explicit ListOfBlockedDestinations(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDestinationsFieldNumber = 1,
+  };
+  // repeated .reporting.Destination destinations = 1;
+  int destinations_size() const;
+  private:
+  int _internal_destinations_size() const;
+  public:
+  void clear_destinations();
+  private:
+  ::reporting::Destination _internal_destinations(int index) const;
+  void _internal_add_destinations(::reporting::Destination value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_destinations();
+  public:
+  ::reporting::Destination destinations(int index) const;
+  void set_destinations(int index, ::reporting::Destination value);
+  void add_destinations(::reporting::Destination value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& destinations() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_destinations();
+
+  // @@protoc_insertion_point(class_scope:reporting.ListOfBlockedDestinations)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> destinations_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_record_2eproto;
@@ -3464,9 +3613,60 @@ inline void SignedEncryptionInfo::set_allocated_signature(std::string* signature
   // @@protoc_insertion_point(field_set_allocated:reporting.SignedEncryptionInfo.signature)
 }
 
+// -------------------------------------------------------------------
+
+// ListOfBlockedDestinations
+
+// repeated .reporting.Destination destinations = 1;
+inline int ListOfBlockedDestinations::_internal_destinations_size() const {
+  return _impl_.destinations_.size();
+}
+inline int ListOfBlockedDestinations::destinations_size() const {
+  return _internal_destinations_size();
+}
+inline void ListOfBlockedDestinations::clear_destinations() {
+  _impl_.destinations_.Clear();
+}
+inline ::reporting::Destination ListOfBlockedDestinations::_internal_destinations(int index) const {
+  return static_cast< ::reporting::Destination >(_impl_.destinations_.Get(index));
+}
+inline ::reporting::Destination ListOfBlockedDestinations::destinations(int index) const {
+  // @@protoc_insertion_point(field_get:reporting.ListOfBlockedDestinations.destinations)
+  return _internal_destinations(index);
+}
+inline void ListOfBlockedDestinations::set_destinations(int index, ::reporting::Destination value) {
+  assert(::reporting::Destination_IsValid(value));
+  _impl_.destinations_.Set(index, value);
+  // @@protoc_insertion_point(field_set:reporting.ListOfBlockedDestinations.destinations)
+}
+inline void ListOfBlockedDestinations::_internal_add_destinations(::reporting::Destination value) {
+  assert(::reporting::Destination_IsValid(value));
+  _impl_.destinations_.Add(value);
+}
+inline void ListOfBlockedDestinations::add_destinations(::reporting::Destination value) {
+  _internal_add_destinations(value);
+  // @@protoc_insertion_point(field_add:reporting.ListOfBlockedDestinations.destinations)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+ListOfBlockedDestinations::destinations() const {
+  // @@protoc_insertion_point(field_list:reporting.ListOfBlockedDestinations.destinations)
+  return _impl_.destinations_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+ListOfBlockedDestinations::_internal_mutable_destinations() {
+  return &_impl_.destinations_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+ListOfBlockedDestinations::mutable_destinations() {
+  // @@protoc_insertion_point(field_mutable_list:reporting.ListOfBlockedDestinations.destinations)
+  return _internal_mutable_destinations();
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

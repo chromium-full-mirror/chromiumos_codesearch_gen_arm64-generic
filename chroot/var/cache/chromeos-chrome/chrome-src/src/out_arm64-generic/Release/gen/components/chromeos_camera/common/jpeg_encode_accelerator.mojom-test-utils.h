@@ -10,8 +10,7 @@
 #include "components/chromeos_camera/common/jpeg_encode_accelerator.mojom.h"
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 class  JpegEncodeAcceleratorInterceptorForTesting : public JpegEncodeAccelerator {
@@ -45,7 +44,6 @@ class  JpegEncodeAcceleratorAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_JPEG_ENCODE_ACCELERATOR_MOJOM_TEST_UTILS_H_

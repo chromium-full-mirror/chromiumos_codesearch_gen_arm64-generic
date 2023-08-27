@@ -30,17 +30,13 @@
 
 
 
-namespace chromeos {
-namespace network_config {
-namespace mojom {
+namespace chromeos::network_config::mojom {
 
 
 
 
 
-}  // namespace mojom
-}  // namespace network_config
-}  // namespace chromeos
+}  // chromeos::network_config::mojom
 
 namespace mojo {
 

@@ -32,16 +32,14 @@
 
 
 
-namespace mojo {
-namespace native {
+namespace mojo::native {
 class SerializedHandleDataView;
 
 class NativeStructDataView;
 
 
 
-}  // namespace native
-}  // namespace mojo
+}  // mojo::native
 
 namespace mojo {
 namespace internal {
@@ -64,8 +62,7 @@ struct MojomTypeTraits<::mojo::native::NativeStructDataView> {
 }  // namespace mojo
 
 
-namespace mojo {
-namespace native {
+namespace mojo::native {
 
 
 enum class SerializedHandleType : int32_t {
@@ -170,8 +167,7 @@ static_assert(
 };
 
 
-}  // namespace native
-}  // namespace mojo
+}  // mojo::native
 
 namespace std {
 
@@ -245,8 +241,7 @@ struct Serializer<::mojo::native::SerializedHandleDataView, MaybeConstUserType> 
 }  // namespace mojo
 
 
-namespace mojo {
-namespace native {
+namespace mojo::native {
 
 
 
@@ -263,8 +258,7 @@ inline void NativeStructDataView::GetHandlesDataView(
 
 
 
-}  // namespace native
-}  // namespace mojo
+}  // mojo::native
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

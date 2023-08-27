@@ -32,14 +32,12 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class ReadOnlyBufferDataView;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -55,8 +53,7 @@ struct MojomTypeTraits<::mojo_base::mojom::ReadOnlyBufferDataView> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class ReadOnlyBufferDataView {
@@ -85,8 +82,7 @@ class ReadOnlyBufferDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace std {
 
@@ -140,8 +136,7 @@ struct Serializer<::mojo_base::mojom::ReadOnlyBufferDataView, MaybeConstUserType
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 inline void ReadOnlyBufferDataView::GetBufferDataView(
     mojo::ArrayDataView<uint8_t>* output) {
@@ -151,8 +146,7 @@ inline void ReadOnlyBufferDataView::GetBufferDataView(
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

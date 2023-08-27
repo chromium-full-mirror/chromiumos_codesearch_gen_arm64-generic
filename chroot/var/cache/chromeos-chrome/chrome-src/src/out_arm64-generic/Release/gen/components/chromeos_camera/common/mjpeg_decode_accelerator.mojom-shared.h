@@ -38,14 +38,12 @@
 
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 class BitstreamBufferDataView;
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 namespace mojo {
 namespace internal {
@@ -61,8 +59,7 @@ struct MojomTypeTraits<::chromeos_camera::mojom::BitstreamBufferDataView> {
 }  // namespace mojo
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 enum class DecodeError : int32_t {
@@ -173,8 +170,7 @@ class BitstreamBufferDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 namespace std {
 
@@ -298,8 +294,7 @@ struct Serializer<::chromeos_camera::mojom::BitstreamBufferDataView, MaybeConstU
 }  // namespace mojo
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 inline void BitstreamBufferDataView::GetTimestampDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
@@ -324,8 +319,7 @@ inline void BitstreamBufferDataView::GetSubsamplesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

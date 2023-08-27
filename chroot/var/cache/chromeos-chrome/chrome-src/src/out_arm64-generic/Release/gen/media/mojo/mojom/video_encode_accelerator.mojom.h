@@ -47,8 +47,7 @@
 
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 
 class VideoEncodeAcceleratorProviderProxy;
 
@@ -3958,8 +3957,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 namespace mojo {
 

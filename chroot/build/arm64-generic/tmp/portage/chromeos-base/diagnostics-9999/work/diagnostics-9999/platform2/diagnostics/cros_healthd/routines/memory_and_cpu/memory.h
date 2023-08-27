@@ -1,4 +1,4 @@
-// Copyright 2020 The ChromiumOS Authors
+// Copyright 2023 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6,64 +6,89 @@
 #define DIAGNOSTICS_CROS_HEALTHD_ROUTINES_MEMORY_AND_CPU_MEMORY_H_
 
 #include <memory>
+#include <optional>
 #include <string>
+#include <vector>
 
+#include <base/files/file.h>
+#include <base/functional/callback_forward.h>
+#include <base/functional/callback_helpers.h>
 #include <base/memory/weak_ptr.h>
 #include <base/time/default_tick_clock.h>
 #include <base/time/tick_clock.h>
 #include <base/time/time.h>
-#include <base/values.h>
 
+#include "diagnostics/cros_healthd/executor/utils/scoped_process_control.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom.h"
-#include "diagnostics/cros_healthd/routines/diag_routine_with_status.h"
+#include "diagnostics/cros_healthd/routines/base_routine_control.h"
 #include "diagnostics/cros_healthd/system/context.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
 
 namespace diagnostics {
 
+// Update the progress bar every kMemoryRoutineUpdatePeriod.
+inline constexpr base::TimeDelta kMemoryRoutineUpdatePeriod = base::Seconds(1);
+
 // The memory routine checks that the device's memory is working correctly.
-class MemoryRoutine final : public DiagnosticRoutineWithStatus {
+class MemoryRoutine final : public BaseRoutineControl {
  public:
-  // Override |tick_clock| for testing only.
-  explicit MemoryRoutine(Context* context,
-                         const base::TickClock* tick_clock = nullptr);
+  explicit MemoryRoutine(
+      Context* context,
+      const ash::cros_healthd::mojom::MemoryRoutineArgumentPtr& arg);
   MemoryRoutine(const MemoryRoutine&) = delete;
   MemoryRoutine& operator=(const MemoryRoutine&) = delete;
   ~MemoryRoutine() override;
 
-  // DiagnosticRoutine overrides:
-  void Start() override;
-  void Resume() override;
-  void Cancel() override;
-  void PopulateStatusUpdate(ash::cros_healthd::mojom::RoutineUpdate* response,
-                            bool include_output) override;
+  // BaseRoutineControl overrides:
+  void OnStart() override;
 
  private:
-  // Takes the memtester result code from |process| and parses it to determine
-  // whether or not the routine succeeded.
-  void DetermineRoutineResult(
-      ash::cros_healthd::mojom::ExecutedProcessResultPtr process);
+  // The |Run| function is added to the memory resource queue as a callback and
+  // will be called when memory resource is available.
+  void Run(base::ScopedClosureRunner notify_resource_queue_finished);
 
-  // Takes raw output from memtester and parses it into |output_dict_|.
-  void ParseMemtesterOutput(const std::string& raw_output);
+  // Initialize variables needed to read stdout.
+  void SetUpStdout(mojo::ScopedHandle handle);
+
+  // Read memtester return code and parses memtester output.
+  void DetermineRoutineResult();
+
+  // Accepts a return code and store it inside a class variable.
+  void HandleGetReturnCode(int return_code);
+
+  // Update the percentage progress of the routine.
+  void UpdatePercentage();
+
+  // Read and parse the memtester stdout from read_stdout_size_ to
+  // current_stdout_size.
+  void ReadNewMemtesterResult();
+
+  // Parse the memtester output to determine the results.
+  ash::cros_healthd::mojom::MemoryRoutineDetailPtr ParseMemtesterResult();
+
+  // Calculate the percentage progress based on the current parsed output.
+  std::optional<int8_t> CalculatePercentage();
 
   // Unowned. Should outlive this instance.
   Context* const context_ = nullptr;
-
-  // Details about the routine's execution. Reported in status updates when
-  // requested.
-  base::Value::Dict output_dict_;
-
-  // Expected duration of the routine, in microseconds.
-  double expected_duration_us_ = 0;
-  // When the routine started. Used to calculate the routine's progress percent.
-  base::TimeTicks start_ticks_;
-  // Tracks the passage of time. Should never be used directly - instead, use
-  // |tick_clock_|.
-  std::unique_ptr<base::DefaultTickClock> default_tick_clock_;
-  // Unowned pointer which should outlive this instance. Allows the default tick
-  // clock to be overridden for testing.
-  const base::TickClock* tick_clock_;
+  // Once the memory resource is finished (when memtester finish running), run
+  // this callback to notify the resource queue of resource availability.
+  base::ScopedClosureRunner notify_resource_queue_finished_;
+  // A scoped version of process control that manages the lifetime of the
+  // memtester process.
+  ScopedProcessControl scoped_process_control_;
+  // The return code of memtester process.
+  int memtester_return_code_;
+  // A file descriptor that points to memtester stdout to allow for real time
+  // output capturing.
+  base::File stdout_file_;
+  // Stores the number of bytes the stdout file has been read so far.
+  int64_t read_stdout_size_;
+  // Stores the parsed stdout result.
+  std::vector<std::vector<std::string>> parsed_memtester_result_;
+  // Stores the number of kib the memtester should test for as requested by the
+  // user. Has value of std::nullopt if the user did not specify.
+  std::optional<uint32_t> max_testing_mem_kib_;
 
   // Must be the last class member.
   base::WeakPtrFactory<MemoryRoutine> weak_ptr_factory_{this};

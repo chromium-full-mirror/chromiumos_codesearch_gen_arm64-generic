@@ -21,9 +21,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class DocumentScannerConfigDataView;
 
 class DetectCornersResultDataView;
@@ -46,8 +44,6 @@ class DocumentScanner;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_DOCUMENT_SCANNER_MOJOM_FORWARD_H_

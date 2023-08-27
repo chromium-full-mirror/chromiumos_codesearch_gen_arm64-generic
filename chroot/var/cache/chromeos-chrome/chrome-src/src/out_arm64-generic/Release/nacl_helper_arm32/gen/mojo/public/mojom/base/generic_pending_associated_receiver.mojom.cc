@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/generic_pending_associated_receiver.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 GenericPendingAssociatedReceiver::GenericPendingAssociatedReceiver()
     : interface_name(),
       receiver() {}
@@ -138,8 +136,7 @@ bool GenericAssociatedInterfaceRequestValidator::Accept(mojo::Message* message) 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -169,8 +166,7 @@ bool StructTraits<::mojo_base::mojom::GenericPendingAssociatedReceiver::DataView
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 GenericAssociatedInterfaceAsyncWaiter::GenericAssociatedInterfaceAsyncWaiter(
@@ -183,8 +179,7 @@ GenericAssociatedInterfaceAsyncWaiter::~GenericAssociatedInterfaceAsyncWaiter() 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

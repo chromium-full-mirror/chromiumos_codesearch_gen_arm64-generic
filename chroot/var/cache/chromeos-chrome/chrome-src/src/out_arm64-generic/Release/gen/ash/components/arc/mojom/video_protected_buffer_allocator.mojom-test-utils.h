@@ -10,8 +10,7 @@
 #include "ash/components/arc/mojom/video_protected_buffer_allocator.mojom.h"
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 class  VideoProtectedBufferAllocatorInterceptorForTesting : public VideoProtectedBufferAllocator {
@@ -42,7 +41,6 @@ class  VideoProtectedBufferAllocatorAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_PROTECTED_BUFFER_ALLOCATOR_MOJOM_TEST_UTILS_H_

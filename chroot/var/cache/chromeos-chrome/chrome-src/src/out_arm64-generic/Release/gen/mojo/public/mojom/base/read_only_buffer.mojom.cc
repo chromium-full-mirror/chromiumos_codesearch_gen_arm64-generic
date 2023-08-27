@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/read_only_buffer.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 ReadOnlyBuffer::ReadOnlyBuffer()
     : buffer() {}
 
@@ -75,8 +73,7 @@ bool ReadOnlyBuffer::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -102,14 +99,12 @@ bool StructTraits<::mojo_base::mojom::ReadOnlyBuffer::DataView, ::mojo_base::moj
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

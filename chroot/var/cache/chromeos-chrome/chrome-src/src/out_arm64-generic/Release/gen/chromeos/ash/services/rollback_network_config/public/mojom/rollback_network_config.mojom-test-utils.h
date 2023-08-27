@@ -10,9 +10,7 @@
 #include "chromeos/ash/services/rollback_network_config/public/mojom/rollback_network_config.mojom.h"
 
 
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+namespace ash::rollback_network_config::mojom {
 
 
 class  RollbackNetworkConfigInterceptorForTesting : public RollbackNetworkConfig {
@@ -42,8 +40,6 @@ class  RollbackNetworkConfigAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+}  // ash::rollback_network_config::mojom
 
 #endif  // CHROMEOS_ASH_SERVICES_ROLLBACK_NETWORK_CONFIG_PUBLIC_MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_TEST_UTILS_H_

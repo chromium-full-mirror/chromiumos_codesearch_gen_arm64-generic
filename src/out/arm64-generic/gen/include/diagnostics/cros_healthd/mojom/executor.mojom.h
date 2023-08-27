@@ -525,8 +525,6 @@ class Executor
     kGetAllFanSpeedMinVersion = 0,
     kRunIwMinVersion = 0,
     kRunMemtesterMinVersion = 0,
-    kRunMemtesterV2MinVersion = 0,
-    kKillMemtesterMinVersion = 0,
     kGetProcessIOContentsMinVersion = 0,
     kReadMsrMinVersion = 0,
     kGetLidAngleMinVersion = 0,
@@ -574,12 +572,6 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunMemtester_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct RunMemtesterV2_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct KillMemtester_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetProcessIOContents_Sym {
@@ -692,16 +684,8 @@ class Executor
   
   virtual void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) = 0;
 
-
-  using RunMemtesterCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
   
-  virtual void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) = 0;
-
-  
-  virtual void RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) = 0;
-
-  
-  virtual void KillMemtester() = 0;
+  virtual void RunMemtester(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) = 0;
 
 
   using GetProcessIOContentsCallback = base::OnceCallback<void(const base::flat_map<uint32_t, std::string>&)>;
@@ -975,11 +959,7 @@ class  ExecutorProxy
   
   void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) final;
   
-  void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) final;
-  
-  void RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) final;
-  
-  void KillMemtester() final;
+  void RunMemtester(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) final;
   
   void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) final;
   

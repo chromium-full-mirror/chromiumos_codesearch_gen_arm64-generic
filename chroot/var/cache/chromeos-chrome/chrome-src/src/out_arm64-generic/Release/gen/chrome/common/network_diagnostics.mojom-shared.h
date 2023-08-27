@@ -33,12 +33,10 @@
 
 
 
-namespace chrome {
-namespace mojom {
+namespace chrome::mojom {
 
 
-}  // namespace mojom
-}  // namespace chrome
+}  // chrome::mojom
 
 namespace mojo {
 namespace internal {
@@ -47,8 +45,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chrome {
-namespace mojom {
+namespace chrome::mojom {
 // Interface base classes. They are used for type safety check.
 class NetworkDiagnosticsInterfaceBase {};
 
@@ -72,8 +69,7 @@ using NetworkDiagnosticsClientAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<NetworkDiagnosticsClientInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace chrome
+}  // chrome::mojom
 
 namespace std {
 
@@ -84,12 +80,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace chrome {
-namespace mojom {
+namespace chrome::mojom {
 
 
-}  // namespace mojom
-}  // namespace chrome
+}  // chrome::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

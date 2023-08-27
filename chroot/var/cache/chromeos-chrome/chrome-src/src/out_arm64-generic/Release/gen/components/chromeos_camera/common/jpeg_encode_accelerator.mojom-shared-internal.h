@@ -22,8 +22,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos_camera {
-namespace mojom {
+
+
+namespace chromeos_camera::mojom {
 namespace internal {
 
 struct EncodeStatus_Data {
@@ -60,7 +61,7 @@ struct EncodeStatus_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace chromeos_camera
+
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_JPEG_ENCODE_ACCELERATOR_MOJOM_SHARED_INTERNAL_H_

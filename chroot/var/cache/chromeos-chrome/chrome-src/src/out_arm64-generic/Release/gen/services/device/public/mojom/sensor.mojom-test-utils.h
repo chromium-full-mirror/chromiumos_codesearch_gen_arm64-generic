@@ -10,8 +10,7 @@
 #include "services/device/public/mojom/sensor.mojom.h"
 
 
-namespace device {
-namespace mojom {
+namespace device::mojom {
 
 
 class  SensorInterceptorForTesting : public Sensor {
@@ -64,7 +63,6 @@ class  SensorClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace device
+}  // device::mojom
 
 #endif  // SERVICES_DEVICE_PUBLIC_MOJOM_SENSOR_MOJOM_TEST_UTILS_H_

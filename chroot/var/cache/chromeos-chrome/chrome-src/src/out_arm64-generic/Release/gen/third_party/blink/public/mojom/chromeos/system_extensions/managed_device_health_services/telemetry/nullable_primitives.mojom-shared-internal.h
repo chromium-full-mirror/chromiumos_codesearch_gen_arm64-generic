@@ -21,8 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace blink {
-namespace mojom {
+
+
+namespace blink::mojom {
 namespace internal {
 class UInt32Value_Data;
 class UInt64Value_Data;
@@ -129,7 +130,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace blink
+
+}  // blink::mojom
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_CHROMEOS_SYSTEM_EXTENSIONS_MANAGED_DEVICE_HEALTH_SERVICES_TELEMETRY_NULLABLE_PRIMITIVES_MOJOM_SHARED_INTERNAL_H_

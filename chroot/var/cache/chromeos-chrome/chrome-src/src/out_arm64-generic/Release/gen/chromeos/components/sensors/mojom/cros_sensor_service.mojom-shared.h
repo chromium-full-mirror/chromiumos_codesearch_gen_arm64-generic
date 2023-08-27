@@ -33,14 +33,10 @@
 
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 namespace mojo {
 namespace internal {
@@ -49,9 +45,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 // Interface base classes. They are used for type safety check.
 class SensorHalServerInterfaceBase {};
 
@@ -75,9 +69,7 @@ using SensorHalClientAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<SensorHalClientInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 namespace std {
 
@@ -88,14 +80,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

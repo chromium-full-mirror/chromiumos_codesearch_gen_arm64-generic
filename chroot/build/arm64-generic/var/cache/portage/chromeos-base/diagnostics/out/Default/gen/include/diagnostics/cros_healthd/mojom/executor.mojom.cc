@@ -2952,12 +2952,6 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_RunMemtester_Name: {
       return &Executor::RunMemtester_Sym::IPCStableHash;
     }
-    case internal::kExecutor_RunMemtesterV2_Name: {
-      return &Executor::RunMemtesterV2_Sym::IPCStableHash;
-    }
-    case internal::kExecutor_KillMemtester_Name: {
-      return &Executor::KillMemtester_Sym::IPCStableHash;
-    }
     case internal::kExecutor_GetProcessIOContents_Name: {
       return &Executor::GetProcessIOContents_Sym::IPCStableHash;
     }
@@ -3059,10 +3053,6 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::RunIw";
       case internal::kExecutor_RunMemtester_Name:
             return "Receive ash::cros_healthd::mojom::Executor::RunMemtester";
-      case internal::kExecutor_RunMemtesterV2_Name:
-            return "Receive ash::cros_healthd::mojom::Executor::RunMemtesterV2";
-      case internal::kExecutor_KillMemtester_Name:
-            return "Receive ash::cros_healthd::mojom::Executor::KillMemtester";
       case internal::kExecutor_GetProcessIOContents_Name:
             return "Receive ash::cros_healthd::mojom::Executor::GetProcessIOContents";
       case internal::kExecutor_ReadMsr_Name:
@@ -3130,10 +3120,6 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::RunIw";
       case internal::kExecutor_RunMemtester_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunMemtester";
-      case internal::kExecutor_RunMemtesterV2_Name:
-            return "Receive reply ash::cros_healthd::mojom::Executor::RunMemtesterV2";
-      case internal::kExecutor_KillMemtester_Name:
-            return "Receive reply ash::cros_healthd::mojom::Executor::KillMemtester";
       case internal::kExecutor_GetProcessIOContents_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetProcessIOContents";
       case internal::kExecutor_ReadMsr_Name:
@@ -3274,32 +3260,6 @@ uint32_t Executor::RunMemtester_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::RunMemtester");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t Executor::RunMemtesterV2_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::Executor::RunMemtesterV2");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t Executor::KillMemtester_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::Executor::KillMemtester");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -3722,22 +3682,6 @@ class Executor_RunIw_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::RunIwCallback callback_;
-};
-
-class Executor_RunMemtester_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  Executor_RunMemtester_ForwardToCallback(
-      Executor::RunMemtesterCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  Executor_RunMemtester_ForwardToCallback(const Executor_RunMemtester_ForwardToCallback&) = delete;
-  Executor_RunMemtester_ForwardToCallback& operator=(const Executor_RunMemtester_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  Executor::RunMemtesterCallback callback_;
 };
 
 class Executor_GetProcessIOContents_ForwardToCallback
@@ -4233,49 +4177,10 @@ void ExecutorProxy::RunIw(
 }
 
 void ExecutorProxy::RunMemtester(
-    uint32_t in_test_mem_kib, RunMemtesterCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::Executor::RunMemtester", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("test_mem_kib"), in_test_mem_kib,
-                        "<value of type uint32_t>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_RunMemtester_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Executor_RunMemtester_Params_Data> params(
-          message);
-  params.Allocate();
-  params->test_mem_kib = in_test_mem_kib;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("RunMemtester");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Executor_RunMemtester_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void ExecutorProxy::RunMemtesterV2(
     uint32_t in_test_mem_kib, ::mojo::PendingReceiver<ProcessControl> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::Executor::RunMemtesterV2", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::Executor::RunMemtester", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -4296,9 +4201,9 @@ void ExecutorProxy::RunMemtesterV2(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kExecutor_RunMemtesterV2_Name, kFlags, 0, 0, nullptr);
+      internal::kExecutor_RunMemtester_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Executor_RunMemtesterV2_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_RunMemtester_Params_Data> params(
           message);
   params.Allocate();
   params->test_mem_kib = in_test_mem_kib;
@@ -4307,41 +4212,11 @@ void ExecutorProxy::RunMemtesterV2(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid receiver in Executor.RunMemtesterV2 request");
+      "invalid receiver in Executor.RunMemtester request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Executor::Name_);
-  message.set_method_name("RunMemtesterV2");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void ExecutorProxy::KillMemtester(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::KillMemtester");
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_KillMemtester_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Executor_KillMemtester_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("KillMemtester");
+  message.set_method_name("RunMemtester");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -6115,134 +5990,6 @@ void Executor_RunIw_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class Executor_RunMemtester_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static Executor::RunMemtesterCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Executor_RunMemtester_ProxyToResponder> proxy(
-        new Executor_RunMemtester_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&Executor_RunMemtester_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~Executor_RunMemtester_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  Executor_RunMemtester_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "Executor::RunMemtesterCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      ExecutedProcessResultPtr in_result);
-};
-
-bool Executor_RunMemtester_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Executor_RunMemtester_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::Executor_RunMemtester_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  ExecutedProcessResultPtr p_result{};
-  Executor_RunMemtester_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 5, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result));
-  return true;
-}
-
-void Executor_RunMemtester_ProxyToResponder::Run(
-    ExecutedProcessResultPtr in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply ash::cros_healthd::mojom::Executor::RunMemtester", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type ExecutedProcessResultPtr>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_RunMemtester_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Executor_RunMemtester_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->result)::BaseType> result_fragment(
-          params.message());
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
-      in_result, result_fragment);
-  params->result.Set(
-      result_fragment.is_null() ? nullptr : result_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->result.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null result in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("RunMemtester");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 class Executor_GetProcessIOContents_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static Executor::GetProcessIOContentsCallback CreateCallback(
@@ -6311,7 +6058,7 @@ bool Executor_GetProcessIOContents_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 8, true);
+        Executor::Name_, 6, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6441,7 +6188,7 @@ bool Executor_ReadMsr_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 9, true);
+        Executor::Name_, 7, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6566,7 +6313,7 @@ bool Executor_GetLidAngle_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 10, true);
+        Executor::Name_, 8, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6690,7 +6437,7 @@ bool Executor_GetFingerprintFrame_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 11, true);
+        Executor::Name_, 9, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6832,7 +6579,7 @@ bool Executor_GetFingerprintInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 12, true);
+        Executor::Name_, 10, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6971,7 +6718,7 @@ bool Executor_SetLedColor_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 13, true);
+        Executor::Name_, 11, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7095,7 +6842,7 @@ bool Executor_ResetLedColor_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 14, true);
+        Executor::Name_, 12, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7219,7 +6966,7 @@ bool Executor_GetHciDeviceConfig_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 15, true);
+        Executor::Name_, 13, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7347,7 +7094,7 @@ bool Executor_FetchBootPerformance_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 19, true);
+        Executor::Name_, 17, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7476,7 +7223,7 @@ bool Executor_GetPsr_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 23, true);
+        Executor::Name_, 21, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7615,7 +7362,7 @@ bool Executor_RemoveFioTestFile_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 25, true);
+        Executor::Name_, 23, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7746,7 +7493,7 @@ bool Executor_GetConnectedHdmiConnectors_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 26, true);
+        Executor::Name_, 24, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7893,7 +7640,7 @@ bool Executor_GetPrivacyScreenInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 27, true);
+        Executor::Name_, 25, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8027,7 +7774,7 @@ bool Executor_FetchDisplayInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 28, true);
+        Executor::Name_, 26, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8153,7 +7900,7 @@ bool Executor_FetchCrashFromCrashSender_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 29, true);
+        Executor::Name_, 27, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8281,7 +8028,7 @@ bool Executor_RunPrimeSearch_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 31, true);
+        Executor::Name_, 29, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8399,7 +8146,7 @@ bool Executor_RunFloatingPoint_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 33, true);
+        Executor::Name_, 31, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8471,19 +8218,16 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_RunMemtester_Name: {
-      break;
-    }
-    case internal::kExecutor_RunMemtesterV2_Name: {
 
       DCHECK(message->is_serialized());
-      internal::Executor_RunMemtesterV2_Params_Data* params =
-          reinterpret_cast<internal::Executor_RunMemtesterV2_Params_Data*>(
+      internal::Executor_RunMemtester_Params_Data* params =
+          reinterpret_cast<internal::Executor_RunMemtester_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       uint32_t p_test_mem_kib{};
       ::mojo::PendingReceiver<ProcessControl> p_receiver{};
-      Executor_RunMemtesterV2_ParamsDataView input_data_view(params, message);
+      Executor_RunMemtester_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_test_mem_kib = input_data_view.test_mem_kib();
@@ -8495,36 +8239,14 @@ bool ExecutorStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 6, false);
+            Executor::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunMemtesterV2(
+      impl->RunMemtester(
 std::move(p_test_mem_kib), 
 std::move(p_receiver));
-      return true;
-    }
-    case internal::kExecutor_KillMemtester_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::Executor_KillMemtester_Params_Data* params =
-          reinterpret_cast<internal::Executor_KillMemtester_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      Executor_KillMemtester_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 7, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->KillMemtester();
       return true;
     }
     case internal::kExecutor_GetProcessIOContents_Name: {
@@ -8575,7 +8297,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 16, false);
+            Executor::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8609,7 +8331,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 17, false);
+            Executor::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8647,7 +8369,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 18, false);
+            Executor::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8686,7 +8408,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 20, false);
+            Executor::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8720,7 +8442,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 21, false);
+            Executor::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8754,7 +8476,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 22, false);
+            Executor::Name_, 20, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8789,7 +8511,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 24, false);
+            Executor::Name_, 22, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8838,7 +8560,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 30, false);
+            Executor::Name_, 28, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8875,7 +8597,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 32, false);
+            Executor::Name_, 30, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9056,38 +8778,6 @@ std::move(p_interface_name), std::move(callback));
       return true;
     }
     case internal::kExecutor_RunMemtester_Name: {
-
-      internal::Executor_RunMemtester_Params_Data* params =
-          reinterpret_cast<
-              internal::Executor_RunMemtester_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      uint32_t p_test_mem_kib{};
-      Executor_RunMemtester_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_test_mem_kib = input_data_view.test_mem_kib();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 5, false);
-        return false;
-      }
-      Executor::RunMemtesterCallback callback =
-          Executor_RunMemtester_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->RunMemtester(
-std::move(p_test_mem_kib), std::move(callback));
-      return true;
-    }
-    case internal::kExecutor_RunMemtesterV2_Name: {
-      break;
-    }
-    case internal::kExecutor_KillMemtester_Name: {
       break;
     }
     case internal::kExecutor_GetProcessIOContents_Name: {
@@ -9107,7 +8797,7 @@ std::move(p_test_mem_kib), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 8, false);
+            Executor::Name_, 6, false);
         return false;
       }
       Executor::GetProcessIOContentsCallback callback =
@@ -9139,7 +8829,7 @@ std::move(p_pids), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 9, false);
+            Executor::Name_, 7, false);
         return false;
       }
       Executor::ReadMsrCallback callback =
@@ -9166,7 +8856,7 @@ std::move(p_cpu_index), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 10, false);
+            Executor::Name_, 8, false);
         return false;
       }
       Executor::GetLidAngleCallback callback =
@@ -9194,7 +8884,7 @@ std::move(p_cpu_index), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 11, false);
+            Executor::Name_, 9, false);
         return false;
       }
       Executor::GetFingerprintFrameCallback callback =
@@ -9220,7 +8910,7 @@ std::move(p_type), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 12, false);
+            Executor::Name_, 10, false);
         return false;
       }
       Executor::GetFingerprintInfoCallback callback =
@@ -9251,7 +8941,7 @@ std::move(p_type), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 13, false);
+            Executor::Name_, 11, false);
         return false;
       }
       Executor::SetLedColorCallback callback =
@@ -9281,7 +8971,7 @@ std::move(p_color), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 14, false);
+            Executor::Name_, 12, false);
         return false;
       }
       Executor::ResetLedColorCallback callback =
@@ -9307,7 +8997,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 15, false);
+            Executor::Name_, 13, false);
         return false;
       }
       Executor::GetHciDeviceConfigCallback callback =
@@ -9341,7 +9031,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 19, false);
+            Executor::Name_, 17, false);
         return false;
       }
       Executor::FetchBootPerformanceCallback callback =
@@ -9375,7 +9065,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 23, false);
+            Executor::Name_, 21, false);
         return false;
       }
       Executor::GetPsrCallback callback =
@@ -9403,7 +9093,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 25, false);
+            Executor::Name_, 23, false);
         return false;
       }
       Executor::RemoveFioTestFileCallback callback =
@@ -9428,7 +9118,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 26, false);
+            Executor::Name_, 24, false);
         return false;
       }
       Executor::GetConnectedHdmiConnectorsCallback callback =
@@ -9453,7 +9143,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 27, false);
+            Executor::Name_, 25, false);
         return false;
       }
       Executor::GetPrivacyScreenInfoCallback callback =
@@ -9478,7 +9168,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 28, false);
+            Executor::Name_, 26, false);
         return false;
       }
       Executor::FetchDisplayInfoCallback callback =
@@ -9503,7 +9193,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 29, false);
+            Executor::Name_, 27, false);
         return false;
       }
       Executor::FetchCrashFromCrashSenderCallback callback =
@@ -9542,7 +9232,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 31, false);
+            Executor::Name_, 29, false);
         return false;
       }
       Executor::RunPrimeSearchCallback callback =
@@ -9581,7 +9271,7 @@ std::move(p_process_control), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 33, false);
+            Executor::Name_, 31, false);
         return false;
       }
       Executor::RunFloatingPointCallback callback =
@@ -9611,10 +9301,6 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
     {&internal::Executor_RunIw_Params_Data::Validate,
      &internal::Executor_RunIw_ResponseParams_Data::Validate},
     {&internal::Executor_RunMemtester_Params_Data::Validate,
-     &internal::Executor_RunMemtester_ResponseParams_Data::Validate},
-    {&internal::Executor_RunMemtesterV2_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::Executor_KillMemtester_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::Executor_GetProcessIOContents_Params_Data::Validate,
      &internal::Executor_GetProcessIOContents_ResponseParams_Data::Validate},
@@ -10029,14 +9715,8 @@ void ExecutorInterceptorForTesting::GetAllFanSpeed(GetAllFanSpeedCallback callba
 void ExecutorInterceptorForTesting::RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) {
   GetForwardingInterface()->RunIw(std::move(cmd), std::move(interface_name), std::move(callback));
 }
-void ExecutorInterceptorForTesting::RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) {
-  GetForwardingInterface()->RunMemtester(std::move(test_mem_kib), std::move(callback));
-}
-void ExecutorInterceptorForTesting::RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) {
-  GetForwardingInterface()->RunMemtesterV2(std::move(test_mem_kib), std::move(receiver));
-}
-void ExecutorInterceptorForTesting::KillMemtester() {
-  GetForwardingInterface()->KillMemtester();
+void ExecutorInterceptorForTesting::RunMemtester(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) {
+  GetForwardingInterface()->RunMemtester(std::move(test_mem_kib), std::move(receiver));
 }
 void ExecutorInterceptorForTesting::GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) {
   GetForwardingInterface()->GetProcessIOContents(std::move(pids), std::move(callback));
@@ -10232,29 +9912,6 @@ ExecutedProcessResultPtr ExecutorAsyncWaiter::RunIw(
     Executor::IwCommand cmd, const std::string& interface_name) {
   ExecutedProcessResultPtr async_wait_result;
   RunIw(std::move(cmd),std::move(interface_name),&async_wait_result);
-  return async_wait_result;
-}
-
-void ExecutorAsyncWaiter::RunMemtester(
-    uint32_t test_mem_kib, ExecutedProcessResultPtr* out_result) {
-  base::RunLoop loop;
-  proxy_->RunMemtester(std::move(test_mem_kib),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             ExecutedProcessResultPtr* out_result
-,
-             ExecutedProcessResultPtr result) {*out_result = std::move(result);
-            loop->Quit();
-          },
-          &loop,
-          out_result));
-  loop.Run();
-}
-
-ExecutedProcessResultPtr ExecutorAsyncWaiter::RunMemtester(
-    uint32_t test_mem_kib) {
-  ExecutedProcessResultPtr async_wait_result;
-  RunMemtester(std::move(test_mem_kib),&async_wait_result);
   return async_wait_result;
 }
 

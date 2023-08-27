@@ -1,6 +1,5 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.UserDataAuthInterface
-//  - org.chromium.ArcQuota
 //  - org.chromium.CryptohomePkcs11Interface
 //  - org.chromium.InstallAttributesInterface
 //  - org.chromium.CryptohomeMiscInterface
@@ -335,6 +334,18 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool RelabelAuthFactor(
+      const user_data_auth::RelabelAuthFactorRequest& in_request,
+      user_data_auth::RelabelAuthFactorReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void RelabelAuthFactorAsync(
+      const user_data_auth::RelabelAuthFactorRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::RelabelAuthFactorReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool RemoveAuthFactor(
       const user_data_auth::RemoveAuthFactorRequest& in_request,
       user_data_auth::RemoveAuthFactorReply* out_reply,
@@ -463,6 +474,10 @@ class UserDataAuthInterfaceProxyInterface {
       const base::RepeatingCallback<void(const user_data_auth::PrepareAuthFactorProgress&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterAuthenticateAuthFactorCompletedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
 };
@@ -539,6 +554,17 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "PrepareAuthFactorProgress",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterAuthenticateAuthFactorCompletedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "AuthenticateAuthFactorCompleted",
         signal_callback,
         std::move(on_connected_callback));
   }
@@ -1330,6 +1356,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         in_request);
   }
 
+  bool RelabelAuthFactor(
+      const user_data_auth::RelabelAuthFactorRequest& in_request,
+      user_data_auth::RelabelAuthFactorReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "RelabelAuthFactor",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void RelabelAuthFactorAsync(
+      const user_data_auth::RelabelAuthFactorRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::RelabelAuthFactorReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "RelabelAuthFactor",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
   bool RemoveAuthFactor(
       const user_data_auth::RemoveAuthFactorRequest& in_request,
       user_data_auth::RemoveAuthFactorReply* out_reply,
@@ -1606,332 +1663,6 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         "GetArcDiskFeatures",
         std::move(success_callback),
         std::move(error_callback),
-        in_request);
-  }
-
- private:
-  scoped_refptr<dbus::Bus> bus_;
-  const std::string service_name_{"org.chromium.UserDataAuth"};
-  const dbus::ObjectPath object_path_{"/org/chromium/UserDataAuth"};
-  dbus::ObjectProxy* dbus_object_proxy_;
-
-};
-
-}  // namespace chromium
-}  // namespace org
-
-namespace org {
-namespace chromium {
-
-// Abstract interface proxy for org::chromium::ArcQuota.
-class ArcQuotaProxyInterface {
- public:
-  virtual ~ArcQuotaProxyInterface() = default;
-
-  virtual bool GetArcDiskFeatures(
-      const user_data_auth::GetArcDiskFeaturesRequest& in_request,
-      user_data_auth::GetArcDiskFeaturesReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void GetArcDiskFeaturesAsync(
-      const user_data_auth::GetArcDiskFeaturesRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetArcDiskFeaturesReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool GetCurrentSpaceForArcUid(
-      const user_data_auth::GetCurrentSpaceForArcUidRequest& in_request,
-      user_data_auth::GetCurrentSpaceForArcUidReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void GetCurrentSpaceForArcUidAsync(
-      const user_data_auth::GetCurrentSpaceForArcUidRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcUidReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool GetCurrentSpaceForArcGid(
-      const user_data_auth::GetCurrentSpaceForArcGidRequest& in_request,
-      user_data_auth::GetCurrentSpaceForArcGidReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void GetCurrentSpaceForArcGidAsync(
-      const user_data_auth::GetCurrentSpaceForArcGidRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcGidReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool GetCurrentSpaceForArcProjectId(
-      const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& in_request,
-      user_data_auth::GetCurrentSpaceForArcProjectIdReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void GetCurrentSpaceForArcProjectIdAsync(
-      const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcProjectIdReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool SetMediaRWDataFileProjectId(
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request,
-      user_data_auth::SetMediaRWDataFileProjectIdReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void SetMediaRWDataFileProjectIdAsync(
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectIdReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool SetMediaRWDataFileProjectInheritanceFlag(
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request,
-      user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void SetMediaRWDataFileProjectInheritanceFlagAsync(
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual const dbus::ObjectPath& GetObjectPath() const = 0;
-  virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
-};
-
-}  // namespace chromium
-}  // namespace org
-
-namespace org {
-namespace chromium {
-
-// Interface proxy for org::chromium::ArcQuota.
-class ArcQuotaProxy final : public ArcQuotaProxyInterface {
- public:
-  ArcQuotaProxy(const scoped_refptr<dbus::Bus>& bus) :
-      bus_{bus},
-      dbus_object_proxy_{
-          bus_->GetObjectProxy(service_name_, object_path_)} {
-  }
-
-  ArcQuotaProxy(const ArcQuotaProxy&) = delete;
-  ArcQuotaProxy& operator=(const ArcQuotaProxy&) = delete;
-
-  ~ArcQuotaProxy() override {
-  }
-
-  void ReleaseObjectProxy(base::OnceClosure callback) {
-    bus_->RemoveObjectProxy(service_name_, object_path_, std::move(callback));
-  }
-
-  const dbus::ObjectPath& GetObjectPath() const override {
-    return object_path_;
-  }
-
-  dbus::ObjectProxy* GetObjectProxy() const override {
-    return dbus_object_proxy_;
-  }
-
-  bool GetArcDiskFeatures(
-      const user_data_auth::GetArcDiskFeaturesRequest& in_request,
-      user_data_auth::GetArcDiskFeaturesReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "GetArcDiskFeatures",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void GetArcDiskFeaturesAsync(
-      const user_data_auth::GetArcDiskFeaturesRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetArcDiskFeaturesReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "GetArcDiskFeatures",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool GetCurrentSpaceForArcUid(
-      const user_data_auth::GetCurrentSpaceForArcUidRequest& in_request,
-      user_data_auth::GetCurrentSpaceForArcUidReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "GetCurrentSpaceForArcUid",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void GetCurrentSpaceForArcUidAsync(
-      const user_data_auth::GetCurrentSpaceForArcUidRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcUidReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "GetCurrentSpaceForArcUid",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool GetCurrentSpaceForArcGid(
-      const user_data_auth::GetCurrentSpaceForArcGidRequest& in_request,
-      user_data_auth::GetCurrentSpaceForArcGidReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "GetCurrentSpaceForArcGid",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void GetCurrentSpaceForArcGidAsync(
-      const user_data_auth::GetCurrentSpaceForArcGidRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcGidReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "GetCurrentSpaceForArcGid",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool GetCurrentSpaceForArcProjectId(
-      const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& in_request,
-      user_data_auth::GetCurrentSpaceForArcProjectIdReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "GetCurrentSpaceForArcProjectId",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void GetCurrentSpaceForArcProjectIdAsync(
-      const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcProjectIdReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "GetCurrentSpaceForArcProjectId",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool SetMediaRWDataFileProjectId(
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request,
-      user_data_auth::SetMediaRWDataFileProjectIdReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "SetMediaRWDataFileProjectId",
-        error,
-        in_fd,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void SetMediaRWDataFileProjectIdAsync(
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectIdReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "SetMediaRWDataFileProjectId",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_fd,
-        in_request);
-  }
-
-  bool SetMediaRWDataFileProjectInheritanceFlag(
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request,
-      user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "SetMediaRWDataFileProjectInheritanceFlag",
-        error,
-        in_fd,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void SetMediaRWDataFileProjectInheritanceFlagAsync(
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.ArcQuota",
-        "SetMediaRWDataFileProjectInheritanceFlag",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_fd,
         in_request);
   }
 

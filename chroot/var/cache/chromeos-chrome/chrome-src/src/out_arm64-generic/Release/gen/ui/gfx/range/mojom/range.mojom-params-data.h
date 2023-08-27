@@ -18,13 +18,15 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace gfx {
-namespace mojom {
+
+
+namespace gfx::mojom {
 namespace internal {
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace gfx
+
+
+}  // gfx::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

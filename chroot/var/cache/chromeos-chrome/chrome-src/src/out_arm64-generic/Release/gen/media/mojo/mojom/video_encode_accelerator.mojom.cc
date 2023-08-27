@@ -42,9 +42,7 @@
 #include "media/mojo/mojom/video_encode_accelerator.mojom-test-utils.h"
 
 
-
-namespace media {
-namespace mojom {
+namespace media::mojom {
 VideoEncodeAcceleratorSupportedProfile::VideoEncodeAcceleratorSupportedProfile()
     : profile(),
       min_resolution(),
@@ -3827,8 +3825,7 @@ bool VideoEncodeAcceleratorClientRequestValidator::Accept(mojo::Message* message
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 
 namespace mojo {
@@ -4248,8 +4245,7 @@ bool UnionTraits<::media::mojom::CodecMetadata::DataView, ::media::mojom::CodecM
 // separate .cc file to save compile time.
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 
 
 void VideoEncodeAcceleratorProviderInterceptorForTesting::CreateVideoEncodeAccelerator(::mojo::PendingReceiver<VideoEncodeAccelerator> receiver) {
@@ -4434,8 +4430,7 @@ VideoEncodeAcceleratorClientAsyncWaiter::~VideoEncodeAcceleratorClientAsyncWaite
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 
 #if defined(__clang__)

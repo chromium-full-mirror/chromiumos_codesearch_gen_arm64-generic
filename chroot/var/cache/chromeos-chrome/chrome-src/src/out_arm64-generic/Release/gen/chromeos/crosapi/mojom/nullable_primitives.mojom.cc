@@ -42,9 +42,7 @@
 #include "chromeos/crosapi/mojom/nullable_primitives.mojom-test-utils.h"
 
 
-
-namespace crosapi {
-namespace mojom {
+namespace crosapi::mojom {
 DoubleValue::DoubleValue()
     : value() {}
 
@@ -271,8 +269,7 @@ bool BoolValue::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace crosapi
+}  // crosapi::mojom
 
 
 namespace mojo {
@@ -382,14 +379,12 @@ bool StructTraits<::crosapi::mojom::BoolValue::DataView, ::crosapi::mojom::BoolV
 // separate .cc file to save compile time.
 
 
-namespace crosapi {
-namespace mojom {
+namespace crosapi::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace crosapi
+}  // crosapi::mojom
 
 
 #if defined(__clang__)

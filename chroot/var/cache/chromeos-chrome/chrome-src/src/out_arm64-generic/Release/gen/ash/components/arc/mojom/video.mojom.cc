@@ -42,9 +42,7 @@
 #include "ash/components/arc/mojom/video.mojom-test-utils.h"
 
 
-
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 const char VideoHost::Name_[] = "arc.mojom.VideoHost";
 
 VideoHost::IPCStableHashFunction VideoHost::MessageToMethodInfo_(mojo::Message& message) {
@@ -1134,8 +1132,7 @@ bool VideoAcceleratorFactoryRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 namespace mojo {
@@ -1147,8 +1144,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 void VideoHostInterceptorForTesting::OnBootstrapVideoAcceleratorFactory(OnBootstrapVideoAcceleratorFactoryCallback callback) {
@@ -1231,8 +1227,7 @@ VideoAcceleratorFactoryAsyncWaiter::~VideoAcceleratorFactoryAsyncWaiter() = defa
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 #if defined(__clang__)

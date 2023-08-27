@@ -10,8 +10,7 @@
 #include "media/mojo/mojom/video_encode_accelerator.mojom.h"
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 
 
 class  VideoEncodeAcceleratorProviderInterceptorForTesting : public VideoEncodeAcceleratorProvider {
@@ -113,7 +112,6 @@ class  VideoEncodeAcceleratorClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 #endif  // MEDIA_MOJO_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_TEST_UTILS_H_

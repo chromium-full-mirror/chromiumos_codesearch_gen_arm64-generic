@@ -23,8 +23,7 @@ enum class NativeEnum;
 }  // namespace mojo
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 class BitstreamBufferDataView;
 
 
@@ -37,7 +36,6 @@ class MjpegDecodeAccelerator;
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_MJPEG_DECODE_ACCELERATOR_MOJOM_FORWARD_H_

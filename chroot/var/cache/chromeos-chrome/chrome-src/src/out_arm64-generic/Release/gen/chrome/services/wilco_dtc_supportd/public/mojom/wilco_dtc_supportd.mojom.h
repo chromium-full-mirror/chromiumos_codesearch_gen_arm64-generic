@@ -37,9 +37,7 @@
 
 
 
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+namespace chromeos::wilco_dtc_supportd::mojom {
 
 class WilcoDtcSupportdServiceFactoryProxy;
 
@@ -439,9 +437,7 @@ class  WilcoDtcSupportdClientResponseValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+}  // chromeos::wilco_dtc_supportd::mojom
 
 namespace mojo {
 

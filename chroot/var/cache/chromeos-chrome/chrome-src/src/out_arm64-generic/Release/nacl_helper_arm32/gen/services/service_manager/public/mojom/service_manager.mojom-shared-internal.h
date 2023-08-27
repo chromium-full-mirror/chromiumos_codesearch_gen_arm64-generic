@@ -22,8 +22,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace service_manager {
-namespace mojom {
+
+
+namespace service_manager::mojom {
 namespace internal {
 class RunningServiceInfo_Data;
 
@@ -107,7 +108,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace service_manager
+
+}  // service_manager::mojom
 
 #endif  // SERVICES_SERVICE_MANAGER_PUBLIC_MOJOM_SERVICE_MANAGER_MOJOM_SHARED_INTERNAL_H_

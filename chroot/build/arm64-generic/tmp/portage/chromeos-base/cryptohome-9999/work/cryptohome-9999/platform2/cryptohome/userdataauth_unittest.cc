@@ -82,7 +82,6 @@
 #include "cryptohome/protobuf_test_utils.h"
 #include "cryptohome/storage/file_system_keyset.h"
 #include "cryptohome/storage/homedirs.h"
-#include "cryptohome/storage/mock_arc_disk_quota.h"
 #include "cryptohome/storage/mock_homedirs.h"
 #include "cryptohome/storage/mock_mount.h"
 #include "cryptohome/storage/mock_mount_factory.h"
@@ -224,7 +223,6 @@ class UserDataAuthTestBase : public ::testing::Test {
     userdataauth_->set_chaps_client(&chaps_client_);
     userdataauth_->set_firmware_management_parameters(&fwmp_);
     userdataauth_->set_fingerprint_manager(&fingerprint_manager_);
-    userdataauth_->set_arc_disk_quota(&arc_disk_quota_);
     userdataauth_->set_pkcs11_init(&pkcs11_init_);
     userdataauth_->set_pkcs11_token_factory(&pkcs11_token_factory_);
     userdataauth_->set_key_challenge_service_factory(
@@ -249,8 +247,6 @@ class UserDataAuthTestBase : public ::testing::Test {
     // Skip CleanUpStaleMounts by default.
     ON_CALL(platform_, GetMountsBySourcePrefix(_, _))
         .WillByDefault(Return(false));
-    // ARC Disk Quota initialization will do nothing.
-    ON_CALL(arc_disk_quota_, Initialize()).WillByDefault(Return());
     // Low Disk space handler initialization will do nothing.
     ON_CALL(low_disk_space_handler_, Init(_)).WillByDefault(Return(true));
     ON_CALL(low_disk_space_handler_, disk_cleanup())
@@ -338,10 +334,6 @@ class UserDataAuthTestBase : public ::testing::Test {
   // Fake Crypto object, will be passed to UserDataAuth for its internal use.
   Crypto crypto_{&hwsec_, &pinweaver_, &cryptohome_keys_manager_,
                  &recovery_crypto_};
-
-  // Mock ARC Disk Quota object, will be passed to UserDataAuth for its internal
-  // use.
-  NiceMock<MockArcDiskQuota> arc_disk_quota_;
 
   // Mock chaps token manager client, will be passed to UserDataAuth for its
   // internal use.
@@ -852,10 +844,10 @@ static_assert(
     "user_data_auth:: and cryptohome::");
 
 static_assert(
-    user_data_auth::CryptohomeErrorCode_MAX == 60,
-    "user_data_auth::CryptohomeErrorCode's element count is incorrect");
-static_assert(cryptohome::CryptohomeErrorCode_MAX == 60,
-              "cryptohome::CryptohomeErrorCode's element count is incorrect");
+    static_cast<int>(user_data_auth::CryptohomeErrorCode_MAX) ==
+        static_cast<int>(cryptohome::CryptohomeErrorCode_MAX),
+    "user_data_auth::CryptohomeErrorCode and cryptohome::CryptohomeErrorCode "
+    "have different element counts");
 }  // namespace CryptohomeErrorCodeEquivalenceTest
 
 namespace SignatureAlgorithmEquivalenceTest {
@@ -1366,71 +1358,6 @@ TEST_F(UserDataAuthTestNotInitialized, InstallAttributesStatusToProtoEnum) {
       "Incorrect element count in user_data_auth::InstallAttributesState");
   static_assert(static_cast<int>(InstallAttributes::Status::COUNT) == 5,
                 "Incorrect element count in InstallAttributes::Status");
-}
-
-TEST_F(UserDataAuthTestNotInitialized, InitializeArcDiskQuota) {
-  EXPECT_CALL(arc_disk_quota_, Initialize()).Times(1);
-  EXPECT_TRUE(userdataauth_->Initialize(mount_bus_));
-}
-
-TEST_F(UserDataAuthTestNotInitialized, IsArcQuotaSupported) {
-  EXPECT_CALL(arc_disk_quota_, IsQuotaSupported()).WillOnce(Return(true));
-  EXPECT_TRUE(userdataauth_->IsArcQuotaSupported());
-
-  EXPECT_CALL(arc_disk_quota_, IsQuotaSupported()).WillOnce(Return(false));
-  EXPECT_FALSE(userdataauth_->IsArcQuotaSupported());
-}
-
-TEST_F(UserDataAuthTestNotInitialized, GetCurrentSpaceFoArcUid) {
-  constexpr uid_t kUID = 42;  // The Answer.
-  constexpr int64_t kSpaceUsage = 98765432198765;
-
-  EXPECT_CALL(arc_disk_quota_, GetCurrentSpaceForUid(kUID))
-      .WillOnce(Return(kSpaceUsage));
-  EXPECT_EQ(kSpaceUsage, userdataauth_->GetCurrentSpaceForArcUid(kUID));
-}
-
-TEST_F(UserDataAuthTestNotInitialized, GetCurrentSpaceForArcGid) {
-  constexpr uid_t kGID = 42;  // Yet another answer.
-  constexpr int64_t kSpaceUsage = 87654321987654;
-
-  EXPECT_CALL(arc_disk_quota_, GetCurrentSpaceForGid(kGID))
-      .WillOnce(Return(kSpaceUsage));
-  EXPECT_EQ(kSpaceUsage, userdataauth_->GetCurrentSpaceForArcGid(kGID));
-}
-
-TEST_F(UserDataAuthTestNotInitialized, GetCurrentSpaceForArcProjectId) {
-  constexpr int kProjectId = 1001;  // Yet another answer.
-  constexpr int64_t kSpaceUsage = 87654321987654;
-
-  EXPECT_CALL(arc_disk_quota_, GetCurrentSpaceForProjectId(kProjectId))
-      .WillOnce(Return(kSpaceUsage));
-  EXPECT_EQ(kSpaceUsage,
-            userdataauth_->GetCurrentSpaceForArcProjectId(kProjectId));
-}
-
-TEST_F(UserDataAuthTest, SetMediaRWDataFileProjectId) {
-  constexpr int kProjectId = 1001;
-  constexpr int kFd = 1234;
-  int error = 0;
-
-  EXPECT_CALL(arc_disk_quota_,
-              SetMediaRWDataFileProjectId(kProjectId, kFd, &error))
-      .WillOnce(Return(true));
-  EXPECT_TRUE(
-      userdataauth_->SetMediaRWDataFileProjectId(kProjectId, kFd, &error));
-}
-
-TEST_F(UserDataAuthTest, SetMediaRWDataFileProjectInheritanceFlag) {
-  constexpr bool kEnable = true;
-  constexpr int kFd = 1234;
-  int error = 0;
-
-  EXPECT_CALL(arc_disk_quota_,
-              SetMediaRWDataFileProjectInheritanceFlag(kEnable, kFd, &error))
-      .WillOnce(Return(true));
-  EXPECT_TRUE(userdataauth_->SetMediaRWDataFileProjectInheritanceFlag(
-      kEnable, kFd, &error));
 }
 
 TEST_F(UserDataAuthTest, LockToSingleUserMountUntilRebootValidity) {
@@ -3673,7 +3600,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUss) {
               .extended_tpm_key = SecureBlob("fake extended tpm key"),
               .tpm_public_key_hash = SecureBlob("fake tpm public key hash"),
           }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *password_factor),
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *password_factor),
               IsOk());
   auto pin_factor = std::make_unique<AuthFactor>(
       AuthFactorType::kPin, "pin-label",
@@ -3685,7 +3612,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUss) {
                          .fek_iv = SecureBlob("fake file encryption IV"),
                          .reset_salt = SecureBlob("more fake salt"),
                      }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *pin_factor), IsOk());
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *pin_factor), IsOk());
   MakeUssWithLabels(kObfuscatedUser, {"password-label", "pin-label"});
 
   // ListAuthFactors() load the factors according to the USS experiment status.
@@ -3824,7 +3751,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithIncompleteFactorsFromUss) {
               .extended_tpm_key = SecureBlob("fake extended tpm key"),
               .tpm_public_key_hash = SecureBlob("fake tpm public key hash"),
           }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *password_factor),
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *password_factor),
               IsOk());
   auto pin_factor = std::make_unique<AuthFactor>(
       AuthFactorType::kPin, "pin-label",
@@ -3836,7 +3763,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithIncompleteFactorsFromUss) {
                          .fek_iv = SecureBlob("fake file encryption IV"),
                          .reset_salt = SecureBlob("more fake salt"),
                      }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *pin_factor), IsOk());
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *pin_factor), IsOk());
   MakeUssWithLabels(kObfuscatedUser, {"password-label"});
 
   // ListAuthFactors() should just list the single complete factor.
@@ -3926,7 +3853,7 @@ TEST_F(UserDataAuthExTest, StartAuthSessionPinLockedLegacy) {
               .extended_tpm_key = SecureBlob("fake extended tpm key"),
               .tpm_public_key_hash = SecureBlob("fake tpm public key hash"),
           }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *password_factor),
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *password_factor),
               IsOk());
   auto pin_factor = std::make_unique<AuthFactor>(
       AuthFactorType::kPin, "pin-label",
@@ -3938,7 +3865,7 @@ TEST_F(UserDataAuthExTest, StartAuthSessionPinLockedLegacy) {
                          .fek_iv = SecureBlob("fake file encryption IV"),
                          .reset_salt = SecureBlob("more fake salt"),
                      }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *pin_factor), IsOk());
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *pin_factor), IsOk());
   MakeUssWithLabels(kObfuscatedUser, {"password-label", "pin-label"});
 
   EXPECT_CALL(*mock_le_manager_ptr, GetDelayInSeconds).WillRepeatedly([](auto) {
@@ -4049,7 +3976,7 @@ TEST_F(UserDataAuthExTest, StartAuthSessionPinLockedModern) {
               .extended_tpm_key = SecureBlob("fake extended tpm key"),
               .tpm_public_key_hash = SecureBlob("fake tpm public key hash"),
           }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *password_factor),
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *password_factor),
               IsOk());
   auto pin_factor = std::make_unique<AuthFactor>(
       AuthFactorType::kPin, "pin-label",
@@ -4065,7 +3992,7 @@ TEST_F(UserDataAuthExTest, StartAuthSessionPinLockedModern) {
                          .fek_iv = SecureBlob("fake file encryption IV"),
                          .reset_salt = SecureBlob("more fake salt"),
                      }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *pin_factor), IsOk());
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *pin_factor), IsOk());
   MakeUssWithLabels(kObfuscatedUser, {"password-label", "pin-label"});
 
   EXPECT_CALL(*mock_le_manager_ptr, GetDelayInSeconds).WillRepeatedly([](auto) {
@@ -4176,7 +4103,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUssPinLockedLegacy) {
               .extended_tpm_key = SecureBlob("fake extended tpm key"),
               .tpm_public_key_hash = SecureBlob("fake tpm public key hash"),
           }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *password_factor),
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *password_factor),
               IsOk());
   auto pin_factor = std::make_unique<AuthFactor>(
       AuthFactorType::kPin, "pin-label",
@@ -4188,7 +4115,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUssPinLockedLegacy) {
                          .fek_iv = SecureBlob("fake file encryption IV"),
                          .reset_salt = SecureBlob("more fake salt"),
                      }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *pin_factor), IsOk());
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *pin_factor), IsOk());
   MakeUssWithLabels(kObfuscatedUser, {"password-label", "pin-label"});
 
   EXPECT_CALL(*mock_le_manager_ptr, GetDelayInSeconds).WillRepeatedly([](auto) {
@@ -4309,7 +4236,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUssPinLockedModern) {
               .extended_tpm_key = SecureBlob("fake extended tpm key"),
               .tpm_public_key_hash = SecureBlob("fake tpm public key hash"),
           }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *password_factor),
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *password_factor),
               IsOk());
   auto pin_factor = std::make_unique<AuthFactor>(
       AuthFactorType::kPin, "pin-label",
@@ -4325,7 +4252,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUssPinLockedModern) {
                          .fek_iv = SecureBlob("fake file encryption IV"),
                          .reset_salt = SecureBlob("more fake salt"),
                      }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *pin_factor), IsOk());
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *pin_factor), IsOk());
   MakeUssWithLabels(kObfuscatedUser, {"password-label", "pin-label"});
 
   EXPECT_CALL(*mock_le_manager_ptr, GetDelayInSeconds).WillRepeatedly([](auto) {
@@ -4455,7 +4382,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUssAndVk) {
                          .fek_iv = SecureBlob("fake file encryption IV"),
                          .reset_salt = SecureBlob("more fake salt"),
                      }});
-  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *pin_factor), IsOk());
+  ASSERT_THAT(manager.SaveAuthFactorFile(kObfuscatedUser, *pin_factor), IsOk());
   MakeUssWithLabels(kObfuscatedUser, {"pin-label"});
 
   // ListAuthFactors() load the factors according to the USS experiment status.

@@ -216,6 +216,12 @@ std::string GetProtoDebugStringWithIndent(CryptohomeErrorCode value,
   if (value == CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED) {
     return "CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED";
   }
+  if (value == CRYPTOHOME_RELABEL_CREDENTIALS_FAILED) {
+    return "CRYPTOHOME_RELABEL_CREDENTIALS_FAILED";
+  }
+  if (value == CRYPTOHOME_REPLACE_CREDENTIALS_FAILED) {
+    return "CRYPTOHOME_REPLACE_CREDENTIALS_FAILED";
+  }
   return "<unknown>";
 }
 

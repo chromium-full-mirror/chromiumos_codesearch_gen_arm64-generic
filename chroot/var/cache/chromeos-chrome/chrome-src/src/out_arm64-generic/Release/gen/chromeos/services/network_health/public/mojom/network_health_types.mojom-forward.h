@@ -21,9 +21,7 @@
 
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 class UInt32ValueDataView;
 
 class SignalStrengthStatsDataView;
@@ -49,8 +47,6 @@ using NetworkHealthStatePtr = mojo::StructPtr<NetworkHealthState>;
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 #endif  // CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_TYPES_MOJOM_FORWARD_H_

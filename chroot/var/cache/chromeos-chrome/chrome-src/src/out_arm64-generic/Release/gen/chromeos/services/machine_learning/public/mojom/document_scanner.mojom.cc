@@ -42,10 +42,7 @@
 #include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 DocumentScannerConfig::DocumentScannerConfig()
     : deprecated_library_dlc_path(),
       library_dlc_path() {}
@@ -1017,9 +1014,7 @@ bool DocumentScannerResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -1079,9 +1074,7 @@ bool StructTraits<::chromeos::machine_learning::mojom::DoPostProcessingResult::D
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void DocumentScannerInterceptorForTesting::DetectCornersFromNV12Image(::base::ReadOnlySharedMemoryRegion nv12_image, DetectCornersFromNV12ImageCallback callback) {
@@ -1172,9 +1165,7 @@ DoPostProcessingResultPtr DocumentScannerAsyncWaiter::DoPostProcessing(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

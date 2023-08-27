@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ml {
-namespace model_loader {
-namespace mojom {
+
+
+namespace ml::model_loader::mojom {
 namespace internal {
 class  ModelLoader_Load_Params_Data {
  public:
@@ -274,9 +274,9 @@ inline void Model_Compute_ResponseParamsDataView::GetOutputTensorsDataView(
   *output = mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<uint8_t>>(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+
+
+}  // ml::model_loader::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -7,7 +7,6 @@
 
 #include <map>
 #include <memory>
-#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -38,6 +37,7 @@
 #include "cryptohome/auth_session_manager.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
 #include "cryptohome/cleanup/low_disk_space_handler.h"
+#include "cryptohome/create_vault_keyset_rpc_impl.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/features.h"
@@ -51,7 +51,6 @@
 #include "cryptohome/pkcs11/pkcs11_token_factory.h"
 #include "cryptohome/pkcs11_init.h"
 #include "cryptohome/platform.h"
-#include "cryptohome/storage/arc_disk_quota.h"
 #include "cryptohome/storage/cryptohome_vault_factory.h"
 #include "cryptohome/storage/homedirs.h"
 #include "cryptohome/storage/mount_factory.h"
@@ -207,6 +206,12 @@ class UserDataAuth {
       const base::RepeatingCallback<
           void(user_data_auth::PrepareAuthFactorProgress)>& callback);
 
+  // Set the AuthenticateAuthFactorCompleted callback. This is usually called by
+  // the DBus adaptor.
+  void SetAuthenticateAuthFactorCompletedCallback(
+      const base::RepeatingCallback<
+          void(user_data_auth::AuthenticateAuthFactorCompleted)>& callback);
+
   // List the keys stored in |homedirs_|.
   // See definition of ListKeysReply for what is returned.
   user_data_auth::ListKeysReply ListKeys(
@@ -224,37 +229,6 @@ class UserDataAuth {
 
   // Return true if we support low entropy credential.
   bool IsLowEntropyCredentialSupported();
-
-  // =============== ARC Quota Related Public Methods ===============
-  // TODO(b/229122701): Remove these methods after migrating them to spaced.
-
-  // Return true is ARC Disk Quota is supported, false otherwise.
-  bool IsArcQuotaSupported();
-
-  // Return the current disk usage for an android uid (a shifted uid) in bytes.
-  // Will return a negative number if the request fails. See
-  // cryptohome/arc_disk_quota.h for more details.
-  int64_t GetCurrentSpaceForArcUid(uid_t android_uid);
-
-  // Return the current disk usage for an android gid (a shifted gid) in bytes.
-  // Will return a negative number if the request fails. See
-  // cryptohome/arc_disk_quota.h for more details.
-  int64_t GetCurrentSpaceForArcGid(uid_t android_gid);
-
-  // Return the current disk usage for an android project id in bytes.
-  // Will return a negative number if the request fails. See
-  // cryptohome/arc_disk_quota.h for more details.
-  int64_t GetCurrentSpaceForArcProjectId(int project_id);
-
-  // Sets the project ID of a media_rw_data_file.
-  // See cryptohome/arc_disk_quota.h for more details.
-  bool SetMediaRWDataFileProjectId(int project_id, int fd, int* out_error);
-
-  // Sets the project inheritance flag of a media_rw_data_file.
-  // See cryptohome/arc_disk_quota.h for more details.
-  bool SetMediaRWDataFileProjectInheritanceFlag(bool enable,
-                                                int fd,
-                                                int* out_error);
 
   // =============== PKCS#11 Related Public Methods ===============
 
@@ -394,10 +368,8 @@ class UserDataAuth {
   // user.
   bool OwnerUserExists();
 
-  // Returns false if there are any unmounted Android users.
-  // TODO(b/229122701): Rename this to IsArcQuotaSupported() after deprecating
-  // the current IsArcQuotaSupported() method.
-  bool UnmountedAndroidUsersDoNotExist();
+  // Returns whether ARC quota is supported.
+  bool IsArcQuotaSupported();
 
   // =============== Miscellaneous ===============
 
@@ -545,11 +517,6 @@ class UserDataAuth {
     install_attrs_ = install_attrs;
   }
 
-  // Override |arc_disk_quota_| for testing purpose
-  void set_arc_disk_quota(ArcDiskQuota* arc_disk_quota) {
-    arc_disk_quota_ = arc_disk_quota;
-  }
-
   // Override |pkcs11_init_| for testing purpose
   void set_pkcs11_init(Pkcs11Init* pkcs11_init) { pkcs11_init_ = pkcs11_init; }
 
@@ -686,6 +653,11 @@ class UserDataAuth {
       user_data_auth::UpdateAuthFactorMetadataRequest request,
       base::OnceCallback<
           void(const user_data_auth::UpdateAuthFactorMetadataReply&)> on_done);
+
+  void RelabelAuthFactor(
+      user_data_auth::RelabelAuthFactorRequest request,
+      base::OnceCallback<void(const user_data_auth::RelabelAuthFactorReply&)>
+          on_done);
 
   void RemoveAuthFactor(
       user_data_auth::RemoveAuthFactorRequest request,
@@ -1049,6 +1021,10 @@ class UserDataAuth {
   // can be overridden for testing.
   BiometricsAuthBlockService* biometrics_service_;
 
+  // The object that handles construction and saving of VaultKeysets to disk,
+  // used for testing purposes.
+  std::unique_ptr<CreateVaultKeysetRpcImpl> create_vault_keyset_impl_;
+
   // =============== Install Attributes Related Variables ===============
 
   // The default install attributes object, for accessing install attributes
@@ -1083,7 +1059,7 @@ class UserDataAuth {
   // The homedirs_ object in normal operation
   std::unique_ptr<HomeDirs> default_homedirs_;
 
-  // This holds the object that records informations about the homedirs.
+  // This holds the object that records information about the homedirs.
   // This is usually set to default_homedirs_, but can be overridden for
   // testing.
   // This is to be accessed from the mount thread only because there's no
@@ -1118,6 +1094,10 @@ class UserDataAuth {
   // The repeating callback to send PrepareAuthFactorProgress signal.
   base::RepeatingCallback<void(user_data_auth::PrepareAuthFactorProgress)>
       prepare_auth_factor_progress_callback_;
+
+  // The repeating callback to send AuthenticateAuthFactorCompleted signal.
+  base::RepeatingCallback<void(user_data_auth::AuthenticateAuthFactorCompleted)>
+      authenticate_auth_factor_completed_callback_;
 
   // The object used to instantiate AuthBlocks.
   std::unique_ptr<AuthBlockUtility> default_auth_block_utility_;
@@ -1225,14 +1205,6 @@ class UserDataAuth {
 
   // Whether Downloads/ should be bind mounted.
   bool bind_mount_downloads_;
-
-  // The default ARC Disk Quota object. This is used to provide Quota related
-  // information function for ARC.
-  std::unique_ptr<ArcDiskQuota> default_arc_disk_quota_;
-
-  // The actual ARC Disk Quota object used by this class. Usually set to
-  // default_arc_disk_quota_, but can be overridden for testing.
-  ArcDiskQuota* arc_disk_quota_;
 
   // A counter to count the number of parallel tasks on mount thread.
   // Recorded when a requests comes in. Counts of 1 will not reported.

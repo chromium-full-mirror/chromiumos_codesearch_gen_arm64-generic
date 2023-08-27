@@ -42,9 +42,7 @@
 #include "media/capture/video/chromeos/mojom/camera_features.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 PortraitModeConfig::PortraitModeConfig()
     : enable_rectiface() {}
 
@@ -139,8 +137,7 @@ bool Camera3StreamEffect::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -195,14 +192,12 @@ bool UnionTraits<::cros::mojom::Camera3StreamEffect::DataView, ::cros::mojom::Ca
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

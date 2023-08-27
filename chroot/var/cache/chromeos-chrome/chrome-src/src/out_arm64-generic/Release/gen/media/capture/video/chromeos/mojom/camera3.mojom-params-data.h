@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class  Camera3CallbackOps_ProcessCaptureResult_Params_Data {
  public:
@@ -1178,8 +1179,9 @@ inline void Camera3DeviceOps_SignalStreamFlush_ParamsDataView::GetStreamIdsDataV
   *output = mojo::ArrayDataView<uint64_t>(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace cros
+
+
+}  // cros::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

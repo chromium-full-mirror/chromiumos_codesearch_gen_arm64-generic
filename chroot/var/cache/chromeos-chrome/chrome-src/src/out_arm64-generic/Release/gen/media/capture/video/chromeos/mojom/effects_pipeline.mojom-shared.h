@@ -32,14 +32,12 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class EffectsConfigDataView;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -55,8 +53,7 @@ struct MojomTypeTraits<::cros::mojom::EffectsConfigDataView> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 enum class CameraEffect : int32_t {
@@ -293,8 +290,7 @@ static_assert(
 };
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -478,8 +474,7 @@ struct Serializer<::cros::mojom::EffectsConfigDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 inline void EffectsConfigDataView::GetBackgroundFilepathDataView(
     ::mojo_base::mojom::RelativeFilePathDataView* output) {
@@ -490,8 +485,7 @@ inline void EffectsConfigDataView::GetBackgroundFilepathDataView(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

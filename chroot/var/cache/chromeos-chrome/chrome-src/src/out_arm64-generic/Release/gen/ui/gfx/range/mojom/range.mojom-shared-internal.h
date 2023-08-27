@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace gfx {
-namespace mojom {
+
+
+namespace gfx::mojom {
 namespace internal {
 class Range_Data;
 class RangeF_Data;
@@ -129,7 +130,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace gfx
+
+}  // gfx::mojom
 
 #endif  // UI_GFX_RANGE_MOJOM_RANGE_MOJOM_SHARED_INTERNAL_H_

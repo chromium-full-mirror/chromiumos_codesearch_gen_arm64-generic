@@ -39,8 +39,7 @@
 
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 class JpegEncodeAcceleratorProxy;
 
@@ -180,8 +179,7 @@ class  JpegEncodeAcceleratorResponseValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 namespace mojo {
 

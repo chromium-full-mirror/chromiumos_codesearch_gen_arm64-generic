@@ -21,8 +21,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class VideoFramePlaneDataView;
 
 class ColorPlaneLayoutDataView;
@@ -47,7 +46,6 @@ using VideoFrameLayoutPtr = mojo::StructPtr<VideoFrameLayout>;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_COMMON_MOJOM_FORWARD_H_

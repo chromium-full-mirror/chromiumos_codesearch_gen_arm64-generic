@@ -42,8 +42,7 @@
 
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 class VideoEncodeAcceleratorSupportedProfileDataView;
 
 class VariableBitratePeakDataView;
@@ -78,8 +77,7 @@ class BitrateDataView;
 class CodecMetadataDataView;
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 namespace mojo {
 namespace internal {
@@ -207,8 +205,7 @@ struct MojomTypeTraits<::media::mojom::CodecMetadataDataView> {
 }  // namespace mojo
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 
 
 enum class VideoEncodeAcceleratorSupportedRateControlMode : int32_t {
@@ -1075,8 +1072,7 @@ class CodecMetadataDataView {
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 namespace std {
 
@@ -2055,8 +2051,7 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 
 inline void VideoEncodeAcceleratorSupportedProfileDataView::GetMinResolutionDataView(
     ::gfx::mojom::SizeDataView* output) {
@@ -2206,8 +2201,7 @@ inline void CodecMetadataDataView::GetAv1DataView(
 }
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

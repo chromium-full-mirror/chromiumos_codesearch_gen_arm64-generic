@@ -139,6 +139,18 @@ struct SignedEncryptionInfoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SignedEncryptionInfoDefaultTypeInternal _SignedEncryptionInfo_default_instance_;
+PROTOBUF_CONSTEXPR ListOfBlockedDestinations::ListOfBlockedDestinations(
+    ::_pbi::ConstantInitialized)
+  : destinations_(){}
+struct ListOfBlockedDestinationsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ListOfBlockedDestinationsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ListOfBlockedDestinationsDefaultTypeInternal() {}
+  union {
+    ListOfBlockedDestinations _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListOfBlockedDestinationsDefaultTypeInternal _ListOfBlockedDestinations_default_instance_;
 }  // namespace reporting
 namespace reporting {
 bool SourceInfo_Source_IsValid(int value) {
@@ -2734,6 +2746,191 @@ std::string SignedEncryptionInfo::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class ListOfBlockedDestinations::_Internal {
+ public:
+};
+
+ListOfBlockedDestinations::ListOfBlockedDestinations(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  destinations_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:reporting.ListOfBlockedDestinations)
+}
+ListOfBlockedDestinations::ListOfBlockedDestinations(const ListOfBlockedDestinations& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      destinations_(from.destinations_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:reporting.ListOfBlockedDestinations)
+}
+
+inline void ListOfBlockedDestinations::SharedCtor() {
+}
+
+ListOfBlockedDestinations::~ListOfBlockedDestinations() {
+  // @@protoc_insertion_point(destructor:reporting.ListOfBlockedDestinations)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ListOfBlockedDestinations::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ListOfBlockedDestinations::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ListOfBlockedDestinations::Clear() {
+// @@protoc_insertion_point(message_clear_start:reporting.ListOfBlockedDestinations)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  destinations_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ListOfBlockedDestinations::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .reporting.Destination destinations = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::reporting::Destination_IsValid(val))) {
+              _internal_add_destinations(static_cast<::reporting::Destination>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<8>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 10) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_destinations(), ptr, ctx, ::reporting::Destination_IsValid, &_internal_metadata_, 1);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ListOfBlockedDestinations::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:reporting.ListOfBlockedDestinations)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .reporting.Destination destinations = 1;
+  for (int i = 0, n = this->_internal_destinations_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_destinations(i), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:reporting.ListOfBlockedDestinations)
+  return target;
+}
+
+size_t ListOfBlockedDestinations::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:reporting.ListOfBlockedDestinations)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .reporting.Destination destinations = 1;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_destinations_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_destinations(static_cast<int>(i)));
+    }
+    total_size += (1UL * count) + data_size;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ListOfBlockedDestinations::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ListOfBlockedDestinations*>(
+      &from));
+}
+
+void ListOfBlockedDestinations::MergeFrom(const ListOfBlockedDestinations& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:reporting.ListOfBlockedDestinations)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  destinations_.MergeFrom(from.destinations_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ListOfBlockedDestinations::CopyFrom(const ListOfBlockedDestinations& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:reporting.ListOfBlockedDestinations)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ListOfBlockedDestinations::IsInitialized() const {
+  return true;
+}
+
+void ListOfBlockedDestinations::InternalSwap(ListOfBlockedDestinations* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  destinations_.InternalSwap(&other->destinations_);
+}
+
+std::string ListOfBlockedDestinations::GetTypeName() const {
+  return "reporting.ListOfBlockedDestinations";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace reporting
 PROTOBUF_NAMESPACE_OPEN
@@ -2768,6 +2965,10 @@ Arena::CreateMaybeMessage< ::reporting::CompressionInformation >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::reporting::SignedEncryptionInfo*
 Arena::CreateMaybeMessage< ::reporting::SignedEncryptionInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::reporting::SignedEncryptionInfo >(arena);
+}
+template<> PROTOBUF_NOINLINE ::reporting::ListOfBlockedDestinations*
+Arena::CreateMaybeMessage< ::reporting::ListOfBlockedDestinations >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::reporting::ListOfBlockedDestinations >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

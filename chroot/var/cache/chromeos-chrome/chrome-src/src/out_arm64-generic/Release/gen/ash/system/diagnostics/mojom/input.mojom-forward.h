@@ -21,9 +21,7 @@
 
 
 
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+namespace ash::diagnostics::mojom {
 class KeyboardInfoDataView;
 
 class KeyboardDiagnosticEventInfoDataView;
@@ -49,8 +47,6 @@ using KeyboardDiagnosticEventInfoPtr = mojo::StructPtr<KeyboardDiagnosticEventIn
 
 
 
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+}  // ash::diagnostics::mojom
 
 #endif  // ASH_SYSTEM_DIAGNOSTICS_MOJOM_INPUT_MOJOM_FORWARD_H_

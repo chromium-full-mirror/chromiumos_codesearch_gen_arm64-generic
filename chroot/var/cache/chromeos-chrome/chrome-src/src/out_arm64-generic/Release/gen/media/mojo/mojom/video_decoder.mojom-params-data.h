@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace media {
-namespace mojom {
+
+
+namespace media::mojom {
 namespace internal {
 class  VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data {
  public:
@@ -827,8 +828,9 @@ inline void VideoDecoderClient_OnVideoFrameDecoded_ParamsDataView::GetReleaseTok
 
 
 
-}  // namespace mojom
-}  // namespace media
+
+
+}  // media::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

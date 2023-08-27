@@ -31,9 +31,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 
 struct LoadModelResult_Data {
@@ -68,8 +68,7 @@ struct LoadModelResult_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+}  // chromeos::machine_learning::mojom
 
 #endif  // CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_MACHINE_LEARNING_SERVICE_MOJOM_SHARED_INTERNAL_H_

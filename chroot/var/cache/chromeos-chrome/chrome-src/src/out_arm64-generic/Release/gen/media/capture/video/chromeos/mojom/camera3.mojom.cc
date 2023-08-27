@@ -42,9 +42,7 @@
 #include "media/capture/video/chromeos/mojom/camera3.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 CropRotateScaleInfo::CropRotateScaleInfo()
     : crop_rotate_scale_degrees() {}
 
@@ -4084,8 +4082,7 @@ bool Camera3DeviceOpsResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -4411,8 +4408,7 @@ bool UnionTraits<::cros::mojom::Camera3NotifyMsgMessage::DataView, ::cros::mojom
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void Camera3CallbackOpsInterceptorForTesting::ProcessCaptureResult(Camera3CaptureResultPtr result) {
@@ -4683,8 +4679,7 @@ void Camera3DeviceOpsAsyncWaiter::ConfigureStreamsAndGetAllocatedBuffers(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

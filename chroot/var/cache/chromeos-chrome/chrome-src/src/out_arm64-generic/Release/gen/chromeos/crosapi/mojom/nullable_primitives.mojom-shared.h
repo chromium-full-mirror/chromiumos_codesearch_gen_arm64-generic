@@ -31,8 +31,7 @@
 
 
 
-namespace crosapi {
-namespace mojom {
+namespace crosapi::mojom {
 class DoubleValueDataView;
 
 class Int64ValueDataView;
@@ -49,8 +48,7 @@ class BoolValueDataView;
 
 
 
-}  // namespace mojom
-}  // namespace crosapi
+}  // crosapi::mojom
 
 namespace mojo {
 namespace internal {
@@ -108,8 +106,7 @@ struct MojomTypeTraits<::crosapi::mojom::BoolValueDataView> {
 }  // namespace mojo
 
 
-namespace crosapi {
-namespace mojom {
+namespace crosapi::mojom {
 
 
 class DoubleValueDataView {
@@ -238,8 +235,7 @@ class BoolValueDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace crosapi
+}  // crosapi::mojom
 
 namespace std {
 
@@ -460,8 +456,7 @@ struct Serializer<::crosapi::mojom::BoolValueDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace crosapi {
-namespace mojom {
+namespace crosapi::mojom {
 
 
 
@@ -478,8 +473,7 @@ namespace mojom {
 
 
 
-}  // namespace mojom
-}  // namespace crosapi
+}  // crosapi::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

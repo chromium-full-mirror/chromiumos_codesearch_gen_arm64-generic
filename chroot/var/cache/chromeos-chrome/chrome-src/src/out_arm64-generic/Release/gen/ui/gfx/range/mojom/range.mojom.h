@@ -36,8 +36,7 @@
 
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 
@@ -389,8 +388,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 namespace mojo {
 

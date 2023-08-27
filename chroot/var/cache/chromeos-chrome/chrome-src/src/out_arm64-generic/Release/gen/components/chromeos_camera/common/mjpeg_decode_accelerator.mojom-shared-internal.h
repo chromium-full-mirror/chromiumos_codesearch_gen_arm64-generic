@@ -24,8 +24,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos_camera {
-namespace mojom {
+
+
+namespace chromeos_camera::mojom {
 namespace internal {
 class BitstreamBuffer_Data;
 
@@ -118,7 +119,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace chromeos_camera
+
+}  // chromeos_camera::mojom
 
 #endif  // COMPONENTS_CHROMEOS_CAMERA_COMMON_MJPEG_DECODE_ACCELERATOR_MOJOM_SHARED_INTERNAL_H_

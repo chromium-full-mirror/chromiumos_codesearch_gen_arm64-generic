@@ -32,9 +32,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class StringListDataView;
 
 class FloatListDataView;
@@ -46,9 +44,7 @@ class TensorDataView;
 class ValueListDataView;
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 namespace internal {
@@ -92,9 +88,7 @@ struct MojomTypeTraits<::chromeos::machine_learning::mojom::ValueListDataView> {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 class StringListDataView {
@@ -270,9 +264,7 @@ class ValueListDataView {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace std {
 
@@ -552,9 +544,7 @@ struct Serializer<::chromeos::machine_learning::mojom::ValueListDataView, MaybeC
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 inline void StringListDataView::GetValueDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
@@ -606,9 +596,7 @@ inline void ValueListDataView::GetInt64ListDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

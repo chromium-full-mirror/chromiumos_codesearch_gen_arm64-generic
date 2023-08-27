@@ -42,9 +42,7 @@
 #include "services/service_manager/public/mojom/service_manager.mojom-test-utils.h"
 
 
-
-namespace service_manager {
-namespace mojom {
+namespace service_manager::mojom {
 RunningServiceInfo::RunningServiceInfo()
     : identity(),
       pid(),
@@ -947,8 +945,7 @@ bool ServiceManagerRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace service_manager
+}  // service_manager::mojom
 
 
 namespace mojo {
@@ -978,8 +975,7 @@ bool StructTraits<::service_manager::mojom::RunningServiceInfo::DataView, ::serv
 // separate .cc file to save compile time.
 
 
-namespace service_manager {
-namespace mojom {
+namespace service_manager::mojom {
 
 
 void ServiceManagerListenerInterceptorForTesting::OnInit(std::vector<RunningServiceInfoPtr> running_services) {
@@ -1021,8 +1017,7 @@ ServiceManagerAsyncWaiter::~ServiceManagerAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace service_manager
+}  // service_manager::mojom
 
 
 #if defined(__clang__)

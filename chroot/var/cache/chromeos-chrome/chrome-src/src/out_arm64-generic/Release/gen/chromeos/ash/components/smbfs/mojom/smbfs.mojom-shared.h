@@ -35,8 +35,7 @@
 
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 class PasswordDataView;
 
 class KerberosConfigDataView;
@@ -49,8 +48,7 @@ class CredentialsDataView;
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 namespace mojo {
 namespace internal {
@@ -94,8 +92,7 @@ struct MojomTypeTraits<::smbfs::mojom::CredentialsDataView> {
 }  // namespace mojo
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 enum class MountError : int32_t {
@@ -485,8 +482,7 @@ static_assert(
 };
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 namespace std {
 
@@ -864,8 +860,7 @@ struct Serializer<::smbfs::mojom::CredentialsDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 
@@ -944,8 +939,7 @@ inline void CredentialsDataView::GetPasswordDataView(
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -201,6 +201,9 @@ int64_t GetInfoFromSpaced(StringPiece action, const base::FilePath& path) {
 // static
 std::string SysInfo::HardwareModelName() {
   std::string board = GetLsbReleaseBoard();
+  if (board == "unknown") {
+    return "";
+  }
   // GetLsbReleaseBoard() may be suffixed with a "-signed-" and other extra
   // info. Strip it.
   const size_t index = board.find("-signed-");

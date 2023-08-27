@@ -18,13 +18,15 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace crosapi {
-namespace mojom {
+
+
+namespace crosapi::mojom {
 namespace internal {
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace crosapi
+
+
+}  // crosapi::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

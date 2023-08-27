@@ -24,14 +24,10 @@
 
 
 
-namespace chromeos {
-namespace network_config {
-namespace mojom {
+namespace chromeos::network_config::mojom {
 
 
-}  // namespace mojom
-}  // namespace network_config
-}  // namespace chromeos
+}  // chromeos::network_config::mojom
 
 namespace mojo {
 namespace internal {
@@ -40,9 +36,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace network_config {
-namespace mojom {
+namespace chromeos::network_config::mojom {
 
 
 enum class ConnectionStateType : int32_t {
@@ -207,9 +201,7 @@ inline bool IsKnownEnumValue(PortalState value) {
 }
 
 
-}  // namespace mojom
-}  // namespace network_config
-}  // namespace chromeos
+}  // chromeos::network_config::mojom
 
 namespace std {
 
@@ -388,14 +380,10 @@ struct Serializer<::chromeos::network_config::mojom::PortalState, MaybeConstUser
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace network_config {
-namespace mojom {
+namespace chromeos::network_config::mojom {
 
 
-}  // namespace mojom
-}  // namespace network_config
-}  // namespace chromeos
+}  // chromeos::network_config::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -19,8 +19,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace mojo {
-namespace pipe_control {
+
+
+namespace mojo::pipe_control {
 namespace internal {
 class RunOrClosePipeMessageParams_Data;
 class DisconnectReason_Data;
@@ -335,7 +336,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace pipe_control
-}  // namespace mojo
+
+}  // mojo::pipe_control
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_PIPE_CONTROL_MESSAGES_MOJOM_SHARED_INTERNAL_H_

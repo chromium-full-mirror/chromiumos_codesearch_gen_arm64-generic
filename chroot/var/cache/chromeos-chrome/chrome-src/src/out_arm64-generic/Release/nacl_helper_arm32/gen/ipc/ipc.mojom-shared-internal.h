@@ -23,8 +23,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace IPC {
-namespace mojom {
+
+
+namespace IPC::mojom {
 namespace internal {
 class Message_Data;
 
@@ -82,7 +83,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace IPC
+
+}  // IPC::mojom
 
 #endif  // IPC_IPC_MOJOM_SHARED_INTERNAL_H_

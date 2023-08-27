@@ -1,6 +1,5 @@
 // Automatic generation of D-Bus interface mock proxies for:
 //  - org.chromium.UserDataAuthInterface
-//  - org.chromium.ArcQuota
 //  - org.chromium.CryptohomePkcs11Interface
 //  - org.chromium.InstallAttributesInterface
 //  - org.chromium.CryptohomeMiscInterface
@@ -404,6 +403,21 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
               (override));
 
   MOCK_METHOD(bool,
+              RelabelAuthFactor,
+              (const user_data_auth::RelabelAuthFactorRequest& /*in_request*/,
+               user_data_auth::RelabelAuthFactorReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RelabelAuthFactorAsync,
+              (const user_data_auth::RelabelAuthFactorRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::RelabelAuthFactorReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               RemoveAuthFactor,
               (const user_data_auth::RemoveAuthFactorRequest& /*in_request*/,
                user_data_auth::RemoveAuthFactorReply* /*out_reply*/,
@@ -588,115 +602,15 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
               (const base::RepeatingCallback<void(const user_data_auth::PrepareAuthFactorProgress&)>& /*signal_callback*/,
                dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
 
-  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
-  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
-};
-}  // namespace chromium
-}  // namespace org
-
-namespace org {
-namespace chromium {
-
-// Mock object for ArcQuotaProxyInterface.
-class ArcQuotaProxyMock : public ArcQuotaProxyInterface {
- public:
-  ArcQuotaProxyMock() = default;
-  ArcQuotaProxyMock(const ArcQuotaProxyMock&) = delete;
-  ArcQuotaProxyMock& operator=(const ArcQuotaProxyMock&) = delete;
-
-  MOCK_METHOD(bool,
-              GetArcDiskFeatures,
-              (const user_data_auth::GetArcDiskFeaturesRequest& /*in_request*/,
-               user_data_auth::GetArcDiskFeaturesReply* /*out_reply*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
+  void RegisterAuthenticateAuthFactorCompletedSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterAuthenticateAuthFactorCompletedSignalHandler(signal_callback, &on_connected_callback);
+  }
   MOCK_METHOD(void,
-              GetArcDiskFeaturesAsync,
-              (const user_data_auth::GetArcDiskFeaturesRequest& /*in_request*/,
-               base::OnceCallback<void(const user_data_auth::GetArcDiskFeaturesReply& /*reply*/)> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              GetCurrentSpaceForArcUid,
-              (const user_data_auth::GetCurrentSpaceForArcUidRequest& /*in_request*/,
-               user_data_auth::GetCurrentSpaceForArcUidReply* /*out_reply*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              GetCurrentSpaceForArcUidAsync,
-              (const user_data_auth::GetCurrentSpaceForArcUidRequest& /*in_request*/,
-               base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcUidReply& /*reply*/)> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              GetCurrentSpaceForArcGid,
-              (const user_data_auth::GetCurrentSpaceForArcGidRequest& /*in_request*/,
-               user_data_auth::GetCurrentSpaceForArcGidReply* /*out_reply*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              GetCurrentSpaceForArcGidAsync,
-              (const user_data_auth::GetCurrentSpaceForArcGidRequest& /*in_request*/,
-               base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcGidReply& /*reply*/)> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              GetCurrentSpaceForArcProjectId,
-              (const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& /*in_request*/,
-               user_data_auth::GetCurrentSpaceForArcProjectIdReply* /*out_reply*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              GetCurrentSpaceForArcProjectIdAsync,
-              (const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& /*in_request*/,
-               base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcProjectIdReply& /*reply*/)> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              SetMediaRWDataFileProjectId,
-              (const base::ScopedFD& /*in_fd*/,
-               const user_data_auth::SetMediaRWDataFileProjectIdRequest& /*in_request*/,
-               user_data_auth::SetMediaRWDataFileProjectIdReply* /*out_reply*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              SetMediaRWDataFileProjectIdAsync,
-              (const base::ScopedFD& /*in_fd*/,
-               const user_data_auth::SetMediaRWDataFileProjectIdRequest& /*in_request*/,
-               base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectIdReply& /*reply*/)> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              SetMediaRWDataFileProjectInheritanceFlag,
-              (const base::ScopedFD& /*in_fd*/,
-               const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& /*in_request*/,
-               user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply* /*out_reply*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              SetMediaRWDataFileProjectInheritanceFlagAsync,
-              (const base::ScopedFD& /*in_fd*/,
-               const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& /*in_request*/,
-               base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply& /*reply*/)> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
+              DoRegisterAuthenticateAuthFactorCompletedSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
 
   MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
   MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));

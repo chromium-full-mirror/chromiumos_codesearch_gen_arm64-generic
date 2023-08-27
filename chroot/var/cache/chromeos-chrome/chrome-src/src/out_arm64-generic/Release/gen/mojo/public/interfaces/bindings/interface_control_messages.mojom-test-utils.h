@@ -11,13 +11,11 @@
 #include "base/component_export.h"
 
 
-namespace mojo {
-namespace interface_control {
+namespace mojo::interface_control {
 
 
 
 
-}  // namespace interface_control
-}  // namespace mojo
+}  // mojo::interface_control
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_INTERFACE_CONTROL_MESSAGES_MOJOM_TEST_UTILS_H_

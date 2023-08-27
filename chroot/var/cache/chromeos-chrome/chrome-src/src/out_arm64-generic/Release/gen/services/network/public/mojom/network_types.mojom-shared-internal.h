@@ -16,8 +16,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace network {
-namespace mojom {
+
+
+namespace network::mojom {
 namespace internal {
 using ConnectionInfo_Data =
     mojo::internal::NativeEnum_Data;
@@ -31,7 +32,7 @@ using CTPolicyCompliance_Data =
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network
+
+}  // network::mojom
 
 #endif  // SERVICES_NETWORK_PUBLIC_MOJOM_NETWORK_TYPES_MOJOM_SHARED_INTERNAL_H_

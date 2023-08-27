@@ -43,9 +43,7 @@
 #include "media/mojo/mojom/video_decoder_config_mojom_traits.h"
 
 
-
-namespace media {
-namespace mojom {
+namespace media::mojom {
 SupportedVideoDecoderConfig::SupportedVideoDecoderConfig()
     : profile_min(),
       profile_max(),
@@ -2152,8 +2150,7 @@ bool VideoDecoderClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 
 namespace mojo {
@@ -2205,8 +2202,7 @@ bool StructTraits<::media::mojom::CommandBufferId::DataView, ::media::mojom::Com
 // separate .cc file to save compile time.
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 
 
 void VideoFrameHandleReleaserInterceptorForTesting::ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const absl::optional<::gpu::SyncToken>& release_sync_token) {
@@ -2354,8 +2350,7 @@ VideoDecoderClientAsyncWaiter::~VideoDecoderClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 
 #if defined(__clang__)

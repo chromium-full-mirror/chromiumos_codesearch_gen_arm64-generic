@@ -64,6 +64,12 @@ extern FlushPriorityRequestDefaultTypeInternal _FlushPriorityRequest_default_ins
 class FlushPriorityResponse;
 struct FlushPriorityResponseDefaultTypeInternal;
 extern FlushPriorityResponseDefaultTypeInternal _FlushPriorityResponse_default_instance_;
+class UpdateConfigInMissiveRequest;
+struct UpdateConfigInMissiveRequestDefaultTypeInternal;
+extern UpdateConfigInMissiveRequestDefaultTypeInternal _UpdateConfigInMissiveRequest_default_instance_;
+class UpdateConfigInMissiveResponse;
+struct UpdateConfigInMissiveResponseDefaultTypeInternal;
+extern UpdateConfigInMissiveResponseDefaultTypeInternal _UpdateConfigInMissiveResponse_default_instance_;
 class UpdateEncryptionKeyRequest;
 struct UpdateEncryptionKeyRequestDefaultTypeInternal;
 extern UpdateEncryptionKeyRequestDefaultTypeInternal _UpdateEncryptionKeyRequest_default_instance_;
@@ -84,6 +90,8 @@ template<> ::reporting::EnqueueRecordRequest* Arena::CreateMaybeMessage<::report
 template<> ::reporting::EnqueueRecordResponse* Arena::CreateMaybeMessage<::reporting::EnqueueRecordResponse>(Arena*);
 template<> ::reporting::FlushPriorityRequest* Arena::CreateMaybeMessage<::reporting::FlushPriorityRequest>(Arena*);
 template<> ::reporting::FlushPriorityResponse* Arena::CreateMaybeMessage<::reporting::FlushPriorityResponse>(Arena*);
+template<> ::reporting::UpdateConfigInMissiveRequest* Arena::CreateMaybeMessage<::reporting::UpdateConfigInMissiveRequest>(Arena*);
+template<> ::reporting::UpdateConfigInMissiveResponse* Arena::CreateMaybeMessage<::reporting::UpdateConfigInMissiveResponse>(Arena*);
 template<> ::reporting::UpdateEncryptionKeyRequest* Arena::CreateMaybeMessage<::reporting::UpdateEncryptionKeyRequest>(Arena*);
 template<> ::reporting::UpdateEncryptionKeyResponse* Arena::CreateMaybeMessage<::reporting::UpdateEncryptionKeyResponse>(Arena*);
 template<> ::reporting::UploadEncryptedRecordRequest* Arena::CreateMaybeMessage<::reporting::UploadEncryptedRecordRequest>(Arena*);
@@ -1696,6 +1704,300 @@ class UpdateEncryptionKeyResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_interface_2eproto;
 };
+// -------------------------------------------------------------------
+
+class UpdateConfigInMissiveRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.UpdateConfigInMissiveRequest) */ {
+ public:
+  inline UpdateConfigInMissiveRequest() : UpdateConfigInMissiveRequest(nullptr) {}
+  ~UpdateConfigInMissiveRequest() override;
+  explicit PROTOBUF_CONSTEXPR UpdateConfigInMissiveRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateConfigInMissiveRequest(const UpdateConfigInMissiveRequest& from);
+  UpdateConfigInMissiveRequest(UpdateConfigInMissiveRequest&& from) noexcept
+    : UpdateConfigInMissiveRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateConfigInMissiveRequest& operator=(const UpdateConfigInMissiveRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateConfigInMissiveRequest& operator=(UpdateConfigInMissiveRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const UpdateConfigInMissiveRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateConfigInMissiveRequest* internal_default_instance() {
+    return reinterpret_cast<const UpdateConfigInMissiveRequest*>(
+               &_UpdateConfigInMissiveRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(UpdateConfigInMissiveRequest& a, UpdateConfigInMissiveRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateConfigInMissiveRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateConfigInMissiveRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateConfigInMissiveRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateConfigInMissiveRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UpdateConfigInMissiveRequest& from);
+  void MergeFrom(const UpdateConfigInMissiveRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UpdateConfigInMissiveRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "reporting.UpdateConfigInMissiveRequest";
+  }
+  protected:
+  explicit UpdateConfigInMissiveRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kListOfBlockedDestinationsFieldNumber = 1,
+  };
+  // optional .reporting.ListOfBlockedDestinations list_of_blocked_destinations = 1;
+  bool has_list_of_blocked_destinations() const;
+  private:
+  bool _internal_has_list_of_blocked_destinations() const;
+  public:
+  void clear_list_of_blocked_destinations();
+  const ::reporting::ListOfBlockedDestinations& list_of_blocked_destinations() const;
+  PROTOBUF_NODISCARD ::reporting::ListOfBlockedDestinations* release_list_of_blocked_destinations();
+  ::reporting::ListOfBlockedDestinations* mutable_list_of_blocked_destinations();
+  void set_allocated_list_of_blocked_destinations(::reporting::ListOfBlockedDestinations* list_of_blocked_destinations);
+  private:
+  const ::reporting::ListOfBlockedDestinations& _internal_list_of_blocked_destinations() const;
+  ::reporting::ListOfBlockedDestinations* _internal_mutable_list_of_blocked_destinations();
+  public:
+  void unsafe_arena_set_allocated_list_of_blocked_destinations(
+      ::reporting::ListOfBlockedDestinations* list_of_blocked_destinations);
+  ::reporting::ListOfBlockedDestinations* unsafe_arena_release_list_of_blocked_destinations();
+
+  // @@protoc_insertion_point(class_scope:reporting.UpdateConfigInMissiveRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::reporting::ListOfBlockedDestinations* list_of_blocked_destinations_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_interface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UpdateConfigInMissiveResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.UpdateConfigInMissiveResponse) */ {
+ public:
+  inline UpdateConfigInMissiveResponse() : UpdateConfigInMissiveResponse(nullptr) {}
+  ~UpdateConfigInMissiveResponse() override;
+  explicit PROTOBUF_CONSTEXPR UpdateConfigInMissiveResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateConfigInMissiveResponse(const UpdateConfigInMissiveResponse& from);
+  UpdateConfigInMissiveResponse(UpdateConfigInMissiveResponse&& from) noexcept
+    : UpdateConfigInMissiveResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateConfigInMissiveResponse& operator=(const UpdateConfigInMissiveResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateConfigInMissiveResponse& operator=(UpdateConfigInMissiveResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const UpdateConfigInMissiveResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateConfigInMissiveResponse* internal_default_instance() {
+    return reinterpret_cast<const UpdateConfigInMissiveResponse*>(
+               &_UpdateConfigInMissiveResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(UpdateConfigInMissiveResponse& a, UpdateConfigInMissiveResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateConfigInMissiveResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateConfigInMissiveResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateConfigInMissiveResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateConfigInMissiveResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UpdateConfigInMissiveResponse& from);
+  void MergeFrom(const UpdateConfigInMissiveResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UpdateConfigInMissiveResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "reporting.UpdateConfigInMissiveResponse";
+  }
+  protected:
+  explicit UpdateConfigInMissiveResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStatusFieldNumber = 1,
+  };
+  // optional .reporting.StatusProto status = 1;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  const ::reporting::StatusProto& status() const;
+  PROTOBUF_NODISCARD ::reporting::StatusProto* release_status();
+  ::reporting::StatusProto* mutable_status();
+  void set_allocated_status(::reporting::StatusProto* status);
+  private:
+  const ::reporting::StatusProto& _internal_status() const;
+  ::reporting::StatusProto* _internal_mutable_status();
+  public:
+  void unsafe_arena_set_allocated_status(
+      ::reporting::StatusProto* status);
+  ::reporting::StatusProto* unsafe_arena_release_status();
+
+  // @@protoc_insertion_point(class_scope:reporting.UpdateConfigInMissiveResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::reporting::StatusProto* status_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_interface_2eproto;
+};
 // ===================================================================
 
 
@@ -2817,9 +3119,195 @@ inline void UpdateEncryptionKeyResponse::set_allocated_status(::reporting::Statu
   // @@protoc_insertion_point(field_set_allocated:reporting.UpdateEncryptionKeyResponse.status)
 }
 
+// -------------------------------------------------------------------
+
+// UpdateConfigInMissiveRequest
+
+// optional .reporting.ListOfBlockedDestinations list_of_blocked_destinations = 1;
+inline bool UpdateConfigInMissiveRequest::_internal_has_list_of_blocked_destinations() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.list_of_blocked_destinations_ != nullptr);
+  return value;
+}
+inline bool UpdateConfigInMissiveRequest::has_list_of_blocked_destinations() const {
+  return _internal_has_list_of_blocked_destinations();
+}
+inline const ::reporting::ListOfBlockedDestinations& UpdateConfigInMissiveRequest::_internal_list_of_blocked_destinations() const {
+  const ::reporting::ListOfBlockedDestinations* p = _impl_.list_of_blocked_destinations_;
+  return p != nullptr ? *p : reinterpret_cast<const ::reporting::ListOfBlockedDestinations&>(
+      ::reporting::_ListOfBlockedDestinations_default_instance_);
+}
+inline const ::reporting::ListOfBlockedDestinations& UpdateConfigInMissiveRequest::list_of_blocked_destinations() const {
+  // @@protoc_insertion_point(field_get:reporting.UpdateConfigInMissiveRequest.list_of_blocked_destinations)
+  return _internal_list_of_blocked_destinations();
+}
+inline void UpdateConfigInMissiveRequest::unsafe_arena_set_allocated_list_of_blocked_destinations(
+    ::reporting::ListOfBlockedDestinations* list_of_blocked_destinations) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.list_of_blocked_destinations_);
+  }
+  _impl_.list_of_blocked_destinations_ = list_of_blocked_destinations;
+  if (list_of_blocked_destinations) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.UpdateConfigInMissiveRequest.list_of_blocked_destinations)
+}
+inline ::reporting::ListOfBlockedDestinations* UpdateConfigInMissiveRequest::release_list_of_blocked_destinations() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::reporting::ListOfBlockedDestinations* temp = _impl_.list_of_blocked_destinations_;
+  _impl_.list_of_blocked_destinations_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::reporting::ListOfBlockedDestinations* UpdateConfigInMissiveRequest::unsafe_arena_release_list_of_blocked_destinations() {
+  // @@protoc_insertion_point(field_release:reporting.UpdateConfigInMissiveRequest.list_of_blocked_destinations)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::reporting::ListOfBlockedDestinations* temp = _impl_.list_of_blocked_destinations_;
+  _impl_.list_of_blocked_destinations_ = nullptr;
+  return temp;
+}
+inline ::reporting::ListOfBlockedDestinations* UpdateConfigInMissiveRequest::_internal_mutable_list_of_blocked_destinations() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.list_of_blocked_destinations_ == nullptr) {
+    auto* p = CreateMaybeMessage<::reporting::ListOfBlockedDestinations>(GetArenaForAllocation());
+    _impl_.list_of_blocked_destinations_ = p;
+  }
+  return _impl_.list_of_blocked_destinations_;
+}
+inline ::reporting::ListOfBlockedDestinations* UpdateConfigInMissiveRequest::mutable_list_of_blocked_destinations() {
+  ::reporting::ListOfBlockedDestinations* _msg = _internal_mutable_list_of_blocked_destinations();
+  // @@protoc_insertion_point(field_mutable:reporting.UpdateConfigInMissiveRequest.list_of_blocked_destinations)
+  return _msg;
+}
+inline void UpdateConfigInMissiveRequest::set_allocated_list_of_blocked_destinations(::reporting::ListOfBlockedDestinations* list_of_blocked_destinations) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.list_of_blocked_destinations_);
+  }
+  if (list_of_blocked_destinations) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(list_of_blocked_destinations));
+    if (message_arena != submessage_arena) {
+      list_of_blocked_destinations = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, list_of_blocked_destinations, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.list_of_blocked_destinations_ = list_of_blocked_destinations;
+  // @@protoc_insertion_point(field_set_allocated:reporting.UpdateConfigInMissiveRequest.list_of_blocked_destinations)
+}
+
+// -------------------------------------------------------------------
+
+// UpdateConfigInMissiveResponse
+
+// optional .reporting.StatusProto status = 1;
+inline bool UpdateConfigInMissiveResponse::_internal_has_status() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.status_ != nullptr);
+  return value;
+}
+inline bool UpdateConfigInMissiveResponse::has_status() const {
+  return _internal_has_status();
+}
+inline const ::reporting::StatusProto& UpdateConfigInMissiveResponse::_internal_status() const {
+  const ::reporting::StatusProto* p = _impl_.status_;
+  return p != nullptr ? *p : reinterpret_cast<const ::reporting::StatusProto&>(
+      ::reporting::_StatusProto_default_instance_);
+}
+inline const ::reporting::StatusProto& UpdateConfigInMissiveResponse::status() const {
+  // @@protoc_insertion_point(field_get:reporting.UpdateConfigInMissiveResponse.status)
+  return _internal_status();
+}
+inline void UpdateConfigInMissiveResponse::unsafe_arena_set_allocated_status(
+    ::reporting::StatusProto* status) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.status_);
+  }
+  _impl_.status_ = status;
+  if (status) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.UpdateConfigInMissiveResponse.status)
+}
+inline ::reporting::StatusProto* UpdateConfigInMissiveResponse::release_status() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::reporting::StatusProto* temp = _impl_.status_;
+  _impl_.status_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::reporting::StatusProto* UpdateConfigInMissiveResponse::unsafe_arena_release_status() {
+  // @@protoc_insertion_point(field_release:reporting.UpdateConfigInMissiveResponse.status)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::reporting::StatusProto* temp = _impl_.status_;
+  _impl_.status_ = nullptr;
+  return temp;
+}
+inline ::reporting::StatusProto* UpdateConfigInMissiveResponse::_internal_mutable_status() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.status_ == nullptr) {
+    auto* p = CreateMaybeMessage<::reporting::StatusProto>(GetArenaForAllocation());
+    _impl_.status_ = p;
+  }
+  return _impl_.status_;
+}
+inline ::reporting::StatusProto* UpdateConfigInMissiveResponse::mutable_status() {
+  ::reporting::StatusProto* _msg = _internal_mutable_status();
+  // @@protoc_insertion_point(field_mutable:reporting.UpdateConfigInMissiveResponse.status)
+  return _msg;
+}
+inline void UpdateConfigInMissiveResponse::set_allocated_status(::reporting::StatusProto* status) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.status_);
+  }
+  if (status) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status));
+    if (message_arena != submessage_arena) {
+      status = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, status, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.status_ = status;
+  // @@protoc_insertion_point(field_set_allocated:reporting.UpdateConfigInMissiveResponse.status)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

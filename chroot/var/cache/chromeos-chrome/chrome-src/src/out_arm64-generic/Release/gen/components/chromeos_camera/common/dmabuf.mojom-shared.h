@@ -35,16 +35,14 @@
 
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 class DmaBufPlaneDataView;
 
 class DmaBufVideoFrameDataView;
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 namespace mojo {
 namespace internal {
@@ -67,8 +65,7 @@ struct MojomTypeTraits<::chromeos_camera::mojom::DmaBufVideoFrameDataView> {
 }  // namespace mojo
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 class DmaBufPlaneDataView {
@@ -156,8 +153,7 @@ class DmaBufVideoFrameDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 namespace std {
 
@@ -256,8 +252,7 @@ struct Serializer<::chromeos_camera::mojom::DmaBufVideoFrameDataView, MaybeConst
 }  // namespace mojo
 
 
-namespace chromeos_camera {
-namespace mojom {
+namespace chromeos_camera::mojom {
 
 
 
@@ -269,8 +264,7 @@ inline void DmaBufVideoFrameDataView::GetPlanesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace chromeos_camera
+}  // chromeos_camera::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

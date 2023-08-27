@@ -9,19 +9,43 @@
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
 
+#include "media/capture/video/chromeos/mojom/camera_metadata_tags.mojom.h"
+
+#include <math.h>
+#include <stdint.h>
+#include <utility>
+
+#include "base/debug/alias.h"
+#include "base/hash/md5_constexpr.h"
+#include "base/run_loop.h"
+#include "base/strings/string_number_conversions.h"
+#include "base/task/thread_pool/thread_pool_instance.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
+#include "mojo/public/cpp/bindings/lib/generated_code_util.h"
+#include "mojo/public/cpp/bindings/lib/message_internal.h"
+#include "mojo/public/cpp/bindings/lib/send_message_helper.h"
+#include "mojo/public/cpp/bindings/lib/proxy_to_responder.h"
+#include "mojo/public/cpp/bindings/lib/serialization_util.h"
+#include "mojo/public/cpp/bindings/lib/unserialized_message_context.h"
+#include "mojo/public/cpp/bindings/lib/validate_params.h"
+#include "mojo/public/cpp/bindings/lib/validation_errors.h"
+#include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
+
+#include "media/capture/video/chromeos/mojom/camera_metadata_tags.mojom-params-data.h"
+#include "media/capture/video/chromeos/mojom/camera_metadata_tags.mojom-shared-message-ids.h"
+
+#include "media/capture/video/chromeos/mojom/camera_metadata_tags.mojom-import-headers.h"
+#include "media/capture/video/chromeos/mojom/camera_metadata_tags.mojom-test-utils.h"
 
 
+namespace cros::mojom {
 
 
-
-
-
-namespace cros {
-namespace mojom {
-
-
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -33,18 +57,14 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #endif
-
-// Includes removed due to no code being generated.

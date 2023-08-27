@@ -21,8 +21,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class CameraResourceCostDataView;
 
 class CameraInfoDataView;
@@ -62,7 +61,6 @@ class CameraModule;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_COMMON_MOJOM_FORWARD_H_

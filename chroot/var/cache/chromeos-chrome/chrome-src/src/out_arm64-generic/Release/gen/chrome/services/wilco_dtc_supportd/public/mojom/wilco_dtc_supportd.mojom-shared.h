@@ -33,14 +33,10 @@
 
 
 
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+namespace chromeos::wilco_dtc_supportd::mojom {
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+}  // chromeos::wilco_dtc_supportd::mojom
 
 namespace mojo {
 namespace internal {
@@ -49,9 +45,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+namespace chromeos::wilco_dtc_supportd::mojom {
 
 
 enum class WilcoDtcSupportdWebRequestHttpMethod : int32_t {
@@ -178,9 +172,7 @@ using WilcoDtcSupportdClientAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<WilcoDtcSupportdClientInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+}  // chromeos::wilco_dtc_supportd::mojom
 
 namespace std {
 
@@ -263,14 +255,10 @@ struct Serializer<::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdEvent, 
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+namespace chromeos::wilco_dtc_supportd::mojom {
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+}  // chromeos::wilco_dtc_supportd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

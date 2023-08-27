@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+
+
+namespace chromeos::connectivity::mojom {
 namespace internal {
 class  PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data {
  public:
@@ -440,9 +440,9 @@ inline void PasspointService_DeletePasspointSubscription_ParamsDataView::GetIdDa
 
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+
+
+}  // chromeos::connectivity::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

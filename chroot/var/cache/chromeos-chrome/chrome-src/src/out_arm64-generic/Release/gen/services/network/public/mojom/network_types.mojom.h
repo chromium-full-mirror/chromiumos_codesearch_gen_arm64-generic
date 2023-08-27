@@ -34,15 +34,13 @@
 
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 
 
 
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 namespace mojo {
 

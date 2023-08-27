@@ -21,8 +21,7 @@
 
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 class RangeDataView;
 
 class RangeFDataView;
@@ -36,7 +35,6 @@ using RangeFPtr = mojo::InlinedStructPtr<RangeF>;
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 #endif  // UI_GFX_RANGE_MOJOM_RANGE_MOJOM_FORWARD_H_

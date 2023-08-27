@@ -10,8 +10,7 @@
 #include "ash/components/arc/mojom/video_decoder.mojom.h"
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 class  VideoDecoderInterceptorForTesting : public VideoDecoder {
@@ -65,7 +64,6 @@ class  VideoDecoderClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_DECODER_MOJOM_TEST_UTILS_H_

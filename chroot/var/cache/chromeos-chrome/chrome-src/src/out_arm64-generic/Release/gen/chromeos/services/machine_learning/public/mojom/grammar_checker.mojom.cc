@@ -42,10 +42,7 @@
 #include "chromeos/services/machine_learning/public/mojom/grammar_checker.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 GrammarCheckerQuery::GrammarCheckerQuery()
     : text(),
       language() {}
@@ -564,9 +561,7 @@ bool GrammarCheckerResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -646,9 +641,7 @@ bool StructTraits<::chromeos::machine_learning::mojom::GrammarCheckerResult::Dat
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void GrammarCheckerInterceptorForTesting::Check(GrammarCheckerQueryPtr query, CheckCallback callback) {
@@ -687,9 +680,7 @@ GrammarCheckerResultPtr GrammarCheckerAsyncWaiter::Check(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

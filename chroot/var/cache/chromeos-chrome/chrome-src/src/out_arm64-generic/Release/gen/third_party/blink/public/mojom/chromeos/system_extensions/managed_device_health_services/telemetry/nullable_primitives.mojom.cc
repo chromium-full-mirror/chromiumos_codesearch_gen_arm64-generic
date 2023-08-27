@@ -42,9 +42,7 @@
 #include "third_party/blink/public/mojom/chromeos/system_extensions/managed_device_health_services/telemetry/nullable_primitives.mojom-test-utils.h"
 
 
-
-namespace blink {
-namespace mojom {
+namespace blink::mojom {
 UInt32Value::UInt32Value()
     : value() {}
 
@@ -111,8 +109,7 @@ bool UInt64Value::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace blink
+}  // blink::mojom
 
 
 namespace mojo {
@@ -152,14 +149,12 @@ bool StructTraits<::blink::mojom::UInt64Value::DataView, ::blink::mojom::UInt64V
 // separate .cc file to save compile time.
 
 
-namespace blink {
-namespace mojom {
+namespace blink::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace blink
+}  // blink::mojom
 
 
 #if defined(__clang__)

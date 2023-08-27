@@ -10,8 +10,7 @@
 #include "media/capture/video/chromeos/mojom/camera_common.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class  CameraModuleCallbacksInterceptorForTesting : public CameraModuleCallbacks {
@@ -121,7 +120,6 @@ class  CameraModuleAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_COMMON_MOJOM_TEST_UTILS_H_

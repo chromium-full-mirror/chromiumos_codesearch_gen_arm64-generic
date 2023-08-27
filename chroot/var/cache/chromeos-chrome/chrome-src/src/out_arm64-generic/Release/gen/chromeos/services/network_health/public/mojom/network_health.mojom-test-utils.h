@@ -10,9 +10,7 @@
 #include "chromeos/services/network_health/public/mojom/network_health.mojom.h"
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 
 class  NetworkEventsObserverInterceptorForTesting : public NetworkEventsObserver {
@@ -67,8 +65,6 @@ class  NetworkHealthServiceAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 #endif  // CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_MOJOM_TEST_UTILS_H_

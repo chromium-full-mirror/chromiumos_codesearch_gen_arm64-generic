@@ -40,8 +40,7 @@
 
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 class SupportedVideoDecoderConfigDataView;
 
 class CommandBufferIdDataView;
@@ -50,8 +49,7 @@ using OverlayInfoDataView = mojo::native::NativeStructDataView;
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 namespace mojo {
 namespace internal {
@@ -74,8 +72,7 @@ struct MojomTypeTraits<::media::mojom::CommandBufferIdDataView> {
 }  // namespace mojo
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 // Interface base classes. They are used for type safety check.
 class VideoFrameHandleReleaserInterfaceBase {};
 
@@ -200,8 +197,7 @@ class CommandBufferIdDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 namespace std {
 
@@ -313,8 +309,7 @@ struct Serializer<::media::mojom::CommandBufferIdDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace media {
-namespace mojom {
+namespace media::mojom {
 
 inline void SupportedVideoDecoderConfigDataView::GetCodedSizeMinDataView(
     ::gfx::mojom::SizeDataView* output) {
@@ -336,8 +331,7 @@ inline void CommandBufferIdDataView::GetChannelTokenDataView(
 
 
 
-}  // namespace mojom
-}  // namespace media
+}  // media::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

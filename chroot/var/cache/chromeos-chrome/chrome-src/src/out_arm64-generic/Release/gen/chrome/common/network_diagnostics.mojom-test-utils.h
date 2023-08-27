@@ -10,8 +10,7 @@
 #include "chrome/common/network_diagnostics.mojom.h"
 
 
-namespace chrome {
-namespace mojom {
+namespace chrome::mojom {
 
 
 class  NetworkDiagnosticsInterceptorForTesting : public NetworkDiagnostics {
@@ -53,7 +52,6 @@ class  NetworkDiagnosticsClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace chrome
+}  // chrome::mojom
 
 #endif  // CHROME_COMMON_NETWORK_DIAGNOSTICS_MOJOM_TEST_UTILS_H_

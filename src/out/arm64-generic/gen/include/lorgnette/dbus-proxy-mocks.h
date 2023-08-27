@@ -84,6 +84,36 @@ class ManagerProxyMock : public ManagerProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              SetOptions,
+              (const ::lorgnette::SetOptionsRequest& /*in_request*/,
+               ::lorgnette::SetOptionsResponse* /*out_response*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetOptionsAsync,
+              (const ::lorgnette::SetOptionsRequest& /*in_request*/,
+               base::OnceCallback<void(const ::lorgnette::SetOptionsResponse& /*response*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              StartPreparedScan,
+              (const ::lorgnette::StartPreparedScanRequest& /*in_request*/,
+               ::lorgnette::StartPreparedScanResponse* /*out_response*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              StartPreparedScanAsync,
+              (const ::lorgnette::StartPreparedScanRequest& /*in_request*/,
+               base::OnceCallback<void(const ::lorgnette::StartPreparedScanResponse& /*response*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               StartScan,
               (const ::lorgnette::StartScanRequest& /*in_start_scan_request*/,
                ::lorgnette::StartScanResponse* /*out_start_scan_response*/,
@@ -94,6 +124,21 @@ class ManagerProxyMock : public ManagerProxyInterface {
               StartScanAsync,
               (const ::lorgnette::StartScanRequest& /*in_start_scan_request*/,
                base::OnceCallback<void(const ::lorgnette::StartScanResponse& /*start_scan_response*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ReadScanData,
+              (const ::lorgnette::ReadScanDataRequest& /*in_request*/,
+               ::lorgnette::ReadScanDataResponse* /*out_response*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ReadScanDataAsync,
+              (const ::lorgnette::ReadScanDataRequest& /*in_request*/,
+               base::OnceCallback<void(const ::lorgnette::ReadScanDataResponse& /*response*/)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));

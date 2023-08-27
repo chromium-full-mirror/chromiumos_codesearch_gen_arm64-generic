@@ -20,8 +20,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class VideoHost;
 
 class VideoInstance;
@@ -31,7 +30,6 @@ class VideoAcceleratorFactory;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_MOJOM_FORWARD_H_

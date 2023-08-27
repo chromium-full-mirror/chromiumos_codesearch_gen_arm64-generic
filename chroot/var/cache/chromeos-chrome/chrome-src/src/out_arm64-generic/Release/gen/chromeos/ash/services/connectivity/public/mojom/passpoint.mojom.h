@@ -36,9 +36,7 @@
 
 
 
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+namespace chromeos::connectivity::mojom {
 
 class PasspointEventsListenerProxy;
 
@@ -514,9 +512,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+}  // chromeos::connectivity::mojom
 
 namespace mojo {
 

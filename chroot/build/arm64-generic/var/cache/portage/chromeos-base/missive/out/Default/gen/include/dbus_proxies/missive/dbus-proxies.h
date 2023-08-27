@@ -75,6 +75,22 @@ class MissivedProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Sent by Chrome to update the list of blocked destinations and other
+  // data from the configuration file fetched from the server.
+  virtual bool UpdateConfigInMissive(
+      const ::reporting::UpdateConfigInMissiveRequest& in_request,
+      ::reporting::UpdateConfigInMissiveResponse* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Sent by Chrome to update the list of blocked destinations and other
+  // data from the configuration file fetched from the server.
+  virtual void UpdateConfigInMissiveAsync(
+      const ::reporting::UpdateConfigInMissiveRequest& in_request,
+      base::OnceCallback<void(const ::reporting::UpdateConfigInMissiveResponse& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Sent by Chrome to update the Missive Daemon Encryption Key.
   virtual bool UpdateEncryptionKey(
       const ::reporting::UpdateEncryptionKeyRequest& in_request,
@@ -222,6 +238,41 @@ class MissivedProxy final : public MissivedProxyInterface {
         dbus_object_proxy_,
         "org.chromium.Missived",
         "ConfirmRecordUpload",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  // Sent by Chrome to update the list of blocked destinations and other
+  // data from the configuration file fetched from the server.
+  bool UpdateConfigInMissive(
+      const ::reporting::UpdateConfigInMissiveRequest& in_request,
+      ::reporting::UpdateConfigInMissiveResponse* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Missived",
+        "UpdateConfigInMissive",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Sent by Chrome to update the list of blocked destinations and other
+  // data from the configuration file fetched from the server.
+  void UpdateConfigInMissiveAsync(
+      const ::reporting::UpdateConfigInMissiveRequest& in_request,
+      base::OnceCallback<void(const ::reporting::UpdateConfigInMissiveResponse& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Missived",
+        "UpdateConfigInMissive",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

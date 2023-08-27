@@ -42,10 +42,7 @@
 #include "chromeos/services/network_health/public/mojom/network_diagnostics.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+namespace chromeos::network_diagnostics::mojom {
 HttpsLatencyResultValue::HttpsLatencyResultValue()
     : latency() {}
 
@@ -4371,9 +4368,7 @@ bool NetworkDiagnosticsRoutinesResponseValidator::Accept(mojo::Message* message)
 }
 
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+}  // chromeos::network_diagnostics::mojom
 
 
 namespace mojo {
@@ -4593,9 +4588,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineResultValue::Dat
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+namespace chromeos::network_diagnostics::mojom {
 
 
 void NetworkDiagnosticsRoutinesInterceptorForTesting::GetResult(RoutineType routine, GetResultCallback callback) {
@@ -5050,9 +5043,7 @@ RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
 
 
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+}  // chromeos::network_diagnostics::mojom
 
 
 #if defined(__clang__)

@@ -36,8 +36,7 @@
 
 
 
-namespace blink {
-namespace mojom {
+namespace blink::mojom {
 
 
 
@@ -371,8 +370,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace blink
+}  // blink::mojom
 
 namespace mojo {
 

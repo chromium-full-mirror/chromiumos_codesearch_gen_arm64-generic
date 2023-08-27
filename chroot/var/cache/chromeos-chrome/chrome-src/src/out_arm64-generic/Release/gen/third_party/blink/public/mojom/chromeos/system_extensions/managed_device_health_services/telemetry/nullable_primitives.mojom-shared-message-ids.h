@@ -8,15 +8,15 @@
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_CHROMEOS_SYSTEM_EXTENSIONS_MANAGED_DEVICE_HEALTH_SERVICES_TELEMETRY_NULLABLE_PRIMITIVES_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace blink {
-namespace mojom {
 
+
+namespace blink::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace blink
+
+}  // blink::mojom
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_CHROMEOS_SYSTEM_EXTENSIONS_MANAGED_DEVICE_HEALTH_SERVICES_TELEMETRY_NULLABLE_PRIMITIVES_MOJOM_SHARED_MESSAGE_IDS_H_

@@ -10,8 +10,7 @@
 #include "ash/components/arc/mojom/video.mojom.h"
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 class  VideoHostInterceptorForTesting : public VideoHost {
@@ -79,7 +78,6 @@ class  VideoAcceleratorFactoryAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ASH_COMPONENTS_ARC_MOJOM_VIDEO_MOJOM_TEST_UTILS_H_

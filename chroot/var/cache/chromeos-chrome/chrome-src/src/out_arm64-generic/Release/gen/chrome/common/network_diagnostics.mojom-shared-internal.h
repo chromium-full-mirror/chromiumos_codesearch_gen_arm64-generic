@@ -21,8 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chrome {
-namespace mojom {
+
+
+namespace chrome::mojom {
 namespace internal {
 
 #pragma pack(push, 1)
@@ -30,7 +31,7 @@ namespace internal {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace chrome
+
+}  // chrome::mojom
 
 #endif  // CHROME_COMMON_NETWORK_DIAGNOSTICS_MOJOM_SHARED_INTERNAL_H_

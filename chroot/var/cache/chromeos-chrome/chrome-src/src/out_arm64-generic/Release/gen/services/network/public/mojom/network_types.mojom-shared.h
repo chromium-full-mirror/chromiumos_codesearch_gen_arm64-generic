@@ -26,12 +26,10 @@
 
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 namespace mojo {
 namespace internal {
@@ -40,15 +38,13 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 using ConnectionInfo = mojo::NativeEnum;
 using EffectiveConnectionType = mojo::NativeEnum;
 using CTPolicyCompliance = mojo::NativeEnum;
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 namespace std {
 
@@ -59,12 +55,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace network {
-namespace mojom {
+namespace network::mojom {
 
 
-}  // namespace mojom
-}  // namespace network
+}  // network::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

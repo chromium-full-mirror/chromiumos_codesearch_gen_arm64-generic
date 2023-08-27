@@ -31,8 +31,7 @@
 
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 class PointDataView;
 
 class PointFDataView;
@@ -63,8 +62,7 @@ class QuadFDataView;
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 namespace mojo {
 namespace internal {
@@ -171,8 +169,7 @@ struct MojomTypeTraits<::gfx::mojom::QuadFDataView> {
 }  // namespace mojo
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 class PointDataView {
@@ -540,8 +537,7 @@ class QuadFDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 namespace std {
 
@@ -1044,8 +1040,7 @@ struct Serializer<::gfx::mojom::QuadFDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 
@@ -1096,8 +1091,7 @@ inline void QuadFDataView::GetP4DataView(
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

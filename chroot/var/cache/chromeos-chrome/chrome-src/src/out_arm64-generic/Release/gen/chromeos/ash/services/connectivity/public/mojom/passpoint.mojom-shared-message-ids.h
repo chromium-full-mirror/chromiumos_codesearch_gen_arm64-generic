@@ -8,10 +8,9 @@
 #define CHROMEOS_ASH_SERVICES_CONNECTIVITY_PUBLIC_MOJOM_PASSPOINT_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
 
+
+namespace chromeos::connectivity::mojom {
 namespace internal {
 
 
@@ -23,8 +22,7 @@ constexpr uint32_t kPasspointService_DeletePasspointSubscription_Name = 2;
 constexpr uint32_t kPasspointService_RegisterPasspointListener_Name = 3;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+
+}  // chromeos::connectivity::mojom
 
 #endif  // CHROMEOS_ASH_SERVICES_CONNECTIVITY_PUBLIC_MOJOM_PASSPOINT_MOJOM_SHARED_MESSAGE_IDS_H_

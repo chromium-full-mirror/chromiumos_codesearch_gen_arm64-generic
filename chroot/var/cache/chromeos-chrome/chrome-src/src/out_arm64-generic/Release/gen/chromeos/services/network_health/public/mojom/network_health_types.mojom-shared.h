@@ -33,9 +33,7 @@
 
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 class UInt32ValueDataView;
 
 class SignalStrengthStatsDataView;
@@ -46,9 +44,7 @@ class NetworkHealthStateDataView;
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 namespace mojo {
 namespace internal {
@@ -85,9 +81,7 @@ struct MojomTypeTraits<::chromeos::network_health::mojom::NetworkHealthStateData
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 
 enum class NetworkState : int32_t {
@@ -399,9 +393,7 @@ class NetworkHealthStateDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 namespace std {
 
@@ -659,9 +651,7 @@ struct Serializer<::chromeos::network_health::mojom::NetworkHealthStateDataView,
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 
 
@@ -724,9 +714,7 @@ inline void NetworkHealthStateDataView::GetNetworksDataView(
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

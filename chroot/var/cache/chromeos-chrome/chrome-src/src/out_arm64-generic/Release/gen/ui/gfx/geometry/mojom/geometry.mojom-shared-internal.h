@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace gfx {
-namespace mojom {
+
+
+namespace gfx::mojom {
 namespace internal {
 class Point_Data;
 class PointF_Data;
@@ -745,7 +746,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace gfx
+
+}  // gfx::mojom
 
 #endif  // UI_GFX_GEOMETRY_MOJOM_GEOMETRY_MOJOM_SHARED_INTERNAL_H_

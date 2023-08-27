@@ -42,9 +42,7 @@
 #include "media/capture/video/chromeos/mojom/camera_common.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 CameraResourceCost::CameraResourceCost()
     : resource_cost() {}
 
@@ -3566,8 +3564,7 @@ bool CameraModuleResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -3617,8 +3614,7 @@ bool StructTraits<::cros::mojom::CameraInfo::DataView, ::cros::mojom::CameraInfo
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void CameraModuleCallbacksInterceptorForTesting::CameraDeviceStatusChange(int32_t camera_id, CameraDeviceStatus new_status) {
@@ -3981,8 +3977,7 @@ int32_t CameraModuleAsyncWaiter::SetCallbacksAssociated(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

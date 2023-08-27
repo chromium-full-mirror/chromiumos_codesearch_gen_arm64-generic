@@ -33,14 +33,12 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class GenericPendingReceiverDataView;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -56,8 +54,7 @@ struct MojomTypeTraits<::mojo_base::mojom::GenericPendingReceiverDataView> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class GenericPendingReceiverDataView {
@@ -94,8 +91,7 @@ class GenericPendingReceiverDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace std {
 
@@ -154,8 +150,7 @@ struct Serializer<::mojo_base::mojom::GenericPendingReceiverDataView, MaybeConst
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 inline void GenericPendingReceiverDataView::GetInterfaceNameDataView(
     mojo::StringDataView* output) {
@@ -165,8 +160,7 @@ inline void GenericPendingReceiverDataView::GetInterfaceNameDataView(
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

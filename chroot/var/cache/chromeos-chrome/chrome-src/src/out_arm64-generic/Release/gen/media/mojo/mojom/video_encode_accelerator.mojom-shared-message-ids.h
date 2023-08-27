@@ -8,9 +8,9 @@
 #define MEDIA_MOJO_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace media {
-namespace mojom {
 
+
+namespace media::mojom {
 namespace internal {
 
 
@@ -30,7 +30,7 @@ constexpr uint32_t kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name = 2;
 constexpr uint32_t kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name = 3;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace media
+
+}  // media::mojom
 
 #endif  // MEDIA_MOJO_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_SHARED_MESSAGE_IDS_H_

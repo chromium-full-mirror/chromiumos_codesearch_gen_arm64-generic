@@ -32,8 +32,7 @@
 
 
 
-namespace mojo {
-namespace interface_control {
+namespace mojo::interface_control {
 class RunMessageParamsDataView;
 
 class RunResponseMessageParamsDataView;
@@ -59,8 +58,7 @@ class RunOutputDataView;
 class RunOrClosePipeInputDataView;
 
 
-}  // namespace interface_control
-}  // namespace mojo
+}  // mojo::interface_control
 
 namespace mojo {
 namespace internal {
@@ -160,8 +158,7 @@ struct MojomTypeTraits<::mojo::interface_control::RunOrClosePipeInputDataView> {
 }  // namespace mojo
 
 
-namespace mojo {
-namespace interface_control {
+namespace mojo::interface_control {
 
 
 class RunMessageParamsDataView {
@@ -521,8 +518,7 @@ class RunOrClosePipeInputDataView {
 
 
 
-}  // namespace interface_control
-}  // namespace mojo
+}  // mojo::interface_control
 
 namespace std {
 
@@ -1087,8 +1083,7 @@ struct Serializer<::mojo::interface_control::RunOrClosePipeInputDataView, MaybeC
 }  // namespace mojo
 
 
-namespace mojo {
-namespace interface_control {
+namespace mojo::interface_control {
 
 inline void RunMessageParamsDataView::GetInputDataView(
     RunInputDataView* output) {
@@ -1164,8 +1159,7 @@ inline void RunOrClosePipeInputDataView::GetNotifyIdleDataView(
 }
 
 
-}  // namespace interface_control
-}  // namespace mojo
+}  // mojo::interface_control
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

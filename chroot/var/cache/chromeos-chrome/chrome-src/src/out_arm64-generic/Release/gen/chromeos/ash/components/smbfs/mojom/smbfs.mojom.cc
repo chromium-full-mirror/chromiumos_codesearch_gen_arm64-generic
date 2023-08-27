@@ -42,9 +42,7 @@
 #include "chromeos/ash/components/smbfs/mojom/smbfs.mojom-test-utils.h"
 
 
-
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 const char kBootstrapPipeName[] = "smbfs-bootstrap";
 constexpr int32_t Password::kMaxLength;
 constexpr int32_t CredentialStorageOptions::kMinSaltLength;
@@ -1530,8 +1528,7 @@ bool SmbFsDelegateResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 
 namespace mojo {
@@ -1639,8 +1636,7 @@ bool StructTraits<::smbfs::mojom::Credentials::DataView, ::smbfs::mojom::Credent
 // separate .cc file to save compile time.
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 void SmbFsBootstrapInterceptorForTesting::MountShare(MountOptionsPtr options, ::mojo::PendingRemote<SmbFsDelegate> delegate, MountShareCallback callback) {
@@ -1772,8 +1768,7 @@ CredentialsPtr SmbFsDelegateAsyncWaiter::RequestCredentials(
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 
 #if defined(__clang__)

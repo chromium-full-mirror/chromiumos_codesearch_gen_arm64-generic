@@ -10,13 +10,11 @@
 #include "media/capture/video/chromeos/mojom/camera_metadata.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_METADATA_MOJOM_TEST_UTILS_H_

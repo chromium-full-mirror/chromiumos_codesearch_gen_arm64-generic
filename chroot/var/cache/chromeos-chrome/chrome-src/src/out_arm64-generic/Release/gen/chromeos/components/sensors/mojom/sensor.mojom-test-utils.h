@@ -10,9 +10,7 @@
 #include "chromeos/components/sensors/mojom/sensor.mojom.h"
 
 
-namespace chromeos {
-namespace sensors {
-namespace mojom {
+namespace chromeos::sensors::mojom {
 
 
 class  SensorServiceInterceptorForTesting : public SensorService {
@@ -125,8 +123,6 @@ class  SensorServiceNewDevicesObserverAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace sensors
-}  // namespace chromeos
+}  // chromeos::sensors::mojom
 
 #endif  // CHROMEOS_COMPONENTS_SENSORS_MOJOM_SENSOR_MOJOM_TEST_UTILS_H_

@@ -1,6 +1,5 @@
 // Automatic generation of D-Bus interfaces:
 //  - org.chromium.UserDataAuthInterface
-//  - org.chromium.ArcQuota
 //  - org.chromium.CryptohomePkcs11Interface
 //  - org.chromium.InstallAttributesInterface
 //  - org.chromium.CryptohomeMiscInterface
@@ -101,6 +100,9 @@ class UserDataAuthInterfaceInterface {
   virtual void UpdateAuthFactorMetadata(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::UpdateAuthFactorMetadataReply>> response,
       const user_data_auth::UpdateAuthFactorMetadataRequest& in_request) = 0;
+  virtual void RelabelAuthFactor(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RelabelAuthFactorReply>> response,
+      const user_data_auth::RelabelAuthFactorRequest& in_request) = 0;
   virtual void RemoveAuthFactor(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RemoveAuthFactorReply>> response,
       const user_data_auth::RemoveAuthFactorRequest& in_request) = 0;
@@ -242,6 +244,10 @@ class UserDataAuthInterfaceAdaptor {
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::UpdateAuthFactorMetadata);
     itf->AddMethodHandler(
+        "RelabelAuthFactor",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::RelabelAuthFactor);
+    itf->AddMethodHandler(
         "RemoveAuthFactor",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::RemoveAuthFactor);
@@ -283,6 +289,7 @@ class UserDataAuthInterfaceAdaptor {
     signal_LowDiskSpace_ = itf->RegisterSignalOfType<SignalLowDiskSpaceType>("LowDiskSpace");
     signal_AuthScanResult_ = itf->RegisterSignalOfType<SignalAuthScanResultType>("AuthScanResult");
     signal_PrepareAuthFactorProgress_ = itf->RegisterSignalOfType<SignalPrepareAuthFactorProgressType>("PrepareAuthFactorProgress");
+    signal_AuthenticateAuthFactorCompleted_ = itf->RegisterSignalOfType<SignalAuthenticateAuthFactorCompletedType>("AuthenticateAuthFactorCompleted");
   }
 
   void SendDircryptoMigrationProgressSignal(
@@ -312,6 +319,12 @@ class UserDataAuthInterfaceAdaptor {
   void SendPrepareAuthFactorProgressSignal(
       const user_data_auth::PrepareAuthFactorProgress& in_status) {
     auto signal = signal_PrepareAuthFactorProgress_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendAuthenticateAuthFactorCompletedSignal(
+      const user_data_auth::AuthenticateAuthFactorCompleted& in_status) {
+    auto signal = signal_AuthenticateAuthFactorCompleted_.lock();
     if (signal)
       signal->Send(in_status);
   }
@@ -423,6 +436,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <method name=\"RelabelAuthFactor\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
         "    <method name=\"RemoveAuthFactor\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
@@ -474,6 +491,9 @@ class UserDataAuthInterfaceAdaptor {
         "    <signal name=\"PrepareAuthFactorProgress\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
+        "    <signal name=\"AuthenticateAuthFactorCompleted\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "  </interface>\n";
   }
 
@@ -498,117 +518,11 @@ class UserDataAuthInterfaceAdaptor {
       user_data_auth::PrepareAuthFactorProgress /*status*/>;
   std::weak_ptr<SignalPrepareAuthFactorProgressType> signal_PrepareAuthFactorProgress_;
 
+  using SignalAuthenticateAuthFactorCompletedType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::AuthenticateAuthFactorCompleted /*status*/>;
+  std::weak_ptr<SignalAuthenticateAuthFactorCompletedType> signal_AuthenticateAuthFactorCompleted_;
+
   UserDataAuthInterfaceInterface* interface_;  // Owned by container of this adapter.
-};
-
-}  // namespace chromium
-}  // namespace org
-
-namespace org {
-namespace chromium {
-
-// Interface definition for org::chromium::ArcQuota.
-class ArcQuotaInterface {
- public:
-  virtual ~ArcQuotaInterface() = default;
-
-  virtual void GetArcDiskFeatures(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetArcDiskFeaturesReply>> response,
-      const user_data_auth::GetArcDiskFeaturesRequest& in_request) = 0;
-  virtual void GetCurrentSpaceForArcUid(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetCurrentSpaceForArcUidReply>> response,
-      const user_data_auth::GetCurrentSpaceForArcUidRequest& in_request) = 0;
-  virtual void GetCurrentSpaceForArcGid(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetCurrentSpaceForArcGidReply>> response,
-      const user_data_auth::GetCurrentSpaceForArcGidRequest& in_request) = 0;
-  virtual void GetCurrentSpaceForArcProjectId(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetCurrentSpaceForArcProjectIdReply>> response,
-      const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& in_request) = 0;
-  virtual void SetMediaRWDataFileProjectId(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::SetMediaRWDataFileProjectIdReply>> response,
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request) = 0;
-  virtual void SetMediaRWDataFileProjectInheritanceFlag(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply>> response,
-      const base::ScopedFD& in_fd,
-      const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request) = 0;
-};
-
-// Interface adaptor for org::chromium::ArcQuota.
-class ArcQuotaAdaptor {
- public:
-  ArcQuotaAdaptor(ArcQuotaInterface* interface) : interface_(interface) {}
-  ArcQuotaAdaptor(const ArcQuotaAdaptor&) = delete;
-  ArcQuotaAdaptor& operator=(const ArcQuotaAdaptor&) = delete;
-
-  void RegisterWithDBusObject(brillo::dbus_utils::DBusObject* object) {
-    brillo::dbus_utils::DBusInterface* itf =
-        object->AddOrGetInterface("org.chromium.ArcQuota");
-
-    itf->AddMethodHandler(
-        "GetArcDiskFeatures",
-        base::Unretained(interface_),
-        &ArcQuotaInterface::GetArcDiskFeatures);
-    itf->AddMethodHandler(
-        "GetCurrentSpaceForArcUid",
-        base::Unretained(interface_),
-        &ArcQuotaInterface::GetCurrentSpaceForArcUid);
-    itf->AddMethodHandler(
-        "GetCurrentSpaceForArcGid",
-        base::Unretained(interface_),
-        &ArcQuotaInterface::GetCurrentSpaceForArcGid);
-    itf->AddMethodHandler(
-        "GetCurrentSpaceForArcProjectId",
-        base::Unretained(interface_),
-        &ArcQuotaInterface::GetCurrentSpaceForArcProjectId);
-    itf->AddMethodHandler(
-        "SetMediaRWDataFileProjectId",
-        base::Unretained(interface_),
-        &ArcQuotaInterface::SetMediaRWDataFileProjectId);
-    itf->AddMethodHandler(
-        "SetMediaRWDataFileProjectInheritanceFlag",
-        base::Unretained(interface_),
-        &ArcQuotaInterface::SetMediaRWDataFileProjectInheritanceFlag);
-  }
-
-  static dbus::ObjectPath GetObjectPath() {
-    return dbus::ObjectPath{"/org/chromium/UserDataAuth"};
-  }
-
-  static const char* GetIntrospectionXml() {
-    return
-        "  <interface name=\"org.chromium.ArcQuota\">\n"
-        "    <method name=\"GetArcDiskFeatures\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"GetCurrentSpaceForArcUid\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"GetCurrentSpaceForArcGid\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"GetCurrentSpaceForArcProjectId\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"SetMediaRWDataFileProjectId\">\n"
-        "      <arg name=\"fd\" type=\"h\" direction=\"in\"/>\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"SetMediaRWDataFileProjectInheritanceFlag\">\n"
-        "      <arg name=\"fd\" type=\"h\" direction=\"in\"/>\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "  </interface>\n";
-  }
-
- private:
-  ArcQuotaInterface* interface_;  // Owned by container of this adapter.
 };
 
 }  // namespace chromium

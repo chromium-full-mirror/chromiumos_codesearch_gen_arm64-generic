@@ -42,10 +42,7 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_event_reporters.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 const char AshEventReporter::Name_[] = "ash.cros_healthd.mojom.AshEventReporter";
 
 AshEventReporter::IPCStableHashFunction AshEventReporter::MessageToMethodInfo_(mojo::Message& message) {
@@ -217,9 +214,7 @@ bool AshEventReporterRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 namespace mojo {
@@ -231,9 +226,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 void AshEventReporterInterceptorForTesting::SendKeyboardDiagnosticEvent(::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr info) {
@@ -249,9 +242,7 @@ AshEventReporterAsyncWaiter::~AshEventReporterAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 #if defined(__clang__)
