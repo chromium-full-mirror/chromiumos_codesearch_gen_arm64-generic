@@ -193,6 +193,30 @@ class PatchPanelProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool BruschettaVmShutdown(
+      const patchpanel::BruschettaVmShutdownRequest& in_request,
+      patchpanel::BruschettaVmShutdownResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void BruschettaVmShutdownAsync(
+      const patchpanel::BruschettaVmShutdownRequest& in_request,
+      base::OnceCallback<void(const patchpanel::BruschettaVmShutdownResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool BruschettaVmStartup(
+      const patchpanel::BruschettaVmStartupRequest& in_request,
+      patchpanel::BruschettaVmStartupResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void BruschettaVmStartupAsync(
+      const patchpanel::BruschettaVmStartupRequest& in_request,
+      base::OnceCallback<void(const patchpanel::BruschettaVmStartupResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool SetDnsRedirectionRule(
       const patchpanel::SetDnsRedirectionRuleRequest& in_request,
       const base::ScopedFD& in_client_fd,
@@ -773,6 +797,68 @@ class PatchPanelProxy final : public PatchPanelProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PatchPanel",
         "ParallelsVmStartup",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool BruschettaVmShutdown(
+      const patchpanel::BruschettaVmShutdownRequest& in_request,
+      patchpanel::BruschettaVmShutdownResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "BruschettaVmShutdown",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  void BruschettaVmShutdownAsync(
+      const patchpanel::BruschettaVmShutdownRequest& in_request,
+      base::OnceCallback<void(const patchpanel::BruschettaVmShutdownResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "BruschettaVmShutdown",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool BruschettaVmStartup(
+      const patchpanel::BruschettaVmStartupRequest& in_request,
+      patchpanel::BruschettaVmStartupResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "BruschettaVmStartup",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  void BruschettaVmStartupAsync(
+      const patchpanel::BruschettaVmStartupRequest& in_request,
+      base::OnceCallback<void(const patchpanel::BruschettaVmStartupResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "BruschettaVmStartup",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

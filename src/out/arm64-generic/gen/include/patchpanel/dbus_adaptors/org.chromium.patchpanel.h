@@ -51,6 +51,10 @@ class PatchPanelInterface {
       const patchpanel::ParallelsVmShutdownRequest& in_request) = 0;
   virtual patchpanel::ParallelsVmStartupResponse ParallelsVmStartup(
       const patchpanel::ParallelsVmStartupRequest& in_request) = 0;
+  virtual patchpanel::BruschettaVmShutdownResponse BruschettaVmShutdown(
+      const patchpanel::BruschettaVmShutdownRequest& in_request) = 0;
+  virtual patchpanel::BruschettaVmStartupResponse BruschettaVmStartup(
+      const patchpanel::BruschettaVmStartupRequest& in_request) = 0;
   virtual patchpanel::SetDnsRedirectionRuleResponse SetDnsRedirectionRule(
       const patchpanel::SetDnsRedirectionRuleRequest& in_request,
       const base::ScopedFD& in_client_fd) = 0;
@@ -132,6 +136,14 @@ class PatchPanelAdaptor {
         "ParallelsVmStartup",
         base::Unretained(interface_),
         &PatchPanelInterface::ParallelsVmStartup);
+    itf->AddSimpleMethodHandler(
+        "BruschettaVmShutdown",
+        base::Unretained(interface_),
+        &PatchPanelInterface::BruschettaVmShutdown);
+    itf->AddSimpleMethodHandler(
+        "BruschettaVmStartup",
+        base::Unretained(interface_),
+        &PatchPanelInterface::BruschettaVmStartup);
     itf->AddSimpleMethodHandler(
         "SetDnsRedirectionRule",
         base::Unretained(interface_),
@@ -244,6 +256,14 @@ class PatchPanelAdaptor {
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"ParallelsVmStartup\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"BruschettaVmShutdown\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"BruschettaVmStartup\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
