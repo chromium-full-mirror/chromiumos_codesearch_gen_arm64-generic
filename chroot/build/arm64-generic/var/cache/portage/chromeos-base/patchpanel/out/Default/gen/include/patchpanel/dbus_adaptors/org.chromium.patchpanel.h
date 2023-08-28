@@ -71,6 +71,8 @@ class PatchPanelInterface {
       const patchpanel::NotifyAndroidWifiMulticastLockChangeRequest& in_request) = 0;
   virtual patchpanel::NotifyAndroidInteractiveStateResponse NotifyAndroidInteractiveState(
       const patchpanel::NotifyAndroidInteractiveStateRequest& in_request) = 0;
+  virtual patchpanel::NotifySocketConnectionEventResponse NotifySocketConnectionEvent(
+      const patchpanel::NotifySocketConnectionEventRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::PatchPanel.
@@ -172,6 +174,10 @@ class PatchPanelAdaptor {
         "NotifyAndroidInteractiveState",
         base::Unretained(interface_),
         &PatchPanelInterface::NotifyAndroidInteractiveState);
+    itf->AddSimpleMethodHandler(
+        "NotifySocketConnectionEvent",
+        base::Unretained(interface_),
+        &PatchPanelInterface::NotifySocketConnectionEvent);
 
     signal_NetworkDeviceChanged_ = itf->RegisterSignalOfType<SignalNetworkDeviceChangedType>("NetworkDeviceChanged");
     signal_NetworkConfigurationChanged_ = itf->RegisterSignalOfType<SignalNetworkConfigurationChangedType>("NetworkConfigurationChanged");
@@ -294,6 +300,10 @@ class PatchPanelAdaptor {
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"NotifyAndroidInteractiveState\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"NotifySocketConnectionEvent\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

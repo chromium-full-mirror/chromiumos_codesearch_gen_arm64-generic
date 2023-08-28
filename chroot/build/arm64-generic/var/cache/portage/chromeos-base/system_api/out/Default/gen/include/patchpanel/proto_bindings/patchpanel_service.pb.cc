@@ -782,6 +782,50 @@ struct NotifyAndroidWifiMulticastLockChangeResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotifyAndroidWifiMulticastLockChangeResponseDefaultTypeInternal _NotifyAndroidWifiMulticastLockChangeResponse_default_instance_;
+PROTOBUF_CONSTEXPR SocketConnectionEvent::SocketConnectionEvent(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.saddr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.daddr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.sport_)*/0
+  , /*decltype(_impl_.dport_)*/0
+  , /*decltype(_impl_.proto_)*/0
+  , /*decltype(_impl_.event_)*/0
+  , /*decltype(_impl_.category_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SocketConnectionEventDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SocketConnectionEventDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SocketConnectionEventDefaultTypeInternal() {}
+  union {
+    SocketConnectionEvent _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SocketConnectionEventDefaultTypeInternal _SocketConnectionEvent_default_instance_;
+PROTOBUF_CONSTEXPR NotifySocketConnectionEventRequest::NotifySocketConnectionEventRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.msg_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct NotifySocketConnectionEventRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NotifySocketConnectionEventRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NotifySocketConnectionEventRequestDefaultTypeInternal() {}
+  union {
+    NotifySocketConnectionEventRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotifySocketConnectionEventRequestDefaultTypeInternal _NotifySocketConnectionEventRequest_default_instance_;
+PROTOBUF_CONSTEXPR NotifySocketConnectionEventResponse::NotifySocketConnectionEventResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
+struct NotifySocketConnectionEventResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NotifySocketConnectionEventResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NotifySocketConnectionEventResponseDefaultTypeInternal() {}
+  union {
+    NotifySocketConnectionEventResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotifySocketConnectionEventResponseDefaultTypeInternal _NotifySocketConnectionEventResponse_default_instance_;
 }  // namespace patchpanel
 namespace patchpanel {
 bool NetworkDevice_GuestType_IsValid(int value) {
@@ -1604,6 +1648,195 @@ constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::ETHE
 constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::UpstreamTechnology_MIN;
 constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::UpstreamTechnology_MAX;
 constexpr int TetheredNetworkRequest::UpstreamTechnology_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool SocketConnectionEvent_IpProtocol_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SocketConnectionEvent_IpProtocol_strings[3] = {};
+
+static const char SocketConnectionEvent_IpProtocol_names[] =
+  "TCP"
+  "UDP"
+  "UNKNOWN_PROTO";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SocketConnectionEvent_IpProtocol_entries[] = {
+  { {SocketConnectionEvent_IpProtocol_names + 0, 3}, 1 },
+  { {SocketConnectionEvent_IpProtocol_names + 3, 3}, 2 },
+  { {SocketConnectionEvent_IpProtocol_names + 6, 13}, 0 },
+};
+
+static const int SocketConnectionEvent_IpProtocol_entries_by_number[] = {
+  2, // 0 -> UNKNOWN_PROTO
+  0, // 1 -> TCP
+  1, // 2 -> UDP
+};
+
+const std::string& SocketConnectionEvent_IpProtocol_Name(
+    SocketConnectionEvent_IpProtocol value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SocketConnectionEvent_IpProtocol_entries,
+          SocketConnectionEvent_IpProtocol_entries_by_number,
+          3, SocketConnectionEvent_IpProtocol_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SocketConnectionEvent_IpProtocol_entries,
+      SocketConnectionEvent_IpProtocol_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SocketConnectionEvent_IpProtocol_strings[idx].get();
+}
+bool SocketConnectionEvent_IpProtocol_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_IpProtocol* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SocketConnectionEvent_IpProtocol_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<SocketConnectionEvent_IpProtocol>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent::UNKNOWN_PROTO;
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent::TCP;
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent::UDP;
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent::IpProtocol_MIN;
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent::IpProtocol_MAX;
+constexpr int SocketConnectionEvent::IpProtocol_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool SocketConnectionEvent_SocketEvent_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SocketConnectionEvent_SocketEvent_strings[3] = {};
+
+static const char SocketConnectionEvent_SocketEvent_names[] =
+  "CLOSE"
+  "OPEN"
+  "UNKNOWN_EVENT";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SocketConnectionEvent_SocketEvent_entries[] = {
+  { {SocketConnectionEvent_SocketEvent_names + 0, 5}, 2 },
+  { {SocketConnectionEvent_SocketEvent_names + 5, 4}, 1 },
+  { {SocketConnectionEvent_SocketEvent_names + 9, 13}, 0 },
+};
+
+static const int SocketConnectionEvent_SocketEvent_entries_by_number[] = {
+  2, // 0 -> UNKNOWN_EVENT
+  1, // 1 -> OPEN
+  0, // 2 -> CLOSE
+};
+
+const std::string& SocketConnectionEvent_SocketEvent_Name(
+    SocketConnectionEvent_SocketEvent value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SocketConnectionEvent_SocketEvent_entries,
+          SocketConnectionEvent_SocketEvent_entries_by_number,
+          3, SocketConnectionEvent_SocketEvent_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SocketConnectionEvent_SocketEvent_entries,
+      SocketConnectionEvent_SocketEvent_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SocketConnectionEvent_SocketEvent_strings[idx].get();
+}
+bool SocketConnectionEvent_SocketEvent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_SocketEvent* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SocketConnectionEvent_SocketEvent_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<SocketConnectionEvent_SocketEvent>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent::UNKNOWN_EVENT;
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent::OPEN;
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent::CLOSE;
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent::SocketEvent_MIN;
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent::SocketEvent_MAX;
+constexpr int SocketConnectionEvent::SocketEvent_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool SocketConnectionEvent_QosCategory_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SocketConnectionEvent_QosCategory_strings[3] = {};
+
+static const char SocketConnectionEvent_QosCategory_names[] =
+  "MULTIMEDIA_CONFERENCING"
+  "REALTIME_INTERACTIVE"
+  "UNKNOWN_CATEGORY";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SocketConnectionEvent_QosCategory_entries[] = {
+  { {SocketConnectionEvent_QosCategory_names + 0, 23}, 2 },
+  { {SocketConnectionEvent_QosCategory_names + 23, 20}, 1 },
+  { {SocketConnectionEvent_QosCategory_names + 43, 16}, 0 },
+};
+
+static const int SocketConnectionEvent_QosCategory_entries_by_number[] = {
+  2, // 0 -> UNKNOWN_CATEGORY
+  1, // 1 -> REALTIME_INTERACTIVE
+  0, // 2 -> MULTIMEDIA_CONFERENCING
+};
+
+const std::string& SocketConnectionEvent_QosCategory_Name(
+    SocketConnectionEvent_QosCategory value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SocketConnectionEvent_QosCategory_entries,
+          SocketConnectionEvent_QosCategory_entries_by_number,
+          3, SocketConnectionEvent_QosCategory_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SocketConnectionEvent_QosCategory_entries,
+      SocketConnectionEvent_QosCategory_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SocketConnectionEvent_QosCategory_strings[idx].get();
+}
+bool SocketConnectionEvent_QosCategory_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_QosCategory* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SocketConnectionEvent_QosCategory_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<SocketConnectionEvent_QosCategory>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent::UNKNOWN_CATEGORY;
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent::REALTIME_INTERACTIVE;
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent::MULTIMEDIA_CONFERENCING;
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent::QosCategory_MIN;
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent::QosCategory_MAX;
+constexpr int SocketConnectionEvent::QosCategory_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool DownstreamNetworkResult_IsValid(int value) {
   switch (value) {
@@ -14203,6 +14436,735 @@ std::string NotifyAndroidWifiMulticastLockChangeResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class SocketConnectionEvent::_Internal {
+ public:
+};
+
+SocketConnectionEvent::SocketConnectionEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:patchpanel.SocketConnectionEvent)
+}
+SocketConnectionEvent::SocketConnectionEvent(const SocketConnectionEvent& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SocketConnectionEvent* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.saddr_){}
+    , decltype(_impl_.daddr_){}
+    , decltype(_impl_.sport_){}
+    , decltype(_impl_.dport_){}
+    , decltype(_impl_.proto_){}
+    , decltype(_impl_.event_){}
+    , decltype(_impl_.category_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.saddr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.saddr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_saddr().empty()) {
+    _this->_impl_.saddr_.Set(from._internal_saddr(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.daddr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.daddr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_daddr().empty()) {
+    _this->_impl_.daddr_.Set(from._internal_daddr(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.sport_, &from._impl_.sport_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.category_) -
+    reinterpret_cast<char*>(&_impl_.sport_)) + sizeof(_impl_.category_));
+  // @@protoc_insertion_point(copy_constructor:patchpanel.SocketConnectionEvent)
+}
+
+inline void SocketConnectionEvent::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.saddr_){}
+    , decltype(_impl_.daddr_){}
+    , decltype(_impl_.sport_){0}
+    , decltype(_impl_.dport_){0}
+    , decltype(_impl_.proto_){0}
+    , decltype(_impl_.event_){0}
+    , decltype(_impl_.category_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.saddr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.saddr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.daddr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.daddr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+SocketConnectionEvent::~SocketConnectionEvent() {
+  // @@protoc_insertion_point(destructor:patchpanel.SocketConnectionEvent)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SocketConnectionEvent::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.saddr_.Destroy();
+  _impl_.daddr_.Destroy();
+}
+
+void SocketConnectionEvent::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SocketConnectionEvent::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.SocketConnectionEvent)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.saddr_.ClearToEmpty();
+  _impl_.daddr_.ClearToEmpty();
+  ::memset(&_impl_.sport_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.category_) -
+      reinterpret_cast<char*>(&_impl_.sport_)) + sizeof(_impl_.category_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SocketConnectionEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bytes saddr = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_saddr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 sport = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.sport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes daddr = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_daddr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 dport = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.dport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.SocketConnectionEvent.IpProtocol proto = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_proto(static_cast<::patchpanel::SocketConnectionEvent_IpProtocol>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.SocketConnectionEvent.SocketEvent event = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_event(static_cast<::patchpanel::SocketConnectionEvent_SocketEvent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.SocketConnectionEvent.QosCategory category = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_category(static_cast<::patchpanel::SocketConnectionEvent_QosCategory>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SocketConnectionEvent::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.SocketConnectionEvent)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes saddr = 1;
+  if (!this->_internal_saddr().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_saddr(), target);
+  }
+
+  // int32 sport = 2;
+  if (this->_internal_sport() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_sport(), target);
+  }
+
+  // bytes daddr = 3;
+  if (!this->_internal_daddr().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_daddr(), target);
+  }
+
+  // int32 dport = 4;
+  if (this->_internal_dport() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_dport(), target);
+  }
+
+  // .patchpanel.SocketConnectionEvent.IpProtocol proto = 5;
+  if (this->_internal_proto() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      5, this->_internal_proto(), target);
+  }
+
+  // .patchpanel.SocketConnectionEvent.SocketEvent event = 6;
+  if (this->_internal_event() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      6, this->_internal_event(), target);
+  }
+
+  // .patchpanel.SocketConnectionEvent.QosCategory category = 7;
+  if (this->_internal_category() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      7, this->_internal_category(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.SocketConnectionEvent)
+  return target;
+}
+
+size_t SocketConnectionEvent::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.SocketConnectionEvent)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bytes saddr = 1;
+  if (!this->_internal_saddr().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_saddr());
+  }
+
+  // bytes daddr = 3;
+  if (!this->_internal_daddr().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_daddr());
+  }
+
+  // int32 sport = 2;
+  if (this->_internal_sport() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_sport());
+  }
+
+  // int32 dport = 4;
+  if (this->_internal_dport() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_dport());
+  }
+
+  // .patchpanel.SocketConnectionEvent.IpProtocol proto = 5;
+  if (this->_internal_proto() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_proto());
+  }
+
+  // .patchpanel.SocketConnectionEvent.SocketEvent event = 6;
+  if (this->_internal_event() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_event());
+  }
+
+  // .patchpanel.SocketConnectionEvent.QosCategory category = 7;
+  if (this->_internal_category() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_category());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SocketConnectionEvent::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SocketConnectionEvent*>(
+      &from));
+}
+
+void SocketConnectionEvent::MergeFrom(const SocketConnectionEvent& from) {
+  SocketConnectionEvent* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.SocketConnectionEvent)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_saddr().empty()) {
+    _this->_internal_set_saddr(from._internal_saddr());
+  }
+  if (!from._internal_daddr().empty()) {
+    _this->_internal_set_daddr(from._internal_daddr());
+  }
+  if (from._internal_sport() != 0) {
+    _this->_internal_set_sport(from._internal_sport());
+  }
+  if (from._internal_dport() != 0) {
+    _this->_internal_set_dport(from._internal_dport());
+  }
+  if (from._internal_proto() != 0) {
+    _this->_internal_set_proto(from._internal_proto());
+  }
+  if (from._internal_event() != 0) {
+    _this->_internal_set_event(from._internal_event());
+  }
+  if (from._internal_category() != 0) {
+    _this->_internal_set_category(from._internal_category());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SocketConnectionEvent::CopyFrom(const SocketConnectionEvent& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.SocketConnectionEvent)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SocketConnectionEvent::IsInitialized() const {
+  return true;
+}
+
+void SocketConnectionEvent::InternalSwap(SocketConnectionEvent* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.saddr_, lhs_arena,
+      &other->_impl_.saddr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.daddr_, lhs_arena,
+      &other->_impl_.daddr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SocketConnectionEvent, _impl_.category_)
+      + sizeof(SocketConnectionEvent::_impl_.category_)
+      - PROTOBUF_FIELD_OFFSET(SocketConnectionEvent, _impl_.sport_)>(
+          reinterpret_cast<char*>(&_impl_.sport_),
+          reinterpret_cast<char*>(&other->_impl_.sport_));
+}
+
+std::string SocketConnectionEvent::GetTypeName() const {
+  return "patchpanel.SocketConnectionEvent";
+}
+
+
+// ===================================================================
+
+class NotifySocketConnectionEventRequest::_Internal {
+ public:
+  static const ::patchpanel::SocketConnectionEvent& msg(const NotifySocketConnectionEventRequest* msg);
+};
+
+const ::patchpanel::SocketConnectionEvent&
+NotifySocketConnectionEventRequest::_Internal::msg(const NotifySocketConnectionEventRequest* msg) {
+  return *msg->_impl_.msg_;
+}
+NotifySocketConnectionEventRequest::NotifySocketConnectionEventRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:patchpanel.NotifySocketConnectionEventRequest)
+}
+NotifySocketConnectionEventRequest::NotifySocketConnectionEventRequest(const NotifySocketConnectionEventRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  NotifySocketConnectionEventRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.msg_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_msg()) {
+    _this->_impl_.msg_ = new ::patchpanel::SocketConnectionEvent(*from._impl_.msg_);
+  }
+  // @@protoc_insertion_point(copy_constructor:patchpanel.NotifySocketConnectionEventRequest)
+}
+
+inline void NotifySocketConnectionEventRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.msg_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+NotifySocketConnectionEventRequest::~NotifySocketConnectionEventRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.NotifySocketConnectionEventRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void NotifySocketConnectionEventRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.msg_;
+}
+
+void NotifySocketConnectionEventRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void NotifySocketConnectionEventRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.NotifySocketConnectionEventRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.msg_ != nullptr) {
+    delete _impl_.msg_;
+  }
+  _impl_.msg_ = nullptr;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* NotifySocketConnectionEventRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .patchpanel.SocketConnectionEvent msg = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_msg(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NotifySocketConnectionEventRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NotifySocketConnectionEventRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .patchpanel.SocketConnectionEvent msg = 1;
+  if (this->_internal_has_msg()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::msg(this),
+        _Internal::msg(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.NotifySocketConnectionEventRequest)
+  return target;
+}
+
+size_t NotifySocketConnectionEventRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.NotifySocketConnectionEventRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .patchpanel.SocketConnectionEvent msg = 1;
+  if (this->_internal_has_msg()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.msg_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void NotifySocketConnectionEventRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const NotifySocketConnectionEventRequest*>(
+      &from));
+}
+
+void NotifySocketConnectionEventRequest::MergeFrom(const NotifySocketConnectionEventRequest& from) {
+  NotifySocketConnectionEventRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NotifySocketConnectionEventRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_msg()) {
+    _this->_internal_mutable_msg()->::patchpanel::SocketConnectionEvent::MergeFrom(
+        from._internal_msg());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void NotifySocketConnectionEventRequest::CopyFrom(const NotifySocketConnectionEventRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.NotifySocketConnectionEventRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NotifySocketConnectionEventRequest::IsInitialized() const {
+  return true;
+}
+
+void NotifySocketConnectionEventRequest::InternalSwap(NotifySocketConnectionEventRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.msg_, other->_impl_.msg_);
+}
+
+std::string NotifySocketConnectionEventRequest::GetTypeName() const {
+  return "patchpanel.NotifySocketConnectionEventRequest";
+}
+
+
+// ===================================================================
+
+class NotifySocketConnectionEventResponse::_Internal {
+ public:
+};
+
+NotifySocketConnectionEventResponse::NotifySocketConnectionEventResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:patchpanel.NotifySocketConnectionEventResponse)
+}
+NotifySocketConnectionEventResponse::NotifySocketConnectionEventResponse(const NotifySocketConnectionEventResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  NotifySocketConnectionEventResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:patchpanel.NotifySocketConnectionEventResponse)
+}
+
+inline void NotifySocketConnectionEventResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+NotifySocketConnectionEventResponse::~NotifySocketConnectionEventResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.NotifySocketConnectionEventResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void NotifySocketConnectionEventResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void NotifySocketConnectionEventResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void NotifySocketConnectionEventResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.NotifySocketConnectionEventResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* NotifySocketConnectionEventResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NotifySocketConnectionEventResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NotifySocketConnectionEventResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.NotifySocketConnectionEventResponse)
+  return target;
+}
+
+size_t NotifySocketConnectionEventResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.NotifySocketConnectionEventResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void NotifySocketConnectionEventResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const NotifySocketConnectionEventResponse*>(
+      &from));
+}
+
+void NotifySocketConnectionEventResponse::MergeFrom(const NotifySocketConnectionEventResponse& from) {
+  NotifySocketConnectionEventResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NotifySocketConnectionEventResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void NotifySocketConnectionEventResponse::CopyFrom(const NotifySocketConnectionEventResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.NotifySocketConnectionEventResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NotifySocketConnectionEventResponse::IsInitialized() const {
+  return true;
+}
+
+void NotifySocketConnectionEventResponse::InternalSwap(NotifySocketConnectionEventResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string NotifySocketConnectionEventResponse::GetTypeName() const {
+  return "patchpanel.NotifySocketConnectionEventResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace patchpanel
 PROTOBUF_NAMESPACE_OPEN
@@ -14421,6 +15383,18 @@ Arena::CreateMaybeMessage< ::patchpanel::NotifyAndroidWifiMulticastLockChangeReq
 template<> PROTOBUF_NOINLINE ::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse*
 Arena::CreateMaybeMessage< ::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::SocketConnectionEvent*
+Arena::CreateMaybeMessage< ::patchpanel::SocketConnectionEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::SocketConnectionEvent >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::NotifySocketConnectionEventRequest*
+Arena::CreateMaybeMessage< ::patchpanel::NotifySocketConnectionEventRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::NotifySocketConnectionEventRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::NotifySocketConnectionEventResponse*
+Arena::CreateMaybeMessage< ::patchpanel::NotifySocketConnectionEventResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::NotifySocketConnectionEventResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

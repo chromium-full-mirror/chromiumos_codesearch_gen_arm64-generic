@@ -305,6 +305,18 @@ class PatchPanelProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool NotifySocketConnectionEvent(
+      const patchpanel::NotifySocketConnectionEventRequest& in_request,
+      patchpanel::NotifySocketConnectionEventResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void NotifySocketConnectionEventAsync(
+      const patchpanel::NotifySocketConnectionEventRequest& in_request,
+      base::OnceCallback<void(const patchpanel::NotifySocketConnectionEventResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterNetworkDeviceChangedSignalHandler(
       const base::RepeatingCallback<void(const patchpanel::NetworkDeviceChangedSignal&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -1084,6 +1096,37 @@ class PatchPanelProxy final : public PatchPanelProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PatchPanel",
         "NotifyAndroidInteractiveState",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool NotifySocketConnectionEvent(
+      const patchpanel::NotifySocketConnectionEventRequest& in_request,
+      patchpanel::NotifySocketConnectionEventResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "NotifySocketConnectionEvent",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  void NotifySocketConnectionEventAsync(
+      const patchpanel::NotifySocketConnectionEventRequest& in_request,
+      base::OnceCallback<void(const patchpanel::NotifySocketConnectionEventResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PatchPanel",
+        "NotifySocketConnectionEvent",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

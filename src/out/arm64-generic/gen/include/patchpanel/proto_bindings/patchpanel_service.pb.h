@@ -148,6 +148,12 @@ extern NotifyAndroidWifiMulticastLockChangeRequestDefaultTypeInternal _NotifyAnd
 class NotifyAndroidWifiMulticastLockChangeResponse;
 struct NotifyAndroidWifiMulticastLockChangeResponseDefaultTypeInternal;
 extern NotifyAndroidWifiMulticastLockChangeResponseDefaultTypeInternal _NotifyAndroidWifiMulticastLockChangeResponse_default_instance_;
+class NotifySocketConnectionEventRequest;
+struct NotifySocketConnectionEventRequestDefaultTypeInternal;
+extern NotifySocketConnectionEventRequestDefaultTypeInternal _NotifySocketConnectionEventRequest_default_instance_;
+class NotifySocketConnectionEventResponse;
+struct NotifySocketConnectionEventResponseDefaultTypeInternal;
+extern NotifySocketConnectionEventResponseDefaultTypeInternal _NotifySocketConnectionEventResponse_default_instance_;
 class ParallelsVmShutdownRequest;
 struct ParallelsVmShutdownRequestDefaultTypeInternal;
 extern ParallelsVmShutdownRequestDefaultTypeInternal _ParallelsVmShutdownRequest_default_instance_;
@@ -178,6 +184,9 @@ extern SetVpnLockdownRequestDefaultTypeInternal _SetVpnLockdownRequest_default_i
 class SetVpnLockdownResponse;
 struct SetVpnLockdownResponseDefaultTypeInternal;
 extern SetVpnLockdownResponseDefaultTypeInternal _SetVpnLockdownResponse_default_instance_;
+class SocketConnectionEvent;
+struct SocketConnectionEventDefaultTypeInternal;
+extern SocketConnectionEventDefaultTypeInternal _SocketConnectionEvent_default_instance_;
 class TerminaVmShutdownRequest;
 struct TerminaVmShutdownRequestDefaultTypeInternal;
 extern TerminaVmShutdownRequestDefaultTypeInternal _TerminaVmShutdownRequest_default_instance_;
@@ -242,6 +251,8 @@ template<> ::patchpanel::NotifyAndroidInteractiveStateRequest* Arena::CreateMayb
 template<> ::patchpanel::NotifyAndroidInteractiveStateResponse* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidInteractiveStateResponse>(Arena*);
 template<> ::patchpanel::NotifyAndroidWifiMulticastLockChangeRequest* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidWifiMulticastLockChangeRequest>(Arena*);
 template<> ::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse>(Arena*);
+template<> ::patchpanel::NotifySocketConnectionEventRequest* Arena::CreateMaybeMessage<::patchpanel::NotifySocketConnectionEventRequest>(Arena*);
+template<> ::patchpanel::NotifySocketConnectionEventResponse* Arena::CreateMaybeMessage<::patchpanel::NotifySocketConnectionEventResponse>(Arena*);
 template<> ::patchpanel::ParallelsVmShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmShutdownRequest>(Arena*);
 template<> ::patchpanel::ParallelsVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmShutdownResponse>(Arena*);
 template<> ::patchpanel::ParallelsVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmStartupRequest>(Arena*);
@@ -252,6 +263,7 @@ template<> ::patchpanel::SetVpnIntentRequest* Arena::CreateMaybeMessage<::patchp
 template<> ::patchpanel::SetVpnIntentResponse* Arena::CreateMaybeMessage<::patchpanel::SetVpnIntentResponse>(Arena*);
 template<> ::patchpanel::SetVpnLockdownRequest* Arena::CreateMaybeMessage<::patchpanel::SetVpnLockdownRequest>(Arena*);
 template<> ::patchpanel::SetVpnLockdownResponse* Arena::CreateMaybeMessage<::patchpanel::SetVpnLockdownResponse>(Arena*);
+template<> ::patchpanel::SocketConnectionEvent* Arena::CreateMaybeMessage<::patchpanel::SocketConnectionEvent>(Arena*);
 template<> ::patchpanel::TerminaVmShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::TerminaVmShutdownRequest>(Arena*);
 template<> ::patchpanel::TerminaVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::TerminaVmShutdownResponse>(Arena*);
 template<> ::patchpanel::TerminaVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::TerminaVmStartupRequest>(Arena*);
@@ -541,6 +553,72 @@ inline const std::string& TetheredNetworkRequest_UpstreamTechnology_Name(T enum_
 }
 bool TetheredNetworkRequest_UpstreamTechnology_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TetheredNetworkRequest_UpstreamTechnology* value);
+enum SocketConnectionEvent_IpProtocol : int {
+  SocketConnectionEvent_IpProtocol_UNKNOWN_PROTO = 0,
+  SocketConnectionEvent_IpProtocol_TCP = 1,
+  SocketConnectionEvent_IpProtocol_UDP = 2,
+  SocketConnectionEvent_IpProtocol_SocketConnectionEvent_IpProtocol_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SocketConnectionEvent_IpProtocol_SocketConnectionEvent_IpProtocol_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SocketConnectionEvent_IpProtocol_IsValid(int value);
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent_IpProtocol_IpProtocol_MIN = SocketConnectionEvent_IpProtocol_UNKNOWN_PROTO;
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent_IpProtocol_IpProtocol_MAX = SocketConnectionEvent_IpProtocol_UDP;
+constexpr int SocketConnectionEvent_IpProtocol_IpProtocol_ARRAYSIZE = SocketConnectionEvent_IpProtocol_IpProtocol_MAX + 1;
+
+const std::string& SocketConnectionEvent_IpProtocol_Name(SocketConnectionEvent_IpProtocol value);
+template<typename T>
+inline const std::string& SocketConnectionEvent_IpProtocol_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SocketConnectionEvent_IpProtocol>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SocketConnectionEvent_IpProtocol_Name.");
+  return SocketConnectionEvent_IpProtocol_Name(static_cast<SocketConnectionEvent_IpProtocol>(enum_t_value));
+}
+bool SocketConnectionEvent_IpProtocol_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_IpProtocol* value);
+enum SocketConnectionEvent_SocketEvent : int {
+  SocketConnectionEvent_SocketEvent_UNKNOWN_EVENT = 0,
+  SocketConnectionEvent_SocketEvent_OPEN = 1,
+  SocketConnectionEvent_SocketEvent_CLOSE = 2,
+  SocketConnectionEvent_SocketEvent_SocketConnectionEvent_SocketEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SocketConnectionEvent_SocketEvent_SocketConnectionEvent_SocketEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SocketConnectionEvent_SocketEvent_IsValid(int value);
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent_SocketEvent_SocketEvent_MIN = SocketConnectionEvent_SocketEvent_UNKNOWN_EVENT;
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent_SocketEvent_SocketEvent_MAX = SocketConnectionEvent_SocketEvent_CLOSE;
+constexpr int SocketConnectionEvent_SocketEvent_SocketEvent_ARRAYSIZE = SocketConnectionEvent_SocketEvent_SocketEvent_MAX + 1;
+
+const std::string& SocketConnectionEvent_SocketEvent_Name(SocketConnectionEvent_SocketEvent value);
+template<typename T>
+inline const std::string& SocketConnectionEvent_SocketEvent_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SocketConnectionEvent_SocketEvent>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SocketConnectionEvent_SocketEvent_Name.");
+  return SocketConnectionEvent_SocketEvent_Name(static_cast<SocketConnectionEvent_SocketEvent>(enum_t_value));
+}
+bool SocketConnectionEvent_SocketEvent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_SocketEvent* value);
+enum SocketConnectionEvent_QosCategory : int {
+  SocketConnectionEvent_QosCategory_UNKNOWN_CATEGORY = 0,
+  SocketConnectionEvent_QosCategory_REALTIME_INTERACTIVE = 1,
+  SocketConnectionEvent_QosCategory_MULTIMEDIA_CONFERENCING = 2,
+  SocketConnectionEvent_QosCategory_SocketConnectionEvent_QosCategory_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SocketConnectionEvent_QosCategory_SocketConnectionEvent_QosCategory_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SocketConnectionEvent_QosCategory_IsValid(int value);
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent_QosCategory_QosCategory_MIN = SocketConnectionEvent_QosCategory_UNKNOWN_CATEGORY;
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent_QosCategory_QosCategory_MAX = SocketConnectionEvent_QosCategory_MULTIMEDIA_CONFERENCING;
+constexpr int SocketConnectionEvent_QosCategory_QosCategory_ARRAYSIZE = SocketConnectionEvent_QosCategory_QosCategory_MAX + 1;
+
+const std::string& SocketConnectionEvent_QosCategory_Name(SocketConnectionEvent_QosCategory value);
+template<typename T>
+inline const std::string& SocketConnectionEvent_QosCategory_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SocketConnectionEvent_QosCategory>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SocketConnectionEvent_QosCategory_Name.");
+  return SocketConnectionEvent_QosCategory_Name(static_cast<SocketConnectionEvent_QosCategory>(enum_t_value));
+}
+bool SocketConnectionEvent_QosCategory_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_QosCategory* value);
 enum DownstreamNetworkResult : int {
   SUCCESS = 0,
   INVALID_ARGUMENT = 1,
@@ -9022,6 +9100,552 @@ class NotifyAndroidWifiMulticastLockChangeResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SocketConnectionEvent final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.SocketConnectionEvent) */ {
+ public:
+  inline SocketConnectionEvent() : SocketConnectionEvent(nullptr) {}
+  ~SocketConnectionEvent() override;
+  explicit PROTOBUF_CONSTEXPR SocketConnectionEvent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SocketConnectionEvent(const SocketConnectionEvent& from);
+  SocketConnectionEvent(SocketConnectionEvent&& from) noexcept
+    : SocketConnectionEvent() {
+    *this = ::std::move(from);
+  }
+
+  inline SocketConnectionEvent& operator=(const SocketConnectionEvent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SocketConnectionEvent& operator=(SocketConnectionEvent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SocketConnectionEvent& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SocketConnectionEvent* internal_default_instance() {
+    return reinterpret_cast<const SocketConnectionEvent*>(
+               &_SocketConnectionEvent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    54;
+
+  friend void swap(SocketConnectionEvent& a, SocketConnectionEvent& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SocketConnectionEvent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SocketConnectionEvent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SocketConnectionEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SocketConnectionEvent>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SocketConnectionEvent& from);
+  void MergeFrom(const SocketConnectionEvent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SocketConnectionEvent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.SocketConnectionEvent";
+  }
+  protected:
+  explicit SocketConnectionEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef SocketConnectionEvent_IpProtocol IpProtocol;
+  static constexpr IpProtocol UNKNOWN_PROTO =
+    SocketConnectionEvent_IpProtocol_UNKNOWN_PROTO;
+  static constexpr IpProtocol TCP =
+    SocketConnectionEvent_IpProtocol_TCP;
+  static constexpr IpProtocol UDP =
+    SocketConnectionEvent_IpProtocol_UDP;
+  static inline bool IpProtocol_IsValid(int value) {
+    return SocketConnectionEvent_IpProtocol_IsValid(value);
+  }
+  static constexpr IpProtocol IpProtocol_MIN =
+    SocketConnectionEvent_IpProtocol_IpProtocol_MIN;
+  static constexpr IpProtocol IpProtocol_MAX =
+    SocketConnectionEvent_IpProtocol_IpProtocol_MAX;
+  static constexpr int IpProtocol_ARRAYSIZE =
+    SocketConnectionEvent_IpProtocol_IpProtocol_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& IpProtocol_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, IpProtocol>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function IpProtocol_Name.");
+    return SocketConnectionEvent_IpProtocol_Name(enum_t_value);
+  }
+  static inline bool IpProtocol_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      IpProtocol* value) {
+    return SocketConnectionEvent_IpProtocol_Parse(name, value);
+  }
+
+  typedef SocketConnectionEvent_SocketEvent SocketEvent;
+  static constexpr SocketEvent UNKNOWN_EVENT =
+    SocketConnectionEvent_SocketEvent_UNKNOWN_EVENT;
+  static constexpr SocketEvent OPEN =
+    SocketConnectionEvent_SocketEvent_OPEN;
+  static constexpr SocketEvent CLOSE =
+    SocketConnectionEvent_SocketEvent_CLOSE;
+  static inline bool SocketEvent_IsValid(int value) {
+    return SocketConnectionEvent_SocketEvent_IsValid(value);
+  }
+  static constexpr SocketEvent SocketEvent_MIN =
+    SocketConnectionEvent_SocketEvent_SocketEvent_MIN;
+  static constexpr SocketEvent SocketEvent_MAX =
+    SocketConnectionEvent_SocketEvent_SocketEvent_MAX;
+  static constexpr int SocketEvent_ARRAYSIZE =
+    SocketConnectionEvent_SocketEvent_SocketEvent_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& SocketEvent_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, SocketEvent>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function SocketEvent_Name.");
+    return SocketConnectionEvent_SocketEvent_Name(enum_t_value);
+  }
+  static inline bool SocketEvent_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      SocketEvent* value) {
+    return SocketConnectionEvent_SocketEvent_Parse(name, value);
+  }
+
+  typedef SocketConnectionEvent_QosCategory QosCategory;
+  static constexpr QosCategory UNKNOWN_CATEGORY =
+    SocketConnectionEvent_QosCategory_UNKNOWN_CATEGORY;
+  static constexpr QosCategory REALTIME_INTERACTIVE =
+    SocketConnectionEvent_QosCategory_REALTIME_INTERACTIVE;
+  static constexpr QosCategory MULTIMEDIA_CONFERENCING =
+    SocketConnectionEvent_QosCategory_MULTIMEDIA_CONFERENCING;
+  static inline bool QosCategory_IsValid(int value) {
+    return SocketConnectionEvent_QosCategory_IsValid(value);
+  }
+  static constexpr QosCategory QosCategory_MIN =
+    SocketConnectionEvent_QosCategory_QosCategory_MIN;
+  static constexpr QosCategory QosCategory_MAX =
+    SocketConnectionEvent_QosCategory_QosCategory_MAX;
+  static constexpr int QosCategory_ARRAYSIZE =
+    SocketConnectionEvent_QosCategory_QosCategory_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& QosCategory_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, QosCategory>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function QosCategory_Name.");
+    return SocketConnectionEvent_QosCategory_Name(enum_t_value);
+  }
+  static inline bool QosCategory_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      QosCategory* value) {
+    return SocketConnectionEvent_QosCategory_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSaddrFieldNumber = 1,
+    kDaddrFieldNumber = 3,
+    kSportFieldNumber = 2,
+    kDportFieldNumber = 4,
+    kProtoFieldNumber = 5,
+    kEventFieldNumber = 6,
+    kCategoryFieldNumber = 7,
+  };
+  // bytes saddr = 1;
+  void clear_saddr();
+  const std::string& saddr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_saddr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_saddr();
+  PROTOBUF_NODISCARD std::string* release_saddr();
+  void set_allocated_saddr(std::string* saddr);
+  private:
+  const std::string& _internal_saddr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_saddr(const std::string& value);
+  std::string* _internal_mutable_saddr();
+  public:
+
+  // bytes daddr = 3;
+  void clear_daddr();
+  const std::string& daddr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_daddr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_daddr();
+  PROTOBUF_NODISCARD std::string* release_daddr();
+  void set_allocated_daddr(std::string* daddr);
+  private:
+  const std::string& _internal_daddr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_daddr(const std::string& value);
+  std::string* _internal_mutable_daddr();
+  public:
+
+  // int32 sport = 2;
+  void clear_sport();
+  int32_t sport() const;
+  void set_sport(int32_t value);
+  private:
+  int32_t _internal_sport() const;
+  void _internal_set_sport(int32_t value);
+  public:
+
+  // int32 dport = 4;
+  void clear_dport();
+  int32_t dport() const;
+  void set_dport(int32_t value);
+  private:
+  int32_t _internal_dport() const;
+  void _internal_set_dport(int32_t value);
+  public:
+
+  // .patchpanel.SocketConnectionEvent.IpProtocol proto = 5;
+  void clear_proto();
+  ::patchpanel::SocketConnectionEvent_IpProtocol proto() const;
+  void set_proto(::patchpanel::SocketConnectionEvent_IpProtocol value);
+  private:
+  ::patchpanel::SocketConnectionEvent_IpProtocol _internal_proto() const;
+  void _internal_set_proto(::patchpanel::SocketConnectionEvent_IpProtocol value);
+  public:
+
+  // .patchpanel.SocketConnectionEvent.SocketEvent event = 6;
+  void clear_event();
+  ::patchpanel::SocketConnectionEvent_SocketEvent event() const;
+  void set_event(::patchpanel::SocketConnectionEvent_SocketEvent value);
+  private:
+  ::patchpanel::SocketConnectionEvent_SocketEvent _internal_event() const;
+  void _internal_set_event(::patchpanel::SocketConnectionEvent_SocketEvent value);
+  public:
+
+  // .patchpanel.SocketConnectionEvent.QosCategory category = 7;
+  void clear_category();
+  ::patchpanel::SocketConnectionEvent_QosCategory category() const;
+  void set_category(::patchpanel::SocketConnectionEvent_QosCategory value);
+  private:
+  ::patchpanel::SocketConnectionEvent_QosCategory _internal_category() const;
+  void _internal_set_category(::patchpanel::SocketConnectionEvent_QosCategory value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.SocketConnectionEvent)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr saddr_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr daddr_;
+    int32_t sport_;
+    int32_t dport_;
+    int proto_;
+    int event_;
+    int category_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifySocketConnectionEventRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifySocketConnectionEventRequest) */ {
+ public:
+  inline NotifySocketConnectionEventRequest() : NotifySocketConnectionEventRequest(nullptr) {}
+  ~NotifySocketConnectionEventRequest() override;
+  explicit PROTOBUF_CONSTEXPR NotifySocketConnectionEventRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifySocketConnectionEventRequest(const NotifySocketConnectionEventRequest& from);
+  NotifySocketConnectionEventRequest(NotifySocketConnectionEventRequest&& from) noexcept
+    : NotifySocketConnectionEventRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifySocketConnectionEventRequest& operator=(const NotifySocketConnectionEventRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifySocketConnectionEventRequest& operator=(NotifySocketConnectionEventRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const NotifySocketConnectionEventRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifySocketConnectionEventRequest* internal_default_instance() {
+    return reinterpret_cast<const NotifySocketConnectionEventRequest*>(
+               &_NotifySocketConnectionEventRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    55;
+
+  friend void swap(NotifySocketConnectionEventRequest& a, NotifySocketConnectionEventRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifySocketConnectionEventRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifySocketConnectionEventRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifySocketConnectionEventRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifySocketConnectionEventRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifySocketConnectionEventRequest& from);
+  void MergeFrom(const NotifySocketConnectionEventRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifySocketConnectionEventRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NotifySocketConnectionEventRequest";
+  }
+  protected:
+  explicit NotifySocketConnectionEventRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgFieldNumber = 1,
+  };
+  // .patchpanel.SocketConnectionEvent msg = 1;
+  bool has_msg() const;
+  private:
+  bool _internal_has_msg() const;
+  public:
+  void clear_msg();
+  const ::patchpanel::SocketConnectionEvent& msg() const;
+  PROTOBUF_NODISCARD ::patchpanel::SocketConnectionEvent* release_msg();
+  ::patchpanel::SocketConnectionEvent* mutable_msg();
+  void set_allocated_msg(::patchpanel::SocketConnectionEvent* msg);
+  private:
+  const ::patchpanel::SocketConnectionEvent& _internal_msg() const;
+  ::patchpanel::SocketConnectionEvent* _internal_mutable_msg();
+  public:
+  void unsafe_arena_set_allocated_msg(
+      ::patchpanel::SocketConnectionEvent* msg);
+  ::patchpanel::SocketConnectionEvent* unsafe_arena_release_msg();
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifySocketConnectionEventRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::patchpanel::SocketConnectionEvent* msg_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifySocketConnectionEventResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifySocketConnectionEventResponse) */ {
+ public:
+  inline NotifySocketConnectionEventResponse() : NotifySocketConnectionEventResponse(nullptr) {}
+  ~NotifySocketConnectionEventResponse() override;
+  explicit PROTOBUF_CONSTEXPR NotifySocketConnectionEventResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifySocketConnectionEventResponse(const NotifySocketConnectionEventResponse& from);
+  NotifySocketConnectionEventResponse(NotifySocketConnectionEventResponse&& from) noexcept
+    : NotifySocketConnectionEventResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifySocketConnectionEventResponse& operator=(const NotifySocketConnectionEventResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifySocketConnectionEventResponse& operator=(NotifySocketConnectionEventResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const NotifySocketConnectionEventResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifySocketConnectionEventResponse* internal_default_instance() {
+    return reinterpret_cast<const NotifySocketConnectionEventResponse*>(
+               &_NotifySocketConnectionEventResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    56;
+
+  friend void swap(NotifySocketConnectionEventResponse& a, NotifySocketConnectionEventResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifySocketConnectionEventResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifySocketConnectionEventResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifySocketConnectionEventResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifySocketConnectionEventResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifySocketConnectionEventResponse& from);
+  void MergeFrom(const NotifySocketConnectionEventResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifySocketConnectionEventResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NotifySocketConnectionEventResponse";
+  }
+  protected:
+  explicit NotifySocketConnectionEventResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifySocketConnectionEventResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -13902,9 +14526,317 @@ inline void NotifyAndroidWifiMulticastLockChangeRequest::set_held(bool value) {
 
 // NotifyAndroidWifiMulticastLockChangeResponse
 
+// -------------------------------------------------------------------
+
+// SocketConnectionEvent
+
+// bytes saddr = 1;
+inline void SocketConnectionEvent::clear_saddr() {
+  _impl_.saddr_.ClearToEmpty();
+}
+inline const std::string& SocketConnectionEvent::saddr() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.saddr)
+  return _internal_saddr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SocketConnectionEvent::set_saddr(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.saddr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.saddr)
+}
+inline std::string* SocketConnectionEvent::mutable_saddr() {
+  std::string* _s = _internal_mutable_saddr();
+  // @@protoc_insertion_point(field_mutable:patchpanel.SocketConnectionEvent.saddr)
+  return _s;
+}
+inline const std::string& SocketConnectionEvent::_internal_saddr() const {
+  return _impl_.saddr_.Get();
+}
+inline void SocketConnectionEvent::_internal_set_saddr(const std::string& value) {
+  
+  _impl_.saddr_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SocketConnectionEvent::_internal_mutable_saddr() {
+  
+  return _impl_.saddr_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SocketConnectionEvent::release_saddr() {
+  // @@protoc_insertion_point(field_release:patchpanel.SocketConnectionEvent.saddr)
+  return _impl_.saddr_.Release();
+}
+inline void SocketConnectionEvent::set_allocated_saddr(std::string* saddr) {
+  if (saddr != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.saddr_.SetAllocated(saddr, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.saddr_.IsDefault()) {
+    _impl_.saddr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.SocketConnectionEvent.saddr)
+}
+
+// int32 sport = 2;
+inline void SocketConnectionEvent::clear_sport() {
+  _impl_.sport_ = 0;
+}
+inline int32_t SocketConnectionEvent::_internal_sport() const {
+  return _impl_.sport_;
+}
+inline int32_t SocketConnectionEvent::sport() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.sport)
+  return _internal_sport();
+}
+inline void SocketConnectionEvent::_internal_set_sport(int32_t value) {
+  
+  _impl_.sport_ = value;
+}
+inline void SocketConnectionEvent::set_sport(int32_t value) {
+  _internal_set_sport(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.sport)
+}
+
+// bytes daddr = 3;
+inline void SocketConnectionEvent::clear_daddr() {
+  _impl_.daddr_.ClearToEmpty();
+}
+inline const std::string& SocketConnectionEvent::daddr() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.daddr)
+  return _internal_daddr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SocketConnectionEvent::set_daddr(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.daddr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.daddr)
+}
+inline std::string* SocketConnectionEvent::mutable_daddr() {
+  std::string* _s = _internal_mutable_daddr();
+  // @@protoc_insertion_point(field_mutable:patchpanel.SocketConnectionEvent.daddr)
+  return _s;
+}
+inline const std::string& SocketConnectionEvent::_internal_daddr() const {
+  return _impl_.daddr_.Get();
+}
+inline void SocketConnectionEvent::_internal_set_daddr(const std::string& value) {
+  
+  _impl_.daddr_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SocketConnectionEvent::_internal_mutable_daddr() {
+  
+  return _impl_.daddr_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SocketConnectionEvent::release_daddr() {
+  // @@protoc_insertion_point(field_release:patchpanel.SocketConnectionEvent.daddr)
+  return _impl_.daddr_.Release();
+}
+inline void SocketConnectionEvent::set_allocated_daddr(std::string* daddr) {
+  if (daddr != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.daddr_.SetAllocated(daddr, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.daddr_.IsDefault()) {
+    _impl_.daddr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.SocketConnectionEvent.daddr)
+}
+
+// int32 dport = 4;
+inline void SocketConnectionEvent::clear_dport() {
+  _impl_.dport_ = 0;
+}
+inline int32_t SocketConnectionEvent::_internal_dport() const {
+  return _impl_.dport_;
+}
+inline int32_t SocketConnectionEvent::dport() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.dport)
+  return _internal_dport();
+}
+inline void SocketConnectionEvent::_internal_set_dport(int32_t value) {
+  
+  _impl_.dport_ = value;
+}
+inline void SocketConnectionEvent::set_dport(int32_t value) {
+  _internal_set_dport(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.dport)
+}
+
+// .patchpanel.SocketConnectionEvent.IpProtocol proto = 5;
+inline void SocketConnectionEvent::clear_proto() {
+  _impl_.proto_ = 0;
+}
+inline ::patchpanel::SocketConnectionEvent_IpProtocol SocketConnectionEvent::_internal_proto() const {
+  return static_cast< ::patchpanel::SocketConnectionEvent_IpProtocol >(_impl_.proto_);
+}
+inline ::patchpanel::SocketConnectionEvent_IpProtocol SocketConnectionEvent::proto() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.proto)
+  return _internal_proto();
+}
+inline void SocketConnectionEvent::_internal_set_proto(::patchpanel::SocketConnectionEvent_IpProtocol value) {
+  
+  _impl_.proto_ = value;
+}
+inline void SocketConnectionEvent::set_proto(::patchpanel::SocketConnectionEvent_IpProtocol value) {
+  _internal_set_proto(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.proto)
+}
+
+// .patchpanel.SocketConnectionEvent.SocketEvent event = 6;
+inline void SocketConnectionEvent::clear_event() {
+  _impl_.event_ = 0;
+}
+inline ::patchpanel::SocketConnectionEvent_SocketEvent SocketConnectionEvent::_internal_event() const {
+  return static_cast< ::patchpanel::SocketConnectionEvent_SocketEvent >(_impl_.event_);
+}
+inline ::patchpanel::SocketConnectionEvent_SocketEvent SocketConnectionEvent::event() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.event)
+  return _internal_event();
+}
+inline void SocketConnectionEvent::_internal_set_event(::patchpanel::SocketConnectionEvent_SocketEvent value) {
+  
+  _impl_.event_ = value;
+}
+inline void SocketConnectionEvent::set_event(::patchpanel::SocketConnectionEvent_SocketEvent value) {
+  _internal_set_event(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.event)
+}
+
+// .patchpanel.SocketConnectionEvent.QosCategory category = 7;
+inline void SocketConnectionEvent::clear_category() {
+  _impl_.category_ = 0;
+}
+inline ::patchpanel::SocketConnectionEvent_QosCategory SocketConnectionEvent::_internal_category() const {
+  return static_cast< ::patchpanel::SocketConnectionEvent_QosCategory >(_impl_.category_);
+}
+inline ::patchpanel::SocketConnectionEvent_QosCategory SocketConnectionEvent::category() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.category)
+  return _internal_category();
+}
+inline void SocketConnectionEvent::_internal_set_category(::patchpanel::SocketConnectionEvent_QosCategory value) {
+  
+  _impl_.category_ = value;
+}
+inline void SocketConnectionEvent::set_category(::patchpanel::SocketConnectionEvent_QosCategory value) {
+  _internal_set_category(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.category)
+}
+
+// -------------------------------------------------------------------
+
+// NotifySocketConnectionEventRequest
+
+// .patchpanel.SocketConnectionEvent msg = 1;
+inline bool NotifySocketConnectionEventRequest::_internal_has_msg() const {
+  return this != internal_default_instance() && _impl_.msg_ != nullptr;
+}
+inline bool NotifySocketConnectionEventRequest::has_msg() const {
+  return _internal_has_msg();
+}
+inline void NotifySocketConnectionEventRequest::clear_msg() {
+  if (GetArenaForAllocation() == nullptr && _impl_.msg_ != nullptr) {
+    delete _impl_.msg_;
+  }
+  _impl_.msg_ = nullptr;
+}
+inline const ::patchpanel::SocketConnectionEvent& NotifySocketConnectionEventRequest::_internal_msg() const {
+  const ::patchpanel::SocketConnectionEvent* p = _impl_.msg_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::SocketConnectionEvent&>(
+      ::patchpanel::_SocketConnectionEvent_default_instance_);
+}
+inline const ::patchpanel::SocketConnectionEvent& NotifySocketConnectionEventRequest::msg() const {
+  // @@protoc_insertion_point(field_get:patchpanel.NotifySocketConnectionEventRequest.msg)
+  return _internal_msg();
+}
+inline void NotifySocketConnectionEventRequest::unsafe_arena_set_allocated_msg(
+    ::patchpanel::SocketConnectionEvent* msg) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.msg_);
+  }
+  _impl_.msg_ = msg;
+  if (msg) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.NotifySocketConnectionEventRequest.msg)
+}
+inline ::patchpanel::SocketConnectionEvent* NotifySocketConnectionEventRequest::release_msg() {
+  
+  ::patchpanel::SocketConnectionEvent* temp = _impl_.msg_;
+  _impl_.msg_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifySocketConnectionEventRequest::unsafe_arena_release_msg() {
+  // @@protoc_insertion_point(field_release:patchpanel.NotifySocketConnectionEventRequest.msg)
+  
+  ::patchpanel::SocketConnectionEvent* temp = _impl_.msg_;
+  _impl_.msg_ = nullptr;
+  return temp;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifySocketConnectionEventRequest::_internal_mutable_msg() {
+  
+  if (_impl_.msg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::SocketConnectionEvent>(GetArenaForAllocation());
+    _impl_.msg_ = p;
+  }
+  return _impl_.msg_;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifySocketConnectionEventRequest::mutable_msg() {
+  ::patchpanel::SocketConnectionEvent* _msg = _internal_mutable_msg();
+  // @@protoc_insertion_point(field_mutable:patchpanel.NotifySocketConnectionEventRequest.msg)
+  return _msg;
+}
+inline void NotifySocketConnectionEventRequest::set_allocated_msg(::patchpanel::SocketConnectionEvent* msg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.msg_;
+  }
+  if (msg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(msg);
+    if (message_arena != submessage_arena) {
+      msg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.msg_ = msg;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.NotifySocketConnectionEventRequest.msg)
+}
+
+// -------------------------------------------------------------------
+
+// NotifySocketConnectionEventResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -14030,6 +14962,9 @@ template <> struct is_proto_enum< ::patchpanel::NeighborReachabilityEventSignal_
 template <> struct is_proto_enum< ::patchpanel::NeighborReachabilityEventSignal_EventType> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::SetDnsRedirectionRuleRequest_RuleType> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::TetheredNetworkRequest_UpstreamTechnology> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_IpProtocol> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_SocketEvent> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_QosCategory> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::DownstreamNetworkResult> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
