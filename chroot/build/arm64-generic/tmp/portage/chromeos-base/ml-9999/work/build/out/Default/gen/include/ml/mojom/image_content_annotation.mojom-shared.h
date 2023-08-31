@@ -33,9 +33,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class ImageAnnotatorConfigDataView;
 
 class ImageAnnotationScoreDataView;
@@ -44,9 +42,7 @@ class ImageAnnotationResultDataView;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 namespace internal {
@@ -76,9 +72,7 @@ struct MojomTypeTraits<::chromeos::machine_learning::mojom::ImageAnnotationResul
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 enum class ImageAnnotationResult_Status : int32_t {
@@ -229,9 +223,7 @@ class ImageAnnotationResultDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace std {
 
@@ -403,9 +395,7 @@ struct Serializer<::chromeos::machine_learning::mojom::ImageAnnotationResultData
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 inline void ImageAnnotatorConfigDataView::GetLocaleDataView(
     mojo::StringDataView* output) {
@@ -434,9 +424,7 @@ inline void ImageAnnotationResultDataView::GetAnnotationsDataView(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

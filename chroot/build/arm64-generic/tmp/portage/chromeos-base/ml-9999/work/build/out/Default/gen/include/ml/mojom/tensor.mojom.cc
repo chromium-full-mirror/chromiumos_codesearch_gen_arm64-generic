@@ -42,10 +42,7 @@
 #include "ml/mojom/tensor.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 StringList::StringList()
     : value() {}
 
@@ -238,9 +235,7 @@ bool ValueList::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -352,16 +347,12 @@ bool UnionTraits<::chromeos::machine_learning::mojom::ValueList::DataView, ::chr
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

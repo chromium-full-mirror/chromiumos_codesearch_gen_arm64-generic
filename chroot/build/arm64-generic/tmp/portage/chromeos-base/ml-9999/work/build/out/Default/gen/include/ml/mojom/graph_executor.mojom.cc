@@ -42,10 +42,7 @@
 #include "ml/mojom/graph_executor.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 const char GraphExecutor::Name_[] = "chromeos.machine_learning.mojom.GraphExecutor";
 
 GraphExecutor::IPCStableHashFunction GraphExecutor::MessageToMethodInfo_(mojo::Message& message) {
@@ -398,9 +395,7 @@ bool GraphExecutorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -412,9 +407,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void GraphExecutorInterceptorForTesting::Execute(base::flat_map<std::string, ::chromeos::machine_learning::mojom::TensorPtr> inputs, const std::vector<std::string>& output_names, ExecuteCallback callback) {
@@ -452,9 +445,7 @@ void GraphExecutorAsyncWaiter::Execute(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

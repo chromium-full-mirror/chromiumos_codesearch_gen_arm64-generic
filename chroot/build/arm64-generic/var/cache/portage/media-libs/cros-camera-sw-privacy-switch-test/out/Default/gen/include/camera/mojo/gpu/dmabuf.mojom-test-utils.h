@@ -10,13 +10,11 @@
 #include "camera/mojo/gpu/dmabuf.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_GPU_DMABUF_MOJOM_TEST_UTILS_H_

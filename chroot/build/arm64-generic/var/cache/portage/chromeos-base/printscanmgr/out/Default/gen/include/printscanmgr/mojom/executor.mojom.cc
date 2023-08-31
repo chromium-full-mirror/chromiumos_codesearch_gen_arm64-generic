@@ -42,9 +42,7 @@
 #include "printscanmgr/mojom/executor.mojom-test-utils.h"
 
 
-
-namespace printscanmgr {
-namespace mojom {
+namespace printscanmgr::mojom {
 const char Executor::Name_[] = "printscanmgr.mojom.Executor";
 
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
@@ -367,8 +365,7 @@ bool ExecutorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace printscanmgr
+}  // printscanmgr::mojom
 
 
 namespace mojo {
@@ -380,8 +377,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace printscanmgr {
-namespace mojom {
+namespace printscanmgr::mojom {
 
 
 void ExecutorInterceptorForTesting::RestartUpstartJob(UpstartJob job, RestartUpstartJobCallback callback) {
@@ -419,8 +415,7 @@ void ExecutorAsyncWaiter::RestartUpstartJob(
 
 
 
-}  // namespace mojom
-}  // namespace printscanmgr
+}  // printscanmgr::mojom
 
 
 #if defined(__clang__)

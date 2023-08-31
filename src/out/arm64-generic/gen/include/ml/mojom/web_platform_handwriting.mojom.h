@@ -38,10 +38,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+namespace chromeos::machine_learning::web_platform::mojom {
 
 class HandwritingRecognizerProxy;
 
@@ -1425,10 +1422,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::web_platform::mojom
 
 namespace mojo {
 

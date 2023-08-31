@@ -670,6 +670,9 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const AuthenticateAuthFactorCompletedFailure& value);
+std::string GetProtoDebugStringWithIndent(const EvictedKeyRestored& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const EvictedKeyRestored& value);
 
 }  // namespace user_data_auth
 

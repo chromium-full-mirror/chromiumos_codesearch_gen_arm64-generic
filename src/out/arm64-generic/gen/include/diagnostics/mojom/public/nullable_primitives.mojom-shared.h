@@ -31,9 +31,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class NullableUint8DataView;
 
 class NullableInt16DataView;
@@ -48,9 +46,7 @@ class NullableDoubleDataView;
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -101,9 +97,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::NullableDoubleDataView> {
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class NullableUint8DataView {
@@ -214,9 +208,7 @@ class NullableDoubleDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -407,9 +399,7 @@ struct Serializer<::ash::cros_healthd::mojom::NullableDoubleDataView, MaybeConst
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 
@@ -424,9 +414,7 @@ namespace mojom {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -10,15 +10,11 @@
 #include "diagnostics/mojom/external/input.mojom.h"
 
 
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+namespace ash::diagnostics::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+}  // ash::diagnostics::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_INPUT_MOJOM_TEST_UTILS_H_

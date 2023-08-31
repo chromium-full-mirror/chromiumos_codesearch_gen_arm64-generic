@@ -33,9 +33,7 @@
 
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 class ProcessIdentityDataView;
 
 class RegisteredServiceStateDataView;
@@ -50,9 +48,7 @@ class ErrorOrServiceStateDataView;
 class ServiceStateDataView;
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 namespace mojo {
 namespace internal {
@@ -110,9 +106,7 @@ struct MojomTypeTraits<::chromeos::mojo_service_manager::mojom::ServiceStateData
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
 enum class ErrorCode : int32_t {
@@ -466,9 +460,7 @@ class ServiceStateDataView {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 namespace std {
 
@@ -897,9 +889,7 @@ struct Serializer<::chromeos::mojo_service_manager::mojom::ServiceStateDataView,
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 inline void ProcessIdentityDataView::GetSecurityContextDataView(
     mojo::StringDataView* output) {
@@ -959,9 +949,7 @@ inline void ServiceStateDataView::GetUnregisteredStateDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

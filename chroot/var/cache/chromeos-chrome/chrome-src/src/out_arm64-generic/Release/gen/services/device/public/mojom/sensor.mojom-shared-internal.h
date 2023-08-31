@@ -24,6 +24,7 @@ class ValidationContext;
 
 namespace device::mojom {
 namespace internal {
+class SensorReadingRaw_Data;
 class SensorConfiguration_Data;
 
 struct SensorType_Data {
@@ -85,6 +86,55 @@ struct ReportingMode_Data {
 };
 
 #pragma pack(push, 1)
+class  SensorReadingRaw_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  double timestamp;
+  mojo::internal::Pointer<mojo::internal::Array_Data<double>> values;
+
+ private:
+  friend class mojo::internal::MessageFragment<SensorReadingRaw_Data>;
+
+  SensorReadingRaw_Data();
+  ~SensorReadingRaw_Data() = delete;
+};
+static_assert(sizeof(SensorReadingRaw_Data) == 24,
+              "Bad sizeof(SensorReadingRaw_Data)");
+// Used by SensorReadingRaw::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SensorReadingRaw_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SensorReadingRaw_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SensorReadingRaw_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SensorReadingRaw_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SensorReadingRaw_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  SensorConfiguration_Data {
  public:
   static bool Validate(const void* data,

@@ -8,9 +8,9 @@
 #define ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_PROTECTED_BUFFER_ALLOCATOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace arc {
-namespace mojom {
 
+
+namespace arc::mojom {
 namespace internal {
 
 
@@ -19,7 +19,7 @@ constexpr uint32_t kVideoProtectedBufferAllocator_AllocateProtectedNativePixmap_
 constexpr uint32_t kVideoProtectedBufferAllocator_ReleaseProtectedBuffer_Name = 2;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_PROTECTED_BUFFER_ALLOCATOR_MOJOM_SHARED_MESSAGE_IDS_H_

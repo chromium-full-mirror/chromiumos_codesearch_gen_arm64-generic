@@ -43,6 +43,46 @@
 
 
 namespace device::mojom {
+SensorReadingRaw::SensorReadingRaw()
+    : timestamp(),
+      values() {}
+
+SensorReadingRaw::SensorReadingRaw(
+    double timestamp_in,
+    std::vector<double> values_in)
+    : timestamp(std::move(timestamp_in)),
+      values(std::move(values_in)) {}
+
+SensorReadingRaw::~SensorReadingRaw() = default;
+
+void SensorReadingRaw::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "timestamp"), this->timestamp,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type double>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "values"), this->values,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<double>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SensorReadingRaw::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 SensorConfiguration::SensorConfiguration()
     : frequency() {}
 
@@ -1179,6 +1219,22 @@ bool SensorClientRequestValidator::Accept(mojo::Message* message) {
 
 
 namespace mojo {
+
+
+// static
+bool StructTraits<::device::mojom::SensorReadingRaw::DataView, ::device::mojom::SensorReadingRawPtr>::Read(
+    ::device::mojom::SensorReadingRaw::DataView input,
+    ::device::mojom::SensorReadingRawPtr* output) {
+  bool success = true;
+  ::device::mojom::SensorReadingRawPtr result(::device::mojom::SensorReadingRaw::New());
+  
+      if (success)
+        result->timestamp = input.timestamp();
+      if (success && !input.ReadValues(&result->values))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
 
 
 // static

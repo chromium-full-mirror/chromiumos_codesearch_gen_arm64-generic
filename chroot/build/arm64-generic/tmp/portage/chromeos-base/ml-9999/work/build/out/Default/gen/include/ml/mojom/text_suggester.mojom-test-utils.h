@@ -10,9 +10,7 @@
 #include "ml/mojom/text_suggester.mojom.h"
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 class  TextSuggesterInterceptorForTesting : public TextSuggester {
@@ -38,8 +36,6 @@ class  TextSuggesterAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_TEXT_SUGGESTER_MOJOM_TEST_UTILS_H_

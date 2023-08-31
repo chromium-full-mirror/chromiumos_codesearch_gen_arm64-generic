@@ -18,15 +18,15 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+
+
+namespace ash::diagnostics::mojom {
 namespace internal {
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+
+
+}  // ash::diagnostics::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

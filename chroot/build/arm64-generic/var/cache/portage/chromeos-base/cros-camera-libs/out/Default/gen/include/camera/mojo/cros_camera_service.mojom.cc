@@ -42,9 +42,7 @@
 #include "camera/mojo/cros_camera_service.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 const char CameraHalDispatcher::Name_[] = "cros.mojom.CameraHalDispatcher";
 
 CameraHalDispatcher::IPCStableHashFunction CameraHalDispatcher::MessageToMethodInfo_(mojo::Message& message) {
@@ -3044,8 +3042,7 @@ bool CameraHalClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -3057,8 +3054,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void CameraHalDispatcherInterceptorForTesting::RegisterServer(::mojo::PendingRemote<CameraHalServer> server) {
@@ -3289,8 +3285,7 @@ CameraHalClientAsyncWaiter::~CameraHalClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

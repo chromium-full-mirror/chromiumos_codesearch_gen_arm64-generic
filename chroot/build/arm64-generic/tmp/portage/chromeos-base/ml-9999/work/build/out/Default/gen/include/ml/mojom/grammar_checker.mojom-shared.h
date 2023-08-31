@@ -32,9 +32,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class GrammarCheckerQueryDataView;
 
 class GrammarCorrectionFragmentDataView;
@@ -45,9 +43,7 @@ class GrammarCheckerResultDataView;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 namespace internal {
@@ -84,9 +80,7 @@ struct MojomTypeTraits<::chromeos::machine_learning::mojom::GrammarCheckerResult
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 enum class GrammarCheckerResult_Status : int32_t {
@@ -259,9 +253,7 @@ class GrammarCheckerResultDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace std {
 
@@ -493,9 +485,7 @@ struct Serializer<::chromeos::machine_learning::mojom::GrammarCheckerResultDataV
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 inline void GrammarCheckerQueryDataView::GetTextDataView(
     mojo::StringDataView* output) {
@@ -536,9 +526,7 @@ inline void GrammarCheckerResultDataView::GetCandidatesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -33,9 +33,7 @@
 
 
 
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+namespace chromeos::network_diagnostics::mojom {
 class HttpsLatencyResultValueDataView;
 
 class RoutineResultDataView;
@@ -44,9 +42,7 @@ class RoutineProblemsDataView;
 class RoutineResultValueDataView;
 
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+}  // chromeos::network_diagnostics::mojom
 
 namespace mojo {
 namespace internal {
@@ -83,9 +79,7 @@ struct MojomTypeTraits<::chromeos::network_diagnostics::mojom::RoutineResultValu
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+namespace chromeos::network_diagnostics::mojom {
 
 
 enum class RoutineType : int32_t {
@@ -889,9 +883,7 @@ class RoutineResultValueDataView {
 
 
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+}  // chromeos::network_diagnostics::mojom
 
 namespace std {
 
@@ -1778,9 +1770,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineResultValueData
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+namespace chromeos::network_diagnostics::mojom {
 
 inline void HttpsLatencyResultValueDataView::GetLatencyDataView(
     ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
@@ -1890,9 +1880,7 @@ inline void RoutineResultValueDataView::GetHttpsLatencyResultValueDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+}  // chromeos::network_diagnostics::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

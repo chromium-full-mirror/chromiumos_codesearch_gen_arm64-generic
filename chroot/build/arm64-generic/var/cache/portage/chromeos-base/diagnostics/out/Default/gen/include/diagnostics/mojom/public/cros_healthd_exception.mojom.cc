@@ -42,10 +42,7 @@
 #include "diagnostics/mojom/public/cros_healthd_exception.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 Exception::Exception()
     : reason(),
       debug_message() {}
@@ -270,9 +267,7 @@ bool UnsupportedReason::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 namespace mojo {
@@ -395,16 +390,12 @@ bool UnionTraits<::ash::cros_healthd::mojom::UnsupportedReason::DataView, ::ash:
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 #if defined(__clang__)

@@ -42,10 +42,7 @@
 #include "diagnostics/mojom/public/cros_healthd.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 ServiceStatus::ServiceStatus()
     : network_health_bound(),
       network_diagnostics_bound() {}
@@ -14946,9 +14943,7 @@ bool WilcoEcServiceControllerResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 namespace mojo {
@@ -14976,9 +14971,7 @@ bool StructTraits<::ash::cros_healthd::mojom::ServiceStatus::DataView, ::ash::cr
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 void CrosHealthdServiceFactoryInterceptorForTesting::GetDiagnosticsService(::mojo::PendingReceiver<CrosHealthdDiagnosticsService> service) {
@@ -16489,9 +16482,7 @@ void WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 #if defined(__clang__)

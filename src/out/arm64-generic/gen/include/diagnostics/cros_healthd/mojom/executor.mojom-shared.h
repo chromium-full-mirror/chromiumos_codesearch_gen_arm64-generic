@@ -38,9 +38,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class ExecutedProcessResultDataView;
 
 class FingerprintInfoResultDataView;
@@ -56,9 +54,7 @@ class ReadJobArgumentDataView;
 class FioJobArgumentDataView;
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 namespace internal {
@@ -116,9 +112,7 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::FioJobArgumentDataView> {
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 enum class FingerprintCaptureType : int32_t {
@@ -555,9 +549,7 @@ class FioJobArgumentDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace std {
 
@@ -1052,9 +1044,7 @@ struct Serializer<::ash::cros_healthd::mojom::FioJobArgumentDataView, MaybeConst
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 inline void ExecutedProcessResultDataView::GetOutDataView(
     mojo::StringDataView* output) {
@@ -1105,9 +1095,7 @@ inline void FioJobArgumentDataView::GetReadDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

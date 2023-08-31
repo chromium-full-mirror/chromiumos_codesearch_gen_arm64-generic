@@ -16,9 +16,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 
 struct Rotation_Data {
@@ -52,8 +52,7 @@ struct Rotation_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_DOCUMENT_SCANNER_PARAM_TYPES_MOJOM_SHARED_INTERNAL_H_

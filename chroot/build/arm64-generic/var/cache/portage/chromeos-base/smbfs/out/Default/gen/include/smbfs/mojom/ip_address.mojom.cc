@@ -42,9 +42,7 @@
 #include "smbfs/mojom/ip_address.mojom-test-utils.h"
 
 
-
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 IPAddress::IPAddress()
     : address_bytes() {}
 
@@ -75,8 +73,7 @@ bool IPAddress::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 
 namespace mojo {
@@ -102,14 +99,12 @@ bool StructTraits<::smbfs::mojom::IPAddress::DataView, ::smbfs::mojom::IPAddress
 // separate .cc file to save compile time.
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 
 #if defined(__clang__)

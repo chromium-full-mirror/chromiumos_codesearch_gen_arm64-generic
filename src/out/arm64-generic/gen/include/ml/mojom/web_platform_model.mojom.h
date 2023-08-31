@@ -37,9 +37,7 @@
 
 
 
-namespace ml {
-namespace model_loader {
-namespace mojom {
+namespace ml::model_loader::mojom {
 
 class ModelLoaderProxy;
 
@@ -811,9 +809,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+}  // ml::model_loader::mojom
 
 namespace mojo {
 

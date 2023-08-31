@@ -21,8 +21,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class BufferDataView;
 
 class VideoDecoderConfigDataView;
@@ -47,7 +46,6 @@ class VideoDecoderClient;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_DECODER_MOJOM_FORWARD_H_

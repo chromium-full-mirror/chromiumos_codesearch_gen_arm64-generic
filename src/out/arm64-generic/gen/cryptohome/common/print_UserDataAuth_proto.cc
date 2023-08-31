@@ -4186,4 +4186,22 @@ std::string GetProtoDebugStringWithIndent(
   return output;
 }
 
+std::string GetProtoDebugString(const EvictedKeyRestored& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const EvictedKeyRestored& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  done: ";
+  base::StringAppendF(&output, "%s", value.done() ? "true" : "false");
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 }  // namespace user_data_auth

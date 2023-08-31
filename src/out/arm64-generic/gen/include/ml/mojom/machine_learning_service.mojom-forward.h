@@ -20,9 +20,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 enum class LoadModelResult : int32_t;
 class MachineLearningService;
@@ -30,8 +28,6 @@ class MachineLearningService;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_MACHINE_LEARNING_SERVICE_MOJOM_FORWARD_H_

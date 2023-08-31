@@ -10,9 +10,7 @@
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class  DEPRECATED_LedLitUpRoutineReplierInterceptorForTesting : public DEPRECATED_LedLitUpRoutineReplier {
@@ -38,8 +36,6 @@ class  DEPRECATED_LedLitUpRoutineReplierAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_DIAGNOSTICS_MOJOM_TEST_UTILS_H_

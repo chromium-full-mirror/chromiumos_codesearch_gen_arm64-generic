@@ -42,9 +42,7 @@
 #include "iioservice/mojo/cros_sensor_service.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 const char SensorHalServer::Name_[] = "cros.mojom.SensorHalServer";
 
 SensorHalServer::IPCStableHashFunction SensorHalServer::MessageToMethodInfo_(mojo::Message& message) {
@@ -379,8 +377,7 @@ bool SensorHalClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -392,8 +389,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void SensorHalServerInterceptorForTesting::CreateChannel(::mojo::PendingReceiver<::cros::mojom::SensorService> sensor_service_request) {
@@ -420,8 +416,7 @@ SensorHalClientAsyncWaiter::~SensorHalClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

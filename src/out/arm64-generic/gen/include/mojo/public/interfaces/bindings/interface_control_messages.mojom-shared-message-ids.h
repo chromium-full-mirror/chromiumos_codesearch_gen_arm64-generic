@@ -8,15 +8,15 @@
 #define MOJO_PUBLIC_INTERFACES_BINDINGS_INTERFACE_CONTROL_MESSAGES_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace mojo {
-namespace interface_control {
 
+
+namespace mojo::interface_control {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace interface_control
-}  // namespace mojo
+
+}  // mojo::interface_control
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_INTERFACE_CONTROL_MESSAGES_MOJOM_SHARED_MESSAGE_IDS_H_

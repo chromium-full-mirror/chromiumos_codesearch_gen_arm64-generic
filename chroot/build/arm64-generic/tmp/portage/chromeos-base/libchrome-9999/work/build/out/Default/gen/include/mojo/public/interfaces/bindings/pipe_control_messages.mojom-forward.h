@@ -21,8 +21,7 @@
 
 
 
-namespace mojo {
-namespace pipe_control {
+namespace mojo::pipe_control {
 class RunOrClosePipeMessageParamsDataView;
 
 class DisconnectReasonDataView;
@@ -58,7 +57,6 @@ using RunOrClosePipeInputPtr = mojo::StructPtr<RunOrClosePipeInput>;
 
 
 
-}  // namespace pipe_control
-}  // namespace mojo
+}  // mojo::pipe_control
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_PIPE_CONTROL_MESSAGES_MOJOM_FORWARD_H_

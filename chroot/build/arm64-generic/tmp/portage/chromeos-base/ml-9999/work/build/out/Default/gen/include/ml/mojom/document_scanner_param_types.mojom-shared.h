@@ -24,14 +24,10 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 namespace internal {
@@ -40,9 +36,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 enum class Rotation : int32_t {
@@ -65,9 +59,7 @@ inline bool IsKnownEnumValue(Rotation value) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace std {
 
@@ -102,14 +94,10 @@ struct Serializer<::chromeos::machine_learning::mojom::Rotation, MaybeConstUserT
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

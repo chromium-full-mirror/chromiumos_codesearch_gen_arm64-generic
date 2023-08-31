@@ -10,15 +10,11 @@
 #include "diagnostics/mojom/external/network_health_types.mojom.h"
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_HEALTH_TYPES_MOJOM_TEST_UTILS_H_

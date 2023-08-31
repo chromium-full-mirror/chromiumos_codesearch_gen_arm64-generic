@@ -21,9 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+
+
+namespace chromeos::network_diagnostics::mojom {
 namespace internal {
 class HttpsLatencyResultValue_Data;
 class RoutineResult_Data;
@@ -722,8 +722,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+
+}  // chromeos::network_diagnostics::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_DIAGNOSTICS_MOJOM_SHARED_INTERNAL_H_

@@ -8,10 +8,9 @@
 #define ML_MOJOM_IMAGE_CONTENT_ANNOTATION_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
 
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 
 
@@ -19,8 +18,7 @@ constexpr uint32_t kImageContentAnnotator_AnnotateRawImage_Name = 0;
 constexpr uint32_t kImageContentAnnotator_AnnotateEncodedImage_Name = 1;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_IMAGE_CONTENT_ANNOTATION_MOJOM_SHARED_MESSAGE_IDS_H_

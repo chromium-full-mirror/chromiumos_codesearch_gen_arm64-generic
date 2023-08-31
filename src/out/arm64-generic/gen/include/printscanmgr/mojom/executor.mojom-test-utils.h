@@ -10,8 +10,7 @@
 #include "printscanmgr/mojom/executor.mojom.h"
 
 
-namespace printscanmgr {
-namespace mojom {
+namespace printscanmgr::mojom {
 
 
 class  ExecutorInterceptorForTesting : public Executor {
@@ -37,7 +36,6 @@ class  ExecutorAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace printscanmgr
+}  // printscanmgr::mojom
 
 #endif  // PRINTSCANMGR_MOJOM_EXECUTOR_MOJOM_TEST_UTILS_H_

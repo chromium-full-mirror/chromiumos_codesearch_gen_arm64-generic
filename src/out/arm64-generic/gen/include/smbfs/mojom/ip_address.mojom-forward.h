@@ -21,8 +21,7 @@
 
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 class IPAddressDataView;
 
 class IPAddress;
@@ -31,7 +30,6 @@ using IPAddressPtr = mojo::StructPtr<IPAddress>;
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 #endif  // SMBFS_MOJOM_IP_ADDRESS_MOJOM_FORWARD_H_

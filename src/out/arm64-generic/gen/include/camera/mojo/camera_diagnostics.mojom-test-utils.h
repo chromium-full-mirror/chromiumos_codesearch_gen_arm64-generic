@@ -10,8 +10,7 @@
 #include "camera/mojo/camera_diagnostics.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class  CameraDiagnosticsInterceptorForTesting : public CameraDiagnostics {
@@ -46,7 +45,6 @@ class  CameraDiagnosticsAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CAMERA_DIAGNOSTICS_MOJOM_TEST_UTILS_H_

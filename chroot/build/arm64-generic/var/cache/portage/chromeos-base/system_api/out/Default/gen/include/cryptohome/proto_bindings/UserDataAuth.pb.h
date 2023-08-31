@@ -115,6 +115,9 @@ extern EndFingerprintAuthSessionReplyDefaultTypeInternal _EndFingerprintAuthSess
 class EndFingerprintAuthSessionRequest;
 struct EndFingerprintAuthSessionRequestDefaultTypeInternal;
 extern EndFingerprintAuthSessionRequestDefaultTypeInternal _EndFingerprintAuthSessionRequest_default_instance_;
+class EvictedKeyRestored;
+struct EvictedKeyRestoredDefaultTypeInternal;
+extern EvictedKeyRestoredDefaultTypeInternal _EvictedKeyRestored_default_instance_;
 class ExtendAuthSessionReply;
 struct ExtendAuthSessionReplyDefaultTypeInternal;
 extern ExtendAuthSessionReplyDefaultTypeInternal _ExtendAuthSessionReply_default_instance_;
@@ -488,6 +491,7 @@ template<> ::user_data_auth::CryptohomeErrorInfo* Arena::CreateMaybeMessage<::us
 template<> ::user_data_auth::DircryptoMigrationProgress* Arena::CreateMaybeMessage<::user_data_auth::DircryptoMigrationProgress>(Arena*);
 template<> ::user_data_auth::EndFingerprintAuthSessionReply* Arena::CreateMaybeMessage<::user_data_auth::EndFingerprintAuthSessionReply>(Arena*);
 template<> ::user_data_auth::EndFingerprintAuthSessionRequest* Arena::CreateMaybeMessage<::user_data_auth::EndFingerprintAuthSessionRequest>(Arena*);
+template<> ::user_data_auth::EvictedKeyRestored* Arena::CreateMaybeMessage<::user_data_auth::EvictedKeyRestored>(Arena*);
 template<> ::user_data_auth::ExtendAuthSessionReply* Arena::CreateMaybeMessage<::user_data_auth::ExtendAuthSessionReply>(Arena*);
 template<> ::user_data_auth::ExtendAuthSessionRequest* Arena::CreateMaybeMessage<::user_data_auth::ExtendAuthSessionRequest>(Arena*);
 template<> ::user_data_auth::FidoGetAssertionReply* Arena::CreateMaybeMessage<::user_data_auth::FidoGetAssertionReply>(Arena*);
@@ -21743,6 +21747,136 @@ class AuthenticateAuthFactorCompletedFailure final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
+// -------------------------------------------------------------------
+
+class EvictedKeyRestored final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.EvictedKeyRestored) */ {
+ public:
+  inline EvictedKeyRestored() : EvictedKeyRestored(nullptr) {}
+  ~EvictedKeyRestored() override;
+  explicit PROTOBUF_CONSTEXPR EvictedKeyRestored(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EvictedKeyRestored(const EvictedKeyRestored& from);
+  EvictedKeyRestored(EvictedKeyRestored&& from) noexcept
+    : EvictedKeyRestored() {
+    *this = ::std::move(from);
+  }
+
+  inline EvictedKeyRestored& operator=(const EvictedKeyRestored& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EvictedKeyRestored& operator=(EvictedKeyRestored&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const EvictedKeyRestored& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EvictedKeyRestored* internal_default_instance() {
+    return reinterpret_cast<const EvictedKeyRestored*>(
+               &_EvictedKeyRestored_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    139;
+
+  friend void swap(EvictedKeyRestored& a, EvictedKeyRestored& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EvictedKeyRestored* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EvictedKeyRestored* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  EvictedKeyRestored* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<EvictedKeyRestored>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const EvictedKeyRestored& from);
+  void MergeFrom(const EvictedKeyRestored& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EvictedKeyRestored* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.EvictedKeyRestored";
+  }
+  protected:
+  explicit EvictedKeyRestored(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDoneFieldNumber = 1,
+  };
+  // bool done = 1;
+  void clear_done();
+  bool done() const;
+  void set_done(bool value);
+  private:
+  bool _internal_done() const;
+  void _internal_set_done(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.EvictedKeyRestored)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    bool done_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
 // ===================================================================
 
 
@@ -35524,9 +35658,35 @@ inline void AuthenticateAuthFactorCompletedFailure::set_allocated_error_info(::u
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateAuthFactorCompletedFailure.error_info)
 }
 
+// -------------------------------------------------------------------
+
+// EvictedKeyRestored
+
+// bool done = 1;
+inline void EvictedKeyRestored::clear_done() {
+  _impl_.done_ = false;
+}
+inline bool EvictedKeyRestored::_internal_done() const {
+  return _impl_.done_;
+}
+inline bool EvictedKeyRestored::done() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.EvictedKeyRestored.done)
+  return _internal_done();
+}
+inline void EvictedKeyRestored::_internal_set_done(bool value) {
+  
+  _impl_.done_ = value;
+}
+inline void EvictedKeyRestored::set_done(bool value) {
+  _internal_set_done(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.EvictedKeyRestored.done)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

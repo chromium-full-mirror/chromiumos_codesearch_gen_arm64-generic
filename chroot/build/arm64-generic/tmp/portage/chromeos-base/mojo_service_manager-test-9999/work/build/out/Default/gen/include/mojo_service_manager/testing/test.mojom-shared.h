@@ -32,14 +32,10 @@
 
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 namespace mojo {
 namespace internal {
@@ -48,9 +44,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 // Interface base classes. They are used for type safety check.
 class FooInterfaceBase {};
 
@@ -64,9 +58,7 @@ using FooAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<FooInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 namespace std {
 
@@ -77,14 +69,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

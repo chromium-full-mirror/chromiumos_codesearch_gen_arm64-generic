@@ -21,9 +21,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class ExecutedProcessResultDataView;
 
 class FingerprintInfoResultDataView;
@@ -94,8 +92,6 @@ class Executor;
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_MOJOM_EXECUTOR_MOJOM_FORWARD_H_

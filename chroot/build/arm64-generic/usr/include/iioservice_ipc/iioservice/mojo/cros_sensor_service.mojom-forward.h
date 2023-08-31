@@ -20,8 +20,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class SensorHalServer;
 
 class SensorHalClient;
@@ -29,7 +28,6 @@ class SensorHalClient;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // IIOSERVICE_MOJO_CROS_SENSOR_SERVICE_MOJOM_FORWARD_H_

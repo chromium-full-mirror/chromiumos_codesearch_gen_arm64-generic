@@ -42,9 +42,7 @@
 #include "arc/vm/libvda/gpu/mojom/video_frame_pool.mojom-test-utils.h"
 
 
-
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 VideoFrame::VideoFrame()
     : id(),
       handle_fd(),
@@ -746,8 +744,7 @@ bool VideoFramePoolClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 namespace mojo {
@@ -783,8 +780,7 @@ bool StructTraits<::arc::mojom::VideoFrame::DataView, ::arc::mojom::VideoFramePt
 // separate .cc file to save compile time.
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 void VideoFramePoolInterceptorForTesting::Initialize(::mojo::PendingAssociatedRemote<VideoFramePoolClient> client) {
@@ -837,8 +833,7 @@ VideoFramePoolClientAsyncWaiter::~VideoFramePoolClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 #if defined(__clang__)

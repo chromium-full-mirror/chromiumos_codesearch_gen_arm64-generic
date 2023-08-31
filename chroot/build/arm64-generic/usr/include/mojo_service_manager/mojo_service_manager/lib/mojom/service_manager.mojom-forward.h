@@ -21,9 +21,7 @@
 
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 class ProcessIdentityDataView;
 
 class RegisteredServiceStateDataView;
@@ -72,8 +70,6 @@ class ServiceObserver;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 #endif  // MOJO_SERVICE_MANAGER_LIB_MOJOM_SERVICE_MANAGER_MOJOM_FORWARD_H_

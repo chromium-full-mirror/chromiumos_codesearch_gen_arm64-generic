@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 class  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data {
  public:
@@ -93,9 +93,9 @@ class DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+
+}  // ash::cros_healthd::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

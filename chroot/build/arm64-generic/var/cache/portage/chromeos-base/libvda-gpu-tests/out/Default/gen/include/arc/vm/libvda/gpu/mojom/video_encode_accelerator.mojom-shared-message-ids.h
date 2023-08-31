@@ -8,9 +8,9 @@
 #define ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace arc {
-namespace mojom {
 
+
+namespace arc::mojom {
 namespace internal {
 
 
@@ -26,7 +26,7 @@ constexpr uint32_t kVideoEncodeClient_RequireBitstreamBuffers_Name = 0;
 constexpr uint32_t kVideoEncodeClient_NotifyError_Name = 2;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_SHARED_MESSAGE_IDS_H_

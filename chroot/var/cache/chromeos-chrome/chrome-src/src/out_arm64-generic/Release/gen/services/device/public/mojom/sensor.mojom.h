@@ -316,6 +316,7 @@ class  SensorResponseValidator : public mojo::MessageReceiver {
 
 
 
+
 class  SensorConfiguration {
  public:
   template <typename T>
@@ -455,6 +456,178 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+
+class  SensorReadingRaw {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SensorReadingRaw, T>::value>;
+  using DataView = SensorReadingRawDataView;
+  using Data_ = internal::SensorReadingRaw_Data;
+
+  template <typename... Args>
+  static SensorReadingRawPtr New(Args&&... args) {
+    return SensorReadingRawPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SensorReadingRawPtr From(const U& u) {
+    return mojo::TypeConverter<SensorReadingRawPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SensorReadingRaw>::Convert(*this);
+  }
+
+
+  SensorReadingRaw();
+
+  SensorReadingRaw(
+      double timestamp,
+      std::vector<double> values);
+
+
+  ~SensorReadingRaw();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SensorReadingRawPtr>
+  SensorReadingRawPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SensorReadingRaw::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SensorReadingRaw::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SensorReadingRaw::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SensorReadingRaw::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SensorReadingRaw::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SensorReadingRaw_UnserializedMessageContext<
+            UserType, SensorReadingRaw::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SensorReadingRaw::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SensorReadingRaw::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SensorReadingRaw_UnserializedMessageContext<
+            UserType, SensorReadingRaw::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SensorReadingRaw::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  double timestamp;
+  
+  std::vector<double> values;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SensorReadingRaw::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SensorReadingRaw::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SensorReadingRaw::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SensorReadingRaw::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+template <typename StructPtrType>
+SensorReadingRawPtr SensorReadingRaw::Clone() const {
+  return New(
+      mojo::Clone(timestamp),
+      mojo::Clone(values)
+  );
+}
+
+template <typename T, SensorReadingRaw::EnableIfSame<T>*>
+bool SensorReadingRaw::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->timestamp, other_struct.timestamp))
+    return false;
+  if (!mojo::Equals(this->values, other_struct.values))
+    return false;
+  return true;
+}
+
+template <typename T, SensorReadingRaw::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.timestamp < rhs.timestamp)
+    return true;
+  if (rhs.timestamp < lhs.timestamp)
+    return false;
+  if (lhs.values < rhs.values)
+    return true;
+  if (rhs.values < lhs.values)
+    return false;
+  return false;
+}
 template <typename StructPtrType>
 SensorConfigurationPtr SensorConfiguration::Clone() const {
   return New(
@@ -482,6 +655,26 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // device::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::device::mojom::SensorReadingRaw::DataView,
+                                         ::device::mojom::SensorReadingRawPtr> {
+  static bool IsNull(const ::device::mojom::SensorReadingRawPtr& input) { return !input; }
+  static void SetToNull(::device::mojom::SensorReadingRawPtr* output) { output->reset(); }
+
+  static decltype(::device::mojom::SensorReadingRaw::timestamp) timestamp(
+      const ::device::mojom::SensorReadingRawPtr& input) {
+    return input->timestamp;
+  }
+
+  static const decltype(::device::mojom::SensorReadingRaw::values)& values(
+      const ::device::mojom::SensorReadingRawPtr& input) {
+    return input->values;
+  }
+
+  static bool Read(::device::mojom::SensorReadingRaw::DataView input, ::device::mojom::SensorReadingRawPtr* output);
+};
 
 
 template <>

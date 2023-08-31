@@ -8,15 +8,15 @@
 #define CAMERA_MOJO_EFFECTS_EFFECTS_PIPELINE_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace cros {
-namespace mojom {
 
+
+namespace cros::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_EFFECTS_EFFECTS_PIPELINE_MOJOM_SHARED_MESSAGE_IDS_H_

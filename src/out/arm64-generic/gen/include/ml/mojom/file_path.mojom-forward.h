@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class FilePathDataView;
 
 class FilePath;
@@ -31,7 +30,6 @@ using FilePathPtr = mojo::InlinedStructPtr<FilePath>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // ML_MOJOM_FILE_PATH_MOJOM_FORWARD_H_

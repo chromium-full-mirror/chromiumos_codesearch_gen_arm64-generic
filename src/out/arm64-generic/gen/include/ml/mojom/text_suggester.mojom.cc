@@ -42,10 +42,7 @@
 #include "ml/mojom/text_suggester.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 NextWordCompletionCandidate::NextWordCompletionCandidate()
     : text(),
       normalized_score() {}
@@ -637,9 +634,7 @@ bool TextSuggesterResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -755,9 +750,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::TextSuggestionCandidate::D
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void TextSuggesterInterceptorForTesting::Suggest(TextSuggesterQueryPtr query, SuggestCallback callback) {
@@ -796,9 +789,7 @@ TextSuggesterResultPtr TextSuggesterAsyncWaiter::Suggest(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

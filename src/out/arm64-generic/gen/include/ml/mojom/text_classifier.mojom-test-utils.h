@@ -10,9 +10,7 @@
 #include "ml/mojom/text_classifier.mojom.h"
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 class  TextClassifierInterceptorForTesting : public TextClassifier {
@@ -46,8 +44,6 @@ class  TextClassifierAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_TEXT_CLASSIFIER_MOJOM_TEST_UTILS_H_

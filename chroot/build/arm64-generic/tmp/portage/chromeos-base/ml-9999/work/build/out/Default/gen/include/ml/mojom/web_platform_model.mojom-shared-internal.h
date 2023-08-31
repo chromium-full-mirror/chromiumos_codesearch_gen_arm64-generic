@@ -21,9 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace ml {
-namespace model_loader {
-namespace mojom {
+
+
+namespace ml::model_loader::mojom {
 namespace internal {
 class CreateModelLoaderOptions_Data;
 class TensorInfo_Data;
@@ -347,8 +347,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+
+}  // ml::model_loader::mojom
 
 #endif  // ML_MOJOM_WEB_PLATFORM_MODEL_MOJOM_SHARED_INTERNAL_H_

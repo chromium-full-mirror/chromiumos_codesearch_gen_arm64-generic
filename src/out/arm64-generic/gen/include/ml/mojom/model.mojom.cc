@@ -42,10 +42,7 @@
 #include "ml/mojom/model.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 GraphExecutorOptions::GraphExecutorOptions()
     : use_nnapi(false),
       use_gpu(false),
@@ -777,9 +774,7 @@ bool ModelResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -843,9 +838,7 @@ bool StructTraits<::chromeos::machine_learning::mojom::FlatBufferModelSpec::Data
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void ModelInterceptorForTesting::REMOVED_0(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver, REMOVED_0Callback callback) {
@@ -910,9 +903,7 @@ CreateGraphExecutorResult ModelAsyncWaiter::CreateGraphExecutor(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

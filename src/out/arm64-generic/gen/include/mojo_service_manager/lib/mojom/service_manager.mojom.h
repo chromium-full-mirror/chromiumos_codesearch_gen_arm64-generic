@@ -37,9 +37,7 @@
 
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 class ServiceManagerProxy;
 
@@ -1639,9 +1637,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 namespace mojo {
 

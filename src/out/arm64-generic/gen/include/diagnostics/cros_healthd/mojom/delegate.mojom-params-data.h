@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 class  Delegate_GetFingerprintFrame_Params_Data {
  public:
@@ -1600,9 +1600,9 @@ inline void Delegate_GetAllFanSpeed_ResponseParamsDataView::GetErrDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+
+}  // ash::cros_healthd::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -41,9 +41,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 class DelegateProxy;
 
@@ -356,9 +354,7 @@ class  DelegateResponseValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 

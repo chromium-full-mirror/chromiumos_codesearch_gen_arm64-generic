@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace smbfs {
-namespace mojom {
+
+
+namespace smbfs::mojom {
 namespace internal {
 class  SmbFsBootstrap_MountShare_Params_Data {
  public:
@@ -390,8 +391,9 @@ inline void SmbFsDelegate_RequestCredentials_ResponseParamsDataView::GetCredenti
   *output = CredentialsDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace smbfs
+
+
+}  // smbfs::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

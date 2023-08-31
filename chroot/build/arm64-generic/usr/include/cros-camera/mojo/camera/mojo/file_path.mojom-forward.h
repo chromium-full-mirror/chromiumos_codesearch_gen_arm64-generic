@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class RelativeFilePathDataView;
 
 class RelativeFilePath;
@@ -31,7 +30,6 @@ using RelativeFilePathPtr = mojo::InlinedStructPtr<RelativeFilePath>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // CAMERA_MOJO_FILE_PATH_MOJOM_FORWARD_H_

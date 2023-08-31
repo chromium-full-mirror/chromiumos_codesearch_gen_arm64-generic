@@ -10,9 +10,7 @@
 #include "diagnostics/mojom/external/network_diagnostics.mojom.h"
 
 
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+namespace chromeos::network_diagnostics::mojom {
 
 
 class  NetworkDiagnosticsRoutinesInterceptorForTesting : public NetworkDiagnosticsRoutines {
@@ -102,8 +100,6 @@ class  NetworkDiagnosticsRoutinesAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+}  // chromeos::network_diagnostics::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_DIAGNOSTICS_MOJOM_TEST_UTILS_H_

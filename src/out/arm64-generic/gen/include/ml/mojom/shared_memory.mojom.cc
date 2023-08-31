@@ -42,9 +42,7 @@
 #include "ml/mojom/shared_memory.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 ReadOnlySharedMemoryRegion::ReadOnlySharedMemoryRegion()
     : buffer() {}
 
@@ -131,8 +129,7 @@ bool UnsafeSharedMemoryRegion::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -186,14 +183,12 @@ bool StructTraits<::mojo_base::mojom::UnsafeSharedMemoryRegion::DataView, ::mojo
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

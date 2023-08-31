@@ -24,12 +24,10 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -38,8 +36,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 enum class TextDirection : int32_t {
@@ -60,8 +57,7 @@ inline bool IsKnownEnumValue(TextDirection value) {
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace std {
 
@@ -96,12 +92,10 @@ struct Serializer<::mojo_base::mojom::TextDirection, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

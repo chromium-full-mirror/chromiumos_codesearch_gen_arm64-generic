@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace mojo {
-namespace interface_control {
+
+
+namespace mojo::interface_control {
 namespace internal {
 class RunMessageParams_Data;
 class RunResponseMessageParams_Data;
@@ -679,7 +680,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace interface_control
-}  // namespace mojo
+
+}  // mojo::interface_control
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_INTERFACE_CONTROL_MESSAGES_MOJOM_SHARED_INTERNAL_H_

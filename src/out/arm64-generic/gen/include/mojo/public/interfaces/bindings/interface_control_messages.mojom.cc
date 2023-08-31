@@ -42,9 +42,7 @@
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom-test-utils.h"
 
 
-
-namespace mojo {
-namespace interface_control {
+namespace mojo::interface_control {
 RunMessageParams::RunMessageParams()
     : input() {}
 
@@ -512,8 +510,7 @@ bool RunOrClosePipeInput::Validate(
 }
 
 
-}  // namespace interface_control
-}  // namespace mojo
+}  // mojo::interface_control
 
 
 namespace mojo {
@@ -765,14 +762,12 @@ bool UnionTraits<::mojo::interface_control::RunOrClosePipeInput::DataView, ::moj
 // separate .cc file to save compile time.
 
 
-namespace mojo {
-namespace interface_control {
+namespace mojo::interface_control {
 
 
 
 
-}  // namespace interface_control
-}  // namespace mojo
+}  // mojo::interface_control
 
 
 #if defined(__clang__)

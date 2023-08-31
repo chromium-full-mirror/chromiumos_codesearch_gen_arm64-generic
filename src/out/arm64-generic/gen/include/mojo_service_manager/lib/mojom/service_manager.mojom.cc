@@ -43,10 +43,7 @@
 #include "mojo_service_manager/lib/mojom/time_mojom_traits.h"
 
 
-
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 ProcessIdentity::ProcessIdentity()
     : security_context(),
       pid(),
@@ -1432,9 +1429,7 @@ bool ServiceObserverRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 
 namespace mojo {
@@ -1602,9 +1597,7 @@ bool UnionTraits<::chromeos::mojo_service_manager::mojom::ServiceState::DataView
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
 void ServiceManagerInterceptorForTesting::Register(const std::string& service_name, ::mojo::PendingRemote<ServiceProvider> service_provider) {
@@ -1674,9 +1667,7 @@ ServiceObserverAsyncWaiter::~ServiceObserverAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 
 #if defined(__clang__)

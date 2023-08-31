@@ -30,15 +30,13 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 

@@ -42,10 +42,7 @@
 #include "ml/mojom/image_content_annotation.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 ImageAnnotatorConfig::ImageAnnotatorConfig()
     : locale() {}
 
@@ -776,9 +773,7 @@ bool ImageContentAnnotatorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -840,9 +835,7 @@ bool StructTraits<::chromeos::machine_learning::mojom::ImageAnnotationResult::Da
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void ImageContentAnnotatorInterceptorForTesting::AnnotateRawImage(::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr rgb_bytes, uint32_t width, uint32_t height, uint32_t line_stride, AnnotateRawImageCallback callback) {
@@ -907,9 +900,7 @@ ImageAnnotationResultPtr ImageContentAnnotatorAsyncWaiter::AnnotateEncodedImage(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

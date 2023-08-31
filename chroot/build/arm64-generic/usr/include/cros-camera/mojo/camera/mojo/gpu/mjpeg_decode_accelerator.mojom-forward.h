@@ -20,8 +20,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 enum class DecodeError : int32_t;
 class MjpegDecodeAccelerator;
@@ -29,7 +28,6 @@ class MjpegDecodeAccelerator;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_GPU_MJPEG_DECODE_ACCELERATOR_MOJOM_FORWARD_H_

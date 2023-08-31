@@ -8,9 +8,9 @@
 #define CAMERA_MOJO_CROS_CAMERA_SERVICE_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace cros {
-namespace mojom {
 
+
+namespace cros::mojom {
 namespace internal {
 
 
@@ -35,7 +35,7 @@ constexpr uint32_t kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Na
 constexpr uint32_t kCameraHalClient_SetUpChannel_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CROS_CAMERA_SERVICE_MOJOM_SHARED_MESSAGE_IDS_H_

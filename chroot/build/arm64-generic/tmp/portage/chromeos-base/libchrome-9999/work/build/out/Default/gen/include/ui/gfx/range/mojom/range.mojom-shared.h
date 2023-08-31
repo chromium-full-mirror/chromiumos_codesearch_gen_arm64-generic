@@ -31,16 +31,14 @@
 
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 class RangeDataView;
 
 class RangeFDataView;
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 namespace mojo {
 namespace internal {
@@ -63,8 +61,7 @@ struct MojomTypeTraits<::gfx::mojom::RangeFDataView> {
 }  // namespace mojo
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 class RangeDataView {
@@ -109,8 +106,7 @@ class RangeFDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 namespace std {
 
@@ -183,16 +179,14 @@ struct Serializer<::gfx::mojom::RangeFDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

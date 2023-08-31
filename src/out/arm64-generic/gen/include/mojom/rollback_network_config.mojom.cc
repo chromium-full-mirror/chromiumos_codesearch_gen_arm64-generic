@@ -42,10 +42,7 @@
 #include "mojom/rollback_network_config.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+namespace ash::rollback_network_config::mojom {
 const char RollbackNetworkConfig::Name_[] = "ash.rollback_network_config.mojom.RollbackNetworkConfig";
 
 RollbackNetworkConfig::IPCStableHashFunction RollbackNetworkConfig::MessageToMethodInfo_(mojo::Message& message) {
@@ -584,9 +581,7 @@ bool RollbackNetworkConfigResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+}  // ash::rollback_network_config::mojom
 
 
 namespace mojo {
@@ -598,9 +593,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+namespace ash::rollback_network_config::mojom {
 
 
 void RollbackNetworkConfigInterceptorForTesting::RollbackConfigImport(const std::string& config, RollbackConfigImportCallback callback) {
@@ -665,9 +658,7 @@ std::string RollbackNetworkConfigAsyncWaiter::RollbackConfigExport(
 
 
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+}  // ash::rollback_network_config::mojom
 
 
 #if defined(__clang__)

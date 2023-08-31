@@ -21,9 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+
+
+namespace chromeos::mojo_service_manager::mojom {
 namespace internal {
 class ProcessIdentity_Data;
 class RegisteredServiceState_Data;
@@ -449,8 +449,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+
+}  // chromeos::mojo_service_manager::mojom
 
 #endif  // MOJO_SERVICE_MANAGER_LIB_MOJOM_SERVICE_MANAGER_MOJOM_SHARED_INTERNAL_H_

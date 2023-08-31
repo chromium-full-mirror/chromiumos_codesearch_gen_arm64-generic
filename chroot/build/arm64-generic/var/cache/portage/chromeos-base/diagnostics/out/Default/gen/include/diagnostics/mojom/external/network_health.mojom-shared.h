@@ -33,14 +33,10 @@
 
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 namespace mojo {
 namespace internal {
@@ -49,9 +45,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 // Interface base classes. They are used for type safety check.
 class NetworkEventsObserverInterfaceBase {};
 
@@ -75,9 +69,7 @@ using NetworkHealthServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<NetworkHealthServiceInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 namespace std {
 
@@ -88,14 +80,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

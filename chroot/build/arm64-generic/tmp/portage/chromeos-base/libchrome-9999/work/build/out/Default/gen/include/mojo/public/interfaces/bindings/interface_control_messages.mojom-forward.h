@@ -21,8 +21,7 @@
 
 
 
-namespace mojo {
-namespace interface_control {
+namespace mojo::interface_control {
 class RunMessageParamsDataView;
 
 class RunResponseMessageParamsDataView;
@@ -95,7 +94,6 @@ using RunOrClosePipeInputPtr = mojo::StructPtr<RunOrClosePipeInput>;
 
 
 
-}  // namespace interface_control
-}  // namespace mojo
+}  // mojo::interface_control
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_INTERFACE_CONTROL_MESSAGES_MOJOM_FORWARD_H_

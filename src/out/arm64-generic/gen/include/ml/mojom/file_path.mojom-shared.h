@@ -31,14 +31,12 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class FilePathDataView;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -54,8 +52,7 @@ struct MojomTypeTraits<::mojo_base::mojom::FilePathDataView> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class FilePathDataView {
@@ -84,8 +81,7 @@ class FilePathDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace std {
 
@@ -137,8 +133,7 @@ struct Serializer<::mojo_base::mojom::FilePathDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 inline void FilePathDataView::GetPathDataView(
     mojo::StringDataView* output) {
@@ -148,8 +143,7 @@ inline void FilePathDataView::GetPathDataView(
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

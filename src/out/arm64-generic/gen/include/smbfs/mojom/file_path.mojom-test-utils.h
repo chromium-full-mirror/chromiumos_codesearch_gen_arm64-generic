@@ -10,13 +10,11 @@
 #include "smbfs/mojom/file_path.mojom.h"
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 #endif  // SMBFS_MOJOM_FILE_PATH_MOJOM_TEST_UTILS_H_

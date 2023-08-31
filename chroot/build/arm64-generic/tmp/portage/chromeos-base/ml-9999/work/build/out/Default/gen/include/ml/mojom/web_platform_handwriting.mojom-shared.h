@@ -34,10 +34,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+namespace chromeos::machine_learning::web_platform::mojom {
 class HandwritingPointDataView;
 
 class HandwritingStrokeDataView;
@@ -54,10 +51,7 @@ class HandwritingModelConstraintDataView;
 
 
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::web_platform::mojom
 
 namespace mojo {
 namespace internal {
@@ -115,10 +109,7 @@ struct MojomTypeTraits<::chromeos::machine_learning::web_platform::mojom::Handwr
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+namespace chromeos::machine_learning::web_platform::mojom {
 // Interface base classes. They are used for type safety check.
 class HandwritingRecognizerInterfaceBase {};
 
@@ -402,10 +393,7 @@ class HandwritingModelConstraintDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::web_platform::mojom
 
 namespace std {
 
@@ -769,10 +757,7 @@ struct Serializer<::chromeos::machine_learning::web_platform::mojom::Handwriting
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+namespace chromeos::machine_learning::web_platform::mojom {
 
 inline void HandwritingPointDataView::GetLocationDataView(
     ::gfx::mojom::PointFDataView* output) {
@@ -850,10 +835,7 @@ inline void HandwritingModelConstraintDataView::GetLanguagesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::web_platform::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

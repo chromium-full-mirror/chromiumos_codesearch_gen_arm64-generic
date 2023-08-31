@@ -8,10 +8,9 @@
 #define DIAGNOSTICS_CROS_HEALTHD_MOJOM_DELEGATE_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
 
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 
 
@@ -37,8 +36,7 @@ constexpr uint32_t kDelegate_RunFloatingPoint_Name = 18;
 constexpr uint32_t kDelegate_GetAllFanSpeed_Name = 19;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_MOJOM_DELEGATE_MOJOM_SHARED_MESSAGE_IDS_H_

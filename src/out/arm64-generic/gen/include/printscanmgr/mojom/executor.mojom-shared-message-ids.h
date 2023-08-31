@@ -8,16 +8,16 @@
 #define PRINTSCANMGR_MOJOM_EXECUTOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace printscanmgr {
-namespace mojom {
 
+
+namespace printscanmgr::mojom {
 namespace internal {
 
 
 constexpr uint32_t kExecutor_RestartUpstartJob_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace printscanmgr
+
+}  // printscanmgr::mojom
 
 #endif  // PRINTSCANMGR_MOJOM_EXECUTOR_MOJOM_SHARED_MESSAGE_IDS_H_

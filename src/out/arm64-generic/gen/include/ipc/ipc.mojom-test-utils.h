@@ -10,8 +10,7 @@
 #include "ipc/ipc.mojom.h"
 
 
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 
 
 class  ChannelInterceptorForTesting : public Channel {
@@ -53,7 +52,6 @@ class  ChannelBootstrapAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 #endif  // IPC_IPC_MOJOM_TEST_UTILS_H_

@@ -26,9 +26,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 class ExecutedProcessResult_Data;
 class FingerprintInfoResult_Data;
@@ -567,8 +567,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_MOJOM_EXECUTOR_MOJOM_SHARED_INTERNAL_H_

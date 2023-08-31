@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class  CameraDiagnostics_SetYuvAnalysisEnabled_Params_Data {
  public:
@@ -291,8 +292,9 @@ inline void CameraDiagnostics_AnalyzeYuvFrame_ParamsDataView::GetBufferDataView(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+
+
+}  // cros::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

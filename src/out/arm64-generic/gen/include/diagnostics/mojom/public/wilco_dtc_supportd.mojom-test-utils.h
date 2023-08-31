@@ -10,9 +10,7 @@
 #include "diagnostics/mojom/public/wilco_dtc_supportd.mojom.h"
 
 
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+namespace chromeos::wilco_dtc_supportd::mojom {
 
 
 class  WilcoDtcSupportdServiceFactoryInterceptorForTesting : public WilcoDtcSupportdServiceFactory {
@@ -92,8 +90,6 @@ class  WilcoDtcSupportdClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+}  // chromeos::wilco_dtc_supportd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_WILCO_DTC_SUPPORTD_MOJOM_TEST_UTILS_H_

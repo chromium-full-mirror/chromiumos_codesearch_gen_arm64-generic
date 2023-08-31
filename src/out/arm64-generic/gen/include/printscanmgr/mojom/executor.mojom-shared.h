@@ -32,12 +32,10 @@
 
 
 
-namespace printscanmgr {
-namespace mojom {
+namespace printscanmgr::mojom {
 
 
-}  // namespace mojom
-}  // namespace printscanmgr
+}  // printscanmgr::mojom
 
 namespace mojo {
 namespace internal {
@@ -46,8 +44,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace printscanmgr {
-namespace mojom {
+namespace printscanmgr::mojom {
 
 
 enum class UpstartJob : int32_t {
@@ -75,8 +72,7 @@ using ExecutorAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<ExecutorInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace printscanmgr
+}  // printscanmgr::mojom
 
 namespace std {
 
@@ -111,12 +107,10 @@ struct Serializer<::printscanmgr::mojom::UpstartJob, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace printscanmgr {
-namespace mojom {
+namespace printscanmgr::mojom {
 
 
-}  // namespace mojom
-}  // namespace printscanmgr
+}  // printscanmgr::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

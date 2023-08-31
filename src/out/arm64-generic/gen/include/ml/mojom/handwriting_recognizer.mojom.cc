@@ -43,10 +43,7 @@
 #include "ml/mojom/time_mojom_traits.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 InkPoint::InkPoint()
     : x(),
       y(),
@@ -895,9 +892,7 @@ bool HandwritingRecognizerResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -1095,9 +1090,7 @@ bool StructTraits<::chromeos::machine_learning::mojom::HandwritingRecognizerSpec
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void HandwritingRecognizerInterceptorForTesting::Recognize(HandwritingRecognitionQueryPtr query, RecognizeCallback callback) {
@@ -1136,9 +1129,7 @@ HandwritingRecognizerResultPtr HandwritingRecognizerAsyncWaiter::Recognize(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

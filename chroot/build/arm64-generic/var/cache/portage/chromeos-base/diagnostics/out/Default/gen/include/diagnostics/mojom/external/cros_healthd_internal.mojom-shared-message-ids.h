@@ -8,11 +8,9 @@
 #define DIAGNOSTICS_MOJOM_EXTERNAL_CROS_HEALTHD_INTERNAL_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
 
+
+namespace ash::cros_healthd::internal::mojom {
 namespace internal {
 
 
@@ -22,9 +20,7 @@ constexpr uint32_t kChromiumDataCollector_SetPrivacyScreenState_Name = 2;
 constexpr uint32_t kChromiumDataCollector_SetAudioOutputMute_Name = 3;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::internal::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_CROS_HEALTHD_INTERNAL_MOJOM_SHARED_MESSAGE_IDS_H_

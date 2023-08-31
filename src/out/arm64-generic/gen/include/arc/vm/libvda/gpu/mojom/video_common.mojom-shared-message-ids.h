@@ -8,15 +8,15 @@
 #define ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_COMMON_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace arc {
-namespace mojom {
 
+
+namespace arc::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_COMMON_MOJOM_SHARED_MESSAGE_IDS_H_

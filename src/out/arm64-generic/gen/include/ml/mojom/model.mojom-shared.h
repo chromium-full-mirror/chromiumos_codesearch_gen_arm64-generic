@@ -33,9 +33,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class GraphExecutorOptionsDataView;
 
 class BuiltinModelSpecDataView;
@@ -44,9 +42,7 @@ class FlatBufferModelSpecDataView;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace mojo {
 namespace internal {
@@ -76,9 +72,7 @@ struct MojomTypeTraits<::chromeos::machine_learning::mojom::FlatBufferModelSpecD
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 enum class BuiltinModelId : int32_t {
@@ -296,9 +290,7 @@ class FlatBufferModelSpecDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 namespace std {
 
@@ -526,9 +518,7 @@ struct Serializer<::chromeos::machine_learning::mojom::FlatBufferModelSpecDataVi
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 
@@ -557,9 +547,7 @@ inline void FlatBufferModelSpecDataView::GetMetricsModelNameDataView(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

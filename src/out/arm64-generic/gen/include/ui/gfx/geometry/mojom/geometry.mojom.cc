@@ -42,9 +42,7 @@
 #include "ui/gfx/geometry/mojom/geometry.mojom-test-utils.h"
 
 
-
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 Point::Point()
     : x(),
       y() {}
@@ -859,8 +857,7 @@ bool QuadF::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 
 namespace mojo {
@@ -1124,14 +1121,12 @@ bool StructTraits<::gfx::mojom::QuadF::DataView, ::gfx::mojom::QuadFPtr>::Read(
 // separate .cc file to save compile time.
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 
 #if defined(__clang__)

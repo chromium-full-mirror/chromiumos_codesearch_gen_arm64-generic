@@ -42,9 +42,7 @@
 #include "camera/mojo/gpu/dmabuf.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 DmaBufPlane::DmaBufPlane()
     : fd_handle(),
       stride(),
@@ -211,8 +209,7 @@ bool DmaBufVideoFrame::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -268,14 +265,12 @@ bool StructTraits<::cros::mojom::DmaBufVideoFrame::DataView, ::cros::mojom::DmaB
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

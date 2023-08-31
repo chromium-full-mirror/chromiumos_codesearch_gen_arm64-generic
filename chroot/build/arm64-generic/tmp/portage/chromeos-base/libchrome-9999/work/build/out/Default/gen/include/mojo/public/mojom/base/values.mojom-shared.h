@@ -31,8 +31,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class DictionaryValueDataView;
 
 class ListValueDataView;
@@ -40,8 +39,7 @@ class ListValueDataView;
 class ValueDataView;
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -71,8 +69,7 @@ struct MojomTypeTraits<::mojo_base::mojom::ValueDataView> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class DictionaryValueDataView {
@@ -217,8 +214,7 @@ class ValueDataView {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace std {
 
@@ -446,8 +442,7 @@ struct Serializer<::mojo_base::mojom::ValueDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 inline void DictionaryValueDataView::GetStorageDataView(
     mojo::MapDataView<mojo::StringDataView, ValueDataView>* output) {
@@ -485,8 +480,7 @@ inline void ValueDataView::GetListValueDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

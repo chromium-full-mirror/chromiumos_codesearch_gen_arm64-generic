@@ -36,8 +36,7 @@
 
 
 
-namespace printscanmgr {
-namespace mojom {
+namespace printscanmgr::mojom {
 
 class ExecutorProxy;
 
@@ -155,8 +154,7 @@ class  ExecutorResponseValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace printscanmgr
+}  // printscanmgr::mojom
 
 namespace mojo {
 

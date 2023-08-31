@@ -43,11 +43,7 @@
 #include "ml/mojom/time_mojom_traits.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+namespace chromeos::machine_learning::web_platform::mojom {
 HandwritingPoint::HandwritingPoint()
     : location(),
       t() {}
@@ -734,10 +730,7 @@ bool HandwritingRecognizerResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::web_platform::mojom
 
 
 namespace mojo {
@@ -869,10 +862,7 @@ bool StructTraits<::chromeos::machine_learning::web_platform::mojom::Handwriting
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
+namespace chromeos::machine_learning::web_platform::mojom {
 
 
 void HandwritingRecognizerInterceptorForTesting::GetPrediction(std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, GetPredictionCallback callback) {
@@ -911,10 +901,7 @@ absl::optional<std::vector<HandwritingPredictionPtr>> HandwritingRecognizerAsync
 
 
 
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::web_platform::mojom
 
 
 #if defined(__clang__)

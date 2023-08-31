@@ -10,13 +10,11 @@
 #include "camera/mojo/camera_features.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CAMERA_FEATURES_MOJOM_TEST_UTILS_H_

@@ -21,8 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 
 struct EncodeStatus_Data {
@@ -59,7 +60,7 @@ struct EncodeStatus_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_GPU_JPEG_ENCODE_ACCELERATOR_MOJOM_SHARED_INTERNAL_H_

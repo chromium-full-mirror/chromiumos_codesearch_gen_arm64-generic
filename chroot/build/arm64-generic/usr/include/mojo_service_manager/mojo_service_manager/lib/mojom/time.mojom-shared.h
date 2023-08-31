@@ -31,16 +31,12 @@
 
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 class TimeDeltaDataView;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 namespace mojo {
 namespace internal {
@@ -56,9 +52,7 @@ struct MojomTypeTraits<::chromeos::mojo_service_manager::mojom::TimeDeltaDataVie
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
 class TimeDeltaDataView {
@@ -79,9 +73,7 @@ class TimeDeltaDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 namespace std {
 
@@ -122,16 +114,12 @@ struct Serializer<::chromeos::mojo_service_manager::mojom::TimeDeltaDataView, Ma
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

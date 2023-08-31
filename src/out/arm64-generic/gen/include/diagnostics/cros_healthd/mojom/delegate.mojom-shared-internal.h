@@ -25,9 +25,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 
 #pragma pack(push, 1)
@@ -35,8 +35,7 @@ namespace internal {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_MOJOM_DELEGATE_MOJOM_SHARED_INTERNAL_H_

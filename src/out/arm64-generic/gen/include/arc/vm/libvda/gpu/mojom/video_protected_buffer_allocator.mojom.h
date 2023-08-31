@@ -38,8 +38,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 class VideoProtectedBufferAllocatorProxy;
 
@@ -177,8 +176,7 @@ class  VideoProtectedBufferAllocatorResponseValidator : public mojo::MessageRece
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace mojo {
 

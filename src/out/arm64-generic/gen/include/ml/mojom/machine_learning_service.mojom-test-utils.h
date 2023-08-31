@@ -10,9 +10,7 @@
 #include "ml/mojom/machine_learning_service.mojom.h"
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 class  MachineLearningServiceInterceptorForTesting : public MachineLearningService {
@@ -83,8 +81,6 @@ class  MachineLearningServiceAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_MACHINE_LEARNING_SERVICE_MOJOM_TEST_UTILS_H_

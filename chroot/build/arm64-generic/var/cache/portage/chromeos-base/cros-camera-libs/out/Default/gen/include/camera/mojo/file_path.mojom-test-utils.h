@@ -10,13 +10,11 @@
 #include "camera/mojo/file_path.mojom.h"
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // CAMERA_MOJO_FILE_PATH_MOJOM_TEST_UTILS_H_

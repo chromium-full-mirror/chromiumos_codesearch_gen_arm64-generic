@@ -21,8 +21,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class IioEventDataView;
 
 
@@ -93,7 +92,6 @@ class SensorDeviceEventsObserver;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // IIOSERVICE_MOJO_SENSOR_MOJOM_FORWARD_H_

@@ -21,9 +21,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class NullableUint8DataView;
 
 class NullableInt16DataView;
@@ -57,8 +55,6 @@ using NullableDoublePtr = mojo::InlinedStructPtr<NullableDouble>;
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_NULLABLE_PRIMITIVES_MOJOM_FORWARD_H_

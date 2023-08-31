@@ -21,8 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class CameraMetadataEntry_Data;
 class CameraMetadata_Data;
@@ -167,7 +168,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CAMERA_METADATA_MOJOM_SHARED_INTERNAL_H_

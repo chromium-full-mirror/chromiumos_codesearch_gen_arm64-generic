@@ -8,10 +8,9 @@
 #define MOJO_SERVICE_MANAGER_LIB_MOJOM_SERVICE_MANAGER_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
 
+
+namespace chromeos::mojo_service_manager::mojom {
 namespace internal {
 
 
@@ -23,8 +22,7 @@ constexpr uint32_t kServiceProvider_Request_Name = 0;
 constexpr uint32_t kServiceObserver_OnServiceEvent_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+
+}  // chromeos::mojo_service_manager::mojom
 
 #endif  // MOJO_SERVICE_MANAGER_LIB_MOJOM_SERVICE_MANAGER_MOJOM_SHARED_MESSAGE_IDS_H_

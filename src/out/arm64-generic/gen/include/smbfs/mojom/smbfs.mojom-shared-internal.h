@@ -22,8 +22,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace smbfs {
-namespace mojom {
+
+
+namespace smbfs::mojom {
 namespace internal {
 class Password_Data;
 class KerberosConfig_Data;
@@ -373,7 +374,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace smbfs
+
+}  // smbfs::mojom
 
 #endif  // SMBFS_MOJOM_SMBFS_MOJOM_SHARED_INTERNAL_H_

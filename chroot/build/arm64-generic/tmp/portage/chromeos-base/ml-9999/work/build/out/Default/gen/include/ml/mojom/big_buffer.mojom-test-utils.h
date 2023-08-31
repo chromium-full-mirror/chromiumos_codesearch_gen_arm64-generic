@@ -10,13 +10,11 @@
 #include "ml/mojom/big_buffer.mojom.h"
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // ML_MOJOM_BIG_BUFFER_MOJOM_TEST_UTILS_H_

@@ -42,10 +42,7 @@
 #include "ml/mojom/web_platform_model.mojom-test-utils.h"
 
 
-
-namespace ml {
-namespace model_loader {
-namespace mojom {
+namespace ml::model_loader::mojom {
 CreateModelLoaderOptions::CreateModelLoaderOptions()
     : num_threads(0U),
       model_format(),
@@ -863,9 +860,7 @@ bool ModelResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+}  // ml::model_loader::mojom
 
 
 namespace mojo {
@@ -929,9 +924,7 @@ bool StructTraits<::ml::model_loader::mojom::ModelInfo::DataView, ::ml::model_lo
 // separate .cc file to save compile time.
 
 
-namespace ml {
-namespace model_loader {
-namespace mojom {
+namespace ml::model_loader::mojom {
 
 
 void ModelLoaderInterceptorForTesting::Load(::mojo_base::mojom::BigBufferPtr model_content, LoadCallback callback) {
@@ -1006,9 +999,7 @@ void ModelAsyncWaiter::Compute(
 
 
 
-}  // namespace mojom
-}  // namespace model_loader
-}  // namespace ml
+}  // ml::model_loader::mojom
 
 
 #if defined(__clang__)

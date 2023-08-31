@@ -10,8 +10,7 @@
 #include "mojo/public/mojom/base/generic_pending_associated_receiver.mojom.h"
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class  GenericAssociatedInterfaceInterceptorForTesting : public GenericAssociatedInterface {
@@ -33,7 +32,6 @@ class  GenericAssociatedInterfaceAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_GENERIC_PENDING_ASSOCIATED_RECEIVER_MOJOM_TEST_UTILS_H_

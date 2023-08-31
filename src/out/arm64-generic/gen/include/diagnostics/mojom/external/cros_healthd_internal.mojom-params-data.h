@@ -18,10 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
+
+
+namespace ash::cros_healthd::internal::mojom {
 namespace internal {
 class  ChromiumDataCollector_GetTouchscreenDevices_Params_Data {
  public:
@@ -335,10 +334,9 @@ inline void ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView:
 
 
 
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+
+
+}  // ash::cros_healthd::internal::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

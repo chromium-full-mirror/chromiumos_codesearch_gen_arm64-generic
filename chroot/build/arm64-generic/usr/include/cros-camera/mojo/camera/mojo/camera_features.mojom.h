@@ -35,8 +35,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
@@ -366,8 +365,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 

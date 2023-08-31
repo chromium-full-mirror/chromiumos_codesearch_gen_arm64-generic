@@ -42,10 +42,7 @@
 #include "mojo_service_manager/testing/test.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 const char Foo::Name_[] = "chromeos.mojo_service_manager.mojom.Foo";
 
 Foo::IPCStableHashFunction Foo::MessageToMethodInfo_(mojo::Message& message) {
@@ -325,9 +322,7 @@ bool FooResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 
 namespace mojo {
@@ -339,9 +334,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
 void FooInterceptorForTesting::Ping(PingCallback callback) {
@@ -371,9 +364,7 @@ void FooAsyncWaiter::Ping(
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 
 #if defined(__clang__)

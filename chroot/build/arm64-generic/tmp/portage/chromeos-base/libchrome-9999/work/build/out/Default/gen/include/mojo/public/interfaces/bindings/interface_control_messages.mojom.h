@@ -35,8 +35,7 @@
 
 
 
-namespace mojo {
-namespace interface_control {
+namespace mojo::interface_control {
 
 
 
@@ -2145,8 +2144,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace interface_control
-}  // namespace mojo
+}  // mojo::interface_control
 
 namespace mojo {
 

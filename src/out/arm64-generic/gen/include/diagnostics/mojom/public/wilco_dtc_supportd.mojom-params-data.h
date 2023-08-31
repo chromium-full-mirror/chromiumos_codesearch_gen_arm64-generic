@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+
+
+namespace chromeos::wilco_dtc_supportd::mojom {
 namespace internal {
 class  WilcoDtcSupportdServiceFactory_GetService_Params_Data {
  public:
@@ -664,9 +664,9 @@ inline void WilcoDtcSupportdClient_GetConfigurationData_ResponseParamsDataView::
 
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+
+
+}  // chromeos::wilco_dtc_supportd::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

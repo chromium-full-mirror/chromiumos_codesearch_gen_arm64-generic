@@ -18,15 +18,15 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+
+}  // chromeos::machine_learning::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

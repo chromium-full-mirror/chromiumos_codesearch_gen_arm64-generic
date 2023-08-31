@@ -33,12 +33,10 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -47,8 +45,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 // Interface base classes. They are used for type safety check.
 class SensorHalServerInterfaceBase {};
 
@@ -72,8 +69,7 @@ using SensorHalClientAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<SensorHalClientInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -84,12 +80,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

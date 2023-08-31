@@ -20,16 +20,12 @@
 
 
 
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+namespace ash::rollback_network_config::mojom {
 class RollbackNetworkConfig;
 
 
 
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+}  // ash::rollback_network_config::mojom
 
 #endif  // MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_FORWARD_H_

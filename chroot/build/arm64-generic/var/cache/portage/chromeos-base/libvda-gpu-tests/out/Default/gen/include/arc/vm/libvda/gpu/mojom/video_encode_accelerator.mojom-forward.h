@@ -21,8 +21,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class VideoEncodeProfileDataView;
 
 class ConstantBitrateDataView;
@@ -61,7 +60,6 @@ class VideoEncodeClient;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_FORWARD_H_

@@ -21,9 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+
+
+namespace chromeos::wilco_dtc_supportd::mojom {
 namespace internal {
 
 struct WilcoDtcSupportdWebRequestHttpMethod_Data {
@@ -115,8 +115,7 @@ struct WilcoDtcSupportdEvent_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+
+}  // chromeos::wilco_dtc_supportd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_WILCO_DTC_SUPPORTD_MOJOM_SHARED_INTERNAL_H_

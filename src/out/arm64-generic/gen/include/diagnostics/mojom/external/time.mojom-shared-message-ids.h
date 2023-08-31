@@ -8,21 +8,15 @@
 #define DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ash {
-namespace cros_healthd {
-namespace external {
-namespace mojo_base {
-namespace mojom {
 
+
+namespace ash::cros_healthd::external::mojo_base::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_base
-}  // namespace external
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::external::mojo_base::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_SHARED_MESSAGE_IDS_H_

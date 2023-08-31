@@ -34,16 +34,14 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class CameraResourceCostDataView;
 
 class CameraInfoDataView;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -66,8 +64,7 @@ struct MojomTypeTraits<::cros::mojom::CameraInfoDataView> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 enum class CameraFacing : int32_t {
@@ -263,8 +260,7 @@ static_assert(
 };
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -440,8 +436,7 @@ struct Serializer<::cros::mojom::CameraInfoDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
@@ -465,8 +460,7 @@ inline void CameraInfoDataView::GetConflictingDevicesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace IPC {
-namespace mojom {
+
+
+namespace IPC::mojom {
 namespace internal {
 class  Channel_SetPeerPid_Params_Data {
  public:
@@ -158,8 +159,9 @@ inline void Channel_GetAssociatedInterface_ParamsDataView::GetReceiverDataView(
   *output = ::mojo_base::mojom::GenericPendingAssociatedReceiverDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace IPC
+
+
+}  // IPC::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

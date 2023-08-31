@@ -42,9 +42,7 @@
 #include "camera/mojo/camera_metadata.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 CameraMetadataEntry::CameraMetadataEntry()
     : index(),
       tag(),
@@ -211,8 +209,7 @@ bool CameraMetadata::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -270,14 +267,12 @@ bool StructTraits<::cros::mojom::CameraMetadata::DataView, ::cros::mojom::Camera
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace printscanmgr {
-namespace mojom {
+
+
+namespace printscanmgr::mojom {
 namespace internal {
 
 struct UpstartJob_Data {
@@ -52,7 +53,7 @@ struct UpstartJob_Data {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace printscanmgr
+
+}  // printscanmgr::mojom
 
 #endif  // PRINTSCANMGR_MOJOM_EXECUTOR_MOJOM_SHARED_INTERNAL_H_

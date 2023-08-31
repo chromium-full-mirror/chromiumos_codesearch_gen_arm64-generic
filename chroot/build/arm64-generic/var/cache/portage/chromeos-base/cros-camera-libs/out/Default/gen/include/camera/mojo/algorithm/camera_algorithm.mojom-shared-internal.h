@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 
 #pragma pack(push, 1)
@@ -29,7 +30,7 @@ namespace internal {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_ALGORITHM_CAMERA_ALGORITHM_MOJOM_SHARED_INTERNAL_H_

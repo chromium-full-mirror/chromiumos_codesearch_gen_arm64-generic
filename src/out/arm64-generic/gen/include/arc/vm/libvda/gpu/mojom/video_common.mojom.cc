@@ -42,9 +42,7 @@
 #include "arc/vm/libvda/gpu/mojom/video_common.mojom-test-utils.h"
 
 
-
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 VideoFramePlane::VideoFramePlane()
     : offset(),
       stride() {}
@@ -238,8 +236,7 @@ bool VideoFrameLayout::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 namespace mojo {
@@ -309,14 +306,12 @@ bool StructTraits<::arc::mojom::VideoFrameLayout::DataView, ::arc::mojom::VideoF
 // separate .cc file to save compile time.
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 #if defined(__clang__)

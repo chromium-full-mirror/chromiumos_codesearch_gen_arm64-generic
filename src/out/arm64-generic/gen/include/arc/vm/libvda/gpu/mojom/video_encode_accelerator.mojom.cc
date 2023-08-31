@@ -42,9 +42,7 @@
 #include "arc/vm/libvda/gpu/mojom/video_encode_accelerator.mojom-test-utils.h"
 
 
-
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 VideoEncodeProfile::VideoEncodeProfile()
     : profile(),
       max_resolution(),
@@ -2467,8 +2465,7 @@ bool VideoEncodeClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 namespace mojo {
@@ -2595,8 +2592,7 @@ bool UnionTraits<::arc::mojom::Bitrate::DataView, ::arc::mojom::BitratePtr>::Rea
 // separate .cc file to save compile time.
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 void VideoEncodeAcceleratorInterceptorForTesting::GetSupportedProfiles(GetSupportedProfilesCallback callback) {
@@ -2779,8 +2775,7 @@ VideoEncodeClientAsyncWaiter::~VideoEncodeClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 #if defined(__clang__)

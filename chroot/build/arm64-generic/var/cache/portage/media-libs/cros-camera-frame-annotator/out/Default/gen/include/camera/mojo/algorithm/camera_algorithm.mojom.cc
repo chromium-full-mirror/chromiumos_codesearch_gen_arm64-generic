@@ -42,9 +42,7 @@
 #include "camera/mojo/algorithm/camera_algorithm.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 const char CameraAlgorithmOps::Name_[] = "cros.mojom.CameraAlgorithmOps";
 
 CameraAlgorithmOps::IPCStableHashFunction CameraAlgorithmOps::MessageToMethodInfo_(mojo::Message& message) {
@@ -1289,8 +1287,7 @@ bool CameraAlgorithmCallbackOpsRequestValidator::Accept(mojo::Message* message) 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -1302,8 +1299,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void CameraAlgorithmOpsInterceptorForTesting::Initialize(::mojo::PendingRemote<CameraAlgorithmCallbackOps> callbacks, InitializeCallback callback) {
@@ -1394,8 +1390,7 @@ CameraAlgorithmCallbackOpsAsyncWaiter::~CameraAlgorithmCallbackOpsAsyncWaiter() 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

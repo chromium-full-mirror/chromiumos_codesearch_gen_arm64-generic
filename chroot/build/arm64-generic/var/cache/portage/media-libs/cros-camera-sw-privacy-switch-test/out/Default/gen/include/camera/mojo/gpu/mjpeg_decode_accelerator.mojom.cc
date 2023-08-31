@@ -42,9 +42,7 @@
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 const char MjpegDecodeAccelerator::Name_[] = "cros.mojom.MjpegDecodeAccelerator";
 
 MjpegDecodeAccelerator::IPCStableHashFunction MjpegDecodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
@@ -690,8 +688,7 @@ bool MjpegDecodeAcceleratorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -703,8 +700,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void MjpegDecodeAcceleratorInterceptorForTesting::Initialize(InitializeCallback callback) {
@@ -772,8 +768,7 @@ DecodeError MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

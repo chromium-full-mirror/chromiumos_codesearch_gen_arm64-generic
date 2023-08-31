@@ -35,8 +35,7 @@
 
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 
@@ -205,8 +204,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 namespace mojo {
 

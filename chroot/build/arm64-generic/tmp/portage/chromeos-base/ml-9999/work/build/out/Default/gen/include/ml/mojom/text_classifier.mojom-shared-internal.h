@@ -21,9 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 class TextEntity_Data;
 class TextAnnotation_Data;
@@ -423,8 +423,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_TEXT_CLASSIFIER_MOJOM_SHARED_INTERNAL_H_

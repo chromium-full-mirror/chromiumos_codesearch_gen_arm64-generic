@@ -10,9 +10,7 @@
 #include "diagnostics/mojom/public/wilco_ec.mojom.h"
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class  WilcoEcObserverInterceptorForTesting : public WilcoEcObserver {
@@ -35,8 +33,6 @@ class  WilcoEcObserverAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_WILCO_EC_MOJOM_TEST_UTILS_H_

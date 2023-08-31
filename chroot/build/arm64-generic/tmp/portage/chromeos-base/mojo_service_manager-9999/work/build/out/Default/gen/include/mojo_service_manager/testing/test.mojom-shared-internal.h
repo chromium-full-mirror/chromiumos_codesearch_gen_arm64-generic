@@ -20,9 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+
+
+namespace chromeos::mojo_service_manager::mojom {
 namespace internal {
 
 #pragma pack(push, 1)
@@ -30,8 +30,7 @@ namespace internal {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+
+}  // chromeos::mojo_service_manager::mojom
 
 #endif  // MOJO_SERVICE_MANAGER_TESTING_TEST_MOJOM_SHARED_INTERNAL_H_

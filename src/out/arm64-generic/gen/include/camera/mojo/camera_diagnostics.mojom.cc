@@ -42,9 +42,7 @@
 #include "camera/mojo/camera_diagnostics.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 CameraDiagnosticsFrame::CameraDiagnosticsFrame()
     : data_handle(),
       data_size(),
@@ -942,8 +940,7 @@ bool CameraDiagnosticsResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -975,8 +972,7 @@ bool StructTraits<::cros::mojom::CameraDiagnosticsFrame::DataView, ::cros::mojom
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void CameraDiagnosticsInterceptorForTesting::SetYuvAnalysisEnabled(bool state) {
@@ -1070,8 +1066,7 @@ uint32_t CameraDiagnosticsAsyncWaiter::GetDiagnosticsResult(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

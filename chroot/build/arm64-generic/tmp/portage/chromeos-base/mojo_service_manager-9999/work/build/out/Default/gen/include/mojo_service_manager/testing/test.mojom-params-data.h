@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+
+
+namespace chromeos::mojo_service_manager::mojom {
 namespace internal {
 class  Foo_Ping_Params_Data {
  public:
@@ -88,9 +88,9 @@ class Foo_Ping_ResponseParamsDataView {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+
+
+}  // chromeos::mojo_service_manager::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

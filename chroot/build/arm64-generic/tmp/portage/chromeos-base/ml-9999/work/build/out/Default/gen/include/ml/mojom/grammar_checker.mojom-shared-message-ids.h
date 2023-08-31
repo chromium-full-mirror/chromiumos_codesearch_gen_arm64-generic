@@ -8,18 +8,16 @@
 #define ML_MOJOM_GRAMMAR_CHECKER_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
 
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 
 
 constexpr uint32_t kGrammarChecker_Check_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_GRAMMAR_CHECKER_MOJOM_SHARED_MESSAGE_IDS_H_

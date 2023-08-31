@@ -10,9 +10,7 @@
 #include "diagnostics/mojom/public/cros_healthd_events.mojom.h"
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class  CrosHealthdBluetoothObserverInterceptorForTesting : public CrosHealthdBluetoothObserver {
@@ -176,8 +174,6 @@ class  EventObserverAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_EVENTS_MOJOM_TEST_UTILS_H_

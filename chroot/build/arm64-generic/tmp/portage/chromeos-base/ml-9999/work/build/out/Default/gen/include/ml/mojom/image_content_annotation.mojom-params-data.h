@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 class  ImageContentAnnotator_AnnotateRawImage_Params_Data {
  public:
@@ -233,9 +233,9 @@ inline void ImageContentAnnotator_AnnotateEncodedImage_ResponseParamsDataView::G
   *output = ImageAnnotationResultDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+
+}  // chromeos::machine_learning::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

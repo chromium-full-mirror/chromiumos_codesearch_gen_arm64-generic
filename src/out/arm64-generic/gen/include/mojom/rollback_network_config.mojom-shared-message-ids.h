@@ -8,10 +8,9 @@
 #define MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
 
+
+namespace ash::rollback_network_config::mojom {
 namespace internal {
 
 
@@ -19,8 +18,7 @@ constexpr uint32_t kRollbackNetworkConfig_RollbackConfigImport_Name = 0;
 constexpr uint32_t kRollbackNetworkConfig_RollbackConfigExport_Name = 1;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+
+}  // ash::rollback_network_config::mojom
 
 #endif  // MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_SHARED_MESSAGE_IDS_H_

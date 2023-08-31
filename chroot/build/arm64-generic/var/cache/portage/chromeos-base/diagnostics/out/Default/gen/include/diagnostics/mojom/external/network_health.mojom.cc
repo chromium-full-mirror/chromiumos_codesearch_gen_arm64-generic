@@ -42,10 +42,7 @@
 #include "diagnostics/mojom/external/network_health.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 const char NetworkEventsObserver::Name_[] = "chromeos.network_health.mojom.NetworkEventsObserver";
 
 NetworkEventsObserver::IPCStableHashFunction NetworkEventsObserver::MessageToMethodInfo_(mojo::Message& message) {
@@ -965,9 +962,7 @@ bool NetworkHealthServiceResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 
 namespace mojo {
@@ -979,9 +974,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 
 
 void NetworkEventsObserverInterceptorForTesting::OnConnectionStateChanged(const std::string& guid, ::chromeos::network_health::mojom::NetworkState state) {
@@ -1063,9 +1056,7 @@ void NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 
 #if defined(__clang__)

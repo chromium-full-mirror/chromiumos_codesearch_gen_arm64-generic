@@ -10,13 +10,11 @@
 #include "mojo/public/interfaces/bindings/native_struct.mojom.h"
 
 
-namespace mojo {
-namespace native {
+namespace mojo::native {
 
 
 
 
-}  // namespace native
-}  // namespace mojo
+}  // mojo::native
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_NATIVE_STRUCT_MOJOM_TEST_UTILS_H_

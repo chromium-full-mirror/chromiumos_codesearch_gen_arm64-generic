@@ -37,9 +37,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 class AshEventReporterProxy;
 
@@ -150,9 +148,7 @@ class  AshEventReporterRequestValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 namespace mojo {
 

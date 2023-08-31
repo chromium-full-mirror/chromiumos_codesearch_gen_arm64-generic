@@ -8,10 +8,9 @@
 #define DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
 
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 
 
@@ -89,8 +88,7 @@ constexpr uint32_t kWilcoEcServiceController_StartEcService_Name = 2;
 constexpr uint32_t kWilcoEcServiceController_ShutdownEcService_Name = 3;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_MOJOM_SHARED_MESSAGE_IDS_H_

@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+
+
+namespace chromeos::network_diagnostics::mojom {
 namespace internal {
 class  NetworkDiagnosticsRoutines_GetResult_Params_Data {
  public:
@@ -1450,9 +1450,9 @@ inline void NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsDataVie
   *output = RoutineResultDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+
+
+}  // chromeos::network_diagnostics::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -37,9 +37,7 @@
 
 
 
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
+namespace chromeos::network_diagnostics::mojom {
 
 class NetworkDiagnosticsRoutinesProxy;
 
@@ -1326,9 +1324,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+}  // chromeos::network_diagnostics::mojom
 
 namespace mojo {
 

@@ -10,8 +10,7 @@
 #include "arc/vm/libvda/gpu/mojom/video_decoder.mojom.h"
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 class  VideoDecoderInterceptorForTesting : public VideoDecoder {
@@ -65,7 +64,6 @@ class  VideoDecoderClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_DECODER_MOJOM_TEST_UTILS_H_

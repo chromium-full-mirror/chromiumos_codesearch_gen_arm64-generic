@@ -21,9 +21,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class NextWordCompletionCandidateDataView;
 
 class TextSuggesterQueryDataView;
@@ -65,8 +63,6 @@ class TextSuggester;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_TEXT_SUGGESTER_MOJOM_FORWARD_H_

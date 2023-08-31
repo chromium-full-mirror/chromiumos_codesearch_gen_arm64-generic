@@ -21,8 +21,7 @@
 
 
 
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 class MessageDataView;
 
 class Message;
@@ -35,7 +34,6 @@ class ChannelBootstrap;
 
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 #endif  // IPC_IPC_MOJOM_FORWARD_H_

@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class  JpegEncodeAccelerator_Initialize_Params_Data {
  public:
@@ -387,8 +388,9 @@ inline void JpegEncodeAccelerator_EncodeWithDmaBuf_ParamsDataView::GetOutputPlan
 
 
 
-}  // namespace mojom
-}  // namespace cros
+
+
+}  // cros::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

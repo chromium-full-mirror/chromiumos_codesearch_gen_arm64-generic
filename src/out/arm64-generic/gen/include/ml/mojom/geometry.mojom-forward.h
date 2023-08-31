@@ -21,8 +21,7 @@
 
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 class PointDataView;
 
 class PointFDataView;
@@ -96,7 +95,6 @@ using QuaternionPtr = mojo::InlinedStructPtr<Quaternion>;
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 #endif  // ML_MOJOM_GEOMETRY_MOJOM_FORWARD_H_

@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+
+
+namespace chromeos::machine_learning::mojom {
 namespace internal {
 class  GraphExecutor_Execute_Params_Data {
  public:
@@ -160,9 +160,9 @@ inline void GraphExecutor_Execute_ResponseParamsDataView::GetOutputsDataView(
   *output = mojo::ArrayDataView<::chromeos::machine_learning::mojom::TensorDataView>(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+
+
+}  // chromeos::machine_learning::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

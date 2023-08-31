@@ -31,14 +31,12 @@
 
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 class IPAddressDataView;
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 namespace mojo {
 namespace internal {
@@ -54,8 +52,7 @@ struct MojomTypeTraits<::smbfs::mojom::IPAddressDataView> {
 }  // namespace mojo
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 class IPAddressDataView {
@@ -84,8 +81,7 @@ class IPAddressDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 namespace std {
 
@@ -139,8 +135,7 @@ struct Serializer<::smbfs::mojom::IPAddressDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 inline void IPAddressDataView::GetAddressBytesDataView(
     mojo::ArrayDataView<uint8_t>* output) {
@@ -150,8 +145,7 @@ inline void IPAddressDataView::GetAddressBytesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

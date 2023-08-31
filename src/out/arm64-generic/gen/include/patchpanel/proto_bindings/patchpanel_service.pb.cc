@@ -306,6 +306,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR BruschettaVmStartupResponse::BruschettaVmStartupResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.tap_device_ifname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.ipv4_address_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.ipv4_subnet_)*/nullptr
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct BruschettaVmStartupResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR BruschettaVmStartupResponseDefaultTypeInternal()
@@ -6336,8 +6338,13 @@ std::string BruschettaVmStartupRequest::GetTypeName() const {
 
 class BruschettaVmStartupResponse::_Internal {
  public:
+  static const ::patchpanel::IPv4Subnet& ipv4_subnet(const BruschettaVmStartupResponse* msg);
 };
 
+const ::patchpanel::IPv4Subnet&
+BruschettaVmStartupResponse::_Internal::ipv4_subnet(const BruschettaVmStartupResponse* msg) {
+  return *msg->_impl_.ipv4_subnet_;
+}
 BruschettaVmStartupResponse::BruschettaVmStartupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -6349,6 +6356,8 @@ BruschettaVmStartupResponse::BruschettaVmStartupResponse(const BruschettaVmStart
   BruschettaVmStartupResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.tap_device_ifname_){}
+    , decltype(_impl_.ipv4_address_){}
+    , decltype(_impl_.ipv4_subnet_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -6360,6 +6369,17 @@ BruschettaVmStartupResponse::BruschettaVmStartupResponse(const BruschettaVmStart
     _this->_impl_.tap_device_ifname_.Set(from._internal_tap_device_ifname(), 
       _this->GetArenaForAllocation());
   }
+  _impl_.ipv4_address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ipv4_address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_ipv4_address().empty()) {
+    _this->_impl_.ipv4_address_.Set(from._internal_ipv4_address(), 
+      _this->GetArenaForAllocation());
+  }
+  if (from._internal_has_ipv4_subnet()) {
+    _this->_impl_.ipv4_subnet_ = new ::patchpanel::IPv4Subnet(*from._impl_.ipv4_subnet_);
+  }
   // @@protoc_insertion_point(copy_constructor:patchpanel.BruschettaVmStartupResponse)
 }
 
@@ -6369,11 +6389,17 @@ inline void BruschettaVmStartupResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.tap_device_ifname_){}
+    , decltype(_impl_.ipv4_address_){}
+    , decltype(_impl_.ipv4_subnet_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.tap_device_ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.tap_device_ifname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.ipv4_address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ipv4_address_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -6389,6 +6415,8 @@ BruschettaVmStartupResponse::~BruschettaVmStartupResponse() {
 inline void BruschettaVmStartupResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.tap_device_ifname_.Destroy();
+  _impl_.ipv4_address_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.ipv4_subnet_;
 }
 
 void BruschettaVmStartupResponse::SetCachedSize(int size) const {
@@ -6402,6 +6430,11 @@ void BruschettaVmStartupResponse::Clear() {
   (void) cached_has_bits;
 
   _impl_.tap_device_ifname_.ClearToEmpty();
+  _impl_.ipv4_address_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.ipv4_subnet_ != nullptr) {
+    delete _impl_.ipv4_subnet_;
+  }
+  _impl_.ipv4_subnet_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -6418,6 +6451,23 @@ const char* BruschettaVmStartupResponse::_InternalParse(const char* ptr, ::_pbi:
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_ipv4_subnet(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes ipv4_address = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_ipv4_address();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -6460,6 +6510,19 @@ uint8_t* BruschettaVmStartupResponse::_InternalSerialize(
         1, this->_internal_tap_device_ifname(), target);
   }
 
+  // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+  if (this->_internal_has_ipv4_subnet()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::ipv4_subnet(this),
+        _Internal::ipv4_subnet(this).GetCachedSize(), target, stream);
+  }
+
+  // bytes ipv4_address = 3;
+  if (!this->_internal_ipv4_address().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_ipv4_address(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6481,6 +6544,20 @@ size_t BruschettaVmStartupResponse::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_tap_device_ifname());
+  }
+
+  // bytes ipv4_address = 3;
+  if (!this->_internal_ipv4_address().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_ipv4_address());
+  }
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+  if (this->_internal_has_ipv4_subnet()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.ipv4_subnet_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6507,6 +6584,13 @@ void BruschettaVmStartupResponse::MergeFrom(const BruschettaVmStartupResponse& f
   if (!from._internal_tap_device_ifname().empty()) {
     _this->_internal_set_tap_device_ifname(from._internal_tap_device_ifname());
   }
+  if (!from._internal_ipv4_address().empty()) {
+    _this->_internal_set_ipv4_address(from._internal_ipv4_address());
+  }
+  if (from._internal_has_ipv4_subnet()) {
+    _this->_internal_mutable_ipv4_subnet()->::patchpanel::IPv4Subnet::MergeFrom(
+        from._internal_ipv4_subnet());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -6530,6 +6614,11 @@ void BruschettaVmStartupResponse::InternalSwap(BruschettaVmStartupResponse* othe
       &_impl_.tap_device_ifname_, lhs_arena,
       &other->_impl_.tap_device_ifname_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.ipv4_address_, lhs_arena,
+      &other->_impl_.ipv4_address_, rhs_arena
+  );
+  swap(_impl_.ipv4_subnet_, other->_impl_.ipv4_subnet_);
 }
 
 std::string BruschettaVmStartupResponse::GetTypeName() const {

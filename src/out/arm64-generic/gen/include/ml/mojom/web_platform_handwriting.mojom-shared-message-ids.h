@@ -8,20 +8,16 @@
 #define ML_MOJOM_WEB_PLATFORM_HANDWRITING_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace machine_learning {
-namespace web_platform {
-namespace mojom {
 
+
+namespace chromeos::machine_learning::web_platform::mojom {
 namespace internal {
 
 
 constexpr uint32_t kHandwritingRecognizer_GetPrediction_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace web_platform
-}  // namespace machine_learning
-}  // namespace chromeos
+
+}  // chromeos::machine_learning::web_platform::mojom
 
 #endif  // ML_MOJOM_WEB_PLATFORM_HANDWRITING_MOJOM_SHARED_MESSAGE_IDS_H_

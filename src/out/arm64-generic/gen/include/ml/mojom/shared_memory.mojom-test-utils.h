@@ -10,13 +10,11 @@
 #include "ml/mojom/shared_memory.mojom.h"
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // ML_MOJOM_SHARED_MEMORY_MOJOM_TEST_UTILS_H_

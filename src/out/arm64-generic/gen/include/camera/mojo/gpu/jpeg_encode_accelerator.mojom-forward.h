@@ -20,8 +20,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 enum class EncodeStatus : int32_t;
 class JpegEncodeAccelerator;
@@ -29,7 +28,6 @@ class JpegEncodeAccelerator;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_GPU_JPEG_ENCODE_ACCELERATOR_MOJOM_FORWARD_H_

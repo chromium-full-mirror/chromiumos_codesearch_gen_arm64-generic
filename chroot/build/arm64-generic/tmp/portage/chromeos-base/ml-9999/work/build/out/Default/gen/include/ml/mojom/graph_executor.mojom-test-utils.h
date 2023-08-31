@@ -10,9 +10,7 @@
 #include "ml/mojom/graph_executor.mojom.h"
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 class  GraphExecutorInterceptorForTesting : public GraphExecutor {
@@ -38,8 +36,6 @@ class  GraphExecutorAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_GRAPH_EXECUTOR_MOJOM_TEST_UTILS_H_

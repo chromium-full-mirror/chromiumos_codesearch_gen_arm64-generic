@@ -31,8 +31,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class TimeDataView;
 
 class TimeDeltaDataView;
@@ -41,8 +40,7 @@ class TimeTicksDataView;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -72,8 +70,7 @@ struct MojomTypeTraits<::mojo_base::mojom::TimeTicksDataView> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class TimeDataView {
@@ -130,8 +127,7 @@ class TimeTicksDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace std {
 
@@ -232,8 +228,7 @@ struct Serializer<::mojo_base::mojom::TimeTicksDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
@@ -242,8 +237,7 @@ namespace mojom {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

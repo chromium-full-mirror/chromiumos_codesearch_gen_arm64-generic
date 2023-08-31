@@ -8,9 +8,9 @@
 #define IIOSERVICE_MOJO_SENSOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace cros {
-namespace mojom {
 
+
+namespace cros::mojom {
 namespace internal {
 
 
@@ -37,7 +37,7 @@ constexpr uint32_t kSensorDeviceEventsObserver_OnEventUpdated_Name = 0;
 constexpr uint32_t kSensorDeviceEventsObserver_OnErrorOccurred_Name = 1;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // IIOSERVICE_MOJO_SENSOR_MOJOM_SHARED_MESSAGE_IDS_H_

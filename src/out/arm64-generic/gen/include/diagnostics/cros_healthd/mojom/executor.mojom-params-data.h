@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 class  ProcessControl_GetStdout_Params_Data {
  public:
@@ -3615,9 +3615,9 @@ inline void Executor_RunFloatingPoint_ParamsDataView::GetExecDurationDataView(
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+
+}  // ash::cros_healthd::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

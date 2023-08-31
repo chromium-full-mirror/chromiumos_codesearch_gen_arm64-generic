@@ -20,8 +20,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 enum class CameraMetadataSection : int32_t;
 
@@ -209,7 +208,6 @@ enum class AndroidAutomotiveLensFacing : int32_t;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CAMERA_METADATA_TAGS_MOJOM_FORWARD_H_

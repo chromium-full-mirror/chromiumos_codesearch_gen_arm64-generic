@@ -32,14 +32,10 @@
 
 
 
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+namespace ash::rollback_network_config::mojom {
 
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+}  // ash::rollback_network_config::mojom
 
 namespace mojo {
 namespace internal {
@@ -48,9 +44,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+namespace ash::rollback_network_config::mojom {
 // Interface base classes. They are used for type safety check.
 class RollbackNetworkConfigInterfaceBase {};
 
@@ -64,9 +58,7 @@ using RollbackNetworkConfigAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<RollbackNetworkConfigInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+}  // ash::rollback_network_config::mojom
 
 namespace std {
 
@@ -77,14 +69,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+namespace ash::rollback_network_config::mojom {
 
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+}  // ash::rollback_network_config::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

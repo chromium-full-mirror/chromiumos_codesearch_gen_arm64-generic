@@ -22,12 +22,17 @@
 
 
 namespace device::mojom {
+class SensorReadingRawDataView;
+
 class SensorConfigurationDataView;
 
 
 enum class SensorType : int32_t;
 
 enum class ReportingMode : int32_t;
+class SensorReadingRaw;
+using SensorReadingRawPtr = mojo::StructPtr<SensorReadingRaw>;
+
 class SensorConfiguration;
 using SensorConfigurationPtr = mojo::InlinedStructPtr<SensorConfiguration>;
 

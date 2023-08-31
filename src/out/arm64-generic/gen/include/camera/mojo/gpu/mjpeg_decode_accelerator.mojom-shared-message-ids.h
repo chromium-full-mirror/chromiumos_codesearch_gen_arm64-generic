@@ -8,9 +8,9 @@
 #define CAMERA_MOJO_GPU_MJPEG_DECODE_ACCELERATOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace cros {
-namespace mojom {
 
+
+namespace cros::mojom {
 namespace internal {
 
 
@@ -19,7 +19,7 @@ constexpr uint32_t kMjpegDecodeAccelerator_DecodeWithDmaBuf_Name = 3;
 constexpr uint32_t kMjpegDecodeAccelerator_Uninitialize_Name = 4;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_GPU_MJPEG_DECODE_ACCELERATOR_MOJOM_SHARED_MESSAGE_IDS_H_

@@ -42,9 +42,7 @@
 #include "iioservice/mojo/sensor.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 const char kScale[] = "scale";
 const char kSamplingFrequencyAvailable[] = "sampling_frequency_available";
 const char kLocation[] = "location";
@@ -4026,8 +4024,7 @@ bool SensorDeviceEventsObserverRequestValidator::Accept(mojo::Message* message) 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -4061,8 +4058,7 @@ bool StructTraits<::cros::mojom::IioEvent::DataView, ::cros::mojom::IioEventPtr>
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void SensorServiceInterceptorForTesting::GetDeviceIds(DeviceType type, GetDeviceIdsCallback callback) {
@@ -4400,8 +4396,7 @@ SensorDeviceEventsObserverAsyncWaiter::~SensorDeviceEventsObserverAsyncWaiter() 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

@@ -37,8 +37,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 class JpegEncodeAcceleratorProxy;
 
@@ -178,8 +177,7 @@ class  JpegEncodeAcceleratorResponseValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 

@@ -32,20 +32,14 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
+namespace ash::cros_healthd::internal::mojom {
 class TouchscreenDeviceDataView;
 
 class InputDeviceDataView;
 
 
 
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::internal::mojom
 
 namespace mojo {
 namespace internal {
@@ -68,10 +62,7 @@ struct MojomTypeTraits<::ash::cros_healthd::internal::mojom::InputDeviceDataView
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
+namespace ash::cros_healthd::internal::mojom {
 
 
 enum class InputDevice_ConnectionType : int32_t {
@@ -208,10 +199,7 @@ class InputDeviceDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::internal::mojom
 
 namespace std {
 
@@ -358,10 +346,7 @@ struct Serializer<::ash::cros_healthd::internal::mojom::InputDeviceDataView, May
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
+namespace ash::cros_healthd::internal::mojom {
 
 inline void TouchscreenDeviceDataView::GetInputDeviceDataView(
     InputDeviceDataView* output) {
@@ -388,10 +373,7 @@ inline void InputDeviceDataView::GetSysfsPathDataView(
 
 
 
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::internal::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -34,8 +34,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class VideoEncodeProfileDataView;
 
 class ConstantBitrateDataView;
@@ -47,8 +46,7 @@ class VideoEncodeAcceleratorConfigDataView;
 class BitrateDataView;
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace mojo {
 namespace internal {
@@ -92,8 +90,7 @@ struct MojomTypeTraits<::arc::mojom::BitrateDataView> {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 enum class VideoFrameStorageType : int32_t {
@@ -399,8 +396,7 @@ class BitrateDataView {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace std {
 
@@ -720,8 +716,7 @@ struct Serializer<::arc::mojom::BitrateDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 inline void VideoEncodeProfileDataView::GetMaxResolutionDataView(
     ::arc::mojom::SizeDataView* output) {
@@ -759,8 +754,7 @@ inline void BitrateDataView::GetVariableDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

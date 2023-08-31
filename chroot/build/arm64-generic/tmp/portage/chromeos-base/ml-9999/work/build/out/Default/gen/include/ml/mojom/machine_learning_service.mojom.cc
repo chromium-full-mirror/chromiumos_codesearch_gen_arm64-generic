@@ -42,10 +42,7 @@
 #include "ml/mojom/machine_learning_service.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 const char MachineLearningService::Name_[] = "chromeos.machine_learning.mojom.MachineLearningService";
 constexpr base::Token MachineLearningService::Uuid_;
 
@@ -3226,9 +3223,7 @@ bool MachineLearningServiceResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 namespace mojo {
@@ -3240,9 +3235,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 void MachineLearningServiceInterceptorForTesting::Clone(::mojo::PendingReceiver<MachineLearningService> receiver) {
@@ -3570,9 +3563,7 @@ LoadModelResult MachineLearningServiceAsyncWaiter::REMOVED_4(
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 
 #if defined(__clang__)

@@ -21,9 +21,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class StringListDataView;
 
 class FloatListDataView;
@@ -52,8 +50,6 @@ using ValueListPtr = mojo::StructPtr<ValueList>;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_TENSOR_MOJOM_FORWARD_H_

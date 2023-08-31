@@ -8,18 +8,16 @@
 #define MOJO_SERVICE_MANAGER_TESTING_TEST_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
 
+
+namespace chromeos::mojo_service_manager::mojom {
 namespace internal {
 
 
 constexpr uint32_t kFoo_Ping_Name = 0;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+
+}  // chromeos::mojo_service_manager::mojom
 
 #endif  // MOJO_SERVICE_MANAGER_TESTING_TEST_MOJOM_SHARED_MESSAGE_IDS_H_

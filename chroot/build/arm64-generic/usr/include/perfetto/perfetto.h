@@ -7450,6 +7450,8 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BufferConfig : public ::protozero::C
   enum FieldNumbers {
     kSizeKbFieldNumber = 1,
     kFillPolicyFieldNumber = 4,
+    kTransferOnCloneFieldNumber = 5,
+    kClearBeforeCloneFieldNumber = 6,
   };
 
   TraceConfig_BufferConfig();
@@ -7474,15 +7476,25 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BufferConfig : public ::protozero::C
   TraceConfig_BufferConfig_FillPolicy fill_policy() const { return fill_policy_; }
   void set_fill_policy(TraceConfig_BufferConfig_FillPolicy value) { fill_policy_ = value; _has_field_.set(4); }
 
+  bool has_transfer_on_clone() const { return _has_field_[5]; }
+  bool transfer_on_clone() const { return transfer_on_clone_; }
+  void set_transfer_on_clone(bool value) { transfer_on_clone_ = value; _has_field_.set(5); }
+
+  bool has_clear_before_clone() const { return _has_field_[6]; }
+  bool clear_before_clone() const { return clear_before_clone_; }
+  void set_clear_before_clone(bool value) { clear_before_clone_ = value; _has_field_.set(6); }
+
  private:
   uint32_t size_kb_{};
   TraceConfig_BufferConfig_FillPolicy fill_policy_{};
+  bool transfer_on_clone_{};
+  bool clear_before_clone_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<5> _has_field_{};
+  std::bitset<7> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -7531,6 +7543,116 @@ inline TraceConfig::TriggerConfig::TriggerMode GetTriggerMode(
 
 #endif  // INCLUDE_PERFETTO_TRACING_CORE_TRACE_CONFIG_H_
 // gen_amalgamated begin header: include/perfetto/tracing/data_source.h
+// gen_amalgamated begin header: include/perfetto/tracing/core/flush_flags.h
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef INCLUDE_PERFETTO_TRACING_CORE_FLUSH_FLAGS_H_
+#define INCLUDE_PERFETTO_TRACING_CORE_FLUSH_FLAGS_H_
+
+#include <stddef.h>
+#include <stdint.h>
+
+namespace perfetto {
+
+// This class is a wrapper around the uint64_t flags that are sent across the
+// tracing protocol whenenver a flush occurs. It helps determining the reason
+// and initiator of the flush.
+// NOTE: the values here are part of the tracing protocol ABI. Do not renumber.
+class FlushFlags {
+ public:
+  enum class Initiator : uint64_t {
+    // DO NOT RENUMBER, ABI.
+    kUnknown = 0,
+    kTraced = 1,
+    kPerfettoCmd = 2,
+    kConsumerSdk = 3,
+    kMax,
+  };
+
+  enum class Reason : uint64_t {
+    // DO NOT RENUMBER, ABI.
+    kUnknown = 0,
+    kPeriodic = 1,
+    kTraceStop = 2,
+    kTraceClone = 3,
+    kExplicit = 4,
+    kMax,
+  };
+
+  enum class CloneTarget : uint64_t {
+    // DO NOT RENUMBER, ABI.
+    kUnknown = 0,
+    kBugreport = 1,
+    kMax,
+  };
+
+  explicit FlushFlags(uint64_t flags = 0) : flags_(flags) {}
+  FlushFlags(Initiator i, Reason r, CloneTarget c = CloneTarget::kUnknown)
+      : flags_((static_cast<uint64_t>(i) << kInitiatorShift) |
+               (static_cast<uint64_t>(r) << kReasonShift) |
+               (static_cast<uint64_t>(c) << kCloneTargetShift)) {}
+
+  bool operator==(const FlushFlags& o) const { return flags_ == o.flags_; }
+  bool operator!=(const FlushFlags& o) const { return !(*this == o); }
+
+  Initiator initiator() const {
+    // Due to version mismatch we might see a value from the future that we
+    // didn't know yet. If that happens, short ciruit to kUnknown.
+    static_assert(
+        uint64_t(Initiator::kMax) - 1 <= (kInitiatorMask >> kInitiatorShift),
+        "enum out of range");
+    const uint64_t value = (flags_ & kInitiatorMask) >> kInitiatorShift;
+    return value < uint64_t(Initiator::kMax) ? Initiator(value)
+                                             : Initiator::kUnknown;
+  }
+
+  Reason reason() const {
+    static_assert(uint64_t(Reason::kMax) - 1 <= (kReasonMask >> kReasonShift),
+                  "enum out of range");
+    const uint64_t value = (flags_ & kReasonMask) >> kReasonShift;
+    return value < uint64_t(Reason::kMax) ? Reason(value) : Reason::kUnknown;
+  }
+
+  CloneTarget clone_target() const {
+    static_assert(uint64_t(CloneTarget::kMax) - 1 <=
+                      (kCloneTargetMask >> kCloneTargetShift),
+                  "enum out of range");
+    const uint64_t value = (flags_ & kCloneTargetMask) >> kCloneTargetShift;
+    return value < uint64_t(CloneTarget::kMax) ? CloneTarget(value)
+                                               : CloneTarget::kUnknown;
+  }
+
+  uint64_t flags() const { return flags_; }
+
+ private:
+  // DO NOT CHANGE, ABI.
+  static constexpr uint64_t kReasonMask = 0xF;
+  static constexpr uint64_t kReasonShift = 0;
+  static constexpr uint64_t kInitiatorMask = 0xF0;
+  static constexpr uint64_t kInitiatorShift = 4;
+  static constexpr uint64_t kCloneTargetMask = 0xF00;
+  static constexpr uint64_t kCloneTargetShift = 8;
+
+  uint64_t flags_ = 0;
+};
+
+}  // namespace perfetto
+
+#endif  // INCLUDE_PERFETTO_TRACING_CORE_FLUSH_FLAGS_H_
 // gen_amalgamated begin header: include/perfetto/tracing/internal/data_source_type.h
 // gen_amalgamated begin header: include/perfetto/tracing/internal/tracing_muxer.h
 // gen_amalgamated begin header: include/perfetto/tracing/internal/tracing_tls.h
@@ -10710,6 +10832,7 @@ class TracePacket : public ::protozero::Message {
 
 // gen_amalgamated expanded: #include "perfetto/protozero/message_handle.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/buffer_exhausted_policy.h"
+// gen_amalgamated expanded: #include "perfetto/tracing/core/flush_flags.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/core/forward_decls.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/basic_types.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/data_source_internal.h"
@@ -10837,6 +10960,9 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
 
     // The index of this data source instance (0..kMaxDataSourceInstances - 1).
     uint32_t internal_instance_index = 0;
+
+    // The reason and initiator of the flush. See flush_flags.h .
+    FlushFlags flush_flags;
   };
   // Called when the tracing service requests a Flush. Users can override this
   // to tell other threads to flush their TraceContext for this data source
@@ -47564,7 +47690,7 @@ class TraceConfig_DataSource : public ::protozero::Message {
   }
 };
 
-class TraceConfig_BufferConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TraceConfig_BufferConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TraceConfig_BufferConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceConfig_BufferConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -47573,6 +47699,10 @@ class TraceConfig_BufferConfig_Decoder : public ::protozero::TypedProtoDecoder</
   uint32_t size_kb() const { return at<1>().as_uint32(); }
   bool has_fill_policy() const { return at<4>().valid(); }
   int32_t fill_policy() const { return at<4>().as_int32(); }
+  bool has_transfer_on_clone() const { return at<5>().valid(); }
+  bool transfer_on_clone() const { return at<5>().as_bool(); }
+  bool has_clear_before_clone() const { return at<6>().valid(); }
+  bool clear_before_clone() const { return at<6>().as_bool(); }
 };
 
 class TraceConfig_BufferConfig : public ::protozero::Message {
@@ -47581,6 +47711,8 @@ class TraceConfig_BufferConfig : public ::protozero::Message {
   enum : int32_t {
     kSizeKbFieldNumber = 1,
     kFillPolicyFieldNumber = 4,
+    kTransferOnCloneFieldNumber = 5,
+    kClearBeforeCloneFieldNumber = 6,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TraceConfig.BufferConfig"; }
 
@@ -47626,6 +47758,42 @@ class TraceConfig_BufferConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TransferOnClone =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TraceConfig_BufferConfig>;
+
+  static constexpr FieldMetadata_TransferOnClone kTransferOnClone{};
+  void set_transfer_on_clone(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_TransferOnClone::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ClearBeforeClone =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TraceConfig_BufferConfig>;
+
+  static constexpr FieldMetadata_ClearBeforeClone kClearBeforeClone{};
+  void set_clear_before_clone(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ClearBeforeClone::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -61653,6 +61821,7 @@ class RegulatorSetVoltageFtraceEvent;
 class RotatorBwAoAsContextFtraceEvent;
 class RssStatFtraceEvent;
 class RssStatThrottledFtraceEvent;
+class SamsungTracingMarkWriteFtraceEvent;
 class SchedBlockedReasonFtraceEvent;
 class SchedCpuHotplugFtraceEvent;
 class SchedCpuUtilCfsFtraceEvent;
@@ -61738,7 +61907,7 @@ class WorkqueueExecuteStartFtraceEvent;
 class WorkqueueQueueWorkFtraceEvent;
 class ZeroFtraceEvent;
 
-class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/483, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/484, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   FtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -62673,6 +62842,8 @@ class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes mali_mali_csf_interrupt_start() const { return at<482>().as_bytes(); }
   bool has_mali_mali_csf_interrupt_end() const { return at<483>().valid(); }
   ::protozero::ConstBytes mali_mali_csf_interrupt_end() const { return at<483>().as_bytes(); }
+  bool has_samsung_tracing_mark_write() const { return at<484>().valid(); }
+  ::protozero::ConstBytes samsung_tracing_mark_write() const { return at<484>().as_bytes(); }
 };
 
 class FtraceEvent : public ::protozero::Message {
@@ -63144,6 +63315,7 @@ class FtraceEvent : public ::protozero::Message {
     kSuspendResumeMinimalFieldNumber = 481,
     kMaliMaliCSFINTERRUPTSTARTFieldNumber = 482,
     kMaliMaliCSFINTERRUPTENDFieldNumber = 483,
+    kSamsungTracingMarkWriteFieldNumber = 484,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceEvent"; }
 
@@ -69667,6 +69839,20 @@ class FtraceEvent : public ::protozero::Message {
   static constexpr FieldMetadata_MaliMaliCSFINTERRUPTEND kMaliMaliCSFINTERRUPTEND{};
   template <typename T = MaliMaliCSFINTERRUPTENDFtraceEvent> T* set_mali_mali_csf_interrupt_end() {
     return BeginNestedMessage<T>(483);
+  }
+
+
+  using FieldMetadata_SamsungTracingMarkWrite =
+    ::protozero::proto_utils::FieldMetadata<
+      484,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      SamsungTracingMarkWriteFtraceEvent,
+      FtraceEvent>;
+
+  static constexpr FieldMetadata_SamsungTracingMarkWrite kSamsungTracingMarkWrite{};
+  template <typename T = SamsungTracingMarkWriteFtraceEvent> T* set_samsung_tracing_mark_write() {
+    return BeginNestedMessage<T>(484);
   }
 
 };
@@ -113194,6 +113380,157 @@ class RegulatorDisableFtraceEvent : public ::protozero::Message {
 } // Namespace.
 } // Namespace.
 #endif  // Include guard.
+// gen_amalgamated begin header: gen/protos/perfetto/trace/ftrace/samsung.pbzero.h
+// Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
+
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_FTRACE_SAMSUNG_PROTO_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_FTRACE_SAMSUNG_PROTO_H_
+
+#include <stddef.h>
+#include <stdint.h>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/field_writer.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/message.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/packed_repeated_fields.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_decoder.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_utils.h"
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
+
+
+class SamsungTracingMarkWriteFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  SamsungTracingMarkWriteFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit SamsungTracingMarkWriteFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit SamsungTracingMarkWriteFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_pid() const { return at<1>().valid(); }
+  int32_t pid() const { return at<1>().as_int32(); }
+  bool has_trace_name() const { return at<2>().valid(); }
+  ::protozero::ConstChars trace_name() const { return at<2>().as_string(); }
+  bool has_trace_begin() const { return at<3>().valid(); }
+  uint32_t trace_begin() const { return at<3>().as_uint32(); }
+  bool has_trace_type() const { return at<4>().valid(); }
+  uint32_t trace_type() const { return at<4>().as_uint32(); }
+  bool has_value() const { return at<5>().valid(); }
+  int32_t value() const { return at<5>().as_int32(); }
+};
+
+class SamsungTracingMarkWriteFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = SamsungTracingMarkWriteFtraceEvent_Decoder;
+  enum : int32_t {
+    kPidFieldNumber = 1,
+    kTraceNameFieldNumber = 2,
+    kTraceBeginFieldNumber = 3,
+    kTraceTypeFieldNumber = 4,
+    kValueFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.SamsungTracingMarkWriteFtraceEvent"; }
+
+
+  using FieldMetadata_Pid =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      SamsungTracingMarkWriteFtraceEvent>;
+
+  static constexpr FieldMetadata_Pid kPid{};
+  void set_pid(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Pid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TraceName =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      SamsungTracingMarkWriteFtraceEvent>;
+
+  static constexpr FieldMetadata_TraceName kTraceName{};
+  void set_trace_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_TraceName::kFieldId, data, size);
+  }
+  void set_trace_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_TraceName::kFieldId, chars.data, chars.size);
+  }
+  void set_trace_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_TraceName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TraceBegin =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      SamsungTracingMarkWriteFtraceEvent>;
+
+  static constexpr FieldMetadata_TraceBegin kTraceBegin{};
+  void set_trace_begin(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TraceBegin::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TraceType =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      SamsungTracingMarkWriteFtraceEvent>;
+
+  static constexpr FieldMetadata_TraceType kTraceType{};
+  void set_trace_type(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TraceType::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Value =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      SamsungTracingMarkWriteFtraceEvent>;
+
+  static constexpr FieldMetadata_Value kValue{};
+  void set_value(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Value::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+} // Namespace.
+} // Namespace.
+} // Namespace.
+#endif  // Include guard.
 // gen_amalgamated begin header: gen/protos/perfetto/trace/ftrace/sched.pbzero.h
 // Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
 
@@ -148166,6 +148503,7 @@ class PERFETTO_EXPORT_COMPONENT FlushRequest : public ::protozero::CppMessageObj
  public:
   enum FieldNumbers {
     kTimeoutMsFieldNumber = 1,
+    kFlagsFieldNumber = 2,
   };
 
   FlushRequest();
@@ -148186,14 +148524,19 @@ class PERFETTO_EXPORT_COMPONENT FlushRequest : public ::protozero::CppMessageObj
   uint32_t timeout_ms() const { return timeout_ms_; }
   void set_timeout_ms(uint32_t value) { timeout_ms_ = value; _has_field_.set(1); }
 
+  bool has_flags() const { return _has_field_[2]; }
+  uint64_t flags() const { return flags_; }
+  void set_flags(uint64_t value) { flags_ = value; _has_field_.set(2); }
+
  private:
   uint32_t timeout_ms_{};
+  uint64_t flags_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<2> _has_field_{};
+  std::bitset<3> _has_field_{};
 };
 
 
@@ -148885,6 +149228,7 @@ class PERFETTO_EXPORT_COMPONENT GetAsyncCommandResponse_Flush : public ::protoze
   enum FieldNumbers {
     kDataSourceIdsFieldNumber = 1,
     kRequestIdFieldNumber = 2,
+    kFlagsFieldNumber = 3,
   };
 
   GetAsyncCommandResponse_Flush();
@@ -148912,15 +149256,20 @@ class PERFETTO_EXPORT_COMPONENT GetAsyncCommandResponse_Flush : public ::protoze
   uint64_t request_id() const { return request_id_; }
   void set_request_id(uint64_t value) { request_id_ = value; _has_field_.set(2); }
 
+  bool has_flags() const { return _has_field_[3]; }
+  uint64_t flags() const { return flags_; }
+  void set_flags(uint64_t value) { flags_ = value; _has_field_.set(3); }
+
  private:
   std::vector<uint64_t> data_source_ids_;
   uint64_t request_id_{};
+  uint64_t flags_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<4> _has_field_{};
 };
 
 

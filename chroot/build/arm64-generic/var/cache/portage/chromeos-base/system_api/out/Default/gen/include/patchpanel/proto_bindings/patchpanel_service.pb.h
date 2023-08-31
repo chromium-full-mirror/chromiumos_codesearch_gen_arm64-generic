@@ -3748,6 +3748,8 @@ class BruschettaVmStartupResponse final :
 
   enum : int {
     kTapDeviceIfnameFieldNumber = 1,
+    kIpv4AddressFieldNumber = 3,
+    kIpv4SubnetFieldNumber = 2,
   };
   // string tap_device_ifname = 1;
   void clear_tap_device_ifname();
@@ -3763,6 +3765,38 @@ class BruschettaVmStartupResponse final :
   std::string* _internal_mutable_tap_device_ifname();
   public:
 
+  // bytes ipv4_address = 3;
+  void clear_ipv4_address();
+  const std::string& ipv4_address() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ipv4_address(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ipv4_address();
+  PROTOBUF_NODISCARD std::string* release_ipv4_address();
+  void set_allocated_ipv4_address(std::string* ipv4_address);
+  private:
+  const std::string& _internal_ipv4_address() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ipv4_address(const std::string& value);
+  std::string* _internal_mutable_ipv4_address();
+  public:
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+  bool has_ipv4_subnet() const;
+  private:
+  bool _internal_has_ipv4_subnet() const;
+  public:
+  void clear_ipv4_subnet();
+  const ::patchpanel::IPv4Subnet& ipv4_subnet() const;
+  PROTOBUF_NODISCARD ::patchpanel::IPv4Subnet* release_ipv4_subnet();
+  ::patchpanel::IPv4Subnet* mutable_ipv4_subnet();
+  void set_allocated_ipv4_subnet(::patchpanel::IPv4Subnet* ipv4_subnet);
+  private:
+  const ::patchpanel::IPv4Subnet& _internal_ipv4_subnet() const;
+  ::patchpanel::IPv4Subnet* _internal_mutable_ipv4_subnet();
+  public:
+  void unsafe_arena_set_allocated_ipv4_subnet(
+      ::patchpanel::IPv4Subnet* ipv4_subnet);
+  ::patchpanel::IPv4Subnet* unsafe_arena_release_ipv4_subnet();
+
   // @@protoc_insertion_point(class_scope:patchpanel.BruschettaVmStartupResponse)
  private:
   class _Internal;
@@ -3772,6 +3806,8 @@ class BruschettaVmStartupResponse final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tap_device_ifname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ipv4_address_;
+    ::patchpanel::IPv4Subnet* ipv4_subnet_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -11129,6 +11165,146 @@ inline void BruschettaVmStartupResponse::set_allocated_tap_device_ifname(std::st
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:patchpanel.BruschettaVmStartupResponse.tap_device_ifname)
+}
+
+// .patchpanel.IPv4Subnet ipv4_subnet = 2;
+inline bool BruschettaVmStartupResponse::_internal_has_ipv4_subnet() const {
+  return this != internal_default_instance() && _impl_.ipv4_subnet_ != nullptr;
+}
+inline bool BruschettaVmStartupResponse::has_ipv4_subnet() const {
+  return _internal_has_ipv4_subnet();
+}
+inline void BruschettaVmStartupResponse::clear_ipv4_subnet() {
+  if (GetArenaForAllocation() == nullptr && _impl_.ipv4_subnet_ != nullptr) {
+    delete _impl_.ipv4_subnet_;
+  }
+  _impl_.ipv4_subnet_ = nullptr;
+}
+inline const ::patchpanel::IPv4Subnet& BruschettaVmStartupResponse::_internal_ipv4_subnet() const {
+  const ::patchpanel::IPv4Subnet* p = _impl_.ipv4_subnet_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::IPv4Subnet&>(
+      ::patchpanel::_IPv4Subnet_default_instance_);
+}
+inline const ::patchpanel::IPv4Subnet& BruschettaVmStartupResponse::ipv4_subnet() const {
+  // @@protoc_insertion_point(field_get:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+  return _internal_ipv4_subnet();
+}
+inline void BruschettaVmStartupResponse::unsafe_arena_set_allocated_ipv4_subnet(
+    ::patchpanel::IPv4Subnet* ipv4_subnet) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ipv4_subnet_);
+  }
+  _impl_.ipv4_subnet_ = ipv4_subnet;
+  if (ipv4_subnet) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+}
+inline ::patchpanel::IPv4Subnet* BruschettaVmStartupResponse::release_ipv4_subnet() {
+  
+  ::patchpanel::IPv4Subnet* temp = _impl_.ipv4_subnet_;
+  _impl_.ipv4_subnet_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::patchpanel::IPv4Subnet* BruschettaVmStartupResponse::unsafe_arena_release_ipv4_subnet() {
+  // @@protoc_insertion_point(field_release:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+  
+  ::patchpanel::IPv4Subnet* temp = _impl_.ipv4_subnet_;
+  _impl_.ipv4_subnet_ = nullptr;
+  return temp;
+}
+inline ::patchpanel::IPv4Subnet* BruschettaVmStartupResponse::_internal_mutable_ipv4_subnet() {
+  
+  if (_impl_.ipv4_subnet_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::IPv4Subnet>(GetArenaForAllocation());
+    _impl_.ipv4_subnet_ = p;
+  }
+  return _impl_.ipv4_subnet_;
+}
+inline ::patchpanel::IPv4Subnet* BruschettaVmStartupResponse::mutable_ipv4_subnet() {
+  ::patchpanel::IPv4Subnet* _msg = _internal_mutable_ipv4_subnet();
+  // @@protoc_insertion_point(field_mutable:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+  return _msg;
+}
+inline void BruschettaVmStartupResponse::set_allocated_ipv4_subnet(::patchpanel::IPv4Subnet* ipv4_subnet) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.ipv4_subnet_;
+  }
+  if (ipv4_subnet) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ipv4_subnet);
+    if (message_arena != submessage_arena) {
+      ipv4_subnet = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ipv4_subnet, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.ipv4_subnet_ = ipv4_subnet;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+}
+
+// bytes ipv4_address = 3;
+inline void BruschettaVmStartupResponse::clear_ipv4_address() {
+  _impl_.ipv4_address_.ClearToEmpty();
+}
+inline const std::string& BruschettaVmStartupResponse::ipv4_address() const {
+  // @@protoc_insertion_point(field_get:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+  return _internal_ipv4_address();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void BruschettaVmStartupResponse::set_ipv4_address(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.ipv4_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+}
+inline std::string* BruschettaVmStartupResponse::mutable_ipv4_address() {
+  std::string* _s = _internal_mutable_ipv4_address();
+  // @@protoc_insertion_point(field_mutable:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+  return _s;
+}
+inline const std::string& BruschettaVmStartupResponse::_internal_ipv4_address() const {
+  return _impl_.ipv4_address_.Get();
+}
+inline void BruschettaVmStartupResponse::_internal_set_ipv4_address(const std::string& value) {
+  
+  _impl_.ipv4_address_.Set(value, GetArenaForAllocation());
+}
+inline std::string* BruschettaVmStartupResponse::_internal_mutable_ipv4_address() {
+  
+  return _impl_.ipv4_address_.Mutable(GetArenaForAllocation());
+}
+inline std::string* BruschettaVmStartupResponse::release_ipv4_address() {
+  // @@protoc_insertion_point(field_release:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+  return _impl_.ipv4_address_.Release();
+}
+inline void BruschettaVmStartupResponse::set_allocated_ipv4_address(std::string* ipv4_address) {
+  if (ipv4_address != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.ipv4_address_.SetAllocated(ipv4_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.ipv4_address_.IsDefault()) {
+    _impl_.ipv4_address_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.BruschettaVmStartupResponse.ipv4_address)
 }
 
 // -------------------------------------------------------------------

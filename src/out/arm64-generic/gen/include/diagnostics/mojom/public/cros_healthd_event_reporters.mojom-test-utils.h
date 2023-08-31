@@ -10,9 +10,7 @@
 #include "diagnostics/mojom/public/cros_healthd_event_reporters.mojom.h"
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class  AshEventReporterInterceptorForTesting : public AshEventReporter {
@@ -35,8 +33,6 @@ class  AshEventReporterAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_EVENT_REPORTERS_MOJOM_TEST_UTILS_H_

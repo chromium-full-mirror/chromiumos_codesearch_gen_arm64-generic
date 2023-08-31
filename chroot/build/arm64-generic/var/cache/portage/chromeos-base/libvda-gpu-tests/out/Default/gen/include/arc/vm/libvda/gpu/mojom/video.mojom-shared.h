@@ -36,12 +36,10 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace mojo {
 namespace internal {
@@ -50,8 +48,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 // Interface base classes. They are used for type safety check.
 class VideoHostInterfaceBase {};
 
@@ -85,8 +82,7 @@ using VideoAcceleratorFactoryAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<VideoAcceleratorFactoryInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace std {
 
@@ -97,12 +93,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

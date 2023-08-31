@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace printscanmgr {
-namespace mojom {
+
+
+namespace printscanmgr::mojom {
 namespace internal {
 class  Executor_RestartUpstartJob_Params_Data {
  public:
@@ -121,8 +122,9 @@ inline void Executor_RestartUpstartJob_ResponseParamsDataView::GetErrorMsgDataVi
   *output = mojo::StringDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace printscanmgr
+
+
+}  // printscanmgr::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

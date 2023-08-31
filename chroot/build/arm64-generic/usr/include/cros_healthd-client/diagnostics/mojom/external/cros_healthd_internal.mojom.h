@@ -36,10 +36,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
+namespace ash::cros_healthd::internal::mojom {
 
 class ChromiumDataCollectorProxy;
 
@@ -591,10 +588,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::internal::mojom
 
 namespace mojo {
 

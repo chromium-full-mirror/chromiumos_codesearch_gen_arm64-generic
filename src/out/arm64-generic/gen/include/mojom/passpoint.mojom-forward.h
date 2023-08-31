@@ -21,9 +21,7 @@
 
 
 
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+namespace chromeos::connectivity::mojom {
 class PasspointSubscriptionDataView;
 
 class PasspointSubscription;
@@ -36,8 +34,6 @@ class PasspointService;
 
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+}  // chromeos::connectivity::mojom
 
 #endif  // MOJOM_PASSPOINT_MOJOM_FORWARD_H_

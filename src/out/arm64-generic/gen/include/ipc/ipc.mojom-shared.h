@@ -34,14 +34,12 @@
 
 
 
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 class MessageDataView;
 
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 namespace mojo {
 namespace internal {
@@ -57,8 +55,7 @@ struct MojomTypeTraits<::IPC::mojom::MessageDataView> {
 }  // namespace mojo
 
 
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 // Interface base classes. They are used for type safety check.
 class ChannelInterfaceBase {};
 
@@ -128,8 +125,7 @@ static_assert(
 };
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 namespace std {
 
@@ -193,8 +189,7 @@ struct Serializer<::IPC::mojom::MessageDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 
 inline void MessageDataView::GetBytesDataView(
     mojo::ArrayDataView<uint8_t>* output) {
@@ -209,8 +204,7 @@ inline void MessageDataView::GetHandlesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

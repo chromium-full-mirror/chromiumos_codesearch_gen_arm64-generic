@@ -20,8 +20,7 @@
 
 
 
-namespace printscanmgr {
-namespace mojom {
+namespace printscanmgr::mojom {
 
 enum class UpstartJob : int32_t;
 class Executor;
@@ -29,7 +28,6 @@ class Executor;
 
 
 
-}  // namespace mojom
-}  // namespace printscanmgr
+}  // printscanmgr::mojom
 
 #endif  // PRINTSCANMGR_MOJOM_EXECUTOR_MOJOM_FORWARD_H_

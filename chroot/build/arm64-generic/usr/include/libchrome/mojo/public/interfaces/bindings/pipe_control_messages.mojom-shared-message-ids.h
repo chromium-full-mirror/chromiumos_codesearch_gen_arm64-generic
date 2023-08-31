@@ -8,15 +8,15 @@
 #define MOJO_PUBLIC_INTERFACES_BINDINGS_PIPE_CONTROL_MESSAGES_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace mojo {
-namespace pipe_control {
 
+
+namespace mojo::pipe_control {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace pipe_control
-}  // namespace mojo
+
+}  // mojo::pipe_control
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_PIPE_CONTROL_MESSAGES_MOJOM_SHARED_MESSAGE_IDS_H_

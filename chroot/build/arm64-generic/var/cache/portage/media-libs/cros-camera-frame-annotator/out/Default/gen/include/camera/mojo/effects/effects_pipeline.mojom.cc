@@ -42,9 +42,7 @@
 #include "camera/mojo/effects/effects_pipeline.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 EffectsConfig::EffectsConfig()
     : effect(CameraEffect::kNone),
       blur_level(BlurLevel::kMedium),
@@ -259,8 +257,7 @@ bool EffectsConfig::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -305,14 +302,12 @@ bool StructTraits<::cros::mojom::EffectsConfig::DataView, ::cros::mojom::Effects
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

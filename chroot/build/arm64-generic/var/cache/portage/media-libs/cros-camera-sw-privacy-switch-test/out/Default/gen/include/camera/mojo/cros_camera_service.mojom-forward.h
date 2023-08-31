@@ -20,8 +20,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 enum class CameraClientType : int32_t;
 
@@ -41,7 +40,6 @@ class CameraHalClient;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CROS_CAMERA_SERVICE_MOJOM_FORWARD_H_

@@ -37,8 +37,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 class SensorHalServerProxy;
 
@@ -254,8 +253,7 @@ class  SensorHalClientRequestValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 

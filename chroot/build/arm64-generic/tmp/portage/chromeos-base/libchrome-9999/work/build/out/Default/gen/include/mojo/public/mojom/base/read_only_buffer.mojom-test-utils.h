@@ -10,13 +10,11 @@
 #include "mojo/public/mojom/base/read_only_buffer.mojom.h"
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_READ_ONLY_BUFFER_MOJOM_TEST_UTILS_H_

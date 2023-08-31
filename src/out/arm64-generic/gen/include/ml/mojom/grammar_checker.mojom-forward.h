@@ -21,9 +21,7 @@
 
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 class GrammarCheckerQueryDataView;
 
 class GrammarCorrectionFragmentDataView;
@@ -51,8 +49,6 @@ class GrammarChecker;
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_GRAMMAR_CHECKER_MOJOM_FORWARD_H_

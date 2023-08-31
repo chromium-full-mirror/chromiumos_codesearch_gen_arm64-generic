@@ -10,13 +10,11 @@
 #include "mojo/public/mojom/base/process_id.mojom.h"
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_PROCESS_ID_MOJOM_TEST_UTILS_H_

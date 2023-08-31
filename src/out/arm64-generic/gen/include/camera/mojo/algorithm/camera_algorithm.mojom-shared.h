@@ -32,12 +32,10 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -46,8 +44,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 // Interface base classes. They are used for type safety check.
 class CameraAlgorithmOpsInterfaceBase {};
 
@@ -71,8 +68,7 @@ using CameraAlgorithmCallbackOpsAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CameraAlgorithmCallbackOpsInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -83,12 +79,10 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

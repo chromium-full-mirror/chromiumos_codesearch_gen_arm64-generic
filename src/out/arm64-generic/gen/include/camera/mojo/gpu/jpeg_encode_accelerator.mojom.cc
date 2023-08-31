@@ -42,9 +42,7 @@
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-test-utils.h"
 
 
-
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 const char JpegEncodeAccelerator::Name_[] = "cros.mojom.JpegEncodeAccelerator";
 
 JpegEncodeAccelerator::IPCStableHashFunction JpegEncodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
@@ -1004,8 +1002,7 @@ bool JpegEncodeAcceleratorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 namespace mojo {
@@ -1017,8 +1014,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 void JpegEncodeAcceleratorInterceptorForTesting::Initialize(InitializeCallback callback) {
@@ -1111,8 +1107,7 @@ void JpegEncodeAcceleratorAsyncWaiter::EncodeWithDmaBuf(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 
 #if defined(__clang__)

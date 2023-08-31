@@ -42,9 +42,7 @@
 #include "mojo/public/mojom/base/file_info.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 FileInfo::FileInfo()
     : size(),
       is_directory(),
@@ -144,8 +142,7 @@ bool FileInfo::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -181,14 +178,12 @@ bool StructTraits<::mojo_base::mojom::FileInfo::DataView, ::mojo_base::mojom::Fi
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

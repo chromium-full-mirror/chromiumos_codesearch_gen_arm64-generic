@@ -20,9 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+
+
+namespace ash::rollback_network_config::mojom {
 namespace internal {
 
 #pragma pack(push, 1)
@@ -30,8 +30,7 @@ namespace internal {
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+
+}  // ash::rollback_network_config::mojom
 
 #endif  // MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_SHARED_INTERNAL_H_

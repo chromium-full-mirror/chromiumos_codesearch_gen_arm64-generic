@@ -10,9 +10,7 @@
 #include "ml/mojom/grammar_checker.mojom.h"
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 class  GrammarCheckerInterceptorForTesting : public GrammarChecker {
@@ -38,8 +36,6 @@ class  GrammarCheckerAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_GRAMMAR_CHECKER_MOJOM_TEST_UTILS_H_

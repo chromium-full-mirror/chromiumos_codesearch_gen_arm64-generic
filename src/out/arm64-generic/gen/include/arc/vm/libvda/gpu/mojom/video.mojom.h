@@ -40,8 +40,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 class VideoHostProxy;
 
@@ -403,8 +402,7 @@ class  VideoInstanceResponseValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace mojo {
 

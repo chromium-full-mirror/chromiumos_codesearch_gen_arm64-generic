@@ -10,8 +10,7 @@
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class  JpegEncodeAcceleratorInterceptorForTesting : public JpegEncodeAccelerator {
@@ -45,7 +44,6 @@ class  JpegEncodeAcceleratorAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_GPU_JPEG_ENCODE_ACCELERATOR_MOJOM_TEST_UTILS_H_

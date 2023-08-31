@@ -42,10 +42,7 @@
 #include "diagnostics/mojom/public/nullable_primitives.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 NullableUint8::NullableUint8()
     : value() {}
 
@@ -240,9 +237,7 @@ bool NullableDouble::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 namespace mojo {
@@ -338,16 +333,12 @@ bool StructTraits<::ash::cros_healthd::mojom::NullableDouble::DataView, ::ash::c
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 #if defined(__clang__)

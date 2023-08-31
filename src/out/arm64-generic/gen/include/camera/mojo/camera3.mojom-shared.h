@@ -34,8 +34,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class CropRotateScaleInfoDataView;
 
 class Camera3StreamDataView;
@@ -65,8 +64,7 @@ class Camera3CaptureResultDataView;
 class Camera3NotifyMsgMessageDataView;
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -173,8 +171,7 @@ struct MojomTypeTraits<::cros::mojom::Camera3NotifyMsgMessageDataView> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 enum class HalPixelFormat : int32_t {
@@ -1216,8 +1213,7 @@ class Camera3NotifyMsgMessageDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -2235,8 +2231,7 @@ struct Serializer<::cros::mojom::Camera3NotifyMsgMessageDataView, MaybeConstUser
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
@@ -2394,8 +2389,7 @@ inline void Camera3NotifyMsgMessageDataView::GetGenericDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

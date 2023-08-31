@@ -10,9 +10,7 @@
 #include "mojom/passpoint.mojom.h"
 
 
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+namespace chromeos::connectivity::mojom {
 
 
 class  PasspointEventsListenerInterceptorForTesting : public PasspointEventsListener {
@@ -66,8 +64,6 @@ class  PasspointServiceAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+}  // chromeos::connectivity::mojom
 
 #endif  // MOJOM_PASSPOINT_MOJOM_TEST_UTILS_H_

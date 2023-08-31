@@ -42,9 +42,7 @@
 #include "ml/mojom/file_path.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 FilePath::FilePath()
     : path() {}
 
@@ -79,8 +77,7 @@ bool FilePath::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -106,14 +103,12 @@ bool StructTraits<::mojo_base::mojom::FilePath::DataView, ::mojo_base::mojom::Fi
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

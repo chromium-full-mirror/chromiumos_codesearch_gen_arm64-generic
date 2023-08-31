@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class  VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_Params_Data {
  public:
@@ -256,8 +257,9 @@ inline void VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ParamsDa
 
 
 
-}  // namespace mojom
-}  // namespace arc
+
+
+}  // arc::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

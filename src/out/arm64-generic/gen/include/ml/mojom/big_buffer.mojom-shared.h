@@ -32,15 +32,13 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class BigBufferSharedMemoryRegionDataView;
 
 class BigBufferDataView;
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -63,8 +61,7 @@ struct MojomTypeTraits<::mojo_base::mojom::BigBufferDataView> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 class BigBufferSharedMemoryRegionDataView {
@@ -147,8 +144,7 @@ class BigBufferDataView {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 namespace std {
 
@@ -277,8 +273,7 @@ struct Serializer<::mojo_base::mojom::BigBufferDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
@@ -294,8 +289,7 @@ inline void BigBufferDataView::GetSharedMemoryDataView(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

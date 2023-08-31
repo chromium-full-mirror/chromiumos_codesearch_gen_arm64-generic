@@ -21,8 +21,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class DmaBufPlaneDataView;
 
 class DmaBufVideoFrameDataView;
@@ -38,7 +37,6 @@ using DmaBufVideoFramePtr = mojo::StructPtr<DmaBufVideoFrame>;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_GPU_DMABUF_MOJOM_FORWARD_H_

@@ -108,6 +108,12 @@ extern DiskImageStatusResponseDefaultTypeInternal _DiskImageStatusResponse_defau
 class DnsSettings;
 struct DnsSettingsDefaultTypeInternal;
 extern DnsSettingsDefaultTypeInternal _DnsSettings_default_instance_;
+class EnableVmMemoryManagementServiceRequest;
+struct EnableVmMemoryManagementServiceRequestDefaultTypeInternal;
+extern EnableVmMemoryManagementServiceRequestDefaultTypeInternal _EnableVmMemoryManagementServiceRequest_default_instance_;
+class EnableVmMemoryManagementServiceResponse;
+struct EnableVmMemoryManagementServiceResponseDefaultTypeInternal;
+extern EnableVmMemoryManagementServiceResponseDefaultTypeInternal _EnableVmMemoryManagementServiceResponse_default_instance_;
 class ExportDiskImageRequest;
 struct ExportDiskImageRequestDefaultTypeInternal;
 extern ExportDiskImageRequestDefaultTypeInternal _ExportDiskImageRequest_default_instance_;
@@ -147,6 +153,12 @@ extern GetVmLogsRequestDefaultTypeInternal _GetVmLogsRequest_default_instance_;
 class GetVmLogsResponse;
 struct GetVmLogsResponseDefaultTypeInternal;
 extern GetVmLogsResponseDefaultTypeInternal _GetVmLogsResponse_default_instance_;
+class GetVmMemoryManagementKillsConnectionRequest;
+struct GetVmMemoryManagementKillsConnectionRequestDefaultTypeInternal;
+extern GetVmMemoryManagementKillsConnectionRequestDefaultTypeInternal _GetVmMemoryManagementKillsConnectionRequest_default_instance_;
+class GetVmMemoryManagementKillsConnectionResponse;
+struct GetVmMemoryManagementKillsConnectionResponseDefaultTypeInternal;
+extern GetVmMemoryManagementKillsConnectionResponseDefaultTypeInternal _GetVmMemoryManagementKillsConnectionResponse_default_instance_;
 class ImportDiskImageRequest;
 struct ImportDiskImageRequestDefaultTypeInternal;
 extern ImportDiskImageRequestDefaultTypeInternal _ImportDiskImageRequest_default_instance_;
@@ -294,6 +306,8 @@ template<> ::vm_tools::concierge::DiskImage* Arena::CreateMaybeMessage<::vm_tool
 template<> ::vm_tools::concierge::DiskImageStatusRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::DiskImageStatusRequest>(Arena*);
 template<> ::vm_tools::concierge::DiskImageStatusResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::DiskImageStatusResponse>(Arena*);
 template<> ::vm_tools::concierge::DnsSettings* Arena::CreateMaybeMessage<::vm_tools::concierge::DnsSettings>(Arena*);
+template<> ::vm_tools::concierge::EnableVmMemoryManagementServiceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::EnableVmMemoryManagementServiceRequest>(Arena*);
+template<> ::vm_tools::concierge::EnableVmMemoryManagementServiceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::EnableVmMemoryManagementServiceResponse>(Arena*);
 template<> ::vm_tools::concierge::ExportDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ExportDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::ExportDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ExportDiskImageResponse>(Arena*);
 template<> ::vm_tools::concierge::ExtendedVmInfo* Arena::CreateMaybeMessage<::vm_tools::concierge::ExtendedVmInfo>(Arena*);
@@ -307,6 +321,8 @@ template<> ::vm_tools::concierge::GetVmLaunchAllowedRequest* Arena::CreateMaybeM
 template<> ::vm_tools::concierge::GetVmLaunchAllowedResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLaunchAllowedResponse>(Arena*);
 template<> ::vm_tools::concierge::GetVmLogsRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLogsRequest>(Arena*);
 template<> ::vm_tools::concierge::GetVmLogsResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLogsResponse>(Arena*);
+template<> ::vm_tools::concierge::GetVmMemoryManagementKillsConnectionRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmMemoryManagementKillsConnectionRequest>(Arena*);
+template<> ::vm_tools::concierge::GetVmMemoryManagementKillsConnectionResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmMemoryManagementKillsConnectionResponse>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageResponse>(Arena*);
 template<> ::vm_tools::concierge::InstallPflashRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::InstallPflashRequest>(Arena*);
@@ -13971,6 +13987,545 @@ class AggressiveBalloonResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class EnableVmMemoryManagementServiceRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.EnableVmMemoryManagementServiceRequest) */ {
+ public:
+  inline EnableVmMemoryManagementServiceRequest() : EnableVmMemoryManagementServiceRequest(nullptr) {}
+  ~EnableVmMemoryManagementServiceRequest() override;
+  explicit PROTOBUF_CONSTEXPR EnableVmMemoryManagementServiceRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EnableVmMemoryManagementServiceRequest(const EnableVmMemoryManagementServiceRequest& from);
+  EnableVmMemoryManagementServiceRequest(EnableVmMemoryManagementServiceRequest&& from) noexcept
+    : EnableVmMemoryManagementServiceRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline EnableVmMemoryManagementServiceRequest& operator=(const EnableVmMemoryManagementServiceRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EnableVmMemoryManagementServiceRequest& operator=(EnableVmMemoryManagementServiceRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const EnableVmMemoryManagementServiceRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EnableVmMemoryManagementServiceRequest* internal_default_instance() {
+    return reinterpret_cast<const EnableVmMemoryManagementServiceRequest*>(
+               &_EnableVmMemoryManagementServiceRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    75;
+
+  friend void swap(EnableVmMemoryManagementServiceRequest& a, EnableVmMemoryManagementServiceRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EnableVmMemoryManagementServiceRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EnableVmMemoryManagementServiceRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  EnableVmMemoryManagementServiceRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<EnableVmMemoryManagementServiceRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const EnableVmMemoryManagementServiceRequest& from);
+  void MergeFrom(const EnableVmMemoryManagementServiceRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EnableVmMemoryManagementServiceRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.EnableVmMemoryManagementServiceRequest";
+  }
+  protected:
+  explicit EnableVmMemoryManagementServiceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.EnableVmMemoryManagementServiceRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class EnableVmMemoryManagementServiceResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.EnableVmMemoryManagementServiceResponse) */ {
+ public:
+  inline EnableVmMemoryManagementServiceResponse() : EnableVmMemoryManagementServiceResponse(nullptr) {}
+  ~EnableVmMemoryManagementServiceResponse() override;
+  explicit PROTOBUF_CONSTEXPR EnableVmMemoryManagementServiceResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EnableVmMemoryManagementServiceResponse(const EnableVmMemoryManagementServiceResponse& from);
+  EnableVmMemoryManagementServiceResponse(EnableVmMemoryManagementServiceResponse&& from) noexcept
+    : EnableVmMemoryManagementServiceResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline EnableVmMemoryManagementServiceResponse& operator=(const EnableVmMemoryManagementServiceResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EnableVmMemoryManagementServiceResponse& operator=(EnableVmMemoryManagementServiceResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const EnableVmMemoryManagementServiceResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EnableVmMemoryManagementServiceResponse* internal_default_instance() {
+    return reinterpret_cast<const EnableVmMemoryManagementServiceResponse*>(
+               &_EnableVmMemoryManagementServiceResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    76;
+
+  friend void swap(EnableVmMemoryManagementServiceResponse& a, EnableVmMemoryManagementServiceResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EnableVmMemoryManagementServiceResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EnableVmMemoryManagementServiceResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  EnableVmMemoryManagementServiceResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<EnableVmMemoryManagementServiceResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const EnableVmMemoryManagementServiceResponse& from);
+  void MergeFrom(const EnableVmMemoryManagementServiceResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EnableVmMemoryManagementServiceResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.EnableVmMemoryManagementServiceResponse";
+  }
+  protected:
+  explicit EnableVmMemoryManagementServiceResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailureReasonFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.EnableVmMemoryManagementServiceResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetVmMemoryManagementKillsConnectionRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest) */ {
+ public:
+  inline GetVmMemoryManagementKillsConnectionRequest() : GetVmMemoryManagementKillsConnectionRequest(nullptr) {}
+  ~GetVmMemoryManagementKillsConnectionRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetVmMemoryManagementKillsConnectionRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmMemoryManagementKillsConnectionRequest(const GetVmMemoryManagementKillsConnectionRequest& from);
+  GetVmMemoryManagementKillsConnectionRequest(GetVmMemoryManagementKillsConnectionRequest&& from) noexcept
+    : GetVmMemoryManagementKillsConnectionRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmMemoryManagementKillsConnectionRequest& operator=(const GetVmMemoryManagementKillsConnectionRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmMemoryManagementKillsConnectionRequest& operator=(GetVmMemoryManagementKillsConnectionRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmMemoryManagementKillsConnectionRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmMemoryManagementKillsConnectionRequest* internal_default_instance() {
+    return reinterpret_cast<const GetVmMemoryManagementKillsConnectionRequest*>(
+               &_GetVmMemoryManagementKillsConnectionRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    77;
+
+  friend void swap(GetVmMemoryManagementKillsConnectionRequest& a, GetVmMemoryManagementKillsConnectionRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetVmMemoryManagementKillsConnectionRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmMemoryManagementKillsConnectionRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmMemoryManagementKillsConnectionRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmMemoryManagementKillsConnectionRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmMemoryManagementKillsConnectionRequest& from);
+  void MergeFrom(const GetVmMemoryManagementKillsConnectionRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmMemoryManagementKillsConnectionRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest";
+  }
+  protected:
+  explicit GetVmMemoryManagementKillsConnectionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReadTimeoutMsFieldNumber = 1,
+  };
+  // uint32 read_timeout_ms = 1;
+  void clear_read_timeout_ms();
+  uint32_t read_timeout_ms() const;
+  void set_read_timeout_ms(uint32_t value);
+  private:
+  uint32_t _internal_read_timeout_ms() const;
+  void _internal_set_read_timeout_ms(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    uint32_t read_timeout_ms_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetVmMemoryManagementKillsConnectionResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse) */ {
+ public:
+  inline GetVmMemoryManagementKillsConnectionResponse() : GetVmMemoryManagementKillsConnectionResponse(nullptr) {}
+  ~GetVmMemoryManagementKillsConnectionResponse() override;
+  explicit PROTOBUF_CONSTEXPR GetVmMemoryManagementKillsConnectionResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmMemoryManagementKillsConnectionResponse(const GetVmMemoryManagementKillsConnectionResponse& from);
+  GetVmMemoryManagementKillsConnectionResponse(GetVmMemoryManagementKillsConnectionResponse&& from) noexcept
+    : GetVmMemoryManagementKillsConnectionResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmMemoryManagementKillsConnectionResponse& operator=(const GetVmMemoryManagementKillsConnectionResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmMemoryManagementKillsConnectionResponse& operator=(GetVmMemoryManagementKillsConnectionResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmMemoryManagementKillsConnectionResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmMemoryManagementKillsConnectionResponse* internal_default_instance() {
+    return reinterpret_cast<const GetVmMemoryManagementKillsConnectionResponse*>(
+               &_GetVmMemoryManagementKillsConnectionResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    78;
+
+  friend void swap(GetVmMemoryManagementKillsConnectionResponse& a, GetVmMemoryManagementKillsConnectionResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetVmMemoryManagementKillsConnectionResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmMemoryManagementKillsConnectionResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmMemoryManagementKillsConnectionResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmMemoryManagementKillsConnectionResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmMemoryManagementKillsConnectionResponse& from);
+  void MergeFrom(const GetVmMemoryManagementKillsConnectionResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmMemoryManagementKillsConnectionResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse";
+  }
+  protected:
+  explicit GetVmMemoryManagementKillsConnectionResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailureReasonFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -24659,9 +25214,193 @@ inline void AggressiveBalloonResponse::set_allocated_failure_reason(std::string*
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
 }
 
+// -------------------------------------------------------------------
+
+// EnableVmMemoryManagementServiceRequest
+
+// -------------------------------------------------------------------
+
+// EnableVmMemoryManagementServiceResponse
+
+// bool success = 1;
+inline void EnableVmMemoryManagementServiceResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool EnableVmMemoryManagementServiceResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool EnableVmMemoryManagementServiceResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.success)
+  return _internal_success();
+}
+inline void EnableVmMemoryManagementServiceResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void EnableVmMemoryManagementServiceResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.success)
+}
+
+// string failure_reason = 2;
+inline void EnableVmMemoryManagementServiceResponse::clear_failure_reason() {
+  _impl_.failure_reason_.ClearToEmpty();
+}
+inline const std::string& EnableVmMemoryManagementServiceResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void EnableVmMemoryManagementServiceResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.failure_reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.failure_reason)
+}
+inline std::string* EnableVmMemoryManagementServiceResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.failure_reason)
+  return _s;
+}
+inline const std::string& EnableVmMemoryManagementServiceResponse::_internal_failure_reason() const {
+  return _impl_.failure_reason_.Get();
+}
+inline void EnableVmMemoryManagementServiceResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  _impl_.failure_reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* EnableVmMemoryManagementServiceResponse::_internal_mutable_failure_reason() {
+  
+  return _impl_.failure_reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* EnableVmMemoryManagementServiceResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.failure_reason)
+  return _impl_.failure_reason_.Release();
+}
+inline void EnableVmMemoryManagementServiceResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.failure_reason_.SetAllocated(failure_reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.failure_reason_.IsDefault()) {
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.failure_reason)
+}
+
+// -------------------------------------------------------------------
+
+// GetVmMemoryManagementKillsConnectionRequest
+
+// uint32 read_timeout_ms = 1;
+inline void GetVmMemoryManagementKillsConnectionRequest::clear_read_timeout_ms() {
+  _impl_.read_timeout_ms_ = 0u;
+}
+inline uint32_t GetVmMemoryManagementKillsConnectionRequest::_internal_read_timeout_ms() const {
+  return _impl_.read_timeout_ms_;
+}
+inline uint32_t GetVmMemoryManagementKillsConnectionRequest::read_timeout_ms() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest.read_timeout_ms)
+  return _internal_read_timeout_ms();
+}
+inline void GetVmMemoryManagementKillsConnectionRequest::_internal_set_read_timeout_ms(uint32_t value) {
+  
+  _impl_.read_timeout_ms_ = value;
+}
+inline void GetVmMemoryManagementKillsConnectionRequest::set_read_timeout_ms(uint32_t value) {
+  _internal_set_read_timeout_ms(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest.read_timeout_ms)
+}
+
+// -------------------------------------------------------------------
+
+// GetVmMemoryManagementKillsConnectionResponse
+
+// bool success = 1;
+inline void GetVmMemoryManagementKillsConnectionResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool GetVmMemoryManagementKillsConnectionResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool GetVmMemoryManagementKillsConnectionResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.success)
+  return _internal_success();
+}
+inline void GetVmMemoryManagementKillsConnectionResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void GetVmMemoryManagementKillsConnectionResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.success)
+}
+
+// string failure_reason = 2;
+inline void GetVmMemoryManagementKillsConnectionResponse::clear_failure_reason() {
+  _impl_.failure_reason_.ClearToEmpty();
+}
+inline const std::string& GetVmMemoryManagementKillsConnectionResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmMemoryManagementKillsConnectionResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.failure_reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.failure_reason)
+}
+inline std::string* GetVmMemoryManagementKillsConnectionResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.failure_reason)
+  return _s;
+}
+inline const std::string& GetVmMemoryManagementKillsConnectionResponse::_internal_failure_reason() const {
+  return _impl_.failure_reason_.Get();
+}
+inline void GetVmMemoryManagementKillsConnectionResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  _impl_.failure_reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetVmMemoryManagementKillsConnectionResponse::_internal_mutable_failure_reason() {
+  
+  return _impl_.failure_reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetVmMemoryManagementKillsConnectionResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.failure_reason)
+  return _impl_.failure_reason_.Release();
+}
+inline void GetVmMemoryManagementKillsConnectionResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.failure_reason_.SetAllocated(failure_reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.failure_reason_.IsDefault()) {
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.failure_reason)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

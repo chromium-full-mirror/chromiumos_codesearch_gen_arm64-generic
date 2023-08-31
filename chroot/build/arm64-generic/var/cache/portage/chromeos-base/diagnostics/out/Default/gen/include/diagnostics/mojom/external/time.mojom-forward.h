@@ -21,11 +21,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace external {
-namespace mojo_base {
-namespace mojom {
+namespace ash::cros_healthd::external::mojo_base::mojom {
 class TimeDataView;
 
 class TimeDeltaDataView;
@@ -44,10 +40,6 @@ using TimeTicksPtr = mojo::InlinedStructPtr<TimeTicks>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
-}  // namespace external
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::external::mojo_base::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_FORWARD_H_

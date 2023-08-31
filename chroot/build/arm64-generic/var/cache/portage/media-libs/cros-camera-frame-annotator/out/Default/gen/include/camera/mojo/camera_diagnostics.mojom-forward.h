@@ -21,8 +21,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class CameraDiagnosticsFrameDataView;
 
 
@@ -37,7 +36,6 @@ class CameraDiagnostics;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CAMERA_DIAGNOSTICS_MOJOM_FORWARD_H_

@@ -20,8 +20,7 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class CameraAlgorithmOps;
 
 class CameraAlgorithmCallbackOps;
@@ -29,7 +28,6 @@ class CameraAlgorithmCallbackOps;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_ALGORITHM_CAMERA_ALGORITHM_MOJOM_FORWARD_H_

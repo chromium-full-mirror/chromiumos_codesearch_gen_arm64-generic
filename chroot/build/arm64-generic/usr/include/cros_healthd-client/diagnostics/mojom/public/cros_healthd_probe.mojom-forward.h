@@ -21,9 +21,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 class ProbeErrorDataView;
 
 class MultipleProcessResultDataView;
@@ -557,8 +555,6 @@ using SensorResultPtr = mojo::StructPtr<SensorResult>;
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_PROBE_MOJOM_FORWARD_H_

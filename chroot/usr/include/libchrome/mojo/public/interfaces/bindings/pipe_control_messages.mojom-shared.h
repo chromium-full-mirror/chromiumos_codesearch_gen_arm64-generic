@@ -32,8 +32,7 @@
 
 
 
-namespace mojo {
-namespace pipe_control {
+namespace mojo::pipe_control {
 class RunOrClosePipeMessageParamsDataView;
 
 class DisconnectReasonDataView;
@@ -47,8 +46,7 @@ class FlushAsyncDataView;
 class RunOrClosePipeInputDataView;
 
 
-}  // namespace pipe_control
-}  // namespace mojo
+}  // mojo::pipe_control
 
 namespace mojo {
 namespace internal {
@@ -99,8 +97,7 @@ struct MojomTypeTraits<::mojo::pipe_control::RunOrClosePipeInputDataView> {
 }  // namespace mojo
 
 
-namespace mojo {
-namespace pipe_control {
+namespace mojo::pipe_control {
 
 
 class RunOrClosePipeMessageParamsDataView {
@@ -304,8 +301,7 @@ class RunOrClosePipeInputDataView {
 
 
 
-}  // namespace pipe_control
-}  // namespace mojo
+}  // mojo::pipe_control
 
 namespace std {
 
@@ -596,8 +592,7 @@ struct Serializer<::mojo::pipe_control::RunOrClosePipeInputDataView, MaybeConstU
 }  // namespace mojo
 
 
-namespace mojo {
-namespace pipe_control {
+namespace mojo::pipe_control {
 
 inline void RunOrClosePipeMessageParamsDataView::GetInputDataView(
     RunOrClosePipeInputDataView* output) {
@@ -641,8 +636,7 @@ inline void RunOrClosePipeInputDataView::GetFlushAsyncDataView(
 }
 
 
-}  // namespace pipe_control
-}  // namespace mojo
+}  // mojo::pipe_control
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

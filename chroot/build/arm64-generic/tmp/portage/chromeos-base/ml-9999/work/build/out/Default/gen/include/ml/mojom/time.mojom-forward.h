@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class TimeDataView;
 
 class TimeDeltaDataView;
@@ -41,7 +40,6 @@ using TimeTicksPtr = mojo::InlinedStructPtr<TimeTicks>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // ML_MOJOM_TIME_MOJOM_FORWARD_H_

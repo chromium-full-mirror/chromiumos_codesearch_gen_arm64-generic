@@ -32,16 +32,12 @@
 
 
 
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+namespace chromeos::connectivity::mojom {
 class PasspointSubscriptionDataView;
 
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+}  // chromeos::connectivity::mojom
 
 namespace mojo {
 namespace internal {
@@ -57,9 +53,7 @@ struct MojomTypeTraits<::chromeos::connectivity::mojom::PasspointSubscriptionDat
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+namespace chromeos::connectivity::mojom {
 // Interface base classes. They are used for type safety check.
 class PasspointEventsListenerInterfaceBase {};
 
@@ -162,9 +156,7 @@ static_assert(
 };
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+}  // chromeos::connectivity::mojom
 
 namespace std {
 
@@ -263,9 +255,7 @@ struct Serializer<::chromeos::connectivity::mojom::PasspointSubscriptionDataView
 }  // namespace mojo
 
 
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+namespace chromeos::connectivity::mojom {
 
 inline void PasspointSubscriptionDataView::GetIdDataView(
     mojo::StringDataView* output) {
@@ -295,9 +285,7 @@ inline void PasspointSubscriptionDataView::GetTrustedCaDataView(
 
 
 
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+}  // chromeos::connectivity::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

@@ -10,13 +10,11 @@
 #include "camera/mojo/unguessable_token.mojom.h"
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // CAMERA_MOJO_UNGUESSABLE_TOKEN_MOJOM_TEST_UTILS_H_

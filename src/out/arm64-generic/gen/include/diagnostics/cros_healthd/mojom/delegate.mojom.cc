@@ -43,10 +43,7 @@
 #include "diagnostics/mojom/external/time_mojom_traits.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 const char Delegate::Name_[] = "ash.cros_healthd.mojom.Delegate";
 
 Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& message) {
@@ -3868,9 +3865,7 @@ bool DelegateResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 namespace mojo {
@@ -3882,9 +3877,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 void DelegateInterceptorForTesting::GetFingerprintFrame(::ash::cros_healthd::mojom::FingerprintCaptureType type, GetFingerprintFrameCallback callback) {
@@ -4254,9 +4247,7 @@ void DelegateAsyncWaiter::GetAllFanSpeed(
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 #if defined(__clang__)

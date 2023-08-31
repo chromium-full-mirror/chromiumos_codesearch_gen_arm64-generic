@@ -31,18 +31,14 @@
 
 
 
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+namespace ash::diagnostics::mojom {
 class KeyboardInfoDataView;
 
 class KeyboardDiagnosticEventInfoDataView;
 
 
 
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+}  // ash::diagnostics::mojom
 
 namespace mojo {
 namespace internal {
@@ -65,9 +61,7 @@ struct MojomTypeTraits<::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDat
 }  // namespace mojo
 
 
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+namespace ash::diagnostics::mojom {
 
 
 enum class ConnectionType : int32_t {
@@ -438,9 +432,7 @@ class KeyboardDiagnosticEventInfoDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+}  // ash::diagnostics::mojom
 
 namespace std {
 
@@ -739,9 +731,7 @@ struct Serializer<::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView
 }  // namespace mojo
 
 
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+namespace ash::diagnostics::mojom {
 
 inline void KeyboardInfoDataView::GetNameDataView(
     mojo::StringDataView* output) {
@@ -778,9 +768,7 @@ inline void KeyboardDiagnosticEventInfoDataView::GetTestedTopRowKeysDataView(
 
 
 
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+}  // ash::diagnostics::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

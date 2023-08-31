@@ -1968,6 +1968,19 @@ struct AuthenticateAuthFactorCompletedFailureDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateAuthFactorCompletedFailureDefaultTypeInternal _AuthenticateAuthFactorCompletedFailure_default_instance_;
+PROTOBUF_CONSTEXPR EvictedKeyRestored::EvictedKeyRestored(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.done_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct EvictedKeyRestoredDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR EvictedKeyRestoredDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~EvictedKeyRestoredDefaultTypeInternal() {}
+  union {
+    EvictedKeyRestored _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EvictedKeyRestoredDefaultTypeInternal _EvictedKeyRestored_default_instance_;
 }  // namespace user_data_auth
 namespace user_data_auth {
 bool GetRecoveryRequestRequest_UserType_IsValid(int value) {
@@ -35178,6 +35191,186 @@ std::string AuthenticateAuthFactorCompletedFailure::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class EvictedKeyRestored::_Internal {
+ public:
+};
+
+EvictedKeyRestored::EvictedKeyRestored(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.EvictedKeyRestored)
+}
+EvictedKeyRestored::EvictedKeyRestored(const EvictedKeyRestored& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EvictedKeyRestored* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.done_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.done_ = from._impl_.done_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.EvictedKeyRestored)
+}
+
+inline void EvictedKeyRestored::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.done_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+EvictedKeyRestored::~EvictedKeyRestored() {
+  // @@protoc_insertion_point(destructor:user_data_auth.EvictedKeyRestored)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void EvictedKeyRestored::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void EvictedKeyRestored::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void EvictedKeyRestored::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.EvictedKeyRestored)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.done_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* EvictedKeyRestored::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool done = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.done_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* EvictedKeyRestored::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.EvictedKeyRestored)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool done = 1;
+  if (this->_internal_done() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_done(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.EvictedKeyRestored)
+  return target;
+}
+
+size_t EvictedKeyRestored::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.EvictedKeyRestored)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool done = 1;
+  if (this->_internal_done() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void EvictedKeyRestored::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const EvictedKeyRestored*>(
+      &from));
+}
+
+void EvictedKeyRestored::MergeFrom(const EvictedKeyRestored& from) {
+  EvictedKeyRestored* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.EvictedKeyRestored)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_done() != 0) {
+    _this->_internal_set_done(from._internal_done());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void EvictedKeyRestored::CopyFrom(const EvictedKeyRestored& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.EvictedKeyRestored)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EvictedKeyRestored::IsInitialized() const {
+  return true;
+}
+
+void EvictedKeyRestored::InternalSwap(EvictedKeyRestored* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.done_, other->_impl_.done_);
+}
+
+std::string EvictedKeyRestored::GetTypeName() const {
+  return "user_data_auth.EvictedKeyRestored";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace user_data_auth
 PROTOBUF_NAMESPACE_OPEN
@@ -35736,6 +35929,10 @@ Arena::CreateMaybeMessage< ::user_data_auth::AuthenticateAuthFactorCompletedSucc
 template<> PROTOBUF_NOINLINE ::user_data_auth::AuthenticateAuthFactorCompletedFailure*
 Arena::CreateMaybeMessage< ::user_data_auth::AuthenticateAuthFactorCompletedFailure >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::AuthenticateAuthFactorCompletedFailure >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::EvictedKeyRestored*
+Arena::CreateMaybeMessage< ::user_data_auth::EvictedKeyRestored >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::EvictedKeyRestored >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

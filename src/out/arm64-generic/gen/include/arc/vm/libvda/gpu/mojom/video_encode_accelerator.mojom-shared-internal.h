@@ -22,8 +22,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class VideoEncodeProfile_Data;
 class ConstantBitrate_Data;
@@ -372,7 +373,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_SHARED_INTERNAL_H_

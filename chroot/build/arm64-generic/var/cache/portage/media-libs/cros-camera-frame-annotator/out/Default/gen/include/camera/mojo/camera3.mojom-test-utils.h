@@ -10,8 +10,7 @@
 #include "camera/mojo/camera3.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class  Camera3CallbackOpsInterceptorForTesting : public Camera3CallbackOps {
@@ -91,7 +90,6 @@ class  Camera3DeviceOpsAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CAMERA3_MOJOM_TEST_UTILS_H_

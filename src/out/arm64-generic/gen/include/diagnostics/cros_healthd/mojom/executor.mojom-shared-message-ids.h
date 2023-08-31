@@ -8,10 +8,9 @@
 #define DIAGNOSTICS_CROS_HEALTHD_MOJOM_EXECUTOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
 
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 
 
@@ -67,8 +66,7 @@ constexpr uint32_t kExecutor_MonitorVolumeButton_Name = 30;
 constexpr uint32_t kExecutor_RunFloatingPoint_Name = 31;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_MOJOM_EXECUTOR_MOJOM_SHARED_MESSAGE_IDS_H_

@@ -21,8 +21,7 @@
 
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 class PasswordDataView;
 
 class KerberosConfigDataView;
@@ -65,7 +64,6 @@ class SmbFsDelegate;
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 #endif  // SMBFS_MOJOM_SMBFS_MOJOM_FORWARD_H_

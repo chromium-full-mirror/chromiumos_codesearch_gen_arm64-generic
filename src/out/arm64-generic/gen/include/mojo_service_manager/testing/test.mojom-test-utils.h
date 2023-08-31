@@ -10,9 +10,7 @@
 #include "mojo_service_manager/testing/test.mojom.h"
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
 class  FooInterceptorForTesting : public Foo {
@@ -38,8 +36,6 @@ class  FooAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 #endif  // MOJO_SERVICE_MANAGER_TESTING_TEST_MOJOM_TEST_UTILS_H_

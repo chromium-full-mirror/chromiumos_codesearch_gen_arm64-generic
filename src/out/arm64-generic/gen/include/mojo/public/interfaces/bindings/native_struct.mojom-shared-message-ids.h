@@ -8,15 +8,15 @@
 #define MOJO_PUBLIC_INTERFACES_BINDINGS_NATIVE_STRUCT_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace mojo {
-namespace native {
 
+
+namespace mojo::native {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace native
-}  // namespace mojo
+
+}  // mojo::native
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_NATIVE_STRUCT_MOJOM_SHARED_MESSAGE_IDS_H_

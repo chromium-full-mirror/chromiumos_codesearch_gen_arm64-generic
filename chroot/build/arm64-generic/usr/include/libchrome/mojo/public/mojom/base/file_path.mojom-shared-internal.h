@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace mojo_base {
-namespace mojom {
+
+
+namespace mojo_base::mojom {
 namespace internal {
 class FilePath_Data;
 class RelativeFilePath_Data;
@@ -127,7 +128,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_base
+
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_FILE_PATH_MOJOM_SHARED_INTERNAL_H_

@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class ReadOnlySharedMemoryRegionDataView;
 
 class WritableSharedMemoryRegionDataView;
@@ -41,7 +40,6 @@ using UnsafeSharedMemoryRegionPtr = mojo::StructPtr<UnsafeSharedMemoryRegion>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // ML_MOJOM_SHARED_MEMORY_MOJOM_FORWARD_H_

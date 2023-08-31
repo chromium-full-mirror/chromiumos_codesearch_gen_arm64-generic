@@ -42,9 +42,7 @@
 #include "ml/mojom/geometry.mojom-test-utils.h"
 
 
-
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 Point::Point()
     : x(),
       y() {}
@@ -833,8 +831,7 @@ bool Quaternion::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 
 namespace mojo {
@@ -1094,14 +1091,12 @@ bool StructTraits<::gfx::mojom::Quaternion::DataView, ::gfx::mojom::QuaternionPt
 // separate .cc file to save compile time.
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 
 #if defined(__clang__)

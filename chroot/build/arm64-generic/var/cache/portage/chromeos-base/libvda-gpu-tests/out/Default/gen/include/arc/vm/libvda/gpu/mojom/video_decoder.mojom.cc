@@ -42,9 +42,7 @@
 #include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-test-utils.h"
 
 
-
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 Buffer::Buffer()
     : timestamp(),
       handle_fd(),
@@ -1348,8 +1346,7 @@ bool VideoDecoderClientRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 namespace mojo {
@@ -1425,8 +1422,7 @@ bool UnionTraits<::arc::mojom::DecoderBuffer::DataView, ::arc::mojom::DecoderBuf
 // separate .cc file to save compile time.
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 void VideoDecoderInterceptorForTesting::Initialize(VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool, InitializeCallback callback) {
@@ -1525,8 +1521,7 @@ VideoDecoderClientAsyncWaiter::~VideoDecoderClientAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 
 #if defined(__clang__)

@@ -38,12 +38,10 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -52,8 +50,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 enum class CameraClientType : int32_t {
@@ -186,8 +183,7 @@ using CameraHalClientAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CameraHalClientInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -294,12 +290,10 @@ struct Serializer<::cros::mojom::SetEffectResult, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

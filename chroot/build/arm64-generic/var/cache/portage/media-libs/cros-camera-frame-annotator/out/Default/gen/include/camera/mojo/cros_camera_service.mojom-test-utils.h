@@ -10,8 +10,7 @@
 #include "camera/mojo/cros_camera_service.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class  CameraHalDispatcherInterceptorForTesting : public CameraHalDispatcher {
@@ -121,7 +120,6 @@ class  CameraHalClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_CROS_CAMERA_SERVICE_MOJOM_TEST_UTILS_H_

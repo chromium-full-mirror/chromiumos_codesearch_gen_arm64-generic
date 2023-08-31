@@ -36,11 +36,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace external {
-namespace mojo_base {
-namespace mojom {
+namespace ash::cros_healthd::external::mojo_base::mojom {
 
 
 
@@ -536,11 +532,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
-}  // namespace external
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::external::mojo_base::mojom
 
 namespace mojo {
 

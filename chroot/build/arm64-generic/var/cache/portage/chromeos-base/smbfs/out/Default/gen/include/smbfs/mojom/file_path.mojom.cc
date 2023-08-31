@@ -42,9 +42,7 @@
 #include "smbfs/mojom/file_path.mojom-test-utils.h"
 
 
-
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 FilePath::FilePath()
     : path() {}
 
@@ -75,8 +73,7 @@ bool FilePath::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 
 namespace mojo {
@@ -102,14 +99,12 @@ bool StructTraits<::smbfs::mojom::FilePath::DataView, ::smbfs::mojom::FilePathPt
 // separate .cc file to save compile time.
 
 
-namespace smbfs {
-namespace mojom {
+namespace smbfs::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace smbfs
+}  // smbfs::mojom
 
 
 #if defined(__clang__)

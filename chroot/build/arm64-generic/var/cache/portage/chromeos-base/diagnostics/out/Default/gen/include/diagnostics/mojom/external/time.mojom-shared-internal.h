@@ -20,11 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace ash {
-namespace cros_healthd {
-namespace external {
-namespace mojo_base {
-namespace mojom {
+
+
+namespace ash::cros_healthd::external::mojo_base::mojom {
 namespace internal {
 class Time_Data;
 class TimeDelta_Data;
@@ -179,10 +177,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace mojo_base
-}  // namespace external
-}  // namespace cros_healthd
-}  // namespace ash
+
+}  // ash::cros_healthd::external::mojo_base::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_SHARED_INTERNAL_H_

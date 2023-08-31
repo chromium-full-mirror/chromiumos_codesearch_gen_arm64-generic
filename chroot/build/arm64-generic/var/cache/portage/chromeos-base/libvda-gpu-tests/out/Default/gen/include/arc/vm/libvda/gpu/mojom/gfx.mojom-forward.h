@@ -21,8 +21,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class RectDataView;
 
 class RangeDataView;
@@ -41,7 +40,6 @@ using SizePtr = mojo::InlinedStructPtr<Size>;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_GFX_MOJOM_FORWARD_H_

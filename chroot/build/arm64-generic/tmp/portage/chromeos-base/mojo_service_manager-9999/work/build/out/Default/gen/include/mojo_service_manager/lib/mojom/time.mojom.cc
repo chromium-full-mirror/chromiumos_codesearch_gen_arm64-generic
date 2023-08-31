@@ -42,10 +42,7 @@
 #include "mojo_service_manager/lib/mojom/time.mojom-test-utils.h"
 
 
-
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 TimeDelta::TimeDelta()
     : microseconds() {}
 
@@ -76,9 +73,7 @@ bool TimeDelta::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 
 namespace mojo {
@@ -104,16 +99,12 @@ bool StructTraits<::chromeos::mojo_service_manager::mojom::TimeDelta::DataView, 
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
-namespace mojo_service_manager {
-namespace mojom {
+namespace chromeos::mojo_service_manager::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_service_manager
-}  // namespace chromeos
+}  // chromeos::mojo_service_manager::mojom
 
 
 #if defined(__clang__)

@@ -20,9 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
-namespace connectivity {
-namespace mojom {
+
+
+namespace chromeos::connectivity::mojom {
 namespace internal {
 class PasspointSubscription_Data;
 
@@ -84,8 +84,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace connectivity
-}  // namespace chromeos
+
+}  // chromeos::connectivity::mojom
 
 #endif  // MOJOM_PASSPOINT_MOJOM_SHARED_INTERNAL_H_

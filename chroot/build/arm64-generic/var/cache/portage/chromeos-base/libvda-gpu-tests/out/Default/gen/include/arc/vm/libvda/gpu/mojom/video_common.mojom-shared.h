@@ -32,8 +32,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class VideoFramePlaneDataView;
 
 class ColorPlaneLayoutDataView;
@@ -42,8 +41,7 @@ class VideoFrameLayoutDataView;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace mojo {
 namespace internal {
@@ -73,8 +71,7 @@ struct MojomTypeTraits<::arc::mojom::VideoFrameLayoutDataView> {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 enum class VideoCodecProfile : int32_t {
@@ -325,8 +322,7 @@ class VideoFrameLayoutDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace std {
 
@@ -532,8 +528,7 @@ struct Serializer<::arc::mojom::VideoFrameLayoutDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 
@@ -552,8 +547,7 @@ inline void VideoFrameLayoutDataView::GetPlanesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

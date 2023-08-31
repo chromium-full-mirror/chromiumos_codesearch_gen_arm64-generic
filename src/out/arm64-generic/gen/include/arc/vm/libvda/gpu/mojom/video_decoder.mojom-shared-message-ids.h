@@ -8,9 +8,9 @@
 #define ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_DECODER_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace arc {
-namespace mojom {
 
+
+namespace arc::mojom {
 namespace internal {
 
 
@@ -22,7 +22,7 @@ constexpr uint32_t kVideoDecoderClient_OnVideoFrameDecoded_Name = 0;
 constexpr uint32_t kVideoDecoderClient_OnError_Name = 1;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_DECODER_MOJOM_SHARED_MESSAGE_IDS_H_

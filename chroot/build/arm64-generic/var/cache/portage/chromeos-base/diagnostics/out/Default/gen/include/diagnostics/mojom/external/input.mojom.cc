@@ -42,10 +42,7 @@
 #include "diagnostics/mojom/external/input.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+namespace ash::diagnostics::mojom {
 KeyboardInfo::KeyboardInfo()
     : id(),
       connection_type(),
@@ -236,9 +233,7 @@ bool KeyboardDiagnosticEventInfo::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+}  // ash::diagnostics::mojom
 
 
 namespace mojo {
@@ -300,16 +295,12 @@ bool StructTraits<::ash::diagnostics::mojom::KeyboardDiagnosticEventInfo::DataVi
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+namespace ash::diagnostics::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+}  // ash::diagnostics::mojom
 
 
 #if defined(__clang__)

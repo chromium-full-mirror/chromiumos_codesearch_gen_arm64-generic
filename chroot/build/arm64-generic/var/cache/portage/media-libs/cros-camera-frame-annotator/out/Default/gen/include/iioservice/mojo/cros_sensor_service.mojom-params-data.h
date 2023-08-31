@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class  SensorHalServer_CreateChannel_Params_Data {
  public:
@@ -110,8 +111,9 @@ class SensorHalClient_SetUpChannel_ParamsDataView {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+
+
+}  // cros::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

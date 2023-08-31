@@ -20,9 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace ash {
-namespace diagnostics {
-namespace mojom {
+
+
+namespace ash::diagnostics::mojom {
 namespace internal {
 class KeyboardInfo_Data;
 class KeyboardDiagnosticEventInfo_Data;
@@ -320,8 +320,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace diagnostics
-}  // namespace ash
+
+}  // ash::diagnostics::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_INPUT_MOJOM_SHARED_INTERNAL_H_

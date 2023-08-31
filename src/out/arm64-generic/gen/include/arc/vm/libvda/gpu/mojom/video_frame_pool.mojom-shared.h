@@ -34,14 +34,12 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 class VideoFrameDataView;
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace mojo {
 namespace internal {
@@ -57,8 +55,7 @@ struct MojomTypeTraits<::arc::mojom::VideoFrameDataView> {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 // Interface base classes. They are used for type safety check.
 class VideoFramePoolInterfaceBase {};
 
@@ -142,8 +139,7 @@ class VideoFrameDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace std {
 
@@ -220,8 +216,7 @@ struct Serializer<::arc::mojom::VideoFrameDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 inline void VideoFrameDataView::GetCodedSizeDataView(
     ::arc::mojom::SizeDataView* output) {
@@ -236,8 +231,7 @@ inline void VideoFrameDataView::GetPlanesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

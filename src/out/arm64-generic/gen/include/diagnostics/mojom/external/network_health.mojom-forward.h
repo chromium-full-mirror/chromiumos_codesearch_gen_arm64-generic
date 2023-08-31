@@ -20,9 +20,7 @@
 
 
 
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+namespace chromeos::network_health::mojom {
 class NetworkEventsObserver;
 
 class NetworkHealthService;
@@ -30,8 +28,6 @@ class NetworkHealthService;
 
 
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+}  // chromeos::network_health::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_HEALTH_MOJOM_FORWARD_H_

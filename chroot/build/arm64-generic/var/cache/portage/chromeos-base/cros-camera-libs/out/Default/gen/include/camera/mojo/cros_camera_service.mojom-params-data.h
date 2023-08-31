@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class  CameraHalDispatcher_RegisterServer_Params_Data {
  public:
@@ -1176,8 +1177,9 @@ inline void CameraHalServer_SetCameraEffect_ParamsDataView::GetConfigDataView(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+
+
+}  // cros::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

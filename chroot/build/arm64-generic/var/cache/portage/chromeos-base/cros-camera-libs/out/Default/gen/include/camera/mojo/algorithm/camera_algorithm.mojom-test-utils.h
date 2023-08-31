@@ -10,8 +10,7 @@
 #include "camera/mojo/algorithm/camera_algorithm.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class  CameraAlgorithmOpsInterceptorForTesting : public CameraAlgorithmOps {
@@ -64,7 +63,6 @@ class  CameraAlgorithmCallbackOpsAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_ALGORITHM_CAMERA_ALGORITHM_MOJOM_TEST_UTILS_H_

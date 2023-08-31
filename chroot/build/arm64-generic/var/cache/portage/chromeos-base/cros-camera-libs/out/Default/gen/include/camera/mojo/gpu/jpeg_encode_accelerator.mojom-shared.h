@@ -33,12 +33,10 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -47,8 +45,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 enum class EncodeStatus : int32_t {
@@ -88,8 +85,7 @@ using JpegEncodeAcceleratorAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<JpegEncodeAcceleratorInterfaceBase>;
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -124,12 +120,10 @@ struct Serializer<::cros::mojom::EncodeStatus, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

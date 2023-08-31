@@ -8,15 +8,15 @@
 #define UI_GFX_RANGE_MOJOM_RANGE_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace gfx {
-namespace mojom {
 
+
+namespace gfx::mojom {
 namespace internal {
 
 
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace gfx
+
+}  // gfx::mojom
 
 #endif  // UI_GFX_RANGE_MOJOM_RANGE_MOJOM_SHARED_MESSAGE_IDS_H_

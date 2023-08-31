@@ -21,8 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class VideoFramePlane_Data;
 class ColorPlaneLayout_Data;
@@ -296,7 +297,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_VIDEO_COMMON_MOJOM_SHARED_INTERNAL_H_

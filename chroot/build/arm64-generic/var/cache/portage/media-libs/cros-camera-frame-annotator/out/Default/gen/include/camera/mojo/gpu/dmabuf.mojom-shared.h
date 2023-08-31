@@ -32,16 +32,14 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 class DmaBufPlaneDataView;
 
 class DmaBufVideoFrameDataView;
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -64,8 +62,7 @@ struct MojomTypeTraits<::cros::mojom::DmaBufVideoFrameDataView> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 enum class VideoPixelFormat : int32_t {
@@ -171,8 +168,7 @@ class DmaBufVideoFrameDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -295,8 +291,7 @@ struct Serializer<::cros::mojom::DmaBufVideoFrameDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
@@ -308,8 +303,7 @@ inline void DmaBufVideoFrameDataView::GetPlanesDataView(
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

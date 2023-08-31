@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class IioEvent_Data;
 
@@ -273,7 +274,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // IIOSERVICE_MOJO_SENSOR_MOJOM_SHARED_INTERNAL_H_

@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class  SensorService_GetDeviceIds_Params_Data {
  public:
@@ -1459,8 +1460,9 @@ inline void SensorDeviceEventsObserver_OnEventUpdated_ParamsDataView::GetIioEven
 
 
 
-}  // namespace mojom
-}  // namespace cros
+
+
+}  // cros::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

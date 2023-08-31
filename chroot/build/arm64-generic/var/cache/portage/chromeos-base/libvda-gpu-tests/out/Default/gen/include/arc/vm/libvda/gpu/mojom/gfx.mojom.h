@@ -35,8 +35,7 @@
 
 
 
-namespace arc {
-namespace mojom {
+namespace arc::mojom {
 
 
 
@@ -584,8 +583,7 @@ bool operator<(const T& lhs, const T& rhs) {
 }
 
 
-}  // namespace mojom
-}  // namespace arc
+}  // arc::mojom
 
 namespace mojo {
 

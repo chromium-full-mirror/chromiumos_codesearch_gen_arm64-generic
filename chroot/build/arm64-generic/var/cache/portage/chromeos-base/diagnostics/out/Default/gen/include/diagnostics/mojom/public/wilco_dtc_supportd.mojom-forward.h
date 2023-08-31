@@ -20,9 +20,7 @@
 
 
 
-namespace chromeos {
-namespace wilco_dtc_supportd {
-namespace mojom {
+namespace chromeos::wilco_dtc_supportd::mojom {
 
 enum class WilcoDtcSupportdWebRequestHttpMethod : int32_t;
 
@@ -38,8 +36,6 @@ class WilcoDtcSupportdClient;
 
 
 
-}  // namespace mojom
-}  // namespace wilco_dtc_supportd
-}  // namespace chromeos
+}  // chromeos::wilco_dtc_supportd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_WILCO_DTC_SUPPORTD_MOJOM_FORWARD_H_

@@ -10,9 +10,7 @@
 #include "ml/mojom/image_content_annotation.mojom.h"
 
 
-namespace chromeos {
-namespace machine_learning {
-namespace mojom {
+namespace chromeos::machine_learning::mojom {
 
 
 class  ImageContentAnnotatorInterceptorForTesting : public ImageContentAnnotator {
@@ -42,8 +40,6 @@ class  ImageContentAnnotatorAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace machine_learning
-}  // namespace chromeos
+}  // chromeos::machine_learning::mojom
 
 #endif  // ML_MOJOM_IMAGE_CONTENT_ANNOTATION_MOJOM_TEST_UTILS_H_

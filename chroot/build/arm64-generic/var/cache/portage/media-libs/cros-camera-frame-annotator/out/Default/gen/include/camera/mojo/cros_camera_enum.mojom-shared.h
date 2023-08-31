@@ -24,12 +24,10 @@
 
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace mojo {
 namespace internal {
@@ -38,8 +36,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 enum class CameraSensorSyncTimestamp : int32_t {
@@ -60,8 +57,7 @@ inline bool IsKnownEnumValue(CameraSensorSyncTimestamp value) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 namespace std {
 
@@ -96,12 +92,10 @@ struct Serializer<::cros::mojom::CameraSensorSyncTimestamp, MaybeConstUserType> 
 }  // namespace mojo
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

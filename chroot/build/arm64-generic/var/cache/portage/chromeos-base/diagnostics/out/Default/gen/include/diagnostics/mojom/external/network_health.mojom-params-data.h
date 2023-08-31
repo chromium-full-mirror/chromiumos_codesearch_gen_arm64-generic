@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace chromeos {
-namespace network_health {
-namespace mojom {
+
+
+namespace chromeos::network_health::mojom {
 namespace internal {
 class  NetworkEventsObserver_OnConnectionStateChanged_Params_Data {
  public:
@@ -355,9 +355,9 @@ inline void NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView::GetSt
   *output = ::chromeos::network_health::mojom::NetworkHealthStateDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace network_health
-}  // namespace chromeos
+
+
+}  // chromeos::network_health::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

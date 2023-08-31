@@ -42,9 +42,7 @@
 #include "ml/mojom/big_buffer.mojom-test-utils.h"
 
 
-
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 BigBufferSharedMemoryRegion::BigBufferSharedMemoryRegion()
     : buffer_handle(),
       size() {}
@@ -149,8 +147,7 @@ bool BigBuffer::Validate(
 }
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 namespace mojo {
@@ -215,14 +212,12 @@ bool UnionTraits<::mojo_base::mojom::BigBuffer::DataView, ::mojo_base::mojom::Bi
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 
 #if defined(__clang__)

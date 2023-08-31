@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class MemoryAllocatorDumpCrossProcessUidDataView;
 
 class MemoryAllocatorDumpCrossProcessUid;
@@ -31,7 +30,6 @@ using MemoryAllocatorDumpCrossProcessUidPtr = mojo::InlinedStructPtr<MemoryAlloc
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // MOJO_PUBLIC_MOJOM_BASE_MEMORY_ALLOCATOR_DUMP_CROSS_PROCESS_UID_MOJOM_FORWARD_H_

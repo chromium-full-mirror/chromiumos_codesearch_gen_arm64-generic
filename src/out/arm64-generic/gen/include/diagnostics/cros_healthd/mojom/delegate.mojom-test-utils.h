@@ -10,9 +10,7 @@
 #include "diagnostics/cros_healthd/mojom/delegate.mojom.h"
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class  DelegateInterceptorForTesting : public Delegate {
@@ -93,8 +91,6 @@ class  DelegateAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_MOJOM_DELEGATE_MOJOM_TEST_UTILS_H_

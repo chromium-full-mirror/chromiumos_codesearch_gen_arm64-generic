@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 class  WilcoEcObserver_OnEcEvent_Params_Data {
  public:
@@ -73,9 +73,9 @@ inline void WilcoEcObserver_OnEcEvent_ParamsDataView::GetEcEventDataView(
   *output = EcEventDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+
+}  // ash::cros_healthd::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

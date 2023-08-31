@@ -20,9 +20,7 @@
 
 
 
-namespace chromeos {
-namespace network_config {
-namespace mojom {
+namespace chromeos::network_config::mojom {
 
 enum class ConnectionStateType : int32_t;
 
@@ -38,8 +36,6 @@ enum class PortalState : int32_t;
 
 
 
-}  // namespace mojom
-}  // namespace network_config
-}  // namespace chromeos
+}  // chromeos::network_config::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_TYPES_MOJOM_FORWARD_H_

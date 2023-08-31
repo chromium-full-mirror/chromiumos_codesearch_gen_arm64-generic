@@ -10,8 +10,7 @@
 #include "iioservice/mojo/cros_sensor_service.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 class  SensorHalServerInterceptorForTesting : public SensorHalServer {
@@ -52,7 +51,6 @@ class  SensorHalClientAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // IIOSERVICE_MOJO_CROS_SENSOR_SERVICE_MOJOM_TEST_UTILS_H_

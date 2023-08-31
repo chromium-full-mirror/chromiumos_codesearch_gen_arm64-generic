@@ -10,13 +10,11 @@
 #include "ml/mojom/geometry.mojom.h"
 
 
-namespace gfx {
-namespace mojom {
+namespace gfx::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace gfx
+}  // gfx::mojom
 
 #endif  // ML_MOJOM_GEOMETRY_MOJOM_TEST_UTILS_H_

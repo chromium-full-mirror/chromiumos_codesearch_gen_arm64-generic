@@ -10,9 +10,7 @@
 #include "diagnostics/cros_healthd/mojom/executor.mojom.h"
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class  ProcessControlInterceptorForTesting : public ProcessControl {
@@ -295,8 +293,6 @@ class  ExecutorAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_MOJOM_EXECUTOR_MOJOM_TEST_UTILS_H_

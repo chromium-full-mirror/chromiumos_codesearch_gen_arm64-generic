@@ -43,10 +43,7 @@
 #include "diagnostics/mojom/external/time_mojom_traits.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 ExecutedProcessResult::ExecutedProcessResult()
     : return_code(),
       out(),
@@ -9367,9 +9364,7 @@ bool ExecutorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 namespace mojo {
@@ -9508,9 +9503,7 @@ bool UnionTraits<::ash::cros_healthd::mojom::FioJobArgument::DataView, ::ash::cr
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 void ProcessControlInterceptorForTesting::GetStdout(GetStdoutCallback callback) {
@@ -10310,9 +10303,7 @@ bool ExecutorAsyncWaiter::RunFloatingPoint(
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 #if defined(__clang__)

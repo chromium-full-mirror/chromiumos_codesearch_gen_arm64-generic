@@ -42,11 +42,7 @@
 #include "diagnostics/mojom/external/cros_healthd_internal.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
+namespace ash::cros_healthd::internal::mojom {
 TouchscreenDevice::TouchscreenDevice()
     : input_device(),
       touch_points(),
@@ -1184,10 +1180,7 @@ bool ChromiumDataCollectorResponseValidator::Accept(mojo::Message* message) {
 }
 
 
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::internal::mojom
 
 
 namespace mojo {
@@ -1241,10 +1234,7 @@ bool StructTraits<::ash::cros_healthd::internal::mojom::InputDevice::DataView, :
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace internal {
-namespace mojom {
+namespace ash::cros_healthd::internal::mojom {
 
 
 void ChromiumDataCollectorInterceptorForTesting::GetTouchscreenDevices(GetTouchscreenDevicesCallback callback) {
@@ -1361,10 +1351,7 @@ bool ChromiumDataCollectorAsyncWaiter::SetAudioOutputMute(
 
 
 
-}  // namespace mojom
-}  // namespace internal
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::internal::mojom
 
 
 #if defined(__clang__)

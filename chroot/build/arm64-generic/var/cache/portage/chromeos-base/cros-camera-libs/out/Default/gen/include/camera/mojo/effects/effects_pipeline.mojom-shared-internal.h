@@ -21,8 +21,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace cros {
-namespace mojom {
+
+
+namespace cros::mojom {
 namespace internal {
 class EffectsConfig_Data;
 
@@ -195,7 +196,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace cros
+
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_EFFECTS_EFFECTS_PIPELINE_MOJOM_SHARED_INTERNAL_H_

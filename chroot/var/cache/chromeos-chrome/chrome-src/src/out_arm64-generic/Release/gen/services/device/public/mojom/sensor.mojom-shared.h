@@ -33,6 +33,8 @@
 
 
 namespace device::mojom {
+class SensorReadingRawDataView;
+
 class SensorConfigurationDataView;
 
 
@@ -41,6 +43,13 @@ class SensorConfigurationDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::device::mojom::SensorReadingRawDataView> {
+  using Data = ::device::mojom::internal::SensorReadingRaw_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::device::mojom::SensorConfigurationDataView> {
@@ -129,6 +138,35 @@ using SensorClientAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<SensorClientInterfaceBase>;
 
 
+class SensorReadingRawDataView {
+ public:
+  SensorReadingRawDataView() = default;
+
+  SensorReadingRawDataView(
+      internal::SensorReadingRaw_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  double timestamp() const {
+    return data_->timestamp;
+  }
+  inline void GetValuesDataView(
+      mojo::ArrayDataView<double>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadValues(UserType* output) {
+    
+    auto* pointer = data_->values.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<double>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SensorReadingRaw_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class SensorConfigurationDataView {
  public:
   SensorConfigurationDataView() = default;
@@ -207,6 +245,50 @@ struct Serializer<::device::mojom::ReportingMode, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::device::mojom::SensorReadingRawDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::device::mojom::SensorReadingRawDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::device::mojom::internal::SensorReadingRaw_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->timestamp = Traits::timestamp(input);
+    decltype(Traits::values(input)) in_values = Traits::values(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->values)::BaseType>
+        values_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& values_validate_params =
+        mojo::internal::GetArrayValidator<4, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<double>>(
+        in_values, values_fragment, &values_validate_params);
+    fragment->values.Set(
+        values_fragment.is_null() ? nullptr : values_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->values.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null values in SensorReadingRaw struct");
+  }
+
+  static bool Deserialize(::device::mojom::internal::SensorReadingRaw_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::device::mojom::SensorReadingRawDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::device::mojom::SensorConfigurationDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::device::mojom::SensorConfigurationDataView, UserType>;
@@ -237,6 +319,13 @@ struct Serializer<::device::mojom::SensorConfigurationDataView, MaybeConstUserTy
 
 
 namespace device::mojom {
+
+inline void SensorReadingRawDataView::GetValuesDataView(
+    mojo::ArrayDataView<double>* output) {
+  auto pointer = data_->values.Get();
+  *output = mojo::ArrayDataView<double>(pointer, message_);
+}
+
 
 
 

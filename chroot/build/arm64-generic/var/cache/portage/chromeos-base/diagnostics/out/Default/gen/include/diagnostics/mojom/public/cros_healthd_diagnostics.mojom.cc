@@ -42,10 +42,7 @@
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-test-utils.h"
 
 
-
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 RunRoutineResponse::RunRoutineResponse()
     : id(),
       status() {}
@@ -575,9 +572,7 @@ bool DEPRECATED_LedLitUpRoutineReplierResponseValidator::Accept(mojo::Message* m
 }
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 namespace mojo {
@@ -686,9 +681,7 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineUpdateUnion::DataView, ::ash
 // separate .cc file to save compile time.
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 void DEPRECATED_LedLitUpRoutineReplierInterceptorForTesting::GetColorMatched(GetColorMatchedCallback callback) {
@@ -727,9 +720,7 @@ bool DEPRECATED_LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 
 #if defined(__clang__)

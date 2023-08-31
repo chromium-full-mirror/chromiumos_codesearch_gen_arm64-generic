@@ -10,9 +10,7 @@
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom.h"
 
 
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+namespace ash::cros_healthd::mojom {
 
 
 class  CrosHealthdRoutinesServiceInterceptorForTesting : public CrosHealthdRoutinesService {
@@ -100,8 +98,6 @@ class  RoutineObserverAsyncWaiter {
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_ROUTINES_MOJOM_TEST_UTILS_H_

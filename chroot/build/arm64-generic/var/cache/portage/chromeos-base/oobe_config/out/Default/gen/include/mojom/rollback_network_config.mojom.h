@@ -36,9 +36,7 @@
 
 
 
-namespace ash {
-namespace rollback_network_config {
-namespace mojom {
+namespace ash::rollback_network_config::mojom {
 
 class RollbackNetworkConfigProxy;
 
@@ -167,9 +165,7 @@ class  RollbackNetworkConfigResponseValidator : public mojo::MessageReceiver {
 
 
 
-}  // namespace mojom
-}  // namespace rollback_network_config
-}  // namespace ash
+}  // ash::rollback_network_config::mojom
 
 namespace mojo {
 

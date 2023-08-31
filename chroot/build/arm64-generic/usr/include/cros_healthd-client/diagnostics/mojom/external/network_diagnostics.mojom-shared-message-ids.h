@@ -8,10 +8,9 @@
 #define DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_DIAGNOSTICS_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
-namespace network_diagnostics {
-namespace mojom {
 
+
+namespace chromeos::network_diagnostics::mojom {
 namespace internal {
 
 
@@ -34,8 +33,7 @@ constexpr uint32_t kNetworkDiagnosticsRoutines_RunArcPing_Name = 25;
 constexpr uint32_t kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name = 26;
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace network_diagnostics
-}  // namespace chromeos
+
+}  // chromeos::network_diagnostics::mojom
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_DIAGNOSTICS_MOJOM_SHARED_MESSAGE_IDS_H_

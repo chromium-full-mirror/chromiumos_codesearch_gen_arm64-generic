@@ -42,9 +42,7 @@
 #include "ipc/ipc.mojom-test-utils.h"
 
 
-
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 Message::Message()
     : bytes(),
       handles() {}
@@ -496,8 +494,7 @@ bool ChannelBootstrapRequestValidator::Accept(mojo::Message* message) {
 
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 
 namespace mojo {
@@ -525,8 +522,7 @@ bool StructTraits<::IPC::mojom::Message::DataView, ::IPC::mojom::MessagePtr>::Re
 // separate .cc file to save compile time.
 
 
-namespace IPC {
-namespace mojom {
+namespace IPC::mojom {
 
 
 void ChannelInterceptorForTesting::SetPeerPid(int32_t pid) {
@@ -556,8 +552,7 @@ ChannelBootstrapAsyncWaiter::~ChannelBootstrapAsyncWaiter() = default;
 
 
 
-}  // namespace mojom
-}  // namespace IPC
+}  // IPC::mojom
 
 
 #if defined(__clang__)

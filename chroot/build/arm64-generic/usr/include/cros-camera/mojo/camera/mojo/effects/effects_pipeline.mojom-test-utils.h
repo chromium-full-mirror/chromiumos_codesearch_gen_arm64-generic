@@ -10,13 +10,11 @@
 #include "camera/mojo/effects/effects_pipeline.mojom.h"
 
 
-namespace cros {
-namespace mojom {
+namespace cros::mojom {
 
 
 
 
-}  // namespace mojom
-}  // namespace cros
+}  // cros::mojom
 
 #endif  // CAMERA_MOJO_EFFECTS_EFFECTS_PIPELINE_MOJOM_TEST_UTILS_H_

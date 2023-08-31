@@ -21,8 +21,7 @@
 
 
 
-namespace mojo_base {
-namespace mojom {
+namespace mojo_base::mojom {
 class UnguessableTokenDataView;
 
 class UnguessableToken;
@@ -31,7 +30,6 @@ using UnguessableTokenPtr = mojo::InlinedStructPtr<UnguessableToken>;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
+}  // mojo_base::mojom
 
 #endif  // CAMERA_MOJO_UNGUESSABLE_TOKEN_MOJOM_FORWARD_H_

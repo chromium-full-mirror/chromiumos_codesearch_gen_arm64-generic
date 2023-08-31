@@ -18,9 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace ash {
-namespace cros_healthd {
-namespace mojom {
+
+
+namespace ash::cros_healthd::mojom {
 namespace internal {
 class  CrosHealthdServiceFactory_GetDiagnosticsService_Params_Data {
  public:
@@ -5704,9 +5704,9 @@ inline void WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView::GetR
 
 
 
-}  // namespace mojom
-}  // namespace cros_healthd
-}  // namespace ash
+
+
+}  // ash::cros_healthd::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -93,6 +93,40 @@ namespace internal {
 
 
 // static
+bool SensorReadingRaw_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SensorReadingRaw_Data* object =
+      static_cast<const SensorReadingRaw_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->values, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& values_validate_params =
+      mojo::internal::GetArrayValidator<4, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->values, validation_context,
+                                         &values_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+SensorReadingRaw_Data::SensorReadingRaw_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool SensorConfiguration_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

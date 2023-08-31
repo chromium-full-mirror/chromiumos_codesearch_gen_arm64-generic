@@ -20,8 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class Rect_Data;
 class Range_Data;
@@ -181,7 +182,7 @@ const mojo::internal::UnserializedMessageContext::Tag
 #pragma pack(pop)
 
 }  // namespace internal
-}  // namespace mojom
-}  // namespace arc
+
+}  // arc::mojom
 
 #endif  // ARC_VM_LIBVDA_GPU_MOJOM_GFX_MOJOM_SHARED_INTERNAL_H_

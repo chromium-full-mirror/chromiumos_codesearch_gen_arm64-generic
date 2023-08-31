@@ -18,8 +18,9 @@
 namespace mojo::internal {
 class ValidationContext;
 }
-namespace arc {
-namespace mojom {
+
+
+namespace arc::mojom {
 namespace internal {
 class  VideoFramePool_Initialize_Params_Data {
  public:
@@ -232,8 +233,9 @@ inline void VideoFramePoolClient_RequestVideoFrames_ParamsDataView::GetVisibleRe
   *output = ::arc::mojom::RectDataView(pointer, message_);
 }
 
-}  // namespace mojom
-}  // namespace arc
+
+
+}  // arc::mojom
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

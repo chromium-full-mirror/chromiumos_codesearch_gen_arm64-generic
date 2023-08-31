@@ -31,11 +31,7 @@
 
 
 
-namespace ash {
-namespace cros_healthd {
-namespace external {
-namespace mojo_base {
-namespace mojom {
+namespace ash::cros_healthd::external::mojo_base::mojom {
 class TimeDataView;
 
 class TimeDeltaDataView;
@@ -44,11 +40,7 @@ class TimeTicksDataView;
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
-}  // namespace external
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::external::mojo_base::mojom
 
 namespace mojo {
 namespace internal {
@@ -78,11 +70,7 @@ struct MojomTypeTraits<::ash::cros_healthd::external::mojo_base::mojom::TimeTick
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace external {
-namespace mojo_base {
-namespace mojom {
+namespace ash::cros_healthd::external::mojo_base::mojom {
 
 
 class TimeDataView {
@@ -139,11 +127,7 @@ class TimeTicksDataView {
 };
 
 
-}  // namespace mojom
-}  // namespace mojo_base
-}  // namespace external
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::external::mojo_base::mojom
 
 namespace std {
 
@@ -244,11 +228,7 @@ struct Serializer<::ash::cros_healthd::external::mojo_base::mojom::TimeTicksData
 }  // namespace mojo
 
 
-namespace ash {
-namespace cros_healthd {
-namespace external {
-namespace mojo_base {
-namespace mojom {
+namespace ash::cros_healthd::external::mojo_base::mojom {
 
 
 
@@ -257,11 +237,7 @@ namespace mojom {
 
 
 
-}  // namespace mojom
-}  // namespace mojo_base
-}  // namespace external
-}  // namespace cros_healthd
-}  // namespace ash
+}  // ash::cros_healthd::external::mojo_base::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
