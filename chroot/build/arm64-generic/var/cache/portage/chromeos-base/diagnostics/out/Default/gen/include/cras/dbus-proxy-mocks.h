@@ -735,6 +735,20 @@ class ControlProxyMock : public ControlProxyInterface {
                int /*timeout_ms*/),
               (override));
 
+  MOCK_METHOD(bool,
+              SetForceBtHfpOffloadOnSupport,
+              (bool /*in_enabled*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetForceBtHfpOffloadOnSupportAsync,
+              (bool /*in_enabled*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterOutputVolumeChangedSignalHandler(
     const base::RepeatingCallback<void(int32_t)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {

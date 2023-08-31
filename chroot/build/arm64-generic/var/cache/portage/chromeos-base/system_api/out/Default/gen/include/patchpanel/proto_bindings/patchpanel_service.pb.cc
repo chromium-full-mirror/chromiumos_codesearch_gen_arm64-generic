@@ -828,6 +828,32 @@ struct NotifySocketConnectionEventResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotifySocketConnectionEventResponseDefaultTypeInternal _NotifySocketConnectionEventResponse_default_instance_;
+PROTOBUF_CONSTEXPR SetFeatureFlagRequest::SetFeatureFlagRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.flag_)*/0
+  , /*decltype(_impl_.enabled_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SetFeatureFlagRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SetFeatureFlagRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SetFeatureFlagRequestDefaultTypeInternal() {}
+  union {
+    SetFeatureFlagRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetFeatureFlagRequestDefaultTypeInternal _SetFeatureFlagRequest_default_instance_;
+PROTOBUF_CONSTEXPR SetFeatureFlagResponse::SetFeatureFlagResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
+struct SetFeatureFlagResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SetFeatureFlagResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SetFeatureFlagResponseDefaultTypeInternal() {}
+  union {
+    SetFeatureFlagResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetFeatureFlagResponseDefaultTypeInternal _SetFeatureFlagResponse_default_instance_;
 }  // namespace patchpanel
 namespace patchpanel {
 bool NetworkDevice_GuestType_IsValid(int value) {
@@ -1839,6 +1865,59 @@ constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent::MULTIMEDIA_CO
 constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent::QosCategory_MIN;
 constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent::QosCategory_MAX;
 constexpr int SocketConnectionEvent::QosCategory_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool SetFeatureFlagRequest_FeatureFlag_IsValid(int value) {
+  switch (value) {
+    case 0:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SetFeatureFlagRequest_FeatureFlag_strings[1] = {};
+
+static const char SetFeatureFlagRequest_FeatureFlag_names[] =
+  "WIFI_QOS";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SetFeatureFlagRequest_FeatureFlag_entries[] = {
+  { {SetFeatureFlagRequest_FeatureFlag_names + 0, 8}, 0 },
+};
+
+static const int SetFeatureFlagRequest_FeatureFlag_entries_by_number[] = {
+  0, // 0 -> WIFI_QOS
+};
+
+const std::string& SetFeatureFlagRequest_FeatureFlag_Name(
+    SetFeatureFlagRequest_FeatureFlag value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SetFeatureFlagRequest_FeatureFlag_entries,
+          SetFeatureFlagRequest_FeatureFlag_entries_by_number,
+          1, SetFeatureFlagRequest_FeatureFlag_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SetFeatureFlagRequest_FeatureFlag_entries,
+      SetFeatureFlagRequest_FeatureFlag_entries_by_number,
+      1, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SetFeatureFlagRequest_FeatureFlag_strings[idx].get();
+}
+bool SetFeatureFlagRequest_FeatureFlag_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SetFeatureFlagRequest_FeatureFlag* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SetFeatureFlagRequest_FeatureFlag_entries, 1, name, &int_value);
+  if (success) {
+    *value = static_cast<SetFeatureFlagRequest_FeatureFlag>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::WIFI_QOS;
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::FeatureFlag_MIN;
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::FeatureFlag_MAX;
+constexpr int SetFeatureFlagRequest::FeatureFlag_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool DownstreamNetworkResult_IsValid(int value) {
   switch (value) {
@@ -15254,6 +15333,370 @@ std::string NotifySocketConnectionEventResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class SetFeatureFlagRequest::_Internal {
+ public:
+};
+
+SetFeatureFlagRequest::SetFeatureFlagRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:patchpanel.SetFeatureFlagRequest)
+}
+SetFeatureFlagRequest::SetFeatureFlagRequest(const SetFeatureFlagRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetFeatureFlagRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.flag_){}
+    , decltype(_impl_.enabled_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&_impl_.flag_, &from._impl_.flag_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enabled_) -
+    reinterpret_cast<char*>(&_impl_.flag_)) + sizeof(_impl_.enabled_));
+  // @@protoc_insertion_point(copy_constructor:patchpanel.SetFeatureFlagRequest)
+}
+
+inline void SetFeatureFlagRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.flag_){0}
+    , decltype(_impl_.enabled_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SetFeatureFlagRequest::~SetFeatureFlagRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.SetFeatureFlagRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SetFeatureFlagRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SetFeatureFlagRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SetFeatureFlagRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.SetFeatureFlagRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.flag_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.enabled_) -
+      reinterpret_cast<char*>(&_impl_.flag_)) + sizeof(_impl_.enabled_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SetFeatureFlagRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .patchpanel.SetFeatureFlagRequest.FeatureFlag flag = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_flag(static_cast<::patchpanel::SetFeatureFlagRequest_FeatureFlag>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool enabled = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SetFeatureFlagRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.SetFeatureFlagRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .patchpanel.SetFeatureFlagRequest.FeatureFlag flag = 1;
+  if (this->_internal_flag() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_flag(), target);
+  }
+
+  // bool enabled = 2;
+  if (this->_internal_enabled() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_enabled(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.SetFeatureFlagRequest)
+  return target;
+}
+
+size_t SetFeatureFlagRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.SetFeatureFlagRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .patchpanel.SetFeatureFlagRequest.FeatureFlag flag = 1;
+  if (this->_internal_flag() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_flag());
+  }
+
+  // bool enabled = 2;
+  if (this->_internal_enabled() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SetFeatureFlagRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SetFeatureFlagRequest*>(
+      &from));
+}
+
+void SetFeatureFlagRequest::MergeFrom(const SetFeatureFlagRequest& from) {
+  SetFeatureFlagRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.SetFeatureFlagRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_flag() != 0) {
+    _this->_internal_set_flag(from._internal_flag());
+  }
+  if (from._internal_enabled() != 0) {
+    _this->_internal_set_enabled(from._internal_enabled());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SetFeatureFlagRequest::CopyFrom(const SetFeatureFlagRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.SetFeatureFlagRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SetFeatureFlagRequest::IsInitialized() const {
+  return true;
+}
+
+void SetFeatureFlagRequest::InternalSwap(SetFeatureFlagRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SetFeatureFlagRequest, _impl_.enabled_)
+      + sizeof(SetFeatureFlagRequest::_impl_.enabled_)
+      - PROTOBUF_FIELD_OFFSET(SetFeatureFlagRequest, _impl_.flag_)>(
+          reinterpret_cast<char*>(&_impl_.flag_),
+          reinterpret_cast<char*>(&other->_impl_.flag_));
+}
+
+std::string SetFeatureFlagRequest::GetTypeName() const {
+  return "patchpanel.SetFeatureFlagRequest";
+}
+
+
+// ===================================================================
+
+class SetFeatureFlagResponse::_Internal {
+ public:
+};
+
+SetFeatureFlagResponse::SetFeatureFlagResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:patchpanel.SetFeatureFlagResponse)
+}
+SetFeatureFlagResponse::SetFeatureFlagResponse(const SetFeatureFlagResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetFeatureFlagResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:patchpanel.SetFeatureFlagResponse)
+}
+
+inline void SetFeatureFlagResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SetFeatureFlagResponse::~SetFeatureFlagResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.SetFeatureFlagResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SetFeatureFlagResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SetFeatureFlagResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SetFeatureFlagResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.SetFeatureFlagResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SetFeatureFlagResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SetFeatureFlagResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.SetFeatureFlagResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.SetFeatureFlagResponse)
+  return target;
+}
+
+size_t SetFeatureFlagResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.SetFeatureFlagResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SetFeatureFlagResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SetFeatureFlagResponse*>(
+      &from));
+}
+
+void SetFeatureFlagResponse::MergeFrom(const SetFeatureFlagResponse& from) {
+  SetFeatureFlagResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.SetFeatureFlagResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SetFeatureFlagResponse::CopyFrom(const SetFeatureFlagResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.SetFeatureFlagResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SetFeatureFlagResponse::IsInitialized() const {
+  return true;
+}
+
+void SetFeatureFlagResponse::InternalSwap(SetFeatureFlagResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string SetFeatureFlagResponse::GetTypeName() const {
+  return "patchpanel.SetFeatureFlagResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace patchpanel
 PROTOBUF_NAMESPACE_OPEN
@@ -15484,6 +15927,14 @@ Arena::CreateMaybeMessage< ::patchpanel::NotifySocketConnectionEventRequest >(Ar
 template<> PROTOBUF_NOINLINE ::patchpanel::NotifySocketConnectionEventResponse*
 Arena::CreateMaybeMessage< ::patchpanel::NotifySocketConnectionEventResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::NotifySocketConnectionEventResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::SetFeatureFlagRequest*
+Arena::CreateMaybeMessage< ::patchpanel::SetFeatureFlagRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::SetFeatureFlagRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::SetFeatureFlagResponse*
+Arena::CreateMaybeMessage< ::patchpanel::SetFeatureFlagResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::SetFeatureFlagResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

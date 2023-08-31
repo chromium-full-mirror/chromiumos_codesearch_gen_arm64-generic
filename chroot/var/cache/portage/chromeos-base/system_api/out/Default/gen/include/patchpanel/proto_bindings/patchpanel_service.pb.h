@@ -172,6 +172,12 @@ extern SetDnsRedirectionRuleRequestDefaultTypeInternal _SetDnsRedirectionRuleReq
 class SetDnsRedirectionRuleResponse;
 struct SetDnsRedirectionRuleResponseDefaultTypeInternal;
 extern SetDnsRedirectionRuleResponseDefaultTypeInternal _SetDnsRedirectionRuleResponse_default_instance_;
+class SetFeatureFlagRequest;
+struct SetFeatureFlagRequestDefaultTypeInternal;
+extern SetFeatureFlagRequestDefaultTypeInternal _SetFeatureFlagRequest_default_instance_;
+class SetFeatureFlagResponse;
+struct SetFeatureFlagResponseDefaultTypeInternal;
+extern SetFeatureFlagResponseDefaultTypeInternal _SetFeatureFlagResponse_default_instance_;
 class SetVpnIntentRequest;
 struct SetVpnIntentRequestDefaultTypeInternal;
 extern SetVpnIntentRequestDefaultTypeInternal _SetVpnIntentRequest_default_instance_;
@@ -259,6 +265,8 @@ template<> ::patchpanel::ParallelsVmStartupRequest* Arena::CreateMaybeMessage<::
 template<> ::patchpanel::ParallelsVmStartupResponse* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmStartupResponse>(Arena*);
 template<> ::patchpanel::SetDnsRedirectionRuleRequest* Arena::CreateMaybeMessage<::patchpanel::SetDnsRedirectionRuleRequest>(Arena*);
 template<> ::patchpanel::SetDnsRedirectionRuleResponse* Arena::CreateMaybeMessage<::patchpanel::SetDnsRedirectionRuleResponse>(Arena*);
+template<> ::patchpanel::SetFeatureFlagRequest* Arena::CreateMaybeMessage<::patchpanel::SetFeatureFlagRequest>(Arena*);
+template<> ::patchpanel::SetFeatureFlagResponse* Arena::CreateMaybeMessage<::patchpanel::SetFeatureFlagResponse>(Arena*);
 template<> ::patchpanel::SetVpnIntentRequest* Arena::CreateMaybeMessage<::patchpanel::SetVpnIntentRequest>(Arena*);
 template<> ::patchpanel::SetVpnIntentResponse* Arena::CreateMaybeMessage<::patchpanel::SetVpnIntentResponse>(Arena*);
 template<> ::patchpanel::SetVpnLockdownRequest* Arena::CreateMaybeMessage<::patchpanel::SetVpnLockdownRequest>(Arena*);
@@ -619,6 +627,26 @@ inline const std::string& SocketConnectionEvent_QosCategory_Name(T enum_t_value)
 }
 bool SocketConnectionEvent_QosCategory_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_QosCategory* value);
+enum SetFeatureFlagRequest_FeatureFlag : int {
+  SetFeatureFlagRequest_FeatureFlag_WIFI_QOS = 0,
+  SetFeatureFlagRequest_FeatureFlag_SetFeatureFlagRequest_FeatureFlag_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SetFeatureFlagRequest_FeatureFlag_SetFeatureFlagRequest_FeatureFlag_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SetFeatureFlagRequest_FeatureFlag_IsValid(int value);
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MIN = SetFeatureFlagRequest_FeatureFlag_WIFI_QOS;
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX = SetFeatureFlagRequest_FeatureFlag_WIFI_QOS;
+constexpr int SetFeatureFlagRequest_FeatureFlag_FeatureFlag_ARRAYSIZE = SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX + 1;
+
+const std::string& SetFeatureFlagRequest_FeatureFlag_Name(SetFeatureFlagRequest_FeatureFlag value);
+template<typename T>
+inline const std::string& SetFeatureFlagRequest_FeatureFlag_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SetFeatureFlagRequest_FeatureFlag>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SetFeatureFlagRequest_FeatureFlag_Name.");
+  return SetFeatureFlagRequest_FeatureFlag_Name(static_cast<SetFeatureFlagRequest_FeatureFlag>(enum_t_value));
+}
+bool SetFeatureFlagRequest_FeatureFlag_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SetFeatureFlagRequest_FeatureFlag* value);
 enum DownstreamNetworkResult : int {
   SUCCESS = 0,
   INVALID_ARGUMENT = 1,
@@ -9682,6 +9710,288 @@ class NotifySocketConnectionEventResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SetFeatureFlagRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.SetFeatureFlagRequest) */ {
+ public:
+  inline SetFeatureFlagRequest() : SetFeatureFlagRequest(nullptr) {}
+  ~SetFeatureFlagRequest() override;
+  explicit PROTOBUF_CONSTEXPR SetFeatureFlagRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SetFeatureFlagRequest(const SetFeatureFlagRequest& from);
+  SetFeatureFlagRequest(SetFeatureFlagRequest&& from) noexcept
+    : SetFeatureFlagRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SetFeatureFlagRequest& operator=(const SetFeatureFlagRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetFeatureFlagRequest& operator=(SetFeatureFlagRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SetFeatureFlagRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SetFeatureFlagRequest* internal_default_instance() {
+    return reinterpret_cast<const SetFeatureFlagRequest*>(
+               &_SetFeatureFlagRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    57;
+
+  friend void swap(SetFeatureFlagRequest& a, SetFeatureFlagRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SetFeatureFlagRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SetFeatureFlagRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SetFeatureFlagRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SetFeatureFlagRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SetFeatureFlagRequest& from);
+  void MergeFrom(const SetFeatureFlagRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SetFeatureFlagRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.SetFeatureFlagRequest";
+  }
+  protected:
+  explicit SetFeatureFlagRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef SetFeatureFlagRequest_FeatureFlag FeatureFlag;
+  static constexpr FeatureFlag WIFI_QOS =
+    SetFeatureFlagRequest_FeatureFlag_WIFI_QOS;
+  static inline bool FeatureFlag_IsValid(int value) {
+    return SetFeatureFlagRequest_FeatureFlag_IsValid(value);
+  }
+  static constexpr FeatureFlag FeatureFlag_MIN =
+    SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MIN;
+  static constexpr FeatureFlag FeatureFlag_MAX =
+    SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX;
+  static constexpr int FeatureFlag_ARRAYSIZE =
+    SetFeatureFlagRequest_FeatureFlag_FeatureFlag_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& FeatureFlag_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, FeatureFlag>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function FeatureFlag_Name.");
+    return SetFeatureFlagRequest_FeatureFlag_Name(enum_t_value);
+  }
+  static inline bool FeatureFlag_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      FeatureFlag* value) {
+    return SetFeatureFlagRequest_FeatureFlag_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFlagFieldNumber = 1,
+    kEnabledFieldNumber = 2,
+  };
+  // .patchpanel.SetFeatureFlagRequest.FeatureFlag flag = 1;
+  void clear_flag();
+  ::patchpanel::SetFeatureFlagRequest_FeatureFlag flag() const;
+  void set_flag(::patchpanel::SetFeatureFlagRequest_FeatureFlag value);
+  private:
+  ::patchpanel::SetFeatureFlagRequest_FeatureFlag _internal_flag() const;
+  void _internal_set_flag(::patchpanel::SetFeatureFlagRequest_FeatureFlag value);
+  public:
+
+  // bool enabled = 2;
+  void clear_enabled();
+  bool enabled() const;
+  void set_enabled(bool value);
+  private:
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.SetFeatureFlagRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int flag_;
+    bool enabled_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetFeatureFlagResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.SetFeatureFlagResponse) */ {
+ public:
+  inline SetFeatureFlagResponse() : SetFeatureFlagResponse(nullptr) {}
+  ~SetFeatureFlagResponse() override;
+  explicit PROTOBUF_CONSTEXPR SetFeatureFlagResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SetFeatureFlagResponse(const SetFeatureFlagResponse& from);
+  SetFeatureFlagResponse(SetFeatureFlagResponse&& from) noexcept
+    : SetFeatureFlagResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SetFeatureFlagResponse& operator=(const SetFeatureFlagResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetFeatureFlagResponse& operator=(SetFeatureFlagResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SetFeatureFlagResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SetFeatureFlagResponse* internal_default_instance() {
+    return reinterpret_cast<const SetFeatureFlagResponse*>(
+               &_SetFeatureFlagResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    58;
+
+  friend void swap(SetFeatureFlagResponse& a, SetFeatureFlagResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SetFeatureFlagResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SetFeatureFlagResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SetFeatureFlagResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SetFeatureFlagResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SetFeatureFlagResponse& from);
+  void MergeFrom(const SetFeatureFlagResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SetFeatureFlagResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.SetFeatureFlagResponse";
+  }
+  protected:
+  explicit SetFeatureFlagResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:patchpanel.SetFeatureFlagResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -15004,9 +15314,61 @@ inline void NotifySocketConnectionEventRequest::set_allocated_msg(::patchpanel::
 
 // NotifySocketConnectionEventResponse
 
+// -------------------------------------------------------------------
+
+// SetFeatureFlagRequest
+
+// .patchpanel.SetFeatureFlagRequest.FeatureFlag flag = 1;
+inline void SetFeatureFlagRequest::clear_flag() {
+  _impl_.flag_ = 0;
+}
+inline ::patchpanel::SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::_internal_flag() const {
+  return static_cast< ::patchpanel::SetFeatureFlagRequest_FeatureFlag >(_impl_.flag_);
+}
+inline ::patchpanel::SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::flag() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SetFeatureFlagRequest.flag)
+  return _internal_flag();
+}
+inline void SetFeatureFlagRequest::_internal_set_flag(::patchpanel::SetFeatureFlagRequest_FeatureFlag value) {
+  
+  _impl_.flag_ = value;
+}
+inline void SetFeatureFlagRequest::set_flag(::patchpanel::SetFeatureFlagRequest_FeatureFlag value) {
+  _internal_set_flag(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SetFeatureFlagRequest.flag)
+}
+
+// bool enabled = 2;
+inline void SetFeatureFlagRequest::clear_enabled() {
+  _impl_.enabled_ = false;
+}
+inline bool SetFeatureFlagRequest::_internal_enabled() const {
+  return _impl_.enabled_;
+}
+inline bool SetFeatureFlagRequest::enabled() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SetFeatureFlagRequest.enabled)
+  return _internal_enabled();
+}
+inline void SetFeatureFlagRequest::_internal_set_enabled(bool value) {
+  
+  _impl_.enabled_ = value;
+}
+inline void SetFeatureFlagRequest::set_enabled(bool value) {
+  _internal_set_enabled(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SetFeatureFlagRequest.enabled)
+}
+
+// -------------------------------------------------------------------
+
+// SetFeatureFlagResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -15141,6 +15503,7 @@ template <> struct is_proto_enum< ::patchpanel::TetheredNetworkRequest_UpstreamT
 template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_IpProtocol> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_SocketEvent> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_QosCategory> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::SetFeatureFlagRequest_FeatureFlag> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::DownstreamNetworkResult> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

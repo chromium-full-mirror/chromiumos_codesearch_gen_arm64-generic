@@ -73,6 +73,8 @@ class PatchPanelInterface {
       const patchpanel::NotifyAndroidInteractiveStateRequest& in_request) = 0;
   virtual patchpanel::NotifySocketConnectionEventResponse NotifySocketConnectionEvent(
       const patchpanel::NotifySocketConnectionEventRequest& in_request) = 0;
+  virtual patchpanel::SetFeatureFlagResponse SetFeatureFlag(
+      const patchpanel::SetFeatureFlagRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::PatchPanel.
@@ -178,6 +180,10 @@ class PatchPanelAdaptor {
         "NotifySocketConnectionEvent",
         base::Unretained(interface_),
         &PatchPanelInterface::NotifySocketConnectionEvent);
+    itf->AddSimpleMethodHandler(
+        "SetFeatureFlag",
+        base::Unretained(interface_),
+        &PatchPanelInterface::SetFeatureFlag);
 
     signal_NetworkDeviceChanged_ = itf->RegisterSignalOfType<SignalNetworkDeviceChangedType>("NetworkDeviceChanged");
     signal_NetworkConfigurationChanged_ = itf->RegisterSignalOfType<SignalNetworkConfigurationChangedType>("NetworkConfigurationChanged");
@@ -304,6 +310,10 @@ class PatchPanelAdaptor {
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"NotifySocketConnectionEvent\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"SetFeatureFlag\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

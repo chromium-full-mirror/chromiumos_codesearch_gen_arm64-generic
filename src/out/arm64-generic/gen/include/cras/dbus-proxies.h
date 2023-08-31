@@ -883,6 +883,21 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Sets true to always adopt BT HFP offload path while supported.
+  // Sets false to defer to the default setting of path selection.
+  virtual bool SetForceBtHfpOffloadOnSupport(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Sets true to always adopt BT HFP offload path while supported.
+  // Sets false to defer to the default setting of path selection.
+  virtual void SetForceBtHfpOffloadOnSupportAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterOutputVolumeChangedSignalHandler(
       const base::RepeatingCallback<void(int32_t)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -3009,6 +3024,40 @@ class ControlProxy final : public ControlProxyInterface {
         "GetNumberOfNonChromeOutputStreams",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  // Sets true to always adopt BT HFP offload path while supported.
+  // Sets false to defer to the default setting of path selection.
+  bool SetForceBtHfpOffloadOnSupport(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetForceBtHfpOffloadOnSupport",
+        error,
+        in_enabled);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Sets true to always adopt BT HFP offload path while supported.
+  // Sets false to defer to the default setting of path selection.
+  void SetForceBtHfpOffloadOnSupportAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetForceBtHfpOffloadOnSupport",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_enabled);
   }
 
  private:
