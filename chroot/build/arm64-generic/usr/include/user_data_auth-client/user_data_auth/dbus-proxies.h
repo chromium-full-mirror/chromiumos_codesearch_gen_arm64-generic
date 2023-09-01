@@ -346,6 +346,18 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool ReplaceAuthFactor(
+      const user_data_auth::ReplaceAuthFactorRequest& in_request,
+      user_data_auth::ReplaceAuthFactorReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void ReplaceAuthFactorAsync(
+      const user_data_auth::ReplaceAuthFactorRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::ReplaceAuthFactorReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool RemoveAuthFactor(
       const user_data_auth::RemoveAuthFactorRequest& in_request,
       user_data_auth::RemoveAuthFactorReply* out_reply,
@@ -1382,6 +1394,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "RelabelAuthFactor",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool ReplaceAuthFactor(
+      const user_data_auth::ReplaceAuthFactorRequest& in_request,
+      user_data_auth::ReplaceAuthFactorReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "ReplaceAuthFactor",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void ReplaceAuthFactorAsync(
+      const user_data_auth::ReplaceAuthFactorRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::ReplaceAuthFactorReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "ReplaceAuthFactor",
         std::move(success_callback),
         std::move(error_callback),
         in_request);
