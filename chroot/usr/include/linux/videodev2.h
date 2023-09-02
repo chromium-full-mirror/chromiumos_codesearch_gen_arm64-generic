@@ -980,7 +980,6 @@ struct v4l2_plane {
  * @length:	size in bytes of the buffer (NOT its payload) for single-plane
  *		buffers (when type != *_MPLANE); number of elements in the
  *		planes array for multi-plane buffers
- * @config_store: this buffer should use this configuration store
  * @request_fd: fd of the request that this buffer should use
  *
  * Contains data exchanged by application and driver using one of the Streaming
@@ -1005,7 +1004,7 @@ struct v4l2_buffer {
 		__s32		fd;
 	} m;
 	__u32			length;
-	__u32			config_store;
+	__u32			reserved2;
 	union {
 		__s32		request_fd;
 		__u32		reserved;
@@ -1697,7 +1696,6 @@ struct v4l2_ext_control {
 struct v4l2_ext_controls {
 	union {
 		__u32 ctrl_class;
-		__u32 config_store;
 		__u32 which;
 	};
 	__u32 count;
@@ -1758,8 +1756,6 @@ enum v4l2_ctrl_type {
 	V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY = 0x281,
 	V4L2_CTRL_TYPE_AV1_FRAME	    = 0x282,
 	V4L2_CTRL_TYPE_AV1_FILM_GRAIN	    = 0x283,
-
-	V4L2_CTRL_TYPE_PRIVATE	     = 0xffff,
 };
 
 /*  Used in the VIDIOC_QUERYCTRL ioctl for querying controls */

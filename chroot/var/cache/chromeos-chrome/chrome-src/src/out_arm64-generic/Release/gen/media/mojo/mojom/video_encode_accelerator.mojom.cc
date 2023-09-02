@@ -810,6 +810,8 @@ Vp9Metadata::Vp9Metadata()
       temporal_idx(),
       spatial_idx(),
       spatial_layer_resolutions(),
+      begin_active_spatial_layer_index(),
+      end_active_spatial_layer_index(),
       p_diffs() {}
 
 Vp9Metadata::Vp9Metadata(
@@ -821,6 +823,8 @@ Vp9Metadata::Vp9Metadata(
     uint8_t temporal_idx_in,
     uint8_t spatial_idx_in,
     std::vector<::gfx::Size> spatial_layer_resolutions_in,
+    uint8_t begin_active_spatial_layer_index_in,
+    uint8_t end_active_spatial_layer_index_in,
     std::vector<uint8_t> p_diffs_in)
     : inter_pic_predicted(std::move(inter_pic_predicted_in)),
       temporal_up_switch(std::move(temporal_up_switch_in)),
@@ -830,6 +834,8 @@ Vp9Metadata::Vp9Metadata(
       temporal_idx(std::move(temporal_idx_in)),
       spatial_idx(std::move(spatial_idx_in)),
       spatial_layer_resolutions(std::move(spatial_layer_resolutions_in)),
+      begin_active_spatial_layer_index(std::move(begin_active_spatial_layer_index_in)),
+      end_active_spatial_layer_index(std::move(end_active_spatial_layer_index_in)),
       p_diffs(std::move(p_diffs_in)) {}
 
 Vp9Metadata::~Vp9Metadata() = default;
@@ -905,6 +911,24 @@ void Vp9Metadata::WriteIntoTrace(
       "spatial_layer_resolutions"), this->spatial_layer_resolutions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<::gfx::Size>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "begin_active_spatial_layer_index"), this->begin_active_spatial_layer_index,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "end_active_spatial_layer_index"), this->end_active_spatial_layer_index,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4090,6 +4114,10 @@ bool StructTraits<::media::mojom::Vp9Metadata::DataView, ::media::mojom::Vp9Meta
         result->spatial_idx = input.spatial_idx();
       if (success && !input.ReadSpatialLayerResolutions(&result->spatial_layer_resolutions))
         success = false;
+      if (success)
+        result->begin_active_spatial_layer_index = input.begin_active_spatial_layer_index();
+      if (success)
+        result->end_active_spatial_layer_index = input.end_active_spatial_layer_index();
       if (success && !input.ReadPDiffs(&result->p_diffs))
         success = false;
   *output = std::move(result);

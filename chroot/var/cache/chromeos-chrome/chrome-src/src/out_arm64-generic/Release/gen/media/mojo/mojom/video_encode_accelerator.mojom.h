@@ -2925,6 +2925,8 @@ class  Vp9Metadata {
       uint8_t temporal_idx,
       uint8_t spatial_idx,
       std::vector<::gfx::Size> spatial_layer_resolutions,
+      uint8_t begin_active_spatial_layer_index,
+      uint8_t end_active_spatial_layer_index,
       std::vector<uint8_t> p_diffs);
 
 
@@ -3018,6 +3020,10 @@ class  Vp9Metadata {
   uint8_t spatial_idx;
   
   std::vector<::gfx::Size> spatial_layer_resolutions;
+  
+  uint8_t begin_active_spatial_layer_index;
+  
+  uint8_t end_active_spatial_layer_index;
   
   std::vector<uint8_t> p_diffs;
 
@@ -3802,6 +3808,8 @@ Vp9MetadataPtr Vp9Metadata::Clone() const {
       mojo::Clone(temporal_idx),
       mojo::Clone(spatial_idx),
       mojo::Clone(spatial_layer_resolutions),
+      mojo::Clone(begin_active_spatial_layer_index),
+      mojo::Clone(end_active_spatial_layer_index),
       mojo::Clone(p_diffs)
   );
 }
@@ -3823,6 +3831,10 @@ bool Vp9Metadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->spatial_idx, other_struct.spatial_idx))
     return false;
   if (!mojo::Equals(this->spatial_layer_resolutions, other_struct.spatial_layer_resolutions))
+    return false;
+  if (!mojo::Equals(this->begin_active_spatial_layer_index, other_struct.begin_active_spatial_layer_index))
+    return false;
+  if (!mojo::Equals(this->end_active_spatial_layer_index, other_struct.end_active_spatial_layer_index))
     return false;
   if (!mojo::Equals(this->p_diffs, other_struct.p_diffs))
     return false;
@@ -3862,6 +3874,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.spatial_layer_resolutions < rhs.spatial_layer_resolutions)
     return true;
   if (rhs.spatial_layer_resolutions < lhs.spatial_layer_resolutions)
+    return false;
+  if (lhs.begin_active_spatial_layer_index < rhs.begin_active_spatial_layer_index)
+    return true;
+  if (rhs.begin_active_spatial_layer_index < lhs.begin_active_spatial_layer_index)
+    return false;
+  if (lhs.end_active_spatial_layer_index < rhs.end_active_spatial_layer_index)
+    return true;
+  if (rhs.end_active_spatial_layer_index < lhs.end_active_spatial_layer_index)
     return false;
   if (lhs.p_diffs < rhs.p_diffs)
     return true;
@@ -4356,6 +4376,16 @@ struct  StructTraits<::media::mojom::Vp9Metadata::DataView,
   static const decltype(::media::mojom::Vp9Metadata::spatial_layer_resolutions)& spatial_layer_resolutions(
       const ::media::mojom::Vp9MetadataPtr& input) {
     return input->spatial_layer_resolutions;
+  }
+
+  static decltype(::media::mojom::Vp9Metadata::begin_active_spatial_layer_index) begin_active_spatial_layer_index(
+      const ::media::mojom::Vp9MetadataPtr& input) {
+    return input->begin_active_spatial_layer_index;
+  }
+
+  static decltype(::media::mojom::Vp9Metadata::end_active_spatial_layer_index) end_active_spatial_layer_index(
+      const ::media::mojom::Vp9MetadataPtr& input) {
+    return input->end_active_spatial_layer_index;
   }
 
   static const decltype(::media::mojom::Vp9Metadata::p_diffs)& p_diffs(

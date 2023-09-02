@@ -899,7 +899,9 @@ class  Vp9Metadata_Data {
   uint8_t end_of_picture : 1;
   uint8_t temporal_idx;
   uint8_t spatial_idx;
-  uint8_t pad6_[5];
+  uint8_t begin_active_spatial_layer_index;
+  uint8_t end_active_spatial_layer_index;
+  uint8_t pad8_[3];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::gfx::mojom::internal::Size_Data>>> spatial_layer_resolutions;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> p_diffs;
 

@@ -803,6 +803,12 @@ class Vp9MetadataDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::gfx::mojom::SizeDataView>>(
         pointer, output, message_);
   }
+  uint8_t begin_active_spatial_layer_index() const {
+    return data_->begin_active_spatial_layer_index;
+  }
+  uint8_t end_active_spatial_layer_index() const {
+    return data_->end_active_spatial_layer_index;
+  }
   inline void GetPDiffsDataView(
       mojo::ArrayDataView<uint8_t>* output);
 
@@ -1713,6 +1719,8 @@ struct Serializer<::media::mojom::Vp9MetadataDataView, MaybeConstUserType> {
         fragment->spatial_layer_resolutions.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null spatial_layer_resolutions in Vp9Metadata struct");
+    fragment->begin_active_spatial_layer_index = Traits::begin_active_spatial_layer_index(input);
+    fragment->end_active_spatial_layer_index = Traits::end_active_spatial_layer_index(input);
     decltype(Traits::p_diffs(input)) in_p_diffs = Traits::p_diffs(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->p_diffs)::BaseType>

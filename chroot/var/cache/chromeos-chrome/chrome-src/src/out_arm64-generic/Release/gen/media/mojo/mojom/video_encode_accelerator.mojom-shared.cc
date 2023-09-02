@@ -694,7 +694,7 @@ bool Vp9Metadata_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->p_diffs, 9, validation_context)) {
+          object->p_diffs, 11, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& p_diffs_validate_params =
