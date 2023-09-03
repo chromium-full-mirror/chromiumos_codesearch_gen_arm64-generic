@@ -165,6 +165,17 @@ CRDTP_BEGIN_SERIALIZER(AttributionReportingAggregationKeysEntry)
 CRDTP_END_SERIALIZER();
 
 
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingEventReportWindows)
+    CRDTP_DESERIALIZE_FIELD("ends", m_ends),
+    CRDTP_DESERIALIZE_FIELD("start", m_start),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingEventReportWindows)
+    CRDTP_SERIALIZE_FIELD("start", m_start);
+    CRDTP_SERIALIZE_FIELD("ends", m_ends);
+CRDTP_END_SERIALIZER();
+
+
 CRDTP_BEGIN_DESERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_DESERIALIZE_FIELD_OPT("aggregatableReportWindow", m_aggregatableReportWindow),
     CRDTP_DESERIALIZE_FIELD("aggregationKeys", m_aggregationKeys),
@@ -172,6 +183,7 @@ CRDTP_BEGIN_DESERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_DESERIALIZE_FIELD("destinationSites", m_destinationSites),
     CRDTP_DESERIALIZE_FIELD("eventId", m_eventId),
     CRDTP_DESERIALIZE_FIELD_OPT("eventReportWindow", m_eventReportWindow),
+    CRDTP_DESERIALIZE_FIELD_OPT("eventReportWindows", m_eventReportWindows),
     CRDTP_DESERIALIZE_FIELD_OPT("expiry", m_expiry),
     CRDTP_DESERIALIZE_FIELD("filterData", m_filterData),
     CRDTP_DESERIALIZE_FIELD("priority", m_priority),
@@ -185,6 +197,7 @@ CRDTP_BEGIN_SERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_SERIALIZE_FIELD("time", m_time);
     CRDTP_SERIALIZE_FIELD("expiry", m_expiry);
     CRDTP_SERIALIZE_FIELD("eventReportWindow", m_eventReportWindow);
+    CRDTP_SERIALIZE_FIELD("eventReportWindows", m_eventReportWindows);
     CRDTP_SERIALIZE_FIELD("aggregatableReportWindow", m_aggregatableReportWindow);
     CRDTP_SERIALIZE_FIELD("type", m_type);
     CRDTP_SERIALIZE_FIELD("sourceOrigin", m_sourceOrigin);

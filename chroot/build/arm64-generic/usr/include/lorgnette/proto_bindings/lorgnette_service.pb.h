@@ -7286,7 +7286,7 @@ class StartPreparedScanResponse final :
 
   enum : int {
     kScannerFieldNumber = 1,
-    kJobFieldNumber = 3,
+    kJobHandleFieldNumber = 3,
     kResultFieldNumber = 2,
   };
   // .lorgnette.ScannerHandle scanner = 1;
@@ -7307,23 +7307,23 @@ class StartPreparedScanResponse final :
       ::lorgnette::ScannerHandle* scanner);
   ::lorgnette::ScannerHandle* unsafe_arena_release_scanner();
 
-  // optional .lorgnette.JobHandle job = 3;
-  bool has_job() const;
+  // optional .lorgnette.JobHandle job_handle = 3;
+  bool has_job_handle() const;
   private:
-  bool _internal_has_job() const;
+  bool _internal_has_job_handle() const;
   public:
-  void clear_job();
-  const ::lorgnette::JobHandle& job() const;
-  PROTOBUF_NODISCARD ::lorgnette::JobHandle* release_job();
-  ::lorgnette::JobHandle* mutable_job();
-  void set_allocated_job(::lorgnette::JobHandle* job);
+  void clear_job_handle();
+  const ::lorgnette::JobHandle& job_handle() const;
+  PROTOBUF_NODISCARD ::lorgnette::JobHandle* release_job_handle();
+  ::lorgnette::JobHandle* mutable_job_handle();
+  void set_allocated_job_handle(::lorgnette::JobHandle* job_handle);
   private:
-  const ::lorgnette::JobHandle& _internal_job() const;
-  ::lorgnette::JobHandle* _internal_mutable_job();
+  const ::lorgnette::JobHandle& _internal_job_handle() const;
+  ::lorgnette::JobHandle* _internal_mutable_job_handle();
   public:
-  void unsafe_arena_set_allocated_job(
-      ::lorgnette::JobHandle* job);
-  ::lorgnette::JobHandle* unsafe_arena_release_job();
+  void unsafe_arena_set_allocated_job_handle(
+      ::lorgnette::JobHandle* job_handle);
+  ::lorgnette::JobHandle* unsafe_arena_release_job_handle();
 
   // .lorgnette.OperationResult result = 2;
   void clear_result();
@@ -7345,7 +7345,7 @@ class StartPreparedScanResponse final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::lorgnette::ScannerHandle* scanner_;
-    ::lorgnette::JobHandle* job_;
+    ::lorgnette::JobHandle* job_handle_;
     int result_;
   };
   union { Impl_ _impl_; };
@@ -13185,45 +13185,45 @@ inline void StartPreparedScanResponse::set_result(::lorgnette::OperationResult v
   // @@protoc_insertion_point(field_set:lorgnette.StartPreparedScanResponse.result)
 }
 
-// optional .lorgnette.JobHandle job = 3;
-inline bool StartPreparedScanResponse::_internal_has_job() const {
+// optional .lorgnette.JobHandle job_handle = 3;
+inline bool StartPreparedScanResponse::_internal_has_job_handle() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.job_ != nullptr);
+  PROTOBUF_ASSUME(!value || _impl_.job_handle_ != nullptr);
   return value;
 }
-inline bool StartPreparedScanResponse::has_job() const {
-  return _internal_has_job();
+inline bool StartPreparedScanResponse::has_job_handle() const {
+  return _internal_has_job_handle();
 }
-inline void StartPreparedScanResponse::clear_job() {
-  if (_impl_.job_ != nullptr) _impl_.job_->Clear();
+inline void StartPreparedScanResponse::clear_job_handle() {
+  if (_impl_.job_handle_ != nullptr) _impl_.job_handle_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::lorgnette::JobHandle& StartPreparedScanResponse::_internal_job() const {
-  const ::lorgnette::JobHandle* p = _impl_.job_;
+inline const ::lorgnette::JobHandle& StartPreparedScanResponse::_internal_job_handle() const {
+  const ::lorgnette::JobHandle* p = _impl_.job_handle_;
   return p != nullptr ? *p : reinterpret_cast<const ::lorgnette::JobHandle&>(
       ::lorgnette::_JobHandle_default_instance_);
 }
-inline const ::lorgnette::JobHandle& StartPreparedScanResponse::job() const {
-  // @@protoc_insertion_point(field_get:lorgnette.StartPreparedScanResponse.job)
-  return _internal_job();
+inline const ::lorgnette::JobHandle& StartPreparedScanResponse::job_handle() const {
+  // @@protoc_insertion_point(field_get:lorgnette.StartPreparedScanResponse.job_handle)
+  return _internal_job_handle();
 }
-inline void StartPreparedScanResponse::unsafe_arena_set_allocated_job(
-    ::lorgnette::JobHandle* job) {
+inline void StartPreparedScanResponse::unsafe_arena_set_allocated_job_handle(
+    ::lorgnette::JobHandle* job_handle) {
   if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.job_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.job_handle_);
   }
-  _impl_.job_ = job;
-  if (job) {
+  _impl_.job_handle_ = job_handle;
+  if (job_handle) {
     _impl_._has_bits_[0] |= 0x00000001u;
   } else {
     _impl_._has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.StartPreparedScanResponse.job)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:lorgnette.StartPreparedScanResponse.job_handle)
 }
-inline ::lorgnette::JobHandle* StartPreparedScanResponse::release_job() {
+inline ::lorgnette::JobHandle* StartPreparedScanResponse::release_job_handle() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::lorgnette::JobHandle* temp = _impl_.job_;
-  _impl_.job_ = nullptr;
+  ::lorgnette::JobHandle* temp = _impl_.job_handle_;
+  _impl_.job_handle_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -13235,44 +13235,44 @@ inline ::lorgnette::JobHandle* StartPreparedScanResponse::release_job() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::lorgnette::JobHandle* StartPreparedScanResponse::unsafe_arena_release_job() {
-  // @@protoc_insertion_point(field_release:lorgnette.StartPreparedScanResponse.job)
+inline ::lorgnette::JobHandle* StartPreparedScanResponse::unsafe_arena_release_job_handle() {
+  // @@protoc_insertion_point(field_release:lorgnette.StartPreparedScanResponse.job_handle)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::lorgnette::JobHandle* temp = _impl_.job_;
-  _impl_.job_ = nullptr;
+  ::lorgnette::JobHandle* temp = _impl_.job_handle_;
+  _impl_.job_handle_ = nullptr;
   return temp;
 }
-inline ::lorgnette::JobHandle* StartPreparedScanResponse::_internal_mutable_job() {
+inline ::lorgnette::JobHandle* StartPreparedScanResponse::_internal_mutable_job_handle() {
   _impl_._has_bits_[0] |= 0x00000001u;
-  if (_impl_.job_ == nullptr) {
+  if (_impl_.job_handle_ == nullptr) {
     auto* p = CreateMaybeMessage<::lorgnette::JobHandle>(GetArenaForAllocation());
-    _impl_.job_ = p;
+    _impl_.job_handle_ = p;
   }
-  return _impl_.job_;
+  return _impl_.job_handle_;
 }
-inline ::lorgnette::JobHandle* StartPreparedScanResponse::mutable_job() {
-  ::lorgnette::JobHandle* _msg = _internal_mutable_job();
-  // @@protoc_insertion_point(field_mutable:lorgnette.StartPreparedScanResponse.job)
+inline ::lorgnette::JobHandle* StartPreparedScanResponse::mutable_job_handle() {
+  ::lorgnette::JobHandle* _msg = _internal_mutable_job_handle();
+  // @@protoc_insertion_point(field_mutable:lorgnette.StartPreparedScanResponse.job_handle)
   return _msg;
 }
-inline void StartPreparedScanResponse::set_allocated_job(::lorgnette::JobHandle* job) {
+inline void StartPreparedScanResponse::set_allocated_job_handle(::lorgnette::JobHandle* job_handle) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete _impl_.job_;
+    delete _impl_.job_handle_;
   }
-  if (job) {
+  if (job_handle) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(job);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(job_handle);
     if (message_arena != submessage_arena) {
-      job = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, job, submessage_arena);
+      job_handle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, job_handle, submessage_arena);
     }
     _impl_._has_bits_[0] |= 0x00000001u;
   } else {
     _impl_._has_bits_[0] &= ~0x00000001u;
   }
-  _impl_.job_ = job;
-  // @@protoc_insertion_point(field_set_allocated:lorgnette.StartPreparedScanResponse.job)
+  _impl_.job_handle_ = job_handle;
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.StartPreparedScanResponse.job_handle)
 }
 
 // -------------------------------------------------------------------

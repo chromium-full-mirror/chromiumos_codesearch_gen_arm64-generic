@@ -38,6 +38,7 @@ using UnsignedInt128AsBase16 = String;
 using SignedInt64AsBase10 = String;
 class AttributionReportingFilterDataEntry;
 class AttributionReportingAggregationKeysEntry;
+class AttributionReportingEventReportWindows;
 class AttributionReportingSourceRegistration;
 using AttributionReportingSourceRegistrationResult = String;
 
@@ -1275,6 +1276,76 @@ private:
 };
 
 
+class CORE_EXPORT AttributionReportingEventReportWindows : public ::crdtp::ProtocolObject<AttributionReportingEventReportWindows> {
+public:
+    ~AttributionReportingEventReportWindows() override { }
+
+    int getStart() { return m_start; }
+    void setStart(int value) { m_start = value; }
+
+    protocol::Array<int>* getEnds() { return m_ends.get(); }
+    void setEnds(std::unique_ptr<protocol::Array<int>> value) { m_ends = std::move(value); }
+
+    template<int STATE>
+    class AttributionReportingEventReportWindowsBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            StartSet = 1 << 1,
+            EndsSet = 1 << 2,
+            AllFieldsSet = (StartSet | EndsSet | 0)};
+
+
+        AttributionReportingEventReportWindowsBuilder<STATE | StartSet>& setStart(int value)
+        {
+            static_assert(!(STATE & StartSet), "property start should not be set yet");
+            m_result->setStart(value);
+            return castState<StartSet>();
+        }
+
+        AttributionReportingEventReportWindowsBuilder<STATE | EndsSet>& setEnds(std::unique_ptr<protocol::Array<int>> value)
+        {
+            static_assert(!(STATE & EndsSet), "property ends should not be set yet");
+            m_result->setEnds(std::move(value));
+            return castState<EndsSet>();
+        }
+
+        std::unique_ptr<AttributionReportingEventReportWindows> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingEventReportWindows;
+        AttributionReportingEventReportWindowsBuilder() : m_result(new AttributionReportingEventReportWindows()) { }
+
+        template<int STEP> AttributionReportingEventReportWindowsBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingEventReportWindowsBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> m_result;
+    };
+
+    static AttributionReportingEventReportWindowsBuilder<0> create()
+    {
+        return AttributionReportingEventReportWindowsBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingEventReportWindows()
+    {
+          m_start = 0;
+    }
+
+    int m_start;
+    std::unique_ptr<protocol::Array<int>> m_ends;
+};
+
+
 class CORE_EXPORT AttributionReportingSourceRegistration : public ::crdtp::ProtocolObject<AttributionReportingSourceRegistration> {
 public:
     ~AttributionReportingSourceRegistration() override { }
@@ -1293,6 +1364,12 @@ public:
        return m_eventReportWindow.value_or(defaultValue);
     }
     void setEventReportWindow(int value) { m_eventReportWindow = value; }
+
+    bool hasEventReportWindows() { return m_eventReportWindows.has_value(); }
+    protocol::Storage::AttributionReportingEventReportWindows* getEventReportWindows(protocol::Storage::AttributionReportingEventReportWindows* defaultValue) {
+       return m_eventReportWindows.has_value() ? &m_eventReportWindows.value() : defaultValue;
+    }
+    void setEventReportWindows(std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> value) { m_eventReportWindows = std::move(value); }
 
     bool hasAggregatableReportWindow() { return m_aggregatableReportWindow.has_value(); }
     int getAggregatableReportWindow(int defaultValue) const {
@@ -1363,6 +1440,12 @@ public:
         AttributionReportingSourceRegistrationBuilder<STATE>& setEventReportWindow(int value)
         {
             m_result->setEventReportWindow(value);
+            return *this;
+        }
+
+        AttributionReportingSourceRegistrationBuilder<STATE>& setEventReportWindows(std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> value)
+        {
+            m_result->setEventReportWindows(std::move(value));
             return *this;
         }
 
@@ -1468,6 +1551,7 @@ private:
     double m_time;
     Maybe<int> m_expiry;
     Maybe<int> m_eventReportWindow;
+    Maybe<protocol::Storage::AttributionReportingEventReportWindows> m_eventReportWindows;
     Maybe<int> m_aggregatableReportWindow;
     String m_type;
     String m_sourceOrigin;

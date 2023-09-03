@@ -642,7 +642,7 @@ PROTOBUF_CONSTEXPR StartPreparedScanResponse::StartPreparedScanResponse(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.scanner_)*/nullptr
-  , /*decltype(_impl_.job_)*/nullptr
+  , /*decltype(_impl_.job_handle_)*/nullptr
   , /*decltype(_impl_.result_)*/0} {}
 struct StartPreparedScanResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartPreparedScanResponseDefaultTypeInternal()
@@ -12346,8 +12346,8 @@ class StartPreparedScanResponse::_Internal {
  public:
   using HasBits = decltype(std::declval<StartPreparedScanResponse>()._impl_._has_bits_);
   static const ::lorgnette::ScannerHandle& scanner(const StartPreparedScanResponse* msg);
-  static const ::lorgnette::JobHandle& job(const StartPreparedScanResponse* msg);
-  static void set_has_job(HasBits* has_bits) {
+  static const ::lorgnette::JobHandle& job_handle(const StartPreparedScanResponse* msg);
+  static void set_has_job_handle(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
@@ -12357,8 +12357,8 @@ StartPreparedScanResponse::_Internal::scanner(const StartPreparedScanResponse* m
   return *msg->_impl_.scanner_;
 }
 const ::lorgnette::JobHandle&
-StartPreparedScanResponse::_Internal::job(const StartPreparedScanResponse* msg) {
-  return *msg->_impl_.job_;
+StartPreparedScanResponse::_Internal::job_handle(const StartPreparedScanResponse* msg) {
+  return *msg->_impl_.job_handle_;
 }
 StartPreparedScanResponse::StartPreparedScanResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -12373,15 +12373,15 @@ StartPreparedScanResponse::StartPreparedScanResponse(const StartPreparedScanResp
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.scanner_){nullptr}
-    , decltype(_impl_.job_){nullptr}
+    , decltype(_impl_.job_handle_){nullptr}
     , decltype(_impl_.result_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_scanner()) {
     _this->_impl_.scanner_ = new ::lorgnette::ScannerHandle(*from._impl_.scanner_);
   }
-  if (from._internal_has_job()) {
-    _this->_impl_.job_ = new ::lorgnette::JobHandle(*from._impl_.job_);
+  if (from._internal_has_job_handle()) {
+    _this->_impl_.job_handle_ = new ::lorgnette::JobHandle(*from._impl_.job_handle_);
   }
   _this->_impl_.result_ = from._impl_.result_;
   // @@protoc_insertion_point(copy_constructor:lorgnette.StartPreparedScanResponse)
@@ -12395,7 +12395,7 @@ inline void StartPreparedScanResponse::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.scanner_){nullptr}
-    , decltype(_impl_.job_){nullptr}
+    , decltype(_impl_.job_handle_){nullptr}
     , decltype(_impl_.result_){0}
   };
 }
@@ -12412,7 +12412,7 @@ StartPreparedScanResponse::~StartPreparedScanResponse() {
 inline void StartPreparedScanResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.scanner_;
-  if (this != internal_default_instance()) delete _impl_.job_;
+  if (this != internal_default_instance()) delete _impl_.job_handle_;
 }
 
 void StartPreparedScanResponse::SetCachedSize(int size) const {
@@ -12431,8 +12431,8 @@ void StartPreparedScanResponse::Clear() {
   _impl_.scanner_ = nullptr;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.job_ != nullptr);
-    _impl_.job_->Clear();
+    GOOGLE_DCHECK(_impl_.job_handle_ != nullptr);
+    _impl_.job_handle_->Clear();
   }
   _impl_.result_ = 0;
   _impl_._has_bits_.Clear();
@@ -12463,10 +12463,10 @@ const char* StartPreparedScanResponse::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // optional .lorgnette.JobHandle job = 3;
+      // optional .lorgnette.JobHandle job_handle = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_job(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_job_handle(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -12515,11 +12515,11 @@ uint8_t* StartPreparedScanResponse::_InternalSerialize(
       2, this->_internal_result(), target);
   }
 
-  // optional .lorgnette.JobHandle job = 3;
-  if (_internal_has_job()) {
+  // optional .lorgnette.JobHandle job_handle = 3;
+  if (_internal_has_job_handle()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::job(this),
-        _Internal::job(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(3, _Internal::job_handle(this),
+        _Internal::job_handle(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -12545,12 +12545,12 @@ size_t StartPreparedScanResponse::ByteSizeLong() const {
         *_impl_.scanner_);
   }
 
-  // optional .lorgnette.JobHandle job = 3;
+  // optional .lorgnette.JobHandle job_handle = 3;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.job_);
+        *_impl_.job_handle_);
   }
 
   // .lorgnette.OperationResult result = 2;
@@ -12584,9 +12584,9 @@ void StartPreparedScanResponse::MergeFrom(const StartPreparedScanResponse& from)
     _this->_internal_mutable_scanner()->::lorgnette::ScannerHandle::MergeFrom(
         from._internal_scanner());
   }
-  if (from._internal_has_job()) {
-    _this->_internal_mutable_job()->::lorgnette::JobHandle::MergeFrom(
-        from._internal_job());
+  if (from._internal_has_job_handle()) {
+    _this->_internal_mutable_job_handle()->::lorgnette::JobHandle::MergeFrom(
+        from._internal_job_handle());
   }
   if (from._internal_result() != 0) {
     _this->_internal_set_result(from._internal_result());
