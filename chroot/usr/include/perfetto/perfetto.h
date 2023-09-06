@@ -8250,6 +8250,11 @@ struct TracingInitArgs {
   // delay, i.e. commits will be sent to the service at the next opportunity.
   uint32_t shmem_batch_commits_duration_ms = 0;
 
+  // [Optional] Enables direct producer-side patching of chunks that have not
+  // yet been committed to the service. This flag will only have an effect
+  // if the service supports direct patching, otherwise it will be ignored.
+  bool shmem_direct_patching_enabled = false;
+
   // [Optional] If set, the policy object is notified when certain SDK events
   // occur and may apply policy decisions, such as denying connections. The
   // embedder is responsible for ensuring the object remains alive for the
@@ -15461,6 +15466,18 @@ class PERFETTO_EXPORT_COMPONENT TrackEventSessionObserver {
       const DataSourceBase::ClearIncrementalStateArgs&);
 };
 
+// A class that the embedder can store arbitrary data user data per thread.
+class PERFETTO_EXPORT_COMPONENT TrackEventTlsStateUserData {
+ public:
+  TrackEventTlsStateUserData() = default;
+  // Not clonable.
+  TrackEventTlsStateUserData(const TrackEventTlsStateUserData&) = delete;
+  TrackEventTlsStateUserData& operator=(const TrackEventTlsStateUserData&) =
+      delete;
+
+  virtual ~TrackEventTlsStateUserData();
+};
+
 namespace internal {
 class TrackEventCategoryRegistry;
 
@@ -15482,6 +15499,7 @@ struct TrackEventTlsState {
   bool filter_dynamic_event_names = false;
   uint64_t timestamp_unit_multiplier = 1;
   uint32_t default_clock;
+  std::map<const void*, std::unique_ptr<TrackEventTlsStateUserData>> user_data;
 };
 
 struct TrackEventIncrementalState {
@@ -15584,7 +15602,7 @@ class PERFETTO_EXPORT_COMPONENT TrackEventInternal {
   static perfetto::EventContext WriteEvent(
       TraceWriterBase*,
       TrackEventIncrementalState*,
-      const TrackEventTlsState& tls_state,
+      TrackEventTlsState& tls_state,
       const Category* category,
       perfetto::protos::pbzero::TrackEvent::Type,
       const TraceTimestamp& timestamp,
@@ -16261,6 +16279,17 @@ class PERFETTO_EXPORT_COMPONENT EventContext {
                          std::forward<T>(value));
   }
 
+  // Read arbitrary user data that is associated with the thread-local per
+  // instance state of the track event. `key` must be non-null and unique
+  // per TrackEventTlsStateUserData subclass.
+  TrackEventTlsStateUserData* GetTlsUserData(const void* key);
+
+  // Set arbitrary user data that is associated with the thread-local per
+  // instance state of the track event. `key` must be non-null and unique
+  // per TrackEventTlsStateUserData subclass.
+  void SetTlsUserData(const void* key,
+                      std::unique_ptr<TrackEventTlsStateUserData> data);
+
  private:
   template <typename, size_t, typename, typename>
   friend class TrackEventInternedDataIndex;
@@ -16271,7 +16300,7 @@ class PERFETTO_EXPORT_COMPONENT EventContext {
 
   EventContext(TracePacketHandle,
                internal::TrackEventIncrementalState*,
-               const internal::TrackEventTlsState*);
+               internal::TrackEventTlsState*);
   EventContext(const EventContext&) = delete;
 
   protos::pbzero::DebugAnnotation* AddDebugAnnotation(const char* name);
@@ -16284,7 +16313,7 @@ class PERFETTO_EXPORT_COMPONENT EventContext {
   // TODO(mohitms): Make it const-reference instead of pointer, once we
   // are certain that it cannot be nullptr. Once we switch to client library in
   // chrome, we can make that happen.
-  const internal::TrackEventTlsState* tls_state_ = nullptr;
+  internal::TrackEventTlsState* tls_state_ = nullptr;
   // TODO(kraskevich): Come up with a more precise name once we have more than
   // one usecase.
   // TODO(kraskevich): Remove once Chromium has fully switched to client lib.
@@ -18367,7 +18396,7 @@ class TrackEventDataSource
     const Category* static_category =
         CatTraits::GetStaticCategory(Registry, category);
 
-    const TrackEventTlsState& tls_state = *ctx.GetCustomTlsState();
+    TrackEventTlsState& tls_state = *ctx.GetCustomTlsState();
     TraceWriterBase* trace_writer = ctx.tls_inst_->trace_writer.get();
     // Make sure incremental state is valid.
     TrackEventIncrementalState* incr_state = ctx.GetIncrementalState();

@@ -629,12 +629,13 @@ bool SocketConnectionEvent_QosCategory_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_QosCategory* value);
 enum SetFeatureFlagRequest_FeatureFlag : int {
   SetFeatureFlagRequest_FeatureFlag_WIFI_QOS = 0,
+  SetFeatureFlagRequest_FeatureFlag_CLAT = 1,
   SetFeatureFlagRequest_FeatureFlag_SetFeatureFlagRequest_FeatureFlag_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   SetFeatureFlagRequest_FeatureFlag_SetFeatureFlagRequest_FeatureFlag_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool SetFeatureFlagRequest_FeatureFlag_IsValid(int value);
 constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MIN = SetFeatureFlagRequest_FeatureFlag_WIFI_QOS;
-constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX = SetFeatureFlagRequest_FeatureFlag_WIFI_QOS;
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX = SetFeatureFlagRequest_FeatureFlag_CLAT;
 constexpr int SetFeatureFlagRequest_FeatureFlag_FeatureFlag_ARRAYSIZE = SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX + 1;
 
 const std::string& SetFeatureFlagRequest_FeatureFlag_Name(SetFeatureFlagRequest_FeatureFlag value);
@@ -9815,6 +9816,8 @@ class SetFeatureFlagRequest final :
   typedef SetFeatureFlagRequest_FeatureFlag FeatureFlag;
   static constexpr FeatureFlag WIFI_QOS =
     SetFeatureFlagRequest_FeatureFlag_WIFI_QOS;
+  static constexpr FeatureFlag CLAT =
+    SetFeatureFlagRequest_FeatureFlag_CLAT;
   static inline bool FeatureFlag_IsValid(int value) {
     return SetFeatureFlagRequest_FeatureFlag_IsValid(value);
   }

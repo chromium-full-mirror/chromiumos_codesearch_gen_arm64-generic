@@ -74,6 +74,12 @@ extern Camera_FieldsDefaultTypeInternal _Camera_Fields_default_instance_;
 class ComponentFields;
 struct ComponentFieldsDefaultTypeInternal;
 extern ComponentFieldsDefaultTypeInternal _ComponentFields_default_instance_;
+class Cpu;
+struct CpuDefaultTypeInternal;
+extern CpuDefaultTypeInternal _Cpu_default_instance_;
+class Cpu_Fields;
+struct Cpu_FieldsDefaultTypeInternal;
+extern Cpu_FieldsDefaultTypeInternal _Cpu_Fields_default_instance_;
 class EcI2c;
 struct EcI2cDefaultTypeInternal;
 extern EcI2cDefaultTypeInternal _EcI2c_default_instance_;
@@ -154,6 +160,8 @@ template<> ::runtime_probe::Battery_Fields* Arena::CreateMaybeMessage<::runtime_
 template<> ::runtime_probe::Camera* Arena::CreateMaybeMessage<::runtime_probe::Camera>(Arena*);
 template<> ::runtime_probe::Camera_Fields* Arena::CreateMaybeMessage<::runtime_probe::Camera_Fields>(Arena*);
 template<> ::runtime_probe::ComponentFields* Arena::CreateMaybeMessage<::runtime_probe::ComponentFields>(Arena*);
+template<> ::runtime_probe::Cpu* Arena::CreateMaybeMessage<::runtime_probe::Cpu>(Arena*);
+template<> ::runtime_probe::Cpu_Fields* Arena::CreateMaybeMessage<::runtime_probe::Cpu_Fields>(Arena*);
 template<> ::runtime_probe::EcI2c* Arena::CreateMaybeMessage<::runtime_probe::EcI2c>(Arena*);
 template<> ::runtime_probe::EcI2c_Fields* Arena::CreateMaybeMessage<::runtime_probe::EcI2c_Fields>(Arena*);
 template<> ::runtime_probe::Edid* Arena::CreateMaybeMessage<::runtime_probe::Edid>(Arena*);
@@ -195,12 +203,13 @@ enum ProbeRequest_SupportCategory : int {
   ProbeRequest_SupportCategory_cellular = 12,
   ProbeRequest_SupportCategory_ethernet = 13,
   ProbeRequest_SupportCategory_wireless = 14,
+  ProbeRequest_SupportCategory_cpu = 15,
   ProbeRequest_SupportCategory_ProbeRequest_SupportCategory_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   ProbeRequest_SupportCategory_ProbeRequest_SupportCategory_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool ProbeRequest_SupportCategory_IsValid(int value);
 constexpr ProbeRequest_SupportCategory ProbeRequest_SupportCategory_SupportCategory_MIN = ProbeRequest_SupportCategory_UNKNOWN;
-constexpr ProbeRequest_SupportCategory ProbeRequest_SupportCategory_SupportCategory_MAX = ProbeRequest_SupportCategory_wireless;
+constexpr ProbeRequest_SupportCategory ProbeRequest_SupportCategory_SupportCategory_MAX = ProbeRequest_SupportCategory_cpu;
 constexpr int ProbeRequest_SupportCategory_SupportCategory_ARRAYSIZE = ProbeRequest_SupportCategory_SupportCategory_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ProbeRequest_SupportCategory_descriptor();
@@ -610,6 +619,8 @@ class ProbeRequest final :
     ProbeRequest_SupportCategory_ethernet;
   static constexpr SupportCategory wireless =
     ProbeRequest_SupportCategory_wireless;
+  static constexpr SupportCategory cpu =
+    ProbeRequest_SupportCategory_cpu;
   static inline bool SupportCategory_IsValid(int value) {
     return ProbeRequest_SupportCategory_IsValid(value);
   }
@@ -6148,6 +6159,345 @@ class Tcpc final :
 };
 // -------------------------------------------------------------------
 
+class Cpu_Fields final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:runtime_probe.Cpu.Fields) */ {
+ public:
+  inline Cpu_Fields() : Cpu_Fields(nullptr) {}
+  ~Cpu_Fields() override;
+  explicit PROTOBUF_CONSTEXPR Cpu_Fields(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Cpu_Fields(const Cpu_Fields& from);
+  Cpu_Fields(Cpu_Fields&& from) noexcept
+    : Cpu_Fields() {
+    *this = ::std::move(from);
+  }
+
+  inline Cpu_Fields& operator=(const Cpu_Fields& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Cpu_Fields& operator=(Cpu_Fields&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Cpu_Fields& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Cpu_Fields* internal_default_instance() {
+    return reinterpret_cast<const Cpu_Fields*>(
+               &_Cpu_Fields_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    26;
+
+  friend void swap(Cpu_Fields& a, Cpu_Fields& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Cpu_Fields* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Cpu_Fields* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Cpu_Fields* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Cpu_Fields>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Cpu_Fields& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const Cpu_Fields& from) {
+    Cpu_Fields::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Cpu_Fields* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "runtime_probe.Cpu.Fields";
+  }
+  protected:
+  explicit Cpu_Fields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kModelFieldNumber = 1,
+    kCoresFieldNumber = 2,
+  };
+  // string model = 1;
+  void clear_model();
+  const std::string& model() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_model(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_model();
+  PROTOBUF_NODISCARD std::string* release_model();
+  void set_allocated_model(std::string* model);
+  private:
+  const std::string& _internal_model() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_model(const std::string& value);
+  std::string* _internal_mutable_model();
+  public:
+
+  // uint32 cores = 2;
+  void clear_cores();
+  uint32_t cores() const;
+  void set_cores(uint32_t value);
+  private:
+  uint32_t _internal_cores() const;
+  void _internal_set_cores(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:runtime_probe.Cpu.Fields)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr model_;
+    uint32_t cores_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_runtime_5fprobe_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Cpu final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:runtime_probe.Cpu) */ {
+ public:
+  inline Cpu() : Cpu(nullptr) {}
+  ~Cpu() override;
+  explicit PROTOBUF_CONSTEXPR Cpu(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Cpu(const Cpu& from);
+  Cpu(Cpu&& from) noexcept
+    : Cpu() {
+    *this = ::std::move(from);
+  }
+
+  inline Cpu& operator=(const Cpu& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Cpu& operator=(Cpu&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Cpu& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Cpu* internal_default_instance() {
+    return reinterpret_cast<const Cpu*>(
+               &_Cpu_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    27;
+
+  friend void swap(Cpu& a, Cpu& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Cpu* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Cpu* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Cpu* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Cpu>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Cpu& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const Cpu& from) {
+    Cpu::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Cpu* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "runtime_probe.Cpu";
+  }
+  protected:
+  explicit Cpu(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef Cpu_Fields Fields;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kValuesFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // .runtime_probe.Cpu.Fields values = 2;
+  bool has_values() const;
+  private:
+  bool _internal_has_values() const;
+  public:
+  void clear_values();
+  const ::runtime_probe::Cpu_Fields& values() const;
+  PROTOBUF_NODISCARD ::runtime_probe::Cpu_Fields* release_values();
+  ::runtime_probe::Cpu_Fields* mutable_values();
+  void set_allocated_values(::runtime_probe::Cpu_Fields* values);
+  private:
+  const ::runtime_probe::Cpu_Fields& _internal_values() const;
+  ::runtime_probe::Cpu_Fields* _internal_mutable_values();
+  public:
+  void unsafe_arena_set_allocated_values(
+      ::runtime_probe::Cpu_Fields* values);
+  ::runtime_probe::Cpu_Fields* unsafe_arena_release_values();
+
+  // @@protoc_insertion_point(class_scope:runtime_probe.Cpu)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    ::runtime_probe::Cpu_Fields* values_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_runtime_5fprobe_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ProbeResult final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:runtime_probe.ProbeResult) */ {
  public:
@@ -6196,7 +6546,7 @@ class ProbeResult final :
                &_ProbeResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    28;
 
   friend void swap(ProbeResult& a, ProbeResult& b) {
     a.Swap(&b);
@@ -6283,6 +6633,7 @@ class ProbeResult final :
     kCellularFieldNumber = 14,
     kEthernetFieldNumber = 15,
     kWirelessFieldNumber = 16,
+    kCpuFieldNumber = 17,
     kProbeConfigChecksumFieldNumber = 6,
     kErrorFieldNumber = 1,
   };
@@ -6538,6 +6889,24 @@ class ProbeResult final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Network >&
       wireless() const;
 
+  // repeated .runtime_probe.Cpu cpu = 17;
+  int cpu_size() const;
+  private:
+  int _internal_cpu_size() const;
+  public:
+  void clear_cpu();
+  ::runtime_probe::Cpu* mutable_cpu(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Cpu >*
+      mutable_cpu();
+  private:
+  const ::runtime_probe::Cpu& _internal_cpu(int index) const;
+  ::runtime_probe::Cpu* _internal_add_cpu();
+  public:
+  const ::runtime_probe::Cpu& cpu(int index) const;
+  ::runtime_probe::Cpu* add_cpu();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Cpu >&
+      cpu() const;
+
   // string probe_config_checksum = 6;
   void clear_probe_config_checksum();
   const std::string& probe_config_checksum() const;
@@ -6583,6 +6952,7 @@ class ProbeResult final :
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Network > cellular_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Network > ethernet_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Network > wireless_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Cpu > cpu_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr probe_config_checksum_;
     int error_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -6649,6 +7019,7 @@ class ComponentFields final :
     kCellular = 11,
     kEthernet = 12,
     kWireless = 13,
+    kCpu = 14,
     COMPONENT_FIELDS_NOT_SET = 0,
   };
 
@@ -6657,7 +7028,7 @@ class ComponentFields final :
                &_ComponentFields_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    29;
 
   friend void swap(ComponentFields& a, ComponentFields& b) {
     a.Swap(&b);
@@ -6743,6 +7114,7 @@ class ComponentFields final :
     kCellularFieldNumber = 11,
     kEthernetFieldNumber = 12,
     kWirelessFieldNumber = 13,
+    kCpuFieldNumber = 14,
   };
   // .runtime_probe.AudioCodec.Fields audio_codec = 1;
   bool has_audio_codec() const;
@@ -6978,6 +7350,24 @@ class ComponentFields final :
       ::runtime_probe::Network_Fields* wireless);
   ::runtime_probe::Network_Fields* unsafe_arena_release_wireless();
 
+  // .runtime_probe.Cpu.Fields cpu = 14;
+  bool has_cpu() const;
+  private:
+  bool _internal_has_cpu() const;
+  public:
+  void clear_cpu();
+  const ::runtime_probe::Cpu_Fields& cpu() const;
+  PROTOBUF_NODISCARD ::runtime_probe::Cpu_Fields* release_cpu();
+  ::runtime_probe::Cpu_Fields* mutable_cpu();
+  void set_allocated_cpu(::runtime_probe::Cpu_Fields* cpu);
+  private:
+  const ::runtime_probe::Cpu_Fields& _internal_cpu() const;
+  ::runtime_probe::Cpu_Fields* _internal_mutable_cpu();
+  public:
+  void unsafe_arena_set_allocated_cpu(
+      ::runtime_probe::Cpu_Fields* cpu);
+  ::runtime_probe::Cpu_Fields* unsafe_arena_release_cpu();
+
   void clear_component_fields();
   ComponentFieldsCase component_fields_case() const;
   // @@protoc_insertion_point(class_scope:runtime_probe.ComponentFields)
@@ -6996,6 +7386,7 @@ class ComponentFields final :
   void set_has_cellular();
   void set_has_ethernet();
   void set_has_wireless();
+  void set_has_cpu();
 
   inline bool has_component_fields() const;
   inline void clear_has_component_fields();
@@ -7020,6 +7411,7 @@ class ComponentFields final :
       ::runtime_probe::Network_Fields* cellular_;
       ::runtime_probe::Network_Fields* ethernet_;
       ::runtime_probe::Network_Fields* wireless_;
+      ::runtime_probe::Cpu_Fields* cpu_;
     } component_fields_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     uint32_t _oneof_case_[1];
@@ -7078,7 +7470,7 @@ class GetKnownComponentsRequest final :
                &_GetKnownComponentsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    30;
 
   friend void swap(GetKnownComponentsRequest& a, GetKnownComponentsRequest& b) {
     a.Swap(&b);
@@ -7226,7 +7618,7 @@ class GetKnownComponentsResult final :
                &_GetKnownComponentsResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    31;
 
   friend void swap(GetKnownComponentsResult& a, GetKnownComponentsResult& b) {
     a.Swap(&b);
@@ -7399,7 +7791,7 @@ class ProbeSsfcComponentsRequest final :
                &_ProbeSsfcComponentsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    32;
 
   friend void swap(ProbeSsfcComponentsRequest& a, ProbeSsfcComponentsRequest& b) {
     a.Swap(&b);
@@ -7518,7 +7910,7 @@ class ProbeSsfcComponentsResponse final :
                &_ProbeSsfcComponentsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    33;
 
   friend void swap(ProbeSsfcComponentsResponse& a, ProbeSsfcComponentsResponse& b) {
     a.Swap(&b);
@@ -12958,6 +13350,224 @@ inline void Tcpc::set_allocated_values(::runtime_probe::Tcpc_Fields* values) {
 
 // -------------------------------------------------------------------
 
+// Cpu_Fields
+
+// string model = 1;
+inline void Cpu_Fields::clear_model() {
+  _impl_.model_.ClearToEmpty();
+}
+inline const std::string& Cpu_Fields::model() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Cpu.Fields.model)
+  return _internal_model();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Cpu_Fields::set_model(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.model_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Cpu.Fields.model)
+}
+inline std::string* Cpu_Fields::mutable_model() {
+  std::string* _s = _internal_mutable_model();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Cpu.Fields.model)
+  return _s;
+}
+inline const std::string& Cpu_Fields::_internal_model() const {
+  return _impl_.model_.Get();
+}
+inline void Cpu_Fields::_internal_set_model(const std::string& value) {
+  
+  _impl_.model_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Cpu_Fields::_internal_mutable_model() {
+  
+  return _impl_.model_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Cpu_Fields::release_model() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Cpu.Fields.model)
+  return _impl_.model_.Release();
+}
+inline void Cpu_Fields::set_allocated_model(std::string* model) {
+  if (model != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.model_.SetAllocated(model, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.model_.IsDefault()) {
+    _impl_.model_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Cpu.Fields.model)
+}
+
+// uint32 cores = 2;
+inline void Cpu_Fields::clear_cores() {
+  _impl_.cores_ = 0u;
+}
+inline uint32_t Cpu_Fields::_internal_cores() const {
+  return _impl_.cores_;
+}
+inline uint32_t Cpu_Fields::cores() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Cpu.Fields.cores)
+  return _internal_cores();
+}
+inline void Cpu_Fields::_internal_set_cores(uint32_t value) {
+  
+  _impl_.cores_ = value;
+}
+inline void Cpu_Fields::set_cores(uint32_t value) {
+  _internal_set_cores(value);
+  // @@protoc_insertion_point(field_set:runtime_probe.Cpu.Fields.cores)
+}
+
+// -------------------------------------------------------------------
+
+// Cpu
+
+// string name = 1;
+inline void Cpu::clear_name() {
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& Cpu::name() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Cpu.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Cpu::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Cpu.name)
+}
+inline std::string* Cpu::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Cpu.name)
+  return _s;
+}
+inline const std::string& Cpu::_internal_name() const {
+  return _impl_.name_.Get();
+}
+inline void Cpu::_internal_set_name(const std::string& value) {
+  
+  _impl_.name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Cpu::_internal_mutable_name() {
+  
+  return _impl_.name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Cpu::release_name() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Cpu.name)
+  return _impl_.name_.Release();
+}
+inline void Cpu::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.name_.IsDefault()) {
+    _impl_.name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Cpu.name)
+}
+
+// .runtime_probe.Cpu.Fields values = 2;
+inline bool Cpu::_internal_has_values() const {
+  return this != internal_default_instance() && _impl_.values_ != nullptr;
+}
+inline bool Cpu::has_values() const {
+  return _internal_has_values();
+}
+inline void Cpu::clear_values() {
+  if (GetArenaForAllocation() == nullptr && _impl_.values_ != nullptr) {
+    delete _impl_.values_;
+  }
+  _impl_.values_ = nullptr;
+}
+inline const ::runtime_probe::Cpu_Fields& Cpu::_internal_values() const {
+  const ::runtime_probe::Cpu_Fields* p = _impl_.values_;
+  return p != nullptr ? *p : reinterpret_cast<const ::runtime_probe::Cpu_Fields&>(
+      ::runtime_probe::_Cpu_Fields_default_instance_);
+}
+inline const ::runtime_probe::Cpu_Fields& Cpu::values() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Cpu.values)
+  return _internal_values();
+}
+inline void Cpu::unsafe_arena_set_allocated_values(
+    ::runtime_probe::Cpu_Fields* values) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.values_);
+  }
+  _impl_.values_ = values;
+  if (values) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:runtime_probe.Cpu.values)
+}
+inline ::runtime_probe::Cpu_Fields* Cpu::release_values() {
+  
+  ::runtime_probe::Cpu_Fields* temp = _impl_.values_;
+  _impl_.values_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::runtime_probe::Cpu_Fields* Cpu::unsafe_arena_release_values() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Cpu.values)
+  
+  ::runtime_probe::Cpu_Fields* temp = _impl_.values_;
+  _impl_.values_ = nullptr;
+  return temp;
+}
+inline ::runtime_probe::Cpu_Fields* Cpu::_internal_mutable_values() {
+  
+  if (_impl_.values_ == nullptr) {
+    auto* p = CreateMaybeMessage<::runtime_probe::Cpu_Fields>(GetArenaForAllocation());
+    _impl_.values_ = p;
+  }
+  return _impl_.values_;
+}
+inline ::runtime_probe::Cpu_Fields* Cpu::mutable_values() {
+  ::runtime_probe::Cpu_Fields* _msg = _internal_mutable_values();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Cpu.values)
+  return _msg;
+}
+inline void Cpu::set_allocated_values(::runtime_probe::Cpu_Fields* values) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.values_;
+  }
+  if (values) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(values);
+    if (message_arena != submessage_arena) {
+      values = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, values, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.values_ = values;
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Cpu.values)
+}
+
+// -------------------------------------------------------------------
+
 // ProbeResult
 
 // .runtime_probe.ErrorCode error = 1;
@@ -13588,6 +14198,46 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Network
 ProbeResult::wireless() const {
   // @@protoc_insertion_point(field_list:runtime_probe.ProbeResult.wireless)
   return _impl_.wireless_;
+}
+
+// repeated .runtime_probe.Cpu cpu = 17;
+inline int ProbeResult::_internal_cpu_size() const {
+  return _impl_.cpu_.size();
+}
+inline int ProbeResult::cpu_size() const {
+  return _internal_cpu_size();
+}
+inline void ProbeResult::clear_cpu() {
+  _impl_.cpu_.Clear();
+}
+inline ::runtime_probe::Cpu* ProbeResult::mutable_cpu(int index) {
+  // @@protoc_insertion_point(field_mutable:runtime_probe.ProbeResult.cpu)
+  return _impl_.cpu_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Cpu >*
+ProbeResult::mutable_cpu() {
+  // @@protoc_insertion_point(field_mutable_list:runtime_probe.ProbeResult.cpu)
+  return &_impl_.cpu_;
+}
+inline const ::runtime_probe::Cpu& ProbeResult::_internal_cpu(int index) const {
+  return _impl_.cpu_.Get(index);
+}
+inline const ::runtime_probe::Cpu& ProbeResult::cpu(int index) const {
+  // @@protoc_insertion_point(field_get:runtime_probe.ProbeResult.cpu)
+  return _internal_cpu(index);
+}
+inline ::runtime_probe::Cpu* ProbeResult::_internal_add_cpu() {
+  return _impl_.cpu_.Add();
+}
+inline ::runtime_probe::Cpu* ProbeResult::add_cpu() {
+  ::runtime_probe::Cpu* _add = _internal_add_cpu();
+  // @@protoc_insertion_point(field_add:runtime_probe.ProbeResult.cpu)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Cpu >&
+ProbeResult::cpu() const {
+  // @@protoc_insertion_point(field_list:runtime_probe.ProbeResult.cpu)
+  return _impl_.cpu_;
 }
 
 // -------------------------------------------------------------------
@@ -14556,6 +15206,80 @@ inline ::runtime_probe::Network_Fields* ComponentFields::mutable_wireless() {
   return _msg;
 }
 
+// .runtime_probe.Cpu.Fields cpu = 14;
+inline bool ComponentFields::_internal_has_cpu() const {
+  return component_fields_case() == kCpu;
+}
+inline bool ComponentFields::has_cpu() const {
+  return _internal_has_cpu();
+}
+inline void ComponentFields::set_has_cpu() {
+  _impl_._oneof_case_[0] = kCpu;
+}
+inline void ComponentFields::clear_cpu() {
+  if (_internal_has_cpu()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.component_fields_.cpu_;
+    }
+    clear_has_component_fields();
+  }
+}
+inline ::runtime_probe::Cpu_Fields* ComponentFields::release_cpu() {
+  // @@protoc_insertion_point(field_release:runtime_probe.ComponentFields.cpu)
+  if (_internal_has_cpu()) {
+    clear_has_component_fields();
+    ::runtime_probe::Cpu_Fields* temp = _impl_.component_fields_.cpu_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.component_fields_.cpu_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::runtime_probe::Cpu_Fields& ComponentFields::_internal_cpu() const {
+  return _internal_has_cpu()
+      ? *_impl_.component_fields_.cpu_
+      : reinterpret_cast< ::runtime_probe::Cpu_Fields&>(::runtime_probe::_Cpu_Fields_default_instance_);
+}
+inline const ::runtime_probe::Cpu_Fields& ComponentFields::cpu() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.ComponentFields.cpu)
+  return _internal_cpu();
+}
+inline ::runtime_probe::Cpu_Fields* ComponentFields::unsafe_arena_release_cpu() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:runtime_probe.ComponentFields.cpu)
+  if (_internal_has_cpu()) {
+    clear_has_component_fields();
+    ::runtime_probe::Cpu_Fields* temp = _impl_.component_fields_.cpu_;
+    _impl_.component_fields_.cpu_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ComponentFields::unsafe_arena_set_allocated_cpu(::runtime_probe::Cpu_Fields* cpu) {
+  clear_component_fields();
+  if (cpu) {
+    set_has_cpu();
+    _impl_.component_fields_.cpu_ = cpu;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:runtime_probe.ComponentFields.cpu)
+}
+inline ::runtime_probe::Cpu_Fields* ComponentFields::_internal_mutable_cpu() {
+  if (!_internal_has_cpu()) {
+    clear_component_fields();
+    set_has_cpu();
+    _impl_.component_fields_.cpu_ = CreateMaybeMessage< ::runtime_probe::Cpu_Fields >(GetArenaForAllocation());
+  }
+  return _impl_.component_fields_.cpu_;
+}
+inline ::runtime_probe::Cpu_Fields* ComponentFields::mutable_cpu() {
+  ::runtime_probe::Cpu_Fields* _msg = _internal_mutable_cpu();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.ComponentFields.cpu)
+  return _msg;
+}
+
 inline bool ComponentFields::has_component_fields() const {
   return component_fields_case() != COMPONENT_FIELDS_NOT_SET;
 }
@@ -14889,6 +15613,10 @@ ProbeSsfcComponentsResponse::tcpc() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

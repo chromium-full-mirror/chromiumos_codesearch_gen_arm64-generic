@@ -1869,23 +1869,27 @@ constexpr int SocketConnectionEvent::QosCategory_ARRAYSIZE;
 bool SetFeatureFlagRequest_FeatureFlag_IsValid(int value) {
   switch (value) {
     case 0:
+    case 1:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SetFeatureFlagRequest_FeatureFlag_strings[1] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SetFeatureFlagRequest_FeatureFlag_strings[2] = {};
 
 static const char SetFeatureFlagRequest_FeatureFlag_names[] =
+  "CLAT"
   "WIFI_QOS";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SetFeatureFlagRequest_FeatureFlag_entries[] = {
-  { {SetFeatureFlagRequest_FeatureFlag_names + 0, 8}, 0 },
+  { {SetFeatureFlagRequest_FeatureFlag_names + 0, 4}, 1 },
+  { {SetFeatureFlagRequest_FeatureFlag_names + 4, 8}, 0 },
 };
 
 static const int SetFeatureFlagRequest_FeatureFlag_entries_by_number[] = {
-  0, // 0 -> WIFI_QOS
+  1, // 0 -> WIFI_QOS
+  0, // 1 -> CLAT
 };
 
 const std::string& SetFeatureFlagRequest_FeatureFlag_Name(
@@ -1894,12 +1898,12 @@ const std::string& SetFeatureFlagRequest_FeatureFlag_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SetFeatureFlagRequest_FeatureFlag_entries,
           SetFeatureFlagRequest_FeatureFlag_entries_by_number,
-          1, SetFeatureFlagRequest_FeatureFlag_strings);
+          2, SetFeatureFlagRequest_FeatureFlag_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SetFeatureFlagRequest_FeatureFlag_entries,
       SetFeatureFlagRequest_FeatureFlag_entries_by_number,
-      1, value);
+      2, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SetFeatureFlagRequest_FeatureFlag_strings[idx].get();
 }
@@ -1907,7 +1911,7 @@ bool SetFeatureFlagRequest_FeatureFlag_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SetFeatureFlagRequest_FeatureFlag* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SetFeatureFlagRequest_FeatureFlag_entries, 1, name, &int_value);
+      SetFeatureFlagRequest_FeatureFlag_entries, 2, name, &int_value);
   if (success) {
     *value = static_cast<SetFeatureFlagRequest_FeatureFlag>(int_value);
   }
@@ -1915,6 +1919,7 @@ bool SetFeatureFlagRequest_FeatureFlag_Parse(
 }
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::WIFI_QOS;
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::CLAT;
 constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::FeatureFlag_MIN;
 constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::FeatureFlag_MAX;
 constexpr int SetFeatureFlagRequest::FeatureFlag_ARRAYSIZE;

@@ -451,6 +451,34 @@ struct TcpcDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TcpcDefaultTypeInternal _Tcpc_default_instance_;
+PROTOBUF_CONSTEXPR Cpu_Fields::Cpu_Fields(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.model_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.cores_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct Cpu_FieldsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Cpu_FieldsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Cpu_FieldsDefaultTypeInternal() {}
+  union {
+    Cpu_Fields _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Cpu_FieldsDefaultTypeInternal _Cpu_Fields_default_instance_;
+PROTOBUF_CONSTEXPR Cpu::Cpu(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.values_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CpuDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CpuDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CpuDefaultTypeInternal() {}
+  union {
+    Cpu _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CpuDefaultTypeInternal _Cpu_default_instance_;
 PROTOBUF_CONSTEXPR ProbeResult::ProbeResult(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.audio_codec_)*/{}
@@ -467,6 +495,7 @@ PROTOBUF_CONSTEXPR ProbeResult::ProbeResult(
   , /*decltype(_impl_.cellular_)*/{}
   , /*decltype(_impl_.ethernet_)*/{}
   , /*decltype(_impl_.wireless_)*/{}
+  , /*decltype(_impl_.cpu_)*/{}
   , /*decltype(_impl_.probe_config_checksum_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.error_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -549,7 +578,7 @@ struct ProbeSsfcComponentsResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProbeSsfcComponentsResponseDefaultTypeInternal _ProbeSsfcComponentsResponse_default_instance_;
 }  // namespace runtime_probe
-static ::_pb::Metadata file_level_metadata_runtime_5fprobe_2eproto[32];
+static ::_pb::Metadata file_level_metadata_runtime_5fprobe_2eproto[34];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_runtime_5fprobe_2eproto[5];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_runtime_5fprobe_2eproto = nullptr;
 
@@ -828,6 +857,22 @@ const uint32_t TableStruct_runtime_5fprobe_2eproto::offsets[] PROTOBUF_SECTION_V
   PROTOBUF_FIELD_OFFSET(::runtime_probe::Tcpc, _impl_.name_),
   PROTOBUF_FIELD_OFFSET(::runtime_probe::Tcpc, _impl_.values_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Cpu_Fields, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Cpu_Fields, _impl_.model_),
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Cpu_Fields, _impl_.cores_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Cpu, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Cpu, _impl_.name_),
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Cpu, _impl_.values_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::runtime_probe::ProbeResult, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -849,12 +894,14 @@ const uint32_t TableStruct_runtime_5fprobe_2eproto::offsets[] PROTOBUF_SECTION_V
   PROTOBUF_FIELD_OFFSET(::runtime_probe::ProbeResult, _impl_.cellular_),
   PROTOBUF_FIELD_OFFSET(::runtime_probe::ProbeResult, _impl_.ethernet_),
   PROTOBUF_FIELD_OFFSET(::runtime_probe::ProbeResult, _impl_.wireless_),
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::ProbeResult, _impl_.cpu_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::runtime_probe::ComponentFields, _internal_metadata_),
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::runtime_probe::ComponentFields, _impl_._oneof_case_[0]),
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
@@ -929,12 +976,14 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 247, -1, -1, sizeof(::runtime_probe::EcI2c)},
   { 255, -1, -1, sizeof(::runtime_probe::Tcpc_Fields)},
   { 265, -1, -1, sizeof(::runtime_probe::Tcpc)},
-  { 273, -1, -1, sizeof(::runtime_probe::ProbeResult)},
-  { 295, -1, -1, sizeof(::runtime_probe::ComponentFields)},
-  { 315, -1, -1, sizeof(::runtime_probe::GetKnownComponentsRequest)},
-  { 322, -1, -1, sizeof(::runtime_probe::GetKnownComponentsResult)},
-  { 330, -1, -1, sizeof(::runtime_probe::ProbeSsfcComponentsRequest)},
-  { 336, -1, -1, sizeof(::runtime_probe::ProbeSsfcComponentsResponse)},
+  { 273, -1, -1, sizeof(::runtime_probe::Cpu_Fields)},
+  { 281, -1, -1, sizeof(::runtime_probe::Cpu)},
+  { 289, -1, -1, sizeof(::runtime_probe::ProbeResult)},
+  { 312, -1, -1, sizeof(::runtime_probe::ComponentFields)},
+  { 333, -1, -1, sizeof(::runtime_probe::GetKnownComponentsRequest)},
+  { 340, -1, -1, sizeof(::runtime_probe::GetKnownComponentsResult)},
+  { 348, -1, -1, sizeof(::runtime_probe::ProbeSsfcComponentsRequest)},
+  { 354, -1, -1, sizeof(::runtime_probe::ProbeSsfcComponentsResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -964,6 +1013,8 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::runtime_probe::_EcI2c_default_instance_._instance,
   &::runtime_probe::_Tcpc_Fields_default_instance_._instance,
   &::runtime_probe::_Tcpc_default_instance_._instance,
+  &::runtime_probe::_Cpu_Fields_default_instance_._instance,
+  &::runtime_probe::_Cpu_default_instance_._instance,
   &::runtime_probe::_ProbeResult_default_instance_._instance,
   &::runtime_probe::_ComponentFields_default_instance_._instance,
   &::runtime_probe::_GetKnownComponentsRequest_default_instance_._instance,
@@ -973,217 +1024,222 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_runtime_5fprobe_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\023runtime_probe.proto\022\rruntime_probe\"\361\002\n"
+  "\n\023runtime_probe.proto\022\rruntime_probe\"\372\002\n"
   "\014ProbeRequest\022\?\n\ncategories\030\004 \003(\0162+.runt"
   "ime_probe.ProbeRequest.SupportCategory\022\036"
   "\n\026include_privacy_fields\030\002 \001(\010\022\036\n\026probe_"
-  "default_category\030\003 \001(\010\"\331\001\n\017SupportCatego"
+  "default_category\030\003 \001(\010\"\342\001\n\017SupportCatego"
   "ry\022\013\n\007UNKNOWN\020\000\022\013\n\007battery\020\002\022\013\n\007storage\020"
   "\003\022\016\n\nvpd_cached\020\004\022\013\n\007network\020\005\022\n\n\006camera"
   "\020\006\022\n\n\006stylus\020\007\022\014\n\010touchpad\020\010\022\017\n\013touchscr"
   "een\020\t\022\010\n\004dram\020\n\022\021\n\rdisplay_panel\020\013\022\014\n\010ce"
-  "llular\020\014\022\014\n\010ethernet\020\r\022\014\n\010wireless\020\016\"\004\010\001"
-  "\020\001J\004\010\001\020\002\"!\n\013Information\022\022\n\ncomp_group\030\001 "
-  "\001(\t\"\225\001\n\nAudioCodec\022\014\n\004name\030\001 \001(\t\0220\n\006valu"
-  "es\030\002 \001(\0132 .runtime_probe.AudioCodec.Fiel"
+  "llular\020\014\022\014\n\010ethernet\020\r\022\014\n\010wireless\020\016\022\007\n\003"
+  "cpu\020\017\"\004\010\001\020\001J\004\010\001\020\002\"!\n\013Information\022\022\n\ncomp"
+  "_group\030\001 \001(\t\"\225\001\n\nAudioCodec\022\014\n\004name\030\001 \001("
+  "\t\0220\n\006values\030\002 \001(\0132 .runtime_probe.AudioC"
+  "odec.Fields\022/\n\013information\030\003 \001(\0132\032.runti"
+  "me_probe.Information\032\026\n\006Fields\022\014\n\004name\030\001"
+  " \001(\t\"\355\003\n\007Battery\022\014\n\004name\030\001 \001(\t\022-\n\006values"
+  "\030\002 \001(\0132\035.runtime_probe.Battery.Fields\022/\n"
+  "\013information\030\003 \001(\0132\032.runtime_probe.Infor"
+  "mation\032\363\002\n\006Fields\022\021\n\005index\030\001 \001(\005B\002\030\001\022\024\n\014"
+  "manufacturer\030\002 \001(\t\022\022\n\nmodel_name\030\003 \001(\t\022\025"
+  "\n\rserial_number\030\004 \001(\t\022\032\n\022charge_full_des"
+  "ign\030\005 \001(\005\022\023\n\013charge_full\030\006 \001(\005\022\022\n\ncharge"
+  "_now\030\007 \001(\005\022\023\n\013voltage_now\030\010 \001(\005\022\032\n\022volta"
+  "ge_min_design\030\t \001(\005\022\031\n\021cycle_count_smart"
+  "\030\n \001(\005\022\024\n\014status_smart\030\013 \001(\005\022\031\n\021temperat"
+  "ure_smart\030\014 \001(\005\022\014\n\004path\030\r \001(\t\022\036\n\026manufac"
+  "ture_date_smart\030\016 \001(\005\022\022\n\ntechnology\030\017 \001("
+  "\t\022\021\n\tchemistry\030\020 \001(\t\"\267\003\n\007Storage\022\014\n\004name"
+  "\030\001 \001(\t\022-\n\006values\030\002 \001(\0132\035.runtime_probe.S"
+  "torage.Fields\022/\n\013information\030\003 \001(\0132\032.run"
+  "time_probe.Information\032\275\002\n\006Fields\022\014\n\004pat"
+  "h\030\001 \001(\t\022\017\n\007sectors\030\002 \001(\003\022\014\n\004size\030\003 \001(\003\022\014"
+  "\n\004type\030\004 \001(\t\022\022\n\nmmc_manfid\030\005 \001(\r\022\020\n\010mmc_"
+  "name\030\006 \001(\t\022\021\n\tmmc_hwrev\030\017 \001(\r\022\017\n\007mmc_prv"
+  "\030\007 \001(\r\022\022\n\nmmc_serial\030\010 \001(\r\022\021\n\tmmc_oemid\030"
+  "\t \001(\r\022\022\n\npci_vendor\030\n \001(\r\022\022\n\npci_device\030"
+  "\013 \001(\r\022\021\n\tpci_class\030\014 \001(\r\022\022\n\nata_vendor\030\r"
+  " \001(\t\022\021\n\tata_model\030\016 \001(\t\022\022\n\nufs_vendor\030\020 "
+  "\001(\t\022\021\n\tufs_model\030\021 \001(\t\"\235\001\n\tVpdCached\022\014\n\004"
+  "name\030\001 \001(\t\022/\n\006values\030\002 \001(\0132\037.runtime_pro"
+  "be.VpdCached.Fields\022/\n\013information\030\003 \001(\013"
+  "2\032.runtime_probe.Information\032 \n\006Fields\022\026"
+  "\n\016vpd_sku_number\030\001 \001(\t\"\202\003\n\007Network\022\014\n\004na"
+  "me\030\001 \001(\t\022-\n\006values\030\002 \001(\0132\035.runtime_probe"
+  ".Network.Fields\022/\n\013information\030\003 \001(\0132\032.r"
+  "untime_probe.Information\032\210\002\n\006Fields\022\014\n\004p"
+  "ath\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\020\n\010bus_type\030\003 \001("
+  "\t\022\025\n\rpci_vendor_id\030\004 \001(\r\022\025\n\rpci_device_i"
+  "d\030\005 \001(\r\022\024\n\014pci_revision\030\006 \001(\r\022\025\n\rpci_sub"
+  "system\030\014 \001(\r\022\025\n\rusb_vendor_id\030\007 \001(\r\022\026\n\016u"
+  "sb_product_id\030\010 \001(\r\022\026\n\016usb_bcd_device\030\t "
+  "\001(\r\022\026\n\016sdio_vendor_id\030\n \001(\r\022\026\n\016sdio_devi"
+  "ce_id\030\013 \001(\r\"\363\002\n\006Camera\022\014\n\004name\030\001 \001(\t\022,\n\006"
+  "values\030\002 \001(\0132\034.runtime_probe.Camera.Fiel"
   "ds\022/\n\013information\030\003 \001(\0132\032.runtime_probe."
-  "Information\032\026\n\006Fields\022\014\n\004name\030\001 \001(\t\"\355\003\n\007"
-  "Battery\022\014\n\004name\030\001 \001(\t\022-\n\006values\030\002 \001(\0132\035."
-  "runtime_probe.Battery.Fields\022/\n\013informat"
-  "ion\030\003 \001(\0132\032.runtime_probe.Information\032\363\002"
-  "\n\006Fields\022\021\n\005index\030\001 \001(\005B\002\030\001\022\024\n\014manufactu"
-  "rer\030\002 \001(\t\022\022\n\nmodel_name\030\003 \001(\t\022\025\n\rserial_"
-  "number\030\004 \001(\t\022\032\n\022charge_full_design\030\005 \001(\005"
-  "\022\023\n\013charge_full\030\006 \001(\005\022\022\n\ncharge_now\030\007 \001("
-  "\005\022\023\n\013voltage_now\030\010 \001(\005\022\032\n\022voltage_min_de"
-  "sign\030\t \001(\005\022\031\n\021cycle_count_smart\030\n \001(\005\022\024\n"
-  "\014status_smart\030\013 \001(\005\022\031\n\021temperature_smart"
-  "\030\014 \001(\005\022\014\n\004path\030\r \001(\t\022\036\n\026manufacture_date"
-  "_smart\030\016 \001(\005\022\022\n\ntechnology\030\017 \001(\t\022\021\n\tchem"
-  "istry\030\020 \001(\t\"\267\003\n\007Storage\022\014\n\004name\030\001 \001(\t\022-\n"
-  "\006values\030\002 \001(\0132\035.runtime_probe.Storage.Fi"
-  "elds\022/\n\013information\030\003 \001(\0132\032.runtime_prob"
-  "e.Information\032\275\002\n\006Fields\022\014\n\004path\030\001 \001(\t\022\017"
-  "\n\007sectors\030\002 \001(\003\022\014\n\004size\030\003 \001(\003\022\014\n\004type\030\004 "
-  "\001(\t\022\022\n\nmmc_manfid\030\005 \001(\r\022\020\n\010mmc_name\030\006 \001("
-  "\t\022\021\n\tmmc_hwrev\030\017 \001(\r\022\017\n\007mmc_prv\030\007 \001(\r\022\022\n"
-  "\nmmc_serial\030\010 \001(\r\022\021\n\tmmc_oemid\030\t \001(\r\022\022\n\n"
-  "pci_vendor\030\n \001(\r\022\022\n\npci_device\030\013 \001(\r\022\021\n\t"
-  "pci_class\030\014 \001(\r\022\022\n\nata_vendor\030\r \001(\t\022\021\n\ta"
-  "ta_model\030\016 \001(\t\022\022\n\nufs_vendor\030\020 \001(\t\022\021\n\tuf"
-  "s_model\030\021 \001(\t\"\235\001\n\tVpdCached\022\014\n\004name\030\001 \001("
-  "\t\022/\n\006values\030\002 \001(\0132\037.runtime_probe.VpdCac"
-  "hed.Fields\022/\n\013information\030\003 \001(\0132\032.runtim"
-  "e_probe.Information\032 \n\006Fields\022\026\n\016vpd_sku"
-  "_number\030\001 \001(\t\"\202\003\n\007Network\022\014\n\004name\030\001 \001(\t\022"
-  "-\n\006values\030\002 \001(\0132\035.runtime_probe.Network."
-  "Fields\022/\n\013information\030\003 \001(\0132\032.runtime_pr"
-  "obe.Information\032\210\002\n\006Fields\022\014\n\004path\030\001 \001(\t"
-  "\022\014\n\004type\030\002 \001(\t\022\020\n\010bus_type\030\003 \001(\t\022\025\n\rpci_"
-  "vendor_id\030\004 \001(\r\022\025\n\rpci_device_id\030\005 \001(\r\022\024"
-  "\n\014pci_revision\030\006 \001(\r\022\025\n\rpci_subsystem\030\014 "
-  "\001(\r\022\025\n\rusb_vendor_id\030\007 \001(\r\022\026\n\016usb_produc"
-  "t_id\030\010 \001(\r\022\026\n\016usb_bcd_device\030\t \001(\r\022\026\n\016sd"
-  "io_vendor_id\030\n \001(\r\022\026\n\016sdio_device_id\030\013 \001"
-  "(\r\"\363\002\n\006Camera\022\014\n\004name\030\001 \001(\t\022,\n\006values\030\002 "
-  "\001(\0132\034.runtime_probe.Camera.Fields\022/\n\013inf"
-  "ormation\030\003 \001(\0132\032.runtime_probe.Informati"
-  "on\032\373\001\n\006Fields\022\014\n\004path\030\001 \001(\t\022\020\n\010bus_type\030"
-  "\002 \001(\t\022\025\n\rusb_vendor_id\030\003 \001(\r\022\026\n\016usb_prod"
-  "uct_id\030\004 \001(\r\022\026\n\016usb_bcd_device\030\005 \001(\r\0222\n\r"
-  "usb_removable\030\006 \001(\0162\033.runtime_probe.UsbR"
-  "emovable\022\021\n\tmipi_name\030\007 \001(\t\022\026\n\016mipi_modu"
-  "le_id\030\010 \001(\t\022\026\n\016mipi_sensor_id\030\t \001(\t\022\023\n\013m"
-  "ipi_vendor\030\n \001(\t\"\250\003\n\013InputDevice\022\014\n\004name"
-  "\030\001 \001(\t\0221\n\006values\030\002 \001(\0132!.runtime_probe.I"
-  "nputDevice.Fields\022/\n\013information\030\003 \001(\0132\032"
-  ".runtime_probe.Information\032\274\001\n\006Fields\022\014\n"
-  "\004name\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\022\r\n\005event\030\003 \001(\t"
-  "\022\013\n\003bus\030\004 \001(\r\022\016\n\006vendor\030\005 \001(\r\022\017\n\007product"
-  "\030\006 \001(\r\022\017\n\007version\030\007 \001(\r\022\022\n\nfw_version\030\010 "
-  "\001(\t\0224\n\013device_type\030\t \001(\0162\037.runtime_probe"
-  ".InputDevice.Type\"h\n\004Type\022\024\n\020TYPE_UNSPEC"
-  "IFIED\020\000\022\020\n\014TYPE_UNKNOWN\020\001\022\017\n\013TYPE_STYLUS"
-  "\020\002\022\021\n\rTYPE_TOUCHPAD\020\003\022\024\n\020TYPE_TOUCHSCREE"
-  "N\020\004\"\251\001\n\006Memory\022\014\n\004name\030\001 \001(\t\022,\n\006values\030\002"
-  " \001(\0132\034.runtime_probe.Memory.Fields\022/\n\013in"
-  "formation\030\003 \001(\0132\032.runtime_probe.Informat"
-  "ion\0322\n\006Fields\022\014\n\004part\030\001 \001(\t\022\014\n\004size\030\002 \001("
-  "\r\022\014\n\004slot\030\003 \001(\r\"\221\024\n\004Edid\022\014\n\004name\030\001 \001(\t\022*"
-  "\n\006values\030\002 \001(\0132\032.runtime_probe.Edid.Fiel"
-  "ds\022/\n\013information\030\003 \001(\0132\032.runtime_probe."
-  "Information\032Y\n\006Fields\022\014\n\004path\030\001 \001(\t\022\016\n\006v"
-  "endor\030\002 \001(\t\022\022\n\nproduct_id\030\003 \001(\r\022\016\n\006heigh"
-  "t\030\004 \001(\r\022\r\n\005width\030\005 \001(\r\"\302\022\n\006Vendor\022\022\n\016VEN"
-  "DOR_UNKNOWN\020\000\022\016\n\nVENDOR_AAA\020\001\022\016\n\nVENDOR_"
-  "ACI\020=\022\016\n\nVENDOR_ACR\020F\022\016\n\nVENDOR_ACT\020H\022\016\n"
-  "\nVENDOR_ADA\020O\022\017\n\nVENDOR_AGO\020\253\001\022\017\n\nVENDOR"
-  "_AOP\020\374\002\022\017\n\nVENDOR_API\020\217\003\022\017\n\nVENDOR_APP\020\226"
-  "\003\022\017\n\nVENDOR_ARD\020\276\003\022\017\n\nVENDOR_ART\020\316\003\022\017\n\nV"
-  "ENDOR_ASK\020\337\003\022\017\n\nVENDOR_ATO\020\375\003\022\017\n\nVENDOR_"
-  "AUO\020\227\004\022\017\n\nVENDOR_AUS\020\233\004\022\017\n\nVENDOR_AVT\020\266\004"
-  "\022\017\n\nVENDOR_BEL\020\230\006\022\017\n\nVENDOR_BMD\020\340\007\022\017\n\nVE"
-  "NDOR_BNO\020\205\010\022\017\n\nVENDOR_BOE\020\225\010\022\017\n\nVENDOR_B"
-  "PS\020\275\010\022\017\n\nVENDOR_CAT\020\334\n\022\017\n\nVENDOR_CHR\020\220\014\022"
-  "\017\n\nVENDOR_CIN\020\246\014\022\017\n\nVENDOR_CMN\020\216\r\022\017\n\nVEN"
-  "DOR_CMO\020\217\r\022\017\n\nVENDOR_CNC\020\235\r\022\017\n\nVENDOR_CP"
-  "L\020\332\r\022\017\n\nVENDOR_CPT\020\342\r\022\017\n\nVENDOR_CRO\020\221\016\022\017"
-  "\n\nVENDOR_CSO\020\253\016\022\017\n\nVENDOR_CTO\020\305\016\022\017\n\nVEND"
-  "OR_CTX\020\316\016\022\017\n\nVENDOR_CUK\020\333\016\022\017\n\nVENDOR_DEL"
-  "\020\340\020\022\017\n\nVENDOR_DGC\020\213\021\022\017\n\nVENDOR_DMO\020\263\022\022\017\n"
-  "\nVENDOR_DON\020\346\022\022\017\n\nVENDOR_DPL\020\376\022\022\017\n\nVENDO"
-  "R_EGA\020\255\026\022\017\n\nVENDOR_ENC\020\345\027\022\017\n\nVENDOR_EPH\020"
-  "\236\030\022\017\n\nVENDOR_EXN\020\364\031\022\017\n\nVENDOR_EXP\020\366\031\022\017\n\n"
-  "VENDOR_FNI\020\217\035\022\017\n\nVENDOR_FUS\020\317\036\022\017\n\nVENDOR"
-  "_GBT\020\206 \022\017\n\nVENDOR_GFN\020\350 \022\017\n\nVENDOR_GGL\020\200"
-  "!\022\017\n\nVENDOR_GSM\020\271#\022\017\n\nVENDOR_HIQ\020\335&\022\017\n\nV"
-  "ENDOR_HKC\020\203\'\022\017\n\nVENDOR_HOL\020\364\'\022\017\n\nVENDOR_"
-  "HPN\020\220(\022\017\n\nVENDOR_HSD\020\324(\022\017\n\nVENDOR_HTC\020\355("
-  "\022\017\n\nVENDOR_HWP\020\310)\022\017\n\nVENDOR_HYT\020\200*\022\017\n\nVE"
-  "NDOR_INO\020\201-\022\017\n\nVENDOR_INT\020\206-\022\017\n\nVENDOR_I"
-  "NX\020\212-\022\017\n\nVENDOR_ITE\020\223.\022\017\n\nVENDOR_IVM\020\317.\022"
-  "\017\n\nVENDOR_IVO\020\321.\022\017\n\nVENDOR_JVC\020\3513\022\017\n\nVEN"
-  "DOR_KDB\020\2705\022\017\n\nVENDOR_KDC\020\2715\022\017\n\nVENDOR_KT"
-  "C\020\3318\022\017\n\nVENDOR_LEN\020\202;\022\017\n\nVENDOR_LGD\020\254;\022\017"
-  "\n\nVENDOR_LNX\020\366<\022\017\n\nVENDOR_LPL\020\236=\022\017\n\nVEND"
-  "OR_LWR\020\332>\022\017\n\nVENDOR_MAX\020\310\?\022\017\n\nVENDOR_MEG"
-  "\020\237@\022\017\n\nVENDOR_MEI\020\241@\022\017\n\nVENDOR_MEL\020\244@\022\017\n"
-  "\nVENDOR_MJI\020\243A\022\017\n\nVENDOR_MOM\020\251B\022\017\n\nVENDO"
-  "R_MST\020\230C\022\017\n\nVENDOR_MSX\020\234C\022\017\n\nVENDOR_MTC\020"
-  "\241C\022\017\n\nVENDOR_MTX\020\266C\022\017\n\nVENDOR_NCP\020\230E\022\017\n\n"
-  "VENDOR_NCR\020\232E\022\017\n\nVENDOR_NEC\020\277E\022\017\n\nVENDOR"
-  "_NEX\020\324E\022\017\n\nVENDOR_NVD\020\372H\022\017\n\nVENDOR_ONK\020\325"
-  "L\022\017\n\nVENDOR_ORN\020\300M\022\017\n\nVENDOR_OTM\020\363M\022\017\n\nV"
-  "ENDOR_OVR\020\254N\022\017\n\nVENDOR_PAR\020\256O\022\017\n\nVENDOR_"
-  "PCC\020\323O\022\017\n\nVENDOR_PHL\020\336P\022\017\n\nVENDOR_PIO\020\373P"
-  "\022\017\n\nVENDOR_PLY\020\323Q\022\017\n\nVENDOR_PNR\020\200R\022\017\n\nVE"
-  "NDOR_QDS\020\241U\022\017\n\nVENDOR_QNT\020\246W\022\017\n\nVENDOR_R"
-  "AT\020\370Y\022\017\n\nVENDOR_REN\020\332Z\022\017\n\nVENDOR_RTK\020\335]\022"
-  "\017\n\nVENDOR_SAM\020\225_\022\017\n\nVENDOR_SAN\020\226_\022\017\n\nVEN"
-  "DOR_SDC\020\331_\022\017\n\nVENDOR_SEC\020\363_\022\017\n\nVENDOR_SG"
-  "T\020\270`\022\017\n\nVENDOR_SHP\020\316`\022\017\n\nVENDOR_SII\020\341`\022\017"
-  "\n\nVENDOR_SIS\020\353`\022\017\n\nVENDOR_SLA\020\247a\022\017\n\nVEND"
-  "OR_SMC\020\303a\022\017\n\nVENDOR_SNY\020\363a\022\017\n\nVENDOR_STA"
-  "\020\367b\022\017\n\nVENDOR_STD\020\372b\022\017\n\nVENDOR_STN\020\204c\022\017\n"
-  "\nVENDOR_SVS\020\275c\022\017\n\nVENDOR_SYN\020\206d\022\017\n\nVENDO"
-  "R_TAI\020\265d\022\017\n\nVENDOR_TCL\020\354d\022\017\n\nVENDOR_TDC\020"
-  "\375d\022\017\n\nVENDOR_TOP\020\250g\022\017\n\nVENDOR_TOS\020\253g\022\017\n\n"
-  "VENDOR_TSB\020\202h\022\017\n\nVENDOR_TST\020\224h\022\017\n\nVENDOR"
-  "_UNK\020\255l\022\017\n\nVENDOR_VES\020\357o\022\017\n\nVENDOR_VID\020\310"
-  "p\022\017\n\nVENDOR_VIT\020\330p\022\017\n\nVENDOR_VIZ\020\336p\022\017\n\nV"
-  "ENDOR_VSC\020\313r\022\017\n\nVENDOR_VTK\020\355r\022\017\n\nVENDOR_"
-  "WDE\020\353t\022\017\n\nVENDOR_WST\020\200x\022\017\n\nVENDOR_WYS\020\233y"
-  "\022\017\n\nVENDOR_XLX\020\362{\022\020\n\nVENDOR_YMH\020\240\201\001\"Z\n\005A"
-  "pI2c\022\014\n\004name\030\001 \001(\t\022+\n\006values\030\002 \001(\0132\033.run"
-  "time_probe.ApI2c.Fields\032\026\n\006Fields\022\014\n\004dat"
-  "a\030\001 \001(\r\"Z\n\005EcI2c\022\014\n\004name\030\001 \001(\t\022+\n\006values"
-  "\030\002 \001(\0132\033.runtime_probe.EcI2c.Fields\032\026\n\006F"
-  "ields\022\014\n\004data\030\001 \001(\r\"\222\001\n\004Tcpc\022\014\n\004name\030\001 \001"
-  "(\t\022*\n\006values\030\002 \001(\0132\032.runtime_probe.Tcpc."
-  "Fields\032P\n\006Fields\022\014\n\004port\030\001 \001(\r\022\021\n\tvendor"
-  "_id\030\002 \001(\r\022\022\n\nproduct_id\030\003 \001(\r\022\021\n\tdevice_"
-  "id\030\004 \001(\r\"\257\005\n\013ProbeResult\022\'\n\005error\030\001 \001(\0162"
-  "\030.runtime_probe.ErrorCode\022\035\n\025probe_confi"
-  "g_checksum\030\006 \001(\t\022.\n\013audio_codec\030\002 \003(\0132\031."
-  "runtime_probe.AudioCodec\022\'\n\007battery\030\003 \003("
-  "\0132\026.runtime_probe.Battery\022\'\n\007storage\030\004 \003"
-  "(\0132\026.runtime_probe.Storage\022,\n\nvpd_cached"
-  "\030\005 \003(\0132\030.runtime_probe.VpdCached\022\'\n\007netw"
-  "ork\030\007 \003(\0132\026.runtime_probe.Network\022%\n\006cam"
-  "era\030\010 \003(\0132\025.runtime_probe.Camera\022*\n\006styl"
-  "us\030\t \003(\0132\032.runtime_probe.InputDevice\022,\n\010"
-  "touchpad\030\n \003(\0132\032.runtime_probe.InputDevi"
-  "ce\022/\n\013touchscreen\030\013 \003(\0132\032.runtime_probe."
-  "InputDevice\022#\n\004dram\030\014 \003(\0132\025.runtime_prob"
-  "e.Memory\022*\n\rdisplay_panel\030\r \003(\0132\023.runtim"
-  "e_probe.Edid\022(\n\010cellular\030\016 \003(\0132\026.runtime"
-  "_probe.Network\022(\n\010ethernet\030\017 \003(\0132\026.runti"
-  "me_probe.Network\022(\n\010wireless\030\020 \003(\0132\026.run"
-  "time_probe.Network\"\313\005\n\017ComponentFields\0227"
-  "\n\013audio_codec\030\001 \001(\0132 .runtime_probe.Audi"
-  "oCodec.FieldsH\000\0220\n\007battery\030\002 \001(\0132\035.runti"
-  "me_probe.Battery.FieldsH\000\0220\n\007storage\030\003 \001"
-  "(\0132\035.runtime_probe.Storage.FieldsH\000\0225\n\nv"
-  "pd_cached\030\004 \001(\0132\037.runtime_probe.VpdCache"
-  "d.FieldsH\000\022.\n\006camera\030\005 \001(\0132\034.runtime_pro"
-  "be.Camera.FieldsH\000\0223\n\006stylus\030\006 \001(\0132!.run"
-  "time_probe.InputDevice.FieldsH\000\0225\n\010touch"
-  "pad\030\007 \001(\0132!.runtime_probe.InputDevice.Fi"
-  "eldsH\000\0228\n\013touchscreen\030\010 \001(\0132!.runtime_pr"
-  "obe.InputDevice.FieldsH\000\022,\n\004dram\030\t \001(\0132\034"
-  ".runtime_probe.Memory.FieldsH\000\0223\n\rdispla"
-  "y_panel\030\n \001(\0132\032.runtime_probe.Edid.Field"
-  "sH\000\0221\n\010cellular\030\013 \001(\0132\035.runtime_probe.Ne"
-  "twork.FieldsH\000\0221\n\010ethernet\030\014 \001(\0132\035.runti"
-  "me_probe.Network.FieldsH\000\0221\n\010wireless\030\r "
-  "\001(\0132\035.runtime_probe.Network.FieldsH\000B\022\n\020"
-  "component_fields\"Z\n\031GetKnownComponentsRe"
-  "quest\022=\n\010category\030\001 \001(\0162+.runtime_probe."
-  "ProbeRequest.SupportCategory\"\\\n\030GetKnown"
-  "ComponentsResult\022\'\n\005error\030\001 \001(\0162\030.runtim"
-  "e_probe.ErrorCode\022\027\n\017component_names\030\002 \003"
-  "(\t\"\034\n\032ProbeSsfcComponentsRequest\"\324\001\n\033Pro"
-  "beSsfcComponentsResponse\022\'\n\005error\030\001 \001(\0162"
-  "\030.runtime_probe.ErrorCode\022\035\n\025probe_confi"
-  "g_checksum\030\002 \001(\t\022$\n\006ap_i2c\030\013 \003(\0132\024.runti"
-  "me_probe.ApI2c\022$\n\006ec_i2c\030\014 \003(\0132\024.runtime"
-  "_probe.EcI2c\022!\n\004tcpc\030\r \003(\0132\023.runtime_pro"
-  "be.Tcpc*\203\002\n\tErrorCode\022\037\n\033RUNTIME_PROBE_E"
-  "RROR_NOT_SET\020\000\022-\n)RUNTIME_PROBE_ERROR_PR"
-  "OBE_REQUEST_INVALID\020\001\022>\n:RUNTIME_PROBE_E"
-  "RROR_PROBE_CONFIG_INCOMPLETE_PROBE_FUNCT"
-  "ION\020\004\022,\n(RUNTIME_PROBE_ERROR_PROBE_RESUL"
-  "T_INVALID\020\005\022,\n(RUNTIME_PROBE_ERROR_PROBE"
-  "_CONFIG_INVALID\020\006\"\004\010\002\020\002\"\004\010\003\020\003*5\n\014UsbRemo"
-  "vable\022\013\n\007UNKNOWN\020\000\022\r\n\tREMOVABLE\020\001\022\t\n\005FIX"
-  "ED\020\002B+Z)chromiumos/system_api/runtime_pr"
-  "obe_protob\006proto3"
+  "Information\032\373\001\n\006Fields\022\014\n\004path\030\001 \001(\t\022\020\n\010"
+  "bus_type\030\002 \001(\t\022\025\n\rusb_vendor_id\030\003 \001(\r\022\026\n"
+  "\016usb_product_id\030\004 \001(\r\022\026\n\016usb_bcd_device\030"
+  "\005 \001(\r\0222\n\rusb_removable\030\006 \001(\0162\033.runtime_p"
+  "robe.UsbRemovable\022\021\n\tmipi_name\030\007 \001(\t\022\026\n\016"
+  "mipi_module_id\030\010 \001(\t\022\026\n\016mipi_sensor_id\030\t"
+  " \001(\t\022\023\n\013mipi_vendor\030\n \001(\t\"\250\003\n\013InputDevic"
+  "e\022\014\n\004name\030\001 \001(\t\0221\n\006values\030\002 \001(\0132!.runtim"
+  "e_probe.InputDevice.Fields\022/\n\013informatio"
+  "n\030\003 \001(\0132\032.runtime_probe.Information\032\274\001\n\006"
+  "Fields\022\014\n\004name\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\022\r\n\005ev"
+  "ent\030\003 \001(\t\022\013\n\003bus\030\004 \001(\r\022\016\n\006vendor\030\005 \001(\r\022\017"
+  "\n\007product\030\006 \001(\r\022\017\n\007version\030\007 \001(\r\022\022\n\nfw_v"
+  "ersion\030\010 \001(\t\0224\n\013device_type\030\t \001(\0162\037.runt"
+  "ime_probe.InputDevice.Type\"h\n\004Type\022\024\n\020TY"
+  "PE_UNSPECIFIED\020\000\022\020\n\014TYPE_UNKNOWN\020\001\022\017\n\013TY"
+  "PE_STYLUS\020\002\022\021\n\rTYPE_TOUCHPAD\020\003\022\024\n\020TYPE_T"
+  "OUCHSCREEN\020\004\"\251\001\n\006Memory\022\014\n\004name\030\001 \001(\t\022,\n"
+  "\006values\030\002 \001(\0132\034.runtime_probe.Memory.Fie"
+  "lds\022/\n\013information\030\003 \001(\0132\032.runtime_probe"
+  ".Information\0322\n\006Fields\022\014\n\004part\030\001 \001(\t\022\014\n\004"
+  "size\030\002 \001(\r\022\014\n\004slot\030\003 \001(\r\"\221\024\n\004Edid\022\014\n\004nam"
+  "e\030\001 \001(\t\022*\n\006values\030\002 \001(\0132\032.runtime_probe."
+  "Edid.Fields\022/\n\013information\030\003 \001(\0132\032.runti"
+  "me_probe.Information\032Y\n\006Fields\022\014\n\004path\030\001"
+  " \001(\t\022\016\n\006vendor\030\002 \001(\t\022\022\n\nproduct_id\030\003 \001(\r"
+  "\022\016\n\006height\030\004 \001(\r\022\r\n\005width\030\005 \001(\r\"\302\022\n\006Vend"
+  "or\022\022\n\016VENDOR_UNKNOWN\020\000\022\016\n\nVENDOR_AAA\020\001\022\016"
+  "\n\nVENDOR_ACI\020=\022\016\n\nVENDOR_ACR\020F\022\016\n\nVENDOR"
+  "_ACT\020H\022\016\n\nVENDOR_ADA\020O\022\017\n\nVENDOR_AGO\020\253\001\022"
+  "\017\n\nVENDOR_AOP\020\374\002\022\017\n\nVENDOR_API\020\217\003\022\017\n\nVEN"
+  "DOR_APP\020\226\003\022\017\n\nVENDOR_ARD\020\276\003\022\017\n\nVENDOR_AR"
+  "T\020\316\003\022\017\n\nVENDOR_ASK\020\337\003\022\017\n\nVENDOR_ATO\020\375\003\022\017"
+  "\n\nVENDOR_AUO\020\227\004\022\017\n\nVENDOR_AUS\020\233\004\022\017\n\nVEND"
+  "OR_AVT\020\266\004\022\017\n\nVENDOR_BEL\020\230\006\022\017\n\nVENDOR_BMD"
+  "\020\340\007\022\017\n\nVENDOR_BNO\020\205\010\022\017\n\nVENDOR_BOE\020\225\010\022\017\n"
+  "\nVENDOR_BPS\020\275\010\022\017\n\nVENDOR_CAT\020\334\n\022\017\n\nVENDO"
+  "R_CHR\020\220\014\022\017\n\nVENDOR_CIN\020\246\014\022\017\n\nVENDOR_CMN\020"
+  "\216\r\022\017\n\nVENDOR_CMO\020\217\r\022\017\n\nVENDOR_CNC\020\235\r\022\017\n\n"
+  "VENDOR_CPL\020\332\r\022\017\n\nVENDOR_CPT\020\342\r\022\017\n\nVENDOR"
+  "_CRO\020\221\016\022\017\n\nVENDOR_CSO\020\253\016\022\017\n\nVENDOR_CTO\020\305"
+  "\016\022\017\n\nVENDOR_CTX\020\316\016\022\017\n\nVENDOR_CUK\020\333\016\022\017\n\nV"
+  "ENDOR_DEL\020\340\020\022\017\n\nVENDOR_DGC\020\213\021\022\017\n\nVENDOR_"
+  "DMO\020\263\022\022\017\n\nVENDOR_DON\020\346\022\022\017\n\nVENDOR_DPL\020\376\022"
+  "\022\017\n\nVENDOR_EGA\020\255\026\022\017\n\nVENDOR_ENC\020\345\027\022\017\n\nVE"
+  "NDOR_EPH\020\236\030\022\017\n\nVENDOR_EXN\020\364\031\022\017\n\nVENDOR_E"
+  "XP\020\366\031\022\017\n\nVENDOR_FNI\020\217\035\022\017\n\nVENDOR_FUS\020\317\036\022"
+  "\017\n\nVENDOR_GBT\020\206 \022\017\n\nVENDOR_GFN\020\350 \022\017\n\nVEN"
+  "DOR_GGL\020\200!\022\017\n\nVENDOR_GSM\020\271#\022\017\n\nVENDOR_HI"
+  "Q\020\335&\022\017\n\nVENDOR_HKC\020\203\'\022\017\n\nVENDOR_HOL\020\364\'\022\017"
+  "\n\nVENDOR_HPN\020\220(\022\017\n\nVENDOR_HSD\020\324(\022\017\n\nVEND"
+  "OR_HTC\020\355(\022\017\n\nVENDOR_HWP\020\310)\022\017\n\nVENDOR_HYT"
+  "\020\200*\022\017\n\nVENDOR_INO\020\201-\022\017\n\nVENDOR_INT\020\206-\022\017\n"
+  "\nVENDOR_INX\020\212-\022\017\n\nVENDOR_ITE\020\223.\022\017\n\nVENDO"
+  "R_IVM\020\317.\022\017\n\nVENDOR_IVO\020\321.\022\017\n\nVENDOR_JVC\020"
+  "\3513\022\017\n\nVENDOR_KDB\020\2705\022\017\n\nVENDOR_KDC\020\2715\022\017\n\n"
+  "VENDOR_KTC\020\3318\022\017\n\nVENDOR_LEN\020\202;\022\017\n\nVENDOR"
+  "_LGD\020\254;\022\017\n\nVENDOR_LNX\020\366<\022\017\n\nVENDOR_LPL\020\236"
+  "=\022\017\n\nVENDOR_LWR\020\332>\022\017\n\nVENDOR_MAX\020\310\?\022\017\n\nV"
+  "ENDOR_MEG\020\237@\022\017\n\nVENDOR_MEI\020\241@\022\017\n\nVENDOR_"
+  "MEL\020\244@\022\017\n\nVENDOR_MJI\020\243A\022\017\n\nVENDOR_MOM\020\251B"
+  "\022\017\n\nVENDOR_MST\020\230C\022\017\n\nVENDOR_MSX\020\234C\022\017\n\nVE"
+  "NDOR_MTC\020\241C\022\017\n\nVENDOR_MTX\020\266C\022\017\n\nVENDOR_N"
+  "CP\020\230E\022\017\n\nVENDOR_NCR\020\232E\022\017\n\nVENDOR_NEC\020\277E\022"
+  "\017\n\nVENDOR_NEX\020\324E\022\017\n\nVENDOR_NVD\020\372H\022\017\n\nVEN"
+  "DOR_ONK\020\325L\022\017\n\nVENDOR_ORN\020\300M\022\017\n\nVENDOR_OT"
+  "M\020\363M\022\017\n\nVENDOR_OVR\020\254N\022\017\n\nVENDOR_PAR\020\256O\022\017"
+  "\n\nVENDOR_PCC\020\323O\022\017\n\nVENDOR_PHL\020\336P\022\017\n\nVEND"
+  "OR_PIO\020\373P\022\017\n\nVENDOR_PLY\020\323Q\022\017\n\nVENDOR_PNR"
+  "\020\200R\022\017\n\nVENDOR_QDS\020\241U\022\017\n\nVENDOR_QNT\020\246W\022\017\n"
+  "\nVENDOR_RAT\020\370Y\022\017\n\nVENDOR_REN\020\332Z\022\017\n\nVENDO"
+  "R_RTK\020\335]\022\017\n\nVENDOR_SAM\020\225_\022\017\n\nVENDOR_SAN\020"
+  "\226_\022\017\n\nVENDOR_SDC\020\331_\022\017\n\nVENDOR_SEC\020\363_\022\017\n\n"
+  "VENDOR_SGT\020\270`\022\017\n\nVENDOR_SHP\020\316`\022\017\n\nVENDOR"
+  "_SII\020\341`\022\017\n\nVENDOR_SIS\020\353`\022\017\n\nVENDOR_SLA\020\247"
+  "a\022\017\n\nVENDOR_SMC\020\303a\022\017\n\nVENDOR_SNY\020\363a\022\017\n\nV"
+  "ENDOR_STA\020\367b\022\017\n\nVENDOR_STD\020\372b\022\017\n\nVENDOR_"
+  "STN\020\204c\022\017\n\nVENDOR_SVS\020\275c\022\017\n\nVENDOR_SYN\020\206d"
+  "\022\017\n\nVENDOR_TAI\020\265d\022\017\n\nVENDOR_TCL\020\354d\022\017\n\nVE"
+  "NDOR_TDC\020\375d\022\017\n\nVENDOR_TOP\020\250g\022\017\n\nVENDOR_T"
+  "OS\020\253g\022\017\n\nVENDOR_TSB\020\202h\022\017\n\nVENDOR_TST\020\224h\022"
+  "\017\n\nVENDOR_UNK\020\255l\022\017\n\nVENDOR_VES\020\357o\022\017\n\nVEN"
+  "DOR_VID\020\310p\022\017\n\nVENDOR_VIT\020\330p\022\017\n\nVENDOR_VI"
+  "Z\020\336p\022\017\n\nVENDOR_VSC\020\313r\022\017\n\nVENDOR_VTK\020\355r\022\017"
+  "\n\nVENDOR_WDE\020\353t\022\017\n\nVENDOR_WST\020\200x\022\017\n\nVEND"
+  "OR_WYS\020\233y\022\017\n\nVENDOR_XLX\020\362{\022\020\n\nVENDOR_YMH"
+  "\020\240\201\001\"Z\n\005ApI2c\022\014\n\004name\030\001 \001(\t\022+\n\006values\030\002 "
+  "\001(\0132\033.runtime_probe.ApI2c.Fields\032\026\n\006Fiel"
+  "ds\022\014\n\004data\030\001 \001(\r\"Z\n\005EcI2c\022\014\n\004name\030\001 \001(\t\022"
+  "+\n\006values\030\002 \001(\0132\033.runtime_probe.EcI2c.Fi"
+  "elds\032\026\n\006Fields\022\014\n\004data\030\001 \001(\r\"\222\001\n\004Tcpc\022\014\n"
+  "\004name\030\001 \001(\t\022*\n\006values\030\002 \001(\0132\032.runtime_pr"
+  "obe.Tcpc.Fields\032P\n\006Fields\022\014\n\004port\030\001 \001(\r\022"
+  "\021\n\tvendor_id\030\002 \001(\r\022\022\n\nproduct_id\030\003 \001(\r\022\021"
+  "\n\tdevice_id\030\004 \001(\r\"f\n\003Cpu\022\014\n\004name\030\001 \001(\t\022)"
+  "\n\006values\030\002 \001(\0132\031.runtime_probe.Cpu.Field"
+  "s\032&\n\006Fields\022\r\n\005model\030\001 \001(\t\022\r\n\005cores\030\002 \001("
+  "\r\"\320\005\n\013ProbeResult\022\'\n\005error\030\001 \001(\0162\030.runti"
+  "me_probe.ErrorCode\022\035\n\025probe_config_check"
+  "sum\030\006 \001(\t\022.\n\013audio_codec\030\002 \003(\0132\031.runtime"
+  "_probe.AudioCodec\022\'\n\007battery\030\003 \003(\0132\026.run"
+  "time_probe.Battery\022\'\n\007storage\030\004 \003(\0132\026.ru"
+  "ntime_probe.Storage\022,\n\nvpd_cached\030\005 \003(\0132"
+  "\030.runtime_probe.VpdCached\022\'\n\007network\030\007 \003"
+  "(\0132\026.runtime_probe.Network\022%\n\006camera\030\010 \003"
+  "(\0132\025.runtime_probe.Camera\022*\n\006stylus\030\t \003("
+  "\0132\032.runtime_probe.InputDevice\022,\n\010touchpa"
+  "d\030\n \003(\0132\032.runtime_probe.InputDevice\022/\n\013t"
+  "ouchscreen\030\013 \003(\0132\032.runtime_probe.InputDe"
+  "vice\022#\n\004dram\030\014 \003(\0132\025.runtime_probe.Memor"
+  "y\022*\n\rdisplay_panel\030\r \003(\0132\023.runtime_probe"
+  ".Edid\022(\n\010cellular\030\016 \003(\0132\026.runtime_probe."
+  "Network\022(\n\010ethernet\030\017 \003(\0132\026.runtime_prob"
+  "e.Network\022(\n\010wireless\030\020 \003(\0132\026.runtime_pr"
+  "obe.Network\022\037\n\003cpu\030\021 \003(\0132\022.runtime_probe"
+  ".Cpu\"\365\005\n\017ComponentFields\0227\n\013audio_codec\030"
+  "\001 \001(\0132 .runtime_probe.AudioCodec.FieldsH"
+  "\000\0220\n\007battery\030\002 \001(\0132\035.runtime_probe.Batte"
+  "ry.FieldsH\000\0220\n\007storage\030\003 \001(\0132\035.runtime_p"
+  "robe.Storage.FieldsH\000\0225\n\nvpd_cached\030\004 \001("
+  "\0132\037.runtime_probe.VpdCached.FieldsH\000\022.\n\006"
+  "camera\030\005 \001(\0132\034.runtime_probe.Camera.Fiel"
+  "dsH\000\0223\n\006stylus\030\006 \001(\0132!.runtime_probe.Inp"
+  "utDevice.FieldsH\000\0225\n\010touchpad\030\007 \001(\0132!.ru"
+  "ntime_probe.InputDevice.FieldsH\000\0228\n\013touc"
+  "hscreen\030\010 \001(\0132!.runtime_probe.InputDevic"
+  "e.FieldsH\000\022,\n\004dram\030\t \001(\0132\034.runtime_probe"
+  ".Memory.FieldsH\000\0223\n\rdisplay_panel\030\n \001(\0132"
+  "\032.runtime_probe.Edid.FieldsH\000\0221\n\010cellula"
+  "r\030\013 \001(\0132\035.runtime_probe.Network.FieldsH\000"
+  "\0221\n\010ethernet\030\014 \001(\0132\035.runtime_probe.Netwo"
+  "rk.FieldsH\000\0221\n\010wireless\030\r \001(\0132\035.runtime_"
+  "probe.Network.FieldsH\000\022(\n\003cpu\030\016 \001(\0132\031.ru"
+  "ntime_probe.Cpu.FieldsH\000B\022\n\020component_fi"
+  "elds\"Z\n\031GetKnownComponentsRequest\022=\n\010cat"
+  "egory\030\001 \001(\0162+.runtime_probe.ProbeRequest"
+  ".SupportCategory\"\\\n\030GetKnownComponentsRe"
+  "sult\022\'\n\005error\030\001 \001(\0162\030.runtime_probe.Erro"
+  "rCode\022\027\n\017component_names\030\002 \003(\t\"\034\n\032ProbeS"
+  "sfcComponentsRequest\"\324\001\n\033ProbeSsfcCompon"
+  "entsResponse\022\'\n\005error\030\001 \001(\0162\030.runtime_pr"
+  "obe.ErrorCode\022\035\n\025probe_config_checksum\030\002"
+  " \001(\t\022$\n\006ap_i2c\030\013 \003(\0132\024.runtime_probe.ApI"
+  "2c\022$\n\006ec_i2c\030\014 \003(\0132\024.runtime_probe.EcI2c"
+  "\022!\n\004tcpc\030\r \003(\0132\023.runtime_probe.Tcpc*\203\002\n\t"
+  "ErrorCode\022\037\n\033RUNTIME_PROBE_ERROR_NOT_SET"
+  "\020\000\022-\n)RUNTIME_PROBE_ERROR_PROBE_REQUEST_"
+  "INVALID\020\001\022>\n:RUNTIME_PROBE_ERROR_PROBE_C"
+  "ONFIG_INCOMPLETE_PROBE_FUNCTION\020\004\022,\n(RUN"
+  "TIME_PROBE_ERROR_PROBE_RESULT_INVALID\020\005\022"
+  ",\n(RUNTIME_PROBE_ERROR_PROBE_CONFIG_INVA"
+  "LID\020\006\"\004\010\002\020\002\"\004\010\003\020\003*5\n\014UsbRemovable\022\013\n\007UNK"
+  "NOWN\020\000\022\r\n\tREMOVABLE\020\001\022\t\n\005FIXED\020\002B+Z)chro"
+  "miumos/system_api/runtime_probe_protob\006p"
+  "roto3"
   ;
 static ::_pbi::once_flag descriptor_table_runtime_5fprobe_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_runtime_5fprobe_2eproto = {
-    false, false, 8177, descriptor_table_protodef_runtime_5fprobe_2eproto,
+    false, false, 8365, descriptor_table_protodef_runtime_5fprobe_2eproto,
     "runtime_probe.proto",
-    &descriptor_table_runtime_5fprobe_2eproto_once, nullptr, 0, 32,
+    &descriptor_table_runtime_5fprobe_2eproto_once, nullptr, 0, 34,
     schemas, file_default_instances, TableStruct_runtime_5fprobe_2eproto::offsets,
     file_level_metadata_runtime_5fprobe_2eproto, file_level_enum_descriptors_runtime_5fprobe_2eproto,
     file_level_service_descriptors_runtime_5fprobe_2eproto,
@@ -1215,6 +1271,7 @@ bool ProbeRequest_SupportCategory_IsValid(int value) {
     case 12:
     case 13:
     case 14:
+    case 15:
       return true;
     default:
       return false;
@@ -1236,6 +1293,7 @@ constexpr ProbeRequest_SupportCategory ProbeRequest::display_panel;
 constexpr ProbeRequest_SupportCategory ProbeRequest::cellular;
 constexpr ProbeRequest_SupportCategory ProbeRequest::ethernet;
 constexpr ProbeRequest_SupportCategory ProbeRequest::wireless;
+constexpr ProbeRequest_SupportCategory ProbeRequest::cpu;
 constexpr ProbeRequest_SupportCategory ProbeRequest::SupportCategory_MIN;
 constexpr ProbeRequest_SupportCategory ProbeRequest::SupportCategory_MAX;
 constexpr int ProbeRequest::SupportCategory_ARRAYSIZE;
@@ -10075,6 +10133,481 @@ void Tcpc::InternalSwap(Tcpc* other) {
 
 // ===================================================================
 
+class Cpu_Fields::_Internal {
+ public:
+};
+
+Cpu_Fields::Cpu_Fields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.Cpu.Fields)
+}
+Cpu_Fields::Cpu_Fields(const Cpu_Fields& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Cpu_Fields* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.model_){}
+    , decltype(_impl_.cores_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.model_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.model_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_model().empty()) {
+    _this->_impl_.model_.Set(from._internal_model(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.cores_ = from._impl_.cores_;
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.Cpu.Fields)
+}
+
+inline void Cpu_Fields::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.model_){}
+    , decltype(_impl_.cores_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.model_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.model_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+Cpu_Fields::~Cpu_Fields() {
+  // @@protoc_insertion_point(destructor:runtime_probe.Cpu.Fields)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Cpu_Fields::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.model_.Destroy();
+}
+
+void Cpu_Fields::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Cpu_Fields::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.Cpu.Fields)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.model_.ClearToEmpty();
+  _impl_.cores_ = 0u;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Cpu_Fields::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string model = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_model();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "runtime_probe.Cpu.Fields.model"));
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 cores = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.cores_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Cpu_Fields::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.Cpu.Fields)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string model = 1;
+  if (!this->_internal_model().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_model().data(), static_cast<int>(this->_internal_model().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Cpu.Fields.model");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_model(), target);
+  }
+
+  // uint32 cores = 2;
+  if (this->_internal_cores() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_cores(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.Cpu.Fields)
+  return target;
+}
+
+size_t Cpu_Fields::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.Cpu.Fields)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string model = 1;
+  if (!this->_internal_model().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_model());
+  }
+
+  // uint32 cores = 2;
+  if (this->_internal_cores() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cores());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Cpu_Fields::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Cpu_Fields::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Cpu_Fields::GetClassData() const { return &_class_data_; }
+
+
+void Cpu_Fields::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Cpu_Fields*>(&to_msg);
+  auto& from = static_cast<const Cpu_Fields&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.Cpu.Fields)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_model().empty()) {
+    _this->_internal_set_model(from._internal_model());
+  }
+  if (from._internal_cores() != 0) {
+    _this->_internal_set_cores(from._internal_cores());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Cpu_Fields::CopyFrom(const Cpu_Fields& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.Cpu.Fields)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Cpu_Fields::IsInitialized() const {
+  return true;
+}
+
+void Cpu_Fields::InternalSwap(Cpu_Fields* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.model_, lhs_arena,
+      &other->_impl_.model_, rhs_arena
+  );
+  swap(_impl_.cores_, other->_impl_.cores_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Cpu_Fields::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_runtime_5fprobe_2eproto_getter, &descriptor_table_runtime_5fprobe_2eproto_once,
+      file_level_metadata_runtime_5fprobe_2eproto[26]);
+}
+
+// ===================================================================
+
+class Cpu::_Internal {
+ public:
+  static const ::runtime_probe::Cpu_Fields& values(const Cpu* msg);
+};
+
+const ::runtime_probe::Cpu_Fields&
+Cpu::_Internal::values(const Cpu* msg) {
+  return *msg->_impl_.values_;
+}
+Cpu::Cpu(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.Cpu)
+}
+Cpu::Cpu(const Cpu& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Cpu* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.values_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
+  }
+  if (from._internal_has_values()) {
+    _this->_impl_.values_ = new ::runtime_probe::Cpu_Fields(*from._impl_.values_);
+  }
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.Cpu)
+}
+
+inline void Cpu::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.values_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+Cpu::~Cpu() {
+  // @@protoc_insertion_point(destructor:runtime_probe.Cpu)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Cpu::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.name_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.values_;
+}
+
+void Cpu::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Cpu::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.Cpu)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.values_ != nullptr) {
+    delete _impl_.values_;
+  }
+  _impl_.values_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Cpu::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "runtime_probe.Cpu.name"));
+        } else
+          goto handle_unusual;
+        continue;
+      // .runtime_probe.Cpu.Fields values = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_values(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Cpu::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.Cpu)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Cpu.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // .runtime_probe.Cpu.Fields values = 2;
+  if (this->_internal_has_values()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::values(this),
+        _Internal::values(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.Cpu)
+  return target;
+}
+
+size_t Cpu::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.Cpu)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // .runtime_probe.Cpu.Fields values = 2;
+  if (this->_internal_has_values()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.values_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Cpu::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Cpu::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Cpu::GetClassData() const { return &_class_data_; }
+
+
+void Cpu::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Cpu*>(&to_msg);
+  auto& from = static_cast<const Cpu&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.Cpu)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _this->_internal_set_name(from._internal_name());
+  }
+  if (from._internal_has_values()) {
+    _this->_internal_mutable_values()->::runtime_probe::Cpu_Fields::MergeFrom(
+        from._internal_values());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Cpu::CopyFrom(const Cpu& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.Cpu)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Cpu::IsInitialized() const {
+  return true;
+}
+
+void Cpu::InternalSwap(Cpu* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
+  );
+  swap(_impl_.values_, other->_impl_.values_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Cpu::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_runtime_5fprobe_2eproto_getter, &descriptor_table_runtime_5fprobe_2eproto_once,
+      file_level_metadata_runtime_5fprobe_2eproto[27]);
+}
+
+// ===================================================================
+
 class ProbeResult::_Internal {
  public:
 };
@@ -10103,6 +10636,7 @@ ProbeResult::ProbeResult(const ProbeResult& from)
     , decltype(_impl_.cellular_){from._impl_.cellular_}
     , decltype(_impl_.ethernet_){from._impl_.ethernet_}
     , decltype(_impl_.wireless_){from._impl_.wireless_}
+    , decltype(_impl_.cpu_){from._impl_.cpu_}
     , decltype(_impl_.probe_config_checksum_){}
     , decltype(_impl_.error_){}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -10139,6 +10673,7 @@ inline void ProbeResult::SharedCtor(
     , decltype(_impl_.cellular_){arena}
     , decltype(_impl_.ethernet_){arena}
     , decltype(_impl_.wireless_){arena}
+    , decltype(_impl_.cpu_){arena}
     , decltype(_impl_.probe_config_checksum_){}
     , decltype(_impl_.error_){0}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -10174,6 +10709,7 @@ inline void ProbeResult::SharedDtor() {
   _impl_.cellular_.~RepeatedPtrField();
   _impl_.ethernet_.~RepeatedPtrField();
   _impl_.wireless_.~RepeatedPtrField();
+  _impl_.cpu_.~RepeatedPtrField();
   _impl_.probe_config_checksum_.Destroy();
 }
 
@@ -10201,6 +10737,7 @@ void ProbeResult::Clear() {
   _impl_.cellular_.Clear();
   _impl_.ethernet_.Clear();
   _impl_.wireless_.Clear();
+  _impl_.cpu_.Clear();
   _impl_.probe_config_checksum_.ClearToEmpty();
   _impl_.error_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -10413,6 +10950,19 @@ const char* ProbeResult::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
+      // repeated .runtime_probe.Cpu cpu = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_cpu(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<138>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -10571,6 +11121,14 @@ uint8_t* ProbeResult::_InternalSerialize(
         InternalWriteMessage(16, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .runtime_probe.Cpu cpu = 17;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_cpu_size()); i < n; i++) {
+    const auto& repfield = this->_internal_cpu(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(17, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -10685,6 +11243,13 @@ size_t ProbeResult::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .runtime_probe.Cpu cpu = 17;
+  total_size += 2UL * this->_internal_cpu_size();
+  for (const auto& msg : this->_impl_.cpu_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   // string probe_config_checksum = 6;
   if (!this->_internal_probe_config_checksum().empty()) {
     total_size += 1 +
@@ -10730,6 +11295,7 @@ void ProbeResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   _this->_impl_.cellular_.MergeFrom(from._impl_.cellular_);
   _this->_impl_.ethernet_.MergeFrom(from._impl_.ethernet_);
   _this->_impl_.wireless_.MergeFrom(from._impl_.wireless_);
+  _this->_impl_.cpu_.MergeFrom(from._impl_.cpu_);
   if (!from._internal_probe_config_checksum().empty()) {
     _this->_internal_set_probe_config_checksum(from._internal_probe_config_checksum());
   }
@@ -10769,6 +11335,7 @@ void ProbeResult::InternalSwap(ProbeResult* other) {
   _impl_.cellular_.InternalSwap(&other->_impl_.cellular_);
   _impl_.ethernet_.InternalSwap(&other->_impl_.ethernet_);
   _impl_.wireless_.InternalSwap(&other->_impl_.wireless_);
+  _impl_.cpu_.InternalSwap(&other->_impl_.cpu_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.probe_config_checksum_, lhs_arena,
       &other->_impl_.probe_config_checksum_, rhs_arena
@@ -10779,7 +11346,7 @@ void ProbeResult::InternalSwap(ProbeResult* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ProbeResult::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_runtime_5fprobe_2eproto_getter, &descriptor_table_runtime_5fprobe_2eproto_once,
-      file_level_metadata_runtime_5fprobe_2eproto[26]);
+      file_level_metadata_runtime_5fprobe_2eproto[28]);
 }
 
 // ===================================================================
@@ -10799,6 +11366,7 @@ class ComponentFields::_Internal {
   static const ::runtime_probe::Network_Fields& cellular(const ComponentFields* msg);
   static const ::runtime_probe::Network_Fields& ethernet(const ComponentFields* msg);
   static const ::runtime_probe::Network_Fields& wireless(const ComponentFields* msg);
+  static const ::runtime_probe::Cpu_Fields& cpu(const ComponentFields* msg);
 };
 
 const ::runtime_probe::AudioCodec_Fields&
@@ -10852,6 +11420,10 @@ ComponentFields::_Internal::ethernet(const ComponentFields* msg) {
 const ::runtime_probe::Network_Fields&
 ComponentFields::_Internal::wireless(const ComponentFields* msg) {
   return *msg->_impl_.component_fields_.wireless_;
+}
+const ::runtime_probe::Cpu_Fields&
+ComponentFields::_Internal::cpu(const ComponentFields* msg) {
+  return *msg->_impl_.component_fields_.cpu_;
 }
 void ComponentFields::set_allocated_audio_codec(::runtime_probe::AudioCodec_Fields* audio_codec) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -11048,6 +11620,21 @@ void ComponentFields::set_allocated_wireless(::runtime_probe::Network_Fields* wi
   }
   // @@protoc_insertion_point(field_set_allocated:runtime_probe.ComponentFields.wireless)
 }
+void ComponentFields::set_allocated_cpu(::runtime_probe::Cpu_Fields* cpu) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_component_fields();
+  if (cpu) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(cpu);
+    if (message_arena != submessage_arena) {
+      cpu = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, cpu, submessage_arena);
+    }
+    set_has_cpu();
+    _impl_.component_fields_.cpu_ = cpu;
+  }
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.ComponentFields.cpu)
+}
 ComponentFields::ComponentFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -11128,6 +11715,11 @@ ComponentFields::ComponentFields(const ComponentFields& from)
     case kWireless: {
       _this->_internal_mutable_wireless()->::runtime_probe::Network_Fields::MergeFrom(
           from._internal_wireless());
+      break;
+    }
+    case kCpu: {
+      _this->_internal_mutable_cpu()->::runtime_probe::Cpu_Fields::MergeFrom(
+          from._internal_cpu());
       break;
     }
     case COMPONENT_FIELDS_NOT_SET: {
@@ -11247,6 +11839,12 @@ void ComponentFields::clear_component_fields() {
     case kWireless: {
       if (GetArenaForAllocation() == nullptr) {
         delete _impl_.component_fields_.wireless_;
+      }
+      break;
+    }
+    case kCpu: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.component_fields_.cpu_;
       }
       break;
     }
@@ -11378,6 +11976,14 @@ const char* ComponentFields::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
+      // .runtime_probe.Cpu.Fields cpu = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+          ptr = ctx->ParseMessage(_internal_mutable_cpu(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -11498,6 +12104,13 @@ uint8_t* ComponentFields::_InternalSerialize(
         _Internal::wireless(this).GetCachedSize(), target, stream);
   }
 
+  // .runtime_probe.Cpu.Fields cpu = 14;
+  if (_internal_has_cpu()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(14, _Internal::cpu(this),
+        _Internal::cpu(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -11606,6 +12219,13 @@ size_t ComponentFields::ByteSizeLong() const {
           *_impl_.component_fields_.wireless_);
       break;
     }
+    // .runtime_probe.Cpu.Fields cpu = 14;
+    case kCpu: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.component_fields_.cpu_);
+      break;
+    }
     case COMPONENT_FIELDS_NOT_SET: {
       break;
     }
@@ -11694,6 +12314,11 @@ void ComponentFields::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
           from._internal_wireless());
       break;
     }
+    case kCpu: {
+      _this->_internal_mutable_cpu()->::runtime_probe::Cpu_Fields::MergeFrom(
+          from._internal_cpu());
+      break;
+    }
     case COMPONENT_FIELDS_NOT_SET: {
       break;
     }
@@ -11722,7 +12347,7 @@ void ComponentFields::InternalSwap(ComponentFields* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ComponentFields::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_runtime_5fprobe_2eproto_getter, &descriptor_table_runtime_5fprobe_2eproto_once,
-      file_level_metadata_runtime_5fprobe_2eproto[27]);
+      file_level_metadata_runtime_5fprobe_2eproto[29]);
 }
 
 // ===================================================================
@@ -11903,7 +12528,7 @@ void GetKnownComponentsRequest::InternalSwap(GetKnownComponentsRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetKnownComponentsRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_runtime_5fprobe_2eproto_getter, &descriptor_table_runtime_5fprobe_2eproto_once,
-      file_level_metadata_runtime_5fprobe_2eproto[28]);
+      file_level_metadata_runtime_5fprobe_2eproto[30]);
 }
 
 // ===================================================================
@@ -12123,7 +12748,7 @@ void GetKnownComponentsResult::InternalSwap(GetKnownComponentsResult* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetKnownComponentsResult::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_runtime_5fprobe_2eproto_getter, &descriptor_table_runtime_5fprobe_2eproto_once,
-      file_level_metadata_runtime_5fprobe_2eproto[29]);
+      file_level_metadata_runtime_5fprobe_2eproto[31]);
 }
 
 // ===================================================================
@@ -12163,7 +12788,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ProbeSsfcComponentsRequest::Ge
 ::PROTOBUF_NAMESPACE_ID::Metadata ProbeSsfcComponentsRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_runtime_5fprobe_2eproto_getter, &descriptor_table_runtime_5fprobe_2eproto_once,
-      file_level_metadata_runtime_5fprobe_2eproto[30]);
+      file_level_metadata_runtime_5fprobe_2eproto[32]);
 }
 
 // ===================================================================
@@ -12498,7 +13123,7 @@ void ProbeSsfcComponentsResponse::InternalSwap(ProbeSsfcComponentsResponse* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata ProbeSsfcComponentsResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_runtime_5fprobe_2eproto_getter, &descriptor_table_runtime_5fprobe_2eproto_once,
-      file_level_metadata_runtime_5fprobe_2eproto[31]);
+      file_level_metadata_runtime_5fprobe_2eproto[33]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -12607,6 +13232,14 @@ Arena::CreateMaybeMessage< ::runtime_probe::Tcpc_Fields >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::runtime_probe::Tcpc*
 Arena::CreateMaybeMessage< ::runtime_probe::Tcpc >(Arena* arena) {
   return Arena::CreateMessageInternal< ::runtime_probe::Tcpc >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::Cpu_Fields*
+Arena::CreateMaybeMessage< ::runtime_probe::Cpu_Fields >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::Cpu_Fields >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::Cpu*
+Arena::CreateMaybeMessage< ::runtime_probe::Cpu >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::Cpu >(arena);
 }
 template<> PROTOBUF_NOINLINE ::runtime_probe::ProbeResult*
 Arena::CreateMaybeMessage< ::runtime_probe::ProbeResult >(Arena* arena) {
