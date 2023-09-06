@@ -9,9 +9,9 @@
 
 /* Package name      : perl5
  * Source directory  : .
- * Configuration time: Tue Sep  5 17:22:39 PDT 2023
+ * Configuration time: Wed Sep  6 06:04:29 PDT 2023
  * Configured by     : Gentoo
- * Target system     : linux chromeos-ci-codesearch-us-central1-b-x32-2-ktjq 6.2.0-31-generic #31~22.04.1-ubuntu smp preempt_dynamic wed aug 16 13:45:26 utc 2 x86_64 intel(r) xeon(r) cpu @ 2.20ghz genuineintel gnulinux 
+ * Target system     : linux chromeos-ci-codesearch-us-central1-b-x32-3-jlb5 6.2.0-31-generic #31~22.04.1-ubuntu smp preempt_dynamic wed aug 16 13:45:26 utc 2 x86_64 intel(r) xeon(r) cpu @ 2.20ghz genuineintel gnulinux 
  */
 
 #ifndef _config_h_
