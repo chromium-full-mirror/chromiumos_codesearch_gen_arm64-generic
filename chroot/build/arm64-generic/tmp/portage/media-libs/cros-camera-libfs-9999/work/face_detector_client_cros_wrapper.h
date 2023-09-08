@@ -1,12 +1,15 @@
 #ifndef CHROMEOS_CAMERA_LIB_FACESSD_FACE_DETECTOR_CLIENT_CROS_WRAPPER_H_
 #define CHROMEOS_CAMERA_LIB_FACESSD_FACE_DETECTOR_CLIENT_CROS_WRAPPER_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
 namespace human_sensing {
 
+namespace regular {
 class FaceDetectorTfliteClient;
+}  // namespace regular
 
 // Face bounding box, pixels.
 // (x1, y1): top left corner; (x2, y2): bottom right corner;
@@ -52,9 +55,8 @@ class FaceDetectorClientCrosWrapper {
   ~FaceDetectorClientCrosWrapper();
 
   // Returns true if initialize successfully.
-  bool Initialize(
-      const std::string& model_file, const std::string& anchor_file,
-      float score_threshold);
+  bool Initialize(const std::string& model_file, const std::string& anchor_file,
+                  float score_threshold);
 
   // Returns true if detecting faces successfully even there is no face.
   // |data| is the address of Y plane of YCbCr color space.
@@ -63,7 +65,7 @@ class FaceDetectorClientCrosWrapper {
       std::vector<CrosFace>* cros_faces);
 
  private:
-  std::unique_ptr<FaceDetectorTfliteClient> client_;
+  std::unique_ptr<regular::FaceDetectorTfliteClient> client_;
 };
 
 }  // namespace human_sensing

@@ -575,6 +575,63 @@ int64_t BluetoothHfpPacketLoss::GetCodecTypeForTest() const {
   return GetIntMetricForTest(kCodecTypeNameHash);
 }
 
+BluetoothMmcTranscodeRtt::BluetoothMmcTranscodeRtt() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+BluetoothMmcTranscodeRtt::~BluetoothMmcTranscodeRtt() = default;
+BluetoothMmcTranscodeRtt& BluetoothMmcTranscodeRtt::SetBootId(const std::string& value) {
+  AddHmacMetric(kBootIdNameHash, value);
+  return *this;
+}
+
+std::string BluetoothMmcTranscodeRtt::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
+BluetoothMmcTranscodeRtt& BluetoothMmcTranscodeRtt::SetSystemTime(const int64_t value) {
+  AddIntMetric(kSystemTimeNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothMmcTranscodeRtt::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
+}
+
+BluetoothMmcTranscodeRtt& BluetoothMmcTranscodeRtt::SetMaximumRtt(const int64_t value) {
+  AddIntMetric(kMaximumRttNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothMmcTranscodeRtt::GetMaximumRttForTest() const {
+  return GetIntMetricForTest(kMaximumRttNameHash);
+}
+
+BluetoothMmcTranscodeRtt& BluetoothMmcTranscodeRtt::SetMeanRtt(const double value) {
+  AddDoubleMetric(kMeanRttNameHash, value);
+  return *this;
+}
+
+double BluetoothMmcTranscodeRtt::GetMeanRttForTest() const {
+  return GetDoubleMetricForTest(kMeanRttNameHash);
+}
+
+BluetoothMmcTranscodeRtt& BluetoothMmcTranscodeRtt::SetNumRequests(const int64_t value) {
+  AddIntMetric(kNumRequestsNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothMmcTranscodeRtt::GetNumRequestsForTest() const {
+  return GetIntMetricForTest(kNumRequestsNameHash);
+}
+
+BluetoothMmcTranscodeRtt& BluetoothMmcTranscodeRtt::SetCodecType(const int64_t value) {
+  AddIntMetric(kCodecTypeNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothMmcTranscodeRtt::GetCodecTypeForTest() const {
+  return GetIntMetricForTest(kCodecTypeNameHash);
+}
+
 }  // namespace bluetooth
 
 namespace bluetooth_device {

@@ -376,6 +376,43 @@ class BRILLO_EXPORT BluetoothHfpPacketLoss final : public ::metrics::structured:
 
 };
 
+class BRILLO_EXPORT BluetoothMmcTranscodeRtt final : public ::metrics::structured::EventBase {
+ public:
+  BluetoothMmcTranscodeRtt();
+  ~BluetoothMmcTranscodeRtt() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(8026919663245017518);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(9074739597929991885);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  BluetoothMmcTranscodeRtt& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kSystemTimeNameHash = UINT64_C(5430963162341175395);
+  BluetoothMmcTranscodeRtt& SetSystemTime(const int64_t value);
+  int64_t GetSystemTimeForTest() const;
+
+  static constexpr uint64_t kMaximumRttNameHash = UINT64_C(9278382190957547646);
+  BluetoothMmcTranscodeRtt& SetMaximumRtt(const int64_t value);
+  int64_t GetMaximumRttForTest() const;
+
+  static constexpr uint64_t kMeanRttNameHash = UINT64_C(2846207847729700949);
+  BluetoothMmcTranscodeRtt& SetMeanRtt(const double value);
+  double GetMeanRttForTest() const;
+
+  static constexpr uint64_t kNumRequestsNameHash = UINT64_C(9102245775026605446);
+  BluetoothMmcTranscodeRtt& SetNumRequests(const int64_t value);
+  int64_t GetNumRequestsForTest() const;
+
+  static constexpr uint64_t kCodecTypeNameHash = UINT64_C(14126569640026065743);
+  BluetoothMmcTranscodeRtt& SetCodecType(const int64_t value);
+  int64_t GetCodecTypeForTest() const;
+
+};
+
 }  // namespace bluetooth
 
 namespace bluetooth_device {
