@@ -229,13 +229,14 @@ bool CryptohomeErrorCode_IsValid(int value) {
     case 59:
     case 60:
     case 61:
+    case 62:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CryptohomeErrorCode_strings[62] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CryptohomeErrorCode_strings[63] = {};
 
 static const char CryptohomeErrorCode_names[] =
   "CRYPTOHOME_ADD_CREDENTIALS_FAILED"
@@ -298,6 +299,7 @@ static const char CryptohomeErrorCode_names[] =
   "CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN"
   "CRYPTOHOME_RELABEL_CREDENTIALS_FAILED"
   "CRYPTOHOME_REMOVE_CREDENTIALS_FAILED"
+  "CRYPTOHOME_REPLACE_CREDENTIALS_FAILED"
   "CRYPTOHOME_TOKEN_SERIALIZATION_FAILED"
   "CRYPTOHOME_UPDATE_CREDENTIALS_FAILED";
 
@@ -362,8 +364,9 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CryptohomeErrorCode_en
   { {CryptohomeErrorCode_names + 2206, 37}, 49 },
   { {CryptohomeErrorCode_names + 2243, 37}, 61 },
   { {CryptohomeErrorCode_names + 2280, 36}, 54 },
-  { {CryptohomeErrorCode_names + 2316, 37}, 48 },
-  { {CryptohomeErrorCode_names + 2353, 36}, 55 },
+  { {CryptohomeErrorCode_names + 2316, 37}, 62 },
+  { {CryptohomeErrorCode_names + 2353, 37}, 48 },
+  { {CryptohomeErrorCode_names + 2390, 36}, 55 },
 };
 
 static const int CryptohomeErrorCode_entries_by_number[] = {
@@ -415,20 +418,21 @@ static const int CryptohomeErrorCode_entries_by_number[] = {
   56, // 45 -> CRYPTOHOME_ERROR_VAULT_UNRECOVERABLE
   18, // 46 -> CRYPTOHOME_ERROR_FIDO_MAKE_CREDENTIAL_FAILED
   17, // 47 -> CRYPTOHOME_ERROR_FIDO_GET_ASSERTION_FAILED
-  60, // 48 -> CRYPTOHOME_TOKEN_SERIALIZATION_FAILED
+  61, // 48 -> CRYPTOHOME_TOKEN_SERIALIZATION_FAILED
   57, // 49 -> CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN
   0, // 50 -> CRYPTOHOME_ADD_CREDENTIALS_FAILED
   51, // 51 -> CRYPTOHOME_ERROR_UNAUTHENTICATED_AUTH_SESSION
   52, // 52 -> CRYPTOHOME_ERROR_UNKNOWN_LEGACY
   53, // 53 -> CRYPTOHOME_ERROR_UNUSABLE_VAULT
   59, // 54 -> CRYPTOHOME_REMOVE_CREDENTIALS_FAILED
-  61, // 55 -> CRYPTOHOME_UPDATE_CREDENTIALS_FAILED
+  62, // 55 -> CRYPTOHOME_UPDATE_CREDENTIALS_FAILED
   44, // 56 -> CRYPTOHOME_ERROR_RECOVERY_TRANSIENT
   43, // 57 -> CRYPTOHOME_ERROR_RECOVERY_FATAL
   7, // 58 -> CRYPTOHOME_ERROR_BIOMETRICS_BUSY
   14, // 59 -> CRYPTOHOME_ERROR_CREDENTIAL_LOCKED
   13, // 60 -> CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED
   58, // 61 -> CRYPTOHOME_RELABEL_CREDENTIALS_FAILED
+  60, // 62 -> CRYPTOHOME_REPLACE_CREDENTIALS_FAILED
 };
 
 const std::string& CryptohomeErrorCode_Name(
@@ -437,12 +441,12 @@ const std::string& CryptohomeErrorCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CryptohomeErrorCode_entries,
           CryptohomeErrorCode_entries_by_number,
-          62, CryptohomeErrorCode_strings);
+          63, CryptohomeErrorCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CryptohomeErrorCode_entries,
       CryptohomeErrorCode_entries_by_number,
-      62, value);
+      63, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CryptohomeErrorCode_strings[idx].get();
 }
@@ -450,7 +454,7 @@ bool CryptohomeErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CryptohomeErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CryptohomeErrorCode_entries, 62, name, &int_value);
+      CryptohomeErrorCode_entries, 63, name, &int_value);
   if (success) {
     *value = static_cast<CryptohomeErrorCode>(int_value);
   }

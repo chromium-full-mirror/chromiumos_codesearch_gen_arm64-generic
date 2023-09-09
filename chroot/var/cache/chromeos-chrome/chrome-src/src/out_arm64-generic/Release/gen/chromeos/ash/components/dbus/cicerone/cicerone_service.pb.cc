@@ -25,7 +25,9 @@ PROTOBUF_CONSTEXPR NotifyVmStartedRequest::NotifyVmStartedRequest(
   , owner_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , vm_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , cid_(0u)
-  , pid_(0u){}
+  , pid_(0u)
+  , vm_type_(0)
+{}
 struct NotifyVmStartedRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR NotifyVmStartedRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -4419,8 +4421,8 @@ NotifyVmStartedRequest::NotifyVmStartedRequest(const NotifyVmStartedRequest& fro
       GetArenaForAllocation());
   }
   ::memcpy(&cid_, &from.cid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&pid_) -
-    reinterpret_cast<char*>(&cid_)) + sizeof(pid_));
+    static_cast<size_t>(reinterpret_cast<char*>(&vm_type_) -
+    reinterpret_cast<char*>(&cid_)) + sizeof(vm_type_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.cicerone.NotifyVmStartedRequest)
 }
 
@@ -4439,8 +4441,8 @@ vm_token_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&cid_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&pid_) -
-    reinterpret_cast<char*>(&cid_)) + sizeof(pid_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&vm_type_) -
+    reinterpret_cast<char*>(&cid_)) + sizeof(vm_type_));
 }
 
 NotifyVmStartedRequest::~NotifyVmStartedRequest() {
@@ -4473,8 +4475,8 @@ void NotifyVmStartedRequest::Clear() {
   owner_id_.ClearToEmpty();
   vm_token_.ClearToEmpty();
   ::memset(&cid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&pid_) -
-      reinterpret_cast<char*>(&cid_)) + sizeof(pid_));
+      reinterpret_cast<char*>(&vm_type_) -
+      reinterpret_cast<char*>(&cid_)) + sizeof(vm_type_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4527,6 +4529,15 @@ const char* NotifyVmStartedRequest::_InternalParse(const char* ptr, ::_pbi::Pars
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .vm_tools.apps.VmType vm_type = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_vm_type(static_cast<::vm_tools::apps::VmType>(val));
         } else
           goto handle_unusual;
         continue;
@@ -4601,6 +4612,13 @@ uint8_t* NotifyVmStartedRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_pid(), target);
   }
 
+  // .vm_tools.apps.VmType vm_type = 6;
+  if (this->_internal_vm_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      6, this->_internal_vm_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -4648,6 +4666,12 @@ size_t NotifyVmStartedRequest::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pid());
   }
 
+  // .vm_tools.apps.VmType vm_type = 6;
+  if (this->_internal_vm_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_vm_type());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -4683,6 +4707,9 @@ void NotifyVmStartedRequest::MergeFrom(const NotifyVmStartedRequest& from) {
   if (from._internal_pid() != 0) {
     _internal_set_pid(from._internal_pid());
   }
+  if (from._internal_vm_type() != 0) {
+    _internal_set_vm_type(from._internal_vm_type());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -4715,8 +4742,8 @@ void NotifyVmStartedRequest::InternalSwap(NotifyVmStartedRequest* other) {
       &other->vm_token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(NotifyVmStartedRequest, pid_)
-      + sizeof(NotifyVmStartedRequest::pid_)
+      PROTOBUF_FIELD_OFFSET(NotifyVmStartedRequest, vm_type_)
+      + sizeof(NotifyVmStartedRequest::vm_type_)
       - PROTOBUF_FIELD_OFFSET(NotifyVmStartedRequest, cid_)>(
           reinterpret_cast<char*>(&cid_),
           reinterpret_cast<char*>(&other->cid_));

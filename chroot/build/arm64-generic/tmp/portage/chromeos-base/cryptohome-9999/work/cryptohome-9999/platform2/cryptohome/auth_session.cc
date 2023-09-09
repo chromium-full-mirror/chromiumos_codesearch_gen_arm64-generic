@@ -2796,10 +2796,17 @@ void AuthSession::PrepareAuthFactor(
         break;
       }
       case AuthFactorPreparePurpose::kPrepareAddAuthFactor: {
-        factor_driver.PrepareForAdd(
-            obfuscated_username_,
-            base::BindOnce(&AuthSession::OnPrepareAuthFactorDone,
-                           weak_factory_.GetWeakPtr(), std::move(on_done)));
+        auto* session_decrypt = GetAuthForDecrypt();
+        if (!session_decrypt) {
+          CryptohomeStatus status = MakeStatus<CryptohomeError>(
+              CRYPTOHOME_ERR_LOC(kLocAuthSessionUnauthedInPrepareForAdd),
+              ErrorActionSet({PossibleAction::kAuth}),
+              user_data_auth::CRYPTOHOME_ERROR_UNAUTHENTICATED_AUTH_SESSION);
+          std::move(on_done).Run(std::move(status));
+          return;
+        }
+        session_decrypt->PrepareAuthFactorForAdd(*auth_factor_type,
+                                                 std::move(on_done));
         break;
       }
     }
@@ -2817,6 +2824,34 @@ void AuthSession::PrepareAuthFactor(
         user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
     std::move(on_done).Run(std::move(status));
   }
+}
+
+void AuthSession::AuthForDecrypt::PrepareAuthFactorForAdd(
+    AuthFactorType auth_factor_type, StatusCallback on_done) {
+  AuthFactorDriver& factor_driver =
+      session_->auth_factor_driver_manager_->GetDriver(auth_factor_type);
+
+  if (!session_->user_secret_stash_) {
+    // Currently PrepareAuthFactor is only supported for USS.
+    CryptohomeStatus status = MakeStatus<CryptohomeError>(
+        CRYPTOHOME_ERR_LOC(kLocAuthSessionNoUSSInPrepareAuthFactorForAdd),
+        ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+    std::move(on_done).Run(std::move(status));
+    return;
+  }
+  if (factor_driver.NeedsRateLimiter()) {
+    CryptohomeStatus status = factor_driver.TryCreateRateLimiter(
+        session_->obfuscated_username_, *session_->user_secret_stash_);
+    if (!status.ok()) {
+      std::move(on_done).Run(std::move(status));
+      return;
+    }
+  }
+  factor_driver.PrepareForAdd(
+      session_->obfuscated_username_,
+      base::BindOnce(&AuthSession::OnPrepareAuthFactorDone,
+                     session_->weak_factory_.GetWeakPtr(), std::move(on_done)));
 }
 
 void AuthSession::OnPrepareAuthFactorDone(
@@ -3139,16 +3174,12 @@ CryptohomeStatusOr<AuthInput> AuthSession::CreateAuthInputForAdding(
     // auth factor types in the future.
     std::optional<uint64_t> rate_limiter_label =
         user_secret_stash_->GetFingerprintRateLimiterId();
-    // No existing rate-limiter, AuthBlock::Create will have to create one.
-    if (!rate_limiter_label.has_value()) {
-      return std::move(auth_input);
-    }
     std::optional<brillo::SecureBlob> reset_secret =
         user_secret_stash_->GetRateLimiterResetSecret(auth_factor_type);
-    if (!reset_secret.has_value()) {
-      LOG(ERROR) << "Found rate-limiter with no reset secret.";
+    if (!rate_limiter_label.has_value() || !reset_secret.has_value()) {
+      LOG(ERROR) << "No existing rate-limiter.";
       return MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(kLocRateLimiterNoResetSecretInAuthInputForAdd),
+          CRYPTOHOME_ERR_LOC(kLocRateLimiterNoRateLimiterInAuthInputForAdd),
           ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
           user_data_auth::CRYPTOHOME_ERROR_BACKING_STORE_FAILURE);
     }
@@ -3559,38 +3590,6 @@ CryptohomeStatus AuthSession::AddAuthFactorToUssInMemory(
   // per-label reset secrets.
   const AuthFactorDriver& factor_driver =
       auth_factor_driver_manager_->GetDriver(auth_factor.type());
-
-  if (factor_driver.NeedsRateLimiter() &&
-      key_blobs.rate_limiter_label.has_value()) {
-    // A reset secret must come with the rate-limiter.
-    if (!key_blobs.reset_secret.has_value()) {
-      return MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(kLocNewRateLimiterWithNoSecretInAddSecretToUSS),
-          ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
-          user_data_auth::CRYPTOHOME_ADD_CREDENTIALS_FAILED);
-    }
-    // Note that both setters don't allow overwrite, so if we run into a
-    // situation where one write succeeded where another failed, the state will
-    // be unrecoverable.
-    //
-    // Currently fingerprint is the only auth factor type using rate limiter, so
-    // the interface isn't designed to be generic. We'll make it generic to any
-    // auth factor types in the future.
-    if (!user_secret_stash_->InitializeFingerprintRateLimiterId(
-            key_blobs.rate_limiter_label.value())) {
-      return MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(kLocAddRateLimiterLabelFailedInAddSecretToUSS),
-          ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
-          user_data_auth::CRYPTOHOME_ADD_CREDENTIALS_FAILED);
-    }
-    if (!user_secret_stash_->SetRateLimiterResetSecret(
-            auth_factor.type(), key_blobs.reset_secret.value())) {
-      return MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(kLocAddRateLimiterSecretFailedInAddSecretToUSS),
-          ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
-          user_data_auth::CRYPTOHOME_ADD_CREDENTIALS_FAILED);
-    }
-  }
 
   if (factor_driver.NeedsResetSecret() && key_blobs.reset_secret.has_value()) {
     // USS schema allows adding reset secrets before adding the actual key

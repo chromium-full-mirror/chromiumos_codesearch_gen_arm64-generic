@@ -67,6 +67,18 @@ extern ArcVmStartupRequestDefaultTypeInternal _ArcVmStartupRequest_default_insta
 class ArcVmStartupResponse;
 struct ArcVmStartupResponseDefaultTypeInternal;
 extern ArcVmStartupResponseDefaultTypeInternal _ArcVmStartupResponse_default_instance_;
+class BruschettaVmShutdownRequest;
+struct BruschettaVmShutdownRequestDefaultTypeInternal;
+extern BruschettaVmShutdownRequestDefaultTypeInternal _BruschettaVmShutdownRequest_default_instance_;
+class BruschettaVmShutdownResponse;
+struct BruschettaVmShutdownResponseDefaultTypeInternal;
+extern BruschettaVmShutdownResponseDefaultTypeInternal _BruschettaVmShutdownResponse_default_instance_;
+class BruschettaVmStartupRequest;
+struct BruschettaVmStartupRequestDefaultTypeInternal;
+extern BruschettaVmStartupRequestDefaultTypeInternal _BruschettaVmStartupRequest_default_instance_;
+class BruschettaVmStartupResponse;
+struct BruschettaVmStartupResponseDefaultTypeInternal;
+extern BruschettaVmStartupResponseDefaultTypeInternal _BruschettaVmStartupResponse_default_instance_;
 class ConnectNamespaceRequest;
 struct ConnectNamespaceRequestDefaultTypeInternal;
 extern ConnectNamespaceRequestDefaultTypeInternal _ConnectNamespaceRequest_default_instance_;
@@ -136,6 +148,12 @@ extern NotifyAndroidWifiMulticastLockChangeRequestDefaultTypeInternal _NotifyAnd
 class NotifyAndroidWifiMulticastLockChangeResponse;
 struct NotifyAndroidWifiMulticastLockChangeResponseDefaultTypeInternal;
 extern NotifyAndroidWifiMulticastLockChangeResponseDefaultTypeInternal _NotifyAndroidWifiMulticastLockChangeResponse_default_instance_;
+class NotifySocketConnectionEventRequest;
+struct NotifySocketConnectionEventRequestDefaultTypeInternal;
+extern NotifySocketConnectionEventRequestDefaultTypeInternal _NotifySocketConnectionEventRequest_default_instance_;
+class NotifySocketConnectionEventResponse;
+struct NotifySocketConnectionEventResponseDefaultTypeInternal;
+extern NotifySocketConnectionEventResponseDefaultTypeInternal _NotifySocketConnectionEventResponse_default_instance_;
 class ParallelsVmShutdownRequest;
 struct ParallelsVmShutdownRequestDefaultTypeInternal;
 extern ParallelsVmShutdownRequestDefaultTypeInternal _ParallelsVmShutdownRequest_default_instance_;
@@ -154,6 +172,12 @@ extern SetDnsRedirectionRuleRequestDefaultTypeInternal _SetDnsRedirectionRuleReq
 class SetDnsRedirectionRuleResponse;
 struct SetDnsRedirectionRuleResponseDefaultTypeInternal;
 extern SetDnsRedirectionRuleResponseDefaultTypeInternal _SetDnsRedirectionRuleResponse_default_instance_;
+class SetFeatureFlagRequest;
+struct SetFeatureFlagRequestDefaultTypeInternal;
+extern SetFeatureFlagRequestDefaultTypeInternal _SetFeatureFlagRequest_default_instance_;
+class SetFeatureFlagResponse;
+struct SetFeatureFlagResponseDefaultTypeInternal;
+extern SetFeatureFlagResponseDefaultTypeInternal _SetFeatureFlagResponse_default_instance_;
 class SetVpnIntentRequest;
 struct SetVpnIntentRequestDefaultTypeInternal;
 extern SetVpnIntentRequestDefaultTypeInternal _SetVpnIntentRequest_default_instance_;
@@ -166,6 +190,9 @@ extern SetVpnLockdownRequestDefaultTypeInternal _SetVpnLockdownRequest_default_i
 class SetVpnLockdownResponse;
 struct SetVpnLockdownResponseDefaultTypeInternal;
 extern SetVpnLockdownResponseDefaultTypeInternal _SetVpnLockdownResponse_default_instance_;
+class SocketConnectionEvent;
+struct SocketConnectionEventDefaultTypeInternal;
+extern SocketConnectionEventDefaultTypeInternal _SocketConnectionEvent_default_instance_;
 class TerminaVmShutdownRequest;
 struct TerminaVmShutdownRequestDefaultTypeInternal;
 extern TerminaVmShutdownRequestDefaultTypeInternal _TerminaVmShutdownRequest_default_instance_;
@@ -203,6 +230,10 @@ template<> ::patchpanel::ArcVmShutdownRequest* Arena::CreateMaybeMessage<::patch
 template<> ::patchpanel::ArcVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::ArcVmShutdownResponse>(Arena*);
 template<> ::patchpanel::ArcVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::ArcVmStartupRequest>(Arena*);
 template<> ::patchpanel::ArcVmStartupResponse* Arena::CreateMaybeMessage<::patchpanel::ArcVmStartupResponse>(Arena*);
+template<> ::patchpanel::BruschettaVmShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::BruschettaVmShutdownRequest>(Arena*);
+template<> ::patchpanel::BruschettaVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::BruschettaVmShutdownResponse>(Arena*);
+template<> ::patchpanel::BruschettaVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::BruschettaVmStartupRequest>(Arena*);
+template<> ::patchpanel::BruschettaVmStartupResponse* Arena::CreateMaybeMessage<::patchpanel::BruschettaVmStartupResponse>(Arena*);
 template<> ::patchpanel::ConnectNamespaceRequest* Arena::CreateMaybeMessage<::patchpanel::ConnectNamespaceRequest>(Arena*);
 template<> ::patchpanel::ConnectNamespaceResponse* Arena::CreateMaybeMessage<::patchpanel::ConnectNamespaceResponse>(Arena*);
 template<> ::patchpanel::DownstreamNetwork* Arena::CreateMaybeMessage<::patchpanel::DownstreamNetwork>(Arena*);
@@ -226,16 +257,21 @@ template<> ::patchpanel::NotifyAndroidInteractiveStateRequest* Arena::CreateMayb
 template<> ::patchpanel::NotifyAndroidInteractiveStateResponse* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidInteractiveStateResponse>(Arena*);
 template<> ::patchpanel::NotifyAndroidWifiMulticastLockChangeRequest* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidWifiMulticastLockChangeRequest>(Arena*);
 template<> ::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse>(Arena*);
+template<> ::patchpanel::NotifySocketConnectionEventRequest* Arena::CreateMaybeMessage<::patchpanel::NotifySocketConnectionEventRequest>(Arena*);
+template<> ::patchpanel::NotifySocketConnectionEventResponse* Arena::CreateMaybeMessage<::patchpanel::NotifySocketConnectionEventResponse>(Arena*);
 template<> ::patchpanel::ParallelsVmShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmShutdownRequest>(Arena*);
 template<> ::patchpanel::ParallelsVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmShutdownResponse>(Arena*);
 template<> ::patchpanel::ParallelsVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmStartupRequest>(Arena*);
 template<> ::patchpanel::ParallelsVmStartupResponse* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmStartupResponse>(Arena*);
 template<> ::patchpanel::SetDnsRedirectionRuleRequest* Arena::CreateMaybeMessage<::patchpanel::SetDnsRedirectionRuleRequest>(Arena*);
 template<> ::patchpanel::SetDnsRedirectionRuleResponse* Arena::CreateMaybeMessage<::patchpanel::SetDnsRedirectionRuleResponse>(Arena*);
+template<> ::patchpanel::SetFeatureFlagRequest* Arena::CreateMaybeMessage<::patchpanel::SetFeatureFlagRequest>(Arena*);
+template<> ::patchpanel::SetFeatureFlagResponse* Arena::CreateMaybeMessage<::patchpanel::SetFeatureFlagResponse>(Arena*);
 template<> ::patchpanel::SetVpnIntentRequest* Arena::CreateMaybeMessage<::patchpanel::SetVpnIntentRequest>(Arena*);
 template<> ::patchpanel::SetVpnIntentResponse* Arena::CreateMaybeMessage<::patchpanel::SetVpnIntentResponse>(Arena*);
 template<> ::patchpanel::SetVpnLockdownRequest* Arena::CreateMaybeMessage<::patchpanel::SetVpnLockdownRequest>(Arena*);
 template<> ::patchpanel::SetVpnLockdownResponse* Arena::CreateMaybeMessage<::patchpanel::SetVpnLockdownResponse>(Arena*);
+template<> ::patchpanel::SocketConnectionEvent* Arena::CreateMaybeMessage<::patchpanel::SocketConnectionEvent>(Arena*);
 template<> ::patchpanel::TerminaVmShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::TerminaVmShutdownRequest>(Arena*);
 template<> ::patchpanel::TerminaVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::TerminaVmShutdownResponse>(Arena*);
 template<> ::patchpanel::TerminaVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::TerminaVmStartupRequest>(Arena*);
@@ -525,6 +561,93 @@ inline const std::string& TetheredNetworkRequest_UpstreamTechnology_Name(T enum_
 }
 bool TetheredNetworkRequest_UpstreamTechnology_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TetheredNetworkRequest_UpstreamTechnology* value);
+enum SocketConnectionEvent_IpProtocol : int {
+  SocketConnectionEvent_IpProtocol_UNKNOWN_PROTO = 0,
+  SocketConnectionEvent_IpProtocol_TCP = 1,
+  SocketConnectionEvent_IpProtocol_UDP = 2,
+  SocketConnectionEvent_IpProtocol_SocketConnectionEvent_IpProtocol_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SocketConnectionEvent_IpProtocol_SocketConnectionEvent_IpProtocol_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SocketConnectionEvent_IpProtocol_IsValid(int value);
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent_IpProtocol_IpProtocol_MIN = SocketConnectionEvent_IpProtocol_UNKNOWN_PROTO;
+constexpr SocketConnectionEvent_IpProtocol SocketConnectionEvent_IpProtocol_IpProtocol_MAX = SocketConnectionEvent_IpProtocol_UDP;
+constexpr int SocketConnectionEvent_IpProtocol_IpProtocol_ARRAYSIZE = SocketConnectionEvent_IpProtocol_IpProtocol_MAX + 1;
+
+const std::string& SocketConnectionEvent_IpProtocol_Name(SocketConnectionEvent_IpProtocol value);
+template<typename T>
+inline const std::string& SocketConnectionEvent_IpProtocol_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SocketConnectionEvent_IpProtocol>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SocketConnectionEvent_IpProtocol_Name.");
+  return SocketConnectionEvent_IpProtocol_Name(static_cast<SocketConnectionEvent_IpProtocol>(enum_t_value));
+}
+bool SocketConnectionEvent_IpProtocol_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_IpProtocol* value);
+enum SocketConnectionEvent_SocketEvent : int {
+  SocketConnectionEvent_SocketEvent_UNKNOWN_EVENT = 0,
+  SocketConnectionEvent_SocketEvent_OPEN = 1,
+  SocketConnectionEvent_SocketEvent_CLOSE = 2,
+  SocketConnectionEvent_SocketEvent_SocketConnectionEvent_SocketEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SocketConnectionEvent_SocketEvent_SocketConnectionEvent_SocketEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SocketConnectionEvent_SocketEvent_IsValid(int value);
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent_SocketEvent_SocketEvent_MIN = SocketConnectionEvent_SocketEvent_UNKNOWN_EVENT;
+constexpr SocketConnectionEvent_SocketEvent SocketConnectionEvent_SocketEvent_SocketEvent_MAX = SocketConnectionEvent_SocketEvent_CLOSE;
+constexpr int SocketConnectionEvent_SocketEvent_SocketEvent_ARRAYSIZE = SocketConnectionEvent_SocketEvent_SocketEvent_MAX + 1;
+
+const std::string& SocketConnectionEvent_SocketEvent_Name(SocketConnectionEvent_SocketEvent value);
+template<typename T>
+inline const std::string& SocketConnectionEvent_SocketEvent_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SocketConnectionEvent_SocketEvent>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SocketConnectionEvent_SocketEvent_Name.");
+  return SocketConnectionEvent_SocketEvent_Name(static_cast<SocketConnectionEvent_SocketEvent>(enum_t_value));
+}
+bool SocketConnectionEvent_SocketEvent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_SocketEvent* value);
+enum SocketConnectionEvent_QosCategory : int {
+  SocketConnectionEvent_QosCategory_UNKNOWN_CATEGORY = 0,
+  SocketConnectionEvent_QosCategory_REALTIME_INTERACTIVE = 1,
+  SocketConnectionEvent_QosCategory_MULTIMEDIA_CONFERENCING = 2,
+  SocketConnectionEvent_QosCategory_SocketConnectionEvent_QosCategory_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SocketConnectionEvent_QosCategory_SocketConnectionEvent_QosCategory_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SocketConnectionEvent_QosCategory_IsValid(int value);
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent_QosCategory_QosCategory_MIN = SocketConnectionEvent_QosCategory_UNKNOWN_CATEGORY;
+constexpr SocketConnectionEvent_QosCategory SocketConnectionEvent_QosCategory_QosCategory_MAX = SocketConnectionEvent_QosCategory_MULTIMEDIA_CONFERENCING;
+constexpr int SocketConnectionEvent_QosCategory_QosCategory_ARRAYSIZE = SocketConnectionEvent_QosCategory_QosCategory_MAX + 1;
+
+const std::string& SocketConnectionEvent_QosCategory_Name(SocketConnectionEvent_QosCategory value);
+template<typename T>
+inline const std::string& SocketConnectionEvent_QosCategory_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SocketConnectionEvent_QosCategory>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SocketConnectionEvent_QosCategory_Name.");
+  return SocketConnectionEvent_QosCategory_Name(static_cast<SocketConnectionEvent_QosCategory>(enum_t_value));
+}
+bool SocketConnectionEvent_QosCategory_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketConnectionEvent_QosCategory* value);
+enum SetFeatureFlagRequest_FeatureFlag : int {
+  SetFeatureFlagRequest_FeatureFlag_WIFI_QOS = 0,
+  SetFeatureFlagRequest_FeatureFlag_CLAT = 1,
+  SetFeatureFlagRequest_FeatureFlag_SetFeatureFlagRequest_FeatureFlag_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SetFeatureFlagRequest_FeatureFlag_SetFeatureFlagRequest_FeatureFlag_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SetFeatureFlagRequest_FeatureFlag_IsValid(int value);
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MIN = SetFeatureFlagRequest_FeatureFlag_WIFI_QOS;
+constexpr SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX = SetFeatureFlagRequest_FeatureFlag_CLAT;
+constexpr int SetFeatureFlagRequest_FeatureFlag_FeatureFlag_ARRAYSIZE = SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX + 1;
+
+const std::string& SetFeatureFlagRequest_FeatureFlag_Name(SetFeatureFlagRequest_FeatureFlag value);
+template<typename T>
+inline const std::string& SetFeatureFlagRequest_FeatureFlag_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SetFeatureFlagRequest_FeatureFlag>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SetFeatureFlagRequest_FeatureFlag_Name.");
+  return SetFeatureFlagRequest_FeatureFlag_Name(static_cast<SetFeatureFlagRequest_FeatureFlag>(enum_t_value));
+}
+bool SetFeatureFlagRequest_FeatureFlag_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SetFeatureFlagRequest_FeatureFlag* value);
 enum DownstreamNetworkResult : int {
   SUCCESS = 0,
   INVALID_ARGUMENT = 1,
@@ -3360,6 +3483,542 @@ class ParallelsVmShutdownResponse final :
 };
 // -------------------------------------------------------------------
 
+class BruschettaVmStartupRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.BruschettaVmStartupRequest) */ {
+ public:
+  inline BruschettaVmStartupRequest() : BruschettaVmStartupRequest(nullptr) {}
+  ~BruschettaVmStartupRequest() override;
+  explicit PROTOBUF_CONSTEXPR BruschettaVmStartupRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  BruschettaVmStartupRequest(const BruschettaVmStartupRequest& from);
+  BruschettaVmStartupRequest(BruschettaVmStartupRequest&& from) noexcept
+    : BruschettaVmStartupRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline BruschettaVmStartupRequest& operator=(const BruschettaVmStartupRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BruschettaVmStartupRequest& operator=(BruschettaVmStartupRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const BruschettaVmStartupRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BruschettaVmStartupRequest* internal_default_instance() {
+    return reinterpret_cast<const BruschettaVmStartupRequest*>(
+               &_BruschettaVmStartupRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    20;
+
+  friend void swap(BruschettaVmStartupRequest& a, BruschettaVmStartupRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(BruschettaVmStartupRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BruschettaVmStartupRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BruschettaVmStartupRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BruschettaVmStartupRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const BruschettaVmStartupRequest& from);
+  void MergeFrom(const BruschettaVmStartupRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BruschettaVmStartupRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.BruschettaVmStartupRequest";
+  }
+  protected:
+  explicit BruschettaVmStartupRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+  };
+  // uint64 id = 1;
+  void clear_id();
+  uint64_t id() const;
+  void set_id(uint64_t value);
+  private:
+  uint64_t _internal_id() const;
+  void _internal_set_id(uint64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.BruschettaVmStartupRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  uint64_t id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class BruschettaVmStartupResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.BruschettaVmStartupResponse) */ {
+ public:
+  inline BruschettaVmStartupResponse() : BruschettaVmStartupResponse(nullptr) {}
+  ~BruschettaVmStartupResponse() override;
+  explicit PROTOBUF_CONSTEXPR BruschettaVmStartupResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  BruschettaVmStartupResponse(const BruschettaVmStartupResponse& from);
+  BruschettaVmStartupResponse(BruschettaVmStartupResponse&& from) noexcept
+    : BruschettaVmStartupResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline BruschettaVmStartupResponse& operator=(const BruschettaVmStartupResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BruschettaVmStartupResponse& operator=(BruschettaVmStartupResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const BruschettaVmStartupResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BruschettaVmStartupResponse* internal_default_instance() {
+    return reinterpret_cast<const BruschettaVmStartupResponse*>(
+               &_BruschettaVmStartupResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    21;
+
+  friend void swap(BruschettaVmStartupResponse& a, BruschettaVmStartupResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(BruschettaVmStartupResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BruschettaVmStartupResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BruschettaVmStartupResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BruschettaVmStartupResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const BruschettaVmStartupResponse& from);
+  void MergeFrom(const BruschettaVmStartupResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BruschettaVmStartupResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.BruschettaVmStartupResponse";
+  }
+  protected:
+  explicit BruschettaVmStartupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTapDeviceIfnameFieldNumber = 1,
+    kIpv4AddressFieldNumber = 3,
+    kIpv4SubnetFieldNumber = 2,
+  };
+  // string tap_device_ifname = 1;
+  void clear_tap_device_ifname();
+  const std::string& tap_device_ifname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_tap_device_ifname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_tap_device_ifname();
+  PROTOBUF_NODISCARD std::string* release_tap_device_ifname();
+  void set_allocated_tap_device_ifname(std::string* tap_device_ifname);
+  private:
+  const std::string& _internal_tap_device_ifname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tap_device_ifname(const std::string& value);
+  std::string* _internal_mutable_tap_device_ifname();
+  public:
+
+  // bytes ipv4_address = 3;
+  void clear_ipv4_address();
+  const std::string& ipv4_address() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ipv4_address(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ipv4_address();
+  PROTOBUF_NODISCARD std::string* release_ipv4_address();
+  void set_allocated_ipv4_address(std::string* ipv4_address);
+  private:
+  const std::string& _internal_ipv4_address() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ipv4_address(const std::string& value);
+  std::string* _internal_mutable_ipv4_address();
+  public:
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+  bool has_ipv4_subnet() const;
+  private:
+  bool _internal_has_ipv4_subnet() const;
+  public:
+  void clear_ipv4_subnet();
+  const ::patchpanel::IPv4Subnet& ipv4_subnet() const;
+  PROTOBUF_NODISCARD ::patchpanel::IPv4Subnet* release_ipv4_subnet();
+  ::patchpanel::IPv4Subnet* mutable_ipv4_subnet();
+  void set_allocated_ipv4_subnet(::patchpanel::IPv4Subnet* ipv4_subnet);
+  private:
+  const ::patchpanel::IPv4Subnet& _internal_ipv4_subnet() const;
+  ::patchpanel::IPv4Subnet* _internal_mutable_ipv4_subnet();
+  public:
+  void unsafe_arena_set_allocated_ipv4_subnet(
+      ::patchpanel::IPv4Subnet* ipv4_subnet);
+  ::patchpanel::IPv4Subnet* unsafe_arena_release_ipv4_subnet();
+
+  // @@protoc_insertion_point(class_scope:patchpanel.BruschettaVmStartupResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tap_device_ifname_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ipv4_address_;
+  ::patchpanel::IPv4Subnet* ipv4_subnet_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class BruschettaVmShutdownRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.BruschettaVmShutdownRequest) */ {
+ public:
+  inline BruschettaVmShutdownRequest() : BruschettaVmShutdownRequest(nullptr) {}
+  ~BruschettaVmShutdownRequest() override;
+  explicit PROTOBUF_CONSTEXPR BruschettaVmShutdownRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  BruschettaVmShutdownRequest(const BruschettaVmShutdownRequest& from);
+  BruschettaVmShutdownRequest(BruschettaVmShutdownRequest&& from) noexcept
+    : BruschettaVmShutdownRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline BruschettaVmShutdownRequest& operator=(const BruschettaVmShutdownRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BruschettaVmShutdownRequest& operator=(BruschettaVmShutdownRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const BruschettaVmShutdownRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BruschettaVmShutdownRequest* internal_default_instance() {
+    return reinterpret_cast<const BruschettaVmShutdownRequest*>(
+               &_BruschettaVmShutdownRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  friend void swap(BruschettaVmShutdownRequest& a, BruschettaVmShutdownRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(BruschettaVmShutdownRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BruschettaVmShutdownRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BruschettaVmShutdownRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BruschettaVmShutdownRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const BruschettaVmShutdownRequest& from);
+  void MergeFrom(const BruschettaVmShutdownRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BruschettaVmShutdownRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.BruschettaVmShutdownRequest";
+  }
+  protected:
+  explicit BruschettaVmShutdownRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+  };
+  // uint64 id = 1;
+  void clear_id();
+  uint64_t id() const;
+  void set_id(uint64_t value);
+  private:
+  uint64_t _internal_id() const;
+  void _internal_set_id(uint64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.BruschettaVmShutdownRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  uint64_t id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class BruschettaVmShutdownResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.BruschettaVmShutdownResponse) */ {
+ public:
+  inline BruschettaVmShutdownResponse() : BruschettaVmShutdownResponse(nullptr) {}
+  ~BruschettaVmShutdownResponse() override;
+  explicit PROTOBUF_CONSTEXPR BruschettaVmShutdownResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  BruschettaVmShutdownResponse(const BruschettaVmShutdownResponse& from);
+  BruschettaVmShutdownResponse(BruschettaVmShutdownResponse&& from) noexcept
+    : BruschettaVmShutdownResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline BruschettaVmShutdownResponse& operator=(const BruschettaVmShutdownResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BruschettaVmShutdownResponse& operator=(BruschettaVmShutdownResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const BruschettaVmShutdownResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BruschettaVmShutdownResponse* internal_default_instance() {
+    return reinterpret_cast<const BruschettaVmShutdownResponse*>(
+               &_BruschettaVmShutdownResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  friend void swap(BruschettaVmShutdownResponse& a, BruschettaVmShutdownResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(BruschettaVmShutdownResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BruschettaVmShutdownResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BruschettaVmShutdownResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BruschettaVmShutdownResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const BruschettaVmShutdownResponse& from);
+  void MergeFrom(const BruschettaVmShutdownResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BruschettaVmShutdownResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.BruschettaVmShutdownResponse";
+  }
+  protected:
+  explicit BruschettaVmShutdownResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:patchpanel.BruschettaVmShutdownResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SetVpnIntentRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.SetVpnIntentRequest) */ {
  public:
@@ -3399,7 +4058,7 @@ class SetVpnIntentRequest final :
                &_SetVpnIntentRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    24;
 
   friend void swap(SetVpnIntentRequest& a, SetVpnIntentRequest& b) {
     a.Swap(&b);
@@ -3554,7 +4213,7 @@ class SetVpnIntentResponse final :
                &_SetVpnIntentResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    25;
 
   friend void swap(SetVpnIntentResponse& a, SetVpnIntentResponse& b) {
     a.Swap(&b);
@@ -3681,7 +4340,7 @@ class ConnectNamespaceRequest final :
                &_ConnectNamespaceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    26;
 
   friend void swap(ConnectNamespaceRequest& a, ConnectNamespaceRequest& b) {
     a.Swap(&b);
@@ -3868,7 +4527,7 @@ class ConnectNamespaceResponse final :
                &_ConnectNamespaceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    27;
 
   friend void swap(ConnectNamespaceResponse& a, ConnectNamespaceResponse& b) {
     a.Swap(&b);
@@ -4074,7 +4733,7 @@ class TrafficCounter final :
                &_TrafficCounter_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    28;
 
   friend void swap(TrafficCounter& a, TrafficCounter& b) {
     a.Swap(&b);
@@ -4340,7 +4999,7 @@ class TrafficCountersRequest final :
                &_TrafficCountersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    29;
 
   friend void swap(TrafficCountersRequest& a, TrafficCountersRequest& b) {
     a.Swap(&b);
@@ -4482,7 +5141,7 @@ class TrafficCountersResponse final :
                &_TrafficCountersResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    30;
 
   friend void swap(TrafficCountersResponse& a, TrafficCountersResponse& b) {
     a.Swap(&b);
@@ -4618,7 +5277,7 @@ class ModifyPortRuleRequest final :
                &_ModifyPortRuleRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    31;
 
   friend void swap(ModifyPortRuleRequest& a, ModifyPortRuleRequest& b) {
     a.Swap(&b);
@@ -4923,7 +5582,7 @@ class ModifyPortRuleResponse final :
                &_ModifyPortRuleResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    32;
 
   friend void swap(ModifyPortRuleResponse& a, ModifyPortRuleResponse& b) {
     a.Swap(&b);
@@ -5050,7 +5709,7 @@ class SetVpnLockdownRequest final :
                &_SetVpnLockdownRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    33;
 
   friend void swap(SetVpnLockdownRequest& a, SetVpnLockdownRequest& b) {
     a.Swap(&b);
@@ -5177,7 +5836,7 @@ class SetVpnLockdownResponse final :
                &_SetVpnLockdownResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    34;
 
   friend void swap(SetVpnLockdownResponse& a, SetVpnLockdownResponse& b) {
     a.Swap(&b);
@@ -5291,7 +5950,7 @@ class NetworkDeviceChangedSignal final :
                &_NetworkDeviceChangedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    35;
 
   friend void swap(NetworkDeviceChangedSignal& a, NetworkDeviceChangedSignal& b) {
     a.Swap(&b);
@@ -5466,7 +6125,7 @@ class NeighborReachabilityEventSignal final :
                &_NeighborReachabilityEventSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    36;
 
   friend void swap(NeighborReachabilityEventSignal& a, NeighborReachabilityEventSignal& b) {
     a.Swap(&b);
@@ -5689,7 +6348,7 @@ class SetDnsRedirectionRuleRequest final :
                &_SetDnsRedirectionRuleRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    37;
 
   friend void swap(SetDnsRedirectionRuleRequest& a, SetDnsRedirectionRuleRequest& b) {
     a.Swap(&b);
@@ -5922,7 +6581,7 @@ class SetDnsRedirectionRuleResponse final :
                &_SetDnsRedirectionRuleResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    38;
 
   friend void swap(SetDnsRedirectionRuleResponse& a, SetDnsRedirectionRuleResponse& b) {
     a.Swap(&b);
@@ -6049,7 +6708,7 @@ class NetworkConfigurationChangedSignal final :
                &_NetworkConfigurationChangedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    39;
 
   friend void swap(NetworkConfigurationChangedSignal& a, NetworkConfigurationChangedSignal& b) {
     a.Swap(&b);
@@ -6163,7 +6822,7 @@ class IPv4Configuration_DhcpOption final :
                &_IPv4Configuration_DhcpOption_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    40;
 
   friend void swap(IPv4Configuration_DhcpOption& a, IPv4Configuration_DhcpOption& b) {
     a.Swap(&b);
@@ -6306,7 +6965,7 @@ class IPv4Configuration final :
                &_IPv4Configuration_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    41;
 
   friend void swap(IPv4Configuration& a, IPv4Configuration& b) {
     a.Swap(&b);
@@ -6588,7 +7247,7 @@ class DownstreamNetwork final :
                &_DownstreamNetwork_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    42;
 
   friend void swap(DownstreamNetwork& a, DownstreamNetwork& b) {
     a.Swap(&b);
@@ -6756,7 +7415,7 @@ class TetheredNetworkRequest final :
                &_TetheredNetworkRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    43;
 
   friend void swap(TetheredNetworkRequest& a, TetheredNetworkRequest& b) {
     a.Swap(&b);
@@ -6992,7 +7651,7 @@ class TetheredNetworkResponse final :
                &_TetheredNetworkResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    44;
 
   friend void swap(TetheredNetworkResponse& a, TetheredNetworkResponse& b) {
     a.Swap(&b);
@@ -7119,7 +7778,7 @@ class LocalOnlyNetworkRequest final :
                &_LocalOnlyNetworkRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    45;
 
   friend void swap(LocalOnlyNetworkRequest& a, LocalOnlyNetworkRequest& b) {
     a.Swap(&b);
@@ -7271,7 +7930,7 @@ class LocalOnlyNetworkResponse final :
                &_LocalOnlyNetworkResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    46;
 
   friend void swap(LocalOnlyNetworkResponse& a, LocalOnlyNetworkResponse& b) {
     a.Swap(&b);
@@ -7398,7 +8057,7 @@ class GetDownstreamNetworkInfoRequest final :
                &_GetDownstreamNetworkInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    47;
 
   friend void swap(GetDownstreamNetworkInfoRequest& a, GetDownstreamNetworkInfoRequest& b) {
     a.Swap(&b);
@@ -7530,7 +8189,7 @@ class NetworkClientInfo final :
                &_NetworkClientInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    48;
 
   friend void swap(NetworkClientInfo& a, NetworkClientInfo& b) {
     a.Swap(&b);
@@ -7736,7 +8395,7 @@ class GetDownstreamNetworkInfoResponse final :
                &_GetDownstreamNetworkInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    49;
 
   friend void swap(GetDownstreamNetworkInfoResponse& a, GetDownstreamNetworkInfoResponse& b) {
     a.Swap(&b);
@@ -7903,7 +8562,7 @@ class NotifyAndroidInteractiveStateRequest final :
                &_NotifyAndroidInteractiveStateRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    50;
 
   friend void swap(NotifyAndroidInteractiveStateRequest& a, NotifyAndroidInteractiveStateRequest& b) {
     a.Swap(&b);
@@ -8030,7 +8689,7 @@ class NotifyAndroidInteractiveStateResponse final :
                &_NotifyAndroidInteractiveStateResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    51;
 
   friend void swap(NotifyAndroidInteractiveStateResponse& a, NotifyAndroidInteractiveStateResponse& b) {
     a.Swap(&b);
@@ -8144,7 +8803,7 @@ class NotifyAndroidWifiMulticastLockChangeRequest final :
                &_NotifyAndroidWifiMulticastLockChangeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    52;
 
   friend void swap(NotifyAndroidWifiMulticastLockChangeRequest& a, NotifyAndroidWifiMulticastLockChangeRequest& b) {
     a.Swap(&b);
@@ -8271,7 +8930,7 @@ class NotifyAndroidWifiMulticastLockChangeResponse final :
                &_NotifyAndroidWifiMulticastLockChangeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    53;
 
   friend void swap(NotifyAndroidWifiMulticastLockChangeResponse& a, NotifyAndroidWifiMulticastLockChangeResponse& b) {
     a.Swap(&b);
@@ -8335,6 +8994,821 @@ class NotifyAndroidWifiMulticastLockChangeResponse final :
   // accessors -------------------------------------------------------
 
   // @@protoc_insertion_point(class_scope:patchpanel.NotifyAndroidWifiMulticastLockChangeResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SocketConnectionEvent final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.SocketConnectionEvent) */ {
+ public:
+  inline SocketConnectionEvent() : SocketConnectionEvent(nullptr) {}
+  ~SocketConnectionEvent() override;
+  explicit PROTOBUF_CONSTEXPR SocketConnectionEvent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SocketConnectionEvent(const SocketConnectionEvent& from);
+  SocketConnectionEvent(SocketConnectionEvent&& from) noexcept
+    : SocketConnectionEvent() {
+    *this = ::std::move(from);
+  }
+
+  inline SocketConnectionEvent& operator=(const SocketConnectionEvent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SocketConnectionEvent& operator=(SocketConnectionEvent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SocketConnectionEvent& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SocketConnectionEvent* internal_default_instance() {
+    return reinterpret_cast<const SocketConnectionEvent*>(
+               &_SocketConnectionEvent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    54;
+
+  friend void swap(SocketConnectionEvent& a, SocketConnectionEvent& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(SocketConnectionEvent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SocketConnectionEvent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SocketConnectionEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SocketConnectionEvent>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SocketConnectionEvent& from);
+  void MergeFrom(const SocketConnectionEvent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SocketConnectionEvent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.SocketConnectionEvent";
+  }
+  protected:
+  explicit SocketConnectionEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef SocketConnectionEvent_IpProtocol IpProtocol;
+  static constexpr IpProtocol UNKNOWN_PROTO =
+    SocketConnectionEvent_IpProtocol_UNKNOWN_PROTO;
+  static constexpr IpProtocol TCP =
+    SocketConnectionEvent_IpProtocol_TCP;
+  static constexpr IpProtocol UDP =
+    SocketConnectionEvent_IpProtocol_UDP;
+  static inline bool IpProtocol_IsValid(int value) {
+    return SocketConnectionEvent_IpProtocol_IsValid(value);
+  }
+  static constexpr IpProtocol IpProtocol_MIN =
+    SocketConnectionEvent_IpProtocol_IpProtocol_MIN;
+  static constexpr IpProtocol IpProtocol_MAX =
+    SocketConnectionEvent_IpProtocol_IpProtocol_MAX;
+  static constexpr int IpProtocol_ARRAYSIZE =
+    SocketConnectionEvent_IpProtocol_IpProtocol_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& IpProtocol_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, IpProtocol>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function IpProtocol_Name.");
+    return SocketConnectionEvent_IpProtocol_Name(enum_t_value);
+  }
+  static inline bool IpProtocol_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      IpProtocol* value) {
+    return SocketConnectionEvent_IpProtocol_Parse(name, value);
+  }
+
+  typedef SocketConnectionEvent_SocketEvent SocketEvent;
+  static constexpr SocketEvent UNKNOWN_EVENT =
+    SocketConnectionEvent_SocketEvent_UNKNOWN_EVENT;
+  static constexpr SocketEvent OPEN =
+    SocketConnectionEvent_SocketEvent_OPEN;
+  static constexpr SocketEvent CLOSE =
+    SocketConnectionEvent_SocketEvent_CLOSE;
+  static inline bool SocketEvent_IsValid(int value) {
+    return SocketConnectionEvent_SocketEvent_IsValid(value);
+  }
+  static constexpr SocketEvent SocketEvent_MIN =
+    SocketConnectionEvent_SocketEvent_SocketEvent_MIN;
+  static constexpr SocketEvent SocketEvent_MAX =
+    SocketConnectionEvent_SocketEvent_SocketEvent_MAX;
+  static constexpr int SocketEvent_ARRAYSIZE =
+    SocketConnectionEvent_SocketEvent_SocketEvent_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& SocketEvent_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, SocketEvent>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function SocketEvent_Name.");
+    return SocketConnectionEvent_SocketEvent_Name(enum_t_value);
+  }
+  static inline bool SocketEvent_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      SocketEvent* value) {
+    return SocketConnectionEvent_SocketEvent_Parse(name, value);
+  }
+
+  typedef SocketConnectionEvent_QosCategory QosCategory;
+  static constexpr QosCategory UNKNOWN_CATEGORY =
+    SocketConnectionEvent_QosCategory_UNKNOWN_CATEGORY;
+  static constexpr QosCategory REALTIME_INTERACTIVE =
+    SocketConnectionEvent_QosCategory_REALTIME_INTERACTIVE;
+  static constexpr QosCategory MULTIMEDIA_CONFERENCING =
+    SocketConnectionEvent_QosCategory_MULTIMEDIA_CONFERENCING;
+  static inline bool QosCategory_IsValid(int value) {
+    return SocketConnectionEvent_QosCategory_IsValid(value);
+  }
+  static constexpr QosCategory QosCategory_MIN =
+    SocketConnectionEvent_QosCategory_QosCategory_MIN;
+  static constexpr QosCategory QosCategory_MAX =
+    SocketConnectionEvent_QosCategory_QosCategory_MAX;
+  static constexpr int QosCategory_ARRAYSIZE =
+    SocketConnectionEvent_QosCategory_QosCategory_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& QosCategory_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, QosCategory>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function QosCategory_Name.");
+    return SocketConnectionEvent_QosCategory_Name(enum_t_value);
+  }
+  static inline bool QosCategory_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      QosCategory* value) {
+    return SocketConnectionEvent_QosCategory_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSaddrFieldNumber = 1,
+    kDaddrFieldNumber = 3,
+    kSportFieldNumber = 2,
+    kDportFieldNumber = 4,
+    kProtoFieldNumber = 5,
+    kEventFieldNumber = 6,
+    kCategoryFieldNumber = 7,
+  };
+  // bytes saddr = 1;
+  void clear_saddr();
+  const std::string& saddr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_saddr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_saddr();
+  PROTOBUF_NODISCARD std::string* release_saddr();
+  void set_allocated_saddr(std::string* saddr);
+  private:
+  const std::string& _internal_saddr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_saddr(const std::string& value);
+  std::string* _internal_mutable_saddr();
+  public:
+
+  // bytes daddr = 3;
+  void clear_daddr();
+  const std::string& daddr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_daddr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_daddr();
+  PROTOBUF_NODISCARD std::string* release_daddr();
+  void set_allocated_daddr(std::string* daddr);
+  private:
+  const std::string& _internal_daddr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_daddr(const std::string& value);
+  std::string* _internal_mutable_daddr();
+  public:
+
+  // int32 sport = 2;
+  void clear_sport();
+  int32_t sport() const;
+  void set_sport(int32_t value);
+  private:
+  int32_t _internal_sport() const;
+  void _internal_set_sport(int32_t value);
+  public:
+
+  // int32 dport = 4;
+  void clear_dport();
+  int32_t dport() const;
+  void set_dport(int32_t value);
+  private:
+  int32_t _internal_dport() const;
+  void _internal_set_dport(int32_t value);
+  public:
+
+  // .patchpanel.SocketConnectionEvent.IpProtocol proto = 5;
+  void clear_proto();
+  ::patchpanel::SocketConnectionEvent_IpProtocol proto() const;
+  void set_proto(::patchpanel::SocketConnectionEvent_IpProtocol value);
+  private:
+  ::patchpanel::SocketConnectionEvent_IpProtocol _internal_proto() const;
+  void _internal_set_proto(::patchpanel::SocketConnectionEvent_IpProtocol value);
+  public:
+
+  // .patchpanel.SocketConnectionEvent.SocketEvent event = 6;
+  void clear_event();
+  ::patchpanel::SocketConnectionEvent_SocketEvent event() const;
+  void set_event(::patchpanel::SocketConnectionEvent_SocketEvent value);
+  private:
+  ::patchpanel::SocketConnectionEvent_SocketEvent _internal_event() const;
+  void _internal_set_event(::patchpanel::SocketConnectionEvent_SocketEvent value);
+  public:
+
+  // .patchpanel.SocketConnectionEvent.QosCategory category = 7;
+  void clear_category();
+  ::patchpanel::SocketConnectionEvent_QosCategory category() const;
+  void set_category(::patchpanel::SocketConnectionEvent_QosCategory value);
+  private:
+  ::patchpanel::SocketConnectionEvent_QosCategory _internal_category() const;
+  void _internal_set_category(::patchpanel::SocketConnectionEvent_QosCategory value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.SocketConnectionEvent)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr saddr_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr daddr_;
+  int32_t sport_;
+  int32_t dport_;
+  int proto_;
+  int event_;
+  int category_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifySocketConnectionEventRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifySocketConnectionEventRequest) */ {
+ public:
+  inline NotifySocketConnectionEventRequest() : NotifySocketConnectionEventRequest(nullptr) {}
+  ~NotifySocketConnectionEventRequest() override;
+  explicit PROTOBUF_CONSTEXPR NotifySocketConnectionEventRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifySocketConnectionEventRequest(const NotifySocketConnectionEventRequest& from);
+  NotifySocketConnectionEventRequest(NotifySocketConnectionEventRequest&& from) noexcept
+    : NotifySocketConnectionEventRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifySocketConnectionEventRequest& operator=(const NotifySocketConnectionEventRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifySocketConnectionEventRequest& operator=(NotifySocketConnectionEventRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const NotifySocketConnectionEventRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifySocketConnectionEventRequest* internal_default_instance() {
+    return reinterpret_cast<const NotifySocketConnectionEventRequest*>(
+               &_NotifySocketConnectionEventRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    55;
+
+  friend void swap(NotifySocketConnectionEventRequest& a, NotifySocketConnectionEventRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(NotifySocketConnectionEventRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifySocketConnectionEventRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifySocketConnectionEventRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifySocketConnectionEventRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifySocketConnectionEventRequest& from);
+  void MergeFrom(const NotifySocketConnectionEventRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifySocketConnectionEventRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NotifySocketConnectionEventRequest";
+  }
+  protected:
+  explicit NotifySocketConnectionEventRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgFieldNumber = 1,
+  };
+  // .patchpanel.SocketConnectionEvent msg = 1;
+  bool has_msg() const;
+  private:
+  bool _internal_has_msg() const;
+  public:
+  void clear_msg();
+  const ::patchpanel::SocketConnectionEvent& msg() const;
+  PROTOBUF_NODISCARD ::patchpanel::SocketConnectionEvent* release_msg();
+  ::patchpanel::SocketConnectionEvent* mutable_msg();
+  void set_allocated_msg(::patchpanel::SocketConnectionEvent* msg);
+  private:
+  const ::patchpanel::SocketConnectionEvent& _internal_msg() const;
+  ::patchpanel::SocketConnectionEvent* _internal_mutable_msg();
+  public:
+  void unsafe_arena_set_allocated_msg(
+      ::patchpanel::SocketConnectionEvent* msg);
+  ::patchpanel::SocketConnectionEvent* unsafe_arena_release_msg();
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifySocketConnectionEventRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::patchpanel::SocketConnectionEvent* msg_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifySocketConnectionEventResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifySocketConnectionEventResponse) */ {
+ public:
+  inline NotifySocketConnectionEventResponse() : NotifySocketConnectionEventResponse(nullptr) {}
+  ~NotifySocketConnectionEventResponse() override;
+  explicit PROTOBUF_CONSTEXPR NotifySocketConnectionEventResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifySocketConnectionEventResponse(const NotifySocketConnectionEventResponse& from);
+  NotifySocketConnectionEventResponse(NotifySocketConnectionEventResponse&& from) noexcept
+    : NotifySocketConnectionEventResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifySocketConnectionEventResponse& operator=(const NotifySocketConnectionEventResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifySocketConnectionEventResponse& operator=(NotifySocketConnectionEventResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const NotifySocketConnectionEventResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifySocketConnectionEventResponse* internal_default_instance() {
+    return reinterpret_cast<const NotifySocketConnectionEventResponse*>(
+               &_NotifySocketConnectionEventResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    56;
+
+  friend void swap(NotifySocketConnectionEventResponse& a, NotifySocketConnectionEventResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(NotifySocketConnectionEventResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifySocketConnectionEventResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifySocketConnectionEventResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifySocketConnectionEventResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifySocketConnectionEventResponse& from);
+  void MergeFrom(const NotifySocketConnectionEventResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifySocketConnectionEventResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NotifySocketConnectionEventResponse";
+  }
+  protected:
+  explicit NotifySocketConnectionEventResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifySocketConnectionEventResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetFeatureFlagRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.SetFeatureFlagRequest) */ {
+ public:
+  inline SetFeatureFlagRequest() : SetFeatureFlagRequest(nullptr) {}
+  ~SetFeatureFlagRequest() override;
+  explicit PROTOBUF_CONSTEXPR SetFeatureFlagRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SetFeatureFlagRequest(const SetFeatureFlagRequest& from);
+  SetFeatureFlagRequest(SetFeatureFlagRequest&& from) noexcept
+    : SetFeatureFlagRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SetFeatureFlagRequest& operator=(const SetFeatureFlagRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetFeatureFlagRequest& operator=(SetFeatureFlagRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SetFeatureFlagRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SetFeatureFlagRequest* internal_default_instance() {
+    return reinterpret_cast<const SetFeatureFlagRequest*>(
+               &_SetFeatureFlagRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    57;
+
+  friend void swap(SetFeatureFlagRequest& a, SetFeatureFlagRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(SetFeatureFlagRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SetFeatureFlagRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SetFeatureFlagRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SetFeatureFlagRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SetFeatureFlagRequest& from);
+  void MergeFrom(const SetFeatureFlagRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SetFeatureFlagRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.SetFeatureFlagRequest";
+  }
+  protected:
+  explicit SetFeatureFlagRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef SetFeatureFlagRequest_FeatureFlag FeatureFlag;
+  static constexpr FeatureFlag WIFI_QOS =
+    SetFeatureFlagRequest_FeatureFlag_WIFI_QOS;
+  static constexpr FeatureFlag CLAT =
+    SetFeatureFlagRequest_FeatureFlag_CLAT;
+  static inline bool FeatureFlag_IsValid(int value) {
+    return SetFeatureFlagRequest_FeatureFlag_IsValid(value);
+  }
+  static constexpr FeatureFlag FeatureFlag_MIN =
+    SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MIN;
+  static constexpr FeatureFlag FeatureFlag_MAX =
+    SetFeatureFlagRequest_FeatureFlag_FeatureFlag_MAX;
+  static constexpr int FeatureFlag_ARRAYSIZE =
+    SetFeatureFlagRequest_FeatureFlag_FeatureFlag_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& FeatureFlag_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, FeatureFlag>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function FeatureFlag_Name.");
+    return SetFeatureFlagRequest_FeatureFlag_Name(enum_t_value);
+  }
+  static inline bool FeatureFlag_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      FeatureFlag* value) {
+    return SetFeatureFlagRequest_FeatureFlag_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFlagFieldNumber = 1,
+    kEnabledFieldNumber = 2,
+  };
+  // .patchpanel.SetFeatureFlagRequest.FeatureFlag flag = 1;
+  void clear_flag();
+  ::patchpanel::SetFeatureFlagRequest_FeatureFlag flag() const;
+  void set_flag(::patchpanel::SetFeatureFlagRequest_FeatureFlag value);
+  private:
+  ::patchpanel::SetFeatureFlagRequest_FeatureFlag _internal_flag() const;
+  void _internal_set_flag(::patchpanel::SetFeatureFlagRequest_FeatureFlag value);
+  public:
+
+  // bool enabled = 2;
+  void clear_enabled();
+  bool enabled() const;
+  void set_enabled(bool value);
+  private:
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.SetFeatureFlagRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int flag_;
+  bool enabled_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetFeatureFlagResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.SetFeatureFlagResponse) */ {
+ public:
+  inline SetFeatureFlagResponse() : SetFeatureFlagResponse(nullptr) {}
+  ~SetFeatureFlagResponse() override;
+  explicit PROTOBUF_CONSTEXPR SetFeatureFlagResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SetFeatureFlagResponse(const SetFeatureFlagResponse& from);
+  SetFeatureFlagResponse(SetFeatureFlagResponse&& from) noexcept
+    : SetFeatureFlagResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SetFeatureFlagResponse& operator=(const SetFeatureFlagResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetFeatureFlagResponse& operator=(SetFeatureFlagResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SetFeatureFlagResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SetFeatureFlagResponse* internal_default_instance() {
+    return reinterpret_cast<const SetFeatureFlagResponse*>(
+               &_SetFeatureFlagResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    58;
+
+  friend void swap(SetFeatureFlagResponse& a, SetFeatureFlagResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(SetFeatureFlagResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SetFeatureFlagResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SetFeatureFlagResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SetFeatureFlagResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SetFeatureFlagResponse& from);
+  void MergeFrom(const SetFeatureFlagResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SetFeatureFlagResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.SetFeatureFlagResponse";
+  }
+  protected:
+  explicit SetFeatureFlagResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:patchpanel.SetFeatureFlagResponse)
  private:
   class _Internal;
 
@@ -9750,6 +11224,252 @@ inline void ParallelsVmShutdownRequest::set_id(uint64_t value) {
 // -------------------------------------------------------------------
 
 // ParallelsVmShutdownResponse
+
+// -------------------------------------------------------------------
+
+// BruschettaVmStartupRequest
+
+// uint64 id = 1;
+inline void BruschettaVmStartupRequest::clear_id() {
+  id_ = uint64_t{0u};
+}
+inline uint64_t BruschettaVmStartupRequest::_internal_id() const {
+  return id_;
+}
+inline uint64_t BruschettaVmStartupRequest::id() const {
+  // @@protoc_insertion_point(field_get:patchpanel.BruschettaVmStartupRequest.id)
+  return _internal_id();
+}
+inline void BruschettaVmStartupRequest::_internal_set_id(uint64_t value) {
+  
+  id_ = value;
+}
+inline void BruschettaVmStartupRequest::set_id(uint64_t value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:patchpanel.BruschettaVmStartupRequest.id)
+}
+
+// -------------------------------------------------------------------
+
+// BruschettaVmStartupResponse
+
+// string tap_device_ifname = 1;
+inline void BruschettaVmStartupResponse::clear_tap_device_ifname() {
+  tap_device_ifname_.ClearToEmpty();
+}
+inline const std::string& BruschettaVmStartupResponse::tap_device_ifname() const {
+  // @@protoc_insertion_point(field_get:patchpanel.BruschettaVmStartupResponse.tap_device_ifname)
+  return _internal_tap_device_ifname();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void BruschettaVmStartupResponse::set_tap_device_ifname(ArgT0&& arg0, ArgT... args) {
+ 
+ tap_device_ifname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.BruschettaVmStartupResponse.tap_device_ifname)
+}
+inline std::string* BruschettaVmStartupResponse::mutable_tap_device_ifname() {
+  std::string* _s = _internal_mutable_tap_device_ifname();
+  // @@protoc_insertion_point(field_mutable:patchpanel.BruschettaVmStartupResponse.tap_device_ifname)
+  return _s;
+}
+inline const std::string& BruschettaVmStartupResponse::_internal_tap_device_ifname() const {
+  return tap_device_ifname_.Get();
+}
+inline void BruschettaVmStartupResponse::_internal_set_tap_device_ifname(const std::string& value) {
+  
+  tap_device_ifname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* BruschettaVmStartupResponse::_internal_mutable_tap_device_ifname() {
+  
+  return tap_device_ifname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* BruschettaVmStartupResponse::release_tap_device_ifname() {
+  // @@protoc_insertion_point(field_release:patchpanel.BruschettaVmStartupResponse.tap_device_ifname)
+  return tap_device_ifname_.Release();
+}
+inline void BruschettaVmStartupResponse::set_allocated_tap_device_ifname(std::string* tap_device_ifname) {
+  if (tap_device_ifname != nullptr) {
+    
+  } else {
+    
+  }
+  tap_device_ifname_.SetAllocated(tap_device_ifname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (tap_device_ifname_.IsDefault()) {
+    tap_device_ifname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.BruschettaVmStartupResponse.tap_device_ifname)
+}
+
+// .patchpanel.IPv4Subnet ipv4_subnet = 2;
+inline bool BruschettaVmStartupResponse::_internal_has_ipv4_subnet() const {
+  return this != internal_default_instance() && ipv4_subnet_ != nullptr;
+}
+inline bool BruschettaVmStartupResponse::has_ipv4_subnet() const {
+  return _internal_has_ipv4_subnet();
+}
+inline void BruschettaVmStartupResponse::clear_ipv4_subnet() {
+  if (GetArenaForAllocation() == nullptr && ipv4_subnet_ != nullptr) {
+    delete ipv4_subnet_;
+  }
+  ipv4_subnet_ = nullptr;
+}
+inline const ::patchpanel::IPv4Subnet& BruschettaVmStartupResponse::_internal_ipv4_subnet() const {
+  const ::patchpanel::IPv4Subnet* p = ipv4_subnet_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::IPv4Subnet&>(
+      ::patchpanel::_IPv4Subnet_default_instance_);
+}
+inline const ::patchpanel::IPv4Subnet& BruschettaVmStartupResponse::ipv4_subnet() const {
+  // @@protoc_insertion_point(field_get:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+  return _internal_ipv4_subnet();
+}
+inline void BruschettaVmStartupResponse::unsafe_arena_set_allocated_ipv4_subnet(
+    ::patchpanel::IPv4Subnet* ipv4_subnet) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(ipv4_subnet_);
+  }
+  ipv4_subnet_ = ipv4_subnet;
+  if (ipv4_subnet) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+}
+inline ::patchpanel::IPv4Subnet* BruschettaVmStartupResponse::release_ipv4_subnet() {
+  
+  ::patchpanel::IPv4Subnet* temp = ipv4_subnet_;
+  ipv4_subnet_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::patchpanel::IPv4Subnet* BruschettaVmStartupResponse::unsafe_arena_release_ipv4_subnet() {
+  // @@protoc_insertion_point(field_release:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+  
+  ::patchpanel::IPv4Subnet* temp = ipv4_subnet_;
+  ipv4_subnet_ = nullptr;
+  return temp;
+}
+inline ::patchpanel::IPv4Subnet* BruschettaVmStartupResponse::_internal_mutable_ipv4_subnet() {
+  
+  if (ipv4_subnet_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::IPv4Subnet>(GetArenaForAllocation());
+    ipv4_subnet_ = p;
+  }
+  return ipv4_subnet_;
+}
+inline ::patchpanel::IPv4Subnet* BruschettaVmStartupResponse::mutable_ipv4_subnet() {
+  ::patchpanel::IPv4Subnet* _msg = _internal_mutable_ipv4_subnet();
+  // @@protoc_insertion_point(field_mutable:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+  return _msg;
+}
+inline void BruschettaVmStartupResponse::set_allocated_ipv4_subnet(::patchpanel::IPv4Subnet* ipv4_subnet) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete ipv4_subnet_;
+  }
+  if (ipv4_subnet) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ipv4_subnet);
+    if (message_arena != submessage_arena) {
+      ipv4_subnet = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ipv4_subnet, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  ipv4_subnet_ = ipv4_subnet;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.BruschettaVmStartupResponse.ipv4_subnet)
+}
+
+// bytes ipv4_address = 3;
+inline void BruschettaVmStartupResponse::clear_ipv4_address() {
+  ipv4_address_.ClearToEmpty();
+}
+inline const std::string& BruschettaVmStartupResponse::ipv4_address() const {
+  // @@protoc_insertion_point(field_get:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+  return _internal_ipv4_address();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void BruschettaVmStartupResponse::set_ipv4_address(ArgT0&& arg0, ArgT... args) {
+ 
+ ipv4_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+}
+inline std::string* BruschettaVmStartupResponse::mutable_ipv4_address() {
+  std::string* _s = _internal_mutable_ipv4_address();
+  // @@protoc_insertion_point(field_mutable:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+  return _s;
+}
+inline const std::string& BruschettaVmStartupResponse::_internal_ipv4_address() const {
+  return ipv4_address_.Get();
+}
+inline void BruschettaVmStartupResponse::_internal_set_ipv4_address(const std::string& value) {
+  
+  ipv4_address_.Set(value, GetArenaForAllocation());
+}
+inline std::string* BruschettaVmStartupResponse::_internal_mutable_ipv4_address() {
+  
+  return ipv4_address_.Mutable(GetArenaForAllocation());
+}
+inline std::string* BruschettaVmStartupResponse::release_ipv4_address() {
+  // @@protoc_insertion_point(field_release:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+  return ipv4_address_.Release();
+}
+inline void BruschettaVmStartupResponse::set_allocated_ipv4_address(std::string* ipv4_address) {
+  if (ipv4_address != nullptr) {
+    
+  } else {
+    
+  }
+  ipv4_address_.SetAllocated(ipv4_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (ipv4_address_.IsDefault()) {
+    ipv4_address_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+}
+
+// -------------------------------------------------------------------
+
+// BruschettaVmShutdownRequest
+
+// uint64 id = 1;
+inline void BruschettaVmShutdownRequest::clear_id() {
+  id_ = uint64_t{0u};
+}
+inline uint64_t BruschettaVmShutdownRequest::_internal_id() const {
+  return id_;
+}
+inline uint64_t BruschettaVmShutdownRequest::id() const {
+  // @@protoc_insertion_point(field_get:patchpanel.BruschettaVmShutdownRequest.id)
+  return _internal_id();
+}
+inline void BruschettaVmShutdownRequest::_internal_set_id(uint64_t value) {
+  
+  id_ = value;
+}
+inline void BruschettaVmShutdownRequest::set_id(uint64_t value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:patchpanel.BruschettaVmShutdownRequest.id)
+}
+
+// -------------------------------------------------------------------
+
+// BruschettaVmShutdownResponse
 
 // -------------------------------------------------------------------
 
@@ -13118,9 +14838,377 @@ inline void NotifyAndroidWifiMulticastLockChangeRequest::set_held(bool value) {
 
 // NotifyAndroidWifiMulticastLockChangeResponse
 
+// -------------------------------------------------------------------
+
+// SocketConnectionEvent
+
+// bytes saddr = 1;
+inline void SocketConnectionEvent::clear_saddr() {
+  saddr_.ClearToEmpty();
+}
+inline const std::string& SocketConnectionEvent::saddr() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.saddr)
+  return _internal_saddr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SocketConnectionEvent::set_saddr(ArgT0&& arg0, ArgT... args) {
+ 
+ saddr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.saddr)
+}
+inline std::string* SocketConnectionEvent::mutable_saddr() {
+  std::string* _s = _internal_mutable_saddr();
+  // @@protoc_insertion_point(field_mutable:patchpanel.SocketConnectionEvent.saddr)
+  return _s;
+}
+inline const std::string& SocketConnectionEvent::_internal_saddr() const {
+  return saddr_.Get();
+}
+inline void SocketConnectionEvent::_internal_set_saddr(const std::string& value) {
+  
+  saddr_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SocketConnectionEvent::_internal_mutable_saddr() {
+  
+  return saddr_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SocketConnectionEvent::release_saddr() {
+  // @@protoc_insertion_point(field_release:patchpanel.SocketConnectionEvent.saddr)
+  return saddr_.Release();
+}
+inline void SocketConnectionEvent::set_allocated_saddr(std::string* saddr) {
+  if (saddr != nullptr) {
+    
+  } else {
+    
+  }
+  saddr_.SetAllocated(saddr, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (saddr_.IsDefault()) {
+    saddr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.SocketConnectionEvent.saddr)
+}
+
+// int32 sport = 2;
+inline void SocketConnectionEvent::clear_sport() {
+  sport_ = 0;
+}
+inline int32_t SocketConnectionEvent::_internal_sport() const {
+  return sport_;
+}
+inline int32_t SocketConnectionEvent::sport() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.sport)
+  return _internal_sport();
+}
+inline void SocketConnectionEvent::_internal_set_sport(int32_t value) {
+  
+  sport_ = value;
+}
+inline void SocketConnectionEvent::set_sport(int32_t value) {
+  _internal_set_sport(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.sport)
+}
+
+// bytes daddr = 3;
+inline void SocketConnectionEvent::clear_daddr() {
+  daddr_.ClearToEmpty();
+}
+inline const std::string& SocketConnectionEvent::daddr() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.daddr)
+  return _internal_daddr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SocketConnectionEvent::set_daddr(ArgT0&& arg0, ArgT... args) {
+ 
+ daddr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.daddr)
+}
+inline std::string* SocketConnectionEvent::mutable_daddr() {
+  std::string* _s = _internal_mutable_daddr();
+  // @@protoc_insertion_point(field_mutable:patchpanel.SocketConnectionEvent.daddr)
+  return _s;
+}
+inline const std::string& SocketConnectionEvent::_internal_daddr() const {
+  return daddr_.Get();
+}
+inline void SocketConnectionEvent::_internal_set_daddr(const std::string& value) {
+  
+  daddr_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SocketConnectionEvent::_internal_mutable_daddr() {
+  
+  return daddr_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SocketConnectionEvent::release_daddr() {
+  // @@protoc_insertion_point(field_release:patchpanel.SocketConnectionEvent.daddr)
+  return daddr_.Release();
+}
+inline void SocketConnectionEvent::set_allocated_daddr(std::string* daddr) {
+  if (daddr != nullptr) {
+    
+  } else {
+    
+  }
+  daddr_.SetAllocated(daddr, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (daddr_.IsDefault()) {
+    daddr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.SocketConnectionEvent.daddr)
+}
+
+// int32 dport = 4;
+inline void SocketConnectionEvent::clear_dport() {
+  dport_ = 0;
+}
+inline int32_t SocketConnectionEvent::_internal_dport() const {
+  return dport_;
+}
+inline int32_t SocketConnectionEvent::dport() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.dport)
+  return _internal_dport();
+}
+inline void SocketConnectionEvent::_internal_set_dport(int32_t value) {
+  
+  dport_ = value;
+}
+inline void SocketConnectionEvent::set_dport(int32_t value) {
+  _internal_set_dport(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.dport)
+}
+
+// .patchpanel.SocketConnectionEvent.IpProtocol proto = 5;
+inline void SocketConnectionEvent::clear_proto() {
+  proto_ = 0;
+}
+inline ::patchpanel::SocketConnectionEvent_IpProtocol SocketConnectionEvent::_internal_proto() const {
+  return static_cast< ::patchpanel::SocketConnectionEvent_IpProtocol >(proto_);
+}
+inline ::patchpanel::SocketConnectionEvent_IpProtocol SocketConnectionEvent::proto() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.proto)
+  return _internal_proto();
+}
+inline void SocketConnectionEvent::_internal_set_proto(::patchpanel::SocketConnectionEvent_IpProtocol value) {
+  
+  proto_ = value;
+}
+inline void SocketConnectionEvent::set_proto(::patchpanel::SocketConnectionEvent_IpProtocol value) {
+  _internal_set_proto(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.proto)
+}
+
+// .patchpanel.SocketConnectionEvent.SocketEvent event = 6;
+inline void SocketConnectionEvent::clear_event() {
+  event_ = 0;
+}
+inline ::patchpanel::SocketConnectionEvent_SocketEvent SocketConnectionEvent::_internal_event() const {
+  return static_cast< ::patchpanel::SocketConnectionEvent_SocketEvent >(event_);
+}
+inline ::patchpanel::SocketConnectionEvent_SocketEvent SocketConnectionEvent::event() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.event)
+  return _internal_event();
+}
+inline void SocketConnectionEvent::_internal_set_event(::patchpanel::SocketConnectionEvent_SocketEvent value) {
+  
+  event_ = value;
+}
+inline void SocketConnectionEvent::set_event(::patchpanel::SocketConnectionEvent_SocketEvent value) {
+  _internal_set_event(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.event)
+}
+
+// .patchpanel.SocketConnectionEvent.QosCategory category = 7;
+inline void SocketConnectionEvent::clear_category() {
+  category_ = 0;
+}
+inline ::patchpanel::SocketConnectionEvent_QosCategory SocketConnectionEvent::_internal_category() const {
+  return static_cast< ::patchpanel::SocketConnectionEvent_QosCategory >(category_);
+}
+inline ::patchpanel::SocketConnectionEvent_QosCategory SocketConnectionEvent::category() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SocketConnectionEvent.category)
+  return _internal_category();
+}
+inline void SocketConnectionEvent::_internal_set_category(::patchpanel::SocketConnectionEvent_QosCategory value) {
+  
+  category_ = value;
+}
+inline void SocketConnectionEvent::set_category(::patchpanel::SocketConnectionEvent_QosCategory value) {
+  _internal_set_category(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SocketConnectionEvent.category)
+}
+
+// -------------------------------------------------------------------
+
+// NotifySocketConnectionEventRequest
+
+// .patchpanel.SocketConnectionEvent msg = 1;
+inline bool NotifySocketConnectionEventRequest::_internal_has_msg() const {
+  return this != internal_default_instance() && msg_ != nullptr;
+}
+inline bool NotifySocketConnectionEventRequest::has_msg() const {
+  return _internal_has_msg();
+}
+inline void NotifySocketConnectionEventRequest::clear_msg() {
+  if (GetArenaForAllocation() == nullptr && msg_ != nullptr) {
+    delete msg_;
+  }
+  msg_ = nullptr;
+}
+inline const ::patchpanel::SocketConnectionEvent& NotifySocketConnectionEventRequest::_internal_msg() const {
+  const ::patchpanel::SocketConnectionEvent* p = msg_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::SocketConnectionEvent&>(
+      ::patchpanel::_SocketConnectionEvent_default_instance_);
+}
+inline const ::patchpanel::SocketConnectionEvent& NotifySocketConnectionEventRequest::msg() const {
+  // @@protoc_insertion_point(field_get:patchpanel.NotifySocketConnectionEventRequest.msg)
+  return _internal_msg();
+}
+inline void NotifySocketConnectionEventRequest::unsafe_arena_set_allocated_msg(
+    ::patchpanel::SocketConnectionEvent* msg) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(msg_);
+  }
+  msg_ = msg;
+  if (msg) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.NotifySocketConnectionEventRequest.msg)
+}
+inline ::patchpanel::SocketConnectionEvent* NotifySocketConnectionEventRequest::release_msg() {
+  
+  ::patchpanel::SocketConnectionEvent* temp = msg_;
+  msg_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifySocketConnectionEventRequest::unsafe_arena_release_msg() {
+  // @@protoc_insertion_point(field_release:patchpanel.NotifySocketConnectionEventRequest.msg)
+  
+  ::patchpanel::SocketConnectionEvent* temp = msg_;
+  msg_ = nullptr;
+  return temp;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifySocketConnectionEventRequest::_internal_mutable_msg() {
+  
+  if (msg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::SocketConnectionEvent>(GetArenaForAllocation());
+    msg_ = p;
+  }
+  return msg_;
+}
+inline ::patchpanel::SocketConnectionEvent* NotifySocketConnectionEventRequest::mutable_msg() {
+  ::patchpanel::SocketConnectionEvent* _msg = _internal_mutable_msg();
+  // @@protoc_insertion_point(field_mutable:patchpanel.NotifySocketConnectionEventRequest.msg)
+  return _msg;
+}
+inline void NotifySocketConnectionEventRequest::set_allocated_msg(::patchpanel::SocketConnectionEvent* msg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete msg_;
+  }
+  if (msg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(msg);
+    if (message_arena != submessage_arena) {
+      msg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_ = msg;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.NotifySocketConnectionEventRequest.msg)
+}
+
+// -------------------------------------------------------------------
+
+// NotifySocketConnectionEventResponse
+
+// -------------------------------------------------------------------
+
+// SetFeatureFlagRequest
+
+// .patchpanel.SetFeatureFlagRequest.FeatureFlag flag = 1;
+inline void SetFeatureFlagRequest::clear_flag() {
+  flag_ = 0;
+}
+inline ::patchpanel::SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::_internal_flag() const {
+  return static_cast< ::patchpanel::SetFeatureFlagRequest_FeatureFlag >(flag_);
+}
+inline ::patchpanel::SetFeatureFlagRequest_FeatureFlag SetFeatureFlagRequest::flag() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SetFeatureFlagRequest.flag)
+  return _internal_flag();
+}
+inline void SetFeatureFlagRequest::_internal_set_flag(::patchpanel::SetFeatureFlagRequest_FeatureFlag value) {
+  
+  flag_ = value;
+}
+inline void SetFeatureFlagRequest::set_flag(::patchpanel::SetFeatureFlagRequest_FeatureFlag value) {
+  _internal_set_flag(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SetFeatureFlagRequest.flag)
+}
+
+// bool enabled = 2;
+inline void SetFeatureFlagRequest::clear_enabled() {
+  enabled_ = false;
+}
+inline bool SetFeatureFlagRequest::_internal_enabled() const {
+  return enabled_;
+}
+inline bool SetFeatureFlagRequest::enabled() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SetFeatureFlagRequest.enabled)
+  return _internal_enabled();
+}
+inline void SetFeatureFlagRequest::_internal_set_enabled(bool value) {
+  
+  enabled_ = value;
+}
+inline void SetFeatureFlagRequest::set_enabled(bool value) {
+  _internal_set_enabled(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SetFeatureFlagRequest.enabled)
+}
+
+// -------------------------------------------------------------------
+
+// SetFeatureFlagResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -13238,6 +15326,10 @@ template <> struct is_proto_enum< ::patchpanel::NeighborReachabilityEventSignal_
 template <> struct is_proto_enum< ::patchpanel::NeighborReachabilityEventSignal_EventType> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::SetDnsRedirectionRuleRequest_RuleType> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::TetheredNetworkRequest_UpstreamTechnology> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_IpProtocol> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_SocketEvent> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::SocketConnectionEvent_QosCategory> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::SetFeatureFlagRequest_FeatureFlag> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::DownstreamNetworkResult> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -32,6 +32,7 @@
 #include <google/protobuf/map_entry_lite.h>
 #include <google/protobuf/map_field_lite.h>
 #include <google/protobuf/generated_enum_util.h>
+#include "vm_applications/apps.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_cicerone_5fservice_2eproto
@@ -1540,6 +1541,7 @@ class NotifyVmStartedRequest final :
     kVmTokenFieldNumber = 4,
     kCidFieldNumber = 3,
     kPidFieldNumber = 5,
+    kVmTypeFieldNumber = 6,
   };
   // string vm_name = 1;
   void clear_vm_name();
@@ -1601,6 +1603,15 @@ class NotifyVmStartedRequest final :
   void _internal_set_pid(uint32_t value);
   public:
 
+  // .vm_tools.apps.VmType vm_type = 6;
+  void clear_vm_type();
+  ::vm_tools::apps::VmType vm_type() const;
+  void set_vm_type(::vm_tools::apps::VmType value);
+  private:
+  ::vm_tools::apps::VmType _internal_vm_type() const;
+  void _internal_set_vm_type(::vm_tools::apps::VmType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.cicerone.NotifyVmStartedRequest)
  private:
   class _Internal;
@@ -1613,6 +1624,7 @@ class NotifyVmStartedRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_token_;
   uint32_t cid_;
   uint32_t pid_;
+  int vm_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cicerone_5fservice_2eproto;
 };
@@ -19185,6 +19197,26 @@ inline void NotifyVmStartedRequest::_internal_set_pid(uint32_t value) {
 inline void NotifyVmStartedRequest::set_pid(uint32_t value) {
   _internal_set_pid(value);
   // @@protoc_insertion_point(field_set:vm_tools.cicerone.NotifyVmStartedRequest.pid)
+}
+
+// .vm_tools.apps.VmType vm_type = 6;
+inline void NotifyVmStartedRequest::clear_vm_type() {
+  vm_type_ = 0;
+}
+inline ::vm_tools::apps::VmType NotifyVmStartedRequest::_internal_vm_type() const {
+  return static_cast< ::vm_tools::apps::VmType >(vm_type_);
+}
+inline ::vm_tools::apps::VmType NotifyVmStartedRequest::vm_type() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.NotifyVmStartedRequest.vm_type)
+  return _internal_vm_type();
+}
+inline void NotifyVmStartedRequest::_internal_set_vm_type(::vm_tools::apps::VmType value) {
+  
+  vm_type_ = value;
+}
+inline void NotifyVmStartedRequest::set_vm_type(::vm_tools::apps::VmType value) {
+  _internal_set_vm_type(value);
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.NotifyVmStartedRequest.vm_type)
 }
 
 // -------------------------------------------------------------------

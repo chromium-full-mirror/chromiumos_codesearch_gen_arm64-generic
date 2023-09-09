@@ -1162,6 +1162,25 @@ return PolicyData_MetricsLogSegment_Name(static_cast<PolicyData_MetricsLogSegmen
 }
 bool PolicyData_MetricsLogSegment_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PolicyData_MetricsLogSegment* value);
+enum DevicePolicyRequest_Reason : int {
+DevicePolicyRequest_Reason_UNSPECIFIED = 0,
+DevicePolicyRequest_Reason_DEVICE_ENROLLMENT = 1
+};
+POLICY_PROTO_EXPORT bool DevicePolicyRequest_Reason_IsValid(int value);
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest_Reason_Reason_MIN = DevicePolicyRequest_Reason_UNSPECIFIED;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest_Reason_Reason_MAX = DevicePolicyRequest_Reason_DEVICE_ENROLLMENT;
+constexpr int DevicePolicyRequest_Reason_Reason_ARRAYSIZE = DevicePolicyRequest_Reason_Reason_MAX + 1;
+
+const std::string& DevicePolicyRequest_Reason_Name(DevicePolicyRequest_Reason value);
+template<typename T>
+inline const std::string& DevicePolicyRequest_Reason_Name(T enum_t_value) {
+static_assert(::std::is_same<T, DevicePolicyRequest_Reason>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function DevicePolicyRequest_Reason_Name.");
+return DevicePolicyRequest_Reason_Name(static_cast<DevicePolicyRequest_Reason>(enum_t_value));
+}
+bool DevicePolicyRequest_Reason_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DevicePolicyRequest_Reason* value);
 enum ActiveTimePeriod_SessionType : int {
 ActiveTimePeriod_SessionType_SESSION_UNKNOWN = 0,
 ActiveTimePeriod_SessionType_SESSION_AFFILIATED_USER = 1,
@@ -2535,11 +2554,12 @@ CertProvBackendError_Error_BAD_PUBLIC_KEY = 5,
 CertProvBackendError_Error_INVALID_SIGNATURE = 6,
 CertProvBackendError_Error_INSTRUCTION_NOT_YET_AVAILABLE = 7,
 CertProvBackendError_Error_CA_UNAVAILABLE = 8,
-CertProvBackendError_Error_CA_FAILURE = 9
+CertProvBackendError_Error_CA_FAILURE = 9,
+CertProvBackendError_Error_PROFILE_NOT_FOUND = 10
 };
 POLICY_PROTO_EXPORT bool CertProvBackendError_Error_IsValid(int value);
 constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MIN = CertProvBackendError_Error_ERROR_UNSPECIFIED;
-constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MAX = CertProvBackendError_Error_CA_FAILURE;
+constexpr CertProvBackendError_Error CertProvBackendError_Error_Error_MAX = CertProvBackendError_Error_PROFILE_NOT_FOUND;
 constexpr int CertProvBackendError_Error_Error_ARRAYSIZE = CertProvBackendError_Error_Error_MAX + 1;
 
 const std::string& CertProvBackendError_Error_Name(CertProvBackendError_Error value);
@@ -8344,10 +8364,37 @@ std::string GetTypeName() const final;
 
 // nested types ----------------------------------------------------
 
+typedef DevicePolicyRequest_Reason Reason;
+static constexpr Reason UNSPECIFIED =
+DevicePolicyRequest_Reason_UNSPECIFIED;
+static constexpr Reason DEVICE_ENROLLMENT =
+DevicePolicyRequest_Reason_DEVICE_ENROLLMENT;
+static inline bool Reason_IsValid(int value) {
+return DevicePolicyRequest_Reason_IsValid(value);
+}
+static constexpr Reason Reason_MIN =
+DevicePolicyRequest_Reason_Reason_MIN;
+static constexpr Reason Reason_MAX =
+DevicePolicyRequest_Reason_Reason_MAX;
+static constexpr int Reason_ARRAYSIZE =
+DevicePolicyRequest_Reason_Reason_ARRAYSIZE;
+template<typename T>
+static inline const std::string& Reason_Name(T enum_t_value) {
+static_assert(::std::is_same<T, Reason>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function Reason_Name.");
+return DevicePolicyRequest_Reason_Name(enum_t_value);
+}
+static inline bool Reason_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+Reason* value) {
+return DevicePolicyRequest_Reason_Parse(name, value);
+}
+
 // accessors -------------------------------------------------------
 
 enum : int {
 kRequestsFieldNumber = 3,
+kReasonFieldNumber = 4,
 };
 // repeated .enterprise_management.PolicyFetchRequest requests = 3;
 int requests_size() const;
@@ -8367,6 +8414,19 @@ const ::enterprise_management::PolicyFetchRequest& requests(int index) const;
 const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_management::PolicyFetchRequest >&
 requests() const;
 
+// optional .enterprise_management.DevicePolicyRequest.Reason reason = 4;
+bool has_reason() const;
+private:
+bool _internal_has_reason() const;
+public:
+void clear_reason();
+::enterprise_management::DevicePolicyRequest_Reason reason() const;
+void set_reason(::enterprise_management::DevicePolicyRequest_Reason value);
+private:
+::enterprise_management::DevicePolicyRequest_Reason _internal_reason() const;
+void _internal_set_reason(::enterprise_management::DevicePolicyRequest_Reason value);
+public:
+
 // @@protoc_insertion_point(class_scope:enterprise_management.DevicePolicyRequest)
 private:
 class _Internal;
@@ -8374,8 +8434,10 @@ class _Internal;
 template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
 typedef void InternalArenaConstructable_;
 typedef void DestructorSkippable_;
-::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_management::PolicyFetchRequest > requests_;
+::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_management::PolicyFetchRequest > requests_;
+int reason_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -40703,6 +40765,8 @@ static constexpr Error CA_UNAVAILABLE =
 CertProvBackendError_Error_CA_UNAVAILABLE;
 static constexpr Error CA_FAILURE =
 CertProvBackendError_Error_CA_FAILURE;
+static constexpr Error PROFILE_NOT_FOUND =
+CertProvBackendError_Error_PROFILE_NOT_FOUND;
 static inline bool Error_IsValid(int value) {
 return CertProvBackendError_Error_IsValid(value);
 }
@@ -49980,6 +50044,35 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_management:
 DevicePolicyRequest::requests() const {
 // @@protoc_insertion_point(field_list:enterprise_management.DevicePolicyRequest.requests)
 return requests_;
+}
+
+// optional .enterprise_management.DevicePolicyRequest.Reason reason = 4;
+inline bool DevicePolicyRequest::_internal_has_reason() const {
+bool value = (_has_bits_[0] & 0x00000001u) != 0;
+return value;
+}
+inline bool DevicePolicyRequest::has_reason() const {
+return _internal_has_reason();
+}
+inline void DevicePolicyRequest::clear_reason() {
+reason_ = 0;
+_has_bits_[0] &= ~0x00000001u;
+}
+inline ::enterprise_management::DevicePolicyRequest_Reason DevicePolicyRequest::_internal_reason() const {
+return static_cast< ::enterprise_management::DevicePolicyRequest_Reason >(reason_);
+}
+inline ::enterprise_management::DevicePolicyRequest_Reason DevicePolicyRequest::reason() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DevicePolicyRequest.reason)
+return _internal_reason();
+}
+inline void DevicePolicyRequest::_internal_set_reason(::enterprise_management::DevicePolicyRequest_Reason value) {
+assert(::enterprise_management::DevicePolicyRequest_Reason_IsValid(value));
+_has_bits_[0] |= 0x00000001u;
+reason_ = value;
+}
+inline void DevicePolicyRequest::set_reason(::enterprise_management::DevicePolicyRequest_Reason value) {
+_internal_set_reason(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DevicePolicyRequest.reason)
 }
 
 // -------------------------------------------------------------------
@@ -87810,6 +87903,7 @@ template <> struct is_proto_enum< ::enterprise_management::PolicyData_Associatio
 template <> struct is_proto_enum< ::enterprise_management::PolicyData_ManagementMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::PolicyData_MarketSegment> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::PolicyData_MetricsLogSegment> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::DevicePolicyRequest_Reason> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::ActiveTimePeriod_SessionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::NetworkInterface_NetworkDeviceType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::NetworkState_ConnectionState> : ::std::true_type {};
