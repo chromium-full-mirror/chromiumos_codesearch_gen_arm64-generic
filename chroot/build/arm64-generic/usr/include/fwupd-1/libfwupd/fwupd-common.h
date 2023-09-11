@@ -59,9 +59,7 @@ typedef enum {
 } FwupdGuidFlags;
 
 /* GObject Introspection does not understand typedefs with sizes */
-#ifdef __GI_SCANNER__
-typedef guint8 *fwupd_guid_t;
-#else
+#ifndef __GI_SCANNER__
 typedef guint8 fwupd_guid_t[16];
 #endif
 
