@@ -28,13 +28,6 @@ class MockObjectProxy : public ObjectProxy {
       CallMethodAndBlock,
       base::expected<std::unique_ptr<Response>, Error>(MethodCall* method_call,
                                                        int timeout_ms));
-  MOCK_METHOD3(CallMethodAndBlockWithErrorDetails,
-               std::unique_ptr<Response>(MethodCall* method_call,
-                                         int timeout_ms,
-                                         Error* error));
-  MOCK_METHOD2(CallMethodAndBlockDeprecated,
-               std::unique_ptr<Response>(MethodCall* method_call,
-                                         int timeout_ms));
 
   // This method is not mockable because it takes a move-only argument. To work
   // around this, CallMethod() implementation here calls DoCallMethod() which is

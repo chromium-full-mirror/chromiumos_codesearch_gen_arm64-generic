@@ -51,7 +51,7 @@ class FanInfo_Data;
 class StatefulPartitionInfo_Data;
 class BluetoothAdapterInfo_Data;
 class BluetoothDeviceInfo_Data;
-class SupportedCapabilities_Data;
+class DEPRECATE_SupportedCapabilities_Data;
 class SystemInfo_Data;
 class OsInfo_Data;
 class OsVersion_Data;
@@ -3659,7 +3659,7 @@ class  BluetoothAdapterInfo_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> uuids;
   mojo::internal::Pointer<mojo::internal::String_Data> modalias;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> service_allow_list;
-  mojo::internal::Pointer<internal::SupportedCapabilities_Data> supported_capabilities;
+  mojo::internal::Pointer<internal::DEPRECATE_SupportedCapabilities_Data> deprecate_supported_capabilities;
 
  private:
   friend class mojo::internal::MessageFragment<BluetoothAdapterInfo_Data>;
@@ -3759,7 +3759,7 @@ struct BluetoothDeviceInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     BluetoothDeviceInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  SupportedCapabilities_Data {
+class  DEPRECATE_SupportedCapabilities_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -3772,27 +3772,27 @@ class  SupportedCapabilities_Data {
   uint8_t padfinal_[2];
 
  private:
-  friend class mojo::internal::MessageFragment<SupportedCapabilities_Data>;
+  friend class mojo::internal::MessageFragment<DEPRECATE_SupportedCapabilities_Data>;
 
-  SupportedCapabilities_Data();
-  ~SupportedCapabilities_Data() = delete;
+  DEPRECATE_SupportedCapabilities_Data();
+  ~DEPRECATE_SupportedCapabilities_Data() = delete;
 };
-static_assert(sizeof(SupportedCapabilities_Data) == 16,
-              "Bad sizeof(SupportedCapabilities_Data)");
-// Used by SupportedCapabilities::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(DEPRECATE_SupportedCapabilities_Data) == 16,
+              "Bad sizeof(DEPRECATE_SupportedCapabilities_Data)");
+// Used by DEPRECATE_SupportedCapabilities::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct SupportedCapabilities_UnserializedMessageContext
+struct DEPRECATE_SupportedCapabilities_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  SupportedCapabilities_UnserializedMessageContext(
+  DEPRECATE_SupportedCapabilities_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~SupportedCapabilities_UnserializedMessageContext() override = default;
+  ~DEPRECATE_SupportedCapabilities_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -3801,7 +3801,7 @@ struct SupportedCapabilities_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<SupportedCapabilities_Data> fragment(message);
+    mojo::internal::MessageFragment<DEPRECATE_SupportedCapabilities_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -3810,7 +3810,7 @@ struct SupportedCapabilities_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    SupportedCapabilities_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    DEPRECATE_SupportedCapabilities_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  SystemInfo_Data {
  public:
   static bool Validate(const void* data,

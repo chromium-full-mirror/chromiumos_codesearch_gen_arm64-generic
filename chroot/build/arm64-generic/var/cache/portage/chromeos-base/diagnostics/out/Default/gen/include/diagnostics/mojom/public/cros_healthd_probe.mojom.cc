@@ -2138,7 +2138,7 @@ BluetoothAdapterInfo::BluetoothAdapterInfo()
       uuids(),
       modalias(),
       service_allow_list(),
-      supported_capabilities() {}
+      deprecate_supported_capabilities() {}
 
 BluetoothAdapterInfo::BluetoothAdapterInfo(
     const std::string& name_in,
@@ -2155,7 +2155,7 @@ BluetoothAdapterInfo::BluetoothAdapterInfo(
       uuids(),
       modalias(),
       service_allow_list(),
-      supported_capabilities() {}
+      deprecate_supported_capabilities() {}
 
 BluetoothAdapterInfo::BluetoothAdapterInfo(
     const std::string& name_in,
@@ -2177,7 +2177,7 @@ BluetoothAdapterInfo::BluetoothAdapterInfo(
       uuids(std::move(uuids_in)),
       modalias(std::move(modalias_in)),
       service_allow_list(),
-      supported_capabilities() {}
+      deprecate_supported_capabilities() {}
 
 BluetoothAdapterInfo::BluetoothAdapterInfo(
     const std::string& name_in,
@@ -2190,7 +2190,7 @@ BluetoothAdapterInfo::BluetoothAdapterInfo(
     absl::optional<std::vector<std::string>> uuids_in,
     const absl::optional<std::string>& modalias_in,
     absl::optional<std::vector<std::string>> service_allow_list_in,
-    SupportedCapabilitiesPtr supported_capabilities_in)
+    DEPRECATE_SupportedCapabilitiesPtr deprecate_supported_capabilities_in)
     : name(std::move(name_in)),
       address(std::move(address_in)),
       powered(std::move(powered_in)),
@@ -2201,7 +2201,7 @@ BluetoothAdapterInfo::BluetoothAdapterInfo(
       uuids(std::move(uuids_in)),
       modalias(std::move(modalias_in)),
       service_allow_list(std::move(service_allow_list_in)),
-      supported_capabilities(std::move(supported_capabilities_in)) {}
+      deprecate_supported_capabilities(std::move(deprecate_supported_capabilities_in)) {}
 
 BluetoothAdapterInfo::~BluetoothAdapterInfo() = default;
 
@@ -2300,9 +2300,9 @@ void BluetoothAdapterInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "supported_capabilities"), this->supported_capabilities,
+      "deprecate_supported_capabilities"), this->deprecate_supported_capabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type SupportedCapabilitiesPtr>"
+      "<value of type DEPRECATE_SupportedCapabilitiesPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2491,13 +2491,13 @@ bool BluetoothDeviceInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-SupportedCapabilities::SupportedCapabilities()
+DEPRECATE_SupportedCapabilities::DEPRECATE_SupportedCapabilities()
     : max_adv_len(),
       max_scn_rsp_len(),
       min_tx_power(),
       max_tx_power() {}
 
-SupportedCapabilities::SupportedCapabilities(
+DEPRECATE_SupportedCapabilities::DEPRECATE_SupportedCapabilities(
     uint8_t max_adv_len_in,
     uint8_t max_scn_rsp_len_in,
     int16_t min_tx_power_in,
@@ -2507,8 +2507,8 @@ SupportedCapabilities::SupportedCapabilities(
       min_tx_power(std::move(min_tx_power_in)),
       max_tx_power(std::move(max_tx_power_in)) {}
 
-SupportedCapabilities::~SupportedCapabilities() = default;
-size_t SupportedCapabilities::Hash(size_t seed) const {
+DEPRECATE_SupportedCapabilities::~DEPRECATE_SupportedCapabilities() = default;
+size_t DEPRECATE_SupportedCapabilities::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->max_adv_len);
   seed = mojo::internal::Hash(seed, this->max_scn_rsp_len);
   seed = mojo::internal::Hash(seed, this->min_tx_power);
@@ -2516,7 +2516,7 @@ size_t SupportedCapabilities::Hash(size_t seed) const {
   return seed;
 }
 
-void SupportedCapabilities::WriteIntoTrace(
+void DEPRECATE_SupportedCapabilities::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
@@ -2557,7 +2557,7 @@ void SupportedCapabilities::WriteIntoTrace(
     );
 }
 
-bool SupportedCapabilities::Validate(
+bool DEPRECATE_SupportedCapabilities::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -8937,7 +8937,7 @@ bool StructTraits<::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView, ::
         success = false;
       if (success && !input.ReadServiceAllowList(&result->service_allow_list))
         success = false;
-      if (success && !input.ReadSupportedCapabilities(&result->supported_capabilities))
+      if (success && !input.ReadDeprecateSupportedCapabilities(&result->deprecate_supported_capabilities))
         success = false;
   *output = std::move(result);
   return success;
@@ -8977,11 +8977,11 @@ bool StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView, ::a
 
 
 // static
-bool StructTraits<::ash::cros_healthd::mojom::SupportedCapabilities::DataView, ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr>::Read(
-    ::ash::cros_healthd::mojom::SupportedCapabilities::DataView input,
-    ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::DataView, ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr>::Read(
+    ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::DataView input,
+    ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr* output) {
   bool success = true;
-  ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr result(::ash::cros_healthd::mojom::SupportedCapabilities::New());
+  ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr result(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::New());
   
       if (success)
         result->max_adv_len = input.max_adv_len();

@@ -3595,7 +3595,7 @@ bool BluetoothAdapterInfo_Data::Validate(
   if (object->header_.version < 2)
     return true;
 
-  if (!mojo::internal::ValidateStruct(object->supported_capabilities, validation_context))
+  if (!mojo::internal::ValidateStruct(object->deprecate_supported_capabilities, validation_context))
     return false;
 
   return true;
@@ -3690,7 +3690,7 @@ BluetoothDeviceInfo_Data::BluetoothDeviceInfo_Data()
 
 
 // static
-bool SupportedCapabilities_Data::Validate(
+bool DEPRECATE_SupportedCapabilities_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -3702,13 +3702,13 @@ bool SupportedCapabilities_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const SupportedCapabilities_Data* object =
-      static_cast<const SupportedCapabilities_Data*>(data);
+  [[maybe_unused]] const DEPRECATE_SupportedCapabilities_Data* object =
+      static_cast<const DEPRECATE_SupportedCapabilities_Data*>(data);
 
   return true;
 }
 
-SupportedCapabilities_Data::SupportedCapabilities_Data()
+DEPRECATE_SupportedCapabilities_Data::DEPRECATE_SupportedCapabilities_Data()
     : header_({sizeof(*this), 0}) {}
 
 

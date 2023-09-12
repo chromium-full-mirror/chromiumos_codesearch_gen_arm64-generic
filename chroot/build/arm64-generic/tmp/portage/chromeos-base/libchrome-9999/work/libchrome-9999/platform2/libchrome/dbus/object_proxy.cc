@@ -151,25 +151,6 @@ ObjectProxy::CallMethodAndBlock(MethodCall* method_call, int timeout_ms) {
   return result;
 }
 
-std::unique_ptr<Response> ObjectProxy::CallMethodAndBlockWithErrorDetails(
-    MethodCall* method_call,
-    int timeout_ms,
-    Error* error) {
-  auto result = CallMethodAndBlock(method_call, timeout_ms);
-  if (result.has_value()) {
-    return std::move(result.value());
-  } else {
-    *error = std::move(result.error());
-    return nullptr;
-  }
-}
-
-std::unique_ptr<Response> ObjectProxy::CallMethodAndBlockDeprecated(
-    MethodCall* method_call,
-    int timeout_ms) {
-  return CallMethodAndBlock(method_call, timeout_ms).value_or(nullptr);
-}
-
 void ObjectProxy::CallMethod(MethodCall* method_call,
                              int timeout_ms,
                              ResponseCallback callback) {

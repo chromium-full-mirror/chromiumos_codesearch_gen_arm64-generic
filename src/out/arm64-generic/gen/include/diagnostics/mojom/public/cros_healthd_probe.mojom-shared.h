@@ -84,7 +84,7 @@ class BluetoothAdapterInfoDataView;
 
 class BluetoothDeviceInfoDataView;
 
-class SupportedCapabilitiesDataView;
+class DEPRECATE_SupportedCapabilitiesDataView;
 
 class SystemInfoDataView;
 
@@ -379,8 +379,8 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView> 
 };
 
 template <>
-struct MojomTypeTraits<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView> {
-  using Data = ::ash::cros_healthd::mojom::internal::SupportedCapabilities_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::DEPRECATE_SupportedCapabilities_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -3028,25 +3028,25 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
-  inline void GetSupportedCapabilitiesDataView(
-      SupportedCapabilitiesDataView* output);
+  inline void GetDeprecateSupportedCapabilitiesDataView(
+      DEPRECATE_SupportedCapabilitiesDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadSupportedCapabilities(UserType* output) {
+  [[nodiscard]] bool ReadDeprecateSupportedCapabilities(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::ash::cros_healthd::mojom::SupportedCapabilitiesDataView, UserType>(),
-    "Attempting to read the optional `supported_capabilities` field into a type which "
+        ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesDataView, UserType>(),
+    "Attempting to read the optional `deprecate_supported_capabilities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadSupportedCapabilities` instead "
-    "of `ReadSupportedCapabilities if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadDeprecateSupportedCapabilities` instead "
+    "of `ReadDeprecateSupportedCapabilities if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 2
-                    ? data_->supported_capabilities.Get() : nullptr;
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView>(
+                    ? data_->deprecate_supported_capabilities.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesDataView>(
         pointer, output, message_);
   }
  private:
@@ -3253,12 +3253,12 @@ static_assert(
 };
 
 
-class SupportedCapabilitiesDataView {
+class DEPRECATE_SupportedCapabilitiesDataView {
  public:
-  SupportedCapabilitiesDataView() = default;
+  DEPRECATE_SupportedCapabilitiesDataView() = default;
 
-  SupportedCapabilitiesDataView(
-      internal::SupportedCapabilities_Data* data,
+  DEPRECATE_SupportedCapabilitiesDataView(
+      internal::DEPRECATE_SupportedCapabilities_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -3276,7 +3276,7 @@ class SupportedCapabilitiesDataView {
     return data_->max_tx_power;
   }
  private:
-  internal::SupportedCapabilities_Data* data_ = nullptr;
+  internal::DEPRECATE_SupportedCapabilities_Data* data_ = nullptr;
 };
 
 
@@ -10034,14 +10034,14 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView, Mayb
         in_service_allow_list, service_allow_list_fragment, &service_allow_list_validate_params);
     fragment->service_allow_list.Set(
         service_allow_list_fragment.is_null() ? nullptr : service_allow_list_fragment.data());
-    decltype(Traits::supported_capabilities(input)) in_supported_capabilities = Traits::supported_capabilities(input);
+    decltype(Traits::deprecate_supported_capabilities(input)) in_deprecate_supported_capabilities = Traits::deprecate_supported_capabilities(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->supported_capabilities)::BaseType> supported_capabilities_fragment(
+        typename decltype(fragment->deprecate_supported_capabilities)::BaseType> deprecate_supported_capabilities_fragment(
             fragment.message());
-    mojo::internal::Serialize<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView>(
-        in_supported_capabilities, supported_capabilities_fragment);
-    fragment->supported_capabilities.Set(
-        supported_capabilities_fragment.is_null() ? nullptr : supported_capabilities_fragment.data());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesDataView>(
+        in_deprecate_supported_capabilities, deprecate_supported_capabilities_fragment);
+    fragment->deprecate_supported_capabilities.Set(
+        deprecate_supported_capabilities_fragment.is_null() ? nullptr : deprecate_supported_capabilities_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothAdapterInfo_Data* input,
@@ -10170,13 +10170,13 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SupportedCapabilities_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::DEPRECATE_SupportedCapabilities_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10186,13 +10186,13 @@ struct Serializer<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView, May
     fragment->max_tx_power = Traits::max_tx_power(input);
   }
 
-  static bool Deserialize(::ash::cros_healthd::mojom::internal::SupportedCapabilities_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::DEPRECATE_SupportedCapabilities_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::ash::cros_healthd::mojom::SupportedCapabilitiesDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -15344,11 +15344,11 @@ inline void BluetoothAdapterInfoDataView::GetServiceAllowListDataView(
                  ? data_->service_allow_list.Get() : nullptr;
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
-inline void BluetoothAdapterInfoDataView::GetSupportedCapabilitiesDataView(
-    SupportedCapabilitiesDataView* output) {
+inline void BluetoothAdapterInfoDataView::GetDeprecateSupportedCapabilitiesDataView(
+    DEPRECATE_SupportedCapabilitiesDataView* output) {
   auto pointer = data_->header_.version >= 2
-                 ? data_->supported_capabilities.Get() : nullptr;
-  *output = SupportedCapabilitiesDataView(pointer, message_);
+                 ? data_->deprecate_supported_capabilities.Get() : nullptr;
+  *output = DEPRECATE_SupportedCapabilitiesDataView(pointer, message_);
 }
 
 

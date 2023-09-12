@@ -116,13 +116,6 @@ class CHROME_DBUS_EXPORT ObjectProxy
   virtual base::expected<std::unique_ptr<Response>, Error> CallMethodAndBlock(
       MethodCall* method_call,
       int timeout_ms);
-  virtual std::unique_ptr<Response> CallMethodAndBlockWithErrorDetails(
-      MethodCall* method_call,
-      int timeout_ms,
-      Error* error);
-  virtual std::unique_ptr<Response> CallMethodAndBlockDeprecated(
-      MethodCall* method_call,
-      int timeout_ms);
 
   // Requests to call the method of the remote object.
   //

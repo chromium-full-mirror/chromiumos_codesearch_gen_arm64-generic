@@ -3,7 +3,6 @@
 //  - org.bluez.AdminPolicyStatus1
 //  - org.bluez.Battery1
 //  - org.bluez.Device1
-//  - org.bluez.LEAdvertisingManager1
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_BLUETOOTH_DBUS_PROXY_MOCKS_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_BLUETOOTH_DBUS_PROXY_MOCKS_H
 #include <string>
@@ -239,31 +238,6 @@ class Device1ProxyMock : public Device1ProxyInterface {
   MOCK_METHOD(void,
               SetPropertyChangedCallback,
               ((const base::RepeatingCallback<void(Device1ProxyInterface*,
-                                                   const std::string&)>&)),
-              (override));
-};
-}  // namespace bluez
-}  // namespace org
-
-namespace org {
-namespace bluez {
-
-// Mock object for LEAdvertisingManager1ProxyInterface.
-class LEAdvertisingManager1ProxyMock : public LEAdvertisingManager1ProxyInterface {
- public:
-  LEAdvertisingManager1ProxyMock() = default;
-  LEAdvertisingManager1ProxyMock(const LEAdvertisingManager1ProxyMock&) = delete;
-  LEAdvertisingManager1ProxyMock& operator=(const LEAdvertisingManager1ProxyMock&) = delete;
-
-  MOCK_METHOD(const brillo::VariantDictionary&, supported_capabilities, (), (const, override));
-  MOCK_METHOD(bool, is_supported_capabilities_valid, (), (const, override));
-
-  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
-  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
-
-  MOCK_METHOD(void,
-              SetPropertyChangedCallback,
-              ((const base::RepeatingCallback<void(LEAdvertisingManager1ProxyInterface*,
                                                    const std::string&)>&)),
               (override));
 };

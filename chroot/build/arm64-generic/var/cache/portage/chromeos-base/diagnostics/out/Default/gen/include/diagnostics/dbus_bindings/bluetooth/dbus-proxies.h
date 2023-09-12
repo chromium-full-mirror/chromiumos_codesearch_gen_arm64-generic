@@ -3,7 +3,6 @@
 //  - org.bluez.AdminPolicyStatus1
 //  - org.bluez.Battery1
 //  - org.bluez.Device1
-//  - org.bluez.LEAdvertisingManager1
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_BLUETOOTH_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_DIAGNOSTICS_OUT_DEFAULT_GEN_INCLUDE_DIAGNOSTICS_DBUS_BINDINGS_BLUETOOTH_DBUS_PROXIES_H
 #include <memory>
@@ -938,114 +937,6 @@ class Device1Proxy final : public Device1ProxyInterface {
 }  // namespace org
 
 namespace org {
-namespace bluez {
-
-// Abstract interface proxy for org::bluez::LEAdvertisingManager1.
-class LEAdvertisingManager1ProxyInterface {
- public:
-  virtual ~LEAdvertisingManager1ProxyInterface() = default;
-
-  static const char* SupportedCapabilitiesName() { return "SupportedCapabilities"; }
-  virtual const brillo::VariantDictionary& supported_capabilities() const = 0;
-  virtual bool is_supported_capabilities_valid() const = 0;
-
-  virtual const dbus::ObjectPath& GetObjectPath() const = 0;
-  virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
-
-  virtual void SetPropertyChangedCallback(
-      const base::RepeatingCallback<void(LEAdvertisingManager1ProxyInterface*, const std::string&)>& callback) = 0;
-};
-
-}  // namespace bluez
-}  // namespace org
-
-namespace org {
-namespace bluez {
-
-// Interface proxy for org::bluez::LEAdvertisingManager1.
-class LEAdvertisingManager1Proxy final : public LEAdvertisingManager1ProxyInterface {
- public:
-  class PropertySet : public dbus::PropertySet {
-   public:
-    PropertySet(dbus::ObjectProxy* object_proxy,
-                const PropertyChangedCallback& callback)
-        : dbus::PropertySet{object_proxy,
-                            "org.bluez.LEAdvertisingManager1",
-                            callback} {
-      RegisterProperty(SupportedCapabilitiesName(), &supported_capabilities);
-    }
-    PropertySet(const PropertySet&) = delete;
-    PropertySet& operator=(const PropertySet&) = delete;
-
-    brillo::dbus_utils::Property<brillo::VariantDictionary> supported_capabilities;
-
-  };
-
-  LEAdvertisingManager1Proxy(
-      const scoped_refptr<dbus::Bus>& bus,
-      const dbus::ObjectPath& object_path,
-      PropertySet* property_set) :
-          bus_{bus},
-          object_path_{object_path},
-          property_set_{property_set},
-          dbus_object_proxy_{
-              bus_->GetObjectProxy(service_name_, object_path_)} {
-  }
-
-  LEAdvertisingManager1Proxy(const LEAdvertisingManager1Proxy&) = delete;
-  LEAdvertisingManager1Proxy& operator=(const LEAdvertisingManager1Proxy&) = delete;
-
-  ~LEAdvertisingManager1Proxy() override {
-  }
-
-  void ReleaseObjectProxy(base::OnceClosure callback) {
-    bus_->RemoveObjectProxy(service_name_, object_path_, std::move(callback));
-  }
-
-  const dbus::ObjectPath& GetObjectPath() const override {
-    return object_path_;
-  }
-
-  dbus::ObjectProxy* GetObjectProxy() const override {
-    return dbus_object_proxy_;
-  }
-
-  void SetPropertyChangedCallback(
-      const base::RepeatingCallback<void(LEAdvertisingManager1ProxyInterface*, const std::string&)>& callback) override {
-    on_property_changed_ = callback;
-  }
-
-  const PropertySet* GetProperties() const { return &(*property_set_); }
-  PropertySet* GetProperties() { return &(*property_set_); }
-
-  const brillo::VariantDictionary& supported_capabilities() const override {
-    return property_set_->supported_capabilities.value();
-  }
-
-  bool is_supported_capabilities_valid() const override {
-    return property_set_->supported_capabilities.is_valid();
-  }
-
- private:
-  void OnPropertyChanged(const std::string& property_name) {
-    if (!on_property_changed_.is_null())
-      on_property_changed_.Run(this, property_name);
-  }
-
-  scoped_refptr<dbus::Bus> bus_;
-  const std::string service_name_{"org.bluez"};
-  dbus::ObjectPath object_path_;
-  PropertySet* property_set_;
-  base::RepeatingCallback<void(LEAdvertisingManager1ProxyInterface*, const std::string&)> on_property_changed_;
-  dbus::ObjectProxy* dbus_object_proxy_;
-
-  friend class org::bluezProxy;
-};
-
-}  // namespace bluez
-}  // namespace org
-
-namespace org {
 
 class bluezProxy : public dbus::ObjectManager::Interface {
  public:
@@ -1058,7 +949,6 @@ class bluezProxy : public dbus::ObjectManager::Interface {
     dbus_object_manager_->RegisterInterface("org.bluez.AdminPolicyStatus1", this);
     dbus_object_manager_->RegisterInterface("org.bluez.Battery1", this);
     dbus_object_manager_->RegisterInterface("org.bluez.Device1", this);
-    dbus_object_manager_->RegisterInterface("org.bluez.LEAdvertisingManager1", this);
   }
 
   bluezProxy(const bluezProxy&) = delete;
@@ -1069,7 +959,6 @@ class bluezProxy : public dbus::ObjectManager::Interface {
     dbus_object_manager_->UnregisterInterface("org.bluez.AdminPolicyStatus1");
     dbus_object_manager_->UnregisterInterface("org.bluez.Battery1");
     dbus_object_manager_->UnregisterInterface("org.bluez.Device1");
-    dbus_object_manager_->UnregisterInterface("org.bluez.LEAdvertisingManager1");
   }
 
   dbus::ObjectManager* GetObjectManagerProxy() const {
@@ -1168,29 +1057,6 @@ class bluezProxy : public dbus::ObjectManager::Interface {
     on_device1_removed_ = callback;
   }
 
-  org::bluez::LEAdvertisingManager1ProxyInterface* GetLEAdvertisingManager1Proxy(
-      const dbus::ObjectPath& object_path) {
-    auto p = leadvertising_manager1_instances_.find(object_path);
-    if (p != leadvertising_manager1_instances_.end())
-      return p->second.get();
-    return nullptr;
-  }
-  std::vector<org::bluez::LEAdvertisingManager1ProxyInterface*> GetLEAdvertisingManager1Instances() const {
-    std::vector<org::bluez::LEAdvertisingManager1ProxyInterface*> values;
-    values.reserve(leadvertising_manager1_instances_.size());
-    for (const auto& pair : leadvertising_manager1_instances_)
-      values.push_back(pair.second.get());
-    return values;
-  }
-  void SetLEAdvertisingManager1AddedCallback(
-      const base::RepeatingCallback<void(org::bluez::LEAdvertisingManager1ProxyInterface*)>& callback) {
-    on_leadvertising_manager1_added_ = callback;
-  }
-  void SetLEAdvertisingManager1RemovedCallback(
-      const base::RepeatingCallback<void(const dbus::ObjectPath&)>& callback) {
-    on_leadvertising_manager1_removed_ = callback;
-  }
-
  private:
   void OnPropertyChanged(const dbus::ObjectPath& object_path,
                          const std::string& interface_name,
@@ -1219,13 +1085,6 @@ class bluezProxy : public dbus::ObjectManager::Interface {
     if (interface_name == "org.bluez.Device1") {
       auto p = device1_instances_.find(object_path);
       if (p == device1_instances_.end())
-        return;
-      p->second->OnPropertyChanged(property_name);
-      return;
-    }
-    if (interface_name == "org.bluez.LEAdvertisingManager1") {
-      auto p = leadvertising_manager1_instances_.find(object_path);
-      if (p == leadvertising_manager1_instances_.end())
         return;
       p->second->OnPropertyChanged(property_name);
       return;
@@ -1283,18 +1142,6 @@ class bluezProxy : public dbus::ObjectManager::Interface {
         on_device1_added_.Run(p.first->second.get());
       return;
     }
-    if (interface_name == "org.bluez.LEAdvertisingManager1") {
-      auto property_set =
-          static_cast<org::bluez::LEAdvertisingManager1Proxy::PropertySet*>(
-              dbus_object_manager_->GetProperties(object_path, interface_name));
-      std::unique_ptr<org::bluez::LEAdvertisingManager1Proxy> leadvertising_manager1_proxy{
-        new org::bluez::LEAdvertisingManager1Proxy{bus_, object_path, property_set}
-      };
-      auto p = leadvertising_manager1_instances_.emplace(object_path, std::move(leadvertising_manager1_proxy));
-      if (!on_leadvertising_manager1_added_.is_null())
-        on_leadvertising_manager1_added_.Run(p.first->second.get());
-      return;
-    }
   }
 
   void ObjectRemoved(
@@ -1333,15 +1180,6 @@ class bluezProxy : public dbus::ObjectManager::Interface {
         if (!on_device1_removed_.is_null())
           on_device1_removed_.Run(object_path);
         device1_instances_.erase(p);
-      }
-      return;
-    }
-    if (interface_name == "org.bluez.LEAdvertisingManager1") {
-      auto p = leadvertising_manager1_instances_.find(object_path);
-      if (p != leadvertising_manager1_instances_.end()) {
-        if (!on_leadvertising_manager1_removed_.is_null())
-          on_leadvertising_manager1_removed_.Run(object_path);
-        leadvertising_manager1_instances_.erase(p);
       }
       return;
     }
@@ -1387,15 +1225,6 @@ class bluezProxy : public dbus::ObjectManager::Interface {
                               interface_name)
       };
     }
-    if (interface_name == "org.bluez.LEAdvertisingManager1") {
-      return new org::bluez::LEAdvertisingManager1Proxy::PropertySet{
-          object_proxy,
-          base::BindRepeating(&bluezProxy::OnPropertyChanged,
-                              weak_ptr_factory_.GetWeakPtr(),
-                              object_path,
-                              interface_name)
-      };
-    }
     LOG(FATAL) << "Creating properties for unsupported interface "
                << interface_name;
     return nullptr;
@@ -1419,10 +1248,6 @@ class bluezProxy : public dbus::ObjectManager::Interface {
            std::unique_ptr<org::bluez::Device1Proxy>> device1_instances_;
   base::RepeatingCallback<void(org::bluez::Device1ProxyInterface*)> on_device1_added_;
   base::RepeatingCallback<void(const dbus::ObjectPath&)> on_device1_removed_;
-  std::map<dbus::ObjectPath,
-           std::unique_ptr<org::bluez::LEAdvertisingManager1Proxy>> leadvertising_manager1_instances_;
-  base::RepeatingCallback<void(org::bluez::LEAdvertisingManager1ProxyInterface*)> on_leadvertising_manager1_added_;
-  base::RepeatingCallback<void(const dbus::ObjectPath&)> on_leadvertising_manager1_removed_;
   base::WeakPtrFactory<bluezProxy> weak_ptr_factory_{this};
 };
 

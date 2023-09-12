@@ -72,7 +72,7 @@ class BluetoothAdapterInfoDataView;
 
 class BluetoothDeviceInfoDataView;
 
-class SupportedCapabilitiesDataView;
+class DEPRECATE_SupportedCapabilitiesDataView;
 
 class SystemInfoDataView;
 
@@ -309,8 +309,8 @@ using BluetoothAdapterInfoPtr = mojo::StructPtr<BluetoothAdapterInfo>;
 class BluetoothDeviceInfo;
 using BluetoothDeviceInfoPtr = mojo::StructPtr<BluetoothDeviceInfo>;
 
-class SupportedCapabilities;
-using SupportedCapabilitiesPtr = mojo::InlinedStructPtr<SupportedCapabilities>;
+class DEPRECATE_SupportedCapabilities;
+using DEPRECATE_SupportedCapabilitiesPtr = mojo::InlinedStructPtr<DEPRECATE_SupportedCapabilities>;
 
 class SystemInfo;
 using SystemInfoPtr = mojo::StructPtr<SystemInfo>;

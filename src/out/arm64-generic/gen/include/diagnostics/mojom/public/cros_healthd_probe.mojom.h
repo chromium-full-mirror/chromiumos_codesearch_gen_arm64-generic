@@ -2242,69 +2242,69 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  SupportedCapabilities {
+class  DEPRECATE_SupportedCapabilities {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<SupportedCapabilities, T>::value>;
-  using DataView = SupportedCapabilitiesDataView;
-  using Data_ = internal::SupportedCapabilities_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<DEPRECATE_SupportedCapabilities, T>::value>;
+  using DataView = DEPRECATE_SupportedCapabilitiesDataView;
+  using Data_ = internal::DEPRECATE_SupportedCapabilities_Data;
 
   template <typename... Args>
-  static SupportedCapabilitiesPtr New(Args&&... args) {
-    return SupportedCapabilitiesPtr(
+  static DEPRECATE_SupportedCapabilitiesPtr New(Args&&... args) {
+    return DEPRECATE_SupportedCapabilitiesPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static SupportedCapabilitiesPtr From(const U& u) {
-    return mojo::TypeConverter<SupportedCapabilitiesPtr, U>::Convert(u);
+  static DEPRECATE_SupportedCapabilitiesPtr From(const U& u) {
+    return mojo::TypeConverter<DEPRECATE_SupportedCapabilitiesPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, SupportedCapabilities>::Convert(*this);
+    return mojo::TypeConverter<U, DEPRECATE_SupportedCapabilities>::Convert(*this);
   }
 
 
-  SupportedCapabilities();
+  DEPRECATE_SupportedCapabilities();
 
-  SupportedCapabilities(
+  DEPRECATE_SupportedCapabilities(
       uint8_t max_adv_len,
       uint8_t max_scn_rsp_len,
       int16_t min_tx_power,
       int16_t max_tx_power);
 
 
-  ~SupportedCapabilities();
+  ~DEPRECATE_SupportedCapabilities();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = SupportedCapabilitiesPtr>
-  SupportedCapabilitiesPtr Clone() const;
+  template <typename StructPtrType = DEPRECATE_SupportedCapabilitiesPtr>
+  DEPRECATE_SupportedCapabilitiesPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, SupportedCapabilities::EnableIfSame<T>* = nullptr>
+  template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, SupportedCapabilities::EnableIfSame<T>* = nullptr>
+  template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, SupportedCapabilities::EnableIfSame<T>* = nullptr>
+  template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        SupportedCapabilities::DataView, std::vector<uint8_t>>(input);
+        DEPRECATE_SupportedCapabilities::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        SupportedCapabilities::DataView>(input);
+        DEPRECATE_SupportedCapabilities::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -2314,8 +2314,8 @@ class  SupportedCapabilities {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::SupportedCapabilities_UnserializedMessageContext<
-            UserType, SupportedCapabilities::DataView>>(0, 0, std::move(input)),
+        internal::DEPRECATE_SupportedCapabilities_UnserializedMessageContext<
+            UserType, DEPRECATE_SupportedCapabilities::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -2324,14 +2324,14 @@ class  SupportedCapabilities {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<SupportedCapabilities::DataView>(
+    return mojo::internal::DeserializeImpl<DEPRECATE_SupportedCapabilities::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return SupportedCapabilities::Deserialize(
+    return DEPRECATE_SupportedCapabilities::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -2339,14 +2339,14 @@ class  SupportedCapabilities {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::SupportedCapabilities_UnserializedMessageContext<
-            UserType, SupportedCapabilities::DataView>>();
+        internal::DEPRECATE_SupportedCapabilities_UnserializedMessageContext<
+            UserType, DEPRECATE_SupportedCapabilities::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<SupportedCapabilities::DataView>(
+    return mojo::internal::DeserializeImpl<DEPRECATE_SupportedCapabilities::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
@@ -2370,20 +2370,20 @@ class  SupportedCapabilities {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, SupportedCapabilities::EnableIfSame<T>* = nullptr>
+template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, SupportedCapabilities::EnableIfSame<T>* = nullptr>
+template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, SupportedCapabilities::EnableIfSame<T>* = nullptr>
+template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, SupportedCapabilities::EnableIfSame<T>* = nullptr>
+template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -9422,7 +9422,7 @@ class  BluetoothAdapterInfo {
       absl::optional<std::vector<std::string>> uuids,
       const absl::optional<std::string>& modalias,
       absl::optional<std::vector<std::string>> service_allow_list,
-      SupportedCapabilitiesPtr supported_capabilities);
+      DEPRECATE_SupportedCapabilitiesPtr deprecate_supported_capabilities);
 
 BluetoothAdapterInfo(const BluetoothAdapterInfo&) = delete;
 BluetoothAdapterInfo& operator=(const BluetoothAdapterInfo&) = delete;
@@ -9522,7 +9522,7 @@ BluetoothAdapterInfo& operator=(const BluetoothAdapterInfo&) = delete;
   
   absl::optional<std::vector<std::string>> service_allow_list;
   
-  SupportedCapabilitiesPtr supported_capabilities;
+  DEPRECATE_SupportedCapabilitiesPtr deprecate_supported_capabilities;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -17031,7 +17031,7 @@ BluetoothAdapterInfoPtr BluetoothAdapterInfo::Clone() const {
       mojo::Clone(uuids),
       mojo::Clone(modalias),
       mojo::Clone(service_allow_list),
-      mojo::Clone(supported_capabilities)
+      mojo::Clone(deprecate_supported_capabilities)
   );
 }
 
@@ -17057,7 +17057,7 @@ bool BluetoothAdapterInfo::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->service_allow_list, other_struct.service_allow_list))
     return false;
-  if (!mojo::Equals(this->supported_capabilities, other_struct.supported_capabilities))
+  if (!mojo::Equals(this->deprecate_supported_capabilities, other_struct.deprecate_supported_capabilities))
     return false;
   return true;
 }
@@ -17104,9 +17104,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.service_allow_list < lhs.service_allow_list)
     return false;
-  if (lhs.supported_capabilities < rhs.supported_capabilities)
+  if (lhs.deprecate_supported_capabilities < rhs.deprecate_supported_capabilities)
     return true;
-  if (rhs.supported_capabilities < lhs.supported_capabilities)
+  if (rhs.deprecate_supported_capabilities < lhs.deprecate_supported_capabilities)
     return false;
   return false;
 }
@@ -17196,7 +17196,7 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-SupportedCapabilitiesPtr SupportedCapabilities::Clone() const {
+DEPRECATE_SupportedCapabilitiesPtr DEPRECATE_SupportedCapabilities::Clone() const {
   return New(
       mojo::Clone(max_adv_len),
       mojo::Clone(max_scn_rsp_len),
@@ -17205,8 +17205,8 @@ SupportedCapabilitiesPtr SupportedCapabilities::Clone() const {
   );
 }
 
-template <typename T, SupportedCapabilities::EnableIfSame<T>*>
-bool SupportedCapabilities::Equals(const T& other_struct) const {
+template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>*>
+bool DEPRECATE_SupportedCapabilities::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->max_adv_len, other_struct.max_adv_len))
     return false;
   if (!mojo::Equals(this->max_scn_rsp_len, other_struct.max_scn_rsp_len))
@@ -17218,7 +17218,7 @@ bool SupportedCapabilities::Equals(const T& other_struct) const {
   return true;
 }
 
-template <typename T, SupportedCapabilities::EnableIfSame<T>*>
+template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.max_adv_len < rhs.max_adv_len)
     return true;
@@ -20392,9 +20392,9 @@ struct  StructTraits<::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView,
     return input->service_allow_list;
   }
 
-  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::supported_capabilities)& supported_capabilities(
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::deprecate_supported_capabilities)& deprecate_supported_capabilities(
       const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
-    return input->supported_capabilities;
+    return input->deprecate_supported_capabilities;
   }
 
   static bool Read(::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView input, ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr* output);
@@ -20462,32 +20462,32 @@ struct  StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView,
 
 
 template <>
-struct  StructTraits<::ash::cros_healthd::mojom::SupportedCapabilities::DataView,
-                                         ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::SupportedCapabilitiesPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::DataView,
+                                         ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr* output) { output->reset(); }
 
-  static decltype(::ash::cros_healthd::mojom::SupportedCapabilities::max_adv_len) max_adv_len(
-      const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::max_adv_len) max_adv_len(
+      const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) {
     return input->max_adv_len;
   }
 
-  static decltype(::ash::cros_healthd::mojom::SupportedCapabilities::max_scn_rsp_len) max_scn_rsp_len(
-      const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::max_scn_rsp_len) max_scn_rsp_len(
+      const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) {
     return input->max_scn_rsp_len;
   }
 
-  static decltype(::ash::cros_healthd::mojom::SupportedCapabilities::min_tx_power) min_tx_power(
-      const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::min_tx_power) min_tx_power(
+      const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) {
     return input->min_tx_power;
   }
 
-  static decltype(::ash::cros_healthd::mojom::SupportedCapabilities::max_tx_power) max_tx_power(
-      const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::max_tx_power) max_tx_power(
+      const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) {
     return input->max_tx_power;
   }
 
-  static bool Read(::ash::cros_healthd::mojom::SupportedCapabilities::DataView input, ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::DataView input, ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr* output);
 };
 
 
