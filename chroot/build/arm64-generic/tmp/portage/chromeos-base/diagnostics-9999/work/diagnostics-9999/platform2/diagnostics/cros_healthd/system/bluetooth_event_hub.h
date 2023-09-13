@@ -11,7 +11,7 @@
 #include <dbus/object_path.h>
 #include <base/callback_list.h>
 
-#include "diagnostics/dbus_bindings/bluetooth/dbus-proxies.h"
+#include "diagnostics/dbus_bindings/bluez/dbus-proxies.h"
 
 namespace diagnostics {
 
@@ -37,10 +37,6 @@ class BluetoothEventHub {
   BluetoothEventHub(const BluetoothEventHub&) = delete;
   BluetoothEventHub& operator=(const BluetoothEventHub&) = delete;
   ~BluetoothEventHub() = default;
-
-  // TODO(b/270471793): To bootstrap proxy, we update proxy by the following
-  // method, which should be removed after Bluez issue is fixed.
-  void UpdateProxy(org::bluezProxy* bluez_proxy);
 
   base::CallbackListSubscription SubscribeAdapterAdded(
       OnBluetoothAdapterAddedCallback callback);
