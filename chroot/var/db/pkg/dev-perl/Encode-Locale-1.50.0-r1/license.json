@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "Encode-Locale", "version": "1.50.0", "revision": 1, "fullname": "dev-perl/Encode-Locale", "fullnamerev": "dev-perl/Encode-Locale-1.50.0-r1", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Encode-Locale"], "skip": false, "tainted": false, "ebuild_path": null}

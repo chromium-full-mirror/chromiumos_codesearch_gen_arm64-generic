@@ -1,0 +1,16 @@
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="scanning-shared"></style>
+<scan-settings-section>
+  <span id="colorModeLabel" slot="label" aria-hidden="true">
+    [[i18n('colorModeDropdownLabel')]]
+  </span>
+  <div slot="settings">
+    <select id="colorModeSelect" class="md-select" value="{{selectedOption::change}}" disabled="[[disabled]]" aria-labelledby="colorModeLabel">
+      <template is="dom-repeat" items="[[options]]" as="colorMode">
+        <option value="[[colorMode]]" selected$="[[isDefaultOption(colorMode)]]">
+          [[getColorModeAsString(colorMode)]]
+        </option>
+      </template>
+    </select>
+  </div>
+</scan-settings-section>
+<!--_html_template_end_-->`}

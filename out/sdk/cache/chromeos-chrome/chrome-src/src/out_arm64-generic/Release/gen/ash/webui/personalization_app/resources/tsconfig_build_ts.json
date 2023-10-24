@@ -1,0 +1,250 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "//resources/cr_components/localized_link/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/localized_link/*"
+      ],
+      "chrome://resources/cr_components/localized_link/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/localized_link/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/js/ambient/album_list_element.ts",
+    "preprocessed/js/ambient/albums_subpage_element.ts",
+    "preprocessed/js/ambient/ambient_preview_large_element.ts",
+    "preprocessed/js/ambient/ambient_preview_small_element.ts",
+    "preprocessed/js/ambient/art_album_dialog_element.ts",
+    "preprocessed/js/ambient/ambient_duration_element.ts",
+    "preprocessed/js/ambient/ambient_subpage_element.ts",
+    "preprocessed/js/ambient/ambient_zero_state_svg_element.ts",
+    "preprocessed/js/ambient/ambient_weather_element.ts",
+    "preprocessed/js/ambient/ambient_theme_item_element.ts",
+    "preprocessed/js/ambient/ambient_theme_list_element.ts",
+    "preprocessed/js/ambient/toggle_row_element.ts",
+    "preprocessed/js/ambient/topic_source_item_element.ts",
+    "preprocessed/js/ambient/topic_source_list_element.ts",
+    "preprocessed/js/ambient/zero_state_element.ts",
+    "preprocessed/js/keyboard_backlight/keyboard_backlight_element.ts",
+    "preprocessed/js/keyboard_backlight/zone_customization_element.ts",
+    "preprocessed/js/keyboard_backlight/color_icon_element.ts",
+    "preprocessed/js/keyboard_backlight/color_selector_element.ts",
+    "preprocessed/js/personalization_main_element.ts",
+    "preprocessed/js/personalization_router_element.ts",
+    "preprocessed/js/personalization_toast_element.ts",
+    "preprocessed/js/personalization_breadcrumb_element.ts",
+    "preprocessed/js/time_of_day_banner_element.ts",
+    "preprocessed/js/theme/personalization_theme_element.ts",
+    "preprocessed/js/theme/color_scheme_icon_svg_element.ts",
+    "preprocessed/js/theme/dynamic_color_element.ts",
+    "preprocessed/js/user/avatar_camera_element.ts",
+    "preprocessed/js/user/avatar_list_element.ts",
+    "preprocessed/js/user/user_preview_element.ts",
+    "preprocessed/js/user/user_subpage_element.ts",
+    "preprocessed/js/wallpaper/google_photos_albums_element.ts",
+    "preprocessed/js/wallpaper/google_photos_collection_element.ts",
+    "preprocessed/js/wallpaper/google_photos_photos_by_album_id_element.ts",
+    "preprocessed/js/wallpaper/google_photos_photos_element.ts",
+    "preprocessed/js/wallpaper/google_photos_shared_album_dialog_element.ts",
+    "preprocessed/js/wallpaper/google_photos_zero_state_element.ts",
+    "preprocessed/js/wallpaper/info_svg_element.ts",
+    "preprocessed/js/wallpaper/local_images_element.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_collection_element.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_input_query_element.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_template_query_element.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_images_element.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_templates_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_collections_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_error_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_fullscreen_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_grid_item_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_images_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_preview_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_selected_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_subpage_element.ts",
+    "preprocessed/js/wallpaper/wallpaper_subpage_top_element.ts",
+    "preprocessed/js/ambient/ambient_actions.ts",
+    "preprocessed/js/ambient/ambient_controller.ts",
+    "preprocessed/js/ambient/ambient_interface_provider.ts",
+    "preprocessed/js/ambient/ambient_observer.ts",
+    "preprocessed/js/ambient/ambient_preview_base.ts",
+    "preprocessed/js/ambient/ambient_reducers.ts",
+    "preprocessed/js/ambient/ambient_state.ts",
+    "preprocessed/js/ambient/utils.ts",
+    "preprocessed/js/keyboard_backlight/keyboard_backlight_actions.ts",
+    "preprocessed/js/keyboard_backlight/keyboard_backlight_controller.ts",
+    "preprocessed/js/keyboard_backlight/keyboard_backlight_interface_provider.ts",
+    "preprocessed/js/keyboard_backlight/keyboard_backlight_observer.ts",
+    "preprocessed/js/keyboard_backlight/keyboard_backlight_reducers.ts",
+    "preprocessed/js/keyboard_backlight/keyboard_backlight_state.ts",
+    "preprocessed/js/load_time_booleans.ts",
+    "preprocessed/js/personalization_actions.ts",
+    "preprocessed/js/personalization_app.ts",
+    "preprocessed/js/personalization_metrics_logger.ts",
+    "preprocessed/js/personalization_reducers.ts",
+    "preprocessed/js/personalization_state.ts",
+    "preprocessed/js/personalization_store.ts",
+    "preprocessed/js/personalization_test_api.ts",
+    "preprocessed/js/theme/theme_actions.ts",
+    "preprocessed/js/theme/theme_controller.ts",
+    "preprocessed/js/theme/theme_interface_provider.ts",
+    "preprocessed/js/theme/theme_observer.ts",
+    "preprocessed/js/theme/theme_reducers.ts",
+    "preprocessed/js/theme/theme_state.ts",
+    "preprocessed/js/theme/utils.ts",
+    "preprocessed/js/user/user_actions.ts",
+    "preprocessed/js/user/user_controller.ts",
+    "preprocessed/js/user/user_image_observer.ts",
+    "preprocessed/js/user/user_interface_provider.ts",
+    "preprocessed/js/user/user_reducers.ts",
+    "preprocessed/js/user/user_selectors.ts",
+    "preprocessed/js/user/user_state.ts",
+    "preprocessed/js/user/utils.ts",
+    "preprocessed/js/user/webcam_utils_proxy.ts",
+    "preprocessed/js/utils.ts",
+    "preprocessed/js/wallpaper/constants.ts",
+    "preprocessed/js/wallpaper/google_photos_metrics_logger.ts",
+    "preprocessed/js/wallpaper/utils.ts",
+    "preprocessed/js/wallpaper/wallpaper_actions.ts",
+    "preprocessed/js/wallpaper/wallpaper_controller.ts",
+    "preprocessed/js/wallpaper/wallpaper_interface_provider.ts",
+    "preprocessed/js/wallpaper/wallpaper_observer.ts",
+    "preprocessed/js/wallpaper/wallpaper_reducers.ts",
+    "preprocessed/js/wallpaper/wallpaper_state.ts",
+    "preprocessed/js/wallpaper/index.ts",
+    "preprocessed/js/ambient/album_list_element.html.ts",
+    "preprocessed/js/ambient/albums_subpage_element.html.ts",
+    "preprocessed/js/ambient/ambient_preview_large_element.html.ts",
+    "preprocessed/js/ambient/ambient_preview_small_element.html.ts",
+    "preprocessed/js/ambient/art_album_dialog_element.html.ts",
+    "preprocessed/js/ambient/ambient_duration_element.html.ts",
+    "preprocessed/js/ambient/ambient_subpage_element.html.ts",
+    "preprocessed/js/ambient/ambient_zero_state_svg_element.html.ts",
+    "preprocessed/js/ambient/ambient_weather_element.html.ts",
+    "preprocessed/js/ambient/ambient_theme_item_element.html.ts",
+    "preprocessed/js/ambient/ambient_theme_list_element.html.ts",
+    "preprocessed/js/ambient/toggle_row_element.html.ts",
+    "preprocessed/js/ambient/topic_source_item_element.html.ts",
+    "preprocessed/js/ambient/topic_source_list_element.html.ts",
+    "preprocessed/js/ambient/zero_state_element.html.ts",
+    "preprocessed/js/keyboard_backlight/keyboard_backlight_element.html.ts",
+    "preprocessed/js/keyboard_backlight/zone_customization_element.html.ts",
+    "preprocessed/js/keyboard_backlight/color_icon_element.html.ts",
+    "preprocessed/js/keyboard_backlight/color_selector_element.html.ts",
+    "preprocessed/js/personalization_main_element.html.ts",
+    "preprocessed/js/personalization_router_element.html.ts",
+    "preprocessed/js/personalization_toast_element.html.ts",
+    "preprocessed/js/personalization_breadcrumb_element.html.ts",
+    "preprocessed/js/time_of_day_banner_element.html.ts",
+    "preprocessed/js/theme/personalization_theme_element.html.ts",
+    "preprocessed/js/theme/color_scheme_icon_svg_element.html.ts",
+    "preprocessed/js/theme/dynamic_color_element.html.ts",
+    "preprocessed/js/user/avatar_camera_element.html.ts",
+    "preprocessed/js/user/avatar_list_element.html.ts",
+    "preprocessed/js/user/user_preview_element.html.ts",
+    "preprocessed/js/user/user_subpage_element.html.ts",
+    "preprocessed/js/wallpaper/google_photos_albums_element.html.ts",
+    "preprocessed/js/wallpaper/google_photos_collection_element.html.ts",
+    "preprocessed/js/wallpaper/google_photos_photos_by_album_id_element.html.ts",
+    "preprocessed/js/wallpaper/google_photos_photos_element.html.ts",
+    "preprocessed/js/wallpaper/google_photos_shared_album_dialog_element.html.ts",
+    "preprocessed/js/wallpaper/google_photos_zero_state_element.html.ts",
+    "preprocessed/js/wallpaper/info_svg_element.html.ts",
+    "preprocessed/js/wallpaper/local_images_element.html.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_collection_element.html.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_input_query_element.html.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_template_query_element.html.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_images_element.html.ts",
+    "preprocessed/js/wallpaper/sea_pen/sea_pen_templates_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_collections_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_error_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_fullscreen_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_grid_item_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_images_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_preview_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_selected_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_subpage_element.html.ts",
+    "preprocessed/js/wallpaper/wallpaper_subpage_top_element.html.ts",
+    "preprocessed/common/icons.html.ts",
+    "preprocessed/css/common.css.ts",
+    "preprocessed/css/cros_button_style.css.ts",
+    "preprocessed/css/wallpaper.css.ts",
+    "preprocessed/personalization_app.mojom-webui.ts",
+    "preprocessed/color_scheme.mojom-webui.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_components/localized_link/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

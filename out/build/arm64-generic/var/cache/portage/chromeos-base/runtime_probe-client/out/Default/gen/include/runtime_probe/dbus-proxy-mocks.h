@@ -1,0 +1,78 @@
+// Automatic generation of D-Bus interface mock proxies for:
+//  - org.chromium.RuntimeProbe
+#ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_RUNTIME_PROBE_CLIENT_OUT_DEFAULT_GEN_INCLUDE_RUNTIME_PROBE_DBUS_PROXY_MOCKS_H
+#define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_RUNTIME_PROBE_CLIENT_OUT_DEFAULT_GEN_INCLUDE_RUNTIME_PROBE_DBUS_PROXY_MOCKS_H
+#include <string>
+#include <vector>
+
+#include <base/functional/callback_forward.h>
+#include <base/logging.h>
+#include <brillo/any.h>
+#include <brillo/errors/error.h>
+#include <brillo/variant_dictionary.h>
+#include <gmock/gmock.h>
+
+#include "runtime_probe/dbus-proxies.h"
+
+namespace org {
+namespace chromium {
+
+// Mock object for RuntimeProbeProxyInterface.
+class RuntimeProbeProxyMock : public RuntimeProbeProxyInterface {
+ public:
+  RuntimeProbeProxyMock() = default;
+  RuntimeProbeProxyMock(const RuntimeProbeProxyMock&) = delete;
+  RuntimeProbeProxyMock& operator=(const RuntimeProbeProxyMock&) = delete;
+
+  MOCK_METHOD(bool,
+              ProbeCategories,
+              (const runtime_probe::ProbeRequest& /*in_request*/,
+               runtime_probe::ProbeResult* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ProbeCategoriesAsync,
+              (const runtime_probe::ProbeRequest& /*in_request*/,
+               base::OnceCallback<void(const runtime_probe::ProbeResult& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetKnownComponents,
+              (const runtime_probe::GetKnownComponentsRequest& /*in_request*/,
+               runtime_probe::GetKnownComponentsResult* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetKnownComponentsAsync,
+              (const runtime_probe::GetKnownComponentsRequest& /*in_request*/,
+               base::OnceCallback<void(const runtime_probe::GetKnownComponentsResult& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ProbeSsfcComponents,
+              (const runtime_probe::ProbeSsfcComponentsRequest& /*in_request*/,
+               runtime_probe::ProbeSsfcComponentsResponse* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ProbeSsfcComponentsAsync,
+              (const runtime_probe::ProbeSsfcComponentsRequest& /*in_request*/,
+               base::OnceCallback<void(const runtime_probe::ProbeSsfcComponentsResponse& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
+};
+}  // namespace chromium
+}  // namespace org
+
+#endif  // ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_RUNTIME_PROBE_CLIENT_OUT_DEFAULT_GEN_INCLUDE_RUNTIME_PROBE_DBUS_PROXY_MOCKS_H

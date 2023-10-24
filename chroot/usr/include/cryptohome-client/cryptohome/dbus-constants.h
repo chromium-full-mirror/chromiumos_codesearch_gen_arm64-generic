@@ -26,9 +26,10 @@ inline constexpr int kUserDataAuthServiceTimeoutInMs = 5 * 60 * 1000;
 
 // Methods of the |kUserDataAuthInterface| interface:
 inline constexpr char kIsMounted[] = "IsMounted";
+inline constexpr char kEvictDeviceKey[] = "EvictDeviceKey";
+inline constexpr char kRestoreDeviceKey[] = "RestoreDeviceKey";
 inline constexpr char kUnmount[] = "Unmount";
 inline constexpr char kRemove[] = "Remove";
-inline constexpr char kListKeys[] = "ListKeys";
 inline constexpr char kCheckKey[] = "CheckKey";
 inline constexpr char kStartFingerprintAuthSession[] =
     "StartFingerprintAuthSession";
@@ -149,6 +150,7 @@ enum MountError {
   // the error should be set to MOUNT_ERROR_TPM_DEFEND_LOCK.
   MOUNT_ERROR_CREDENTIAL_LOCKED = 24,
   MOUNT_ERROR_CREDENTIAL_EXPIRED = 25,
+  MOUNT_ERROR_KEY_RESTORE_FAILED = 26,
   MOUNT_ERROR_USER_DOES_NOT_EXIST = 32,
   MOUNT_ERROR_TPM_NEEDS_REBOOT = 64,
   // Encrypted in old method, need migration before mounting.

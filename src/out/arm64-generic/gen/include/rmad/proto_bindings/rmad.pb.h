@@ -3484,6 +3484,7 @@ class UpdateDeviceInfoState final :
     kSkuListFieldNumber = 103,
     kWhitelabelListFieldNumber = 104,
     kCustomLabelListFieldNumber = 106,
+    kSkuDescriptionListFieldNumber = 107,
     kSerialNumberFieldNumber = 1,
     kDramPartNumberFieldNumber = 5,
     kOriginalSerialNumberFieldNumber = 201,
@@ -3593,6 +3594,30 @@ class UpdateDeviceInfoState final :
   private:
   const std::string& _internal_custom_label_list(int index) const;
   std::string* _internal_add_custom_label_list();
+  public:
+
+  // repeated string sku_description_list = 107;
+  int sku_description_list_size() const;
+  private:
+  int _internal_sku_description_list_size() const;
+  public:
+  void clear_sku_description_list();
+  const std::string& sku_description_list(int index) const;
+  std::string* mutable_sku_description_list(int index);
+  void set_sku_description_list(int index, const std::string& value);
+  void set_sku_description_list(int index, std::string&& value);
+  void set_sku_description_list(int index, const char* value);
+  void set_sku_description_list(int index, const char* value, size_t size);
+  std::string* add_sku_description_list();
+  void add_sku_description_list(const std::string& value);
+  void add_sku_description_list(std::string&& value);
+  void add_sku_description_list(const char* value);
+  void add_sku_description_list(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& sku_description_list() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_sku_description_list();
+  private:
+  const std::string& _internal_sku_description_list(int index) const;
+  std::string* _internal_add_sku_description_list();
   public:
 
   // string serial_number = 1;
@@ -3772,6 +3797,7 @@ class UpdateDeviceInfoState final :
     mutable std::atomic<int> _sku_list_cached_byte_size_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> whitelabel_list_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> custom_label_list_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> sku_description_list_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr serial_number_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dram_part_number_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr original_serial_number_;
@@ -8404,6 +8430,81 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 UpdateDeviceInfoState::mutable_custom_label_list() {
   // @@protoc_insertion_point(field_mutable_list:rmad.UpdateDeviceInfoState.custom_label_list)
   return &_impl_.custom_label_list_;
+}
+
+// repeated string sku_description_list = 107;
+inline int UpdateDeviceInfoState::_internal_sku_description_list_size() const {
+  return _impl_.sku_description_list_.size();
+}
+inline int UpdateDeviceInfoState::sku_description_list_size() const {
+  return _internal_sku_description_list_size();
+}
+inline void UpdateDeviceInfoState::clear_sku_description_list() {
+  _impl_.sku_description_list_.Clear();
+}
+inline std::string* UpdateDeviceInfoState::add_sku_description_list() {
+  std::string* _s = _internal_add_sku_description_list();
+  // @@protoc_insertion_point(field_add_mutable:rmad.UpdateDeviceInfoState.sku_description_list)
+  return _s;
+}
+inline const std::string& UpdateDeviceInfoState::_internal_sku_description_list(int index) const {
+  return _impl_.sku_description_list_.Get(index);
+}
+inline const std::string& UpdateDeviceInfoState::sku_description_list(int index) const {
+  // @@protoc_insertion_point(field_get:rmad.UpdateDeviceInfoState.sku_description_list)
+  return _internal_sku_description_list(index);
+}
+inline std::string* UpdateDeviceInfoState::mutable_sku_description_list(int index) {
+  // @@protoc_insertion_point(field_mutable:rmad.UpdateDeviceInfoState.sku_description_list)
+  return _impl_.sku_description_list_.Mutable(index);
+}
+inline void UpdateDeviceInfoState::set_sku_description_list(int index, const std::string& value) {
+  _impl_.sku_description_list_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:rmad.UpdateDeviceInfoState.sku_description_list)
+}
+inline void UpdateDeviceInfoState::set_sku_description_list(int index, std::string&& value) {
+  _impl_.sku_description_list_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:rmad.UpdateDeviceInfoState.sku_description_list)
+}
+inline void UpdateDeviceInfoState::set_sku_description_list(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.sku_description_list_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rmad.UpdateDeviceInfoState.sku_description_list)
+}
+inline void UpdateDeviceInfoState::set_sku_description_list(int index, const char* value, size_t size) {
+  _impl_.sku_description_list_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rmad.UpdateDeviceInfoState.sku_description_list)
+}
+inline std::string* UpdateDeviceInfoState::_internal_add_sku_description_list() {
+  return _impl_.sku_description_list_.Add();
+}
+inline void UpdateDeviceInfoState::add_sku_description_list(const std::string& value) {
+  _impl_.sku_description_list_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rmad.UpdateDeviceInfoState.sku_description_list)
+}
+inline void UpdateDeviceInfoState::add_sku_description_list(std::string&& value) {
+  _impl_.sku_description_list_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:rmad.UpdateDeviceInfoState.sku_description_list)
+}
+inline void UpdateDeviceInfoState::add_sku_description_list(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.sku_description_list_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rmad.UpdateDeviceInfoState.sku_description_list)
+}
+inline void UpdateDeviceInfoState::add_sku_description_list(const char* value, size_t size) {
+  _impl_.sku_description_list_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rmad.UpdateDeviceInfoState.sku_description_list)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+UpdateDeviceInfoState::sku_description_list() const {
+  // @@protoc_insertion_point(field_list:rmad.UpdateDeviceInfoState.sku_description_list)
+  return _impl_.sku_description_list_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+UpdateDeviceInfoState::mutable_sku_description_list() {
+  // @@protoc_insertion_point(field_mutable_list:rmad.UpdateDeviceInfoState.sku_description_list)
+  return &_impl_.sku_description_list_;
 }
 
 // string original_serial_number = 201;

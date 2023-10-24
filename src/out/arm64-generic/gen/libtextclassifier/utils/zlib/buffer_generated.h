@@ -6,67 +6,74 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 
 struct CompressedBuffer;
 struct CompressedBufferBuilder;
 struct CompressedBufferT;
 
-struct CompressedBufferT : public flatbuffers::NativeTable {
+struct CompressedBufferT : public ::flatbuffers::NativeTable {
   typedef CompressedBuffer TableType;
   std::vector<uint8_t> buffer{};
   int32_t uncompressed_size = 0;
 };
 
-struct CompressedBuffer FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct CompressedBuffer FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef CompressedBufferT NativeTableType;
   typedef CompressedBufferBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_BUFFER = 4,
     VT_UNCOMPRESSED_SIZE = 6
   };
-  const flatbuffers::Vector<uint8_t> *buffer() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_BUFFER);
+  const ::flatbuffers::Vector<uint8_t> *buffer() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_BUFFER);
   }
   int32_t uncompressed_size() const {
     return GetField<int32_t>(VT_UNCOMPRESSED_SIZE, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_BUFFER) &&
            verifier.VerifyVector(buffer()) &&
-           VerifyField<int32_t>(verifier, VT_UNCOMPRESSED_SIZE) &&
+           VerifyField<int32_t>(verifier, VT_UNCOMPRESSED_SIZE, 4) &&
            verifier.EndTable();
   }
-  CompressedBufferT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(CompressedBufferT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<CompressedBuffer> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CompressedBufferT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  CompressedBufferT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CompressedBufferT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<CompressedBuffer> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const CompressedBufferT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct CompressedBufferBuilder {
   typedef CompressedBuffer Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_buffer(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> buffer) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_buffer(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> buffer) {
     fbb_.AddOffset(CompressedBuffer::VT_BUFFER, buffer);
   }
   void add_uncompressed_size(int32_t uncompressed_size) {
     fbb_.AddElement<int32_t>(CompressedBuffer::VT_UNCOMPRESSED_SIZE, uncompressed_size, 0);
   }
-  explicit CompressedBufferBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit CompressedBufferBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<CompressedBuffer> Finish() {
+  ::flatbuffers::Offset<CompressedBuffer> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<CompressedBuffer>(end);
+    auto o = ::flatbuffers::Offset<CompressedBuffer>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<CompressedBuffer> CreateCompressedBuffer(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> buffer = 0,
+inline ::flatbuffers::Offset<CompressedBuffer> CreateCompressedBuffer(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> buffer = 0,
     int32_t uncompressed_size = 0) {
   CompressedBufferBuilder builder_(_fbb);
   builder_.add_uncompressed_size(uncompressed_size);
@@ -74,8 +81,8 @@ inline flatbuffers::Offset<CompressedBuffer> CreateCompressedBuffer(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<CompressedBuffer> CreateCompressedBufferDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<CompressedBuffer> CreateCompressedBufferDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *buffer = nullptr,
     int32_t uncompressed_size = 0) {
   auto buffer__ = buffer ? _fbb.CreateVector<uint8_t>(*buffer) : 0;
@@ -85,29 +92,29 @@ inline flatbuffers::Offset<CompressedBuffer> CreateCompressedBufferDirect(
       uncompressed_size);
 }
 
-flatbuffers::Offset<CompressedBuffer> CreateCompressedBuffer(flatbuffers::FlatBufferBuilder &_fbb, const CompressedBufferT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<CompressedBuffer> CreateCompressedBuffer(::flatbuffers::FlatBufferBuilder &_fbb, const CompressedBufferT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline CompressedBufferT *CompressedBuffer::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline CompressedBufferT *CompressedBuffer::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<CompressedBufferT>(new CompressedBufferT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void CompressedBuffer::UnPackTo(CompressedBufferT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void CompressedBuffer::UnPackTo(CompressedBufferT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = buffer(); if (_e) { _o->buffer.resize(_e->size()); std::copy(_e->begin(), _e->end(), _o->buffer.begin()); } }
   { auto _e = uncompressed_size(); _o->uncompressed_size = _e; }
 }
 
-inline flatbuffers::Offset<CompressedBuffer> CompressedBuffer::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CompressedBufferT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<CompressedBuffer> CompressedBuffer::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const CompressedBufferT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateCompressedBuffer(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<CompressedBuffer> CreateCompressedBuffer(flatbuffers::FlatBufferBuilder &_fbb, const CompressedBufferT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<CompressedBuffer> CreateCompressedBuffer(::flatbuffers::FlatBufferBuilder &_fbb, const CompressedBufferT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CompressedBufferT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const CompressedBufferT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _buffer = _o->buffer.size() ? _fbb.CreateVector(_o->buffer) : 0;
   auto _uncompressed_size = _o->uncompressed_size;
   return libtextclassifier3::CreateCompressedBuffer(

@@ -1228,6 +1228,222 @@ int64_t RollbackPolicyActivated::Gettarget_chromeos_version_patchForTest() const
   return GetIntMetricForTest(ktarget_chromeos_version_patchNameHash);
 }
 
+RollbackOobeConfigSave::RollbackOobeConfigSave() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+RollbackOobeConfigSave::~RollbackOobeConfigSave() = default;
+RollbackOobeConfigSave& RollbackOobeConfigSave::Setorigin_chromeos_version_major(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigSave::Getorigin_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_majorNameHash);
+}
+
+RollbackOobeConfigSave& RollbackOobeConfigSave::Setorigin_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigSave::Getorigin_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_minorNameHash);
+}
+
+RollbackOobeConfigSave& RollbackOobeConfigSave::Setorigin_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigSave::Getorigin_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_patchNameHash);
+}
+
+RollbackOobeConfigSave& RollbackOobeConfigSave::Settarget_chromeos_version_major(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigSave::Gettarget_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_majorNameHash);
+}
+
+RollbackOobeConfigSave& RollbackOobeConfigSave::Settarget_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigSave::Gettarget_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_minorNameHash);
+}
+
+RollbackOobeConfigSave& RollbackOobeConfigSave::Settarget_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigSave::Gettarget_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_patchNameHash);
+}
+
+RollbackOobeConfigSave& RollbackOobeConfigSave::Setresult(const int64_t value) {
+  AddIntMetric(kresultNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigSave::GetresultForTest() const {
+  return GetIntMetricForTest(kresultNameHash);
+}
+
+RollbackOobeConfigRestore::RollbackOobeConfigRestore() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+RollbackOobeConfigRestore::~RollbackOobeConfigRestore() = default;
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Setorigin_chromeos_version_major(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Getorigin_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_majorNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Setorigin_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Getorigin_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_minorNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Setorigin_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Getorigin_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_patchNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Settarget_chromeos_version_major(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Gettarget_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_majorNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Settarget_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Gettarget_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_minorNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Settarget_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Gettarget_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_patchNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Setresult_chromeos_version_major(const int64_t value) {
+  AddIntMetric(kresult_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Getresult_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(kresult_chromeos_version_majorNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Setresult_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(kresult_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Getresult_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(kresult_chromeos_version_minorNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Setresult_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(kresult_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::Getresult_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(kresult_chromeos_version_patchNameHash);
+}
+
+RollbackOobeConfigRestore& RollbackOobeConfigRestore::Setresult(const int64_t value) {
+  AddIntMetric(kresultNameHash, value);
+  return *this;
+}
+
+int64_t RollbackOobeConfigRestore::GetresultForTest() const {
+  return GetIntMetricForTest(kresultNameHash);
+}
+
+RollbackUpdateFailure::RollbackUpdateFailure() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+RollbackUpdateFailure::~RollbackUpdateFailure() = default;
+RollbackUpdateFailure& RollbackUpdateFailure::Setorigin_chromeos_version_major(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackUpdateFailure::Getorigin_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_majorNameHash);
+}
+
+RollbackUpdateFailure& RollbackUpdateFailure::Setorigin_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackUpdateFailure::Getorigin_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_minorNameHash);
+}
+
+RollbackUpdateFailure& RollbackUpdateFailure::Setorigin_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackUpdateFailure::Getorigin_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_patchNameHash);
+}
+
+RollbackUpdateFailure& RollbackUpdateFailure::Settarget_chromeos_version_major(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackUpdateFailure::Gettarget_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_majorNameHash);
+}
+
+RollbackUpdateFailure& RollbackUpdateFailure::Settarget_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackUpdateFailure::Gettarget_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_minorNameHash);
+}
+
+RollbackUpdateFailure& RollbackUpdateFailure::Settarget_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackUpdateFailure::Gettarget_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_patchNameHash);
+}
+
 }  // namespace rollback_enterprise
 
 namespace rmad {
@@ -1708,6 +1924,15 @@ UsbPdDeviceInfo& UsbPdDeviceInfo::SetPowerRole(const int64_t value) {
 
 int64_t UsbPdDeviceInfo::GetPowerRoleForTest() const {
   return GetIntMetricForTest(kPowerRoleNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetPartnerType(const int64_t value) {
+  AddIntMetric(kPartnerTypeNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetPartnerTypeForTest() const {
+  return GetIntMetricForTest(kPartnerTypeNameHash);
 }
 
 }  // namespace usb_pd_device

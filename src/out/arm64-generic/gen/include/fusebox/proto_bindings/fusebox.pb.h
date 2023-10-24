@@ -58,6 +58,12 @@ extern CreateResponseProtoDefaultTypeInternal _CreateResponseProto_default_insta
 class DirEntryProto;
 struct DirEntryProtoDefaultTypeInternal;
 extern DirEntryProtoDefaultTypeInternal _DirEntryProto_default_instance_;
+class FlushRequestProto;
+struct FlushRequestProtoDefaultTypeInternal;
+extern FlushRequestProtoDefaultTypeInternal _FlushRequestProto_default_instance_;
+class FlushResponseProto;
+struct FlushResponseProtoDefaultTypeInternal;
+extern FlushResponseProtoDefaultTypeInternal _FlushResponseProto_default_instance_;
 class ListStoragesRequestProto;
 struct ListStoragesRequestProtoDefaultTypeInternal;
 extern ListStoragesRequestProtoDefaultTypeInternal _ListStoragesRequestProto_default_instance_;
@@ -131,6 +137,8 @@ template<> ::fusebox::Close2ResponseProto* Arena::CreateMaybeMessage<::fusebox::
 template<> ::fusebox::CreateRequestProto* Arena::CreateMaybeMessage<::fusebox::CreateRequestProto>(Arena*);
 template<> ::fusebox::CreateResponseProto* Arena::CreateMaybeMessage<::fusebox::CreateResponseProto>(Arena*);
 template<> ::fusebox::DirEntryProto* Arena::CreateMaybeMessage<::fusebox::DirEntryProto>(Arena*);
+template<> ::fusebox::FlushRequestProto* Arena::CreateMaybeMessage<::fusebox::FlushRequestProto>(Arena*);
+template<> ::fusebox::FlushResponseProto* Arena::CreateMaybeMessage<::fusebox::FlushResponseProto>(Arena*);
 template<> ::fusebox::ListStoragesRequestProto* Arena::CreateMaybeMessage<::fusebox::ListStoragesRequestProto>(Arena*);
 template<> ::fusebox::ListStoragesResponseProto* Arena::CreateMaybeMessage<::fusebox::ListStoragesResponseProto>(Arena*);
 template<> ::fusebox::MkDirRequestProto* Arena::CreateMaybeMessage<::fusebox::MkDirRequestProto>(Arena*);
@@ -1024,6 +1032,305 @@ class CreateResponseProto final :
 };
 // -------------------------------------------------------------------
 
+class FlushRequestProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.FlushRequestProto) */ {
+ public:
+  inline FlushRequestProto() : FlushRequestProto(nullptr) {}
+  ~FlushRequestProto() override;
+  explicit PROTOBUF_CONSTEXPR FlushRequestProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  FlushRequestProto(const FlushRequestProto& from);
+  FlushRequestProto(FlushRequestProto&& from) noexcept
+    : FlushRequestProto() {
+    *this = ::std::move(from);
+  }
+
+  inline FlushRequestProto& operator=(const FlushRequestProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FlushRequestProto& operator=(FlushRequestProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const FlushRequestProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FlushRequestProto* internal_default_instance() {
+    return reinterpret_cast<const FlushRequestProto*>(
+               &_FlushRequestProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(FlushRequestProto& a, FlushRequestProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(FlushRequestProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FlushRequestProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FlushRequestProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<FlushRequestProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const FlushRequestProto& from);
+  void MergeFrom(const FlushRequestProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(FlushRequestProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.FlushRequestProto";
+  }
+  protected:
+  explicit FlushRequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFuseHandleFieldNumber = 2,
+    kFdatasyncFieldNumber = 4,
+  };
+  // optional uint64 fuse_handle = 2;
+  bool has_fuse_handle() const;
+  private:
+  bool _internal_has_fuse_handle() const;
+  public:
+  void clear_fuse_handle();
+  uint64_t fuse_handle() const;
+  void set_fuse_handle(uint64_t value);
+  private:
+  uint64_t _internal_fuse_handle() const;
+  void _internal_set_fuse_handle(uint64_t value);
+  public:
+
+  // optional bool fdatasync = 4;
+  bool has_fdatasync() const;
+  private:
+  bool _internal_has_fdatasync() const;
+  public:
+  void clear_fdatasync();
+  bool fdatasync() const;
+  void set_fdatasync(bool value);
+  private:
+  bool _internal_fdatasync() const;
+  void _internal_set_fdatasync(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.FlushRequestProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    uint64_t fuse_handle_;
+    bool fdatasync_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class FlushResponseProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.FlushResponseProto) */ {
+ public:
+  inline FlushResponseProto() : FlushResponseProto(nullptr) {}
+  ~FlushResponseProto() override;
+  explicit PROTOBUF_CONSTEXPR FlushResponseProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  FlushResponseProto(const FlushResponseProto& from);
+  FlushResponseProto(FlushResponseProto&& from) noexcept
+    : FlushResponseProto() {
+    *this = ::std::move(from);
+  }
+
+  inline FlushResponseProto& operator=(const FlushResponseProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FlushResponseProto& operator=(FlushResponseProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const FlushResponseProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FlushResponseProto* internal_default_instance() {
+    return reinterpret_cast<const FlushResponseProto*>(
+               &_FlushResponseProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(FlushResponseProto& a, FlushResponseProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(FlushResponseProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FlushResponseProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FlushResponseProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<FlushResponseProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const FlushResponseProto& from);
+  void MergeFrom(const FlushResponseProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(FlushResponseProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.FlushResponseProto";
+  }
+  protected:
+  explicit FlushResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPosixErrorCodeFieldNumber = 1,
+  };
+  // optional int32 posix_error_code = 1;
+  bool has_posix_error_code() const;
+  private:
+  bool _internal_has_posix_error_code() const;
+  public:
+  void clear_posix_error_code();
+  int32_t posix_error_code() const;
+  void set_posix_error_code(int32_t value);
+  private:
+  int32_t _internal_posix_error_code() const;
+  void _internal_set_posix_error_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.FlushResponseProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    int32_t posix_error_code_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ListStoragesRequestProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.ListStoragesRequestProto) */ {
  public:
@@ -1070,7 +1377,7 @@ class ListStoragesRequestProto final :
                &_ListStoragesRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(ListStoragesRequestProto& a, ListStoragesRequestProto& b) {
     a.Swap(&b);
@@ -1194,7 +1501,7 @@ class ListStoragesResponseProto final :
                &_ListStoragesResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(ListStoragesResponseProto& a, ListStoragesResponseProto& b) {
     a.Swap(&b);
@@ -1362,7 +1669,7 @@ class MkDirRequestProto final :
                &_MkDirRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(MkDirRequestProto& a, MkDirRequestProto& b) {
     a.Swap(&b);
@@ -1509,7 +1816,7 @@ class MkDirResponseProto final :
                &_MkDirResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(MkDirResponseProto& a, MkDirResponseProto& b) {
     a.Swap(&b);
@@ -1671,7 +1978,7 @@ class Open2RequestProto final :
                &_Open2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(Open2RequestProto& a, Open2RequestProto& b) {
     a.Swap(&b);
@@ -1833,7 +2140,7 @@ class Open2ResponseProto final :
                &_Open2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(Open2ResponseProto& a, Open2ResponseProto& b) {
     a.Swap(&b);
@@ -1990,7 +2297,7 @@ class Read2RequestProto final :
                &_Read2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(Read2RequestProto& a, Read2RequestProto& b) {
     a.Swap(&b);
@@ -2162,7 +2469,7 @@ class Read2ResponseProto final :
                &_Read2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(Read2ResponseProto& a, Read2ResponseProto& b) {
     a.Swap(&b);
@@ -2324,7 +2631,7 @@ class ReadDir2RequestProto final :
                &_ReadDir2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(ReadDir2RequestProto& a, ReadDir2RequestProto& b) {
     a.Swap(&b);
@@ -2501,7 +2808,7 @@ class ReadDir2ResponseProto final :
                &_ReadDir2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(ReadDir2ResponseProto& a, ReadDir2ResponseProto& b) {
     a.Swap(&b);
@@ -2678,7 +2985,7 @@ class RenameRequestProto final :
                &_RenameRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(RenameRequestProto& a, RenameRequestProto& b) {
     a.Swap(&b);
@@ -2845,7 +3152,7 @@ class RenameResponseProto final :
                &_RenameResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(RenameResponseProto& a, RenameResponseProto& b) {
     a.Swap(&b);
@@ -2987,7 +3294,7 @@ class RmDirRequestProto final :
                &_RmDirRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(RmDirRequestProto& a, RmDirRequestProto& b) {
     a.Swap(&b);
@@ -3134,7 +3441,7 @@ class RmDirResponseProto final :
                &_RmDirResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(RmDirResponseProto& a, RmDirResponseProto& b) {
     a.Swap(&b);
@@ -3276,7 +3583,7 @@ class Stat2RequestProto final :
                &_Stat2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(Stat2RequestProto& a, Stat2RequestProto& b) {
     a.Swap(&b);
@@ -3423,7 +3730,7 @@ class Stat2ResponseProto final :
                &_Stat2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(Stat2ResponseProto& a, Stat2ResponseProto& b) {
     a.Swap(&b);
@@ -3585,7 +3892,7 @@ class TruncateRequestProto final :
                &_TruncateRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(TruncateRequestProto& a, TruncateRequestProto& b) {
     a.Swap(&b);
@@ -3747,7 +4054,7 @@ class TruncateResponseProto final :
                &_TruncateResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(TruncateResponseProto& a, TruncateResponseProto& b) {
     a.Swap(&b);
@@ -3909,7 +4216,7 @@ class UnlinkRequestProto final :
                &_UnlinkRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    25;
 
   friend void swap(UnlinkRequestProto& a, UnlinkRequestProto& b) {
     a.Swap(&b);
@@ -4056,7 +4363,7 @@ class UnlinkResponseProto final :
                &_UnlinkResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    26;
 
   friend void swap(UnlinkResponseProto& a, UnlinkResponseProto& b) {
     a.Swap(&b);
@@ -4198,7 +4505,7 @@ class Write2RequestProto final :
                &_Write2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    27;
 
   friend void swap(Write2RequestProto& a, Write2RequestProto& b) {
     a.Swap(&b);
@@ -4375,7 +4682,7 @@ class Write2ResponseProto final :
                &_Write2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    28;
 
   friend void swap(Write2ResponseProto& a, Write2ResponseProto& b) {
     a.Swap(&b);
@@ -5000,6 +5307,98 @@ inline void CreateResponseProto::set_allocated_stat(::fusebox::DirEntryProto* st
   }
   _impl_.stat_ = stat;
   // @@protoc_insertion_point(field_set_allocated:fusebox.CreateResponseProto.stat)
+}
+
+// -------------------------------------------------------------------
+
+// FlushRequestProto
+
+// optional uint64 fuse_handle = 2;
+inline bool FlushRequestProto::_internal_has_fuse_handle() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool FlushRequestProto::has_fuse_handle() const {
+  return _internal_has_fuse_handle();
+}
+inline void FlushRequestProto::clear_fuse_handle() {
+  _impl_.fuse_handle_ = uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline uint64_t FlushRequestProto::_internal_fuse_handle() const {
+  return _impl_.fuse_handle_;
+}
+inline uint64_t FlushRequestProto::fuse_handle() const {
+  // @@protoc_insertion_point(field_get:fusebox.FlushRequestProto.fuse_handle)
+  return _internal_fuse_handle();
+}
+inline void FlushRequestProto::_internal_set_fuse_handle(uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.fuse_handle_ = value;
+}
+inline void FlushRequestProto::set_fuse_handle(uint64_t value) {
+  _internal_set_fuse_handle(value);
+  // @@protoc_insertion_point(field_set:fusebox.FlushRequestProto.fuse_handle)
+}
+
+// optional bool fdatasync = 4;
+inline bool FlushRequestProto::_internal_has_fdatasync() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool FlushRequestProto::has_fdatasync() const {
+  return _internal_has_fdatasync();
+}
+inline void FlushRequestProto::clear_fdatasync() {
+  _impl_.fdatasync_ = false;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline bool FlushRequestProto::_internal_fdatasync() const {
+  return _impl_.fdatasync_;
+}
+inline bool FlushRequestProto::fdatasync() const {
+  // @@protoc_insertion_point(field_get:fusebox.FlushRequestProto.fdatasync)
+  return _internal_fdatasync();
+}
+inline void FlushRequestProto::_internal_set_fdatasync(bool value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.fdatasync_ = value;
+}
+inline void FlushRequestProto::set_fdatasync(bool value) {
+  _internal_set_fdatasync(value);
+  // @@protoc_insertion_point(field_set:fusebox.FlushRequestProto.fdatasync)
+}
+
+// -------------------------------------------------------------------
+
+// FlushResponseProto
+
+// optional int32 posix_error_code = 1;
+inline bool FlushResponseProto::_internal_has_posix_error_code() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool FlushResponseProto::has_posix_error_code() const {
+  return _internal_has_posix_error_code();
+}
+inline void FlushResponseProto::clear_posix_error_code() {
+  _impl_.posix_error_code_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline int32_t FlushResponseProto::_internal_posix_error_code() const {
+  return _impl_.posix_error_code_;
+}
+inline int32_t FlushResponseProto::posix_error_code() const {
+  // @@protoc_insertion_point(field_get:fusebox.FlushResponseProto.posix_error_code)
+  return _internal_posix_error_code();
+}
+inline void FlushResponseProto::_internal_set_posix_error_code(int32_t value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.posix_error_code_ = value;
+}
+inline void FlushResponseProto::set_posix_error_code(int32_t value) {
+  _internal_set_posix_error_code(value);
+  // @@protoc_insertion_point(field_set:fusebox.FlushResponseProto.posix_error_code)
 }
 
 // -------------------------------------------------------------------
@@ -6843,6 +7242,10 @@ inline void Write2ResponseProto::set_posix_error_code(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

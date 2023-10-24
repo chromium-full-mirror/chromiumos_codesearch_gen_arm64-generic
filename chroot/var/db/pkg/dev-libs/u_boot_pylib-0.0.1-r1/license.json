@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "u_boot_pylib", "version": "0.0.1", "revision": 1, "fullname": "dev-libs/u_boot_pylib", "fullnamerev": "dev-libs/u_boot_pylib-0.0.1-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.denx.de/wiki/U-Boot"], "skip": false, "tainted": false, "ebuild_path": null}

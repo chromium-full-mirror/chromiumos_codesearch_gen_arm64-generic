@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 namespace EntityData_ {
 namespace Datetime_ {
@@ -116,7 +123,7 @@ inline const char * const *EnumNamesGranularity() {
 }
 
 inline const char *EnumNameGranularity(Granularity e) {
-  if (flatbuffers::IsOutRange(e, Granularity_GRANULARITY_UNKNOWN, Granularity_GRANULARITY_SECOND)) return "";
+  if (::flatbuffers::IsOutRange(e, Granularity_GRANULARITY_UNKNOWN, Granularity_GRANULARITY_SECOND)) return "";
   const size_t index = static_cast<size_t>(e) - static_cast<size_t>(Granularity_GRANULARITY_UNKNOWN);
   return EnumNamesGranularity()[index];
 }
@@ -178,7 +185,7 @@ inline const char * const *EnumNamesComponentType() {
 }
 
 inline const char *EnumNameComponentType(ComponentType e) {
-  if (flatbuffers::IsOutRange(e, ComponentType_UNSPECIFIED, ComponentType_DST_OFFSET)) return "";
+  if (::flatbuffers::IsOutRange(e, ComponentType_UNSPECIFIED, ComponentType_DST_OFFSET)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesComponentType()[index];
 }
@@ -211,7 +218,7 @@ inline const char * const *EnumNamesRelationType() {
 }
 
 inline const char *EnumNameRelationType(RelationType e) {
-  if (flatbuffers::IsOutRange(e, RelationType_RELATION_UNSPECIFIED, RelationType_RELATIVE)) return "";
+  if (::flatbuffers::IsOutRange(e, RelationType_RELATION_UNSPECIFIED, RelationType_RELATIVE)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesRelationType()[index];
 }
@@ -276,7 +283,7 @@ inline const char * const *EnumNamesCardNetwork() {
 }
 
 inline const char *EnumNameCardNetwork(CardNetwork e) {
-  if (flatbuffers::IsOutRange(e, CardNetwork_UNKNOWN_CARD_NETWORK, CardNetwork_VISA)) return "";
+  if (::flatbuffers::IsOutRange(e, CardNetwork_UNKNOWN_CARD_NETWORK, CardNetwork_VISA)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesCardNetwork()[index];
 }
@@ -340,7 +347,7 @@ inline const char * const *EnumNamesCarrier() {
 }
 
 inline const char *EnumNameCarrier(Carrier e) {
-  if (flatbuffers::IsOutRange(e, Carrier_UNKNOWN_CARRIER, Carrier_I_PARCEL)) return "";
+  if (::flatbuffers::IsOutRange(e, Carrier_UNKNOWN_CARRIER, Carrier_I_PARCEL)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesCarrier()[index];
 }
@@ -349,7 +356,7 @@ inline const char *EnumNameCarrier(Carrier e) {
 
 namespace Datetime_ {
 
-struct DatetimeComponentT : public flatbuffers::NativeTable {
+struct DatetimeComponentT : public ::flatbuffers::NativeTable {
   typedef DatetimeComponent TableType;
   libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::ComponentType component_type = libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::ComponentType_UNSPECIFIED;
   int32_t absolute_value = 0;
@@ -357,7 +364,7 @@ struct DatetimeComponentT : public flatbuffers::NativeTable {
   libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::RelationType relation_type = libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::RelationType_RELATION_UNSPECIFIED;
 };
 
-struct DatetimeComponent FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct DatetimeComponent FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef DatetimeComponentT NativeTableType;
   typedef DatetimeComponentBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -378,23 +385,23 @@ struct DatetimeComponent FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::RelationType relation_type() const {
     return static_cast<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::RelationType>(GetField<int32_t>(VT_RELATION_TYPE, 0));
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_COMPONENT_TYPE) &&
-           VerifyField<int32_t>(verifier, VT_ABSOLUTE_VALUE) &&
-           VerifyField<int32_t>(verifier, VT_RELATIVE_COUNT) &&
-           VerifyField<int32_t>(verifier, VT_RELATION_TYPE) &&
+           VerifyField<int32_t>(verifier, VT_COMPONENT_TYPE, 4) &&
+           VerifyField<int32_t>(verifier, VT_ABSOLUTE_VALUE, 4) &&
+           VerifyField<int32_t>(verifier, VT_RELATIVE_COUNT, 4) &&
+           VerifyField<int32_t>(verifier, VT_RELATION_TYPE, 4) &&
            verifier.EndTable();
   }
-  DatetimeComponentT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(DatetimeComponentT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<DatetimeComponent> Pack(flatbuffers::FlatBufferBuilder &_fbb, const DatetimeComponentT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  DatetimeComponentT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(DatetimeComponentT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<DatetimeComponent> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const DatetimeComponentT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct DatetimeComponentBuilder {
   typedef DatetimeComponent Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_component_type(libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::ComponentType component_type) {
     fbb_.AddElement<int32_t>(DatetimeComponent::VT_COMPONENT_TYPE, static_cast<int32_t>(component_type), 0);
   }
@@ -407,19 +414,19 @@ struct DatetimeComponentBuilder {
   void add_relation_type(libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::RelationType relation_type) {
     fbb_.AddElement<int32_t>(DatetimeComponent::VT_RELATION_TYPE, static_cast<int32_t>(relation_type), 0);
   }
-  explicit DatetimeComponentBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit DatetimeComponentBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<DatetimeComponent> Finish() {
+  ::flatbuffers::Offset<DatetimeComponent> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<DatetimeComponent>(end);
+    auto o = ::flatbuffers::Offset<DatetimeComponent>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<DatetimeComponent> CreateDatetimeComponent(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<DatetimeComponent> CreateDatetimeComponent(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::ComponentType component_type = libtextclassifier3::EntityData_::Datetime_::DatetimeComponent_::ComponentType_UNSPECIFIED,
     int32_t absolute_value = 0,
     int32_t relative_count = 0,
@@ -432,18 +439,22 @@ inline flatbuffers::Offset<DatetimeComponent> CreateDatetimeComponent(
   return builder_.Finish();
 }
 
-flatbuffers::Offset<DatetimeComponent> CreateDatetimeComponent(flatbuffers::FlatBufferBuilder &_fbb, const DatetimeComponentT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<DatetimeComponent> CreateDatetimeComponent(::flatbuffers::FlatBufferBuilder &_fbb, const DatetimeComponentT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 }  // namespace Datetime_
 
-struct DatetimeT : public flatbuffers::NativeTable {
+struct DatetimeT : public ::flatbuffers::NativeTable {
   typedef Datetime TableType;
   int64_t time_ms_utc = 0;
   libtextclassifier3::EntityData_::Datetime_::Granularity granularity = libtextclassifier3::EntityData_::Datetime_::Granularity_GRANULARITY_UNKNOWN;
   std::vector<std::unique_ptr<libtextclassifier3::EntityData_::Datetime_::DatetimeComponentT>> datetime_component{};
+  DatetimeT() = default;
+  DatetimeT(const DatetimeT &o);
+  DatetimeT(DatetimeT&&) FLATBUFFERS_NOEXCEPT = default;
+  DatetimeT &operator=(DatetimeT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct Datetime FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Datetime FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef DatetimeT NativeTableType;
   typedef DatetimeBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -457,52 +468,52 @@ struct Datetime FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   libtextclassifier3::EntityData_::Datetime_::Granularity granularity() const {
     return static_cast<libtextclassifier3::EntityData_::Datetime_::Granularity>(GetField<int32_t>(VT_GRANULARITY, -1));
   }
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>> *datetime_component() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>> *>(VT_DATETIME_COMPONENT);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>> *datetime_component() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>> *>(VT_DATETIME_COMPONENT);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int64_t>(verifier, VT_TIME_MS_UTC) &&
-           VerifyField<int32_t>(verifier, VT_GRANULARITY) &&
+           VerifyField<int64_t>(verifier, VT_TIME_MS_UTC, 8) &&
+           VerifyField<int32_t>(verifier, VT_GRANULARITY, 4) &&
            VerifyOffset(verifier, VT_DATETIME_COMPONENT) &&
            verifier.VerifyVector(datetime_component()) &&
            verifier.VerifyVectorOfTables(datetime_component()) &&
            verifier.EndTable();
   }
-  DatetimeT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(DatetimeT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Datetime> Pack(flatbuffers::FlatBufferBuilder &_fbb, const DatetimeT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  DatetimeT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(DatetimeT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Datetime> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const DatetimeT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct DatetimeBuilder {
   typedef Datetime Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_time_ms_utc(int64_t time_ms_utc) {
     fbb_.AddElement<int64_t>(Datetime::VT_TIME_MS_UTC, time_ms_utc, 0);
   }
   void add_granularity(libtextclassifier3::EntityData_::Datetime_::Granularity granularity) {
     fbb_.AddElement<int32_t>(Datetime::VT_GRANULARITY, static_cast<int32_t>(granularity), -1);
   }
-  void add_datetime_component(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>>> datetime_component) {
+  void add_datetime_component(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>>> datetime_component) {
     fbb_.AddOffset(Datetime::VT_DATETIME_COMPONENT, datetime_component);
   }
-  explicit DatetimeBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit DatetimeBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Datetime> Finish() {
+  ::flatbuffers::Offset<Datetime> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Datetime>(end);
+    auto o = ::flatbuffers::Offset<Datetime>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Datetime> CreateDatetime(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Datetime> CreateDatetime(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int64_t time_ms_utc = 0,
     libtextclassifier3::EntityData_::Datetime_::Granularity granularity = libtextclassifier3::EntityData_::Datetime_::Granularity_GRANULARITY_UNKNOWN,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>>> datetime_component = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>>> datetime_component = 0) {
   DatetimeBuilder builder_(_fbb);
   builder_.add_time_ms_utc(time_ms_utc);
   builder_.add_datetime_component(datetime_component);
@@ -510,12 +521,12 @@ inline flatbuffers::Offset<Datetime> CreateDatetime(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<Datetime> CreateDatetimeDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Datetime> CreateDatetimeDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int64_t time_ms_utc = 0,
     libtextclassifier3::EntityData_::Datetime_::Granularity granularity = libtextclassifier3::EntityData_::Datetime_::Granularity_GRANULARITY_UNKNOWN,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>> *datetime_component = nullptr) {
-  auto datetime_component__ = datetime_component ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>>(*datetime_component) : 0;
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>> *datetime_component = nullptr) {
+  auto datetime_component__ = datetime_component ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>>(*datetime_component) : 0;
   return libtextclassifier3::EntityData_::CreateDatetime(
       _fbb,
       time_ms_utc,
@@ -523,9 +534,9 @@ inline flatbuffers::Offset<Datetime> CreateDatetimeDirect(
       datetime_component__);
 }
 
-flatbuffers::Offset<Datetime> CreateDatetime(flatbuffers::FlatBufferBuilder &_fbb, const DatetimeT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Datetime> CreateDatetime(::flatbuffers::FlatBufferBuilder &_fbb, const DatetimeT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct ContactT : public flatbuffers::NativeTable {
+struct ContactT : public ::flatbuffers::NativeTable {
   typedef Contact TableType;
   std::string name{};
   std::string given_name{};
@@ -535,7 +546,7 @@ struct ContactT : public flatbuffers::NativeTable {
   std::string contact_id{};
 };
 
-struct Contact FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Contact FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ContactT NativeTableType;
   typedef ContactBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -546,25 +557,25 @@ struct Contact FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_PHONE_NUMBER = 12,
     VT_CONTACT_ID = 14
   };
-  const flatbuffers::String *name() const {
-    return GetPointer<const flatbuffers::String *>(VT_NAME);
+  const ::flatbuffers::String *name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NAME);
   }
-  const flatbuffers::String *given_name() const {
-    return GetPointer<const flatbuffers::String *>(VT_GIVEN_NAME);
+  const ::flatbuffers::String *given_name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_GIVEN_NAME);
   }
-  const flatbuffers::String *nickname() const {
-    return GetPointer<const flatbuffers::String *>(VT_NICKNAME);
+  const ::flatbuffers::String *nickname() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NICKNAME);
   }
-  const flatbuffers::String *email_address() const {
-    return GetPointer<const flatbuffers::String *>(VT_EMAIL_ADDRESS);
+  const ::flatbuffers::String *email_address() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_EMAIL_ADDRESS);
   }
-  const flatbuffers::String *phone_number() const {
-    return GetPointer<const flatbuffers::String *>(VT_PHONE_NUMBER);
+  const ::flatbuffers::String *phone_number() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_PHONE_NUMBER);
   }
-  const flatbuffers::String *contact_id() const {
-    return GetPointer<const flatbuffers::String *>(VT_CONTACT_ID);
+  const ::flatbuffers::String *contact_id() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_CONTACT_ID);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NAME) &&
            verifier.VerifyString(name()) &&
@@ -580,52 +591,52 @@ struct Contact FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(contact_id()) &&
            verifier.EndTable();
   }
-  ContactT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(ContactT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Contact> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ContactT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  ContactT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ContactT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Contact> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ContactT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct ContactBuilder {
   typedef Contact Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_name(flatbuffers::Offset<flatbuffers::String> name) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_name(::flatbuffers::Offset<::flatbuffers::String> name) {
     fbb_.AddOffset(Contact::VT_NAME, name);
   }
-  void add_given_name(flatbuffers::Offset<flatbuffers::String> given_name) {
+  void add_given_name(::flatbuffers::Offset<::flatbuffers::String> given_name) {
     fbb_.AddOffset(Contact::VT_GIVEN_NAME, given_name);
   }
-  void add_nickname(flatbuffers::Offset<flatbuffers::String> nickname) {
+  void add_nickname(::flatbuffers::Offset<::flatbuffers::String> nickname) {
     fbb_.AddOffset(Contact::VT_NICKNAME, nickname);
   }
-  void add_email_address(flatbuffers::Offset<flatbuffers::String> email_address) {
+  void add_email_address(::flatbuffers::Offset<::flatbuffers::String> email_address) {
     fbb_.AddOffset(Contact::VT_EMAIL_ADDRESS, email_address);
   }
-  void add_phone_number(flatbuffers::Offset<flatbuffers::String> phone_number) {
+  void add_phone_number(::flatbuffers::Offset<::flatbuffers::String> phone_number) {
     fbb_.AddOffset(Contact::VT_PHONE_NUMBER, phone_number);
   }
-  void add_contact_id(flatbuffers::Offset<flatbuffers::String> contact_id) {
+  void add_contact_id(::flatbuffers::Offset<::flatbuffers::String> contact_id) {
     fbb_.AddOffset(Contact::VT_CONTACT_ID, contact_id);
   }
-  explicit ContactBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ContactBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Contact> Finish() {
+  ::flatbuffers::Offset<Contact> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Contact>(end);
+    auto o = ::flatbuffers::Offset<Contact>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Contact> CreateContact(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> name = 0,
-    flatbuffers::Offset<flatbuffers::String> given_name = 0,
-    flatbuffers::Offset<flatbuffers::String> nickname = 0,
-    flatbuffers::Offset<flatbuffers::String> email_address = 0,
-    flatbuffers::Offset<flatbuffers::String> phone_number = 0,
-    flatbuffers::Offset<flatbuffers::String> contact_id = 0) {
+inline ::flatbuffers::Offset<Contact> CreateContact(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> name = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> given_name = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> nickname = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> email_address = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> phone_number = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> contact_id = 0) {
   ContactBuilder builder_(_fbb);
   builder_.add_contact_id(contact_id);
   builder_.add_phone_number(phone_number);
@@ -636,8 +647,8 @@ inline flatbuffers::Offset<Contact> CreateContact(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<Contact> CreateContactDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Contact> CreateContactDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *name = nullptr,
     const char *given_name = nullptr,
     const char *nickname = nullptr,
@@ -660,28 +671,28 @@ inline flatbuffers::Offset<Contact> CreateContactDirect(
       contact_id__);
 }
 
-flatbuffers::Offset<Contact> CreateContact(flatbuffers::FlatBufferBuilder &_fbb, const ContactT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Contact> CreateContact(::flatbuffers::FlatBufferBuilder &_fbb, const ContactT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct AppT : public flatbuffers::NativeTable {
+struct AppT : public ::flatbuffers::NativeTable {
   typedef App TableType;
   std::string name{};
   std::string package_name{};
 };
 
-struct App FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct App FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AppT NativeTableType;
   typedef AppBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NAME = 4,
     VT_PACKAGE_NAME = 6
   };
-  const flatbuffers::String *name() const {
-    return GetPointer<const flatbuffers::String *>(VT_NAME);
+  const ::flatbuffers::String *name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NAME);
   }
-  const flatbuffers::String *package_name() const {
-    return GetPointer<const flatbuffers::String *>(VT_PACKAGE_NAME);
+  const ::flatbuffers::String *package_name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_PACKAGE_NAME);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NAME) &&
            verifier.VerifyString(name()) &&
@@ -689,44 +700,44 @@ struct App FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(package_name()) &&
            verifier.EndTable();
   }
-  AppT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(AppT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<App> Pack(flatbuffers::FlatBufferBuilder &_fbb, const AppT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  AppT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(AppT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<App> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AppT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct AppBuilder {
   typedef App Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_name(flatbuffers::Offset<flatbuffers::String> name) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_name(::flatbuffers::Offset<::flatbuffers::String> name) {
     fbb_.AddOffset(App::VT_NAME, name);
   }
-  void add_package_name(flatbuffers::Offset<flatbuffers::String> package_name) {
+  void add_package_name(::flatbuffers::Offset<::flatbuffers::String> package_name) {
     fbb_.AddOffset(App::VT_PACKAGE_NAME, package_name);
   }
-  explicit AppBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AppBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<App> Finish() {
+  ::flatbuffers::Offset<App> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<App>(end);
+    auto o = ::flatbuffers::Offset<App>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<App> CreateApp(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> name = 0,
-    flatbuffers::Offset<flatbuffers::String> package_name = 0) {
+inline ::flatbuffers::Offset<App> CreateApp(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> name = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> package_name = 0) {
   AppBuilder builder_(_fbb);
   builder_.add_package_name(package_name);
   builder_.add_name(name);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<App> CreateAppDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<App> CreateAppDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *name = nullptr,
     const char *package_name = nullptr) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
@@ -737,15 +748,15 @@ inline flatbuffers::Offset<App> CreateAppDirect(
       package_name__);
 }
 
-flatbuffers::Offset<App> CreateApp(flatbuffers::FlatBufferBuilder &_fbb, const AppT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<App> CreateApp(::flatbuffers::FlatBufferBuilder &_fbb, const AppT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct PaymentCardT : public flatbuffers::NativeTable {
+struct PaymentCardT : public ::flatbuffers::NativeTable {
   typedef PaymentCard TableType;
   libtextclassifier3::EntityData_::PaymentCard_::CardNetwork card_network = libtextclassifier3::EntityData_::PaymentCard_::CardNetwork_UNKNOWN_CARD_NETWORK;
   std::string card_number{};
 };
 
-struct PaymentCard FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct PaymentCard FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef PaymentCardT NativeTableType;
   typedef PaymentCardBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -755,54 +766,54 @@ struct PaymentCard FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   libtextclassifier3::EntityData_::PaymentCard_::CardNetwork card_network() const {
     return static_cast<libtextclassifier3::EntityData_::PaymentCard_::CardNetwork>(GetField<int32_t>(VT_CARD_NETWORK, 0));
   }
-  const flatbuffers::String *card_number() const {
-    return GetPointer<const flatbuffers::String *>(VT_CARD_NUMBER);
+  const ::flatbuffers::String *card_number() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_CARD_NUMBER);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_CARD_NETWORK) &&
+           VerifyField<int32_t>(verifier, VT_CARD_NETWORK, 4) &&
            VerifyOffset(verifier, VT_CARD_NUMBER) &&
            verifier.VerifyString(card_number()) &&
            verifier.EndTable();
   }
-  PaymentCardT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(PaymentCardT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<PaymentCard> Pack(flatbuffers::FlatBufferBuilder &_fbb, const PaymentCardT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  PaymentCardT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(PaymentCardT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<PaymentCard> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const PaymentCardT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct PaymentCardBuilder {
   typedef PaymentCard Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_card_network(libtextclassifier3::EntityData_::PaymentCard_::CardNetwork card_network) {
     fbb_.AddElement<int32_t>(PaymentCard::VT_CARD_NETWORK, static_cast<int32_t>(card_network), 0);
   }
-  void add_card_number(flatbuffers::Offset<flatbuffers::String> card_number) {
+  void add_card_number(::flatbuffers::Offset<::flatbuffers::String> card_number) {
     fbb_.AddOffset(PaymentCard::VT_CARD_NUMBER, card_number);
   }
-  explicit PaymentCardBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit PaymentCardBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<PaymentCard> Finish() {
+  ::flatbuffers::Offset<PaymentCard> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<PaymentCard>(end);
+    auto o = ::flatbuffers::Offset<PaymentCard>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<PaymentCard> CreatePaymentCard(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<PaymentCard> CreatePaymentCard(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     libtextclassifier3::EntityData_::PaymentCard_::CardNetwork card_network = libtextclassifier3::EntityData_::PaymentCard_::CardNetwork_UNKNOWN_CARD_NETWORK,
-    flatbuffers::Offset<flatbuffers::String> card_number = 0) {
+    ::flatbuffers::Offset<::flatbuffers::String> card_number = 0) {
   PaymentCardBuilder builder_(_fbb);
   builder_.add_card_number(card_number);
   builder_.add_card_network(card_network);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<PaymentCard> CreatePaymentCardDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<PaymentCard> CreatePaymentCardDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     libtextclassifier3::EntityData_::PaymentCard_::CardNetwork card_network = libtextclassifier3::EntityData_::PaymentCard_::CardNetwork_UNKNOWN_CARD_NETWORK,
     const char *card_number = nullptr) {
   auto card_number__ = card_number ? _fbb.CreateString(card_number) : 0;
@@ -812,28 +823,28 @@ inline flatbuffers::Offset<PaymentCard> CreatePaymentCardDirect(
       card_number__);
 }
 
-flatbuffers::Offset<PaymentCard> CreatePaymentCard(flatbuffers::FlatBufferBuilder &_fbb, const PaymentCardT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<PaymentCard> CreatePaymentCard(::flatbuffers::FlatBufferBuilder &_fbb, const PaymentCardT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct FlightT : public flatbuffers::NativeTable {
+struct FlightT : public ::flatbuffers::NativeTable {
   typedef Flight TableType;
   std::string airline_code{};
   std::string flight_number{};
 };
 
-struct Flight FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Flight FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef FlightT NativeTableType;
   typedef FlightBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_AIRLINE_CODE = 4,
     VT_FLIGHT_NUMBER = 6
   };
-  const flatbuffers::String *airline_code() const {
-    return GetPointer<const flatbuffers::String *>(VT_AIRLINE_CODE);
+  const ::flatbuffers::String *airline_code() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_AIRLINE_CODE);
   }
-  const flatbuffers::String *flight_number() const {
-    return GetPointer<const flatbuffers::String *>(VT_FLIGHT_NUMBER);
+  const ::flatbuffers::String *flight_number() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_FLIGHT_NUMBER);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_AIRLINE_CODE) &&
            verifier.VerifyString(airline_code()) &&
@@ -841,44 +852,44 @@ struct Flight FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(flight_number()) &&
            verifier.EndTable();
   }
-  FlightT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(FlightT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Flight> Pack(flatbuffers::FlatBufferBuilder &_fbb, const FlightT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  FlightT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(FlightT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Flight> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const FlightT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct FlightBuilder {
   typedef Flight Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_airline_code(flatbuffers::Offset<flatbuffers::String> airline_code) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_airline_code(::flatbuffers::Offset<::flatbuffers::String> airline_code) {
     fbb_.AddOffset(Flight::VT_AIRLINE_CODE, airline_code);
   }
-  void add_flight_number(flatbuffers::Offset<flatbuffers::String> flight_number) {
+  void add_flight_number(::flatbuffers::Offset<::flatbuffers::String> flight_number) {
     fbb_.AddOffset(Flight::VT_FLIGHT_NUMBER, flight_number);
   }
-  explicit FlightBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit FlightBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Flight> Finish() {
+  ::flatbuffers::Offset<Flight> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Flight>(end);
+    auto o = ::flatbuffers::Offset<Flight>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Flight> CreateFlight(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> airline_code = 0,
-    flatbuffers::Offset<flatbuffers::String> flight_number = 0) {
+inline ::flatbuffers::Offset<Flight> CreateFlight(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> airline_code = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> flight_number = 0) {
   FlightBuilder builder_(_fbb);
   builder_.add_flight_number(flight_number);
   builder_.add_airline_code(airline_code);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<Flight> CreateFlightDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Flight> CreateFlightDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *airline_code = nullptr,
     const char *flight_number = nullptr) {
   auto airline_code__ = airline_code ? _fbb.CreateString(airline_code) : 0;
@@ -889,61 +900,61 @@ inline flatbuffers::Offset<Flight> CreateFlightDirect(
       flight_number__);
 }
 
-flatbuffers::Offset<Flight> CreateFlight(flatbuffers::FlatBufferBuilder &_fbb, const FlightT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Flight> CreateFlight(::flatbuffers::FlatBufferBuilder &_fbb, const FlightT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct IsbnT : public flatbuffers::NativeTable {
+struct IsbnT : public ::flatbuffers::NativeTable {
   typedef Isbn TableType;
   std::string number{};
 };
 
-struct Isbn FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Isbn FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef IsbnT NativeTableType;
   typedef IsbnBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NUMBER = 4
   };
-  const flatbuffers::String *number() const {
-    return GetPointer<const flatbuffers::String *>(VT_NUMBER);
+  const ::flatbuffers::String *number() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NUMBER);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NUMBER) &&
            verifier.VerifyString(number()) &&
            verifier.EndTable();
   }
-  IsbnT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(IsbnT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Isbn> Pack(flatbuffers::FlatBufferBuilder &_fbb, const IsbnT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  IsbnT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(IsbnT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Isbn> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const IsbnT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct IsbnBuilder {
   typedef Isbn Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_number(flatbuffers::Offset<flatbuffers::String> number) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_number(::flatbuffers::Offset<::flatbuffers::String> number) {
     fbb_.AddOffset(Isbn::VT_NUMBER, number);
   }
-  explicit IsbnBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit IsbnBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Isbn> Finish() {
+  ::flatbuffers::Offset<Isbn> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Isbn>(end);
+    auto o = ::flatbuffers::Offset<Isbn>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Isbn> CreateIsbn(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> number = 0) {
+inline ::flatbuffers::Offset<Isbn> CreateIsbn(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> number = 0) {
   IsbnBuilder builder_(_fbb);
   builder_.add_number(number);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<Isbn> CreateIsbnDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Isbn> CreateIsbnDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *number = nullptr) {
   auto number__ = number ? _fbb.CreateString(number) : 0;
   return libtextclassifier3::EntityData_::CreateIsbn(
@@ -951,28 +962,28 @@ inline flatbuffers::Offset<Isbn> CreateIsbnDirect(
       number__);
 }
 
-flatbuffers::Offset<Isbn> CreateIsbn(flatbuffers::FlatBufferBuilder &_fbb, const IsbnT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Isbn> CreateIsbn(::flatbuffers::FlatBufferBuilder &_fbb, const IsbnT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct IbanT : public flatbuffers::NativeTable {
+struct IbanT : public ::flatbuffers::NativeTable {
   typedef Iban TableType;
   std::string number{};
   std::string country_code{};
 };
 
-struct Iban FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Iban FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef IbanT NativeTableType;
   typedef IbanBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NUMBER = 4,
     VT_COUNTRY_CODE = 6
   };
-  const flatbuffers::String *number() const {
-    return GetPointer<const flatbuffers::String *>(VT_NUMBER);
+  const ::flatbuffers::String *number() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NUMBER);
   }
-  const flatbuffers::String *country_code() const {
-    return GetPointer<const flatbuffers::String *>(VT_COUNTRY_CODE);
+  const ::flatbuffers::String *country_code() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_COUNTRY_CODE);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NUMBER) &&
            verifier.VerifyString(number()) &&
@@ -980,44 +991,44 @@ struct Iban FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(country_code()) &&
            verifier.EndTable();
   }
-  IbanT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(IbanT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Iban> Pack(flatbuffers::FlatBufferBuilder &_fbb, const IbanT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  IbanT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(IbanT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Iban> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const IbanT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct IbanBuilder {
   typedef Iban Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_number(flatbuffers::Offset<flatbuffers::String> number) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_number(::flatbuffers::Offset<::flatbuffers::String> number) {
     fbb_.AddOffset(Iban::VT_NUMBER, number);
   }
-  void add_country_code(flatbuffers::Offset<flatbuffers::String> country_code) {
+  void add_country_code(::flatbuffers::Offset<::flatbuffers::String> country_code) {
     fbb_.AddOffset(Iban::VT_COUNTRY_CODE, country_code);
   }
-  explicit IbanBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit IbanBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Iban> Finish() {
+  ::flatbuffers::Offset<Iban> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Iban>(end);
+    auto o = ::flatbuffers::Offset<Iban>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Iban> CreateIban(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> number = 0,
-    flatbuffers::Offset<flatbuffers::String> country_code = 0) {
+inline ::flatbuffers::Offset<Iban> CreateIban(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> number = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> country_code = 0) {
   IbanBuilder builder_(_fbb);
   builder_.add_country_code(country_code);
   builder_.add_number(number);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<Iban> CreateIbanDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Iban> CreateIbanDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *number = nullptr,
     const char *country_code = nullptr) {
   auto number__ = number ? _fbb.CreateString(number) : 0;
@@ -1028,15 +1039,15 @@ inline flatbuffers::Offset<Iban> CreateIbanDirect(
       country_code__);
 }
 
-flatbuffers::Offset<Iban> CreateIban(flatbuffers::FlatBufferBuilder &_fbb, const IbanT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Iban> CreateIban(::flatbuffers::FlatBufferBuilder &_fbb, const IbanT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct ParcelTrackingT : public flatbuffers::NativeTable {
+struct ParcelTrackingT : public ::flatbuffers::NativeTable {
   typedef ParcelTracking TableType;
   libtextclassifier3::EntityData_::ParcelTracking_::Carrier carrier = libtextclassifier3::EntityData_::ParcelTracking_::Carrier_UNKNOWN_CARRIER;
   std::string tracking_number{};
 };
 
-struct ParcelTracking FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ParcelTracking FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ParcelTrackingT NativeTableType;
   typedef ParcelTrackingBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -1046,54 +1057,54 @@ struct ParcelTracking FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   libtextclassifier3::EntityData_::ParcelTracking_::Carrier carrier() const {
     return static_cast<libtextclassifier3::EntityData_::ParcelTracking_::Carrier>(GetField<int32_t>(VT_CARRIER, 0));
   }
-  const flatbuffers::String *tracking_number() const {
-    return GetPointer<const flatbuffers::String *>(VT_TRACKING_NUMBER);
+  const ::flatbuffers::String *tracking_number() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_TRACKING_NUMBER);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_CARRIER) &&
+           VerifyField<int32_t>(verifier, VT_CARRIER, 4) &&
            VerifyOffset(verifier, VT_TRACKING_NUMBER) &&
            verifier.VerifyString(tracking_number()) &&
            verifier.EndTable();
   }
-  ParcelTrackingT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(ParcelTrackingT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<ParcelTracking> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ParcelTrackingT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  ParcelTrackingT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ParcelTrackingT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<ParcelTracking> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ParcelTrackingT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct ParcelTrackingBuilder {
   typedef ParcelTracking Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_carrier(libtextclassifier3::EntityData_::ParcelTracking_::Carrier carrier) {
     fbb_.AddElement<int32_t>(ParcelTracking::VT_CARRIER, static_cast<int32_t>(carrier), 0);
   }
-  void add_tracking_number(flatbuffers::Offset<flatbuffers::String> tracking_number) {
+  void add_tracking_number(::flatbuffers::Offset<::flatbuffers::String> tracking_number) {
     fbb_.AddOffset(ParcelTracking::VT_TRACKING_NUMBER, tracking_number);
   }
-  explicit ParcelTrackingBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ParcelTrackingBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ParcelTracking> Finish() {
+  ::flatbuffers::Offset<ParcelTracking> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ParcelTracking>(end);
+    auto o = ::flatbuffers::Offset<ParcelTracking>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ParcelTracking> CreateParcelTracking(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ParcelTracking> CreateParcelTracking(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     libtextclassifier3::EntityData_::ParcelTracking_::Carrier carrier = libtextclassifier3::EntityData_::ParcelTracking_::Carrier_UNKNOWN_CARRIER,
-    flatbuffers::Offset<flatbuffers::String> tracking_number = 0) {
+    ::flatbuffers::Offset<::flatbuffers::String> tracking_number = 0) {
   ParcelTrackingBuilder builder_(_fbb);
   builder_.add_tracking_number(tracking_number);
   builder_.add_carrier(carrier);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<ParcelTracking> CreateParcelTrackingDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ParcelTracking> CreateParcelTrackingDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     libtextclassifier3::EntityData_::ParcelTracking_::Carrier carrier = libtextclassifier3::EntityData_::ParcelTracking_::Carrier_UNKNOWN_CARRIER,
     const char *tracking_number = nullptr) {
   auto tracking_number__ = tracking_number ? _fbb.CreateString(tracking_number) : 0;
@@ -1103,9 +1114,9 @@ inline flatbuffers::Offset<ParcelTracking> CreateParcelTrackingDirect(
       tracking_number__);
 }
 
-flatbuffers::Offset<ParcelTracking> CreateParcelTracking(flatbuffers::FlatBufferBuilder &_fbb, const ParcelTrackingT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<ParcelTracking> CreateParcelTracking(::flatbuffers::FlatBufferBuilder &_fbb, const ParcelTrackingT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct MoneyT : public flatbuffers::NativeTable {
+struct MoneyT : public ::flatbuffers::NativeTable {
   typedef Money TableType;
   std::string unnormalized_currency{};
   int32_t amount_whole_part = 0;
@@ -1115,7 +1126,7 @@ struct MoneyT : public flatbuffers::NativeTable {
   std::string quantity{};
 };
 
-struct Money FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Money FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef MoneyT NativeTableType;
   typedef MoneyBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -1126,8 +1137,8 @@ struct Money FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_NANOS = 12,
     VT_QUANTITY = 14
   };
-  const flatbuffers::String *unnormalized_currency() const {
-    return GetPointer<const flatbuffers::String *>(VT_UNNORMALIZED_CURRENCY);
+  const ::flatbuffers::String *unnormalized_currency() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_UNNORMALIZED_CURRENCY);
   }
   int32_t amount_whole_part() const {
     return GetField<int32_t>(VT_AMOUNT_WHOLE_PART, 0);
@@ -1135,38 +1146,38 @@ struct Money FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t amount_decimal_part() const {
     return GetField<int32_t>(VT_AMOUNT_DECIMAL_PART, 0);
   }
-  const flatbuffers::String *unnormalized_amount() const {
-    return GetPointer<const flatbuffers::String *>(VT_UNNORMALIZED_AMOUNT);
+  const ::flatbuffers::String *unnormalized_amount() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_UNNORMALIZED_AMOUNT);
   }
   int32_t nanos() const {
     return GetField<int32_t>(VT_NANOS, 0);
   }
-  const flatbuffers::String *quantity() const {
-    return GetPointer<const flatbuffers::String *>(VT_QUANTITY);
+  const ::flatbuffers::String *quantity() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_QUANTITY);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_UNNORMALIZED_CURRENCY) &&
            verifier.VerifyString(unnormalized_currency()) &&
-           VerifyField<int32_t>(verifier, VT_AMOUNT_WHOLE_PART) &&
-           VerifyField<int32_t>(verifier, VT_AMOUNT_DECIMAL_PART) &&
+           VerifyField<int32_t>(verifier, VT_AMOUNT_WHOLE_PART, 4) &&
+           VerifyField<int32_t>(verifier, VT_AMOUNT_DECIMAL_PART, 4) &&
            VerifyOffset(verifier, VT_UNNORMALIZED_AMOUNT) &&
            verifier.VerifyString(unnormalized_amount()) &&
-           VerifyField<int32_t>(verifier, VT_NANOS) &&
+           VerifyField<int32_t>(verifier, VT_NANOS, 4) &&
            VerifyOffset(verifier, VT_QUANTITY) &&
            verifier.VerifyString(quantity()) &&
            verifier.EndTable();
   }
-  MoneyT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(MoneyT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Money> Pack(flatbuffers::FlatBufferBuilder &_fbb, const MoneyT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  MoneyT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(MoneyT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Money> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const MoneyT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct MoneyBuilder {
   typedef Money Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_unnormalized_currency(flatbuffers::Offset<flatbuffers::String> unnormalized_currency) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_unnormalized_currency(::flatbuffers::Offset<::flatbuffers::String> unnormalized_currency) {
     fbb_.AddOffset(Money::VT_UNNORMALIZED_CURRENCY, unnormalized_currency);
   }
   void add_amount_whole_part(int32_t amount_whole_part) {
@@ -1175,34 +1186,34 @@ struct MoneyBuilder {
   void add_amount_decimal_part(int32_t amount_decimal_part) {
     fbb_.AddElement<int32_t>(Money::VT_AMOUNT_DECIMAL_PART, amount_decimal_part, 0);
   }
-  void add_unnormalized_amount(flatbuffers::Offset<flatbuffers::String> unnormalized_amount) {
+  void add_unnormalized_amount(::flatbuffers::Offset<::flatbuffers::String> unnormalized_amount) {
     fbb_.AddOffset(Money::VT_UNNORMALIZED_AMOUNT, unnormalized_amount);
   }
   void add_nanos(int32_t nanos) {
     fbb_.AddElement<int32_t>(Money::VT_NANOS, nanos, 0);
   }
-  void add_quantity(flatbuffers::Offset<flatbuffers::String> quantity) {
+  void add_quantity(::flatbuffers::Offset<::flatbuffers::String> quantity) {
     fbb_.AddOffset(Money::VT_QUANTITY, quantity);
   }
-  explicit MoneyBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit MoneyBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Money> Finish() {
+  ::flatbuffers::Offset<Money> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Money>(end);
+    auto o = ::flatbuffers::Offset<Money>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Money> CreateMoney(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> unnormalized_currency = 0,
+inline ::flatbuffers::Offset<Money> CreateMoney(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> unnormalized_currency = 0,
     int32_t amount_whole_part = 0,
     int32_t amount_decimal_part = 0,
-    flatbuffers::Offset<flatbuffers::String> unnormalized_amount = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> unnormalized_amount = 0,
     int32_t nanos = 0,
-    flatbuffers::Offset<flatbuffers::String> quantity = 0) {
+    ::flatbuffers::Offset<::flatbuffers::String> quantity = 0) {
   MoneyBuilder builder_(_fbb);
   builder_.add_quantity(quantity);
   builder_.add_nanos(nanos);
@@ -1213,8 +1224,8 @@ inline flatbuffers::Offset<Money> CreateMoney(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<Money> CreateMoneyDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Money> CreateMoneyDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *unnormalized_currency = nullptr,
     int32_t amount_whole_part = 0,
     int32_t amount_decimal_part = 0,
@@ -1234,65 +1245,65 @@ inline flatbuffers::Offset<Money> CreateMoneyDirect(
       quantity__);
 }
 
-flatbuffers::Offset<Money> CreateMoney(flatbuffers::FlatBufferBuilder &_fbb, const MoneyT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Money> CreateMoney(::flatbuffers::FlatBufferBuilder &_fbb, const MoneyT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 namespace Translate_ {
 
-struct LanguagePredictionResultT : public flatbuffers::NativeTable {
+struct LanguagePredictionResultT : public ::flatbuffers::NativeTable {
   typedef LanguagePredictionResult TableType;
   std::string language_tag{};
   float confidence_score = 0.0f;
 };
 
-struct LanguagePredictionResult FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct LanguagePredictionResult FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef LanguagePredictionResultT NativeTableType;
   typedef LanguagePredictionResultBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_LANGUAGE_TAG = 4,
     VT_CONFIDENCE_SCORE = 6
   };
-  const flatbuffers::String *language_tag() const {
-    return GetPointer<const flatbuffers::String *>(VT_LANGUAGE_TAG);
+  const ::flatbuffers::String *language_tag() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_LANGUAGE_TAG);
   }
   float confidence_score() const {
     return GetField<float>(VT_CONFIDENCE_SCORE, 0.0f);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_LANGUAGE_TAG) &&
            verifier.VerifyString(language_tag()) &&
-           VerifyField<float>(verifier, VT_CONFIDENCE_SCORE) &&
+           VerifyField<float>(verifier, VT_CONFIDENCE_SCORE, 4) &&
            verifier.EndTable();
   }
-  LanguagePredictionResultT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(LanguagePredictionResultT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<LanguagePredictionResult> Pack(flatbuffers::FlatBufferBuilder &_fbb, const LanguagePredictionResultT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  LanguagePredictionResultT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(LanguagePredictionResultT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<LanguagePredictionResult> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const LanguagePredictionResultT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct LanguagePredictionResultBuilder {
   typedef LanguagePredictionResult Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_language_tag(flatbuffers::Offset<flatbuffers::String> language_tag) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_language_tag(::flatbuffers::Offset<::flatbuffers::String> language_tag) {
     fbb_.AddOffset(LanguagePredictionResult::VT_LANGUAGE_TAG, language_tag);
   }
   void add_confidence_score(float confidence_score) {
     fbb_.AddElement<float>(LanguagePredictionResult::VT_CONFIDENCE_SCORE, confidence_score, 0.0f);
   }
-  explicit LanguagePredictionResultBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit LanguagePredictionResultBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<LanguagePredictionResult> Finish() {
+  ::flatbuffers::Offset<LanguagePredictionResult> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<LanguagePredictionResult>(end);
+    auto o = ::flatbuffers::Offset<LanguagePredictionResult>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionResult(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> language_tag = 0,
+inline ::flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionResult(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> language_tag = 0,
     float confidence_score = 0.0f) {
   LanguagePredictionResultBuilder builder_(_fbb);
   builder_.add_confidence_score(confidence_score);
@@ -1300,8 +1311,8 @@ inline flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionRes
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionResultDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionResultDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *language_tag = nullptr,
     float confidence_score = 0.0f) {
   auto language_tag__ = language_tag ? _fbb.CreateString(language_tag) : 0;
@@ -1311,76 +1322,80 @@ inline flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionRes
       confidence_score);
 }
 
-flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionResult(flatbuffers::FlatBufferBuilder &_fbb, const LanguagePredictionResultT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionResult(::flatbuffers::FlatBufferBuilder &_fbb, const LanguagePredictionResultT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 }  // namespace Translate_
 
-struct TranslateT : public flatbuffers::NativeTable {
+struct TranslateT : public ::flatbuffers::NativeTable {
   typedef Translate TableType;
   std::vector<std::unique_ptr<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResultT>> language_prediction_results{};
+  TranslateT() = default;
+  TranslateT(const TranslateT &o);
+  TranslateT(TranslateT&&) FLATBUFFERS_NOEXCEPT = default;
+  TranslateT &operator=(TranslateT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct Translate FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Translate FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef TranslateT NativeTableType;
   typedef TranslateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_LANGUAGE_PREDICTION_RESULTS = 4
   };
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>> *language_prediction_results() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>> *>(VT_LANGUAGE_PREDICTION_RESULTS);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>> *language_prediction_results() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>> *>(VT_LANGUAGE_PREDICTION_RESULTS);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_LANGUAGE_PREDICTION_RESULTS) &&
            verifier.VerifyVector(language_prediction_results()) &&
            verifier.VerifyVectorOfTables(language_prediction_results()) &&
            verifier.EndTable();
   }
-  TranslateT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(TranslateT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Translate> Pack(flatbuffers::FlatBufferBuilder &_fbb, const TranslateT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  TranslateT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(TranslateT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Translate> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const TranslateT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct TranslateBuilder {
   typedef Translate Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_language_prediction_results(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>>> language_prediction_results) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_language_prediction_results(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>>> language_prediction_results) {
     fbb_.AddOffset(Translate::VT_LANGUAGE_PREDICTION_RESULTS, language_prediction_results);
   }
-  explicit TranslateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TranslateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Translate> Finish() {
+  ::flatbuffers::Offset<Translate> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Translate>(end);
+    auto o = ::flatbuffers::Offset<Translate>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Translate> CreateTranslate(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>>> language_prediction_results = 0) {
+inline ::flatbuffers::Offset<Translate> CreateTranslate(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>>> language_prediction_results = 0) {
   TranslateBuilder builder_(_fbb);
   builder_.add_language_prediction_results(language_prediction_results);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<Translate> CreateTranslateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>> *language_prediction_results = nullptr) {
-  auto language_prediction_results__ = language_prediction_results ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>>(*language_prediction_results) : 0;
+inline ::flatbuffers::Offset<Translate> CreateTranslateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>> *language_prediction_results = nullptr) {
+  auto language_prediction_results__ = language_prediction_results ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>>(*language_prediction_results) : 0;
   return libtextclassifier3::EntityData_::CreateTranslate(
       _fbb,
       language_prediction_results__);
 }
 
-flatbuffers::Offset<Translate> CreateTranslate(flatbuffers::FlatBufferBuilder &_fbb, const TranslateT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Translate> CreateTranslate(::flatbuffers::FlatBufferBuilder &_fbb, const TranslateT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 }  // namespace EntityData_
 
-struct EntityDataT : public flatbuffers::NativeTable {
+struct EntityDataT : public ::flatbuffers::NativeTable {
   typedef EntityData TableType;
   int32_t start = 0;
   int32_t end = 0;
@@ -1395,9 +1410,13 @@ struct EntityDataT : public flatbuffers::NativeTable {
   std::unique_ptr<libtextclassifier3::EntityData_::ParcelTrackingT> parcel{};
   std::unique_ptr<libtextclassifier3::EntityData_::MoneyT> money{};
   std::unique_ptr<libtextclassifier3::EntityData_::TranslateT> translate{};
+  EntityDataT() = default;
+  EntityDataT(const EntityDataT &o);
+  EntityDataT(EntityDataT&&) FLATBUFFERS_NOEXCEPT = default;
+  EntityDataT &operator=(EntityDataT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct EntityData FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct EntityData FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef EntityDataT NativeTableType;
   typedef EntityDataBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -1421,8 +1440,8 @@ struct EntityData FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t end() const {
     return GetField<int32_t>(VT_END, 0);
   }
-  const flatbuffers::String *type() const {
-    return GetPointer<const flatbuffers::String *>(VT_TYPE);
+  const ::flatbuffers::String *type() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_TYPE);
   }
   const libtextclassifier3::EntityData_::Datetime *datetime() const {
     return GetPointer<const libtextclassifier3::EntityData_::Datetime *>(VT_DATETIME);
@@ -1454,10 +1473,10 @@ struct EntityData FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const libtextclassifier3::EntityData_::Translate *translate() const {
     return GetPointer<const libtextclassifier3::EntityData_::Translate *>(VT_TRANSLATE);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_START) &&
-           VerifyField<int32_t>(verifier, VT_END) &&
+           VerifyField<int32_t>(verifier, VT_START, 4) &&
+           VerifyField<int32_t>(verifier, VT_END, 4) &&
            VerifyOffset(verifier, VT_TYPE) &&
            verifier.VerifyString(type()) &&
            VerifyOffset(verifier, VT_DATETIME) &&
@@ -1482,80 +1501,80 @@ struct EntityData FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyTable(translate()) &&
            verifier.EndTable();
   }
-  EntityDataT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(EntityDataT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<EntityData> Pack(flatbuffers::FlatBufferBuilder &_fbb, const EntityDataT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  EntityDataT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(EntityDataT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<EntityData> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const EntityDataT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct EntityDataBuilder {
   typedef EntityData Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_start(int32_t start) {
     fbb_.AddElement<int32_t>(EntityData::VT_START, start, 0);
   }
   void add_end(int32_t end) {
     fbb_.AddElement<int32_t>(EntityData::VT_END, end, 0);
   }
-  void add_type(flatbuffers::Offset<flatbuffers::String> type) {
+  void add_type(::flatbuffers::Offset<::flatbuffers::String> type) {
     fbb_.AddOffset(EntityData::VT_TYPE, type);
   }
-  void add_datetime(flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime> datetime) {
+  void add_datetime(::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime> datetime) {
     fbb_.AddOffset(EntityData::VT_DATETIME, datetime);
   }
-  void add_contact(flatbuffers::Offset<libtextclassifier3::EntityData_::Contact> contact) {
+  void add_contact(::flatbuffers::Offset<libtextclassifier3::EntityData_::Contact> contact) {
     fbb_.AddOffset(EntityData::VT_CONTACT, contact);
   }
-  void add_app(flatbuffers::Offset<libtextclassifier3::EntityData_::App> app) {
+  void add_app(::flatbuffers::Offset<libtextclassifier3::EntityData_::App> app) {
     fbb_.AddOffset(EntityData::VT_APP, app);
   }
-  void add_payment_card(flatbuffers::Offset<libtextclassifier3::EntityData_::PaymentCard> payment_card) {
+  void add_payment_card(::flatbuffers::Offset<libtextclassifier3::EntityData_::PaymentCard> payment_card) {
     fbb_.AddOffset(EntityData::VT_PAYMENT_CARD, payment_card);
   }
-  void add_flight(flatbuffers::Offset<libtextclassifier3::EntityData_::Flight> flight) {
+  void add_flight(::flatbuffers::Offset<libtextclassifier3::EntityData_::Flight> flight) {
     fbb_.AddOffset(EntityData::VT_FLIGHT, flight);
   }
-  void add_isbn(flatbuffers::Offset<libtextclassifier3::EntityData_::Isbn> isbn) {
+  void add_isbn(::flatbuffers::Offset<libtextclassifier3::EntityData_::Isbn> isbn) {
     fbb_.AddOffset(EntityData::VT_ISBN, isbn);
   }
-  void add_iban(flatbuffers::Offset<libtextclassifier3::EntityData_::Iban> iban) {
+  void add_iban(::flatbuffers::Offset<libtextclassifier3::EntityData_::Iban> iban) {
     fbb_.AddOffset(EntityData::VT_IBAN, iban);
   }
-  void add_parcel(flatbuffers::Offset<libtextclassifier3::EntityData_::ParcelTracking> parcel) {
+  void add_parcel(::flatbuffers::Offset<libtextclassifier3::EntityData_::ParcelTracking> parcel) {
     fbb_.AddOffset(EntityData::VT_PARCEL, parcel);
   }
-  void add_money(flatbuffers::Offset<libtextclassifier3::EntityData_::Money> money) {
+  void add_money(::flatbuffers::Offset<libtextclassifier3::EntityData_::Money> money) {
     fbb_.AddOffset(EntityData::VT_MONEY, money);
   }
-  void add_translate(flatbuffers::Offset<libtextclassifier3::EntityData_::Translate> translate) {
+  void add_translate(::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate> translate) {
     fbb_.AddOffset(EntityData::VT_TRANSLATE, translate);
   }
-  explicit EntityDataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit EntityDataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<EntityData> Finish() {
+  ::flatbuffers::Offset<EntityData> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<EntityData>(end);
+    auto o = ::flatbuffers::Offset<EntityData>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<EntityData> CreateEntityData(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<EntityData> CreateEntityData(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t start = 0,
     int32_t end = 0,
-    flatbuffers::Offset<flatbuffers::String> type = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime> datetime = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Contact> contact = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::App> app = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::PaymentCard> payment_card = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Flight> flight = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Isbn> isbn = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Iban> iban = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::ParcelTracking> parcel = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Money> money = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Translate> translate = 0) {
+    ::flatbuffers::Offset<::flatbuffers::String> type = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime> datetime = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Contact> contact = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::App> app = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::PaymentCard> payment_card = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Flight> flight = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Isbn> isbn = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Iban> iban = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::ParcelTracking> parcel = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Money> money = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate> translate = 0) {
   EntityDataBuilder builder_(_fbb);
   builder_.add_translate(translate);
   builder_.add_money(money);
@@ -1573,21 +1592,21 @@ inline flatbuffers::Offset<EntityData> CreateEntityData(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<EntityData> CreateEntityDataDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<EntityData> CreateEntityDataDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t start = 0,
     int32_t end = 0,
     const char *type = nullptr,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime> datetime = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Contact> contact = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::App> app = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::PaymentCard> payment_card = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Flight> flight = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Isbn> isbn = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Iban> iban = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::ParcelTracking> parcel = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Money> money = 0,
-    flatbuffers::Offset<libtextclassifier3::EntityData_::Translate> translate = 0) {
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime> datetime = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Contact> contact = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::App> app = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::PaymentCard> payment_card = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Flight> flight = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Isbn> isbn = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Iban> iban = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::ParcelTracking> parcel = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Money> money = 0,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate> translate = 0) {
   auto type__ = type ? _fbb.CreateString(type) : 0;
   return libtextclassifier3::CreateEntityData(
       _fbb,
@@ -1606,18 +1625,18 @@ inline flatbuffers::Offset<EntityData> CreateEntityDataDirect(
       translate);
 }
 
-flatbuffers::Offset<EntityData> CreateEntityData(flatbuffers::FlatBufferBuilder &_fbb, const EntityDataT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<EntityData> CreateEntityData(::flatbuffers::FlatBufferBuilder &_fbb, const EntityDataT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 namespace EntityData_ {
 namespace Datetime_ {
 
-inline DatetimeComponentT *DatetimeComponent::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline DatetimeComponentT *DatetimeComponent::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<DatetimeComponentT>(new DatetimeComponentT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void DatetimeComponent::UnPackTo(DatetimeComponentT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void DatetimeComponent::UnPackTo(DatetimeComponentT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = component_type(); _o->component_type = _e; }
@@ -1626,14 +1645,14 @@ inline void DatetimeComponent::UnPackTo(DatetimeComponentT *_o, const flatbuffer
   { auto _e = relation_type(); _o->relation_type = _e; }
 }
 
-inline flatbuffers::Offset<DatetimeComponent> DatetimeComponent::Pack(flatbuffers::FlatBufferBuilder &_fbb, const DatetimeComponentT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<DatetimeComponent> DatetimeComponent::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const DatetimeComponentT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateDatetimeComponent(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<DatetimeComponent> CreateDatetimeComponent(flatbuffers::FlatBufferBuilder &_fbb, const DatetimeComponentT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<DatetimeComponent> CreateDatetimeComponent(::flatbuffers::FlatBufferBuilder &_fbb, const DatetimeComponentT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DatetimeComponentT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const DatetimeComponentT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _component_type = _o->component_type;
   auto _absolute_value = _o->absolute_value;
   auto _relative_count = _o->relative_count;
@@ -1648,31 +1667,45 @@ inline flatbuffers::Offset<DatetimeComponent> CreateDatetimeComponent(flatbuffer
 
 }  // namespace Datetime_
 
-inline DatetimeT *Datetime::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline DatetimeT::DatetimeT(const DatetimeT &o)
+      : time_ms_utc(o.time_ms_utc),
+        granularity(o.granularity) {
+  datetime_component.reserve(o.datetime_component.size());
+  for (const auto &datetime_component_ : o.datetime_component) { datetime_component.emplace_back((datetime_component_) ? new libtextclassifier3::EntityData_::Datetime_::DatetimeComponentT(*datetime_component_) : nullptr); }
+}
+
+inline DatetimeT &DatetimeT::operator=(DatetimeT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(time_ms_utc, o.time_ms_utc);
+  std::swap(granularity, o.granularity);
+  std::swap(datetime_component, o.datetime_component);
+  return *this;
+}
+
+inline DatetimeT *Datetime::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<DatetimeT>(new DatetimeT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Datetime::UnPackTo(DatetimeT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Datetime::UnPackTo(DatetimeT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = time_ms_utc(); _o->time_ms_utc = _e; }
   { auto _e = granularity(); _o->granularity = _e; }
-  { auto _e = datetime_component(); if (_e) { _o->datetime_component.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->datetime_component[_i] = std::unique_ptr<libtextclassifier3::EntityData_::Datetime_::DatetimeComponentT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = datetime_component(); if (_e) { _o->datetime_component.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->datetime_component[_i]) { _e->Get(_i)->UnPackTo(_o->datetime_component[_i].get(), _resolver); } else { _o->datetime_component[_i] = std::unique_ptr<libtextclassifier3::EntityData_::Datetime_::DatetimeComponentT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->datetime_component.resize(0); } }
 }
 
-inline flatbuffers::Offset<Datetime> Datetime::Pack(flatbuffers::FlatBufferBuilder &_fbb, const DatetimeT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Datetime> Datetime::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const DatetimeT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateDatetime(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Datetime> CreateDatetime(flatbuffers::FlatBufferBuilder &_fbb, const DatetimeT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Datetime> CreateDatetime(::flatbuffers::FlatBufferBuilder &_fbb, const DatetimeT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DatetimeT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const DatetimeT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _time_ms_utc = _o->time_ms_utc;
   auto _granularity = _o->granularity;
-  auto _datetime_component = _o->datetime_component.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>> (_o->datetime_component.size(), [](size_t i, _VectorArgs *__va) { return CreateDatetimeComponent(*__va->__fbb, __va->__o->datetime_component[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _datetime_component = _o->datetime_component.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Datetime_::DatetimeComponent>> (_o->datetime_component.size(), [](size_t i, _VectorArgs *__va) { return CreateDatetimeComponent(*__va->__fbb, __va->__o->datetime_component[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::EntityData_::CreateDatetime(
       _fbb,
       _time_ms_utc,
@@ -1680,13 +1713,13 @@ inline flatbuffers::Offset<Datetime> CreateDatetime(flatbuffers::FlatBufferBuild
       _datetime_component);
 }
 
-inline ContactT *Contact::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline ContactT *Contact::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<ContactT>(new ContactT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Contact::UnPackTo(ContactT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Contact::UnPackTo(ContactT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = name(); if (_e) _o->name = _e->str(); }
@@ -1697,14 +1730,14 @@ inline void Contact::UnPackTo(ContactT *_o, const flatbuffers::resolver_function
   { auto _e = contact_id(); if (_e) _o->contact_id = _e->str(); }
 }
 
-inline flatbuffers::Offset<Contact> Contact::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ContactT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Contact> Contact::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ContactT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateContact(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Contact> CreateContact(flatbuffers::FlatBufferBuilder &_fbb, const ContactT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Contact> CreateContact(::flatbuffers::FlatBufferBuilder &_fbb, const ContactT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ContactT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const ContactT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
   auto _given_name = _o->given_name.empty() ? 0 : _fbb.CreateString(_o->given_name);
   auto _nickname = _o->nickname.empty() ? 0 : _fbb.CreateString(_o->nickname);
@@ -1721,27 +1754,27 @@ inline flatbuffers::Offset<Contact> CreateContact(flatbuffers::FlatBufferBuilder
       _contact_id);
 }
 
-inline AppT *App::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline AppT *App::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<AppT>(new AppT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void App::UnPackTo(AppT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void App::UnPackTo(AppT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = name(); if (_e) _o->name = _e->str(); }
   { auto _e = package_name(); if (_e) _o->package_name = _e->str(); }
 }
 
-inline flatbuffers::Offset<App> App::Pack(flatbuffers::FlatBufferBuilder &_fbb, const AppT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<App> App::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AppT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateApp(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<App> CreateApp(flatbuffers::FlatBufferBuilder &_fbb, const AppT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<App> CreateApp(::flatbuffers::FlatBufferBuilder &_fbb, const AppT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AppT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const AppT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
   auto _package_name = _o->package_name.empty() ? 0 : _fbb.CreateString(_o->package_name);
   return libtextclassifier3::EntityData_::CreateApp(
@@ -1750,27 +1783,27 @@ inline flatbuffers::Offset<App> CreateApp(flatbuffers::FlatBufferBuilder &_fbb, 
       _package_name);
 }
 
-inline PaymentCardT *PaymentCard::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline PaymentCardT *PaymentCard::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<PaymentCardT>(new PaymentCardT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void PaymentCard::UnPackTo(PaymentCardT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void PaymentCard::UnPackTo(PaymentCardT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = card_network(); _o->card_network = _e; }
   { auto _e = card_number(); if (_e) _o->card_number = _e->str(); }
 }
 
-inline flatbuffers::Offset<PaymentCard> PaymentCard::Pack(flatbuffers::FlatBufferBuilder &_fbb, const PaymentCardT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<PaymentCard> PaymentCard::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const PaymentCardT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreatePaymentCard(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<PaymentCard> CreatePaymentCard(flatbuffers::FlatBufferBuilder &_fbb, const PaymentCardT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<PaymentCard> CreatePaymentCard(::flatbuffers::FlatBufferBuilder &_fbb, const PaymentCardT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const PaymentCardT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const PaymentCardT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _card_network = _o->card_network;
   auto _card_number = _o->card_number.empty() ? 0 : _fbb.CreateString(_o->card_number);
   return libtextclassifier3::EntityData_::CreatePaymentCard(
@@ -1779,27 +1812,27 @@ inline flatbuffers::Offset<PaymentCard> CreatePaymentCard(flatbuffers::FlatBuffe
       _card_number);
 }
 
-inline FlightT *Flight::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline FlightT *Flight::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<FlightT>(new FlightT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Flight::UnPackTo(FlightT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Flight::UnPackTo(FlightT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = airline_code(); if (_e) _o->airline_code = _e->str(); }
   { auto _e = flight_number(); if (_e) _o->flight_number = _e->str(); }
 }
 
-inline flatbuffers::Offset<Flight> Flight::Pack(flatbuffers::FlatBufferBuilder &_fbb, const FlightT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Flight> Flight::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const FlightT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateFlight(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Flight> CreateFlight(flatbuffers::FlatBufferBuilder &_fbb, const FlightT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Flight> CreateFlight(::flatbuffers::FlatBufferBuilder &_fbb, const FlightT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const FlightT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const FlightT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _airline_code = _o->airline_code.empty() ? 0 : _fbb.CreateString(_o->airline_code);
   auto _flight_number = _o->flight_number.empty() ? 0 : _fbb.CreateString(_o->flight_number);
   return libtextclassifier3::EntityData_::CreateFlight(
@@ -1808,53 +1841,53 @@ inline flatbuffers::Offset<Flight> CreateFlight(flatbuffers::FlatBufferBuilder &
       _flight_number);
 }
 
-inline IsbnT *Isbn::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline IsbnT *Isbn::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<IsbnT>(new IsbnT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Isbn::UnPackTo(IsbnT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Isbn::UnPackTo(IsbnT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = number(); if (_e) _o->number = _e->str(); }
 }
 
-inline flatbuffers::Offset<Isbn> Isbn::Pack(flatbuffers::FlatBufferBuilder &_fbb, const IsbnT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Isbn> Isbn::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const IsbnT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateIsbn(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Isbn> CreateIsbn(flatbuffers::FlatBufferBuilder &_fbb, const IsbnT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Isbn> CreateIsbn(::flatbuffers::FlatBufferBuilder &_fbb, const IsbnT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const IsbnT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const IsbnT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _number = _o->number.empty() ? 0 : _fbb.CreateString(_o->number);
   return libtextclassifier3::EntityData_::CreateIsbn(
       _fbb,
       _number);
 }
 
-inline IbanT *Iban::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline IbanT *Iban::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<IbanT>(new IbanT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Iban::UnPackTo(IbanT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Iban::UnPackTo(IbanT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = number(); if (_e) _o->number = _e->str(); }
   { auto _e = country_code(); if (_e) _o->country_code = _e->str(); }
 }
 
-inline flatbuffers::Offset<Iban> Iban::Pack(flatbuffers::FlatBufferBuilder &_fbb, const IbanT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Iban> Iban::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const IbanT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateIban(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Iban> CreateIban(flatbuffers::FlatBufferBuilder &_fbb, const IbanT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Iban> CreateIban(::flatbuffers::FlatBufferBuilder &_fbb, const IbanT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const IbanT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const IbanT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _number = _o->number.empty() ? 0 : _fbb.CreateString(_o->number);
   auto _country_code = _o->country_code.empty() ? 0 : _fbb.CreateString(_o->country_code);
   return libtextclassifier3::EntityData_::CreateIban(
@@ -1863,27 +1896,27 @@ inline flatbuffers::Offset<Iban> CreateIban(flatbuffers::FlatBufferBuilder &_fbb
       _country_code);
 }
 
-inline ParcelTrackingT *ParcelTracking::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline ParcelTrackingT *ParcelTracking::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<ParcelTrackingT>(new ParcelTrackingT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void ParcelTracking::UnPackTo(ParcelTrackingT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void ParcelTracking::UnPackTo(ParcelTrackingT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = carrier(); _o->carrier = _e; }
   { auto _e = tracking_number(); if (_e) _o->tracking_number = _e->str(); }
 }
 
-inline flatbuffers::Offset<ParcelTracking> ParcelTracking::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ParcelTrackingT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ParcelTracking> ParcelTracking::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ParcelTrackingT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateParcelTracking(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<ParcelTracking> CreateParcelTracking(flatbuffers::FlatBufferBuilder &_fbb, const ParcelTrackingT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ParcelTracking> CreateParcelTracking(::flatbuffers::FlatBufferBuilder &_fbb, const ParcelTrackingT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ParcelTrackingT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const ParcelTrackingT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _carrier = _o->carrier;
   auto _tracking_number = _o->tracking_number.empty() ? 0 : _fbb.CreateString(_o->tracking_number);
   return libtextclassifier3::EntityData_::CreateParcelTracking(
@@ -1892,13 +1925,13 @@ inline flatbuffers::Offset<ParcelTracking> CreateParcelTracking(flatbuffers::Fla
       _tracking_number);
 }
 
-inline MoneyT *Money::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline MoneyT *Money::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<MoneyT>(new MoneyT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Money::UnPackTo(MoneyT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Money::UnPackTo(MoneyT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = unnormalized_currency(); if (_e) _o->unnormalized_currency = _e->str(); }
@@ -1909,14 +1942,14 @@ inline void Money::UnPackTo(MoneyT *_o, const flatbuffers::resolver_function_t *
   { auto _e = quantity(); if (_e) _o->quantity = _e->str(); }
 }
 
-inline flatbuffers::Offset<Money> Money::Pack(flatbuffers::FlatBufferBuilder &_fbb, const MoneyT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Money> Money::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const MoneyT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateMoney(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Money> CreateMoney(flatbuffers::FlatBufferBuilder &_fbb, const MoneyT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Money> CreateMoney(::flatbuffers::FlatBufferBuilder &_fbb, const MoneyT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MoneyT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const MoneyT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _unnormalized_currency = _o->unnormalized_currency.empty() ? 0 : _fbb.CreateString(_o->unnormalized_currency);
   auto _amount_whole_part = _o->amount_whole_part;
   auto _amount_decimal_part = _o->amount_decimal_part;
@@ -1935,27 +1968,27 @@ inline flatbuffers::Offset<Money> CreateMoney(flatbuffers::FlatBufferBuilder &_f
 
 namespace Translate_ {
 
-inline LanguagePredictionResultT *LanguagePredictionResult::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline LanguagePredictionResultT *LanguagePredictionResult::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<LanguagePredictionResultT>(new LanguagePredictionResultT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void LanguagePredictionResult::UnPackTo(LanguagePredictionResultT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void LanguagePredictionResult::UnPackTo(LanguagePredictionResultT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = language_tag(); if (_e) _o->language_tag = _e->str(); }
   { auto _e = confidence_score(); _o->confidence_score = _e; }
 }
 
-inline flatbuffers::Offset<LanguagePredictionResult> LanguagePredictionResult::Pack(flatbuffers::FlatBufferBuilder &_fbb, const LanguagePredictionResultT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<LanguagePredictionResult> LanguagePredictionResult::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const LanguagePredictionResultT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateLanguagePredictionResult(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionResult(flatbuffers::FlatBufferBuilder &_fbb, const LanguagePredictionResultT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionResult(::flatbuffers::FlatBufferBuilder &_fbb, const LanguagePredictionResultT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LanguagePredictionResultT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const LanguagePredictionResultT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _language_tag = _o->language_tag.empty() ? 0 : _fbb.CreateString(_o->language_tag);
   auto _confidence_score = _o->confidence_score;
   return libtextclassifier3::EntityData_::Translate_::CreateLanguagePredictionResult(
@@ -1966,27 +1999,37 @@ inline flatbuffers::Offset<LanguagePredictionResult> CreateLanguagePredictionRes
 
 }  // namespace Translate_
 
-inline TranslateT *Translate::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline TranslateT::TranslateT(const TranslateT &o) {
+  language_prediction_results.reserve(o.language_prediction_results.size());
+  for (const auto &language_prediction_results_ : o.language_prediction_results) { language_prediction_results.emplace_back((language_prediction_results_) ? new libtextclassifier3::EntityData_::Translate_::LanguagePredictionResultT(*language_prediction_results_) : nullptr); }
+}
+
+inline TranslateT &TranslateT::operator=(TranslateT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(language_prediction_results, o.language_prediction_results);
+  return *this;
+}
+
+inline TranslateT *Translate::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<TranslateT>(new TranslateT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Translate::UnPackTo(TranslateT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Translate::UnPackTo(TranslateT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = language_prediction_results(); if (_e) { _o->language_prediction_results.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->language_prediction_results[_i] = std::unique_ptr<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResultT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = language_prediction_results(); if (_e) { _o->language_prediction_results.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->language_prediction_results[_i]) { _e->Get(_i)->UnPackTo(_o->language_prediction_results[_i].get(), _resolver); } else { _o->language_prediction_results[_i] = std::unique_ptr<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResultT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->language_prediction_results.resize(0); } }
 }
 
-inline flatbuffers::Offset<Translate> Translate::Pack(flatbuffers::FlatBufferBuilder &_fbb, const TranslateT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Translate> Translate::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const TranslateT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateTranslate(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Translate> CreateTranslate(flatbuffers::FlatBufferBuilder &_fbb, const TranslateT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Translate> CreateTranslate(::flatbuffers::FlatBufferBuilder &_fbb, const TranslateT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const TranslateT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _language_prediction_results = _o->language_prediction_results.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>> (_o->language_prediction_results.size(), [](size_t i, _VectorArgs *__va) { return CreateLanguagePredictionResult(*__va->__fbb, __va->__o->language_prediction_results[i].get(), __va->__rehasher); }, &_va ) : 0;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const TranslateT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _language_prediction_results = _o->language_prediction_results.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::EntityData_::Translate_::LanguagePredictionResult>> (_o->language_prediction_results.size(), [](size_t i, _VectorArgs *__va) { return CreateLanguagePredictionResult(*__va->__fbb, __va->__o->language_prediction_results[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::EntityData_::CreateTranslate(
       _fbb,
       _language_prediction_results);
@@ -1994,38 +2037,71 @@ inline flatbuffers::Offset<Translate> CreateTranslate(flatbuffers::FlatBufferBui
 
 }  // namespace EntityData_
 
-inline EntityDataT *EntityData::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline EntityDataT::EntityDataT(const EntityDataT &o)
+      : start(o.start),
+        end(o.end),
+        type(o.type),
+        datetime((o.datetime) ? new libtextclassifier3::EntityData_::DatetimeT(*o.datetime) : nullptr),
+        contact((o.contact) ? new libtextclassifier3::EntityData_::ContactT(*o.contact) : nullptr),
+        app((o.app) ? new libtextclassifier3::EntityData_::AppT(*o.app) : nullptr),
+        payment_card((o.payment_card) ? new libtextclassifier3::EntityData_::PaymentCardT(*o.payment_card) : nullptr),
+        flight((o.flight) ? new libtextclassifier3::EntityData_::FlightT(*o.flight) : nullptr),
+        isbn((o.isbn) ? new libtextclassifier3::EntityData_::IsbnT(*o.isbn) : nullptr),
+        iban((o.iban) ? new libtextclassifier3::EntityData_::IbanT(*o.iban) : nullptr),
+        parcel((o.parcel) ? new libtextclassifier3::EntityData_::ParcelTrackingT(*o.parcel) : nullptr),
+        money((o.money) ? new libtextclassifier3::EntityData_::MoneyT(*o.money) : nullptr),
+        translate((o.translate) ? new libtextclassifier3::EntityData_::TranslateT(*o.translate) : nullptr) {
+}
+
+inline EntityDataT &EntityDataT::operator=(EntityDataT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(start, o.start);
+  std::swap(end, o.end);
+  std::swap(type, o.type);
+  std::swap(datetime, o.datetime);
+  std::swap(contact, o.contact);
+  std::swap(app, o.app);
+  std::swap(payment_card, o.payment_card);
+  std::swap(flight, o.flight);
+  std::swap(isbn, o.isbn);
+  std::swap(iban, o.iban);
+  std::swap(parcel, o.parcel);
+  std::swap(money, o.money);
+  std::swap(translate, o.translate);
+  return *this;
+}
+
+inline EntityDataT *EntityData::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<EntityDataT>(new EntityDataT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void EntityData::UnPackTo(EntityDataT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void EntityData::UnPackTo(EntityDataT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = start(); _o->start = _e; }
   { auto _e = end(); _o->end = _e; }
   { auto _e = type(); if (_e) _o->type = _e->str(); }
-  { auto _e = datetime(); if (_e) _o->datetime = std::unique_ptr<libtextclassifier3::EntityData_::DatetimeT>(_e->UnPack(_resolver)); }
-  { auto _e = contact(); if (_e) _o->contact = std::unique_ptr<libtextclassifier3::EntityData_::ContactT>(_e->UnPack(_resolver)); }
-  { auto _e = app(); if (_e) _o->app = std::unique_ptr<libtextclassifier3::EntityData_::AppT>(_e->UnPack(_resolver)); }
-  { auto _e = payment_card(); if (_e) _o->payment_card = std::unique_ptr<libtextclassifier3::EntityData_::PaymentCardT>(_e->UnPack(_resolver)); }
-  { auto _e = flight(); if (_e) _o->flight = std::unique_ptr<libtextclassifier3::EntityData_::FlightT>(_e->UnPack(_resolver)); }
-  { auto _e = isbn(); if (_e) _o->isbn = std::unique_ptr<libtextclassifier3::EntityData_::IsbnT>(_e->UnPack(_resolver)); }
-  { auto _e = iban(); if (_e) _o->iban = std::unique_ptr<libtextclassifier3::EntityData_::IbanT>(_e->UnPack(_resolver)); }
-  { auto _e = parcel(); if (_e) _o->parcel = std::unique_ptr<libtextclassifier3::EntityData_::ParcelTrackingT>(_e->UnPack(_resolver)); }
-  { auto _e = money(); if (_e) _o->money = std::unique_ptr<libtextclassifier3::EntityData_::MoneyT>(_e->UnPack(_resolver)); }
-  { auto _e = translate(); if (_e) _o->translate = std::unique_ptr<libtextclassifier3::EntityData_::TranslateT>(_e->UnPack(_resolver)); }
+  { auto _e = datetime(); if (_e) { if(_o->datetime) { _e->UnPackTo(_o->datetime.get(), _resolver); } else { _o->datetime = std::unique_ptr<libtextclassifier3::EntityData_::DatetimeT>(_e->UnPack(_resolver)); } } else if (_o->datetime) { _o->datetime.reset(); } }
+  { auto _e = contact(); if (_e) { if(_o->contact) { _e->UnPackTo(_o->contact.get(), _resolver); } else { _o->contact = std::unique_ptr<libtextclassifier3::EntityData_::ContactT>(_e->UnPack(_resolver)); } } else if (_o->contact) { _o->contact.reset(); } }
+  { auto _e = app(); if (_e) { if(_o->app) { _e->UnPackTo(_o->app.get(), _resolver); } else { _o->app = std::unique_ptr<libtextclassifier3::EntityData_::AppT>(_e->UnPack(_resolver)); } } else if (_o->app) { _o->app.reset(); } }
+  { auto _e = payment_card(); if (_e) { if(_o->payment_card) { _e->UnPackTo(_o->payment_card.get(), _resolver); } else { _o->payment_card = std::unique_ptr<libtextclassifier3::EntityData_::PaymentCardT>(_e->UnPack(_resolver)); } } else if (_o->payment_card) { _o->payment_card.reset(); } }
+  { auto _e = flight(); if (_e) { if(_o->flight) { _e->UnPackTo(_o->flight.get(), _resolver); } else { _o->flight = std::unique_ptr<libtextclassifier3::EntityData_::FlightT>(_e->UnPack(_resolver)); } } else if (_o->flight) { _o->flight.reset(); } }
+  { auto _e = isbn(); if (_e) { if(_o->isbn) { _e->UnPackTo(_o->isbn.get(), _resolver); } else { _o->isbn = std::unique_ptr<libtextclassifier3::EntityData_::IsbnT>(_e->UnPack(_resolver)); } } else if (_o->isbn) { _o->isbn.reset(); } }
+  { auto _e = iban(); if (_e) { if(_o->iban) { _e->UnPackTo(_o->iban.get(), _resolver); } else { _o->iban = std::unique_ptr<libtextclassifier3::EntityData_::IbanT>(_e->UnPack(_resolver)); } } else if (_o->iban) { _o->iban.reset(); } }
+  { auto _e = parcel(); if (_e) { if(_o->parcel) { _e->UnPackTo(_o->parcel.get(), _resolver); } else { _o->parcel = std::unique_ptr<libtextclassifier3::EntityData_::ParcelTrackingT>(_e->UnPack(_resolver)); } } else if (_o->parcel) { _o->parcel.reset(); } }
+  { auto _e = money(); if (_e) { if(_o->money) { _e->UnPackTo(_o->money.get(), _resolver); } else { _o->money = std::unique_ptr<libtextclassifier3::EntityData_::MoneyT>(_e->UnPack(_resolver)); } } else if (_o->money) { _o->money.reset(); } }
+  { auto _e = translate(); if (_e) { if(_o->translate) { _e->UnPackTo(_o->translate.get(), _resolver); } else { _o->translate = std::unique_ptr<libtextclassifier3::EntityData_::TranslateT>(_e->UnPack(_resolver)); } } else if (_o->translate) { _o->translate.reset(); } }
 }
 
-inline flatbuffers::Offset<EntityData> EntityData::Pack(flatbuffers::FlatBufferBuilder &_fbb, const EntityDataT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<EntityData> EntityData::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const EntityDataT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateEntityData(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<EntityData> CreateEntityData(flatbuffers::FlatBufferBuilder &_fbb, const EntityDataT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<EntityData> CreateEntityData(::flatbuffers::FlatBufferBuilder &_fbb, const EntityDataT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const EntityDataT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const EntityDataT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _start = _o->start;
   auto _end = _o->end;
   auto _type = _o->type.empty() ? 0 : _fbb.CreateString(_o->type);
@@ -2057,44 +2133,44 @@ inline flatbuffers::Offset<EntityData> CreateEntityData(flatbuffers::FlatBufferB
 }
 
 inline const libtextclassifier3::EntityData *GetEntityData(const void *buf) {
-  return flatbuffers::GetRoot<libtextclassifier3::EntityData>(buf);
+  return ::flatbuffers::GetRoot<libtextclassifier3::EntityData>(buf);
 }
 
 inline const libtextclassifier3::EntityData *GetSizePrefixedEntityData(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<libtextclassifier3::EntityData>(buf);
+  return ::flatbuffers::GetSizePrefixedRoot<libtextclassifier3::EntityData>(buf);
 }
 
 inline bool VerifyEntityDataBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifyBuffer<libtextclassifier3::EntityData>(nullptr);
 }
 
 inline bool VerifySizePrefixedEntityDataBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifySizePrefixedBuffer<libtextclassifier3::EntityData>(nullptr);
 }
 
 inline void FinishEntityDataBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<libtextclassifier3::EntityData> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData> root) {
   fbb.Finish(root);
 }
 
 inline void FinishSizePrefixedEntityDataBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<libtextclassifier3::EntityData> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<libtextclassifier3::EntityData> root) {
   fbb.FinishSizePrefixed(root);
 }
 
 inline std::unique_ptr<libtextclassifier3::EntityDataT> UnPackEntityData(
     const void *buf,
-    const flatbuffers::resolver_function_t *res = nullptr) {
+    const ::flatbuffers::resolver_function_t *res = nullptr) {
   return std::unique_ptr<libtextclassifier3::EntityDataT>(GetEntityData(buf)->UnPack(res));
 }
 
 inline std::unique_ptr<libtextclassifier3::EntityDataT> UnPackSizePrefixedEntityData(
     const void *buf,
-    const flatbuffers::resolver_function_t *res = nullptr) {
+    const ::flatbuffers::resolver_function_t *res = nullptr) {
   return std::unique_ptr<libtextclassifier3::EntityDataT>(GetSizePrefixedEntityData(buf)->UnPack(res));
 }
 

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "libtool", "version": "2.4.6", "revision": 7, "fullname": "sys-devel/libtool", "fullnamerev": "sys-devel/libtool-2.4.6-r7", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/libtool/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,42 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import './scan_settings_section.js';
+import './strings.m.js';
+import { assert } from 'chrome://resources/ash/common/assert.js';
+import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { SourceType } from './scanning.mojom-webui.js';
+import { alphabeticalCompare, getSourceTypeString } from './scanning_app_util.js';
+import { SelectMixin } from './select_mixin.js';
+import { getTemplate } from './source_select.html.js';
+const DEFAULT_SOURCE_TYPE = SourceType.kFlatbed;
+/**
+ * @fileoverview
+ * 'source-select' displays the available scanner sources in a dropdown.
+ */
+const SourceSelectElementBase = SelectMixin(I18nMixin(PolymerElement));
+class SourceSelectElement extends SourceSelectElementBase {
+    static get is() {
+        return 'source-select';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    getOptionAtIndex(index) {
+        assert(index < this.options.length);
+        return this.options[index].name;
+    }
+    getSourceTypeAsString(mojoSourceType) {
+        return getSourceTypeString(mojoSourceType);
+    }
+    sortOptions() {
+        this.options.sort((a, b) => {
+            return alphabeticalCompare(getSourceTypeString(a.type), getSourceTypeString(b.type));
+        });
+    }
+    isDefaultOption(option) {
+        return option.type === DEFAULT_SOURCE_TYPE;
+    }
+}
+customElements.define(SourceSelectElement.is, SourceSelectElement);

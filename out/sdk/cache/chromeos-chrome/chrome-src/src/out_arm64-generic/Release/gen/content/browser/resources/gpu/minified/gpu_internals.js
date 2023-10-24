@@ -1,0 +1,4 @@
+// Copyright 2011 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import"./info_view.js";import{BrowserBridge}from"./browser_bridge.js";const browserBridge=new BrowserBridge;Object.assign(window,{browserBridge:browserBridge});function onLoad(){document.querySelector("info-view").addBrowserBridgeListeners(browserBridge);Object.assign(window,{gpuPagePopulated:true,getGPUInfo(category,feature=""){return document.querySelector("info-view").getInfo(category,feature)}})}document.addEventListener("DOMContentLoaded",onLoad);

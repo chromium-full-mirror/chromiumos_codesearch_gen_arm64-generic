@@ -1,0 +1,27 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="settings-shared">.title{color:var(--cr-primary-text-color);margin:0;padding-block-end:0;padding-block-start:24px}:host-context(body:not(.jelly-enabled)) .title{font-family:'Google Sans';font-weight:400}h3.header{color:var(--cr-secondary-text-color);font-size:inherit;font-weight:inherit;margin:0;padding-block-end:16px;padding-inline-start:20px}#flex{flex:1}</style>
+<cr-dialog id="dialog" show-on-attach>
+  <div slot="title" class="title">
+    $i18n{nearbyShareVisibilityDialogTitle}
+  </div>
+  <h3 slot="header" class="header">
+    $i18n{nearbyShareVisibilityPageSubtitle}
+  </h3>
+  <div slot="body">
+    <nearby-contact-visibility id="contactVisibility" settings="{{settings}}" profile-email="[[profileEmail]]">
+    </nearby-contact-visibility>
+  </div>
+  <div class="layout horizontal center" slot="button-container">
+    <cr-button id="manageContactsButton" on-click="onManageContactsClick_">
+      <iron-icon icon="cr:open-in-new" slot="prefix-icon"></iron-icon>
+      <span>$i18n{nearbyShareManageContactsLabel}</span>
+    </cr-button>
+    <div id="flex"></div>
+    <cr-button class="action-button" on-click="onSaveClick_">
+      $i18n{nearbyShareVisibilityDialogSave}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}

@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace cryptohome {
 namespace enumeration {
 namespace _serialized_ {
@@ -50,7 +57,7 @@ inline const char * const *EnumNamesSerializedAuthFactorType() {
 }
 
 inline const char *EnumNameSerializedAuthFactorType(SerializedAuthFactorType e) {
-  if (flatbuffers::IsOutRange(e, SerializedAuthFactorType::kPassword, SerializedAuthFactorType::kFingerprint)) return "";
+  if (::flatbuffers::IsOutRange(e, SerializedAuthFactorType::kPassword, SerializedAuthFactorType::kFingerprint)) return "";
   const size_t index = static_cast<size_t>(e) - static_cast<size_t>(SerializedAuthFactorType::kPassword);
   return EnumNamesSerializedAuthFactorType()[index];
 }
@@ -83,7 +90,7 @@ inline const char * const *EnumNamesSerializedAuthIntent() {
 }
 
 inline const char *EnumNameSerializedAuthIntent(SerializedAuthIntent e) {
-  if (flatbuffers::IsOutRange(e, SerializedAuthIntent::kDecrypt, SerializedAuthIntent::kWebAuthn)) return "";
+  if (::flatbuffers::IsOutRange(e, SerializedAuthIntent::kDecrypt, SerializedAuthIntent::kWebAuthn)) return "";
   const size_t index = static_cast<size_t>(e) - static_cast<size_t>(SerializedAuthIntent::kDecrypt);
   return EnumNamesSerializedAuthIntent()[index];
 }

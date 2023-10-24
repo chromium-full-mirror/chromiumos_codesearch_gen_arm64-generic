@@ -1,0 +1,4 @@
+nacl_helper_arm32/gen/content/grit/content_resources.h
+nacl_helper_arm32/gen/content/grit/content_resources_map.cc
+nacl_helper_arm32/gen/content/grit/content_resources_map.h
+nacl_helper_arm32/gen/content/content_resources.pak

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "less", "version": "608", "revision": 2, "fullname": "sys-apps/less", "fullnamerev": "sys-apps/less-608-r2", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["http://www.greenwoodsoftware.com/less/"], "skip": false, "tainted": false, "ebuild_path": null}

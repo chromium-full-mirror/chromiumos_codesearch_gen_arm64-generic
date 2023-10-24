@@ -73,21 +73,6 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
               (override));
 
   MOCK_METHOD(bool,
-              ListKeys,
-              (const user_data_auth::ListKeysRequest& /*in_request*/,
-               user_data_auth::ListKeysReply* /*out_reply*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              ListKeysAsync,
-              (const user_data_auth::ListKeysRequest& /*in_request*/,
-               base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
               GetWebAuthnSecret,
               (const user_data_auth::GetWebAuthnSecretRequest& /*in_request*/,
                user_data_auth::GetWebAuthnSecretReply* /*out_reply*/,
@@ -343,6 +328,21 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
               (override));
 
   MOCK_METHOD(bool,
+              EvictDeviceKey,
+              (const user_data_auth::EvictDeviceKeyRequest& /*in_request*/,
+               user_data_auth::EvictDeviceKeyReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              EvictDeviceKeyAsync,
+              (const user_data_auth::EvictDeviceKeyRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::EvictDeviceKeyReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               PrepareVaultForMigration,
               (const user_data_auth::PrepareVaultForMigrationRequest& /*in_request*/,
                user_data_auth::PrepareVaultForMigrationReply* /*out_reply*/,
@@ -548,6 +548,21 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
               CreateVaultKeysetAsync,
               (const user_data_auth::CreateVaultKeysetRequest& /*in_request*/,
                base::OnceCallback<void(const user_data_auth::CreateVaultKeysetReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              RestoreDeviceKey,
+              (const user_data_auth::RestoreDeviceKeyRequest& /*in_request*/,
+               user_data_auth::RestoreDeviceKeyReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RestoreDeviceKeyAsync,
+              (const user_data_auth::RestoreDeviceKeyRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::RestoreDeviceKeyReply& /*reply*/)> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));

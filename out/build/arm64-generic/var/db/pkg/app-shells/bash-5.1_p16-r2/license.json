@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-shells", "name": "bash", "version": "5.1_p16", "revision": 2, "fullname": "app-shells/bash", "fullnamerev": "app-shells/bash-5.1_p16-r2", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://tiswww.case.edu/php/chet/bash/bashtop.html"], "skip": false, "tainted": false, "ebuild_path": null}

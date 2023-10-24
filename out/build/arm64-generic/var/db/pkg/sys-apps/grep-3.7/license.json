@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "grep", "version": "3.7", "revision": 0, "fullname": "sys-apps/grep", "fullnamerev": "sys-apps/grep-3.7", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/grep/"], "skip": false, "tainted": false, "ebuild_path": null}

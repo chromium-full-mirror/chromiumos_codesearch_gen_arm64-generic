@@ -1,0 +1,597 @@
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import { queryRequiredElement } from '../common/js/dom_utils.js';
+import { recordUserAction } from '../common/js/metrics.js';
+import { str, strf } from '../common/js/util.js';
+import { VolumeManagerCommon } from '../common/js/volume_manager_types.js';
+import { PropStatus, SearchLocation, SearchRecency } from '../externs/ts/state.js';
+import '../externs/volume_manager.js';
+import { PathComponent } from '../foreground/js/path_component.js';
+import '../foreground/js/ui/a11y_announce.js';
+import { changeDirectory } from '../state/ducks/current_directory.js';
+import { clearSearch, getDefaultSearchOptions, isSearchEmpty, updateSearch } from '../state/ducks/search.js';
+import { getStore } from '../state/store.js';
+import { XfBreadcrumb } from '../widgets/xf_breadcrumb.js';
+import { OptionKind, SEARCH_OPTIONS_CHANGED } from '../widgets/xf_search_options.js';
+/**
+ * @fileoverview
+ * This file is checked via TS, so we suppress Closure checks.
+ * @suppress {checkTypes}
+ */
+/**
+ * Defines the possible states of the query input widget. This is a widget with
+ * a search button, text input and clear button. By default, the widget is
+ * closed. When active, it is open. Due to CSS transitions it has two
+ * intermediate states, OPENING and CLOSING.
+ */
+var SearchInputState;
+(function (SearchInputState) {
+    SearchInputState["CLOSED"] = "closed";
+    SearchInputState["OPEN"] = "open";
+})(SearchInputState || (SearchInputState = {}));
+/**
+ * Helper function that centralizes the test if we are searching the "Recents"
+ * directory.
+ */
+function isInRecent(dir) {
+    return dir?.rootType == VolumeManagerCommon.RootType.RECENT;
+}
+/**
+ * Creates location options. These always consist of 'Everywhere' and the
+ * local folder. However, if the local folder has a parent, that is different
+ * from it, we also add the parent between Everywhere and the local folder.
+ */
+function createLocationOptions(state) {
+    const dir = state.currentDirectory;
+    const dirPath = dir?.pathComponents || [];
+    const options = [
+        {
+            value: SearchLocation.EVERYWHERE,
+            text: str('SEARCH_OPTIONS_LOCATION_EVERYWHERE'),
+            default: !dirPath,
+        },
+    ];
+    if (dirPath) {
+        if (dir?.rootType === VolumeManagerCommon.RootType.DRIVE) {
+            // For Google Drive we currently do not have the ability to search a
+            // specific folder. Thus the only options shown, when the user is
+            // triggering search from a location in Drive, is Everywhere (set up
+            // above) and Drive.
+            options.push({
+                value: SearchLocation.ROOT_FOLDER,
+                text: str('DRIVE_DIRECTORY_LABEL'),
+                default: true,
+            });
+        }
+        else if (isInRecent(dir)) {
+            options.push({
+                value: SearchLocation.THIS_FOLDER,
+                text: dirPath[dirPath.length - 1]?.label ||
+                    str('SEARCH_OPTIONS_LOCATION_THIS_FOLDER'),
+                default: true,
+            });
+        }
+        else {
+            options.push({
+                value: dirPath.length > 1 ? SearchLocation.ROOT_FOLDER :
+                    SearchLocation.THIS_FOLDER,
+                text: dirPath[0]?.label || str('SEARCH_OPTIONS_LOCATION_THIS_VOLUME'),
+                default: dirPath.length === 1,
+            });
+            if (dirPath.length > 1) {
+                options.push({
+                    value: SearchLocation.THIS_FOLDER,
+                    text: dirPath[dirPath.length - 1]?.label ||
+                        str('SEARCH_OPTIONS_LOCATION_THIS_FOLDER'),
+                    default: true,
+                });
+            }
+        }
+    }
+    return options;
+}
+/**
+ * Creates Recency options. Depending on the current directory these have either
+ * ANYTIME or LAST_MONTH selected as the default.
+ */
+function createRecencyOptions(state) {
+    const recencyOptions = [
+        {
+            value: SearchRecency.ANYTIME,
+            text: str('SEARCH_OPTIONS_RECENCY_ALL_TIME'),
+        },
+        {
+            value: SearchRecency.TODAY,
+            text: str('SEARCH_OPTIONS_RECENCY_TODAY'),
+        },
+        {
+            value: SearchRecency.YESTERDAY,
+            text: str('SEARCH_OPTIONS_RECENCY_YESTERDAY'),
+        },
+        {
+            value: SearchRecency.LAST_WEEK,
+            text: str('SEARCH_OPTIONS_RECENCY_LAST_WEEK'),
+        },
+        {
+            value: SearchRecency.LAST_MONTH,
+            text: str('SEARCH_OPTIONS_RECENCY_LAST_MONTH'),
+        },
+        {
+            value: SearchRecency.LAST_YEAR,
+            text: str('SEARCH_OPTIONS_RECENCY_LAST_YEAR'),
+        },
+    ];
+    const index = isInRecent(state.currentDirectory) ? 4 : 0;
+    recencyOptions[index].default = true;
+    return recencyOptions;
+}
+/**
+ * Updates visibility of recency options based on the current directory.
+ */
+function updateRecencyOptionsVisibility(state, element, options) {
+    if (isInRecent(state.currentDirectory)) {
+        const recencySelector = element.getRecencySelector();
+        if (options.location === SearchLocation.EVERYWHERE) {
+            recencySelector.toggleAttribute('hidden', false);
+        }
+        else {
+            recencySelector.toggleAttribute('hidden', true);
+        }
+    }
+}
+/**
+ * The controller for the search UI elements. The controller takes care of the
+ * behavior of UI elements. It must not deal with the look-and-feel. It finds
+ * them, hooks to the UI events and drives the business logic based on those UI
+ * events.
+ */
+export class SearchContainer extends EventTarget {
+    /**
+     * Builds a search container that creates and manages UI elements. This
+     * container receives a reference to `searchWrapper` that contains query
+     * UI elements and `optionsContainer` that has search options UI element.
+     * It uses `searchWrapper` to fetch them by IDs. Once the UI elements are
+     * found, this container makes itself the listener of the events that are
+     * posted to by the UI elements and converts them to business logic. This
+     * includes notifying listeners when the the search query changes or the
+     * auto-complete item is selected.
+     */
+    constructor(volumeManager, searchWrapper, optionsContainer, pathContainer, a11y) {
+        super();
+        // The current state of the search widget elements.
+        this.inputState_ = SearchInputState.CLOSED;
+        // The current value of search options, initialized to some sensible default.
+        this.currentOptions_ = getDefaultSearchOptions();
+        // The cached state of the store; store may post events if other parts of the
+        // state change. However, we just want to react to changes related to search.
+        // We use the cached search state to check if the state change was related to
+        // search state change or some other part of the state.
+        this.searchState_ = undefined;
+        // The UI widget that allows users to manipulate search options. This is used
+        // mostly to cache the access to the actual element, rather than accessing it
+        // via querySelector.
+        this.searchOptions_ = null;
+        // The element that shows the path of the currently selected file.
+        this.breadcrumb_ = null;
+        // The parts of the path of the selected result or empty.
+        this.pathComponents_ = [];
+        this.volumeManager_ = volumeManager;
+        // The "box" around the search button, query input, and clear button.
+        this.searchBox_ =
+            queryRequiredElement('#search-box', searchWrapper);
+        // The button that opens and closes the query input element.
+        this.searchButton_ =
+            queryRequiredElement('#search-button', searchWrapper);
+        // The element that holds search UI elements.
+        this.searchWrapper_ = searchWrapper;
+        // Start in the collapsed state. This attribute is read in tests.
+        this.searchWrapper_.setAttribute('collapsed', '');
+        // Text input element where the user enters the query.
+        this.inputElement_ =
+            this.searchBox_.querySelector('cr-input');
+        // The button that allows the user to clear the query.
+        this.clearButton_ = this.searchBox_.querySelector('.clear');
+        // Hide clear button when created.
+        this.updateClearButton_('');
+        this.optionsContainer_ = optionsContainer;
+        this.pathContainer_ = pathContainer;
+        this.a11y_ = a11y;
+        this.store_ = getStore();
+        this.store_.subscribe(this);
+        this.setupEventHandlers();
+    }
+    /**
+     * Sets hidden attribute for components of search box.
+     */
+    setHidden(hidden) {
+        if (hidden) {
+            this.searchBox_.setAttribute('hidden', 'true');
+            this.searchButton_.setAttribute('hidden', 'true');
+        }
+        else {
+            this.searchBox_.removeAttribute('hidden');
+            this.searchButton_.removeAttribute('hidden');
+        }
+    }
+    /**
+     * Clears the current search query. If the query was not already empty, it
+     * closes the search box.
+     */
+    clear() {
+        const value = this.inputElement_.value;
+        if (value !== '') {
+            this.inputElement_.value = '';
+            requestAnimationFrame(() => {
+                this.closeSearch();
+            });
+        }
+    }
+    /**
+     * Returns the user entered search query. This method trims white spaces from
+     * the left side of the query.
+     */
+    getQuery() {
+        return this.inputElement_.value.trimStart();
+    }
+    /**
+     * A method invoked every time the store state changes.
+     */
+    onStateChanged(state) {
+        this.handleSearchState_(state);
+        this.handleSelectionState_(state);
+    }
+    /**
+     * Handles changes in the search state of the store state. If the search
+     * is not active it hides the UI elements. Otherwise, updates them
+     * accordingly.
+     */
+    handleSearchState_(state) {
+        const search = state.search;
+        if (this.searchState_ === search) {
+            // Bail out early if the search part of the state has not changed.
+            return;
+        }
+        // Cache the last received search state for future comparisons.
+        const lastSearch = this.searchState_;
+        this.searchState_ = state.search;
+        if (lastSearch?.query && search && search.query === undefined) {
+            this.a11y_.speakA11yMessage(str('SEARCH_A11Y_CLEAR_SEARCH'));
+        }
+        if (!search || isSearchEmpty(search)) {
+            this.closeSearch();
+            return;
+        }
+        const query = search.query;
+        if (query !== undefined && query !== this.getQuery()) {
+            this.inputElement_.value = query;
+            this.openSearch();
+        }
+        if (search.status === PropStatus.STARTED && query) {
+            this.showOptionsElement_(state);
+            this.showBreadcrumbElement_();
+        }
+        if (search.status === PropStatus.SUCCESS && query) {
+            const content = state.currentDirectory?.content;
+            const count = content ? content.keys.length : 0;
+            const messageId = count === 0 ? 'SEARCH_A11Y_NO_RESULT' : 'SEARCH_A11Y_RESULT';
+            this.a11y_.speakA11yMessage(strf(messageId, query));
+        }
+    }
+    /**
+     * Handles changes in the current directory part of the state. It uses it
+     * to set the path of the currently selected element.
+     */
+    handleSelectionState_(state) {
+        const search = state.search;
+        if (!search || !search.query) {
+            return;
+        }
+        if (!this.breadcrumb_) {
+            this.showBreadcrumbElement_();
+        }
+        const parts = this.getPathComponentsOfSelectedEntry_(state);
+        const path = parts.map(p => p.name).join('/');
+        this.pathComponents_ = parts.map(p => p.getKey());
+        if (path) {
+            this.breadcrumb_.removeAttribute('hidden');
+            this.breadcrumb_.path = path;
+        }
+        else {
+            this.breadcrumb_.path = '';
+            this.breadcrumb_.setAttribute('hidden', '');
+        }
+    }
+    /**
+     * Helper function that converts information stored in State to an array
+     * of PathComponents of the selected entry. If there are multiple entries
+     * selected or no entries selected, this method returns an empty array.
+     */
+    getPathComponentsOfSelectedEntry_(state) {
+        const keys = state.currentDirectory?.selection?.keys;
+        if (!keys || keys.length !== 1) {
+            return [];
+        }
+        const entry = state.allEntries[keys[0]]?.entry;
+        if (!entry) {
+            return [];
+        }
+        // TODO(b:274559834): Improve efficiency of these computations.
+        return PathComponent.computeComponentsFromEntry(entry, this.volumeManager_);
+    }
+    /**
+     * Hides the element that allows users to manipulate search options.
+     */
+    hideOptionsElement_() {
+        if (this.searchOptions_) {
+            this.searchOptions_.remove();
+            this.searchOptions_ = null;
+        }
+    }
+    /**
+     * Shows or creates the element that allows the user to manipulate search
+     * options.
+     */
+    showOptionsElement_(state) {
+        let element = this.getSearchOptionsElement_();
+        if (!element) {
+            element = this.createSearchOptionsElement_(state);
+        }
+        element.hidden = false;
+    }
+    hideBreadcrumbElement_() {
+        const element = this.getBreadcrumbElement_();
+        if (element) {
+            element.hidden = true;
+        }
+    }
+    showBreadcrumbElement_() {
+        let element = this.getBreadcrumbElement_();
+        if (!element) {
+            element = this.createBreadcrumbElement_();
+        }
+        element.hidden = false;
+    }
+    /**
+     * Returns the breadcrumb element by either retuning the cached instance,
+     * or fetching it by its tag. May return null.
+     */
+    getBreadcrumbElement_() {
+        if (!this.breadcrumb_) {
+            this.breadcrumb_ = document.querySelector('xf-breadcumb');
+        }
+        return this.breadcrumb_;
+    }
+    createBreadcrumbElement_() {
+        const element = new XfBreadcrumb();
+        // Increase the default maxPathParts to allow for longer path display.
+        element.maxPathParts = 100;
+        element.id = 'search-breadcrumb';
+        element.addEventListener(XfBreadcrumb.events.BREADCRUMB_CLICKED, this.breadcrumbClick_.bind(this));
+        this.pathContainer_.appendChild(element);
+        this.breadcrumb_ = element;
+        return element;
+    }
+    breadcrumbClick_(event) {
+        const index = Number(event.detail.partIndex);
+        if (isNaN(index) || index < 0) {
+            return;
+        }
+        // The leaf path isn't clickable.
+        if (index >= this.pathComponents_.length - 1) {
+            return;
+        }
+        this.store_.dispatch(changeDirectory({ toKey: this.pathComponents_[index] }));
+        recordUserAction('ClickBreadcrumbs');
+    }
+    /**
+     * Returns the search options element by either retuning the cached instance,
+     * or fetching it by its tag. May return null.
+     */
+    getSearchOptionsElement_() {
+        if (!this.searchOptions_) {
+            this.searchOptions_ = document.querySelector('xf-search-options');
+        }
+        return this.searchOptions_;
+    }
+    createSearchOptionsElement_(state) {
+        const element = document.createElement('xf-search-options');
+        this.optionsContainer_.appendChild(element);
+        element.id = 'search-options';
+        element.getLocationSelector().options = createLocationOptions(state);
+        element.getRecencySelector().options = createRecencyOptions(state);
+        element.getFileTypeSelector().options = [
+            {
+                value: chrome.fileManagerPrivate.FileCategory.ALL,
+                text: str('SEARCH_OPTIONS_TYPES_ALL_TYPES'),
+            },
+            {
+                value: chrome.fileManagerPrivate.FileCategory.AUDIO,
+                text: str('SEARCH_OPTIONS_TYPES_AUDIO'),
+            },
+            {
+                value: chrome.fileManagerPrivate.FileCategory.DOCUMENT,
+                text: str('SEARCH_OPTIONS_TYPES_DOCUMENTS'),
+            },
+            {
+                value: chrome.fileManagerPrivate.FileCategory.IMAGE,
+                text: str('SEARCH_OPTIONS_TYPES_IMAGES'),
+            },
+            {
+                value: chrome.fileManagerPrivate.FileCategory.VIDEO,
+                text: str('SEARCH_OPTIONS_TYPES_VIDEOS'),
+            },
+        ];
+        this.updateSearchOptions_(state);
+        element.addEventListener(SEARCH_OPTIONS_CHANGED, this.onOptionsChanged_.bind(this));
+        this.searchOptions_ = element;
+        return element;
+    }
+    onOptionsChanged_(event) {
+        const kind = event.detail.kind;
+        const value = event.detail.value;
+        const state = this.store_.getState();
+        switch (kind) {
+            case OptionKind.LOCATION: {
+                const location = value;
+                if (location !== this.currentOptions_.location) {
+                    this.currentOptions_.location = location;
+                    this.updateSearchOptions_(state);
+                }
+                break;
+            }
+            case OptionKind.RECENCY: {
+                const recency = value;
+                if (recency !== this.currentOptions_.recency) {
+                    this.currentOptions_.recency = recency;
+                    this.updateSearchOptions_(state);
+                }
+                break;
+            }
+            case OptionKind.FILE_TYPE: {
+                const category = value;
+                if (category !== this.currentOptions_.fileCategory) {
+                    this.currentOptions_.fileCategory = category;
+                    this.updateSearchOptions_(state);
+                }
+                break;
+            }
+            default:
+                console.error(`Unhandled search option kind: ${kind}`);
+                break;
+        }
+    }
+    /**
+     * Updates search options in the store.
+     */
+    updateSearchOptions_(state) {
+        updateRecencyOptionsVisibility(state, this.getSearchOptionsElement_(), this.currentOptions_);
+        this.store_.dispatch(updateSearch({
+            query: this.getQuery(),
+            status: undefined,
+            options: this.currentOptions_,
+        }));
+    }
+    /**
+     * Attaches all necessary event listeners to the UI elements that make the
+     * search interface. This method must be called as the last statement of the
+     * constructor.
+     */
+    setupEventHandlers() {
+        this.searchButton_.addEventListener('click', () => {
+            if (this.inputState_ === SearchInputState.CLOSED) {
+                this.openSearch();
+            }
+            else if (this.inputState_ === SearchInputState.OPEN) {
+                this.closeSearch();
+            }
+        });
+        this.inputElement_.addEventListener('input', () => {
+            this.onQueryChanged_();
+        });
+        this.inputElement_.addEventListener('keydown', (event) => {
+            if (!this.inputElement_.value) {
+                if (event.key === 'Escape') {
+                    this.closeSearch();
+                    this.searchButton_.focus();
+                }
+                if (event.key === 'Tab') {
+                    this.closeSearch();
+                }
+            }
+        });
+        this.clearButton_.addEventListener('click', () => {
+            this.clear();
+            this.searchButton_.focus();
+        });
+        // Hide the search if the user clicks outside it and there is no search
+        // query entered.
+        document.addEventListener('click', (event) => {
+            if (!this.inputElement_.value) {
+                const target = event.target;
+                if (target instanceof Node) {
+                    if (!this.searchWrapper_.contains(target)) {
+                        if (this.inputState_ === SearchInputState.OPEN) {
+                            this.closeSearch();
+                        }
+                    }
+                }
+            }
+        });
+    }
+    /**
+     * Returns whether the search container is open. In the open state the user
+     * may enter a search query, interact with options, etc.
+     */
+    isOpen() {
+        return this.inputState_ === SearchInputState.OPEN;
+    }
+    /**
+     * Starts the process of opening the search widget. We use CSS transitions to
+     * open the widget and thus the widget it not fully opened until the CSS
+     * transition finishes.
+     */
+    openSearch() {
+        // Do not initiate open transition if we are not closed. This would leave us
+        // in the OPENING state, without ever getting to OPEN state.
+        if (this.inputState_ === SearchInputState.CLOSED) {
+            this.inputState_ = SearchInputState.OPEN;
+            this.inputElement_.addEventListener('transitionend', () => {
+                this.searchWrapper_.removeAttribute('collapsed');
+            }, { once: true, passive: true, capture: true });
+            this.inputElement_.disabled = false;
+            this.inputElement_.tabIndex = 0;
+            this.inputElement_.focus();
+            this.searchWrapper_.classList.add('has-cursor', 'has-text');
+            this.searchBox_.classList.add('has-cursor', 'has-text');
+            this.searchButton_.tabIndex = -1;
+            this.updateClearButton_(this.getQuery());
+        }
+    }
+    /**
+     * Starts the process of closing the search widget. We use CSS transitions to
+     * close the widget and thus the widget it not fully closed until the CSS
+     * transition finishes.
+     */
+    closeSearch() {
+        // Do not initiate close transition if we are not open. This would leave us
+        // in the CLOSING state, without ever getting to CLOSED state.
+        if (this.inputState_ === SearchInputState.OPEN) {
+            this.inputState_ = SearchInputState.CLOSED;
+            this.inputElement_.addEventListener('transitionend', () => {
+                this.searchWrapper_.setAttribute('collapsed', '');
+            }, { once: true, passive: true, capture: true });
+            this.hideOptionsElement_();
+            this.hideBreadcrumbElement_();
+            this.store_.dispatch(clearSearch());
+            this.inputElement_.tabIndex = -1;
+            this.inputElement_.disabled = true;
+            this.inputElement_.blur();
+            this.inputElement_.value = '';
+            this.searchWrapper_.classList.remove('has-cursor', 'has-text');
+            this.searchBox_.classList.remove('has-cursor', 'has-text');
+            this.searchButton_.tabIndex = 0;
+            this.currentOptions_ = getDefaultSearchOptions();
+        }
+    }
+    /**
+     * Updates the visibility of clear button.
+     */
+    updateClearButton_(query) {
+        this.clearButton_.hidden = (query.length <= 0);
+    }
+    /**
+     * Generates a custom event with the current value of the input element as the
+     * search query.
+     */
+    onQueryChanged_() {
+        const query = this.inputElement_.value.trimStart();
+        this.updateClearButton_(query);
+        this.store_.dispatch(updateSearch({
+            query: query,
+            status: undefined,
+            options: this.currentOptions_,
+        }));
+    }
+}

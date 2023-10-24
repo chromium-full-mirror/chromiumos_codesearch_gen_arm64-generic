@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sci-electronics", "name": "verilator", "version": "4.212_p20210928", "revision": 0, "fullname": "sci-electronics/verilator", "fullnamerev": "sci-electronics/verilator-4.212_p20210928", "license_names": ["LGPL-3"], "license_text_scanned": [], "homepages": ["https://www.veripool.org/verilator/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "coreutils", "version": "8.32", "revision": 2, "fullname": "sys-apps/coreutils", "fullnamerev": "sys-apps/coreutils-8.32-r2", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/coreutils/"], "skip": false, "tainted": false, "ebuild_path": null}

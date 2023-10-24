@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-libs", "name": "libiio", "version": "0.23", "revision": 5, "fullname": "net-libs/libiio", "fullnamerev": "net-libs/libiio-0.23-r5", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://github.com/analogdevicesinc/libiio"], "skip": false, "tainted": false, "ebuild_path": null}

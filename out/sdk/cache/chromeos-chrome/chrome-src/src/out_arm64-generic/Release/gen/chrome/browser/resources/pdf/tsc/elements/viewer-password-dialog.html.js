@@ -1,0 +1,18 @@
+import { html } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style">#password{margin-top:var(--cr-form-field-bottom-spacing)}</style>
+    <cr-dialog id="dialog" no-cancel show-on-attach>
+      <div slot="title">$i18n{passwordDialogTitle}</div>
+      <div slot="body">
+        <div id="message">$i18n{passwordPrompt}</div>
+        <cr-input id="password" type="password" error-message="$i18n{passwordInvalid}" invalid="[[invalid]]" autofocus>
+        </cr-input>
+      </div>
+      <div slot="button-container">
+        <cr-button id="submit" class="action-button" on-click="submit">
+          $i18n{passwordSubmit}
+        </cr-button>
+      </div>
+    </cr-dialog>
+<!--_html_template_end_-->`;
+}

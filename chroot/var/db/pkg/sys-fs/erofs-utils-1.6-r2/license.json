@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-fs", "name": "erofs-utils", "version": "1.6", "revision": 2, "fullname": "sys-fs/erofs-utils", "fullnamerev": "sys-fs/erofs-utils-1.6-r2", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git"], "skip": false, "tainted": false, "ebuild_path": null}

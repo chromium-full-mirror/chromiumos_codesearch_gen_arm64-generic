@@ -1,0 +1,11 @@
+import { html } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+const styleMod = document.createElement('dom-module');
+styleMod.appendChild(html `
+  <template>
+    <style>
+:host(:not([is-last-device])) .bottom-divider{border-bottom:var(--cr-separator-line)}.subsection{margin-bottom:16px;margin-top:8px;padding-inline-start:var(--cr-section-indent-width)}.subsection>*{padding-inline-start:0}.subsection-header{height:24px;padding-inline-start:var(--cr-section-padding);padding-top:12px}.key-container{align-items:center;border-radius:12px;box-sizing:border-box;color:var(--cros-text-color-secondary);display:flex;height:28px;justify-content:center;margin-inline-end:8px;min-width:28px;padding:6px}:host-context(body:not(.jelly-enabled)) .key-container{font-family:'Google Sans',Roboto,sans-serif;font-size:13px;font-weight:500;line-height:20px}#keyLabel{padding-inline:6px}cr-dialog [slot=button-container]{padding:0 32px 28px 32px;display:flex;gap:8px}cr-dialog [slot=body]{padding:24px 32px}cr-dialog [slot=title]{padding:32px 32px 0 32px}cr-dialog #cancelButton{background-color:var(--cros-bg-color);border:solid 1px var(--cros-button-stroke-color-secondary)}.subpage-description{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font);padding:12px 20px}
+    </style>
+  </template>
+`.content);
+styleMod.register('input-device-settings-shared');

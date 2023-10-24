@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-print", "name": "ippsample", "version": "1.1.0", "revision": 5, "fullname": "net-print/ippsample", "fullnamerev": "net-print/ippsample-1.1.0-r5", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/istopwg/ippsample/blob/master/README.md"], "skip": false, "tainted": false, "ebuild_path": null}

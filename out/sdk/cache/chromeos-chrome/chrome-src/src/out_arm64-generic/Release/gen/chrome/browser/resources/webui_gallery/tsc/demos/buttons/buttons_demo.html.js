@@ -1,0 +1,81 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="demo">cr-button[circle-ripple]{border-radius:50%;height:60px;width:60px}cr-expand-button{min-width:100px;padding:0 12px;width:45%}.floating-button,.tonal-button{display:none}:host-context([chrome-refresh-2023]) .floating-button,:host-context([chrome-refresh-2023]) .tonal-button{display:inherit}</style>
+
+<h1>cr-button</h1>
+<div class="demos">
+  <cr-button>Outline button</cr-button>
+  <cr-button class="action-button">Primary button</cr-button>
+  <cr-button class="tonal-button">Tonal button</cr-button>
+  <cr-button disabled="disabled">Disabled outline button</cr-button>
+  <cr-button disabled="disabled" class="action-button">Disabled primary button</cr-button>
+  <cr-button disabled="disabled" class="tonal-button">Disabled tonal button</cr-button>
+  <cr-button disabled="disabled" class="floating-button">
+    Disabled floating button
+  </cr-button>
+  <div class="flex">
+    <cr-button class="cancel-button">Cancel</cr-button>
+    <cr-button class="action-button">Confirm</cr-button>
+  </div>
+  <div class="row">
+    <cr-button>
+      Outline button with icon
+      <iron-icon icon="cr:open-in-new" slot="suffix-icon"></iron-icon>
+    </cr-button>
+    <cr-button>
+      <iron-icon icon="cr:add" slot="prefix-icon"></iron-icon>
+      Outline button with icon
+    </cr-button>
+  </div>
+  <div class="row">
+    <cr-button class="action-button">
+      <iron-icon icon="cr:add" slot="prefix-icon"></iron-icon>
+      Primary button with icon
+    </cr-button>
+    <cr-button class="tonal-button">
+      <iron-icon icon="cr:add" slot="prefix-icon"></iron-icon>
+      Tonal button with icon
+    </cr-button>
+  </div>
+  <div class="row">
+    <cr-button class="floating-button">
+      <iron-icon icon="cr:add" slot="prefix-icon"></iron-icon>
+      Floating button with icon
+    </cr-button>
+  </div>
+</div>
+
+<h1>Icons with centered, circle ripples (eg. keypads)</h1>
+<div class="demos">
+  <div class="row">
+    <cr-button circle-ripple>1</cr-button>
+    <cr-button circle-ripple>2</cr-button>
+    <cr-button circle-ripple>3</cr-button>
+  </div>
+</div>
+
+<h1>cr-icon-button</h1>
+<div class="demos">
+  <div class="row">
+    <cr-icon-button iron-icon="cr:delete"></cr-icon-button>
+    <cr-icon-button iron-icon="cr:delete" disabled="disabled"></cr-icon-button>
+  </div>
+</div>
+
+<h1>cr-expand-button</h1>
+<div class="demos">
+  <cr-expand-button expanded="{{expanded_}}" expand-title="Expand" collapse-title="Collapse">
+    <div hidden$="[[expanded_]]">Expand row</div>
+    <div hidden$="[[!expanded_]]">Collapse row</div>
+  </cr-expand-button>
+  <iron-collapse opened="[[expanded_]]">Some content goes here.</iron-collapse>
+
+  <cr-expand-button expand-icon="cr:arrow-drop-down" collapse-icon="cr:arrow-drop-up">
+    With custom icons
+  </cr-expand-button>
+  <cr-expand-button no-hover>
+    With no hover effect on entire row
+  </cr-expand-button>
+</div>
+<!--_html_template_end_-->`;
+}

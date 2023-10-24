@@ -89,11 +89,13 @@ enum GuestMessage_GuestType : int {
   GuestMessage_GuestType_ARC = 1,
   GuestMessage_GuestType_ARC_VM = 2,
   GuestMessage_GuestType_TERMINA_VM = 3,
-  GuestMessage_GuestType_PARALLELS_VM = 4
+  GuestMessage_GuestType_PARALLELS_VM = 4,
+  GuestMessage_GuestType_BRUSCHETTA_VM = 5,
+  GuestMessage_GuestType_BOREALIS_VM = 6
 };
 bool GuestMessage_GuestType_IsValid(int value);
 constexpr GuestMessage_GuestType GuestMessage_GuestType_GuestType_MIN = GuestMessage_GuestType_UNKNOWN_GUEST;
-constexpr GuestMessage_GuestType GuestMessage_GuestType_GuestType_MAX = GuestMessage_GuestType_PARALLELS_VM;
+constexpr GuestMessage_GuestType GuestMessage_GuestType_GuestType_MAX = GuestMessage_GuestType_BOREALIS_VM;
 constexpr int GuestMessage_GuestType_GuestType_ARRAYSIZE = GuestMessage_GuestType_GuestType_MAX + 1;
 
 const std::string& GuestMessage_GuestType_Name(GuestMessage_GuestType value);
@@ -1022,6 +1024,10 @@ class GuestMessage final :
     GuestMessage_GuestType_TERMINA_VM;
   static constexpr GuestType PARALLELS_VM =
     GuestMessage_GuestType_PARALLELS_VM;
+  static constexpr GuestType BRUSCHETTA_VM =
+    GuestMessage_GuestType_BRUSCHETTA_VM;
+  static constexpr GuestType BOREALIS_VM =
+    GuestMessage_GuestType_BOREALIS_VM;
   static inline bool GuestType_IsValid(int value) {
     return GuestMessage_GuestType_IsValid(value);
   }

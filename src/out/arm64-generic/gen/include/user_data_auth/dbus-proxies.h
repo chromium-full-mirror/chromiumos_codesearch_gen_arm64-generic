@@ -70,18 +70,6 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool ListKeys(
-      const user_data_auth::ListKeysRequest& in_request,
-      user_data_auth::ListKeysReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void ListKeysAsync(
-      const user_data_auth::ListKeysRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool GetWebAuthnSecret(
       const user_data_auth::GetWebAuthnSecretRequest& in_request,
       user_data_auth::GetWebAuthnSecretReply* out_reply,
@@ -286,6 +274,18 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool EvictDeviceKey(
+      const user_data_auth::EvictDeviceKeyRequest& in_request,
+      user_data_auth::EvictDeviceKeyReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void EvictDeviceKeyAsync(
+      const user_data_auth::EvictDeviceKeyRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::EvictDeviceKeyReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool PrepareVaultForMigration(
       const user_data_auth::PrepareVaultForMigrationRequest& in_request,
       user_data_auth::PrepareVaultForMigrationReply* out_reply,
@@ -451,6 +451,18 @@ class UserDataAuthInterfaceProxyInterface {
   virtual void CreateVaultKeysetAsync(
       const user_data_auth::CreateVaultKeysetRequest& in_request,
       base::OnceCallback<void(const user_data_auth::CreateVaultKeysetReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool RestoreDeviceKey(
+      const user_data_auth::RestoreDeviceKeyRequest& in_request,
+      user_data_auth::RestoreDeviceKeyReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void RestoreDeviceKeyAsync(
+      const user_data_auth::RestoreDeviceKeyRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::RestoreDeviceKeyReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -681,37 +693,6 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "Remove",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool ListKeys(
-      const user_data_auth::ListKeysRequest& in_request,
-      user_data_auth::ListKeysReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "ListKeys",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void ListKeysAsync(
-      const user_data_auth::ListKeysRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "ListKeys",
         std::move(success_callback),
         std::move(error_callback),
         in_request);
@@ -1244,6 +1225,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         in_request);
   }
 
+  bool EvictDeviceKey(
+      const user_data_auth::EvictDeviceKeyRequest& in_request,
+      user_data_auth::EvictDeviceKeyReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "EvictDeviceKey",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void EvictDeviceKeyAsync(
+      const user_data_auth::EvictDeviceKeyRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::EvictDeviceKeyReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "EvictDeviceKey",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
   bool PrepareVaultForMigration(
       const user_data_auth::PrepareVaultForMigrationRequest& in_request,
       user_data_auth::PrepareVaultForMigrationReply* out_reply,
@@ -1673,6 +1685,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "CreateVaultKeyset",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool RestoreDeviceKey(
+      const user_data_auth::RestoreDeviceKeyRequest& in_request,
+      user_data_auth::RestoreDeviceKeyReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "RestoreDeviceKey",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void RestoreDeviceKeyAsync(
+      const user_data_auth::RestoreDeviceKeyRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::RestoreDeviceKeyReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "RestoreDeviceKey",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

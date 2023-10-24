@@ -1,0 +1,17 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="print-preview-shared">cr-button{height:fit-content;min-height:32px;text-align:center;width:calc(100% - 2 * var(--print-preview-sidebar-margin))}</style>
+<print-preview-settings-section>
+  <span slot="title"></span>
+  <div slot="controls">
+    <cr-button id="button" disabled$="[[disabled]]" on-click="onButtonClick_">
+      $i18n{newShowAdvancedOptions}
+    </cr-button>
+  </div>
+</print-preview-settings-section>
+<template is="dom-if" if="[[showAdvancedDialog_]]" restamp>
+  <print-preview-advanced-settings-dialog settings="[[settings]]" destination="[[destination]]" on-close="onDialogClose_">
+  </print-preview-advanced-settings-dialog>
+</template>
+<!--_html_template_end_-->`;
+}

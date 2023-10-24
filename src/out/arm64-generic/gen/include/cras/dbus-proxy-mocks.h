@@ -573,6 +573,33 @@ class ControlProxyMock : public ControlProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              SetForceA2DPAdvancedCodecsEnabled,
+              (bool /*in_enabled*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetForceA2DPAdvancedCodecsEnabledAsync,
+              (bool /*in_enabled*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetForceA2DPAdvancedCodecsEnabled,
+              (bool* /*out_enabled*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetForceA2DPAdvancedCodecsEnabledAsync,
+              (base::OnceCallback<void(bool /*enabled*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               SetForceSrBtEnabled,
               (bool /*in_enabled*/,
                brillo::ErrorPtr* /*error*/,

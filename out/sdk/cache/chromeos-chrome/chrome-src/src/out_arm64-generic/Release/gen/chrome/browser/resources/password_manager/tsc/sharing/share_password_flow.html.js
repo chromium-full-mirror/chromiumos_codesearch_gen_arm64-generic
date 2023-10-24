@@ -1,0 +1,33 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><template is="dom-if" if="[[isState_(flowStateEnum_.FETCHING, flowState)]]" restamp>
+  <share-password-loading-dialog on-close="onDialogClose_" dialog-title="[[getShareDialogTitle_(passwordName)]]">
+  </share-password-loading-dialog>
+</template>
+
+<template is="dom-if" if="[[isState_(flowStateEnum_.ERROR, flowState)]]" restamp>
+  <share-password-error-dialog on-cancel="onDialogClose_" on-restart="startSharing_">
+  </share-password-error-dialog>
+</template>
+
+<template is="dom-if" if="[[isState_(flowStateEnum_.NO_OTHER_MEMBERS, flowState)]]" restamp>
+  <share-password-no-other-family-members-dialog on-close="onDialogClose_" dialog-title="[[getShareDialogTitle_(passwordName)]]">
+  </share-password-no-other-family-members-dialog>
+</template>
+
+<template is="dom-if" if="[[isState_(flowStateEnum_.NOT_FAMILY_MEMBER, flowState)]]" restamp>
+  <share-password-not-family-member-dialog on-close="onDialogClose_" dialog-title="[[getShareDialogTitle_(passwordName)]]">
+  </share-password-not-family-member-dialog>
+</template>
+
+<template is="dom-if" if="[[isState_(flowStateEnum_.FAMILY_PICKER, flowState)]]" restamp>
+  <share-password-family-picker-dialog on-close="onDialogClose_" dialog-title="[[getShareDialogTitle_(passwordName)]]" members="[[fetchResults_.familyMembers]]" selected-recipients="{{recipients_}}" on-start-share="onStartShare_">
+  </share-password-family-picker-dialog>
+</template>
+
+<template is="dom-if" if="[[isState_(flowStateEnum_.CONFIRMATION, flowState)]]" restamp>
+  <share-password-confirmation-dialog on-close="onDialogClose_" recipients="[[recipients_]]" password="[[password]]" password-name="[[passwordName]]" icon-url="[[iconUrl]]">
+  </share-password-confirmation-dialog>
+</template>
+<!--_html_template_end_-->`;
+}

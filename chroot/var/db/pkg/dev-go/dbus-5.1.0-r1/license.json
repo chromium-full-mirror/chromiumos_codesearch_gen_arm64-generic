@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "dbus", "version": "5.1.0", "revision": 1, "fullname": "dev-go/dbus", "fullnamerev": "dev-go/dbus-5.1.0-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/godbus/dbus"], "skip": false, "tainted": false, "ebuild_path": null}

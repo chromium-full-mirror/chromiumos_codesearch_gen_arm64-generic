@@ -1,0 +1,78 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'reset-settings-card' is the card element containing reset settings.
+ */
+import '../settings_shared.css.js';
+import '../os_settings_page/settings_card.js';
+import './os_powerwash_dialog.js';
+import { getEuicc, getNonPendingESimProfiles } from 'chrome://resources/ash/common/cellular_setup/esim_manager_utils.js';
+import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
+import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { Setting } from '../mojom-webui/setting.mojom-webui.js';
+import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { routes } from '../router.js';
+import { getTemplate } from './reset_settings_card.html.js';
+const ResetSettingsCardElementBase = DeepLinkingMixin(RouteObserverMixin(PolymerElement));
+export class ResetSettingsCardElement extends ResetSettingsCardElementBase {
+    static get is() {
+        return 'reset-settings-card';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            showPowerwashDialog_: {
+                type: Boolean,
+                value: false,
+            },
+            installedESimProfiles_: {
+                type: Array,
+                value() {
+                    return [];
+                },
+            },
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([Setting.kPowerwash]),
+            },
+        };
+    }
+    constructor() {
+        super();
+        this.route_ = isRevampWayfindingEnabled() ? routes.SYSTEM_PREFERENCES :
+            routes.OS_RESET;
+    }
+    async onShowPowerwashDialog_(e) {
+        e.preventDefault();
+        const euicc = await getEuicc();
+        if (!euicc) {
+            this.installedESimProfiles_ = [];
+            this.showPowerwashDialog_ = true;
+            return;
+        }
+        const profiles = await getNonPendingESimProfiles(euicc);
+        this.installedESimProfiles_ = profiles;
+        this.showPowerwashDialog_ = true;
+    }
+    onPowerwashDialogClose_() {
+        this.showPowerwashDialog_ = false;
+        focusWithoutInk(this.$.powerwashButton);
+    }
+    currentRouteChanged(newRoute) {
+        // Check route change applies to this page.
+        if (newRoute !== this.route_) {
+            return;
+        }
+        this.attemptDeepLink();
+    }
+}
+customElements.define(ResetSettingsCardElement.is, ResetSettingsCardElement);

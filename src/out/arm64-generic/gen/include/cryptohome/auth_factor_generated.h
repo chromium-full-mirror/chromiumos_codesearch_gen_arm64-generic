@@ -6,9 +6,14 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "structures_generated.h"
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 #include "auth_block_state_generated.h"
-#include "libhwsec/structures/signature_sealed_data_generated.h"
 
 namespace cryptohome {
 namespace auth_factor {
@@ -69,7 +74,7 @@ inline const char * const *EnumNamesLockoutPolicy() {
 }
 
 inline const char *EnumNameLockoutPolicy(LockoutPolicy e) {
-  if (flatbuffers::IsOutRange(e, LockoutPolicy::UNKNOWN, LockoutPolicy::TIME_LIMITED)) return "";
+  if (::flatbuffers::IsOutRange(e, LockoutPolicy::UNKNOWN, LockoutPolicy::TIME_LIMITED)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesLockoutPolicy()[index];
 }
@@ -114,7 +119,7 @@ inline const char * const *EnumNamesAuthFactorMetadata() {
 }
 
 inline const char *EnumNameAuthFactorMetadata(AuthFactorMetadata e) {
-  if (flatbuffers::IsOutRange(e, AuthFactorMetadata::NONE, AuthFactorMetadata::FingerprintMetadata)) return "";
+  if (::flatbuffers::IsOutRange(e, AuthFactorMetadata::NONE, AuthFactorMetadata::FingerprintMetadata)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAuthFactorMetadata()[index];
 }
@@ -147,10 +152,10 @@ template<> struct AuthFactorMetadataTraits<cryptohome::auth_factor::_serialized_
   static const AuthFactorMetadata enum_value = AuthFactorMetadata::FingerprintMetadata;
 };
 
-bool VerifyAuthFactorMetadata(flatbuffers::Verifier &verifier, const void *obj, AuthFactorMetadata type);
-bool VerifyAuthFactorMetadataVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types);
+bool VerifyAuthFactorMetadata(::flatbuffers::Verifier &verifier, const void *obj, AuthFactorMetadata type);
+bool VerifyAuthFactorMetadataVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<AuthFactorMetadata> *types);
 
-struct CommonMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct CommonMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef CommonMetadataBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_CHROMEOS_VERSION_LAST_UPDATED = 4,
@@ -158,25 +163,25 @@ struct CommonMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_LOCKOUT_POLICY = 8,
     VT_USER_SPECIFIED_NAME = 10
   };
-  const flatbuffers::String *chromeos_version_last_updated() const {
-    return GetPointer<const flatbuffers::String *>(VT_CHROMEOS_VERSION_LAST_UPDATED);
+  const ::flatbuffers::String *chromeos_version_last_updated() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_CHROMEOS_VERSION_LAST_UPDATED);
   }
-  const flatbuffers::String *chrome_version_last_updated() const {
-    return GetPointer<const flatbuffers::String *>(VT_CHROME_VERSION_LAST_UPDATED);
+  const ::flatbuffers::String *chrome_version_last_updated() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_CHROME_VERSION_LAST_UPDATED);
   }
-  flatbuffers::Optional<cryptohome::auth_factor::_serialized_::LockoutPolicy> lockout_policy() const {
+  ::flatbuffers::Optional<cryptohome::auth_factor::_serialized_::LockoutPolicy> lockout_policy() const {
     return GetOptional<int32_t, cryptohome::auth_factor::_serialized_::LockoutPolicy>(VT_LOCKOUT_POLICY);
   }
-  const flatbuffers::String *user_specified_name() const {
-    return GetPointer<const flatbuffers::String *>(VT_USER_SPECIFIED_NAME);
+  const ::flatbuffers::String *user_specified_name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_USER_SPECIFIED_NAME);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_CHROMEOS_VERSION_LAST_UPDATED) &&
            verifier.VerifyString(chromeos_version_last_updated()) &&
            VerifyOffset(verifier, VT_CHROME_VERSION_LAST_UPDATED) &&
            verifier.VerifyString(chrome_version_last_updated()) &&
-           VerifyField<int32_t>(verifier, VT_LOCKOUT_POLICY) &&
+           VerifyField<int32_t>(verifier, VT_LOCKOUT_POLICY, 4) &&
            VerifyOffset(verifier, VT_USER_SPECIFIED_NAME) &&
            verifier.VerifyString(user_specified_name()) &&
            verifier.EndTable();
@@ -185,37 +190,37 @@ struct CommonMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 
 struct CommonMetadataBuilder {
   typedef CommonMetadata Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_chromeos_version_last_updated(flatbuffers::Offset<flatbuffers::String> chromeos_version_last_updated) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_chromeos_version_last_updated(::flatbuffers::Offset<::flatbuffers::String> chromeos_version_last_updated) {
     fbb_.AddOffset(CommonMetadata::VT_CHROMEOS_VERSION_LAST_UPDATED, chromeos_version_last_updated);
   }
-  void add_chrome_version_last_updated(flatbuffers::Offset<flatbuffers::String> chrome_version_last_updated) {
+  void add_chrome_version_last_updated(::flatbuffers::Offset<::flatbuffers::String> chrome_version_last_updated) {
     fbb_.AddOffset(CommonMetadata::VT_CHROME_VERSION_LAST_UPDATED, chrome_version_last_updated);
   }
   void add_lockout_policy(cryptohome::auth_factor::_serialized_::LockoutPolicy lockout_policy) {
     fbb_.AddElement<int32_t>(CommonMetadata::VT_LOCKOUT_POLICY, static_cast<int32_t>(lockout_policy));
   }
-  void add_user_specified_name(flatbuffers::Offset<flatbuffers::String> user_specified_name) {
+  void add_user_specified_name(::flatbuffers::Offset<::flatbuffers::String> user_specified_name) {
     fbb_.AddOffset(CommonMetadata::VT_USER_SPECIFIED_NAME, user_specified_name);
   }
-  explicit CommonMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit CommonMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<CommonMetadata> Finish() {
+  ::flatbuffers::Offset<CommonMetadata> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<CommonMetadata>(end);
+    auto o = ::flatbuffers::Offset<CommonMetadata>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<CommonMetadata> CreateCommonMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> chromeos_version_last_updated = 0,
-    flatbuffers::Offset<flatbuffers::String> chrome_version_last_updated = 0,
-    flatbuffers::Optional<cryptohome::auth_factor::_serialized_::LockoutPolicy> lockout_policy = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::String> user_specified_name = 0) {
+inline ::flatbuffers::Offset<CommonMetadata> CreateCommonMetadata(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> chromeos_version_last_updated = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> chrome_version_last_updated = 0,
+    ::flatbuffers::Optional<cryptohome::auth_factor::_serialized_::LockoutPolicy> lockout_policy = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::String> user_specified_name = 0) {
   CommonMetadataBuilder builder_(_fbb);
   builder_.add_user_specified_name(user_specified_name);
   if(lockout_policy) { builder_.add_lockout_policy(*lockout_policy); }
@@ -224,11 +229,11 @@ inline flatbuffers::Offset<CommonMetadata> CreateCommonMetadata(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<CommonMetadata> CreateCommonMetadataDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<CommonMetadata> CreateCommonMetadataDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *chromeos_version_last_updated = nullptr,
     const char *chrome_version_last_updated = nullptr,
-    flatbuffers::Optional<cryptohome::auth_factor::_serialized_::LockoutPolicy> lockout_policy = flatbuffers::nullopt,
+    ::flatbuffers::Optional<cryptohome::auth_factor::_serialized_::LockoutPolicy> lockout_policy = ::flatbuffers::nullopt,
     const char *user_specified_name = nullptr) {
   auto chromeos_version_last_updated__ = chromeos_version_last_updated ? _fbb.CreateString(chromeos_version_last_updated) : 0;
   auto chrome_version_last_updated__ = chrome_version_last_updated ? _fbb.CreateString(chrome_version_last_updated) : 0;
@@ -241,9 +246,9 @@ inline flatbuffers::Offset<CommonMetadata> CreateCommonMetadataDirect(
       user_specified_name__);
 }
 
-struct PasswordMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct PasswordMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef PasswordMetadataBuilder Builder;
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            verifier.EndTable();
   }
@@ -251,28 +256,28 @@ struct PasswordMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 
 struct PasswordMetadataBuilder {
   typedef PasswordMetadata Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  explicit PasswordMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  explicit PasswordMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<PasswordMetadata> Finish() {
+  ::flatbuffers::Offset<PasswordMetadata> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<PasswordMetadata>(end);
+    auto o = ::flatbuffers::Offset<PasswordMetadata>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<PasswordMetadata> CreatePasswordMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb) {
+inline ::flatbuffers::Offset<PasswordMetadata> CreatePasswordMetadata(
+    ::flatbuffers::FlatBufferBuilder &_fbb) {
   PasswordMetadataBuilder builder_(_fbb);
   return builder_.Finish();
 }
 
-struct PinMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct PinMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef PinMetadataBuilder Builder;
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            verifier.EndTable();
   }
@@ -280,34 +285,34 @@ struct PinMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 
 struct PinMetadataBuilder {
   typedef PinMetadata Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  explicit PinMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  explicit PinMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<PinMetadata> Finish() {
+  ::flatbuffers::Offset<PinMetadata> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<PinMetadata>(end);
+    auto o = ::flatbuffers::Offset<PinMetadata>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<PinMetadata> CreatePinMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb) {
+inline ::flatbuffers::Offset<PinMetadata> CreatePinMetadata(
+    ::flatbuffers::FlatBufferBuilder &_fbb) {
   PinMetadataBuilder builder_(_fbb);
   return builder_.Finish();
 }
 
-struct CryptohomeRecoveryMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct CryptohomeRecoveryMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef CryptohomeRecoveryMetadataBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_MEDIATOR_PUB_KEY = 4
   };
-  const flatbuffers::Vector<uint8_t> *mediator_pub_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_MEDIATOR_PUB_KEY);
+  const ::flatbuffers::Vector<uint8_t> *mediator_pub_key() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_MEDIATOR_PUB_KEY);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_MEDIATOR_PUB_KEY) &&
            verifier.VerifyVector(mediator_pub_key()) &&
@@ -317,32 +322,32 @@ struct CryptohomeRecoveryMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers:
 
 struct CryptohomeRecoveryMetadataBuilder {
   typedef CryptohomeRecoveryMetadata Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_mediator_pub_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> mediator_pub_key) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_mediator_pub_key(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> mediator_pub_key) {
     fbb_.AddOffset(CryptohomeRecoveryMetadata::VT_MEDIATOR_PUB_KEY, mediator_pub_key);
   }
-  explicit CryptohomeRecoveryMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit CryptohomeRecoveryMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<CryptohomeRecoveryMetadata> Finish() {
+  ::flatbuffers::Offset<CryptohomeRecoveryMetadata> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<CryptohomeRecoveryMetadata>(end);
+    auto o = ::flatbuffers::Offset<CryptohomeRecoveryMetadata>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<CryptohomeRecoveryMetadata> CreateCryptohomeRecoveryMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> mediator_pub_key = 0) {
+inline ::flatbuffers::Offset<CryptohomeRecoveryMetadata> CreateCryptohomeRecoveryMetadata(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> mediator_pub_key = 0) {
   CryptohomeRecoveryMetadataBuilder builder_(_fbb);
   builder_.add_mediator_pub_key(mediator_pub_key);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<CryptohomeRecoveryMetadata> CreateCryptohomeRecoveryMetadataDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<CryptohomeRecoveryMetadata> CreateCryptohomeRecoveryMetadataDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *mediator_pub_key = nullptr) {
   auto mediator_pub_key__ = mediator_pub_key ? _fbb.CreateVector<uint8_t>(*mediator_pub_key) : 0;
   return cryptohome::auth_factor::_serialized_::CreateCryptohomeRecoveryMetadata(
@@ -350,9 +355,9 @@ inline flatbuffers::Offset<CryptohomeRecoveryMetadata> CreateCryptohomeRecoveryM
       mediator_pub_key__);
 }
 
-struct KioskMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct KioskMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef KioskMetadataBuilder Builder;
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            verifier.EndTable();
   }
@@ -360,34 +365,34 @@ struct KioskMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 
 struct KioskMetadataBuilder {
   typedef KioskMetadata Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  explicit KioskMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  explicit KioskMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<KioskMetadata> Finish() {
+  ::flatbuffers::Offset<KioskMetadata> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<KioskMetadata>(end);
+    auto o = ::flatbuffers::Offset<KioskMetadata>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<KioskMetadata> CreateKioskMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb) {
+inline ::flatbuffers::Offset<KioskMetadata> CreateKioskMetadata(
+    ::flatbuffers::FlatBufferBuilder &_fbb) {
   KioskMetadataBuilder builder_(_fbb);
   return builder_.Finish();
 }
 
-struct SmartCardMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct SmartCardMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef SmartCardMetadataBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_PUBLIC_KEY_SPKI_DER = 4
   };
-  const flatbuffers::Vector<uint8_t> *public_key_spki_der() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_PUBLIC_KEY_SPKI_DER);
+  const ::flatbuffers::Vector<uint8_t> *public_key_spki_der() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_PUBLIC_KEY_SPKI_DER);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_PUBLIC_KEY_SPKI_DER) &&
            verifier.VerifyVector(public_key_spki_der()) &&
@@ -397,32 +402,32 @@ struct SmartCardMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 
 struct SmartCardMetadataBuilder {
   typedef SmartCardMetadata Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_public_key_spki_der(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> public_key_spki_der) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_public_key_spki_der(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> public_key_spki_der) {
     fbb_.AddOffset(SmartCardMetadata::VT_PUBLIC_KEY_SPKI_DER, public_key_spki_der);
   }
-  explicit SmartCardMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit SmartCardMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<SmartCardMetadata> Finish() {
+  ::flatbuffers::Offset<SmartCardMetadata> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<SmartCardMetadata>(end);
+    auto o = ::flatbuffers::Offset<SmartCardMetadata>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<SmartCardMetadata> CreateSmartCardMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> public_key_spki_der = 0) {
+inline ::flatbuffers::Offset<SmartCardMetadata> CreateSmartCardMetadata(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> public_key_spki_der = 0) {
   SmartCardMetadataBuilder builder_(_fbb);
   builder_.add_public_key_spki_der(public_key_spki_der);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<SmartCardMetadata> CreateSmartCardMetadataDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<SmartCardMetadata> CreateSmartCardMetadataDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *public_key_spki_der = nullptr) {
   auto public_key_spki_der__ = public_key_spki_der ? _fbb.CreateVector<uint8_t>(*public_key_spki_der) : 0;
   return cryptohome::auth_factor::_serialized_::CreateSmartCardMetadata(
@@ -430,9 +435,9 @@ inline flatbuffers::Offset<SmartCardMetadata> CreateSmartCardMetadataDirect(
       public_key_spki_der__);
 }
 
-struct FingerprintMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct FingerprintMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef FingerprintMetadataBuilder Builder;
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            verifier.EndTable();
   }
@@ -440,26 +445,26 @@ struct FingerprintMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table 
 
 struct FingerprintMetadataBuilder {
   typedef FingerprintMetadata Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  explicit FingerprintMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  explicit FingerprintMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<FingerprintMetadata> Finish() {
+  ::flatbuffers::Offset<FingerprintMetadata> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<FingerprintMetadata>(end);
+    auto o = ::flatbuffers::Offset<FingerprintMetadata>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<FingerprintMetadata> CreateFingerprintMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb) {
+inline ::flatbuffers::Offset<FingerprintMetadata> CreateFingerprintMetadata(
+    ::flatbuffers::FlatBufferBuilder &_fbb) {
   FingerprintMetadataBuilder builder_(_fbb);
   return builder_.Finish();
 }
 
-struct AuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AuthFactor FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AuthFactorBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_AUTH_BLOCK_STATE = 4,
@@ -498,11 +503,11 @@ struct AuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const cryptohome::auth_factor::_serialized_::CommonMetadata *common_metadata() const {
     return GetPointer<const cryptohome::auth_factor::_serialized_::CommonMetadata *>(VT_COMMON_METADATA);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_AUTH_BLOCK_STATE) &&
            verifier.VerifyTable(auth_block_state()) &&
-           VerifyField<uint8_t>(verifier, VT_METADATA_TYPE) &&
+           VerifyField<uint8_t>(verifier, VT_METADATA_TYPE, 1) &&
            VerifyOffset(verifier, VT_METADATA) &&
            VerifyAuthFactorMetadata(verifier, metadata(), metadata_type()) &&
            VerifyOffset(verifier, VT_COMMON_METADATA) &&
@@ -537,37 +542,37 @@ template<> inline const cryptohome::auth_factor::_serialized_::FingerprintMetada
 
 struct AuthFactorBuilder {
   typedef AuthFactor Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_auth_block_state(flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> auth_block_state) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_auth_block_state(::flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> auth_block_state) {
     fbb_.AddOffset(AuthFactor::VT_AUTH_BLOCK_STATE, auth_block_state);
   }
   void add_metadata_type(cryptohome::auth_factor::_serialized_::AuthFactorMetadata metadata_type) {
     fbb_.AddElement<uint8_t>(AuthFactor::VT_METADATA_TYPE, static_cast<uint8_t>(metadata_type), 0);
   }
-  void add_metadata(flatbuffers::Offset<void> metadata) {
+  void add_metadata(::flatbuffers::Offset<void> metadata) {
     fbb_.AddOffset(AuthFactor::VT_METADATA, metadata);
   }
-  void add_common_metadata(flatbuffers::Offset<cryptohome::auth_factor::_serialized_::CommonMetadata> common_metadata) {
+  void add_common_metadata(::flatbuffers::Offset<cryptohome::auth_factor::_serialized_::CommonMetadata> common_metadata) {
     fbb_.AddOffset(AuthFactor::VT_COMMON_METADATA, common_metadata);
   }
-  explicit AuthFactorBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AuthFactorBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AuthFactor> Finish() {
+  ::flatbuffers::Offset<AuthFactor> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AuthFactor>(end);
+    auto o = ::flatbuffers::Offset<AuthFactor>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AuthFactor> CreateAuthFactor(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> auth_block_state = 0,
+inline ::flatbuffers::Offset<AuthFactor> CreateAuthFactor(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> auth_block_state = 0,
     cryptohome::auth_factor::_serialized_::AuthFactorMetadata metadata_type = cryptohome::auth_factor::_serialized_::AuthFactorMetadata::NONE,
-    flatbuffers::Offset<void> metadata = 0,
-    flatbuffers::Offset<cryptohome::auth_factor::_serialized_::CommonMetadata> common_metadata = 0) {
+    ::flatbuffers::Offset<void> metadata = 0,
+    ::flatbuffers::Offset<cryptohome::auth_factor::_serialized_::CommonMetadata> common_metadata = 0) {
   AuthFactorBuilder builder_(_fbb);
   builder_.add_common_metadata(common_metadata);
   builder_.add_metadata(metadata);
@@ -576,7 +581,7 @@ inline flatbuffers::Offset<AuthFactor> CreateAuthFactor(
   return builder_.Finish();
 }
 
-inline bool VerifyAuthFactorMetadata(flatbuffers::Verifier &verifier, const void *obj, AuthFactorMetadata type) {
+inline bool VerifyAuthFactorMetadata(::flatbuffers::Verifier &verifier, const void *obj, AuthFactorMetadata type) {
   switch (type) {
     case AuthFactorMetadata::NONE: {
       return true;
@@ -609,10 +614,10 @@ inline bool VerifyAuthFactorMetadata(flatbuffers::Verifier &verifier, const void
   }
 }
 
-inline bool VerifyAuthFactorMetadataVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types) {
+inline bool VerifyAuthFactorMetadataVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<AuthFactorMetadata> *types) {
   if (!values || !types) return !values && !types;
   if (values->size() != types->size()) return false;
-  for (flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
+  for (::flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
     if (!VerifyAuthFactorMetadata(
         verifier,  values->Get(i), types->GetEnum<AuthFactorMetadata>(i))) {
       return false;
@@ -622,32 +627,32 @@ inline bool VerifyAuthFactorMetadataVector(flatbuffers::Verifier &verifier, cons
 }
 
 inline const cryptohome::auth_factor::_serialized_::AuthFactor *GetAuthFactor(const void *buf) {
-  return flatbuffers::GetRoot<cryptohome::auth_factor::_serialized_::AuthFactor>(buf);
+  return ::flatbuffers::GetRoot<cryptohome::auth_factor::_serialized_::AuthFactor>(buf);
 }
 
 inline const cryptohome::auth_factor::_serialized_::AuthFactor *GetSizePrefixedAuthFactor(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<cryptohome::auth_factor::_serialized_::AuthFactor>(buf);
+  return ::flatbuffers::GetSizePrefixedRoot<cryptohome::auth_factor::_serialized_::AuthFactor>(buf);
 }
 
 inline bool VerifyAuthFactorBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifyBuffer<cryptohome::auth_factor::_serialized_::AuthFactor>(nullptr);
 }
 
 inline bool VerifySizePrefixedAuthFactorBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifySizePrefixedBuffer<cryptohome::auth_factor::_serialized_::AuthFactor>(nullptr);
 }
 
 inline void FinishAuthFactorBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<cryptohome::auth_factor::_serialized_::AuthFactor> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<cryptohome::auth_factor::_serialized_::AuthFactor> root) {
   fbb.Finish(root);
 }
 
 inline void FinishSizePrefixedAuthFactorBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<cryptohome::auth_factor::_serialized_::AuthFactor> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<cryptohome::auth_factor::_serialized_::AuthFactor> root) {
   fbb.FinishSizePrefixed(root);
 }
 

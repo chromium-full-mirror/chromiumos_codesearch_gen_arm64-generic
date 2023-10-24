@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-java", "name": "java-config", "version": "2.3.1", "revision": 1, "fullname": "dev-java/java-config", "fullnamerev": "dev-java/java-config-2.3.1-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.gentoo.org/wiki/Project:Java"], "skip": false, "tainted": false, "ebuild_path": null}

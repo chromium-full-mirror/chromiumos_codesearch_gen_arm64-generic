@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.016" timestamp="2023-10-23T22:47:31.939" name="AllTests">
+  <testsuite name="ChannelConvMtxTestSuite" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.01" timestamp="2023-10-23T22:47:31.944">
+    <testcase name="MatrixCreateSuccess" file="cras/src/tests/audio_format_unittest.cc" line="39" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:47:31.945" classname="ChannelConvMtxTestSuite" />
+    <testcase name="MatrixCreateSuccess2" file="cras/src/tests/audio_format_unittest.cc" line="58" status="run" result="completed" time="0.006" timestamp="2023-10-23T22:47:31.947" classname="ChannelConvMtxTestSuite" />
+    <testcase name="MatrixCreateMissingCRAS_CH_FC" file="cras/src/tests/audio_format_unittest.cc" line="77" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:31.954" classname="ChannelConvMtxTestSuite" />
+    <testcase name="SLSRToRRRL" file="cras/src/tests/audio_format_unittest.cc" line="96" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:31.955" classname="ChannelConvMtxTestSuite" />
+  </testsuite>
+</testsuites>

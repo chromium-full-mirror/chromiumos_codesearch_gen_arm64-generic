@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "lucicfg", "version": "1.28.0", "revision": 2, "fullname": "dev-go/lucicfg", "fullnamerev": "dev-go/lucicfg-1.28.0-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/infra/luci/luci-go/+/main/lucicfg/"], "skip": false, "tainted": false, "ebuild_path": null}

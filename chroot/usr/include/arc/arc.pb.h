@@ -97,6 +97,26 @@ inline const std::string& StartArcMiniInstanceRequest_DalvikMemoryProfile_Name(T
 }
 bool StartArcMiniInstanceRequest_DalvikMemoryProfile_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcMiniInstanceRequest_DalvikMemoryProfile* value);
+enum StartArcMiniInstanceRequest_HostUreadaheadMode : int {
+  StartArcMiniInstanceRequest_HostUreadaheadMode_MODE_DEFAULT = 0,
+  StartArcMiniInstanceRequest_HostUreadaheadMode_MODE_GENERATE = 1,
+  StartArcMiniInstanceRequest_HostUreadaheadMode_MODE_DISABLED = 2
+};
+bool StartArcMiniInstanceRequest_HostUreadaheadMode_IsValid(int value);
+constexpr StartArcMiniInstanceRequest_HostUreadaheadMode StartArcMiniInstanceRequest_HostUreadaheadMode_HostUreadaheadMode_MIN = StartArcMiniInstanceRequest_HostUreadaheadMode_MODE_DEFAULT;
+constexpr StartArcMiniInstanceRequest_HostUreadaheadMode StartArcMiniInstanceRequest_HostUreadaheadMode_HostUreadaheadMode_MAX = StartArcMiniInstanceRequest_HostUreadaheadMode_MODE_DISABLED;
+constexpr int StartArcMiniInstanceRequest_HostUreadaheadMode_HostUreadaheadMode_ARRAYSIZE = StartArcMiniInstanceRequest_HostUreadaheadMode_HostUreadaheadMode_MAX + 1;
+
+const std::string& StartArcMiniInstanceRequest_HostUreadaheadMode_Name(StartArcMiniInstanceRequest_HostUreadaheadMode value);
+template<typename T>
+inline const std::string& StartArcMiniInstanceRequest_HostUreadaheadMode_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, StartArcMiniInstanceRequest_HostUreadaheadMode>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function StartArcMiniInstanceRequest_HostUreadaheadMode_Name.");
+  return StartArcMiniInstanceRequest_HostUreadaheadMode_Name(static_cast<StartArcMiniInstanceRequest_HostUreadaheadMode>(enum_t_value));
+}
+bool StartArcMiniInstanceRequest_HostUreadaheadMode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcMiniInstanceRequest_HostUreadaheadMode* value);
 enum UpgradeArcContainerRequest_PackageCacheMode : int {
   UpgradeArcContainerRequest_PackageCacheMode_DEFAULT = 0,
   UpgradeArcContainerRequest_PackageCacheMode_COPY_ON_INIT = 1,
@@ -305,6 +325,34 @@ class StartArcMiniInstanceRequest final :
     return StartArcMiniInstanceRequest_DalvikMemoryProfile_Parse(name, value);
   }
 
+  typedef StartArcMiniInstanceRequest_HostUreadaheadMode HostUreadaheadMode;
+  static constexpr HostUreadaheadMode MODE_DEFAULT =
+    StartArcMiniInstanceRequest_HostUreadaheadMode_MODE_DEFAULT;
+  static constexpr HostUreadaheadMode MODE_GENERATE =
+    StartArcMiniInstanceRequest_HostUreadaheadMode_MODE_GENERATE;
+  static constexpr HostUreadaheadMode MODE_DISABLED =
+    StartArcMiniInstanceRequest_HostUreadaheadMode_MODE_DISABLED;
+  static inline bool HostUreadaheadMode_IsValid(int value) {
+    return StartArcMiniInstanceRequest_HostUreadaheadMode_IsValid(value);
+  }
+  static constexpr HostUreadaheadMode HostUreadaheadMode_MIN =
+    StartArcMiniInstanceRequest_HostUreadaheadMode_HostUreadaheadMode_MIN;
+  static constexpr HostUreadaheadMode HostUreadaheadMode_MAX =
+    StartArcMiniInstanceRequest_HostUreadaheadMode_HostUreadaheadMode_MAX;
+  static constexpr int HostUreadaheadMode_ARRAYSIZE =
+    StartArcMiniInstanceRequest_HostUreadaheadMode_HostUreadaheadMode_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& HostUreadaheadMode_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, HostUreadaheadMode>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function HostUreadaheadMode_Name.");
+    return StartArcMiniInstanceRequest_HostUreadaheadMode_Name(enum_t_value);
+  }
+  static inline bool HostUreadaheadMode_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      HostUreadaheadMode* value) {
+    return StartArcMiniInstanceRequest_HostUreadaheadMode_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -326,6 +374,7 @@ class StartArcMiniInstanceRequest final :
     kEnablePrivacyHubForChromeFieldNumber = 17,
     kArcSwitchToKeymintFieldNumber = 18,
     kUseDevCachesFieldNumber = 20,
+    kHostUreadaheadModeFieldNumber = 21,
     kLcdDensityFieldNumber = 2,
     kForceMaxAcquiredBuffersExperimentFieldNumber = 19,
   };
@@ -563,6 +612,19 @@ class StartArcMiniInstanceRequest final :
   void _internal_set_use_dev_caches(bool value);
   public:
 
+  // optional .arc.StartArcMiniInstanceRequest.HostUreadaheadMode host_ureadahead_mode = 21 [default = MODE_DEFAULT];
+  bool has_host_ureadahead_mode() const;
+  private:
+  bool _internal_has_host_ureadahead_mode() const;
+  public:
+  void clear_host_ureadahead_mode();
+  ::arc::StartArcMiniInstanceRequest_HostUreadaheadMode host_ureadahead_mode() const;
+  void set_host_ureadahead_mode(::arc::StartArcMiniInstanceRequest_HostUreadaheadMode value);
+  private:
+  ::arc::StartArcMiniInstanceRequest_HostUreadaheadMode _internal_host_ureadahead_mode() const;
+  void _internal_set_host_ureadahead_mode(::arc::StartArcMiniInstanceRequest_HostUreadaheadMode value);
+  public:
+
   // optional int32 lcd_density = 2 [default = -1];
   bool has_lcd_density() const;
   private:
@@ -617,6 +679,7 @@ class StartArcMiniInstanceRequest final :
     bool enable_privacy_hub_for_chrome_;
     bool arc_switch_to_keymint_;
     bool use_dev_caches_;
+    int host_ureadahead_mode_;
     int32_t lcd_density_;
     int32_t force_max_acquired_buffers_experiment_;
   };
@@ -1100,7 +1163,7 @@ inline void StartArcMiniInstanceRequest::set_native_bridge_experiment(bool value
 
 // optional int32 lcd_density = 2 [default = -1];
 inline bool StartArcMiniInstanceRequest::_internal_has_lcd_density() const {
-  bool value = (_impl_._has_bits_[0] & 0x00040000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00080000u) != 0;
   return value;
 }
 inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
@@ -1108,7 +1171,7 @@ inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
 }
 inline void StartArcMiniInstanceRequest::clear_lcd_density() {
   _impl_.lcd_density_ = -1;
-  _impl_._has_bits_[0] &= ~0x00040000u;
+  _impl_._has_bits_[0] &= ~0x00080000u;
 }
 inline int32_t StartArcMiniInstanceRequest::_internal_lcd_density() const {
   return _impl_.lcd_density_;
@@ -1118,7 +1181,7 @@ inline int32_t StartArcMiniInstanceRequest::lcd_density() const {
   return _internal_lcd_density();
 }
 inline void StartArcMiniInstanceRequest::_internal_set_lcd_density(int32_t value) {
-  _impl_._has_bits_[0] |= 0x00040000u;
+  _impl_._has_bits_[0] |= 0x00080000u;
   _impl_.lcd_density_ = value;
 }
 inline void StartArcMiniInstanceRequest::set_lcd_density(int32_t value) {
@@ -1578,7 +1641,7 @@ inline void StartArcMiniInstanceRequest::set_arc_switch_to_keymint(bool value) {
 
 // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
 inline bool StartArcMiniInstanceRequest::_internal_has_force_max_acquired_buffers_experiment() const {
-  bool value = (_impl_._has_bits_[0] & 0x00080000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00100000u) != 0;
   return value;
 }
 inline bool StartArcMiniInstanceRequest::has_force_max_acquired_buffers_experiment() const {
@@ -1586,7 +1649,7 @@ inline bool StartArcMiniInstanceRequest::has_force_max_acquired_buffers_experime
 }
 inline void StartArcMiniInstanceRequest::clear_force_max_acquired_buffers_experiment() {
   _impl_.force_max_acquired_buffers_experiment_ = -1;
-  _impl_._has_bits_[0] &= ~0x00080000u;
+  _impl_._has_bits_[0] &= ~0x00100000u;
 }
 inline int32_t StartArcMiniInstanceRequest::_internal_force_max_acquired_buffers_experiment() const {
   return _impl_.force_max_acquired_buffers_experiment_;
@@ -1596,7 +1659,7 @@ inline int32_t StartArcMiniInstanceRequest::force_max_acquired_buffers_experimen
   return _internal_force_max_acquired_buffers_experiment();
 }
 inline void StartArcMiniInstanceRequest::_internal_set_force_max_acquired_buffers_experiment(int32_t value) {
-  _impl_._has_bits_[0] |= 0x00080000u;
+  _impl_._has_bits_[0] |= 0x00100000u;
   _impl_.force_max_acquired_buffers_experiment_ = value;
 }
 inline void StartArcMiniInstanceRequest::set_force_max_acquired_buffers_experiment(int32_t value) {
@@ -1630,6 +1693,35 @@ inline void StartArcMiniInstanceRequest::_internal_set_use_dev_caches(bool value
 inline void StartArcMiniInstanceRequest::set_use_dev_caches(bool value) {
   _internal_set_use_dev_caches(value);
   // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.use_dev_caches)
+}
+
+// optional .arc.StartArcMiniInstanceRequest.HostUreadaheadMode host_ureadahead_mode = 21 [default = MODE_DEFAULT];
+inline bool StartArcMiniInstanceRequest::_internal_has_host_ureadahead_mode() const {
+  bool value = (_impl_._has_bits_[0] & 0x00040000u) != 0;
+  return value;
+}
+inline bool StartArcMiniInstanceRequest::has_host_ureadahead_mode() const {
+  return _internal_has_host_ureadahead_mode();
+}
+inline void StartArcMiniInstanceRequest::clear_host_ureadahead_mode() {
+  _impl_.host_ureadahead_mode_ = 0;
+  _impl_._has_bits_[0] &= ~0x00040000u;
+}
+inline ::arc::StartArcMiniInstanceRequest_HostUreadaheadMode StartArcMiniInstanceRequest::_internal_host_ureadahead_mode() const {
+  return static_cast< ::arc::StartArcMiniInstanceRequest_HostUreadaheadMode >(_impl_.host_ureadahead_mode_);
+}
+inline ::arc::StartArcMiniInstanceRequest_HostUreadaheadMode StartArcMiniInstanceRequest::host_ureadahead_mode() const {
+  // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.host_ureadahead_mode)
+  return _internal_host_ureadahead_mode();
+}
+inline void StartArcMiniInstanceRequest::_internal_set_host_ureadahead_mode(::arc::StartArcMiniInstanceRequest_HostUreadaheadMode value) {
+  assert(::arc::StartArcMiniInstanceRequest_HostUreadaheadMode_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00040000u;
+  _impl_.host_ureadahead_mode_ = value;
+}
+inline void StartArcMiniInstanceRequest::set_host_ureadahead_mode(::arc::StartArcMiniInstanceRequest_HostUreadaheadMode value) {
+  _internal_set_host_ureadahead_mode(value);
+  // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.host_ureadahead_mode)
 }
 
 // -------------------------------------------------------------------
@@ -2239,6 +2331,7 @@ PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::arc::StartArcMiniInstanceRequest_PlayStoreAutoUpdate> : ::std::true_type {};
 template <> struct is_proto_enum< ::arc::StartArcMiniInstanceRequest_DalvikMemoryProfile> : ::std::true_type {};
+template <> struct is_proto_enum< ::arc::StartArcMiniInstanceRequest_HostUreadaheadMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::arc::UpgradeArcContainerRequest_PackageCacheMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::arc::UpgradeArcContainerRequest_ManagementTransition> : ::std::true_type {};
 

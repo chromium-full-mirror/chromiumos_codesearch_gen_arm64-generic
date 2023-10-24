@@ -85,8 +85,8 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_GetPsr_Name: {
       return &Delegate::GetPsr_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
-      return &Delegate::GetConnectedHdmiConnectors_Sym::IPCStableHash;
+    case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name: {
+      return &Delegate::GetConnectedExternalDisplayConnectors_Sym::IPCStableHash;
     }
     case internal::kDelegate_GetPrivacyScreenInfo_Name: {
       return &Delegate::GetPrivacyScreenInfo_Sym::IPCStableHash;
@@ -108,6 +108,12 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     }
     case internal::kDelegate_GetAllFanSpeed_Name: {
       return &Delegate::GetAllFanSpeed_Sym::IPCStableHash;
+    }
+    case internal::kDelegate_SetFanSpeed_Name: {
+      return &Delegate::SetFanSpeed_Sym::IPCStableHash;
+    }
+    case internal::kDelegate_SetAllFanAutoControl_Name: {
+      return &Delegate::SetAllFanAutoControl_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -144,8 +150,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::GetLidAngle";
       case internal::kDelegate_GetPsr_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::GetPsr";
-      case internal::kDelegate_GetConnectedHdmiConnectors_Name:
-            return "Receive ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors";
+      case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors";
       case internal::kDelegate_GetPrivacyScreenInfo_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo";
       case internal::kDelegate_FetchDisplayInfo_Name:
@@ -160,6 +166,10 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::RunFloatingPoint";
       case internal::kDelegate_GetAllFanSpeed_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::GetAllFanSpeed";
+      case internal::kDelegate_SetFanSpeed_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::SetFanSpeed";
+      case internal::kDelegate_SetAllFanAutoControl_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl";
     }
   } else {
     switch (message.name()) {
@@ -187,8 +197,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetLidAngle";
       case internal::kDelegate_GetPsr_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetPsr";
-      case internal::kDelegate_GetConnectedHdmiConnectors_Name:
-            return "Receive reply ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors";
+      case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors";
       case internal::kDelegate_GetPrivacyScreenInfo_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo";
       case internal::kDelegate_FetchDisplayInfo_Name:
@@ -203,6 +213,10 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::RunFloatingPoint";
       case internal::kDelegate_GetAllFanSpeed_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetAllFanSpeed";
+      case internal::kDelegate_SetFanSpeed_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::SetFanSpeed";
+      case internal::kDelegate_SetAllFanAutoControl_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl";
     }
   }
   return "Receive unknown mojo message";
@@ -373,7 +387,7 @@ uint32_t Delegate::GetPsr_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t Delegate::GetConnectedHdmiConnectors_Sym::IPCStableHash() {
+uint32_t Delegate::GetConnectedExternalDisplayConnectors_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -381,7 +395,7 @@ uint32_t Delegate::GetConnectedHdmiConnectors_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors");
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -473,6 +487,32 @@ uint32_t Delegate::GetAllFanSpeed_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Delegate::GetAllFanSpeed");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::SetFanSpeed_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::SetFanSpeed");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::SetAllFanAutoControl_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -591,20 +631,20 @@ class Delegate_GetPsr_ForwardToCallback
   Delegate::GetPsrCallback callback_;
 };
 
-class Delegate_GetConnectedHdmiConnectors_ForwardToCallback
+class Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  Delegate_GetConnectedHdmiConnectors_ForwardToCallback(
-      Delegate::GetConnectedHdmiConnectorsCallback callback
+  Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback(
+      Delegate::GetConnectedExternalDisplayConnectorsCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  Delegate_GetConnectedHdmiConnectors_ForwardToCallback(const Delegate_GetConnectedHdmiConnectors_ForwardToCallback&) = delete;
-  Delegate_GetConnectedHdmiConnectors_ForwardToCallback& operator=(const Delegate_GetConnectedHdmiConnectors_ForwardToCallback&) = delete;
+  Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback(const Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback&) = delete;
+  Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback& operator=(const Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  Delegate::GetConnectedHdmiConnectorsCallback callback_;
+  Delegate::GetConnectedExternalDisplayConnectorsCallback callback_;
 };
 
 class Delegate_GetPrivacyScreenInfo_ForwardToCallback
@@ -685,6 +725,38 @@ class Delegate_GetAllFanSpeed_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Delegate::GetAllFanSpeedCallback callback_;
+};
+
+class Delegate_SetFanSpeed_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_SetFanSpeed_ForwardToCallback(
+      Delegate::SetFanSpeedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_SetFanSpeed_ForwardToCallback(const Delegate_SetFanSpeed_ForwardToCallback&) = delete;
+  Delegate_SetFanSpeed_ForwardToCallback& operator=(const Delegate_SetFanSpeed_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::SetFanSpeedCallback callback_;
+};
+
+class Delegate_SetAllFanAutoControl_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_SetAllFanAutoControl_ForwardToCallback(
+      Delegate::SetAllFanAutoControlCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_SetAllFanAutoControl_ForwardToCallback(const Delegate_SetAllFanAutoControl_ForwardToCallback&) = delete;
+  Delegate_SetAllFanAutoControl_ForwardToCallback& operator=(const Delegate_SetAllFanAutoControl_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::SetAllFanAutoControlCallback callback_;
 };
 
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1155,10 +1227,10 @@ void DelegateProxy::GetPsr(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void DelegateProxy::GetConnectedHdmiConnectors(
-    GetConnectedHdmiConnectorsCallback callback) {
+void DelegateProxy::GetConnectedExternalDisplayConnectors(
+    GetConnectedExternalDisplayConnectorsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -1170,18 +1242,18 @@ void DelegateProxy::GetConnectedHdmiConnectors(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kDelegate_GetConnectedHdmiConnectors_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedHdmiConnectors_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Delegate::Name_);
-  message.set_method_name("GetConnectedHdmiConnectors");
+  message.set_method_name("GetConnectedExternalDisplayConnectors");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new Delegate_GetConnectedHdmiConnectors_ForwardToCallback(
+      new Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -1463,6 +1535,88 @@ void DelegateProxy::GetAllFanSpeed(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Delegate_GetAllFanSpeed_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::SetFanSpeed(
+    const base::flat_map<uint8_t, uint16_t>& in_fan_id_to_rpm, SetFanSpeedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::SetFanSpeed", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("fan_id_to_rpm"), in_fan_id_to_rpm,
+                        "<value of type const base::flat_map<uint8_t, uint16_t>&>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_SetFanSpeed_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->fan_id_to_rpm)::BaseType>
+      fan_id_to_rpm_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& fan_id_to_rpm_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  mojo::internal::Serialize<mojo::MapDataView<uint8_t, uint16_t>>(
+      in_fan_id_to_rpm, fan_id_to_rpm_fragment, &fan_id_to_rpm_validate_params);
+  params->fan_id_to_rpm.Set(
+      fan_id_to_rpm_fragment.is_null() ? nullptr : fan_id_to_rpm_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->fan_id_to_rpm.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null fan_id_to_rpm in Delegate.SetFanSpeed request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("SetFanSpeed");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_SetFanSpeed_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::SetAllFanAutoControl(
+    SetAllFanAutoControlCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_SetAllFanAutoControl_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("SetAllFanAutoControl");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_SetAllFanAutoControl_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2388,19 +2542,19 @@ void Delegate_GetPsr_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class Delegate_GetConnectedHdmiConnectors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static Delegate::GetConnectedHdmiConnectorsCallback CreateCallback(
+  static Delegate::GetConnectedExternalDisplayConnectorsCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Delegate_GetConnectedHdmiConnectors_ProxyToResponder> proxy(
-        new Delegate_GetConnectedHdmiConnectors_ProxyToResponder(
+    std::unique_ptr<Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder> proxy(
+        new Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&Delegate_GetConnectedHdmiConnectors_ProxyToResponder::Run,
+    return base::BindOnce(&Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~Delegate_GetConnectedHdmiConnectors_ProxyToResponder() {
+  ~Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -2417,7 +2571,7 @@ class Delegate_GetConnectedHdmiConnectors_ProxyToResponder : public ::mojo::inte
   }
 
  private:
-  Delegate_GetConnectedHdmiConnectors_ProxyToResponder(
+  Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -2426,7 +2580,7 @@ class Delegate_GetConnectedHdmiConnectors_ProxyToResponder : public ::mojo::inte
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "Delegate::GetConnectedHdmiConnectorsCallback was destroyed without "
+        << "Delegate::GetConnectedExternalDisplayConnectorsCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -2437,19 +2591,19 @@ class Delegate_GetConnectedHdmiConnectors_ProxyToResponder : public ::mojo::inte
       base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const absl::optional<std::string>& in_err);
 };
 
-bool Delegate_GetConnectedHdmiConnectors_ForwardToCallback::Accept(
+bool Delegate_GetConnectedExternalDisplayConnectors_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data* params =
+  internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data*>(
+          internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> p_connectors{};
   absl::optional<std::string> p_err{};
-  Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView input_data_view(params, message);
+  Delegate_GetConnectedExternalDisplayConnectors_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadConnectors(&p_connectors))
     success = false;
@@ -2469,11 +2623,11 @@ std::move(p_err));
   return true;
 }
 
-void Delegate_GetConnectedHdmiConnectors_ProxyToResponder::Run(
+void Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder::Run(
     base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const absl::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetConnectedExternalDisplayConnectors", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2490,9 +2644,9 @@ void Delegate_GetConnectedHdmiConnectors_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kDelegate_GetConnectedHdmiConnectors_Name, kFlags, 0, 0, nullptr);
+      internal::kDelegate_GetConnectedExternalDisplayConnectors_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -2518,7 +2672,7 @@ void Delegate_GetConnectedHdmiConnectors_ProxyToResponder::Run(
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Delegate::Name_);
-  message.set_method_name("GetConnectedHdmiConnectors");
+  message.set_method_name("GetConnectedExternalDisplayConnectors");
 #endif
 
   message.set_request_id(request_id_);
@@ -3080,7 +3234,7 @@ class Delegate_GetAllFanSpeed_ProxyToResponder : public ::mojo::internal::ProxyT
 #endif
 
   void Run(
-      const std::vector<uint32_t>& in_fan_rpms, const absl::optional<std::string>& in_err);
+      const std::vector<uint16_t>& in_fan_rpms, const absl::optional<std::string>& in_err);
 };
 
 bool Delegate_GetAllFanSpeed_ForwardToCallback::Accept(
@@ -3093,7 +3247,7 @@ bool Delegate_GetAllFanSpeed_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<uint32_t> p_fan_rpms{};
+  std::vector<uint16_t> p_fan_rpms{};
   absl::optional<std::string> p_err{};
   Delegate_GetAllFanSpeed_ResponseParamsDataView input_data_view(params, message);
   
@@ -3116,7 +3270,7 @@ std::move(p_err));
 }
 
 void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
-    const std::vector<uint32_t>& in_fan_rpms, const absl::optional<std::string>& in_err) {
+    const std::vector<uint16_t>& in_fan_rpms, const absl::optional<std::string>& in_err) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetAllFanSpeed", "async_response_parameters",
@@ -3124,7 +3278,7 @@ void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("fan_rpms"), in_fan_rpms,
-                        "<value of type const std::vector<uint32_t>&>");
+                        "<value of type const std::vector<uint16_t>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
                         "<value of type const absl::optional<std::string>&>");
@@ -3146,7 +3300,7 @@ void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
       fan_rpms_fragment(params.message());
   constexpr const mojo::internal::ContainerValidateParams& fan_rpms_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
+  mojo::internal::Serialize<mojo::ArrayDataView<uint16_t>>(
       in_fan_rpms, fan_rpms_fragment, &fan_rpms_validate_params);
   params->fan_rpms.Set(
       fan_rpms_fragment.is_null() ? nullptr : fan_rpms_fragment.data());
@@ -3165,6 +3319,254 @@ void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Delegate::Name_);
   message.set_method_name("GetAllFanSpeed");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_SetFanSpeed_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::SetFanSpeedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_SetFanSpeed_ProxyToResponder> proxy(
+        new Delegate_SetFanSpeed_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_SetFanSpeed_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_SetFanSpeed_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_SetFanSpeed_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::SetFanSpeedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const absl::optional<std::string>& in_err);
+};
+
+bool Delegate_SetFanSpeed_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_SetFanSpeed_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_SetFanSpeed_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  absl::optional<std::string> p_err{};
+  Delegate_SetFanSpeed_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 20, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_err));
+  return true;
+}
+
+void Delegate_SetFanSpeed_ProxyToResponder::Run(
+    const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::SetFanSpeed", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_SetFanSpeed_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_SetFanSpeed_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("SetFanSpeed");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_SetAllFanAutoControl_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::SetAllFanAutoControlCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_SetAllFanAutoControl_ProxyToResponder> proxy(
+        new Delegate_SetAllFanAutoControl_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_SetAllFanAutoControl_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_SetAllFanAutoControl_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_SetAllFanAutoControl_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::SetAllFanAutoControlCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const absl::optional<std::string>& in_err);
+};
+
+bool Delegate_SetAllFanAutoControl_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_SetAllFanAutoControl_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_SetAllFanAutoControl_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  absl::optional<std::string> p_err{};
+  Delegate_SetAllFanAutoControl_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 21, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_err));
+  return true;
+}
+
+void Delegate_SetAllFanAutoControl_ProxyToResponder::Run(
+    const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::SetAllFanAutoControl", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_SetAllFanAutoControl_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_SetAllFanAutoControl_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("SetAllFanAutoControl");
 #endif
 
   message.set_request_id(request_id_);
@@ -3345,7 +3747,7 @@ std::move(p_observer));
     case internal::kDelegate_GetPsr_Name: {
       break;
     }
-    case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
+    case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name: {
       break;
     }
     case internal::kDelegate_GetPrivacyScreenInfo_Name: {
@@ -3417,6 +3819,12 @@ std::move(p_observer));
       break;
     }
     case internal::kDelegate_GetAllFanSpeed_Name: {
+      break;
+    }
+    case internal::kDelegate_SetFanSpeed_Name: {
+      break;
+    }
+    case internal::kDelegate_SetAllFanAutoControl_Name: {
       break;
     }
   }
@@ -3638,15 +4046,15 @@ std::move(p_name), std::move(callback));
       impl->GetPsr(std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
+    case internal::kDelegate_GetConnectedExternalDisplayConnectors_Name: {
 
-      internal::Delegate_GetConnectedHdmiConnectors_Params_Data* params =
+      internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data* params =
           reinterpret_cast<
-              internal::Delegate_GetConnectedHdmiConnectors_Params_Data*>(
+              internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
-      Delegate_GetConnectedHdmiConnectors_ParamsDataView input_data_view(params, message);
+      Delegate_GetConnectedExternalDisplayConnectors_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
@@ -3655,12 +4063,12 @@ std::move(p_name), std::move(callback));
             Delegate::Name_, 12, false);
         return false;
       }
-      Delegate::GetConnectedHdmiConnectorsCallback callback =
-          Delegate_GetConnectedHdmiConnectors_ProxyToResponder::CreateCallback(
+      Delegate::GetConnectedExternalDisplayConnectorsCallback callback =
+          Delegate_GetConnectedExternalDisplayConnectors_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->GetConnectedHdmiConnectors(std::move(callback));
+      impl->GetConnectedExternalDisplayConnectors(std::move(callback));
       return true;
     }
     case internal::kDelegate_GetPrivacyScreenInfo_Name: {
@@ -3806,6 +4214,60 @@ std::move(p_exec_duration), std::move(callback));
       impl->GetAllFanSpeed(std::move(callback));
       return true;
     }
+    case internal::kDelegate_SetFanSpeed_Name: {
+
+      internal::Delegate_SetFanSpeed_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_SetFanSpeed_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      base::flat_map<uint8_t, uint16_t> p_fan_id_to_rpm{};
+      Delegate_SetFanSpeed_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadFanIdToRpm(&p_fan_id_to_rpm))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 20, false);
+        return false;
+      }
+      Delegate::SetFanSpeedCallback callback =
+          Delegate_SetFanSpeed_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetFanSpeed(
+std::move(p_fan_id_to_rpm), std::move(callback));
+      return true;
+    }
+    case internal::kDelegate_SetAllFanAutoControl_Name: {
+
+      internal::Delegate_SetAllFanAutoControl_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_SetAllFanAutoControl_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_SetAllFanAutoControl_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 21, false);
+        return false;
+      }
+      Delegate::SetAllFanAutoControlCallback callback =
+          Delegate_SetAllFanAutoControl_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAllFanAutoControl(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -3836,8 +4298,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      &internal::Delegate_GetLidAngle_ResponseParams_Data::Validate},
     {&internal::Delegate_GetPsr_Params_Data::Validate,
      &internal::Delegate_GetPsr_ResponseParams_Data::Validate},
-    {&internal::Delegate_GetConnectedHdmiConnectors_Params_Data::Validate,
-     &internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Validate},
+    {&internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data::Validate,
+     &internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data::Validate},
     {&internal::Delegate_GetPrivacyScreenInfo_Params_Data::Validate,
      &internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data::Validate},
     {&internal::Delegate_FetchDisplayInfo_Params_Data::Validate,
@@ -3852,6 +4314,10 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      &internal::Delegate_RunFloatingPoint_ResponseParams_Data::Validate},
     {&internal::Delegate_GetAllFanSpeed_Params_Data::Validate,
      &internal::Delegate_GetAllFanSpeed_ResponseParams_Data::Validate},
+    {&internal::Delegate_SetFanSpeed_Params_Data::Validate,
+     &internal::Delegate_SetFanSpeed_ResponseParams_Data::Validate},
+    {&internal::Delegate_SetAllFanAutoControl_Params_Data::Validate,
+     &internal::Delegate_SetAllFanAutoControl_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -3916,8 +4382,8 @@ void DelegateInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
 void DelegateInterceptorForTesting::GetPsr(GetPsrCallback callback) {
   GetForwardingInterface()->GetPsr(std::move(callback));
 }
-void DelegateInterceptorForTesting::GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) {
-  GetForwardingInterface()->GetConnectedHdmiConnectors(std::move(callback));
+void DelegateInterceptorForTesting::GetConnectedExternalDisplayConnectors(GetConnectedExternalDisplayConnectorsCallback callback) {
+  GetForwardingInterface()->GetConnectedExternalDisplayConnectors(std::move(callback));
 }
 void DelegateInterceptorForTesting::GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) {
   GetForwardingInterface()->GetPrivacyScreenInfo(std::move(callback));
@@ -3939,6 +4405,12 @@ void DelegateInterceptorForTesting::RunFloatingPoint(base::TimeDelta exec_durati
 }
 void DelegateInterceptorForTesting::GetAllFanSpeed(GetAllFanSpeedCallback callback) {
   GetForwardingInterface()->GetAllFanSpeed(std::move(callback));
+}
+void DelegateInterceptorForTesting::SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) {
+  GetForwardingInterface()->SetFanSpeed(std::move(fan_id_to_rpm), std::move(callback));
+}
+void DelegateInterceptorForTesting::SetAllFanAutoControl(SetAllFanAutoControlCallback callback) {
+  GetForwardingInterface()->SetAllFanAutoControl(std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -4103,10 +4575,10 @@ void DelegateAsyncWaiter::GetPsr(
 
 
 
-void DelegateAsyncWaiter::GetConnectedHdmiConnectors(
+void DelegateAsyncWaiter::GetConnectedExternalDisplayConnectors(
     base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err) {
   base::RunLoop loop;
-  proxy_->GetConnectedHdmiConnectors(
+  proxy_->GetConnectedExternalDisplayConnectors(
       base::BindOnce(
           [](base::RunLoop* loop,
              base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors
@@ -4221,16 +4693,16 @@ bool DelegateAsyncWaiter::RunFloatingPoint(
 }
 
 void DelegateAsyncWaiter::GetAllFanSpeed(
-    std::vector<uint32_t>* out_fan_rpms, absl::optional<std::string>* out_err) {
+    std::vector<uint16_t>* out_fan_rpms, absl::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->GetAllFanSpeed(
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::vector<uint32_t>* out_fan_rpms
+             std::vector<uint16_t>* out_fan_rpms
 ,
              absl::optional<std::string>* out_err
 ,
-             const std::vector<uint32_t>& fan_rpms,
+             const std::vector<uint16_t>& fan_rpms,
              const absl::optional<std::string>& err) {*out_fan_rpms = std::move(fan_rpms);*out_err = std::move(err);
             loop->Quit();
           },
@@ -4241,6 +4713,52 @@ void DelegateAsyncWaiter::GetAllFanSpeed(
 }
 
 
+
+void DelegateAsyncWaiter::SetFanSpeed(
+    const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->SetFanSpeed(std::move(fan_id_to_rpm),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             absl::optional<std::string>* out_err
+,
+             const absl::optional<std::string>& err) {*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_err));
+  loop.Run();
+}
+
+absl::optional<std::string> DelegateAsyncWaiter::SetFanSpeed(
+    const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm) {
+  absl::optional<std::string> async_wait_result;
+  SetFanSpeed(std::move(fan_id_to_rpm),&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::SetAllFanAutoControl(
+    absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->SetAllFanAutoControl(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             absl::optional<std::string>* out_err
+,
+             const absl::optional<std::string>& err) {*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_err));
+  loop.Run();
+}
+
+absl::optional<std::string> DelegateAsyncWaiter::SetAllFanAutoControl(
+    ) {
+  absl::optional<std::string> async_wait_result;
+  SetAllFanAutoControl(&async_wait_result);
+  return async_wait_result;
+}
 
 
 

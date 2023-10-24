@@ -1,0 +1,18 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex"></style>
+
+    <div class="cr-row first">
+      <h2 class="flex">[[exception.displayName]]</h2>
+    </div>
+
+    <div class="list-frame menu-content vertical-list" id="listContainer">
+      <iron-list items="[[exception.sites]]" preserve-focus risk-selection>
+        <template>
+          <site-list-entry model="[[item]]" tabindex$="[[tabIndex]]" first$="[[!index]]" focus-row-index="[[index]]" iron-list-tab-index="[[tabIndex]]" last-focused="{{lastFocused_}}" chooser-type="[[exception.chooserType]]" chooser-object="[[exception.object]]" read-only-list>
+          </site-list-entry>
+        </template>
+      </iron-list>
+    </div>
+<!--_html_template_end_-->`;
+}

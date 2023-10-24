@@ -400,13 +400,6 @@ struct FromFlatBuffer<::cryptohome::auth_factor::LockoutPolicy> {
       ::cryptohome::auth_factor::_serialized_::LockoutPolicy object) const {
     return static_cast<::cryptohome::auth_factor::LockoutPolicy>(object);
   }
-
-  ::cryptohome::auth_factor::LockoutPolicy operator()(
-      std::underlying_type_t<
-          ::cryptohome::auth_factor::_serialized_::LockoutPolicy> object)
-      const {
-    return static_cast<::cryptohome::auth_factor::LockoutPolicy>(object);
-  }
 };
 
 }  // namespace hwsec_foundation

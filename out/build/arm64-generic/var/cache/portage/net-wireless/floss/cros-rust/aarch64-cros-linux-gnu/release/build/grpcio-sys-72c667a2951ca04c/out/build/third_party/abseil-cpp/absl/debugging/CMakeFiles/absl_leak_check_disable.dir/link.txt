@@ -1,0 +1,2 @@
+/usr/bin/llvm-ar qc libabsl_leak_check_disable.a CMakeFiles/absl_leak_check_disable.dir/leak_check_disable.cc.o
+/usr/bin/llvm-ranlib libabsl_leak_check_disable.a

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-firewall", "name": "iptables", "version": "1.8.5", "revision": 0, "fullname": "net-firewall/iptables", "fullnamerev": "net-firewall/iptables-1.8.5", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.netfilter.org/projects/iptables/"], "skip": false, "tainted": false, "ebuild_path": null}

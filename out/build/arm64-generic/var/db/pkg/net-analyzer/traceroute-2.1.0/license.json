@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-analyzer", "name": "traceroute", "version": "2.1.0", "revision": 0, "fullname": "net-analyzer/traceroute", "fullnamerev": "net-analyzer/traceroute-2.1.0", "license_names": ["GPL-2", "LGPL-2.1"], "license_text_scanned": [], "homepages": ["http://traceroute.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

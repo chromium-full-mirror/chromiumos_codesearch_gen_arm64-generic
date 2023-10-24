@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "boost", "version": "1.81.0", "revision": 2, "fullname": "dev-libs/boost", "fullnamerev": "dev-libs/boost-1.81.0-r2", "license_names": ["Boost-1.0"], "license_text_scanned": [], "homepages": ["https://www.boost.org/"], "skip": false, "tainted": false, "ebuild_path": null}

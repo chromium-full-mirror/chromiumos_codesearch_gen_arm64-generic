@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-eselect", "name": "eselect-java", "version": "0.3.0", "revision": 0, "fullname": "app-eselect/eselect-java", "fullnamerev": "app-eselect/eselect-java-0.3.0", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.gentoo.org/wiki/Project:Java"], "skip": false, "tainted": false, "ebuild_path": null}

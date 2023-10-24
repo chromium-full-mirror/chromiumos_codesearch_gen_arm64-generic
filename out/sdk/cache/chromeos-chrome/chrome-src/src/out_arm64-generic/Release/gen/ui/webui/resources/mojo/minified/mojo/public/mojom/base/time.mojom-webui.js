@@ -1,0 +1,4 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const TimeSpec={$:{}};export const TimeDeltaSpec={$:{}};export const TimeTicksSpec={$:{}};mojo.internal.Struct(TimeSpec.$,"Time",[mojo.internal.StructField("internalValue",0,0,mojo.internal.Int64,BigInt(0),false,0)],[[0,16]]);export class Time{constructor(){this.internalValue}}mojo.internal.Struct(TimeDeltaSpec.$,"TimeDelta",[mojo.internal.StructField("microseconds",0,0,mojo.internal.Int64,BigInt(0),false,0)],[[0,16]]);export class TimeDelta{constructor(){this.microseconds}}mojo.internal.Struct(TimeTicksSpec.$,"TimeTicks",[mojo.internal.StructField("internalValue",0,0,mojo.internal.Int64,BigInt(0),false,0)],[[0,16]]);export class TimeTicks{constructor(){this.internalValue}}

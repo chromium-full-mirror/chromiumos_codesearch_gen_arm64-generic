@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-python", "name": "zc-lockfile", "version": "1.4", "revision": 0, "fullname": "dev-python/zc-lockfile", "fullnamerev": "dev-python/zc-lockfile-1.4", "license_names": ["ZPL"], "license_text_scanned": [], "homepages": ["https://pypi.org/project/zc.lockfile/"], "skip": false, "tainted": false, "ebuild_path": null}

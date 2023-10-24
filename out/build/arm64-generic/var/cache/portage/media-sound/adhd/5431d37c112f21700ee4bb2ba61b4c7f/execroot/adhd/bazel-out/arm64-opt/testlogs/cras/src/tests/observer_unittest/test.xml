@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="20" failures="0" disabled="0" errors="0" time="0.09" timestamp="2023-10-23T22:49:22.269" name="AllTests">
+  <testsuite name="ObserverTest" tests="20" failures="0" disabled="0" skipped="0" errors="0" time="0.08" timestamp="2023-10-23T22:49:22.278">
+    <testcase name="NotifyOutputVolume" file="cras/src/tests/observer_unittest.cc" line="380" status="run" result="completed" time="0.025" timestamp="2023-10-23T22:49:22.279" classname="ObserverTest" />
+    <testcase name="NotifyOutputMute" file="cras/src/tests/observer_unittest.cc" line="402" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.305" classname="ObserverTest" />
+    <testcase name="NotifyCaptureGain" file="cras/src/tests/observer_unittest.cc" line="432" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.307" classname="ObserverTest" />
+    <testcase name="NotifyCaptureMute" file="cras/src/tests/observer_unittest.cc" line="454" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.324" classname="ObserverTest" />
+    <testcase name="NotifyNodes" file="cras/src/tests/observer_unittest.cc" line="480" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.326" classname="ObserverTest" />
+    <testcase name="NotifyActiveNode" file="cras/src/tests/observer_unittest.cc" line="492" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.327" classname="ObserverTest" />
+    <testcase name="NotifyOutputNodeVolume" file="cras/src/tests/observer_unittest.cc" line="518" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.328" classname="ObserverTest" />
+    <testcase name="NotifyNodeLeftRightSwapped" file="cras/src/tests/observer_unittest.cc" line="545" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.330" classname="ObserverTest" />
+    <testcase name="NotifyInputNodeGain" file="cras/src/tests/observer_unittest.cc" line="572" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.332" classname="ObserverTest" />
+    <testcase name="NotifySuspendChanged" file="cras/src/tests/observer_unittest.cc" line="598" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.333" classname="ObserverTest" />
+    <testcase name="NotifyNumActiveStreams" file="cras/src/tests/observer_unittest.cc" line="618" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.334" classname="ObserverTest" />
+    <testcase name="NotifyNumInputStreamsWithPermission" file="cras/src/tests/observer_unittest.cc" line="645" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:22.336" classname="ObserverTest" />
+    <testcase name="NotifyHotwordTriggered" file="cras/src/tests/observer_unittest.cc" line="676" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.337" classname="ObserverTest" />
+    <testcase name="NonEmpyAudioStateChanged" file="cras/src/tests/observer_unittest.cc" line="690" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.338" classname="ObserverTest" />
+    <testcase name="BluetoothBatteryChanged" file="cras/src/tests/observer_unittest.cc" line="703" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.339" classname="ObserverTest" />
+    <testcase name="SevereUnderrun" file="cras/src/tests/observer_unittest.cc" line="718" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.340" classname="ObserverTest" />
+    <testcase name="Underrun" file="cras/src/tests/observer_unittest.cc" line="730" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.356" classname="ObserverTest" />
+    <testcase name="SpeakOnMuteDetected" file="cras/src/tests/observer_unittest.cc" line="742" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.356" classname="ObserverTest" />
+    <testcase name="NumNonChromeOutputStreamsChanged" file="cras/src/tests/observer_unittest.cc" line="755" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.357" classname="ObserverTest" />
+    <testcase name="NumStreamIgnoreUiGainsChanged" file="cras/src/tests/observer_unittest.cc" line="776" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:22.358" classname="ObserverTest" />
+  </testsuite>
+</testsuites>

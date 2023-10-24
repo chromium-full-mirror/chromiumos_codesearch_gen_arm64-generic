@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "re2c", "version": "2.2", "revision": 1, "fullname": "dev-util/re2c", "fullnamerev": "dev-util/re2c-2.2-r1", "license_names": ["public-domain"], "license_text_scanned": [], "homepages": ["https://re2c.org/"], "skip": false, "tainted": false, "ebuild_path": null}

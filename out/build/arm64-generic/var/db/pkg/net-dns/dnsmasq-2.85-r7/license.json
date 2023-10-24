@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-dns", "name": "dnsmasq", "version": "2.85", "revision": 7, "fullname": "net-dns/dnsmasq", "fullnamerev": "net-dns/dnsmasq-2.85-r7", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://www.thekelleys.org.uk/dnsmasq/doc.html"], "skip": false, "tainted": false, "ebuild_path": null}

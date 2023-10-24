@@ -61,6 +61,15 @@ extern HashedBucketsParametersDefaultTypeInternal _HashedBucketsParameters_defau
 class PirRequest;
 struct PirRequestDefaultTypeInternal;
 extern PirRequestDefaultTypeInternal _PirRequest_default_instance_;
+class PirRequest_CompactRequest;
+struct PirRequest_CompactRequestDefaultTypeInternal;
+extern PirRequest_CompactRequestDefaultTypeInternal _PirRequest_CompactRequest_default_instance_;
+class PirRequest_ExpandedRequest;
+struct PirRequest_ExpandedRequestDefaultTypeInternal;
+extern PirRequest_ExpandedRequestDefaultTypeInternal _PirRequest_ExpandedRequest_default_instance_;
+class PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext;
+struct PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertextDefaultTypeInternal;
+extern PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertextDefaultTypeInternal _PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext_default_instance_;
 class PirResponse;
 struct PirResponseDefaultTypeInternal;
 extern PirResponseDefaultTypeInternal _PirResponse_default_instance_;
@@ -108,6 +117,9 @@ template<> ::private_membership::rlwe::EncryptedBucket_EncryptedIdValuePair* Are
 template<> ::private_membership::rlwe::EncryptedBucketsParameters* Arena::CreateMaybeMessage<::private_membership::rlwe::EncryptedBucketsParameters>(Arena*);
 template<> ::private_membership::rlwe::HashedBucketsParameters* Arena::CreateMaybeMessage<::private_membership::rlwe::HashedBucketsParameters>(Arena*);
 template<> ::private_membership::rlwe::PirRequest* Arena::CreateMaybeMessage<::private_membership::rlwe::PirRequest>(Arena*);
+template<> ::private_membership::rlwe::PirRequest_CompactRequest* Arena::CreateMaybeMessage<::private_membership::rlwe::PirRequest_CompactRequest>(Arena*);
+template<> ::private_membership::rlwe::PirRequest_ExpandedRequest* Arena::CreateMaybeMessage<::private_membership::rlwe::PirRequest_ExpandedRequest>(Arena*);
+template<> ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* Arena::CreateMaybeMessage<::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext>(Arena*);
 template<> ::private_membership::rlwe::PirResponse* Arena::CreateMaybeMessage<::private_membership::rlwe::PirResponse>(Arena*);
 template<> ::private_membership::rlwe::PrivateMembershipRlweOprfRequest* Arena::CreateMaybeMessage<::private_membership::rlwe::PrivateMembershipRlweOprfRequest>(Arena*);
 template<> ::private_membership::rlwe::PrivateMembershipRlweOprfResponse* Arena::CreateMaybeMessage<::private_membership::rlwe::PrivateMembershipRlweOprfResponse>(Arena*);
@@ -130,8 +142,11 @@ enum RlweUseCase : int {
   TEST_USE_CASE = 1,
   TEST_USE_CASE2 = 2,
   TEST_USE_CASE3 = 3,
+  EMPTY_USE_CASE = 22,
   CROS_DEVICE_STATE = 5,
-  CROS_DEVICE_SECONDARY_STATE = 12,
+  CROS_DEVICE_STATE_UNIFIED = 23,
+  CROS_DEVICE_SECONDARY_STATE PROTOBUF_DEPRECATED_ENUM = 12,
+  CROS_DEVICE_STATE_BACKUP PROTOBUF_DEPRECATED_ENUM = 21,
   CROS_FRESNEL_DAILY = 13,
   CROS_FRESNEL_MONTHLY = 14,
   CROS_FRESNEL_FIRST_ACTIVE = 15,
@@ -140,12 +155,13 @@ enum RlweUseCase : int {
   CROS_FRESNEL_CHURN_MONTHLY_COHORT = 19,
   CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION = 20,
   CROS_SIM_LOCK = 18,
+  CROS_SIM_LOCK_DEVMODE = 24,
   RlweUseCase_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RlweUseCase_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RlweUseCase_IsValid(int value);
 constexpr RlweUseCase RlweUseCase_MIN = RLWE_USE_CASE_UNDEFINED;
-constexpr RlweUseCase RlweUseCase_MAX = CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION;
+constexpr RlweUseCase RlweUseCase_MAX = CROS_SIM_LOCK_DEVMODE;
 constexpr int RlweUseCase_ARRAYSIZE = RlweUseCase_MAX + 1;
 
 const std::string& RlweUseCase_Name(RlweUseCase value);
@@ -2061,6 +2077,426 @@ class PrivateMembershipRlwePirResponse final :
 };
 // -------------------------------------------------------------------
 
+class PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext) */ {
+ public:
+  inline PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext() : PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext(nullptr) {}
+  ~PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext() override;
+  explicit PROTOBUF_CONSTEXPR PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& from);
+  PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext&& from) noexcept
+    : PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext() {
+    *this = ::std::move(from);
+  }
+
+  inline PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& operator=(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& operator=(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* internal_default_instance() {
+    return reinterpret_cast<const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext*>(
+               &_PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& a, PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& from);
+  void MergeFrom(const PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext";
+  }
+  protected:
+  explicit PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCiphertextFieldNumber = 1,
+  };
+  // optional .rlwe.SerializedSymmetricRlweCiphertext ciphertext = 1;
+  bool has_ciphertext() const;
+  private:
+  bool _internal_has_ciphertext() const;
+  public:
+  void clear_ciphertext();
+  const ::rlwe::SerializedSymmetricRlweCiphertext& ciphertext() const;
+  PROTOBUF_NODISCARD ::rlwe::SerializedSymmetricRlweCiphertext* release_ciphertext();
+  ::rlwe::SerializedSymmetricRlweCiphertext* mutable_ciphertext();
+  void set_allocated_ciphertext(::rlwe::SerializedSymmetricRlweCiphertext* ciphertext);
+  private:
+  const ::rlwe::SerializedSymmetricRlweCiphertext& _internal_ciphertext() const;
+  ::rlwe::SerializedSymmetricRlweCiphertext* _internal_mutable_ciphertext();
+  public:
+  void unsafe_arena_set_allocated_ciphertext(
+      ::rlwe::SerializedSymmetricRlweCiphertext* ciphertext);
+  ::rlwe::SerializedSymmetricRlweCiphertext* unsafe_arena_release_ciphertext();
+
+  // @@protoc_insertion_point(class_scope:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::rlwe::SerializedSymmetricRlweCiphertext* ciphertext_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_private_5fmembership_5frlwe_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PirRequest_ExpandedRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_membership.rlwe.PirRequest.ExpandedRequest) */ {
+ public:
+  inline PirRequest_ExpandedRequest() : PirRequest_ExpandedRequest(nullptr) {}
+  ~PirRequest_ExpandedRequest() override;
+  explicit PROTOBUF_CONSTEXPR PirRequest_ExpandedRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PirRequest_ExpandedRequest(const PirRequest_ExpandedRequest& from);
+  PirRequest_ExpandedRequest(PirRequest_ExpandedRequest&& from) noexcept
+    : PirRequest_ExpandedRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline PirRequest_ExpandedRequest& operator=(const PirRequest_ExpandedRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PirRequest_ExpandedRequest& operator=(PirRequest_ExpandedRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const PirRequest_ExpandedRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PirRequest_ExpandedRequest* internal_default_instance() {
+    return reinterpret_cast<const PirRequest_ExpandedRequest*>(
+               &_PirRequest_ExpandedRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(PirRequest_ExpandedRequest& a, PirRequest_ExpandedRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PirRequest_ExpandedRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PirRequest_ExpandedRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PirRequest_ExpandedRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PirRequest_ExpandedRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PirRequest_ExpandedRequest& from);
+  void MergeFrom(const PirRequest_ExpandedRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PirRequest_ExpandedRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "private_membership.rlwe.PirRequest.ExpandedRequest";
+  }
+  protected:
+  explicit PirRequest_ExpandedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext SerializedSymmetricRlweCiphertext;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCiphertextsFieldNumber = 1,
+  };
+  // repeated .private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext ciphertexts = 1;
+  int ciphertexts_size() const;
+  private:
+  int _internal_ciphertexts_size() const;
+  public:
+  void clear_ciphertexts();
+  ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* mutable_ciphertexts(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext >*
+      mutable_ciphertexts();
+  private:
+  const ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& _internal_ciphertexts(int index) const;
+  ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* _internal_add_ciphertexts();
+  public:
+  const ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& ciphertexts(int index) const;
+  ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* add_ciphertexts();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext >&
+      ciphertexts() const;
+
+  // @@protoc_insertion_point(class_scope:private_membership.rlwe.PirRequest.ExpandedRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext > ciphertexts_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_private_5fmembership_5frlwe_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PirRequest_CompactRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_membership.rlwe.PirRequest.CompactRequest) */ {
+ public:
+  inline PirRequest_CompactRequest() : PirRequest_CompactRequest(nullptr) {}
+  ~PirRequest_CompactRequest() override;
+  explicit PROTOBUF_CONSTEXPR PirRequest_CompactRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PirRequest_CompactRequest(const PirRequest_CompactRequest& from);
+  PirRequest_CompactRequest(PirRequest_CompactRequest&& from) noexcept
+    : PirRequest_CompactRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline PirRequest_CompactRequest& operator=(const PirRequest_CompactRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PirRequest_CompactRequest& operator=(PirRequest_CompactRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const PirRequest_CompactRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PirRequest_CompactRequest* internal_default_instance() {
+    return reinterpret_cast<const PirRequest_CompactRequest*>(
+               &_PirRequest_CompactRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(PirRequest_CompactRequest& a, PirRequest_CompactRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PirRequest_CompactRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PirRequest_CompactRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PirRequest_CompactRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PirRequest_CompactRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PirRequest_CompactRequest& from);
+  void MergeFrom(const PirRequest_CompactRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PirRequest_CompactRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "private_membership.rlwe.PirRequest.CompactRequest";
+  }
+  protected:
+  explicit PirRequest_CompactRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCiphertextsFieldNumber = 1,
+  };
+  // repeated .rlwe.SerializedNttPolynomial ciphertexts = 1;
+  int ciphertexts_size() const;
+  private:
+  int _internal_ciphertexts_size() const;
+  public:
+  void clear_ciphertexts();
+  ::rlwe::SerializedNttPolynomial* mutable_ciphertexts(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::rlwe::SerializedNttPolynomial >*
+      mutable_ciphertexts();
+  private:
+  const ::rlwe::SerializedNttPolynomial& _internal_ciphertexts(int index) const;
+  ::rlwe::SerializedNttPolynomial* _internal_add_ciphertexts();
+  public:
+  const ::rlwe::SerializedNttPolynomial& ciphertexts(int index) const;
+  ::rlwe::SerializedNttPolynomial* add_ciphertexts();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::rlwe::SerializedNttPolynomial >&
+      ciphertexts() const;
+
+  // @@protoc_insertion_point(class_scope:private_membership.rlwe.PirRequest.CompactRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::rlwe::SerializedNttPolynomial > ciphertexts_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_private_5fmembership_5frlwe_2eproto;
+};
+// -------------------------------------------------------------------
+
 class PirRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_membership.rlwe.PirRequest) */ {
  public:
@@ -2095,12 +2531,18 @@ class PirRequest final :
   static const PirRequest& default_instance() {
     return *internal_default_instance();
   }
+  enum ShardedRequestTypeCase {
+    kCompactRequest = 3,
+    kExpandedRequest = 4,
+    SHARDED_REQUEST_TYPE_NOT_SET = 0,
+  };
+
   static inline const PirRequest* internal_default_instance() {
     return reinterpret_cast<const PirRequest*>(
                &_PirRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    15;
 
   friend void swap(PirRequest& a, PirRequest& b) {
     a.Swap(&b);
@@ -2161,11 +2603,16 @@ class PirRequest final :
 
   // nested types ----------------------------------------------------
 
+  typedef PirRequest_ExpandedRequest ExpandedRequest;
+  typedef PirRequest_CompactRequest CompactRequest;
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kRequestFieldNumber = 1,
     kPrngSeedFieldNumber = 2,
+    kCompactRequestFieldNumber = 3,
+    kExpandedRequestFieldNumber = 4,
   };
   // repeated .rlwe.SerializedNttPolynomial request = 1;
   int request_size() const;
@@ -2199,9 +2646,52 @@ class PirRequest final :
   std::string* _internal_mutable_prng_seed();
   public:
 
+  // .private_membership.rlwe.PirRequest.CompactRequest compact_request = 3;
+  bool has_compact_request() const;
+  private:
+  bool _internal_has_compact_request() const;
+  public:
+  void clear_compact_request();
+  const ::private_membership::rlwe::PirRequest_CompactRequest& compact_request() const;
+  PROTOBUF_NODISCARD ::private_membership::rlwe::PirRequest_CompactRequest* release_compact_request();
+  ::private_membership::rlwe::PirRequest_CompactRequest* mutable_compact_request();
+  void set_allocated_compact_request(::private_membership::rlwe::PirRequest_CompactRequest* compact_request);
+  private:
+  const ::private_membership::rlwe::PirRequest_CompactRequest& _internal_compact_request() const;
+  ::private_membership::rlwe::PirRequest_CompactRequest* _internal_mutable_compact_request();
+  public:
+  void unsafe_arena_set_allocated_compact_request(
+      ::private_membership::rlwe::PirRequest_CompactRequest* compact_request);
+  ::private_membership::rlwe::PirRequest_CompactRequest* unsafe_arena_release_compact_request();
+
+  // .private_membership.rlwe.PirRequest.ExpandedRequest expanded_request = 4;
+  bool has_expanded_request() const;
+  private:
+  bool _internal_has_expanded_request() const;
+  public:
+  void clear_expanded_request();
+  const ::private_membership::rlwe::PirRequest_ExpandedRequest& expanded_request() const;
+  PROTOBUF_NODISCARD ::private_membership::rlwe::PirRequest_ExpandedRequest* release_expanded_request();
+  ::private_membership::rlwe::PirRequest_ExpandedRequest* mutable_expanded_request();
+  void set_allocated_expanded_request(::private_membership::rlwe::PirRequest_ExpandedRequest* expanded_request);
+  private:
+  const ::private_membership::rlwe::PirRequest_ExpandedRequest& _internal_expanded_request() const;
+  ::private_membership::rlwe::PirRequest_ExpandedRequest* _internal_mutable_expanded_request();
+  public:
+  void unsafe_arena_set_allocated_expanded_request(
+      ::private_membership::rlwe::PirRequest_ExpandedRequest* expanded_request);
+  ::private_membership::rlwe::PirRequest_ExpandedRequest* unsafe_arena_release_expanded_request();
+
+  void clear_sharded_request_type();
+  ShardedRequestTypeCase sharded_request_type_case() const;
   // @@protoc_insertion_point(class_scope:private_membership.rlwe.PirRequest)
  private:
   class _Internal;
+  void set_has_compact_request();
+  void set_has_expanded_request();
+
+  inline bool has_sharded_request_type() const;
+  inline void clear_has_sharded_request_type();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -2209,7 +2699,15 @@ class PirRequest final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::rlwe::SerializedNttPolynomial > request_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr prng_seed_;
+    union ShardedRequestTypeUnion {
+      constexpr ShardedRequestTypeUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::private_membership::rlwe::PirRequest_CompactRequest* compact_request_;
+      ::private_membership::rlwe::PirRequest_ExpandedRequest* expanded_request_;
+    } sharded_request_type_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    uint32_t _oneof_case_[1];
+
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_private_5fmembership_5frlwe_2eproto;
@@ -2255,7 +2753,7 @@ class PirResponse final :
                &_PirResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    16;
 
   friend void swap(PirResponse& a, PirResponse& b) {
     a.Swap(&b);
@@ -2405,7 +2903,7 @@ class EncryptedBucket_EncryptedIdValuePair final :
                &_EncryptedBucket_EncryptedIdValuePair_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    17;
 
   friend void swap(EncryptedBucket_EncryptedIdValuePair& a, EncryptedBucket_EncryptedIdValuePair& b) {
     a.Swap(&b);
@@ -2576,7 +3074,7 @@ class EncryptedBucket final :
                &_EncryptedBucket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    18;
 
   friend void swap(EncryptedBucket& a, EncryptedBucket& b) {
     a.Swap(&b);
@@ -2717,7 +3215,7 @@ class RlweMembershipResponses_MembershipResponseEntry final :
                &_RlweMembershipResponses_MembershipResponseEntry_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    19;
 
   friend void swap(RlweMembershipResponses_MembershipResponseEntry& a, RlweMembershipResponses_MembershipResponseEntry& b) {
     a.Swap(&b);
@@ -2876,7 +3374,7 @@ class RlweMembershipResponses final :
                &_RlweMembershipResponses_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    20;
 
   friend void swap(RlweMembershipResponses& a, RlweMembershipResponses& b) {
     a.Swap(&b);
@@ -4355,6 +4853,182 @@ inline void PrivateMembershipRlwePirResponse::set_allocated_pir_response(::priva
 
 // -------------------------------------------------------------------
 
+// PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext
+
+// optional .rlwe.SerializedSymmetricRlweCiphertext ciphertext = 1;
+inline bool PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::_internal_has_ciphertext() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.ciphertext_ != nullptr);
+  return value;
+}
+inline bool PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::has_ciphertext() const {
+  return _internal_has_ciphertext();
+}
+inline const ::rlwe::SerializedSymmetricRlweCiphertext& PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::_internal_ciphertext() const {
+  const ::rlwe::SerializedSymmetricRlweCiphertext* p = _impl_.ciphertext_;
+  return p != nullptr ? *p : reinterpret_cast<const ::rlwe::SerializedSymmetricRlweCiphertext&>(
+      ::rlwe::_SerializedSymmetricRlweCiphertext_default_instance_);
+}
+inline const ::rlwe::SerializedSymmetricRlweCiphertext& PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::ciphertext() const {
+  // @@protoc_insertion_point(field_get:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext.ciphertext)
+  return _internal_ciphertext();
+}
+inline void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::unsafe_arena_set_allocated_ciphertext(
+    ::rlwe::SerializedSymmetricRlweCiphertext* ciphertext) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ciphertext_);
+  }
+  _impl_.ciphertext_ = ciphertext;
+  if (ciphertext) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext.ciphertext)
+}
+inline ::rlwe::SerializedSymmetricRlweCiphertext* PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::release_ciphertext() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::rlwe::SerializedSymmetricRlweCiphertext* temp = _impl_.ciphertext_;
+  _impl_.ciphertext_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::rlwe::SerializedSymmetricRlweCiphertext* PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::unsafe_arena_release_ciphertext() {
+  // @@protoc_insertion_point(field_release:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext.ciphertext)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::rlwe::SerializedSymmetricRlweCiphertext* temp = _impl_.ciphertext_;
+  _impl_.ciphertext_ = nullptr;
+  return temp;
+}
+inline ::rlwe::SerializedSymmetricRlweCiphertext* PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::_internal_mutable_ciphertext() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.ciphertext_ == nullptr) {
+    auto* p = CreateMaybeMessage<::rlwe::SerializedSymmetricRlweCiphertext>(GetArenaForAllocation());
+    _impl_.ciphertext_ = p;
+  }
+  return _impl_.ciphertext_;
+}
+inline ::rlwe::SerializedSymmetricRlweCiphertext* PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::mutable_ciphertext() {
+  ::rlwe::SerializedSymmetricRlweCiphertext* _msg = _internal_mutable_ciphertext();
+  // @@protoc_insertion_point(field_mutable:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext.ciphertext)
+  return _msg;
+}
+inline void PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext::set_allocated_ciphertext(::rlwe::SerializedSymmetricRlweCiphertext* ciphertext) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ciphertext_);
+  }
+  if (ciphertext) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(ciphertext));
+    if (message_arena != submessage_arena) {
+      ciphertext = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ciphertext, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.ciphertext_ = ciphertext;
+  // @@protoc_insertion_point(field_set_allocated:private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext.ciphertext)
+}
+
+// -------------------------------------------------------------------
+
+// PirRequest_ExpandedRequest
+
+// repeated .private_membership.rlwe.PirRequest.ExpandedRequest.SerializedSymmetricRlweCiphertext ciphertexts = 1;
+inline int PirRequest_ExpandedRequest::_internal_ciphertexts_size() const {
+  return _impl_.ciphertexts_.size();
+}
+inline int PirRequest_ExpandedRequest::ciphertexts_size() const {
+  return _internal_ciphertexts_size();
+}
+inline void PirRequest_ExpandedRequest::clear_ciphertexts() {
+  _impl_.ciphertexts_.Clear();
+}
+inline ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* PirRequest_ExpandedRequest::mutable_ciphertexts(int index) {
+  // @@protoc_insertion_point(field_mutable:private_membership.rlwe.PirRequest.ExpandedRequest.ciphertexts)
+  return _impl_.ciphertexts_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext >*
+PirRequest_ExpandedRequest::mutable_ciphertexts() {
+  // @@protoc_insertion_point(field_mutable_list:private_membership.rlwe.PirRequest.ExpandedRequest.ciphertexts)
+  return &_impl_.ciphertexts_;
+}
+inline const ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& PirRequest_ExpandedRequest::_internal_ciphertexts(int index) const {
+  return _impl_.ciphertexts_.Get(index);
+}
+inline const ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext& PirRequest_ExpandedRequest::ciphertexts(int index) const {
+  // @@protoc_insertion_point(field_get:private_membership.rlwe.PirRequest.ExpandedRequest.ciphertexts)
+  return _internal_ciphertexts(index);
+}
+inline ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* PirRequest_ExpandedRequest::_internal_add_ciphertexts() {
+  return _impl_.ciphertexts_.Add();
+}
+inline ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* PirRequest_ExpandedRequest::add_ciphertexts() {
+  ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext* _add = _internal_add_ciphertexts();
+  // @@protoc_insertion_point(field_add:private_membership.rlwe.PirRequest.ExpandedRequest.ciphertexts)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_membership::rlwe::PirRequest_ExpandedRequest_SerializedSymmetricRlweCiphertext >&
+PirRequest_ExpandedRequest::ciphertexts() const {
+  // @@protoc_insertion_point(field_list:private_membership.rlwe.PirRequest.ExpandedRequest.ciphertexts)
+  return _impl_.ciphertexts_;
+}
+
+// -------------------------------------------------------------------
+
+// PirRequest_CompactRequest
+
+// repeated .rlwe.SerializedNttPolynomial ciphertexts = 1;
+inline int PirRequest_CompactRequest::_internal_ciphertexts_size() const {
+  return _impl_.ciphertexts_.size();
+}
+inline int PirRequest_CompactRequest::ciphertexts_size() const {
+  return _internal_ciphertexts_size();
+}
+inline ::rlwe::SerializedNttPolynomial* PirRequest_CompactRequest::mutable_ciphertexts(int index) {
+  // @@protoc_insertion_point(field_mutable:private_membership.rlwe.PirRequest.CompactRequest.ciphertexts)
+  return _impl_.ciphertexts_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::rlwe::SerializedNttPolynomial >*
+PirRequest_CompactRequest::mutable_ciphertexts() {
+  // @@protoc_insertion_point(field_mutable_list:private_membership.rlwe.PirRequest.CompactRequest.ciphertexts)
+  return &_impl_.ciphertexts_;
+}
+inline const ::rlwe::SerializedNttPolynomial& PirRequest_CompactRequest::_internal_ciphertexts(int index) const {
+  return _impl_.ciphertexts_.Get(index);
+}
+inline const ::rlwe::SerializedNttPolynomial& PirRequest_CompactRequest::ciphertexts(int index) const {
+  // @@protoc_insertion_point(field_get:private_membership.rlwe.PirRequest.CompactRequest.ciphertexts)
+  return _internal_ciphertexts(index);
+}
+inline ::rlwe::SerializedNttPolynomial* PirRequest_CompactRequest::_internal_add_ciphertexts() {
+  return _impl_.ciphertexts_.Add();
+}
+inline ::rlwe::SerializedNttPolynomial* PirRequest_CompactRequest::add_ciphertexts() {
+  ::rlwe::SerializedNttPolynomial* _add = _internal_add_ciphertexts();
+  // @@protoc_insertion_point(field_add:private_membership.rlwe.PirRequest.CompactRequest.ciphertexts)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::rlwe::SerializedNttPolynomial >&
+PirRequest_CompactRequest::ciphertexts() const {
+  // @@protoc_insertion_point(field_list:private_membership.rlwe.PirRequest.CompactRequest.ciphertexts)
+  return _impl_.ciphertexts_;
+}
+
+// -------------------------------------------------------------------
+
 // PirRequest
 
 // repeated .rlwe.SerializedNttPolynomial request = 1;
@@ -4392,6 +5066,154 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::rlwe::SerializedNttPol
 PirRequest::request() const {
   // @@protoc_insertion_point(field_list:private_membership.rlwe.PirRequest.request)
   return _impl_.request_;
+}
+
+// .private_membership.rlwe.PirRequest.CompactRequest compact_request = 3;
+inline bool PirRequest::_internal_has_compact_request() const {
+  return sharded_request_type_case() == kCompactRequest;
+}
+inline bool PirRequest::has_compact_request() const {
+  return _internal_has_compact_request();
+}
+inline void PirRequest::set_has_compact_request() {
+  _impl_._oneof_case_[0] = kCompactRequest;
+}
+inline void PirRequest::clear_compact_request() {
+  if (_internal_has_compact_request()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.sharded_request_type_.compact_request_;
+    }
+    clear_has_sharded_request_type();
+  }
+}
+inline ::private_membership::rlwe::PirRequest_CompactRequest* PirRequest::release_compact_request() {
+  // @@protoc_insertion_point(field_release:private_membership.rlwe.PirRequest.compact_request)
+  if (_internal_has_compact_request()) {
+    clear_has_sharded_request_type();
+    ::private_membership::rlwe::PirRequest_CompactRequest* temp = _impl_.sharded_request_type_.compact_request_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.sharded_request_type_.compact_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::private_membership::rlwe::PirRequest_CompactRequest& PirRequest::_internal_compact_request() const {
+  return _internal_has_compact_request()
+      ? *_impl_.sharded_request_type_.compact_request_
+      : reinterpret_cast< ::private_membership::rlwe::PirRequest_CompactRequest&>(::private_membership::rlwe::_PirRequest_CompactRequest_default_instance_);
+}
+inline const ::private_membership::rlwe::PirRequest_CompactRequest& PirRequest::compact_request() const {
+  // @@protoc_insertion_point(field_get:private_membership.rlwe.PirRequest.compact_request)
+  return _internal_compact_request();
+}
+inline ::private_membership::rlwe::PirRequest_CompactRequest* PirRequest::unsafe_arena_release_compact_request() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:private_membership.rlwe.PirRequest.compact_request)
+  if (_internal_has_compact_request()) {
+    clear_has_sharded_request_type();
+    ::private_membership::rlwe::PirRequest_CompactRequest* temp = _impl_.sharded_request_type_.compact_request_;
+    _impl_.sharded_request_type_.compact_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void PirRequest::unsafe_arena_set_allocated_compact_request(::private_membership::rlwe::PirRequest_CompactRequest* compact_request) {
+  clear_sharded_request_type();
+  if (compact_request) {
+    set_has_compact_request();
+    _impl_.sharded_request_type_.compact_request_ = compact_request;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:private_membership.rlwe.PirRequest.compact_request)
+}
+inline ::private_membership::rlwe::PirRequest_CompactRequest* PirRequest::_internal_mutable_compact_request() {
+  if (!_internal_has_compact_request()) {
+    clear_sharded_request_type();
+    set_has_compact_request();
+    _impl_.sharded_request_type_.compact_request_ = CreateMaybeMessage< ::private_membership::rlwe::PirRequest_CompactRequest >(GetArenaForAllocation());
+  }
+  return _impl_.sharded_request_type_.compact_request_;
+}
+inline ::private_membership::rlwe::PirRequest_CompactRequest* PirRequest::mutable_compact_request() {
+  ::private_membership::rlwe::PirRequest_CompactRequest* _msg = _internal_mutable_compact_request();
+  // @@protoc_insertion_point(field_mutable:private_membership.rlwe.PirRequest.compact_request)
+  return _msg;
+}
+
+// .private_membership.rlwe.PirRequest.ExpandedRequest expanded_request = 4;
+inline bool PirRequest::_internal_has_expanded_request() const {
+  return sharded_request_type_case() == kExpandedRequest;
+}
+inline bool PirRequest::has_expanded_request() const {
+  return _internal_has_expanded_request();
+}
+inline void PirRequest::set_has_expanded_request() {
+  _impl_._oneof_case_[0] = kExpandedRequest;
+}
+inline void PirRequest::clear_expanded_request() {
+  if (_internal_has_expanded_request()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.sharded_request_type_.expanded_request_;
+    }
+    clear_has_sharded_request_type();
+  }
+}
+inline ::private_membership::rlwe::PirRequest_ExpandedRequest* PirRequest::release_expanded_request() {
+  // @@protoc_insertion_point(field_release:private_membership.rlwe.PirRequest.expanded_request)
+  if (_internal_has_expanded_request()) {
+    clear_has_sharded_request_type();
+    ::private_membership::rlwe::PirRequest_ExpandedRequest* temp = _impl_.sharded_request_type_.expanded_request_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.sharded_request_type_.expanded_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::private_membership::rlwe::PirRequest_ExpandedRequest& PirRequest::_internal_expanded_request() const {
+  return _internal_has_expanded_request()
+      ? *_impl_.sharded_request_type_.expanded_request_
+      : reinterpret_cast< ::private_membership::rlwe::PirRequest_ExpandedRequest&>(::private_membership::rlwe::_PirRequest_ExpandedRequest_default_instance_);
+}
+inline const ::private_membership::rlwe::PirRequest_ExpandedRequest& PirRequest::expanded_request() const {
+  // @@protoc_insertion_point(field_get:private_membership.rlwe.PirRequest.expanded_request)
+  return _internal_expanded_request();
+}
+inline ::private_membership::rlwe::PirRequest_ExpandedRequest* PirRequest::unsafe_arena_release_expanded_request() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:private_membership.rlwe.PirRequest.expanded_request)
+  if (_internal_has_expanded_request()) {
+    clear_has_sharded_request_type();
+    ::private_membership::rlwe::PirRequest_ExpandedRequest* temp = _impl_.sharded_request_type_.expanded_request_;
+    _impl_.sharded_request_type_.expanded_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void PirRequest::unsafe_arena_set_allocated_expanded_request(::private_membership::rlwe::PirRequest_ExpandedRequest* expanded_request) {
+  clear_sharded_request_type();
+  if (expanded_request) {
+    set_has_expanded_request();
+    _impl_.sharded_request_type_.expanded_request_ = expanded_request;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:private_membership.rlwe.PirRequest.expanded_request)
+}
+inline ::private_membership::rlwe::PirRequest_ExpandedRequest* PirRequest::_internal_mutable_expanded_request() {
+  if (!_internal_has_expanded_request()) {
+    clear_sharded_request_type();
+    set_has_expanded_request();
+    _impl_.sharded_request_type_.expanded_request_ = CreateMaybeMessage< ::private_membership::rlwe::PirRequest_ExpandedRequest >(GetArenaForAllocation());
+  }
+  return _impl_.sharded_request_type_.expanded_request_;
+}
+inline ::private_membership::rlwe::PirRequest_ExpandedRequest* PirRequest::mutable_expanded_request() {
+  ::private_membership::rlwe::PirRequest_ExpandedRequest* _msg = _internal_mutable_expanded_request();
+  // @@protoc_insertion_point(field_mutable:private_membership.rlwe.PirRequest.expanded_request)
+  return _msg;
 }
 
 // bytes prng_seed = 2;
@@ -4444,6 +5266,15 @@ inline void PirRequest::set_allocated_prng_seed(std::string* prng_seed) {
   // @@protoc_insertion_point(field_set_allocated:private_membership.rlwe.PirRequest.prng_seed)
 }
 
+inline bool PirRequest::has_sharded_request_type() const {
+  return sharded_request_type_case() != SHARDED_REQUEST_TYPE_NOT_SET;
+}
+inline void PirRequest::clear_has_sharded_request_type() {
+  _impl_._oneof_case_[0] = SHARDED_REQUEST_TYPE_NOT_SET;
+}
+inline PirRequest::ShardedRequestTypeCase PirRequest::sharded_request_type_case() const {
+  return PirRequest::ShardedRequestTypeCase(_impl_._oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // PirResponse
@@ -4969,6 +5800,12 @@ RlweMembershipResponses::membership_responses() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

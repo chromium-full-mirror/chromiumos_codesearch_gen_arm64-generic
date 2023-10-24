@@ -1,0 +1,27 @@
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import { getPersonalizationSearchHandler } from './personalization_search_handler.js';
+import { getSettingsSearchHandler } from './settings_search_handler.js';
+/**
+ * Return array of the top |maxNumResults| search results.
+ */
+function mergeResults(a, b, maxNumResults) {
+    // Simple concat and sort is faster than 2-pointer algorithm for small arrays.
+    return a.concat(b)
+        .sort((x, y) => y.relevanceScore - x.relevanceScore)
+        .slice(0, maxNumResults);
+}
+/**
+ * Search both settings and personalization and merge the results.
+ */
+export async function combinedSearch(query, maxNumResults, parentResultBehavior) {
+    const [settingsResponse, personalizationResponse] = await Promise.all([
+        getSettingsSearchHandler().search(query, maxNumResults, parentResultBehavior),
+        getPersonalizationSearchHandler().search(query, maxNumResults),
+    ]);
+    return {
+        results: mergeResults(settingsResponse.results, personalizationResponse.results, maxNumResults),
+    };
+}
+export { getPersonalizationSearchHandler, getSettingsSearchHandler, };

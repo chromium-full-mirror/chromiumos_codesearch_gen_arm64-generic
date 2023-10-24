@@ -51,7 +51,7 @@ class FanInfo_Data;
 class StatefulPartitionInfo_Data;
 class BluetoothAdapterInfo_Data;
 class BluetoothDeviceInfo_Data;
-class DEPRECATE_SupportedCapabilities_Data;
+class DEPRECATED_SupportedCapabilities_Data;
 class SystemInfo_Data;
 class OsInfo_Data;
 class OsVersion_Data;
@@ -107,7 +107,7 @@ class BacklightResult_Data;
 class FanResult_Data;
 class StatefulPartitionResult_Data;
 class BluetoothResult_Data;
-class DEPRECATE_SystemResult_Data;
+class DEPRECATED_SystemResult_Data;
 class SystemResult_Data;
 class NetworkResult_Data;
 class NetworkInterfaceResult_Data;
@@ -1650,15 +1650,15 @@ static_assert(sizeof(BluetoothResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(BluetoothResult_Data)");
 
 
-class  DEPRECATE_SystemResult_Data {
+class  DEPRECATED_SystemResult_Data {
  public:
   // Used to identify Mojom Union Data Classes.
   typedef void MojomUnionDataType;
 
-  DEPRECATE_SystemResult_Data() = default;
+  DEPRECATED_SystemResult_Data() = default;
   // Do nothing in the destructor since it won't be called when it is a
   // non-inlined union.
-  ~DEPRECATE_SystemResult_Data() = default;
+  ~DEPRECATED_SystemResult_Data() = default;
 
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context,
@@ -1668,7 +1668,7 @@ class  DEPRECATE_SystemResult_Data {
 
   void set_null() {
     size = 0U;
-    tag = static_cast<DEPRECATE_SystemResult_Tag>(0);
+    tag = static_cast<DEPRECATED_SystemResult_Tag>(0);
     data.unknown = 0U;
   }
 
@@ -1676,7 +1676,7 @@ class  DEPRECATE_SystemResult_Data {
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
-  enum class DEPRECATE_SystemResult_Tag : uint32_t {
+  enum class DEPRECATED_SystemResult_Tag : uint32_t {
 
     
     kError,
@@ -1692,11 +1692,11 @@ class  DEPRECATE_SystemResult_Data {
   };
 
   uint32_t size;
-  DEPRECATE_SystemResult_Tag tag;
+  DEPRECATED_SystemResult_Tag tag;
   Union_ data;
 };
-static_assert(sizeof(DEPRECATE_SystemResult_Data) == mojo::internal::kUnionDataSize,
-              "Bad sizeof(DEPRECATE_SystemResult_Data)");
+static_assert(sizeof(DEPRECATED_SystemResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(DEPRECATED_SystemResult_Data)");
 
 
 class  SystemResult_Data {
@@ -3659,7 +3659,7 @@ class  BluetoothAdapterInfo_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> uuids;
   mojo::internal::Pointer<mojo::internal::String_Data> modalias;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> service_allow_list;
-  mojo::internal::Pointer<internal::DEPRECATE_SupportedCapabilities_Data> deprecate_supported_capabilities;
+  mojo::internal::Pointer<internal::DEPRECATED_SupportedCapabilities_Data> deprecated_capabilities;
 
  private:
   friend class mojo::internal::MessageFragment<BluetoothAdapterInfo_Data>;
@@ -3759,40 +3759,35 @@ struct BluetoothDeviceInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     BluetoothDeviceInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  DEPRECATE_SupportedCapabilities_Data {
+class  DEPRECATED_SupportedCapabilities_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint8_t max_adv_len;
-  uint8_t max_scn_rsp_len;
-  int16_t min_tx_power;
-  int16_t max_tx_power;
-  uint8_t padfinal_[2];
 
  private:
-  friend class mojo::internal::MessageFragment<DEPRECATE_SupportedCapabilities_Data>;
+  friend class mojo::internal::MessageFragment<DEPRECATED_SupportedCapabilities_Data>;
 
-  DEPRECATE_SupportedCapabilities_Data();
-  ~DEPRECATE_SupportedCapabilities_Data() = delete;
+  DEPRECATED_SupportedCapabilities_Data();
+  ~DEPRECATED_SupportedCapabilities_Data() = delete;
 };
-static_assert(sizeof(DEPRECATE_SupportedCapabilities_Data) == 16,
-              "Bad sizeof(DEPRECATE_SupportedCapabilities_Data)");
-// Used by DEPRECATE_SupportedCapabilities::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(DEPRECATED_SupportedCapabilities_Data) == 8,
+              "Bad sizeof(DEPRECATED_SupportedCapabilities_Data)");
+// Used by DEPRECATED_SupportedCapabilities::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct DEPRECATE_SupportedCapabilities_UnserializedMessageContext
+struct DEPRECATED_SupportedCapabilities_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  DEPRECATE_SupportedCapabilities_UnserializedMessageContext(
+  DEPRECATED_SupportedCapabilities_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~DEPRECATE_SupportedCapabilities_UnserializedMessageContext() override = default;
+  ~DEPRECATED_SupportedCapabilities_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -3801,7 +3796,7 @@ struct DEPRECATE_SupportedCapabilities_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<DEPRECATE_SupportedCapabilities_Data> fragment(message);
+    mojo::internal::MessageFragment<DEPRECATED_SupportedCapabilities_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -3810,7 +3805,7 @@ struct DEPRECATE_SupportedCapabilities_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    DEPRECATE_SupportedCapabilities_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    DEPRECATED_SupportedCapabilities_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  SystemInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -5904,7 +5899,7 @@ class  TelemetryInfo_Data {
   internal::FanResult_Data fan_result;
   internal::StatefulPartitionResult_Data stateful_partition_result;
   internal::BluetoothResult_Data bluetooth_result;
-  internal::DEPRECATE_SystemResult_Data deprecate_system_result;
+  internal::DEPRECATED_SystemResult_Data deprecated_system_result;
   internal::NetworkResult_Data network_result;
   internal::AudioResult_Data audio_result;
   internal::BootPerformanceResult_Data boot_performance_result;

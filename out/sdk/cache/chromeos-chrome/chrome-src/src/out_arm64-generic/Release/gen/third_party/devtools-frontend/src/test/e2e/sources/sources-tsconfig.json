@@ -1,0 +1,96 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules",
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "sources-tsconfig.json.tsbuildinfo",
+    "typeRoots": [
+      "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types"
+    ],
+    "types": [
+      "mocha",
+      "chai",
+      "sinon",
+      "karma-chai-sinon",
+      "node"
+    ],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/authored-deployed-grouping_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/breakpoint-csp-violations_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/breakpoint-javascript_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/breakpoints-sidebarpane_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/can-break-with-wasm-sourcemaps_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/can-disable-auto-sources-focus_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/can-handle-special-characters_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/can-open-linear-memory-inspector_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/can-pretty-print-sourcecode_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/can-show-multiple-workers_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/can-show-wasm-scopes_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/color-swatch_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/debug-raw-wasm_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/eval_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/header-overrides_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/icon-row-bucket_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/ignore-list_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/inline-breakpoint_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/inline-scripts_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/inline-variable_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/link-to-correct-source-line_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/live-edit-moving-breakpoint_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/navigation_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/overrides_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/pause-button_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/popover_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/restart-frame_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/script-in-multiple-workers_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/scroll-into-view_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/snippets_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/sourcemap-without-mappings_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/sourcemap_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/sources-list_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/sourceurl_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/syntax-highlighting_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/watch-expressions_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e/sources/worker-relative-sourcemap_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/request_idle_callback.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../extension-api/extension-api-tsconfig.json"
+    },
+    {
+      "path": "../../shared/shared-tsconfig.json"
+    },
+    {
+      "path": "../helpers/helpers-tsconfig.json"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+gen/ui/file_manager/grit/file_manager_resources.h
+gen/ui/file_manager/grit/file_manager_resources_map.cc
+gen/ui/file_manager/grit/file_manager_resources_map.h
+gen/ui/file_manager/file_manager_resources.pak
+gen/ui/file_manager/file_manager_resources.rc

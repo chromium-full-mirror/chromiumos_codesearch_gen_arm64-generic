@@ -1,0 +1,168 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import '/shared/nearby_onboarding_one_page.js';
+import '/shared/nearby_onboarding_page.js';
+import '/shared/nearby_visibility_page.js';
+import './nearby_confirmation_page.js';
+import './nearby_discovery_page.js';
+import 'chrome://resources/cr_elements/cr_view_manager/cr_view_manager.js';
+import { NearbyShareSettingsMixin } from '/shared/nearby_share_settings_mixin.js';
+import { CloseReason } from '/shared/types.js';
+import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
+import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { getTemplate } from './app.html.js';
+/**
+ * @fileoverview The 'nearby-share' component is the entry point for the Nearby
+ * Share flow. It is used as a standalone dialog via chrome://nearby and as part
+ * of the ChromeOS share sheet.
+ */
+var Page;
+(function (Page) {
+    Page["CONFIRMATION"] = "confirmation";
+    Page["DISCOVERY"] = "discovery";
+    Page["ONBOARDING"] = "onboarding";
+    Page["ONEPAGE_ONBOARDING"] = "onboarding-one";
+    Page["VISIBILITY"] = "visibility";
+})(Page || (Page = {}));
+const NearbyShareAppElementBase = NearbyShareSettingsMixin(PolymerElement);
+export class NearbyShareAppElement extends NearbyShareAppElementBase {
+    static get is() {
+        return 'nearby-share-app';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            /** Mirroring the enum so that it can be used from HTML bindings. */
+            Page: {
+                type: Object,
+                value: Page,
+            },
+            /**
+             * Set by the nearby-discovery-page component when switching to the
+             * nearby-confirmation-page.
+             */
+            confirmationManager_: {
+                type: Object,
+                value: null,
+            },
+            /**
+             * Set by the nearby-discovery-page component when switching to the
+             * nearby-confirmation-page.
+             */
+            transferUpdateListener_: {
+                type: Object,
+                value: null,
+            },
+            /**
+             * The currently selected share target set by the nearby-discovery-page
+             * component when the user selects a device.
+             */
+            selectedShareTarget_: {
+                type: Object,
+                value: null,
+            },
+            /**
+             * Preview info of attachment to be sent, set by the
+             * nearby-discovery-page.
+             */
+            payloadPreview_: {
+                type: Object,
+                value: null,
+            },
+            /**
+             * Return true if the Jelly feature flag is enabled.
+             */
+            isJellyEnabled: {
+                type: Boolean,
+                readOnly: true,
+                value() {
+                    return loadTimeData.valueExists('isJellyEnabled') &&
+                        loadTimeData.getBoolean('isJellyEnabled');
+                },
+            },
+        };
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('change-page', e => this.onChangePage_(e));
+        this.addEventListener('close', e => this.onClose_(e));
+        this.addEventListener('onboarding-complete', this.onOnboardingComplete_);
+        if (this.isJellyEnabled) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'chrome://theme/colors.css?sets=legacy,sys';
+            document.head.appendChild(link);
+            document.body.classList.add('jelly-enabled');
+            const fontLink = document.createElement('link');
+            fontLink.rel = 'stylesheet';
+            fontLink.href = 'chrome://theme/typography.css';
+            document.head.appendChild(fontLink);
+            ColorChangeUpdater.forDocument().start();
+        }
+    }
+    /**
+     * Called whenever view changes.
+     * ChromeVox screen reader requires focus on #pageContainer to read
+     * dialog.
+     */
+    focusOnPageContainer_(page) {
+        this.shadowRoot.querySelector(`nearby-${page}-page`).shadowRoot.querySelector('nearby-page-template')
+            .shadowRoot.querySelector('#pageContainer').focus();
+    }
+    /**
+     * Determines if the feature flag for One-page onboarding workflow is enabled.
+     * @return Whether the one-page onboarding is enabled
+     */
+    isOnePageOnboardingEnabled_() {
+        return loadTimeData.getBoolean('isOnePageOnboardingEnabled');
+    }
+    /**
+     * Called when component is attached and all settings values have been
+     * retrieved.
+     */
+    onSettingsRetrieved() {
+        if (this.settings.isOnboardingComplete) {
+            if (!this.settings.enabled) {
+                // When a new share is triggered, if the user has completed onboarding
+                // previously, then silently enable the feature and continue to
+                // discovery page directly.
+                this.set('settings.enabled', true);
+            }
+            this.$.viewManager.switchView(Page.DISCOVERY);
+            this.focusOnPageContainer_(Page.DISCOVERY);
+            return;
+        }
+        const onboardingPage = this.isOnePageOnboardingEnabled_() ?
+            Page.ONEPAGE_ONBOARDING :
+            Page.ONBOARDING;
+        this.$.viewManager.switchView(onboardingPage);
+        this.focusOnPageContainer_(onboardingPage);
+    }
+    /**
+     * Handler for the change-page event.
+     */
+    onChangePage_(event) {
+        this.$.viewManager.switchView(event.detail.page);
+        this.focusOnPageContainer_(event.detail.page);
+    }
+    /**
+     * Handler for the close event.
+     */
+    onClose_(event) {
+        // TODO(b/237796007): Handle the case of null |event.detail|
+        const reason = event.detail.reason == null ? CloseReason.UNKNOWN : event.detail.reason;
+        chrome.send('close', [reason]);
+    }
+    /**
+     * Handler for when onboarding is completed.
+     */
+    onOnboardingComplete_() {
+        this.$.viewManager.switchView(Page.DISCOVERY);
+        this.focusOnPageContainer_(Page.DISCOVERY);
+    }
+}
+customElements.define(NearbyShareAppElement.is, NearbyShareAppElement);

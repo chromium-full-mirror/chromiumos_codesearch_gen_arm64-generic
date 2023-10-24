@@ -2428,7 +2428,7 @@ CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data::CrosHe
 
 
 // static
-bool CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data::Validate(
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2440,18 +2440,18 @@ bool CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data::Validat
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data* object =
-      static_cast<const CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data*>(data);
 
   return true;
 }
 
-CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data()
+CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data::Validate(
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2463,8 +2463,8 @@ bool CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data:
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data* object =
-      static_cast<const CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data*>(data);
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->response, 1, validation_context)) {
@@ -2476,12 +2476,12 @@ bool CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data:
   return true;
 }
 
-CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data()
+CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data::Validate(
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2493,18 +2493,18 @@ bool CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data* object =
-      static_cast<const CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data*>(data);
 
   return true;
 }
 
-CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data()
+CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data::Validate(
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2516,8 +2516,8 @@ bool CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data::V
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data* object =
-      static_cast<const CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data*>(data);
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->response, 1, validation_context)) {
@@ -2529,7 +2529,7 @@ bool CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data::V
   return true;
 }
 
-CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data()
+CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2915,6 +2915,59 @@ bool CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data::Va
 }
 
 CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data::CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

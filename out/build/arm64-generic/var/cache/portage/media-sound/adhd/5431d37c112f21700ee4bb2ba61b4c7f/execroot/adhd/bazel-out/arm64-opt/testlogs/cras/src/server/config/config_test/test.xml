@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.027" timestamp="2023-10-23T22:47:21.251" name="AllTests">
+  <testsuite name="BoardConfigTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.021" timestamp="2023-10-23T22:47:21.257">
+    <testcase name="Defaults" file="cras/src/server/config/config_test.cc" line="10" status="run" result="completed" time="0.012" timestamp="2023-10-23T22:47:21.257" classname="BoardConfigTest" />
+    <testcase name="Load" file="cras/src/server/config/config_test.cc" line="18" status="run" result="completed" time="0.007" timestamp="2023-10-23T22:47:21.270" classname="BoardConfigTest" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,4 @@
+gen/chrome/grit/remote_maintenance_curtain_resources.h
+gen/chrome/grit/remote_maintenance_curtain_resources_map.cc
+gen/chrome/grit/remote_maintenance_curtain_resources_map.h
+gen/chrome/remote_maintenance_curtain_resources.pak

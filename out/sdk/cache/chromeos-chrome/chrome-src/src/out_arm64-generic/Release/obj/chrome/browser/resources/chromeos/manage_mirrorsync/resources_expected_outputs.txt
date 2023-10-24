@@ -1,0 +1,4 @@
+gen/chrome/grit/manage_mirrorsync_resources.h
+gen/chrome/grit/manage_mirrorsync_resources_map.cc
+gen/chrome/grit/manage_mirrorsync_resources_map.h
+gen/chrome/manage_mirrorsync_resources.pak

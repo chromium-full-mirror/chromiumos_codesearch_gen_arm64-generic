@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "virtual", "name": "target-chromium-os-sdk-nobdeps", "version": "0.0.1", "revision": 4, "fullname": "virtual/target-chromium-os-sdk-nobdeps", "fullnamerev": "virtual/target-chromium-os-sdk-nobdeps-0.0.1-r4", "license_names": [], "license_text_scanned": [], "homepages": ["http://dev.chromium.org/"], "skip": true, "tainted": false, "ebuild_path": null}

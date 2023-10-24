@@ -155,10 +155,12 @@ struct ToFlatBuffer<::cryptohome::UserSecretStashPayload> {
     auto rate_limiter_reset_secrets =
         ToFlatBuffer<std::vector<::cryptohome::TypeToResetSecretMapping>>()(
             builder, object.rate_limiter_reset_secrets);
+    auto key_derivation_seed =
+        ToFlatBuffer<brillo::SecureBlob>()(builder, object.key_derivation_seed);
 
     return ::cryptohome::_serialized_::CreateUserSecretStashPayload(
         *builder, fek, fnek, fek_salt, fnek_salt, fek_sig, fnek_sig, chaps_key,
-        reset_secrets, rate_limiter_reset_secrets);
+        reset_secrets, rate_limiter_reset_secrets, key_derivation_seed);
   }
 };
 
@@ -187,6 +189,8 @@ struct FromFlatBuffer<::cryptohome::UserSecretStashPayload> {
         .rate_limiter_reset_secrets = FromFlatBuffer<
             std::vector<::cryptohome::TypeToResetSecretMapping>>()(
             object->rate_limiter_reset_secrets()),
+        .key_derivation_seed =
+            FromFlatBuffer<brillo::SecureBlob>()(object->key_derivation_seed()),
     };
   }
 };

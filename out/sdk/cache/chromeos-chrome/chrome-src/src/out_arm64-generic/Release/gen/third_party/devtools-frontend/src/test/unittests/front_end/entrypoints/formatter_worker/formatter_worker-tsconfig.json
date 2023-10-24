@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "formatter_worker-tsconfig.json.tsbuildinfo",
+    "typeRoots": [
+      "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types"
+    ],
+    "types": [
+      "mocha",
+      "chai",
+      "sinon",
+      "karma-chai-sinon"
+    ],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/CSSFormatter_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/EvaluatableJavaScriptSubstring_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/FormattedContentBuilder_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/FormatterWorker_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/HTMLFormatter_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/JSONFormatter_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/JavaScriptFormatter_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/SCSSFormatter_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/ScopeParser_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/entrypoints/formatter_worker/Substitute_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/request_idle_callback.d.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../../front_end/entrypoints/formatter_worker/bundle-tsconfig.json"
+    }
+  ]
+}

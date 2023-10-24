@@ -32,6 +32,7 @@ class ChromeUserEvent;
 class ChromeWindowHandleEventInfo;
 class DebugAnnotation;
 class LogMessage;
+class Screenshot;
 class SourceLocation;
 class TaskExecution;
 class TrackEvent_LegacyEvent;
@@ -358,7 +359,7 @@ class TrackEventDefaults : public ::protozero::Message {
   }
 };
 
-class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/49, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/50, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TrackEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TrackEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -425,6 +426,8 @@ class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=
   ::protozero::ConstBytes chrome_content_settings_event_info() const { return at<43>().as_bytes(); }
   bool has_chrome_active_processes() const { return at<49>().valid(); }
   ::protozero::ConstBytes chrome_active_processes() const { return at<49>().as_bytes(); }
+  bool has_screenshot() const { return at<50>().valid(); }
+  ::protozero::ConstBytes screenshot() const { return at<50>().as_bytes(); }
   bool has_source_location() const { return at<33>().valid(); }
   ::protozero::ConstBytes source_location() const { return at<33>().as_bytes(); }
   bool has_source_location_iid() const { return at<34>().valid(); }
@@ -484,6 +487,7 @@ class TrackEvent : public ::protozero::Message {
     kChromeWindowHandleEventInfoFieldNumber = 41,
     kChromeContentSettingsEventInfoFieldNumber = 43,
     kChromeActiveProcessesFieldNumber = 49,
+    kScreenshotFieldNumber = 50,
     kSourceLocationFieldNumber = 33,
     kSourceLocationIidFieldNumber = 34,
     kChromeMessagePumpFieldNumber = 35,
@@ -1017,6 +1021,20 @@ class TrackEvent : public ::protozero::Message {
   static constexpr FieldMetadata_ChromeActiveProcesses kChromeActiveProcesses{};
   template <typename T = ChromeActiveProcesses> T* set_chrome_active_processes() {
     return BeginNestedMessage<T>(49);
+  }
+
+
+  using FieldMetadata_Screenshot =
+    ::protozero::proto_utils::FieldMetadata<
+      50,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      Screenshot,
+      TrackEvent>;
+
+  static constexpr FieldMetadata_Screenshot kScreenshot{};
+  template <typename T = Screenshot> T* set_screenshot() {
+    return BeginNestedMessage<T>(50);
   }
 
 

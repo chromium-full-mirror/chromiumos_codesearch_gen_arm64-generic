@@ -1,0 +1,46 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="settings-shared settings-columned-section">.settings-columned-section{padding-top:4px}</style>
+<settings-toggle-button id="adMeasurementToggle" pref="{{prefs.privacy_sandbox.m1.ad_measurement_enabled}}" label="$i18n{adMeasurementPageToggleLabel}" sub-label="$i18n{adMeasurementPageToggleSubLabel}" on-settings-boolean-control-change="onToggleChange_">
+</settings-toggle-button>
+<div class="settings-columned-section">
+  <div class="column">
+    <div class="description-header">$i18n{adMeasurementPageEnabledHeading}</div>
+    <ul class="icon-bulleted-list">
+      <li>
+        <iron-icon icon="settings20:bar-chart" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{adMeasurementPageEnabledBullet1}</div>
+      </li>
+      <li>
+        <iron-icon icon="settings20:auto-delete" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{adMeasurementPageEnabledBullet2}</div>
+      </li>
+      <li>
+        <iron-icon icon="settings20:background-replace" aria-hidden="true">
+        </iron-icon>
+        <div class="secondary">$i18n{adMeasurementPageEnabledBullet3}</div>
+      </li>
+    </ul>
+  </div>
+  <div class="column">
+    <div class="description-header">
+      $i18n{adMeasurementPageConsiderHeading}
+    </div>
+    <ul class="icon-bulleted-list">
+      <li>
+        <iron-icon icon="settings20:delete" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{adMeasurementPageConsiderBullet1}</div>
+      </li>
+      <li>
+        <iron-icon icon="settings20:filter-list" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{adMeasurementPageConsiderBullet2}</div>
+      </li>
+      <li>
+        <iron-icon icon="settings:devices" aria-hidden="true"></iron-icon>
+        <div class="secondary">$i18n{adMeasurementPageConsiderBullet3}</div>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}

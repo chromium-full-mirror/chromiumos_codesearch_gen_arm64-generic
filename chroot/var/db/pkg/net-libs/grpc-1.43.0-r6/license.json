@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-libs", "name": "grpc", "version": "1.43.0", "revision": 6, "fullname": "net-libs/grpc", "fullnamerev": "net-libs/grpc-1.43.0-r6", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://www.grpc.io"], "skip": false, "tainted": false, "ebuild_path": null}

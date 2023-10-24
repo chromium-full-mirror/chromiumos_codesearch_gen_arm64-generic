@@ -1,0 +1,52 @@
+// Copyright 2020 The Swarming Authors. All rights reserved.
+// Use of this source code is governed by the Apache v2.0 license that can be
+// found in the LICENSE file.
+
+syntax = "proto3";
+
+package buildbucket.v2;
+
+option go_package = "go.chromium.org/luci/buildbucket/proto;buildbucketpb";
+
+import "go.chromium.org/luci/buildbucket/proto/common.proto";
+import "go.chromium.org/luci/buildbucket/proto/field_option.proto";
+import "go.chromium.org/luci/buildbucket/proto/project_config.proto";
+
+// Identifies a builder.
+// Canonical string representation: "{project}/{bucket}/{builder}".
+message BuilderID {
+  // Project ID, e.g. "chromium". Unique within a LUCI deployment.
+  // Regex: ^[a-z0-9\-_]+$
+  string project = 1 [ (buildbucket.v2.required_by_rpc) = "SetBuilderHealth" ];
+  // Bucket name, e.g. "try". Unique within the project.
+  // Regex: ^[a-z0-9\-_.]{1,100}$
+  // Together with project, defines an ACL.
+  string bucket = 2 [ (buildbucket.v2.required_by_rpc) = "SetBuilderHealth" ];
+  // Builder name, e.g. "linux-rel". Unique within the bucket.
+  // Regex: ^[a-zA-Z0-9\-_.\(\) ]{1,128}$
+  string builder = 3 [ (buildbucket.v2.required_by_rpc) = "SetBuilderHealth" ];
+}
+
+message BuilderMetadata {
+  // Team that owns the builder
+  string owner = 1;
+  // Builders current health status
+  HealthStatus health = 2;
+}
+
+// A configured builder.
+//
+// It is called BuilderItem and not Builder because
+// 1) Builder already exists
+// 2) Name "Builder" is incompatible with proto->Java compiler.
+message BuilderItem {
+  // Uniquely identifies the builder in a given Buildbucket instance.
+  BuilderID id = 1;
+
+  // User-supplied configuration after normalization.
+  // Does not refer to mixins and has defaults inlined.
+  BuilderConfig config = 2;
+
+  // Metadata surrounding the builder.
+  BuilderMetadata metadata = 3;
+}

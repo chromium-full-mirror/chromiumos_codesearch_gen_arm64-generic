@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-analyzer", "name": "netperf", "version": "2.7.0", "revision": 5, "fullname": "net-analyzer/netperf", "fullnamerev": "net-analyzer/netperf-2.7.0-r5", "license_names": ["netperf"], "license_text_scanned": [], "homepages": ["http://www.netperf.org/"], "skip": false, "tainted": false, "ebuild_path": null}

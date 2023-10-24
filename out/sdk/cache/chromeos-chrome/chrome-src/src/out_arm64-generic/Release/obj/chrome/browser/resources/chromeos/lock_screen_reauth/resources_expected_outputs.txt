@@ -1,0 +1,4 @@
+gen/chrome/grit/lock_screen_reauth_resources.h
+gen/chrome/grit/lock_screen_reauth_resources_map.h
+gen/chrome/grit/lock_screen_reauth_resources_map.cc
+gen/chrome/lock_screen_reauth_resources.pak

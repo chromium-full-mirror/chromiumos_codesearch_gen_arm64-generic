@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="13" failures="0" disabled="0" errors="0" time="0.049" timestamp="2023-10-23T22:47:16.573" name="AllTests">
+  <testsuite name="StreamApm" tests="12" failures="0" disabled="0" skipped="0" errors="0" time="0.041" timestamp="2023-10-23T22:47:16.578">
+    <testcase name="StreamApmCreateNoDspAEC" file="cras/src/tests/stream_apm_unittest.cc" line="55" status="run" result="completed" time="0.011" timestamp="2023-10-23T22:47:16.578" classname="StreamApm" />
+    <testcase name="StreamApmCreateDspAEC" file="cras/src/tests/stream_apm_unittest.cc" line="85" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:16.590" classname="StreamApm" />
+    <testcase name="AddApmInputDevUnuseFirstChannel" file="cras/src/tests/stream_apm_unittest.cc" line="164" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:47:16.591" classname="StreamApm" />
+    <testcase name="AddRemoveApm" file="cras/src/tests/stream_apm_unittest.cc" line="221" status="run" result="completed" time="0.007" timestamp="2023-10-23T22:47:16.594" classname="StreamApm" />
+    <testcase name="OutputTypeNotAecUseCase" file="cras/src/tests/stream_apm_unittest.cc" line="275" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:47:16.602" classname="StreamApm" />
+    <testcase name="ApmProcessForwardBuffer" file="cras/src/tests/stream_apm_unittest.cc" line="311" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:47:16.604" classname="StreamApm" />
+    <testcase name="StreamAddToAlreadyOpenedDev" file="cras/src/tests/stream_apm_unittest.cc" line="371" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:16.608" classname="StreamApm" />
+    <testcase name="ReverseDevChanged" file="cras/src/tests/stream_apm_unittest.cc" line="398" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:16.608" classname="StreamApm" />
+    <testcase name="GetUseTunedSettings" file="cras/src/tests/stream_apm_unittest.cc" line="412" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:47:16.609" classname="StreamApm" />
+    <testcase name="DSPEffectsNotSupportedShouldNotCallIodevOps" file="cras/src/tests/stream_apm_unittest.cc" line="535" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:16.613" classname="StreamApm" />
+    <testcase name="UpdateEffect" file="cras/src/tests/stream_apm_unittest.cc" line="572" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:47:16.614" classname="StreamApm" />
+    <testcase name="UpdateEffectMultipleStreamApms" file="cras/src/tests/stream_apm_unittest.cc" line="696" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:47:16.617" classname="StreamApm" />
+  </testsuite>
+  <testsuite name="ApmList" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2023-10-23T22:47:16.620">
+    <testcase name="NeedsReverseProcessing" file="cras/src/tests/stream_apm_unittest.cc" line="464" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:47:16.620" classname="ApmList" />
+  </testsuite>
+</testsuites>

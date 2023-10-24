@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "gawk", "version": "5.1.1", "revision": 2, "fullname": "sys-apps/gawk", "fullnamerev": "sys-apps/gawk-5.1.1-r2", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/gawk/gawk.html"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "ep-gcp", "version": "0.10.0", "revision": 3, "fullname": "dev-go/ep-gcp", "fullnamerev": "dev-go/ep-gcp-0.10.0-r3", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/envoyproxy/go-control-plane"], "skip": false, "tainted": false, "ebuild_path": null}

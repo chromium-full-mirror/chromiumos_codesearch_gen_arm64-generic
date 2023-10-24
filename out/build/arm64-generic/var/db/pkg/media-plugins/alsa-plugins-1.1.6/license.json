@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "media-plugins", "name": "alsa-plugins", "version": "1.1.6", "revision": 0, "fullname": "media-plugins/alsa-plugins", "fullnamerev": "media-plugins/alsa-plugins-1.1.6", "license_names": ["GPL-2", "LGPL-2.1"], "license_text_scanned": [], "homepages": ["http://www.alsa-project.org/"], "skip": false, "tainted": false, "ebuild_path": null}

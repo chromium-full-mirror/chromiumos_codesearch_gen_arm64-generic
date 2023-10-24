@@ -1,0 +1,1142 @@
+import{html,Polymer,dom,mixinBehaviors,PolymerElement,Base,dedupingMixin,get,dashToCamelCase,templatize,calculateSplices,useShadow}from"chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js";import"./strings.m.js";import{loadTimeData}from"chrome://resources/js/load_time_data.js";import{mojo}from"chrome://resources/mojo/mojo/public/js/bindings.js";import{TimeTicksSpec,TimeSpec}from"chrome://resources/mojo/mojo/public/mojom/base/time.mojom-webui.js";import{TokenSpec}from"chrome://resources/mojo/mojo/public/mojom/base/token.mojom-webui.js";import{UrlSpec}from"chrome://resources/mojo/url/mojom/url.mojom-webui.js";import{MetricsReporterImpl}from"chrome://resources/js/metrics_reporter/metrics_reporter.js";import Fuse from"./fuse.js";const styleMod$7=document.createElement("dom-module");styleMod$7.appendChild(html`
+  <template>
+    <style>
+:host([hidden]),[hidden]{display:none!important}
+    </style>
+  </template>
+`.content);styleMod$7.register("cr-hidden-style");
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/const template$5=html`
+<custom-style>
+  <style is="custom-style">
+    html {
+
+      /* Material Design color palette for Google products */
+
+      --google-red-100-rgb: 244, 199, 195;  /* #f4c7c3 */
+      --google-red-100: rgb(var(--google-red-100-rgb));
+      --google-red-300-rgb: 230, 124, 115;  /* #e67c73 */
+      --google-red-300: rgb(var(--google-red-300-rgb));
+      --google-red-500-rgb: 219, 68, 55;  /* #db4437 */
+      --google-red-500: rgb(var(--google-red-500-rgb));
+      --google-red-700-rgb: 197, 57, 41;  /* #c53929 */
+      --google-red-700: rgb(var(--google-red-700-rgb));
+
+      --google-blue-100-rgb: 198, 218, 252;  /* #c6dafc */
+      --google-blue-100: rgb(var(--google-blue-100-rgb));
+      --google-blue-300-rgb: 123, 170, 247;  /* #7baaf7 */
+      --google-blue-300: rgb(var(--google-blue-300-rgb));
+      --google-blue-500-rgb: 66, 133, 244;  /* #4285f4 */
+      --google-blue-500: rgb(var(--google-blue-500-rgb));
+      --google-blue-700-rgb: 51, 103, 214;  /* #3367d6 */
+      --google-blue-700: rgb(var(--google-blue-700-rgb));
+
+      --google-green-100-rgb: 183, 225, 205;  /* #b7e1cd */
+      --google-green-100: rgb(var(--google-green-100-rgb));
+      --google-green-300-rgb: 87, 187, 138;  /* #57bb8a */
+      --google-green-300: rgb(var(--google-green-300-rgb));
+      --google-green-500-rgb: 15, 157, 88;  /* #0f9d58 */
+      --google-green-500: rgb(var(--google-green-500-rgb));
+      --google-green-700-rgb: 11, 128, 67;  /* #0b8043 */
+      --google-green-700: rgb(var(--google-green-700-rgb));
+
+      --google-yellow-100-rgb: 252, 232, 178;  /* #fce8b2 */
+      --google-yellow-100: rgb(var(--google-yellow-100-rgb));
+      --google-yellow-300-rgb: 247, 203, 77;  /* #f7cb4d */
+      --google-yellow-300: rgb(var(--google-yellow-300-rgb));
+      --google-yellow-500-rgb: 244, 180, 0;  /* #f4b400 */
+      --google-yellow-500: rgb(var(--google-yellow-500-rgb));
+      --google-yellow-700-rgb: 240, 147, 0;  /* #f09300 */
+      --google-yellow-700: rgb(var(--google-yellow-700-rgb));
+
+      --google-grey-100-rgb: 245, 245, 245;  /* #f5f5f5 */
+      --google-grey-100: rgb(var(--google-grey-100-rgb));
+      --google-grey-300-rgb: 224, 224, 224;  /* #e0e0e0 */
+      --google-grey-300: rgb(var(--google-grey-300-rgb));
+      --google-grey-500-rgb: 158, 158, 158;  /* #9e9e9e */
+      --google-grey-500: rgb(var(--google-grey-500-rgb));
+      --google-grey-700-rgb: 97, 97, 97;  /* #616161 */
+      --google-grey-700: rgb(var(--google-grey-700-rgb));
+
+      /* Material Design color palette from online spec document */
+
+      --paper-red-50: #ffebee;
+      --paper-red-100: #ffcdd2;
+      --paper-red-200: #ef9a9a;
+      --paper-red-300: #e57373;
+      --paper-red-400: #ef5350;
+      --paper-red-500: #f44336;
+      --paper-red-600: #e53935;
+      --paper-red-700: #d32f2f;
+      --paper-red-800: #c62828;
+      --paper-red-900: #b71c1c;
+      --paper-red-a100: #ff8a80;
+      --paper-red-a200: #ff5252;
+      --paper-red-a400: #ff1744;
+      --paper-red-a700: #d50000;
+
+      --paper-light-blue-50: #e1f5fe;
+      --paper-light-blue-100: #b3e5fc;
+      --paper-light-blue-200: #81d4fa;
+      --paper-light-blue-300: #4fc3f7;
+      --paper-light-blue-400: #29b6f6;
+      --paper-light-blue-500: #03a9f4;
+      --paper-light-blue-600: #039be5;
+      --paper-light-blue-700: #0288d1;
+      --paper-light-blue-800: #0277bd;
+      --paper-light-blue-900: #01579b;
+      --paper-light-blue-a100: #80d8ff;
+      --paper-light-blue-a200: #40c4ff;
+      --paper-light-blue-a400: #00b0ff;
+      --paper-light-blue-a700: #0091ea;
+
+      --paper-yellow-50: #fffde7;
+      --paper-yellow-100: #fff9c4;
+      --paper-yellow-200: #fff59d;
+      --paper-yellow-300: #fff176;
+      --paper-yellow-400: #ffee58;
+      --paper-yellow-500: #ffeb3b;
+      --paper-yellow-600: #fdd835;
+      --paper-yellow-700: #fbc02d;
+      --paper-yellow-800: #f9a825;
+      --paper-yellow-900: #f57f17;
+      --paper-yellow-a100: #ffff8d;
+      --paper-yellow-a200: #ffff00;
+      --paper-yellow-a400: #ffea00;
+      --paper-yellow-a700: #ffd600;
+
+      --paper-orange-50: #fff3e0;
+      --paper-orange-100: #ffe0b2;
+      --paper-orange-200: #ffcc80;
+      --paper-orange-300: #ffb74d;
+      --paper-orange-400: #ffa726;
+      --paper-orange-500: #ff9800;
+      --paper-orange-600: #fb8c00;
+      --paper-orange-700: #f57c00;
+      --paper-orange-800: #ef6c00;
+      --paper-orange-900: #e65100;
+      --paper-orange-a100: #ffd180;
+      --paper-orange-a200: #ffab40;
+      --paper-orange-a400: #ff9100;
+      --paper-orange-a700: #ff6500;
+
+      --paper-grey-50: #fafafa;
+      --paper-grey-100: #f5f5f5;
+      --paper-grey-200: #eeeeee;
+      --paper-grey-300: #e0e0e0;
+      --paper-grey-400: #bdbdbd;
+      --paper-grey-500: #9e9e9e;
+      --paper-grey-600: #757575;
+      --paper-grey-700: #616161;
+      --paper-grey-800: #424242;
+      --paper-grey-900: #212121;
+
+      --paper-blue-grey-50: #eceff1;
+      --paper-blue-grey-100: #cfd8dc;
+      --paper-blue-grey-200: #b0bec5;
+      --paper-blue-grey-300: #90a4ae;
+      --paper-blue-grey-400: #78909c;
+      --paper-blue-grey-500: #607d8b;
+      --paper-blue-grey-600: #546e7a;
+      --paper-blue-grey-700: #455a64;
+      --paper-blue-grey-800: #37474f;
+      --paper-blue-grey-900: #263238;
+
+      /* opacity for dark text on a light background */
+      --dark-divider-opacity: 0.12;
+      --dark-disabled-opacity: 0.38; /* or hint text or icon */
+      --dark-secondary-opacity: 0.54;
+      --dark-primary-opacity: 0.87;
+
+      /* opacity for light text on a dark background */
+      --light-divider-opacity: 0.12;
+      --light-disabled-opacity: 0.3; /* or hint text or icon */
+      --light-secondary-opacity: 0.7;
+      --light-primary-opacity: 1.0;
+
+    }
+
+  </style>
+</custom-style>
+`;template$5.setAttribute("style","display: none;");document.head.appendChild(template$5.content);const template$4=html`
+<custom-style>
+  <style>
+html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-rgb));--google-blue-100-rgb:210,227,252;--google-blue-100:rgb(var(--google-blue-100-rgb));--google-blue-200-rgb:174,203,250;--google-blue-200:rgb(var(--google-blue-200-rgb));--google-blue-300-rgb:138,180,248;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-blue-400-rgb:102,157,246;--google-blue-400:rgb(var(--google-blue-400-rgb));--google-blue-500-rgb:66,133,244;--google-blue-500:rgb(var(--google-blue-500-rgb));--google-blue-600-rgb:26,115,232;--google-blue-600:rgb(var(--google-blue-600-rgb));--google-blue-700-rgb:25,103,210;--google-blue-700:rgb(var(--google-blue-700-rgb));--google-blue-800-rgb:24,90,188;--google-blue-800:rgb(var(--google-blue-800-rgb));--google-blue-900-rgb:23,78,166;--google-blue-900:rgb(var(--google-blue-900-rgb));--google-green-50-rgb:230,244,234;--google-green-50:rgb(var(--google-green-50-rgb));--google-green-200-rgb:168,218,181;--google-green-200:rgb(var(--google-green-200-rgb));--google-green-300-rgb:129,201,149;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-400-rgb:91,185,116;--google-green-400:rgb(var(--google-green-400-rgb));--google-green-500-rgb:52,168,83;--google-green-500:rgb(var(--google-green-500-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-green-700-rgb:24,128,56;--google-green-700:rgb(var(--google-green-700-rgb));--google-green-800-rgb:19,115,51;--google-green-800:rgb(var(--google-green-800-rgb));--google-green-900-rgb:13,101,45;--google-green-900:rgb(var(--google-green-900-rgb));--google-grey-50-rgb:248,249,250;--google-grey-50:rgb(var(--google-grey-50-rgb));--google-grey-100-rgb:241,243,244;--google-grey-100:rgb(var(--google-grey-100-rgb));--google-grey-200-rgb:232,234,237;--google-grey-200:rgb(var(--google-grey-200-rgb));--google-grey-300-rgb:218,220,224;--google-grey-300:rgb(var(--google-grey-300-rgb));--google-grey-400-rgb:189,193,198;--google-grey-400:rgb(var(--google-grey-400-rgb));--google-grey-500-rgb:154,160,166;--google-grey-500:rgb(var(--google-grey-500-rgb));--google-grey-600-rgb:128,134,139;--google-grey-600:rgb(var(--google-grey-600-rgb));--google-grey-700-rgb:95,99,104;--google-grey-700:rgb(var(--google-grey-700-rgb));--google-grey-800-rgb:60,64,67;--google-grey-800:rgb(var(--google-grey-800-rgb));--google-grey-900-rgb:32,33,36;--google-grey-900:rgb(var(--google-grey-900-rgb));--google-grey-900-white-4-percent:#292a2d;--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-900-rgb:104,29,168;--google-purple-900:rgb(var(--google-purple-900-rgb));--google-red-300-rgb:242,139,130;--google-red-300:rgb(var(--google-red-300-rgb));--google-red-500-rgb:234,67,53;--google-red-500:rgb(var(--google-red-500-rgb));--google-red-600-rgb:217,48,37;--google-red-600:rgb(var(--google-red-600-rgb));--google-yellow-50-rgb:254,247,224;--google-yellow-50:rgb(var(--google-yellow-50-rgb));--google-yellow-100-rgb:254,239,195;--google-yellow-100:rgb(var(--google-yellow-100-rgb));--google-yellow-200-rgb:253,226,147;--google-yellow-200:rgb(var(--google-yellow-200-rgb));--google-yellow-300-rgb:253,214,51;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-400-rgb:252,201,52;--google-yellow-400:rgb(var(--google-yellow-400-rgb));--google-yellow-500-rgb:251,188,4;--google-yellow-500:rgb(var(--google-yellow-500-rgb));--cr-primary-text-color:var(--google-grey-900);--cr-secondary-text-color:var(--google-grey-700);--cr-card-background-color:white;--cr-shadow-color:var(--google-grey-800);--cr-shadow-key-color_:color-mix(in srgb, var(--cr-shadow-color) 30%, transparent);--cr-shadow-ambient-color_:color-mix(in srgb, var(--cr-shadow-color) 15%, transparent);--cr-elevation-1:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 1px 3px 1px;--cr-elevation-2:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 2px 6px 2px;--cr-elevation-3:var(--cr-shadow-key-color_) 0 1px 3px 0,var(--cr-shadow-ambient-color_) 0 4px 8px 3px;--cr-elevation-4:var(--cr-shadow-key-color_) 0 2px 3px 0,var(--cr-shadow-ambient-color_) 0 6px 10px 4px;--cr-elevation-5:var(--cr-shadow-key-color_) 0 4px 4px 0,var(--cr-shadow-ambient-color_) 0 8px 12px 6px;--cr-card-shadow:var(--cr-elevation-2);--cr-checked-color:var(--google-blue-600);--cr-focused-item-color:var(--google-grey-300);--cr-form-field-label-color:var(--google-grey-700);--cr-hairline-rgb:0,0,0;--cr-iph-anchor-highlight-color:rgba(var(--google-blue-600-rgb), 0.1);--cr-link-color:var(--google-blue-700);--cr-menu-background-color:white;--cr-menu-background-focus-color:var(--google-grey-400);--cr-menu-shadow:0 2px 6px var(--paper-grey-500);--cr-separator-color:rgba(0, 0, 0, .06);--cr-title-text-color:rgb(90, 90, 90);--cr-toolbar-background-color:white;--cr-hover-background-color:rgba(var(--google-grey-900-rgb), .1);--cr-active-background-color:rgba(var(--google-grey-900-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-600-rgb), .4)}@media (prefers-color-scheme:dark){html{--cr-primary-text-color:var(--google-grey-200);--cr-secondary-text-color:var(--google-grey-500);--cr-card-background-color:var(--google-grey-900-white-4-percent);--cr-card-shadow-color-rgb:0,0,0;--cr-checked-color:var(--google-blue-300);--cr-focused-item-color:var(--google-grey-800);--cr-form-field-label-color:var(--dark-secondary-color);--cr-hairline-rgb:255,255,255;--cr-iph-anchor-highlight-color:rgba(var(--google-grey-100-rgb), 0.1);--cr-link-color:var(--google-blue-300);--cr-menu-background-color:var(--google-grey-900);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-separator-color:rgba(255, 255, 255, .1);--cr-title-text-color:var(--cr-primary-text-color);--cr-toolbar-background-color:var(--google-grey-900-white-4-percent);--cr-hover-background-color:rgba(255, 255, 255, .1);--cr-active-background-color:rgba(var(--google-grey-200-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-300-rgb), .4)}}@media (forced-colors:active){html{--cr-focus-outline-hcm:2px solid transparent;--cr-border-hcm:2px solid transparent}}html{--cr-button-edge-spacing:12px;--cr-button-height:32px;--cr-controlled-by-spacing:24px;--cr-default-input-max-width:264px;--cr-icon-ripple-size:36px;--cr-icon-ripple-padding:8px;--cr-icon-size:20px;--cr-icon-button-margin-start:16px;--cr-icon-ripple-margin:calc(var(--cr-icon-ripple-padding) * -1);--cr-section-min-height:48px;--cr-section-two-line-min-height:64px;--cr-section-padding:20px;--cr-section-vertical-padding:12px;--cr-section-indent-width:40px;--cr-section-indent-padding:calc(
+      var(--cr-section-padding) + var(--cr-section-indent-width));--cr-section-vertical-margin:21px;--cr-centered-card-max-width:680px;--cr-centered-card-width-percentage:0.96;--cr-hairline:1px solid rgba(var(--cr-hairline-rgb), .14);--cr-separator-height:1px;--cr-separator-line:var(--cr-separator-height) solid var(--cr-separator-color);--cr-toolbar-overlay-animation-duration:150ms;--cr-toolbar-height:56px;--cr-container-shadow-height:6px;--cr-container-shadow-margin:calc(-1 * var(--cr-container-shadow-height));--cr-container-shadow-max-opacity:1;--cr-card-border-radius:8px;--cr-disabled-opacity:.38;--cr-form-field-bottom-spacing:16px;--cr-form-field-label-font-size:.625rem;--cr-form-field-label-height:1em;--cr-form-field-label-line-height:1}html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(116, 119, 117);--cr-fallback-color-primary:rgb(11, 87, 208);--cr-fallback-color-on-primary:rgb(255, 255, 255);--cr-fallback-color-primary-container:rgb(211, 227, 253);--cr-fallback-color-on-primary-container:rgb(4, 30, 73);--cr-fallback-color-secondary-container:rgb(194, 231, 255);--cr-fallback-color-on-secondary-container:rgb(0, 29, 53);--cr-fallback-color-neutral-container:rgb(242, 242, 242);--cr-fallback-color-neutral-outline:rgb(199, 199, 199);--cr-fallback-color-surface:rgb(255, 255, 255);--cr-fallback-color-on-surface-rgb:31,31,31;--cr-fallback-color-on-surface:rgb(var(--cr-fallback-color-on-surface-rgb));--cr-fallback-color-surface-variant:rgb(225, 227, 225);--cr-fallback-color-on-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-subtle:rgb(71, 71, 71);--cr-fallback-color-inverse-primary:rgb(168, 199, 250);--cr-fallback-color-inverse-surface:rgb(48, 48, 48);--cr-fallback-color-inverse-on-surface:rgb(242, 242, 242);--cr-fallback-color-tonal-container:rgb(211, 227, 253);--cr-fallback-color-on-tonal-container:rgb(4, 30, 73);--cr-fallback-color-tonal-outline:rgb(168, 199, 250);--cr-fallback-color-error:rgb(179, 38, 30);--cr-fallback-color-divider:rgb(211, 227, 253);--cr-fallback-color-state-hover-on-prominent_:rgba(253, 252, 251, .1);--cr-fallback-color-state-on-subtle-rgb_:31,31,31;--cr-fallback-color-state-hover-on-subtle_:rgba(
+      var(--cr-fallback-color-state-on-subtle-rgb_), .06);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
+      var(--cr-fallback-color-state-on-subtle-rgb_), .08);--cr-fallback-color-state-ripple-primary-rgb_:124,172,248;--cr-fallback-color-state-ripple-primary_:rgba(
+      var(--cr-fallback-color-state-ripple-primary-rgb_), 0.32);--cr-fallback-color-base-container:rgba(105, 145, 214, .12);--cr-fallback-color-disabled-background:rgba(
+      var(--cr-fallback-color-on-surface-rgb), .12);--cr-fallback-color-disabled-foreground:rgba(
+      var(--cr-fallback-color-on-surface-rgb), var(--cr-disabled-opacity));--cr-hover-background-color:var(--color-sys-state-hover,
+      rgba(var(--cr-fallback-color-on-surface-rgb), .08));--cr-hover-on-prominent-background-color:var(
+      --color-sys-state-hover-on-prominent,
+      var(--cr-fallback-color-state-hover-on-prominent_));--cr-hover-on-subtle-background-color:var(
+      --color-sys-state-hover-on-subtle,
+      var(--cr-fallback-color-state-hover-on-subtle_));--cr-active-background-color:var(--color-sys-state-pressed,
+      rgba(var(--cr-fallback-color-on-surface-rgb), .12));--cr-active-on-primary-background-color:var(
+      --color-sys-state-ripple-primary,
+      var(--cr-fallback-color-state-ripple-primary_));--cr-active-neutral-on-subtle-background-color:var(
+      --color-sys-state-ripple-neutral-on-subtle,
+      var(--cr-fallback-color-state-ripple-neutral-on-subtle_));--cr-focus-outline-color:var(--color-sys-state-focus-ring,
+      var(--cr-fallback-color-primary));--cr-primary-text-color:var(--color-primary-foreground,
+      var(--cr-fallback-color-on-surface));--cr-secondary-text-color:var(--color-secondary-foreground,
+      var(--cr-fallback-color-on-surface-variant));--cr-link-color:var(--color-link-foreground-default,
+      var(--cr-fallback-color-primary));--cr-button-height:36px;--cr-shadow-color:var(--color-sys-shadow, rgb(0, 0, 0))}@media (prefers-color-scheme:dark){html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(142, 145, 143);--cr-fallback-color-primary:rgb(168, 199, 250);--cr-fallback-color-on-primary:rgb(6, 46, 111);--cr-fallback-color-primary-container:rgb(8, 66, 160);--cr-fallback-color-on-primary-container:rgb(211, 227, 253);--cr-fallback-color-secondary-container:rgb(0, 74, 119);--cr-fallback-color-on-secondary-container:rgb(194, 231, 255);--cr-fallback-color-neutral-container:rgb(42, 42, 42);--cr-fallback-color-neutral-outline:rgb(117, 117, 117);--cr-fallback-color-surface:rgb(26, 27, 30);--cr-fallback-color-on-surface-rgb:227,227,227;--cr-fallback-color-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-variant:rgb(196, 199, 197);--cr-fallback-color-on-surface-subtle:rgb(199, 199, 199);--cr-fallback-color-inverse-primary:rgb(11, 87, 208);--cr-fallback-color-inverse-surface:rgb(227, 227, 227);--cr-fallback-color-inverse-on-surface:rgb(31, 31, 31);--cr-fallback-color-tonal-container:rgb(0, 74, 119);--cr-fallback-color-on-tonal-container:rgb(194, 231, 255);--cr-fallback-color-tonal-outline:rgb(0, 99, 155);--cr-fallback-color-error:rgb(242, 184, 181);--cr-fallback-color-divider:rgb(71, 71, 71);--cr-fallback-color-state-hover-on-prominent_:rgba(31, 31, 31, .06);--cr-fallback-color-state-on-subtle-rgb_:253,252,251;--cr-fallback-color-state-hover-on-subtle_:rgba(
+        var(--cr-fallback-color-state-on-subtle-rgb_), .10);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
+        var(--cr-fallback-color-state-on-subtle-rgb_), .16);--cr-fallback-color-state-ripple-primary-rgb_:76,141,246;--cr-fallback-color-base-container:rgba(40, 40, 40, 1)}}@media (forced-colors:active){html[chrome-refresh-2023]{--cr-fallback-color-disabled-background:Canvas;--cr-fallback-color-disabled-foreground:GrayText}}
+  </style>
+</custom-style>
+`;document.head.appendChild(template$4.content);
+// Copyright 2012 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const CLASS_NAME="focus-outline-visible";const docsToManager=new Map;class FocusOutlineManager{constructor(doc){this.focusByKeyboard_=true;this.classList_=doc.documentElement.classList;doc.addEventListener("keydown",(()=>this.onEvent_(true)),true);doc.addEventListener("mousedown",(()=>this.onEvent_(false)),true);this.updateVisibility()}onEvent_(focusByKeyboard){if(this.focusByKeyboard_===focusByKeyboard){return}this.focusByKeyboard_=focusByKeyboard;this.updateVisibility()}updateVisibility(){this.visible=this.focusByKeyboard_}set visible(visible){this.classList_.toggle(CLASS_NAME,visible)}get visible(){return this.classList_.contains(CLASS_NAME)}static forDocument(doc){let manager=docsToManager.get(doc);if(!manager){manager=new FocusOutlineManager(doc);docsToManager.set(doc,manager)}return manager}}
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/var KEY_IDENTIFIER={"U+0008":"backspace","U+0009":"tab","U+001B":"esc","U+0020":"space","U+007F":"del"};var KEY_CODE={8:"backspace",9:"tab",13:"enter",27:"esc",33:"pageup",34:"pagedown",35:"end",36:"home",32:"space",37:"left",38:"up",39:"right",40:"down",46:"del",106:"*"};var MODIFIER_KEYS={shift:"shiftKey",ctrl:"ctrlKey",alt:"altKey",meta:"metaKey"};var KEY_CHAR=/[a-z0-9*]/;var IDENT_CHAR=/U\+/;var ARROW_KEY=/^arrow/;var SPACE_KEY=/^space(bar)?/;var ESC_KEY=/^escape$/;function transformKey(key,noSpecialChars){var validKey="";if(key){var lKey=key.toLowerCase();if(lKey===" "||SPACE_KEY.test(lKey)){validKey="space"}else if(ESC_KEY.test(lKey)){validKey="esc"}else if(lKey.length==1){if(!noSpecialChars||KEY_CHAR.test(lKey)){validKey=lKey}}else if(ARROW_KEY.test(lKey)){validKey=lKey.replace("arrow","")}else if(lKey=="multiply"){validKey="*"}else{validKey=lKey}}return validKey}function transformKeyIdentifier(keyIdent){var validKey="";if(keyIdent){if(keyIdent in KEY_IDENTIFIER){validKey=KEY_IDENTIFIER[keyIdent]}else if(IDENT_CHAR.test(keyIdent)){keyIdent=parseInt(keyIdent.replace("U+","0x"),16);validKey=String.fromCharCode(keyIdent).toLowerCase()}else{validKey=keyIdent.toLowerCase()}}return validKey}function transformKeyCode(keyCode){var validKey="";if(Number(keyCode)){if(keyCode>=65&&keyCode<=90){validKey=String.fromCharCode(32+keyCode)}else if(keyCode>=112&&keyCode<=123){validKey="f"+(keyCode-112+1)}else if(keyCode>=48&&keyCode<=57){validKey=String(keyCode-48)}else if(keyCode>=96&&keyCode<=105){validKey=String(keyCode-96)}else{validKey=KEY_CODE[keyCode]}}return validKey}function normalizedKeyForEvent(keyEvent,noSpecialChars){if(keyEvent.key){return transformKey(keyEvent.key,noSpecialChars)}if(keyEvent.detail&&keyEvent.detail.key){return transformKey(keyEvent.detail.key,noSpecialChars)}return transformKeyIdentifier(keyEvent.keyIdentifier)||transformKeyCode(keyEvent.keyCode)||""}function keyComboMatchesEvent(keyCombo,event){var keyEvent=normalizedKeyForEvent(event,keyCombo.hasModifiers);return keyEvent===keyCombo.key&&(!keyCombo.hasModifiers||!!event.shiftKey===!!keyCombo.shiftKey&&!!event.ctrlKey===!!keyCombo.ctrlKey&&!!event.altKey===!!keyCombo.altKey&&!!event.metaKey===!!keyCombo.metaKey)}function parseKeyComboString(keyComboString){if(keyComboString.length===1){return{combo:keyComboString,key:keyComboString,event:"keydown"}}return keyComboString.split("+").reduce((function(parsedKeyCombo,keyComboPart){var eventParts=keyComboPart.split(":");var keyName=eventParts[0];var event=eventParts[1];if(keyName in MODIFIER_KEYS){parsedKeyCombo[MODIFIER_KEYS[keyName]]=true;parsedKeyCombo.hasModifiers=true}else{parsedKeyCombo.key=keyName;parsedKeyCombo.event=event||"keydown"}return parsedKeyCombo}),{combo:keyComboString.split(":").shift()})}function parseEventString(eventString){return eventString.trim().split(" ").map((function(keyComboString){return parseKeyComboString(keyComboString)}))}const IronA11yKeysBehavior={properties:{keyEventTarget:{type:Object,value:function(){return this}},stopKeyboardEventPropagation:{type:Boolean,value:false},_boundKeyHandlers:{type:Array,value:function(){return[]}},_imperativeKeyBindings:{type:Object,value:function(){return{}}}},observers:["_resetKeyEventListeners(keyEventTarget, _boundKeyHandlers)"],keyBindings:{},registered:function(){this._prepKeyBindings()},attached:function(){this._listenKeyEventListeners()},detached:function(){this._unlistenKeyEventListeners()},addOwnKeyBinding:function(eventString,handlerName){this._imperativeKeyBindings[eventString]=handlerName;this._prepKeyBindings();this._resetKeyEventListeners()},removeOwnKeyBindings:function(){this._imperativeKeyBindings={};this._prepKeyBindings();this._resetKeyEventListeners()},keyboardEventMatchesKeys:function(event,eventString){var keyCombos=parseEventString(eventString);for(var i=0;i<keyCombos.length;++i){if(keyComboMatchesEvent(keyCombos[i],event)){return true}}return false},_collectKeyBindings:function(){var keyBindings=this.behaviors.map((function(behavior){return behavior.keyBindings}));if(keyBindings.indexOf(this.keyBindings)===-1){keyBindings.push(this.keyBindings)}return keyBindings},_prepKeyBindings:function(){this._keyBindings={};this._collectKeyBindings().forEach((function(keyBindings){for(var eventString in keyBindings){this._addKeyBinding(eventString,keyBindings[eventString])}}),this);for(var eventString in this._imperativeKeyBindings){this._addKeyBinding(eventString,this._imperativeKeyBindings[eventString])}for(var eventName in this._keyBindings){this._keyBindings[eventName].sort((function(kb1,kb2){var b1=kb1[0].hasModifiers;var b2=kb2[0].hasModifiers;return b1===b2?0:b1?-1:1}))}},_addKeyBinding:function(eventString,handlerName){parseEventString(eventString).forEach((function(keyCombo){this._keyBindings[keyCombo.event]=this._keyBindings[keyCombo.event]||[];this._keyBindings[keyCombo.event].push([keyCombo,handlerName])}),this)},_resetKeyEventListeners:function(){this._unlistenKeyEventListeners();if(this.isAttached){this._listenKeyEventListeners()}},_listenKeyEventListeners:function(){if(!this.keyEventTarget){return}Object.keys(this._keyBindings).forEach((function(eventName){var keyBindings=this._keyBindings[eventName];var boundKeyHandler=this._onKeyBindingEvent.bind(this,keyBindings);this._boundKeyHandlers.push([this.keyEventTarget,eventName,boundKeyHandler]);this.keyEventTarget.addEventListener(eventName,boundKeyHandler)}),this)},_unlistenKeyEventListeners:function(){var keyHandlerTuple;var keyEventTarget;var eventName;var boundKeyHandler;while(this._boundKeyHandlers.length){keyHandlerTuple=this._boundKeyHandlers.pop();keyEventTarget=keyHandlerTuple[0];eventName=keyHandlerTuple[1];boundKeyHandler=keyHandlerTuple[2];keyEventTarget.removeEventListener(eventName,boundKeyHandler)}},_onKeyBindingEvent:function(keyBindings,event){if(this.stopKeyboardEventPropagation){event.stopPropagation()}if(event.defaultPrevented){return}for(var i=0;i<keyBindings.length;i++){var keyCombo=keyBindings[i][0];var handlerName=keyBindings[i][1];if(keyComboMatchesEvent(keyCombo,event)){this._triggerKeyHandler(keyCombo,handlerName,event);if(event.defaultPrevented){return}}}},_triggerKeyHandler:function(keyCombo,handlerName,keyboardEvent){var detail=Object.create(keyCombo);detail.keyboardEvent=keyboardEvent;var event=new CustomEvent(keyCombo.event,{detail:detail,cancelable:true});this[handlerName].call(this,event);if(event.defaultPrevented){keyboardEvent.preventDefault()}}};var MAX_RADIUS_PX=300;var MIN_DURATION_MS=800;var distance=function(x1,y1,x2,y2){var xDelta=x1-x2;var yDelta=y1-y2;return Math.sqrt(xDelta*xDelta+yDelta*yDelta)};Polymer({_template:html`
+    <style>
+      :host {
+        bottom: 0;
+        display: block;
+        left: 0;
+        overflow: hidden;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        /* For rounded corners: http://jsbin.com/temexa/4. */
+        transform: translate3d(0, 0, 0);
+      }
+
+      .ripple {
+        background-color: currentcolor;
+        left: 0;
+        opacity: var(--paper-ripple-opacity, 0.25);
+        pointer-events: none;
+        position: absolute;
+        will-change: height, transform, width;
+      }
+
+      .ripple,
+      :host(.circle) {
+        border-radius: 50%;
+      }
+    </style>
+`,is:"paper-ripple",behaviors:[IronA11yKeysBehavior],properties:{center:{type:Boolean,value:false},holdDown:{type:Boolean,value:false,observer:"_holdDownChanged"},recenters:{type:Boolean,value:false},noink:{type:Boolean,value:false}},keyBindings:{"enter:keydown":"_onEnterKeydown","space:keydown":"_onSpaceKeydown","space:keyup":"_onSpaceKeyup"},created:function(){this.ripples=[]},attached:function(){this.keyEventTarget=this.parentNode.nodeType==11?dom(this).getOwnerRoot().host:this.parentNode;this.keyEventTarget=this.keyEventTarget;this.listen(this.keyEventTarget,"up","uiUpAction");this.listen(this.keyEventTarget,"down","uiDownAction")},detached:function(){this.unlisten(this.keyEventTarget,"up","uiUpAction");this.unlisten(this.keyEventTarget,"down","uiDownAction");this.keyEventTarget=null},simulatedRipple:function(){this.downAction();this.async(function(){this.upAction()}.bind(this),1)},uiDownAction:function(e){if(!this.noink)this.downAction(e)},downAction:function(e){if(this.ripples.length&&this.holdDown)return;this.debounce("show ripple",(function(){this.__showRipple(e)}),1)},clear:function(){this.__hideRipple();this.holdDown=false},showAndHoldDown:function(){this.ripples.forEach((ripple=>{ripple.remove()}));this.ripples=[];this.holdDown=true},__showRipple:function(e){var rect=this.getBoundingClientRect();var roundedCenterX=function(){return Math.round(rect.width/2)};var roundedCenterY=function(){return Math.round(rect.height/2)};var centered=!e||this.center;if(centered){var x=roundedCenterX();var y=roundedCenterY()}else{var sourceEvent=e.detail.sourceEvent;var x=Math.round(sourceEvent.clientX-rect.left);var y=Math.round(sourceEvent.clientY-rect.top)}var corners=[{x:0,y:0},{x:rect.width,y:0},{x:0,y:rect.height},{x:rect.width,y:rect.height}];var cornerDistances=corners.map((function(corner){return Math.round(distance(x,y,corner.x,corner.y))}));var radius=Math.min(MAX_RADIUS_PX,Math.max.apply(Math,cornerDistances));var startTranslate=x-radius+"px, "+(y-radius)+"px";if(this.recenters&&!centered){var endTranslate=roundedCenterX()-radius+"px, "+(roundedCenterY()-radius)+"px"}else{var endTranslate=startTranslate}var ripple=document.createElement("div");ripple.classList.add("ripple");ripple.style.height=ripple.style.width=2*radius+"px";this.ripples.push(ripple);this.shadowRoot.appendChild(ripple);ripple.animate({transform:["translate("+startTranslate+") scale(0)","translate("+endTranslate+") scale(1)"]},{duration:Math.max(MIN_DURATION_MS,Math.log(radius)*radius)||0,easing:"cubic-bezier(.2, .9, .1, .9)",fill:"forwards"})},uiUpAction:function(e){if(!this.noink)this.upAction()},upAction:function(e){if(!this.holdDown)this.debounce("hide ripple",(function(){this.__hideRipple()}),1)},__hideRipple:function(){Promise.all(this.ripples.map((function(ripple){return new Promise((function(resolve){var removeRipple=function(){ripple.remove();resolve()};var opacity=getComputedStyle(ripple).opacity;if(!opacity.length){removeRipple()}else{var animation=ripple.animate({opacity:[opacity,0]},{duration:150,fill:"forwards"});animation.addEventListener("finish",removeRipple);animation.addEventListener("cancel",removeRipple)}}))}))).then(function(){this.fire("transitionend")}.bind(this));this.ripples=[]},_onEnterKeydown:function(){this.uiDownAction();this.async(this.uiUpAction,1)},_onSpaceKeydown:function(){this.uiDownAction()},_onSpaceKeyup:function(){this.uiUpAction()},_holdDownChanged:function(newHoldDown,oldHoldDown){if(oldHoldDown===undefined)return;if(newHoldDown)this.downAction();else this.upAction()}});
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/const IronButtonStateImpl={properties:{pressed:{type:Boolean,readOnly:true,value:false,reflectToAttribute:true,observer:"_pressedChanged"},toggles:{type:Boolean,value:false,reflectToAttribute:true},active:{type:Boolean,value:false,notify:true,reflectToAttribute:true},pointerDown:{type:Boolean,readOnly:true,value:false},receivedFocusFromKeyboard:{type:Boolean,readOnly:true},ariaActiveAttribute:{type:String,value:"aria-pressed",observer:"_ariaActiveAttributeChanged"}},listeners:{down:"_downHandler",up:"_upHandler",tap:"_tapHandler"},observers:["_focusChanged(focused)","_activeChanged(active, ariaActiveAttribute)"],keyBindings:{"enter:keydown":"_asyncClick","space:keydown":"_spaceKeyDownHandler","space:keyup":"_spaceKeyUpHandler"},_mouseEventRe:/^mouse/,_tapHandler:function(){if(this.toggles){this._userActivate(!this.active)}else{this.active=false}},_focusChanged:function(focused){this._detectKeyboardFocus(focused);if(!focused){this._setPressed(false)}},_detectKeyboardFocus:function(focused){this._setReceivedFocusFromKeyboard(!this.pointerDown&&focused)},_userActivate:function(active){if(this.active!==active){this.active=active;this.fire("change")}},_downHandler:function(event){this._setPointerDown(true);this._setPressed(true);this._setReceivedFocusFromKeyboard(false)},_upHandler:function(){this._setPointerDown(false);this._setPressed(false)},_spaceKeyDownHandler:function(event){var keyboardEvent=event.detail.keyboardEvent;var target=dom(keyboardEvent).localTarget;if(this.isLightDescendant(target))return;keyboardEvent.preventDefault();keyboardEvent.stopImmediatePropagation();this._setPressed(true)},_spaceKeyUpHandler:function(event){var keyboardEvent=event.detail.keyboardEvent;var target=dom(keyboardEvent).localTarget;if(this.isLightDescendant(target))return;if(this.pressed){this._asyncClick()}this._setPressed(false)},_asyncClick:function(){this.async((function(){this.click()}),1)},_pressedChanged:function(pressed){this._changedButtonState()},_ariaActiveAttributeChanged:function(value,oldValue){if(oldValue&&oldValue!=value&&this.hasAttribute(oldValue)){this.removeAttribute(oldValue)}},_activeChanged:function(active,ariaActiveAttribute){if(this.toggles){this.setAttribute(this.ariaActiveAttribute,active?"true":"false")}else{this.removeAttribute(this.ariaActiveAttribute)}this._changedButtonState()},_controlStateChanged:function(){if(this.disabled){this._setPressed(false)}else{this._changedButtonState()}},_changedButtonState:function(){if(this._buttonStateChanged){this._buttonStateChanged()}}};
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/const PaperRippleBehavior={properties:{noink:{type:Boolean,observer:"_noinkChanged"},_rippleContainer:{type:Object}},_buttonStateChanged:function(){if(this.focused){this.ensureRipple()}},_downHandler:function(event){IronButtonStateImpl._downHandler.call(this,event);if(this.pressed){this.ensureRipple(event)}},ensureRipple:function(optTriggeringEvent){if(!this.hasRipple()){this._ripple=this._createRipple();this._ripple.noink=this.noink;var rippleContainer=this._rippleContainer||this.root;if(rippleContainer){dom(rippleContainer).appendChild(this._ripple)}if(optTriggeringEvent){var domContainer=dom(this._rippleContainer||this);var target=dom(optTriggeringEvent).rootTarget;if(domContainer.deepContains(target)){this._ripple.uiDownAction(optTriggeringEvent)}}}},getRipple:function(){this.ensureRipple();return this._ripple},hasRipple:function(){return Boolean(this._ripple)},_createRipple:function(){var element=document.createElement("paper-ripple");return element},_noinkChanged:function(noink){if(this.hasRipple()){this._ripple.noink=noink}}};function getTemplate$e(){return html`<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
+                                             rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
+            var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
+            var(--cr-fallback-color-primary));--hover-bg-color:transparent;--hover-border-color:var(--border-color);--active-bg:transparent;--active-shadow:none;--ink-color:var(--cr-active-background-color);--ripple-opacity:1;--disabled-bg:transparent;--disabled-border-color:var(--color-button-border-disabled,
+            var(--cr-fallback-color-disabled-background));--disabled-text-color:var(--color-button-foreground-disabled,
+            var(--cr-fallback-color-disabled-foreground));--bg-action:var(--color-button-background-prominent,
+            var(--cr-fallback-color-primary));--text-color-action:var(--color-button-foreground-prominent,
+            var(--cr-fallback-color-on-primary));--hover-bg-action:var(--bg-action);--active-shadow-action:none;--ink-color-action:var(--cr-active-background-color);--ripple-opacity-action:1;--disabled-bg-action:var(--color-button-background-prominent-disabled,
+            var(--cr-fallback-color-disabled-background));background:0 0;border-radius:100px;isolation:isolate;line-height:20px}:host([has-prefix-icon_]),:host([has-suffix-icon_]){--iron-icon-height:16px;--iron-icon-width:16px;gap:8px;padding:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]),:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){--iron-icon-height:20px;--iron-icon-width:20px;--icon-block-padding-large:16px;--icon-block-padding-small:12px;padding-block-end:8px;padding-block-start:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]){padding-inline-end:var(--icon-block-padding-large);padding-inline-start:var(--icon-block-padding-small)}:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){padding-inline-end:var(--icon-block-padding-small);padding-inline-start:var(--icon-block-padding-large)}:host-context(.focus-outline-visible):host(:focus){box-shadow:0 0 0 2px var(--focus-shadow-color)}@media (forced-colors:active){:host-context(.focus-outline-visible):host(:focus){outline:var(--cr-focus-outline-hcm)}:host-context([chrome-refresh-2023]):host{forced-color-adjust:none}}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus){box-shadow:none;outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host(:active){background:var(--active-bg);box-shadow:var(--active-shadow,0 1px 2px 0 rgba(var(--active-shadow-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-rgb),.15))}:host(:hover){background-color:var(--hover-bg-color)}@media (prefers-color-scheme:light){:host(:hover){border-color:var(--hover-border-color)}}#background{border-radius:inherit;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:hover) #background{background-color:var(--hover-bg-color)}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus) #background{background-clip:padding-box}:host-context([chrome-refresh-2023]):host(.action-button) #background{background-color:var(--bg-action)}:host-context([chrome-refresh-2023]):host([disabled]) #background{background-color:var(--disabled-bg)}:host-context([chrome-refresh-2023]):host(.action-button[disabled]) #background{background-color:var(--disabled-bg-action)}:host-context([chrome-refresh-2023]):host(.floating-button) #background,:host-context([chrome-refresh-2023]):host(.tonal-button) #background{background-color:var(--color-button-background-tonal,var(--cr-fallback-color-secondary-container))}:host-context([chrome-refresh-2023]):host([disabled].floating-button) #background,:host-context([chrome-refresh-2023]):host([disabled].tonal-button) #background{background-color:var(--color-button-background-tonal-disabled,var(--cr-fallback-color-disabled-background))}#content{display:contents}:host-context([chrome-refresh-2023]) #content{display:inline;z-index:2}:host-context([chrome-refresh-2023]) ::slotted(*){z-index:2}#hoverBackground{content:'';display:none;inset:0;pointer-events:none;position:absolute;z-index:1}:host-context([chrome-refresh-2023]):host(:hover) #hoverBackground{background:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]):host(.action-button:hover) #hoverBackground{background:var(--cr-hover-on-prominent-background-color)}:host(.action-button){--ink-color:var(--ink-color-action);--paper-ripple-opacity:var(--ripple-opacity-action);background-color:var(--bg-action);border:none;color:var(--text-color-action)}:host-context([chrome-refresh-2023]):host(.action-button){--ink-color:var(--cr-active-on-primary-background-color);background-color:transparent}:host(.action-button:active){box-shadow:var(--active-shadow-action,0 1px 2px 0 rgba(var(--active-shadow-action-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-action-rgb),.15))}:host(.action-button:hover){background:var(--hover-bg-action)}@media (prefers-color-scheme:light){:host(.action-button:not(:active):hover){box-shadow:0 1px 2px 0 rgba(var(--hover-shadow-action-rgb),.3),0 1px 3px 1px rgba(var(--hover-shadow-action-rgb),.15)}:host-context([chrome-refresh-2023]):host(.action-button:not(:active):hover){box-shadow:none}}:host([disabled]){background-color:var(--disabled-bg);border-color:var(--disabled-border-color);color:var(--disabled-text-color);cursor:auto;pointer-events:none}:host(.action-button[disabled]){background-color:var(--disabled-bg-action);border-color:transparent}:host(.cancel-button){margin-inline-end:8px}:host(.action-button),:host(.cancel-button){line-height:154%}:host-context([chrome-refresh-2023]):host(.floating-button),:host-context([chrome-refresh-2023]):host(.tonal-button){border:none;color:var(--color-button-foreground-tonal,var(--cr-fallback-color-on-tonal-container))}:host-context([chrome-refresh-2023]):host(.floating-button[disabled]),:host-context([chrome-refresh-2023]):host(.tonal-button[disabled]){border:none;color:var(--disabled-text-color)}:host-context([chrome-refresh-2023]):host(.floating-button){border-radius:8px;height:40px;transition:box-shadow 80ms linear}:host-context([chrome-refresh-2023]):host(.floating-button:hover){box-shadow:var(--cr-elevation-3)}paper-ripple{color:var(--ink-color);height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}:host-context([chrome-refresh-2023]) paper-ripple{z-index:1}</style>
+
+    <div id="background"></div>
+    <slot id="prefixIcon" name="prefix-icon" on-slotchange="onPrefixIconSlotChanged_">
+    </slot>
+    <span id="content"><slot></slot></span>
+    <slot id="suffixIcon" name="suffix-icon" on-slotchange="onSuffixIconSlotChanged_">
+    </slot>
+    <div id="hoverBackground" part="hoverBackground"></div>
+<!--_html_template_end_-->`}
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const CrButtonElementBase=mixinBehaviors([PaperRippleBehavior],PolymerElement);class CrButtonElement extends CrButtonElementBase{static get is(){return"cr-button"}static get template(){return getTemplate$e()}static get properties(){return{disabled:{type:Boolean,value:false,reflectToAttribute:true,observer:"disabledChanged_"},customTabIndex:{type:Number,observer:"applyTabIndex_"},circleRipple:{type:Boolean,value:false},hasPrefixIcon_:{type:Boolean,reflectToAttribute:true,value:false},hasSuffixIcon_:{type:Boolean,reflectToAttribute:true,value:false}}}constructor(){super();this.spaceKeyDown_=false;this.timeoutIds_=new Set;this.addEventListener("blur",this.onBlur_.bind(this));this.addEventListener("click",this.onClick_.bind(this));this.addEventListener("keydown",this.onKeyDown_.bind(this));this.addEventListener("keyup",this.onKeyUp_.bind(this));this.addEventListener("pointerdown",this.onPointerDown_.bind(this))}ready(){super.ready();if(!this.hasAttribute("role")){this.setAttribute("role","button")}if(!this.hasAttribute("tabindex")){this.setAttribute("tabindex","0")}if(!this.hasAttribute("aria-disabled")){this.setAttribute("aria-disabled",this.disabled?"true":"false")}FocusOutlineManager.forDocument(document)}disconnectedCallback(){super.disconnectedCallback();this.timeoutIds_.forEach(clearTimeout);this.timeoutIds_.clear()}setTimeout_(fn,delay){if(!this.isConnected){return}const id=setTimeout((()=>{this.timeoutIds_.delete(id);fn()}),delay);this.timeoutIds_.add(id)}disabledChanged_(newValue,oldValue){if(!newValue&&oldValue===undefined){return}if(this.disabled){this.blur()}this.setAttribute("aria-disabled",this.disabled?"true":"false");this.applyTabIndex_()}applyTabIndex_(){let value=this.customTabIndex;if(value===undefined){value=this.disabled?-1:0}this.setAttribute("tabindex",value.toString())}onBlur_(){this.spaceKeyDown_=false;this.setTimeout_((()=>this.getRipple().uiUpAction()),100)}onClick_(e){if(this.disabled){e.stopImmediatePropagation()}}onPrefixIconSlotChanged_(){this.hasPrefixIcon_=this.$.prefixIcon.assignedElements().length>0}onSuffixIconSlotChanged_(){this.hasSuffixIcon_=this.$.suffixIcon.assignedElements().length>0}onKeyDown_(e){if(e.key!==" "&&e.key!=="Enter"){return}e.preventDefault();e.stopPropagation();if(e.repeat){return}this.getRipple().uiDownAction();if(e.key==="Enter"){this.click();this.setTimeout_((()=>this.getRipple().uiUpAction()),100)}else if(e.key===" "){this.spaceKeyDown_=true}}onKeyUp_(e){if(e.key!==" "&&e.key!=="Enter"){return}e.preventDefault();e.stopPropagation();if(this.spaceKeyDown_&&e.key===" "){this.spaceKeyDown_=false;this.click();this.getRipple().uiUpAction()}}onPointerDown_(){this.ensureRipple()}_createRipple(){const ripple=super._createRipple();if(this.circleRipple){ripple.setAttribute("center","");ripple.classList.add("circle")}return ripple}}customElements.define(CrButtonElement.is,CrButtonElement);
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/class IronMeta{constructor(options){IronMeta[" "](options);this.type=options&&options.type||"default";this.key=options&&options.key;if(options&&"value"in options){this.value=options.value}}get value(){var type=this.type;var key=this.key;if(type&&key){return IronMeta.types[type]&&IronMeta.types[type][key]}}set value(value){var type=this.type;var key=this.key;if(type&&key){type=IronMeta.types[type]=IronMeta.types[type]||{};if(value==null){delete type[key]}else{type[key]=value}}}get list(){var type=this.type;if(type){var items=IronMeta.types[this.type];if(!items){return[]}return Object.keys(items).map((function(key){return metaDatas[this.type][key]}),this)}}byKey(key){this.key=key;return this.value}}IronMeta[" "]=function(){};IronMeta.types={};var metaDatas=IronMeta.types;Polymer({is:"iron-meta",properties:{type:{type:String,value:"default"},key:{type:String},value:{type:String,notify:true},self:{type:Boolean,observer:"_selfChanged"},__meta:{type:Boolean,computed:"__computeMeta(type, key, value)"}},hostAttributes:{hidden:true},__computeMeta:function(type,key,value){var meta=new IronMeta({type:type,key:key});if(value!==undefined&&value!==meta.value){meta.value=value}else if(this.value!==meta.value){this.value=meta.value}return meta},get list(){return this.__meta&&this.__meta.list},_selfChanged:function(self){if(self){this.value=this}},byKey:function(key){return new IronMeta({type:this.type,key:key}).value}});
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/Polymer({_template:html`
+    <style>
+      :host {
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+        position: relative;
+
+        vertical-align: middle;
+
+        fill: var(--iron-icon-fill-color, currentcolor);
+        stroke: var(--iron-icon-stroke-color, none);
+
+        width: var(--iron-icon-width, 24px);
+        height: var(--iron-icon-height, 24px);
+      }
+
+      :host([hidden]) {
+        display: none;
+      }
+    </style>
+`,is:"iron-icon",properties:{icon:{type:String},theme:{type:String},src:{type:String},_meta:{value:Base.create("iron-meta",{type:"iconset"})}},observers:["_updateIcon(_meta, isAttached)","_updateIcon(theme, isAttached)","_srcChanged(src, isAttached)","_iconChanged(icon, isAttached)"],_DEFAULT_ICONSET:"icons",_iconChanged:function(icon){var parts=(icon||"").split(":");this._iconName=parts.pop();this._iconsetName=parts.pop()||this._DEFAULT_ICONSET;this._updateIcon()},_srcChanged:function(src){this._updateIcon()},_usesIconset:function(){return this.icon||!this.src},_updateIcon:function(){if(this._usesIconset()){if(this._img&&this._img.parentNode){dom(this.root).removeChild(this._img)}if(this._iconName===""){if(this._iconset){this._iconset.removeIcon(this)}}else if(this._iconsetName&&this._meta){this._iconset=this._meta.byKey(this._iconsetName);if(this._iconset){this._iconset.applyIcon(this,this._iconName,this.theme);this.unlisten(window,"iron-iconset-added","_updateIcon")}else{this.listen(window,"iron-iconset-added","_updateIcon")}}}else{if(this._iconset){this._iconset.removeIcon(this)}if(!this._img){this._img=document.createElement("img");this._img.style.width="100%";this._img.style.height="100%";this._img.draggable=false}this._img.src=this.src;dom(this.root).appendChild(this._img)}}});function getTemplate$d(){return html`<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
+    <div id="icon">
+      <div id="maskedImage"></div>
+    </div>
+<!--_html_template_end_-->`}
+// Copyright 2018 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const CrIconbuttonElementBase=mixinBehaviors([PaperRippleBehavior],PolymerElement);class CrIconButtonElement extends CrIconbuttonElementBase{static get is(){return"cr-icon-button"}static get template(){return getTemplate$d()}static get properties(){return{disabled:{type:Boolean,value:false,reflectToAttribute:true,observer:"disabledChanged_"},customTabIndex:{type:Number,observer:"applyTabIndex_"},ironIcon:{type:String,observer:"onIronIconChanged_",reflectToAttribute:true},multipleIcons_:{type:Boolean,reflectToAttribute:true}}}constructor(){super();this.spaceKeyDown_=false;this.addEventListener("blur",this.onBlur_.bind(this));this.addEventListener("click",this.onClick_.bind(this));this.addEventListener("keydown",this.onKeyDown_.bind(this));this.addEventListener("keyup",this.onKeyUp_.bind(this));if(document.documentElement.hasAttribute("chrome-refresh-2023")){this.addEventListener("pointerdown",this.onPointerDown_.bind(this))}}ready(){super.ready();this.setAttribute("aria-disabled",this.disabled?"true":"false");if(!this.hasAttribute("role")){this.setAttribute("role","button")}if(!this.hasAttribute("tabindex")){this.setAttribute("tabindex","0")}}toggleClass(className){this.classList.toggle(className)}disabledChanged_(newValue,oldValue){if(!newValue&&oldValue===undefined){return}if(this.disabled){this.blur()}this.setAttribute("aria-disabled",this.disabled?"true":"false");this.applyTabIndex_()}applyTabIndex_(){let value=this.customTabIndex;if(value===undefined){value=this.disabled?-1:0}this.setAttribute("tabindex",value.toString())}onBlur_(){this.spaceKeyDown_=false}onClick_(e){if(this.disabled){e.stopImmediatePropagation()}}onIronIconChanged_(){this.shadowRoot.querySelectorAll("iron-icon").forEach((el=>el.remove()));if(!this.ironIcon){return}const icons=(this.ironIcon||"").split(",");this.multipleIcons_=icons.length>1;icons.forEach((icon=>{const ironIcon=document.createElement("iron-icon");ironIcon.icon=icon;this.$.icon.appendChild(ironIcon);if(ironIcon.shadowRoot){ironIcon.shadowRoot.querySelectorAll("svg, img").forEach((child=>child.setAttribute("role","none")))}}))}onKeyDown_(e){if(e.key!==" "&&e.key!=="Enter"){return}e.preventDefault();e.stopPropagation();if(e.repeat){return}if(e.key==="Enter"){this.click()}else if(e.key===" "){this.spaceKeyDown_=true}}onKeyUp_(e){if(e.key===" "||e.key==="Enter"){e.preventDefault();e.stopPropagation()}if(this.spaceKeyDown_&&e.key===" "){this.spaceKeyDown_=false;this.click()}}onPointerDown_(){this.ensureRipple()}}customElements.define(CrIconButtonElement.is,CrIconButtonElement);const styleMod$6=document.createElement("dom-module");styleMod$6.appendChild(html`
+  <template>
+    <style>
+.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+    </style>
+  </template>
+`.content);styleMod$6.register("cr-icons");const template$3=html`
+<custom-style>
+  <style>
+html{--mwb-background-color:white;--mwb-icon-button-fill-color:var(--google-grey-700);--mwb-icon-size:16px;--mwb-item-height:48px;--mwb-list-item-horizontal-margin:20px;--mwb-list-item-hover-background-color:rgba(var(--google-grey-900-rgb), 0.1);--mwb-list-item-selected-background-color:rgba(var(--google-grey-900-rgb), 0.14);--mwb-list-section-title-font-size:11px;--mwb-list-section-title-height:48px;--mwb-primary-text-font-size:13px;--mwb-primary-text-font-weight:normal;--mwb-scrollbar-thumb-color:var(--google-grey-300);--mwb-scrollbar-thumb-hover-color:var(--google-grey-500);--mwb-scrollbar-track-color:var(--mwb-background-color);--mwb-scrollbar-width:4px;--mwb-secondary-text-font-size:12px;--mwb-secondary-text-font-weight:normal}@media (prefers-color-scheme:dark){html{--mwb-background-color:var(--google-grey-900);--mwb-icon-button-fill-color:var(--google-grey-300);--mwb-list-item-hover-background-color:rgb(55, 56, 58);--mwb-list-item-selected-background-color:rgb(68, 69, 71);--mwb-scrollbar-thumb-color:var(--google-grey-500);--mwb-scrollbar-thumb-hover-color:var(--google-grey-300)}}
+  </style>
+</custom-style>
+`;document.head.appendChild(template$3.content);const styleMod$5=document.createElement("dom-module");styleMod$5.appendChild(html`
+  <template>
+    <style>
+::-webkit-scrollbar-thumb{background-color:var(--mwb-scrollbar-thumb-color)}::-webkit-scrollbar-thumb:hover{background-color:var(--mwb-scrollbar-thumb-hover-color)}::-webkit-scrollbar-track{background-color:var(--mwb-scrollbar-track-color)}::-webkit-scrollbar{width:var(--mwb-scrollbar-width)}.mwb-list-item{align-items:center;background-color:var(--mwb-background-color);contain-intrinsic-size:var(--mwb-item-height);content-visibility:auto;display:flex;height:var(--mwb-item-height);padding:0 var(--mwb-list-item-horizontal-margin)}.mwb-list-item.hovered{background-color:var(--mwb-list-item-hover-background-color)}.mwb-list-item.selected{background-color:var(--mwb-list-item-selected-background-color)}
+    </style>
+  </template>
+`.content);styleMod$5.register("mwb-shared-style");const styleMod$4=document.createElement("dom-module");styleMod$4.appendChild(html`
+  <template>
+    <style>
+.tab-organization-body{color:var(--cr-secondary-text-color);font-size:13px;font-weight:400}.tab-organization-container{display:flex;flex-direction:column;gap:16px}.tab-organization-header{color:var(--cr-primary-text-color);font-size:14px;font-weight:500}.tab-organization-text-container{display:flex;flex-direction:column;gap:8px}
+    </style>
+  </template>
+`.content);styleMod$4.register("tab-organization-shared-style");function getTemplate$c(){return html`<!--_html_template_start_--><style include="tab-organization-shared-style"></style>
+
+<div class="tab-organization-text-container">
+  <div class="tab-organization-header">[[getTitle_(error)]]</div>
+  <div class="tab-organization-body">[[getBody_(error)]]</div>
+</div>
+<!--_html_template_end_-->`}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const ColorSpec={$:mojo.internal.Enum()};var Color;(function(Color){Color[Color["MIN_VALUE"]=0]="MIN_VALUE";Color[Color["MAX_VALUE"]=8]="MAX_VALUE";Color[Color["kGrey"]=0]="kGrey";Color[Color["kBlue"]=1]="kBlue";Color[Color["kRed"]=2]="kRed";Color[Color["kYellow"]=3]="kYellow";Color[Color["kGreen"]=4]="kGreen";Color[Color["kPink"]=5]="kPink";Color[Color["kPurple"]=6]="kPurple";Color[Color["kCyan"]=7]="kCyan";Color[Color["kOrange"]=8]="kOrange"})(Color||(Color={}));
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const TabAlertStateSpec={$:mojo.internal.Enum()};var TabAlertState;(function(TabAlertState){TabAlertState[TabAlertState["MIN_VALUE"]=0]="MIN_VALUE";TabAlertState[TabAlertState["MAX_VALUE"]=10]="MAX_VALUE";TabAlertState[TabAlertState["kAudioMuting"]=0]="kAudioMuting";TabAlertState[TabAlertState["kAudioPlaying"]=1]="kAudioPlaying";TabAlertState[TabAlertState["kBluetoothConnected"]=2]="kBluetoothConnected";TabAlertState[TabAlertState["kDesktopCapturing"]=3]="kDesktopCapturing";TabAlertState[TabAlertState["kHidConnected"]=4]="kHidConnected";TabAlertState[TabAlertState["kMediaRecording"]=5]="kMediaRecording";TabAlertState[TabAlertState["kPipPlaying"]=6]="kPipPlaying";TabAlertState[TabAlertState["kSerialConnected"]=7]="kSerialConnected";TabAlertState[TabAlertState["kTabCapturing"]=8]="kTabCapturing";TabAlertState[TabAlertState["kUsbConnected"]=9]="kUsbConnected";TabAlertState[TabAlertState["kVrPresentingInHeadset"]=10]="kVrPresentingInHeadset"})(TabAlertState||(TabAlertState={}));
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const TabOrganizationStateSpec={$:mojo.internal.Enum()};var TabOrganizationState;(function(TabOrganizationState){TabOrganizationState[TabOrganizationState["MIN_VALUE"]=0]="MIN_VALUE";TabOrganizationState[TabOrganizationState["MAX_VALUE"]=3]="MAX_VALUE";TabOrganizationState[TabOrganizationState["kNotStarted"]=0]="kNotStarted";TabOrganizationState[TabOrganizationState["kInProgress"]=1]="kInProgress";TabOrganizationState[TabOrganizationState["kSuccess"]=2]="kSuccess";TabOrganizationState[TabOrganizationState["kFailure"]=3]="kFailure"})(TabOrganizationState||(TabOrganizationState={}));const TabOrganizationErrorSpec={$:mojo.internal.Enum()};var TabOrganizationError;(function(TabOrganizationError){TabOrganizationError[TabOrganizationError["MIN_VALUE"]=0]="MIN_VALUE";TabOrganizationError[TabOrganizationError["MAX_VALUE"]=2]="MAX_VALUE";TabOrganizationError[TabOrganizationError["kNone"]=0]="kNone";TabOrganizationError[TabOrganizationError["kGrouping"]=1]="kGrouping";TabOrganizationError[TabOrganizationError["kGeneric"]=2]="kGeneric"})(TabOrganizationError||(TabOrganizationError={}));class PageHandlerFactoryPendingReceiver{constructor(handle){this.handle=mojo.internal.interfaceSupport.getEndpointForReceiver(handle)}bindInBrowser(scope="context"){mojo.internal.interfaceSupport.bind(this.handle,"tab_search.mojom.PageHandlerFactory",scope)}}class PageHandlerFactoryRemote{constructor(handle){this.proxy=new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerFactoryPendingReceiver,handle);this.$=new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);this.onConnectionError=this.proxy.getConnectionErrorEventRouter()}createPageHandler(page,handler){this.proxy.sendMessage(0,PageHandlerFactory_CreatePageHandler_ParamsSpec.$,null,[page,handler])}}class PageHandlerFactory{static get $interfaceName(){return"tab_search.mojom.PageHandlerFactory"}static getRemote(){let remote=new PageHandlerFactoryRemote;remote.$.bindNewPipeAndPassReceiver().bindInBrowser();return remote}}let PageHandlerPendingReceiver$1=class PageHandlerPendingReceiver{constructor(handle){this.handle=mojo.internal.interfaceSupport.getEndpointForReceiver(handle)}bindInBrowser(scope="context"){mojo.internal.interfaceSupport.bind(this.handle,"tab_search.mojom.PageHandler",scope)}};let PageHandlerRemote$1=class PageHandlerRemote{constructor(handle){this.proxy=new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver$1,handle);this.$=new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);this.onConnectionError=this.proxy.getConnectionErrorEventRouter()}closeTab(tabId){this.proxy.sendMessage(0,PageHandler_CloseTab_ParamsSpec.$,null,[tabId])}acceptTabOrganization(sessionId,organizationId,name,tabs){this.proxy.sendMessage(1,PageHandler_AcceptTabOrganization_ParamsSpec.$,null,[sessionId,organizationId,name,tabs])}rejectTabOrganization(sessionId,organizationId){this.proxy.sendMessage(2,PageHandler_RejectTabOrganization_ParamsSpec.$,null,[sessionId,organizationId])}getProfileData(){return this.proxy.sendMessage(3,PageHandler_GetProfileData_ParamsSpec.$,PageHandler_GetProfileData_ResponseParamsSpec.$,[])}getTabOrganizationSession(){return this.proxy.sendMessage(4,PageHandler_GetTabOrganizationSession_ParamsSpec.$,PageHandler_GetTabOrganizationSession_ResponseParamsSpec.$,[])}switchToTab(switchToTabInfo){this.proxy.sendMessage(5,PageHandler_SwitchToTab_ParamsSpec.$,null,[switchToTabInfo])}openRecentlyClosedEntry(sessionId){this.proxy.sendMessage(6,PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$,null,[sessionId])}requestTabOrganization(){this.proxy.sendMessage(7,PageHandler_RequestTabOrganization_ParamsSpec.$,null,[])}saveRecentlyClosedExpandedPref(expanded){this.proxy.sendMessage(8,PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$,null,[expanded])}setTabIndex(index){this.proxy.sendMessage(9,PageHandler_SetTabIndex_ParamsSpec.$,null,[index])}showUI(){this.proxy.sendMessage(10,PageHandler_ShowUI_ParamsSpec.$,null,[])}};let PagePendingReceiver$1=class PagePendingReceiver{constructor(handle){this.handle=mojo.internal.interfaceSupport.getEndpointForReceiver(handle)}bindInBrowser(scope="context"){mojo.internal.interfaceSupport.bind(this.handle,"tab_search.mojom.Page",scope)}};let PageRemote$1=class PageRemote{constructor(handle){this.proxy=new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver$1,handle);this.$=new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);this.onConnectionError=this.proxy.getConnectionErrorEventRouter()}tabOrganizationSessionUpdated(session){this.proxy.sendMessage(0,Page_TabOrganizationSessionUpdated_ParamsSpec.$,null,[session])}tabsChanged(profileTabs){this.proxy.sendMessage(1,Page_TabsChanged_ParamsSpec.$,null,[profileTabs])}tabUpdated(tabUpdateInfo){this.proxy.sendMessage(2,Page_TabUpdated_ParamsSpec.$,null,[tabUpdateInfo])}tabsRemoved(tabsRemovedInfo){this.proxy.sendMessage(3,Page_TabsRemoved_ParamsSpec.$,null,[tabsRemovedInfo])}};let PageCallbackRouter$1=class PageCallbackRouter{constructor(){this.helper_internal_=new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote$1);this.$=new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);this.router_=new mojo.internal.interfaceSupport.CallbackRouter;this.tabOrganizationSessionUpdated=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(0,Page_TabOrganizationSessionUpdated_ParamsSpec.$,null,this.tabOrganizationSessionUpdated.createReceiverHandler(false));this.tabsChanged=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(1,Page_TabsChanged_ParamsSpec.$,null,this.tabsChanged.createReceiverHandler(false));this.tabUpdated=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(2,Page_TabUpdated_ParamsSpec.$,null,this.tabUpdated.createReceiverHandler(false));this.tabsRemoved=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(3,Page_TabsRemoved_ParamsSpec.$,null,this.tabsRemoved.createReceiverHandler(false));this.onConnectionError=this.helper_internal_.getConnectionErrorEventRouter()}removeListener(id){return this.router_.removeListener(id)}};const ProfileDataSpec={$:{}};const WindowSpec={$:{}};const TabSpec={$:{}};const RecentlyClosedTabSpec={$:{}};const TabGroupSpec={$:{}};const RecentlyClosedTabGroupSpec={$:{}};const SwitchToTabInfoSpec={$:{}};const TabOrganizationSpec={$:{}};const TabOrganizationSessionSpec={$:{}};const TabUpdateInfoSpec={$:{}};const TabsRemovedInfoSpec={$:{}};const PageHandlerFactory_CreatePageHandler_ParamsSpec={$:{}};const PageHandler_CloseTab_ParamsSpec={$:{}};const PageHandler_AcceptTabOrganization_ParamsSpec={$:{}};const PageHandler_RejectTabOrganization_ParamsSpec={$:{}};const PageHandler_GetProfileData_ParamsSpec={$:{}};const PageHandler_GetProfileData_ResponseParamsSpec={$:{}};const PageHandler_GetTabOrganizationSession_ParamsSpec={$:{}};const PageHandler_GetTabOrganizationSession_ResponseParamsSpec={$:{}};const PageHandler_SwitchToTab_ParamsSpec={$:{}};const PageHandler_OpenRecentlyClosedEntry_ParamsSpec={$:{}};const PageHandler_RequestTabOrganization_ParamsSpec={$:{}};const PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec={$:{}};const PageHandler_SetTabIndex_ParamsSpec={$:{}};const PageHandler_ShowUI_ParamsSpec={$:{}};const Page_TabOrganizationSessionUpdated_ParamsSpec={$:{}};const Page_TabsChanged_ParamsSpec={$:{}};const Page_TabUpdated_ParamsSpec={$:{}};const Page_TabsRemoved_ParamsSpec={$:{}};mojo.internal.Struct(ProfileDataSpec.$,"ProfileData",[mojo.internal.StructField("windows",0,0,mojo.internal.Array(WindowSpec.$,false),null,false,0),mojo.internal.StructField("tabGroups",8,0,mojo.internal.Array(TabGroupSpec.$,false),null,false,0),mojo.internal.StructField("recentlyClosedTabs",16,0,mojo.internal.Array(RecentlyClosedTabSpec.$,false),null,false,0),mojo.internal.StructField("recentlyClosedTabGroups",24,0,mojo.internal.Array(RecentlyClosedTabGroupSpec.$,false),null,false,0),mojo.internal.StructField("recentlyClosedSectionExpanded",32,0,mojo.internal.Bool,false,false,0)],[[0,48]]);mojo.internal.Struct(WindowSpec.$,"Window",[mojo.internal.StructField("active",0,0,mojo.internal.Bool,false,false,0),mojo.internal.StructField("height",4,0,mojo.internal.Uint32,0,false,0),mojo.internal.StructField("tabs",8,0,mojo.internal.Array(TabSpec.$,false),null,false,0)],[[0,24]]);mojo.internal.Struct(TabSpec.$,"Tab",[mojo.internal.StructField("active",0,0,mojo.internal.Bool,false,false,0),mojo.internal.StructField("alertStates",8,0,mojo.internal.Array(TabAlertStateSpec.$,false),null,false,0),mojo.internal.StructField("index",4,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("tabId",16,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("groupId",24,0,TokenSpec.$,null,true,0),mojo.internal.StructField("pinned",0,1,mojo.internal.Bool,false,false,0),mojo.internal.StructField("title",32,0,mojo.internal.String,null,false,0),mojo.internal.StructField("url",40,0,UrlSpec.$,null,false,0),mojo.internal.StructField("faviconUrl",48,0,UrlSpec.$,null,true,0),mojo.internal.StructField("isDefaultFavicon",0,2,mojo.internal.Bool,false,false,0),mojo.internal.StructField("showIcon",0,3,mojo.internal.Bool,false,false,0),mojo.internal.StructField("lastActiveTimeTicks",56,0,TimeTicksSpec.$,null,false,0),mojo.internal.StructField("lastActiveElapsedText",64,0,mojo.internal.String,null,false,0)],[[0,80]]);mojo.internal.Struct(RecentlyClosedTabSpec.$,"RecentlyClosedTab",[mojo.internal.StructField("tabId",0,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("groupId",8,0,TokenSpec.$,null,true,0),mojo.internal.StructField("title",16,0,mojo.internal.String,null,false,0),mojo.internal.StructField("url",24,0,UrlSpec.$,null,false,0),mojo.internal.StructField("lastActiveTime",32,0,TimeSpec.$,null,false,0),mojo.internal.StructField("lastActiveElapsedText",40,0,mojo.internal.String,null,false,0)],[[0,56]]);mojo.internal.Struct(TabGroupSpec.$,"TabGroup",[mojo.internal.StructField("id",0,0,TokenSpec.$,null,false,0),mojo.internal.StructField("color",8,0,ColorSpec.$,0,false,0),mojo.internal.StructField("title",16,0,mojo.internal.String,null,false,0)],[[0,32]]);mojo.internal.Struct(RecentlyClosedTabGroupSpec.$,"RecentlyClosedTabGroup",[mojo.internal.StructField("sessionId",0,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("id",8,0,TokenSpec.$,null,false,0),mojo.internal.StructField("color",4,0,ColorSpec.$,0,false,0),mojo.internal.StructField("title",16,0,mojo.internal.String,null,false,0),mojo.internal.StructField("tabCount",24,0,mojo.internal.Uint32,0,false,0),mojo.internal.StructField("lastActiveTime",32,0,TimeSpec.$,null,false,0),mojo.internal.StructField("lastActiveElapsedText",40,0,mojo.internal.String,null,false,0)],[[0,56]]);mojo.internal.Struct(SwitchToTabInfoSpec.$,"SwitchToTabInfo",[mojo.internal.StructField("tabId",0,0,mojo.internal.Int32,0,false,0)],[[0,16]]);mojo.internal.Struct(TabOrganizationSpec.$,"TabOrganization",[mojo.internal.StructField("organizationId",0,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("tabs",8,0,mojo.internal.Array(TabSpec.$,false),null,false,0),mojo.internal.StructField("name",16,0,mojo.internal.String,null,false,0)],[[0,32]]);mojo.internal.Struct(TabOrganizationSessionSpec.$,"TabOrganizationSession",[mojo.internal.StructField("sessionId",0,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("state",4,0,TabOrganizationStateSpec.$,0,false,0),mojo.internal.StructField("organizations",8,0,mojo.internal.Array(TabOrganizationSpec.$,false),null,false,0),mojo.internal.StructField("error",16,0,TabOrganizationErrorSpec.$,0,false,0)],[[0,32]]);mojo.internal.Struct(TabUpdateInfoSpec.$,"TabUpdateInfo",[mojo.internal.StructField("inActiveWindow",0,0,mojo.internal.Bool,false,false,0),mojo.internal.StructField("tab",8,0,TabSpec.$,null,false,0)],[[0,24]]);mojo.internal.Struct(TabsRemovedInfoSpec.$,"TabsRemovedInfo",[mojo.internal.StructField("tabIds",0,0,mojo.internal.Array(mojo.internal.Int32,false),null,false,0),mojo.internal.StructField("recentlyClosedTabs",8,0,mojo.internal.Array(RecentlyClosedTabSpec.$,false),null,false,0)],[[0,24]]);mojo.internal.Struct(PageHandlerFactory_CreatePageHandler_ParamsSpec.$,"PageHandlerFactory_CreatePageHandler_Params",[mojo.internal.StructField("page",0,0,mojo.internal.InterfaceProxy(PageRemote$1),null,false,0),mojo.internal.StructField("handler",8,0,mojo.internal.InterfaceRequest(PageHandlerPendingReceiver$1),null,false,0)],[[0,24]]);mojo.internal.Struct(PageHandler_CloseTab_ParamsSpec.$,"PageHandler_CloseTab_Params",[mojo.internal.StructField("tabId",0,0,mojo.internal.Int32,0,false,0)],[[0,16]]);mojo.internal.Struct(PageHandler_AcceptTabOrganization_ParamsSpec.$,"PageHandler_AcceptTabOrganization_Params",[mojo.internal.StructField("sessionId",0,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("organizationId",4,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("name",8,0,mojo.internal.String,null,false,0),mojo.internal.StructField("tabs",16,0,mojo.internal.Array(TabSpec.$,false),null,false,0)],[[0,32]]);mojo.internal.Struct(PageHandler_RejectTabOrganization_ParamsSpec.$,"PageHandler_RejectTabOrganization_Params",[mojo.internal.StructField("sessionId",0,0,mojo.internal.Int32,0,false,0),mojo.internal.StructField("organizationId",4,0,mojo.internal.Int32,0,false,0)],[[0,16]]);mojo.internal.Struct(PageHandler_GetProfileData_ParamsSpec.$,"PageHandler_GetProfileData_Params",[],[[0,8]]);mojo.internal.Struct(PageHandler_GetProfileData_ResponseParamsSpec.$,"PageHandler_GetProfileData_ResponseParams",[mojo.internal.StructField("profileData",0,0,ProfileDataSpec.$,null,false,0)],[[0,16]]);mojo.internal.Struct(PageHandler_GetTabOrganizationSession_ParamsSpec.$,"PageHandler_GetTabOrganizationSession_Params",[],[[0,8]]);mojo.internal.Struct(PageHandler_GetTabOrganizationSession_ResponseParamsSpec.$,"PageHandler_GetTabOrganizationSession_ResponseParams",[mojo.internal.StructField("session",0,0,TabOrganizationSessionSpec.$,null,false,0)],[[0,16]]);mojo.internal.Struct(PageHandler_SwitchToTab_ParamsSpec.$,"PageHandler_SwitchToTab_Params",[mojo.internal.StructField("switchToTabInfo",0,0,SwitchToTabInfoSpec.$,null,false,0)],[[0,16]]);mojo.internal.Struct(PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$,"PageHandler_OpenRecentlyClosedEntry_Params",[mojo.internal.StructField("sessionId",0,0,mojo.internal.Int32,0,false,0)],[[0,16]]);mojo.internal.Struct(PageHandler_RequestTabOrganization_ParamsSpec.$,"PageHandler_RequestTabOrganization_Params",[],[[0,8]]);mojo.internal.Struct(PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$,"PageHandler_SaveRecentlyClosedExpandedPref_Params",[mojo.internal.StructField("expanded",0,0,mojo.internal.Bool,false,false,0)],[[0,16]]);mojo.internal.Struct(PageHandler_SetTabIndex_ParamsSpec.$,"PageHandler_SetTabIndex_Params",[mojo.internal.StructField("index",0,0,mojo.internal.Int32,0,false,0)],[[0,16]]);mojo.internal.Struct(PageHandler_ShowUI_ParamsSpec.$,"PageHandler_ShowUI_Params",[],[[0,8]]);mojo.internal.Struct(Page_TabOrganizationSessionUpdated_ParamsSpec.$,"Page_TabOrganizationSessionUpdated_Params",[mojo.internal.StructField("session",0,0,TabOrganizationSessionSpec.$,null,false,0)],[[0,16]]);mojo.internal.Struct(Page_TabsChanged_ParamsSpec.$,"Page_TabsChanged_Params",[mojo.internal.StructField("profileTabs",0,0,ProfileDataSpec.$,null,false,0)],[[0,16]]);mojo.internal.Struct(Page_TabUpdated_ParamsSpec.$,"Page_TabUpdated_Params",[mojo.internal.StructField("tabUpdateInfo",0,0,TabUpdateInfoSpec.$,null,false,0)],[[0,16]]);mojo.internal.Struct(Page_TabsRemoved_ParamsSpec.$,"Page_TabsRemoved_Params",[mojo.internal.StructField("tabsRemovedInfo",0,0,TabsRemovedInfoSpec.$,null,false,0)],[[0,16]]);
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TabOrganizationFailureElement extends PolymerElement{constructor(){super(...arguments);this.error=TabOrganizationError.kNone}static get is(){return"tab-organization-failure"}static get properties(){return{error:Object}}static get template(){return getTemplate$c()}getTitle_(){switch(this.error){case TabOrganizationError.kGrouping:return loadTimeData.getString("failureTitleGrouping");case TabOrganizationError.kGeneric:return loadTimeData.getString("failureTitleGeneric");default:return""}}getBody_(){switch(this.error){case TabOrganizationError.kGrouping:return loadTimeData.getString("failureBodyGrouping");case TabOrganizationError.kGeneric:return loadTimeData.getString("failureBodyGeneric");default:return""}}}customElements.define(TabOrganizationFailureElement.is,TabOrganizationFailureElement);function getTemplate$b(){return html`<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--border-height:220px;--border-width:100%;--primary-background-color:var(--color-tab-organization-gradient1);--secondary-background-color:var(--color-tab-organization-gradient2)}.background{--border-thickness:2px;background-color:var(--color-sys-surface);border-radius:6px;height:calc(var(--border-height) - 2 * var(--border-thickness));width:calc(var(--border-width) - 2 * var(--border-thickness))}.border{align-items:center;border-radius:8px;display:flex;height:var(--border-height);justify-content:center;width:var(--border-width)}.gradient{animation:gradient 5s linear infinite;background:linear-gradient(-45deg,var(--primary-background-color) 0,var(--secondary-background-color) 33%,var(--primary-background-color) 66%,var(--secondary-background-color) 100%);background-position:20% 0;background-size:400% 400%}@keyframes gradient{0%{background-position:20% 0}100%{background-position:100% 100%}}.mask{clip-path:url(#clip_path);height:100%;width:100%}</style>
+
+<div class="tab-organization-container">
+  <div class="tab-organization-header">$i18n{inProgressTitle}</div>
+  <div class="gradient border">
+    <div class="background">
+      <div class="gradient mask">
+        <svg>
+          <defs>
+            <clipPath id="clip_path" x="14" y="14" width="248" height="191">
+              <rect x="14" y="14" width="248" height="35" rx="8" fill="white">
+              </rect>
+              <rect x="14" y="69" width="40" height="40" rx="8" fill="white">
+              </rect>
+              <rect x="70" y="71" width="116" height="16" rx="4" fill="white">
+              </rect>
+              <rect x="70" y="119" width="116" height="16" rx="4" fill="white">
+              </rect>
+              <rect x="70" y="167" width="116" height="16" rx="4" fill="white">
+              </rect>
+              <rect x="70" y="93" width="76" height="14" rx="4" fill="white">
+              </rect>
+              <rect x="70" y="141" width="76" height="14" rx="4" fill="white">
+              </rect>
+              <rect x="70" y="189" width="76" height="14" rx="4" fill="white">
+              </rect>
+              <rect x="14" y="117" width="40" height="40" rx="8" fill="white">
+              </rect>
+              <rect x="14" y="165" width="40" height="40" rx="8" fill="white">
+              </rect>
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+<!--_html_template_end_-->`}
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TabOrganizationInProgressElement extends PolymerElement{static get is(){return"tab-organization-in-progress"}static get template(){return getTemplate$b()}}customElements.define(TabOrganizationInProgressElement.is,TabOrganizationInProgressElement);function getTemplate$a(){return html`<!--_html_template_start_--><style include="tab-organization-shared-style">cr-button{align-self:flex-end;width:fit-content}</style>
+
+<div class="tab-organization-container">
+  <div class="tab-organization-text-container">
+    <div class="tab-organization-header">$i18n{notStartedTitle}</div>
+    <div class="tab-organization-body">$i18n{notStartedBody}</div>
+  </div>
+  <cr-button class="action-button" on-click="onOrganizeTabsClick_">
+    $i18n{notStartedButton}
+  </cr-button>
+</div>
+<!--_html_template_end_-->`}
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TabOrganizationNotStartedElement extends PolymerElement{static get is(){return"tab-organization-not-started"}static get template(){return getTemplate$a()}onOrganizeTabsClick_(){this.dispatchEvent(new CustomEvent("organize-tabs-click",{bubbles:true,composed:true}))}}customElements.define(TabOrganizationNotStartedElement.is,TabOrganizationNotStartedElement);const styleMod$3=document.createElement("dom-module");styleMod$3.appendChild(html`
+  <template>
+    <style include="cr-hidden-style cr-icons">
+:host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
+    </style>
+  </template>
+`.content);styleMod$3.register("cr-shared-style");const styleMod$2=document.createElement("dom-module");styleMod$2.appendChild(html`
+  <template>
+    <style>
+:host{--cr-input-background-color:var(--google-grey-100);--cr-input-color:var(--cr-primary-text-color);--cr-input-error-color:var(--google-red-600);--cr-input-focus-color:var(--google-blue-600);display:block;outline:0}:host-context([chrome-refresh-2023]):host{--cr-input-background-color:var(--color-textfield-filled-background,
+            var(--cr-fallback-color-surface-variant));--cr-input-border-bottom:1px solid var(--color-textfield-filled-underline,
+                var(--cr-fallback-color-outline));--cr-input-border-radius:8px 8px 0 0;--cr-input-error-color:var(--color-textfield-filled-error,
+            var(--cr-fallback-color-error));--cr-input-focus-color:var(--color-textfield-filled-underline-focused,
+            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
+                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--color-textfield-foreground-label,var(--cr-fallback-color-on-surface-subtle));font-size:11px;line-height:16px}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
+            var(--cr-fallback-color-on-surface-subtle));--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;--cr-icon-button-margin-start:0;--cr-icon-color:var(--color-textfield-foreground-icon,
+            var(--cr-fallback-color-on-surface-subtle))}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-prefix]){--cr-icon-button-margin-start:-8px}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-suffix]){--cr-icon-button-margin-end:-4px}:host-context([chrome-refresh-2023]):host([invalid]) #inner-input-content ::slotted(*){--cr-icon-color:var(--cr-input-error-color);--cr-icon-button-fill-color:var(--cr-input-error-color)}#hover-layer{display:none}:host-context([chrome-refresh-2023]) #hover-layer{background-color:var(--cr-input-hover-background-color);inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:not([readonly]):not([disabled])) #input-container:hover #hover-layer{display:block}#input{-webkit-appearance:none;background-color:transparent;border:none;box-sizing:border-box;caret-color:var(--cr-input-focus-color);color:var(--cr-input-color);font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;min-height:var(--cr-input-min-height,auto);outline:0;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px);text-align:inherit;text-overflow:ellipsis;width:100%}:host-context([chrome-refresh-2023]) #input{font-size:12px;line-height:16px;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#underline{border-bottom:2px solid var(--cr-input-focus-color);border-radius:var(--cr-input-underline-border-radius,0);bottom:0;box-sizing:border-box;display:var(--cr-input-underline-display);height:var(--cr-input-underline-height,0);left:0;margin:auto;opacity:0;position:absolute;right:0;transition:opacity 120ms ease-out,width 0s linear 180ms;width:0}:host([focused_]) #underline,:host([force-underline]) #underline,:host([invalid]) #underline{opacity:1;transition:opacity 120ms ease-in,width 180ms ease-out;width:100%}#underline-base{display:none}:host-context([chrome-refresh-2023]):host([readonly]) #underline{display:none}:host-context([chrome-refresh-2023]):host(:not([readonly])) #underline-base{border-bottom:var(--cr-input-border-bottom);bottom:0;display:block;left:0;position:absolute;right:0}:host-context([chrome-refresh-2023]):host([disabled]){color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));--cr-input-border-bottom:1px solid currentColor;--cr-input-placeholder-color:currentColor;--cr-input-color:currentColor;--cr-input-background-color:var(--color-textfield-background-disabled,
+            var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}
+    </style>
+  </template>
+`.content);styleMod$2.register("cr-input-style");
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function assert(value,message){if(value){return}throw new Error("Assertion failed"+(message?`: ${message}`:""))}function assertNotReached(message="Unreachable code hit"){assert(false,message)}function getTemplate$9(){return html`<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
+    <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
+      [[label]]
+    </div>
+    <div id="row-container" part="row-container">
+      <div id="input-container">
+        <div id="inner-input-container">
+          <div id="hover-layer"></div>
+          <div id="inner-input-content">
+            <slot name="inline-prefix"></slot>
+            
+            <input id="input" disabled="[[disabled]]" autofocus="[[autofocus]]" value="{{value::input}}" tabindex$="[[inputTabindex]]" type="[[type]]" readonly$="[[readonly]]" maxlength$="[[maxlength]]" pattern$="[[pattern]]" required="[[required]]" minlength$="[[minlength]]" inputmode$="[[inputmode]]" aria-description$="[[ariaDescription]]" aria-label$="[[getAriaLabel_(ariaLabel, label, placeholder)]]" aria-invalid$="[[getAriaInvalid_(invalid)]]" max="[[max]]" min="[[min]]" on-focus="onInputFocus_" on-blur="onInputBlur_" on-change="onInputChange_" part="input" autocomplete="off">
+            <slot name="inline-suffix"></slot>
+          </div>
+        </div>
+        <div id="underline-base"></div>
+        <div id="underline"></div>
+      </div>
+      <slot name="suffix"></slot>
+    </div>
+    <div id="error" aria-live="assertive">[[displayErrorMessage_]]</div>
+<!--_html_template_end_-->`}
+// Copyright 2018 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const SUPPORTED_INPUT_TYPES=new Set(["number","password","search","text","url"]);class CrInputElement extends PolymerElement{static get is(){return"cr-input"}static get template(){return getTemplate$9()}static get properties(){return{ariaDescription:{type:String},ariaLabel:{type:String,value:""},autofocus:{type:Boolean,value:false,reflectToAttribute:true},autoValidate:Boolean,disabled:{type:Boolean,value:false,reflectToAttribute:true},errorMessage:{type:String,value:"",observer:"onInvalidOrErrorMessageChanged_"},displayErrorMessage_:{type:String,value:""},focused_:{type:Boolean,value:false,reflectToAttribute:true},invalid:{type:Boolean,value:false,notify:true,reflectToAttribute:true,observer:"onInvalidOrErrorMessageChanged_"},max:{type:Number,reflectToAttribute:true},min:{type:Number,reflectToAttribute:true},maxlength:{type:Number,reflectToAttribute:true},minlength:{type:Number,reflectToAttribute:true},pattern:{type:String,reflectToAttribute:true},inputmode:String,label:{type:String,value:""},placeholder:{type:String,value:null,observer:"placeholderChanged_"},readonly:{type:Boolean,reflectToAttribute:true},required:{type:Boolean,reflectToAttribute:true},inputTabindex:{type:Number,value:0,observer:"onInputTabindexChanged_"},type:{type:String,value:"text",observer:"onTypeChanged_"},value:{type:String,value:"",notify:true,observer:"onValueChanged_"}}}ready(){super.ready();assert(!this.hasAttribute("tabindex"))}onInputTabindexChanged_(){assert(this.inputTabindex===0||this.inputTabindex===-1)}onTypeChanged_(){assert(SUPPORTED_INPUT_TYPES.has(this.type))}get inputElement(){return this.$.input}getAriaLabel_(ariaLabel,label,placeholder){return ariaLabel||label||placeholder}getAriaInvalid_(invalid){return invalid?"true":"false"}onInvalidOrErrorMessageChanged_(){this.displayErrorMessage_=this.invalid?this.errorMessage:"";const ERROR_ID="error";const errorElement=this.shadowRoot.querySelector(`#${ERROR_ID}`);assert(errorElement);if(this.invalid){errorElement.setAttribute("role","alert");this.inputElement.setAttribute("aria-errormessage",ERROR_ID)}else{errorElement.removeAttribute("role");this.inputElement.removeAttribute("aria-errormessage")}}placeholderChanged_(){if(this.placeholder||this.placeholder===""){this.inputElement.setAttribute("placeholder",this.placeholder)}else{this.inputElement.removeAttribute("placeholder")}}focus(){this.focusInput()}focusInput(){if(this.shadowRoot.activeElement===this.inputElement){return false}this.inputElement.focus();return true}onValueChanged_(newValue,oldValue){if(!newValue&&!oldValue){return}if(this.autoValidate){this.validate()}}onInputChange_(e){this.dispatchEvent(new CustomEvent("change",{bubbles:true,composed:true,detail:{sourceEvent:e}}))}onInputFocus_(){this.focused_=true}onInputBlur_(){this.focused_=false}select(start,end){this.inputElement.focus();if(start!==undefined&&end!==undefined){this.inputElement.setSelectionRange(start,end)}else{assert(start===undefined&&end===undefined);this.inputElement.select()}}validate(){this.invalid=!this.inputElement.checkValidity();return!this.invalid}}customElements.define(CrInputElement.is,CrInputElement);
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/Polymer({is:"iron-iconset-svg",properties:{name:{type:String,observer:"_nameChanged"},size:{type:Number,value:24},rtlMirroring:{type:Boolean,value:false},useGlobalRtlAttribute:{type:Boolean,value:false}},created:function(){this._meta=new IronMeta({type:"iconset",key:null,value:null})},attached:function(){this.style.display="none"},getIconNames:function(){this._icons=this._createIconMap();return Object.keys(this._icons).map((function(n){return this.name+":"+n}),this)},applyIcon:function(element,iconName){this.removeIcon(element);var svg=this._cloneIcon(iconName,this.rtlMirroring&&this._targetIsRTL(element));if(svg){var pde=dom(element.root||element);pde.insertBefore(svg,pde.childNodes[0]);return element._svgIcon=svg}return null},createIcon:function(iconName,targetIsRTL){return this._cloneIcon(iconName,this.rtlMirroring&&targetIsRTL)},removeIcon:function(element){if(element._svgIcon){dom(element.root||element).removeChild(element._svgIcon);element._svgIcon=null}},_targetIsRTL:function(target){if(this.__targetIsRTL==null){if(this.useGlobalRtlAttribute){var globalElement=document.body&&document.body.hasAttribute("dir")?document.body:document.documentElement;this.__targetIsRTL=globalElement.getAttribute("dir")==="rtl"}else{if(target&&target.nodeType!==Node.ELEMENT_NODE){target=target.host}this.__targetIsRTL=target&&window.getComputedStyle(target)["direction"]==="rtl"}}return this.__targetIsRTL},_nameChanged:function(){this._meta.value=null;this._meta.key=this.name;this._meta.value=this;this.async((function(){this.fire("iron-iconset-added",this,{node:window})}))},_createIconMap:function(){var icons=Object.create(null);dom(this).querySelectorAll("[id]").forEach((function(icon){icons[icon.id]=icon}));return icons},_cloneIcon:function(id,mirrorAllowed){this._icons=this._icons||this._createIconMap();return this._prepareSvgClone(this._icons[id],this.size,mirrorAllowed)},_prepareSvgClone:function(sourceSvg,size,mirrorAllowed){if(sourceSvg){var content=sourceSvg.cloneNode(true),svg=document.createElementNS("http://www.w3.org/2000/svg","svg"),viewBox=content.getAttribute("viewBox")||"0 0 "+size+" "+size,cssText="pointer-events: none; display: block; width: 100%; height: 100%;";if(mirrorAllowed&&content.hasAttribute("mirror-in-rtl")){cssText+="-webkit-transform:scale(-1,1);transform:scale(-1,1);transform-origin:center;"}svg.setAttribute("viewBox",viewBox);svg.setAttribute("preserveAspectRatio","xMidYMid meet");svg.setAttribute("focusable","false");svg.style.cssText=cssText;svg.appendChild(content).removeAttribute("id");return svg}return null}});const template$2=html`<iron-iconset-svg name="mwb16" size="16">
+  <svg>
+    <defs>
+      <g id="close">
+        <path d="M13 4.00714L11.9929 3L8 6.99286L4.00714 3L3 4.00714L6.99286 8L3 11.9929L4.00714 13L8 9.00714L11.9929 13L13 11.9929L9.00714 8L13 4.00714Z">
+        </path>
+      </g>
+      <g id="search">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8619 10.2981L10.6177 10.0578C11.484 9.05905 12.0874 7.68174 12.0874 5.97468C12.0874 2.82136 9.23365 0 6.04368 0C2.85486 0 0 2.82136 0 5.97468C0 9.12687 3.45353 11.9462 6.17606 11.9482C7.77044 11.9494 9.0094 11.5085 9.98871 10.6796L10.2341 10.921V11.6156L14.6752 16L16 14.6904L11.5681 10.2981H10.8619ZM6.04422 10.2423C3.65985 10.2423 1.72676 8.33212 1.72676 5.97468C1.72676 3.61724 3.65985 1.70705 6.04422 1.70705C8.42749 1.70705 10.3606 3.61724 10.3606 5.97468C10.3606 8.33212 8.42749 10.2423 6.04422 10.2423V10.2423Z">
+        </path>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;document.head.appendChild(template$2.content);
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const HOVERED_STYLE="hovered";const MouseHoverableMixin=dedupingMixin((superClass=>{class MouseHoverableMixin extends superClass{ready(){super.ready();this.addEventListener("pointerenter",(e=>{const hostElement=e.currentTarget;hostElement.classList.toggle(HOVERED_STYLE,e.pointerType==="mouse")}));this.addEventListener("pointerleave",(e=>{if(e.pointerType!=="mouse"){return}const hostElement=e.currentTarget;hostElement.classList.remove(HOVERED_STYLE)}))}}return MouseHoverableMixin}));
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const isAndroid=/Android/.test(navigator.userAgent);const isIOS=/CriOS/.test(navigator.userAgent);
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function getSupportedScaleFactors(){const supportedScaleFactors=[];if(!isIOS){supportedScaleFactors.push(1)}if(!isIOS&&!isAndroid){supportedScaleFactors.push(2)}else{supportedScaleFactors.push(window.devicePixelRatio)}return supportedScaleFactors}function getUrlForCss(s){const s2=s.replace(/(\(|\)|\,|\s|\'|\"|\\)/g,"\\$1");return`url("${s2}")`}function getImageSet(path){const supportedScaleFactors=getSupportedScaleFactors();const replaceStartIndex=path.indexOf("SCALEFACTOR");if(replaceStartIndex<0){return getUrlForCss(path)}let s="";for(let i=0;i<supportedScaleFactors.length;++i){const scaleFactor=supportedScaleFactors[i];const pathWithScaleFactor=path.substr(0,replaceStartIndex)+scaleFactor+path.substr(replaceStartIndex+"scalefactor".length);s+=getUrlForCss(pathWithScaleFactor)+" "+scaleFactor+"x";if(i!==supportedScaleFactors.length-1){s+=", "}}return"image-set("+s+")"}function getBaseFaviconUrl(){const faviconUrl=new URL("chrome://favicon2/");faviconUrl.searchParams.set("size","16");faviconUrl.searchParams.set("scaleFactor","SCALEFACTORx");return faviconUrl}function getFaviconForPageURL(url,isSyncedUrlForHistoryUi,remoteIconUrlForUma="",size=16,forceLightMode=false){const faviconUrl=getBaseFaviconUrl();faviconUrl.searchParams.set("size",size.toString());faviconUrl.searchParams.set("pageUrl",url);const fallback=isSyncedUrlForHistoryUi?"1":"0";faviconUrl.searchParams.set("allowGoogleServerFallback",fallback);if(isSyncedUrlForHistoryUi){faviconUrl.searchParams.set("iconUrl",remoteIconUrlForUma)}if(forceLightMode){faviconUrl.searchParams.set("forceLightMode","true")}return getImageSet(faviconUrl.toString())}
+// Copyright 2018 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const WRAPPER_CSS_CLASS="search-highlight-wrapper";const ORIGINAL_CONTENT_CSS_CLASS="search-highlight-original-content";const HIT_CSS_CLASS="search-highlight-hit";function highlight(node,ranges){assert(ranges.length>0);const wrapper=document.createElement("span");wrapper.classList.add(WRAPPER_CSS_CLASS);assert(node.parentNode);node.parentNode.replaceChild(wrapper,node);const span=document.createElement("span");span.classList.add(ORIGINAL_CONTENT_CSS_CLASS);span.style.display="none";span.appendChild(node);wrapper.appendChild(span);const text=node.textContent;const tokens=[];for(let i=0;i<ranges.length;++i){const range=ranges[i];const prev=ranges[i-1]||{start:0,length:0};const start=prev.start+prev.length;const length=range.start-start;tokens.push(text.substr(start,length));tokens.push(text.substr(range.start,range.length))}const last=ranges.slice(-1)[0];tokens.push(text.substr(last.start+last.length));for(let i=0;i<tokens.length;++i){if(i%2===0){wrapper.appendChild(document.createTextNode(tokens[i]))}else{const hitSpan=document.createElement("span");hitSpan.classList.add(HIT_CSS_CLASS);hitSpan.style.backgroundColor="var(--search-highlight-hit-background-color, #ffeb3b)";hitSpan.style.color="var(--search-highlight-hit-color, #202124)";hitSpan.textContent=tokens[i];wrapper.appendChild(hitSpan)}}return wrapper}
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function highlightText(container,text,ranges){container.textContent="";const node=document.createTextNode(text);container.appendChild(node);if(ranges){highlight(node,ranges)}}function tabHasMediaAlerts(tab){return tab.alertStates.length>0}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var TabItemType;(function(TabItemType){TabItemType[TabItemType["OPEN_TAB"]=1]="OPEN_TAB";TabItemType[TabItemType["RECENTLY_CLOSED_TAB"]=2]="RECENTLY_CLOSED_TAB";TabItemType[TabItemType["RECENTLY_CLOSED_TAB_GROUP"]=3]="RECENTLY_CLOSED_TAB_GROUP"})(TabItemType||(TabItemType={}));class ItemData{constructor(){this.highlightRanges={}}}class TabData extends ItemData{constructor(tab,type,hostname){super();this.tab=tab;this.type=type;this.hostname=hostname}}class TabGroupData extends ItemData{constructor(tabGroup){super();this.tabGroup=tabGroup;this.type=TabItemType.RECENTLY_CLOSED_TAB_GROUP}}function tokenToString(token){return`${token.high.toString()}#${token.low.toString()}`}function tokenEquals(a,b){return a.high===b.high&&a.low===b.low}function titleAndAlertAriaLabel(tabData){const tabTitle=tabData.tab.title;if(tabData.type===TabItemType.OPEN_TAB&&tabHasMediaAlerts(tabData.tab)){const alert=tabData.tab.alertStates[0];switch(alert){case TabAlertState.kMediaRecording:return loadTimeData.getStringF("mediaRecording",tabTitle);case TabAlertState.kAudioPlaying:return loadTimeData.getStringF("audioPlaying",tabTitle);case TabAlertState.kAudioMuting:return loadTimeData.getStringF("audioMuting",tabTitle);default:return tabTitle}}return tabTitle}function ariaLabel(itemData){if(itemData instanceof TabGroupData&&itemData.type===TabItemType.RECENTLY_CLOSED_TAB_GROUP){const tabGroup=itemData.tabGroup;const tabCountText=loadTimeData.getStringF(tabGroup.tabCount===1?"oneTab":"tabCount",tabGroup.tabCount);return`${tabGroup.title} ${tabCountText} ${tabGroup.lastActiveElapsedText} ${itemData.a11yTypeText}`}if(itemData instanceof TabData){const tabData=itemData;const groupTitleOrEmpty=tabData.tabGroup?tabData.tabGroup.title:"";const titleAndAlerts=titleAndAlertAriaLabel(tabData);return`${titleAndAlerts} ${groupTitleOrEmpty} ${tabData.hostname} ${tabData.tab.lastActiveElapsedText} ${tabData.a11yTypeText}`}throw new Error("Invalid data provided.")}const template$1=html`
+<custom-style>
+  <style>
+html{--google-blue-300-rgb:123,170,247;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-cyan-300-rgb:120,217,236;--google-cyan-300:rgb(var(--google-cyan-300-rgb));--google-cyan-900-rgb:0,123,131;--google-cyan-900:rgb(var(--google-cyan-900-rgb));--google-green-300-rgb:87,187,138;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-pink-300-rgb:255,139,203;--google-pink-300:rgb(var(--google-pink-300-rgb));--google-pink-700-rgb:208,24,132;--google-pink-700:rgb(var(--google-pink-700-rgb));--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-600-rgb:147,52,230;--google-purple-600:rgb(var(--google-purple-600-rgb));--google-red-300-rgb:230,124,115;--google-red-300:rgb(var(--google-red-300-rgb));--google-yellow-300-rgb:247,203,77;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-900-rgb:227,116,0;--google-yellow-900:rgb(var(--google-yellow-900-rgb));--google-orange-300-rgb:252,173,112;--google-orange-300:rgb(var(--google-orange-300-rgb));--google-orange-400-rgb:250,144,62;--google-orange-400:rgb(var(--google-orange-400-rgb));--tab-group-color-grey:var(--google-grey-700);--tab-group-color-blue:var(--google-blue-600);--tab-group-color-red:var(--google-red-600);--tab-group-color-yellow:var(--google-yellow-900);--tab-group-color-green:var(--google-green-600);--tab-group-color-pink:var(--google-pink-700);--tab-group-color-purple:var(--google-purple-600);--tab-group-color-cyan:var(--google-cyan-900);--tab-group-color-orange:var(--google-orange-400)}@media (prefers-color-scheme:dark){html{--tab-group-color-grey:var(--google-grey-400);--tab-group-color-blue:var(--google-blue-300);--tab-group-color-red:var(--google-red-300);--tab-group-color-yellow:var(--google-yellow-300);--tab-group-color-green:var(--google-green-300);--tab-group-color-pink:var(--google-pink-300);--tab-group-color-purple:var(--google-purple-200);--tab-group-color-cyan:var(--google-cyan-300);--tab-group-color-orange:var(--google-orange-300)}}
+  </style>
+</custom-style>
+`;document.head.appendChild(template$1.content);
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const colorMap=new Map([[Color.kGrey,"grey"],[Color.kBlue,"blue"],[Color.kRed,"red"],[Color.kYellow,"yellow"],[Color.kGreen,"green"],[Color.kPink,"pink"],[Color.kPurple,"purple"],[Color.kCyan,"cyan"],[Color.kOrange,"orange"]]);function colorName(color){if(!colorMap.has(color)){throw Error("Undefined color id")}return colorMap.get(color)}function getTemplate$8(){return html`<!--_html_template_start_--><style include="mwb-element-shared-style">:host{--audio-icon-color:var(--google-grey-700);--media-recording-icon-color:var(--google-red-600)}@media (prefers-color-scheme:dark){:host{--audio-icon-color:var(--google-grey-300);--media-recording-icon-color:var(--google-red-300)}}:host-context([chrome-refresh-2023]):host{--audio-icon-color:var(--color-tab-search-media-icon);--media-recording-icon-color:var(--color-tab-search-media-recording-icon)}:host(:focus){outline:0}:host(:is(.hovered,.selected)) .button-container{height:auto;overflow:visible;visibility:visible;width:auto}.button-container{height:0;margin-inline-start:2px;overflow:hidden;width:0}.button-container.allocate-space-while-hidden{height:auto;overflow:visible;visibility:hidden;width:auto}.button-container cr-icon-button{--cr-icon-button-fill-color:var(--mwb-icon-button-fill-color)}.favicon{background-repeat:no-repeat;background-size:var(--mwb-icon-size);flex-shrink:0;height:var(--mwb-icon-size);width:var(--mwb-icon-size)}.text-container{flex-grow:1;overflow:hidden;user-select:none}#groupTitle,#primaryText,#secondaryText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#primaryText{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-primary-text-font-weight);margin-bottom:3px}#secondaryContainer{align-items:center;color:var(--cr-secondary-text-color);display:flex;font-size:var(--mwb-secondary-text-font-size);font-weight:var(--mwb-secondary-text-font-weight)}#primaryContainer{display:flex}#secondaryTimestamp{flex-shrink:0}#textAriaLabel{clip:rect(0,0,0,0);display:inline-block;position:fixed}.separator{margin-inline-end:4px;margin-inline-start:4px}cr-icon-button{--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}.search-highlight-hit{--search-highlight-hit-background-color:none;--search-highlight-hit-color:none;font-weight:700}#groupSvg{flex-shrink:0;height:8px;margin-inline-end:6px;width:8px}#groupDot{fill:var(--group-dot-color)}#mediaAlert[display=block]{-webkit-mask:center/contain no-repeat;flex-shrink:0;height:var(--mwb-icon-size);margin-inline-end:8px;margin-inline-start:4px;width:var(--mwb-icon-size)}#mediaAlert[class=media-recording]{-webkit-mask-image:url(alert_indicators/tab_media_recording.svg);background-color:var(--media-recording-icon-color)}#mediaAlert[class=audio-playing]{-webkit-mask-image:url(alert_indicators/tab_audio_rounded.svg);background-color:var(--audio-icon-color)}#mediaAlert[class=audio-muting]{-webkit-mask-image:url(alert_indicators/tab_audio_muting_rounded.svg);background-color:var(--audio-icon-color)}#iconContainer{margin-inline-end:16px}:host-context([chrome-refresh-2023]) #iconContainer{align-items:center;background:var(--color-list-item-url-favicon-background);border-radius:8px;display:flex;flex-shrink:0;height:40px;justify-content:center;overflow:hidden;width:40px}</style>
+
+<div id="iconContainer">
+  <div class="favicon" style="background-image:[[faviconUrl_(data.tab) ]]"></div>
+</div>
+<div id="textAriaLabel" title="[[ariaLabelForText_(data)]]"></div>
+<div class="text-container" aria-hidden="true">
+  <div id="primaryContainer">
+    <div id="primaryText" title="[[data.tab.title]]"></div>
+    <img id="mediaAlert" display$="[[mediaAlertVisibility_(data)]]" class$="[[getMediaAlertImageClass_(data)]]">
+  </div>
+  <div id="secondaryContainer">
+    
+    <svg id="groupSvg" viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg" display$="[[groupSvgDisplay_(data)]]">
+      <circle id="groupDot" cx="0" cy="0" r="4">
+    </circle></svg>
+    <div id="groupTitle" hidden="[[!hasTabGroupWithTitle_(data)]]">[[data.tabGroup.title]]</div>
+    <div class="separator" hidden="[[!hasTabGroupWithTitle_(data)]]">•</div>
+    <div id="secondaryText"></div>
+    <template is="dom-if" if="[[!hideTimestamp]]">
+      <div class="separator" hidden="[[!data.hostname]]">•</div>
+      <div id="secondaryTimestamp">
+        [[data.tab.lastActiveElapsedText]]
+      </div>
+    </template>
+  </div>
+</div>
+<template is="dom-if" if="[[isCloseable_(data.type)]]">
+  <div class$="[[getButtonContainerStyles_(data)]]">
+    <cr-icon-button id="closeButton" aria-label="[[ariaLabelForButton_(data.tab.title)]]" iron-icon="mwb16:close" noink="[[!buttonRipples_]]" no-ripple-on-focus on-click="onItemClose_" title="$i18n{closeTab}">
+    </cr-icon-button>
+  </div>
+</template>
+<!--_html_template_end_-->`}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const TabSearchItemBase=MouseHoverableMixin(PolymerElement);class TabSearchItem extends TabSearchItemBase{static get is(){return"tab-search-item"}static get template(){return getTemplate$8()}static get properties(){return{data:{type:Object,observer:"dataChanged_"},buttonRipples_:{type:Boolean,value:()=>loadTimeData.getBoolean("useRipples")},hideTimestamp:{type:Boolean,value:false},index:Number}}isCloseable_(type){return type===TabItemType.OPEN_TAB}getButtonContainerStyles_(tabData){return"button-container"+(this.isOpenTabAndHasMediaAlert_(tabData)?" allocate-space-while-hidden":"")}onItemClose_(e){this.dispatchEvent(new CustomEvent("close"));e.stopPropagation()}faviconUrl_(tab){return tab.faviconUrl?`url("${tab.faviconUrl.url}")`:getFaviconForPageURL(tab.isDefaultFavicon?"chrome://newtab":tab.url.url,false)}groupSvgDisplay_(tabData){return tabData.tabGroup?"block":"none"}isOpenTabAndHasMediaAlert_(tabData){return tabData.type===TabItemType.OPEN_TAB&&tabHasMediaAlerts(tabData.tab)}mediaAlertVisibility_(tabData){return this.isOpenTabAndHasMediaAlert_(tabData)?"block":"none"}getMediaAlertImageClass_(tabData){if(!this.isOpenTabAndHasMediaAlert_(tabData)){return""}const alert=tabData.tab.alertStates[0];switch(alert){case TabAlertState.kMediaRecording:return"media-recording";case TabAlertState.kAudioPlaying:return"audio-playing";case TabAlertState.kAudioMuting:return"audio-muting";default:return""}}hasTabGroupWithTitle_(tabData){return!!(tabData.tabGroup&&tabData.tabGroup.title)}dataChanged_(data){[["tab.title",this.$.primaryText],["hostname",this.$.secondaryText],["tabGroup.title",this.$.groupTitle]].forEach((([path,element])=>{if(element){const highlightRanges=data.highlightRanges?data.highlightRanges[path]:undefined;highlightText(element,get(data,path),highlightRanges)}}));const protocol=new URL(data.tab.url.url).protocol;if(protocol==="chrome:"){this.$.secondaryText.prepend(document.createTextNode("chrome://"))}if(data.tabGroup){this.style.setProperty("--group-dot-color",`var(--tab-group-color-${colorName(data.tabGroup.color)})`)}}ariaLabelForText_(tabData){return ariaLabel(tabData)}ariaLabelForButton_(title){return`${loadTimeData.getString("closeTab")} ${title}`}}customElements.define(TabSearchItem.is,TabSearchItem);function getTemplate$7(){return html`<!--_html_template_start_--><style include="mwb-shared-style tab-organization-shared-style">cr-button{align-self:flex-end;margin:16px 16px 0 16px;width:fit-content}cr-input{--cr-input-background-color:transparent;--cr-input-border:1px solid var(--color-side-panel-textfield-border);--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-padding-bottom:9px;--cr-input-padding-top:9px;--cr-input-underline-display:none;margin:0 16px}cr-input:focus{--cr-input-border:2px solid var(--cr-focus-outline-color);--cr-input-padding-bottom:8px;--cr-input-padding-top:8px}.mwb-list-item{background-color:transparent}.results{background-color:var(--color-sys-surface5);border-radius:8px;display:flex;flex-direction:column;padding:16px 0}</style>
+
+<div class="tab-organization-container">
+  <div class="tab-organization-header">$i18n{successTitle}</div>
+  <div class="results">
+    <cr-input id="input" type="text" value="{{name}}" on-focus="onInputFocus_" on-keydown="onInputKeyDown_">
+    </cr-input>
+    <template is="dom-repeat" items="[[tabDatas_]]">
+      <tab-search-item class="mwb-list-item" data="[[item]]" on-close="onTabRemove_" hide-timestamp>
+      </tab-search-item>
+    </template>
+    <cr-button class="action-button" on-click="onCreateGroupClick_">
+      $i18n{createGroup}
+    </cr-button>
+  </div>
+</div>
+<!--_html_template_end_-->`}
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TabOrganizationResultsElement extends PolymerElement{static get is(){return"tab-organization-results"}static get properties(){return{tabs:Array,name:String,tabDatas_:{type:Array,value:()=>[],computed:"computeTabDatas_(tabs.*)"}}}static get template(){return getTemplate$7()}computeTabDatas_(){return this.tabs.map((tab=>new TabData(tab,TabItemType.OPEN_TAB,new URL(tab.url.url).hostname)))}onInputFocus_(){this.$.input.select()}onInputKeyDown_(event){if(event.key==="Enter"){event.stopPropagation();this.$.input.blur()}}onTabRemove_(event){const index=this.tabDatas_.indexOf(event.model.item);this.splice("tabs",index,1)}onCreateGroupClick_(){this.dispatchEvent(new CustomEvent("create-group-click",{bubbles:true,composed:true,detail:{name:this.name,tabs:this.tabs}}))}}customElements.define(TabOrganizationResultsElement.is,TabOrganizationResultsElement);function getTemplate$6(){return html`<!--_html_template_start_--><style>.body{margin:16px var(--mwb-list-item-horizontal-margin)}</style>
+
+<div class="body">
+  <tab-organization-not-started hidden="[[!isState_(tabOrganizationStateEnum_.kNotStarted, state_)]]" on-organize-tabs-click="onOrganizeTabsClick_">
+  </tab-organization-not-started>
+  <tab-organization-in-progress hidden="[[!isState_(tabOrganizationStateEnum_.kInProgress, state_)]]">
+  </tab-organization-in-progress>
+  <tab-organization-results hidden="[[!isState_(tabOrganizationStateEnum_.kSuccess, state_)]]" name="[[name_]]" tabs="[[tabs_]]" on-create-group-click="onCreateGroupClick_">
+  </tab-organization-results>
+  <tab-organization-failure hidden="[[!isState_(tabOrganizationStateEnum_.kFailure, state_)]]" error="[[error_]]">
+  </tab-organization-failure>
+</div>
+<!--_html_template_end_-->`}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var RecentlyClosedItemOpenAction;(function(RecentlyClosedItemOpenAction){RecentlyClosedItemOpenAction[RecentlyClosedItemOpenAction["WITHOUT_SEARCH"]=0]="WITHOUT_SEARCH";RecentlyClosedItemOpenAction[RecentlyClosedItemOpenAction["WITH_SEARCH"]=1]="WITH_SEARCH"})(RecentlyClosedItemOpenAction||(RecentlyClosedItemOpenAction={}));class TabSearchApiProxyImpl{constructor(){this.callbackRouter=new PageCallbackRouter$1;this.handler=new PageHandlerRemote$1;const factory=PageHandlerFactory.getRemote();factory.createPageHandler(this.callbackRouter.$.bindNewPipeAndPassRemote(),this.handler.$.bindNewPipeAndPassReceiver())}closeTab(tabId){this.handler.closeTab(tabId)}acceptTabOrganization(sessionId,organizationId,name,tabs){this.handler.acceptTabOrganization(sessionId,organizationId,name,tabs)}rejectTabOrganization(sessionId,organizationId){this.handler.rejectTabOrganization(sessionId,organizationId)}getProfileData(){return this.handler.getProfileData()}getTabOrganizationSession(){return this.handler.getTabOrganizationSession()}openRecentlyClosedEntry(id,withSearch,isTab,index){chrome.metricsPrivate.recordEnumerationValue(isTab?"Tabs.TabSearch.WebUI.RecentlyClosedTabOpenAction":"Tabs.TabSearch.WebUI.RecentlyClosedGroupOpenAction",withSearch?RecentlyClosedItemOpenAction.WITH_SEARCH:RecentlyClosedItemOpenAction.WITHOUT_SEARCH,Object.keys(RecentlyClosedItemOpenAction).length);chrome.metricsPrivate.recordSmallCount(withSearch?"Tabs.TabSearch.WebUI.IndexOfOpenRecentlyClosedEntryInFilteredList":"Tabs.TabSearch.WebUI.IndexOfOpenRecentlyClosedEntryInUnfilteredList",index);this.handler.openRecentlyClosedEntry(id)}requestTabOrganization(){this.handler.requestTabOrganization()}switchToTab(info){this.handler.switchToTab(info)}getCallbackRouter(){return this.callbackRouter}saveRecentlyClosedExpandedPref(expanded){this.handler.saveRecentlyClosedExpandedPref(expanded)}setTabIndex(index){this.handler.setTabIndex(index)}showUi(){this.handler.showUI()}static getInstance(){return instance$1||(instance$1=new TabSearchApiProxyImpl)}static setInstance(obj){instance$1=obj}}let instance$1=null;
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TabOrganizationPageElement extends PolymerElement{constructor(){super(...arguments);this.apiProxy_=TabSearchApiProxyImpl.getInstance();this.listenerIds_=[];this.state_=TabOrganizationState.kNotStarted;this.error_=TabOrganizationError.kNone;this.sessionId_=-1;this.organizationId_=-1}static get is(){return"tab-organization-page"}static get properties(){return{state_:Object,name_:String,tabs_:Array,error_:Object,tabOrganizationStateEnum_:{type:Object,value:TabOrganizationState}}}static get template(){return getTemplate$6()}connectedCallback(){super.connectedCallback();this.apiProxy_.getTabOrganizationSession().then((({session:session})=>this.setSession_(session)));const callbackRouter=this.apiProxy_.getCallbackRouter();this.listenerIds_.push(callbackRouter.tabOrganizationSessionUpdated.addListener(this.setSession_.bind(this)))}disconnectedCallback(){super.disconnectedCallback();this.listenerIds_.forEach((id=>this.apiProxy_.getCallbackRouter().removeListener(id)));if(this.sessionId_>-1&&this.organizationId_>-1){this.apiProxy_.rejectTabOrganization(this.sessionId_,this.organizationId_)}}setSession_(session){this.sessionId_=session.sessionId;this.state_=session.state;this.error_=session.error;if(session.state===TabOrganizationState.kSuccess){const organization=session.organizations[0];this.name_=organization.name;this.tabs_=organization.tabs;this.organizationId_=organization.organizationId}else{this.organizationId_=-1}}isState_(state){return this.state_===state}onOrganizeTabsClick_(){this.apiProxy_.requestTabOrganization()}onCreateGroupClick_(event){this.name_=event.detail.name;this.tabs_=event.detail.tabs;this.apiProxy_.acceptTabOrganization(this.sessionId_,this.organizationId_,this.name_,this.tabs_)}}customElements.define(TabOrganizationPageElement.is,TabOrganizationPageElement);const styleMod$1=document.createElement("dom-module");styleMod$1.appendChild(html`
+  <template>
+    <style>
+:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
+    </style>
+  </template>
+`.content);styleMod$1.register("cr-actionable-row-style");const template=html`
+<iron-iconset-svg name="cr20" size="20">
+  <svg>
+    <defs>
+      
+      <g id="block">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM2 10C2 5.58 5.58 2 10 2C11.85 2 13.55 2.63 14.9 3.69L3.69 14.9C2.63 13.55 2 11.85 2 10ZM5.1 16.31C6.45 17.37 8.15 18 10 18C14.42 18 18 14.42 18 10C18 8.15 17.37 6.45 16.31 5.1L5.1 16.31Z">
+        </path>
+      </g>
+      <g id="cloud-off">
+        <path d="M16 18.125L13.875 16H5C3.88889 16 2.94444 15.6111 2.16667 14.8333C1.38889 14.0556 1 13.1111 1 12C1 10.9444 1.36111 10.0347 2.08333 9.27083C2.80556 8.50694 3.6875 8.09028 4.72917 8.02083C4.77083 7.86805 4.8125 7.72222 4.85417 7.58333C4.90972 7.44444 4.97222 7.30555 5.04167 7.16667L1.875 4L2.9375 2.9375L17.0625 17.0625L16 18.125ZM5 14.5H12.375L6.20833 8.33333C6.15278 8.51389 6.09722 8.70139 6.04167 8.89583C6 9.07639 5.95139 9.25694 5.89583 9.4375L4.83333 9.52083C4.16667 9.57639 3.61111 9.84028 3.16667 10.3125C2.72222 10.7708 2.5 11.3333 2.5 12C2.5 12.6944 2.74306 13.2847 3.22917 13.7708C3.71528 14.2569 4.30556 14.5 5 14.5ZM17.5 15.375L16.3958 14.2917C16.7153 14.125 16.9792 13.8819 17.1875 13.5625C17.3958 13.2431 17.5 12.8889 17.5 12.5C17.5 11.9444 17.3056 11.4722 16.9167 11.0833C16.5278 10.6944 16.0556 10.5 15.5 10.5H14.125L14 9.14583C13.9028 8.11806 13.4722 7.25694 12.7083 6.5625C11.9444 5.85417 11.0417 5.5 10 5.5C9.65278 5.5 9.31944 5.54167 9 5.625C8.69444 5.70833 8.39583 5.82639 8.10417 5.97917L7.02083 4.89583C7.46528 4.61806 7.93056 4.40278 8.41667 4.25C8.91667 4.08333 9.44444 4 10 4C11.4306 4 12.6736 4.48611 13.7292 5.45833C14.7847 6.41667 15.375 7.59722 15.5 9C16.4722 9 17.2986 9.34028 17.9792 10.0208C18.6597 10.7014 19 11.5278 19 12.5C19 13.0972 18.8611 13.6458 18.5833 14.1458C18.3194 14.6458 17.9583 15.0556 17.5 15.375Z">
+        </path>
+      </g>
+      <g id="domain">
+        <path d="M2,3 L2,17 L11.8267655,17 L13.7904799,17 L18,17 L18,7 L12,7 L12,3 L2,3 Z M8,13 L10,13 L10,15 L8,15 L8,13 Z M4,13 L6,13 L6,15 L4,15 L4,13 Z M8,9 L10,9 L10,11 L8,11 L8,9 Z M4,9 L6,9 L6,11 L4,11 L4,9 Z M12,9 L16,9 L16,15 L12,15 L12,9 Z M12,11 L14,11 L14,13 L12,13 L12,11 Z M8,5 L10,5 L10,7 L8,7 L8,5 Z M4,5 L6,5 L6,7 L4,7 L4,5 Z">
+        </path>
+      </g>
+      <g id="kite">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.6327 8.00094L10.3199 2L16 8.00094L10.1848 16.8673C10.0995 16.9873 10.0071 17.1074 9.90047 17.2199C9.42417 17.7225 8.79147 18 8.11611 18C7.44076 18 6.80806 17.7225 6.33175 17.2199C5.85545 16.7173 5.59242 16.0497 5.59242 15.3371C5.59242 14.977 5.46445 14.647 5.22275 14.3919C4.98104 14.1369 4.66825 14.0019 4.32701 14.0019H4V12.6667H4.32701C5.00237 12.6667 5.63507 12.9442 6.11137 13.4468C6.58768 13.9494 6.85071 14.617 6.85071 15.3296C6.85071 15.6896 6.97867 16.0197 7.22038 16.2747C7.46209 16.5298 7.77488 16.6648 8.11611 16.6648C8.45735 16.6648 8.77014 16.5223 9.01185 16.2747C9.02396 16.2601 9.03607 16.246 9.04808 16.2319C9.08541 16.1883 9.12176 16.1458 9.15403 16.0947L9.55213 15.4946L4.6327 8.00094ZM10.3199 13.9371L6.53802 8.17116L10.3199 4.1814L14.0963 8.17103L10.3199 13.9371Z">
+        </path>
+      </g>
+      <g id="menu">
+        <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
+      </g>
+      
+        <g id="banner-warning">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
+          </path>
+        </g>
+        <g id="warning">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
+          </path>
+        </g>
+      
+  </defs></svg>
+</iron-iconset-svg>
+
+
+<iron-iconset-svg name="cr" size="24">
+  <svg>
+    <defs>
+      
+      <g id="account-child-invert" viewBox="0 0 48 48">
+        <path d="M24 4c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z"></path>
+        <path fill="none" d="M0 0h48v48H0V0z"></path>
+        <circle fill="none" cx="24" cy="26" r="4"></circle>
+        <path d="M24 18c-6.16 0-13 3.12-13 7.23v11.54c0 2.32 2.19 4.33 5.2 5.63 2.32 1 5.12 1.59 7.8 1.59.66 0 1.33-.06 2-.14v-5.2c-.67.08-1.34.14-2 .14-2.63 0-5.39-.57-7.68-1.55.67-2.12 4.34-3.65 7.68-3.65.86 0 1.75.11 2.6.29 2.79.62 5.2 2.15 5.2 4.04v4.47c3.01-1.31 5.2-3.31 5.2-5.63V25.23C37 21.12 30.16 18 24 18zm0 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z">
+        </path>
+      </g>
+      <g id="add">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+      </g>
+      <g id="arrow-back">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z">
+        </path>
+      </g>
+      <g id="arrow-drop-up">
+        <path d="M7 14l5-5 5 5z"></path>
+      </g>
+      <g id="arrow-drop-down">
+        <path d="M7 10l5 5 5-5z"></path>
+      </g>
+      <g id="arrow-forward">
+        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z">
+        </path>
+      </g>
+      <g id="arrow-right">
+        <path d="M10 7l5 5-5 5z"></path>
+      </g>
+      
+        <g id="bluetooth">
+          <path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z">
+          </path>
+        </g>
+        <g id="camera-alt">
+          <circle cx="12" cy="12" r="3.2"></circle>
+          <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z">
+          </path>
+        </g>
+        <g id="work">
+          <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z">
+          </path>
+        </g>
+      
+      <g id="cancel">
+        <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
+        </path>
+      </g>
+      <g id="check">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+      </g>
+      <g id="check-circle">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+        </path>
+      </g>
+      <g id="chevron-left">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+      </g>
+      <g id="chevron-right">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+      </g>
+      <g id="clear">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+        </path>
+      </g>
+      <g id="close">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+        </path>
+      </g>
+      <g id="computer">
+        <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z">
+        </path>
+      </g>
+      <g id="create">
+        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z">
+        </path>
+      </g>
+      <g id="delete">
+        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
+        </path>
+      </g>
+      <g id="domain">
+        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z">
+        </path>
+      </g>
+      <g id="error">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+        </path>
+      </g>
+      <g id="error-outline">
+        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z">
+        </path>
+      </g>
+      <g id="expand-less">
+        <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"></path>
+      </g>
+      <g id="expand-more">
+        <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+      </g>
+      <g id="extension">
+        <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z">
+        </path>
+      </g>
+      <g id="file-download">
+        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
+      </g>
+      
+        <g id="folder-filled">
+          <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z">
+          </path>
+        </g>
+      
+      <g id="fullscreen">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z">
+        </path>
+      </g>
+      <g id="group">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z">
+        </path>
+      </g>
+      <g id="help-outline">
+        <path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z">
+        </path>
+      </g>
+      <g id="history">
+        <path d="M12.945312 22.75 C 10.320312 22.75 8.074219 21.839844 6.207031 20.019531 C 4.335938 18.199219 3.359375 15.972656 3.269531 13.34375 L 5.089844 13.34375 C 5.175781 15.472656 5.972656 17.273438 7.480469 18.742188 C 8.988281 20.210938 10.808594 20.945312 12.945312 20.945312 C 15.179688 20.945312 17.070312 20.164062 18.621094 18.601562 C 20.167969 17.039062 20.945312 15.144531 20.945312 12.910156 C 20.945312 10.714844 20.164062 8.855469 18.601562 7.335938 C 17.039062 5.816406 15.15625 5.054688 12.945312 5.054688 C 11.710938 5.054688 10.554688 5.339844 9.480469 5.902344 C 8.402344 6.46875 7.476562 7.226562 6.699219 8.179688 L 9.585938 8.179688 L 9.585938 9.984375 L 3.648438 9.984375 L 3.648438 4.0625 L 5.453125 4.0625 L 5.453125 6.824219 C 6.386719 5.707031 7.503906 4.828125 8.804688 4.199219 C 10.109375 3.566406 11.488281 3.25 12.945312 3.25 C 14.300781 3.25 15.570312 3.503906 16.761719 4.011719 C 17.949219 4.519531 18.988281 5.214844 19.875 6.089844 C 20.761719 6.964844 21.464844 7.992188 21.976562 9.167969 C 22.492188 10.34375 22.75 11.609375 22.75 12.964844 C 22.75 14.316406 22.492188 15.589844 21.976562 16.777344 C 21.464844 17.964844 20.761719 19.003906 19.875 19.882812 C 18.988281 20.765625 17.949219 21.464844 16.761719 21.976562 C 15.570312 22.492188 14.300781 22.75 12.945312 22.75 Z M 16.269531 17.460938 L 12.117188 13.34375 L 12.117188 7.527344 L 13.921875 7.527344 L 13.921875 12.601562 L 17.550781 16.179688 Z M 16.269531 17.460938">
+        </path>
+      </g>
+      <g id="info">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+        </path>
+      </g>
+      <g id="info-outline">
+        <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z">
+        </path>
+      </g>
+      <g id="insert-drive-file">
+        <path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z">
+        </path>
+      </g>
+      <g id="location-on">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z">
+        </path>
+      </g>
+      <g id="mic">
+        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z">
+        </path>
+      </g>
+      <g id="more-vert">
+        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">
+        </path>
+      </g>
+      <g id="open-in-new">
+        <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z">
+        </path>
+      </g>
+      <g id="person">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
+        </path>
+      </g>
+      <g id="phonelink">
+        <path d="M4 6h18V4H4c-1.1 0-2 .9-2 2v11H0v3h14v-3H4V6zm19 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z">
+        </path>
+      </g>
+      <g id="print">
+        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z">
+        </path>
+      </g>
+      <g id="schedule">
+        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z">
+        </path>
+      </g>
+      <g id="search">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+        </path>
+      </g>
+      <g id="security">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z">
+        </path>
+      </g>
+      
+        <g id="sim-card-alert">
+          <path d="M18 2h-8L4.02 8 4 20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 15h-2v-2h2v2zm0-4h-2V8h2v5z">
+          </path>
+        </g>
+        <g id="sim-lock">
+          <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z">
+          </path>
+        </g>
+        <g id="sms-connect">
+          <path d="M20,2C21.1,2 22,2.9 22,4L22,16C22,17.1 21.1,18 20,18L6,18L2,22L2.01,4C2.01,2.9 2.9,2 4,2L20,2ZM8,8L4,12L8,16L8,13L14,13L14,11L8,11L8,8ZM19.666,7.872L16.038,4.372L16.038,6.997L10,6.997L10,9L16.038,9L16.038,11.372L19.666,7.872Z">
+          </path>
+        </g>
+      
+      
+      <g id="settings_icon">
+        <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z">
+        </path>
+      </g>
+      <g id="star">
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+        </path>
+      </g>
+      <g id="sync">
+        <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z">
+        </path>
+      </g>
+      <g id="thumbs-down">
+        <path d="M6 3h11v13l-7 7-1.25-1.25a1.454 1.454 0 0 1-.3-.475c-.067-.2-.1-.392-.1-.575v-.35L9.45 16H3c-.533 0-1-.2-1.4-.6-.4-.4-.6-.867-.6-1.4v-2c0-.117.017-.242.05-.375s.067-.258.1-.375l3-7.05c.15-.333.4-.617.75-.85C5.25 3.117 5.617 3 6 3Zm9 2H6l-3 7v2h9l-1.35 5.5L15 15.15V5Zm0 10.15V5v10.15Zm2 .85v-2h3V5h-3V3h5v13h-5Z">
+        </path>
+      </g>
+      <g id="thumbs-up">
+        <path d="M18 21H7V8l7-7 1.25 1.25c.117.117.208.275.275.475.083.2.125.392.125.575v.35L14.55 8H21c.533 0 1 .2 1.4.6.4.4.6.867.6 1.4v2c0 .117-.017.242-.05.375s-.067.258-.1.375l-3 7.05c-.15.333-.4.617-.75.85-.35.233-.717.35-1.1.35Zm-9-2h9l3-7v-2h-9l1.35-5.5L9 8.85V19ZM9 8.85V19 8.85ZM7 8v2H4v9h3v2H2V8h5Z">
+        </path>
+      </g>
+      <g id="videocam">
+        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z">
+        </path>
+      </g>
+      <g id="warning">
+        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;document.head.appendChild(template.content);
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+let hideInk=false;assert(!isIOS,"pointerdown doesn't work on iOS");document.addEventListener("pointerdown",(function(){hideInk=true}),true);document.addEventListener("keydown",(function(){hideInk=false}),true);function focusWithoutInk(toFocus){if(!("noink"in toFocus)||!hideInk){toFocus.focus();return}const toFocusWithNoInk=toFocus;assert(document===toFocusWithNoInk.ownerDocument);const{noink:noink}=toFocusWithNoInk;toFocusWithNoInk.noink=true;toFocusWithNoInk.focus();toFocusWithNoInk.noink=noink}function getTemplate$5(){return html`<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+
+    <div id="label" aria-hidden="true"><slot></slot></div>
+    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
+<!--_html_template_end_-->`}
+// Copyright 2015 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class CrExpandButtonElement extends PolymerElement{static get is(){return"cr-expand-button"}static get template(){return getTemplate$5()}static get properties(){return{expanded:{type:Boolean,value:false,notify:true,observer:"onExpandedChange_"},disabled:{type:Boolean,value:false,reflectToAttribute:true},ariaLabel:{type:String,observer:"onAriaLabelChange_"},tabIndex:{type:Number,value:0},expandIcon:{type:String,value:"cr:expand-more",observer:"onIconChange_"},collapseIcon:{type:String,value:"cr:expand-less",observer:"onIconChange_"},expandTitle:String,collapseTitle:String,tooltipText_:{type:String,computed:"computeTooltipText_(expandTitle, collapseTitle, expanded)",observer:"onTooltipTextChange_"}}}static get observers(){return["updateAriaExpanded_(disabled, expanded)"]}ready(){super.ready();this.addEventListener("click",this.toggleExpand_)}computeTooltipText_(){return this.expanded?this.collapseTitle:this.expandTitle}onTooltipTextChange_(){this.title=this.tooltipText_}focus(){this.$.icon.focus()}onAriaLabelChange_(){if(this.ariaLabel){this.$.icon.removeAttribute("aria-labelledby");this.$.icon.setAttribute("aria-label",this.ariaLabel)}else{this.$.icon.removeAttribute("aria-label");this.$.icon.setAttribute("aria-labelledby","label")}}onExpandedChange_(){this.updateIcon_()}onIconChange_(){this.updateIcon_()}updateIcon_(){this.$.icon.ironIcon=this.expanded?this.collapseIcon:this.expandIcon}toggleExpand_(event){event.stopPropagation();event.preventDefault();this.scrollIntoViewIfNeeded();this.expanded=!this.expanded;focusWithoutInk(this.$.icon)}updateAriaExpanded_(){if(this.disabled){this.$.icon.removeAttribute("aria-expanded")}else{this.$.icon.setAttribute("aria-expanded",this.expanded?"true":"false")}}}customElements.define(CrExpandButtonElement.is,CrExpandButtonElement);const styleMod=document.createElement("dom-module");styleMod.appendChild(html`
+  <template>
+    <style>
+a,cr-button,cr-icon-button,div{cursor:default}cr-icon-button{--cr-icon-button-icon-size:var(--mwb-icon-size);--cr-icon-button-size:calc(var(--mwb-icon-size) * 1.5)}
+    </style>
+  </template>
+`.content);styleMod.register("mwb-element-shared-style");
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/class IronSelection{constructor(selectCallback){this.selection=[];this.selectCallback=selectCallback}get(){return this.multi?this.selection.slice():this.selection[0]}clear(excludes){this.selection.slice().forEach((function(item){if(!excludes||excludes.indexOf(item)<0){this.setItemSelected(item,false)}}),this)}isSelected(item){return this.selection.indexOf(item)>=0}setItemSelected(item,isSelected){if(item!=null){if(isSelected!==this.isSelected(item)){if(isSelected){this.selection.push(item)}else{var i=this.selection.indexOf(item);if(i>=0){this.selection.splice(i,1)}}if(this.selectCallback){this.selectCallback(item,isSelected)}}}}select(item){if(this.multi){this.toggle(item)}else if(this.get()!==item){this.setItemSelected(this.get(),false);this.setItemSelected(item,true)}}toggle(item){this.setItemSelected(item,!this.isSelected(item))}}
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/const IronSelectableBehavior={properties:{attrForSelected:{type:String,value:null},selected:{type:String,notify:true},selectedItem:{type:Object,readOnly:true,notify:true},activateEvent:{type:String,value:"tap",observer:"_activateEventChanged"},selectable:String,selectedClass:{type:String,value:"iron-selected"},selectedAttribute:{type:String,value:null},fallbackSelection:{type:String,value:null},items:{type:Array,readOnly:true,notify:true,value:function(){return[]}},_excludedLocalNames:{type:Object,value:function(){return{template:1,"dom-bind":1,"dom-if":1,"dom-repeat":1}}}},observers:["_updateAttrForSelected(attrForSelected)","_updateSelected(selected)","_checkFallback(fallbackSelection)"],created:function(){this._bindFilterItem=this._filterItem.bind(this);this._selection=new IronSelection(this._applySelection.bind(this))},attached:function(){this._observer=this._observeItems(this);this._addListener(this.activateEvent)},detached:function(){if(this._observer){dom(this).unobserveNodes(this._observer)}this._removeListener(this.activateEvent)},indexOf:function(item){return this.items?this.items.indexOf(item):-1},select:function(value){this.selected=value},selectPrevious:function(){var length=this.items.length;var index=length-1;if(this.selected!==undefined){index=(Number(this._valueToIndex(this.selected))-1+length)%length}this.selected=this._indexToValue(index)},selectNext:function(){var index=0;if(this.selected!==undefined){index=(Number(this._valueToIndex(this.selected))+1)%this.items.length}this.selected=this._indexToValue(index)},selectIndex:function(index){this.select(this._indexToValue(index))},forceSynchronousItemUpdate:function(){if(this._observer&&typeof this._observer.flush==="function"){this._observer.flush()}else{this._updateItems()}},get _shouldUpdateSelection(){return this.selected!=null},_checkFallback:function(){this._updateSelected()},_addListener:function(eventName){this.listen(this,eventName,"_activateHandler")},_removeListener:function(eventName){this.unlisten(this,eventName,"_activateHandler")},_activateEventChanged:function(eventName,old){this._removeListener(old);this._addListener(eventName)},_updateItems:function(){var nodes=dom(this).queryDistributedElements(this.selectable||"*");nodes=Array.prototype.filter.call(nodes,this._bindFilterItem);this._setItems(nodes)},_updateAttrForSelected:function(){if(this.selectedItem){this.selected=this._valueForItem(this.selectedItem)}},_updateSelected:function(){this._selectSelected(this.selected)},_selectSelected:function(selected){if(!this.items){return}var item=this._valueToItem(this.selected);if(item){this._selection.select(item)}else{this._selection.clear()}if(this.fallbackSelection&&this.items.length&&this._selection.get()===undefined){this.selected=this.fallbackSelection}},_filterItem:function(node){return!this._excludedLocalNames[node.localName]},_valueToItem:function(value){return value==null?null:this.items[this._valueToIndex(value)]},_valueToIndex:function(value){if(this.attrForSelected){for(var i=0,item;item=this.items[i];i++){if(this._valueForItem(item)==value){return i}}}else{return Number(value)}},_indexToValue:function(index){if(this.attrForSelected){var item=this.items[index];if(item){return this._valueForItem(item)}}else{return index}},_valueForItem:function(item){if(!item){return null}if(!this.attrForSelected){var i=this.indexOf(item);return i===-1?null:i}var propValue=item[dashToCamelCase(this.attrForSelected)];return propValue!=undefined?propValue:item.getAttribute(this.attrForSelected)},_applySelection:function(item,isSelected){if(this.selectedClass){this.toggleClass(this.selectedClass,isSelected,item)}if(this.selectedAttribute){this.toggleAttribute(this.selectedAttribute,isSelected,item)}this._selectionChange();this.fire("iron-"+(isSelected?"select":"deselect"),{item:item})},_selectionChange:function(){this._setSelectedItem(this._selection.get())},_observeItems:function(node){return dom(node).observeNodes((function(mutation){this._updateItems();this._updateSelected();this.fire("iron-items-changed",mutation,{bubbles:false,cancelable:false})}))},_activateHandler:function(e){var t=e.target;var items=this.items;while(t&&t!=this){var i=items.indexOf(t);if(i>=0){var value=this._indexToValue(i);this._itemActivate(value,t);return}t=t.parentNode}},_itemActivate:function(value,item){if(!this.fire("iron-activate",{selected:value,item:item},{cancelable:true}).defaultPrevented){this.select(value)}}};
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/const IronMultiSelectableBehaviorImpl={properties:{multi:{type:Boolean,value:false,observer:"multiChanged"},selectedValues:{type:Array,notify:true,value:function(){return[]}},selectedItems:{type:Array,readOnly:true,notify:true,value:function(){return[]}}},observers:["_updateSelected(selectedValues.splices)"],select:function(value){if(this.multi){this._toggleSelected(value)}else{this.selected=value}},multiChanged:function(multi){this._selection.multi=multi;this._updateSelected()},get _shouldUpdateSelection(){return this.selected!=null||this.selectedValues!=null&&this.selectedValues.length},_updateAttrForSelected:function(){if(!this.multi){IronSelectableBehavior._updateAttrForSelected.apply(this)}else if(this.selectedItems&&this.selectedItems.length>0){this.selectedValues=this.selectedItems.map((function(selectedItem){return this._indexToValue(this.indexOf(selectedItem))}),this).filter((function(unfilteredValue){return unfilteredValue!=null}),this)}},_updateSelected:function(){if(this.multi){this._selectMulti(this.selectedValues)}else{this._selectSelected(this.selected)}},_selectMulti:function(values){values=values||[];var selectedItems=(this._valuesToItems(values)||[]).filter((function(item){return item!==null&&item!==undefined}));this._selection.clear(selectedItems);for(var i=0;i<selectedItems.length;i++){this._selection.setItemSelected(selectedItems[i],true)}if(this.fallbackSelection&&!this._selection.get().length){var fallback=this._valueToItem(this.fallbackSelection);if(fallback){this.select(this.fallbackSelection)}}},_selectionChange:function(){var s=this._selection.get();if(this.multi){this._setSelectedItems(s);this._setSelectedItem(s.length?s[0]:null)}else{if(s!==null&&s!==undefined){this._setSelectedItems([s]);this._setSelectedItem(s)}else{this._setSelectedItems([]);this._setSelectedItem(null)}}},_toggleSelected:function(value){var i=this.selectedValues.indexOf(value);var unselected=i<0;if(unselected){this.push("selectedValues",value)}else{this.splice("selectedValues",i,1)}},_valuesToItems:function(values){return values==null?null:values.map((function(value){return this._valueToItem(value)}),this)}};const IronMultiSelectableBehavior=[IronSelectableBehavior,IronMultiSelectableBehaviorImpl];
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/Polymer({is:"iron-selector",behaviors:[IronMultiSelectableBehavior]});
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function getDeepActiveElement(){let a=document.activeElement;while(a&&a.shadowRoot&&a.shadowRoot.activeElement){a=a.shadowRoot.activeElement}return a}function quoteString(str){return str.replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g,"\\$1")}function listenOnce(target,eventNames,callback){const eventNamesArray=Array.isArray(eventNames)?eventNames:eventNames.split(/ +/);const removeAllAndCallCallback=function(event){eventNamesArray.forEach((function(eventName){target.removeEventListener(eventName,removeAllAndCallCallback,false)}));return callback(event)};eventNamesArray.forEach((function(eventName){target.addEventListener(eventName,removeAllAndCallCallback,false)}))}
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class BiMap{constructor(){this.map_=new Map;this.inverseMap_=new Map}get(key){return this.map_.get(key)}invGet(key){return this.inverseMap_.get(key)}set(key,value){this.map_.set(key,value);this.inverseMap_.set(value,key)}invSet(key,value){this.inverseMap_.set(key,value);this.map_.set(value,key)}size(){return this.map_.size}}function getTemplate$4(){return html`<!--_html_template_start_--><style>:host{display:block;overflow-x:hidden;overflow-y:auto;position:relative}:host-context([expanded-list=true]){padding-bottom:16px}</style>
+<div id="container">
+  <iron-selector id="selector" on-keydown="onKeyDown_" on-iron-select="onSelectedChanged_" selectable="[[selectableSelector_()]]" selected-class="selected" on-selected-item-changed="onSelectedItemChanged_">
+    <slot></slot>
+  </iron-selector>
+</div>
+<!--_html_template_end_-->`}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const NO_SELECTION=-1;const SELECTABLE_CLASS_NAME="selectable";const selectorNavigationKeys=Object.freeze(["ArrowUp","ArrowDown","Home","End"]);class InfiniteList extends PolymerElement{static get is(){return"infinite-list"}static get template(){return getTemplate$4()}static get properties(){return{maxHeight:{type:Number,observer:"onMaxHeightChanged_"},items:{type:Array,observer:"onItemsChanged_",value:[]},selectedItem:{type:Object,readonly:true,notify:true}}}constructor(){super();this.instanceConstructors_=new Map;this.instances_=[];this.selectableTypes_=new Set;this.selectableIndexToItemIndex_=null}ready(){super.ready();this.ensureTemplatized_();this.addEventListener("scroll",(()=>this.onScroll_()))}ensureAllDomItemsAvailable(){if(this.items.length>0){const shouldUpdateHeight=this.instances_.length!==this.items.length||this.$.container.style.height==="0px";for(let i=this.instances_.length;i<this.items.length;i++){this.createAndInsertDomItem_(i)}if(shouldUpdateHeight){this.updateHeight_()}}}scrollIndexIntoView(index){assert(index>=0&&index<this.selectableIndexToItemIndex_.size(),"Index is out of range.");this.ensureSelectableDomItemAvailable_(index);this.getSelectableDomItem_(index).scrollIntoView({behavior:"smooth",block:"nearest"})}navigate(key,focusItem){const selector=this.$.selector;if(key==="ArrowUp"&&selector.selected===0||key==="End"){this.ensureAllDomItemsAvailable();selector.selected=this.selectableIndexToItemIndex_.size()-1}else{switch(key){case"ArrowUp":selector.selectPrevious();break;case"ArrowDown":selector.selectNext();break;case"Home":selector.selected=0;break;case"End":this.$.selector.selected=this.selectableIndexToItemIndex_.size()-1;break}}if(focusItem){selector.selectedItem.focus({preventScroll:true})}}ensureTemplatized_(){const templates=this.querySelectorAll("template");assert(templates.length>0,"At least one template must be provided");templates.forEach((template=>{const type=template.dataset["type"];assert(type);const className=type;if(template.dataset["selectable"]!==undefined){this.selectableTypes_.add(className)}const instanceProps={item:true,index:this.selectableTypes_.has(className)};this.instanceConstructors_.set(className,templatize(template,this,{parentModel:true,instanceProps:instanceProps}))}))}createAndInsertDomItem_(index){const instance=this.createItemInstance_(index);this.instances_[index]=instance;this.insertBefore(instance.root,this.children[index+this.instanceConstructors_.size])}createItemInstance_(itemIndex){const item=this.items[itemIndex];const instanceConstructor=this.instanceConstructors_.get(item.constructor.name);assert(instanceConstructor);const itemSelectable=this.isItemSelectable_(item);const args=itemSelectable?{item:item,index:this.selectableIndexToItemIndex_.invGet(itemIndex)}:{item:item};const instance=new instanceConstructor(args);if(itemSelectable){instance.children[0].classList.add(SELECTABLE_CLASS_NAME)}return instance}domItemAverageHeight_(){const domItemCount=this.instances_.length;assert(domItemCount);const lastDomItem=this.lastElementChild;return(lastDomItem.offsetTop+lastDomItem.offsetHeight)/domItemCount}ensureSelectableDomItemAvailable_(selectableItemIndex){const itemIndex=this.selectableIndexToItemIndex_.get(selectableItemIndex);for(let i=this.instances_.length;i<itemIndex+1;i++){this.createAndInsertDomItem_(i)}}getDomItem_(index){const instance=this.instances_[index];return instance.children[0]}getSelectableDomItem_(selectableItemIndex){return this.getDomItem_(this.selectableIndexToItemIndex_.get(selectableItemIndex))}viewportItemCount_(){return Math.ceil(this.maxHeight/this.domItemAverageHeight_())}fillViewHeight_(height){const startTime=performance.now();assert(this.items.length);const initialDomItemCount=this.instances_.length;if(initialDomItemCount===0){this.createAndInsertDomItem_(0)}const desiredDomItemCount=Math.min(Math.ceil(height/this.domItemAverageHeight_()),this.items.length);for(let i=this.instances_.length;i<desiredDomItemCount;i++){this.createAndInsertDomItem_(i)}if(initialDomItemCount!==desiredDomItemCount){performance.mark(`tab_search:infinite_list_view_updated:${performance.now()-startTime}:metric_value`);return true}return false}isItemSelectable_(item){return this.selectableTypes_.has(item.constructor.name)}isItemSelectedAndFocused_(){const selectedItemIndex=this.$.selector.selected;if(selectedItemIndex!==undefined){const selectedItem=this.getSelectableDomItem_(selectedItemIndex);if(selectedItem===undefined){return false}const deepActiveElement=getDeepActiveElement();return selectedItem===deepActiveElement||!!selectedItem.shadowRoot&&selectedItem.shadowRoot.activeElement===deepActiveElement}return false}onKeyDown_(e){if(e.shiftKey){return}const selector=this.$.selector;if(selector.selected===undefined){return}if(selectorNavigationKeys.includes(e.key)){this.navigate(e.key,true);e.stopPropagation();e.preventDefault()}}onItemsChanged_(newItems,oldItems){if(this.instanceConstructors_.size===0){return}if(newItems.length===0){this.selectableIndexToItemIndex_=new BiMap;this.removeDomItems_(0,this.instances_.length);this.resetSelected_()}else{const itemSelectedAndFocused=this.isItemSelectedAndFocused_();this.selectableIndexToItemIndex_=new BiMap;newItems.forEach(((item,index)=>{if(this.isItemSelectable_(item)){this.selectableIndexToItemIndex_.set(this.selectableIndexToItemIndex_.size(),index)}}));if(oldItems.length!==0){const count=Math.max(this.instances_.length,this.viewportItemCount_());this.updateDomItems_(newItems.slice(0,count),oldItems.slice(0,count))}this.fillViewHeight_(this.scrollTop+this.maxHeight);const selector=this.$.selector;if(selector.selected>=this.selectableIndexToItemIndex_.size()){selector.selected=this.selectableIndexToItemIndex_.size()-1}if(itemSelectedAndFocused&&selector.selected!==NO_SELECTION){this.getSelectableDomItem_(selector.selected).focus()}}if(newItems.length!==oldItems.length){this.updateHeight_()}this.dispatchEvent(new CustomEvent("viewport-filled",{bubbles:true,composed:true}))}onMaxHeightChanged_(height){this.style.maxHeight=height+"px"}onScroll_(){const scrollTop=this.scrollTop;if(scrollTop>0&&this.instances_.length!==this.items.length){if(this.fillViewHeight_(scrollTop+this.maxHeight)){this.updateHeight_()}}}updateDomItems_(newItems,oldItems){const splices=calculateSplices(newItems,oldItems);for(const splice of splices){if(splice.index>=this.instances_.length){continue}if(splice.addedCount===splice.removed.length){const indexOfLastInstance=Math.min(splice.index+splice.addedCount,this.instances_.length);for(let i=splice.index;i<indexOfLastInstance;i++){if(oldItems[i].constructor!==newItems[i].constructor){this.getDomItem_(i).remove();this.createAndInsertDomItem_(i);continue}this.instances_[i].item=newItems[i]}continue}const removeCount=splice.addedCount!==0?this.instances_.length-splice.index:splice.removed.length;this.removeDomItems_(splice.index,removeCount)}this.updateSelectableItemInstanceIndexes_()}removeDomItems_(index,count){this.instances_.splice(index,count).forEach((instance=>{this.removeChild(instance.children[0])}))}updateSelectableItemInstanceIndexes_(){for(let itemIndex=0;itemIndex<this.instances_.length;itemIndex++){const selectableItemIndex=this.selectableIndexToItemIndex_.invGet(itemIndex);if(selectableItemIndex!==undefined){this.instances_[itemIndex].index=selectableItemIndex}}}updateHeight_(){const estScrollHeight=this.items.length>0?this.items.length*this.domItemAverageHeight_():0;this.$.container.style.height=estScrollHeight+"px"}onSelectedChanged_(){const selector=this.$.selector;if(selector.selected===undefined){return}const selectedIndex=selector.selected;if(selectedIndex===0){this.scrollTo({top:0,behavior:"smooth"});return}if(selectedIndex===this.selectableIndexToItemIndex_.size()-1){this.getSelectableDomItem_(selectedIndex).scrollIntoView({behavior:"smooth"});return}const previousItem=this.getSelectableDomItem_(selector.selected-1);if(previousItem.offsetTop<this.scrollTop){previousItem.scrollIntoView({behavior:"smooth",block:"nearest"});return}const nextItemIndex=selector.selected+1;if(nextItemIndex<this.selectableIndexToItemIndex_.size()){this.ensureSelectableDomItemAvailable_(nextItemIndex);const nextItem=this.getSelectableDomItem_(nextItemIndex);if(nextItem.offsetTop+nextItem.offsetHeight>this.scrollTop+this.offsetHeight){nextItem.scrollIntoView({behavior:"smooth",block:"nearest"})}}}resetSelected_(){this.$.selector.selected=undefined}selectableSelector_(){return"."+SELECTABLE_CLASS_NAME}set selected(index){if(index===NO_SELECTION){this.resetSelected_();return}const selector=this.$.selector;if(index!==selector.selected){assert(index<this.selectableIndexToItemIndex_.size(),"Selection index is out of range.");this.ensureSelectableDomItemAvailable_(index);selector.selected=index}}get selected(){return this.$.selector.selected!==undefined?this.$.selector.selected:NO_SELECTION}onSelectedItemChanged_(){this.selectedItem=this.$.selector.selectedItem?.data}}customElements.define(InfiniteList.is,InfiniteList);function getTemplate$3(){return html`<!--_html_template_start_--><style>:host(:focus){outline:0}#icon{flex-shrink:0;height:var(--mwb-icon-size);width:var(--mwb-icon-size)}#primaryText,#secondaryText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#primaryText{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-primary-text-font-weight);margin-bottom:3px}#secondaryTextContainer{align-items:center;color:var(--cr-secondary-text-color);display:flex;font-size:var(--mwb-secondary-text-font-size);font-weight:var(--mwb-secondary-text-font-weight)}#textAriaLabel{clip:rect(0,0,0,0);display:inline-block;position:fixed}#groupSvg{flex-shrink:0;height:8px;margin-inline-end:6px;width:8px}#groupDot{fill:var(--group-dot-color)}.text-container{flex-grow:1;overflow:hidden;user-select:none}.search-highlight-hit{--search-highlight-hit-background-color:none;--search-highlight-hit-color:none;font-weight:700}.separator{margin-inline-end:4px;margin-inline-start:4px}#iconContainer{margin-inline-end:16px}:host-context([chrome-refresh-2023]) #iconContainer{align-items:center;background:var(--color-list-item-url-favicon-background);border-radius:8px;display:flex;flex-shrink:0;height:40px;justify-content:center;overflow:hidden;width:40px}</style>
+
+<div id="iconContainer">
+  
+  <svg id="icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="4" width="28" height="24">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M6 5C6 4.44772 6.44772 4 7 4H29C29.5523 4 30 4.44772 30 5V23C30 23.5523 29.5523 24 29 24H7C6.44772 24 6 23.5523 6 23V5ZM7.99992 22V6.33335H17.9999V12H27.9999V22H7.99992ZM2 9C2 8.44772 2.44772 8 3 8H4V26H26V27C26 27.5523 25.5523 28 25 28H3C2.44772 28 2 27.5523 2 27V9Z" fill="#616161">
+    </path></mask>
+    <g mask="url(#mask0)">
+      <rect width="32" height="32" fill="#5F6368">
+    </rect></g>
+  </svg>
+</div>
+<div id="textAriaLabel" title="[[ariaLabelForText_(data)]]"></div>
+<div class="text-container" aria-hidden="true">
+  <div id="primaryText" title="[[data.tabGroup.title]]"></div>
+  <div id="secondaryTextContainer">
+    <svg id="groupSvg" viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg">
+      <circle id="groupDot" cx="0" cy="0" r="4">
+    </circle></svg>
+    <div id="secondaryText">[[tabCountText_(data.tabGroup.tabCount)]]</div>
+    <div class="separator">•</div>
+    <div id="timestamp">
+      [[data.tabGroup.lastActiveElapsedText]]
+    </div>
+  </div>
+</div>
+<!--_html_template_end_-->`}
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const TabSearchGroupItemBase=MouseHoverableMixin(PolymerElement);class TabSearchGroupItem extends TabSearchGroupItemBase{static get is(){return"tab-search-group-item"}static get template(){return getTemplate$3()}static get properties(){return{id:String,index:Number,data:{type:Object,observer:"dataChanged_"}}}ariaLabelForText_(tabGroupData){return ariaLabel(tabGroupData)}dataChanged_(data){highlightText(this.$.primaryText,data.tabGroup.title,data.highlightRanges["tabGroup.title"]);this.style.setProperty("--group-dot-color",`var(--tab-group-color-${colorName(data.tabGroup.color)})`)}tabCountText_(tabCount){return loadTimeData.getStringF(tabCount===1?"oneTab":"tabCount",tabCount)}}customElements.define(TabSearchGroupItem.is,TabSearchGroupItem);
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TitleItem{constructor(title,expandable=false,expanded=false){this.title=title;this.expandable=expandable;this.expanded=expanded}}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class PageHandlerPendingReceiver{constructor(handle){this.handle=mojo.internal.interfaceSupport.getEndpointForReceiver(handle)}bindInBrowser(scope="context"){mojo.internal.interfaceSupport.bind(this.handle,"color_change_listener.mojom.PageHandler",scope)}}class PageHandlerRemote{constructor(handle){this.proxy=new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver,handle);this.$=new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);this.onConnectionError=this.proxy.getConnectionErrorEventRouter()}setPage(page){this.proxy.sendMessage(0,PageHandler_SetPage_ParamsSpec.$,null,[page])}}class PageHandler{static get $interfaceName(){return"color_change_listener.mojom.PageHandler"}static getRemote(){let remote=new PageHandlerRemote;remote.$.bindNewPipeAndPassReceiver().bindInBrowser();return remote}}class PagePendingReceiver{constructor(handle){this.handle=mojo.internal.interfaceSupport.getEndpointForReceiver(handle)}bindInBrowser(scope="context"){mojo.internal.interfaceSupport.bind(this.handle,"color_change_listener.mojom.Page",scope)}}class PageRemote{constructor(handle){this.proxy=new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver,handle);this.$=new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);this.onConnectionError=this.proxy.getConnectionErrorEventRouter()}onColorProviderChanged(){this.proxy.sendMessage(0,Page_OnColorProviderChanged_ParamsSpec.$,null,[])}}class PageCallbackRouter{constructor(){this.helper_internal_=new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);this.$=new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);this.router_=new mojo.internal.interfaceSupport.CallbackRouter;this.onColorProviderChanged=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(0,Page_OnColorProviderChanged_ParamsSpec.$,null,this.onColorProviderChanged.createReceiverHandler(false));this.onConnectionError=this.helper_internal_.getConnectionErrorEventRouter()}removeListener(id){return this.router_.removeListener(id)}}const PageHandler_SetPage_ParamsSpec={$:{}};const Page_OnColorProviderChanged_ParamsSpec={$:{}};mojo.internal.Struct(PageHandler_SetPage_ParamsSpec.$,"PageHandler_SetPage_Params",[mojo.internal.StructField("page",0,0,mojo.internal.InterfaceProxy(PageRemote),null,false,0)],[[0,16]]);mojo.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$,"Page_OnColorProviderChanged_Params",[],[[0,8]]);
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+let instance=null;class BrowserProxy{constructor(){this.callbackRouter=new PageCallbackRouter;const pageHandlerRemote=PageHandler.getRemote();pageHandlerRemote.setPage(this.callbackRouter.$.bindNewPipeAndPassRemote())}static getInstance(){return instance||(instance=new BrowserProxy)}static setInstance(newInstance){instance=newInstance}}
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const COLORS_CSS_SELECTOR="link[href*='//theme/colors.css']";let documentInstance=null;const COLOR_PROVIDER_CHANGED="color-provider-changed";class ColorChangeUpdater{constructor(root){this.listenerId_=null;this.eventTarget=new EventTarget;assert(documentInstance===null||root!==document);this.root_=root}start(){if(this.listenerId_!==null){return}this.listenerId_=BrowserProxy.getInstance().callbackRouter.onColorProviderChanged.addListener(this.onColorProviderChanged.bind(this))}async onColorProviderChanged(){await this.refreshColorsCss();this.eventTarget.dispatchEvent(new CustomEvent(COLOR_PROVIDER_CHANGED))}async refreshColorsCss(){const colorCssNode=this.root_.querySelector(COLORS_CSS_SELECTOR);if(!colorCssNode){return false}const href=colorCssNode.getAttribute("href");if(!href){return false}const hrefURL=new URL(href,location.href);const params=new URLSearchParams(hrefURL.search);params.set("version",(new Date).getTime().toString());const newHref=`${hrefURL.origin}${hrefURL.pathname}?${params.toString()}`;const newColorsCssLink=document.createElement("link");newColorsCssLink.setAttribute("href",newHref);newColorsCssLink.rel="stylesheet";newColorsCssLink.type="text/css";const newColorsLoaded=new Promise((resolve=>{newColorsCssLink.onload=resolve}));if(this.root_===document){document.getElementsByTagName("body")[0].appendChild(newColorsCssLink)}else{this.root_.appendChild(newColorsCssLink)}await newColorsLoaded;const oldColorCssNode=document.querySelector(COLORS_CSS_SELECTOR);if(oldColorCssNode){oldColorCssNode.remove()}return true}static forDocument(){return documentInstance||(documentInstance=new ColorChangeUpdater(document))}}
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const CrSearchFieldMixin=dedupingMixin((superClass=>{class CrSearchFieldMixin extends superClass{constructor(){super(...arguments);this.effectiveValue_="";this.searchDelayTimer_=-1}static get properties(){return{label:{type:String,value:""},clearLabel:{type:String,value:""},hasSearchText:{type:Boolean,reflectToAttribute:true,value:false}}}getSearchInput(){assertNotReached()}getValue(){return this.getSearchInput().value}fire_(eventName,detail){this.dispatchEvent(new CustomEvent(eventName,{bubbles:true,composed:true,detail:detail}))}setValue(value,noEvent){const updated=this.updateEffectiveValue_(value);this.getSearchInput().value=this.effectiveValue_;if(!updated){if(value===""&&this.hasSearchText){this.hasSearchText=false}return}this.onSearchTermInput();if(!noEvent){this.fire_("search-changed",this.effectiveValue_)}}scheduleSearch_(){if(this.searchDelayTimer_>=0){clearTimeout(this.searchDelayTimer_)}const length=this.getValue().length;const timeoutMs=length>0?500-100*(Math.min(length,4)-1):0;this.searchDelayTimer_=setTimeout((()=>{this.getSearchInput().dispatchEvent(new CustomEvent("search",{composed:true,detail:this.getValue()}));this.searchDelayTimer_=-1}),timeoutMs)}onSearchTermSearch(){this.onValueChanged_(this.getValue(),false)}onSearchTermInput(){this.hasSearchText=this.getSearchInput().value!=="";this.scheduleSearch_()}onValueChanged_(newValue,noEvent){const updated=this.updateEffectiveValue_(newValue);if(updated&&!noEvent){this.fire_("search-changed",this.effectiveValue_)}}updateEffectiveValue_(value){const effectiveValue=value.replace(/\s+/g," ").replace(/^\s/,"");if(effectiveValue===this.effectiveValue_){return false}this.effectiveValue_=effectiveValue;return true}}return CrSearchFieldMixin}));
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/const IronA11yAnnouncer=Polymer({_template:html`
+    <style>
+      :host {
+        display: inline-block;
+        position: fixed;
+        clip: rect(0px,0px,0px,0px);
+      }
+    </style>
+    <div aria-live$="[[mode]]">[[_text]]</div>
+`,is:"iron-a11y-announcer",properties:{mode:{type:String,value:"polite"},timeout:{type:Number,value:150},_text:{type:String,value:""}},created:function(){if(!IronA11yAnnouncer.instance){IronA11yAnnouncer.instance=this}document.addEventListener("iron-announce",this._onIronAnnounce.bind(this))},announce:function(text){this._text="";this.async((function(){this._text=text}),this.timeout)},_onIronAnnounce:function(event){if(event.detail&&event.detail.text){this.announce(event.detail.text)}}});IronA11yAnnouncer.instance=null;IronA11yAnnouncer.requestAvailability=function(){if(!IronA11yAnnouncer.instance){IronA11yAnnouncer.instance=document.createElement("iron-a11y-announcer")}if(document.body){document.body.appendChild(IronA11yAnnouncer.instance)}else{document.addEventListener("load",(function(){document.body.appendChild(IronA11yAnnouncer.instance)}))}};
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function fuzzySearch(input,records,options){if(input.length===0){return[...records]}const searchStartTime=Date.now();let result;if(options.useFuzzySearch){const keyNames=options.keys.reduce(((acc,{name:name})=>{acc.push(name);return acc}),[]);result=new Fuse(records,options).search(input).map((result=>{const item=cloneTabDataObj(result.item);item.highlightRanges=keyNames.reduce(((acc,key)=>{const match=result.matches.find((e=>e.key===key));if(match){acc[key]=convertToRanges(match.indices)}return acc}),{});return item}));result=prioritizeMatchResult(input,keyNames,result)}else{result=exactSearch(input,records,options)}chrome.metricsPrivate.recordTime("Tabs.TabSearch.WebUI.SearchAlgorithmDuration",Math.round(Date.now()-searchStartTime));return result}function cloneTabDataObj(tabData){const clone=Object.assign({},tabData);clone.highlightRanges={};Object.setPrototypeOf(clone,Object.getPrototypeOf(tabData));return clone}function convertToRanges(matches){return matches.map((([start,end])=>({start:start,length:end-start+1})))}function exactSearch(searchText,records,options){if(searchText.length===0){return records}const defaultDistance=200;const distance=options.distance||defaultDistance;const searchFieldWeights=options.keys.reduce(((acc,{name:name,weight:weight})=>{acc[name]=weight;return acc}),{});const exactMatches=[];for(const tabDataRecord of records){let matchFound=false;const matchedRecord=cloneTabDataObj(tabDataRecord);for(const fieldPath in searchFieldWeights){const text=get(tabDataRecord,fieldPath);if(text){const ranges=getRanges(text,searchText);if(ranges.length!==0){matchedRecord.highlightRanges[fieldPath]=ranges;matchFound=true}}}if(matchFound){exactMatches.push({tab:matchedRecord,score:scoringFunction(matchedRecord,distance,searchFieldWeights)})}}exactMatches.sort(((a,b)=>b.score-a.score));return prioritizeMatchResult(searchText,Object.keys(searchFieldWeights),exactMatches.map((item=>item.tab)))}function hasMatchStringStart(tab,searchText,keys){return keys.some((key=>{const value=get(tab,key);return value!==undefined&&value.startsWith(searchText)}))}function hasRegexMatch(tab,regexp,keys){return keys.some((key=>{const value=get(tab,key);return value!==undefined&&value.search(regexp)!==-1}))}function getRanges(target,searchText){const escapedText=quoteString(searchText);const ranges=[];let match=null;for(const re=new RegExp(escapedText,"gi");match=re.exec(target);){ranges.push({start:match.index,length:searchText.length})}return ranges}function scoringFunction(tabData,distance,searchFieldWeights){let score=0;for(const key in searchFieldWeights){if(tabData.highlightRanges[key]){for(const{start:start}of tabData.highlightRanges[key]){score+=Math.max((distance-start)/distance,0)*searchFieldWeights[key]}}}return score}function prioritizeMatchResult(searchText,keys,result){const itemsMatchingStringStart=[];const itemsMatchingWordStart=[];const others=[];const wordStartRegexp=new RegExp(`\\b${quoteString(searchText)}`,"i");for(const tab of result){if(hasMatchStringStart(tab,searchText,keys)){itemsMatchingStringStart.push(tab)}else if(hasRegexMatch(tab,wordStartRegexp,keys)){itemsMatchingWordStart.push(tab)}else{others.push(tab)}}return itemsMatchingStringStart.concat(itemsMatchingWordStart,others)}function getTemplate$2(){return html`<!--_html_template_start_--><style include="mwb-shared-style">#searchField{align-items:center;background-color:var(--mwb-background-color);display:flex;height:60px;padding:0 var(--mwb-list-item-horizontal-margin);user-select:none}#searchIcon{color:var(--cr-secondary-text-color);height:var(--mwb-icon-size);padding-inline-end:12px;width:var(--mwb-icon-size)}#searchWrapper{display:flex;flex:1;height:100%;position:relative}:host([has-search-text]) #searchField label{visibility:hidden}#searchLabel{align-items:center;color:var(--cr-secondary-text-color);cursor:text;display:flex;font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-secondary-text-font-weight);height:100%;justify-content:space-between;position:absolute;width:100%}#searchResultText{clip:rect(0,0,0,0);display:inline-block;position:fixed}#searchInput{background-color:transparent;border:none;border-radius:0;color:var(--cr-primary-text-color);flex:1;font-family:inherit;font-size:var(--mwb-primary-text-font-size);font-style:inherit;font-weight:var(--mwb-secondary-text-font-weight);outline:0;padding:0;text-overflow:ellipsis}#searchInput::-webkit-search-cancel-button{display:none}#no-results{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);padding:12px;text-align:center}#feedback-text{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);margin-inline-start:var(--mwb-list-item-horizontal-margin);user-select:none}#feedback-footer{border:none;border-top:1px solid var(--google-grey-500);height:40px;width:100%}#feedback-footer:focus{background-color:var(--mwb-list-item-selected-background-color);outline:0}#feedback-icon{--iron-icon-fill-color:var(--google-grey-700);height:var(--mwb-icon-size);width:var(--mwb-icon-size)}@media (prefers-color-scheme:dark){#feedback-icon{--iron-icon-fill-color:var(--google-blue-300)}}.list-section-title{align-items:center;background-color:var(--mwb-background-color);color:var(--cr-secondary-text-color);display:flex;font-size:var(--mwb-list-section-title-font-size);font-weight:bolder;height:var(--mwb-list-section-title-height);padding-inline-end:28px;padding-inline-start:var(--mwb-list-item-horizontal-margin);position:sticky;text-transform:uppercase;top:0;user-select:none;z-index:1000}:host-context([chrome-refresh-2023]) .list-section-title{font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-primary-text-font-weight);text-transform:none}cr-expand-button{--cr-expand-button-size:24px;--cr-expand-button-icon-size:16px;--cr-section-vertical-padding:0;-webkit-tap-highlight-color:transparent;color:var(--mwb-icon-button-fill-color);flex-grow:1}#divider{width:100%;height:1px;background-color:var(--cr-separator-color)}</style>
+
+<div id="searchField" on-keydown="onSearchKeyDown_" clear-label="$i18n{clearSearch}">
+  <iron-icon id="searchIcon" icon="mwb16:search"></iron-icon>
+  <div id="searchWrapper">
+    <label id="searchLabel" for="searchInput" aria-hidden="true">
+      <span>$i18n{searchTabs}</span>
+      <span>[[shortcut_]]</span>
+      <span id="searchResultText">[[searchResultText_]]</span>
+    </label>
+    <input id="searchInput" aria-labelledby="searchLabel" autofocus autocomplete="off" on-search="onSearchTermSearch" on-input="onSearchTermInput" type="search" spellcheck="false" role="combobox" aria-activedescendant$="[[activeSelectionId_]]" aria-controls="tabsList" aria-owns="tabsList">
+  </div>
+</div>
+<div id="divider"></div>
+<div hidden="[[!filteredItems_.length]]">
+  <infinite-list id="tabsList" max-height="[[listMaxHeight_(availableHeight_)]]" items="[[filteredItems_]]" on-selected-item-changed="onSelectedItemChanged_" role="listbox">
+    <template data-type="TitleItem">
+      <div class="list-section-title">
+        <div>[[item.title]]</div>
+        <template is="dom-if" if="[[item.expandable]]">
+          <cr-expand-button aria-label="$i18n{recentlyClosedExpandA11yLabel}" expand-icon="cr:arrow-drop-down" collapse-icon="cr:arrow-drop-up" expanded="[[item.expanded]]" expand-title="$i18n{expandRecentlyClosed}" collapse-title="$i18n{collapseRecentlyClosed}" on-expanded-changed="onTitleExpandChanged_" no-hover>
+          </cr-expand-button>
+        </template>
+      </div>
+    </template>
+    <template data-type="TabData" data-selectable>
+      <tab-search-item id="[[item.tab.tabId]]" aria-label="[[ariaLabel_(item)]]" class="mwb-list-item" data="[[item]]" index="[[index]]" on-click="onItemClick_" on-close="onItemClose_" on-focus="onItemFocus_" on-keydown="onItemKeyDown_" role="option" tabindex="0">
+      </tab-search-item>
+    </template>
+    <template data-type="TabGroupData" data-selectable>
+      <tab-search-group-item id="[[item.tabGroup.id]]" class="mwb-list-item" index="[[index]]" data="[[item]]" aria-label="[[ariaLabel_(item)]]" on-click="onItemClick_" on-focus="onItemFocus_" on-keydown="onItemKeyDown_" role="option" tabindex="0">
+      </tab-search-group-item>
+    </template>
+  </infinite-list>
+</div>
+<div id="no-results" hidden="[[filteredItems_.length]]">
+  $i18n{noResultsFound}
+</div>
+<!--_html_template_end_-->`}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const MINIMUM_AVAILABLE_HEIGHT_LIST_ITEM_COUNT=5.5;const TabSearchSearchFieldBase=CrSearchFieldMixin(PolymerElement);var TabSwitchAction;(function(TabSwitchAction){TabSwitchAction[TabSwitchAction["WITHOUT_SEARCH"]=0]="WITHOUT_SEARCH";TabSwitchAction[TabSwitchAction["WITH_SEARCH"]=1]="WITH_SEARCH"})(TabSwitchAction||(TabSwitchAction={}));class TabSearchPageElement extends TabSearchSearchFieldBase{static get is(){return"tab-search-page"}static get properties(){return{searchResultText_:{type:String,value:""},shortcut_:{type:String,value:()=>loadTimeData.getString("shortcutText")},searchText_:{type:String,value:""},availableHeight_:Number,filteredItems_:{type:Array,value:[]},fuzzySearchOptions_:{type:Object,value:{includeScore:true,includeMatches:true,ignoreLocation:false,threshold:0,distance:200,keys:[{name:"tab.title",weight:2},{name:"hostname",weight:1},{name:"tabGroup.title",weight:1.5}]}},moveActiveTabToBottom_:{type:Boolean,value:()=>loadTimeData.getBoolean("moveActiveTabToBottom")},recentlyClosedDefaultItemDisplayCount_:{type:Number,value:()=>loadTimeData.getValue("recentlyClosedDefaultItemDisplayCount")}}}constructor(){super();this.apiProxy_=TabSearchApiProxyImpl.getInstance();this.listenerIds_=[];this.tabGroupsMap_=new Map;this.recentlyClosedTabGroups_=[];this.openTabs_=[];this.recentlyClosedTabs_=[];this.windowShownTimestamp_=Date.now();this.filteredOpenTabsCount_=0;this.filteredMediaTabsCount_=0;this.initiallySelectedTabIndex_=NO_SELECTION;ColorChangeUpdater.forDocument().start();this.documentVisibilityChangedListener_=()=>{if(document.visibilityState==="visible"){this.windowShownTimestamp_=Date.now();this.updateTabs_()}else{this.onDocumentHidden_()}};this.elementVisibilityChangedListener_=new IntersectionObserver(((entries,_observer)=>{entries.forEach((entry=>{this.onElementVisibilityChanged_(entry.intersectionRatio>0)}))}),{root:document.documentElement});this.mediaTabsTitleItem_=new TitleItem(loadTimeData.getString("mediaTabs"));this.openTabsTitleItem_=new TitleItem(loadTimeData.getString("openTabs"));this.recentlyClosedTitleItem_=new TitleItem(loadTimeData.getString("recentlyClosed"),true,true)}get metricsReporter(){if(!this.metricsReporter_){this.metricsReporter_=MetricsReporterImpl.getInstance()}return this.metricsReporter_}ready(){super.ready();this.fuzzySearchOptions_=Object.assign({},this.fuzzySearchOptions_,{useFuzzySearch:loadTimeData.getBoolean("useFuzzySearch"),ignoreLocation:loadTimeData.getBoolean("searchIgnoreLocation"),threshold:loadTimeData.getValue("searchThreshold"),distance:loadTimeData.getInteger("searchDistance"),keys:[{name:"tab.title",weight:loadTimeData.getValue("searchTitleWeight")},{name:"hostname",weight:loadTimeData.getValue("searchHostnameWeight")},{name:"tabGroup.title",weight:loadTimeData.getValue("searchGroupTitleWeight")}]});this.useMetricsReporter_=loadTimeData.getBoolean("useMetricsReporter")}connectedCallback(){super.connectedCallback();document.addEventListener("visibilitychange",this.documentVisibilityChangedListener_);this.elementVisibilityChangedListener_.observe(this);const callbackRouter=this.apiProxy_.getCallbackRouter();this.listenerIds_.push(callbackRouter.tabsChanged.addListener(this.tabsChanged_.bind(this)),callbackRouter.tabUpdated.addListener(this.onTabUpdated_.bind(this)),callbackRouter.tabsRemoved.addListener(this.onTabsRemoved_.bind(this)));if(document.visibilityState==="visible"){this.updateTabs_()}}disconnectedCallback(){super.disconnectedCallback();this.listenerIds_.forEach((id=>this.apiProxy_.getCallbackRouter().removeListener(id)));document.removeEventListener("visibilitychange",this.documentVisibilityChangedListener_);this.elementVisibilityChangedListener_.disconnect()}getSearchInput(){return this.$.searchInput}onSearchTermInput(){this.hasSearchText=this.getSearchInput().value!=="";this.searchText_=this.getSearchInput().value;const tabsList=this.$.tabsList;tabsList.selected=NO_SELECTION;this.updateFilteredTabs_();this.getSearchInput().dispatchEvent(new CustomEvent("search",{composed:true,detail:this.searchText_}))}getStylePropertyPixelValue_(name){const pxValue=getComputedStyle(this).getPropertyValue(name);assert(pxValue);return Number.parseInt(pxValue.trim().slice(0,-2),10)}listMaxHeight_(height){return Math.max(height-this.$.searchField.offsetHeight,Math.round(MINIMUM_AVAILABLE_HEIGHT_LIST_ITEM_COUNT*this.getStylePropertyPixelValue_("--mwb-item-height")))}onDocumentHidden_(){this.filteredItems_=[];this.setValue("");this.$.searchInput.focus()}onElementVisibilityChanged_(visible){if(visible){this.$.tabsList.ensureAllDomItemsAvailable()}}updateTabs_(){const getTabsStartTimestamp=Date.now();if(this.useMetricsReporter_){const isMarkOverlap=this.metricsReporter.hasLocalMark("TabListDataReceived");chrome.metricsPrivate.recordBoolean("Tabs.TabSearch.WebUI.TabListDataReceived2.IsOverlap",isMarkOverlap);if(!isMarkOverlap){this.metricsReporter.mark("TabListDataReceived")}}this.apiProxy_.getProfileData().then((({profileData:profileData})=>{chrome.metricsPrivate.recordTime("Tabs.TabSearch.WebUI.TabListDataReceived",Math.round(Date.now()-getTabsStartTimestamp));if(this.useMetricsReporter_){this.metricsReporter.measure("TabListDataReceived").then((e=>this.metricsReporter.umaReportTime("Tabs.TabSearch.WebUI.TabListDataReceived2",e))).then((()=>this.metricsReporter.clearMark("TabListDataReceived"))).catch((()=>{}))}listenOnce(this.$.tabsList,"viewport-filled",(()=>{setTimeout((()=>this.apiProxy_.showUi()),0)}));const activeWindow=profileData.windows.find((t=>t.active));this.availableHeight_=activeWindow?activeWindow.height:profileData.windows[0].height;this.tabsChanged_(profileData)}))}onTabUpdated_(tabUpdateInfo){const{tab:tab,inActiveWindow:inActiveWindow}=tabUpdateInfo;const tabData=this.tabData_(tab,inActiveWindow,TabItemType.OPEN_TAB,this.tabGroupsMap_);let foundTab=false;for(let i=0;i<this.openTabs_.length&&!foundTab;++i){if(this.openTabs_[i].tab.tabId===tab.tabId){this.openTabs_[i]=tabData;this.updateFilteredTabs_();foundTab=true}}if(!foundTab){this.openTabs_.push(tabData);this.updateFilteredTabs_()}if(this.useMetricsReporter_){this.metricsReporter.measure("TabUpdated").then((e=>this.metricsReporter.umaReportTime("Tabs.TabSearch.Mojo.TabUpdated",e))).then((()=>this.metricsReporter.clearMark("TabUpdated"))).catch((()=>{}))}}onTabsRemoved_(tabsRemovedInfo){if(this.openTabs_.length===0){return}const ids=new Set(tabsRemovedInfo.tabIds);for(let i=this.openTabs_.length-1;i>=0;i--){if(ids.has(this.openTabs_[i].tab.tabId)){this.openTabs_.splice(i,1)}}tabsRemovedInfo.recentlyClosedTabs.forEach((tab=>{this.recentlyClosedTabs_.unshift(this.tabData_(tab,false,TabItemType.RECENTLY_CLOSED_TAB,this.tabGroupsMap_))}));this.updateFilteredTabs_()}getSelectedIndex(){return this.$.tabsList.selected}getA11ySearchResultText_(){const itemCount=this.selectableItemCount_();let text;if(this.searchText_.length>0){text=loadTimeData.getStringF(itemCount===1?"a11yFoundTabFor":"a11yFoundTabsFor",itemCount,this.searchText_)}else{text=loadTimeData.getStringF(itemCount===1?"a11yFoundTab":"a11yFoundTabs",itemCount)}return text}selectableItemCount_(){return this.filteredItems_.reduce(((acc,item)=>acc+(item instanceof TitleItem?0:1)),0)}onItemClick_(e){const tabItem=e.model.item;this.tabItemAction_(tabItem,e.model.index)}recordMetricsForAction(action,tabIndex){const withSearch=!!this.searchText_;if(action==="SwitchTab"){chrome.metricsPrivate.recordEnumerationValue("Tabs.TabSearch.WebUI.TabSwitchAction",withSearch?TabSwitchAction.WITH_SEARCH:TabSwitchAction.WITHOUT_SEARCH,Object.keys(TabSwitchAction).length)}chrome.metricsPrivate.recordSmallCount(withSearch?`Tabs.TabSearch.WebUI.IndexOf${action}InFilteredList`:`Tabs.TabSearch.WebUI.IndexOf${action}InUnfilteredList`,tabIndex)}tabItemAction_(itemData,tabIndex){const state=this.searchText_?"Filtered":"Unfiltered";let action;switch(itemData.type){case TabItemType.OPEN_TAB:if(this.useMetricsReporter_){const isMarkOverlap=this.metricsReporter.hasLocalMark("SwitchToTab");chrome.metricsPrivate.recordBoolean("Tabs.TabSearch.Mojo.SwitchToTab.IsOverlap",isMarkOverlap);if(!isMarkOverlap){this.metricsReporter.mark("SwitchToTab")}}this.recordMetricsForAction("SwitchTab",tabIndex);this.apiProxy_.switchToTab({tabId:itemData.tab.tabId});action="SwitchTab";break;case TabItemType.RECENTLY_CLOSED_TAB:this.apiProxy_.openRecentlyClosedEntry(itemData.tab.tabId,!!this.searchText_,true,tabIndex-this.filteredOpenTabsCount_);action="OpenRecentlyClosedEntry";break;case TabItemType.RECENTLY_CLOSED_TAB_GROUP:this.apiProxy_.openRecentlyClosedEntry(itemData.tabGroup.sessionId,!!this.searchText_,false,tabIndex-this.filteredOpenTabsCount_);action="OpenRecentlyClosedEntry";break;default:throw new Error("ItemData is of invalid type.")}chrome.metricsPrivate.recordTime(`Tabs.TabSearch.WebUI.TimeTo${action}In${state}List`,Math.round(Date.now()-this.windowShownTimestamp_))}onItemClose_(e){performance.mark("tab_search:close_tab:metric_begin");const tabId=e.model.item.tab.tabId;const tabIndex=e.model.index;this.recordMetricsForAction("CloseTab",tabIndex);this.apiProxy_.closeTab(tabId);this.announceA11y_(loadTimeData.getString("a11yTabClosed"));listenOnce(this.$.tabsList,"iron-items-changed",(()=>{performance.mark("tab_search:close_tab:metric_end")}))}onItemKeyDown_(e){if(e.key!=="Enter"&&e.key!==" "){return}e.stopPropagation();e.preventDefault();const itemData=e.model.item;this.tabItemAction_(itemData,e.model.index)}tabsChanged_(profileData){this.tabGroupsMap_=profileData.tabGroups.reduce(((map,tabGroup)=>{map.set(tokenToString(tabGroup.id),tabGroup);return map}),new Map);this.openTabs_=profileData.windows.reduce(((acc,{active:active,tabs:tabs})=>acc.concat(tabs.map((tab=>this.tabData_(tab,active,TabItemType.OPEN_TAB,this.tabGroupsMap_))))),[]);this.recentlyClosedTabs_=profileData.recentlyClosedTabs.map((tab=>this.tabData_(tab,false,TabItemType.RECENTLY_CLOSED_TAB,this.tabGroupsMap_)));this.recentlyClosedTabGroups_=profileData.recentlyClosedTabGroups.map((tabGroup=>{const tabGroupData=new TabGroupData(tabGroup);tabGroupData.a11yTypeText=loadTimeData.getString("a11yRecentlyClosedTabGroup");return tabGroupData}));this.recentlyClosedTitleItem_.expanded=profileData.recentlyClosedSectionExpanded;this.$.tabsList.setAttribute("expanded-list",profileData.recentlyClosedSectionExpanded.toString());this.updateFilteredTabs_()}onItemFocus_(e){this.$.tabsList.selected=e.model.index}onTitleExpandChanged_(e){const expanded=e.detail.value;const titleItem=e.model.item;titleItem.expanded=expanded;this.apiProxy_.saveRecentlyClosedExpandedPref(expanded);this.$.tabsList.setAttribute("expanded-list",expanded.toString());this.updateFilteredTabs_();if(expanded){this.$.tabsList.scrollIndexIntoView(this.filteredOpenTabsCount_)}e.stopPropagation()}onSearchKeyDown_(e){if(e.shiftKey&&e.key==="Tab"&&this.$.tabsList.selected===0){this.$.tabsList.ensureAllDomItemsAvailable();return}if(e.shiftKey){return}if(this.getSelectedIndex()===-1){return}if(selectorNavigationKeys.includes(e.key)){this.$.tabsList.navigate(e.key);e.stopPropagation();e.preventDefault()}else if(e.key==="Enter"){const itemData=this.$.tabsList.selectedItem;this.tabItemAction_(itemData,this.getSelectedIndex());e.stopPropagation()}}announceA11y_(text){IronA11yAnnouncer.requestAvailability();this.dispatchEvent(new CustomEvent("iron-announce",{bubbles:true,composed:true,detail:{text:text}}))}ariaLabel_(tabData){return ariaLabel(tabData)}tabData_(tab,inActiveWindow,type,tabGroupsMap){const tabData=new TabData(tab,type,new URL(tab.url.url).hostname);if(tab.groupId){tabData.tabGroup=tabGroupsMap.get(tokenToString(tab.groupId))}if(type===TabItemType.OPEN_TAB){tabData.inActiveWindow=inActiveWindow}tabData.a11yTypeText=loadTimeData.getString(type===TabItemType.OPEN_TAB?"a11yOpenTab":"a11yRecentlyClosedTab");return tabData}getRecentlyClosedItemLastActiveTime_(itemData){if(itemData.type===TabItemType.RECENTLY_CLOSED_TAB&&itemData instanceof TabData){return itemData.tab.lastActiveTime}if(itemData.type===TabItemType.RECENTLY_CLOSED_TAB_GROUP&&itemData instanceof TabGroupData){return itemData.tabGroup.lastActiveTime}throw new Error("ItemData provided is invalid.")}updateFilteredTabs_(){this.openTabs_.sort(((a,b)=>{const tabA=a.tab;const tabB=b.tab;if(this.moveActiveTabToBottom_){if(a.inActiveWindow&&tabA.active){return 1}if(b.inActiveWindow&&tabB.active){return-1}}return tabB.lastActiveTimeTicks&&tabA.lastActiveTimeTicks?Number(tabB.lastActiveTimeTicks.internalValue-tabA.lastActiveTimeTicks.internalValue):0}));let mediaTabs=[];if(this.searchText_.length===0){mediaTabs=this.openTabs_.filter((tabData=>tabHasMediaAlerts(tabData.tab)))}const filteredMediaTabs=fuzzySearch(this.searchText_,mediaTabs,this.fuzzySearchOptions_);let filteredOpenTabs=fuzzySearch(this.searchText_,this.openTabs_,this.fuzzySearchOptions_);if(filteredOpenTabs.length>0){this.initiallySelectedTabIndex_=tabHasMediaAlerts(filteredOpenTabs[0].tab)?0:filteredMediaTabs.length}if(this.searchText_.length===0){filteredOpenTabs=filteredOpenTabs.filter((tabData=>!tabHasMediaAlerts(tabData.tab)))}this.filteredOpenTabsCount_=filteredOpenTabs.length+filteredMediaTabs.length;this.filteredMediaTabsCount_=filteredMediaTabs.length;const recentlyClosedItems=[...this.recentlyClosedTabs_,...this.recentlyClosedTabGroups_];recentlyClosedItems.sort(((a,b)=>{const aTime=this.getRecentlyClosedItemLastActiveTime_(a);const bTime=this.getRecentlyClosedItemLastActiveTime_(b);return bTime&&aTime?Number(bTime.internalValue-aTime.internalValue):0}));let filteredRecentlyClosedItems=fuzzySearch(this.searchText_,recentlyClosedItems,this.fuzzySearchOptions_);const recentlyClosedTabGroupIds=this.recentlyClosedTabGroups_.reduce(((acc,tabGroupData)=>acc.concat(tabGroupData.tabGroup.id)),[]);if(!this.searchText_.length){filteredRecentlyClosedItems=filteredRecentlyClosedItems.filter((recentlyClosedItem=>{if(recentlyClosedItem instanceof TabGroupData){return true}const recentlyClosedTab=recentlyClosedItem.tab;return!recentlyClosedTab.groupId||!recentlyClosedTabGroupIds.some((groupId=>tokenEquals(groupId,recentlyClosedTab.groupId)))})).slice(0,this.recentlyClosedDefaultItemDisplayCount_)}this.filteredItems_=[[this.mediaTabsTitleItem_,filteredMediaTabs],[this.openTabsTitleItem_,filteredOpenTabs],[this.recentlyClosedTitleItem_,filteredRecentlyClosedItems]].reduce(((acc,[sectionTitle,sectionItems])=>{if(sectionItems.length!==0){acc.push(sectionTitle);if(!sectionTitle.expandable||sectionTitle.expandable&&sectionTitle.expanded){acc.push(...sectionItems)}}return acc}),[]);this.searchResultText_=this.getA11ySearchResultText_();const tabsList=this.$.tabsList;let selectedIndex=this.getSelectedIndex();if(selectedIndex===NO_SELECTION){selectedIndex=this.initiallySelectedTabIndex_}tabsList.selected=Math.min(Math.max(selectedIndex,0),this.selectableItemCount_()-1)}getSearchTextForTesting(){return this.searchText_}getAvailableHeightForTesting(){return this.availableHeight_}static get template(){return getTemplate$2()}onSelectedItemChanged_(){const item=this.$.tabsList.selectedItem;this.activeSelectionId_=item?item?.tab?.tabId:null}}customElements.define(TabSearchPageElement.is,TabSearchPageElement);function getTemplate$1(){return html`<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:auto;height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:0;position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+    <template is="dom-repeat" items="[[tabNames]]">
+      <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
+        <div class="tab-icon" style$="[[getIconStyle_(index)]]">
+        </div>
+        [[item]]
+        <div class="tab-indicator"></div>
+      </div>
+    </template>
+<!--_html_template_end_-->`}
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class CrTabsElement extends PolymerElement{constructor(){super(...arguments);this.isRtl_=false;this.lastSelected_=null}static get is(){return"cr-tabs"}static get template(){return getTemplate$1()}static get properties(){return{tabIcons:{type:Array,value:()=>[]},tabNames:{type:Array,value:()=>[]},selected:{type:Number,notify:true,observer:"onSelectedChanged_"}}}connectedCallback(){super.connectedCallback();this.isRtl_=this.matches(":host-context([dir=rtl]) cr-tabs")}ready(){super.ready();this.setAttribute("role","tablist");this.addEventListener("keydown",this.onKeyDown_.bind(this))}getAriaSelected_(index){return index===this.selected?"true":"false"}getIconStyle_(index){const icon=this.tabIcons[index];return icon?`-webkit-mask-image: url(${icon}); display: block;`:""}getTabindex_(index){return index===this.selected?"0":"-1"}getSelectedClass_(index){return index===this.selected?"selected":""}onSelectedChanged_(newSelected,oldSelected){const tabs=this.shadowRoot.querySelectorAll(".tab");if(tabs.length===0||oldSelected===undefined){return}const oldTabRect=tabs[oldSelected].getBoundingClientRect();const newTabRect=tabs[newSelected].getBoundingClientRect();const newIndicator=tabs[newSelected].querySelector(".tab-indicator");newIndicator.classList.remove("expand","contract");this.updateIndicator_(newIndicator,newTabRect,oldTabRect.left,oldTabRect.width);newIndicator.getBoundingClientRect();newIndicator.classList.add("expand");newIndicator.addEventListener("transitionend",(e=>this.onIndicatorTransitionEnd_(e)),{once:true});const leftmostEdge=Math.min(oldTabRect.left,newTabRect.left);const fullWidth=newTabRect.left>oldTabRect.left?newTabRect.right-oldTabRect.left:oldTabRect.right-newTabRect.left;this.updateIndicator_(newIndicator,newTabRect,leftmostEdge,fullWidth)}onKeyDown_(e){const count=this.tabNames.length;let newSelection;if(e.key==="Home"){newSelection=0}else if(e.key==="End"){newSelection=count-1}else if(e.key==="ArrowLeft"||e.key==="ArrowRight"){const delta=e.key==="ArrowLeft"?this.isRtl_?1:-1:this.isRtl_?-1:1;newSelection=(count+this.selected+delta)%count}else{return}e.preventDefault();e.stopPropagation();this.selected=newSelection;this.shadowRoot.querySelector(".tab.selected").focus()}onIndicatorTransitionEnd_(event){const indicator=event.target;indicator.classList.replace("expand","contract");indicator.style.transform=`translateX(0) scaleX(1)`}onTabClick_(e){this.selected=e.model.index}updateIndicator_(indicator,originRect,newLeft,newWidth){const leftDiff=100*(newLeft-originRect.left)/originRect.width;const widthRatio=newWidth/originRect.width;const transform=`translateX(${leftDiff}%) scaleX(${widthRatio})`;indicator.style.transform=transform}}customElements.define(CrTabsElement.is,CrTabsElement);
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/var ORPHANS=new Set;const IronResizableBehavior={properties:{_parentResizable:{type:Object,observer:"_parentResizableChanged"},_notifyingDescendant:{type:Boolean,value:false}},listeners:{"iron-request-resize-notifications":"_onIronRequestResizeNotifications"},created:function(){this._interestedResizables=[];this._boundNotifyResize=this.notifyResize.bind(this);this._boundOnDescendantIronResize=this._onDescendantIronResize.bind(this)},attached:function(){this._requestResizeNotifications()},detached:function(){if(this._parentResizable){this._parentResizable.stopResizeNotificationsFor(this)}else{ORPHANS.delete(this);window.removeEventListener("resize",this._boundNotifyResize)}this._parentResizable=null},notifyResize:function(){if(!this.isAttached){return}this._interestedResizables.forEach((function(resizable){if(this.resizerShouldNotify(resizable)){this._notifyDescendant(resizable)}}),this);this._fireResize()},assignParentResizable:function(parentResizable){if(this._parentResizable){this._parentResizable.stopResizeNotificationsFor(this)}this._parentResizable=parentResizable;if(parentResizable&&parentResizable._interestedResizables.indexOf(this)===-1){parentResizable._interestedResizables.push(this);parentResizable._subscribeIronResize(this)}},stopResizeNotificationsFor:function(target){var index=this._interestedResizables.indexOf(target);if(index>-1){this._interestedResizables.splice(index,1);this._unsubscribeIronResize(target)}},_subscribeIronResize:function(target){target.addEventListener("iron-resize",this._boundOnDescendantIronResize)},_unsubscribeIronResize:function(target){target.removeEventListener("iron-resize",this._boundOnDescendantIronResize)},resizerShouldNotify:function(element){return true},_onDescendantIronResize:function(event){if(this._notifyingDescendant){event.stopPropagation();return}if(!useShadow){this._fireResize()}},_fireResize:function(){this.fire("iron-resize",null,{node:this,bubbles:false})},_onIronRequestResizeNotifications:function(event){var target=dom(event).rootTarget;if(target===this){return}target.assignParentResizable(this);this._notifyDescendant(target);event.stopPropagation()},_parentResizableChanged:function(parentResizable){if(parentResizable){window.removeEventListener("resize",this._boundNotifyResize)}},_notifyDescendant:function(descendant){if(!this.isAttached){return}this._notifyingDescendant=true;descendant.notifyResize();this._notifyingDescendant=false},_requestResizeNotifications:function(){if(!this.isAttached){return}if(document.readyState==="loading"){var _requestResizeNotifications=this._requestResizeNotifications.bind(this);document.addEventListener("readystatechange",(function readystatechanged(){document.removeEventListener("readystatechange",readystatechanged);_requestResizeNotifications()}))}else{this._findParent();if(!this._parentResizable){ORPHANS.forEach((function(orphan){if(orphan!==this){orphan._findParent()}}),this);window.addEventListener("resize",this._boundNotifyResize);this.notifyResize()}else{this._parentResizable._interestedResizables.forEach((function(resizable){if(resizable!==this){resizable._findParent()}}),this)}}},_findParent:function(){this.assignParentResizable(null);this.fire("iron-request-resize-notifications",null,{node:this,bubbles:true,cancelable:true});if(!this._parentResizable){ORPHANS.add(this)}else{ORPHANS.delete(this)}}};
+/**
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/Polymer({_template:html`
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host > ::slotted(:not(slot):not(.iron-selected)) {
+        display: none !important;
+      }
+    </style>
+
+    <slot></slot>
+`,is:"iron-pages",behaviors:[IronResizableBehavior,IronSelectableBehavior],properties:{activateEvent:{type:String,value:null}},observers:["_selectedPageChanged(selected)"],_selectedPageChanged:function(selected,old){this.async(this.notifyResize)}});function getTemplate(){return html`<!--_html_template_start_--><style include="mwb-shared-style">:host-context([chrome-refresh-2023]){--cr-primary-text-color:var(--color-tab-search-primary-foreground);--cr-secondary-text-color:var(--color-tab-search-secondary-foreground);--cr-separator-color:var(--color-tab-search-divider);--mwb-background-color:var(--color-tab-search-background);--mwb-icon-button-fill-color:var(--color-tab-search-secondary-foreground);--mwb-list-item-hover-background-color:var(--cr-hover-background-color);--mwb-list-item-selected-background-color:var(--cr-active-background-color);--mwb-primary-text-font-size:12px;--mwb-primary-text-font-weight:500;--mwb-secondary-text-font-size:11px;--mwb-secondary-text-font-weight:400;--mwb-scrollbar-thumb-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-thumb-hover-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-track-color:transparent}</style>
+
+<template is="dom-if" if="[[tabOrganizationEnabled_]]">
+  <cr-tabs tab-names="[[tabNames_]]" tab-icons="[[tabIcons_]]" selected="{{selectedTabIndex_}}" on-selected-changed="onSelectedTabChanged_">
+  </cr-tabs>
+  <iron-pages selected="[[selectedTabIndex_]]">
+    <tab-search-page></tab-search-page>
+    <tab-organization-page></tab-organization-page>
+  </iron-pages>
+</template>
+
+<template is="dom-if" if="[[!tabOrganizationEnabled_]]">
+  <tab-search-page></tab-search-page>
+</template>
+<!--_html_template_end_-->`}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TabSearchAppElement extends PolymerElement{constructor(){super(...arguments);this.apiProxy_=TabSearchApiProxyImpl.getInstance()}static get is(){return"tab-search-app"}static get properties(){return{selectedTabIndex_:{type:Number,value:loadTimeData.getInteger("tabIndex")},tabNames_:{type:Array,value:()=>[loadTimeData.getString("tabSearchTabName"),loadTimeData.getString("tabOrganizationTabName")]},tabIcons_:{type:Array,value:()=>["chrome://resources/images/error.svg","chrome://resources/images/error.svg"]},tabOrganizationEnabled_:{type:Boolean,value:()=>loadTimeData.getBoolean("tabOrganizationEnabled")}}}static get template(){return getTemplate()}onSelectedTabChanged_(event){this.apiProxy_.setTabIndex(event.detail.value)}}customElements.define(TabSearchAppElement.is,TabSearchAppElement);export{BiMap,InfiniteList,ItemData,PageCallbackRouter$1 as PageCallbackRouter,PageRemote$1 as PageRemote,TabAlertState,TabData,Color as TabGroupColor,TabItemType,TabOrganizationError,TabOrganizationPageElement,TabOrganizationResultsElement,TabOrganizationState,TabSearchApiProxyImpl,TabSearchAppElement,TabSearchGroupItem,TabSearchItem,TabSearchPageElement,TitleItem,fuzzySearch};

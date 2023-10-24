@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-db", "name": "sqlite", "version": "3.40.0", "revision": 0, "fullname": "dev-db/sqlite", "fullnamerev": "dev-db/sqlite-3.40.0", "license_names": ["public-domain"], "license_text_scanned": [], "homepages": ["https://sqlite.org/"], "skip": false, "tainted": false, "ebuild_path": null}

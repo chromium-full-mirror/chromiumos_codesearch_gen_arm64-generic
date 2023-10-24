@@ -1,0 +1,4 @@
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+export var CertificateAction;(function(CertificateAction){CertificateAction[CertificateAction["DELETE"]=0]="DELETE";CertificateAction[CertificateAction["EDIT"]=1]="EDIT";CertificateAction[CertificateAction["EXPORT_PERSONAL"]=2]="EXPORT_PERSONAL";CertificateAction[CertificateAction["IMPORT"]=3]="IMPORT"})(CertificateAction||(CertificateAction={}));export const CertificateActionEvent="certificate-action";export const CertificateProvisioningViewDetailsActionEvent="certificate-provisioning-view-details-action";

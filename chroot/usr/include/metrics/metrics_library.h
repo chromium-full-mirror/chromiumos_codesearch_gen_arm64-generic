@@ -23,7 +23,6 @@
 
 class MetricsLibraryInterface {
  public:
-  virtual void Init() = 0;  // TODO(chromium:940343): Remove this function.
   virtual bool AreMetricsEnabled() = 0;
   virtual bool IsAppSyncEnabled() = 0;
   virtual bool IsGuestMode() = 0;
@@ -125,10 +124,14 @@ class MetricsLibraryInterface {
   virtual ~MetricsLibraryInterface() = default;
 };
 
-// Library used to send metrics to Chrome/UMA. The thread-safety of Send*
-// methods in this class depends on the `MetricsWriter`.
-// It is not thread-safe by default (`SynchronousMetricsWriter`). Do not call
-// them in parallel.
+// Library used to send metrics to Chrome/UMA.
+//
+// The thread-safety of Send*  methods in this class depends on the
+// `MetricsWriter`. By default (if using `SynchronousMetricsWriter`),
+// it is safe to call Send* functions from multiple threads, as long as
+// no other MetricsLibrary functions are being called.
+//
+// Other functions in this class are not thread-safe.
 class MetricsLibrary : public MetricsLibraryInterface {
  public:
   // Creates `MetricsLibrary`.
@@ -150,10 +153,6 @@ class MetricsLibrary : public MetricsLibraryInterface {
   MetricsLibrary& operator=(const MetricsLibrary&) = delete;
 
   ~MetricsLibrary() override;
-
-  // Formerly used to initialize the library.
-  // TODO(chromium:940343): Remove this function.
-  void Init() override;
 
   // Returns whether or not the machine is running in guest mode.
   bool IsGuestMode() override;

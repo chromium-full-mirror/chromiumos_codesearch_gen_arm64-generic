@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "gdbus-codegen", "version": "2.76.4", "revision": 0, "fullname": "dev-util/gdbus-codegen", "fullnamerev": "dev-util/gdbus-codegen-2.76.4", "license_names": ["LGPL-2", "LGPL-2+"], "license_text_scanned": [], "homepages": ["https://www.gtk.org/"], "skip": false, "tainted": false, "ebuild_path": null}

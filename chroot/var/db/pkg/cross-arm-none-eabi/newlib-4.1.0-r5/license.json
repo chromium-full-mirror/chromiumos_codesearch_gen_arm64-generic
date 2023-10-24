@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "cross-arm-none-eabi", "name": "newlib", "version": "4.1.0", "revision": 5, "fullname": "cross-arm-none-eabi/newlib", "fullnamerev": "cross-arm-none-eabi/newlib-4.1.0-r5", "license_names": ["GPL-2", "LIBGLOSS", "NEWLIB"], "license_text_scanned": [], "homepages": ["https://sourceware.org/newlib/"], "skip": false, "tainted": false, "ebuild_path": null}

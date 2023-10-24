@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-arch", "name": "gcab", "version": "1.4", "revision": 0, "fullname": "app-arch/gcab", "fullnamerev": "app-arch/gcab-1.4", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://wiki.gnome.org/msitools"], "skip": false, "tainted": false, "ebuild_path": null}

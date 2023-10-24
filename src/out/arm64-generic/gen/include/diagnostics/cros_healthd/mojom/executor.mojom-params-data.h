@@ -481,7 +481,7 @@ class  Executor_GetAllFanSpeed_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> fan_rpms;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint16_t>> fan_rpms;
   mojo::internal::Pointer<mojo::internal::String_Data> err;
 
  private:
@@ -780,6 +780,8 @@ class  Executor_GetHciDeviceConfig_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t hci_interface;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<Executor_GetHciDeviceConfig_Params_Data>;
@@ -787,7 +789,7 @@ class  Executor_GetHciDeviceConfig_Params_Data {
   Executor_GetHciDeviceConfig_Params_Data();
   ~Executor_GetHciDeviceConfig_Params_Data() = delete;
 };
-static_assert(sizeof(Executor_GetHciDeviceConfig_Params_Data) == 8,
+static_assert(sizeof(Executor_GetHciDeviceConfig_Params_Data) == 16,
               "Bad sizeof(Executor_GetHciDeviceConfig_Params_Data)");
 class  Executor_GetHciDeviceConfig_ResponseParams_Data {
  public:
@@ -1026,7 +1028,7 @@ class  Executor_RemoveFioTestFile_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_RemoveFioTestFile_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_RemoveFioTestFile_ResponseParams_Data)");
-class  Executor_GetConnectedHdmiConnectors_Params_Data {
+class  Executor_GetConnectedExternalDisplayConnectors_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1034,14 +1036,14 @@ class  Executor_GetConnectedHdmiConnectors_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<Executor_GetConnectedHdmiConnectors_Params_Data>;
+  friend class mojo::internal::MessageFragment<Executor_GetConnectedExternalDisplayConnectors_Params_Data>;
 
-  Executor_GetConnectedHdmiConnectors_Params_Data();
-  ~Executor_GetConnectedHdmiConnectors_Params_Data() = delete;
+  Executor_GetConnectedExternalDisplayConnectors_Params_Data();
+  ~Executor_GetConnectedExternalDisplayConnectors_Params_Data() = delete;
 };
-static_assert(sizeof(Executor_GetConnectedHdmiConnectors_Params_Data) == 8,
-              "Bad sizeof(Executor_GetConnectedHdmiConnectors_Params_Data)");
-class  Executor_GetConnectedHdmiConnectors_ResponseParams_Data {
+static_assert(sizeof(Executor_GetConnectedExternalDisplayConnectors_Params_Data) == 8,
+              "Bad sizeof(Executor_GetConnectedExternalDisplayConnectors_Params_Data)");
+class  Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1051,13 +1053,13 @@ class  Executor_GetConnectedHdmiConnectors_ResponseParams_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> err;
 
  private:
-  friend class mojo::internal::MessageFragment<Executor_GetConnectedHdmiConnectors_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data>;
 
-  Executor_GetConnectedHdmiConnectors_ResponseParams_Data();
-  ~Executor_GetConnectedHdmiConnectors_ResponseParams_Data() = delete;
+  Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data();
+  ~Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(Executor_GetConnectedHdmiConnectors_ResponseParams_Data) == 24,
-              "Bad sizeof(Executor_GetConnectedHdmiConnectors_ResponseParams_Data)");
+static_assert(sizeof(Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data)");
 class  Executor_GetPrivacyScreenInfo_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1261,6 +1263,148 @@ class  Executor_RunFloatingPoint_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_RunFloatingPoint_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_RunFloatingPoint_ResponseParams_Data)");
+class  Executor_StartBtmon_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t hci_interface;
+  mojo::internal::Handle_Data receiver;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_StartBtmon_Params_Data>;
+
+  Executor_StartBtmon_Params_Data();
+  ~Executor_StartBtmon_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_StartBtmon_Params_Data) == 16,
+              "Bad sizeof(Executor_StartBtmon_Params_Data)");
+class  Executor_ReadBtmonLog_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_ReadBtmonLog_Params_Data>;
+
+  Executor_ReadBtmonLog_Params_Data();
+  ~Executor_ReadBtmonLog_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_ReadBtmonLog_Params_Data) == 8,
+              "Bad sizeof(Executor_ReadBtmonLog_Params_Data)");
+class  Executor_ReadBtmonLog_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_ReadBtmonLog_ResponseParams_Data>;
+
+  Executor_ReadBtmonLog_ResponseParams_Data();
+  ~Executor_ReadBtmonLog_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_ReadBtmonLog_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_ReadBtmonLog_ResponseParams_Data)");
+class  Executor_RemoveBtmonLog_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RemoveBtmonLog_Params_Data>;
+
+  Executor_RemoveBtmonLog_Params_Data();
+  ~Executor_RemoveBtmonLog_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_RemoveBtmonLog_Params_Data) == 8,
+              "Bad sizeof(Executor_RemoveBtmonLog_Params_Data)");
+class  Executor_RemoveBtmonLog_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RemoveBtmonLog_ResponseParams_Data>;
+
+  Executor_RemoveBtmonLog_ResponseParams_Data();
+  ~Executor_RemoveBtmonLog_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_RemoveBtmonLog_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_RemoveBtmonLog_ResponseParams_Data)");
+class  Executor_SetFanSpeed_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Map_Data<uint8_t, uint16_t>> fan_id_to_rpm;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_SetFanSpeed_Params_Data>;
+
+  Executor_SetFanSpeed_Params_Data();
+  ~Executor_SetFanSpeed_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_SetFanSpeed_Params_Data) == 16,
+              "Bad sizeof(Executor_SetFanSpeed_Params_Data)");
+class  Executor_SetFanSpeed_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_SetFanSpeed_ResponseParams_Data>;
+
+  Executor_SetFanSpeed_ResponseParams_Data();
+  ~Executor_SetFanSpeed_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_SetFanSpeed_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_SetFanSpeed_ResponseParams_Data)");
+class  Executor_SetAllFanAutoControl_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_SetAllFanAutoControl_Params_Data>;
+
+  Executor_SetAllFanAutoControl_Params_Data();
+  ~Executor_SetAllFanAutoControl_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_SetAllFanAutoControl_Params_Data) == 8,
+              "Bad sizeof(Executor_SetAllFanAutoControl_Params_Data)");
+class  Executor_SetAllFanAutoControl_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_SetAllFanAutoControl_ResponseParams_Data>;
+
+  Executor_SetAllFanAutoControl_ResponseParams_Data();
+  ~Executor_SetAllFanAutoControl_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_SetAllFanAutoControl_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_SetAllFanAutoControl_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1946,13 +2090,13 @@ class Executor_GetAllFanSpeed_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetFanRpmsDataView(
-      mojo::ArrayDataView<uint32_t>* output);
+      mojo::ArrayDataView<uint16_t>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadFanRpms(UserType* output) {
     
     auto* pointer = data_->fan_rpms.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint16_t>>(
         pointer, output, message_);
   }
   inline void GetErrDataView(
@@ -2490,6 +2634,9 @@ class Executor_GetHciDeviceConfig_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  int32_t hci_interface() const {
+    return data_->hci_interface;
+  }
  private:
   internal::Executor_GetHciDeviceConfig_Params_Data* data_ = nullptr;
 };
@@ -2910,27 +3057,27 @@ class Executor_RemoveFioTestFile_ResponseParamsDataView {
 };
 
 
-class Executor_GetConnectedHdmiConnectors_ParamsDataView {
+class Executor_GetConnectedExternalDisplayConnectors_ParamsDataView {
  public:
-  Executor_GetConnectedHdmiConnectors_ParamsDataView() = default;
+  Executor_GetConnectedExternalDisplayConnectors_ParamsDataView() = default;
 
-  Executor_GetConnectedHdmiConnectors_ParamsDataView(
-      internal::Executor_GetConnectedHdmiConnectors_Params_Data* data,
+  Executor_GetConnectedExternalDisplayConnectors_ParamsDataView(
+      internal::Executor_GetConnectedExternalDisplayConnectors_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::Executor_GetConnectedHdmiConnectors_Params_Data* data_ = nullptr;
+  internal::Executor_GetConnectedExternalDisplayConnectors_Params_Data* data_ = nullptr;
 };
 
 
-class Executor_GetConnectedHdmiConnectors_ResponseParamsDataView {
+class Executor_GetConnectedExternalDisplayConnectors_ResponseParamsDataView {
  public:
-  Executor_GetConnectedHdmiConnectors_ResponseParamsDataView() = default;
+  Executor_GetConnectedExternalDisplayConnectors_ResponseParamsDataView() = default;
 
-  Executor_GetConnectedHdmiConnectors_ResponseParamsDataView(
-      internal::Executor_GetConnectedHdmiConnectors_ResponseParams_Data* data,
+  Executor_GetConnectedExternalDisplayConnectors_ResponseParamsDataView(
+      internal::Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -2966,7 +3113,7 @@ static_assert(
         pointer, output, message_);
   }
  private:
-  internal::Executor_GetConnectedHdmiConnectors_ResponseParams_Data* data_ = nullptr;
+  internal::Executor_GetConnectedExternalDisplayConnectors_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -3287,6 +3434,229 @@ class Executor_RunFloatingPoint_ResponseParamsDataView {
 };
 
 
+class Executor_StartBtmon_ParamsDataView {
+ public:
+  Executor_StartBtmon_ParamsDataView() = default;
+
+  Executor_StartBtmon_ParamsDataView(
+      internal::Executor_StartBtmon_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  int32_t hci_interface() const {
+    return data_->hci_interface;
+  }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_StartBtmon_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_ReadBtmonLog_ParamsDataView {
+ public:
+  Executor_ReadBtmonLog_ParamsDataView() = default;
+
+  Executor_ReadBtmonLog_ParamsDataView(
+      internal::Executor_ReadBtmonLog_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_ReadBtmonLog_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_ReadBtmonLog_ResponseParamsDataView {
+ public:
+  Executor_ReadBtmonLog_ResponseParamsDataView() = default;
+
+  Executor_ReadBtmonLog_ResponseParamsDataView(
+      internal::Executor_ReadBtmonLog_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ExecutedProcessResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_ReadBtmonLog_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_RemoveBtmonLog_ParamsDataView {
+ public:
+  Executor_RemoveBtmonLog_ParamsDataView() = default;
+
+  Executor_RemoveBtmonLog_ParamsDataView(
+      internal::Executor_RemoveBtmonLog_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_RemoveBtmonLog_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_RemoveBtmonLog_ResponseParamsDataView {
+ public:
+  Executor_RemoveBtmonLog_ResponseParamsDataView() = default;
+
+  Executor_RemoveBtmonLog_ResponseParamsDataView(
+      internal::Executor_RemoveBtmonLog_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ExecutedProcessResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_RemoveBtmonLog_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_SetFanSpeed_ParamsDataView {
+ public:
+  Executor_SetFanSpeed_ParamsDataView() = default;
+
+  Executor_SetFanSpeed_ParamsDataView(
+      internal::Executor_SetFanSpeed_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFanIdToRpmDataView(
+      mojo::MapDataView<uint8_t, uint16_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFanIdToRpm(UserType* output) {
+    
+    auto* pointer = data_->fan_id_to_rpm.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<uint8_t, uint16_t>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_SetFanSpeed_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_SetFanSpeed_ResponseParamsDataView {
+ public:
+  Executor_SetFanSpeed_ResponseParamsDataView() = default;
+
+  Executor_SetFanSpeed_ResponseParamsDataView(
+      internal::Executor_SetFanSpeed_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_SetFanSpeed_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_SetAllFanAutoControl_ParamsDataView {
+ public:
+  Executor_SetAllFanAutoControl_ParamsDataView() = default;
+
+  Executor_SetAllFanAutoControl_ParamsDataView(
+      internal::Executor_SetAllFanAutoControl_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_SetAllFanAutoControl_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_SetAllFanAutoControl_ResponseParamsDataView {
+ public:
+  Executor_SetAllFanAutoControl_ResponseParamsDataView() = default;
+
+  Executor_SetAllFanAutoControl_ResponseParamsDataView(
+      internal::Executor_SetAllFanAutoControl_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_SetAllFanAutoControl_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -3393,9 +3763,9 @@ inline void Executor_GetFileInfo_ResponseParamsDataView::GetInfoDataView(
 
 
 inline void Executor_GetAllFanSpeed_ResponseParamsDataView::GetFanRpmsDataView(
-    mojo::ArrayDataView<uint32_t>* output) {
+    mojo::ArrayDataView<uint16_t>* output) {
   auto pointer = data_->fan_rpms.Get();
-  *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
+  *output = mojo::ArrayDataView<uint16_t>(pointer, message_);
 }
 inline void Executor_GetAllFanSpeed_ResponseParamsDataView::GetErrDataView(
     mojo::StringDataView* output) {
@@ -3555,12 +3925,12 @@ inline void Executor_RemoveFioTestFile_ResponseParamsDataView::GetResultDataView
 
 
 
-inline void Executor_GetConnectedHdmiConnectors_ResponseParamsDataView::GetConnectorsDataView(
+inline void Executor_GetConnectedExternalDisplayConnectors_ResponseParamsDataView::GetConnectorsDataView(
     mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>* output) {
   auto pointer = data_->connectors.Get();
   *output = mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>(pointer, message_);
 }
-inline void Executor_GetConnectedHdmiConnectors_ResponseParamsDataView::GetErrDataView(
+inline void Executor_GetConnectedExternalDisplayConnectors_ResponseParamsDataView::GetErrDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);
@@ -3614,6 +3984,49 @@ inline void Executor_RunFloatingPoint_ParamsDataView::GetExecDurationDataView(
 }
 
 
+
+
+
+
+
+
+inline void Executor_ReadBtmonLog_ResponseParamsDataView::GetResultDataView(
+    ExecutedProcessResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = ExecutedProcessResultDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_RemoveBtmonLog_ResponseParamsDataView::GetResultDataView(
+    ExecutedProcessResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = ExecutedProcessResultDataView(pointer, message_);
+}
+
+
+inline void Executor_SetFanSpeed_ParamsDataView::GetFanIdToRpmDataView(
+    mojo::MapDataView<uint8_t, uint16_t>* output) {
+  auto pointer = data_->fan_id_to_rpm.Get();
+  *output = mojo::MapDataView<uint8_t, uint16_t>(pointer, message_);
+}
+
+
+inline void Executor_SetFanSpeed_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_SetAllFanAutoControl_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 

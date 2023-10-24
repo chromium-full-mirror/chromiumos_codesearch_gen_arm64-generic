@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="5" failures="0" disabled="0" errors="0" time="0." timestamp="1970-01-01T00:00:00.000" name="AllTests">
+  <testsuite name="TimerTestSuite" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="1970-01-01T00:00:00.000">
+    <testcase name="InitNoTimers" file="cras/src/tests/cras_tm_unittest.cc" line="37" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="TimerTestSuite" />
+    <testcase name="AddTimer" file="cras/src/tests/cras_tm_unittest.cc" line="45" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="TimerTestSuite" />
+    <testcase name="AddLongTimer" file="cras/src/tests/cras_tm_unittest.cc" line="52" status="run" result="completed" time="12." timestamp="1970-01-01T00:00:00.000" classname="TimerTestSuite" />
+    <testcase name="AddRemoveTimer" file="cras/src/tests/cras_tm_unittest.cc" line="80" status="run" result="completed" time="-11." timestamp="1970-01-01T00:00:12.000" classname="TimerTestSuite" />
+    <testcase name="AddTwoTimers" file="cras/src/tests/cras_tm_unittest.cc" line="108" status="run" result="completed" time="-0.999" timestamp="1970-01-01T00:00:01.000" classname="TimerTestSuite" />
+  </testsuite>
+</testsuites>

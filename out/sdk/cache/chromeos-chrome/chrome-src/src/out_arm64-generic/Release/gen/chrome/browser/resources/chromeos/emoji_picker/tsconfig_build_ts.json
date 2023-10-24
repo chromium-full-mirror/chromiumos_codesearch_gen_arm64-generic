@@ -1,0 +1,104 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/emoji_button.ts",
+    "preprocessed/emoji_category_button.ts",
+    "preprocessed/emoji_error.ts",
+    "preprocessed/emoji_gif_nudge_overlay.ts",
+    "preprocessed/emoji_group.ts",
+    "preprocessed/emoji_group_button.ts",
+    "preprocessed/emoji_image.ts",
+    "preprocessed/emoji_picker.ts",
+    "preprocessed/emoji_search.ts",
+    "preprocessed/emoji_variants.ts",
+    "preprocessed/text_group_button.ts",
+    "preprocessed/constants.ts",
+    "preprocessed/emoji_picker_api_proxy.ts",
+    "preprocessed/events.ts",
+    "preprocessed/metadata_extension.ts",
+    "preprocessed/prefix_search.ts",
+    "preprocessed/store.ts",
+    "preprocessed/structs/trie.ts",
+    "preprocessed/types.ts",
+    "preprocessed/emoji_button.html.ts",
+    "preprocessed/emoji_category_button.html.ts",
+    "preprocessed/emoji_error.html.ts",
+    "preprocessed/emoji_gif_nudge_overlay.html.ts",
+    "preprocessed/emoji_group.html.ts",
+    "preprocessed/emoji_group_button.html.ts",
+    "preprocessed/emoji_image.html.ts",
+    "preprocessed/emoji_picker.html.ts",
+    "preprocessed/emoji_search.html.ts",
+    "preprocessed/emoji_variants.html.ts",
+    "preprocessed/text_group_button.html.ts",
+    "preprocessed/icons.html.ts",
+    "preprocessed/emoji_picker.mojom-webui.ts",
+    "preprocessed/new_window_proxy.mojom-webui.ts",
+    "preprocessed/fuse.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

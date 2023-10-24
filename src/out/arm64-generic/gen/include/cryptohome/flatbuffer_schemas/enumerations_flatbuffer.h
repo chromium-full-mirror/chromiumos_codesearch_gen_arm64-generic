@@ -61,14 +61,6 @@ struct FromFlatBuffer<::cryptohome::enumeration::SerializedAuthFactorType> {
     return static_cast<::cryptohome::enumeration::SerializedAuthFactorType>(
         object);
   }
-
-  ::cryptohome::enumeration::SerializedAuthFactorType operator()(
-      std::underlying_type_t<
-          ::cryptohome::enumeration::_serialized_::SerializedAuthFactorType>
-          object) const {
-    return static_cast<::cryptohome::enumeration::SerializedAuthFactorType>(
-        object);
-  }
 };
 
 }  // namespace hwsec_foundation
@@ -95,13 +87,6 @@ template <>
 struct FromFlatBuffer<::cryptohome::enumeration::SerializedAuthIntent> {
   ::cryptohome::enumeration::SerializedAuthIntent operator()(
       ::cryptohome::enumeration::_serialized_::SerializedAuthIntent object)
-      const {
-    return static_cast<::cryptohome::enumeration::SerializedAuthIntent>(object);
-  }
-
-  ::cryptohome::enumeration::SerializedAuthIntent operator()(
-      std::underlying_type_t<
-          ::cryptohome::enumeration::_serialized_::SerializedAuthIntent> object)
       const {
     return static_cast<::cryptohome::enumeration::SerializedAuthIntent>(object);
   }

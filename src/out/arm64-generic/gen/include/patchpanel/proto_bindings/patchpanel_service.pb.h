@@ -100,6 +100,9 @@ extern GetDownstreamNetworkInfoRequestDefaultTypeInternal _GetDownstreamNetworkI
 class GetDownstreamNetworkInfoResponse;
 struct GetDownstreamNetworkInfoResponseDefaultTypeInternal;
 extern GetDownstreamNetworkInfoResponseDefaultTypeInternal _GetDownstreamNetworkInfoResponse_default_instance_;
+class IPAddrCIDR;
+struct IPAddrCIDRDefaultTypeInternal;
+extern IPAddrCIDRDefaultTypeInternal _IPAddrCIDR_default_instance_;
 class IPv4Configuration;
 struct IPv4ConfigurationDefaultTypeInternal;
 extern IPv4ConfigurationDefaultTypeInternal _IPv4Configuration_default_instance_;
@@ -220,6 +223,9 @@ extern TrafficCountersRequestDefaultTypeInternal _TrafficCountersRequest_default
 class TrafficCountersResponse;
 struct TrafficCountersResponseDefaultTypeInternal;
 extern TrafficCountersResponseDefaultTypeInternal _TrafficCountersResponse_default_instance_;
+class UplinkIPv6Configuration;
+struct UplinkIPv6ConfigurationDefaultTypeInternal;
+extern UplinkIPv6ConfigurationDefaultTypeInternal _UplinkIPv6Configuration_default_instance_;
 }  // namespace patchpanel
 PROTOBUF_NAMESPACE_OPEN
 template<> ::patchpanel::ArcShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::ArcShutdownRequest>(Arena*);
@@ -241,6 +247,7 @@ template<> ::patchpanel::GetDevicesRequest* Arena::CreateMaybeMessage<::patchpan
 template<> ::patchpanel::GetDevicesResponse* Arena::CreateMaybeMessage<::patchpanel::GetDevicesResponse>(Arena*);
 template<> ::patchpanel::GetDownstreamNetworkInfoRequest* Arena::CreateMaybeMessage<::patchpanel::GetDownstreamNetworkInfoRequest>(Arena*);
 template<> ::patchpanel::GetDownstreamNetworkInfoResponse* Arena::CreateMaybeMessage<::patchpanel::GetDownstreamNetworkInfoResponse>(Arena*);
+template<> ::patchpanel::IPAddrCIDR* Arena::CreateMaybeMessage<::patchpanel::IPAddrCIDR>(Arena*);
 template<> ::patchpanel::IPv4Configuration* Arena::CreateMaybeMessage<::patchpanel::IPv4Configuration>(Arena*);
 template<> ::patchpanel::IPv4Configuration_DhcpOption* Arena::CreateMaybeMessage<::patchpanel::IPv4Configuration_DhcpOption>(Arena*);
 template<> ::patchpanel::IPv4Subnet* Arena::CreateMaybeMessage<::patchpanel::IPv4Subnet>(Arena*);
@@ -281,6 +288,7 @@ template<> ::patchpanel::TetheredNetworkResponse* Arena::CreateMaybeMessage<::pa
 template<> ::patchpanel::TrafficCounter* Arena::CreateMaybeMessage<::patchpanel::TrafficCounter>(Arena*);
 template<> ::patchpanel::TrafficCountersRequest* Arena::CreateMaybeMessage<::patchpanel::TrafficCountersRequest>(Arena*);
 template<> ::patchpanel::TrafficCountersResponse* Arena::CreateMaybeMessage<::patchpanel::TrafficCountersResponse>(Arena*);
+template<> ::patchpanel::UplinkIPv6Configuration* Arena::CreateMaybeMessage<::patchpanel::UplinkIPv6Configuration>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace patchpanel {
 
@@ -1458,6 +1466,152 @@ class IPv4Subnet final :
 };
 // -------------------------------------------------------------------
 
+class IPAddrCIDR final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.IPAddrCIDR) */ {
+ public:
+  inline IPAddrCIDR() : IPAddrCIDR(nullptr) {}
+  ~IPAddrCIDR() override;
+  explicit PROTOBUF_CONSTEXPR IPAddrCIDR(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  IPAddrCIDR(const IPAddrCIDR& from);
+  IPAddrCIDR(IPAddrCIDR&& from) noexcept
+    : IPAddrCIDR() {
+    *this = ::std::move(from);
+  }
+
+  inline IPAddrCIDR& operator=(const IPAddrCIDR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline IPAddrCIDR& operator=(IPAddrCIDR&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const IPAddrCIDR& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const IPAddrCIDR* internal_default_instance() {
+    return reinterpret_cast<const IPAddrCIDR*>(
+               &_IPAddrCIDR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(IPAddrCIDR& a, IPAddrCIDR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(IPAddrCIDR* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(IPAddrCIDR* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  IPAddrCIDR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<IPAddrCIDR>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const IPAddrCIDR& from);
+  void MergeFrom(const IPAddrCIDR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(IPAddrCIDR* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.IPAddrCIDR";
+  }
+  protected:
+  explicit IPAddrCIDR(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAddrFieldNumber = 1,
+    kPrefixLenFieldNumber = 2,
+  };
+  // bytes addr = 1;
+  void clear_addr();
+  const std::string& addr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_addr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_addr();
+  PROTOBUF_NODISCARD std::string* release_addr();
+  void set_allocated_addr(std::string* addr);
+  private:
+  const std::string& _internal_addr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_addr(const std::string& value);
+  std::string* _internal_mutable_addr();
+  public:
+
+  // int32 prefix_len = 2;
+  void clear_prefix_len();
+  int32_t prefix_len() const;
+  void set_prefix_len(int32_t value);
+  private:
+  int32_t _internal_prefix_len() const;
+  void _internal_set_prefix_len(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.IPAddrCIDR)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr addr_;
+    int32_t prefix_len_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class NetworkDevice final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NetworkDevice) */ {
  public:
@@ -1497,7 +1651,7 @@ class NetworkDevice final :
                &_NetworkDevice_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(NetworkDevice& a, NetworkDevice& b) {
     a.Swap(&b);
@@ -1781,7 +1935,7 @@ class GetDevicesRequest final :
                &_GetDevicesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(GetDevicesRequest& a, GetDevicesRequest& b) {
     a.Swap(&b);
@@ -1898,7 +2052,7 @@ class GetDevicesResponse final :
                &_GetDevicesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(GetDevicesResponse& a, GetDevicesResponse& b) {
     a.Swap(&b);
@@ -2037,7 +2191,7 @@ class ArcVmStartupResponse final :
                &_ArcVmStartupResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(ArcVmStartupResponse& a, ArcVmStartupResponse& b) {
     a.Swap(&b);
@@ -2176,7 +2330,7 @@ class ArcVmShutdownRequest final :
                &_ArcVmShutdownRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(ArcVmShutdownRequest& a, ArcVmShutdownRequest& b) {
     a.Swap(&b);
@@ -2306,7 +2460,7 @@ class ArcVmShutdownResponse final :
                &_ArcVmShutdownResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(ArcVmShutdownResponse& a, ArcVmShutdownResponse& b) {
     a.Swap(&b);
@@ -2423,7 +2577,7 @@ class TerminaVmStartupRequest final :
                &_TerminaVmStartupRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(TerminaVmStartupRequest& a, TerminaVmStartupRequest& b) {
     a.Swap(&b);
@@ -2553,7 +2707,7 @@ class TerminaVmStartupResponse final :
                &_TerminaVmStartupResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(TerminaVmStartupResponse& a, TerminaVmStartupResponse& b) {
     a.Swap(&b);
@@ -2776,7 +2930,7 @@ class TerminaVmShutdownRequest final :
                &_TerminaVmShutdownRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(TerminaVmShutdownRequest& a, TerminaVmShutdownRequest& b) {
     a.Swap(&b);
@@ -2906,7 +3060,7 @@ class TerminaVmShutdownResponse final :
                &_TerminaVmShutdownResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(TerminaVmShutdownResponse& a, TerminaVmShutdownResponse& b) {
     a.Swap(&b);
@@ -3023,7 +3177,7 @@ class ParallelsVmStartupRequest final :
                &_ParallelsVmStartupRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(ParallelsVmStartupRequest& a, ParallelsVmStartupRequest& b) {
     a.Swap(&b);
@@ -3164,7 +3318,7 @@ class ParallelsVmStartupResponse final :
                &_ParallelsVmStartupResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(ParallelsVmStartupResponse& a, ParallelsVmStartupResponse& b) {
     a.Swap(&b);
@@ -3335,7 +3489,7 @@ class ParallelsVmShutdownRequest final :
                &_ParallelsVmShutdownRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(ParallelsVmShutdownRequest& a, ParallelsVmShutdownRequest& b) {
     a.Swap(&b);
@@ -3465,7 +3619,7 @@ class ParallelsVmShutdownResponse final :
                &_ParallelsVmShutdownResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(ParallelsVmShutdownResponse& a, ParallelsVmShutdownResponse& b) {
     a.Swap(&b);
@@ -3582,7 +3736,7 @@ class BruschettaVmStartupRequest final :
                &_BruschettaVmStartupRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   friend void swap(BruschettaVmStartupRequest& a, BruschettaVmStartupRequest& b) {
     a.Swap(&b);
@@ -3712,7 +3866,7 @@ class BruschettaVmStartupResponse final :
                &_BruschettaVmStartupResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    22;
 
   friend void swap(BruschettaVmStartupResponse& a, BruschettaVmStartupResponse& b) {
     a.Swap(&b);
@@ -3778,6 +3932,7 @@ class BruschettaVmStartupResponse final :
   enum : int {
     kTapDeviceIfnameFieldNumber = 1,
     kIpv4AddressFieldNumber = 3,
+    kGatewayIpv4AddressFieldNumber = 4,
     kIpv4SubnetFieldNumber = 2,
   };
   // string tap_device_ifname = 1;
@@ -3808,6 +3963,20 @@ class BruschettaVmStartupResponse final :
   std::string* _internal_mutable_ipv4_address();
   public:
 
+  // bytes gateway_ipv4_address = 4;
+  void clear_gateway_ipv4_address();
+  const std::string& gateway_ipv4_address() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_gateway_ipv4_address(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_gateway_ipv4_address();
+  PROTOBUF_NODISCARD std::string* release_gateway_ipv4_address();
+  void set_allocated_gateway_ipv4_address(std::string* gateway_ipv4_address);
+  private:
+  const std::string& _internal_gateway_ipv4_address() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_gateway_ipv4_address(const std::string& value);
+  std::string* _internal_mutable_gateway_ipv4_address();
+  public:
+
   // .patchpanel.IPv4Subnet ipv4_subnet = 2;
   bool has_ipv4_subnet() const;
   private:
@@ -3836,6 +4005,7 @@ class BruschettaVmStartupResponse final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tap_device_ifname_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ipv4_address_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr gateway_ipv4_address_;
     ::patchpanel::IPv4Subnet* ipv4_subnet_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -3883,7 +4053,7 @@ class BruschettaVmShutdownRequest final :
                &_BruschettaVmShutdownRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    23;
 
   friend void swap(BruschettaVmShutdownRequest& a, BruschettaVmShutdownRequest& b) {
     a.Swap(&b);
@@ -4013,7 +4183,7 @@ class BruschettaVmShutdownResponse final :
                &_BruschettaVmShutdownResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    24;
 
   friend void swap(BruschettaVmShutdownResponse& a, BruschettaVmShutdownResponse& b) {
     a.Swap(&b);
@@ -4130,7 +4300,7 @@ class SetVpnIntentRequest final :
                &_SetVpnIntentRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    25;
 
   friend void swap(SetVpnIntentRequest& a, SetVpnIntentRequest& b) {
     a.Swap(&b);
@@ -4288,7 +4458,7 @@ class SetVpnIntentResponse final :
                &_SetVpnIntentResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    26;
 
   friend void swap(SetVpnIntentResponse& a, SetVpnIntentResponse& b) {
     a.Swap(&b);
@@ -4418,7 +4588,7 @@ class ConnectNamespaceRequest final :
                &_ConnectNamespaceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    27;
 
   friend void swap(ConnectNamespaceRequest& a, ConnectNamespaceRequest& b) {
     a.Swap(&b);
@@ -4608,7 +4778,7 @@ class ConnectNamespaceResponse final :
                &_ConnectNamespaceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    28;
 
   friend void swap(ConnectNamespaceResponse& a, ConnectNamespaceResponse& b) {
     a.Swap(&b);
@@ -4817,7 +4987,7 @@ class TrafficCounter final :
                &_TrafficCounter_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    29;
 
   friend void swap(TrafficCounter& a, TrafficCounter& b) {
     a.Swap(&b);
@@ -5086,7 +5256,7 @@ class TrafficCountersRequest final :
                &_TrafficCountersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    30;
 
   friend void swap(TrafficCountersRequest& a, TrafficCountersRequest& b) {
     a.Swap(&b);
@@ -5231,7 +5401,7 @@ class TrafficCountersResponse final :
                &_TrafficCountersResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    31;
 
   friend void swap(TrafficCountersResponse& a, TrafficCountersResponse& b) {
     a.Swap(&b);
@@ -5370,7 +5540,7 @@ class ModifyPortRuleRequest final :
                &_ModifyPortRuleRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    32;
 
   friend void swap(ModifyPortRuleRequest& a, ModifyPortRuleRequest& b) {
     a.Swap(&b);
@@ -5678,7 +5848,7 @@ class ModifyPortRuleResponse final :
                &_ModifyPortRuleResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    33;
 
   friend void swap(ModifyPortRuleResponse& a, ModifyPortRuleResponse& b) {
     a.Swap(&b);
@@ -5808,7 +5978,7 @@ class SetVpnLockdownRequest final :
                &_SetVpnLockdownRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    34;
 
   friend void swap(SetVpnLockdownRequest& a, SetVpnLockdownRequest& b) {
     a.Swap(&b);
@@ -5938,7 +6108,7 @@ class SetVpnLockdownResponse final :
                &_SetVpnLockdownResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    35;
 
   friend void swap(SetVpnLockdownResponse& a, SetVpnLockdownResponse& b) {
     a.Swap(&b);
@@ -6055,7 +6225,7 @@ class NetworkDeviceChangedSignal final :
                &_NetworkDeviceChangedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    36;
 
   friend void swap(NetworkDeviceChangedSignal& a, NetworkDeviceChangedSignal& b) {
     a.Swap(&b);
@@ -6233,7 +6403,7 @@ class NeighborReachabilityEventSignal final :
                &_NeighborReachabilityEventSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    37;
 
   friend void swap(NeighborReachabilityEventSignal& a, NeighborReachabilityEventSignal& b) {
     a.Swap(&b);
@@ -6459,7 +6629,7 @@ class SetDnsRedirectionRuleRequest final :
                &_SetDnsRedirectionRuleRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    38;
 
   friend void swap(SetDnsRedirectionRuleRequest& a, SetDnsRedirectionRuleRequest& b) {
     a.Swap(&b);
@@ -6695,7 +6865,7 @@ class SetDnsRedirectionRuleResponse final :
                &_SetDnsRedirectionRuleResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    39;
 
   friend void swap(SetDnsRedirectionRuleResponse& a, SetDnsRedirectionRuleResponse& b) {
     a.Swap(&b);
@@ -6825,7 +6995,7 @@ class NetworkConfigurationChangedSignal final :
                &_NetworkConfigurationChangedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    40;
 
   friend void swap(NetworkConfigurationChangedSignal& a, NetworkConfigurationChangedSignal& b) {
     a.Swap(&b);
@@ -6942,7 +7112,7 @@ class IPv4Configuration_DhcpOption final :
                &_IPv4Configuration_DhcpOption_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    41;
 
   friend void swap(IPv4Configuration_DhcpOption& a, IPv4Configuration_DhcpOption& b) {
     a.Swap(&b);
@@ -7088,7 +7258,7 @@ class IPv4Configuration final :
                &_IPv4Configuration_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    42;
 
   friend void swap(IPv4Configuration& a, IPv4Configuration& b) {
     a.Swap(&b);
@@ -7334,6 +7504,172 @@ class IPv4Configuration final :
 };
 // -------------------------------------------------------------------
 
+class UplinkIPv6Configuration final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.UplinkIPv6Configuration) */ {
+ public:
+  inline UplinkIPv6Configuration() : UplinkIPv6Configuration(nullptr) {}
+  ~UplinkIPv6Configuration() override;
+  explicit PROTOBUF_CONSTEXPR UplinkIPv6Configuration(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UplinkIPv6Configuration(const UplinkIPv6Configuration& from);
+  UplinkIPv6Configuration(UplinkIPv6Configuration&& from) noexcept
+    : UplinkIPv6Configuration() {
+    *this = ::std::move(from);
+  }
+
+  inline UplinkIPv6Configuration& operator=(const UplinkIPv6Configuration& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UplinkIPv6Configuration& operator=(UplinkIPv6Configuration&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const UplinkIPv6Configuration& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UplinkIPv6Configuration* internal_default_instance() {
+    return reinterpret_cast<const UplinkIPv6Configuration*>(
+               &_UplinkIPv6Configuration_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    43;
+
+  friend void swap(UplinkIPv6Configuration& a, UplinkIPv6Configuration& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UplinkIPv6Configuration* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UplinkIPv6Configuration* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UplinkIPv6Configuration* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UplinkIPv6Configuration>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UplinkIPv6Configuration& from);
+  void MergeFrom(const UplinkIPv6Configuration& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UplinkIPv6Configuration* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.UplinkIPv6Configuration";
+  }
+  protected:
+  explicit UplinkIPv6Configuration(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDnsServersFieldNumber = 2,
+    kUplinkIpv6CidrFieldNumber = 1,
+  };
+  // repeated bytes dns_servers = 2;
+  int dns_servers_size() const;
+  private:
+  int _internal_dns_servers_size() const;
+  public:
+  void clear_dns_servers();
+  const std::string& dns_servers(int index) const;
+  std::string* mutable_dns_servers(int index);
+  void set_dns_servers(int index, const std::string& value);
+  void set_dns_servers(int index, std::string&& value);
+  void set_dns_servers(int index, const char* value);
+  void set_dns_servers(int index, const void* value, size_t size);
+  std::string* add_dns_servers();
+  void add_dns_servers(const std::string& value);
+  void add_dns_servers(std::string&& value);
+  void add_dns_servers(const char* value);
+  void add_dns_servers(const void* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& dns_servers() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_dns_servers();
+  private:
+  const std::string& _internal_dns_servers(int index) const;
+  std::string* _internal_add_dns_servers();
+  public:
+
+  // optional .patchpanel.IPAddrCIDR uplink_ipv6_cidr = 1;
+  bool has_uplink_ipv6_cidr() const;
+  private:
+  bool _internal_has_uplink_ipv6_cidr() const;
+  public:
+  void clear_uplink_ipv6_cidr();
+  const ::patchpanel::IPAddrCIDR& uplink_ipv6_cidr() const;
+  PROTOBUF_NODISCARD ::patchpanel::IPAddrCIDR* release_uplink_ipv6_cidr();
+  ::patchpanel::IPAddrCIDR* mutable_uplink_ipv6_cidr();
+  void set_allocated_uplink_ipv6_cidr(::patchpanel::IPAddrCIDR* uplink_ipv6_cidr);
+  private:
+  const ::patchpanel::IPAddrCIDR& _internal_uplink_ipv6_cidr() const;
+  ::patchpanel::IPAddrCIDR* _internal_mutable_uplink_ipv6_cidr();
+  public:
+  void unsafe_arena_set_allocated_uplink_ipv6_cidr(
+      ::patchpanel::IPAddrCIDR* uplink_ipv6_cidr);
+  ::patchpanel::IPAddrCIDR* unsafe_arena_release_uplink_ipv6_cidr();
+
+  // @@protoc_insertion_point(class_scope:patchpanel.UplinkIPv6Configuration)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> dns_servers_;
+    ::patchpanel::IPAddrCIDR* uplink_ipv6_cidr_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class DownstreamNetwork final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.DownstreamNetwork) */ {
  public:
@@ -7373,7 +7709,7 @@ class DownstreamNetwork final :
                &_DownstreamNetwork_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    44;
 
   friend void swap(DownstreamNetwork& a, DownstreamNetwork& b) {
     a.Swap(&b);
@@ -7544,7 +7880,7 @@ class TetheredNetworkRequest final :
                &_TetheredNetworkRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    45;
 
   friend void swap(TetheredNetworkRequest& a, TetheredNetworkRequest& b) {
     a.Swap(&b);
@@ -7641,6 +7977,7 @@ class TetheredNetworkRequest final :
     kIfnameFieldNumber = 1,
     kUpstreamIfnameFieldNumber = 2,
     kIpv4ConfigFieldNumber = 4,
+    kUplinkIpv6ConfigFieldNumber = 7,
     kUpstreamTechnologyFieldNumber = 3,
     kEnableIpv6FieldNumber = 5,
     kMtuFieldNumber = 6,
@@ -7691,6 +8028,24 @@ class TetheredNetworkRequest final :
       ::patchpanel::IPv4Configuration* ipv4_config);
   ::patchpanel::IPv4Configuration* unsafe_arena_release_ipv4_config();
 
+  // optional .patchpanel.UplinkIPv6Configuration uplink_ipv6_config = 7;
+  bool has_uplink_ipv6_config() const;
+  private:
+  bool _internal_has_uplink_ipv6_config() const;
+  public:
+  void clear_uplink_ipv6_config();
+  const ::patchpanel::UplinkIPv6Configuration& uplink_ipv6_config() const;
+  PROTOBUF_NODISCARD ::patchpanel::UplinkIPv6Configuration* release_uplink_ipv6_config();
+  ::patchpanel::UplinkIPv6Configuration* mutable_uplink_ipv6_config();
+  void set_allocated_uplink_ipv6_config(::patchpanel::UplinkIPv6Configuration* uplink_ipv6_config);
+  private:
+  const ::patchpanel::UplinkIPv6Configuration& _internal_uplink_ipv6_config() const;
+  ::patchpanel::UplinkIPv6Configuration* _internal_mutable_uplink_ipv6_config();
+  public:
+  void unsafe_arena_set_allocated_uplink_ipv6_config(
+      ::patchpanel::UplinkIPv6Configuration* uplink_ipv6_config);
+  ::patchpanel::UplinkIPv6Configuration* unsafe_arena_release_uplink_ipv6_config();
+
   // .patchpanel.TetheredNetworkRequest.UpstreamTechnology upstream_technology = 3;
   void clear_upstream_technology();
   ::patchpanel::TetheredNetworkRequest_UpstreamTechnology upstream_technology() const;
@@ -7735,6 +8090,7 @@ class TetheredNetworkRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ifname_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr upstream_ifname_;
     ::patchpanel::IPv4Configuration* ipv4_config_;
+    ::patchpanel::UplinkIPv6Configuration* uplink_ipv6_config_;
     int upstream_technology_;
     bool enable_ipv6_;
     int32_t mtu_;
@@ -7783,7 +8139,7 @@ class TetheredNetworkResponse final :
                &_TetheredNetworkResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    46;
 
   friend void swap(TetheredNetworkResponse& a, TetheredNetworkResponse& b) {
     a.Swap(&b);
@@ -7913,7 +8269,7 @@ class LocalOnlyNetworkRequest final :
                &_LocalOnlyNetworkRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    47;
 
   friend void swap(LocalOnlyNetworkRequest& a, LocalOnlyNetworkRequest& b) {
     a.Swap(&b);
@@ -8068,7 +8424,7 @@ class LocalOnlyNetworkResponse final :
                &_LocalOnlyNetworkResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    48;
 
   friend void swap(LocalOnlyNetworkResponse& a, LocalOnlyNetworkResponse& b) {
     a.Swap(&b);
@@ -8198,7 +8554,7 @@ class GetDownstreamNetworkInfoRequest final :
                &_GetDownstreamNetworkInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    49;
 
   friend void swap(GetDownstreamNetworkInfoRequest& a, GetDownstreamNetworkInfoRequest& b) {
     a.Swap(&b);
@@ -8333,7 +8689,7 @@ class NetworkClientInfo final :
                &_NetworkClientInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    50;
 
   friend void swap(NetworkClientInfo& a, NetworkClientInfo& b) {
     a.Swap(&b);
@@ -8542,7 +8898,7 @@ class GetDownstreamNetworkInfoResponse final :
                &_GetDownstreamNetworkInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    51;
 
   friend void swap(GetDownstreamNetworkInfoResponse& a, GetDownstreamNetworkInfoResponse& b) {
     a.Swap(&b);
@@ -8712,7 +9068,7 @@ class NotifyAndroidInteractiveStateRequest final :
                &_NotifyAndroidInteractiveStateRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    52;
 
   friend void swap(NotifyAndroidInteractiveStateRequest& a, NotifyAndroidInteractiveStateRequest& b) {
     a.Swap(&b);
@@ -8842,7 +9198,7 @@ class NotifyAndroidInteractiveStateResponse final :
                &_NotifyAndroidInteractiveStateResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    53;
 
   friend void swap(NotifyAndroidInteractiveStateResponse& a, NotifyAndroidInteractiveStateResponse& b) {
     a.Swap(&b);
@@ -8959,7 +9315,7 @@ class NotifyAndroidWifiMulticastLockChangeRequest final :
                &_NotifyAndroidWifiMulticastLockChangeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    54;
 
   friend void swap(NotifyAndroidWifiMulticastLockChangeRequest& a, NotifyAndroidWifiMulticastLockChangeRequest& b) {
     a.Swap(&b);
@@ -9089,7 +9445,7 @@ class NotifyAndroidWifiMulticastLockChangeResponse final :
                &_NotifyAndroidWifiMulticastLockChangeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    55;
 
   friend void swap(NotifyAndroidWifiMulticastLockChangeResponse& a, NotifyAndroidWifiMulticastLockChangeResponse& b) {
     a.Swap(&b);
@@ -9206,7 +9562,7 @@ class SocketConnectionEvent final :
                &_SocketConnectionEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    56;
 
   friend void swap(SocketConnectionEvent& a, SocketConnectionEvent& b) {
     a.Swap(&b);
@@ -9496,7 +9852,7 @@ class NotifySocketConnectionEventRequest final :
                &_NotifySocketConnectionEventRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    57;
 
   friend void swap(NotifySocketConnectionEventRequest& a, NotifySocketConnectionEventRequest& b) {
     a.Swap(&b);
@@ -9635,7 +9991,7 @@ class NotifySocketConnectionEventResponse final :
                &_NotifySocketConnectionEventResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    58;
 
   friend void swap(NotifySocketConnectionEventResponse& a, NotifySocketConnectionEventResponse& b) {
     a.Swap(&b);
@@ -9752,7 +10108,7 @@ class SetFeatureFlagRequest final :
                &_SetFeatureFlagRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    59;
 
   friend void swap(SetFeatureFlagRequest& a, SetFeatureFlagRequest& b) {
     a.Swap(&b);
@@ -9919,7 +10275,7 @@ class SetFeatureFlagResponse final :
                &_SetFeatureFlagResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    60;
 
   friend void swap(SetFeatureFlagResponse& a, SetFeatureFlagResponse& b) {
     a.Swap(&b);
@@ -9982,6 +10338,18 @@ class SetFeatureFlagResponse final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kEnabledFieldNumber = 1,
+  };
+  // bool enabled = 1;
+  void clear_enabled();
+  bool enabled() const;
+  void set_enabled(bool value);
+  private:
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:patchpanel.SetFeatureFlagResponse)
  private:
   class _Internal;
@@ -9990,6 +10358,7 @@ class SetFeatureFlagResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    bool enabled_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -10174,6 +10543,80 @@ inline void IPv4Subnet::_internal_set_prefix_len(uint32_t value) {
 inline void IPv4Subnet::set_prefix_len(uint32_t value) {
   _internal_set_prefix_len(value);
   // @@protoc_insertion_point(field_set:patchpanel.IPv4Subnet.prefix_len)
+}
+
+// -------------------------------------------------------------------
+
+// IPAddrCIDR
+
+// bytes addr = 1;
+inline void IPAddrCIDR::clear_addr() {
+  _impl_.addr_.ClearToEmpty();
+}
+inline const std::string& IPAddrCIDR::addr() const {
+  // @@protoc_insertion_point(field_get:patchpanel.IPAddrCIDR.addr)
+  return _internal_addr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void IPAddrCIDR::set_addr(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.addr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.IPAddrCIDR.addr)
+}
+inline std::string* IPAddrCIDR::mutable_addr() {
+  std::string* _s = _internal_mutable_addr();
+  // @@protoc_insertion_point(field_mutable:patchpanel.IPAddrCIDR.addr)
+  return _s;
+}
+inline const std::string& IPAddrCIDR::_internal_addr() const {
+  return _impl_.addr_.Get();
+}
+inline void IPAddrCIDR::_internal_set_addr(const std::string& value) {
+  
+  _impl_.addr_.Set(value, GetArenaForAllocation());
+}
+inline std::string* IPAddrCIDR::_internal_mutable_addr() {
+  
+  return _impl_.addr_.Mutable(GetArenaForAllocation());
+}
+inline std::string* IPAddrCIDR::release_addr() {
+  // @@protoc_insertion_point(field_release:patchpanel.IPAddrCIDR.addr)
+  return _impl_.addr_.Release();
+}
+inline void IPAddrCIDR::set_allocated_addr(std::string* addr) {
+  if (addr != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.addr_.SetAllocated(addr, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.addr_.IsDefault()) {
+    _impl_.addr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.IPAddrCIDR.addr)
+}
+
+// int32 prefix_len = 2;
+inline void IPAddrCIDR::clear_prefix_len() {
+  _impl_.prefix_len_ = 0;
+}
+inline int32_t IPAddrCIDR::_internal_prefix_len() const {
+  return _impl_.prefix_len_;
+}
+inline int32_t IPAddrCIDR::prefix_len() const {
+  // @@protoc_insertion_point(field_get:patchpanel.IPAddrCIDR.prefix_len)
+  return _internal_prefix_len();
+}
+inline void IPAddrCIDR::_internal_set_prefix_len(int32_t value) {
+  
+  _impl_.prefix_len_ = value;
+}
+inline void IPAddrCIDR::set_prefix_len(int32_t value) {
+  _internal_set_prefix_len(value);
+  // @@protoc_insertion_point(field_set:patchpanel.IPAddrCIDR.prefix_len)
 }
 
 // -------------------------------------------------------------------
@@ -11618,6 +12061,56 @@ inline void BruschettaVmStartupResponse::set_allocated_ipv4_address(std::string*
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:patchpanel.BruschettaVmStartupResponse.ipv4_address)
+}
+
+// bytes gateway_ipv4_address = 4;
+inline void BruschettaVmStartupResponse::clear_gateway_ipv4_address() {
+  _impl_.gateway_ipv4_address_.ClearToEmpty();
+}
+inline const std::string& BruschettaVmStartupResponse::gateway_ipv4_address() const {
+  // @@protoc_insertion_point(field_get:patchpanel.BruschettaVmStartupResponse.gateway_ipv4_address)
+  return _internal_gateway_ipv4_address();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void BruschettaVmStartupResponse::set_gateway_ipv4_address(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.gateway_ipv4_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.BruschettaVmStartupResponse.gateway_ipv4_address)
+}
+inline std::string* BruschettaVmStartupResponse::mutable_gateway_ipv4_address() {
+  std::string* _s = _internal_mutable_gateway_ipv4_address();
+  // @@protoc_insertion_point(field_mutable:patchpanel.BruschettaVmStartupResponse.gateway_ipv4_address)
+  return _s;
+}
+inline const std::string& BruschettaVmStartupResponse::_internal_gateway_ipv4_address() const {
+  return _impl_.gateway_ipv4_address_.Get();
+}
+inline void BruschettaVmStartupResponse::_internal_set_gateway_ipv4_address(const std::string& value) {
+  
+  _impl_.gateway_ipv4_address_.Set(value, GetArenaForAllocation());
+}
+inline std::string* BruschettaVmStartupResponse::_internal_mutable_gateway_ipv4_address() {
+  
+  return _impl_.gateway_ipv4_address_.Mutable(GetArenaForAllocation());
+}
+inline std::string* BruschettaVmStartupResponse::release_gateway_ipv4_address() {
+  // @@protoc_insertion_point(field_release:patchpanel.BruschettaVmStartupResponse.gateway_ipv4_address)
+  return _impl_.gateway_ipv4_address_.Release();
+}
+inline void BruschettaVmStartupResponse::set_allocated_gateway_ipv4_address(std::string* gateway_ipv4_address) {
+  if (gateway_ipv4_address != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.gateway_ipv4_address_.SetAllocated(gateway_ipv4_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.gateway_ipv4_address_.IsDefault()) {
+    _impl_.gateway_ipv4_address_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.BruschettaVmStartupResponse.gateway_ipv4_address)
 }
 
 // -------------------------------------------------------------------
@@ -13826,6 +14319,175 @@ IPv4Configuration::mutable_domain_searches() {
 
 // -------------------------------------------------------------------
 
+// UplinkIPv6Configuration
+
+// optional .patchpanel.IPAddrCIDR uplink_ipv6_cidr = 1;
+inline bool UplinkIPv6Configuration::_internal_has_uplink_ipv6_cidr() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.uplink_ipv6_cidr_ != nullptr);
+  return value;
+}
+inline bool UplinkIPv6Configuration::has_uplink_ipv6_cidr() const {
+  return _internal_has_uplink_ipv6_cidr();
+}
+inline void UplinkIPv6Configuration::clear_uplink_ipv6_cidr() {
+  if (_impl_.uplink_ipv6_cidr_ != nullptr) _impl_.uplink_ipv6_cidr_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::patchpanel::IPAddrCIDR& UplinkIPv6Configuration::_internal_uplink_ipv6_cidr() const {
+  const ::patchpanel::IPAddrCIDR* p = _impl_.uplink_ipv6_cidr_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::IPAddrCIDR&>(
+      ::patchpanel::_IPAddrCIDR_default_instance_);
+}
+inline const ::patchpanel::IPAddrCIDR& UplinkIPv6Configuration::uplink_ipv6_cidr() const {
+  // @@protoc_insertion_point(field_get:patchpanel.UplinkIPv6Configuration.uplink_ipv6_cidr)
+  return _internal_uplink_ipv6_cidr();
+}
+inline void UplinkIPv6Configuration::unsafe_arena_set_allocated_uplink_ipv6_cidr(
+    ::patchpanel::IPAddrCIDR* uplink_ipv6_cidr) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.uplink_ipv6_cidr_);
+  }
+  _impl_.uplink_ipv6_cidr_ = uplink_ipv6_cidr;
+  if (uplink_ipv6_cidr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.UplinkIPv6Configuration.uplink_ipv6_cidr)
+}
+inline ::patchpanel::IPAddrCIDR* UplinkIPv6Configuration::release_uplink_ipv6_cidr() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::patchpanel::IPAddrCIDR* temp = _impl_.uplink_ipv6_cidr_;
+  _impl_.uplink_ipv6_cidr_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::patchpanel::IPAddrCIDR* UplinkIPv6Configuration::unsafe_arena_release_uplink_ipv6_cidr() {
+  // @@protoc_insertion_point(field_release:patchpanel.UplinkIPv6Configuration.uplink_ipv6_cidr)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::patchpanel::IPAddrCIDR* temp = _impl_.uplink_ipv6_cidr_;
+  _impl_.uplink_ipv6_cidr_ = nullptr;
+  return temp;
+}
+inline ::patchpanel::IPAddrCIDR* UplinkIPv6Configuration::_internal_mutable_uplink_ipv6_cidr() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.uplink_ipv6_cidr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::IPAddrCIDR>(GetArenaForAllocation());
+    _impl_.uplink_ipv6_cidr_ = p;
+  }
+  return _impl_.uplink_ipv6_cidr_;
+}
+inline ::patchpanel::IPAddrCIDR* UplinkIPv6Configuration::mutable_uplink_ipv6_cidr() {
+  ::patchpanel::IPAddrCIDR* _msg = _internal_mutable_uplink_ipv6_cidr();
+  // @@protoc_insertion_point(field_mutable:patchpanel.UplinkIPv6Configuration.uplink_ipv6_cidr)
+  return _msg;
+}
+inline void UplinkIPv6Configuration::set_allocated_uplink_ipv6_cidr(::patchpanel::IPAddrCIDR* uplink_ipv6_cidr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.uplink_ipv6_cidr_;
+  }
+  if (uplink_ipv6_cidr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(uplink_ipv6_cidr);
+    if (message_arena != submessage_arena) {
+      uplink_ipv6_cidr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, uplink_ipv6_cidr, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.uplink_ipv6_cidr_ = uplink_ipv6_cidr;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.UplinkIPv6Configuration.uplink_ipv6_cidr)
+}
+
+// repeated bytes dns_servers = 2;
+inline int UplinkIPv6Configuration::_internal_dns_servers_size() const {
+  return _impl_.dns_servers_.size();
+}
+inline int UplinkIPv6Configuration::dns_servers_size() const {
+  return _internal_dns_servers_size();
+}
+inline void UplinkIPv6Configuration::clear_dns_servers() {
+  _impl_.dns_servers_.Clear();
+}
+inline std::string* UplinkIPv6Configuration::add_dns_servers() {
+  std::string* _s = _internal_add_dns_servers();
+  // @@protoc_insertion_point(field_add_mutable:patchpanel.UplinkIPv6Configuration.dns_servers)
+  return _s;
+}
+inline const std::string& UplinkIPv6Configuration::_internal_dns_servers(int index) const {
+  return _impl_.dns_servers_.Get(index);
+}
+inline const std::string& UplinkIPv6Configuration::dns_servers(int index) const {
+  // @@protoc_insertion_point(field_get:patchpanel.UplinkIPv6Configuration.dns_servers)
+  return _internal_dns_servers(index);
+}
+inline std::string* UplinkIPv6Configuration::mutable_dns_servers(int index) {
+  // @@protoc_insertion_point(field_mutable:patchpanel.UplinkIPv6Configuration.dns_servers)
+  return _impl_.dns_servers_.Mutable(index);
+}
+inline void UplinkIPv6Configuration::set_dns_servers(int index, const std::string& value) {
+  _impl_.dns_servers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:patchpanel.UplinkIPv6Configuration.dns_servers)
+}
+inline void UplinkIPv6Configuration::set_dns_servers(int index, std::string&& value) {
+  _impl_.dns_servers_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:patchpanel.UplinkIPv6Configuration.dns_servers)
+}
+inline void UplinkIPv6Configuration::set_dns_servers(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.dns_servers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:patchpanel.UplinkIPv6Configuration.dns_servers)
+}
+inline void UplinkIPv6Configuration::set_dns_servers(int index, const void* value, size_t size) {
+  _impl_.dns_servers_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:patchpanel.UplinkIPv6Configuration.dns_servers)
+}
+inline std::string* UplinkIPv6Configuration::_internal_add_dns_servers() {
+  return _impl_.dns_servers_.Add();
+}
+inline void UplinkIPv6Configuration::add_dns_servers(const std::string& value) {
+  _impl_.dns_servers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:patchpanel.UplinkIPv6Configuration.dns_servers)
+}
+inline void UplinkIPv6Configuration::add_dns_servers(std::string&& value) {
+  _impl_.dns_servers_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:patchpanel.UplinkIPv6Configuration.dns_servers)
+}
+inline void UplinkIPv6Configuration::add_dns_servers(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.dns_servers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:patchpanel.UplinkIPv6Configuration.dns_servers)
+}
+inline void UplinkIPv6Configuration::add_dns_servers(const void* value, size_t size) {
+  _impl_.dns_servers_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:patchpanel.UplinkIPv6Configuration.dns_servers)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+UplinkIPv6Configuration::dns_servers() const {
+  // @@protoc_insertion_point(field_list:patchpanel.UplinkIPv6Configuration.dns_servers)
+  return _impl_.dns_servers_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+UplinkIPv6Configuration::mutable_dns_servers() {
+  // @@protoc_insertion_point(field_mutable_list:patchpanel.UplinkIPv6Configuration.dns_servers)
+  return &_impl_.dns_servers_;
+}
+
+// -------------------------------------------------------------------
+
 // DownstreamNetwork
 
 // string downstream_ifname = 1;
@@ -14252,9 +14914,99 @@ inline void TetheredNetworkRequest::set_enable_ipv6(bool value) {
   // @@protoc_insertion_point(field_set:patchpanel.TetheredNetworkRequest.enable_ipv6)
 }
 
+// optional .patchpanel.UplinkIPv6Configuration uplink_ipv6_config = 7;
+inline bool TetheredNetworkRequest::_internal_has_uplink_ipv6_config() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.uplink_ipv6_config_ != nullptr);
+  return value;
+}
+inline bool TetheredNetworkRequest::has_uplink_ipv6_config() const {
+  return _internal_has_uplink_ipv6_config();
+}
+inline void TetheredNetworkRequest::clear_uplink_ipv6_config() {
+  if (_impl_.uplink_ipv6_config_ != nullptr) _impl_.uplink_ipv6_config_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline const ::patchpanel::UplinkIPv6Configuration& TetheredNetworkRequest::_internal_uplink_ipv6_config() const {
+  const ::patchpanel::UplinkIPv6Configuration* p = _impl_.uplink_ipv6_config_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::UplinkIPv6Configuration&>(
+      ::patchpanel::_UplinkIPv6Configuration_default_instance_);
+}
+inline const ::patchpanel::UplinkIPv6Configuration& TetheredNetworkRequest::uplink_ipv6_config() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TetheredNetworkRequest.uplink_ipv6_config)
+  return _internal_uplink_ipv6_config();
+}
+inline void TetheredNetworkRequest::unsafe_arena_set_allocated_uplink_ipv6_config(
+    ::patchpanel::UplinkIPv6Configuration* uplink_ipv6_config) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.uplink_ipv6_config_);
+  }
+  _impl_.uplink_ipv6_config_ = uplink_ipv6_config;
+  if (uplink_ipv6_config) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.TetheredNetworkRequest.uplink_ipv6_config)
+}
+inline ::patchpanel::UplinkIPv6Configuration* TetheredNetworkRequest::release_uplink_ipv6_config() {
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::patchpanel::UplinkIPv6Configuration* temp = _impl_.uplink_ipv6_config_;
+  _impl_.uplink_ipv6_config_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::patchpanel::UplinkIPv6Configuration* TetheredNetworkRequest::unsafe_arena_release_uplink_ipv6_config() {
+  // @@protoc_insertion_point(field_release:patchpanel.TetheredNetworkRequest.uplink_ipv6_config)
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::patchpanel::UplinkIPv6Configuration* temp = _impl_.uplink_ipv6_config_;
+  _impl_.uplink_ipv6_config_ = nullptr;
+  return temp;
+}
+inline ::patchpanel::UplinkIPv6Configuration* TetheredNetworkRequest::_internal_mutable_uplink_ipv6_config() {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  if (_impl_.uplink_ipv6_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::UplinkIPv6Configuration>(GetArenaForAllocation());
+    _impl_.uplink_ipv6_config_ = p;
+  }
+  return _impl_.uplink_ipv6_config_;
+}
+inline ::patchpanel::UplinkIPv6Configuration* TetheredNetworkRequest::mutable_uplink_ipv6_config() {
+  ::patchpanel::UplinkIPv6Configuration* _msg = _internal_mutable_uplink_ipv6_config();
+  // @@protoc_insertion_point(field_mutable:patchpanel.TetheredNetworkRequest.uplink_ipv6_config)
+  return _msg;
+}
+inline void TetheredNetworkRequest::set_allocated_uplink_ipv6_config(::patchpanel::UplinkIPv6Configuration* uplink_ipv6_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.uplink_ipv6_config_;
+  }
+  if (uplink_ipv6_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(uplink_ipv6_config);
+    if (message_arena != submessage_arena) {
+      uplink_ipv6_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, uplink_ipv6_config, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  _impl_.uplink_ipv6_config_ = uplink_ipv6_config;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.TetheredNetworkRequest.uplink_ipv6_config)
+}
+
 // optional int32 mtu = 6;
 inline bool TetheredNetworkRequest::_internal_has_mtu() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool TetheredNetworkRequest::has_mtu() const {
@@ -14262,7 +15014,7 @@ inline bool TetheredNetworkRequest::has_mtu() const {
 }
 inline void TetheredNetworkRequest::clear_mtu() {
   _impl_.mtu_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
 inline int32_t TetheredNetworkRequest::_internal_mtu() const {
   return _impl_.mtu_;
@@ -14272,7 +15024,7 @@ inline int32_t TetheredNetworkRequest::mtu() const {
   return _internal_mtu();
 }
 inline void TetheredNetworkRequest::_internal_set_mtu(int32_t value) {
-  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x00000004u;
   _impl_.mtu_ = value;
 }
 inline void TetheredNetworkRequest::set_mtu(int32_t value) {
@@ -15365,9 +16117,33 @@ inline void SetFeatureFlagRequest::set_enabled(bool value) {
 
 // SetFeatureFlagResponse
 
+// bool enabled = 1;
+inline void SetFeatureFlagResponse::clear_enabled() {
+  _impl_.enabled_ = false;
+}
+inline bool SetFeatureFlagResponse::_internal_enabled() const {
+  return _impl_.enabled_;
+}
+inline bool SetFeatureFlagResponse::enabled() const {
+  // @@protoc_insertion_point(field_get:patchpanel.SetFeatureFlagResponse.enabled)
+  return _internal_enabled();
+}
+inline void SetFeatureFlagResponse::_internal_set_enabled(bool value) {
+  
+  _impl_.enabled_ = value;
+}
+inline void SetFeatureFlagResponse::set_enabled(bool value) {
+  _internal_set_enabled(value);
+  // @@protoc_insertion_point(field_set:patchpanel.SetFeatureFlagResponse.enabled)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-java", "name": "icedtea-bin", "version": "3.4.0", "revision": 0, "fullname": "dev-java/icedtea-bin", "fullnamerev": "dev-java/icedtea-bin-3.4.0", "license_names": ["GPL-2-with-classpath-exception"], "license_text_scanned": [], "homepages": ["http://icedtea.classpath.org"], "skip": false, "tainted": false, "ebuild_path": null}

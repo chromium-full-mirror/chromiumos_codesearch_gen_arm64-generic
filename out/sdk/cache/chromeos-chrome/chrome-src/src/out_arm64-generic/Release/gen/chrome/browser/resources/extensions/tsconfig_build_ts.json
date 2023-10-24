@@ -1,0 +1,152 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/managed_footnote/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/managed_footnote/*"
+      ],
+      "chrome://resources/cr_components/managed_footnote/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/managed_footnote/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/activity_log/activity_log.ts",
+    "preprocessed/activity_log/activity_log_history.ts",
+    "preprocessed/activity_log/activity_log_history_item.ts",
+    "preprocessed/activity_log/activity_log_stream.ts",
+    "preprocessed/activity_log/activity_log_stream_item.ts",
+    "preprocessed/code_section.ts",
+    "preprocessed/detail_view.ts",
+    "preprocessed/drop_overlay.ts",
+    "preprocessed/error_page.ts",
+    "preprocessed/host_permissions_toggle_list.ts",
+    "preprocessed/install_warnings_dialog.ts",
+    "preprocessed/item.ts",
+    "preprocessed/item_list.ts",
+    "preprocessed/keyboard_shortcuts.ts",
+    "preprocessed/load_error.ts",
+    "preprocessed/manager.ts",
+    "preprocessed/options_dialog.ts",
+    "preprocessed/pack_dialog.ts",
+    "preprocessed/pack_dialog_alert.ts",
+    "preprocessed/restricted_sites_dialog.ts",
+    "preprocessed/review_panel.ts",
+    "preprocessed/runtime_host_permissions.ts",
+    "preprocessed/runtime_hosts_dialog.ts",
+    "preprocessed/shortcut_input.ts",
+    "preprocessed/sidebar.ts",
+    "preprocessed/site_permissions_by_site.ts",
+    "preprocessed/site_permissions_edit_permissions_dialog.ts",
+    "preprocessed/site_permissions_edit_url_dialog.ts",
+    "preprocessed/site_permissions_list.ts",
+    "preprocessed/site_permissions_site_group.ts",
+    "preprocessed/site_permissions.ts",
+    "preprocessed/toggle_row.ts",
+    "preprocessed/toolbar.ts",
+    "preprocessed/kiosk_dialog.ts",
+    "preprocessed/drag_and_drop_handler.ts",
+    "preprocessed/extensions.ts",
+    "preprocessed/item_mixin.ts",
+    "preprocessed/item_util.ts",
+    "preprocessed/keyboard_shortcut_delegate.ts",
+    "preprocessed/navigation_helper.ts",
+    "preprocessed/service.ts",
+    "preprocessed/shortcut_util.ts",
+    "preprocessed/site_settings_mixin.ts",
+    "preprocessed/url_util.ts",
+    "preprocessed/kiosk_browser_proxy.ts",
+    "preprocessed/activity_log/activity_log.html.ts",
+    "preprocessed/activity_log/activity_log_history.html.ts",
+    "preprocessed/activity_log/activity_log_history_item.html.ts",
+    "preprocessed/activity_log/activity_log_stream.html.ts",
+    "preprocessed/activity_log/activity_log_stream_item.html.ts",
+    "preprocessed/code_section.html.ts",
+    "preprocessed/detail_view.html.ts",
+    "preprocessed/drop_overlay.html.ts",
+    "preprocessed/error_page.html.ts",
+    "preprocessed/host_permissions_toggle_list.html.ts",
+    "preprocessed/install_warnings_dialog.html.ts",
+    "preprocessed/item.html.ts",
+    "preprocessed/item_list.html.ts",
+    "preprocessed/keyboard_shortcuts.html.ts",
+    "preprocessed/load_error.html.ts",
+    "preprocessed/manager.html.ts",
+    "preprocessed/options_dialog.html.ts",
+    "preprocessed/pack_dialog.html.ts",
+    "preprocessed/pack_dialog_alert.html.ts",
+    "preprocessed/restricted_sites_dialog.html.ts",
+    "preprocessed/review_panel.html.ts",
+    "preprocessed/runtime_host_permissions.html.ts",
+    "preprocessed/runtime_hosts_dialog.html.ts",
+    "preprocessed/shortcut_input.html.ts",
+    "preprocessed/sidebar.html.ts",
+    "preprocessed/site_permissions_by_site.html.ts",
+    "preprocessed/site_permissions_edit_permissions_dialog.html.ts",
+    "preprocessed/site_permissions_edit_url_dialog.html.ts",
+    "preprocessed/site_permissions_list.html.ts",
+    "preprocessed/site_permissions_site_group.html.ts",
+    "preprocessed/site_permissions.html.ts",
+    "preprocessed/toggle_row.html.ts",
+    "preprocessed/toolbar.html.ts",
+    "preprocessed/kiosk_dialog.html.ts",
+    "preprocessed/icons.html.ts",
+    "preprocessed/shared_style.css.ts",
+    "preprocessed/shared_vars.css.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/activity_log_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_event.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/developer_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/management.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/runtime.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/tabs.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_components/managed_footnote/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

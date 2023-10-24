@@ -1,0 +1,118 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "noEmitOnError": true,
+    "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "pretty": true,
+    "removeComments": true,
+    "listEmittedFiles": true,
+    "typeRoots": [
+      "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/node/node_modules/@types"
+    ],
+    "types": [
+      "trusted-types"
+    ],
+    "rootDir": "preprocessed",
+    "outDir": "preprocessed",
+    "paths": {
+      "chrome://resources/*": [
+        "./../../../../ui/webui/resources/tsc/*"
+      ],
+      "//resources/*": [
+        "./../../../../ui/webui/resources/tsc/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer-element.d.ts"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer-element.d.ts"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./preprocessed/*"
+      ],
+      "//resources/ash/common/*": [
+        "./preprocessed/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/assert.js",
+    "preprocessed/auth_setup/set_local_password_input.html.js",
+    "preprocessed/bluetooth/bluetooth_metrics_utils.js",
+    "preprocessed/bluetooth/bluetooth_types.js",
+    "preprocessed/bluetooth/bluetooth_utils.js",
+    "preprocessed/bluetooth/cros_bluetooth_config.js",
+    "preprocessed/cellular_setup/activation_code_page.html.js",
+    "preprocessed/cellular_setup/activation_code_page.js",
+    "preprocessed/cellular_setup/cellular_setup_delegate.js",
+    "preprocessed/cellular_setup/cellular_setup_icons.html.js",
+    "preprocessed/cellular_setup/cellular_types.js",
+    "preprocessed/cellular_setup/confirmation_code_page.html.js",
+    "preprocessed/cellular_setup/confirmation_code_page.js",
+    "preprocessed/cellular_setup/confirmation_code_page_legacy.html.js",
+    "preprocessed/cellular_setup/confirmation_code_page_legacy.js",
+    "preprocessed/cellular_setup/esim_manager_listener_behavior.js",
+    "preprocessed/cellular_setup/esim_manager_utils.js",
+    "preprocessed/cellular_setup/final_page.html.js",
+    "preprocessed/cellular_setup/final_page.js",
+    "preprocessed/cellular_setup/mojo_interface_provider.js",
+    "preprocessed/cr_deprecated.js",
+    "preprocessed/cr_picture/png.js",
+    "preprocessed/cr_picture/webcam_utils.js",
+    "preprocessed/event_target.js",
+    "preprocessed/event_tracker.js",
+    "preprocessed/focus_row_js.js",
+    "preprocessed/focus_without_ink_js.js",
+    "preprocessed/keyboard_shortcut_list_js.js",
+    "preprocessed/navigation_shared_vars.css.js",
+    "preprocessed/network/cellular_utils.js",
+    "preprocessed/network/cr_policy_network_behavior_mojo.js",
+    "preprocessed/network_health/mojo_interface_provider.js",
+    "preprocessed/network_health/network_diagnostics.html.js",
+    "preprocessed/network_health/network_diagnostics.js",
+    "preprocessed/network_health/network_diagnostics_types.js",
+    "preprocessed/network_health/network_health_container.html.js",
+    "preprocessed/network_health/network_health_container.js",
+    "preprocessed/network_health/routine_group.html.js",
+    "preprocessed/network_health/routine_group.js",
+    "preprocessed/network/mojo_interface_provider.js",
+    "preprocessed/network/network_config_element_behavior.js",
+    "preprocessed/network/network_listener_behavior.js",
+    "preprocessed/network/network_list_types.js",
+    "preprocessed/network/network_proxy_exclusions.html.js",
+    "preprocessed/network/network_proxy_exclusions.js",
+    "preprocessed/network/network_proxy_input.html.js",
+    "preprocessed/network/network_proxy_input.js",
+    "preprocessed/network/network_select.html.js",
+    "preprocessed/network/network_select.js",
+    "preprocessed/network/network_shared.css.js",
+    "preprocessed/network/onc_mojo.js",
+    "preprocessed/quick_unlock/fingerprint_progress.html.js",
+    "preprocessed/quick_unlock/fingerprint_progress_icons.html.js",
+    "preprocessed/quick_unlock/pin_keyboard.html.js",
+    "preprocessed/quick_unlock/pin_keyboard_icons.html.js",
+    "preprocessed/quick_unlock/setup_pin_keyboard.html.js",
+    "preprocessed/traffic_counters/traffic_counters_adapter.js",
+    "preprocessed/util.js"
+  ],
+  "references": [
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

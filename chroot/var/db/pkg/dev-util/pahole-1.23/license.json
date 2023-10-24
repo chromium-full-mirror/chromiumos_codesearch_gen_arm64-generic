@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "pahole", "version": "1.23", "revision": 0, "fullname": "dev-util/pahole", "fullnamerev": "dev-util/pahole-1.23", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://git.kernel.org/cgit/devel/pahole/pahole.git/"], "skip": false, "tainted": false, "ebuild_path": null}

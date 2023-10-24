@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-print", "name": "cups", "version": "2.4.7", "revision": 304, "fullname": "net-print/cups", "fullnamerev": "net-print/cups-2.4.7-r304", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["http://www.cups.org/"], "skip": false, "tainted": false, "ebuild_path": null}

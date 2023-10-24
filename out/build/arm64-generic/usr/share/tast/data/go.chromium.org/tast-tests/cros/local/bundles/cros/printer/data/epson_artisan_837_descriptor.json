@@ -1,0 +1,36 @@
+{
+    "Name": "EPSON Artisan 837",
+    "RegularSettings": {
+        "Dropdowns": {
+            "Layout": {
+                "Values": ["Portrait", "Landscape"]
+            },
+            "Color": {
+				"Values": ["Black and white", "Color"]
+            },
+            "Paper size": {
+                "Values": ["4 x 6 in", "4 x 7.111 in", "5 x 7 in", "8 x 10 in", "A4", "Letter"]
+            },
+            "Pages per sheet": {
+                "Values": ["1", "2", "4", "6", "9", "16"]
+            },
+            "Margins": {
+                "Values": ["Default", "None", "Minimum", "Custom"],
+                "Dependencies": {
+                    "Pages per sheet": "1"
+                }
+            }
+        },
+        "Checkboxes": {
+            "Print on both sides": {},
+            "Headers and footers": {},
+            "Background graphics": {}
+        }
+    },
+    "AdvancedSettings": {
+        "Job sheets": ["None", "classified", "confidential", "secret", "Standard", "topsecret", "unclassified"],
+        "Output bin": ["Face up"],
+        "Page delivery": ["reverse-order", "same-order"],
+        "Print quality": ["Normal"]
+    }
+}

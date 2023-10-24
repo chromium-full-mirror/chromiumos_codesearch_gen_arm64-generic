@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "mod", "version": "0.5.1", "revision": 3, "fullname": "dev-go/mod", "fullnamerev": "dev-go/mod-0.5.1-r3", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://golang.org/x/mod"], "skip": false, "tainted": false, "ebuild_path": null}

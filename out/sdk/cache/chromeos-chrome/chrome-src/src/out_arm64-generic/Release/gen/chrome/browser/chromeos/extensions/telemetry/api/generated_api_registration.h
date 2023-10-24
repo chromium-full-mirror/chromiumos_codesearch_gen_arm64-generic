@@ -1,0 +1,28 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// GENERATED FROM THE API DEFINITIONS IN
+//   chrome/common/chromeos/extensions/api
+// by tools/json_schema_compiler.
+// DO NOT EDIT.
+
+#ifndef CHROME_COMMON_CHROMEOS_EXTENSIONS_API_GENERATED_API_H__
+#define CHROME_COMMON_CHROMEOS_EXTENSIONS_API_GENERATED_API_H__
+
+#include <string>
+
+class ExtensionFunctionRegistry;
+
+namespace chromeos {
+namespace api {
+
+class ChromeOSGeneratedFunctionRegistry {
+ public:
+  static void RegisterAll(ExtensionFunctionRegistry* registry);
+};
+
+}  // namespace api
+}  // namespace chromeos
+
+#endif  // CHROME_COMMON_CHROMEOS_EXTENSIONS_API_GENERATED_API_H__

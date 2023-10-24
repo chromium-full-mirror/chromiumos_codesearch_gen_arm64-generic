@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libtasn1", "version": "4.19.0", "revision": 0, "fullname": "dev-libs/libtasn1", "fullnamerev": "dev-libs/libtasn1-4.19.0", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/libtasn1/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,36 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style demo">#layout{display:flex;flex-direction:column;width:100%}#layout{display:flex;flex-direction:column}#container{height:500px;overflow:auto;position:relative;width:100%}#mockContent{background:linear-gradient(180deg,#fff,#000);height:200%;width:100%}#ironListScrollView{max-height:300px;width:100%}.item{padding:16px;text-align:center;width:100%}#canScrollLog,#isScrolledLog,#scrolledToBottomLog{display:none}.can-scroll~#canScrollLog{display:block}.is-scrolled~#isScrolledLog{display:block}.scrolled-to-bottom~#scrolledToBottomLog{display:block}#sliderContainer{align-items:center;display:flex;gap:12px}#itemsLengthSlider{width:200px}</style>
+
+<h1>Scroll view with shadows indicating scroll</h1>
+<div class="demos">
+  <div id="layout">
+    <div id="container" show-bottom-shadow>
+      <div id="mockContent"></div>
+    </div>
+  </div>
+</div>
+
+<h1>Scroll view with &lt;iron-list&gt; and dynamic height</h1>
+<div class="demos">
+  <div id="sliderContainer">
+    <label id="sliderLabel">Number of items in iron-list</label>
+    <cr-slider id="itemsLengthSlider" min="0" max="30" value="[[items_.length]]" aria-labelledby="sliderLabel" on-cr-slider-value-changed="onItemsLengthChanged_">
+    </cr-slider>
+    [[items_.length]]
+  </div>
+
+  <div id="ironListScrollView" scrollable>
+    <iron-list items="[[items_]]" scroll-target="ironListScrollView">
+      <template>
+        <div class="item" tabindex="0">Focusable item</div>
+      </template>
+    </iron-list>
+  </div>
+
+  <div id="canScrollLog">can scroll</div>
+  <div id="isScrolledLog">is scrolled</div>
+  <div id="scrolledToBottomLog">scrolled to bottom</div>
+</div>
+<!--_html_template_end_-->`;
+}

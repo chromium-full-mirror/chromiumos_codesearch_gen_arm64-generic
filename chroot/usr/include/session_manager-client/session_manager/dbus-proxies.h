@@ -254,24 +254,6 @@ class SessionManagerInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool HandleSupervisedUserCreationStarting(
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void HandleSupervisedUserCreationStartingAsync(
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool HandleSupervisedUserCreationFinished(
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void HandleSupervisedUserCreationFinishedAsync(
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool LockScreen(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -1297,58 +1279,6 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
         dbus_object_proxy_,
         "org.chromium.SessionManagerInterface",
         "IsGuestSessionActive",
-        std::move(success_callback),
-        std::move(error_callback));
-  }
-
-  bool HandleSupervisedUserCreationStarting(
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.SessionManagerInterface",
-        "HandleSupervisedUserCreationStarting",
-        error);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  void HandleSupervisedUserCreationStartingAsync(
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.SessionManagerInterface",
-        "HandleSupervisedUserCreationStarting",
-        std::move(success_callback),
-        std::move(error_callback));
-  }
-
-  bool HandleSupervisedUserCreationFinished(
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.SessionManagerInterface",
-        "HandleSupervisedUserCreationFinished",
-        error);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  void HandleSupervisedUserCreationFinishedAsync(
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.SessionManagerInterface",
-        "HandleSupervisedUserCreationFinished",
         std::move(success_callback),
         std::move(error_callback));
   }

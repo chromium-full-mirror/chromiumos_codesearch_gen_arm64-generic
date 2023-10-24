@@ -6,20 +6,27 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 
 struct LanguageTag;
 struct LanguageTagBuilder;
 struct LanguageTagT;
 
-struct LanguageTagT : public flatbuffers::NativeTable {
+struct LanguageTagT : public ::flatbuffers::NativeTable {
   typedef LanguageTag TableType;
   std::string language{};
   std::string script{};
   std::string region{};
 };
 
-struct LanguageTag FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct LanguageTag FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef LanguageTagT NativeTableType;
   typedef LanguageTagBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -27,16 +34,16 @@ struct LanguageTag FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_SCRIPT = 6,
     VT_REGION = 8
   };
-  const flatbuffers::String *language() const {
-    return GetPointer<const flatbuffers::String *>(VT_LANGUAGE);
+  const ::flatbuffers::String *language() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_LANGUAGE);
   }
-  const flatbuffers::String *script() const {
-    return GetPointer<const flatbuffers::String *>(VT_SCRIPT);
+  const ::flatbuffers::String *script() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_SCRIPT);
   }
-  const flatbuffers::String *region() const {
-    return GetPointer<const flatbuffers::String *>(VT_REGION);
+  const ::flatbuffers::String *region() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_REGION);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_LANGUAGE) &&
            verifier.VerifyString(language()) &&
@@ -46,40 +53,40 @@ struct LanguageTag FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyString(region()) &&
            verifier.EndTable();
   }
-  LanguageTagT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(LanguageTagT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<LanguageTag> Pack(flatbuffers::FlatBufferBuilder &_fbb, const LanguageTagT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  LanguageTagT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(LanguageTagT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<LanguageTag> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const LanguageTagT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct LanguageTagBuilder {
   typedef LanguageTag Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_language(flatbuffers::Offset<flatbuffers::String> language) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_language(::flatbuffers::Offset<::flatbuffers::String> language) {
     fbb_.AddOffset(LanguageTag::VT_LANGUAGE, language);
   }
-  void add_script(flatbuffers::Offset<flatbuffers::String> script) {
+  void add_script(::flatbuffers::Offset<::flatbuffers::String> script) {
     fbb_.AddOffset(LanguageTag::VT_SCRIPT, script);
   }
-  void add_region(flatbuffers::Offset<flatbuffers::String> region) {
+  void add_region(::flatbuffers::Offset<::flatbuffers::String> region) {
     fbb_.AddOffset(LanguageTag::VT_REGION, region);
   }
-  explicit LanguageTagBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit LanguageTagBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<LanguageTag> Finish() {
+  ::flatbuffers::Offset<LanguageTag> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<LanguageTag>(end);
+    auto o = ::flatbuffers::Offset<LanguageTag>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<LanguageTag> CreateLanguageTag(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> language = 0,
-    flatbuffers::Offset<flatbuffers::String> script = 0,
-    flatbuffers::Offset<flatbuffers::String> region = 0) {
+inline ::flatbuffers::Offset<LanguageTag> CreateLanguageTag(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> language = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> script = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> region = 0) {
   LanguageTagBuilder builder_(_fbb);
   builder_.add_region(region);
   builder_.add_script(script);
@@ -87,8 +94,8 @@ inline flatbuffers::Offset<LanguageTag> CreateLanguageTag(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<LanguageTag> CreateLanguageTagDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<LanguageTag> CreateLanguageTagDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *language = nullptr,
     const char *script = nullptr,
     const char *region = nullptr) {
@@ -102,15 +109,15 @@ inline flatbuffers::Offset<LanguageTag> CreateLanguageTagDirect(
       region__);
 }
 
-flatbuffers::Offset<LanguageTag> CreateLanguageTag(flatbuffers::FlatBufferBuilder &_fbb, const LanguageTagT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<LanguageTag> CreateLanguageTag(::flatbuffers::FlatBufferBuilder &_fbb, const LanguageTagT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline LanguageTagT *LanguageTag::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline LanguageTagT *LanguageTag::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<LanguageTagT>(new LanguageTagT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void LanguageTag::UnPackTo(LanguageTagT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void LanguageTag::UnPackTo(LanguageTagT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = language(); if (_e) _o->language = _e->str(); }
@@ -118,14 +125,14 @@ inline void LanguageTag::UnPackTo(LanguageTagT *_o, const flatbuffers::resolver_
   { auto _e = region(); if (_e) _o->region = _e->str(); }
 }
 
-inline flatbuffers::Offset<LanguageTag> LanguageTag::Pack(flatbuffers::FlatBufferBuilder &_fbb, const LanguageTagT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<LanguageTag> LanguageTag::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const LanguageTagT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateLanguageTag(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<LanguageTag> CreateLanguageTag(flatbuffers::FlatBufferBuilder &_fbb, const LanguageTagT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<LanguageTag> CreateLanguageTag(::flatbuffers::FlatBufferBuilder &_fbb, const LanguageTagT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LanguageTagT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const LanguageTagT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _language = _o->language.empty() ? 0 : _fbb.CreateString(_o->language);
   auto _script = _o->script.empty() ? 0 : _fbb.CreateString(_o->script);
   auto _region = _o->region.empty() ? 0 : _fbb.CreateString(_o->region);

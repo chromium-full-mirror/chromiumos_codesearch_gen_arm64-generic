@@ -151,7 +151,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 13;
+  static constexpr uint32_t Version_ = 14;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -203,8 +203,8 @@ class CrosHealthdDiagnosticsService
     kRunPrivacyScreenRoutineMinVersion = 4,
     kDEPRECATED_RunLedLitUpRoutineMinVersion = 5,
     kRunEmmcLifetimeRoutineMinVersion = 7,
-    kRunAudioSetVolumeRoutineMinVersion = 8,
-    kRunAudioSetGainRoutineMinVersion = 8,
+    kDEPRECATED_RunAudioSetVolumeRoutineMinVersion = 8,
+    kDEPRECATED_RunAudioSetGainRoutineMinVersion = 8,
     kRunBluetoothPowerRoutineMinVersion = 9,
     kRunBluetoothDiscoveryRoutineMinVersion = 9,
     kRunBluetoothScanningRoutineMinVersion = 9,
@@ -212,6 +212,7 @@ class CrosHealthdDiagnosticsService
     kRunPowerButtonRoutineMinVersion = 11,
     kRunAudioDriverRoutineMinVersion = 12,
     kRunUfsLifetimeRoutineMinVersion = 13,
+    kRunFanRoutineMinVersion = 14,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -334,10 +335,10 @@ class CrosHealthdDiagnosticsService
   struct RunEmmcLifetimeRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct RunAudioSetVolumeRoutine_Sym {
+  struct DEPRECATED_RunAudioSetVolumeRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct RunAudioSetGainRoutine_Sym {
+  struct DEPRECATED_RunAudioSetGainRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunBluetoothPowerRoutine_Sym {
@@ -359,6 +360,9 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunUfsLifetimeRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunFanRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -560,14 +564,14 @@ class CrosHealthdDiagnosticsService
   virtual void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) = 0;
 
 
-  using RunAudioSetVolumeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  using DEPRECATED_RunAudioSetVolumeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) = 0;
+  virtual void DEPRECATED_RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, DEPRECATED_RunAudioSetVolumeRoutineCallback callback) = 0;
 
 
-  using RunAudioSetGainRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  using DEPRECATED_RunAudioSetGainRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, RunAudioSetGainRoutineCallback callback) = 0;
+  virtual void DEPRECATED_RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, DEPRECATED_RunAudioSetGainRoutineCallback callback) = 0;
 
 
   using RunBluetoothPowerRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -603,6 +607,11 @@ class CrosHealthdDiagnosticsService
   using RunUfsLifetimeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunUfsLifetimeRoutine(RunUfsLifetimeRoutineCallback callback) = 0;
+
+
+  using RunFanRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunFanRoutine(RunFanRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -1006,9 +1015,9 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) final;
   
-  void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) final;
+  void DEPRECATED_RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, DEPRECATED_RunAudioSetVolumeRoutineCallback callback) final;
   
-  void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, RunAudioSetGainRoutineCallback callback) final;
+  void DEPRECATED_RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, DEPRECATED_RunAudioSetGainRoutineCallback callback) final;
   
   void RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) final;
   
@@ -1023,6 +1032,8 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) final;
   
   void RunUfsLifetimeRoutine(RunUfsLifetimeRoutineCallback callback) final;
+  
+  void RunFanRoutine(RunFanRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

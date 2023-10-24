@@ -1,0 +1,27 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style>#container{background-color:transparent;height:100%;pointer-events:auto;position:relative;width:100%}#container::backdrop{background:0 0;opacity:0}#exit{left:20px;position:absolute;top:20px}#confirm{position:absolute;right:20px;top:20px}#layoutButtons{backdrop-filter:blur(6px);background:linear-gradient(0deg,rgba(255,255,255,.08),rgba(255,255,255,.08)),rgba(32,33,36,.8);border-radius:16px;column-gap:8px;display:grid;grid-template-columns:1fr 1fr;left:50%;position:absolute;top:20px;transform:translateX(-50%)}#layoutButtons .fullscreen-button{backdrop-filter:none;background:0 0;padding:6px 24px;width:100%}#layoutButtons .fullscreen-button:hover{background:rgba(var(--google-blue-300-rgb),.08)}#layoutButtons .fullscreen-button[aria-pressed=true]{background:var(--cros-sys-primary-dark,--google-blue-300);color:var(--google-grey-900)}img{left:50%;position:absolute;top:50%;transform:translate(-50%,-50%)}.fullscreen-button{align-items:center;backdrop-filter:blur(6px);background:linear-gradient(0deg,rgba(255,255,255,.08),rgba(255,255,255,.08)),rgba(var(--google-grey-900-rgb),.8);border:none;border-radius:16px;color:var(--google-grey-200);display:flex;height:32px;justify-content:center;min-width:max-content;padding:6px 16px}.fullscreen-button:hover{background:linear-gradient(0deg,rgba(var(--google-blue-300-rgb),.08),rgba(var(--google-blue-300-rgb),.08)),rgba(var(--google-grey-900-rgb),.8)}.fullscreen-button iron-icon{flex:0 0 auto;--iron-icon-height:20px;--iron-icon-width:20px}.fullscreen-button span{margin-inline-start:8px}</style>
+<div id="container" hidden>
+  <cr-button class="fullscreen-button" on-click="onClickExit_" id="exit" aria-label="$i18n{ariaLabelExitFullscreen}">
+    <iron-icon icon="personalization:exit_fullscreen"></iron-icon>
+    <span>$i18n{exitFullscreen}</span>
+  </cr-button>
+  <template is="dom-if" if="[[showLayoutOptions_]]">
+    <div id="layoutButtons">
+      <cr-button class="fullscreen-button" on-click="onClickLayout_" data-layout="FILL" aria-pressed$="[[getLayoutAriaPressed_(selectedLayout_, 'FILL')]]">
+        <iron-icon icon="personalization:layout_fill"></iron-icon>
+        <span>$i18n{fill}</span>
+      </cr-button>
+      <cr-button class="fullscreen-button" on-click="onClickLayout_" data-layout="CENTER" aria-pressed$="[[getLayoutAriaPressed_(selectedLayout_, 'CENTER')]]">
+        <iron-icon icon="personalization:layout_center"></iron-icon>
+        <span>$i18n{center}</span>
+      </cr-button>
+    </div>
+  </template>
+  <cr-button class="fullscreen-button" on-click="onClickConfirm_" id="confirm">
+    <iron-icon icon="personalization:confirm_selection"></iron-icon>
+    <span>$i18n{setAsWallpaper}</span>
+  </cr-button>
+</div>
+<!--_html_template_end_-->`;
+}

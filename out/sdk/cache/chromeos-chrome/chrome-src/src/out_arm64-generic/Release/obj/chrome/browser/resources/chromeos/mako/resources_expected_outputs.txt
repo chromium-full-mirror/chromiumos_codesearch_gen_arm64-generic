@@ -1,0 +1,4 @@
+gen/chrome/grit/orca_resources.h
+gen/chrome/grit/orca_resources_map.h
+gen/chrome/grit/orca_resources_map.cc
+gen/chrome/orca_resources.pak

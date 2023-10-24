@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "go-connections", "version": "0.4.0", "revision": 1, "fullname": "dev-go/go-connections", "fullnamerev": "dev-go/go-connections-0.4.0-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/docker/go-connections"], "skip": false, "tainted": false, "ebuild_path": null}

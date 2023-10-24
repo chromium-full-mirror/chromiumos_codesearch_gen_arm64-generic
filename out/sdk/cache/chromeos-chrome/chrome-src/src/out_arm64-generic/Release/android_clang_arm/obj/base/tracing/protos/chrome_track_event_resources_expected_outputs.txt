@@ -1,0 +1,2 @@
+android_clang_arm/gen/base/tracing/protos/grit/tracing_proto_resources.h
+android_clang_arm/gen/base/tracing/protos/tracing_proto_resources.pak

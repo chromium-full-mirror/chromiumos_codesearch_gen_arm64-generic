@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "flashmap", "version": "0.3", "revision": 43, "fullname": "sys-apps/flashmap", "fullnamerev": "sys-apps/flashmap-0.3-r43", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["http://flashmap.googlecode.com"], "skip": false, "tainted": false, "ebuild_path": null}

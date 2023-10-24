@@ -1,0 +1,20 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.origin-row{align-items:center;display:flex;margin-left:auto;padding-right:.5em}</style>
+
+<div class="list-frame">
+  <div class="origin-row">
+    <site-favicon url="[[grantsPerOrigin.origin]]"></site-favicon>
+    <div class="cr-row">
+      [[grantsPerOrigin.origin]]
+    </div>
+    <cr-icon-button id="fileSystemSiteDetails" class="subpage-arrow" aria-label$="[[grantsPerOrigin.origin]]" aria-roledescription="$i18n{subpageArrowRoleDescription}" on-click="onNavigateToDetailsPageClick_">
+    </cr-icon-button>
+    <div class="separator"></div>
+    <cr-icon-button class="icon-delete-gray" id="removeGrants" on-click="onRemoveGrantsClick_">
+      $i18n{siteSettingsFileSystemSiteListRemoveGrants}
+    </cr-icon-button>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}

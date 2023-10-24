@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform2",
+      "build_dest_path": "/var/tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2"
+    },
+    {
+      "src_path": "src/third_party/../aosp/external/bsdiff",
+      "build_dest_path": "/var/tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff"
+    }
+  ]
+}

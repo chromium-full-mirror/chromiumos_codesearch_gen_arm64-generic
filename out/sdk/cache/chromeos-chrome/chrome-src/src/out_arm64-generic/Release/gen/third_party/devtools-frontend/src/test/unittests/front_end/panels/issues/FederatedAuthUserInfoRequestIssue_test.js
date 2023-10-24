@@ -1,0 +1,42 @@
+// Copyright 2023 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as IssuesManager from '../../../../../front_end/models/issues_manager/issues_manager.js';
+import { describeWithLocale } from '../../helpers/EnvironmentHelpers.js';
+import { MockIssuesModel } from '../../models/issues_manager/MockIssuesModel.js';
+function createProtocolIssue(federatedAuthUserInfoRequestIssueDetails) {
+    return {
+        code: "FederatedAuthUserInfoRequestIssue" /* Protocol.Audits.InspectorIssueCode.FederatedAuthUserInfoRequestIssue */,
+        details: { federatedAuthUserInfoRequestIssueDetails },
+    };
+}
+describeWithLocale('FederatedAuthUserInfoRequestIssue', () => {
+    const mockModel = new MockIssuesModel([]);
+    it('can be created for various error reasons', () => {
+        const errorReasons = [
+            "NotSameOrigin" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.NotSameOrigin */,
+            "NotIframe" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.NotIframe */,
+            "NotPotentiallyTrustworthy" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.NotPotentiallyTrustworthy */,
+            "NoApiPermission" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.NoAPIPermission */,
+            "NotSignedInWithIdp" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.NotSignedInWithIdp */,
+            "NoAccountSharingPermission" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.NoAccountSharingPermission */,
+            "InvalidConfigOrWellKnown" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.InvalidConfigOrWellKnown */,
+            "InvalidAccountsResponse" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.InvalidAccountsResponse */,
+            "NoReturningUserFromFetchedAccounts" /* Protocol.Audits.FederatedAuthUserInfoRequestIssueReason.NoReturningUserFromFetchedAccounts */,
+        ];
+        for (const errorReason of errorReasons) {
+            const issueDetails = {
+                federatedAuthUserInfoRequestIssueReason: errorReason,
+            };
+            const issue = createProtocolIssue(issueDetails);
+            const federatedAuthUserInfoRequestIssues = IssuesManager.FederatedAuthUserInfoRequestIssue.FederatedAuthUserInfoRequestIssue.fromInspectorIssue(mockModel, issue);
+            assert.lengthOf(federatedAuthUserInfoRequestIssues, 1);
+            const federatedAuthUserInfoRequestIssue = federatedAuthUserInfoRequestIssues[0];
+            assert.strictEqual(federatedAuthUserInfoRequestIssue.getCategory(), IssuesManager.Issue.IssueCategory.Other);
+            assert.deepStrictEqual(federatedAuthUserInfoRequestIssue.details(), issueDetails);
+            assert.strictEqual(federatedAuthUserInfoRequestIssue.getKind(), IssuesManager.Issue.IssueKind.PageError);
+            assert.isNotNull(federatedAuthUserInfoRequestIssue.getDescription());
+        }
+    });
+});
+//# sourceMappingURL=FederatedAuthUserInfoRequestIssue_test.js.map

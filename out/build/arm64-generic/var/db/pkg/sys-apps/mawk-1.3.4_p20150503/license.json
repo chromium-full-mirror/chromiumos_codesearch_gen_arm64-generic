@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "mawk", "version": "1.3.4_p20150503", "revision": 0, "fullname": "sys-apps/mawk", "fullnamerev": "sys-apps/mawk-1.3.4_p20150503", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://invisible-island.net/mawk/mawk.html"], "skip": false, "tainted": false, "ebuild_path": null}

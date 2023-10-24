@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/adhd",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/media-sound/cras-client-0.0.1-r66/work/cras-client-0.0.1"
+    }
+  ]
+}

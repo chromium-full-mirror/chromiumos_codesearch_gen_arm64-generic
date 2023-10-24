@@ -1,0 +1,74 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "allowJs": true,
+    "paths": {
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/characteristic_list_item.js",
+    "preprocessed/descriptor_list_item.js",
+    "preprocessed/device_table.js",
+    "preprocessed/expandable_list.js",
+    "preprocessed/expandable_list_item.js",
+    "preprocessed/object_fieldset.js",
+    "preprocessed/service_list_item.js",
+    "preprocessed/snackbar.js",
+    "preprocessed/value_control.js",
+    "preprocessed/adapter_broker.js",
+    "preprocessed/adapter_page.js",
+    "preprocessed/characteristic_list.js",
+    "preprocessed/debug_log_page.js",
+    "preprocessed/descriptor_list.js",
+    "preprocessed/device_broker.js",
+    "preprocessed/device_collection.js",
+    "preprocessed/device_details_page.js",
+    "preprocessed/device_utils.js",
+    "preprocessed/devices_page.js",
+    "preprocessed/bluetooth_internals.js",
+    "preprocessed/main.js",
+    "preprocessed/page_manager.js",
+    "preprocessed/page.js",
+    "preprocessed/service_list.js",
+    "preprocessed/sidebar.js",
+    "preprocessed/characteristic_list_item.html.ts",
+    "preprocessed/descriptor_list_item.html.ts",
+    "preprocessed/device_table.html.ts",
+    "preprocessed/expandable_list.html.ts",
+    "preprocessed/expandable_list_item.html.ts",
+    "preprocessed/object_fieldset.html.ts",
+    "preprocessed/service_list_item.html.ts",
+    "preprocessed/snackbar.html.ts",
+    "preprocessed/value_control.html.ts",
+    "preprocessed/bluetooth_internals.mojom-webui.ts",
+    "preprocessed/adapter.mojom-webui.ts",
+    "preprocessed/device.mojom-webui.ts",
+    "preprocessed/uuid.mojom-webui.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

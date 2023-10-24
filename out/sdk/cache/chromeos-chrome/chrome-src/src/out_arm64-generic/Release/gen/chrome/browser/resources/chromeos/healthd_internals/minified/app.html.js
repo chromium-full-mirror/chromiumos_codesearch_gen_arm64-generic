@@ -1,0 +1,21 @@
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-nav-menu-item-style healthd-internals-shared">:host{display:flex;height:100%}#sidebar{border-inline-end:1px solid var(--cr-separator-color);box-sizing:border-box;overflow:auto;padding-block-end:12px;padding-inline-end:12px;width:256px}h1{font-size:170%;font-weight:500;padding-inline-start:24px}#main{flex:1}</style>
+<div id="sidebar">
+  <h1>Healthd Internals</h1>
+  <cr-menu-selector id="selector" selectable="a" selected="{{selectedIndex_}}" selected-attribute="selected">
+    <template is="dom-repeat" items="[[pages]]">
+      <a role="menuitem" href="[[item.path]]" class="cr-nav-menu-item">
+        [[item.name]]
+      </a>
+    </template>
+  </cr-menu-selector>
+</div>
+
+<iron-location path="{{path_}}"></iron-location>
+
+<div id="main">
+  <iron-pages selected="[[selectedIndex_]]">
+    <div><h1>Telemetry content will be added here</h1></div>
+    <div><h1>Diagnostics content will be added here</h1></div>
+    <div><h1>Event content will be added here</h1></div>
+  </iron-pages>
+</div><!--_html_template_end_-->`}

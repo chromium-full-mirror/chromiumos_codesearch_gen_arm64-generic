@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-crypt", "name": "pesign", "version": "114", "revision": 1, "fullname": "app-crypt/pesign", "fullnamerev": "app-crypt/pesign-114-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/rhboot/pesign"], "skip": false, "tainted": false, "ebuild_path": null}

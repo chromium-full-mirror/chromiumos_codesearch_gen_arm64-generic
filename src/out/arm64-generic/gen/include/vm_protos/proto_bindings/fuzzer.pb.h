@@ -125,9 +125,6 @@ class ContainerListenerFuzzerSingleAction final :
     kLowDiskSpaceTriggeredInfo = 49,
     kForwardSecurityKeyMessageRequest = 50,
     kSelectFileRequest = 51,
-    kGetDiskInfoRequest = 52,
-    kRequestSpaceRequest = 53,
-    kReleaseSpaceRequest = 54,
     kReportMetricsRequest = 57,
     kInstallShaderCacheRequest = 62,
     kUninstallShaderCacheRequest = 63,
@@ -282,9 +279,6 @@ class ContainerListenerFuzzerSingleAction final :
     kLowDiskSpaceTriggeredInfoFieldNumber = 49,
     kForwardSecurityKeyMessageRequestFieldNumber = 50,
     kSelectFileRequestFieldNumber = 51,
-    kGetDiskInfoRequestFieldNumber = 52,
-    kRequestSpaceRequestFieldNumber = 53,
-    kReleaseSpaceRequestFieldNumber = 54,
     kReportMetricsRequestFieldNumber = 57,
     kInstallShaderCacheRequestFieldNumber = 62,
     kUninstallShaderCacheRequestFieldNumber = 63,
@@ -1093,60 +1087,6 @@ class ContainerListenerFuzzerSingleAction final :
       ::vm_tools::container::SelectFileRequest* select_file_request);
   ::vm_tools::container::SelectFileRequest* unsafe_arena_release_select_file_request();
 
-  // .vm_tools.container.GetDiskInfoRequest get_disk_info_request = 52;
-  bool has_get_disk_info_request() const;
-  private:
-  bool _internal_has_get_disk_info_request() const;
-  public:
-  void clear_get_disk_info_request();
-  const ::vm_tools::container::GetDiskInfoRequest& get_disk_info_request() const;
-  PROTOBUF_NODISCARD ::vm_tools::container::GetDiskInfoRequest* release_get_disk_info_request();
-  ::vm_tools::container::GetDiskInfoRequest* mutable_get_disk_info_request();
-  void set_allocated_get_disk_info_request(::vm_tools::container::GetDiskInfoRequest* get_disk_info_request);
-  private:
-  const ::vm_tools::container::GetDiskInfoRequest& _internal_get_disk_info_request() const;
-  ::vm_tools::container::GetDiskInfoRequest* _internal_mutable_get_disk_info_request();
-  public:
-  void unsafe_arena_set_allocated_get_disk_info_request(
-      ::vm_tools::container::GetDiskInfoRequest* get_disk_info_request);
-  ::vm_tools::container::GetDiskInfoRequest* unsafe_arena_release_get_disk_info_request();
-
-  // .vm_tools.container.RequestSpaceRequest request_space_request = 53;
-  bool has_request_space_request() const;
-  private:
-  bool _internal_has_request_space_request() const;
-  public:
-  void clear_request_space_request();
-  const ::vm_tools::container::RequestSpaceRequest& request_space_request() const;
-  PROTOBUF_NODISCARD ::vm_tools::container::RequestSpaceRequest* release_request_space_request();
-  ::vm_tools::container::RequestSpaceRequest* mutable_request_space_request();
-  void set_allocated_request_space_request(::vm_tools::container::RequestSpaceRequest* request_space_request);
-  private:
-  const ::vm_tools::container::RequestSpaceRequest& _internal_request_space_request() const;
-  ::vm_tools::container::RequestSpaceRequest* _internal_mutable_request_space_request();
-  public:
-  void unsafe_arena_set_allocated_request_space_request(
-      ::vm_tools::container::RequestSpaceRequest* request_space_request);
-  ::vm_tools::container::RequestSpaceRequest* unsafe_arena_release_request_space_request();
-
-  // .vm_tools.container.ReleaseSpaceRequest release_space_request = 54;
-  bool has_release_space_request() const;
-  private:
-  bool _internal_has_release_space_request() const;
-  public:
-  void clear_release_space_request();
-  const ::vm_tools::container::ReleaseSpaceRequest& release_space_request() const;
-  PROTOBUF_NODISCARD ::vm_tools::container::ReleaseSpaceRequest* release_release_space_request();
-  ::vm_tools::container::ReleaseSpaceRequest* mutable_release_space_request();
-  void set_allocated_release_space_request(::vm_tools::container::ReleaseSpaceRequest* release_space_request);
-  private:
-  const ::vm_tools::container::ReleaseSpaceRequest& _internal_release_space_request() const;
-  ::vm_tools::container::ReleaseSpaceRequest* _internal_mutable_release_space_request();
-  public:
-  void unsafe_arena_set_allocated_release_space_request(
-      ::vm_tools::container::ReleaseSpaceRequest* release_space_request);
-  ::vm_tools::container::ReleaseSpaceRequest* unsafe_arena_release_release_space_request();
-
   // .vm_tools.container.ReportMetricsRequest report_metrics_request = 57;
   bool has_report_metrics_request() const;
   private:
@@ -1508,9 +1448,6 @@ class ContainerListenerFuzzerSingleAction final :
   void set_has_low_disk_space_triggered_info();
   void set_has_forward_security_key_message_request();
   void set_has_select_file_request();
-  void set_has_get_disk_info_request();
-  void set_has_request_space_request();
-  void set_has_release_space_request();
   void set_has_report_metrics_request();
   void set_has_install_shader_cache_request();
   void set_has_uninstall_shader_cache_request();
@@ -1595,9 +1532,6 @@ class ContainerListenerFuzzerSingleAction final :
       ::vm_tools::container::LowDiskSpaceTriggeredInfo* low_disk_space_triggered_info_;
       ::vm_tools::container::ForwardSecurityKeyMessageRequest* forward_security_key_message_request_;
       ::vm_tools::container::SelectFileRequest* select_file_request_;
-      ::vm_tools::container::GetDiskInfoRequest* get_disk_info_request_;
-      ::vm_tools::container::RequestSpaceRequest* request_space_request_;
-      ::vm_tools::container::ReleaseSpaceRequest* release_space_request_;
       ::vm_tools::container::ReportMetricsRequest* report_metrics_request_;
       ::vm_tools::container::InstallShaderCacheRequest* install_shader_cache_request_;
       ::vm_tools::container::UninstallShaderCacheRequest* uninstall_shader_cache_request_;
@@ -2714,204 +2648,6 @@ inline ::vm_tools::container::SelectFileRequest* ContainerListenerFuzzerSingleAc
 inline ::vm_tools::container::SelectFileRequest* ContainerListenerFuzzerSingleAction::mutable_select_file_request() {
   ::vm_tools::container::SelectFileRequest* _msg = _internal_mutable_select_file_request();
   // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.select_file_request)
-  return _msg;
-}
-
-// .vm_tools.container.GetDiskInfoRequest get_disk_info_request = 52;
-inline bool ContainerListenerFuzzerSingleAction::_internal_has_get_disk_info_request() const {
-  return input_case() == kGetDiskInfoRequest;
-}
-inline bool ContainerListenerFuzzerSingleAction::has_get_disk_info_request() const {
-  return _internal_has_get_disk_info_request();
-}
-inline void ContainerListenerFuzzerSingleAction::set_has_get_disk_info_request() {
-  _impl_._oneof_case_[0] = kGetDiskInfoRequest;
-}
-inline ::vm_tools::container::GetDiskInfoRequest* ContainerListenerFuzzerSingleAction::release_get_disk_info_request() {
-  // @@protoc_insertion_point(field_release:vm_tools.container.ContainerListenerFuzzerSingleAction.get_disk_info_request)
-  if (_internal_has_get_disk_info_request()) {
-    clear_has_input();
-    ::vm_tools::container::GetDiskInfoRequest* temp = _impl_.input_.get_disk_info_request_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    _impl_.input_.get_disk_info_request_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::vm_tools::container::GetDiskInfoRequest& ContainerListenerFuzzerSingleAction::_internal_get_disk_info_request() const {
-  return _internal_has_get_disk_info_request()
-      ? *_impl_.input_.get_disk_info_request_
-      : reinterpret_cast< ::vm_tools::container::GetDiskInfoRequest&>(::vm_tools::container::_GetDiskInfoRequest_default_instance_);
-}
-inline const ::vm_tools::container::GetDiskInfoRequest& ContainerListenerFuzzerSingleAction::get_disk_info_request() const {
-  // @@protoc_insertion_point(field_get:vm_tools.container.ContainerListenerFuzzerSingleAction.get_disk_info_request)
-  return _internal_get_disk_info_request();
-}
-inline ::vm_tools::container::GetDiskInfoRequest* ContainerListenerFuzzerSingleAction::unsafe_arena_release_get_disk_info_request() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vm_tools.container.ContainerListenerFuzzerSingleAction.get_disk_info_request)
-  if (_internal_has_get_disk_info_request()) {
-    clear_has_input();
-    ::vm_tools::container::GetDiskInfoRequest* temp = _impl_.input_.get_disk_info_request_;
-    _impl_.input_.get_disk_info_request_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void ContainerListenerFuzzerSingleAction::unsafe_arena_set_allocated_get_disk_info_request(::vm_tools::container::GetDiskInfoRequest* get_disk_info_request) {
-  clear_input();
-  if (get_disk_info_request) {
-    set_has_get_disk_info_request();
-    _impl_.input_.get_disk_info_request_ = get_disk_info_request;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.container.ContainerListenerFuzzerSingleAction.get_disk_info_request)
-}
-inline ::vm_tools::container::GetDiskInfoRequest* ContainerListenerFuzzerSingleAction::_internal_mutable_get_disk_info_request() {
-  if (!_internal_has_get_disk_info_request()) {
-    clear_input();
-    set_has_get_disk_info_request();
-    _impl_.input_.get_disk_info_request_ = CreateMaybeMessage< ::vm_tools::container::GetDiskInfoRequest >(GetArenaForAllocation());
-  }
-  return _impl_.input_.get_disk_info_request_;
-}
-inline ::vm_tools::container::GetDiskInfoRequest* ContainerListenerFuzzerSingleAction::mutable_get_disk_info_request() {
-  ::vm_tools::container::GetDiskInfoRequest* _msg = _internal_mutable_get_disk_info_request();
-  // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.get_disk_info_request)
-  return _msg;
-}
-
-// .vm_tools.container.RequestSpaceRequest request_space_request = 53;
-inline bool ContainerListenerFuzzerSingleAction::_internal_has_request_space_request() const {
-  return input_case() == kRequestSpaceRequest;
-}
-inline bool ContainerListenerFuzzerSingleAction::has_request_space_request() const {
-  return _internal_has_request_space_request();
-}
-inline void ContainerListenerFuzzerSingleAction::set_has_request_space_request() {
-  _impl_._oneof_case_[0] = kRequestSpaceRequest;
-}
-inline ::vm_tools::container::RequestSpaceRequest* ContainerListenerFuzzerSingleAction::release_request_space_request() {
-  // @@protoc_insertion_point(field_release:vm_tools.container.ContainerListenerFuzzerSingleAction.request_space_request)
-  if (_internal_has_request_space_request()) {
-    clear_has_input();
-    ::vm_tools::container::RequestSpaceRequest* temp = _impl_.input_.request_space_request_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    _impl_.input_.request_space_request_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::vm_tools::container::RequestSpaceRequest& ContainerListenerFuzzerSingleAction::_internal_request_space_request() const {
-  return _internal_has_request_space_request()
-      ? *_impl_.input_.request_space_request_
-      : reinterpret_cast< ::vm_tools::container::RequestSpaceRequest&>(::vm_tools::container::_RequestSpaceRequest_default_instance_);
-}
-inline const ::vm_tools::container::RequestSpaceRequest& ContainerListenerFuzzerSingleAction::request_space_request() const {
-  // @@protoc_insertion_point(field_get:vm_tools.container.ContainerListenerFuzzerSingleAction.request_space_request)
-  return _internal_request_space_request();
-}
-inline ::vm_tools::container::RequestSpaceRequest* ContainerListenerFuzzerSingleAction::unsafe_arena_release_request_space_request() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vm_tools.container.ContainerListenerFuzzerSingleAction.request_space_request)
-  if (_internal_has_request_space_request()) {
-    clear_has_input();
-    ::vm_tools::container::RequestSpaceRequest* temp = _impl_.input_.request_space_request_;
-    _impl_.input_.request_space_request_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void ContainerListenerFuzzerSingleAction::unsafe_arena_set_allocated_request_space_request(::vm_tools::container::RequestSpaceRequest* request_space_request) {
-  clear_input();
-  if (request_space_request) {
-    set_has_request_space_request();
-    _impl_.input_.request_space_request_ = request_space_request;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.container.ContainerListenerFuzzerSingleAction.request_space_request)
-}
-inline ::vm_tools::container::RequestSpaceRequest* ContainerListenerFuzzerSingleAction::_internal_mutable_request_space_request() {
-  if (!_internal_has_request_space_request()) {
-    clear_input();
-    set_has_request_space_request();
-    _impl_.input_.request_space_request_ = CreateMaybeMessage< ::vm_tools::container::RequestSpaceRequest >(GetArenaForAllocation());
-  }
-  return _impl_.input_.request_space_request_;
-}
-inline ::vm_tools::container::RequestSpaceRequest* ContainerListenerFuzzerSingleAction::mutable_request_space_request() {
-  ::vm_tools::container::RequestSpaceRequest* _msg = _internal_mutable_request_space_request();
-  // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.request_space_request)
-  return _msg;
-}
-
-// .vm_tools.container.ReleaseSpaceRequest release_space_request = 54;
-inline bool ContainerListenerFuzzerSingleAction::_internal_has_release_space_request() const {
-  return input_case() == kReleaseSpaceRequest;
-}
-inline bool ContainerListenerFuzzerSingleAction::has_release_space_request() const {
-  return _internal_has_release_space_request();
-}
-inline void ContainerListenerFuzzerSingleAction::set_has_release_space_request() {
-  _impl_._oneof_case_[0] = kReleaseSpaceRequest;
-}
-inline ::vm_tools::container::ReleaseSpaceRequest* ContainerListenerFuzzerSingleAction::release_release_space_request() {
-  // @@protoc_insertion_point(field_release:vm_tools.container.ContainerListenerFuzzerSingleAction.release_space_request)
-  if (_internal_has_release_space_request()) {
-    clear_has_input();
-    ::vm_tools::container::ReleaseSpaceRequest* temp = _impl_.input_.release_space_request_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    _impl_.input_.release_space_request_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::vm_tools::container::ReleaseSpaceRequest& ContainerListenerFuzzerSingleAction::_internal_release_space_request() const {
-  return _internal_has_release_space_request()
-      ? *_impl_.input_.release_space_request_
-      : reinterpret_cast< ::vm_tools::container::ReleaseSpaceRequest&>(::vm_tools::container::_ReleaseSpaceRequest_default_instance_);
-}
-inline const ::vm_tools::container::ReleaseSpaceRequest& ContainerListenerFuzzerSingleAction::release_space_request() const {
-  // @@protoc_insertion_point(field_get:vm_tools.container.ContainerListenerFuzzerSingleAction.release_space_request)
-  return _internal_release_space_request();
-}
-inline ::vm_tools::container::ReleaseSpaceRequest* ContainerListenerFuzzerSingleAction::unsafe_arena_release_release_space_request() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vm_tools.container.ContainerListenerFuzzerSingleAction.release_space_request)
-  if (_internal_has_release_space_request()) {
-    clear_has_input();
-    ::vm_tools::container::ReleaseSpaceRequest* temp = _impl_.input_.release_space_request_;
-    _impl_.input_.release_space_request_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void ContainerListenerFuzzerSingleAction::unsafe_arena_set_allocated_release_space_request(::vm_tools::container::ReleaseSpaceRequest* release_space_request) {
-  clear_input();
-  if (release_space_request) {
-    set_has_release_space_request();
-    _impl_.input_.release_space_request_ = release_space_request;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.container.ContainerListenerFuzzerSingleAction.release_space_request)
-}
-inline ::vm_tools::container::ReleaseSpaceRequest* ContainerListenerFuzzerSingleAction::_internal_mutable_release_space_request() {
-  if (!_internal_has_release_space_request()) {
-    clear_input();
-    set_has_release_space_request();
-    _impl_.input_.release_space_request_ = CreateMaybeMessage< ::vm_tools::container::ReleaseSpaceRequest >(GetArenaForAllocation());
-  }
-  return _impl_.input_.release_space_request_;
-}
-inline ::vm_tools::container::ReleaseSpaceRequest* ContainerListenerFuzzerSingleAction::mutable_release_space_request() {
-  ::vm_tools::container::ReleaseSpaceRequest* _msg = _internal_mutable_release_space_request();
-  // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.release_space_request)
   return _msg;
 }
 

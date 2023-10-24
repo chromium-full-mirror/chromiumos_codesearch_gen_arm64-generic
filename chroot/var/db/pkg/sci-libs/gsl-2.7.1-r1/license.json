@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sci-libs", "name": "gsl", "version": "2.7.1", "revision": 1, "fullname": "sci-libs/gsl", "fullnamerev": "sci-libs/gsl-2.7.1-r1", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/gsl/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,26 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="cr-nav-menu-item-style">cr-menu-selector{box-sizing:border-box;display:block;height:100%;overflow:auto;overscroll-behavior:contain;padding-top:8px;width:250px}#compromisedPasswords{margin-inline-end:20px;margin-inline-start:auto}</style>
+<div role="navigation">
+  <cr-menu-selector id="menu" attr-for-selected="path" selected-attribute="selected" on-iron-activate="onSelectorActivate_" selected="[[getSelectedPage_(selectedPage_)]]">
+    <a id="passwords" role="menuitem" class="cr-nav-menu-item" path="passwords" href="/passwords" on-click="onItemClick_">
+      <iron-icon icon="passwords-icon:password"></iron-icon>
+      $i18n{passwords}
+      <paper-ripple></paper-ripple>
+    </a>
+    <a id="checkup" role="menuitem" class="cr-nav-menu-item" path="checkup" href="/checkup" on-click="onItemClick_">
+      <iron-icon icon="passwords-icon:checkup"></iron-icon>
+      <span>$i18n{checkup}</span>
+      <div id="compromisedPasswords" hidden$="[[!compromisedPasswords_]]">
+        [[getCompromisedPasswordsBadge_(compromisedPasswords_)]]</div>
+      <paper-ripple></paper-ripple>
+    </a>
+    <a id="settings" role="menuitem" class="cr-nav-menu-item" path="settings" href="/settings" on-click="onItemClick_">
+      <iron-icon icon="passwords-icon:settings"></iron-icon>
+      $i18n{settings}
+      <paper-ripple></paper-ripple>
+    </a>
+  </cr-menu-selector>
+</div>
+<!--_html_template_end_-->`;
+}

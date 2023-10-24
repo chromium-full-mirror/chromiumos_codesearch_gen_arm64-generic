@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "cros-camera-android-deps", "version": "9999", "revision": 0, "fullname": "chromeos-base/cros-camera-android-deps", "fullnamerev": "chromeos-base/cros-camera-android-deps-9999", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,62 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/alert_indicator.ts",
+    "preprocessed/alert_indicators.ts",
+    "preprocessed/tab_group.ts",
+    "preprocessed/tab_list.ts",
+    "preprocessed/tab.ts",
+    "preprocessed/drag_manager.ts",
+    "preprocessed/tabs_api_proxy.ts",
+    "preprocessed/tab_swiper.ts",
+    "preprocessed/alert_indicator.html.ts",
+    "preprocessed/alert_indicators.html.ts",
+    "preprocessed/tab_group.html.ts",
+    "preprocessed/tab_list.html.ts",
+    "preprocessed/tab.html.ts",
+    "preprocessed/tab_strip.mojom-webui.ts",
+    "preprocessed/tabs.mojom-webui.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

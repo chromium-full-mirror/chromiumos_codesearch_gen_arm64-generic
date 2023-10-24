@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libdaemon", "version": "0.14", "revision": 3, "fullname": "dev-libs/libdaemon", "fullnamerev": "dev-libs/libdaemon-0.14-r3", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["http://0pointer.de/lennart/projects/libdaemon/"], "skip": false, "tainted": false, "ebuild_path": null}

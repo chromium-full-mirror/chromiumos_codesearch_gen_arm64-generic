@@ -1,0 +1,35 @@
+import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+  return html`<!--_html_template_start_--><style include="account-manager-shared">
+  .welcome-image {
+    width: 338px;
+  }
+</style>
+<div class="content">
+  <div class="main-container">
+    <if expr="_google_chrome">
+      <img class="google-logo" src="../googleg.svg" alt="">
+    </if>
+    <h1>[[title_]]</h1>
+    <p inner-h-t-m-l="[[body_]]"></p>
+    <div class="image-container">
+      <if expr="_google_chrome">
+        <img class="welcome-image" alt=""
+            srcset="account_manager_welcome_1x.png 1x,
+                    account_manager_welcome_2x.png 2x">
+      </if>
+    </div>
+  </div>
+  <div class="button-container">
+    <cr-button id="cancel-button" class="cancel-button"
+        on-click="closeDialog_">
+      $i18n{cancelButton}
+    </cr-button>
+    <cr-button id="migrate-button" class="action-button"
+        on-click="reauthenticateAccount_">
+      $i18n{migrateButton}
+    </cr-button>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}

@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/flashrom",
+      "build_dest_path": "/var/tmp/portage/sys-apps/flashrom-0.9.9-r1676/work/flashrom-0.9.9"
+    }
+  ]
+}

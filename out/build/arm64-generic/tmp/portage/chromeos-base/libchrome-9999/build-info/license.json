@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "libchrome", "version": "9999", "revision": 0, "fullname": "chromeos-base/libchrome", "fullnamerev": "chromeos-base/libchrome-9999", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["http://dev.chromium.org/chromium-os/packages/libchrome"], "skip": false, "tainted": false, "ebuild_path": null}

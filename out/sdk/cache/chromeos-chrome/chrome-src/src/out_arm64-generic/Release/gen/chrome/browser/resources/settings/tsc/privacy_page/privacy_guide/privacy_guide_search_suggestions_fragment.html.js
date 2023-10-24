@@ -1,0 +1,40 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
+<div class="header-phase2" focus-element tabindex="-1">
+  <picture>
+    <source srcset="./images/privacy_guide/search_suggestions_graphic_dark.svg" media="(prefers-color-scheme: dark)">
+    <img alt="" src="./images/privacy_guide/search_suggestions_graphic.svg">
+  </picture>
+  <h2 class="header-label-phase2">
+    $i18n{privacyGuideSearchSuggestionsCardHeader}
+  </h2>
+</div>
+<div class="fragment-content">
+  <div class="embedded-setting-wrapper">
+    <settings-toggle-button id="searchSuggestToggle" pref="{{prefs.search.suggest_enabled}}" label="$i18n{searchSuggestPref}" on-change="onSearchSuggestionsToggleClick_">
+    </settings-toggle-button>
+  </div>
+  <div class="settings-columned-section">
+    <div class="column">
+      <div class="description-header">
+        $i18n{privacyGuideFeatureDescriptionHeader}
+      </div>
+      <div role="list">
+        <privacy-guide-description-item role="listitem" icon="settings20:manage-search" label="$i18n{privacyGuideSearchSuggestionsFeatureDescription1}">
+        </privacy-guide-description-item>
+      </div>
+    </div>
+    <div class="column">
+      <div class="description-header">$i18n{privacyGuideThingsToConsider}</div>
+      <div role="list">
+        <privacy-guide-description-item role="listitem" icon="settings20:youtube-searched-for" label="$i18n{privacyGuideSearchSuggestionsPrivacyDescription1}">
+        </privacy-guide-description-item>
+        <privacy-guide-description-item role="listitem" icon="settings20:link" label="$i18n{privacyGuideSearchSuggestionsPrivacyDescription2}">
+        </privacy-guide-description-item>
+      </div>
+    </div>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}

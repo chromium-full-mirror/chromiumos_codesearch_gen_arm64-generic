@@ -1,0 +1,140 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import 'chrome://resources/cr_elements/cr_url_list_item/cr_url_list_item.js';
+import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/cr_elements/cr_icons.css.js';
+import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/cr_elements/mwb_element_shared_style.css.js';
+import 'chrome://resources/cr_elements/mwb_shared_vars.css.js';
+import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import './icons.html.js';
+import { MouseHoverableMixin } from 'chrome://resources/cr_elements/mouse_hoverable_mixin.js';
+import { assertNotReached } from 'chrome://resources/js/assert.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { ReadingListApiProxyImpl } from './reading_list_api_proxy.js';
+import { getTemplate } from './reading_list_item.html.js';
+export const MARKED_AS_READ_UI_EVENT = 'reading-list-marked-as-read';
+const navigationKeys = new Set([' ', 'Enter', 'ArrowRight', 'ArrowLeft']);
+const ReadingListItemElementBase = MouseHoverableMixin(PolymerElement);
+export class ReadingListItemElement extends ReadingListItemElementBase {
+    constructor() {
+        super(...arguments);
+        this.apiProxy_ = ReadingListApiProxyImpl.getInstance();
+    }
+    static get is() {
+        return 'reading-list-item';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            data: Object,
+            buttonRipples: Boolean,
+            title: {
+                computed: 'computeTitle_(data.title)',
+                reflectToAttribute: true,
+            },
+        };
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('click', this.onClick_);
+        this.addEventListener('auxclick', this.onAuxClick_.bind(this));
+        this.addEventListener('contextmenu', this.onContextMenu_.bind(this));
+        this.addEventListener('keydown', this.onKeyDown_.bind(this));
+    }
+    computeTitle_() {
+        return this.data.title;
+    }
+    focus() {
+        this.$.crUrlListItem.focus();
+    }
+    onAuxClick_(e) {
+        if (e.button !== 1) {
+            // Not a middle click.
+            return;
+        }
+        this.apiProxy_.openUrl(this.data.url, true, {
+            middleButton: true,
+            altKey: e.altKey,
+            ctrlKey: e.ctrlKey,
+            metaKey: e.metaKey,
+            shiftKey: e.shiftKey,
+        });
+    }
+    onClick_(e) {
+        this.apiProxy_.openUrl(this.data.url, true, {
+            middleButton: false,
+            altKey: e.altKey,
+            ctrlKey: e.ctrlKey,
+            metaKey: e.metaKey,
+            shiftKey: e.shiftKey,
+        });
+    }
+    onContextMenu_(e) {
+        this.apiProxy_.showContextMenuForUrl(this.data.url, e.clientX, e.clientY);
+    }
+    onKeyDown_(e) {
+        if (e.shiftKey || !navigationKeys.has(e.key)) {
+            return;
+        }
+        const focusableElements = [
+            this.$.crUrlListItem,
+            this.$.updateStatusButton,
+            this.$.deleteButton,
+        ];
+        const focusedIndex = focusableElements.indexOf(this.shadowRoot.activeElement);
+        switch (e.key) {
+            case ' ':
+            case 'Enter':
+                this.onClick_(e);
+                break;
+            case 'ArrowRight':
+                if (focusedIndex >= focusableElements.length - 1) {
+                    focusableElements[0].focus();
+                }
+                else {
+                    focusableElements[focusedIndex + 1].focus();
+                }
+                break;
+            case 'ArrowLeft':
+                if (focusedIndex <= 0) {
+                    focusableElements[focusableElements.length - 1].focus();
+                }
+                else {
+                    focusableElements[focusedIndex - 1].focus();
+                }
+                break;
+            default:
+                assertNotReached();
+        }
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    onUpdateStatusClick_(e) {
+        e.stopPropagation();
+        this.apiProxy_.updateReadStatus(this.data.url, !this.data.read);
+        if (!this.data.read) {
+            this.dispatchEvent(new CustomEvent(MARKED_AS_READ_UI_EVENT, { bubbles: true, composed: true }));
+        }
+    }
+    onItemDeleteClick_(e) {
+        e.stopPropagation();
+        this.apiProxy_.removeEntry(this.data.url);
+    }
+    /**
+     * @return The appropriate icon for the current state
+     */
+    getUpdateStatusButtonIcon_(markAsUnreadIcon, markAsReadIcon) {
+        return this.data.read ? markAsUnreadIcon : markAsReadIcon;
+    }
+    /**
+     * @return The appropriate tooltip for the current state
+     */
+    getUpdateStatusButtonTooltip_(markAsUnreadTooltip, markAsReadTooltip) {
+        return this.data.read ? markAsUnreadTooltip : markAsReadTooltip;
+    }
+}
+customElements.define(ReadingListItemElement.is, ReadingListItemElement);

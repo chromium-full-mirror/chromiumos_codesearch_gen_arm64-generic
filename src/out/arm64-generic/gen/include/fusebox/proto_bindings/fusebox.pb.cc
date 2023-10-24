@@ -96,6 +96,35 @@ struct CreateResponseProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateResponseProtoDefaultTypeInternal _CreateResponseProto_default_instance_;
+PROTOBUF_CONSTEXPR FlushRequestProto::FlushRequestProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.fuse_handle_)*/uint64_t{0u}
+  , /*decltype(_impl_.fdatasync_)*/false} {}
+struct FlushRequestProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FlushRequestProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FlushRequestProtoDefaultTypeInternal() {}
+  union {
+    FlushRequestProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FlushRequestProtoDefaultTypeInternal _FlushRequestProto_default_instance_;
+PROTOBUF_CONSTEXPR FlushResponseProto::FlushResponseProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.posix_error_code_)*/0} {}
+struct FlushResponseProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FlushResponseProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FlushResponseProtoDefaultTypeInternal() {}
+  union {
+    FlushResponseProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FlushResponseProtoDefaultTypeInternal _FlushResponseProto_default_instance_;
 PROTOBUF_CONSTEXPR ListStoragesRequestProto::ListStoragesRequestProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._cached_size_)*/{}} {}
@@ -1765,6 +1794,438 @@ void CreateResponseProto::InternalSwap(CreateResponseProto* other) {
 
 std::string CreateResponseProto::GetTypeName() const {
   return "fusebox.CreateResponseProto";
+}
+
+
+// ===================================================================
+
+class FlushRequestProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FlushRequestProto>()._impl_._has_bits_);
+  static void set_has_fuse_handle(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_fdatasync(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+FlushRequestProto::FlushRequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:fusebox.FlushRequestProto)
+}
+FlushRequestProto::FlushRequestProto(const FlushRequestProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FlushRequestProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fuse_handle_){}
+    , decltype(_impl_.fdatasync_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&_impl_.fuse_handle_, &from._impl_.fuse_handle_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.fdatasync_) -
+    reinterpret_cast<char*>(&_impl_.fuse_handle_)) + sizeof(_impl_.fdatasync_));
+  // @@protoc_insertion_point(copy_constructor:fusebox.FlushRequestProto)
+}
+
+inline void FlushRequestProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.fuse_handle_){uint64_t{0u}}
+    , decltype(_impl_.fdatasync_){false}
+  };
+}
+
+FlushRequestProto::~FlushRequestProto() {
+  // @@protoc_insertion_point(destructor:fusebox.FlushRequestProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void FlushRequestProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void FlushRequestProto::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void FlushRequestProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:fusebox.FlushRequestProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&_impl_.fuse_handle_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.fdatasync_) -
+        reinterpret_cast<char*>(&_impl_.fuse_handle_)) + sizeof(_impl_.fdatasync_));
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* FlushRequestProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional uint64 fuse_handle = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_fuse_handle(&has_bits);
+          _impl_.fuse_handle_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool fdatasync = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_fdatasync(&has_bits);
+          _impl_.fdatasync_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* FlushRequestProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:fusebox.FlushRequestProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional uint64 fuse_handle = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_fuse_handle(), target);
+  }
+
+  // optional bool fdatasync = 4;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_fdatasync(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:fusebox.FlushRequestProto)
+  return target;
+}
+
+size_t FlushRequestProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:fusebox.FlushRequestProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional uint64 fuse_handle = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_fuse_handle());
+    }
+
+    // optional bool fdatasync = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FlushRequestProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FlushRequestProto*>(
+      &from));
+}
+
+void FlushRequestProto::MergeFrom(const FlushRequestProto& from) {
+  FlushRequestProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:fusebox.FlushRequestProto)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_impl_.fuse_handle_ = from._impl_.fuse_handle_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.fdatasync_ = from._impl_.fdatasync_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void FlushRequestProto::CopyFrom(const FlushRequestProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:fusebox.FlushRequestProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FlushRequestProto::IsInitialized() const {
+  return true;
+}
+
+void FlushRequestProto::InternalSwap(FlushRequestProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FlushRequestProto, _impl_.fdatasync_)
+      + sizeof(FlushRequestProto::_impl_.fdatasync_)
+      - PROTOBUF_FIELD_OFFSET(FlushRequestProto, _impl_.fuse_handle_)>(
+          reinterpret_cast<char*>(&_impl_.fuse_handle_),
+          reinterpret_cast<char*>(&other->_impl_.fuse_handle_));
+}
+
+std::string FlushRequestProto::GetTypeName() const {
+  return "fusebox.FlushRequestProto";
+}
+
+
+// ===================================================================
+
+class FlushResponseProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FlushResponseProto>()._impl_._has_bits_);
+  static void set_has_posix_error_code(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+FlushResponseProto::FlushResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:fusebox.FlushResponseProto)
+}
+FlushResponseProto::FlushResponseProto(const FlushResponseProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FlushResponseProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.posix_error_code_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.posix_error_code_ = from._impl_.posix_error_code_;
+  // @@protoc_insertion_point(copy_constructor:fusebox.FlushResponseProto)
+}
+
+inline void FlushResponseProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.posix_error_code_){0}
+  };
+}
+
+FlushResponseProto::~FlushResponseProto() {
+  // @@protoc_insertion_point(destructor:fusebox.FlushResponseProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void FlushResponseProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void FlushResponseProto::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void FlushResponseProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:fusebox.FlushResponseProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.posix_error_code_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* FlushResponseProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional int32 posix_error_code = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_posix_error_code(&has_bits);
+          _impl_.posix_error_code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* FlushResponseProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:fusebox.FlushResponseProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional int32 posix_error_code = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_posix_error_code(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:fusebox.FlushResponseProto)
+  return target;
+}
+
+size_t FlushResponseProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:fusebox.FlushResponseProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional int32 posix_error_code = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_posix_error_code());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FlushResponseProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FlushResponseProto*>(
+      &from));
+}
+
+void FlushResponseProto::MergeFrom(const FlushResponseProto& from) {
+  FlushResponseProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:fusebox.FlushResponseProto)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_posix_error_code()) {
+    _this->_internal_set_posix_error_code(from._internal_posix_error_code());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void FlushResponseProto::CopyFrom(const FlushResponseProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:fusebox.FlushResponseProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FlushResponseProto::IsInitialized() const {
+  return true;
+}
+
+void FlushResponseProto::InternalSwap(FlushResponseProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.posix_error_code_, other->_impl_.posix_error_code_);
+}
+
+std::string FlushResponseProto::GetTypeName() const {
+  return "fusebox.FlushResponseProto";
 }
 
 
@@ -6939,6 +7400,14 @@ Arena::CreateMaybeMessage< ::fusebox::CreateRequestProto >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::fusebox::CreateResponseProto*
 Arena::CreateMaybeMessage< ::fusebox::CreateResponseProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::fusebox::CreateResponseProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::fusebox::FlushRequestProto*
+Arena::CreateMaybeMessage< ::fusebox::FlushRequestProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::fusebox::FlushRequestProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::fusebox::FlushResponseProto*
+Arena::CreateMaybeMessage< ::fusebox::FlushResponseProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::fusebox::FlushResponseProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::fusebox::ListStoragesRequestProto*
 Arena::CreateMaybeMessage< ::fusebox::ListStoragesRequestProto >(Arena* arena) {

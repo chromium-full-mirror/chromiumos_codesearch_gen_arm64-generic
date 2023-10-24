@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-arch", "name": "tar", "version": "1.34", "revision": 3, "fullname": "app-arch/tar", "fullnamerev": "app-arch/tar-1.34-r3", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/tar/"], "skip": false, "tainted": false, "ebuild_path": null}

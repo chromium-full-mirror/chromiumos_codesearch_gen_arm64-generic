@@ -355,6 +355,28 @@ class fwupdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool FixHostSecurityAttr(
+      const std::string& in_appstream_id,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void FixHostSecurityAttrAsync(
+      const std::string& in_appstream_id,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool UndoHostSecurityAttr(
+      const std::string& in_appstream_id,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void UndoHostSecurityAttrAsync(
+      const std::string& in_appstream_id,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool SelfSign(
       const std::string& in_data,
       const brillo::VariantDictionary& in_options,
@@ -1508,6 +1530,66 @@ class fwupdProxy final : public fwupdProxyInterface {
         in_remote_id,
         in_key,
         in_value);
+  }
+
+  bool FixHostSecurityAttr(
+      const std::string& in_appstream_id,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "FixHostSecurityAttr",
+        error,
+        in_appstream_id);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void FixHostSecurityAttrAsync(
+      const std::string& in_appstream_id,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "FixHostSecurityAttr",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_appstream_id);
+  }
+
+  bool UndoHostSecurityAttr(
+      const std::string& in_appstream_id,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "UndoHostSecurityAttr",
+        error,
+        in_appstream_id);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void UndoHostSecurityAttrAsync(
+      const std::string& in_appstream_id,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "UndoHostSecurityAttr",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_appstream_id);
   }
 
   bool SelfSign(

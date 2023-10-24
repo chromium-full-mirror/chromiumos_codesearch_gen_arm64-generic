@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "media-libs", "name": "libv4l", "version": "1.24.1", "revision": 3, "fullname": "media-libs/libv4l", "fullnamerev": "media-libs/libv4l-1.24.1-r3", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["http://git.linuxtv.org/v4l-utils.git"], "skip": false, "tainted": false, "ebuild_path": null}

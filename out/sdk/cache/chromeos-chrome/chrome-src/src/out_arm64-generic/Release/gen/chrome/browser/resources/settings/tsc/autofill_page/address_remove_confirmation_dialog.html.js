@@ -1,0 +1,28 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><cr-dialog show-on-attach id="dialog" close-text="$i18n{close}">
+  <div slot="title">$i18n{removeAddressConfirmationTitle}</div>
+  <div slot="body" id="body">
+    <span hidden="[[isAccountAddress_]]">
+      <span id="syncAddressDescription" hidden="[[!isProfileSyncEnabled_]]">
+        $i18n{removeSyncAddressConfirmationDescription}
+      </span>
+      <span id="localAddressDescription" hidden="[[isProfileSyncEnabled_]]">
+        $i18n{removeLocalAddressConfirmationDescription}
+      </span>
+    </span>
+    <span id="accountAddressDescription" hidden="[[!isAccountAddress_]]">
+      [[i18n('deleteAccountAddressSourceNotice', accountInfo.email)]]
+    </span>
+  </div>
+  <div slot="button-container">
+    <cr-button class="cancel-button" on-click="onCancelClick" id="cancel">
+      $i18n{cancel}
+    </cr-button>
+    <cr-button class="action-button" on-click="onRemoveClick" id="remove">
+      $i18n{removeAddress}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}

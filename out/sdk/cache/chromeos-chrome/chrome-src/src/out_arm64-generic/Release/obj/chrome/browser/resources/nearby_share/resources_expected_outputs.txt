@@ -1,0 +1,4 @@
+gen/chrome/grit/nearby_share_dialog_resources.h
+gen/chrome/grit/nearby_share_dialog_resources_map.cc
+gen/chrome/grit/nearby_share_dialog_resources_map.h
+gen/chrome/nearby_share_dialog_resources.pak

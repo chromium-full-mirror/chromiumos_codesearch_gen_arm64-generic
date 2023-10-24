@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "docker", "version": "20.10.8", "revision": 6, "fullname": "dev-go/docker", "fullnamerev": "dev-go/docker-20.10.8-r6", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["mobyproject.org"], "skip": false, "tainted": false, "ebuild_path": null}

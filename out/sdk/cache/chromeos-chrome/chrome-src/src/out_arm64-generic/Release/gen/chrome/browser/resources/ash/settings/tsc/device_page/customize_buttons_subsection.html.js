@@ -1,0 +1,41 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex;height:24px;padding:12px 0}#deviceName{color:var(--cros-text-color-secondary);margin-inline-start:20px}#inputContainer{height:70px}#renamingDialog{--cr-dialog-width:320px}:host([button-name-invalid_]) #inputCount{color:var(--cros-text-color-alert)}#inputCount{display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;position:absolute;right:32px;top:130px;white-space:var(--cr-input-error-white-space)}</style>
+<div class="subsection">
+  <template is="dom-repeat" items="{{buttonRemappingList}}" index-as="index">
+    <customize-button-row button-remapping-list="[[buttonRemappingList]]" remapping-index="[[index]]" action-list$="[[actionList]]">
+    </customize-button-row>
+  </template>
+</div>
+
+<template is="dom-if" if="[[shouldShowRenamingDialog_]]" restamp>
+  <cr-dialog id="renamingDialog" on-close="cancelRenamingDialogClicked_" show-on-attach>
+    <div slot="title">$i18n{buttonRenamingDialogTitle}</div>
+    <div slot="body">
+      <div id="inputContainer">
+        <cr-input id="renamingDialogInput" autofocus label="$i18n{buttonRemappingDialogInputLabel}" on-keydown="onKeyDownInRenamingDialog_" invalid="[[buttonNameInvalid_]]" value="{{selectedButtonName_}}" aria-label="$i18n{buttonRenamingDialogTitle}">
+        </cr-input>
+        <div id="inputCount" aria-hidden="true">
+          [[getInputCountString_(selectedButtonName_)]]
+        </div>
+      </div>
+    </div>
+    <div slot="button-container">
+      <div>
+        <cr-button id="cancelButton" on-click="cancelRenamingDialogClicked_">
+          $i18n{buttonRemappingDialogCancelLabel}
+        </cr-button>
+      </div>
+      <div>
+        <cr-button id="saveButton" class="action-button" on-click="saveRenamingDialogClicked_" disabled$="[[isSaveDisabled_(buttonRemappingList,
+                actionList, selectedButtonName_)]]">
+          $i18n{buttonRemappingDialogSaveLabel}
+        </cr-button>
+      </div>
+    </div>
+  </cr-dialog>
+</template>
+<key-combination-input-dialog id="keyCombinationInputDialog" button-remapping-list="{{buttonRemappingList}}" remapping-index="[[selectedButtonIndex_]]">
+</key-combination-input-dialog>
+<!--_html_template_end_-->`;
+}

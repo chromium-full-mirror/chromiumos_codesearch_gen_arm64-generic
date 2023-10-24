@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 
 struct TokenizationCodepointRange;
@@ -46,7 +53,7 @@ inline const char * const *EnumNamesTokenizationType() {
 }
 
 inline const char *EnumNameTokenizationType(TokenizationType e) {
-  if (flatbuffers::IsOutRange(e, TokenizationType_INVALID_TOKENIZATION_TYPE, TokenizationType_LETTER_DIGIT)) return "";
+  if (::flatbuffers::IsOutRange(e, TokenizationType_INVALID_TOKENIZATION_TYPE, TokenizationType_LETTER_DIGIT)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesTokenizationType()[index];
 }
@@ -92,14 +99,14 @@ inline const char * const *EnumNamesRole() {
 }
 
 inline const char *EnumNameRole(Role e) {
-  if (flatbuffers::IsOutRange(e, Role_DEFAULT_ROLE, Role_WHITESPACE_SEPARATOR)) return "";
+  if (::flatbuffers::IsOutRange(e, Role_DEFAULT_ROLE, Role_WHITESPACE_SEPARATOR)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesRole()[index];
 }
 
 }  // namespace TokenizationCodepointRange_
 
-struct TokenizationCodepointRangeT : public flatbuffers::NativeTable {
+struct TokenizationCodepointRangeT : public ::flatbuffers::NativeTable {
   typedef TokenizationCodepointRange TableType;
   int32_t start = 0;
   int32_t end = 0;
@@ -107,7 +114,7 @@ struct TokenizationCodepointRangeT : public flatbuffers::NativeTable {
   int32_t script_id = 0;
 };
 
-struct TokenizationCodepointRange FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct TokenizationCodepointRange FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef TokenizationCodepointRangeT NativeTableType;
   typedef TokenizationCodepointRangeBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -128,23 +135,23 @@ struct TokenizationCodepointRange FLATBUFFERS_FINAL_CLASS : private flatbuffers:
   int32_t script_id() const {
     return GetField<int32_t>(VT_SCRIPT_ID, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_START) &&
-           VerifyField<int32_t>(verifier, VT_END) &&
-           VerifyField<int32_t>(verifier, VT_ROLE) &&
-           VerifyField<int32_t>(verifier, VT_SCRIPT_ID) &&
+           VerifyField<int32_t>(verifier, VT_START, 4) &&
+           VerifyField<int32_t>(verifier, VT_END, 4) &&
+           VerifyField<int32_t>(verifier, VT_ROLE, 4) &&
+           VerifyField<int32_t>(verifier, VT_SCRIPT_ID, 4) &&
            verifier.EndTable();
   }
-  TokenizationCodepointRangeT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(TokenizationCodepointRangeT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<TokenizationCodepointRange> Pack(flatbuffers::FlatBufferBuilder &_fbb, const TokenizationCodepointRangeT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  TokenizationCodepointRangeT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(TokenizationCodepointRangeT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<TokenizationCodepointRange> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const TokenizationCodepointRangeT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct TokenizationCodepointRangeBuilder {
   typedef TokenizationCodepointRange Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_start(int32_t start) {
     fbb_.AddElement<int32_t>(TokenizationCodepointRange::VT_START, start, 0);
   }
@@ -157,19 +164,19 @@ struct TokenizationCodepointRangeBuilder {
   void add_script_id(int32_t script_id) {
     fbb_.AddElement<int32_t>(TokenizationCodepointRange::VT_SCRIPT_ID, script_id, 0);
   }
-  explicit TokenizationCodepointRangeBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TokenizationCodepointRangeBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<TokenizationCodepointRange> Finish() {
+  ::flatbuffers::Offset<TokenizationCodepointRange> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<TokenizationCodepointRange>(end);
+    auto o = ::flatbuffers::Offset<TokenizationCodepointRange>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<TokenizationCodepointRange> CreateTokenizationCodepointRange(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<TokenizationCodepointRange> CreateTokenizationCodepointRange(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t start = 0,
     int32_t end = 0,
     libtextclassifier3::TokenizationCodepointRange_::Role role = libtextclassifier3::TokenizationCodepointRange_::Role_DEFAULT_ROLE,
@@ -182,15 +189,15 @@ inline flatbuffers::Offset<TokenizationCodepointRange> CreateTokenizationCodepoi
   return builder_.Finish();
 }
 
-flatbuffers::Offset<TokenizationCodepointRange> CreateTokenizationCodepointRange(flatbuffers::FlatBufferBuilder &_fbb, const TokenizationCodepointRangeT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<TokenizationCodepointRange> CreateTokenizationCodepointRange(::flatbuffers::FlatBufferBuilder &_fbb, const TokenizationCodepointRangeT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline TokenizationCodepointRangeT *TokenizationCodepointRange::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline TokenizationCodepointRangeT *TokenizationCodepointRange::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<TokenizationCodepointRangeT>(new TokenizationCodepointRangeT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void TokenizationCodepointRange::UnPackTo(TokenizationCodepointRangeT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void TokenizationCodepointRange::UnPackTo(TokenizationCodepointRangeT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = start(); _o->start = _e; }
@@ -199,14 +206,14 @@ inline void TokenizationCodepointRange::UnPackTo(TokenizationCodepointRangeT *_o
   { auto _e = script_id(); _o->script_id = _e; }
 }
 
-inline flatbuffers::Offset<TokenizationCodepointRange> TokenizationCodepointRange::Pack(flatbuffers::FlatBufferBuilder &_fbb, const TokenizationCodepointRangeT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<TokenizationCodepointRange> TokenizationCodepointRange::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const TokenizationCodepointRangeT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateTokenizationCodepointRange(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<TokenizationCodepointRange> CreateTokenizationCodepointRange(flatbuffers::FlatBufferBuilder &_fbb, const TokenizationCodepointRangeT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<TokenizationCodepointRange> CreateTokenizationCodepointRange(::flatbuffers::FlatBufferBuilder &_fbb, const TokenizationCodepointRangeT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const TokenizationCodepointRangeT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const TokenizationCodepointRangeT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _start = _o->start;
   auto _end = _o->end;
   auto _role = _o->role;

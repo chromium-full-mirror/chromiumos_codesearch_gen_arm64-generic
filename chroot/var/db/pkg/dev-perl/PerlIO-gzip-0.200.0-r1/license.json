@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "PerlIO-gzip", "version": "0.200.0", "revision": 1, "fullname": "dev-perl/PerlIO-gzip", "fullnamerev": "dev-perl/PerlIO-gzip-0.200.0-r1", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/PerlIO-gzip"], "skip": false, "tainted": false, "ebuild_path": null}

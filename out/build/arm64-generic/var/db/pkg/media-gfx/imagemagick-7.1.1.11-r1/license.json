@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "media-gfx", "name": "imagemagick", "version": "7.1.1.11", "revision": 1, "fullname": "media-gfx/imagemagick", "fullnamerev": "media-gfx/imagemagick-7.1.1.11-r1", "license_names": ["imagemagick"], "license_text_scanned": [], "homepages": ["https://www.imagemagick.org/"], "skip": false, "tainted": false, "ebuild_path": null}

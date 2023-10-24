@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-python", "name": "kiwisolver", "version": "1.0.1", "revision": 0, "fullname": "dev-python/kiwisolver", "fullnamerev": "dev-python/kiwisolver-1.0.1", "license_names": ["Clear-BSD"], "license_text_scanned": [], "homepages": ["https://github.com/nucleic/kiwi"], "skip": false, "tainted": false, "ebuild_path": null}

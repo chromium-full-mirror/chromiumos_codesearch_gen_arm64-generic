@@ -446,6 +446,257 @@ class  CameraHalClient_SetUpChannel_Params_Data {
 };
 static_assert(sizeof(CameraHalClient_SetUpChannel_Params_Data) == 16,
               "Bad sizeof(CameraHalClient_SetUpChannel_Params_Data)");
+class  CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t camera_id;
+  uint8_t opened : 1;
+  uint8_t pad1_[3];
+  int32_t type;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data>;
+
+  CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data();
+  ~CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data) == 24,
+              "Bad sizeof(CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data)");
+class  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  int32_t camera_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data>;
+
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data();
+  ~CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data) == 16,
+              "Bad sizeof(CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data)");
+class  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data>;
+
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data();
+  ~CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data) == 16,
+              "Bad sizeof(CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data)");
+class  CrosCameraService_GetCameraModule_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_GetCameraModule_Params_Data>;
+
+  CrosCameraService_GetCameraModule_Params_Data();
+  ~CrosCameraService_GetCameraModule_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_GetCameraModule_Params_Data) == 16,
+              "Bad sizeof(CrosCameraService_GetCameraModule_Params_Data)");
+class  CrosCameraService_GetCameraModule_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data camera_module_receiver;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_GetCameraModule_ResponseParams_Data>;
+
+  CrosCameraService_GetCameraModule_ResponseParams_Data();
+  ~CrosCameraService_GetCameraModule_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_GetCameraModule_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosCameraService_GetCameraModule_ResponseParams_Data)");
+class  CrosCameraService_SetTracingEnabled_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_SetTracingEnabled_Params_Data>;
+
+  CrosCameraService_SetTracingEnabled_Params_Data();
+  ~CrosCameraService_SetTracingEnabled_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_SetTracingEnabled_Params_Data) == 16,
+              "Bad sizeof(CrosCameraService_SetTracingEnabled_Params_Data)");
+class  CrosCameraService_SetAutoFramingState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_SetAutoFramingState_Params_Data>;
+
+  CrosCameraService_SetAutoFramingState_Params_Data();
+  ~CrosCameraService_SetAutoFramingState_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_SetAutoFramingState_Params_Data) == 16,
+              "Bad sizeof(CrosCameraService_SetAutoFramingState_Params_Data)");
+class  CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data>;
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data();
+  ~CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data) == 8,
+              "Bad sizeof(CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data)");
+class  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data>;
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data();
+  ~CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data)");
+class  CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data>;
+
+  CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data();
+  ~CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data) == 16,
+              "Bad sizeof(CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data)");
+class  CrosCameraService_GetAutoFramingSupported_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_GetAutoFramingSupported_Params_Data>;
+
+  CrosCameraService_GetAutoFramingSupported_Params_Data();
+  ~CrosCameraService_GetAutoFramingSupported_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_GetAutoFramingSupported_Params_Data) == 8,
+              "Bad sizeof(CrosCameraService_GetAutoFramingSupported_Params_Data)");
+class  CrosCameraService_GetAutoFramingSupported_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t supported : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_GetAutoFramingSupported_ResponseParams_Data>;
+
+  CrosCameraService_GetAutoFramingSupported_ResponseParams_Data();
+  ~CrosCameraService_GetAutoFramingSupported_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_GetAutoFramingSupported_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosCameraService_GetAutoFramingSupported_ResponseParams_Data)");
+class  CrosCameraService_SetCameraEffect_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::cros::mojom::internal::EffectsConfig_Data> config;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_SetCameraEffect_Params_Data>;
+
+  CrosCameraService_SetCameraEffect_Params_Data();
+  ~CrosCameraService_SetCameraEffect_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_SetCameraEffect_Params_Data) == 16,
+              "Bad sizeof(CrosCameraService_SetCameraEffect_Params_Data)");
+class  CrosCameraService_SetCameraEffect_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t result;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_SetCameraEffect_ResponseParams_Data>;
+
+  CrosCameraService_SetCameraEffect_ResponseParams_Data();
+  ~CrosCameraService_SetCameraEffect_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_SetCameraEffect_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosCameraService_SetCameraEffect_ResponseParams_Data)");
+class  CrosCameraService_AddCrosCameraServiceObserver_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosCameraService_AddCrosCameraServiceObserver_Params_Data>;
+
+  CrosCameraService_AddCrosCameraServiceObserver_Params_Data();
+  ~CrosCameraService_AddCrosCameraServiceObserver_Params_Data() = delete;
+};
+static_assert(sizeof(CrosCameraService_AddCrosCameraServiceObserver_Params_Data) == 16,
+              "Bad sizeof(CrosCameraService_AddCrosCameraServiceObserver_Params_Data)");
 
 }  // namespace internal
 
@@ -1104,6 +1355,357 @@ class CameraHalClient_SetUpChannel_ParamsDataView {
 };
 
 
+class CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsDataView {
+ public:
+  CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsDataView() = default;
+
+  CrosCameraServiceObserver_CameraDeviceActivityChange_ParamsDataView(
+      internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t camera_id() const {
+    return data_->camera_id;
+  }
+  bool opened() const {
+    return data_->opened;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::cros::mojom::CameraClientType>(
+        data_value, output);
+  }
+  CameraClientType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::CameraClientType>(data_->type));
+  }
+ private:
+  internal::CrosCameraServiceObserver_CameraDeviceActivityChange_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsDataView {
+ public:
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsDataView() = default;
+
+  CrosCameraServiceObserver_CameraPrivacySwitchStateChange_ParamsDataView(
+      internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::cros::mojom::CameraPrivacySwitchState>(
+        data_value, output);
+  }
+  CameraPrivacySwitchState state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::CameraPrivacySwitchState>(data_->state));
+  }
+  int32_t camera_id() const {
+    return data_->camera_id;
+  }
+ private:
+  internal::CrosCameraServiceObserver_CameraPrivacySwitchStateChange_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsDataView {
+ public:
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsDataView() = default;
+
+  CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_ParamsDataView(
+      internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::cros::mojom::CameraPrivacySwitchState>(
+        data_value, output);
+  }
+  CameraPrivacySwitchState state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::CameraPrivacySwitchState>(data_->state));
+  }
+ private:
+  internal::CrosCameraServiceObserver_CameraSWPrivacySwitchStateChange_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_GetCameraModule_ParamsDataView {
+ public:
+  CrosCameraService_GetCameraModule_ParamsDataView() = default;
+
+  CrosCameraService_GetCameraModule_ParamsDataView(
+      internal::CrosCameraService_GetCameraModule_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::cros::mojom::CameraClientType>(
+        data_value, output);
+  }
+  CameraClientType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::CameraClientType>(data_->type));
+  }
+ private:
+  internal::CrosCameraService_GetCameraModule_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_GetCameraModule_ResponseParamsDataView {
+ public:
+  CrosCameraService_GetCameraModule_ResponseParamsDataView() = default;
+
+  CrosCameraService_GetCameraModule_ResponseParamsDataView(
+      internal::CrosCameraService_GetCameraModule_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeCameraModuleReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::cros::mojom::CameraModuleInterfaceBase>>(
+            &data_->camera_module_receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::CrosCameraService_GetCameraModule_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CrosCameraService_SetTracingEnabled_ParamsDataView {
+ public:
+  CrosCameraService_SetTracingEnabled_ParamsDataView() = default;
+
+  CrosCameraService_SetTracingEnabled_ParamsDataView(
+      internal::CrosCameraService_SetTracingEnabled_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool enabled() const {
+    return data_->enabled;
+  }
+ private:
+  internal::CrosCameraService_SetTracingEnabled_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_SetAutoFramingState_ParamsDataView {
+ public:
+  CrosCameraService_SetAutoFramingState_ParamsDataView() = default;
+
+  CrosCameraService_SetAutoFramingState_ParamsDataView(
+      internal::CrosCameraService_SetAutoFramingState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::cros::mojom::CameraAutoFramingState>(
+        data_value, output);
+  }
+  CameraAutoFramingState state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::CameraAutoFramingState>(data_->state));
+  }
+ private:
+  internal::CrosCameraService_SetAutoFramingState_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_GetCameraSWPrivacySwitchState_ParamsDataView {
+ public:
+  CrosCameraService_GetCameraSWPrivacySwitchState_ParamsDataView() = default;
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ParamsDataView(
+      internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosCameraService_GetCameraSWPrivacySwitchState_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsDataView {
+ public:
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsDataView() = default;
+
+  CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParamsDataView(
+      internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::cros::mojom::CameraPrivacySwitchState>(
+        data_value, output);
+  }
+  CameraPrivacySwitchState state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::CameraPrivacySwitchState>(data_->state));
+  }
+ private:
+  internal::CrosCameraService_GetCameraSWPrivacySwitchState_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_SetCameraSWPrivacySwitchState_ParamsDataView {
+ public:
+  CrosCameraService_SetCameraSWPrivacySwitchState_ParamsDataView() = default;
+
+  CrosCameraService_SetCameraSWPrivacySwitchState_ParamsDataView(
+      internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::cros::mojom::CameraPrivacySwitchState>(
+        data_value, output);
+  }
+  CameraPrivacySwitchState state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::CameraPrivacySwitchState>(data_->state));
+  }
+ private:
+  internal::CrosCameraService_SetCameraSWPrivacySwitchState_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_GetAutoFramingSupported_ParamsDataView {
+ public:
+  CrosCameraService_GetAutoFramingSupported_ParamsDataView() = default;
+
+  CrosCameraService_GetAutoFramingSupported_ParamsDataView(
+      internal::CrosCameraService_GetAutoFramingSupported_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosCameraService_GetAutoFramingSupported_Params_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_GetAutoFramingSupported_ResponseParamsDataView {
+ public:
+  CrosCameraService_GetAutoFramingSupported_ResponseParamsDataView() = default;
+
+  CrosCameraService_GetAutoFramingSupported_ResponseParamsDataView(
+      internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool supported() const {
+    return data_->supported;
+  }
+ private:
+  internal::CrosCameraService_GetAutoFramingSupported_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_SetCameraEffect_ParamsDataView {
+ public:
+  CrosCameraService_SetCameraEffect_ParamsDataView() = default;
+
+  CrosCameraService_SetCameraEffect_ParamsDataView(
+      internal::CrosCameraService_SetCameraEffect_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConfigDataView(
+      ::cros::mojom::EffectsConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConfig(UserType* output) {
+    
+    auto* pointer = data_->config.Get();
+    return mojo::internal::Deserialize<::cros::mojom::EffectsConfigDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosCameraService_SetCameraEffect_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CrosCameraService_SetCameraEffect_ResponseParamsDataView {
+ public:
+  CrosCameraService_SetCameraEffect_ResponseParamsDataView() = default;
+
+  CrosCameraService_SetCameraEffect_ResponseParamsDataView(
+      internal::CrosCameraService_SetCameraEffect_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::cros::mojom::SetEffectResult>(
+        data_value, output);
+  }
+  SetEffectResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::SetEffectResult>(data_->result));
+  }
+ private:
+  internal::CrosCameraService_SetCameraEffect_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class CrosCameraService_AddCrosCameraServiceObserver_ParamsDataView {
+ public:
+  CrosCameraService_AddCrosCameraServiceObserver_ParamsDataView() = default;
+
+  CrosCameraService_AddCrosCameraServiceObserver_ParamsDataView(
+      internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::cros::mojom::CrosCameraServiceObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::CrosCameraService_AddCrosCameraServiceObserver_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -1172,6 +1774,41 @@ inline void CameraHalServer_SetCameraEffect_ParamsDataView::GetConfigDataView(
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+inline void CrosCameraService_SetCameraEffect_ParamsDataView::GetConfigDataView(
+    ::cros::mojom::EffectsConfigDataView* output) {
+  auto pointer = data_->config.Get();
+  *output = ::cros::mojom::EffectsConfigDataView(pointer, message_);
+}
 
 
 

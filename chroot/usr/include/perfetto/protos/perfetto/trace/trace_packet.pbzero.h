@@ -30,6 +30,7 @@ class ClockSnapshot;
 class CpuInfo;
 class DeobfuscationMapping;
 class EntityStateResidency;
+class EtwTraceEventBundle;
 class ExtensionDescriptor;
 class FrameTimelineEvent;
 class FtraceEventBundle;
@@ -245,6 +246,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes surfaceflinger_layers_snapshot() const { return at<93>().as_bytes(); }
   bool has_surfaceflinger_transactions() const { return at<94>().valid(); }
   ::protozero::ConstBytes surfaceflinger_transactions() const { return at<94>().as_bytes(); }
+  bool has_etw_events() const { return at<95>().valid(); }
+  ::protozero::ConstBytes etw_events() const { return at<95>().as_bytes(); }
   bool has_for_testing() const { return at<900>().valid(); }
   ::protozero::ConstBytes for_testing() const { return at<900>().as_bytes(); }
   bool has_trusted_uid() const { return at<3>().valid(); }
@@ -336,6 +339,7 @@ class TracePacket : public ::protozero::Message {
     kTrackEventRangeOfInterestFieldNumber = 90,
     kSurfaceflingerLayersSnapshotFieldNumber = 93,
     kSurfaceflingerTransactionsFieldNumber = 94,
+    kEtwEventsFieldNumber = 95,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
     kTrustedPacketSequenceIdFieldNumber = 10,
@@ -1293,6 +1297,20 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_SurfaceflingerTransactions kSurfaceflingerTransactions{};
   template <typename T = TransactionTraceEntry> T* set_surfaceflinger_transactions() {
     return BeginNestedMessage<T>(94);
+  }
+
+
+  using FieldMetadata_EtwEvents =
+    ::protozero::proto_utils::FieldMetadata<
+      95,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      EtwTraceEventBundle,
+      TracePacket>;
+
+  static constexpr FieldMetadata_EtwEvents kEtwEvents{};
+  template <typename T = EtwTraceEventBundle> T* set_etw_events() {
+    return BeginNestedMessage<T>(95);
   }
 
 

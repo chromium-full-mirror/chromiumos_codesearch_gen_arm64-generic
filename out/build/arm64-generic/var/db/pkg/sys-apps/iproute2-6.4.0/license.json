@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "iproute2", "version": "6.4.0", "revision": 0, "fullname": "sys-apps/iproute2", "fullnamerev": "sys-apps/iproute2-6.4.0", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.linuxfoundation.org/networking/iproute2"], "skip": false, "tainted": false, "ebuild_path": null}

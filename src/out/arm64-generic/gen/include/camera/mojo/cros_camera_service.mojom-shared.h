@@ -181,6 +181,26 @@ using CameraHalClientAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CameraHalClientInterfaceBase>;
 using CameraHalClientAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CameraHalClientInterfaceBase>;
+class CrosCameraServiceObserverInterfaceBase {};
+
+using CrosCameraServiceObserverPtrDataView =
+    mojo::InterfacePtrDataView<CrosCameraServiceObserverInterfaceBase>;
+using CrosCameraServiceObserverRequestDataView =
+    mojo::InterfaceRequestDataView<CrosCameraServiceObserverInterfaceBase>;
+using CrosCameraServiceObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<CrosCameraServiceObserverInterfaceBase>;
+using CrosCameraServiceObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<CrosCameraServiceObserverInterfaceBase>;
+class CrosCameraServiceInterfaceBase {};
+
+using CrosCameraServicePtrDataView =
+    mojo::InterfacePtrDataView<CrosCameraServiceInterfaceBase>;
+using CrosCameraServiceRequestDataView =
+    mojo::InterfaceRequestDataView<CrosCameraServiceInterfaceBase>;
+using CrosCameraServiceAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<CrosCameraServiceInterfaceBase>;
+using CrosCameraServiceAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<CrosCameraServiceInterfaceBase>;
 
 
 }  // cros::mojom

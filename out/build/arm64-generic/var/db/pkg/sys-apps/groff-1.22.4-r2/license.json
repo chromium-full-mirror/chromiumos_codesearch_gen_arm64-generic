@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "groff", "version": "1.22.4", "revision": 2, "fullname": "sys-apps/groff", "fullnamerev": "sys-apps/groff-1.22.4-r2", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/groff/groff.html"], "skip": false, "tainted": false, "ebuild_path": null}

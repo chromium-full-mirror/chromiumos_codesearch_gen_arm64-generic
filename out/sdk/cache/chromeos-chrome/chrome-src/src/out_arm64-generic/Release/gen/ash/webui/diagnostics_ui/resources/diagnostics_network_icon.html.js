@@ -1,0 +1,28 @@
+import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+  return html`<!--_html_template_start_--><style include="diagnostics-shared">
+  :host {
+    --cros-icon-color-primary: var(--cros-icon-color-secondary);
+  }
+
+  :host-context(body.jelly-enabled) #connectingIcon {
+    --paper-spinner-color: var(--cros-sys-progress);
+  }
+
+  #connectingIcon {
+    height: 20px;
+    width: 20px;
+  }
+</style>
+<div id="iconContainer" hidden$="[[!network]]">
+  <network-icon id="networkIcon"
+      hidden$="[[computeShouldDisplaySpinner(network.state)]]"
+      network-state="[[computeNetworkState(network.*)]]">
+  </network-icon>
+  <paper-spinner-lite id="connectingIcon" active tabindex="0"
+      alt$="[[computeSpinnerAriaLabel(locale, network.state)]]"
+      hidden$="[[!computeShouldDisplaySpinner(network.state)]]">
+  </paper-spinner-lite>
+</div>
+<!--_html_template_end_-->`;
+}

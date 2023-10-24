@@ -362,6 +362,57 @@ bool FloatingPointRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+BluetoothPowerRoutineArgument::BluetoothPowerRoutineArgument() {}
+
+BluetoothPowerRoutineArgument::~BluetoothPowerRoutineArgument() = default;
+size_t BluetoothPowerRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void BluetoothPowerRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool BluetoothPowerRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothDiscoveryRoutineArgument::BluetoothDiscoveryRoutineArgument() {}
+
+BluetoothDiscoveryRoutineArgument::~BluetoothDiscoveryRoutineArgument() = default;
+size_t BluetoothDiscoveryRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void BluetoothDiscoveryRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool BluetoothDiscoveryRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FanRoutineArgument::FanRoutineArgument() {}
+
+FanRoutineArgument::~FanRoutineArgument() = default;
+size_t FanRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void FanRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool FanRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -823,6 +874,228 @@ bool LedLitUpRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+BluetoothPoweredDetail::BluetoothPoweredDetail()
+    : hci_powered(),
+      dbus_powered() {}
+
+BluetoothPoweredDetail::BluetoothPoweredDetail(
+    bool hci_powered_in,
+    bool dbus_powered_in)
+    : hci_powered(std::move(hci_powered_in)),
+      dbus_powered(std::move(dbus_powered_in)) {}
+
+BluetoothPoweredDetail::~BluetoothPoweredDetail() = default;
+size_t BluetoothPoweredDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->hci_powered);
+  seed = mojo::internal::Hash(seed, this->dbus_powered);
+  return seed;
+}
+
+void BluetoothPoweredDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "hci_powered"), this->hci_powered,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "dbus_powered"), this->dbus_powered,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothPoweredDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothPowerRoutineDetail::BluetoothPowerRoutineDetail()
+    : power_off_result(),
+      power_on_result() {}
+
+BluetoothPowerRoutineDetail::BluetoothPowerRoutineDetail(
+    BluetoothPoweredDetailPtr power_off_result_in,
+    BluetoothPoweredDetailPtr power_on_result_in)
+    : power_off_result(std::move(power_off_result_in)),
+      power_on_result(std::move(power_on_result_in)) {}
+
+BluetoothPowerRoutineDetail::~BluetoothPowerRoutineDetail() = default;
+
+void BluetoothPowerRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "power_off_result"), this->power_off_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothPoweredDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "power_on_result"), this->power_on_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothPoweredDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothPowerRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothDiscoveringDetail::BluetoothDiscoveringDetail()
+    : hci_discovering(),
+      dbus_discovering() {}
+
+BluetoothDiscoveringDetail::BluetoothDiscoveringDetail(
+    bool hci_discovering_in,
+    bool dbus_discovering_in)
+    : hci_discovering(std::move(hci_discovering_in)),
+      dbus_discovering(std::move(dbus_discovering_in)) {}
+
+BluetoothDiscoveringDetail::~BluetoothDiscoveringDetail() = default;
+size_t BluetoothDiscoveringDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->hci_discovering);
+  seed = mojo::internal::Hash(seed, this->dbus_discovering);
+  return seed;
+}
+
+void BluetoothDiscoveringDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "hci_discovering"), this->hci_discovering,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "dbus_discovering"), this->dbus_discovering,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothDiscoveringDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothDiscoveryRoutineDetail::BluetoothDiscoveryRoutineDetail()
+    : start_discovery_result(),
+      stop_discovery_result() {}
+
+BluetoothDiscoveryRoutineDetail::BluetoothDiscoveryRoutineDetail(
+    BluetoothDiscoveringDetailPtr start_discovery_result_in,
+    BluetoothDiscoveringDetailPtr stop_discovery_result_in)
+    : start_discovery_result(std::move(start_discovery_result_in)),
+      stop_discovery_result(std::move(stop_discovery_result_in)) {}
+
+BluetoothDiscoveryRoutineDetail::~BluetoothDiscoveryRoutineDetail() = default;
+
+void BluetoothDiscoveryRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "start_discovery_result"), this->start_discovery_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothDiscoveringDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "stop_discovery_result"), this->stop_discovery_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothDiscoveringDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothDiscoveryRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FanRoutineDetail::FanRoutineDetail()
+    : passed_fan_ids(),
+      failed_fan_ids(),
+      fan_count_status() {}
+
+FanRoutineDetail::FanRoutineDetail(
+    std::vector<uint8_t> passed_fan_ids_in,
+    std::vector<uint8_t> failed_fan_ids_in,
+    HardwarePresenceStatus fan_count_status_in)
+    : passed_fan_ids(std::move(passed_fan_ids_in)),
+      failed_fan_ids(std::move(failed_fan_ids_in)),
+      fan_count_status(std::move(fan_count_status_in)) {}
+
+FanRoutineDetail::~FanRoutineDetail() = default;
+
+void FanRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "passed_fan_ids"), this->passed_fan_ids,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<uint8_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "failed_fan_ids"), this->failed_fan_ids,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<uint8_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fan_count_status"), this->fan_count_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type HardwarePresenceStatus>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FanRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -950,6 +1223,39 @@ void RoutineArgument::set_floating_point(
         std::move(floating_point));
   }
 }
+void RoutineArgument::set_bluetooth_power(
+    BluetoothPowerRoutineArgumentPtr bluetooth_power) {
+  if (tag_ == Tag::kBluetoothPower) {
+    *(data_.bluetooth_power) = std::move(bluetooth_power);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothPower;
+    data_.bluetooth_power = new BluetoothPowerRoutineArgumentPtr(
+        std::move(bluetooth_power));
+  }
+}
+void RoutineArgument::set_bluetooth_discovery(
+    BluetoothDiscoveryRoutineArgumentPtr bluetooth_discovery) {
+  if (tag_ == Tag::kBluetoothDiscovery) {
+    *(data_.bluetooth_discovery) = std::move(bluetooth_discovery);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothDiscovery;
+    data_.bluetooth_discovery = new BluetoothDiscoveryRoutineArgumentPtr(
+        std::move(bluetooth_discovery));
+  }
+}
+void RoutineArgument::set_fan(
+    FanRoutineArgumentPtr fan) {
+  if (tag_ == Tag::kFan) {
+    *(data_.fan) = std::move(fan);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFan;
+    data_.fan = new FanRoutineArgumentPtr(
+        std::move(fan));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -996,6 +1302,18 @@ void RoutineArgument::DestroyActive() {
     case Tag::kFloatingPoint:
 
       delete data_.floating_point;
+      break;
+    case Tag::kBluetoothPower:
+
+      delete data_.bluetooth_power;
+      break;
+    case Tag::kBluetoothDiscovery:
+
+      delete data_.bluetooth_discovery;
+      break;
+    case Tag::kFan:
+
+      delete data_.fan;
       break;
   }
 }
@@ -1224,6 +1542,39 @@ void RoutineDetail::set_floating_point(
         std::move(floating_point));
   }
 }
+void RoutineDetail::set_bluetooth_power(
+    BluetoothPowerRoutineDetailPtr bluetooth_power) {
+  if (tag_ == Tag::kBluetoothPower) {
+    *(data_.bluetooth_power) = std::move(bluetooth_power);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothPower;
+    data_.bluetooth_power = new BluetoothPowerRoutineDetailPtr(
+        std::move(bluetooth_power));
+  }
+}
+void RoutineDetail::set_bluetooth_discovery(
+    BluetoothDiscoveryRoutineDetailPtr bluetooth_discovery) {
+  if (tag_ == Tag::kBluetoothDiscovery) {
+    *(data_.bluetooth_discovery) = std::move(bluetooth_discovery);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothDiscovery;
+    data_.bluetooth_discovery = new BluetoothDiscoveryRoutineDetailPtr(
+        std::move(bluetooth_discovery));
+  }
+}
+void RoutineDetail::set_fan(
+    FanRoutineDetailPtr fan) {
+  if (tag_ == Tag::kFan) {
+    *(data_.fan) = std::move(fan);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFan;
+    data_.fan = new FanRoutineDetailPtr(
+        std::move(fan));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -1270,6 +1621,18 @@ void RoutineDetail::DestroyActive() {
     case Tag::kFloatingPoint:
 
       delete data_.floating_point;
+      break;
+    case Tag::kBluetoothPower:
+
+      delete data_.bluetooth_power;
+      break;
+    case Tag::kBluetoothDiscovery:
+
+      delete data_.bluetooth_discovery;
+      break;
+    case Tag::kFan:
+
+      delete data_.fan;
       break;
   }
 }
@@ -2711,6 +3074,42 @@ bool StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineArgument::Data
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPowerRoutineArgument::DataView, ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentPtr result(::ash::cros_healthd::mojom::BluetoothPowerRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgument::DataView, ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentPtr result(::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::FanRoutineArgument::DataView, ::ash::cros_healthd::mojom::FanRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::FanRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::FanRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FanRoutineArgumentPtr result(::ash::cros_healthd::mojom::FanRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -2931,6 +3330,88 @@ bool StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineDetail::DataView, :
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPoweredDetail::DataView, ::ash::cros_healthd::mojom::BluetoothPoweredDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPoweredDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPoweredDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPoweredDetailPtr result(::ash::cros_healthd::mojom::BluetoothPoweredDetail::New());
+  
+      if (success)
+        result->hci_powered = input.hci_powered();
+      if (success)
+        result->dbus_powered = input.dbus_powered();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothPowerRoutineDetail::DataView, ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr result(::ash::cros_healthd::mojom::BluetoothPowerRoutineDetail::New());
+  
+      if (success && !input.ReadPowerOffResult(&result->power_off_result))
+        success = false;
+      if (success && !input.ReadPowerOnResult(&result->power_on_result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveringDetail::DataView, ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothDiscoveringDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothDiscoveringDetailPtr result(::ash::cros_healthd::mojom::BluetoothDiscoveringDetail::New());
+  
+      if (success)
+        result->hci_discovering = input.hci_discovering();
+      if (success)
+        result->dbus_discovering = input.dbus_discovering();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetail::DataView, ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailPtr result(::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetail::New());
+  
+      if (success && !input.ReadStartDiscoveryResult(&result->start_discovery_result))
+        success = false;
+      if (success && !input.ReadStopDiscoveryResult(&result->stop_discovery_result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView, ::ash::cros_healthd::mojom::FanRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::FanRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::FanRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FanRoutineDetailPtr result(::ash::cros_healthd::mojom::FanRoutineDetail::New());
+  
+      if (success && !input.ReadPassedFanIds(&result->passed_fan_ids))
+        success = false;
+      if (success && !input.ReadFailedFanIds(&result->failed_fan_ids))
+        success = false;
+      if (success && !input.ReadFanCountStatus(&result->fan_count_status))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
@@ -3031,6 +3512,33 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewFloatingPoint(
           std::move(result_floating_point));
+      break;
+    }
+    case Tag::kBluetoothPower: {
+      ::ash::cros_healthd::mojom::BluetoothPowerRoutineArgumentPtr result_bluetooth_power;
+      if (!input.ReadBluetoothPower(&result_bluetooth_power))
+        return false;
+
+      *output = UnionType::NewBluetoothPower(
+          std::move(result_bluetooth_power));
+      break;
+    }
+    case Tag::kBluetoothDiscovery: {
+      ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineArgumentPtr result_bluetooth_discovery;
+      if (!input.ReadBluetoothDiscovery(&result_bluetooth_discovery))
+        return false;
+
+      *output = UnionType::NewBluetoothDiscovery(
+          std::move(result_bluetooth_discovery));
+      break;
+    }
+    case Tag::kFan: {
+      ::ash::cros_healthd::mojom::FanRoutineArgumentPtr result_fan;
+      if (!input.ReadFan(&result_fan))
+        return false;
+
+      *output = UnionType::NewFan(
+          std::move(result_fan));
       break;
     }
     default:
@@ -3196,6 +3704,33 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewFloatingPoint(
           std::move(result_floating_point));
+      break;
+    }
+    case Tag::kBluetoothPower: {
+      ::ash::cros_healthd::mojom::BluetoothPowerRoutineDetailPtr result_bluetooth_power;
+      if (!input.ReadBluetoothPower(&result_bluetooth_power))
+        return false;
+
+      *output = UnionType::NewBluetoothPower(
+          std::move(result_bluetooth_power));
+      break;
+    }
+    case Tag::kBluetoothDiscovery: {
+      ::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetailPtr result_bluetooth_discovery;
+      if (!input.ReadBluetoothDiscovery(&result_bluetooth_discovery))
+        return false;
+
+      *output = UnionType::NewBluetoothDiscovery(
+          std::move(result_bluetooth_discovery));
+      break;
+    }
+    case Tag::kFan: {
+      ::ash::cros_healthd::mojom::FanRoutineDetailPtr result_fan;
+      if (!input.ReadFan(&result_fan))
+        return false;
+
+      *output = UnionType::NewFan(
+          std::move(result_fan));
       break;
     }
     default:

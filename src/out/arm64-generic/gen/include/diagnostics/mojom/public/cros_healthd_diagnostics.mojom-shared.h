@@ -169,9 +169,9 @@ enum class DiagnosticRoutineEnum : int32_t {
   
   kEmmcLifetime = 37,
   
-  kAudioSetVolume = 38,
+  DEPRECATED_kAudioSetVolume = 38,
   
-  kAudioSetGain = 39,
+  DEPRECATED_kAudioSetGain = 39,
   
   kBluetoothPower = 40,
   
@@ -186,8 +186,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kAudioDriver = 45,
   
   kUfsLifetime = 46,
+  
+  kFan = 47,
   kMinValue = 0,
-  kMaxValue = 46,
+  kMaxValue = 47,
   kDefaultValue = 30
 };
 

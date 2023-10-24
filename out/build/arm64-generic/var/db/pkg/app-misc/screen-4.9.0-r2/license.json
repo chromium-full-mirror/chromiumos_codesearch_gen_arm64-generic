@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-misc", "name": "screen", "version": "4.9.0", "revision": 2, "fullname": "app-misc/screen", "fullnamerev": "app-misc/screen-4.9.0-r2", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/screen/"], "skip": false, "tainted": false, "ebuild_path": null}

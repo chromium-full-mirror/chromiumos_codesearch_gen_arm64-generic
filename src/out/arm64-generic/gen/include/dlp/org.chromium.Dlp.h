@@ -26,6 +26,8 @@ class DlpInterface {
   virtual std::vector<uint8_t> SetDlpFilesPolicy(
       const std::vector<uint8_t>& in_request) = 0;
   // Adds files together with their sources to the database.
+  // Rejects request if one of the resolved files is not on user's home dir
+  // or created a long time ago.
   virtual void AddFiles(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>>> response,
       const std::vector<uint8_t>& in_request) = 0;

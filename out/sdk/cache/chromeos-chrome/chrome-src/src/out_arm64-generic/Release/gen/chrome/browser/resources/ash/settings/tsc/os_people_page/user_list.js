@@ -1,0 +1,128 @@
+// Copyright 2015 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'settings-user-list' shows a list of users allowed on this Chrome OS
+ * device.
+ *
+ * Example:
+ *
+ *    <settings-user-list prefs="{{prefs}}">
+ *    </settings-user-list>
+ */
+import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
+import '../settings_shared.css.js';
+import '../settings_vars.css.js';
+import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
+import { CrScrollableMixin } from 'chrome://resources/cr_elements/cr_scrollable_mixin.js';
+import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { Router, routes } from '../router.js';
+import { getTemplate } from './user_list.html.js';
+const SettingsUserListElementBase = RouteObserverMixin(I18nMixin(CrScrollableMixin(PolymerElement)));
+export class SettingsUserListElement extends SettingsUserListElementBase {
+    static get is() {
+        return 'settings-user-list';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            /**
+             * Current list of allowed users.
+             */
+            users_: {
+                type: Array,
+                value() {
+                    return [];
+                },
+                notify: true,
+            },
+            /**
+             * Whether the user list is disabled, i.e. that no modifications can be
+             * made.
+             */
+            disabled: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+        };
+    }
+    constructor() {
+        super();
+        this.usersPrivate_ = chrome.usersPrivate;
+    }
+    ready() {
+        super.ready();
+        chrome.settingsPrivate.onPrefsChanged.addListener((prefs) => {
+            prefs.forEach((pref) => {
+                if (pref.key === 'cros.accounts.users') {
+                    this.usersPrivate_.getUsers().then((users) => {
+                        this.setUsers_(users);
+                    });
+                }
+            }, this);
+        });
+    }
+    currentRouteChanged() {
+        if (Router.getInstance().currentRoute === routes.ACCOUNTS) {
+            this.usersPrivate_.getUsers().then((users) => {
+                this.setUsers_(users);
+            });
+        }
+    }
+    getUserName_(user) {
+        return user.isOwner ? this.i18n('deviceOwnerLabel', user.name) : user.name;
+    }
+    setUsers_(users) {
+        this.users_ = users;
+        this.users_.sort(function (a, b) {
+            if (a.isOwner !== b.isOwner) {
+                return b.isOwner ? 1 : -1;
+            }
+            else {
+                return -1;
+            }
+        });
+        this.requestUpdateScroll();
+    }
+    removeUser_(e) {
+        getAnnouncerInstance()
+            .announce(this.i18n('userRemovedMessage', e.model.item.name));
+        // Focus the add user button since, after this removal, the only user left
+        // will be the account owner.
+        if (this.users_.length === 2) {
+            const event = new CustomEvent('all-managed-users-removed', { bubbles: true, composed: true });
+            this.dispatchEvent(event);
+        }
+        this.usersPrivate_.removeUser(e.model.item.email);
+    }
+    shouldHideCloseButton_(disabled, isUserOwner) {
+        return disabled || isUserOwner;
+    }
+    getProfilePictureUrl_(user) {
+        return 'chrome://userimage/' + user.email + '?id=' + Date.now() +
+            '&frame=0';
+    }
+    shouldShowEmail_(user) {
+        return !user.isChild && user.name !== user.displayEmail;
+    }
+    /**
+     * Use this function to prevent tooltips from displaying for user names. We
+     * only want to display tooltips for email addresses.
+     */
+    getTooltip_(user) {
+        return !this.shouldShowEmail_(user) ? user.displayEmail : '';
+    }
+    getRemoveUserTooltip_(user) {
+        return this.i18n('removeUserTooltip', user.name);
+    }
+}
+customElements.define(SettingsUserListElement.is, SettingsUserListElement);

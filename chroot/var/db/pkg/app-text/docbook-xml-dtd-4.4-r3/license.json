@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-text", "name": "docbook-xml-dtd", "version": "4.4", "revision": 3, "fullname": "app-text/docbook-xml-dtd", "fullnamerev": "app-text/docbook-xml-dtd-4.4-r3", "license_names": ["docbook"], "license_text_scanned": [], "homepages": ["https://docbook.org/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -2242,69 +2242,63 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  DEPRECATE_SupportedCapabilities {
+class  DEPRECATED_SupportedCapabilities {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DEPRECATE_SupportedCapabilities, T>::value>;
-  using DataView = DEPRECATE_SupportedCapabilitiesDataView;
-  using Data_ = internal::DEPRECATE_SupportedCapabilities_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<DEPRECATED_SupportedCapabilities, T>::value>;
+  using DataView = DEPRECATED_SupportedCapabilitiesDataView;
+  using Data_ = internal::DEPRECATED_SupportedCapabilities_Data;
 
   template <typename... Args>
-  static DEPRECATE_SupportedCapabilitiesPtr New(Args&&... args) {
-    return DEPRECATE_SupportedCapabilitiesPtr(
+  static DEPRECATED_SupportedCapabilitiesPtr New(Args&&... args) {
+    return DEPRECATED_SupportedCapabilitiesPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static DEPRECATE_SupportedCapabilitiesPtr From(const U& u) {
-    return mojo::TypeConverter<DEPRECATE_SupportedCapabilitiesPtr, U>::Convert(u);
+  static DEPRECATED_SupportedCapabilitiesPtr From(const U& u) {
+    return mojo::TypeConverter<DEPRECATED_SupportedCapabilitiesPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, DEPRECATE_SupportedCapabilities>::Convert(*this);
+    return mojo::TypeConverter<U, DEPRECATED_SupportedCapabilities>::Convert(*this);
   }
 
 
-  DEPRECATE_SupportedCapabilities();
-
-  DEPRECATE_SupportedCapabilities(
-      uint8_t max_adv_len,
-      uint8_t max_scn_rsp_len,
-      int16_t min_tx_power,
-      int16_t max_tx_power);
+  DEPRECATED_SupportedCapabilities();
 
 
-  ~DEPRECATE_SupportedCapabilities();
+  ~DEPRECATED_SupportedCapabilities();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = DEPRECATE_SupportedCapabilitiesPtr>
-  DEPRECATE_SupportedCapabilitiesPtr Clone() const;
+  template <typename StructPtrType = DEPRECATED_SupportedCapabilitiesPtr>
+  DEPRECATED_SupportedCapabilitiesPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
+  template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
+  template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
+  template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        DEPRECATE_SupportedCapabilities::DataView, std::vector<uint8_t>>(input);
+        DEPRECATED_SupportedCapabilities::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        DEPRECATE_SupportedCapabilities::DataView>(input);
+        DEPRECATED_SupportedCapabilities::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -2314,8 +2308,8 @@ class  DEPRECATE_SupportedCapabilities {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::DEPRECATE_SupportedCapabilities_UnserializedMessageContext<
-            UserType, DEPRECATE_SupportedCapabilities::DataView>>(0, 0, std::move(input)),
+        internal::DEPRECATED_SupportedCapabilities_UnserializedMessageContext<
+            UserType, DEPRECATED_SupportedCapabilities::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -2324,14 +2318,14 @@ class  DEPRECATE_SupportedCapabilities {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<DEPRECATE_SupportedCapabilities::DataView>(
+    return mojo::internal::DeserializeImpl<DEPRECATED_SupportedCapabilities::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return DEPRECATE_SupportedCapabilities::Deserialize(
+    return DEPRECATED_SupportedCapabilities::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -2339,25 +2333,17 @@ class  DEPRECATE_SupportedCapabilities {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::DEPRECATE_SupportedCapabilities_UnserializedMessageContext<
-            UserType, DEPRECATE_SupportedCapabilities::DataView>>();
+        internal::DEPRECATED_SupportedCapabilities_UnserializedMessageContext<
+            UserType, DEPRECATED_SupportedCapabilities::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DEPRECATE_SupportedCapabilities::DataView>(
+    return mojo::internal::DeserializeImpl<DEPRECATED_SupportedCapabilities::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
-  
-  uint8_t max_adv_len;
-  
-  uint8_t max_scn_rsp_len;
-  
-  int16_t min_tx_power;
-  
-  int16_t max_tx_power;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2370,20 +2356,20 @@ class  DEPRECATE_SupportedCapabilities {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
+template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
+template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
+template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>* = nullptr>
+template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -5945,14 +5931,14 @@ class  BluetoothResult {
 
 
 
-class  DEPRECATE_SystemResult {
+class  DEPRECATED_SystemResult {
  public:
-  using DataView = DEPRECATE_SystemResultDataView;
-  using Data_ = internal::DEPRECATE_SystemResult_Data;
-  using Tag = Data_::DEPRECATE_SystemResult_Tag;
+  using DataView = DEPRECATED_SystemResultDataView;
+  using Data_ = internal::DEPRECATED_SystemResult_Data;
+  using Tag = Data_::DEPRECATED_SystemResult_Tag;
 
   template <typename... Args>
-  static DEPRECATE_SystemResultPtr New(Args&&... args) {
+  static DEPRECATED_SystemResultPtr New(Args&&... args) {
     static_assert(
         sizeof...(args) < 0,
         "Do not use Union::New(); to create a union of a given subtype, use "
@@ -5962,48 +5948,48 @@ class  DEPRECATE_SystemResult {
     return nullptr;
   }
   // Construct an instance holding |error|.
-  static DEPRECATE_SystemResultPtr
+  static DEPRECATED_SystemResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = DEPRECATE_SystemResultPtr(absl::in_place);
+    auto result = DEPRECATED_SystemResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
 
   template <typename U>
-  static DEPRECATE_SystemResultPtr From(const U& u) {
-    return mojo::TypeConverter<DEPRECATE_SystemResultPtr, U>::Convert(u);
+  static DEPRECATED_SystemResultPtr From(const U& u) {
+    return mojo::TypeConverter<DEPRECATED_SystemResultPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, DEPRECATE_SystemResult>::Convert(*this);
+    return mojo::TypeConverter<U, DEPRECATED_SystemResult>::Convert(*this);
   }
 
-  DEPRECATE_SystemResult();
-  ~DEPRECATE_SystemResult();
+  DEPRECATED_SystemResult();
+  ~DEPRECATED_SystemResult();
   // Delete the copy constructor and copy assignment operators because `data_`
   // contains raw pointers that must not be copied.
-  DEPRECATE_SystemResult(const DEPRECATE_SystemResult& other) = delete;
-  DEPRECATE_SystemResult& operator=(const DEPRECATE_SystemResult& other) = delete;
+  DEPRECATED_SystemResult(const DEPRECATED_SystemResult& other) = delete;
+  DEPRECATED_SystemResult& operator=(const DEPRECATED_SystemResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename UnionPtrType = DEPRECATE_SystemResultPtr>
-  DEPRECATE_SystemResultPtr Clone() const;
+  template <typename UnionPtrType = DEPRECATED_SystemResultPtr>
+  DEPRECATED_SystemResultPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
   template <typename T,
             typename std::enable_if<std::is_same<
-                T, DEPRECATE_SystemResult>::value>::type* = nullptr>
+                T, DEPRECATED_SystemResult>::value>::type* = nullptr>
   bool Equals(const T& other) const;
 
   template <typename T,
             typename std::enable_if<std::is_same<
-                T, DEPRECATE_SystemResult>::value>::type* = nullptr>
+                T, DEPRECATED_SystemResult>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
   size_t Hash(size_t seed) const;
 
@@ -6028,13 +6014,13 @@ class  DEPRECATE_SystemResult {
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        DEPRECATE_SystemResult::DataView>(input);
+        DEPRECATED_SystemResult::DataView>(input);
   }
 
   template <typename UserType>
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
-    return mojo::internal::DeserializeImpl<DEPRECATE_SystemResult::DataView>(
+    return mojo::internal::DeserializeImpl<DEPRECATED_SystemResult::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
@@ -9422,7 +9408,7 @@ class  BluetoothAdapterInfo {
       absl::optional<std::vector<std::string>> uuids,
       const absl::optional<std::string>& modalias,
       absl::optional<std::vector<std::string>> service_allow_list,
-      DEPRECATE_SupportedCapabilitiesPtr deprecate_supported_capabilities);
+      DEPRECATED_SupportedCapabilitiesPtr deprecated_capabilities);
 
 BluetoothAdapterInfo(const BluetoothAdapterInfo&) = delete;
 BluetoothAdapterInfo& operator=(const BluetoothAdapterInfo&) = delete;
@@ -9522,7 +9508,7 @@ BluetoothAdapterInfo& operator=(const BluetoothAdapterInfo&) = delete;
   
   absl::optional<std::vector<std::string>> service_allow_list;
   
-  DEPRECATE_SupportedCapabilitiesPtr deprecate_supported_capabilities;
+  DEPRECATED_SupportedCapabilitiesPtr deprecated_capabilities;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -14640,7 +14626,7 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      DEPRECATE_SystemResultPtr deprecate_system_result,
+      DEPRECATED_SystemResultPtr deprecated_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
@@ -14659,7 +14645,7 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      DEPRECATE_SystemResultPtr deprecate_system_result,
+      DEPRECATED_SystemResultPtr deprecated_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
@@ -14679,7 +14665,7 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      DEPRECATE_SystemResultPtr deprecate_system_result,
+      DEPRECATED_SystemResultPtr deprecated_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
@@ -14700,7 +14686,7 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      DEPRECATE_SystemResultPtr deprecate_system_result,
+      DEPRECATED_SystemResultPtr deprecated_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
@@ -14722,7 +14708,7 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      DEPRECATE_SystemResultPtr deprecate_system_result,
+      DEPRECATED_SystemResultPtr deprecated_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
@@ -14745,7 +14731,7 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      DEPRECATE_SystemResultPtr deprecate_system_result,
+      DEPRECATED_SystemResultPtr deprecated_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
@@ -14855,7 +14841,7 @@ TelemetryInfo& operator=(const TelemetryInfo&) = delete;
   
   BluetoothResultPtr bluetooth_result;
   
-  DEPRECATE_SystemResultPtr deprecate_system_result;
+  DEPRECATED_SystemResultPtr deprecated_system_result;
   
   NetworkResultPtr network_result;
   
@@ -15406,7 +15392,7 @@ bool BluetoothResult::Equals(const T& other) const {
   return false;
 }
 template <typename UnionPtrType>
-DEPRECATE_SystemResultPtr DEPRECATE_SystemResult::Clone() const {
+DEPRECATED_SystemResultPtr DEPRECATED_SystemResult::Clone() const {
   switch (tag_) {
     case Tag::kError:
       return NewError(
@@ -15417,8 +15403,8 @@ DEPRECATE_SystemResultPtr DEPRECATE_SystemResult::Clone() const {
 
 template <typename T,
           typename std::enable_if<std::is_same<
-              T, DEPRECATE_SystemResult>::value>::type*>
-bool DEPRECATE_SystemResult::Equals(const T& other) const {
+              T, DEPRECATED_SystemResult>::value>::type*>
+bool DEPRECATED_SystemResult::Equals(const T& other) const {
   if (tag_ != other.which())
     return false;
 
@@ -17031,7 +17017,7 @@ BluetoothAdapterInfoPtr BluetoothAdapterInfo::Clone() const {
       mojo::Clone(uuids),
       mojo::Clone(modalias),
       mojo::Clone(service_allow_list),
-      mojo::Clone(deprecate_supported_capabilities)
+      mojo::Clone(deprecated_capabilities)
   );
 }
 
@@ -17057,7 +17043,7 @@ bool BluetoothAdapterInfo::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->service_allow_list, other_struct.service_allow_list))
     return false;
-  if (!mojo::Equals(this->deprecate_supported_capabilities, other_struct.deprecate_supported_capabilities))
+  if (!mojo::Equals(this->deprecated_capabilities, other_struct.deprecated_capabilities))
     return false;
   return true;
 }
@@ -17104,9 +17090,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.service_allow_list < lhs.service_allow_list)
     return false;
-  if (lhs.deprecate_supported_capabilities < rhs.deprecate_supported_capabilities)
+  if (lhs.deprecated_capabilities < rhs.deprecated_capabilities)
     return true;
-  if (rhs.deprecate_supported_capabilities < lhs.deprecate_supported_capabilities)
+  if (rhs.deprecated_capabilities < lhs.deprecated_capabilities)
     return false;
   return false;
 }
@@ -17196,46 +17182,18 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-DEPRECATE_SupportedCapabilitiesPtr DEPRECATE_SupportedCapabilities::Clone() const {
+DEPRECATED_SupportedCapabilitiesPtr DEPRECATED_SupportedCapabilities::Clone() const {
   return New(
-      mojo::Clone(max_adv_len),
-      mojo::Clone(max_scn_rsp_len),
-      mojo::Clone(min_tx_power),
-      mojo::Clone(max_tx_power)
   );
 }
 
-template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>*>
-bool DEPRECATE_SupportedCapabilities::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->max_adv_len, other_struct.max_adv_len))
-    return false;
-  if (!mojo::Equals(this->max_scn_rsp_len, other_struct.max_scn_rsp_len))
-    return false;
-  if (!mojo::Equals(this->min_tx_power, other_struct.min_tx_power))
-    return false;
-  if (!mojo::Equals(this->max_tx_power, other_struct.max_tx_power))
-    return false;
+template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>*>
+bool DEPRECATED_SupportedCapabilities::Equals(const T& other_struct) const {
   return true;
 }
 
-template <typename T, DEPRECATE_SupportedCapabilities::EnableIfSame<T>*>
+template <typename T, DEPRECATED_SupportedCapabilities::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.max_adv_len < rhs.max_adv_len)
-    return true;
-  if (rhs.max_adv_len < lhs.max_adv_len)
-    return false;
-  if (lhs.max_scn_rsp_len < rhs.max_scn_rsp_len)
-    return true;
-  if (rhs.max_scn_rsp_len < lhs.max_scn_rsp_len)
-    return false;
-  if (lhs.min_tx_power < rhs.min_tx_power)
-    return true;
-  if (rhs.min_tx_power < lhs.min_tx_power)
-    return false;
-  if (lhs.max_tx_power < rhs.max_tx_power)
-    return true;
-  if (rhs.max_tx_power < lhs.max_tx_power)
-    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -19347,7 +19305,7 @@ TelemetryInfoPtr TelemetryInfo::Clone() const {
       mojo::Clone(fan_result),
       mojo::Clone(stateful_partition_result),
       mojo::Clone(bluetooth_result),
-      mojo::Clone(deprecate_system_result),
+      mojo::Clone(deprecated_system_result),
       mojo::Clone(network_result),
       mojo::Clone(audio_result),
       mojo::Clone(boot_performance_result),
@@ -19383,7 +19341,7 @@ bool TelemetryInfo::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->bluetooth_result, other_struct.bluetooth_result))
     return false;
-  if (!mojo::Equals(this->deprecate_system_result, other_struct.deprecate_system_result))
+  if (!mojo::Equals(this->deprecated_system_result, other_struct.deprecated_system_result))
     return false;
   if (!mojo::Equals(this->network_result, other_struct.network_result))
     return false;
@@ -19450,9 +19408,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.bluetooth_result < lhs.bluetooth_result)
     return false;
-  if (lhs.deprecate_system_result < rhs.deprecate_system_result)
+  if (lhs.deprecated_system_result < rhs.deprecated_system_result)
     return true;
-  if (rhs.deprecate_system_result < lhs.deprecate_system_result)
+  if (rhs.deprecated_system_result < lhs.deprecated_system_result)
     return false;
   if (lhs.network_result < rhs.network_result)
     return true;
@@ -20392,9 +20350,9 @@ struct  StructTraits<::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView,
     return input->service_allow_list;
   }
 
-  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::deprecate_supported_capabilities)& deprecate_supported_capabilities(
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::deprecated_capabilities)& deprecated_capabilities(
       const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
-    return input->deprecate_supported_capabilities;
+    return input->deprecated_capabilities;
   }
 
   static bool Read(::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView input, ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr* output);
@@ -20462,32 +20420,12 @@ struct  StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView,
 
 
 template <>
-struct  StructTraits<::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::DataView,
-                                         ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::DEPRECATED_SupportedCapabilities::DataView,
+                                         ::ash::cros_healthd::mojom::DEPRECATED_SupportedCapabilitiesPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DEPRECATED_SupportedCapabilitiesPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DEPRECATED_SupportedCapabilitiesPtr* output) { output->reset(); }
 
-  static decltype(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::max_adv_len) max_adv_len(
-      const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) {
-    return input->max_adv_len;
-  }
-
-  static decltype(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::max_scn_rsp_len) max_scn_rsp_len(
-      const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) {
-    return input->max_scn_rsp_len;
-  }
-
-  static decltype(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::min_tx_power) min_tx_power(
-      const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) {
-    return input->min_tx_power;
-  }
-
-  static decltype(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::max_tx_power) max_tx_power(
-      const ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr& input) {
-    return input->max_tx_power;
-  }
-
-  static bool Read(::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilities::DataView input, ::ash::cros_healthd::mojom::DEPRECATE_SupportedCapabilitiesPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::DEPRECATED_SupportedCapabilities::DataView input, ::ash::cros_healthd::mojom::DEPRECATED_SupportedCapabilitiesPtr* output);
 };
 
 
@@ -22012,9 +21950,9 @@ struct  StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView,
     return input->bluetooth_result;
   }
 
-  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::deprecate_system_result)& deprecate_system_result(
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::deprecated_system_result)& deprecated_system_result(
       const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
-    return input->deprecate_system_result;
+    return input->deprecated_system_result;
   }
 
   static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::network_result)& network_result(
@@ -22460,20 +22398,20 @@ struct  UnionTraits<::ash::cros_healthd::mojom::BluetoothResult::DataView,
 
 
 template <>
-struct  UnionTraits<::ash::cros_healthd::mojom::DEPRECATE_SystemResult::DataView,
-                                        ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::DEPRECATED_SystemResult::DataView,
+                                        ::ash::cros_healthd::mojom::DEPRECATED_SystemResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DEPRECATED_SystemResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DEPRECATED_SystemResultPtr* output) { output->reset(); }
 
-  static ::ash::cros_healthd::mojom::DEPRECATE_SystemResult::Tag GetTag(const ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) {
+  static ::ash::cros_healthd::mojom::DEPRECATED_SystemResult::Tag GetTag(const ::ash::cros_healthd::mojom::DEPRECATED_SystemResultPtr& input) {
     return input->which();
   }
 
-  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::DEPRECATED_SystemResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::ash::cros_healthd::mojom::DEPRECATE_SystemResult::DataView input, ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::DEPRECATED_SystemResult::DataView input, ::ash::cros_healthd::mojom::DEPRECATED_SystemResultPtr* output);
 };
 
 

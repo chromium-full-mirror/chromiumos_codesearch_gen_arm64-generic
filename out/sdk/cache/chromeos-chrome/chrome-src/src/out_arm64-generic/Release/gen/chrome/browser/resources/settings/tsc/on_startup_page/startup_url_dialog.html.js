@@ -1,0 +1,17 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
+    <cr-dialog id="dialog" close-text="$i18n{close}">
+      <div slot="title">[[dialogTitle_]]</div>
+      <div slot="body">
+        <cr-input id="url" label="$i18n{onStartupSiteUrl}" value="{{url_}}" on-input="validate_" spellcheck="false" maxlength="[[urlLimit_]]" invalid="[[hasError_(error_)]]" autofocus error-message="[[errorMessage_('$i18nPolymer{onStartupInvalidUrl}',
+                '$i18nPolymer{onStartupUrlTooLong}', error_)]]">
+        </cr-input>
+      </div>
+      <div slot="button-container">
+        <cr-button class="cancel-button" on-click="onCancelClick_" id="cancel">$i18n{cancel}</cr-button>
+        <cr-button id="actionButton" class="action-button" on-click="onActionButtonClick_">[[actionButtonText_]]</cr-button>
+      </div>
+    </cr-dialog>
+<!--_html_template_end_-->`;
+}

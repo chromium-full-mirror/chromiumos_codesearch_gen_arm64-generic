@@ -38,7 +38,8 @@ PROTOBUF_CONSTEXPR EnqueueRecordResponse::EnqueueRecordResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.status_)*/nullptr} {}
+  , /*decltype(_impl_.status_)*/nullptr
+  , /*decltype(_impl_.health_data_)*/nullptr} {}
 struct EnqueueRecordResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EnqueueRecordResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -52,6 +53,7 @@ PROTOBUF_CONSTEXPR FlushPriorityRequest::FlushPriorityRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.health_data_logging_enabled_)*/false
   , /*decltype(_impl_.priority_)*/5} {}
 struct FlushPriorityRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FlushPriorityRequestDefaultTypeInternal()
@@ -66,7 +68,8 @@ PROTOBUF_CONSTEXPR FlushPriorityResponse::FlushPriorityResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.status_)*/nullptr} {}
+  , /*decltype(_impl_.status_)*/nullptr
+  , /*decltype(_impl_.health_data_)*/nullptr} {}
 struct FlushPriorityResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FlushPriorityResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -115,7 +118,8 @@ PROTOBUF_CONSTEXPR ConfirmRecordUploadRequest::ConfirmRecordUploadRequest(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.sequence_information_)*/nullptr
-  , /*decltype(_impl_.force_confirm_)*/false} {}
+  , /*decltype(_impl_.force_confirm_)*/false
+  , /*decltype(_impl_.health_data_logging_enabled_)*/false} {}
 struct ConfirmRecordUploadRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ConfirmRecordUploadRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -129,7 +133,8 @@ PROTOBUF_CONSTEXPR ConfirmRecordUploadResponse::ConfirmRecordUploadResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.status_)*/nullptr} {}
+  , /*decltype(_impl_.status_)*/nullptr
+  , /*decltype(_impl_.health_data_)*/nullptr} {}
 struct ConfirmRecordUploadResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ConfirmRecordUploadResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -500,15 +505,27 @@ class EnqueueRecordResponse::_Internal {
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::reporting::ERPHealthData& health_data(const EnqueueRecordResponse* msg);
+  static void set_has_health_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::reporting::StatusProto&
 EnqueueRecordResponse::_Internal::status(const EnqueueRecordResponse* msg) {
   return *msg->_impl_.status_;
 }
+const ::reporting::ERPHealthData&
+EnqueueRecordResponse::_Internal::health_data(const EnqueueRecordResponse* msg) {
+  return *msg->_impl_.health_data_;
+}
 void EnqueueRecordResponse::clear_status() {
   if (_impl_.status_ != nullptr) _impl_.status_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
+}
+void EnqueueRecordResponse::clear_health_data() {
+  if (_impl_.health_data_ != nullptr) _impl_.health_data_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 EnqueueRecordResponse::EnqueueRecordResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -522,11 +539,15 @@ EnqueueRecordResponse::EnqueueRecordResponse(const EnqueueRecordResponse& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.status_){nullptr}};
+    , decltype(_impl_.status_){nullptr}
+    , decltype(_impl_.health_data_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_status()) {
     _this->_impl_.status_ = new ::reporting::StatusProto(*from._impl_.status_);
+  }
+  if (from._internal_has_health_data()) {
+    _this->_impl_.health_data_ = new ::reporting::ERPHealthData(*from._impl_.health_data_);
   }
   // @@protoc_insertion_point(copy_constructor:reporting.EnqueueRecordResponse)
 }
@@ -539,6 +560,7 @@ inline void EnqueueRecordResponse::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.status_){nullptr}
+    , decltype(_impl_.health_data_){nullptr}
   };
 }
 
@@ -554,6 +576,7 @@ EnqueueRecordResponse::~EnqueueRecordResponse() {
 inline void EnqueueRecordResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.status_;
+  if (this != internal_default_instance()) delete _impl_.health_data_;
 }
 
 void EnqueueRecordResponse::SetCachedSize(int size) const {
@@ -567,9 +590,15 @@ void EnqueueRecordResponse::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.status_ != nullptr);
-    _impl_.status_->Clear();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(_impl_.status_ != nullptr);
+      _impl_.status_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(_impl_.health_data_ != nullptr);
+      _impl_.health_data_->Clear();
+    }
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -586,6 +615,14 @@ const char* EnqueueRecordResponse::_InternalParse(const char* ptr, ::_pbi::Parse
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .reporting.ERPHealthData health_data = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_health_data(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -628,6 +665,13 @@ uint8_t* EnqueueRecordResponse::_InternalSerialize(
         _Internal::status(this).GetCachedSize(), target, stream);
   }
 
+  // optional .reporting.ERPHealthData health_data = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::health_data(this),
+        _Internal::health_data(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -644,14 +688,23 @@ size_t EnqueueRecordResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .reporting.StatusProto status = 1;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.status_);
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional .reporting.StatusProto status = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.status_);
+    }
 
+    // optional .reporting.ERPHealthData health_data = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.health_data_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -673,9 +726,16 @@ void EnqueueRecordResponse::MergeFrom(const EnqueueRecordResponse& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_status()) {
-    _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
-        from._internal_status());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
+          from._internal_status());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_health_data()->::reporting::ERPHealthData::MergeFrom(
+          from._internal_health_data());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -695,7 +755,12 @@ void EnqueueRecordResponse::InternalSwap(EnqueueRecordResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  swap(_impl_.status_, other->_impl_.status_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(EnqueueRecordResponse, _impl_.health_data_)
+      + sizeof(EnqueueRecordResponse::_impl_.health_data_)
+      - PROTOBUF_FIELD_OFFSET(EnqueueRecordResponse, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string EnqueueRecordResponse::GetTypeName() const {
@@ -709,6 +774,9 @@ class FlushPriorityRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<FlushPriorityRequest>()._impl_._has_bits_);
   static void set_has_priority(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_health_data_logging_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
@@ -725,10 +793,13 @@ FlushPriorityRequest::FlushPriorityRequest(const FlushPriorityRequest& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.health_data_logging_enabled_){}
     , decltype(_impl_.priority_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.priority_ = from._impl_.priority_;
+  ::memcpy(&_impl_.health_data_logging_enabled_, &from._impl_.health_data_logging_enabled_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.priority_) -
+    reinterpret_cast<char*>(&_impl_.health_data_logging_enabled_)) + sizeof(_impl_.priority_));
   // @@protoc_insertion_point(copy_constructor:reporting.FlushPriorityRequest)
 }
 
@@ -739,6 +810,7 @@ inline void FlushPriorityRequest::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.health_data_logging_enabled_){false}
     , decltype(_impl_.priority_){5}
   };
 }
@@ -766,7 +838,11 @@ void FlushPriorityRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.priority_ = 5;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    _impl_.health_data_logging_enabled_ = false;
+    _impl_.priority_ = 5;
+  }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -788,6 +864,15 @@ const char* FlushPriorityRequest::_InternalParse(const char* ptr, ::_pbi::ParseC
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool health_data_logging_enabled = 2 [default = false];
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_health_data_logging_enabled(&has_bits);
+          _impl_.health_data_logging_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -823,10 +908,16 @@ uint8_t* FlushPriorityRequest::_InternalSerialize(
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional .reporting.Priority priority = 1 [default = MANUAL_BATCH];
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_priority(), target);
+  }
+
+  // optional bool health_data_logging_enabled = 2 [default = false];
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_health_data_logging_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -845,13 +936,20 @@ size_t FlushPriorityRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .reporting.Priority priority = 1 [default = MANUAL_BATCH];
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_priority());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional bool health_data_logging_enabled = 2 [default = false];
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + 1;
+    }
 
+    // optional .reporting.Priority priority = 1 [default = MANUAL_BATCH];
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_priority());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -873,8 +971,15 @@ void FlushPriorityRequest::MergeFrom(const FlushPriorityRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_priority()) {
-    _this->_internal_set_priority(from._internal_priority());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_impl_.health_data_logging_enabled_ = from._impl_.health_data_logging_enabled_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.priority_ = from._impl_.priority_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -894,6 +999,7 @@ void FlushPriorityRequest::InternalSwap(FlushPriorityRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.health_data_logging_enabled_, other->_impl_.health_data_logging_enabled_);
   swap(_impl_.priority_, other->_impl_.priority_);
 }
 
@@ -911,15 +1017,27 @@ class FlushPriorityResponse::_Internal {
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::reporting::ERPHealthData& health_data(const FlushPriorityResponse* msg);
+  static void set_has_health_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::reporting::StatusProto&
 FlushPriorityResponse::_Internal::status(const FlushPriorityResponse* msg) {
   return *msg->_impl_.status_;
 }
+const ::reporting::ERPHealthData&
+FlushPriorityResponse::_Internal::health_data(const FlushPriorityResponse* msg) {
+  return *msg->_impl_.health_data_;
+}
 void FlushPriorityResponse::clear_status() {
   if (_impl_.status_ != nullptr) _impl_.status_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
+}
+void FlushPriorityResponse::clear_health_data() {
+  if (_impl_.health_data_ != nullptr) _impl_.health_data_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 FlushPriorityResponse::FlushPriorityResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -933,11 +1051,15 @@ FlushPriorityResponse::FlushPriorityResponse(const FlushPriorityResponse& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.status_){nullptr}};
+    , decltype(_impl_.status_){nullptr}
+    , decltype(_impl_.health_data_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_status()) {
     _this->_impl_.status_ = new ::reporting::StatusProto(*from._impl_.status_);
+  }
+  if (from._internal_has_health_data()) {
+    _this->_impl_.health_data_ = new ::reporting::ERPHealthData(*from._impl_.health_data_);
   }
   // @@protoc_insertion_point(copy_constructor:reporting.FlushPriorityResponse)
 }
@@ -950,6 +1072,7 @@ inline void FlushPriorityResponse::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.status_){nullptr}
+    , decltype(_impl_.health_data_){nullptr}
   };
 }
 
@@ -965,6 +1088,7 @@ FlushPriorityResponse::~FlushPriorityResponse() {
 inline void FlushPriorityResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.status_;
+  if (this != internal_default_instance()) delete _impl_.health_data_;
 }
 
 void FlushPriorityResponse::SetCachedSize(int size) const {
@@ -978,9 +1102,15 @@ void FlushPriorityResponse::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.status_ != nullptr);
-    _impl_.status_->Clear();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(_impl_.status_ != nullptr);
+      _impl_.status_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(_impl_.health_data_ != nullptr);
+      _impl_.health_data_->Clear();
+    }
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -997,6 +1127,14 @@ const char* FlushPriorityResponse::_InternalParse(const char* ptr, ::_pbi::Parse
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .reporting.ERPHealthData health_data = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_health_data(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1039,6 +1177,13 @@ uint8_t* FlushPriorityResponse::_InternalSerialize(
         _Internal::status(this).GetCachedSize(), target, stream);
   }
 
+  // optional .reporting.ERPHealthData health_data = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::health_data(this),
+        _Internal::health_data(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1055,14 +1200,23 @@ size_t FlushPriorityResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .reporting.StatusProto status = 1;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.status_);
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional .reporting.StatusProto status = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.status_);
+    }
 
+    // optional .reporting.ERPHealthData health_data = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.health_data_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1084,9 +1238,16 @@ void FlushPriorityResponse::MergeFrom(const FlushPriorityResponse& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_status()) {
-    _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
-        from._internal_status());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
+          from._internal_status());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_health_data()->::reporting::ERPHealthData::MergeFrom(
+          from._internal_health_data());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1106,7 +1267,12 @@ void FlushPriorityResponse::InternalSwap(FlushPriorityResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  swap(_impl_.status_, other->_impl_.status_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FlushPriorityResponse, _impl_.health_data_)
+      + sizeof(FlushPriorityResponse::_impl_.health_data_)
+      - PROTOBUF_FIELD_OFFSET(FlushPriorityResponse, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string FlushPriorityResponse::GetTypeName() const {
@@ -1763,6 +1929,9 @@ class ConfirmRecordUploadRequest::_Internal {
   static void set_has_force_confirm(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_health_data_logging_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 const ::reporting::SequenceInformation&
@@ -1786,13 +1955,16 @@ ConfirmRecordUploadRequest::ConfirmRecordUploadRequest(const ConfirmRecordUpload
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sequence_information_){nullptr}
-    , decltype(_impl_.force_confirm_){}};
+    , decltype(_impl_.force_confirm_){}
+    , decltype(_impl_.health_data_logging_enabled_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_sequence_information()) {
     _this->_impl_.sequence_information_ = new ::reporting::SequenceInformation(*from._impl_.sequence_information_);
   }
-  _this->_impl_.force_confirm_ = from._impl_.force_confirm_;
+  ::memcpy(&_impl_.force_confirm_, &from._impl_.force_confirm_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.health_data_logging_enabled_) -
+    reinterpret_cast<char*>(&_impl_.force_confirm_)) + sizeof(_impl_.health_data_logging_enabled_));
   // @@protoc_insertion_point(copy_constructor:reporting.ConfirmRecordUploadRequest)
 }
 
@@ -1805,6 +1977,7 @@ inline void ConfirmRecordUploadRequest::SharedCtor(
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.sequence_information_){nullptr}
     , decltype(_impl_.force_confirm_){false}
+    , decltype(_impl_.health_data_logging_enabled_){false}
   };
 }
 
@@ -1837,7 +2010,9 @@ void ConfirmRecordUploadRequest::Clear() {
     GOOGLE_DCHECK(_impl_.sequence_information_ != nullptr);
     _impl_.sequence_information_->Clear();
   }
-  _impl_.force_confirm_ = false;
+  ::memset(&_impl_.force_confirm_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.health_data_logging_enabled_) -
+      reinterpret_cast<char*>(&_impl_.force_confirm_)) + sizeof(_impl_.health_data_logging_enabled_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1862,6 +2037,15 @@ const char* ConfirmRecordUploadRequest::_InternalParse(const char* ptr, ::_pbi::
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_force_confirm(&has_bits);
           _impl_.force_confirm_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool health_data_logging_enabled = 3 [default = false];
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _Internal::set_has_health_data_logging_enabled(&has_bits);
+          _impl_.health_data_logging_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1910,6 +2094,12 @@ uint8_t* ConfirmRecordUploadRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_force_confirm(), target);
   }
 
+  // optional bool health_data_logging_enabled = 3 [default = false];
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_health_data_logging_enabled(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1927,7 +2117,7 @@ size_t ConfirmRecordUploadRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional .reporting.SequenceInformation sequence_information = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1937,6 +2127,11 @@ size_t ConfirmRecordUploadRequest::ByteSizeLong() const {
 
     // optional bool force_confirm = 2;
     if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool health_data_logging_enabled = 3 [default = false];
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 + 1;
     }
 
@@ -1963,13 +2158,16 @@ void ConfirmRecordUploadRequest::MergeFrom(const ConfirmRecordUploadRequest& fro
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_mutable_sequence_information()->::reporting::SequenceInformation::MergeFrom(
           from._internal_sequence_information());
     }
     if (cached_has_bits & 0x00000002u) {
       _this->_impl_.force_confirm_ = from._impl_.force_confirm_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _this->_impl_.health_data_logging_enabled_ = from._impl_.health_data_logging_enabled_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
@@ -1992,8 +2190,8 @@ void ConfirmRecordUploadRequest::InternalSwap(ConfirmRecordUploadRequest* other)
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ConfirmRecordUploadRequest, _impl_.force_confirm_)
-      + sizeof(ConfirmRecordUploadRequest::_impl_.force_confirm_)
+      PROTOBUF_FIELD_OFFSET(ConfirmRecordUploadRequest, _impl_.health_data_logging_enabled_)
+      + sizeof(ConfirmRecordUploadRequest::_impl_.health_data_logging_enabled_)
       - PROTOBUF_FIELD_OFFSET(ConfirmRecordUploadRequest, _impl_.sequence_information_)>(
           reinterpret_cast<char*>(&_impl_.sequence_information_),
           reinterpret_cast<char*>(&other->_impl_.sequence_information_));
@@ -2013,15 +2211,27 @@ class ConfirmRecordUploadResponse::_Internal {
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::reporting::ERPHealthData& health_data(const ConfirmRecordUploadResponse* msg);
+  static void set_has_health_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::reporting::StatusProto&
 ConfirmRecordUploadResponse::_Internal::status(const ConfirmRecordUploadResponse* msg) {
   return *msg->_impl_.status_;
 }
+const ::reporting::ERPHealthData&
+ConfirmRecordUploadResponse::_Internal::health_data(const ConfirmRecordUploadResponse* msg) {
+  return *msg->_impl_.health_data_;
+}
 void ConfirmRecordUploadResponse::clear_status() {
   if (_impl_.status_ != nullptr) _impl_.status_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
+}
+void ConfirmRecordUploadResponse::clear_health_data() {
+  if (_impl_.health_data_ != nullptr) _impl_.health_data_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 ConfirmRecordUploadResponse::ConfirmRecordUploadResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -2035,11 +2245,15 @@ ConfirmRecordUploadResponse::ConfirmRecordUploadResponse(const ConfirmRecordUplo
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.status_){nullptr}};
+    , decltype(_impl_.status_){nullptr}
+    , decltype(_impl_.health_data_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_status()) {
     _this->_impl_.status_ = new ::reporting::StatusProto(*from._impl_.status_);
+  }
+  if (from._internal_has_health_data()) {
+    _this->_impl_.health_data_ = new ::reporting::ERPHealthData(*from._impl_.health_data_);
   }
   // @@protoc_insertion_point(copy_constructor:reporting.ConfirmRecordUploadResponse)
 }
@@ -2052,6 +2266,7 @@ inline void ConfirmRecordUploadResponse::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.status_){nullptr}
+    , decltype(_impl_.health_data_){nullptr}
   };
 }
 
@@ -2067,6 +2282,7 @@ ConfirmRecordUploadResponse::~ConfirmRecordUploadResponse() {
 inline void ConfirmRecordUploadResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.status_;
+  if (this != internal_default_instance()) delete _impl_.health_data_;
 }
 
 void ConfirmRecordUploadResponse::SetCachedSize(int size) const {
@@ -2080,9 +2296,15 @@ void ConfirmRecordUploadResponse::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.status_ != nullptr);
-    _impl_.status_->Clear();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(_impl_.status_ != nullptr);
+      _impl_.status_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(_impl_.health_data_ != nullptr);
+      _impl_.health_data_->Clear();
+    }
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2099,6 +2321,14 @@ const char* ConfirmRecordUploadResponse::_InternalParse(const char* ptr, ::_pbi:
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .reporting.ERPHealthData health_data = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_health_data(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2141,6 +2371,13 @@ uint8_t* ConfirmRecordUploadResponse::_InternalSerialize(
         _Internal::status(this).GetCachedSize(), target, stream);
   }
 
+  // optional .reporting.ERPHealthData health_data = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::health_data(this),
+        _Internal::health_data(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2157,14 +2394,23 @@ size_t ConfirmRecordUploadResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .reporting.StatusProto status = 1;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.status_);
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional .reporting.StatusProto status = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.status_);
+    }
 
+    // optional .reporting.ERPHealthData health_data = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.health_data_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2186,9 +2432,16 @@ void ConfirmRecordUploadResponse::MergeFrom(const ConfirmRecordUploadResponse& f
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_status()) {
-    _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
-        from._internal_status());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
+          from._internal_status());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_health_data()->::reporting::ERPHealthData::MergeFrom(
+          from._internal_health_data());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -2208,7 +2461,12 @@ void ConfirmRecordUploadResponse::InternalSwap(ConfirmRecordUploadResponse* othe
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  swap(_impl_.status_, other->_impl_.status_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ConfirmRecordUploadResponse, _impl_.health_data_)
+      + sizeof(ConfirmRecordUploadResponse::_impl_.health_data_)
+      - PROTOBUF_FIELD_OFFSET(ConfirmRecordUploadResponse, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string ConfirmRecordUploadResponse::GetTypeName() const {

@@ -231,13 +231,15 @@ bool ResizePriority_IsValid(int value) {
     case 7:
     case 8:
     case 9:
+    case 10:
+    case 11:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ResizePriority_strings[10] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ResizePriority_strings[12] = {};
 
 static const char ResizePriority_names[] =
   "RESIZE_PRIORITY_BALLOON_STALL"
@@ -248,7 +250,8 @@ static const char ResizePriority_names[] =
   "RESIZE_PRIORITY_HIGHEST"
   "RESIZE_PRIORITY_LOWEST"
   "RESIZE_PRIORITY_MGLRU_RECLAIM"
-  "RESIZE_PRIORITY_NO_KILL_CANDIDATES"
+  "RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST"
+  "RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST"
   "RESIZE_PRIORITY_N_PRIORITIES"
   "RESIZE_PRIORITY_PERCEPTIBLE_APP"
   "RESIZE_PRIORITY_PERCEPTIBLE_TAB"
@@ -256,31 +259,34 @@ static const char ResizePriority_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ResizePriority_entries[] = {
   { {ResizePriority_names + 0, 29}, 1 },
-  { {ResizePriority_names + 29, 26}, 7 },
-  { {ResizePriority_names + 55, 26}, 7 },
-  { {ResizePriority_names + 81, 27}, 4 },
-  { {ResizePriority_names + 108, 27}, 3 },
+  { {ResizePriority_names + 29, 26}, 9 },
+  { {ResizePriority_names + 55, 26}, 8 },
+  { {ResizePriority_names + 81, 27}, 5 },
+  { {ResizePriority_names + 108, 27}, 4 },
   { {ResizePriority_names + 135, 23}, 1 },
-  { {ResizePriority_names + 158, 22}, 8 },
-  { {ResizePriority_names + 180, 29}, 8 },
-  { {ResizePriority_names + 209, 34}, 2 },
-  { {ResizePriority_names + 243, 28}, 9 },
-  { {ResizePriority_names + 271, 31}, 6 },
-  { {ResizePriority_names + 302, 31}, 5 },
-  { {ResizePriority_names + 333, 27}, 0 },
+  { {ResizePriority_names + 158, 22}, 10 },
+  { {ResizePriority_names + 180, 29}, 10 },
+  { {ResizePriority_names + 209, 40}, 3 },
+  { {ResizePriority_names + 249, 39}, 2 },
+  { {ResizePriority_names + 288, 28}, 11 },
+  { {ResizePriority_names + 316, 31}, 7 },
+  { {ResizePriority_names + 347, 31}, 6 },
+  { {ResizePriority_names + 378, 27}, 0 },
 };
 
 static const int ResizePriority_entries_by_number[] = {
-  12, // 0 -> RESIZE_PRIORITY_UNSPECIFIED
+  13, // 0 -> RESIZE_PRIORITY_UNSPECIFIED
   5, // 1 -> RESIZE_PRIORITY_HIGHEST
-  8, // 2 -> RESIZE_PRIORITY_NO_KILL_CANDIDATES
-  4, // 3 -> RESIZE_PRIORITY_FOCUSED_TAB
-  3, // 4 -> RESIZE_PRIORITY_FOCUSED_APP
-  11, // 5 -> RESIZE_PRIORITY_PERCEPTIBLE_TAB
-  10, // 6 -> RESIZE_PRIORITY_PERCEPTIBLE_APP
-  2, // 7 -> RESIZE_PRIORITY_CACHED_TAB
-  7, // 8 -> RESIZE_PRIORITY_MGLRU_RECLAIM
-  9, // 9 -> RESIZE_PRIORITY_N_PRIORITIES
+  9, // 2 -> RESIZE_PRIORITY_NO_KILL_CANDIDATES_HOST
+  8, // 3 -> RESIZE_PRIORITY_NO_KILL_CANDIDATES_GUEST
+  4, // 4 -> RESIZE_PRIORITY_FOCUSED_TAB
+  3, // 5 -> RESIZE_PRIORITY_FOCUSED_APP
+  12, // 6 -> RESIZE_PRIORITY_PERCEPTIBLE_TAB
+  11, // 7 -> RESIZE_PRIORITY_PERCEPTIBLE_APP
+  2, // 8 -> RESIZE_PRIORITY_CACHED_TAB
+  1, // 9 -> RESIZE_PRIORITY_CACHED_APP
+  7, // 10 -> RESIZE_PRIORITY_MGLRU_RECLAIM
+  10, // 11 -> RESIZE_PRIORITY_N_PRIORITIES
 };
 
 const std::string& ResizePriority_Name(
@@ -289,12 +295,12 @@ const std::string& ResizePriority_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ResizePriority_entries,
           ResizePriority_entries_by_number,
-          10, ResizePriority_strings);
+          12, ResizePriority_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ResizePriority_entries,
       ResizePriority_entries_by_number,
-      10, value);
+      12, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ResizePriority_strings[idx].get();
 }
@@ -302,7 +308,7 @@ bool ResizePriority_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ResizePriority* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ResizePriority_entries, 13, name, &int_value);
+      ResizePriority_entries, 14, name, &int_value);
   if (success) {
     *value = static_cast<ResizePriority>(int_value);
   }

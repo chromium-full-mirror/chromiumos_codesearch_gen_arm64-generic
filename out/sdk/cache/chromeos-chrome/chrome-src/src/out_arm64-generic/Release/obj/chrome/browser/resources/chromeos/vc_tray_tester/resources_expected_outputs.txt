@@ -1,0 +1,4 @@
+gen/chrome/grit/vc_tray_tester_resources.h
+gen/chrome/grit/vc_tray_tester_resources_map.cc
+gen/chrome/grit/vc_tray_tester_resources_map.h
+gen/chrome/vc_tray_tester_resources.pak

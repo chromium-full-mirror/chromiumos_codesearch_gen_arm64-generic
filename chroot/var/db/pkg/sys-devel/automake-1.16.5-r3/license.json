@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "automake", "version": "1.16.5", "revision": 3, "fullname": "sys-devel/automake", "fullnamerev": "sys-devel/automake-1.16.5-r3", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/automake/"], "skip": false, "tainted": false, "ebuild_path": null}

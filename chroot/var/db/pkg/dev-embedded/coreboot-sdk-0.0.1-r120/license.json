@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-embedded", "name": "coreboot-sdk", "version": "0.0.1", "revision": 120, "fullname": "dev-embedded/coreboot-sdk", "fullnamerev": "dev-embedded/coreboot-sdk-0.0.1-r120", "license_names": ["GPL-3", "LGPL-3"], "license_text_scanned": [], "homepages": ["https://www.coreboot.org"], "skip": false, "tainted": false, "ebuild_path": null}

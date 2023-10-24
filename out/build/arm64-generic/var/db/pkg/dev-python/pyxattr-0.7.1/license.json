@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-python", "name": "pyxattr", "version": "0.7.1", "revision": 0, "fullname": "dev-python/pyxattr", "fullnamerev": "dev-python/pyxattr-0.7.1", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://pyxattr.k1024.org/"], "skip": false, "tainted": false, "ebuild_path": null}

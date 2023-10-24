@@ -67,14 +67,6 @@ struct FromFlatBuffer<::cryptohome::structure::ChallengeSignatureAlgorithm> {
     return static_cast<::cryptohome::structure::ChallengeSignatureAlgorithm>(
         object);
   }
-
-  ::cryptohome::structure::ChallengeSignatureAlgorithm operator()(
-      std::underlying_type_t<
-          ::cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm>
-          object) const {
-    return static_cast<::cryptohome::structure::ChallengeSignatureAlgorithm>(
-        object);
-  }
 };
 
 }  // namespace hwsec_foundation

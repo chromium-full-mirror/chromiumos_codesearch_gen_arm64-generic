@@ -1,0 +1,1 @@
+{"pdf_internal_plugin_wrapper.rollup.js": ["../tsc/gesture_detector.js", "../tsc/swipe_detector.js", "../tsc/viewport_scroller.js", "../tsc/pdf_internal_plugin_wrapper.js"]}

@@ -1,0 +1,183 @@
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import '../common/icons.html.js';
+import '../css/shortcut_customization_shared.css.js';
+import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/cr_elements/cr_icons.css.js';
+import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
+import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
+import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
+import { getTemplate } from './accelerator_edit_view.html.js';
+import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
+import { AcceleratorViewElement, ViewState } from './accelerator_view.js';
+import { getShortcutProvider } from './mojo_interface_provider.js';
+import { AcceleratorConfigResult, AcceleratorKeyState, AcceleratorState, AcceleratorType } from './shortcut_types.js';
+import { getAccelerator } from './shortcut_utils.js';
+const accelerator = {
+    modifiers: 0,
+    keyCode: 0,
+    keyState: AcceleratorKeyState.PRESSED,
+};
+const standardAcceleratorInfoState = {
+    locked: false,
+    state: AcceleratorState.kEnabled,
+    type: AcceleratorType.kDefault,
+    layoutProperties: {
+        standardAccelerator: {
+            accelerator,
+            keyDisplay: '',
+        },
+    },
+};
+/**
+ * @fileoverview
+ * 'accelerator-edit-view' is a wrapper component for one accelerator. It is
+ * responsible for displaying the edit/remove buttons to an accelerator and also
+ * displaying context or errors strings for an accelerator.
+ */
+const AcceleratorEditViewElementBase = I18nMixin(PolymerElement);
+export class AcceleratorEditViewElement extends AcceleratorEditViewElementBase {
+    static get is() {
+        return 'accelerator-edit-view';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            acceleratorInfo: {
+                type: Object,
+                value: standardAcceleratorInfoState,
+            },
+            isEditView: {
+                type: Boolean,
+                computed: 'showEditView(viewState)',
+                reflectToAttribute: true,
+            },
+            viewState: {
+                type: Number,
+                value: ViewState.VIEW,
+                notify: true,
+            },
+            statusMessage: {
+                type: String,
+                value: '',
+                observer: AcceleratorEditViewElement.prototype.onStatusMessageChanged,
+            },
+            hasError: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            action: {
+                type: Number,
+                value: 0,
+            },
+            source: {
+                type: Number,
+                value: 0,
+            },
+        };
+    }
+    constructor() {
+        super();
+        this.cancelButtonClicked = false;
+        this.shortcutProvider = getShortcutProvider();
+        this.lookupManager = AcceleratorLookupManager.getInstance();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.addEventListener('blur', this.onBlur);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener('blur', this.onBlur);
+    }
+    async onStatusMessageChanged() {
+        if (this.statusMessage === '') {
+            if (this.acceleratorInfo.state === AcceleratorState.kDisabledByUser &&
+                this.viewState !== ViewState.EDIT) {
+                this.hasError = true;
+                const configResult = await this.shortcutProvider.getConflictAccelerator(this.source, this.action, getAccelerator(this.acceleratorInfo));
+                if (configResult.result.result === AcceleratorConfigResult.kConflict) {
+                    this.statusMessage = this.i18n('restoreDefaultConflictMessage', mojoString16ToString(configResult.result.shortcutName));
+                }
+                return;
+            }
+            else {
+                this.statusMessage = this.i18n('editViewStatusMessage');
+            }
+        }
+    }
+    onEditButtonClicked() {
+        // Reset the error messages upon clicking the edit button.
+        this.viewState = ViewState.EDIT;
+        this.statusMessage = '';
+        this.hasError = false;
+        getShortcutProvider().recordUserAction(UserAction.kStartReplaceAccelerator);
+    }
+    async onDeleteButtonClicked() {
+        const accelerator = getAccelerator(this.acceleratorInfo);
+        // Do not attempt to remove an already disabled accelerator.
+        if (this.acceleratorInfo.state === AcceleratorState.kDisabledByUser) {
+            // Clicking the delete button on a disabled accelerator is a no-opt, but
+            // should be marked as though the conflict has been resolved.
+            this.dispatchEvent(new CustomEvent('default-conflict-resolved', {
+                bubbles: true,
+                composed: true,
+                detail: { stringifiedAccelerator: JSON.stringify(accelerator) },
+            }));
+            // Re-trigger the top-level update to re-fetch the dialog accelerators.
+            this.dispatchEvent(new CustomEvent('request-update-accelerator', {
+                bubbles: true,
+                composed: true,
+                detail: { source: this.source, action: this.action },
+            }));
+            return;
+        }
+        // Check if the accelerator is an alias, if so use the original accelerator.
+        const originalAccelerator = this.acceleratorInfo.layoutProperties.standardAccelerator
+            ?.originalAccelerator;
+        const configResult = await this.shortcutProvider.removeAccelerator(this.source, this.action, originalAccelerator || accelerator);
+        if (configResult.result.result === AcceleratorConfigResult.kSuccess) {
+            this.dispatchEvent(new CustomEvent('request-update-accelerator', {
+                bubbles: true,
+                composed: true,
+                detail: { source: this.source, action: this.action },
+            }));
+            getShortcutProvider().recordUserAction(UserAction.kRemoveAccelerator);
+        }
+    }
+    onCancelButtonClicked() {
+        this.cancelButtonClicked = true;
+        this.endCapture();
+    }
+    onBlur() {
+        // Prevent clicking cancel button triggering blur event.
+        if (this.cancelButtonClicked) {
+            this.cancelButtonClicked = false;
+            return;
+        }
+        this.endCapture();
+    }
+    showEditView() {
+        return this.viewState !== ViewState.VIEW;
+    }
+    showStatusMessage() {
+        return this.showEditView() ||
+            this.acceleratorInfo.state === AcceleratorState.kDisabledByUser;
+    }
+    endCapture() {
+        const viewElement = strictQuery('accelerator-view', this.shadowRoot, AcceleratorViewElement);
+        viewElement.endCapture(/*should_delay=*/ false);
+    }
+    getStatusMessageForTesting() {
+        return this.statusMessage;
+    }
+}
+customElements.define(AcceleratorEditViewElement.is, AcceleratorEditViewElement);

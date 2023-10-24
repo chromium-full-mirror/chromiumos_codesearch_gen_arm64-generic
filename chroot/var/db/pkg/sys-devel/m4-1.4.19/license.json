@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "m4", "version": "1.4.19", "revision": 0, "fullname": "sys-devel/m4", "fullnamerev": "sys-devel/m4-1.4.19", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/m4/m4.html"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "pdl-compiler", "version": "0.1.1", "revision": 0, "fullname": "dev-util/pdl-compiler", "fullnamerev": "dev-util/pdl-compiler-0.1.1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://crates.io/crates/pdl-compiler"], "skip": false, "tainted": false, "ebuild_path": null}

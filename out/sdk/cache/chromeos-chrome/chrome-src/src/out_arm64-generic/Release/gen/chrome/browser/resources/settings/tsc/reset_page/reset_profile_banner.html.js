@@ -1,0 +1,22 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
+    <cr-dialog id="dialog" close-text="$i18n{close}" ignore-popstate on-cancel="onCancel_">
+      <div slot="title">$i18n{resetAutomatedDialogTitle}</div>
+      <div slot="body">
+        <span id="description">
+          $i18n{resetProfileBannerDescription}
+          <a id="learnMore" aria-label="$i18n{resetLearnMoreAccessibilityText}" href="$i18nRaw{resetProfileBannerLearnMoreUrl}" target="_blank">$i18n{learnMore}</a>
+        </span>
+      </div>
+      <div slot="button-container">
+        <cr-button class="cancel-button" on-click="onOkClick_" id="ok">
+          $i18n{ok}
+        </cr-button>
+        <cr-button class="action-button" on-click="onResetClick_" id="reset">
+          $i18n{resetProfileBannerButton}
+        </cr-button>
+      </div>
+    </cr-dialog>
+<!--_html_template_end_-->`;
+}

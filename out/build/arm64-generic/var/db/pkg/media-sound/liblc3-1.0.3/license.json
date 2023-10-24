@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "media-sound", "name": "liblc3", "version": "1.0.3", "revision": 0, "fullname": "media-sound/liblc3", "fullnamerev": "media-sound/liblc3-1.0.3", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/liblc3"], "skip": false, "tainted": false, "ebuild_path": null}

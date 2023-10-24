@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/libmbim",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/net-libs/libmbim-1.29.900-r114/work/libmbim-1.29.900"
+    }
+  ]
+}

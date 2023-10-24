@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-arch", "name": "p7zip", "version": "16.02", "revision": 8, "fullname": "app-arch/p7zip", "fullnamerev": "app-arch/p7zip-16.02-r8", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["http://p7zip.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

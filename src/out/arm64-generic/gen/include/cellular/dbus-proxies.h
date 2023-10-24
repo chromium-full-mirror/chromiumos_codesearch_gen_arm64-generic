@@ -2262,6 +2262,9 @@ class ModemProxyInterface {
   static const char* DeviceName() { return "Device"; }
   virtual const std::string& device() const = 0;
   virtual bool is_device_valid() const = 0;
+  static const char* PhysdevName() { return "Physdev"; }
+  virtual const std::string& physdev() const = 0;
+  virtual bool is_physdev_valid() const = 0;
   static const char* DriversName() { return "Drivers"; }
   virtual const std::vector<std::string>& drivers() const = 0;
   virtual bool is_drivers_valid() const = 0;
@@ -2359,6 +2362,7 @@ class ModemProxy final : public ModemProxyInterface {
       RegisterProperty(HardwareRevisionName(), &hardware_revision);
       RegisterProperty(DeviceIdentifierName(), &device_identifier);
       RegisterProperty(DeviceName(), &device);
+      RegisterProperty(PhysdevName(), &physdev);
       RegisterProperty(DriversName(), &drivers);
       RegisterProperty(PluginName(), &plugin);
       RegisterProperty(PrimaryPortName(), &primary_port);
@@ -2398,6 +2402,7 @@ class ModemProxy final : public ModemProxyInterface {
     brillo::dbus_utils::Property<std::string> hardware_revision;
     brillo::dbus_utils::Property<std::string> device_identifier;
     brillo::dbus_utils::Property<std::string> device;
+    brillo::dbus_utils::Property<std::string> physdev;
     brillo::dbus_utils::Property<std::vector<std::string>> drivers;
     brillo::dbus_utils::Property<std::string> plugin;
     brillo::dbus_utils::Property<std::string> primary_port;
@@ -2992,6 +2997,14 @@ class ModemProxy final : public ModemProxyInterface {
 
   bool is_device_valid() const override {
     return property_set_->device.is_valid();
+  }
+
+  const std::string& physdev() const override {
+    return property_set_->physdev.value();
+  }
+
+  bool is_physdev_valid() const override {
+    return property_set_->physdev.is_valid();
   }
 
   const std::vector<std::string>& drivers() const override {

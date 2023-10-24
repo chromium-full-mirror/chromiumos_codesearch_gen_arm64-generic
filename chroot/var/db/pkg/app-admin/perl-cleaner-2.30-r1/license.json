@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-admin", "name": "perl-cleaner", "version": "2.30", "revision": 1, "fullname": "app-admin/perl-cleaner", "fullnamerev": "app-admin/perl-cleaner-2.30-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.gentoo.org/proj/en/perl/"], "skip": false, "tainted": false, "ebuild_path": null}

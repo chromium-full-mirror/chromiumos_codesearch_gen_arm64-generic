@@ -1,0 +1,4 @@
+gen/chromeos/grit/chromeos_media_app_bundle_resources.h
+gen/chromeos/grit/chromeos_media_app_bundle_resources_map.cc
+gen/chromeos/grit/chromeos_media_app_bundle_resources_map.h
+gen/chromeos/chromeos_media_app_bundle_resources.pak

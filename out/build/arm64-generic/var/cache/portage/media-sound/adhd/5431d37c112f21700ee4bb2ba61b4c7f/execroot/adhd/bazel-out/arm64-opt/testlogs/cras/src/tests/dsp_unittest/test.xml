@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.042" timestamp="2023-10-23T22:47:44.617" name="AllTests">
+  <testsuite name="DspTestSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.035" timestamp="2023-10-23T22:47:44.623">
+    <testcase name="Simple" file="cras/src/tests/dsp_unittest.cc" line="44" status="run" result="completed" time="0.033" timestamp="2023-10-23T22:47:44.624" classname="DspTestSuite" />
+  </testsuite>
+</testsuites>

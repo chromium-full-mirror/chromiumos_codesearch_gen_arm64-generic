@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 #include "libhwsec/structures/signature_sealed_data_generated.h"
 
 namespace cryptohome {
@@ -49,12 +56,12 @@ inline const char * const *EnumNamesChallengeSignatureAlgorithm() {
 }
 
 inline const char *EnumNameChallengeSignatureAlgorithm(ChallengeSignatureAlgorithm e) {
-  if (flatbuffers::IsOutRange(e, ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha1, ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha512)) return "";
+  if (::flatbuffers::IsOutRange(e, ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha1, ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha512)) return "";
   const size_t index = static_cast<size_t>(e) - static_cast<size_t>(ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha1);
   return EnumNamesChallengeSignatureAlgorithm()[index];
 }
 
-struct SignatureChallengeInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct SignatureChallengeInfo FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef SignatureChallengeInfoBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_PUBLIC_KEY_SPKI_DER = 4,
@@ -63,8 +70,8 @@ struct SignatureChallengeInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
     VT_SALT = 10,
     VT_SALT_SIGNATURE_ALGORITHM = 12
   };
-  const flatbuffers::Vector<uint8_t> *public_key_spki_der() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_PUBLIC_KEY_SPKI_DER);
+  const ::flatbuffers::Vector<uint8_t> *public_key_spki_der() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_PUBLIC_KEY_SPKI_DER);
   }
   hwsec::_serialized_::SignatureSealedData sealed_secret_type() const {
     return static_cast<hwsec::_serialized_::SignatureSealedData>(GetField<uint8_t>(VT_SEALED_SECRET_TYPE, 0));
@@ -79,22 +86,22 @@ struct SignatureChallengeInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
   const hwsec::_serialized_::Tpm12CertifiedMigratableKeyData *sealed_secret_as_Tpm12CertifiedMigratableKeyData() const {
     return sealed_secret_type() == hwsec::_serialized_::SignatureSealedData::Tpm12CertifiedMigratableKeyData ? static_cast<const hwsec::_serialized_::Tpm12CertifiedMigratableKeyData *>(sealed_secret()) : nullptr;
   }
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
+  const ::flatbuffers::Vector<uint8_t> *salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SALT);
   }
-  flatbuffers::Optional<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> salt_signature_algorithm() const {
+  ::flatbuffers::Optional<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> salt_signature_algorithm() const {
     return GetOptional<int32_t, cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm>(VT_SALT_SIGNATURE_ALGORITHM);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_PUBLIC_KEY_SPKI_DER) &&
            verifier.VerifyVector(public_key_spki_der()) &&
-           VerifyField<uint8_t>(verifier, VT_SEALED_SECRET_TYPE) &&
+           VerifyField<uint8_t>(verifier, VT_SEALED_SECRET_TYPE, 1) &&
            VerifyOffset(verifier, VT_SEALED_SECRET) &&
            VerifySignatureSealedData(verifier, sealed_secret(), sealed_secret_type()) &&
            VerifyOffset(verifier, VT_SALT) &&
            verifier.VerifyVector(salt()) &&
-           VerifyField<int32_t>(verifier, VT_SALT_SIGNATURE_ALGORITHM) &&
+           VerifyField<int32_t>(verifier, VT_SALT_SIGNATURE_ALGORITHM, 4) &&
            verifier.EndTable();
   }
 };
@@ -109,41 +116,41 @@ template<> inline const hwsec::_serialized_::Tpm12CertifiedMigratableKeyData *Si
 
 struct SignatureChallengeInfoBuilder {
   typedef SignatureChallengeInfo Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_public_key_spki_der(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> public_key_spki_der) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_public_key_spki_der(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> public_key_spki_der) {
     fbb_.AddOffset(SignatureChallengeInfo::VT_PUBLIC_KEY_SPKI_DER, public_key_spki_der);
   }
   void add_sealed_secret_type(hwsec::_serialized_::SignatureSealedData sealed_secret_type) {
     fbb_.AddElement<uint8_t>(SignatureChallengeInfo::VT_SEALED_SECRET_TYPE, static_cast<uint8_t>(sealed_secret_type), 0);
   }
-  void add_sealed_secret(flatbuffers::Offset<void> sealed_secret) {
+  void add_sealed_secret(::flatbuffers::Offset<void> sealed_secret) {
     fbb_.AddOffset(SignatureChallengeInfo::VT_SEALED_SECRET, sealed_secret);
   }
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
+  void add_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt) {
     fbb_.AddOffset(SignatureChallengeInfo::VT_SALT, salt);
   }
   void add_salt_signature_algorithm(cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm salt_signature_algorithm) {
     fbb_.AddElement<int32_t>(SignatureChallengeInfo::VT_SALT_SIGNATURE_ALGORITHM, static_cast<int32_t>(salt_signature_algorithm));
   }
-  explicit SignatureChallengeInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit SignatureChallengeInfoBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<SignatureChallengeInfo> Finish() {
+  ::flatbuffers::Offset<SignatureChallengeInfo> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<SignatureChallengeInfo>(end);
+    auto o = ::flatbuffers::Offset<SignatureChallengeInfo>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<SignatureChallengeInfo> CreateSignatureChallengeInfo(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> public_key_spki_der = 0,
+inline ::flatbuffers::Offset<SignatureChallengeInfo> CreateSignatureChallengeInfo(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> public_key_spki_der = 0,
     hwsec::_serialized_::SignatureSealedData sealed_secret_type = hwsec::_serialized_::SignatureSealedData::NONE,
-    flatbuffers::Offset<void> sealed_secret = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0,
-    flatbuffers::Optional<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> salt_signature_algorithm = flatbuffers::nullopt) {
+    ::flatbuffers::Offset<void> sealed_secret = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0,
+    ::flatbuffers::Optional<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> salt_signature_algorithm = ::flatbuffers::nullopt) {
   SignatureChallengeInfoBuilder builder_(_fbb);
   if(salt_signature_algorithm) { builder_.add_salt_signature_algorithm(*salt_signature_algorithm); }
   builder_.add_salt(salt);
@@ -153,13 +160,13 @@ inline flatbuffers::Offset<SignatureChallengeInfo> CreateSignatureChallengeInfo(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<SignatureChallengeInfo> CreateSignatureChallengeInfoDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<SignatureChallengeInfo> CreateSignatureChallengeInfoDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *public_key_spki_der = nullptr,
     hwsec::_serialized_::SignatureSealedData sealed_secret_type = hwsec::_serialized_::SignatureSealedData::NONE,
-    flatbuffers::Offset<void> sealed_secret = 0,
+    ::flatbuffers::Offset<void> sealed_secret = 0,
     const std::vector<uint8_t> *salt = nullptr,
-    flatbuffers::Optional<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> salt_signature_algorithm = flatbuffers::nullopt) {
+    ::flatbuffers::Optional<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> salt_signature_algorithm = ::flatbuffers::nullopt) {
   auto public_key_spki_der__ = public_key_spki_der ? _fbb.CreateVector<uint8_t>(*public_key_spki_der) : 0;
   auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
   return cryptohome::structure::_serialized_::CreateSignatureChallengeInfo(
@@ -171,19 +178,19 @@ inline flatbuffers::Offset<SignatureChallengeInfo> CreateSignatureChallengeInfoD
       salt_signature_algorithm);
 }
 
-struct ChallengePublicKeyInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ChallengePublicKeyInfo FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ChallengePublicKeyInfoBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_PUBLIC_KEY_SPKI_DER = 4,
     VT_SIGNATURE_ALGORITHM = 6
   };
-  const flatbuffers::Vector<uint8_t> *public_key_spki_der() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_PUBLIC_KEY_SPKI_DER);
+  const ::flatbuffers::Vector<uint8_t> *public_key_spki_der() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_PUBLIC_KEY_SPKI_DER);
   }
-  const flatbuffers::Vector<int32_t> *signature_algorithm() const {
-    return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_SIGNATURE_ALGORITHM);
+  const ::flatbuffers::Vector<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> *signature_algorithm() const {
+    return GetPointer<const ::flatbuffers::Vector<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> *>(VT_SIGNATURE_ALGORITHM);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_PUBLIC_KEY_SPKI_DER) &&
            verifier.VerifyVector(public_key_spki_der()) &&
@@ -195,41 +202,41 @@ struct ChallengePublicKeyInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
 
 struct ChallengePublicKeyInfoBuilder {
   typedef ChallengePublicKeyInfo Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_public_key_spki_der(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> public_key_spki_der) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_public_key_spki_der(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> public_key_spki_der) {
     fbb_.AddOffset(ChallengePublicKeyInfo::VT_PUBLIC_KEY_SPKI_DER, public_key_spki_der);
   }
-  void add_signature_algorithm(flatbuffers::Offset<flatbuffers::Vector<int32_t>> signature_algorithm) {
+  void add_signature_algorithm(::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm>> signature_algorithm) {
     fbb_.AddOffset(ChallengePublicKeyInfo::VT_SIGNATURE_ALGORITHM, signature_algorithm);
   }
-  explicit ChallengePublicKeyInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ChallengePublicKeyInfoBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ChallengePublicKeyInfo> Finish() {
+  ::flatbuffers::Offset<ChallengePublicKeyInfo> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ChallengePublicKeyInfo>(end);
+    auto o = ::flatbuffers::Offset<ChallengePublicKeyInfo>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ChallengePublicKeyInfo> CreateChallengePublicKeyInfo(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> public_key_spki_der = 0,
-    flatbuffers::Offset<flatbuffers::Vector<int32_t>> signature_algorithm = 0) {
+inline ::flatbuffers::Offset<ChallengePublicKeyInfo> CreateChallengePublicKeyInfo(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> public_key_spki_der = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm>> signature_algorithm = 0) {
   ChallengePublicKeyInfoBuilder builder_(_fbb);
   builder_.add_signature_algorithm(signature_algorithm);
   builder_.add_public_key_spki_der(public_key_spki_der);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<ChallengePublicKeyInfo> CreateChallengePublicKeyInfoDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ChallengePublicKeyInfo> CreateChallengePublicKeyInfoDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *public_key_spki_der = nullptr,
-    const std::vector<int32_t> *signature_algorithm = nullptr) {
+    const std::vector<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm> *signature_algorithm = nullptr) {
   auto public_key_spki_der__ = public_key_spki_der ? _fbb.CreateVector<uint8_t>(*public_key_spki_der) : 0;
-  auto signature_algorithm__ = signature_algorithm ? _fbb.CreateVector<int32_t>(*signature_algorithm) : 0;
+  auto signature_algorithm__ = signature_algorithm ? _fbb.CreateVector<cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm>(*signature_algorithm) : 0;
   return cryptohome::structure::_serialized_::CreateChallengePublicKeyInfo(
       _fbb,
       public_key_spki_der__,
@@ -237,32 +244,32 @@ inline flatbuffers::Offset<ChallengePublicKeyInfo> CreateChallengePublicKeyInfoD
 }
 
 inline const cryptohome::structure::_serialized_::SignatureChallengeInfo *GetSignatureChallengeInfo(const void *buf) {
-  return flatbuffers::GetRoot<cryptohome::structure::_serialized_::SignatureChallengeInfo>(buf);
+  return ::flatbuffers::GetRoot<cryptohome::structure::_serialized_::SignatureChallengeInfo>(buf);
 }
 
 inline const cryptohome::structure::_serialized_::SignatureChallengeInfo *GetSizePrefixedSignatureChallengeInfo(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<cryptohome::structure::_serialized_::SignatureChallengeInfo>(buf);
+  return ::flatbuffers::GetSizePrefixedRoot<cryptohome::structure::_serialized_::SignatureChallengeInfo>(buf);
 }
 
 inline bool VerifySignatureChallengeInfoBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifyBuffer<cryptohome::structure::_serialized_::SignatureChallengeInfo>(nullptr);
 }
 
 inline bool VerifySizePrefixedSignatureChallengeInfoBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifySizePrefixedBuffer<cryptohome::structure::_serialized_::SignatureChallengeInfo>(nullptr);
 }
 
 inline void FinishSignatureChallengeInfoBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> root) {
   fbb.Finish(root);
 }
 
 inline void FinishSizePrefixedSignatureChallengeInfoBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> root) {
   fbb.FinishSizePrefixed(root);
 }
 

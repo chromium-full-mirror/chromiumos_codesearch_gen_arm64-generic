@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "gnome-base", "name": "librsvg", "version": "2.40.21", "revision": 0, "fullname": "gnome-base/librsvg", "fullnamerev": "gnome-base/librsvg-2.40.21", "license_names": ["LGPL-2", "LGPL-2+"], "license_text_scanned": [], "homepages": ["https://wiki.gnome.org/Projects/LibRsvg"], "skip": false, "tainted": false, "ebuild_path": null}

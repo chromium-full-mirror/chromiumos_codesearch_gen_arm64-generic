@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "File-Slurp", "version": "9999.320.0", "revision": 0, "fullname": "dev-perl/File-Slurp", "fullnamerev": "dev-perl/File-Slurp-9999.320.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/File-Slurp"], "skip": false, "tainted": false, "ebuild_path": null}

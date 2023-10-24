@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "HTTP-Date", "version": "6.50.0", "revision": 0, "fullname": "dev-perl/HTTP-Date", "fullnamerev": "dev-perl/HTTP-Date-6.50.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/HTTP-Date"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -6,8 +6,14 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 #include "structures_generated.h"
-#include "libhwsec/structures/signature_sealed_data_generated.h"
 
 namespace cryptohome {
 namespace _serialized_ {
@@ -94,7 +100,7 @@ inline const char * const *EnumNamesAuthBlockStateUnion() {
 }
 
 inline const char *EnumNameAuthBlockStateUnion(AuthBlockStateUnion e) {
-  if (flatbuffers::IsOutRange(e, AuthBlockStateUnion::NONE, AuthBlockStateUnion::FingerprintAuthBlockState)) return "";
+  if (::flatbuffers::IsOutRange(e, AuthBlockStateUnion::NONE, AuthBlockStateUnion::FingerprintAuthBlockState)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAuthBlockStateUnion()[index];
 }
@@ -139,10 +145,10 @@ template<> struct AuthBlockStateUnionTraits<cryptohome::_serialized_::Fingerprin
   static const AuthBlockStateUnion enum_value = AuthBlockStateUnion::FingerprintAuthBlockState;
 };
 
-bool VerifyAuthBlockStateUnion(flatbuffers::Verifier &verifier, const void *obj, AuthBlockStateUnion type);
-bool VerifyAuthBlockStateUnionVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types);
+bool VerifyAuthBlockStateUnion(::flatbuffers::Verifier &verifier, const void *obj, AuthBlockStateUnion type);
+bool VerifyAuthBlockStateUnionVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<AuthBlockStateUnion> *types);
 
-struct TpmNotBoundToPcrAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct TpmNotBoundToPcrAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef TpmNotBoundToPcrAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_SCRYPT_DERIVED = 4,
@@ -151,27 +157,27 @@ struct TpmNotBoundToPcrAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuff
     VT_TPM_KEY = 10,
     VT_TPM_PUBLIC_KEY_HASH = 12
   };
-  flatbuffers::Optional<bool> scrypt_derived() const {
+  ::flatbuffers::Optional<bool> scrypt_derived() const {
     return GetOptional<uint8_t, bool>(VT_SCRYPT_DERIVED);
   }
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
+  const ::flatbuffers::Vector<uint8_t> *salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SALT);
   }
-  flatbuffers::Optional<uint32_t> password_rounds() const {
+  ::flatbuffers::Optional<uint32_t> password_rounds() const {
     return GetOptional<uint32_t, uint32_t>(VT_PASSWORD_ROUNDS);
   }
-  const flatbuffers::Vector<uint8_t> *tpm_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_TPM_KEY);
+  const ::flatbuffers::Vector<uint8_t> *tpm_key() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_TPM_KEY);
   }
-  const flatbuffers::Vector<uint8_t> *tpm_public_key_hash() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_TPM_PUBLIC_KEY_HASH);
+  const ::flatbuffers::Vector<uint8_t> *tpm_public_key_hash() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_TPM_PUBLIC_KEY_HASH);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_SCRYPT_DERIVED) &&
+           VerifyField<uint8_t>(verifier, VT_SCRYPT_DERIVED, 1) &&
            VerifyOffset(verifier, VT_SALT) &&
            verifier.VerifyVector(salt()) &&
-           VerifyField<uint32_t>(verifier, VT_PASSWORD_ROUNDS) &&
+           VerifyField<uint32_t>(verifier, VT_PASSWORD_ROUNDS, 4) &&
            VerifyOffset(verifier, VT_TPM_KEY) &&
            verifier.VerifyVector(tpm_key()) &&
            VerifyOffset(verifier, VT_TPM_PUBLIC_KEY_HASH) &&
@@ -182,41 +188,41 @@ struct TpmNotBoundToPcrAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuff
 
 struct TpmNotBoundToPcrAuthBlockStateBuilder {
   typedef TpmNotBoundToPcrAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_scrypt_derived(bool scrypt_derived) {
     fbb_.AddElement<uint8_t>(TpmNotBoundToPcrAuthBlockState::VT_SCRYPT_DERIVED, static_cast<uint8_t>(scrypt_derived));
   }
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
+  void add_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt) {
     fbb_.AddOffset(TpmNotBoundToPcrAuthBlockState::VT_SALT, salt);
   }
   void add_password_rounds(uint32_t password_rounds) {
     fbb_.AddElement<uint32_t>(TpmNotBoundToPcrAuthBlockState::VT_PASSWORD_ROUNDS, password_rounds);
   }
-  void add_tpm_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_key) {
+  void add_tpm_key(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_key) {
     fbb_.AddOffset(TpmNotBoundToPcrAuthBlockState::VT_TPM_KEY, tpm_key);
   }
-  void add_tpm_public_key_hash(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_public_key_hash) {
+  void add_tpm_public_key_hash(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_public_key_hash) {
     fbb_.AddOffset(TpmNotBoundToPcrAuthBlockState::VT_TPM_PUBLIC_KEY_HASH, tpm_public_key_hash);
   }
-  explicit TpmNotBoundToPcrAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TpmNotBoundToPcrAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState> Finish() {
+  ::flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState> CreateTpmNotBoundToPcrAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<bool> scrypt_derived = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0,
-    flatbuffers::Optional<uint32_t> password_rounds = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_key = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_public_key_hash = 0) {
+inline ::flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState> CreateTpmNotBoundToPcrAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<bool> scrypt_derived = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0,
+    ::flatbuffers::Optional<uint32_t> password_rounds = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_key = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_public_key_hash = 0) {
   TpmNotBoundToPcrAuthBlockStateBuilder builder_(_fbb);
   builder_.add_tpm_public_key_hash(tpm_public_key_hash);
   builder_.add_tpm_key(tpm_key);
@@ -226,11 +232,11 @@ inline flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState> CreateTpmNotBoundToPc
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState> CreateTpmNotBoundToPcrAuthBlockStateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<bool> scrypt_derived = flatbuffers::nullopt,
+inline ::flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState> CreateTpmNotBoundToPcrAuthBlockStateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<bool> scrypt_derived = ::flatbuffers::nullopt,
     const std::vector<uint8_t> *salt = nullptr,
-    flatbuffers::Optional<uint32_t> password_rounds = flatbuffers::nullopt,
+    ::flatbuffers::Optional<uint32_t> password_rounds = ::flatbuffers::nullopt,
     const std::vector<uint8_t> *tpm_key = nullptr,
     const std::vector<uint8_t> *tpm_public_key_hash = nullptr) {
   auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
@@ -245,7 +251,7 @@ inline flatbuffers::Offset<TpmNotBoundToPcrAuthBlockState> CreateTpmNotBoundToPc
       tpm_public_key_hash__);
 }
 
-struct TpmBoundToPcrAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct TpmBoundToPcrAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef TpmBoundToPcrAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_SCRYPT_DERIVED = 4,
@@ -254,24 +260,24 @@ struct TpmBoundToPcrAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers
     VT_EXTENDED_TPM_KEY = 10,
     VT_TPM_PUBLIC_KEY_HASH = 12
   };
-  flatbuffers::Optional<bool> scrypt_derived() const {
+  ::flatbuffers::Optional<bool> scrypt_derived() const {
     return GetOptional<uint8_t, bool>(VT_SCRYPT_DERIVED);
   }
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
+  const ::flatbuffers::Vector<uint8_t> *salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SALT);
   }
-  const flatbuffers::Vector<uint8_t> *tpm_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_TPM_KEY);
+  const ::flatbuffers::Vector<uint8_t> *tpm_key() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_TPM_KEY);
   }
-  const flatbuffers::Vector<uint8_t> *extended_tpm_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_EXTENDED_TPM_KEY);
+  const ::flatbuffers::Vector<uint8_t> *extended_tpm_key() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_EXTENDED_TPM_KEY);
   }
-  const flatbuffers::Vector<uint8_t> *tpm_public_key_hash() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_TPM_PUBLIC_KEY_HASH);
+  const ::flatbuffers::Vector<uint8_t> *tpm_public_key_hash() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_TPM_PUBLIC_KEY_HASH);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_SCRYPT_DERIVED) &&
+           VerifyField<uint8_t>(verifier, VT_SCRYPT_DERIVED, 1) &&
            VerifyOffset(verifier, VT_SALT) &&
            verifier.VerifyVector(salt()) &&
            VerifyOffset(verifier, VT_TPM_KEY) &&
@@ -286,41 +292,41 @@ struct TpmBoundToPcrAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers
 
 struct TpmBoundToPcrAuthBlockStateBuilder {
   typedef TpmBoundToPcrAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_scrypt_derived(bool scrypt_derived) {
     fbb_.AddElement<uint8_t>(TpmBoundToPcrAuthBlockState::VT_SCRYPT_DERIVED, static_cast<uint8_t>(scrypt_derived));
   }
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
+  void add_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt) {
     fbb_.AddOffset(TpmBoundToPcrAuthBlockState::VT_SALT, salt);
   }
-  void add_tpm_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_key) {
+  void add_tpm_key(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_key) {
     fbb_.AddOffset(TpmBoundToPcrAuthBlockState::VT_TPM_KEY, tpm_key);
   }
-  void add_extended_tpm_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> extended_tpm_key) {
+  void add_extended_tpm_key(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> extended_tpm_key) {
     fbb_.AddOffset(TpmBoundToPcrAuthBlockState::VT_EXTENDED_TPM_KEY, extended_tpm_key);
   }
-  void add_tpm_public_key_hash(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_public_key_hash) {
+  void add_tpm_public_key_hash(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_public_key_hash) {
     fbb_.AddOffset(TpmBoundToPcrAuthBlockState::VT_TPM_PUBLIC_KEY_HASH, tpm_public_key_hash);
   }
-  explicit TpmBoundToPcrAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TpmBoundToPcrAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<TpmBoundToPcrAuthBlockState> Finish() {
+  ::flatbuffers::Offset<TpmBoundToPcrAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<TpmBoundToPcrAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<TpmBoundToPcrAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<TpmBoundToPcrAuthBlockState> CreateTpmBoundToPcrAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<bool> scrypt_derived = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_key = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> extended_tpm_key = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_public_key_hash = 0) {
+inline ::flatbuffers::Offset<TpmBoundToPcrAuthBlockState> CreateTpmBoundToPcrAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<bool> scrypt_derived = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_key = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> extended_tpm_key = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_public_key_hash = 0) {
   TpmBoundToPcrAuthBlockStateBuilder builder_(_fbb);
   builder_.add_tpm_public_key_hash(tpm_public_key_hash);
   builder_.add_extended_tpm_key(extended_tpm_key);
@@ -330,9 +336,9 @@ inline flatbuffers::Offset<TpmBoundToPcrAuthBlockState> CreateTpmBoundToPcrAuthB
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<TpmBoundToPcrAuthBlockState> CreateTpmBoundToPcrAuthBlockStateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<bool> scrypt_derived = flatbuffers::nullopt,
+inline ::flatbuffers::Offset<TpmBoundToPcrAuthBlockState> CreateTpmBoundToPcrAuthBlockStateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<bool> scrypt_derived = ::flatbuffers::nullopt,
     const std::vector<uint8_t> *salt = nullptr,
     const std::vector<uint8_t> *tpm_key = nullptr,
     const std::vector<uint8_t> *extended_tpm_key = nullptr,
@@ -350,7 +356,7 @@ inline flatbuffers::Offset<TpmBoundToPcrAuthBlockState> CreateTpmBoundToPcrAuthB
       tpm_public_key_hash__);
 }
 
-struct PinWeaverAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct PinWeaverAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef PinWeaverAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_LE_LABEL = 4,
@@ -359,24 +365,24 @@ struct PinWeaverAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
     VT_FEK_IV = 10,
     VT_RESET_SALT = 12
   };
-  flatbuffers::Optional<uint64_t> le_label() const {
+  ::flatbuffers::Optional<uint64_t> le_label() const {
     return GetOptional<uint64_t, uint64_t>(VT_LE_LABEL);
   }
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
+  const ::flatbuffers::Vector<uint8_t> *salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SALT);
   }
-  const flatbuffers::Vector<uint8_t> *chaps_iv() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_CHAPS_IV);
+  const ::flatbuffers::Vector<uint8_t> *chaps_iv() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_CHAPS_IV);
   }
-  const flatbuffers::Vector<uint8_t> *fek_iv() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_FEK_IV);
+  const ::flatbuffers::Vector<uint8_t> *fek_iv() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_FEK_IV);
   }
-  const flatbuffers::Vector<uint8_t> *reset_salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_RESET_SALT);
+  const ::flatbuffers::Vector<uint8_t> *reset_salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_RESET_SALT);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_LE_LABEL) &&
+           VerifyField<uint64_t>(verifier, VT_LE_LABEL, 8) &&
            VerifyOffset(verifier, VT_SALT) &&
            verifier.VerifyVector(salt()) &&
            VerifyOffset(verifier, VT_CHAPS_IV) &&
@@ -391,41 +397,41 @@ struct PinWeaverAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
 
 struct PinWeaverAuthBlockStateBuilder {
   typedef PinWeaverAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_le_label(uint64_t le_label) {
     fbb_.AddElement<uint64_t>(PinWeaverAuthBlockState::VT_LE_LABEL, le_label);
   }
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
+  void add_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt) {
     fbb_.AddOffset(PinWeaverAuthBlockState::VT_SALT, salt);
   }
-  void add_chaps_iv(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> chaps_iv) {
+  void add_chaps_iv(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> chaps_iv) {
     fbb_.AddOffset(PinWeaverAuthBlockState::VT_CHAPS_IV, chaps_iv);
   }
-  void add_fek_iv(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> fek_iv) {
+  void add_fek_iv(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> fek_iv) {
     fbb_.AddOffset(PinWeaverAuthBlockState::VT_FEK_IV, fek_iv);
   }
-  void add_reset_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> reset_salt) {
+  void add_reset_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> reset_salt) {
     fbb_.AddOffset(PinWeaverAuthBlockState::VT_RESET_SALT, reset_salt);
   }
-  explicit PinWeaverAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit PinWeaverAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<PinWeaverAuthBlockState> Finish() {
+  ::flatbuffers::Offset<PinWeaverAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<PinWeaverAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<PinWeaverAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<PinWeaverAuthBlockState> CreatePinWeaverAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<uint64_t> le_label = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> chaps_iv = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> fek_iv = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> reset_salt = 0) {
+inline ::flatbuffers::Offset<PinWeaverAuthBlockState> CreatePinWeaverAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<uint64_t> le_label = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> chaps_iv = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> fek_iv = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> reset_salt = 0) {
   PinWeaverAuthBlockStateBuilder builder_(_fbb);
   if(le_label) { builder_.add_le_label(*le_label); }
   builder_.add_reset_salt(reset_salt);
@@ -435,9 +441,9 @@ inline flatbuffers::Offset<PinWeaverAuthBlockState> CreatePinWeaverAuthBlockStat
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<PinWeaverAuthBlockState> CreatePinWeaverAuthBlockStateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<uint64_t> le_label = flatbuffers::nullopt,
+inline ::flatbuffers::Offset<PinWeaverAuthBlockState> CreatePinWeaverAuthBlockStateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<uint64_t> le_label = ::flatbuffers::nullopt,
     const std::vector<uint8_t> *salt = nullptr,
     const std::vector<uint8_t> *chaps_iv = nullptr,
     const std::vector<uint8_t> *fek_iv = nullptr,
@@ -455,62 +461,62 @@ inline flatbuffers::Offset<PinWeaverAuthBlockState> CreatePinWeaverAuthBlockStat
       reset_salt__);
 }
 
-struct FingerprintAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct FingerprintAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef FingerprintAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TEMPLATE_ID = 4,
     VT_GSC_SECRET_LABEL = 6
   };
-  const flatbuffers::String *template_id() const {
-    return GetPointer<const flatbuffers::String *>(VT_TEMPLATE_ID);
+  const ::flatbuffers::String *template_id() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_TEMPLATE_ID);
   }
-  flatbuffers::Optional<uint64_t> gsc_secret_label() const {
+  ::flatbuffers::Optional<uint64_t> gsc_secret_label() const {
     return GetOptional<uint64_t, uint64_t>(VT_GSC_SECRET_LABEL);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_TEMPLATE_ID) &&
            verifier.VerifyString(template_id()) &&
-           VerifyField<uint64_t>(verifier, VT_GSC_SECRET_LABEL) &&
+           VerifyField<uint64_t>(verifier, VT_GSC_SECRET_LABEL, 8) &&
            verifier.EndTable();
   }
 };
 
 struct FingerprintAuthBlockStateBuilder {
   typedef FingerprintAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_template_id(flatbuffers::Offset<flatbuffers::String> template_id) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_template_id(::flatbuffers::Offset<::flatbuffers::String> template_id) {
     fbb_.AddOffset(FingerprintAuthBlockState::VT_TEMPLATE_ID, template_id);
   }
   void add_gsc_secret_label(uint64_t gsc_secret_label) {
     fbb_.AddElement<uint64_t>(FingerprintAuthBlockState::VT_GSC_SECRET_LABEL, gsc_secret_label);
   }
-  explicit FingerprintAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit FingerprintAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<FingerprintAuthBlockState> Finish() {
+  ::flatbuffers::Offset<FingerprintAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<FingerprintAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<FingerprintAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> template_id = 0,
-    flatbuffers::Optional<uint64_t> gsc_secret_label = flatbuffers::nullopt) {
+inline ::flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> template_id = 0,
+    ::flatbuffers::Optional<uint64_t> gsc_secret_label = ::flatbuffers::nullopt) {
   FingerprintAuthBlockStateBuilder builder_(_fbb);
   if(gsc_secret_label) { builder_.add_gsc_secret_label(*gsc_secret_label); }
   builder_.add_template_id(template_id);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlockStateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlockStateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *template_id = nullptr,
-    flatbuffers::Optional<uint64_t> gsc_secret_label = flatbuffers::nullopt) {
+    ::flatbuffers::Optional<uint64_t> gsc_secret_label = ::flatbuffers::nullopt) {
   auto template_id__ = template_id ? _fbb.CreateString(template_id) : 0;
   return cryptohome::_serialized_::CreateFingerprintAuthBlockState(
       _fbb,
@@ -518,7 +524,7 @@ inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlock
       gsc_secret_label);
 }
 
-struct ChallengeCredentialAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ChallengeCredentialAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ChallengeCredentialAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_SCRYPT_STATE = 4,
@@ -530,7 +536,7 @@ struct ChallengeCredentialAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatb
   const cryptohome::structure::_serialized_::SignatureChallengeInfo *keyset_challenge_info() const {
     return GetPointer<const cryptohome::structure::_serialized_::SignatureChallengeInfo *>(VT_KEYSET_CHALLENGE_INFO);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_SCRYPT_STATE) &&
            verifier.VerifyTable(scrypt_state()) &&
@@ -542,36 +548,36 @@ struct ChallengeCredentialAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatb
 
 struct ChallengeCredentialAuthBlockStateBuilder {
   typedef ChallengeCredentialAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_scrypt_state(flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_scrypt_state(::flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state) {
     fbb_.AddOffset(ChallengeCredentialAuthBlockState::VT_SCRYPT_STATE, scrypt_state);
   }
-  void add_keyset_challenge_info(flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> keyset_challenge_info) {
+  void add_keyset_challenge_info(::flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> keyset_challenge_info) {
     fbb_.AddOffset(ChallengeCredentialAuthBlockState::VT_KEYSET_CHALLENGE_INFO, keyset_challenge_info);
   }
-  explicit ChallengeCredentialAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ChallengeCredentialAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ChallengeCredentialAuthBlockState> Finish() {
+  ::flatbuffers::Offset<ChallengeCredentialAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ChallengeCredentialAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<ChallengeCredentialAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ChallengeCredentialAuthBlockState> CreateChallengeCredentialAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state = 0,
-    flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> keyset_challenge_info = 0) {
+inline ::flatbuffers::Offset<ChallengeCredentialAuthBlockState> CreateChallengeCredentialAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state = 0,
+    ::flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> keyset_challenge_info = 0) {
   ChallengeCredentialAuthBlockStateBuilder builder_(_fbb);
   builder_.add_keyset_challenge_info(keyset_challenge_info);
   builder_.add_scrypt_state(scrypt_state);
   return builder_.Finish();
 }
 
-struct DoubleWrappedCompatAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct DoubleWrappedCompatAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef DoubleWrappedCompatAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_SCRYPT_STATE = 4,
@@ -583,7 +589,7 @@ struct DoubleWrappedCompatAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatb
   const cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState *tpm_state() const {
     return GetPointer<const cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState *>(VT_TPM_STATE);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_SCRYPT_STATE) &&
            verifier.VerifyTable(scrypt_state()) &&
@@ -595,36 +601,36 @@ struct DoubleWrappedCompatAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatb
 
 struct DoubleWrappedCompatAuthBlockStateBuilder {
   typedef DoubleWrappedCompatAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_scrypt_state(flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_scrypt_state(::flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state) {
     fbb_.AddOffset(DoubleWrappedCompatAuthBlockState::VT_SCRYPT_STATE, scrypt_state);
   }
-  void add_tpm_state(flatbuffers::Offset<cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState> tpm_state) {
+  void add_tpm_state(::flatbuffers::Offset<cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState> tpm_state) {
     fbb_.AddOffset(DoubleWrappedCompatAuthBlockState::VT_TPM_STATE, tpm_state);
   }
-  explicit DoubleWrappedCompatAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit DoubleWrappedCompatAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<DoubleWrappedCompatAuthBlockState> Finish() {
+  ::flatbuffers::Offset<DoubleWrappedCompatAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<DoubleWrappedCompatAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<DoubleWrappedCompatAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<DoubleWrappedCompatAuthBlockState> CreateDoubleWrappedCompatAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state = 0,
-    flatbuffers::Offset<cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState> tpm_state = 0) {
+inline ::flatbuffers::Offset<DoubleWrappedCompatAuthBlockState> CreateDoubleWrappedCompatAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state = 0,
+    ::flatbuffers::Offset<cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState> tpm_state = 0) {
   DoubleWrappedCompatAuthBlockStateBuilder builder_(_fbb);
   builder_.add_tpm_state(tpm_state);
   builder_.add_scrypt_state(scrypt_state);
   return builder_.Finish();
 }
 
-struct CryptohomeRecoveryAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct CryptohomeRecoveryAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef CryptohomeRecoveryAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_HSM_PAYLOAD = 4,
@@ -634,25 +640,25 @@ struct CryptohomeRecoveryAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbu
     VT_ENCRYPTED_CHANNEL_PRIV_KEY = 12,
     VT_ENCRYPTED_RSA_PRIV_KEY = 14
   };
-  const flatbuffers::Vector<uint8_t> *hsm_payload() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_HSM_PAYLOAD);
+  const ::flatbuffers::Vector<uint8_t> *hsm_payload() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_HSM_PAYLOAD);
   }
-  const flatbuffers::Vector<uint8_t> *encrypted_destination_share() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_DESTINATION_SHARE);
+  const ::flatbuffers::Vector<uint8_t> *encrypted_destination_share() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_DESTINATION_SHARE);
   }
-  const flatbuffers::Vector<uint8_t> *extended_pcr_bound_destination_share() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_EXTENDED_PCR_BOUND_DESTINATION_SHARE);
+  const ::flatbuffers::Vector<uint8_t> *extended_pcr_bound_destination_share() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_EXTENDED_PCR_BOUND_DESTINATION_SHARE);
   }
-  const flatbuffers::Vector<uint8_t> *channel_pub_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_CHANNEL_PUB_KEY);
+  const ::flatbuffers::Vector<uint8_t> *channel_pub_key() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_CHANNEL_PUB_KEY);
   }
-  const flatbuffers::Vector<uint8_t> *encrypted_channel_priv_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_CHANNEL_PRIV_KEY);
+  const ::flatbuffers::Vector<uint8_t> *encrypted_channel_priv_key() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_CHANNEL_PRIV_KEY);
   }
-  const flatbuffers::Vector<uint8_t> *encrypted_rsa_priv_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_RSA_PRIV_KEY);
+  const ::flatbuffers::Vector<uint8_t> *encrypted_rsa_priv_key() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_RSA_PRIV_KEY);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_HSM_PAYLOAD) &&
            verifier.VerifyVector(hsm_payload()) &&
@@ -672,45 +678,45 @@ struct CryptohomeRecoveryAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbu
 
 struct CryptohomeRecoveryAuthBlockStateBuilder {
   typedef CryptohomeRecoveryAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_hsm_payload(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> hsm_payload) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_hsm_payload(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> hsm_payload) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_HSM_PAYLOAD, hsm_payload);
   }
-  void add_encrypted_destination_share(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_destination_share) {
+  void add_encrypted_destination_share(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> encrypted_destination_share) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_ENCRYPTED_DESTINATION_SHARE, encrypted_destination_share);
   }
-  void add_extended_pcr_bound_destination_share(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> extended_pcr_bound_destination_share) {
+  void add_extended_pcr_bound_destination_share(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> extended_pcr_bound_destination_share) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_EXTENDED_PCR_BOUND_DESTINATION_SHARE, extended_pcr_bound_destination_share);
   }
-  void add_channel_pub_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> channel_pub_key) {
+  void add_channel_pub_key(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> channel_pub_key) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_CHANNEL_PUB_KEY, channel_pub_key);
   }
-  void add_encrypted_channel_priv_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_channel_priv_key) {
+  void add_encrypted_channel_priv_key(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> encrypted_channel_priv_key) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_ENCRYPTED_CHANNEL_PRIV_KEY, encrypted_channel_priv_key);
   }
-  void add_encrypted_rsa_priv_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_rsa_priv_key) {
+  void add_encrypted_rsa_priv_key(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> encrypted_rsa_priv_key) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_ENCRYPTED_RSA_PRIV_KEY, encrypted_rsa_priv_key);
   }
-  explicit CryptohomeRecoveryAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit CryptohomeRecoveryAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> Finish() {
+  ::flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<CryptohomeRecoveryAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<CryptohomeRecoveryAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRecoveryAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> hsm_payload = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_destination_share = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> extended_pcr_bound_destination_share = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> channel_pub_key = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_channel_priv_key = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_rsa_priv_key = 0) {
+inline ::flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRecoveryAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> hsm_payload = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> encrypted_destination_share = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> extended_pcr_bound_destination_share = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> channel_pub_key = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> encrypted_channel_priv_key = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> encrypted_rsa_priv_key = 0) {
   CryptohomeRecoveryAuthBlockStateBuilder builder_(_fbb);
   builder_.add_encrypted_rsa_priv_key(encrypted_rsa_priv_key);
   builder_.add_encrypted_channel_priv_key(encrypted_channel_priv_key);
@@ -721,8 +727,8 @@ inline flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRec
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRecoveryAuthBlockStateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRecoveryAuthBlockStateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *hsm_payload = nullptr,
     const std::vector<uint8_t> *encrypted_destination_share = nullptr,
     const std::vector<uint8_t> *extended_pcr_bound_destination_share = nullptr,
@@ -745,7 +751,7 @@ inline flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRec
       encrypted_rsa_priv_key__);
 }
 
-struct TpmEccAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct TpmEccAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef TpmEccAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_SALT = 4,
@@ -756,34 +762,34 @@ struct TpmEccAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
     VT_TPM_PUBLIC_KEY_HASH = 14,
     VT_WRAPPED_RESET_SEED = 16
   };
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
+  const ::flatbuffers::Vector<uint8_t> *salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SALT);
   }
-  const flatbuffers::Vector<uint8_t> *vkk_iv() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_VKK_IV);
+  const ::flatbuffers::Vector<uint8_t> *vkk_iv() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_VKK_IV);
   }
-  flatbuffers::Optional<uint32_t> auth_value_rounds() const {
+  ::flatbuffers::Optional<uint32_t> auth_value_rounds() const {
     return GetOptional<uint32_t, uint32_t>(VT_AUTH_VALUE_ROUNDS);
   }
-  const flatbuffers::Vector<uint8_t> *sealed_hvkkm() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SEALED_HVKKM);
+  const ::flatbuffers::Vector<uint8_t> *sealed_hvkkm() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SEALED_HVKKM);
   }
-  const flatbuffers::Vector<uint8_t> *extended_sealed_hvkkm() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_EXTENDED_SEALED_HVKKM);
+  const ::flatbuffers::Vector<uint8_t> *extended_sealed_hvkkm() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_EXTENDED_SEALED_HVKKM);
   }
-  const flatbuffers::Vector<uint8_t> *tpm_public_key_hash() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_TPM_PUBLIC_KEY_HASH);
+  const ::flatbuffers::Vector<uint8_t> *tpm_public_key_hash() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_TPM_PUBLIC_KEY_HASH);
   }
-  const flatbuffers::Vector<uint8_t> *wrapped_reset_seed() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_WRAPPED_RESET_SEED);
+  const ::flatbuffers::Vector<uint8_t> *wrapped_reset_seed() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_WRAPPED_RESET_SEED);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_SALT) &&
            verifier.VerifyVector(salt()) &&
            VerifyOffset(verifier, VT_VKK_IV) &&
            verifier.VerifyVector(vkk_iv()) &&
-           VerifyField<uint32_t>(verifier, VT_AUTH_VALUE_ROUNDS) &&
+           VerifyField<uint32_t>(verifier, VT_AUTH_VALUE_ROUNDS, 4) &&
            VerifyOffset(verifier, VT_SEALED_HVKKM) &&
            verifier.VerifyVector(sealed_hvkkm()) &&
            VerifyOffset(verifier, VT_EXTENDED_SEALED_HVKKM) &&
@@ -798,49 +804,49 @@ struct TpmEccAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
 
 struct TpmEccAuthBlockStateBuilder {
   typedef TpmEccAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt) {
     fbb_.AddOffset(TpmEccAuthBlockState::VT_SALT, salt);
   }
-  void add_vkk_iv(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> vkk_iv) {
+  void add_vkk_iv(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> vkk_iv) {
     fbb_.AddOffset(TpmEccAuthBlockState::VT_VKK_IV, vkk_iv);
   }
   void add_auth_value_rounds(uint32_t auth_value_rounds) {
     fbb_.AddElement<uint32_t>(TpmEccAuthBlockState::VT_AUTH_VALUE_ROUNDS, auth_value_rounds);
   }
-  void add_sealed_hvkkm(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> sealed_hvkkm) {
+  void add_sealed_hvkkm(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> sealed_hvkkm) {
     fbb_.AddOffset(TpmEccAuthBlockState::VT_SEALED_HVKKM, sealed_hvkkm);
   }
-  void add_extended_sealed_hvkkm(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> extended_sealed_hvkkm) {
+  void add_extended_sealed_hvkkm(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> extended_sealed_hvkkm) {
     fbb_.AddOffset(TpmEccAuthBlockState::VT_EXTENDED_SEALED_HVKKM, extended_sealed_hvkkm);
   }
-  void add_tpm_public_key_hash(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_public_key_hash) {
+  void add_tpm_public_key_hash(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_public_key_hash) {
     fbb_.AddOffset(TpmEccAuthBlockState::VT_TPM_PUBLIC_KEY_HASH, tpm_public_key_hash);
   }
-  void add_wrapped_reset_seed(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> wrapped_reset_seed) {
+  void add_wrapped_reset_seed(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> wrapped_reset_seed) {
     fbb_.AddOffset(TpmEccAuthBlockState::VT_WRAPPED_RESET_SEED, wrapped_reset_seed);
   }
-  explicit TpmEccAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TpmEccAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<TpmEccAuthBlockState> Finish() {
+  ::flatbuffers::Offset<TpmEccAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<TpmEccAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<TpmEccAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<TpmEccAuthBlockState> CreateTpmEccAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> vkk_iv = 0,
-    flatbuffers::Optional<uint32_t> auth_value_rounds = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> sealed_hvkkm = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> extended_sealed_hvkkm = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> tpm_public_key_hash = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> wrapped_reset_seed = 0) {
+inline ::flatbuffers::Offset<TpmEccAuthBlockState> CreateTpmEccAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> vkk_iv = 0,
+    ::flatbuffers::Optional<uint32_t> auth_value_rounds = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> sealed_hvkkm = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> extended_sealed_hvkkm = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> tpm_public_key_hash = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> wrapped_reset_seed = 0) {
   TpmEccAuthBlockStateBuilder builder_(_fbb);
   builder_.add_wrapped_reset_seed(wrapped_reset_seed);
   builder_.add_tpm_public_key_hash(tpm_public_key_hash);
@@ -852,11 +858,11 @@ inline flatbuffers::Offset<TpmEccAuthBlockState> CreateTpmEccAuthBlockState(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<TpmEccAuthBlockState> CreateTpmEccAuthBlockStateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<TpmEccAuthBlockState> CreateTpmEccAuthBlockStateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *salt = nullptr,
     const std::vector<uint8_t> *vkk_iv = nullptr,
-    flatbuffers::Optional<uint32_t> auth_value_rounds = flatbuffers::nullopt,
+    ::flatbuffers::Optional<uint32_t> auth_value_rounds = ::flatbuffers::nullopt,
     const std::vector<uint8_t> *sealed_hvkkm = nullptr,
     const std::vector<uint8_t> *extended_sealed_hvkkm = nullptr,
     const std::vector<uint8_t> *tpm_public_key_hash = nullptr,
@@ -878,7 +884,7 @@ inline flatbuffers::Offset<TpmEccAuthBlockState> CreateTpmEccAuthBlockStateDirec
       wrapped_reset_seed__);
 }
 
-struct ScryptAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ScryptAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ScryptAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_SALT = 4,
@@ -888,25 +894,25 @@ struct ScryptAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
     VT_BLOCK_SIZE = 12,
     VT_PARALLEL_FACTOR = 14
   };
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
+  const ::flatbuffers::Vector<uint8_t> *salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_SALT);
   }
-  const flatbuffers::Vector<uint8_t> *chaps_salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_CHAPS_SALT);
+  const ::flatbuffers::Vector<uint8_t> *chaps_salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_CHAPS_SALT);
   }
-  const flatbuffers::Vector<uint8_t> *reset_seed_salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_RESET_SEED_SALT);
+  const ::flatbuffers::Vector<uint8_t> *reset_seed_salt() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_RESET_SEED_SALT);
   }
-  flatbuffers::Optional<int32_t> work_factor() const {
+  ::flatbuffers::Optional<int32_t> work_factor() const {
     return GetOptional<int32_t, int32_t>(VT_WORK_FACTOR);
   }
-  flatbuffers::Optional<uint32_t> block_size() const {
+  ::flatbuffers::Optional<uint32_t> block_size() const {
     return GetOptional<uint32_t, uint32_t>(VT_BLOCK_SIZE);
   }
-  flatbuffers::Optional<uint32_t> parallel_factor() const {
+  ::flatbuffers::Optional<uint32_t> parallel_factor() const {
     return GetOptional<uint32_t, uint32_t>(VT_PARALLEL_FACTOR);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_SALT) &&
            verifier.VerifyVector(salt()) &&
@@ -914,24 +920,24 @@ struct ScryptAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
            verifier.VerifyVector(chaps_salt()) &&
            VerifyOffset(verifier, VT_RESET_SEED_SALT) &&
            verifier.VerifyVector(reset_seed_salt()) &&
-           VerifyField<int32_t>(verifier, VT_WORK_FACTOR) &&
-           VerifyField<uint32_t>(verifier, VT_BLOCK_SIZE) &&
-           VerifyField<uint32_t>(verifier, VT_PARALLEL_FACTOR) &&
+           VerifyField<int32_t>(verifier, VT_WORK_FACTOR, 4) &&
+           VerifyField<uint32_t>(verifier, VT_BLOCK_SIZE, 4) &&
+           VerifyField<uint32_t>(verifier, VT_PARALLEL_FACTOR, 4) &&
            verifier.EndTable();
   }
 };
 
 struct ScryptAuthBlockStateBuilder {
   typedef ScryptAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt) {
     fbb_.AddOffset(ScryptAuthBlockState::VT_SALT, salt);
   }
-  void add_chaps_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> chaps_salt) {
+  void add_chaps_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> chaps_salt) {
     fbb_.AddOffset(ScryptAuthBlockState::VT_CHAPS_SALT, chaps_salt);
   }
-  void add_reset_seed_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> reset_seed_salt) {
+  void add_reset_seed_salt(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> reset_seed_salt) {
     fbb_.AddOffset(ScryptAuthBlockState::VT_RESET_SEED_SALT, reset_seed_salt);
   }
   void add_work_factor(int32_t work_factor) {
@@ -943,25 +949,25 @@ struct ScryptAuthBlockStateBuilder {
   void add_parallel_factor(uint32_t parallel_factor) {
     fbb_.AddElement<uint32_t>(ScryptAuthBlockState::VT_PARALLEL_FACTOR, parallel_factor);
   }
-  explicit ScryptAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ScryptAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ScryptAuthBlockState> Finish() {
+  ::flatbuffers::Offset<ScryptAuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ScryptAuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<ScryptAuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> chaps_salt = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> reset_seed_salt = 0,
-    flatbuffers::Optional<int32_t> work_factor = flatbuffers::nullopt,
-    flatbuffers::Optional<uint32_t> block_size = flatbuffers::nullopt,
-    flatbuffers::Optional<uint32_t> parallel_factor = flatbuffers::nullopt) {
+inline ::flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> salt = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> chaps_salt = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> reset_seed_salt = 0,
+    ::flatbuffers::Optional<int32_t> work_factor = ::flatbuffers::nullopt,
+    ::flatbuffers::Optional<uint32_t> block_size = ::flatbuffers::nullopt,
+    ::flatbuffers::Optional<uint32_t> parallel_factor = ::flatbuffers::nullopt) {
   ScryptAuthBlockStateBuilder builder_(_fbb);
   if(parallel_factor) { builder_.add_parallel_factor(*parallel_factor); }
   if(block_size) { builder_.add_block_size(*block_size); }
@@ -972,14 +978,14 @@ inline flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockState(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockStateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockStateDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *salt = nullptr,
     const std::vector<uint8_t> *chaps_salt = nullptr,
     const std::vector<uint8_t> *reset_seed_salt = nullptr,
-    flatbuffers::Optional<int32_t> work_factor = flatbuffers::nullopt,
-    flatbuffers::Optional<uint32_t> block_size = flatbuffers::nullopt,
-    flatbuffers::Optional<uint32_t> parallel_factor = flatbuffers::nullopt) {
+    ::flatbuffers::Optional<int32_t> work_factor = ::flatbuffers::nullopt,
+    ::flatbuffers::Optional<uint32_t> block_size = ::flatbuffers::nullopt,
+    ::flatbuffers::Optional<uint32_t> parallel_factor = ::flatbuffers::nullopt) {
   auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
   auto chaps_salt__ = chaps_salt ? _fbb.CreateVector<uint8_t>(*chaps_salt) : 0;
   auto reset_seed_salt__ = reset_seed_salt ? _fbb.CreateVector<uint8_t>(*reset_seed_salt) : 0;
@@ -993,48 +999,48 @@ inline flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockStateDirec
       parallel_factor);
 }
 
-struct RevocationState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct RevocationState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef RevocationStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_LE_LABEL = 4
   };
-  flatbuffers::Optional<uint64_t> le_label() const {
+  ::flatbuffers::Optional<uint64_t> le_label() const {
     return GetOptional<uint64_t, uint64_t>(VT_LE_LABEL);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_LE_LABEL) &&
+           VerifyField<uint64_t>(verifier, VT_LE_LABEL, 8) &&
            verifier.EndTable();
   }
 };
 
 struct RevocationStateBuilder {
   typedef RevocationState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_le_label(uint64_t le_label) {
     fbb_.AddElement<uint64_t>(RevocationState::VT_LE_LABEL, le_label);
   }
-  explicit RevocationStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit RevocationStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<RevocationState> Finish() {
+  ::flatbuffers::Offset<RevocationState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<RevocationState>(end);
+    auto o = ::flatbuffers::Offset<RevocationState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<RevocationState> CreateRevocationState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<uint64_t> le_label = flatbuffers::nullopt) {
+inline ::flatbuffers::Offset<RevocationState> CreateRevocationState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<uint64_t> le_label = ::flatbuffers::nullopt) {
   RevocationStateBuilder builder_(_fbb);
   if(le_label) { builder_.add_le_label(*le_label); }
   return builder_.Finish();
 }
 
-struct AuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AuthBlockState FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_STATE_TYPE = 4,
@@ -1078,9 +1084,9 @@ struct AuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const cryptohome::_serialized_::RevocationState *revocation_state() const {
     return GetPointer<const cryptohome::_serialized_::RevocationState *>(VT_REVOCATION_STATE);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_STATE_TYPE) &&
+           VerifyField<uint8_t>(verifier, VT_STATE_TYPE, 1) &&
            VerifyOffset(verifier, VT_STATE) &&
            VerifyAuthBlockStateUnion(verifier, state(), state_type()) &&
            VerifyOffset(verifier, VT_REVOCATION_STATE) &&
@@ -1127,33 +1133,33 @@ template<> inline const cryptohome::_serialized_::FingerprintAuthBlockState *Aut
 
 struct AuthBlockStateBuilder {
   typedef AuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_state_type(cryptohome::_serialized_::AuthBlockStateUnion state_type) {
     fbb_.AddElement<uint8_t>(AuthBlockState::VT_STATE_TYPE, static_cast<uint8_t>(state_type), 0);
   }
-  void add_state(flatbuffers::Offset<void> state) {
+  void add_state(::flatbuffers::Offset<void> state) {
     fbb_.AddOffset(AuthBlockState::VT_STATE, state);
   }
-  void add_revocation_state(flatbuffers::Offset<cryptohome::_serialized_::RevocationState> revocation_state) {
+  void add_revocation_state(::flatbuffers::Offset<cryptohome::_serialized_::RevocationState> revocation_state) {
     fbb_.AddOffset(AuthBlockState::VT_REVOCATION_STATE, revocation_state);
   }
-  explicit AuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AuthBlockState> Finish() {
+  ::flatbuffers::Offset<AuthBlockState> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AuthBlockState>(end);
+    auto o = ::flatbuffers::Offset<AuthBlockState>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AuthBlockState> CreateAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<AuthBlockState> CreateAuthBlockState(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     cryptohome::_serialized_::AuthBlockStateUnion state_type = cryptohome::_serialized_::AuthBlockStateUnion::NONE,
-    flatbuffers::Offset<void> state = 0,
-    flatbuffers::Offset<cryptohome::_serialized_::RevocationState> revocation_state = 0) {
+    ::flatbuffers::Offset<void> state = 0,
+    ::flatbuffers::Offset<cryptohome::_serialized_::RevocationState> revocation_state = 0) {
   AuthBlockStateBuilder builder_(_fbb);
   builder_.add_revocation_state(revocation_state);
   builder_.add_state(state);
@@ -1161,7 +1167,7 @@ inline flatbuffers::Offset<AuthBlockState> CreateAuthBlockState(
   return builder_.Finish();
 }
 
-inline bool VerifyAuthBlockStateUnion(flatbuffers::Verifier &verifier, const void *obj, AuthBlockStateUnion type) {
+inline bool VerifyAuthBlockStateUnion(::flatbuffers::Verifier &verifier, const void *obj, AuthBlockStateUnion type) {
   switch (type) {
     case AuthBlockStateUnion::NONE: {
       return true;
@@ -1206,10 +1212,10 @@ inline bool VerifyAuthBlockStateUnion(flatbuffers::Verifier &verifier, const voi
   }
 }
 
-inline bool VerifyAuthBlockStateUnionVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types) {
+inline bool VerifyAuthBlockStateUnionVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<AuthBlockStateUnion> *types) {
   if (!values || !types) return !values && !types;
   if (values->size() != types->size()) return false;
-  for (flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
+  for (::flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
     if (!VerifyAuthBlockStateUnion(
         verifier,  values->Get(i), types->GetEnum<AuthBlockStateUnion>(i))) {
       return false;
@@ -1219,32 +1225,32 @@ inline bool VerifyAuthBlockStateUnionVector(flatbuffers::Verifier &verifier, con
 }
 
 inline const cryptohome::_serialized_::AuthBlockState *GetAuthBlockState(const void *buf) {
-  return flatbuffers::GetRoot<cryptohome::_serialized_::AuthBlockState>(buf);
+  return ::flatbuffers::GetRoot<cryptohome::_serialized_::AuthBlockState>(buf);
 }
 
 inline const cryptohome::_serialized_::AuthBlockState *GetSizePrefixedAuthBlockState(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<cryptohome::_serialized_::AuthBlockState>(buf);
+  return ::flatbuffers::GetSizePrefixedRoot<cryptohome::_serialized_::AuthBlockState>(buf);
 }
 
 inline bool VerifyAuthBlockStateBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifyBuffer<cryptohome::_serialized_::AuthBlockState>(nullptr);
 }
 
 inline bool VerifySizePrefixedAuthBlockStateBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifySizePrefixedBuffer<cryptohome::_serialized_::AuthBlockState>(nullptr);
 }
 
 inline void FinishAuthBlockStateBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> root) {
   fbb.Finish(root);
 }
 
 inline void FinishSizePrefixedAuthBlockStateBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> root) {
   fbb.FinishSizePrefixed(root);
 }
 

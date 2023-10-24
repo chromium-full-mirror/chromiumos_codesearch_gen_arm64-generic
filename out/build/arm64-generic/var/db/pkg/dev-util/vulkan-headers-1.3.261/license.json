@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "vulkan-headers", "version": "1.3.261", "revision": 0, "fullname": "dev-util/vulkan-headers", "fullnamerev": "dev-util/vulkan-headers-1.3.261", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/KhronosGroup/Vulkan-Headers"], "skip": false, "tainted": false, "ebuild_path": null}

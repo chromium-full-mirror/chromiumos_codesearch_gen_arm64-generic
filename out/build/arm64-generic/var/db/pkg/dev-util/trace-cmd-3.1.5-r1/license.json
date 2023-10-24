@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "trace-cmd", "version": "3.1.5", "revision": 1, "fullname": "dev-util/trace-cmd", "fullnamerev": "dev-util/trace-cmd-3.1.5-r1", "license_names": ["GPL-2", "GPL-2+", "LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://www.trace-cmd.org"], "skip": false, "tainted": false, "ebuild_path": null}

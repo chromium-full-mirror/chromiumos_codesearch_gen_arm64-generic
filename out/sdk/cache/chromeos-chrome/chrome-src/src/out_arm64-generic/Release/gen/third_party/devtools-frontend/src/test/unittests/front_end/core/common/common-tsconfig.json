@@ -1,0 +1,76 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "common-tsconfig.json.tsbuildinfo",
+    "typeRoots": [
+      "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types"
+    ],
+    "types": [
+      "mocha",
+      "chai",
+      "sinon",
+      "karma-chai-sinon"
+    ],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Base64_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/CharacterIdMap_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/ColorConverter_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/ColorUtils_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Color_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Console_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Debouncer_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/EventTarget_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Lazy_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Mutex_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Object_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/ParsedURL_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Progress_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/ResolverBase_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/ResourceType_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/SegmentedRange_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Settings_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/SimpleHistoryManager_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/StringOutputStream_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/TextDictionary_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Throttler_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/Trie_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/common/WasmDisassembly_test.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/request_idle_callback.d.ts",
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../../front_end/core/common/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../helpers/helpers-tsconfig.json"
+    }
+  ]
+}

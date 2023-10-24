@@ -794,6 +794,137 @@ class BRILLO_EXPORT RollbackPolicyActivated final : public ::metrics::structured
 
 };
 
+class BRILLO_EXPORT RollbackOobeConfigSave final : public ::metrics::structured::EventBase {
+ public:
+  RollbackOobeConfigSave();
+  ~RollbackOobeConfigSave() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(8143547510625266491);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(4905803635010729907);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t korigin_chromeos_version_majorNameHash = UINT64_C(8725517454933705664);
+  RollbackOobeConfigSave& Setorigin_chromeos_version_major(const int64_t value);
+  int64_t Getorigin_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t korigin_chromeos_version_minorNameHash = UINT64_C(6458944440867685468);
+  RollbackOobeConfigSave& Setorigin_chromeos_version_minor(const int64_t value);
+  int64_t Getorigin_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t korigin_chromeos_version_patchNameHash = UINT64_C(4691738969632876794);
+  RollbackOobeConfigSave& Setorigin_chromeos_version_patch(const int64_t value);
+  int64_t Getorigin_chromeos_version_patchForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_majorNameHash = UINT64_C(6936705716371376757);
+  RollbackOobeConfigSave& Settarget_chromeos_version_major(const int64_t value);
+  int64_t Gettarget_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_minorNameHash = UINT64_C(11570177950450598480);
+  RollbackOobeConfigSave& Settarget_chromeos_version_minor(const int64_t value);
+  int64_t Gettarget_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_patchNameHash = UINT64_C(2543903025759147760);
+  RollbackOobeConfigSave& Settarget_chromeos_version_patch(const int64_t value);
+  int64_t Gettarget_chromeos_version_patchForTest() const;
+
+  static constexpr uint64_t kresultNameHash = UINT64_C(13017799960250291981);
+  RollbackOobeConfigSave& Setresult(const int64_t value);
+  int64_t GetresultForTest() const;
+
+};
+
+class BRILLO_EXPORT RollbackOobeConfigRestore final : public ::metrics::structured::EventBase {
+ public:
+  RollbackOobeConfigRestore();
+  ~RollbackOobeConfigRestore() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(2960660685456960229);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(4905803635010729907);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t korigin_chromeos_version_majorNameHash = UINT64_C(8725517454933705664);
+  RollbackOobeConfigRestore& Setorigin_chromeos_version_major(const int64_t value);
+  int64_t Getorigin_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t korigin_chromeos_version_minorNameHash = UINT64_C(6458944440867685468);
+  RollbackOobeConfigRestore& Setorigin_chromeos_version_minor(const int64_t value);
+  int64_t Getorigin_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t korigin_chromeos_version_patchNameHash = UINT64_C(4691738969632876794);
+  RollbackOobeConfigRestore& Setorigin_chromeos_version_patch(const int64_t value);
+  int64_t Getorigin_chromeos_version_patchForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_majorNameHash = UINT64_C(6936705716371376757);
+  RollbackOobeConfigRestore& Settarget_chromeos_version_major(const int64_t value);
+  int64_t Gettarget_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_minorNameHash = UINT64_C(11570177950450598480);
+  RollbackOobeConfigRestore& Settarget_chromeos_version_minor(const int64_t value);
+  int64_t Gettarget_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_patchNameHash = UINT64_C(2543903025759147760);
+  RollbackOobeConfigRestore& Settarget_chromeos_version_patch(const int64_t value);
+  int64_t Gettarget_chromeos_version_patchForTest() const;
+
+  static constexpr uint64_t kresult_chromeos_version_majorNameHash = UINT64_C(13899413611848299643);
+  RollbackOobeConfigRestore& Setresult_chromeos_version_major(const int64_t value);
+  int64_t Getresult_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t kresult_chromeos_version_minorNameHash = UINT64_C(9824305360017682044);
+  RollbackOobeConfigRestore& Setresult_chromeos_version_minor(const int64_t value);
+  int64_t Getresult_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t kresult_chromeos_version_patchNameHash = UINT64_C(4943146235405627847);
+  RollbackOobeConfigRestore& Setresult_chromeos_version_patch(const int64_t value);
+  int64_t Getresult_chromeos_version_patchForTest() const;
+
+  static constexpr uint64_t kresultNameHash = UINT64_C(13017799960250291981);
+  RollbackOobeConfigRestore& Setresult(const int64_t value);
+  int64_t GetresultForTest() const;
+
+};
+
+class BRILLO_EXPORT RollbackUpdateFailure final : public ::metrics::structured::EventBase {
+ public:
+  RollbackUpdateFailure();
+  ~RollbackUpdateFailure() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(8868678905886567055);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(4905803635010729907);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t korigin_chromeos_version_majorNameHash = UINT64_C(8725517454933705664);
+  RollbackUpdateFailure& Setorigin_chromeos_version_major(const int64_t value);
+  int64_t Getorigin_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t korigin_chromeos_version_minorNameHash = UINT64_C(6458944440867685468);
+  RollbackUpdateFailure& Setorigin_chromeos_version_minor(const int64_t value);
+  int64_t Getorigin_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t korigin_chromeos_version_patchNameHash = UINT64_C(4691738969632876794);
+  RollbackUpdateFailure& Setorigin_chromeos_version_patch(const int64_t value);
+  int64_t Getorigin_chromeos_version_patchForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_majorNameHash = UINT64_C(6936705716371376757);
+  RollbackUpdateFailure& Settarget_chromeos_version_major(const int64_t value);
+  int64_t Gettarget_chromeos_version_majorForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_minorNameHash = UINT64_C(11570177950450598480);
+  RollbackUpdateFailure& Settarget_chromeos_version_minor(const int64_t value);
+  int64_t Gettarget_chromeos_version_minorForTest() const;
+
+  static constexpr uint64_t ktarget_chromeos_version_patchNameHash = UINT64_C(2543903025759147760);
+  RollbackUpdateFailure& Settarget_chromeos_version_patch(const int64_t value);
+  int64_t Gettarget_chromeos_version_patchForTest() const;
+
+};
+
 }  // namespace rollback_enterprise
 
 namespace rmad {
@@ -1134,6 +1265,10 @@ class BRILLO_EXPORT UsbPdDeviceInfo final : public ::metrics::structured::EventB
   static constexpr uint64_t kPowerRoleNameHash = UINT64_C(13356246975574791150);
   UsbPdDeviceInfo& SetPowerRole(const int64_t value);
   int64_t GetPowerRoleForTest() const;
+
+  static constexpr uint64_t kPartnerTypeNameHash = UINT64_C(780731158379036192);
+  UsbPdDeviceInfo& SetPartnerType(const int64_t value);
+  int64_t GetPartnerTypeForTest() const;
 
 };
 

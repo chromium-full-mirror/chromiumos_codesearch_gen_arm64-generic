@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "numcpus", "version": "0.2.3", "revision": 2, "fullname": "dev-go/numcpus", "fullnamerev": "dev-go/numcpus-0.2.3-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/tklauser/numcpus"], "skip": false, "tainted": false, "ebuild_path": null}

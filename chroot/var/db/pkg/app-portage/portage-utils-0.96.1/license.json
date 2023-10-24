@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-portage", "name": "portage-utils", "version": "0.96.1", "revision": 0, "fullname": "app-portage/portage-utils", "fullnamerev": "app-portage/portage-utils-0.96.1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.gentoo.org/wiki/Portage-utils"], "skip": false, "tainted": false, "ebuild_path": null}

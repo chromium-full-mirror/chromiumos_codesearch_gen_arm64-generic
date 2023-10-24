@@ -65,6 +65,21 @@ BRILLO_EXPORT std::string GetProtoDebugString(const IsMountedRequest& value);
 std::string GetProtoDebugStringWithIndent(const IsMountedReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const IsMountedReply& value);
+std::string GetProtoDebugStringWithIndent(const EvictDeviceKeyReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const EvictDeviceKeyReply& value);
+std::string GetProtoDebugStringWithIndent(const EvictDeviceKeyRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const EvictDeviceKeyRequest& value);
+std::string GetProtoDebugStringWithIndent(const RestoreDeviceKeyRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const RestoreDeviceKeyRequest& value);
+std::string GetProtoDebugStringWithIndent(const RestoreDeviceKeyReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const RestoreDeviceKeyReply& value);
 std::string GetProtoDebugStringWithIndent(const UnmountRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const UnmountRequest& value);
@@ -77,12 +92,6 @@ BRILLO_EXPORT std::string GetProtoDebugString(const RemoveRequest& value);
 std::string GetProtoDebugStringWithIndent(const RemoveReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const RemoveReply& value);
-std::string GetProtoDebugStringWithIndent(const ListKeysRequest& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const ListKeysRequest& value);
-std::string GetProtoDebugStringWithIndent(const ListKeysReply& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const ListKeysReply& value);
 std::string GetProtoDebugStringWithIndent(const CheckKeyRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const CheckKeyRequest& value);
@@ -206,6 +215,10 @@ std::string GetProtoDebugStringWithIndent(const AuthFactorStatusUpdate& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const AuthFactorStatusUpdate& value);
+std::string GetProtoDebugStringWithIndent(const AuthSessionProperties& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const AuthSessionProperties& value);
 std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
@@ -660,16 +673,6 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const AuthenticateAuthFactorCompleted& value);
-std::string GetProtoDebugStringWithIndent(
-    const AuthenticateAuthFactorCompletedSuccess& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const AuthenticateAuthFactorCompletedSuccess& value);
-std::string GetProtoDebugStringWithIndent(
-    const AuthenticateAuthFactorCompletedFailure& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const AuthenticateAuthFactorCompletedFailure& value);
 std::string GetProtoDebugStringWithIndent(const EvictedKeyRestored& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const EvictedKeyRestored& value);

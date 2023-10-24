@@ -66,6 +66,12 @@ extern ArcVmCompleteBootRequestDefaultTypeInternal _ArcVmCompleteBootRequest_def
 class ArcVmCompleteBootResponse;
 struct ArcVmCompleteBootResponseDefaultTypeInternal;
 extern ArcVmCompleteBootResponseDefaultTypeInternal _ArcVmCompleteBootResponse_default_instance_;
+class AttachNetDeviceRequest;
+struct AttachNetDeviceRequestDefaultTypeInternal;
+extern AttachNetDeviceRequestDefaultTypeInternal _AttachNetDeviceRequest_default_instance_;
+class AttachNetDeviceResponse;
+struct AttachNetDeviceResponseDefaultTypeInternal;
+extern AttachNetDeviceResponseDefaultTypeInternal _AttachNetDeviceResponse_default_instance_;
 class AttachUsbDeviceRequest;
 struct AttachUsbDeviceRequestDefaultTypeInternal;
 extern AttachUsbDeviceRequestDefaultTypeInternal _AttachUsbDeviceRequest_default_instance_;
@@ -90,6 +96,12 @@ extern DestroyDiskImageRequestDefaultTypeInternal _DestroyDiskImageRequest_defau
 class DestroyDiskImageResponse;
 struct DestroyDiskImageResponseDefaultTypeInternal;
 extern DestroyDiskImageResponseDefaultTypeInternal _DestroyDiskImageResponse_default_instance_;
+class DetachNetDeviceRequest;
+struct DetachNetDeviceRequestDefaultTypeInternal;
+extern DetachNetDeviceRequestDefaultTypeInternal _DetachNetDeviceRequest_default_instance_;
+class DetachNetDeviceResponse;
+struct DetachNetDeviceResponseDefaultTypeInternal;
+extern DetachNetDeviceResponseDefaultTypeInternal _DetachNetDeviceResponse_default_instance_;
 class DetachUsbDeviceRequest;
 struct DetachUsbDeviceRequestDefaultTypeInternal;
 extern DetachUsbDeviceRequestDefaultTypeInternal _DetachUsbDeviceRequest_default_instance_;
@@ -292,6 +304,8 @@ template<> ::vm_tools::concierge::AggressiveBalloonRequest* Arena::CreateMaybeMe
 template<> ::vm_tools::concierge::AggressiveBalloonResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AggressiveBalloonResponse>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootRequest>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootResponse>(Arena*);
+template<> ::vm_tools::concierge::AttachNetDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachNetDeviceRequest>(Arena*);
+template<> ::vm_tools::concierge::AttachNetDeviceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachNetDeviceResponse>(Arena*);
 template<> ::vm_tools::concierge::AttachUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachUsbDeviceRequest>(Arena*);
 template<> ::vm_tools::concierge::AttachUsbDeviceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachUsbDeviceResponse>(Arena*);
 template<> ::vm_tools::concierge::CancelDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::CancelDiskImageRequest>(Arena*);
@@ -300,6 +314,8 @@ template<> ::vm_tools::concierge::CreateDiskImageRequest* Arena::CreateMaybeMess
 template<> ::vm_tools::concierge::CreateDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::CreateDiskImageResponse>(Arena*);
 template<> ::vm_tools::concierge::DestroyDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::DestroyDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::DestroyDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::DestroyDiskImageResponse>(Arena*);
+template<> ::vm_tools::concierge::DetachNetDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::DetachNetDeviceRequest>(Arena*);
+template<> ::vm_tools::concierge::DetachNetDeviceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::DetachNetDeviceResponse>(Arena*);
 template<> ::vm_tools::concierge::DetachUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::DetachUsbDeviceRequest>(Arena*);
 template<> ::vm_tools::concierge::DetachUsbDeviceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::DetachUsbDeviceResponse>(Arena*);
 template<> ::vm_tools::concierge::DiskImage* Arena::CreateMaybeMessage<::vm_tools::concierge::DiskImage>(Arena*);
@@ -2074,10 +2090,10 @@ class StartVmRequest final :
   void _internal_set_enable_gpu(bool value);
   public:
 
-  // bool software_tpm = 9;
-  void clear_software_tpm();
-  bool software_tpm() const;
-  void set_software_tpm(bool value);
+  // bool software_tpm = 9 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_software_tpm();
+  PROTOBUF_DEPRECATED bool software_tpm() const;
+  PROTOBUF_DEPRECATED void set_software_tpm(bool value);
   private:
   bool _internal_software_tpm() const;
   void _internal_set_software_tpm(bool value);
@@ -10321,6 +10337,638 @@ class ListUsbDeviceResponse final :
 };
 // -------------------------------------------------------------------
 
+class AttachNetDeviceRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AttachNetDeviceRequest) */ {
+ public:
+  inline AttachNetDeviceRequest() : AttachNetDeviceRequest(nullptr) {}
+  ~AttachNetDeviceRequest() override;
+  explicit PROTOBUF_CONSTEXPR AttachNetDeviceRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AttachNetDeviceRequest(const AttachNetDeviceRequest& from);
+  AttachNetDeviceRequest(AttachNetDeviceRequest&& from) noexcept
+    : AttachNetDeviceRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline AttachNetDeviceRequest& operator=(const AttachNetDeviceRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AttachNetDeviceRequest& operator=(AttachNetDeviceRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AttachNetDeviceRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AttachNetDeviceRequest* internal_default_instance() {
+    return reinterpret_cast<const AttachNetDeviceRequest*>(
+               &_AttachNetDeviceRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    51;
+
+  friend void swap(AttachNetDeviceRequest& a, AttachNetDeviceRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AttachNetDeviceRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AttachNetDeviceRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AttachNetDeviceRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AttachNetDeviceRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AttachNetDeviceRequest& from);
+  void MergeFrom(const AttachNetDeviceRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AttachNetDeviceRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AttachNetDeviceRequest";
+  }
+  protected:
+  explicit AttachNetDeviceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVmNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+    kTapNameFieldNumber = 3,
+  };
+  // string vm_name = 1;
+  void clear_vm_name();
+  const std::string& vm_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_name();
+  PROTOBUF_NODISCARD std::string* release_vm_name();
+  void set_allocated_vm_name(std::string* vm_name);
+  private:
+  const std::string& _internal_vm_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
+  std::string* _internal_mutable_vm_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // string tap_name = 3;
+  void clear_tap_name();
+  const std::string& tap_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_tap_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_tap_name();
+  PROTOBUF_NODISCARD std::string* release_tap_name();
+  void set_allocated_tap_name(std::string* tap_name);
+  private:
+  const std::string& _internal_tap_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tap_name(const std::string& value);
+  std::string* _internal_mutable_tap_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AttachNetDeviceRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tap_name_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AttachNetDeviceResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AttachNetDeviceResponse) */ {
+ public:
+  inline AttachNetDeviceResponse() : AttachNetDeviceResponse(nullptr) {}
+  ~AttachNetDeviceResponse() override;
+  explicit PROTOBUF_CONSTEXPR AttachNetDeviceResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AttachNetDeviceResponse(const AttachNetDeviceResponse& from);
+  AttachNetDeviceResponse(AttachNetDeviceResponse&& from) noexcept
+    : AttachNetDeviceResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline AttachNetDeviceResponse& operator=(const AttachNetDeviceResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AttachNetDeviceResponse& operator=(AttachNetDeviceResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AttachNetDeviceResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AttachNetDeviceResponse* internal_default_instance() {
+    return reinterpret_cast<const AttachNetDeviceResponse*>(
+               &_AttachNetDeviceResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    52;
+
+  friend void swap(AttachNetDeviceResponse& a, AttachNetDeviceResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AttachNetDeviceResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AttachNetDeviceResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AttachNetDeviceResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AttachNetDeviceResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AttachNetDeviceResponse& from);
+  void MergeFrom(const AttachNetDeviceResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AttachNetDeviceResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AttachNetDeviceResponse";
+  }
+  protected:
+  explicit AttachNetDeviceResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailureReasonFieldNumber = 3,
+    kSuccessFieldNumber = 1,
+    kGuestBusFieldNumber = 2,
+  };
+  // string failure_reason = 3;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // uint32 guest_bus = 2;
+  void clear_guest_bus();
+  uint32_t guest_bus() const;
+  void set_guest_bus(uint32_t value);
+  private:
+  uint32_t _internal_guest_bus() const;
+  void _internal_set_guest_bus(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AttachNetDeviceResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+    bool success_;
+    uint32_t guest_bus_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DetachNetDeviceRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.DetachNetDeviceRequest) */ {
+ public:
+  inline DetachNetDeviceRequest() : DetachNetDeviceRequest(nullptr) {}
+  ~DetachNetDeviceRequest() override;
+  explicit PROTOBUF_CONSTEXPR DetachNetDeviceRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DetachNetDeviceRequest(const DetachNetDeviceRequest& from);
+  DetachNetDeviceRequest(DetachNetDeviceRequest&& from) noexcept
+    : DetachNetDeviceRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DetachNetDeviceRequest& operator=(const DetachNetDeviceRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DetachNetDeviceRequest& operator=(DetachNetDeviceRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const DetachNetDeviceRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DetachNetDeviceRequest* internal_default_instance() {
+    return reinterpret_cast<const DetachNetDeviceRequest*>(
+               &_DetachNetDeviceRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    53;
+
+  friend void swap(DetachNetDeviceRequest& a, DetachNetDeviceRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DetachNetDeviceRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DetachNetDeviceRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DetachNetDeviceRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DetachNetDeviceRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DetachNetDeviceRequest& from);
+  void MergeFrom(const DetachNetDeviceRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DetachNetDeviceRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.DetachNetDeviceRequest";
+  }
+  protected:
+  explicit DetachNetDeviceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVmNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+    kGuestBusFieldNumber = 3,
+  };
+  // string vm_name = 1;
+  void clear_vm_name();
+  const std::string& vm_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_name();
+  PROTOBUF_NODISCARD std::string* release_vm_name();
+  void set_allocated_vm_name(std::string* vm_name);
+  private:
+  const std::string& _internal_vm_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
+  std::string* _internal_mutable_vm_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // uint32 guest_bus = 3;
+  void clear_guest_bus();
+  uint32_t guest_bus() const;
+  void set_guest_bus(uint32_t value);
+  private:
+  uint32_t _internal_guest_bus() const;
+  void _internal_set_guest_bus(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.DetachNetDeviceRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+    uint32_t guest_bus_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DetachNetDeviceResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.DetachNetDeviceResponse) */ {
+ public:
+  inline DetachNetDeviceResponse() : DetachNetDeviceResponse(nullptr) {}
+  ~DetachNetDeviceResponse() override;
+  explicit PROTOBUF_CONSTEXPR DetachNetDeviceResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DetachNetDeviceResponse(const DetachNetDeviceResponse& from);
+  DetachNetDeviceResponse(DetachNetDeviceResponse&& from) noexcept
+    : DetachNetDeviceResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline DetachNetDeviceResponse& operator=(const DetachNetDeviceResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DetachNetDeviceResponse& operator=(DetachNetDeviceResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const DetachNetDeviceResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DetachNetDeviceResponse* internal_default_instance() {
+    return reinterpret_cast<const DetachNetDeviceResponse*>(
+               &_DetachNetDeviceResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    54;
+
+  friend void swap(DetachNetDeviceResponse& a, DetachNetDeviceResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DetachNetDeviceResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DetachNetDeviceResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DetachNetDeviceResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DetachNetDeviceResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DetachNetDeviceResponse& from);
+  void MergeFrom(const DetachNetDeviceResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DetachNetDeviceResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.DetachNetDeviceResponse";
+  }
+  protected:
+  explicit DetachNetDeviceResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailureReasonFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.DetachNetDeviceResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class DnsSettings final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.DnsSettings) */ {
  public:
@@ -10360,7 +11008,7 @@ class DnsSettings final :
                &_DnsSettings_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    55;
 
   friend void swap(DnsSettings& a, DnsSettings& b) {
     a.Swap(&b);
@@ -10531,7 +11179,7 @@ class SetVmCpuRestrictionRequest final :
                &_SetVmCpuRestrictionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    56;
 
   friend void swap(SetVmCpuRestrictionRequest& a, SetVmCpuRestrictionRequest& b) {
     a.Swap(&b);
@@ -10672,7 +11320,7 @@ class SetVmCpuRestrictionResponse final :
                &_SetVmCpuRestrictionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    57;
 
   friend void swap(SetVmCpuRestrictionResponse& a, SetVmCpuRestrictionResponse& b) {
     a.Swap(&b);
@@ -10802,7 +11450,7 @@ class AdjustVmRequest final :
                &_AdjustVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    58;
 
   friend void swap(AdjustVmRequest& a, AdjustVmRequest& b) {
     a.Swap(&b);
@@ -10995,7 +11643,7 @@ class AdjustVmResponse final :
                &_AdjustVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    59;
 
   friend void swap(AdjustVmResponse& a, AdjustVmResponse& b) {
     a.Swap(&b);
@@ -11141,7 +11789,7 @@ class ReclaimVmMemoryRequest final :
                &_ReclaimVmMemoryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    60;
 
   friend void swap(ReclaimVmMemoryRequest& a, ReclaimVmMemoryRequest& b) {
     a.Swap(&b);
@@ -11303,7 +11951,7 @@ class ReclaimVmMemoryResponse final :
                &_ReclaimVmMemoryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    61;
 
   friend void swap(ReclaimVmMemoryResponse& a, ReclaimVmMemoryResponse& b) {
     a.Swap(&b);
@@ -11449,7 +12097,7 @@ class ListVmsRequest final :
                &_ListVmsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    62;
 
   friend void swap(ListVmsRequest& a, ListVmsRequest& b) {
     a.Swap(&b);
@@ -11584,7 +12232,7 @@ class ExtendedVmInfo final :
                &_ExtendedVmInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    63;
 
   friend void swap(ExtendedVmInfo& a, ExtendedVmInfo& b) {
     a.Swap(&b);
@@ -11766,7 +12414,7 @@ class ListVmsResponse final :
                &_ListVmsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    64;
 
   friend void swap(ListVmsResponse& a, ListVmsResponse& b) {
     a.Swap(&b);
@@ -11932,7 +12580,7 @@ class GetVmGpuCachePathRequest final :
                &_GetVmGpuCachePathRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    65;
 
   friend void swap(GetVmGpuCachePathRequest& a, GetVmGpuCachePathRequest& b) {
     a.Swap(&b);
@@ -12083,7 +12731,7 @@ class GetVmGpuCachePathResponse final :
                &_GetVmGpuCachePathResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    66;
 
   friend void swap(GetVmGpuCachePathResponse& a, GetVmGpuCachePathResponse& b) {
     a.Swap(&b);
@@ -12218,7 +12866,7 @@ class AddGroupPermissionMesaRequest final :
                &_AddGroupPermissionMesaRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    67;
 
   friend void swap(AddGroupPermissionMesaRequest& a, AddGroupPermissionMesaRequest& b) {
     a.Swap(&b);
@@ -12369,7 +13017,7 @@ class GetVmLaunchAllowedRequest final :
                &_GetVmLaunchAllowedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    68;
 
   friend void swap(GetVmLaunchAllowedRequest& a, GetVmLaunchAllowedRequest& b) {
     a.Swap(&b);
@@ -12521,7 +13169,7 @@ class GetVmLaunchAllowedResponse final :
                &_GetVmLaunchAllowedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    69;
 
   friend void swap(GetVmLaunchAllowedResponse& a, GetVmLaunchAllowedResponse& b) {
     a.Swap(&b);
@@ -12667,7 +13315,7 @@ class GetVmLogsRequest final :
                &_GetVmLogsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    70;
 
   friend void swap(GetVmLogsRequest& a, GetVmLogsRequest& b) {
     a.Swap(&b);
@@ -12818,7 +13466,7 @@ class GetVmLogsResponse final :
                &_GetVmLogsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    71;
 
   friend void swap(GetVmLogsResponse& a, GetVmLogsResponse& b) {
     a.Swap(&b);
@@ -12953,7 +13601,7 @@ class SwapVmRequest final :
                &_SwapVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    72;
 
   friend void swap(SwapVmRequest& a, SwapVmRequest& b) {
     a.Swap(&b);
@@ -13115,7 +13763,7 @@ class SwapVmResponse final :
                &_SwapVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    73;
 
   friend void swap(SwapVmResponse& a, SwapVmResponse& b) {
     a.Swap(&b);
@@ -13261,7 +13909,7 @@ class VmSwappingSignal final :
                &_VmSwappingSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    74;
 
   friend void swap(VmSwappingSignal& a, VmSwappingSignal& b) {
     a.Swap(&b);
@@ -13423,7 +14071,7 @@ class InstallPflashRequest final :
                &_InstallPflashRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    75;
 
   friend void swap(InstallPflashRequest& a, InstallPflashRequest& b) {
     a.Swap(&b);
@@ -13574,7 +14222,7 @@ class InstallPflashResponse final :
                &_InstallPflashResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    76;
 
   friend void swap(InstallPflashResponse& a, InstallPflashResponse& b) {
     a.Swap(&b);
@@ -13720,7 +14368,7 @@ class AggressiveBalloonRequest final :
                &_AggressiveBalloonRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    77;
 
   friend void swap(AggressiveBalloonRequest& a, AggressiveBalloonRequest& b) {
     a.Swap(&b);
@@ -13882,7 +14530,7 @@ class AggressiveBalloonResponse final :
                &_AggressiveBalloonResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    74;
+    78;
 
   friend void swap(AggressiveBalloonResponse& a, AggressiveBalloonResponse& b) {
     a.Swap(&b);
@@ -14028,7 +14676,7 @@ class EnableVmMemoryManagementServiceRequest final :
                &_EnableVmMemoryManagementServiceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    75;
+    79;
 
   friend void swap(EnableVmMemoryManagementServiceRequest& a, EnableVmMemoryManagementServiceRequest& b) {
     a.Swap(&b);
@@ -14091,6 +14739,18 @@ class EnableVmMemoryManagementServiceRequest final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kArcKillRequestTimeoutMsFieldNumber = 1,
+  };
+  // uint32 arc_kill_request_timeout_ms = 1;
+  void clear_arc_kill_request_timeout_ms();
+  uint32_t arc_kill_request_timeout_ms() const;
+  void set_arc_kill_request_timeout_ms(uint32_t value);
+  private:
+  uint32_t _internal_arc_kill_request_timeout_ms() const;
+  void _internal_set_arc_kill_request_timeout_ms(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.EnableVmMemoryManagementServiceRequest)
  private:
   class _Internal;
@@ -14099,6 +14759,7 @@ class EnableVmMemoryManagementServiceRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    uint32_t arc_kill_request_timeout_ms_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -14145,7 +14806,7 @@ class EnableVmMemoryManagementServiceResponse final :
                &_EnableVmMemoryManagementServiceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    76;
+    80;
 
   friend void swap(EnableVmMemoryManagementServiceResponse& a, EnableVmMemoryManagementServiceResponse& b) {
     a.Swap(&b);
@@ -14291,7 +14952,7 @@ class GetVmMemoryManagementKillsConnectionRequest final :
                &_GetVmMemoryManagementKillsConnectionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    77;
+    81;
 
   friend void swap(GetVmMemoryManagementKillsConnectionRequest& a, GetVmMemoryManagementKillsConnectionRequest& b) {
     a.Swap(&b);
@@ -14354,18 +15015,6 @@ class GetVmMemoryManagementKillsConnectionRequest final :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kReadTimeoutMsFieldNumber = 1,
-  };
-  // uint32 read_timeout_ms = 1;
-  void clear_read_timeout_ms();
-  uint32_t read_timeout_ms() const;
-  void set_read_timeout_ms(uint32_t value);
-  private:
-  uint32_t _internal_read_timeout_ms() const;
-  void _internal_set_read_timeout_ms(uint32_t value);
-  public:
-
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest)
  private:
   class _Internal;
@@ -14374,7 +15023,6 @@ class GetVmMemoryManagementKillsConnectionRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    uint32_t read_timeout_ms_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -14421,7 +15069,7 @@ class GetVmMemoryManagementKillsConnectionResponse final :
                &_GetVmMemoryManagementKillsConnectionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    78;
+    82;
 
   friend void swap(GetVmMemoryManagementKillsConnectionResponse& a, GetVmMemoryManagementKillsConnectionResponse& b) {
     a.Swap(&b);
@@ -15683,7 +16331,7 @@ inline void StartVmRequest::set_enable_gpu(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.enable_gpu)
 }
 
-// bool software_tpm = 9;
+// bool software_tpm = 9 [deprecated = true];
 inline void StartVmRequest::clear_software_tpm() {
   _impl_.software_tpm_ = false;
 }
@@ -22855,6 +23503,452 @@ ListUsbDeviceResponse::usb_devices() const {
 
 // -------------------------------------------------------------------
 
+// AttachNetDeviceRequest
+
+// string vm_name = 1;
+inline void AttachNetDeviceRequest::clear_vm_name() {
+  _impl_.vm_name_.ClearToEmpty();
+}
+inline const std::string& AttachNetDeviceRequest::vm_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachNetDeviceRequest.vm_name)
+  return _internal_vm_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttachNetDeviceRequest::set_vm_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.vm_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachNetDeviceRequest.vm_name)
+}
+inline std::string* AttachNetDeviceRequest::mutable_vm_name() {
+  std::string* _s = _internal_mutable_vm_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AttachNetDeviceRequest.vm_name)
+  return _s;
+}
+inline const std::string& AttachNetDeviceRequest::_internal_vm_name() const {
+  return _impl_.vm_name_.Get();
+}
+inline void AttachNetDeviceRequest::_internal_set_vm_name(const std::string& value) {
+  
+  _impl_.vm_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttachNetDeviceRequest::_internal_mutable_vm_name() {
+  
+  return _impl_.vm_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttachNetDeviceRequest::release_vm_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AttachNetDeviceRequest.vm_name)
+  return _impl_.vm_name_.Release();
+}
+inline void AttachNetDeviceRequest::set_allocated_vm_name(std::string* vm_name) {
+  if (vm_name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.vm_name_.SetAllocated(vm_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.vm_name_.IsDefault()) {
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AttachNetDeviceRequest.vm_name)
+}
+
+// string owner_id = 2;
+inline void AttachNetDeviceRequest::clear_owner_id() {
+  _impl_.owner_id_.ClearToEmpty();
+}
+inline const std::string& AttachNetDeviceRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachNetDeviceRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttachNetDeviceRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachNetDeviceRequest.owner_id)
+}
+inline std::string* AttachNetDeviceRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AttachNetDeviceRequest.owner_id)
+  return _s;
+}
+inline const std::string& AttachNetDeviceRequest::_internal_owner_id() const {
+  return _impl_.owner_id_.Get();
+}
+inline void AttachNetDeviceRequest::_internal_set_owner_id(const std::string& value) {
+  
+  _impl_.owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttachNetDeviceRequest::_internal_mutable_owner_id() {
+  
+  return _impl_.owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttachNetDeviceRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AttachNetDeviceRequest.owner_id)
+  return _impl_.owner_id_.Release();
+}
+inline void AttachNetDeviceRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.owner_id_.SetAllocated(owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.owner_id_.IsDefault()) {
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AttachNetDeviceRequest.owner_id)
+}
+
+// string tap_name = 3;
+inline void AttachNetDeviceRequest::clear_tap_name() {
+  _impl_.tap_name_.ClearToEmpty();
+}
+inline const std::string& AttachNetDeviceRequest::tap_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachNetDeviceRequest.tap_name)
+  return _internal_tap_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttachNetDeviceRequest::set_tap_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.tap_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachNetDeviceRequest.tap_name)
+}
+inline std::string* AttachNetDeviceRequest::mutable_tap_name() {
+  std::string* _s = _internal_mutable_tap_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AttachNetDeviceRequest.tap_name)
+  return _s;
+}
+inline const std::string& AttachNetDeviceRequest::_internal_tap_name() const {
+  return _impl_.tap_name_.Get();
+}
+inline void AttachNetDeviceRequest::_internal_set_tap_name(const std::string& value) {
+  
+  _impl_.tap_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttachNetDeviceRequest::_internal_mutable_tap_name() {
+  
+  return _impl_.tap_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttachNetDeviceRequest::release_tap_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AttachNetDeviceRequest.tap_name)
+  return _impl_.tap_name_.Release();
+}
+inline void AttachNetDeviceRequest::set_allocated_tap_name(std::string* tap_name) {
+  if (tap_name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.tap_name_.SetAllocated(tap_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.tap_name_.IsDefault()) {
+    _impl_.tap_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AttachNetDeviceRequest.tap_name)
+}
+
+// -------------------------------------------------------------------
+
+// AttachNetDeviceResponse
+
+// bool success = 1;
+inline void AttachNetDeviceResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool AttachNetDeviceResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool AttachNetDeviceResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachNetDeviceResponse.success)
+  return _internal_success();
+}
+inline void AttachNetDeviceResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void AttachNetDeviceResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachNetDeviceResponse.success)
+}
+
+// uint32 guest_bus = 2;
+inline void AttachNetDeviceResponse::clear_guest_bus() {
+  _impl_.guest_bus_ = 0u;
+}
+inline uint32_t AttachNetDeviceResponse::_internal_guest_bus() const {
+  return _impl_.guest_bus_;
+}
+inline uint32_t AttachNetDeviceResponse::guest_bus() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachNetDeviceResponse.guest_bus)
+  return _internal_guest_bus();
+}
+inline void AttachNetDeviceResponse::_internal_set_guest_bus(uint32_t value) {
+  
+  _impl_.guest_bus_ = value;
+}
+inline void AttachNetDeviceResponse::set_guest_bus(uint32_t value) {
+  _internal_set_guest_bus(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachNetDeviceResponse.guest_bus)
+}
+
+// string failure_reason = 3;
+inline void AttachNetDeviceResponse::clear_failure_reason() {
+  _impl_.failure_reason_.ClearToEmpty();
+}
+inline const std::string& AttachNetDeviceResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AttachNetDeviceResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttachNetDeviceResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.failure_reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AttachNetDeviceResponse.failure_reason)
+}
+inline std::string* AttachNetDeviceResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AttachNetDeviceResponse.failure_reason)
+  return _s;
+}
+inline const std::string& AttachNetDeviceResponse::_internal_failure_reason() const {
+  return _impl_.failure_reason_.Get();
+}
+inline void AttachNetDeviceResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  _impl_.failure_reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AttachNetDeviceResponse::_internal_mutable_failure_reason() {
+  
+  return _impl_.failure_reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AttachNetDeviceResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AttachNetDeviceResponse.failure_reason)
+  return _impl_.failure_reason_.Release();
+}
+inline void AttachNetDeviceResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.failure_reason_.SetAllocated(failure_reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.failure_reason_.IsDefault()) {
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AttachNetDeviceResponse.failure_reason)
+}
+
+// -------------------------------------------------------------------
+
+// DetachNetDeviceRequest
+
+// string vm_name = 1;
+inline void DetachNetDeviceRequest::clear_vm_name() {
+  _impl_.vm_name_.ClearToEmpty();
+}
+inline const std::string& DetachNetDeviceRequest::vm_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.DetachNetDeviceRequest.vm_name)
+  return _internal_vm_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DetachNetDeviceRequest::set_vm_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.vm_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.DetachNetDeviceRequest.vm_name)
+}
+inline std::string* DetachNetDeviceRequest::mutable_vm_name() {
+  std::string* _s = _internal_mutable_vm_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.DetachNetDeviceRequest.vm_name)
+  return _s;
+}
+inline const std::string& DetachNetDeviceRequest::_internal_vm_name() const {
+  return _impl_.vm_name_.Get();
+}
+inline void DetachNetDeviceRequest::_internal_set_vm_name(const std::string& value) {
+  
+  _impl_.vm_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DetachNetDeviceRequest::_internal_mutable_vm_name() {
+  
+  return _impl_.vm_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DetachNetDeviceRequest::release_vm_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.DetachNetDeviceRequest.vm_name)
+  return _impl_.vm_name_.Release();
+}
+inline void DetachNetDeviceRequest::set_allocated_vm_name(std::string* vm_name) {
+  if (vm_name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.vm_name_.SetAllocated(vm_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.vm_name_.IsDefault()) {
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.DetachNetDeviceRequest.vm_name)
+}
+
+// string owner_id = 2;
+inline void DetachNetDeviceRequest::clear_owner_id() {
+  _impl_.owner_id_.ClearToEmpty();
+}
+inline const std::string& DetachNetDeviceRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.DetachNetDeviceRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DetachNetDeviceRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.DetachNetDeviceRequest.owner_id)
+}
+inline std::string* DetachNetDeviceRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.DetachNetDeviceRequest.owner_id)
+  return _s;
+}
+inline const std::string& DetachNetDeviceRequest::_internal_owner_id() const {
+  return _impl_.owner_id_.Get();
+}
+inline void DetachNetDeviceRequest::_internal_set_owner_id(const std::string& value) {
+  
+  _impl_.owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DetachNetDeviceRequest::_internal_mutable_owner_id() {
+  
+  return _impl_.owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DetachNetDeviceRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.DetachNetDeviceRequest.owner_id)
+  return _impl_.owner_id_.Release();
+}
+inline void DetachNetDeviceRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.owner_id_.SetAllocated(owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.owner_id_.IsDefault()) {
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.DetachNetDeviceRequest.owner_id)
+}
+
+// uint32 guest_bus = 3;
+inline void DetachNetDeviceRequest::clear_guest_bus() {
+  _impl_.guest_bus_ = 0u;
+}
+inline uint32_t DetachNetDeviceRequest::_internal_guest_bus() const {
+  return _impl_.guest_bus_;
+}
+inline uint32_t DetachNetDeviceRequest::guest_bus() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.DetachNetDeviceRequest.guest_bus)
+  return _internal_guest_bus();
+}
+inline void DetachNetDeviceRequest::_internal_set_guest_bus(uint32_t value) {
+  
+  _impl_.guest_bus_ = value;
+}
+inline void DetachNetDeviceRequest::set_guest_bus(uint32_t value) {
+  _internal_set_guest_bus(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.DetachNetDeviceRequest.guest_bus)
+}
+
+// -------------------------------------------------------------------
+
+// DetachNetDeviceResponse
+
+// bool success = 1;
+inline void DetachNetDeviceResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool DetachNetDeviceResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool DetachNetDeviceResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.DetachNetDeviceResponse.success)
+  return _internal_success();
+}
+inline void DetachNetDeviceResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void DetachNetDeviceResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.DetachNetDeviceResponse.success)
+}
+
+// string failure_reason = 2;
+inline void DetachNetDeviceResponse::clear_failure_reason() {
+  _impl_.failure_reason_.ClearToEmpty();
+}
+inline const std::string& DetachNetDeviceResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.DetachNetDeviceResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DetachNetDeviceResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.failure_reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.DetachNetDeviceResponse.failure_reason)
+}
+inline std::string* DetachNetDeviceResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.DetachNetDeviceResponse.failure_reason)
+  return _s;
+}
+inline const std::string& DetachNetDeviceResponse::_internal_failure_reason() const {
+  return _impl_.failure_reason_.Get();
+}
+inline void DetachNetDeviceResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  _impl_.failure_reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DetachNetDeviceResponse::_internal_mutable_failure_reason() {
+  
+  return _impl_.failure_reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DetachNetDeviceResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.DetachNetDeviceResponse.failure_reason)
+  return _impl_.failure_reason_.Release();
+}
+inline void DetachNetDeviceResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.failure_reason_.SetAllocated(failure_reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.failure_reason_.IsDefault()) {
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.DetachNetDeviceResponse.failure_reason)
+}
+
+// -------------------------------------------------------------------
+
 // DnsSettings
 
 // repeated string nameservers = 1;
@@ -25218,6 +26312,26 @@ inline void AggressiveBalloonResponse::set_allocated_failure_reason(std::string*
 
 // EnableVmMemoryManagementServiceRequest
 
+// uint32 arc_kill_request_timeout_ms = 1;
+inline void EnableVmMemoryManagementServiceRequest::clear_arc_kill_request_timeout_ms() {
+  _impl_.arc_kill_request_timeout_ms_ = 0u;
+}
+inline uint32_t EnableVmMemoryManagementServiceRequest::_internal_arc_kill_request_timeout_ms() const {
+  return _impl_.arc_kill_request_timeout_ms_;
+}
+inline uint32_t EnableVmMemoryManagementServiceRequest::arc_kill_request_timeout_ms() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.EnableVmMemoryManagementServiceRequest.arc_kill_request_timeout_ms)
+  return _internal_arc_kill_request_timeout_ms();
+}
+inline void EnableVmMemoryManagementServiceRequest::_internal_set_arc_kill_request_timeout_ms(uint32_t value) {
+  
+  _impl_.arc_kill_request_timeout_ms_ = value;
+}
+inline void EnableVmMemoryManagementServiceRequest::set_arc_kill_request_timeout_ms(uint32_t value) {
+  _internal_set_arc_kill_request_timeout_ms(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.EnableVmMemoryManagementServiceRequest.arc_kill_request_timeout_ms)
+}
+
 // -------------------------------------------------------------------
 
 // EnableVmMemoryManagementServiceResponse
@@ -25296,26 +26410,6 @@ inline void EnableVmMemoryManagementServiceResponse::set_allocated_failure_reaso
 
 // GetVmMemoryManagementKillsConnectionRequest
 
-// uint32 read_timeout_ms = 1;
-inline void GetVmMemoryManagementKillsConnectionRequest::clear_read_timeout_ms() {
-  _impl_.read_timeout_ms_ = 0u;
-}
-inline uint32_t GetVmMemoryManagementKillsConnectionRequest::_internal_read_timeout_ms() const {
-  return _impl_.read_timeout_ms_;
-}
-inline uint32_t GetVmMemoryManagementKillsConnectionRequest::read_timeout_ms() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest.read_timeout_ms)
-  return _internal_read_timeout_ms();
-}
-inline void GetVmMemoryManagementKillsConnectionRequest::_internal_set_read_timeout_ms(uint32_t value) {
-  
-  _impl_.read_timeout_ms_ = value;
-}
-inline void GetVmMemoryManagementKillsConnectionRequest::set_read_timeout_ms(uint32_t value) {
-  _internal_set_read_timeout_ms(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest.read_timeout_ms)
-}
-
 // -------------------------------------------------------------------
 
 // GetVmMemoryManagementKillsConnectionResponse
@@ -25393,6 +26487,14 @@ inline void GetVmMemoryManagementKillsConnectionResponse::set_allocated_failure_
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -1,0 +1,4 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import"./privacy_indicator_app.js";import{PolymerElement}from"chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js";import{getTemplate}from"./privacy_indicator_app_manager.html.js";const testAppIdPrefix="chromeos-status-area-test-app";export class PrivacyIndicatorAppManagerElement extends PolymerElement{constructor(){super(...arguments);this.idLatest=0;this.appList=[]}static get is(){return"privacy-indicator-app-manager"}static get template(){return getTemplate()}static get properties(){return{idLatest:{type:Number,value:0},appList:{type:Array,value:[]}}}onAddPrivacyIndicatorsApp(e){e.stopPropagation();this.appList.push(testAppIdPrefix+this.idLatest);this.idLatest++;this.appList=this.appList.slice()}}customElements.define(PrivacyIndicatorAppManagerElement.is,PrivacyIndicatorAppManagerElement);

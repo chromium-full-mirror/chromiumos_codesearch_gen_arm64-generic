@@ -1,0 +1,126 @@
+// Copyright 2020 The Swarming Authors. All rights reserved.
+// Use of this source code is governed by the Apache v2.0 license that can be
+// found in the LICENSE file.
+
+syntax = "proto3";
+
+package buildbucket.v2;
+
+option go_package = "go.chromium.org/luci/buildbucket/proto;buildbucketpb";
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "google/rpc/status.proto";
+import "go.chromium.org/luci/buildbucket/proto/builder_common.proto";
+import "go.chromium.org/luci/buildbucket/proto/common.proto";
+
+// Provides preconfigured builders.
+service Builders {
+  // Looks up one builder.
+  rpc GetBuilder(GetBuilderRequest) returns (BuilderItem) {};
+
+  // Lists all builders of a project or a bucket.
+  rpc ListBuilders(ListBuildersRequest) returns (ListBuildersResponse) {};
+
+  // SetBuilderHealth allows a Builder's health to be set.
+  rpc SetBuilderHealth(SetBuilderHealthRequest) returns (SetBuilderHealthResponse) {};
+}
+
+// A request message for GetBuilder rpc.
+message GetBuilderRequest {
+  // ID of the builder to return.
+  BuilderID id = 1;
+
+  // Mask for which fields to include in the response.
+  //
+  // If not set, the default mask is CONFIG_ONLY.
+  BuilderMask mask = 2;
+}
+
+// A request message for ListBuilders.
+message ListBuildersRequest {
+  // LUCI project, e.g. "chromium". Omit to list all builders.
+  //
+  // Required when bucket is specified.
+  string project = 1;
+
+  // A bucket in the project, e.g. "try".
+  //
+  // Omit to list all builders or all builders in a project.
+  string bucket = 2;
+
+  // The maximum number of builders to return.
+  //
+  // The service may return fewer than this value.
+  // If unspecified, at most 100 builders will be returned.
+  // The maximum value is 1000; values above 1000 will be coerced to 1000.
+  int32 page_size = 3;
+
+  // A page token, received from a previous `ListBuilders` call.
+  // Provide this to retrieve the subsequent page.
+  //
+  // When paginating, all other parameters provided to `ListBuilders` MUST
+  // match the call that provided the page token.
+  string page_token = 4;
+}
+
+// A response message for ListBuilders.
+message ListBuildersResponse {
+  // Matched builders.
+  repeated BuilderItem builders = 1;
+
+  // A token, which can be sent as `page_token` to retrieve the next page.
+  // If this field is omitted, there were no subsequent pages at the time of
+  // request.
+  // If the invocation is not finalized, more results may appear later.
+  string next_page_token = 2;
+}
+
+// A request message for SetBuilderHealth RPC.
+message SetBuilderHealthRequest {
+  // BuilderHealth needs BuilderID so that SetBuilderHealth RPC can properly update
+  // the Builder datastore entity with the updated HealthStatus.
+  message BuilderHealth {
+    // Required. Builder to set the health score for.
+    // You must have the 'buildbucket.builders.set_health' permission for
+    // each of them.
+    BuilderID id = 1 [(google.api.field_behavior) = REQUIRED];
+
+    // Required. Health status of the builder.
+    HealthStatus health = 2 [(google.api.field_behavior) = REQUIRED];
+  }
+
+  repeated BuilderHealth health = 1;
+}
+
+// A response message for SetBuilderHealth RPC.
+message SetBuilderHealthResponse {
+  message Response {
+    oneof response {
+      google.protobuf.Empty result = 1;
+      google.rpc.Status error = 100;
+    }
+  }
+
+  // Responses should be empty protos or errors. They will map
+  // directly with the repeated health fields from SetBuilderHealthRequest.
+  repeated Response responses = 1;
+}
+
+message BuilderMask {
+  enum BuilderMaskType {
+    BUILDER_MASK_TYPE_UNSPECIFIED = 0;
+
+    // Default. Returns ID + Config fields in BuilderItem.
+    CONFIG_ONLY = 1;
+
+    // Returns all fields in BuilderItem.
+    ALL = 2;
+
+    // Returns ID + METADATA fields in BuilderItem.
+    METADATA_ONLY = 3;
+  }
+
+  // Type of mask to use to filter BuilderItem.
+  BuilderMaskType type = 1;
+}

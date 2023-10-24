@@ -1,0 +1,4 @@
+gen/ash/webui/grit/ash_personalization_app_resources.h
+gen/ash/webui/grit/ash_personalization_app_resources_map.cc
+gen/ash/webui/grit/ash_personalization_app_resources_map.h
+gen/ash/webui/ash_personalization_app_resources.pak

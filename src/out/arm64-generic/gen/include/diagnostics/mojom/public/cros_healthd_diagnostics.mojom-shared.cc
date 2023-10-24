@@ -101,10 +101,10 @@ NOINLINE static const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kSmartctlCheckWithPercentageUsed";
     case DiagnosticRoutineEnum::kEmmcLifetime:
       return "kEmmcLifetime";
-    case DiagnosticRoutineEnum::kAudioSetVolume:
-      return "kAudioSetVolume";
-    case DiagnosticRoutineEnum::kAudioSetGain:
-      return "kAudioSetGain";
+    case DiagnosticRoutineEnum::DEPRECATED_kAudioSetVolume:
+      return "DEPRECATED_kAudioSetVolume";
+    case DiagnosticRoutineEnum::DEPRECATED_kAudioSetGain:
+      return "DEPRECATED_kAudioSetGain";
     case DiagnosticRoutineEnum::kBluetoothPower:
       return "kBluetoothPower";
     case DiagnosticRoutineEnum::kBluetoothDiscovery:
@@ -119,6 +119,8 @@ NOINLINE static const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kAudioDriver";
     case DiagnosticRoutineEnum::kUfsLifetime:
       return "kUfsLifetime";
+    case DiagnosticRoutineEnum::kFan:
+      return "kFan";
     default:
       return nullptr;
   }

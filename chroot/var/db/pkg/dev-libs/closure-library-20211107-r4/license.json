@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "closure-library", "version": "20211107", "revision": 4, "fullname": "dev-libs/closure-library", "fullnamerev": "dev-libs/closure-library-20211107-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://developers.google.com/closure/library/"], "skip": false, "tainted": false, "ebuild_path": null}

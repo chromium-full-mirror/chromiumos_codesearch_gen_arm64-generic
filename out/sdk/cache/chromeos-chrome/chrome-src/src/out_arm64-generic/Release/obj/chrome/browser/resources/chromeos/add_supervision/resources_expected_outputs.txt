@@ -1,0 +1,4 @@
+gen/chrome/grit/add_supervision_resources.h
+gen/chrome/grit/add_supervision_resources_map.cc
+gen/chrome/grit/add_supervision_resources_map.h
+gen/chrome/add_supervision_resources.pak

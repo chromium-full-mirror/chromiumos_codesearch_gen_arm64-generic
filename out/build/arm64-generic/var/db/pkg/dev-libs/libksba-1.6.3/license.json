@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libksba", "version": "1.6.3", "revision": 0, "fullname": "dev-libs/libksba", "fullnamerev": "dev-libs/libksba-1.6.3", "license_names": ["GPL-2", "GPL-2+", "GPL-3", "LGPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnupg.org/related_software/libksba"], "skip": false, "tainted": false, "ebuild_path": null}

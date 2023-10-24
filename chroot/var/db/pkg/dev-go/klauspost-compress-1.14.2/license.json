@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "klauspost-compress", "version": "1.14.2", "revision": 0, "fullname": "dev-go/klauspost-compress", "fullnamerev": "dev-go/klauspost-compress-1.14.2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/klauspost/compress"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "go-arch", "version": "0.0.1", "revision": 2, "fullname": "dev-go/go-arch", "fullnamerev": "dev-go/go-arch-0.0.1-r2", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://golang.org/x/arch"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="15" failures="0" disabled="0" errors="0" time="1000." timestamp="1970-01-01T00:00:00.000" name="AllTests">
+  <testsuite name="ServerMetricsTestSuite" tests="11" failures="0" disabled="0" skipped="0" errors="0" time="1000." timestamp="1970-01-01T00:00:00.000">
+    <testcase name="Init" file="cras/src/tests/server_metrics_unittest.cc" line="36" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsDeviceRuntime" file="cras/src/tests/server_metrics_unittest.cc" line="44" status="run" result="completed" time="300." timestamp="1970-01-01T00:00:00.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsHighestDeviceDelay" file="cras/src/tests/server_metrics_unittest.cc" line="123" status="run" result="completed" time="0." timestamp="1970-01-01T00:05:00.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricHighestHardwareLevel" file="cras/src/tests/server_metrics_unittest.cc" line="151" status="run" result="completed" time="0." timestamp="1970-01-01T00:05:00.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsNumUnderruns" file="cras/src/tests/server_metrics_unittest.cc" line="176" status="run" result="completed" time="0." timestamp="1970-01-01T00:05:00.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsMissedCallbackEventInputStream" file="cras/src/tests/server_metrics_unittest.cc" line="190" status="run" result="completed" time="-100." timestamp="1970-01-01T00:05:00.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsMissedCallbackEventOutputStream" file="cras/src/tests/server_metrics_unittest.cc" line="231" status="run" result="completed" time="0." timestamp="1970-01-01T00:03:20.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsStreamCreate" file="cras/src/tests/server_metrics_unittest.cc" line="272" status="run" result="completed" time="0." timestamp="1970-01-01T00:03:20.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsStreamDestroy" file="cras/src/tests/server_metrics_unittest.cc" line="302" status="run" result="completed" time="800." timestamp="1970-01-01T00:03:20.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsBusyloop" file="cras/src/tests/server_metrics_unittest.cc" line="371" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsTestSuite" />
+    <testcase name="SetMetricsBusyloopLength" file="cras/src/tests/server_metrics_unittest.cc" line="388" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsTestSuite" />
+  </testsuite>
+  <testsuite name="ServerMetricsHfpSrStatusTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="1970-01-01T00:16:40.000">
+    <testcase name="TestCrasServerMetricsHfpMicSrStatus/0" value_param="12-byte object &lt;0C-00 00-00 18-00 00-00 00-00 00-00&gt;" file="cras/src/tests/server_metrics_unittest.cc" line="415" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsHfpSrStatusTest" />
+    <testcase name="TestCrasServerMetricsHfpMicSrStatus/1" value_param="12-byte object &lt;0A-00 00-00 12-00 00-00 02-00 00-00&gt;" file="cras/src/tests/server_metrics_unittest.cc" line="415" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsHfpSrStatusTest" />
+  </testsuite>
+  <testsuite name="ServerMetricsCrasDlcManagerTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="1970-01-01T00:16:40.000">
+    <testcase name="TestCrasServerMetricsDlcManagerStatus/0" value_param="40-byte object &lt;01-00 00-00 55-00 00-00 08-4E 63-41 70-00 00-00 50-BB 04-00 55-00 00-00 00-58 5A-F2 0B-E2 44-43 00-00 00-00 00-00 00-00&gt;" file="cras/src/tests/server_metrics_unittest.cc" line="461" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsCrasDlcManagerTest" />
+    <testcase name="TestCrasServerMetricsDlcManagerStatus/1" value_param="40-byte object &lt;00-00 00-00 00-00 00-00 08-53 72-42 74-00 00-00 74-DB F6-01 55-00 00-00 E0-06 05-00 55-00 00-00 0A-00 00-00 00-00 00-00&gt;" file="cras/src/tests/server_metrics_unittest.cc" line="461" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsCrasDlcManagerTest" />
+  </testsuite>
+</testsuites>

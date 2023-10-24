@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-i18n", "name": "nacl-mozc", "version": "1.14.1639.104", "revision": 8, "fullname": "app-i18n/nacl-mozc", "fullnamerev": "app-i18n/nacl-mozc-1.14.1639.104-r8", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/google/mozc"], "skip": false, "tainted": false, "ebuild_path": null}

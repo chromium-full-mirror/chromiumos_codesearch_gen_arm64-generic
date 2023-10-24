@@ -1,0 +1,4 @@
+gen/chrome/grit/notification_tester_resources.h
+gen/chrome/grit/notification_tester_resources_map.cc
+gen/chrome/grit/notification_tester_resources_map.h
+gen/chrome/notification_tester_resources.pak

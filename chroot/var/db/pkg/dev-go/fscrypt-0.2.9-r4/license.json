@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "fscrypt", "version": "0.2.9", "revision": 4, "fullname": "dev-go/fscrypt", "fullnamerev": "dev-go/fscrypt-0.2.9-r4", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/fscrypt"], "skip": false, "tainted": false, "ebuild_path": null}

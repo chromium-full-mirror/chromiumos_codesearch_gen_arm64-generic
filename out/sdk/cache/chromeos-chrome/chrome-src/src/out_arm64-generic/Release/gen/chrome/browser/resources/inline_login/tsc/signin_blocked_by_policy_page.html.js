@@ -1,0 +1,14 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="account-manager-shared">.image-container{height:280px;margin-top:5px}.signin-blocked-by-policy-image{height:80%;width:auto}.secondary{color:var(--cr-secondary-text-color)}.business-logo{fill:var(--google-blue-600);height:48px;width:48px}p{margin-bottom:0;margin-top:0}</style>
+
+<div class="main-container">
+  <iron-icon class="business-logo" icon="cr:domain" alt="Business building logo" aria-hidden="true"></iron-icon>
+  <h1>$i18nRaw{accountManagerDialogSigninBlockedByPolicyTitle}</h1>
+  <p class="secondary" inner-h-t-m-l="[[getBodyText_(email, hostedDomain, deviceType)]]"></p>
+  <div class="image-container" aria-hidden="true">
+    <img class="signin-blocked-by-policy-image" alt="$i18n{accountManagerDialogSigninBlockedByPolicyImageAlt}" src="account_manager_signin_blocked_by_policy.svg">
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}

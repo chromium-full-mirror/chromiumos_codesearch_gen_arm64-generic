@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libtracefs", "version": "1.6.3", "revision": 2, "fullname": "dev-libs/libtracefs", "fullnamerev": "dev-libs/libtracefs-1.6.3-r2", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://www.trace-cmd.org"], "skip": false, "tainted": false, "ebuild_path": null}

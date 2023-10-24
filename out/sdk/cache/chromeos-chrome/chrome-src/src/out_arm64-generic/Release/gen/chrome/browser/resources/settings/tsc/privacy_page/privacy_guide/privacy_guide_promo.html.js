@@ -1,0 +1,23 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#wrapper{align-items:center;display:flex;justify-content:space-between;padding:0 20px}#controlsColumn{margin-top:4px}h2{color:var(--cr-primary-text-color);font-size:22px;padding-top:0}#title{font-weight:400}#bodyText{padding-block-end:16px}#startButton{margin-bottom:4px;margin-inline-end:16px}</style>
+<div id="wrapper">
+  <div id="controlsColumn">
+    <h2 id="title">$i18n{privacyGuidePromoHeader}</h2>
+    <div id="bodyText" class="cr-secondary-text">
+      $i18n{privacyGuidePromoBody}
+    </div>
+    <cr-button class="action-button" id="startButton" role="button" aria-describedby="title bodyText" on-click="onPrivacyGuideStartClick_">
+      $i18n{privacyGuidePromoStartButton}
+    </cr-button>
+    <cr-button id="noThanksButton" role="button" on-click="onNoThanksButtonClick_">
+      $i18n{noThanks}
+    </cr-button>
+  </div>
+  <picture>
+    <source class="banner" srcset="./images/privacy_guide/promo_banner_dark.svg" media="(prefers-color-scheme: dark)">
+    <img class="banner" alt="" src="./images/privacy_guide/promo_banner.svg">
+  </picture>
+</div>
+<!--_html_template_end_-->`;
+}

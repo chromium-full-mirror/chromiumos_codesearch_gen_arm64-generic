@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "syzkaller", "version": "0.0.22", "revision": 2, "fullname": "dev-go/syzkaller", "fullnamerev": "dev-go/syzkaller-0.0.22-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/syzkaller"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,12 @@
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style>.loading-spinner{width:100%;height:100px;display:flex;justify-content:center}.loading-spinner>paper-spinner-lite{width:60px;height:60px}</style>
+<template is="dom-if" if="[[isLoading]]">
+  <div class="loading-spinner">
+    <paper-spinner-lite active="[[isLoading]]">
+    </paper-spinner-lite>
+  </div>
+</template>
+<template is="dom-if" if="[[!isLoading]]">
+  <template is="dom-repeat" items="[[traces]]">
+    <trace-report trace="[[item]]"></trace-report>
+  </template>
+</template><!--_html_template_end_-->`}

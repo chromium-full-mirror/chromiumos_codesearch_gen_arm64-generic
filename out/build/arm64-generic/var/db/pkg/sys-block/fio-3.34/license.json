@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-block", "name": "fio", "version": "3.34", "revision": 0, "fullname": "sys-block/fio", "fullnamerev": "sys-block/fio-3.34", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://brick.kernel.dk/snaps/"], "skip": false, "tainted": false, "ebuild_path": null}

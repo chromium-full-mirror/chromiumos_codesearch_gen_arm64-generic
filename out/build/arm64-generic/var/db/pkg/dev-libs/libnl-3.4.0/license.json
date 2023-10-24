@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libnl", "version": "3.4.0", "revision": 0, "fullname": "dev-libs/libnl", "fullnamerev": "dev-libs/libnl-3.4.0", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["http://www.infradead.org/~tgr/libnl/", "https://github.com/thom311/libnl"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "patch", "version": "2.7.6", "revision": 5, "fullname": "sys-devel/patch", "fullnamerev": "sys-devel/patch-2.7.6-r5", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/patch/patch.html"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libtraceevent", "version": "1.7.0", "revision": 0, "fullname": "dev-libs/libtraceevent", "fullnamerev": "dev-libs/libtraceevent-1.7.0", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://www.trace-cmd.org"], "skip": false, "tainted": false, "ebuild_path": null}

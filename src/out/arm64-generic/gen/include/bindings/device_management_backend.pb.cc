@@ -425,8 +425,10 @@ struct PublicKeyVerificationDataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PublicKeyVerificationDataDefaultTypeInternal _PublicKeyVerificationData_default_instance_;
 PROTOBUF_CONSTEXPR DevicePolicyRequest::DevicePolicyRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.requests_)*/{}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.requests_)*/{}
+  , /*decltype(_impl_.reason_)*/0} {}
 struct DevicePolicyRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DevicePolicyRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1963,6 +1965,7 @@ PROTOBUF_CONSTEXPR DeviceRemoteCommandRequest::DeviceRemoteCommandRequest(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.command_results_)*/{}
+  , /*decltype(_impl_.type_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.last_command_unique_id_)*/int64_t{0}
   , /*decltype(_impl_.send_secure_commands_)*/false
   , /*decltype(_impl_.signature_type_)*/0} {}
@@ -4352,6 +4355,169 @@ constexpr PolicyData_MetricsLogSegment PolicyData::ENTERPRISE;
 constexpr PolicyData_MetricsLogSegment PolicyData::MetricsLogSegment_MIN;
 constexpr PolicyData_MetricsLogSegment PolicyData::MetricsLogSegment_MAX;
 constexpr int PolicyData::MetricsLogSegment_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DevicePolicyRequest_Reason_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DevicePolicyRequest_Reason_strings[23] = {};
+
+static const char DevicePolicyRequest_Reason_names[] =
+  "BROWSER_START"
+  "CRD_HOST_POLICY_WATCHER"
+  "DEVICE_ENROLLMENT"
+  "INVALIDATION"
+  "LACROS"
+  "REGISTRATION_CHANGED"
+  "RETRY"
+  "RETRY_AFTER_STATUS_CANNOT_SIGN_REQUEST"
+  "RETRY_AFTER_STATUS_HTTP_STATUS_ERROR"
+  "RETRY_AFTER_STATUS_REQUEST_FAILED"
+  "RETRY_AFTER_STATUS_REQUEST_INVALID"
+  "RETRY_AFTER_STATUS_REQUEST_TOO_LARGE"
+  "RETRY_AFTER_STATUS_RESPONSE_DECODING_ERROR"
+  "RETRY_AFTER_STATUS_SERVICE_ACTIVATION_PENDING"
+  "RETRY_AFTER_STATUS_SERVICE_MANAGEMENT_NOT_SUPPORTED"
+  "RETRY_AFTER_STATUS_SERVICE_POLICY_NOT_FOUND"
+  "RETRY_AFTER_STATUS_SERVICE_TOO_MANY_REQUESTS"
+  "RETRY_AFTER_STATUS_TEMPORARY_UNAVAILABLE"
+  "SCHEDULED"
+  "SIGNIN"
+  "TEST"
+  "UNSPECIFIED"
+  "USER_REQUEST";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DevicePolicyRequest_Reason_entries[] = {
+  { {DevicePolicyRequest_Reason_names + 0, 13}, 19 },
+  { {DevicePolicyRequest_Reason_names + 13, 23}, 22 },
+  { {DevicePolicyRequest_Reason_names + 36, 17}, 1 },
+  { {DevicePolicyRequest_Reason_names + 53, 12}, 2 },
+  { {DevicePolicyRequest_Reason_names + 65, 6}, 20 },
+  { {DevicePolicyRequest_Reason_names + 71, 20}, 3 },
+  { {DevicePolicyRequest_Reason_names + 91, 5}, 4 },
+  { {DevicePolicyRequest_Reason_names + 96, 38}, 10 },
+  { {DevicePolicyRequest_Reason_names + 134, 36}, 12 },
+  { {DevicePolicyRequest_Reason_names + 170, 33}, 8 },
+  { {DevicePolicyRequest_Reason_names + 203, 34}, 11 },
+  { {DevicePolicyRequest_Reason_names + 237, 36}, 15 },
+  { {DevicePolicyRequest_Reason_names + 273, 42}, 13 },
+  { {DevicePolicyRequest_Reason_names + 315, 45}, 5 },
+  { {DevicePolicyRequest_Reason_names + 360, 51}, 14 },
+  { {DevicePolicyRequest_Reason_names + 411, 43}, 6 },
+  { {DevicePolicyRequest_Reason_names + 454, 44}, 7 },
+  { {DevicePolicyRequest_Reason_names + 498, 40}, 9 },
+  { {DevicePolicyRequest_Reason_names + 538, 9}, 16 },
+  { {DevicePolicyRequest_Reason_names + 547, 6}, 17 },
+  { {DevicePolicyRequest_Reason_names + 553, 4}, 18 },
+  { {DevicePolicyRequest_Reason_names + 557, 11}, 0 },
+  { {DevicePolicyRequest_Reason_names + 568, 12}, 21 },
+};
+
+static const int DevicePolicyRequest_Reason_entries_by_number[] = {
+  21, // 0 -> UNSPECIFIED
+  2, // 1 -> DEVICE_ENROLLMENT
+  3, // 2 -> INVALIDATION
+  5, // 3 -> REGISTRATION_CHANGED
+  6, // 4 -> RETRY
+  13, // 5 -> RETRY_AFTER_STATUS_SERVICE_ACTIVATION_PENDING
+  15, // 6 -> RETRY_AFTER_STATUS_SERVICE_POLICY_NOT_FOUND
+  16, // 7 -> RETRY_AFTER_STATUS_SERVICE_TOO_MANY_REQUESTS
+  9, // 8 -> RETRY_AFTER_STATUS_REQUEST_FAILED
+  17, // 9 -> RETRY_AFTER_STATUS_TEMPORARY_UNAVAILABLE
+  7, // 10 -> RETRY_AFTER_STATUS_CANNOT_SIGN_REQUEST
+  10, // 11 -> RETRY_AFTER_STATUS_REQUEST_INVALID
+  8, // 12 -> RETRY_AFTER_STATUS_HTTP_STATUS_ERROR
+  12, // 13 -> RETRY_AFTER_STATUS_RESPONSE_DECODING_ERROR
+  14, // 14 -> RETRY_AFTER_STATUS_SERVICE_MANAGEMENT_NOT_SUPPORTED
+  11, // 15 -> RETRY_AFTER_STATUS_REQUEST_TOO_LARGE
+  18, // 16 -> SCHEDULED
+  19, // 17 -> SIGNIN
+  20, // 18 -> TEST
+  0, // 19 -> BROWSER_START
+  4, // 20 -> LACROS
+  22, // 21 -> USER_REQUEST
+  1, // 22 -> CRD_HOST_POLICY_WATCHER
+};
+
+const std::string& DevicePolicyRequest_Reason_Name(
+    DevicePolicyRequest_Reason value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DevicePolicyRequest_Reason_entries,
+          DevicePolicyRequest_Reason_entries_by_number,
+          23, DevicePolicyRequest_Reason_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DevicePolicyRequest_Reason_entries,
+      DevicePolicyRequest_Reason_entries_by_number,
+      23, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DevicePolicyRequest_Reason_strings[idx].get();
+}
+bool DevicePolicyRequest_Reason_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DevicePolicyRequest_Reason* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DevicePolicyRequest_Reason_entries, 23, name, &int_value);
+  if (success) {
+    *value = static_cast<DevicePolicyRequest_Reason>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::UNSPECIFIED;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::DEVICE_ENROLLMENT;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::INVALIDATION;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::REGISTRATION_CHANGED;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_SERVICE_ACTIVATION_PENDING;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_SERVICE_POLICY_NOT_FOUND;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_SERVICE_TOO_MANY_REQUESTS;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_REQUEST_FAILED;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_TEMPORARY_UNAVAILABLE;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_CANNOT_SIGN_REQUEST;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_REQUEST_INVALID;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_HTTP_STATUS_ERROR;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_RESPONSE_DECODING_ERROR;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_SERVICE_MANAGEMENT_NOT_SUPPORTED;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::RETRY_AFTER_STATUS_REQUEST_TOO_LARGE;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::SCHEDULED;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::SIGNIN;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::TEST;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::BROWSER_START;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::LACROS;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::USER_REQUEST;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::CRD_HOST_POLICY_WATCHER;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::Reason_MIN;
+constexpr DevicePolicyRequest_Reason DevicePolicyRequest::Reason_MAX;
+constexpr int DevicePolicyRequest::Reason_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool ActiveTimePeriod_SessionType_IsValid(int value) {
   switch (value) {
@@ -9108,13 +9274,14 @@ bool CertProvBackendError_Error_IsValid(int value) {
     case 7:
     case 8:
     case 9:
+    case 10:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CertProvBackendError_Error_strings[10] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CertProvBackendError_Error_strings[11] = {};
 
 static const char CertProvBackendError_Error_names[] =
   "BAD_PUBLIC_KEY"
@@ -9126,7 +9293,8 @@ static const char CertProvBackendError_Error_names[] =
   "INCONSISTENT_DATA"
   "INSTRUCTION_NOT_YET_AVAILABLE"
   "INVALID_OPERATION"
-  "INVALID_SIGNATURE";
+  "INVALID_SIGNATURE"
+  "PROFILE_NOT_FOUND";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CertProvBackendError_Error_entries[] = {
   { {CertProvBackendError_Error_names + 0, 14}, 5 },
@@ -9139,6 +9307,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CertProvBackendError_E
   { {CertProvBackendError_Error_names + 117, 29}, 7 },
   { {CertProvBackendError_Error_names + 146, 17}, 1 },
   { {CertProvBackendError_Error_names + 163, 17}, 6 },
+  { {CertProvBackendError_Error_names + 180, 17}, 10 },
 };
 
 static const int CertProvBackendError_Error_entries_by_number[] = {
@@ -9152,6 +9321,7 @@ static const int CertProvBackendError_Error_entries_by_number[] = {
   7, // 7 -> INSTRUCTION_NOT_YET_AVAILABLE
   2, // 8 -> CA_UNAVAILABLE
   1, // 9 -> CA_FAILURE
+  10, // 10 -> PROFILE_NOT_FOUND
 };
 
 const std::string& CertProvBackendError_Error_Name(
@@ -9160,12 +9330,12 @@ const std::string& CertProvBackendError_Error_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CertProvBackendError_Error_entries,
           CertProvBackendError_Error_entries_by_number,
-          10, CertProvBackendError_Error_strings);
+          11, CertProvBackendError_Error_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CertProvBackendError_Error_entries,
       CertProvBackendError_Error_entries_by_number,
-      10, value);
+      11, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CertProvBackendError_Error_strings[idx].get();
 }
@@ -9173,7 +9343,7 @@ bool CertProvBackendError_Error_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CertProvBackendError_Error* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CertProvBackendError_Error_entries, 10, name, &int_value);
+      CertProvBackendError_Error_entries, 11, name, &int_value);
   if (success) {
     *value = static_cast<CertProvBackendError_Error>(int_value);
   }
@@ -9190,6 +9360,7 @@ constexpr CertProvBackendError_Error CertProvBackendError::INVALID_SIGNATURE;
 constexpr CertProvBackendError_Error CertProvBackendError::INSTRUCTION_NOT_YET_AVAILABLE;
 constexpr CertProvBackendError_Error CertProvBackendError::CA_UNAVAILABLE;
 constexpr CertProvBackendError_Error CertProvBackendError::CA_FAILURE;
+constexpr CertProvBackendError_Error CertProvBackendError::PROFILE_NOT_FOUND;
 constexpr CertProvBackendError_Error CertProvBackendError::Error_MIN;
 constexpr CertProvBackendError_Error CertProvBackendError::Error_MAX;
 constexpr int CertProvBackendError::Error_ARRAYSIZE;
@@ -18811,6 +18982,10 @@ std::string PublicKeyVerificationData::GetTypeName() const {
 
 class DevicePolicyRequest::_Internal {
  public:
+  using HasBits = decltype(std::declval<DevicePolicyRequest>()._impl_._has_bits_);
+  static void set_has_reason(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 DevicePolicyRequest::DevicePolicyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -18823,10 +18998,13 @@ DevicePolicyRequest::DevicePolicyRequest(const DevicePolicyRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   DevicePolicyRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.requests_){from._impl_.requests_}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.requests_){from._impl_.requests_}
+    , decltype(_impl_.reason_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.reason_ = from._impl_.reason_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DevicePolicyRequest)
 }
 
@@ -18835,8 +19013,10 @@ inline void DevicePolicyRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.requests_){arena}
+      decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.requests_){arena}
+    , decltype(_impl_.reason_){0}
   };
 }
 
@@ -18865,11 +19045,14 @@ void DevicePolicyRequest::Clear() {
   (void) cached_has_bits;
 
   _impl_.requests_.Clear();
+  _impl_.reason_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* DevicePolicyRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
@@ -18884,6 +19067,19 @@ const char* DevicePolicyRequest::_InternalParse(const char* ptr, ::_pbi::ParseCo
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.DevicePolicyRequest.Reason reason = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::DevicePolicyRequest_Reason_IsValid(val))) {
+            _internal_set_reason(static_cast<::enterprise_management::DevicePolicyRequest_Reason>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -18903,6 +19099,7 @@ const char* DevicePolicyRequest::_InternalParse(const char* ptr, ::_pbi::ParseCo
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -18922,6 +19119,14 @@ uint8_t* DevicePolicyRequest::_InternalSerialize(
     const auto& repfield = this->_internal_requests(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
         InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .enterprise_management.DevicePolicyRequest.Reason reason = 4;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      4, this->_internal_reason(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -18947,6 +19152,13 @@ size_t DevicePolicyRequest::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // optional .enterprise_management.DevicePolicyRequest.Reason reason = 4;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_reason());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -18969,6 +19181,9 @@ void DevicePolicyRequest::MergeFrom(const DevicePolicyRequest& from) {
   (void) cached_has_bits;
 
   _this->_impl_.requests_.MergeFrom(from._impl_.requests_);
+  if (from._internal_has_reason()) {
+    _this->_internal_set_reason(from._internal_reason());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -18986,7 +19201,9 @@ bool DevicePolicyRequest::IsInitialized() const {
 void DevicePolicyRequest::InternalSwap(DevicePolicyRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.requests_.InternalSwap(&other->_impl_.requests_);
+  swap(_impl_.reason_, other->_impl_.reason_);
 }
 
 std::string DevicePolicyRequest::GetTypeName() const {
@@ -49901,13 +50118,16 @@ class DeviceRemoteCommandRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceRemoteCommandRequest>()._impl_._has_bits_);
   static void set_has_last_command_unique_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_send_secure_commands(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_signature_type(HasBits* has_bits) {
+  static void set_has_send_secure_commands(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
+  }
+  static void set_has_signature_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
   }
 };
 
@@ -49924,11 +50144,20 @@ DeviceRemoteCommandRequest::DeviceRemoteCommandRequest(const DeviceRemoteCommand
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.command_results_){from._impl_.command_results_}
+    , decltype(_impl_.type_){}
     , decltype(_impl_.last_command_unique_id_){}
     , decltype(_impl_.send_secure_commands_){}
     , decltype(_impl_.signature_type_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.type_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_type()) {
+    _this->_impl_.type_.Set(from._internal_type(), 
+      _this->GetArenaForAllocation());
+  }
   ::memcpy(&_impl_.last_command_unique_id_, &from._impl_.last_command_unique_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.signature_type_) -
     reinterpret_cast<char*>(&_impl_.last_command_unique_id_)) + sizeof(_impl_.signature_type_));
@@ -49943,10 +50172,15 @@ inline void DeviceRemoteCommandRequest::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.command_results_){arena}
+    , decltype(_impl_.type_){}
     , decltype(_impl_.last_command_unique_id_){int64_t{0}}
     , decltype(_impl_.send_secure_commands_){false}
     , decltype(_impl_.signature_type_){0}
   };
+  _impl_.type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.type_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DeviceRemoteCommandRequest::~DeviceRemoteCommandRequest() {
@@ -49961,6 +50195,7 @@ DeviceRemoteCommandRequest::~DeviceRemoteCommandRequest() {
 inline void DeviceRemoteCommandRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.command_results_.~RepeatedPtrField();
+  _impl_.type_.Destroy();
 }
 
 void DeviceRemoteCommandRequest::SetCachedSize(int size) const {
@@ -49975,7 +50210,10 @@ void DeviceRemoteCommandRequest::Clear() {
 
   _impl_.command_results_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000001u) {
+    _impl_.type_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x0000000eu) {
     ::memset(&_impl_.last_command_unique_id_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&_impl_.signature_type_) -
         reinterpret_cast<char*>(&_impl_.last_command_unique_id_)) + sizeof(_impl_.signature_type_));
@@ -50035,6 +50273,15 @@ const char* DeviceRemoteCommandRequest::_InternalParse(const char* ptr, ::_pbi::
         } else
           goto handle_unusual;
         continue;
+      // optional string type = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_type();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -50067,7 +50314,7 @@ uint8_t* DeviceRemoteCommandRequest::_InternalSerialize(
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional int64 last_command_unique_id = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_last_command_unique_id(), target);
   }
@@ -50081,16 +50328,22 @@ uint8_t* DeviceRemoteCommandRequest::_InternalSerialize(
   }
 
   // optional bool send_secure_commands = 3;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_send_secure_commands(), target);
   }
 
   // optional .enterprise_management.PolicyFetchRequest.SignatureType signature_type = 4;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_signature_type(), target);
+  }
+
+  // optional string type = 5;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -50117,19 +50370,26 @@ size_t DeviceRemoteCommandRequest::ByteSizeLong() const {
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional int64 last_command_unique_id = 1;
+  if (cached_has_bits & 0x0000000fu) {
+    // optional string type = 5;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_type());
+    }
+
+    // optional int64 last_command_unique_id = 1;
+    if (cached_has_bits & 0x00000002u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_last_command_unique_id());
     }
 
     // optional bool send_secure_commands = 3;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 + 1;
     }
 
     // optional .enterprise_management.PolicyFetchRequest.SignatureType signature_type = 4;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_signature_type());
     }
@@ -50158,14 +50418,17 @@ void DeviceRemoteCommandRequest::MergeFrom(const DeviceRemoteCommandRequest& fro
 
   _this->_impl_.command_results_.MergeFrom(from._impl_.command_results_);
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_impl_.last_command_unique_id_ = from._impl_.last_command_unique_id_;
+      _this->_internal_set_type(from._internal_type());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_impl_.send_secure_commands_ = from._impl_.send_secure_commands_;
+      _this->_impl_.last_command_unique_id_ = from._impl_.last_command_unique_id_;
     }
     if (cached_has_bits & 0x00000004u) {
+      _this->_impl_.send_secure_commands_ = from._impl_.send_secure_commands_;
+    }
+    if (cached_has_bits & 0x00000008u) {
       _this->_impl_.signature_type_ = from._impl_.signature_type_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -50186,9 +50449,15 @@ bool DeviceRemoteCommandRequest::IsInitialized() const {
 
 void DeviceRemoteCommandRequest::InternalSwap(DeviceRemoteCommandRequest* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.command_results_.InternalSwap(&other->_impl_.command_results_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.type_, lhs_arena,
+      &other->_impl_.type_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(DeviceRemoteCommandRequest, _impl_.signature_type_)
       + sizeof(DeviceRemoteCommandRequest::_impl_.signature_type_)

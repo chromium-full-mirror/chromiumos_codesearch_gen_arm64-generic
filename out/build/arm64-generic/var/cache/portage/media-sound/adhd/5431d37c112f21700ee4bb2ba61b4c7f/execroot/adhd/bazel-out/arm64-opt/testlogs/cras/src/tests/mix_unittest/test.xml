@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="76" failures="0" disabled="0" errors="0" time="0.434" timestamp="2023-10-23T22:48:46.925" name="AllTests">
+  <testsuite name="MixTestSuiteS16_LE" tests="19" failures="0" disabled="0" skipped="0" errors="0" time="0.104" timestamp="2023-10-23T22:48:46.934">
+    <testcase name="MixFirst" file="cras/src/tests/mix_unittest.cc" line="112" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:46.935" classname="MixTestSuiteS16_LE" />
+    <testcase name="MixTwo" file="cras/src/tests/mix_unittest.cc" line="118" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:46.939" classname="MixTestSuiteS16_LE" />
+    <testcase name="MixTwoClip" file="cras/src/tests/mix_unittest.cc" line="130" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:46.941" classname="MixTestSuiteS16_LE" />
+    <testcase name="MixFirstMuted" file="cras/src/tests/mix_unittest.cc" line="145" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:46.941" classname="MixTestSuiteS16_LE" />
+    <testcase name="MixFirstZeroVolume" file="cras/src/tests/mix_unittest.cc" line="155" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:46.942" classname="MixTestSuiteS16_LE" />
+    <testcase name="MixFirstHalfVolume" file="cras/src/tests/mix_unittest.cc" line="165" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:46.942" classname="MixTestSuiteS16_LE" />
+    <testcase name="MixTwoSecondHalfVolume" file="cras/src/tests/mix_unittest.cc" line="175" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:46.945" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleFullVolumeIncrement" file="cras/src/tests/mix_unittest.cc" line="187" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:46.949" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleMinVolumeIncrement" file="cras/src/tests/mix_unittest.cc" line="202" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:46.951" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleVolumePositiveIncrement" file="cras/src/tests/mix_unittest.cc" line="217" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:46.952" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleVolumeNegativeIncrement" file="cras/src/tests/mix_unittest.cc" line="231" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:46.972" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleVolumeStartFullNegativeIncrement" file="cras/src/tests/mix_unittest.cc" line="246" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:46.977" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleVolumeStartZeroPositiveIncrement" file="cras/src/tests/mix_unittest.cc" line="261" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:46.982" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleVolumePositiveIncrementCappedByTarget" file="cras/src/tests/mix_unittest.cc" line="276" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:46.992" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleVolumeNegativeIncrementCappedByTarget" file="cras/src/tests/mix_unittest.cc" line="290" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.012" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleFullVolume" file="cras/src/tests/mix_unittest.cc" line="304" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.016" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleMinVolume" file="cras/src/tests/mix_unittest.cc" line="311" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.017" classname="MixTestSuiteS16_LE" />
+    <testcase name="ScaleHalfVolume" file="cras/src/tests/mix_unittest.cc" line="318" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:47.018" classname="MixTestSuiteS16_LE" />
+    <testcase name="StrideCopy" file="cras/src/tests/mix_unittest.cc" line="327" status="run" result="completed" time="0.005" timestamp="2023-10-23T22:48:47.021" classname="MixTestSuiteS16_LE" />
+  </testsuite>
+  <testsuite name="MixTestSuiteS24_LE" tests="19" failures="0" disabled="0" skipped="0" errors="0" time="0.082" timestamp="2023-10-23T22:48:47.040">
+    <testcase name="MixFirst" file="cras/src/tests/mix_unittest.cc" line="430" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.040" classname="MixTestSuiteS24_LE" />
+    <testcase name="MixTwo" file="cras/src/tests/mix_unittest.cc" line="436" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:47.041" classname="MixTestSuiteS24_LE" />
+    <testcase name="MixTwoClip" file="cras/src/tests/mix_unittest.cc" line="448" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.043" classname="MixTestSuiteS24_LE" />
+    <testcase name="MixFirstMuted" file="cras/src/tests/mix_unittest.cc" line="463" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.044" classname="MixTestSuiteS24_LE" />
+    <testcase name="MixFirstZeroVolume" file="cras/src/tests/mix_unittest.cc" line="473" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.044" classname="MixTestSuiteS24_LE" />
+    <testcase name="MixFirstHalfVolume" file="cras/src/tests/mix_unittest.cc" line="483" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:47.045" classname="MixTestSuiteS24_LE" />
+    <testcase name="MixTwoSecondHalfVolume" file="cras/src/tests/mix_unittest.cc" line="493" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:47.047" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleFullVolumeIncrement" file="cras/src/tests/mix_unittest.cc" line="505" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:47.049" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleMinVolumeIncrement" file="cras/src/tests/mix_unittest.cc" line="520" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.051" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleVolumePositiveIncrement" file="cras/src/tests/mix_unittest.cc" line="535" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:47.052" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleVolumeNegativeIncrement" file="cras/src/tests/mix_unittest.cc" line="549" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:47.072" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleVolumeStartFullNegativeIncrement" file="cras/src/tests/mix_unittest.cc" line="564" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:47.076" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleVolumeStartZeroPositiveIncrement" file="cras/src/tests/mix_unittest.cc" line="579" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.080" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleVolumePositiveIncrementCappedByTarget" file="cras/src/tests/mix_unittest.cc" line="594" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.085" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleVolumeNegativeIncrementCappedByTarget" file="cras/src/tests/mix_unittest.cc" line="608" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.104" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleFullVolume" file="cras/src/tests/mix_unittest.cc" line="622" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.109" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleMinVolume" file="cras/src/tests/mix_unittest.cc" line="629" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.109" classname="MixTestSuiteS24_LE" />
+    <testcase name="ScaleHalfVolume" file="cras/src/tests/mix_unittest.cc" line="636" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:47.110" classname="MixTestSuiteS24_LE" />
+    <testcase name="StrideCopy" file="cras/src/tests/mix_unittest.cc" line="645" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.113" classname="MixTestSuiteS24_LE" />
+  </testsuite>
+  <testsuite name="MixTestSuiteS32_LE" tests="19" failures="0" disabled="0" skipped="0" errors="0" time="0.099" timestamp="2023-10-23T22:48:47.124">
+    <testcase name="MixFirst" file="cras/src/tests/mix_unittest.cc" line="742" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.124" classname="MixTestSuiteS32_LE" />
+    <testcase name="MixTwo" file="cras/src/tests/mix_unittest.cc" line="748" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.125" classname="MixTestSuiteS32_LE" />
+    <testcase name="MixTwoClip" file="cras/src/tests/mix_unittest.cc" line="760" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.126" classname="MixTestSuiteS32_LE" />
+    <testcase name="MixFirstMuted" file="cras/src/tests/mix_unittest.cc" line="775" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.126" classname="MixTestSuiteS32_LE" />
+    <testcase name="MixFirstZeroVolume" file="cras/src/tests/mix_unittest.cc" line="785" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.127" classname="MixTestSuiteS32_LE" />
+    <testcase name="MixFirstHalfVolume" file="cras/src/tests/mix_unittest.cc" line="795" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:47.127" classname="MixTestSuiteS32_LE" />
+    <testcase name="MixTwoSecondHalfVolume" file="cras/src/tests/mix_unittest.cc" line="805" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:47.130" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleFullVolumeIncrement" file="cras/src/tests/mix_unittest.cc" line="817" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:47.134" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleMinVolumeIncrement" file="cras/src/tests/mix_unittest.cc" line="832" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.135" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleVolumePositiveIncrement" file="cras/src/tests/mix_unittest.cc" line="847" status="run" result="completed" time="0.02" timestamp="2023-10-23T22:48:47.136" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleVolumeNegativeIncrement" file="cras/src/tests/mix_unittest.cc" line="861" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.157" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleVolumeStartFullNegativeIncrement" file="cras/src/tests/mix_unittest.cc" line="876" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.162" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleVolumeStartZeroPositiveIncrement" file="cras/src/tests/mix_unittest.cc" line="891" status="run" result="completed" time="0.02" timestamp="2023-10-23T22:48:47.167" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleVolumePositiveIncrementCappedByTarget" file="cras/src/tests/mix_unittest.cc" line="906" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.188" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleVolumeNegativeIncrementCappedByTarget" file="cras/src/tests/mix_unittest.cc" line="920" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:48:47.193" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleFullVolume" file="cras/src/tests/mix_unittest.cc" line="934" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.198" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleMinVolume" file="cras/src/tests/mix_unittest.cc" line="941" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.198" classname="MixTestSuiteS32_LE" />
+    <testcase name="ScaleHalfVolume" file="cras/src/tests/mix_unittest.cc" line="948" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:47.199" classname="MixTestSuiteS32_LE" />
+    <testcase name="StrideCopy" file="cras/src/tests/mix_unittest.cc" line="957" status="run" result="completed" time="0.021" timestamp="2023-10-23T22:48:47.202" classname="MixTestSuiteS32_LE" />
+  </testsuite>
+  <testsuite name="MixTestSuiteS24_3LE" tests="19" failures="0" disabled="0" skipped="0" errors="0" time="0.137" timestamp="2023-10-23T22:48:47.223">
+    <testcase name="MixFirst" file="cras/src/tests/mix_unittest.cc" line="1067" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.223" classname="MixTestSuiteS24_3LE" />
+    <testcase name="MixTwo" file="cras/src/tests/mix_unittest.cc" line="1073" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:47.224" classname="MixTestSuiteS24_3LE" />
+    <testcase name="MixTwoClip" file="cras/src/tests/mix_unittest.cc" line="1088" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:47.225" classname="MixTestSuiteS24_3LE" />
+    <testcase name="MixFirstMuted" file="cras/src/tests/mix_unittest.cc" line="1105" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.227" classname="MixTestSuiteS24_3LE" />
+    <testcase name="MixFirstZeroVolume" file="cras/src/tests/mix_unittest.cc" line="1115" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.228" classname="MixTestSuiteS24_3LE" />
+    <testcase name="MixFirstHalfVolume" file="cras/src/tests/mix_unittest.cc" line="1125" status="run" result="completed" time="0.017" timestamp="2023-10-23T22:48:47.229" classname="MixTestSuiteS24_3LE" />
+    <testcase name="MixTwoSecondHalfVolume" file="cras/src/tests/mix_unittest.cc" line="1138" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:47.247" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleFullVolumeIncrement" file="cras/src/tests/mix_unittest.cc" line="1154" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:47.264" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleMinVolumeIncrement" file="cras/src/tests/mix_unittest.cc" line="1169" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:47.268" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleVolumePositiveIncrement" file="cras/src/tests/mix_unittest.cc" line="1184" status="run" result="completed" time="0.005" timestamp="2023-10-23T22:48:47.269" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleVolumeNegativeIncrement" file="cras/src/tests/mix_unittest.cc" line="1198" status="run" result="completed" time="0.005" timestamp="2023-10-23T22:48:47.288" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleVolumeStartFullNegativeIncrement" file="cras/src/tests/mix_unittest.cc" line="1213" status="run" result="completed" time="0.005" timestamp="2023-10-23T22:48:47.293" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleVolumeStartZeroPositiveIncrement" file="cras/src/tests/mix_unittest.cc" line="1228" status="run" result="completed" time="0.005" timestamp="2023-10-23T22:48:47.299" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleVolumePositiveIncrementCappedByTarget" file="cras/src/tests/mix_unittest.cc" line="1243" status="run" result="completed" time="0.005" timestamp="2023-10-23T22:48:47.320" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleVolumeNegativeIncrementCappedByTarget" file="cras/src/tests/mix_unittest.cc" line="1257" status="run" result="completed" time="0.005" timestamp="2023-10-23T22:48:47.325" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleFullVolume" file="cras/src/tests/mix_unittest.cc" line="1271" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.348" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleMinVolume" file="cras/src/tests/mix_unittest.cc" line="1278" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:47.349" classname="MixTestSuiteS24_3LE" />
+    <testcase name="ScaleHalfVolume" file="cras/src/tests/mix_unittest.cc" line="1285" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:47.350" classname="MixTestSuiteS24_3LE" />
+    <testcase name="StrideCopy" file="cras/src/tests/mix_unittest.cc" line="1297" status="run" result="completed" time="0.007" timestamp="2023-10-23T22:48:47.353" classname="MixTestSuiteS24_3LE" />
+  </testsuite>
+</testsuites>

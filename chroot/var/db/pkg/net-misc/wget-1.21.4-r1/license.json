@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-misc", "name": "wget", "version": "1.21.4", "revision": 1, "fullname": "net-misc/wget", "fullnamerev": "net-misc/wget-1.21.4-r1", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/wget/"], "skip": false, "tainted": false, "ebuild_path": null}

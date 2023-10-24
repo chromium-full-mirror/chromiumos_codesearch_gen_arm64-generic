@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "distribution", "version": "2.7.1", "revision": 2, "fullname": "dev-go/distribution", "fullnamerev": "dev-go/distribution-2.7.1-r2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/docker/distribution"], "skip": false, "tainted": false, "ebuild_path": null}

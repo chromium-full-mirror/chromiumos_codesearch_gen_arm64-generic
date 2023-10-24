@@ -1,0 +1,1 @@
+{"rustc":10012222711457729657,"features":"","target":0,"profile":0,"path":0,"deps":[[798864308854051017,"build_script_build",false,17354628952688405507]],"local":[{"RerunIfChanged":{"output":"aarch64-cros-linux-gnu/release/build/metrics_rs-4a39b8b43ae636f4/output","paths":["../c_metrics_library.h"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

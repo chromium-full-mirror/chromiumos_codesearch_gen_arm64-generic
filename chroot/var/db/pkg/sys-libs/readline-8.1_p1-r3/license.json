@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-libs", "name": "readline", "version": "8.1_p1", "revision": 3, "fullname": "sys-libs/readline", "fullnamerev": "sys-libs/readline-8.1_p1-r3", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://tiswww.case.edu/php/chet/readline/rltop.html"], "skip": false, "tainted": false, "ebuild_path": null}

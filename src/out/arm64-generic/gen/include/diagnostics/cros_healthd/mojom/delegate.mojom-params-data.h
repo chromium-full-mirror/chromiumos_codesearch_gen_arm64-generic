@@ -331,7 +331,7 @@ class  Delegate_GetPsr_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_GetPsr_ResponseParams_Data) == 24,
               "Bad sizeof(Delegate_GetPsr_ResponseParams_Data)");
-class  Delegate_GetConnectedHdmiConnectors_Params_Data {
+class  Delegate_GetConnectedExternalDisplayConnectors_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -339,14 +339,14 @@ class  Delegate_GetConnectedHdmiConnectors_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<Delegate_GetConnectedHdmiConnectors_Params_Data>;
+  friend class mojo::internal::MessageFragment<Delegate_GetConnectedExternalDisplayConnectors_Params_Data>;
 
-  Delegate_GetConnectedHdmiConnectors_Params_Data();
-  ~Delegate_GetConnectedHdmiConnectors_Params_Data() = delete;
+  Delegate_GetConnectedExternalDisplayConnectors_Params_Data();
+  ~Delegate_GetConnectedExternalDisplayConnectors_Params_Data() = delete;
 };
-static_assert(sizeof(Delegate_GetConnectedHdmiConnectors_Params_Data) == 8,
-              "Bad sizeof(Delegate_GetConnectedHdmiConnectors_Params_Data)");
-class  Delegate_GetConnectedHdmiConnectors_ResponseParams_Data {
+static_assert(sizeof(Delegate_GetConnectedExternalDisplayConnectors_Params_Data) == 8,
+              "Bad sizeof(Delegate_GetConnectedExternalDisplayConnectors_Params_Data)");
+class  Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -356,13 +356,13 @@ class  Delegate_GetConnectedHdmiConnectors_ResponseParams_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> err;
 
  private:
-  friend class mojo::internal::MessageFragment<Delegate_GetConnectedHdmiConnectors_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data>;
 
-  Delegate_GetConnectedHdmiConnectors_ResponseParams_Data();
-  ~Delegate_GetConnectedHdmiConnectors_ResponseParams_Data() = delete;
+  Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data();
+  ~Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(Delegate_GetConnectedHdmiConnectors_ResponseParams_Data) == 24,
-              "Bad sizeof(Delegate_GetConnectedHdmiConnectors_ResponseParams_Data)");
+static_assert(sizeof(Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data)");
 class  Delegate_GetPrivacyScreenInfo_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -548,7 +548,7 @@ class  Delegate_GetAllFanSpeed_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> fan_rpms;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint16_t>> fan_rpms;
   mojo::internal::Pointer<mojo::internal::String_Data> err;
 
  private:
@@ -559,6 +559,69 @@ class  Delegate_GetAllFanSpeed_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_GetAllFanSpeed_ResponseParams_Data) == 24,
               "Bad sizeof(Delegate_GetAllFanSpeed_ResponseParams_Data)");
+class  Delegate_SetFanSpeed_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Map_Data<uint8_t, uint16_t>> fan_id_to_rpm;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_SetFanSpeed_Params_Data>;
+
+  Delegate_SetFanSpeed_Params_Data();
+  ~Delegate_SetFanSpeed_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_SetFanSpeed_Params_Data) == 16,
+              "Bad sizeof(Delegate_SetFanSpeed_Params_Data)");
+class  Delegate_SetFanSpeed_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_SetFanSpeed_ResponseParams_Data>;
+
+  Delegate_SetFanSpeed_ResponseParams_Data();
+  ~Delegate_SetFanSpeed_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_SetFanSpeed_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_SetFanSpeed_ResponseParams_Data)");
+class  Delegate_SetAllFanAutoControl_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_SetAllFanAutoControl_Params_Data>;
+
+  Delegate_SetAllFanAutoControl_Params_Data();
+  ~Delegate_SetAllFanAutoControl_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_SetAllFanAutoControl_Params_Data) == 8,
+              "Bad sizeof(Delegate_SetAllFanAutoControl_Params_Data)");
+class  Delegate_SetAllFanAutoControl_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_SetAllFanAutoControl_ResponseParams_Data>;
+
+  Delegate_SetAllFanAutoControl_ResponseParams_Data();
+  ~Delegate_SetAllFanAutoControl_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_SetAllFanAutoControl_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_SetAllFanAutoControl_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1090,27 +1153,27 @@ static_assert(
 };
 
 
-class Delegate_GetConnectedHdmiConnectors_ParamsDataView {
+class Delegate_GetConnectedExternalDisplayConnectors_ParamsDataView {
  public:
-  Delegate_GetConnectedHdmiConnectors_ParamsDataView() = default;
+  Delegate_GetConnectedExternalDisplayConnectors_ParamsDataView() = default;
 
-  Delegate_GetConnectedHdmiConnectors_ParamsDataView(
-      internal::Delegate_GetConnectedHdmiConnectors_Params_Data* data,
+  Delegate_GetConnectedExternalDisplayConnectors_ParamsDataView(
+      internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::Delegate_GetConnectedHdmiConnectors_Params_Data* data_ = nullptr;
+  internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data* data_ = nullptr;
 };
 
 
-class Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView {
+class Delegate_GetConnectedExternalDisplayConnectors_ResponseParamsDataView {
  public:
-  Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView() = default;
+  Delegate_GetConnectedExternalDisplayConnectors_ResponseParamsDataView() = default;
 
-  Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView(
-      internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data* data,
+  Delegate_GetConnectedExternalDisplayConnectors_ResponseParamsDataView(
+      internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -1146,7 +1209,7 @@ static_assert(
         pointer, output, message_);
   }
  private:
-  internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data* data_ = nullptr;
+  internal::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1416,13 +1479,13 @@ class Delegate_GetAllFanSpeed_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetFanRpmsDataView(
-      mojo::ArrayDataView<uint32_t>* output);
+      mojo::ArrayDataView<uint16_t>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadFanRpms(UserType* output) {
     
     auto* pointer = data_->fan_rpms.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint16_t>>(
         pointer, output, message_);
   }
   inline void GetErrDataView(
@@ -1447,6 +1510,119 @@ static_assert(
   }
  private:
   internal::Delegate_GetAllFanSpeed_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_SetFanSpeed_ParamsDataView {
+ public:
+  Delegate_SetFanSpeed_ParamsDataView() = default;
+
+  Delegate_SetFanSpeed_ParamsDataView(
+      internal::Delegate_SetFanSpeed_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFanIdToRpmDataView(
+      mojo::MapDataView<uint8_t, uint16_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFanIdToRpm(UserType* output) {
+    
+    auto* pointer = data_->fan_id_to_rpm.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<uint8_t, uint16_t>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_SetFanSpeed_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_SetFanSpeed_ResponseParamsDataView {
+ public:
+  Delegate_SetFanSpeed_ResponseParamsDataView() = default;
+
+  Delegate_SetFanSpeed_ResponseParamsDataView(
+      internal::Delegate_SetFanSpeed_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_SetFanSpeed_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_SetAllFanAutoControl_ParamsDataView {
+ public:
+  Delegate_SetAllFanAutoControl_ParamsDataView() = default;
+
+  Delegate_SetAllFanAutoControl_ParamsDataView(
+      internal::Delegate_SetAllFanAutoControl_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_SetAllFanAutoControl_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_SetAllFanAutoControl_ResponseParamsDataView {
+ public:
+  Delegate_SetAllFanAutoControl_ResponseParamsDataView() = default;
+
+  Delegate_SetAllFanAutoControl_ResponseParamsDataView(
+      internal::Delegate_SetAllFanAutoControl_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_SetAllFanAutoControl_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1535,12 +1711,12 @@ inline void Delegate_GetPsr_ResponseParamsDataView::GetErrDataView(
 
 
 
-inline void Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView::GetConnectorsDataView(
+inline void Delegate_GetConnectedExternalDisplayConnectors_ResponseParamsDataView::GetConnectorsDataView(
     mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>* output) {
   auto pointer = data_->connectors.Get();
   *output = mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>(pointer, message_);
 }
-inline void Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView::GetErrDataView(
+inline void Delegate_GetConnectedExternalDisplayConnectors_ResponseParamsDataView::GetErrDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);
@@ -1590,11 +1766,34 @@ inline void Delegate_RunFloatingPoint_ParamsDataView::GetExecDurationDataView(
 
 
 inline void Delegate_GetAllFanSpeed_ResponseParamsDataView::GetFanRpmsDataView(
-    mojo::ArrayDataView<uint32_t>* output) {
+    mojo::ArrayDataView<uint16_t>* output) {
   auto pointer = data_->fan_rpms.Get();
-  *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
+  *output = mojo::ArrayDataView<uint16_t>(pointer, message_);
 }
 inline void Delegate_GetAllFanSpeed_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void Delegate_SetFanSpeed_ParamsDataView::GetFanIdToRpmDataView(
+    mojo::MapDataView<uint8_t, uint16_t>* output) {
+  auto pointer = data_->fan_id_to_rpm.Get();
+  *output = mojo::MapDataView<uint8_t, uint16_t>(pointer, message_);
+}
+
+
+inline void Delegate_SetFanSpeed_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Delegate_SetAllFanAutoControl_ResponseParamsDataView::GetErrDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);

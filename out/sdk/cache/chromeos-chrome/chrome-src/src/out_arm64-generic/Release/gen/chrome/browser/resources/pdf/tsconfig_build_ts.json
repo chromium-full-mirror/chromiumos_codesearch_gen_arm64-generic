@@ -1,0 +1,127 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/elements/viewer-attachment.ts",
+    "preprocessed/elements/viewer-attachment-bar.ts",
+    "preprocessed/elements/viewer-bookmark.ts",
+    "preprocessed/elements/viewer-document-outline.ts",
+    "preprocessed/elements/viewer-download-controls.ts",
+    "preprocessed/elements/viewer-error-dialog.ts",
+    "preprocessed/elements/viewer-page-selector.ts",
+    "preprocessed/elements/viewer-password-dialog.ts",
+    "preprocessed/elements/viewer-pdf-sidenav.ts",
+    "preprocessed/elements/viewer-properties-dialog.ts",
+    "preprocessed/elements/viewer-thumbnail-bar.ts",
+    "preprocessed/elements/viewer-thumbnail.ts",
+    "preprocessed/elements/viewer-toolbar.ts",
+    "preprocessed/pdf_viewer.ts",
+    "preprocessed/elements/viewer-page-indicator.ts",
+    "preprocessed/elements/viewer-zoom-button.ts",
+    "preprocessed/elements/viewer-zoom-toolbar.ts",
+    "preprocessed/pdf_viewer_print.ts",
+    "preprocessed/bookmark_type.ts",
+    "preprocessed/browser_api.ts",
+    "preprocessed/constants.ts",
+    "preprocessed/controller.ts",
+    "preprocessed/gesture_detector.ts",
+    "preprocessed/internal_plugin.ts",
+    "preprocessed/local_storage_proxy.ts",
+    "preprocessed/main.ts",
+    "preprocessed/metrics.ts",
+    "preprocessed/navigator.ts",
+    "preprocessed/open_pdf_params_parser.ts",
+    "preprocessed/pdf_print_wrapper.ts",
+    "preprocessed/pdf_scripting_api.ts",
+    "preprocessed/pdf_viewer_base.ts",
+    "preprocessed/pdf_viewer_utils.ts",
+    "preprocessed/pdf_viewer_wrapper.ts",
+    "preprocessed/pdf_internal_plugin_wrapper.ts",
+    "preprocessed/swipe_detector.ts",
+    "preprocessed/viewport.ts",
+    "preprocessed/viewport_scroller.ts",
+    "preprocessed/zoom_manager.ts",
+    "preprocessed/main_print.ts",
+    "preprocessed/toolbar_manager.ts",
+    "preprocessed/pdf_viewer_private_proxy.ts",
+    "preprocessed/elements/viewer-attachment.html.ts",
+    "preprocessed/elements/viewer-attachment-bar.html.ts",
+    "preprocessed/elements/viewer-bookmark.html.ts",
+    "preprocessed/elements/viewer-document-outline.html.ts",
+    "preprocessed/elements/viewer-download-controls.html.ts",
+    "preprocessed/elements/viewer-error-dialog.html.ts",
+    "preprocessed/elements/viewer-page-selector.html.ts",
+    "preprocessed/elements/viewer-password-dialog.html.ts",
+    "preprocessed/elements/viewer-pdf-sidenav.html.ts",
+    "preprocessed/elements/viewer-properties-dialog.html.ts",
+    "preprocessed/elements/viewer-thumbnail-bar.html.ts",
+    "preprocessed/elements/viewer-thumbnail.html.ts",
+    "preprocessed/elements/viewer-toolbar.html.ts",
+    "preprocessed/pdf_viewer.html.ts",
+    "preprocessed/elements/viewer-page-indicator.html.ts",
+    "preprocessed/elements/viewer-zoom-button.html.ts",
+    "preprocessed/elements/viewer-zoom-toolbar.html.ts",
+    "preprocessed/pdf_viewer_print.html.ts",
+    "preprocessed/elements/icons.html.ts",
+    "preprocessed/elements/pdf-shared.css.ts",
+    "preprocessed/elements/shared-vars.css.ts",
+    "preprocessed/pdf_viewer_shared_style.css.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_event.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/content_settings.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/file_system.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/mime_handler_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pdf_viewer_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/resources_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/runtime.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/tabs.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/windows.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

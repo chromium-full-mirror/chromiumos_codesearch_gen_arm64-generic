@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "flex", "version": "2.6.4", "revision": 2, "fullname": "sys-devel/flex", "fullnamerev": "sys-devel/flex-2.6.4-r2", "license_names": ["FLEX"], "license_text_scanned": [], "homepages": ["https://flex.sourceforge.net/", "https://github.com/westes/flex"], "skip": false, "tainted": false, "ebuild_path": null}

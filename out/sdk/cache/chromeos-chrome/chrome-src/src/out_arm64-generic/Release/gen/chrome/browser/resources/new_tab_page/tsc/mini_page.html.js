@@ -1,0 +1,9 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style>:host{--ntp-mini-page-shortcut-color:var(--google-grey-300)}.mini-page{align-items:center;display:flex;flex-direction:column;height:100%;justify-content:center;width:100%}.mini-header{height:28%;width:92%}:host(:not([single-colored-logo])) .mini-header{background-image:url(icons/colored_header.svg);background-repeat:no-repeat;background-size:100%}:host([single-colored-logo]) .mini-header{-webkit-mask-image:url(icons/colored_header.svg);-webkit-mask-repeat:no-repeat;-webkit-mask-size:100%;background-color:var(--google-grey-300)}.mini-shortcuts{-webkit-mask-image:url(icons/shortcut_circles.svg);-webkit-mask-repeat:no-repeat;-webkit-mask-size:100%;background-color:var(--ntp-mini-page-shortcut-color);height:29%;margin-top:8%;width:82%}@media (prefers-color-scheme:dark){.mini-header,:host(:not([single-colored-logo])) .mini-header{-webkit-mask-image:url(icons/colored_header.svg);-webkit-mask-repeat:no-repeat;-webkit-mask-size:100%;background:#fff}}@media (forced-colors:active){.mini-shortcuts,:host([single-colored-logo]) .mini-header{background-color:ButtonText}}</style>
+<div class="mini-page">
+  <div class="mini-header"></div>
+  <div class="mini-shortcuts"></div>
+</div>
+<!--_html_template_end_-->`;
+}

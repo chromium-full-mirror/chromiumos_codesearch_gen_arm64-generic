@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "glib", "version": "2.76.4", "revision": 0, "fullname": "dev-libs/glib", "fullnamerev": "dev-libs/glib-2.76.4", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://www.gtk.org/"], "skip": false, "tainted": false, "ebuild_path": null}

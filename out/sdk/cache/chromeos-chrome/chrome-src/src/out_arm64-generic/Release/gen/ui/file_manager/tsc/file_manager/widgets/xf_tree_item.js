@@ -1,0 +1,591 @@
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var XfTreeItem_1;
+import 'chrome://resources/polymer/v3_0/paper-ripple/paper-ripple.js';
+import './xf_icon.js';
+import { css, customElement, html, ifDefined, property, query, state, styleMap, XfBase } from './xf_base.js';
+import { handleTreeSlotChange, isTree, isTreeItem } from './xf_tree_util.js';
+/**
+ * The number of pixels to indent per level.
+ */
+export const TREE_ITEM_INDENT = 20;
+/**
+ * TODO(b/285977941): Remove the closure annotation here.
+ * @constructor
+ */
+let XfTreeItem = XfTreeItem_1 = class XfTreeItem extends XfBase {
+    constructor() {
+        super(...arguments);
+        /**
+         * `separator` attribute will show a top border for the tree item. It's
+         * mainly used to identify this tree item is a start of the new section.
+         */
+        this.separator = false;
+        /**
+         * Indicate if a tree item is disabled or not. Disabled tree item will have
+         * a grey out color, can't be selected, can't get focus. It can still have
+         * children, but it can't be expanded, and the expand icon will be hidden.
+         */
+        this.disabled = false;
+        /** Indicate if a tree item has been selected or not. */
+        this.selected = false;
+        /** Indicate if a tree item has been expanded or not. */
+        this.expanded = false;
+        /** Indicate if a tree item is in renaming mode or not. */
+        this.renaming = false;
+        /**
+         * A tree item will have children if the child tree items have been inserted
+         * to its default slot. Only use `mayHaveChildren` if we want the tree item
+         * to appeared as having children even without the actual child tree items
+         * (e.g. no DOM children). This is mainly used when we asynchronously loads
+         * child tree items.
+         */
+        this.mayHaveChildren = false;
+        /**
+         * The icon of the tree item, will be displayed before the label text.
+         * The icon value should come from `constants.ICON_TYPES`, it will be passed
+         * as `type` to a <xf-icon> widget to render an icon element.
+         */
+        this.icon = '';
+        /**
+         * The icon set is an object which contains multiple base64 image data, it
+         * will be passed as `iconSet` property to `<xf-icon>` widget.
+         * Note: `icon` will be ignored if `iconSet` is provided.
+         */
+        this.iconSet = null;
+        /** The label text of the tree item. */
+        this.label = '';
+        /**
+         * Indicate the level of this tree item, we use it to calculate the padding
+         * indentation. Note: "aria-level" can be calculated by DOM structure so
+         * no need to provide it explicitly.
+         */
+        this.level_ = 1;
+        /** The child tree items. */
+        this.items_ = [];
+    }
+    // "delegatesFocus = true" will make sure when the tree item is focused, <li>
+    // element inside the shadow DOM will get the focus.
+    static get shadowRootOptions() {
+        return {
+            ...XfBase.shadowRootOptions,
+            delegatesFocus: true,
+        };
+    }
+    static get events() {
+        return {
+            /** Triggers when a tree item has been expanded. */
+            TREE_ITEM_EXPANDED: 'tree_item_expanded',
+            /** Triggers when a tree item has been collapsed. */
+            TREE_ITEM_COLLAPSED: 'tree_item_collapsed',
+        };
+    }
+    /** The level of the tree item, starting from 1. */
+    get level() {
+        return this.level_;
+    }
+    /** The child tree items. */
+    get items() {
+        return this.items_;
+    }
+    /** The child tree items which can be tabbed. */
+    get tabbableItems() {
+        return this.items_.filter(item => !item.disabled);
+    }
+    hasChildren() {
+        return this.mayHaveChildren || this.items_.length > 0;
+    }
+    /**
+     * Toggle the focusable for the item.
+     *
+     * We are delegate the focus to the <li> element in the shadow DOM, to make
+     * sure the update is synchronous, we are operating on the DOM directly here
+     * instead of updating this in the render() function.
+     *
+     * Note: "tabindex = -1" is also considered as "focusable" according to the
+     * spec
+     * https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute,
+     * so we need to remove the "tabindex" attribute below to make it
+     * non-focusable.
+     */
+    toggleFocusable(focusable) {
+        if (focusable) {
+            this.$treeItem_.setAttribute('tabindex', '0');
+        }
+        else {
+            this.$treeItem_.removeAttribute('tabindex');
+        }
+    }
+    /**
+     * Return the parent XfTreeItem if there is one, for top level XfTreeItem
+     * which doesn't have parent XfTreeItem, return null.
+     */
+    get parentItem() {
+        let p = this.parentElement;
+        while (p) {
+            if (isTreeItem(p)) {
+                return p;
+            }
+            if (isTree(p)) {
+                return null;
+            }
+            p = p.parentElement;
+        }
+        return p;
+    }
+    get tree() {
+        let t = this.parentElement;
+        while (t && !isTree(t)) {
+            t = t.parentElement;
+        }
+        return t;
+    }
+    /**
+     * Expands all parent items.
+     */
+    reveal() {
+        let pi = this.parentItem;
+        while (pi) {
+            pi.expanded = true;
+            pi = pi.parentItem;
+        }
+    }
+    static get styles() {
+        return getCSS();
+    }
+    render() {
+        const showExpandIcon = this.hasChildren() && !this.disabled;
+        const treeRowStyles = {
+            paddingInlineStart: `max(0px, calc(var(--xf-tree-item-indent) * ${this.level_ - 1}px))`,
+        };
+        return html `
+      <li
+        class="tree-item"
+        role="treeitem"
+        aria-labelledby="tree-label"
+        aria-selected=${this.selected}
+        aria-expanded=${ifDefined(showExpandIcon ? this.expanded : undefined)}
+        aria-disabled=${this.disabled}
+      >
+        <div class="tree-row-wrapper">
+          <div
+            class="tree-row"
+            style=${styleMap(treeRowStyles)}
+          >
+            <paper-ripple></paper-ripple>
+            <span class="expand-icon"></span>
+            <xf-icon
+              class="tree-label-icon"
+              type=${ifDefined(this.iconSet ? undefined : this.icon)}
+              .iconSet=${this.iconSet}
+            ></xf-icon>
+            <span class="tree-label" id="tree-label">${this.label || ''}</span>
+            <slot name="rename"></slot>
+            <slot name="trailingIcon"></slot>
+          </div>
+        </div>
+        <ul
+          class="tree-children"
+          role="group"
+        >
+          <slot @slotchange=${this.onSlotChanged_}></slot>
+        </ul>
+      </li>
+    `;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        if (!this.tree) {
+            throw new Error('<xf-tree-item> can not be used without a parent <xf-tree>');
+        }
+    }
+    /**
+     * When <xf-tree-item> responds to the "contextmenu" event, the `e.target`
+     * will always be the host element even if we put the focus on the inner
+     * ".tree-row" element, this is because it's inside the shadow DOM. To make
+     * sure the context menu shows in the correct location (when triggered by
+     * keyboard), we need to expose this method to re-position the menu based on
+     * the ".tree-row"'s bounding box. This method will be invoked by
+     * `ContextMenuHandler`.
+     */
+    getRectForContextMenu() {
+        return this.$treeRow_.getBoundingClientRect();
+    }
+    onSlotChanged_() {
+        const oldItems = new Set(this.items_);
+        // Update `items_` every time when the children slot changes (e.g.
+        // add/remove).
+        this.items_ = this.$childrenSlot_.assignedElements().filter(isTreeItem);
+        let updateScheduled = false;
+        // If an expanded item's last children is deleted, update expanded property.
+        if (this.items_.length === 0 && this.expanded) {
+            this.expanded = false;
+            updateScheduled = true;
+        }
+        const newItems = new Set(this.items_);
+        if (this.tree) {
+            handleTreeSlotChange(this.tree, oldItems, newItems);
+        }
+        if (!updateScheduled) {
+            // Explicitly trigger an update because render() relies on hasChildren(),
+            // which relies on `this.items_`.
+            this.requestUpdate();
+        }
+    }
+    firstUpdated() {
+        this.updateLevel_();
+    }
+    updated(changedProperties) {
+        super.updated(changedProperties);
+        // For browser test use only.
+        this.setAttribute('has-children', String(this.items_.length > 0));
+        if (changedProperties.has('expanded')) {
+            this.onExpandChanged_();
+        }
+        if (changedProperties.has('selected')) {
+            this.onSelectedChanged_();
+        }
+    }
+    onExpandChanged_() {
+        if (this.expanded) {
+            const expandedEvent = new CustomEvent(XfTreeItem_1.events.TREE_ITEM_EXPANDED, {
+                bubbles: true,
+                composed: true,
+                detail: { item: this },
+            });
+            this.dispatchEvent(expandedEvent);
+        }
+        else {
+            const collapseEvent = new CustomEvent(XfTreeItem_1.events.TREE_ITEM_COLLAPSED, {
+                bubbles: true,
+                composed: true,
+                detail: { item: this },
+            });
+            this.dispatchEvent(collapseEvent);
+        }
+    }
+    onSelectedChanged_() {
+        const tree = this.tree;
+        if (this.selected) {
+            this.reveal();
+            if (tree) {
+                tree.selectedItem = this;
+            }
+        }
+        else {
+            if (tree && tree.selectedItem === this) {
+                tree.selectedItem = null;
+            }
+        }
+    }
+    /** Update the level of the tree item by traversing upwards. */
+    updateLevel_() {
+        // Traverse upwards to determine the level.
+        let level = 0;
+        let current = this;
+        while (current) {
+            current = current.parentItem;
+            level++;
+        }
+        this.level_ = level;
+    }
+};
+__decorate([
+    property({ type: Boolean, reflect: true })
+], XfTreeItem.prototype, "separator", void 0);
+__decorate([
+    property({ type: Boolean, reflect: true })
+], XfTreeItem.prototype, "disabled", void 0);
+__decorate([
+    property({ type: Boolean, reflect: true })
+], XfTreeItem.prototype, "selected", void 0);
+__decorate([
+    property({ type: Boolean, reflect: true })
+], XfTreeItem.prototype, "expanded", void 0);
+__decorate([
+    property({ type: Boolean, reflect: true })
+], XfTreeItem.prototype, "renaming", void 0);
+__decorate([
+    property({ type: Boolean, reflect: true, attribute: 'may-have-children' })
+], XfTreeItem.prototype, "mayHaveChildren", void 0);
+__decorate([
+    property({ type: String, reflect: true })
+], XfTreeItem.prototype, "icon", void 0);
+__decorate([
+    property({ attribute: false })
+], XfTreeItem.prototype, "iconSet", void 0);
+__decorate([
+    property({ type: String, reflect: true })
+], XfTreeItem.prototype, "label", void 0);
+__decorate([
+    state()
+], XfTreeItem.prototype, "level_", void 0);
+__decorate([
+    query('li')
+], XfTreeItem.prototype, "$treeItem_", void 0);
+__decorate([
+    query('.tree-row')
+], XfTreeItem.prototype, "$treeRow_", void 0);
+__decorate([
+    query('slot:not([name])')
+], XfTreeItem.prototype, "$childrenSlot_", void 0);
+XfTreeItem = XfTreeItem_1 = __decorate([
+    customElement('xf-tree-item')
+], XfTreeItem);
+export { XfTreeItem };
+function getCSS() {
+    return css `
+    :host {
+      --xf-tree-item-indent: ${TREE_ITEM_INDENT};
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      outline: none;
+      padding: 0;
+    }
+
+    li {
+      display: block;
+    }
+
+    li:focus-visible {
+      outline: none;
+    }
+
+    :host([separator])::before {
+      border-bottom: 1px solid var(--cros-separator-color);
+      content: '';
+      display: block;
+      margin: 8px 0;
+      width: 100%;
+    }
+
+    /* We need this layer to make sure there's no gap between tree items, so
+    when we drag items onto the tree items, it won't activate the parent tree
+    item unexpectedly. */
+    .tree-row-wrapper {
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .tree-row {
+      align-items: center;
+      border-inline-start-width: 0 !important;
+      border-radius: 20px;
+      box-sizing: border-box;
+      color: var(--cros-sys-on_surface);
+      display: flex;
+      height: 40px;
+      padding-inline-end: 12px;
+      position: relative;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    :host(:not([selected]):not([disabled]):not([renaming]):not(:focus))
+        .tree-row:hover {
+      background-color: var(--cros-sys-hover_on_subtle);
+    }
+
+    :host([selected]) .tree-row {
+      background-color: var(--cros-sys-primary);
+      color: var(--cros-sys-on_primary);
+    }
+
+    :host([disabled]) .tree-row {
+      color: var(--cros-sys-disabled);
+      pointer-events: none;
+    }
+
+    :host-context(.focus-outline-visible):host(:focus) .tree-row {
+      outline: 2px solid var(--cros-sys-focus_ring);
+      outline-offset: 2px;
+      z-index: 2;
+    }
+
+    :host-context(.pointer-active):host(:not([selected]):not([disabled]):not([renaming]):not(:focus))
+        .tree-row:not(:hover):active {
+      background-color: var(--cros-sys-hover_on_subtle);
+    }
+
+    :host-context(.pointer-active) .tree-row:not(:active) {
+      cursor: default;
+    }
+
+    :host-context(.pointer-active):host(:not([selected]):not([disabled]):not([renaming]):not(:focus))
+        .tree-row:not(:active):hover {
+      background-color: unset;
+    }
+
+    :host-context(html.drag-drop-active):host(.denies) .tree-row {
+      background-color: var(--cros-sys-error_container);
+      color: var(--cros-sys-on_error_container);
+    }
+
+    :host-context(html.drag-drop-active):host(.accepts) .tree-row {
+      background-color: var(--cros-sys-hover_on_subtle);
+    }
+
+    :host-context(html.drag-drop-active):host(.accepts[selected]) .tree-row {
+      background-color: var(--cros-sys-primary);
+    }
+
+    .expand-icon {
+      -webkit-mask-image: url(../foreground/images/files/ui/sort_desc.svg);
+      -webkit-mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      background-color: currentColor;
+      flex: none;
+      height: 20px;
+      margin-inline-start: 8px;
+      position: relative;
+      transform: rotate(-90deg);
+      transition: all 150ms;
+      visibility: hidden;
+      width: 20px;
+    }
+
+    li[aria-expanded] .expand-icon {
+      visibility: visible;
+    }
+
+    :host-context(html[dir=rtl]) .expand-icon {
+      transform: rotate(90deg);
+    }
+
+    :host([expanded]) .expand-icon {
+      transform: rotate(0);
+    }
+
+    .tree-label-icon {
+      --xf-icon-color: var(--cros-sys-on_surface);
+      flex: none;
+    }
+
+    :host([selected]) .tree-label-icon {
+      --xf-icon-color: var(--cros-sys-on_primary)
+    }
+
+    :host([disabled]) .tree-label-icon {
+      --xf-icon-color: var(--cros-sys-disabled);
+    }
+
+    .tree-label {
+      display: block;
+      flex: auto;
+      font: var(--cros-button-2-font);
+      margin-inline-end: 2px;
+      margin-inline-start: 8px;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre;
+    }
+
+    /** input is attached by DirectoryTreeNamingController. */
+    slot[name="rename"]::slotted(input) {
+      background-color: var(--cros-sys-app_base);
+      border-radius: 4px;
+      border: none;
+      color: var(--cros-sys-on_surface);
+      display: none;
+      height: 20px;
+      margin: 0 10px;
+      outline: 2px solid var(--cros-sys-focus_ring);
+      overflow: hidden;
+      padding: 1px 8px;
+    }
+
+    :host([renaming]) slot[name="rename"]::slotted(input) {
+      display: block;
+    }
+
+    :host([renaming]) .tree-label {
+      display: none;
+    }
+
+    :host([selected]) slot[name="rename"]::slotted(input) {
+      outline: 2px solid var(--cros-sys-inverse_primary);
+    }
+
+    paper-ripple {
+      border-radius: 20px;
+      color: var(--cros-sys-ripple_primary);
+    }
+
+    /* We need to ensure that even empty labels take up space. */
+    .tree-label:empty::after {
+      content: ' ';
+      white-space: pre;
+    }
+
+    .tree-children {
+      display: none;
+    }
+
+    :host([expanded]) .tree-children {
+      display: block;
+    }
+
+    /* Trailing icon styles. */
+    slot[name="trailingIcon"]::slotted(.align-right-icon) {
+      --ink-color: var(--cros-sys-ripple_neutral_on_subtle);
+      --iron-icon-height: 20px;
+      --iron-icon-width: 20px;
+      -ripple-opacity: 100%;
+      border: none;
+      border-radius: 20px;
+      box-sizing: border-box;
+      height: 40px;
+      position: relative;
+      right: -12px; /* Same as padding inline end of tree row. */
+      width: 40px;
+      z-index: 1;
+    }
+
+    :host-context([dir="rtl"]) slot[name="trailingIcon"]::slotted(.align-right-icon) {
+      left: -12px; /* Same as padding inline end of tree row. */
+      right: unset;
+    }
+
+    slot[name="trailingIcon"]::slotted(.external-link-icon iron-icon) {
+      padding: 6px;
+    }
+
+    slot[name="trailingIcon"]::slotted(.root-eject) {
+      --text-color: currentColor;
+      --hover-bg-color: var(--cros-sys-hover_on_subtle);
+      min-width: 32px;
+      padding: 0;
+    }
+
+    :host([selected]) slot[name="trailingIcon"]::slotted(.root-eject) {
+      --hover-bg-color: var(--cros-sys-hover_on_prominent);
+    }
+
+    :host-context(html.col-resize) slot[name="trailingIcon"]::slotted(.root-eject:hover) {
+      --hover-bg-color: none;
+    }
+
+    slot[name="trailingIcon"]::slotted(.root-eject:focus) {
+      outline: 2px solid var(--cros-sys-focus_ring);
+      outline-offset: 2px;
+    }
+
+    :host([selected]) slot[name="trailingIcon"]::slotted(.root-eject:focus) {
+      outline: 2px solid var(--cros-sys-inverse_primary);
+    }
+
+    slot[name="trailingIcon"]::slotted(.root-eject:active) {
+      --ink-color: var(--cros-sys-ripple_neutral_on_subtle);
+    }
+
+    :host([selected]) slot[name="trailingIcon"]::slotted(.root-eject:active) {
+      --ink-color: var(--cros-sys-ripple_neutral_on_prominent);
+    }
+  `;
+}

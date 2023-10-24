@@ -1,0 +1,165 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/diagnostics_ui/resources/tsconfig_base.json",
+  "compilerOptions": {
+    "types": [
+      "d3",
+      "trusted-types"
+    ],
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "allowJs": true,
+    "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/battery_status_card.ts",
+    "preprocessed/cellular_info.ts",
+    "preprocessed/connectivity_card.ts",
+    "preprocessed/cpu_card.ts",
+    "preprocessed/data_point.ts",
+    "preprocessed/diagnostics_app.ts",
+    "preprocessed/diagnostics_card.ts",
+    "preprocessed/diagnostics_card_frame.ts",
+    "preprocessed/diagnostics_network_icon.ts",
+    "preprocessed/diagnostics_sticky_banner.ts",
+    "preprocessed/ethernet_info.ts",
+    "preprocessed/input_card.ts",
+    "preprocessed/input_list.ts",
+    "preprocessed/ip_config_info_drawer.ts",
+    "preprocessed/keyboard_tester.ts",
+    "preprocessed/memory_card.ts",
+    "preprocessed/network_card.ts",
+    "preprocessed/network_info.ts",
+    "preprocessed/network_list.ts",
+    "preprocessed/network_troubleshooting.ts",
+    "preprocessed/overview_card.ts",
+    "preprocessed/percent_bar_chart.ts",
+    "preprocessed/realtime_cpu_chart.js",
+    "preprocessed/routine_result_entry.ts",
+    "preprocessed/routine_result_list.ts",
+    "preprocessed/routine_section.ts",
+    "preprocessed/system_page.ts",
+    "preprocessed/text_badge.ts",
+    "preprocessed/touchpad_tester.ts",
+    "preprocessed/touchscreen_tester.ts",
+    "preprocessed/wifi_info.ts",
+    "preprocessed/diagnostics_browser_proxy.ts",
+    "preprocessed/diagnostics_types.ts",
+    "preprocessed/diagnostics_utils.ts",
+    "preprocessed/drawing_provider.ts",
+    "preprocessed/drawing_provider_utils.ts",
+    "preprocessed/fake_data.ts",
+    "preprocessed/fake_input_data_provider.ts",
+    "preprocessed/fake_network_health_provider.ts",
+    "preprocessed/fake_system_data_provider.ts",
+    "preprocessed/fake_system_routine_controller.ts",
+    "preprocessed/frequency_channel_utils.ts",
+    "preprocessed/mojo_interface_provider.js",
+    "preprocessed/routine_group.ts",
+    "preprocessed/routine_list_executor.ts",
+    "preprocessed/diagnostics_shared.css.js",
+    "preprocessed/battery_status_card.html.js",
+    "preprocessed/cellular_info.html.js",
+    "preprocessed/connectivity_card.html.js",
+    "preprocessed/cpu_card.html.js",
+    "preprocessed/data_point.html.js",
+    "preprocessed/diagnostics_app.html.js",
+    "preprocessed/diagnostics_card.html.js",
+    "preprocessed/diagnostics_card_frame.html.js",
+    "preprocessed/diagnostics_network_icon.html.js",
+    "preprocessed/diagnostics_sticky_banner.html.js",
+    "preprocessed/ethernet_info.html.js",
+    "preprocessed/input_card.html.js",
+    "preprocessed/input_list.html.js",
+    "preprocessed/ip_config_info_drawer.html.js",
+    "preprocessed/keyboard_tester.html.js",
+    "preprocessed/memory_card.html.js",
+    "preprocessed/network_card.html.js",
+    "preprocessed/network_info.html.js",
+    "preprocessed/network_list.html.js",
+    "preprocessed/network_troubleshooting.html.js",
+    "preprocessed/overview_card.html.js",
+    "preprocessed/percent_bar_chart.html.js",
+    "preprocessed/realtime_cpu_chart.html.js",
+    "preprocessed/routine_result_entry.html.js",
+    "preprocessed/routine_result_list.html.js",
+    "preprocessed/routine_section.html.js",
+    "preprocessed/system_page.html.js",
+    "preprocessed/text_badge.html.js",
+    "preprocessed/touchpad_tester.html.js",
+    "preprocessed/touchscreen_tester.html.js",
+    "preprocessed/wifi_info.html.js",
+    "preprocessed/icons.html.js",
+    "preprocessed/input.mojom-webui.js",
+    "preprocessed/input_data_provider.mojom-webui.js",
+    "preprocessed/network_health_provider.mojom-webui.js",
+    "preprocessed/system_data_provider.mojom-webui.js",
+    "preprocessed/system_routine_controller.mojom-webui.js",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

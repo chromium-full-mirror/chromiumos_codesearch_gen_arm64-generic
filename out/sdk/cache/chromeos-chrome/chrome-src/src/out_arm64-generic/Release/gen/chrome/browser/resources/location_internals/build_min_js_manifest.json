@@ -1,0 +1,1 @@
+{"base_dir": "gen/chrome/browser/resources/location_internals/minified", "files": ["diagnose_info_table.js", "diagnose_info_view.js", "location_internals.js", "diagnose_info_table.html.js", "diagnose_info_view.html.js", "location_internals.mojom-webui.js", "geolocation_internals.mojom-webui.js", "geoposition.mojom-webui.js"]}

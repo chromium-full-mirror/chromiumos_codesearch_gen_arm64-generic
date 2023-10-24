@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/libdrm",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/x11-libs/libdrm-2.4.115-r3/work/libdrm-2.4.115"
+    }
+  ]
+}

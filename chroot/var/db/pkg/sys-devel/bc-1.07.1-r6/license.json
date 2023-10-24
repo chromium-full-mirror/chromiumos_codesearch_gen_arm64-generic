@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "bc", "version": "1.07.1", "revision": 6, "fullname": "sys-devel/bc", "fullnamerev": "sys-devel/bc-1.07.1-r6", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/bc/bc.html"], "skip": false, "tainted": false, "ebuild_path": null}

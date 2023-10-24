@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "go-image", "version": "0.6.0_p20", "revision": 1, "fullname": "dev-go/go-image", "fullnamerev": "dev-go/go-image-0.6.0_p20-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://go.googlesource.com/image"], "skip": false, "tainted": false, "ebuild_path": null}

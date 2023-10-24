@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 
 struct NormalizationOptions;
@@ -60,19 +67,19 @@ inline const char * const *EnumNamesCodepointwiseNormalizationOp() {
 }
 
 inline const char *EnumNameCodepointwiseNormalizationOp(CodepointwiseNormalizationOp e) {
-  if (flatbuffers::IsOutRange(e, CodepointwiseNormalizationOp_NONE, CodepointwiseNormalizationOp_DROP_PUNCTUATION)) return "";
+  if (::flatbuffers::IsOutRange(e, CodepointwiseNormalizationOp_NONE, CodepointwiseNormalizationOp_DROP_PUNCTUATION)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesCodepointwiseNormalizationOp()[index];
 }
 
 }  // namespace NormalizationOptions_
 
-struct NormalizationOptionsT : public flatbuffers::NativeTable {
+struct NormalizationOptionsT : public ::flatbuffers::NativeTable {
   typedef NormalizationOptions TableType;
   uint32_t codepointwise_normalization = 0;
 };
 
-struct NormalizationOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct NormalizationOptions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef NormalizationOptionsT NativeTableType;
   typedef NormalizationOptionsBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -81,64 +88,64 @@ struct NormalizationOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   uint32_t codepointwise_normalization() const {
     return GetField<uint32_t>(VT_CODEPOINTWISE_NORMALIZATION, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint32_t>(verifier, VT_CODEPOINTWISE_NORMALIZATION) &&
+           VerifyField<uint32_t>(verifier, VT_CODEPOINTWISE_NORMALIZATION, 4) &&
            verifier.EndTable();
   }
-  NormalizationOptionsT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(NormalizationOptionsT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<NormalizationOptions> Pack(flatbuffers::FlatBufferBuilder &_fbb, const NormalizationOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  NormalizationOptionsT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(NormalizationOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<NormalizationOptions> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const NormalizationOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct NormalizationOptionsBuilder {
   typedef NormalizationOptions Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_codepointwise_normalization(uint32_t codepointwise_normalization) {
     fbb_.AddElement<uint32_t>(NormalizationOptions::VT_CODEPOINTWISE_NORMALIZATION, codepointwise_normalization, 0);
   }
-  explicit NormalizationOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit NormalizationOptionsBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<NormalizationOptions> Finish() {
+  ::flatbuffers::Offset<NormalizationOptions> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<NormalizationOptions>(end);
+    auto o = ::flatbuffers::Offset<NormalizationOptions>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<NormalizationOptions> CreateNormalizationOptions(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<NormalizationOptions> CreateNormalizationOptions(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     uint32_t codepointwise_normalization = 0) {
   NormalizationOptionsBuilder builder_(_fbb);
   builder_.add_codepointwise_normalization(codepointwise_normalization);
   return builder_.Finish();
 }
 
-flatbuffers::Offset<NormalizationOptions> CreateNormalizationOptions(flatbuffers::FlatBufferBuilder &_fbb, const NormalizationOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<NormalizationOptions> CreateNormalizationOptions(::flatbuffers::FlatBufferBuilder &_fbb, const NormalizationOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline NormalizationOptionsT *NormalizationOptions::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline NormalizationOptionsT *NormalizationOptions::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<NormalizationOptionsT>(new NormalizationOptionsT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void NormalizationOptions::UnPackTo(NormalizationOptionsT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void NormalizationOptions::UnPackTo(NormalizationOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = codepointwise_normalization(); _o->codepointwise_normalization = _e; }
 }
 
-inline flatbuffers::Offset<NormalizationOptions> NormalizationOptions::Pack(flatbuffers::FlatBufferBuilder &_fbb, const NormalizationOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<NormalizationOptions> NormalizationOptions::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const NormalizationOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateNormalizationOptions(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<NormalizationOptions> CreateNormalizationOptions(flatbuffers::FlatBufferBuilder &_fbb, const NormalizationOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<NormalizationOptions> CreateNormalizationOptions(::flatbuffers::FlatBufferBuilder &_fbb, const NormalizationOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const NormalizationOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const NormalizationOptionsT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _codepointwise_normalization = _o->codepointwise_normalization;
   return libtextclassifier3::CreateNormalizationOptions(
       _fbb,

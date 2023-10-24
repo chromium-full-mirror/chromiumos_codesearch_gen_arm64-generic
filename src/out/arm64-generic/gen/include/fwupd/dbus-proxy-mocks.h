@@ -433,6 +433,34 @@ class fwupdProxyMock : public fwupdProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              FixHostSecurityAttr,
+              (const std::string& /*in_appstream_id*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              FixHostSecurityAttrAsync,
+              (const std::string& /*in_appstream_id*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              UndoHostSecurityAttr,
+              (const std::string& /*in_appstream_id*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UndoHostSecurityAttrAsync,
+              (const std::string& /*in_appstream_id*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               SelfSign,
               (const std::string& /*in_data*/,
                const brillo::VariantDictionary& /*in_options*/,

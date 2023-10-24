@@ -1,0 +1,394 @@
+// Copyright 2018 The LUCI Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package buildbucket.v2;
+
+option go_package = "go.chromium.org/luci/buildbucket/proto;buildbucketpb";
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+// Status of a build or a step.
+enum Status {
+  // Unspecified state. Meaning depends on the context.
+  STATUS_UNSPECIFIED = 0;
+  // Build was scheduled, but did not start or end yet.
+  SCHEDULED = 1;
+  // Build/step has started.
+  STARTED = 2;
+  // A union of all terminal statuses.
+  // Can be used in BuildPredicate.status.
+  // A concrete build/step cannot have this status.
+  // Can be used as a bitmask to check that a build/step ended.
+  ENDED_MASK = 4;
+  // A build/step ended successfully.
+  // This is a terminal status. It may not transition to another status.
+  SUCCESS = 12;  // 8 | ENDED
+  // A build/step ended unsuccessfully due to its Build.Input,
+  // e.g. tests failed, and NOT due to a build infrastructure failure.
+  // This is a terminal status. It may not transition to another status.
+  FAILURE = 20;  // 16 | ENDED
+  // A build/step ended unsuccessfully due to a failure independent of the
+  // input, e.g. swarming failed, not enough capacity or the recipe was unable
+  // to read the patch from gerrit.
+  // start_time is not required for this status.
+  // This is a terminal status. It may not transition to another status.
+  INFRA_FAILURE = 36;  // 32 | ENDED
+  // A build was cancelled explicitly, e.g. via an RPC.
+  // This is a terminal status. It may not transition to another status.
+  CANCELED = 68;  // 64 | ENDED
+}
+
+// An executable to run when the build is ready to start.
+//
+// Please refer to go.chromium.org/luci/luciexe for the protocol this executable
+// is expected to implement.
+//
+// In addition to the "Host Application" responsibilities listed there,
+// buildbucket will also ensure that $CWD points to an empty directory when it
+// starts the build.
+message Executable {
+  // The CIPD package containing the executable.
+  //
+  // See the `cmd` field below for how the executable will be located within the
+  // package.
+  string cipd_package = 1;
+
+  // The CIPD version to fetch.
+  //
+  // Optional. If omitted, this defaults to `latest`.
+  string cipd_version = 2;
+
+  // The command to invoke within the package.
+  //
+  // The 0th argument is taken as relative to the cipd_package root (a.k.a.
+  // BBAgentArgs.payload_path), so "foo" would invoke the binary called "foo" in
+  // the root of the package. On Windows, this will automatically look
+  // first for ".exe" and ".bat" variants. Similarly, "subdir/foo" would
+  // look for "foo" in "subdir" of the CIPD package.
+  //
+  // The other arguments are passed verbatim to the executable.
+  //
+  // The 'build.proto' binary message will always be passed to stdin, even when
+  // this command has arguments (see go.chromium.org/luci/luciexe).
+  //
+  // RECOMMENDATION: It's advised to rely on the build.proto's Input.Properties
+  // field for passing task-specific data. Properties are JSON-typed and can be
+  // modeled with a protobuf (using JSONPB). However, supplying additional args
+  // can be useful to, e.g., increase logging verbosity, or similar
+  // 'system level' settings within the binary.
+  //
+  // Optional. If omitted, defaults to `['luciexe']`.
+  repeated string cmd = 3;
+
+  // Wrapper is a command and its args which will be used to 'wrap' the
+  // execution of `cmd`.
+  // Given:
+  //  wrapper = ['/some/exe', '--arg']
+  //  cmd = ['my_exe', '--other-arg']
+  // Buildbucket's agent will invoke
+  //  /some/exe --arg -- /path/to/task/root/dir/my_exe --other-arg
+  // Note that '--' is always inserted between the wrapper and the target
+  // cmd
+  //
+  // The wrapper program MUST maintain all the invariants specified in
+  // go.chromium.org/luci/luciexe (likely by passing-through
+  // most of this responsibility to `cmd`).
+  //
+  // wrapper[0] MAY be an absolute path. If https://pkg.go.dev/path/filepath#IsAbs
+  // returns `true` for wrapper[0], it will be interpreted as an absolute
+  // path. In this case, it is your responsibility to ensure that the target
+  // binary is correctly deployed an any machine where the Build might run
+  // (by whatever means you use to prepare/adjust your system image). Failure to do
+  // so will cause the build to terminate with INFRA_FAILURE.
+  //
+  // If wrapper[0] is non-absolute, but does not contain a path separator,
+  // it will be looked for in $PATH (and the same rules apply for
+  // pre-distribution as in the absolute path case).
+  //
+  // If wrapper[0] begins with a "./" (or ".\") or contains a path separator
+  // anywhere, it will be considered relative to the task root.
+  //
+  // Example wrapper[0]:
+  //
+  // Absolute path (*nix): /some/prog
+  // Absolute path (Windows): C:\some\prog.exe
+  // $PATH or %PATH% lookup: prog
+  // task-relative (*nix): ./prog ($taskRoot/prog)
+  // task-relative (*nix): dir/prog ($taskRoot/dir/prog)
+  // task-relative (Windows): .\prog.exe ($taskRoot\\prog.exe)
+  // task-relative (Windows): dir\prog.exe ($taskRoot\\dir\\prog.exe)
+  repeated string wrapper = 4;
+}
+
+// Machine-readable details of a status.
+// Human-readble details are present in a sibling summary_markdown field.
+message StatusDetails {
+  reserved 1; // is_resource_exhaustion, replaced by resource_exhaustion
+  reserved 2; // is_timeout, replaced with timeout.
+
+  message ResourceExhaustion {}
+  // If set, indicates that the failure was due to a resource exhaustion / quota
+  // denial.
+  // Applicable in FAILURE and INFRA_FAILURE statuses.
+  ResourceExhaustion resource_exhaustion = 3;
+
+  message Timeout {}
+  // If set, indicates that the build ended due to the expiration_timeout or
+  // scheduling_timeout set for the build.
+  //
+  // Applicable in all final statuses.
+  //
+  // SUCCESS+timeout would indicate a successful recovery from a timeout signal
+  // during the build's grace_period.
+  Timeout timeout = 4;
+}
+
+// A named log of a step or build.
+message Log {
+  // Log name, standard ("stdout", "stderr") or custom (e.g. "json.output").
+  // Unique within the containing message (step or build).
+  string name = 1;
+
+  // URL of a Human-readable page that displays log contents.
+  string view_url = 2;
+
+  // URL of the log content.
+  // As of 2018-09-06, the only supported scheme is "logdog".
+  // Typically it has form
+  // "logdog://<host>/<project>/<prefix>/+/<stream_name>".
+  // See also
+  // https://godoc.org/go.chromium.org/luci/logdog/common/types#ParseURL
+  string url = 3;
+}
+
+// A Gerrit patchset.
+message GerritChange {
+  // Gerrit hostname, e.g. "chromium-review.googlesource.com".
+  string host = 1;
+  // Gerrit project, e.g. "chromium/src".
+  string project = 2;
+  // Change number, e.g. 12345.
+  int64 change = 3;
+  // Patch set number, e.g. 1.
+  int64 patchset = 4;
+}
+
+// A landed Git commit hosted on Gitiles.
+message GitilesCommit {
+  // Gitiles hostname, e.g. "chromium.googlesource.com".
+  string host = 1;
+  // Repository name on the host, e.g. "chromium/src".
+  string project = 2;
+  // Commit HEX SHA1.
+  string id = 3;
+  // Commit ref, e.g. "refs/heads/master".
+  // NOT a branch name: if specified, must start with "refs/".
+  // If id is set, ref SHOULD also be set, so that git clients can
+  // know how to obtain the commit by id.
+  string ref = 4;
+
+  // Defines a total order of commits on the ref. Requires ref field.
+  // Typically 1-based, monotonically increasing, contiguous integer
+  // defined by a Gerrit plugin, goto.google.com/git-numberer.
+  // TODO(tandrii): make it a public doc.
+  uint32 position = 5;
+}
+
+// A key-value pair of strings.
+message StringPair {
+  string key = 1;
+  string value = 2;
+}
+
+// Half-open time range.
+message TimeRange {
+  // Inclusive lower boundary. Optional.
+  google.protobuf.Timestamp start_time = 1;
+  // Exclusive upper boundary. Optional.
+  google.protobuf.Timestamp end_time = 2;
+}
+
+// A boolean with an undefined value.
+enum Trinary {
+  UNSET = 0;
+  YES = 1;
+  NO = 2;
+}
+
+// A requested dimension. Looks like StringPair, but also has an expiration.
+message RequestedDimension {
+  string key = 1;
+  string value = 2;
+  // If set, ignore this dimension after this duration.
+  google.protobuf.Duration expiration = 3;
+}
+
+// Compression method used in the corresponding data.
+enum Compression {
+  ZLIB = 0;
+  ZSTD = 1;
+}
+
+// This message is a duplicate of Build.Infra.Swarming.CacheEntry,
+// however we will be moving from hardcoded swarming -> task backends.
+// This message will remain as the desired CacheEntry and eventually
+// Build.Infra.Swarming will be deprecated, so this will remain.
+//
+// Describes a cache directory persisted on a bot.
+//
+// If a build requested a cache, the cache directory is available on build
+// startup. If the cache was present on the bot, the directory contains
+// files from the previous run on that bot.
+// The build can read/write to the cache directory while it runs.
+// After build completes, the cache directory is persisted.
+// The next time another build requests the same cache and runs on the same
+// bot, the files will still be there (unless the cache was evicted,
+// perhaps due to disk space reasons).
+//
+// One bot can keep multiple caches at the same time and one build can request
+// multiple different caches.
+// A cache is identified by its name and mapped to a path.
+//
+// If the bot is running out of space, caches are evicted in LRU manner
+// before the next build on this bot starts.
+//
+// Buildbucket implicitly declares cache
+//   {"name": "<hash(project/bucket/builder)>", "path": "builder"}.
+// This means that any LUCI builder has a "personal disk space" on the bot.
+// Builder cache is often a good start before customizing caching.
+// In recipes, it is available at api.buildbucket.builder_cache_path.
+//
+// To share a builder cache among multiple builders, it can be overridden:
+//
+//   builders {
+//     name: "a"
+//     caches {
+//       path: "builder"
+//       name: "my_shared_cache"
+//     }
+//   }
+//   builders {
+//     name: "b"
+//     caches {
+//       path: "builder"
+//       name: "my_shared_cache"
+//     }
+//   }
+//
+// Builders "a" and "b" share their builder cache. If an "a" build ran on a
+// bot and left some files in the builder cache and then a "b" build runs on
+// the same bot, the same files will be available in the builder cache.
+message CacheEntry {
+  // Identifier of the cache. Required. Length is limited to 128.
+  // Must be unique in the build.
+  //
+  // If the pool of swarming bots is shared among multiple LUCI projects and
+  // projects use same cache name, the cache will be shared across projects.
+  // To avoid affecting and being affected by other projects, prefix the
+  // cache name with something project-specific, e.g. "v8-".
+  string name = 1;
+
+  // Relative path where the cache in mapped into. Required.
+  //
+  // Must use POSIX format (forward slashes).
+  // In most cases, it does not need slashes at all.
+  //
+  // In recipes, use api.path['cache'].join(path) to get absolute path.
+  //
+  // Must be unique in the build.
+  string path = 2;
+
+  // Duration to wait for a bot with a warm cache to pick up the
+  // task, before falling back to a bot with a cold (non-existent) cache.
+  //
+  // The default is 0, which means that no preference will be chosen for a
+  // bot with this or without this cache, and a bot without this cache may
+  // be chosen instead.
+  //
+  // If no bot has this cache warm, the task will skip this wait and will
+  // immediately fallback to a cold cache request.
+  //
+  // The value must be multiples of 60 seconds.
+  google.protobuf.Duration wait_for_warm_cache = 3;
+
+  // Environment variable with this name will be set to the path to the cache
+  // directory.
+  string env_var = 4;
+}
+
+message HealthStatus {
+  // A numeric score for a builder's health.
+  // The scores must respect the following:
+  //   - 0: Unknown status
+  //   - 1: The worst possible health
+  //         e.g.
+  //           - all bots are dead.
+  //           - every single build has ended in INFRA_FAILURE in the configured
+  //             time period.
+  //   - 10: Completely healthy.
+  //           e.g. Every single build has ended in SUCCESS or CANCELLED in the
+  //                configured time period.
+  //
+  // Reasoning for scores from 2 to 9 are to be configured by the builder owner.
+  // Since each set of metrics used to calculate the health score can vary, the
+  // builder owners must provide the score and reasoning (using the description
+  // field). This allows for complicated metric calculation while preserving a
+  // binary solution for less complex forms of metric calculation.
+  int64 health_score = 1;
+  // A map of metric label to value. This will allow milo to display the metrics
+  // used to construct the health score. There is no generic set of metrics for
+  // this since each set of metrics can vary from team to team.
+  //
+  // Buildbucket will not use this information to calculate the health score.
+  // These metrics are for display only.
+  map<string, float> health_metrics = 2;
+  // A human readable summary of why the health is the way it is, without
+  // the user having to go to the dashboard to find it themselves.
+  //
+  // E.g.
+  //   "the p90 pending time has been greater than 50 minutes for at least 3
+  //    of the last 7 days"
+  string description = 3;
+  // Mapping of username domain to clickable link for documentation on the health
+  // metrics and how they were calculated.
+  //
+  // The empty domain value will be used as a fallback for anonymous users, or
+  // if the user identity domain doesn't have a matching entry in this map.
+  //
+  // If linking an internal google link (say g3doc), use a go-link instead of a
+  // raw url.
+  map<string, string> doc_links = 4;
+  // Mapping of username domain to clickable link for data visualization or
+  // dashboards for the health metrics.
+  //
+  // Similar to doc_links, the empty domain value will be used as a fallback for
+  // anonymous users, or if the user identity domain doesn't have a matching
+  // entry in this map.
+  //
+  // If linking an internal google link (say g3doc), use a go-link instead of a
+  // raw url.
+  map<string, string> data_links = 5;
+  // Entity that reported the health status, A luci-auth identity.
+  // E.g.
+  //    anonymous:anonymous, user:someuser@example.com, project:chromeos
+  //
+  // Set by Buildbucket. Output only.
+  string reporter = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Set by Buildbucket. Output only.
+  google.protobuf.Timestamp reported_time = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

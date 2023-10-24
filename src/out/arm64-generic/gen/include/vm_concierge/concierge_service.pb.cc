@@ -860,6 +860,65 @@ struct ListUsbDeviceResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListUsbDeviceResponseDefaultTypeInternal _ListUsbDeviceResponse_default_instance_;
+PROTOBUF_CONSTEXPR AttachNetDeviceRequest::AttachNetDeviceRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.tap_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct AttachNetDeviceRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AttachNetDeviceRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AttachNetDeviceRequestDefaultTypeInternal() {}
+  union {
+    AttachNetDeviceRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttachNetDeviceRequestDefaultTypeInternal _AttachNetDeviceRequest_default_instance_;
+PROTOBUF_CONSTEXPR AttachNetDeviceResponse::AttachNetDeviceResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.failure_reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.success_)*/false
+  , /*decltype(_impl_.guest_bus_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct AttachNetDeviceResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AttachNetDeviceResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AttachNetDeviceResponseDefaultTypeInternal() {}
+  union {
+    AttachNetDeviceResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttachNetDeviceResponseDefaultTypeInternal _AttachNetDeviceResponse_default_instance_;
+PROTOBUF_CONSTEXPR DetachNetDeviceRequest::DetachNetDeviceRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.guest_bus_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct DetachNetDeviceRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DetachNetDeviceRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DetachNetDeviceRequestDefaultTypeInternal() {}
+  union {
+    DetachNetDeviceRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DetachNetDeviceRequestDefaultTypeInternal _DetachNetDeviceRequest_default_instance_;
+PROTOBUF_CONSTEXPR DetachNetDeviceResponse::DetachNetDeviceResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.failure_reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.success_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct DetachNetDeviceResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DetachNetDeviceResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DetachNetDeviceResponseDefaultTypeInternal() {}
+  union {
+    DetachNetDeviceResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DetachNetDeviceResponseDefaultTypeInternal _DetachNetDeviceResponse_default_instance_;
 PROTOBUF_CONSTEXPR DnsSettings::DnsSettings(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.nameservers_)*/{}
@@ -1204,7 +1263,8 @@ struct AggressiveBalloonResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AggressiveBalloonResponseDefaultTypeInternal _AggressiveBalloonResponse_default_instance_;
 PROTOBUF_CONSTEXPR EnableVmMemoryManagementServiceRequest::EnableVmMemoryManagementServiceRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_.arc_kill_request_timeout_ms_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EnableVmMemoryManagementServiceRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EnableVmMemoryManagementServiceRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1230,8 +1290,7 @@ struct EnableVmMemoryManagementServiceResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnableVmMemoryManagementServiceResponseDefaultTypeInternal _EnableVmMemoryManagementServiceResponse_default_instance_;
 PROTOBUF_CONSTEXPR GetVmMemoryManagementKillsConnectionRequest::GetVmMemoryManagementKillsConnectionRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.read_timeout_ms_)*/0u
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetVmMemoryManagementKillsConnectionRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetVmMemoryManagementKillsConnectionRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -4389,7 +4448,7 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
-      // bool software_tpm = 9;
+      // bool software_tpm = 9 [deprecated = true];
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           _impl_.software_tpm_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -4634,7 +4693,7 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_enable_gpu(), target);
   }
 
-  // bool software_tpm = 9;
+  // bool software_tpm = 9 [deprecated = true];
   if (this->_internal_software_tpm() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_software_tpm(), target);
@@ -4872,7 +4931,7 @@ size_t StartVmRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // bool software_tpm = 9;
+  // bool software_tpm = 9 [deprecated = true];
   if (this->_internal_software_tpm() != 0) {
     total_size += 1 + 1;
   }
@@ -18860,6 +18919,1090 @@ std::string ListUsbDeviceResponse::GetTypeName() const {
 
 // ===================================================================
 
+class AttachNetDeviceRequest::_Internal {
+ public:
+};
+
+AttachNetDeviceRequest::AttachNetDeviceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.AttachNetDeviceRequest)
+}
+AttachNetDeviceRequest::AttachNetDeviceRequest(const AttachNetDeviceRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AttachNetDeviceRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.tap_name_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_name().empty()) {
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_owner_id().empty()) {
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.tap_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.tap_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_tap_name().empty()) {
+    _this->_impl_.tap_name_.Set(from._internal_tap_name(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.AttachNetDeviceRequest)
+}
+
+inline void AttachNetDeviceRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.tap_name_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.tap_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.tap_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+AttachNetDeviceRequest::~AttachNetDeviceRequest() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.AttachNetDeviceRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AttachNetDeviceRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.vm_name_.Destroy();
+  _impl_.owner_id_.Destroy();
+  _impl_.tap_name_.Destroy();
+}
+
+void AttachNetDeviceRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void AttachNetDeviceRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.AttachNetDeviceRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.owner_id_.ClearToEmpty();
+  _impl_.tap_name_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AttachNetDeviceRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string vm_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_vm_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_owner_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string tap_name = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_tap_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AttachNetDeviceRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.AttachNetDeviceRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_name().data(), static_cast<int>(this->_internal_vm_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AttachNetDeviceRequest.vm_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_vm_name(), target);
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_owner_id().data(), static_cast<int>(this->_internal_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AttachNetDeviceRequest.owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_owner_id(), target);
+  }
+
+  // string tap_name = 3;
+  if (!this->_internal_tap_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_tap_name().data(), static_cast<int>(this->_internal_tap_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AttachNetDeviceRequest.tap_name");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_tap_name(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.AttachNetDeviceRequest)
+  return target;
+}
+
+size_t AttachNetDeviceRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.AttachNetDeviceRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_name());
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_owner_id());
+  }
+
+  // string tap_name = 3;
+  if (!this->_internal_tap_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_tap_name());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AttachNetDeviceRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AttachNetDeviceRequest*>(
+      &from));
+}
+
+void AttachNetDeviceRequest::MergeFrom(const AttachNetDeviceRequest& from) {
+  AttachNetDeviceRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.AttachNetDeviceRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_vm_name().empty()) {
+    _this->_internal_set_vm_name(from._internal_vm_name());
+  }
+  if (!from._internal_owner_id().empty()) {
+    _this->_internal_set_owner_id(from._internal_owner_id());
+  }
+  if (!from._internal_tap_name().empty()) {
+    _this->_internal_set_tap_name(from._internal_tap_name());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AttachNetDeviceRequest::CopyFrom(const AttachNetDeviceRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.AttachNetDeviceRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AttachNetDeviceRequest::IsInitialized() const {
+  return true;
+}
+
+void AttachNetDeviceRequest::InternalSwap(AttachNetDeviceRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.tap_name_, lhs_arena,
+      &other->_impl_.tap_name_, rhs_arena
+  );
+}
+
+std::string AttachNetDeviceRequest::GetTypeName() const {
+  return "vm_tools.concierge.AttachNetDeviceRequest";
+}
+
+
+// ===================================================================
+
+class AttachNetDeviceResponse::_Internal {
+ public:
+};
+
+AttachNetDeviceResponse::AttachNetDeviceResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.AttachNetDeviceResponse)
+}
+AttachNetDeviceResponse::AttachNetDeviceResponse(const AttachNetDeviceResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AttachNetDeviceResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){}
+    , decltype(_impl_.guest_bus_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_failure_reason().empty()) {
+    _this->_impl_.failure_reason_.Set(from._internal_failure_reason(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.success_, &from._impl_.success_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.guest_bus_) -
+    reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.guest_bus_));
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.AttachNetDeviceResponse)
+}
+
+inline void AttachNetDeviceResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){false}
+    , decltype(_impl_.guest_bus_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+AttachNetDeviceResponse::~AttachNetDeviceResponse() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.AttachNetDeviceResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AttachNetDeviceResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.failure_reason_.Destroy();
+}
+
+void AttachNetDeviceResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void AttachNetDeviceResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.AttachNetDeviceResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.failure_reason_.ClearToEmpty();
+  ::memset(&_impl_.success_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.guest_bus_) -
+      reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.guest_bus_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AttachNetDeviceResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 guest_bus = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.guest_bus_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string failure_reason = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_failure_reason();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AttachNetDeviceResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.AttachNetDeviceResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  // uint32 guest_bus = 2;
+  if (this->_internal_guest_bus() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_guest_bus(), target);
+  }
+
+  // string failure_reason = 3;
+  if (!this->_internal_failure_reason().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_failure_reason().data(), static_cast<int>(this->_internal_failure_reason().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AttachNetDeviceResponse.failure_reason");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_failure_reason(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.AttachNetDeviceResponse)
+  return target;
+}
+
+size_t AttachNetDeviceResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.AttachNetDeviceResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string failure_reason = 3;
+  if (!this->_internal_failure_reason().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_failure_reason());
+  }
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // uint32 guest_bus = 2;
+  if (this->_internal_guest_bus() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_guest_bus());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AttachNetDeviceResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AttachNetDeviceResponse*>(
+      &from));
+}
+
+void AttachNetDeviceResponse::MergeFrom(const AttachNetDeviceResponse& from) {
+  AttachNetDeviceResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.AttachNetDeviceResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_failure_reason().empty()) {
+    _this->_internal_set_failure_reason(from._internal_failure_reason());
+  }
+  if (from._internal_success() != 0) {
+    _this->_internal_set_success(from._internal_success());
+  }
+  if (from._internal_guest_bus() != 0) {
+    _this->_internal_set_guest_bus(from._internal_guest_bus());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AttachNetDeviceResponse::CopyFrom(const AttachNetDeviceResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.AttachNetDeviceResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AttachNetDeviceResponse::IsInitialized() const {
+  return true;
+}
+
+void AttachNetDeviceResponse::InternalSwap(AttachNetDeviceResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.failure_reason_, lhs_arena,
+      &other->_impl_.failure_reason_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AttachNetDeviceResponse, _impl_.guest_bus_)
+      + sizeof(AttachNetDeviceResponse::_impl_.guest_bus_)
+      - PROTOBUF_FIELD_OFFSET(AttachNetDeviceResponse, _impl_.success_)>(
+          reinterpret_cast<char*>(&_impl_.success_),
+          reinterpret_cast<char*>(&other->_impl_.success_));
+}
+
+std::string AttachNetDeviceResponse::GetTypeName() const {
+  return "vm_tools.concierge.AttachNetDeviceResponse";
+}
+
+
+// ===================================================================
+
+class DetachNetDeviceRequest::_Internal {
+ public:
+};
+
+DetachNetDeviceRequest::DetachNetDeviceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.DetachNetDeviceRequest)
+}
+DetachNetDeviceRequest::DetachNetDeviceRequest(const DetachNetDeviceRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DetachNetDeviceRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.guest_bus_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_name().empty()) {
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_owner_id().empty()) {
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.guest_bus_ = from._impl_.guest_bus_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.DetachNetDeviceRequest)
+}
+
+inline void DetachNetDeviceRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.guest_bus_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+DetachNetDeviceRequest::~DetachNetDeviceRequest() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.DetachNetDeviceRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DetachNetDeviceRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.vm_name_.Destroy();
+  _impl_.owner_id_.Destroy();
+}
+
+void DetachNetDeviceRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void DetachNetDeviceRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.DetachNetDeviceRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.owner_id_.ClearToEmpty();
+  _impl_.guest_bus_ = 0u;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DetachNetDeviceRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string vm_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_vm_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_owner_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 guest_bus = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.guest_bus_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DetachNetDeviceRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.DetachNetDeviceRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_name().data(), static_cast<int>(this->_internal_vm_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.DetachNetDeviceRequest.vm_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_vm_name(), target);
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_owner_id().data(), static_cast<int>(this->_internal_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.DetachNetDeviceRequest.owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_owner_id(), target);
+  }
+
+  // uint32 guest_bus = 3;
+  if (this->_internal_guest_bus() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_guest_bus(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.DetachNetDeviceRequest)
+  return target;
+}
+
+size_t DetachNetDeviceRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.DetachNetDeviceRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_name());
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_owner_id());
+  }
+
+  // uint32 guest_bus = 3;
+  if (this->_internal_guest_bus() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_guest_bus());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DetachNetDeviceRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DetachNetDeviceRequest*>(
+      &from));
+}
+
+void DetachNetDeviceRequest::MergeFrom(const DetachNetDeviceRequest& from) {
+  DetachNetDeviceRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.DetachNetDeviceRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_vm_name().empty()) {
+    _this->_internal_set_vm_name(from._internal_vm_name());
+  }
+  if (!from._internal_owner_id().empty()) {
+    _this->_internal_set_owner_id(from._internal_owner_id());
+  }
+  if (from._internal_guest_bus() != 0) {
+    _this->_internal_set_guest_bus(from._internal_guest_bus());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DetachNetDeviceRequest::CopyFrom(const DetachNetDeviceRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.DetachNetDeviceRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DetachNetDeviceRequest::IsInitialized() const {
+  return true;
+}
+
+void DetachNetDeviceRequest::InternalSwap(DetachNetDeviceRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
+  );
+  swap(_impl_.guest_bus_, other->_impl_.guest_bus_);
+}
+
+std::string DetachNetDeviceRequest::GetTypeName() const {
+  return "vm_tools.concierge.DetachNetDeviceRequest";
+}
+
+
+// ===================================================================
+
+class DetachNetDeviceResponse::_Internal {
+ public:
+};
+
+DetachNetDeviceResponse::DetachNetDeviceResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.DetachNetDeviceResponse)
+}
+DetachNetDeviceResponse::DetachNetDeviceResponse(const DetachNetDeviceResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DetachNetDeviceResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_failure_reason().empty()) {
+    _this->_impl_.failure_reason_.Set(from._internal_failure_reason(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.success_ = from._impl_.success_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.DetachNetDeviceResponse)
+}
+
+inline void DetachNetDeviceResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+DetachNetDeviceResponse::~DetachNetDeviceResponse() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.DetachNetDeviceResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DetachNetDeviceResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.failure_reason_.Destroy();
+}
+
+void DetachNetDeviceResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void DetachNetDeviceResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.DetachNetDeviceResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.failure_reason_.ClearToEmpty();
+  _impl_.success_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DetachNetDeviceResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string failure_reason = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_failure_reason();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DetachNetDeviceResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.DetachNetDeviceResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  // string failure_reason = 2;
+  if (!this->_internal_failure_reason().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_failure_reason().data(), static_cast<int>(this->_internal_failure_reason().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.DetachNetDeviceResponse.failure_reason");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_failure_reason(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.DetachNetDeviceResponse)
+  return target;
+}
+
+size_t DetachNetDeviceResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.DetachNetDeviceResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string failure_reason = 2;
+  if (!this->_internal_failure_reason().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_failure_reason());
+  }
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DetachNetDeviceResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DetachNetDeviceResponse*>(
+      &from));
+}
+
+void DetachNetDeviceResponse::MergeFrom(const DetachNetDeviceResponse& from) {
+  DetachNetDeviceResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.DetachNetDeviceResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_failure_reason().empty()) {
+    _this->_internal_set_failure_reason(from._internal_failure_reason());
+  }
+  if (from._internal_success() != 0) {
+    _this->_internal_set_success(from._internal_success());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DetachNetDeviceResponse::CopyFrom(const DetachNetDeviceResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.DetachNetDeviceResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DetachNetDeviceResponse::IsInitialized() const {
+  return true;
+}
+
+void DetachNetDeviceResponse::InternalSwap(DetachNetDeviceResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.failure_reason_, lhs_arena,
+      &other->_impl_.failure_reason_, rhs_arena
+  );
+  swap(_impl_.success_, other->_impl_.success_);
+}
+
+std::string DetachNetDeviceResponse::GetTypeName() const {
+  return "vm_tools.concierge.DetachNetDeviceResponse";
+}
+
+
+// ===================================================================
+
 class DnsSettings::_Internal {
  public:
 };
@@ -24843,9 +25986,11 @@ EnableVmMemoryManagementServiceRequest::EnableVmMemoryManagementServiceRequest(c
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   EnableVmMemoryManagementServiceRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_.arc_kill_request_timeout_ms_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.arc_kill_request_timeout_ms_ = from._impl_.arc_kill_request_timeout_ms_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.EnableVmMemoryManagementServiceRequest)
 }
 
@@ -24854,7 +25999,8 @@ inline void EnableVmMemoryManagementServiceRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      /*decltype(_impl_._cached_size_)*/{}
+      decltype(_impl_.arc_kill_request_timeout_ms_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
@@ -24881,6 +26027,7 @@ void EnableVmMemoryManagementServiceRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.arc_kill_request_timeout_ms_ = 0u;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -24889,6 +26036,19 @@ const char* EnableVmMemoryManagementServiceRequest::_InternalParse(const char* p
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 arc_kill_request_timeout_ms = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.arc_kill_request_timeout_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -24914,6 +26074,12 @@ uint8_t* EnableVmMemoryManagementServiceRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // uint32 arc_kill_request_timeout_ms = 1;
+  if (this->_internal_arc_kill_request_timeout_ms() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_arc_kill_request_timeout_ms(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -24929,6 +26095,11 @@ size_t EnableVmMemoryManagementServiceRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // uint32 arc_kill_request_timeout_ms = 1;
+  if (this->_internal_arc_kill_request_timeout_ms() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_arc_kill_request_timeout_ms());
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -24951,6 +26122,9 @@ void EnableVmMemoryManagementServiceRequest::MergeFrom(const EnableVmMemoryManag
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from._internal_arc_kill_request_timeout_ms() != 0) {
+    _this->_internal_set_arc_kill_request_timeout_ms(from._internal_arc_kill_request_timeout_ms());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -24968,6 +26142,7 @@ bool EnableVmMemoryManagementServiceRequest::IsInitialized() const {
 void EnableVmMemoryManagementServiceRequest::InternalSwap(EnableVmMemoryManagementServiceRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.arc_kill_request_timeout_ms_, other->_impl_.arc_kill_request_timeout_ms_);
 }
 
 std::string EnableVmMemoryManagementServiceRequest::GetTypeName() const {
@@ -25223,11 +26398,9 @@ GetVmMemoryManagementKillsConnectionRequest::GetVmMemoryManagementKillsConnectio
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   GetVmMemoryManagementKillsConnectionRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.read_timeout_ms_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.read_timeout_ms_ = from._impl_.read_timeout_ms_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest)
 }
 
@@ -25236,8 +26409,7 @@ inline void GetVmMemoryManagementKillsConnectionRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.read_timeout_ms_){0u}
-    , /*decltype(_impl_._cached_size_)*/{}
+      /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
@@ -25264,7 +26436,6 @@ void GetVmMemoryManagementKillsConnectionRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.read_timeout_ms_ = 0u;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -25273,19 +26444,6 @@ const char* GetVmMemoryManagementKillsConnectionRequest::_InternalParse(const ch
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // uint32 read_timeout_ms = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.read_timeout_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -25311,12 +26469,6 @@ uint8_t* GetVmMemoryManagementKillsConnectionRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 read_timeout_ms = 1;
-  if (this->_internal_read_timeout_ms() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_read_timeout_ms(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -25332,11 +26484,6 @@ size_t GetVmMemoryManagementKillsConnectionRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // uint32 read_timeout_ms = 1;
-  if (this->_internal_read_timeout_ms() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_read_timeout_ms());
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -25359,9 +26506,6 @@ void GetVmMemoryManagementKillsConnectionRequest::MergeFrom(const GetVmMemoryMan
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_read_timeout_ms() != 0) {
-    _this->_internal_set_read_timeout_ms(from._internal_read_timeout_ms());
-  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -25379,7 +26523,6 @@ bool GetVmMemoryManagementKillsConnectionRequest::IsInitialized() const {
 void GetVmMemoryManagementKillsConnectionRequest::InternalSwap(GetVmMemoryManagementKillsConnectionRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.read_timeout_ms_, other->_impl_.read_timeout_ms_);
 }
 
 std::string GetVmMemoryManagementKillsConnectionRequest::GetTypeName() const {
@@ -25826,6 +26969,22 @@ Arena::CreateMaybeMessage< ::vm_tools::concierge::UsbDeviceMessage >(Arena* aren
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::ListUsbDeviceResponse*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::ListUsbDeviceResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::ListUsbDeviceResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::AttachNetDeviceRequest*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::AttachNetDeviceRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::AttachNetDeviceRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::AttachNetDeviceResponse*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::AttachNetDeviceResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::AttachNetDeviceResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::DetachNetDeviceRequest*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::DetachNetDeviceRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::DetachNetDeviceRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::DetachNetDeviceResponse*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::DetachNetDeviceResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::DetachNetDeviceResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::DnsSettings*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::DnsSettings >(Arena* arena) {

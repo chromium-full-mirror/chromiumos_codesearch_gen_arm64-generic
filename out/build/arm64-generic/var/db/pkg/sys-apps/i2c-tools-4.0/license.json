@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "i2c-tools", "version": "4.0", "revision": 0, "fullname": "sys-apps/i2c-tools", "fullnamerev": "sys-apps/i2c-tools-4.0", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.kernel.org/pub/software/utils/i2c-tools"], "skip": false, "tainted": false, "ebuild_path": null}

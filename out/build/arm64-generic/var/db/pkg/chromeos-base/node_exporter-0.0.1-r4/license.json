@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "node_exporter", "version": "0.0.1", "revision": 4, "fullname": "chromeos-base/node_exporter", "fullnamerev": "chromeos-base/node_exporter-0.0.1-r4", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

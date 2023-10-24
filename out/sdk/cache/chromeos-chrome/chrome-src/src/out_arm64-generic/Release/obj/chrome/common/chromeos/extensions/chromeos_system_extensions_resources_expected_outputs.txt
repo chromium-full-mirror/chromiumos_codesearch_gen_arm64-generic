@@ -1,0 +1,4 @@
+gen/chrome/common/chromeos/extensions/grit/chromeos_system_extensions_resources.h
+gen/chrome/common/chromeos/extensions/grit/chromeos_system_extensions_resources_map.cc
+gen/chrome/common/chromeos/extensions/grit/chromeos_system_extensions_resources_map.h
+gen/chrome/common/chromeos/extensions/chromeos_system_extensions_resources.pak

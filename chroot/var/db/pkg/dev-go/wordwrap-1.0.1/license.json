@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "wordwrap", "version": "1.0.1", "revision": 0, "fullname": "dev-go/wordwrap", "fullnamerev": "dev-go/wordwrap-1.0.1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/mitchellh/go-wordwrap"], "skip": false, "tainted": false, "ebuild_path": null}

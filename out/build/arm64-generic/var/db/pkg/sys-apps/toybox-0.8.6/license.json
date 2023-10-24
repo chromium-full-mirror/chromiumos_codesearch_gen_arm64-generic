@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "toybox", "version": "0.8.6", "revision": 0, "fullname": "sys-apps/toybox", "fullnamerev": "sys-apps/toybox-0.8.6", "license_names": ["0BSD"], "license_text_scanned": [], "homepages": ["https://landley.net/code/toybox/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,4 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";import{BigBuffer as mojoBase_mojom_BigBuffer,BigBufferSpec as mojoBase_mojom_BigBufferSpec}from"./big_buffer.mojom-webui.js";export const String16Spec={$:{}};export const BigString16Spec={$:{}};mojo.internal.Struct(String16Spec.$,"String16",[mojo.internal.StructField("data",0,0,mojo.internal.Array(mojo.internal.Uint16,false),null,false,0)],[[0,16]]);export class String16{constructor(){this.data}}mojo.internal.Struct(BigString16Spec.$,"BigString16",[mojo.internal.StructField("data",0,0,mojoBase_mojom_BigBufferSpec.$,null,false,0)],[[0,24]]);export class BigString16{constructor(){this.data}}

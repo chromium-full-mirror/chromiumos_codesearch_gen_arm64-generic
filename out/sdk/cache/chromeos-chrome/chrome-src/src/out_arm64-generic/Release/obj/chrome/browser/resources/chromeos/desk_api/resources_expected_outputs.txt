@@ -1,0 +1,4 @@
+gen/chrome/grit/desk_api_resources.h
+gen/chrome/grit/desk_api_resources_map.cc
+gen/chrome/grit/desk_api_resources_map.h
+gen/chrome/desk_api_resources.pak

@@ -1,0 +1,45 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="settings-shared settings-columned-section">.settings-columned-section{padding-top:4px}.additional-section{border-top:var(--cr-separator-line);padding-inline-start:var(--cr-section-padding)}</style>
+<settings-toggle-button id="pageContentToggle" pref="{{prefs.page_content_collection.enabled}}" label="$i18n{pageContentToggleLabel}" sub-label="$i18n{pageContentToggleSublabel}">
+</settings-toggle-button>
+<div class="settings-columned-section">
+  <div class="column">
+    <div class="description-header">
+      $i18n{privacyGuideFeatureDescriptionHeader}
+    </div>
+    <ul class="icon-bulleted-list">
+      <li>
+        <iron-icon icon="settings20:astrophotography-mode" aria-hidden="true">
+        </iron-icon>
+        <div class="secondary">$i18n{pageContentWhenOnBulletOne}</div>
+      </li>
+    </ul>
+  </div>
+  <div class="column">
+    <div class="description-header">
+      $i18n{privacyGuideThingsToConsider}
+    </div>
+    <ul class="icon-bulleted-list">
+      <li>
+        <iron-icon icon="settings20:find-in-path" aria-hidden="true">
+        </iron-icon>
+        <div class="secondary">$i18n{pageContentThingsToConsiderBulletOne}</div>
+      </li>
+      <li>
+        <iron-icon icon="settings20:google-lens-2" aria-hidden="true">
+        </iron-icon>
+        <div class="secondary">$i18n{pageContentThingsToConsiderBulletTwo}</div>
+      </li>
+    </ul>
+  </div>
+</div>
+<template is="dom-if" if="[[showComposeToggle_]]">
+  <div class="additional-section">
+    <h2>$i18n{privacyGuideComposeAdditionalSettings}</h2>
+    <settings-toggle-button id="composeToggle" pref="{{prefs.autofill_assistance.enabled}}" label="$i18n{privacyGuideComposeHeader}" sub-label="$i18n{privacyGuideComposeDescription}">
+    </settings-toggle-button>
+  </div>
+</template>
+<!--_html_template_end_-->`;
+}

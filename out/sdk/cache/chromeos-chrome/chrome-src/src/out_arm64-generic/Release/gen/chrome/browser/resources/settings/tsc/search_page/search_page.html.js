@@ -1,0 +1,75 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.cr-row.search-engine{padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto;margin-inline-start:12px}</style>
+<settings-animated-pages id="pages" section="search" focus-config="[[focusConfig_]]">
+  <div route-path="default">
+    
+    <div class="cr-row first">
+      <template is="dom-if" if="[[searchEngineChoiceSettingsUi_]]">
+        <div class="default-search-engine flex">
+          $i18n{searchPageTitle}
+          <div class="secondary">
+            $i18n{searchEngineChoiceEntryPointSubtitle}
+            <a href="$i18n{searchExplanationLearnMoreURL}" aria-label="$i18n{searchExplanationLearnMoreA11yLabel}" target="_blank">
+              $i18n{learnMore}
+            </a>
+          </div>
+          <template is="dom-if" if="[[isDefaultSearchControlledByPolicy_(
+              prefs.default_search_provider_data.template_url_data)]]">
+            <cr-policy-pref-indicator pref="[[
+                prefs.default_search_provider_data.template_url_data]]">
+            </cr-policy-pref-indicator>
+          </template>
+          <div class="cr-row first search-engine">
+            <site-favicon favicon-url="[[defaultSearchEngine_.iconURL]]" url="[[defaultSearchEngine_.url]]">
+            </site-favicon>
+            <div class="search-engine-name">[[defaultSearchEngine_.name]]</div>
+            <cr-button disabled$="[[isDefaultSearchEngineEnforced_(
+                prefs.default_search_provider_data.template_url_data)]]">
+              $i18n{searchEnginesChange}
+            </cr-button>
+          </div>
+        </div>
+      </template>
+      <template is="dom-if" if="[[!searchEngineChoiceSettingsUi_]]">
+        <div id="searchExplanation" class="flex cr-padded-text">
+          $i18n{searchExplanation}
+          <a href="$i18n{searchExplanationLearnMoreURL}" aria-label="$i18n{searchExplanationLearnMoreA11yLabel}" target="_blank">
+            $i18n{learnMore}
+          </a>
+        </div>
+        <template is="dom-if" if="[[isDefaultSearchControlledByPolicy_(
+            prefs.default_search_provider_data.template_url_data)]]">
+          <cr-policy-pref-indicator pref="[[
+              prefs.default_search_provider_data.template_url_data]]">
+          </cr-policy-pref-indicator>
+        </template>
+        <select class="md-select" on-change="onChange_" aria-labelledby="searchExplanation" disabled$="[[isDefaultSearchEngineEnforced_(
+                prefs.default_search_provider_data.template_url_data)]]">
+          <template is="dom-repeat" items="[[searchEngines_]]">
+            <option selected="[[item.default]]">[[item.name]]</option>
+          </template>
+        </select>
+      </template>
+    </div>
+    <template is="dom-if" if="[[prefs.default_search_provider_data.template_url_data.extensionId]]">
+      <div class="cr-row continuation">
+        <extension-controlled-indicator class="flex" extension-id="[[
+                prefs.default_search_provider_data.template_url_data.extensionId]]" extension-name="[[
+                prefs.default_search_provider_data.template_url_data.controlledByName]]" extension-can-be-disabled="[[
+                prefs.default_search_provider_data.template_url_data.extensionCanBeDisabled]]" on-disable-extension="onDisableExtension_">
+        </extension-controlled-indicator>
+      </div>
+    </template>
+
+    
+    <cr-link-row class="hr" id="enginesSubpageTrigger" label="$i18n{searchEnginesManageSiteSearch}" on-click="onManageSearchEnginesClick_" role-description="$i18n{subpageArrowRoleDescription}"></cr-link-row>
+  </div>
+  <template is="dom-if" route-path="/searchEngines">
+    <settings-subpage associated-control="[[$$('#enginesSubpageTrigger')]]" page-title="$i18n{searchEnginesManageSiteSearch}" search-label="$i18n{searchEnginesSearch}" search-term="{{searchEnginesFilter_}}">
+      <settings-search-engines-page prefs="{{prefs}}" filter="[[searchEnginesFilter_]]">
+    </settings-search-engines-page></settings-subpage>
+  </template>
+</settings-animated-pages>
+<!--_html_template_end_-->`;
+}

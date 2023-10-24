@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "media-libs", "name": "tiff", "version": "4.5.1", "revision": 2, "fullname": "media-libs/tiff", "fullnamerev": "media-libs/tiff-4.5.1-r2", "license_names": ["libtiff"], "license_text_scanned": [], "homepages": ["http://libtiff.maptools.org"], "skip": false, "tainted": false, "ebuild_path": null}

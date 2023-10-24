@@ -1,0 +1,76 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import './icons.html.js';
+import './user_note_overview_row_menu.js';
+import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/cr_elements/cr_url_list_item/cr_url_list_item.js';
+import '//user-notes-side-panel.top-chrome/shared/sp_list_item_badge.js';
+import { CrUrlListItemSize } from 'chrome://resources/cr_elements/cr_url_list_item/cr_url_list_item.js';
+import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { getTemplate } from './user_note_overview_row.html.js';
+export class UserNoteOverviewRowElement extends PolymerElement {
+    static get is() {
+        return 'user-note-overview-row';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            overview: {
+                type: Object,
+                observer: 'onOverviewChanged_',
+            },
+            description: {
+                type: String,
+                value: '',
+            },
+            trailingIconAriaLabel: {
+                type: String,
+                value: '',
+            },
+            notesCount_: String,
+            size_: {
+                type: CrUrlListItemSize,
+                value: CrUrlListItemSize.LARGE,
+            },
+        };
+    }
+    getTitle_() {
+        return this.overview.title === '' ? this.overview.url.url :
+            this.overview.title;
+    }
+    async onOverviewChanged_() {
+        this.notesCount_ =
+            await PluralStringProxyImpl.getInstance().getPluralString('notesCount', this.overview.numNotes);
+    }
+    dispatchCustomEvent_(customEventType, event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.dispatchEvent(new CustomEvent(customEventType, {
+            bubbles: true,
+            composed: true,
+            detail: {
+                overview: this.overview,
+                event: event,
+            },
+        }));
+    }
+    /**
+     * Dispatches a custom click event when the user clicks anywhere on the row.
+     */
+    onRowClicked_(event) {
+        this.dispatchCustomEvent_('row-clicked', event);
+    }
+    /**
+     * Dispatches a custom click event when the user right-clicks anywhere on the
+     * row.
+     */
+    onRowContextMenu_(event) {
+        this.dispatchCustomEvent_('context-menu', event);
+    }
+}
+customElements.define(UserNoteOverviewRowElement.is, UserNoteOverviewRowElement);

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-firmware", "name": "seabios", "version": "1.14.0", "revision": 1, "fullname": "sys-firmware/seabios", "fullnamerev": "sys-firmware/seabios-1.14.0-r1", "license_names": ["GPL-3", "LGPL-3"], "license_text_scanned": [], "homepages": ["https://www.seabios.org/"], "skip": false, "tainted": false, "ebuild_path": null}

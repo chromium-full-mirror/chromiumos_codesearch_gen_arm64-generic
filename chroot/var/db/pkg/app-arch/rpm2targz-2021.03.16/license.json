@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-arch", "name": "rpm2targz", "version": "2021.03.16", "revision": 0, "fullname": "app-arch/rpm2targz", "fullnamerev": "app-arch/rpm2targz-2021.03.16", "license_names": ["BSD-1"], "license_text_scanned": [], "homepages": ["http://www.slackware.com/config/packages.php"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,8 @@
+# We don't care to run the performance or stress tests from dEQP-GLES on
+# any boards -- they're very slow but don't generally fail.
+dEQP-GLES.*.performance.*
+dEQP-GLES.*.stress.*
+
+# This set of tests may emit warnings, but is not required for
+# conformance and I've never seen anyone pay attention to it.
+dEQP-GLES.*.accuracy.*

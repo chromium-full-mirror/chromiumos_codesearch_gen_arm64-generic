@@ -1,0 +1,1 @@
+{"saml_injected.rollup.js": ["../stage/channel.js", "../stage/post_message_channel.js", "../stage/scroll_helper_injected.js", "../stage/saml_injected.js"]}

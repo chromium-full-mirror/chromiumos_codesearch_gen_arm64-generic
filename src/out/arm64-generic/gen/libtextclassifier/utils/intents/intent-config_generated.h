@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 #include "utils/zlib/buffer_generated.h"
 
 namespace libtextclassifier3 {
@@ -93,7 +100,7 @@ inline const char * const *EnumNamesAndroidSimpleIntentGeneratorVariableType() {
 }
 
 inline const char *EnumNameAndroidSimpleIntentGeneratorVariableType(AndroidSimpleIntentGeneratorVariableType e) {
-  if (flatbuffers::IsOutRange(e, AndroidSimpleIntentGeneratorVariableType_INVALID_VARIABLE, AndroidSimpleIntentGeneratorVariableType_PACKAGE_NAME)) return "";
+  if (::flatbuffers::IsOutRange(e, AndroidSimpleIntentGeneratorVariableType_INVALID_VARIABLE, AndroidSimpleIntentGeneratorVariableType_PACKAGE_NAME)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAndroidSimpleIntentGeneratorVariableType()[index];
 }
@@ -129,7 +136,7 @@ inline const char * const *EnumNamesAndroidSimpleIntentGeneratorExtraType() {
 }
 
 inline const char *EnumNameAndroidSimpleIntentGeneratorExtraType(AndroidSimpleIntentGeneratorExtraType e) {
-  if (flatbuffers::IsOutRange(e, AndroidSimpleIntentGeneratorExtraType_INVALID_EXTRA_TYPE, AndroidSimpleIntentGeneratorExtraType_VARIABLE_AS_LONG)) return "";
+  if (::flatbuffers::IsOutRange(e, AndroidSimpleIntentGeneratorExtraType_INVALID_EXTRA_TYPE, AndroidSimpleIntentGeneratorExtraType_VARIABLE_AS_LONG)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAndroidSimpleIntentGeneratorExtraType()[index];
 }
@@ -162,94 +169,102 @@ inline const char * const *EnumNamesAndroidSimpleIntentGeneratorConditionType() 
 }
 
 inline const char *EnumNameAndroidSimpleIntentGeneratorConditionType(AndroidSimpleIntentGeneratorConditionType e) {
-  if (flatbuffers::IsOutRange(e, AndroidSimpleIntentGeneratorConditionType_INVALID_CONDITION_TYPE, AndroidSimpleIntentGeneratorConditionType_EVENT_START_IN_FUTURE_MS)) return "";
+  if (::flatbuffers::IsOutRange(e, AndroidSimpleIntentGeneratorConditionType_INVALID_CONDITION_TYPE, AndroidSimpleIntentGeneratorConditionType_EVENT_START_IN_FUTURE_MS)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAndroidSimpleIntentGeneratorConditionType()[index];
 }
 
-struct AndroidIntentFactoryOptionsT : public flatbuffers::NativeTable {
+struct AndroidIntentFactoryOptionsT : public ::flatbuffers::NativeTable {
   typedef AndroidIntentFactoryOptions TableType;
   std::vector<std::unique_ptr<libtextclassifier3::AndroidIntentFactoryEntityOptionsT>> entity{};
+  AndroidIntentFactoryOptionsT() = default;
+  AndroidIntentFactoryOptionsT(const AndroidIntentFactoryOptionsT &o);
+  AndroidIntentFactoryOptionsT(AndroidIntentFactoryOptionsT&&) FLATBUFFERS_NOEXCEPT = default;
+  AndroidIntentFactoryOptionsT &operator=(AndroidIntentFactoryOptionsT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct AndroidIntentFactoryOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AndroidIntentFactoryOptions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AndroidIntentFactoryOptionsT NativeTableType;
   typedef AndroidIntentFactoryOptionsBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ENTITY = 4
   };
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>> *entity() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>> *>(VT_ENTITY);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>> *entity() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>> *>(VT_ENTITY);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_ENTITY) &&
            verifier.VerifyVector(entity()) &&
            verifier.VerifyVectorOfTables(entity()) &&
            verifier.EndTable();
   }
-  AndroidIntentFactoryOptionsT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(AndroidIntentFactoryOptionsT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<AndroidIntentFactoryOptions> Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  AndroidIntentFactoryOptionsT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(AndroidIntentFactoryOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<AndroidIntentFactoryOptions> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct AndroidIntentFactoryOptionsBuilder {
   typedef AndroidIntentFactoryOptions Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_entity(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>>> entity) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_entity(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>>> entity) {
     fbb_.AddOffset(AndroidIntentFactoryOptions::VT_ENTITY, entity);
   }
-  explicit AndroidIntentFactoryOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AndroidIntentFactoryOptionsBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AndroidIntentFactoryOptions> Finish() {
+  ::flatbuffers::Offset<AndroidIntentFactoryOptions> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AndroidIntentFactoryOptions>(end);
+    auto o = ::flatbuffers::Offset<AndroidIntentFactoryOptions>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AndroidIntentFactoryOptions> CreateAndroidIntentFactoryOptions(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>>> entity = 0) {
+inline ::flatbuffers::Offset<AndroidIntentFactoryOptions> CreateAndroidIntentFactoryOptions(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>>> entity = 0) {
   AndroidIntentFactoryOptionsBuilder builder_(_fbb);
   builder_.add_entity(entity);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<AndroidIntentFactoryOptions> CreateAndroidIntentFactoryOptionsDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>> *entity = nullptr) {
-  auto entity__ = entity ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>>(*entity) : 0;
+inline ::flatbuffers::Offset<AndroidIntentFactoryOptions> CreateAndroidIntentFactoryOptionsDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>> *entity = nullptr) {
+  auto entity__ = entity ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>>(*entity) : 0;
   return libtextclassifier3::CreateAndroidIntentFactoryOptions(
       _fbb,
       entity__);
 }
 
-flatbuffers::Offset<AndroidIntentFactoryOptions> CreateAndroidIntentFactoryOptions(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<AndroidIntentFactoryOptions> CreateAndroidIntentFactoryOptions(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct AndroidIntentFactoryEntityOptionsT : public flatbuffers::NativeTable {
+struct AndroidIntentFactoryEntityOptionsT : public ::flatbuffers::NativeTable {
   typedef AndroidIntentFactoryEntityOptions TableType;
   std::string entity_type{};
   std::vector<std::unique_ptr<libtextclassifier3::AndroidIntentGeneratorOptionsT>> generator{};
+  AndroidIntentFactoryEntityOptionsT() = default;
+  AndroidIntentFactoryEntityOptionsT(const AndroidIntentFactoryEntityOptionsT &o);
+  AndroidIntentFactoryEntityOptionsT(AndroidIntentFactoryEntityOptionsT&&) FLATBUFFERS_NOEXCEPT = default;
+  AndroidIntentFactoryEntityOptionsT &operator=(AndroidIntentFactoryEntityOptionsT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct AndroidIntentFactoryEntityOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AndroidIntentFactoryEntityOptions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AndroidIntentFactoryEntityOptionsT NativeTableType;
   typedef AndroidIntentFactoryEntityOptionsBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ENTITY_TYPE = 4,
     VT_GENERATOR = 6
   };
-  const flatbuffers::String *entity_type() const {
-    return GetPointer<const flatbuffers::String *>(VT_ENTITY_TYPE);
+  const ::flatbuffers::String *entity_type() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_ENTITY_TYPE);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>> *generator() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>> *>(VT_GENERATOR);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>> *generator() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>> *>(VT_GENERATOR);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_ENTITY_TYPE) &&
            verifier.VerifyString(entity_type()) &&
@@ -258,76 +273,80 @@ struct AndroidIntentFactoryEntityOptions FLATBUFFERS_FINAL_CLASS : private flatb
            verifier.VerifyVectorOfTables(generator()) &&
            verifier.EndTable();
   }
-  AndroidIntentFactoryEntityOptionsT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(AndroidIntentFactoryEntityOptionsT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<AndroidIntentFactoryEntityOptions> Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryEntityOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  AndroidIntentFactoryEntityOptionsT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(AndroidIntentFactoryEntityOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<AndroidIntentFactoryEntityOptions> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryEntityOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct AndroidIntentFactoryEntityOptionsBuilder {
   typedef AndroidIntentFactoryEntityOptions Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_entity_type(flatbuffers::Offset<flatbuffers::String> entity_type) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_entity_type(::flatbuffers::Offset<::flatbuffers::String> entity_type) {
     fbb_.AddOffset(AndroidIntentFactoryEntityOptions::VT_ENTITY_TYPE, entity_type);
   }
-  void add_generator(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>>> generator) {
+  void add_generator(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>>> generator) {
     fbb_.AddOffset(AndroidIntentFactoryEntityOptions::VT_GENERATOR, generator);
   }
-  explicit AndroidIntentFactoryEntityOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AndroidIntentFactoryEntityOptionsBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AndroidIntentFactoryEntityOptions> Finish() {
+  ::flatbuffers::Offset<AndroidIntentFactoryEntityOptions> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AndroidIntentFactoryEntityOptions>(end);
+    auto o = ::flatbuffers::Offset<AndroidIntentFactoryEntityOptions>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AndroidIntentFactoryEntityOptions> CreateAndroidIntentFactoryEntityOptions(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> entity_type = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>>> generator = 0) {
+inline ::flatbuffers::Offset<AndroidIntentFactoryEntityOptions> CreateAndroidIntentFactoryEntityOptions(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> entity_type = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>>> generator = 0) {
   AndroidIntentFactoryEntityOptionsBuilder builder_(_fbb);
   builder_.add_generator(generator);
   builder_.add_entity_type(entity_type);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<AndroidIntentFactoryEntityOptions> CreateAndroidIntentFactoryEntityOptionsDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<AndroidIntentFactoryEntityOptions> CreateAndroidIntentFactoryEntityOptionsDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *entity_type = nullptr,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>> *generator = nullptr) {
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>> *generator = nullptr) {
   auto entity_type__ = entity_type ? _fbb.CreateString(entity_type) : 0;
-  auto generator__ = generator ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>>(*generator) : 0;
+  auto generator__ = generator ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>>(*generator) : 0;
   return libtextclassifier3::CreateAndroidIntentFactoryEntityOptions(
       _fbb,
       entity_type__,
       generator__);
 }
 
-flatbuffers::Offset<AndroidIntentFactoryEntityOptions> CreateAndroidIntentFactoryEntityOptions(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryEntityOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<AndroidIntentFactoryEntityOptions> CreateAndroidIntentFactoryEntityOptions(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryEntityOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct AndroidIntentGeneratorOptionsT : public flatbuffers::NativeTable {
+struct AndroidIntentGeneratorOptionsT : public ::flatbuffers::NativeTable {
   typedef AndroidIntentGeneratorOptions TableType;
   std::vector<std::unique_ptr<libtextclassifier3::AndroidIntentGeneratorStringsT>> strings{};
   std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorOptionsT> simple{};
+  AndroidIntentGeneratorOptionsT() = default;
+  AndroidIntentGeneratorOptionsT(const AndroidIntentGeneratorOptionsT &o);
+  AndroidIntentGeneratorOptionsT(AndroidIntentGeneratorOptionsT&&) FLATBUFFERS_NOEXCEPT = default;
+  AndroidIntentGeneratorOptionsT &operator=(AndroidIntentGeneratorOptionsT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct AndroidIntentGeneratorOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AndroidIntentGeneratorOptions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AndroidIntentGeneratorOptionsT NativeTableType;
   typedef AndroidIntentGeneratorOptionsBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_STRINGS = 4,
     VT_SIMPLE = 6
   };
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>> *strings() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>> *>(VT_STRINGS);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>> *strings() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>> *>(VT_STRINGS);
   }
   const libtextclassifier3::AndroidSimpleIntentGeneratorOptions *simple() const {
     return GetPointer<const libtextclassifier3::AndroidSimpleIntentGeneratorOptions *>(VT_SIMPLE);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_STRINGS) &&
            verifier.VerifyVector(strings()) &&
@@ -336,63 +355,63 @@ struct AndroidIntentGeneratorOptions FLATBUFFERS_FINAL_CLASS : private flatbuffe
            verifier.VerifyTable(simple()) &&
            verifier.EndTable();
   }
-  AndroidIntentGeneratorOptionsT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(AndroidIntentGeneratorOptionsT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<AndroidIntentGeneratorOptions> Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  AndroidIntentGeneratorOptionsT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(AndroidIntentGeneratorOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<AndroidIntentGeneratorOptions> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct AndroidIntentGeneratorOptionsBuilder {
   typedef AndroidIntentGeneratorOptions Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_strings(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>>> strings) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_strings(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>>> strings) {
     fbb_.AddOffset(AndroidIntentGeneratorOptions::VT_STRINGS, strings);
   }
-  void add_simple(flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorOptions> simple) {
+  void add_simple(::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorOptions> simple) {
     fbb_.AddOffset(AndroidIntentGeneratorOptions::VT_SIMPLE, simple);
   }
-  explicit AndroidIntentGeneratorOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AndroidIntentGeneratorOptionsBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AndroidIntentGeneratorOptions> Finish() {
+  ::flatbuffers::Offset<AndroidIntentGeneratorOptions> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AndroidIntentGeneratorOptions>(end);
+    auto o = ::flatbuffers::Offset<AndroidIntentGeneratorOptions>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGeneratorOptions(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>>> strings = 0,
-    flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorOptions> simple = 0) {
+inline ::flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGeneratorOptions(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>>> strings = 0,
+    ::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorOptions> simple = 0) {
   AndroidIntentGeneratorOptionsBuilder builder_(_fbb);
   builder_.add_simple(simple);
   builder_.add_strings(strings);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGeneratorOptionsDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>> *strings = nullptr,
-    flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorOptions> simple = 0) {
-  auto strings__ = strings ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>>(*strings) : 0;
+inline ::flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGeneratorOptionsDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>> *strings = nullptr,
+    ::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorOptions> simple = 0) {
+  auto strings__ = strings ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>>(*strings) : 0;
   return libtextclassifier3::CreateAndroidIntentGeneratorOptions(
       _fbb,
       strings__,
       simple);
 }
 
-flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGeneratorOptions(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGeneratorOptions(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct AndroidIntentGeneratorStringsT : public flatbuffers::NativeTable {
+struct AndroidIntentGeneratorStringsT : public ::flatbuffers::NativeTable {
   typedef AndroidIntentGeneratorStrings TableType;
   std::string language_tag{};
   std::string title{};
   std::string description{};
 };
 
-struct AndroidIntentGeneratorStrings FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AndroidIntentGeneratorStrings FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AndroidIntentGeneratorStringsT NativeTableType;
   typedef AndroidIntentGeneratorStringsBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -400,16 +419,16 @@ struct AndroidIntentGeneratorStrings FLATBUFFERS_FINAL_CLASS : private flatbuffe
     VT_TITLE = 6,
     VT_DESCRIPTION = 8
   };
-  const flatbuffers::String *language_tag() const {
-    return GetPointer<const flatbuffers::String *>(VT_LANGUAGE_TAG);
+  const ::flatbuffers::String *language_tag() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_LANGUAGE_TAG);
   }
-  const flatbuffers::String *title() const {
-    return GetPointer<const flatbuffers::String *>(VT_TITLE);
+  const ::flatbuffers::String *title() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_TITLE);
   }
-  const flatbuffers::String *description() const {
-    return GetPointer<const flatbuffers::String *>(VT_DESCRIPTION);
+  const ::flatbuffers::String *description() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_DESCRIPTION);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_LANGUAGE_TAG) &&
            verifier.VerifyString(language_tag()) &&
@@ -419,40 +438,40 @@ struct AndroidIntentGeneratorStrings FLATBUFFERS_FINAL_CLASS : private flatbuffe
            verifier.VerifyString(description()) &&
            verifier.EndTable();
   }
-  AndroidIntentGeneratorStringsT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(AndroidIntentGeneratorStringsT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<AndroidIntentGeneratorStrings> Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorStringsT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  AndroidIntentGeneratorStringsT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(AndroidIntentGeneratorStringsT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<AndroidIntentGeneratorStrings> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorStringsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct AndroidIntentGeneratorStringsBuilder {
   typedef AndroidIntentGeneratorStrings Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_language_tag(flatbuffers::Offset<flatbuffers::String> language_tag) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_language_tag(::flatbuffers::Offset<::flatbuffers::String> language_tag) {
     fbb_.AddOffset(AndroidIntentGeneratorStrings::VT_LANGUAGE_TAG, language_tag);
   }
-  void add_title(flatbuffers::Offset<flatbuffers::String> title) {
+  void add_title(::flatbuffers::Offset<::flatbuffers::String> title) {
     fbb_.AddOffset(AndroidIntentGeneratorStrings::VT_TITLE, title);
   }
-  void add_description(flatbuffers::Offset<flatbuffers::String> description) {
+  void add_description(::flatbuffers::Offset<::flatbuffers::String> description) {
     fbb_.AddOffset(AndroidIntentGeneratorStrings::VT_DESCRIPTION, description);
   }
-  explicit AndroidIntentGeneratorStringsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AndroidIntentGeneratorStringsBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AndroidIntentGeneratorStrings> Finish() {
+  ::flatbuffers::Offset<AndroidIntentGeneratorStrings> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AndroidIntentGeneratorStrings>(end);
+    auto o = ::flatbuffers::Offset<AndroidIntentGeneratorStrings>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGeneratorStrings(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> language_tag = 0,
-    flatbuffers::Offset<flatbuffers::String> title = 0,
-    flatbuffers::Offset<flatbuffers::String> description = 0) {
+inline ::flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGeneratorStrings(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> language_tag = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> title = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> description = 0) {
   AndroidIntentGeneratorStringsBuilder builder_(_fbb);
   builder_.add_description(description);
   builder_.add_title(title);
@@ -460,8 +479,8 @@ inline flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGen
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGeneratorStringsDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGeneratorStringsDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *language_tag = nullptr,
     const char *title = nullptr,
     const char *description = nullptr) {
@@ -475,9 +494,9 @@ inline flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGen
       description__);
 }
 
-flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGeneratorStrings(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorStringsT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGeneratorStrings(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorStringsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct AndroidSimpleIntentGeneratorExtraT : public flatbuffers::NativeTable {
+struct AndroidSimpleIntentGeneratorExtraT : public ::flatbuffers::NativeTable {
   typedef AndroidSimpleIntentGeneratorExtra TableType;
   std::string name{};
   libtextclassifier3::AndroidSimpleIntentGeneratorExtraType type = libtextclassifier3::AndroidSimpleIntentGeneratorExtraType_INVALID_EXTRA_TYPE;
@@ -486,7 +505,7 @@ struct AndroidSimpleIntentGeneratorExtraT : public flatbuffers::NativeTable {
   int32_t int32_ = 0;
 };
 
-struct AndroidSimpleIntentGeneratorExtra FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AndroidSimpleIntentGeneratorExtra FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AndroidSimpleIntentGeneratorExtraT NativeTableType;
   typedef AndroidSimpleIntentGeneratorExtraBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -496,14 +515,14 @@ struct AndroidSimpleIntentGeneratorExtra FLATBUFFERS_FINAL_CLASS : private flatb
     VT_BOOL_ = 10,
     VT_INT32_ = 12
   };
-  const flatbuffers::String *name() const {
-    return GetPointer<const flatbuffers::String *>(VT_NAME);
+  const ::flatbuffers::String *name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NAME);
   }
   libtextclassifier3::AndroidSimpleIntentGeneratorExtraType type() const {
     return static_cast<libtextclassifier3::AndroidSimpleIntentGeneratorExtraType>(GetField<int32_t>(VT_TYPE, 0));
   }
-  const flatbuffers::String *string_() const {
-    return GetPointer<const flatbuffers::String *>(VT_STRING_);
+  const ::flatbuffers::String *string_() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_STRING_);
   }
   bool bool_() const {
     return GetField<uint8_t>(VT_BOOL_, 0) != 0;
@@ -511,33 +530,33 @@ struct AndroidSimpleIntentGeneratorExtra FLATBUFFERS_FINAL_CLASS : private flatb
   int32_t int32_() const {
     return GetField<int32_t>(VT_INT32_, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_NAME) &&
            verifier.VerifyString(name()) &&
-           VerifyField<int32_t>(verifier, VT_TYPE) &&
+           VerifyField<int32_t>(verifier, VT_TYPE, 4) &&
            VerifyOffset(verifier, VT_STRING_) &&
            verifier.VerifyString(string_()) &&
-           VerifyField<uint8_t>(verifier, VT_BOOL_) &&
-           VerifyField<int32_t>(verifier, VT_INT32_) &&
+           VerifyField<uint8_t>(verifier, VT_BOOL_, 1) &&
+           VerifyField<int32_t>(verifier, VT_INT32_, 4) &&
            verifier.EndTable();
   }
-  AndroidSimpleIntentGeneratorExtraT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(AndroidSimpleIntentGeneratorExtraT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorExtraT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  AndroidSimpleIntentGeneratorExtraT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(AndroidSimpleIntentGeneratorExtraT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorExtraT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct AndroidSimpleIntentGeneratorExtraBuilder {
   typedef AndroidSimpleIntentGeneratorExtra Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_name(flatbuffers::Offset<flatbuffers::String> name) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_name(::flatbuffers::Offset<::flatbuffers::String> name) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorExtra::VT_NAME, name);
   }
   void add_type(libtextclassifier3::AndroidSimpleIntentGeneratorExtraType type) {
     fbb_.AddElement<int32_t>(AndroidSimpleIntentGeneratorExtra::VT_TYPE, static_cast<int32_t>(type), 0);
   }
-  void add_string_(flatbuffers::Offset<flatbuffers::String> string_) {
+  void add_string_(::flatbuffers::Offset<::flatbuffers::String> string_) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorExtra::VT_STRING_, string_);
   }
   void add_bool_(bool bool_) {
@@ -546,22 +565,22 @@ struct AndroidSimpleIntentGeneratorExtraBuilder {
   void add_int32_(int32_t int32_) {
     fbb_.AddElement<int32_t>(AndroidSimpleIntentGeneratorExtra::VT_INT32_, int32_, 0);
   }
-  explicit AndroidSimpleIntentGeneratorExtraBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AndroidSimpleIntentGeneratorExtraBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> Finish() {
+  ::flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra>(end);
+    auto o = ::flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpleIntentGeneratorExtra(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> name = 0,
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpleIntentGeneratorExtra(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> name = 0,
     libtextclassifier3::AndroidSimpleIntentGeneratorExtraType type = libtextclassifier3::AndroidSimpleIntentGeneratorExtraType_INVALID_EXTRA_TYPE,
-    flatbuffers::Offset<flatbuffers::String> string_ = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> string_ = 0,
     bool bool_ = false,
     int32_t int32_ = 0) {
   AndroidSimpleIntentGeneratorExtraBuilder builder_(_fbb);
@@ -573,8 +592,8 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpl
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpleIntentGeneratorExtraDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpleIntentGeneratorExtraDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *name = nullptr,
     libtextclassifier3::AndroidSimpleIntentGeneratorExtraType type = libtextclassifier3::AndroidSimpleIntentGeneratorExtraType_INVALID_EXTRA_TYPE,
     const char *string_ = nullptr,
@@ -591,9 +610,9 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpl
       int32_);
 }
 
-flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpleIntentGeneratorExtra(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorExtraT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpleIntentGeneratorExtra(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorExtraT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct AndroidSimpleIntentGeneratorConditionT : public flatbuffers::NativeTable {
+struct AndroidSimpleIntentGeneratorConditionT : public ::flatbuffers::NativeTable {
   typedef AndroidSimpleIntentGeneratorCondition TableType;
   libtextclassifier3::AndroidSimpleIntentGeneratorConditionType type = libtextclassifier3::AndroidSimpleIntentGeneratorConditionType_INVALID_CONDITION_TYPE;
   std::string string_{};
@@ -601,7 +620,7 @@ struct AndroidSimpleIntentGeneratorConditionT : public flatbuffers::NativeTable 
   int64_t int64_ = 0;
 };
 
-struct AndroidSimpleIntentGeneratorCondition FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AndroidSimpleIntentGeneratorCondition FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AndroidSimpleIntentGeneratorConditionT NativeTableType;
   typedef AndroidSimpleIntentGeneratorConditionBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -613,8 +632,8 @@ struct AndroidSimpleIntentGeneratorCondition FLATBUFFERS_FINAL_CLASS : private f
   libtextclassifier3::AndroidSimpleIntentGeneratorConditionType type() const {
     return static_cast<libtextclassifier3::AndroidSimpleIntentGeneratorConditionType>(GetField<int32_t>(VT_TYPE, 0));
   }
-  const flatbuffers::String *string_() const {
-    return GetPointer<const flatbuffers::String *>(VT_STRING_);
+  const ::flatbuffers::String *string_() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_STRING_);
   }
   int32_t int32_() const {
     return GetField<int32_t>(VT_INT32_, 0);
@@ -622,28 +641,28 @@ struct AndroidSimpleIntentGeneratorCondition FLATBUFFERS_FINAL_CLASS : private f
   int64_t int64_() const {
     return GetField<int64_t>(VT_INT64_, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_TYPE) &&
+           VerifyField<int32_t>(verifier, VT_TYPE, 4) &&
            VerifyOffset(verifier, VT_STRING_) &&
            verifier.VerifyString(string_()) &&
-           VerifyField<int32_t>(verifier, VT_INT32_) &&
-           VerifyField<int64_t>(verifier, VT_INT64_) &&
+           VerifyField<int32_t>(verifier, VT_INT32_, 4) &&
+           VerifyField<int64_t>(verifier, VT_INT64_, 8) &&
            verifier.EndTable();
   }
-  AndroidSimpleIntentGeneratorConditionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(AndroidSimpleIntentGeneratorConditionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorConditionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  AndroidSimpleIntentGeneratorConditionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(AndroidSimpleIntentGeneratorConditionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorConditionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct AndroidSimpleIntentGeneratorConditionBuilder {
   typedef AndroidSimpleIntentGeneratorCondition Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_type(libtextclassifier3::AndroidSimpleIntentGeneratorConditionType type) {
     fbb_.AddElement<int32_t>(AndroidSimpleIntentGeneratorCondition::VT_TYPE, static_cast<int32_t>(type), 0);
   }
-  void add_string_(flatbuffers::Offset<flatbuffers::String> string_) {
+  void add_string_(::flatbuffers::Offset<::flatbuffers::String> string_) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorCondition::VT_STRING_, string_);
   }
   void add_int32_(int32_t int32_) {
@@ -652,21 +671,21 @@ struct AndroidSimpleIntentGeneratorConditionBuilder {
   void add_int64_(int64_t int64_) {
     fbb_.AddElement<int64_t>(AndroidSimpleIntentGeneratorCondition::VT_INT64_, int64_, 0);
   }
-  explicit AndroidSimpleIntentGeneratorConditionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AndroidSimpleIntentGeneratorConditionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> Finish() {
+  ::flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition>(end);
+    auto o = ::flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidSimpleIntentGeneratorCondition(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidSimpleIntentGeneratorCondition(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     libtextclassifier3::AndroidSimpleIntentGeneratorConditionType type = libtextclassifier3::AndroidSimpleIntentGeneratorConditionType_INVALID_CONDITION_TYPE,
-    flatbuffers::Offset<flatbuffers::String> string_ = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> string_ = 0,
     int32_t int32_ = 0,
     int64_t int64_ = 0) {
   AndroidSimpleIntentGeneratorConditionBuilder builder_(_fbb);
@@ -677,8 +696,8 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidS
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidSimpleIntentGeneratorConditionDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidSimpleIntentGeneratorConditionDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     libtextclassifier3::AndroidSimpleIntentGeneratorConditionType type = libtextclassifier3::AndroidSimpleIntentGeneratorConditionType_INVALID_CONDITION_TYPE,
     const char *string_ = nullptr,
     int32_t int32_ = 0,
@@ -692,9 +711,9 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidS
       int64_);
 }
 
-flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidSimpleIntentGeneratorCondition(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorConditionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidSimpleIntentGeneratorCondition(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorConditionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct AndroidSimpleIntentGeneratorOptionsT : public flatbuffers::NativeTable {
+struct AndroidSimpleIntentGeneratorOptionsT : public ::flatbuffers::NativeTable {
   typedef AndroidSimpleIntentGeneratorOptions TableType;
   std::string action{};
   std::string data{};
@@ -702,9 +721,13 @@ struct AndroidSimpleIntentGeneratorOptionsT : public flatbuffers::NativeTable {
   std::vector<std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorExtraT>> extra{};
   std::vector<libtextclassifier3::AndroidSimpleIntentGeneratorVariableType> variable{};
   std::vector<std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorConditionT>> condition{};
+  AndroidSimpleIntentGeneratorOptionsT() = default;
+  AndroidSimpleIntentGeneratorOptionsT(const AndroidSimpleIntentGeneratorOptionsT &o);
+  AndroidSimpleIntentGeneratorOptionsT(AndroidSimpleIntentGeneratorOptionsT&&) FLATBUFFERS_NOEXCEPT = default;
+  AndroidSimpleIntentGeneratorOptionsT &operator=(AndroidSimpleIntentGeneratorOptionsT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct AndroidSimpleIntentGeneratorOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct AndroidSimpleIntentGeneratorOptions FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef AndroidSimpleIntentGeneratorOptionsT NativeTableType;
   typedef AndroidSimpleIntentGeneratorOptionsBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -715,25 +738,25 @@ struct AndroidSimpleIntentGeneratorOptions FLATBUFFERS_FINAL_CLASS : private fla
     VT_VARIABLE = 12,
     VT_CONDITION = 14
   };
-  const flatbuffers::String *action() const {
-    return GetPointer<const flatbuffers::String *>(VT_ACTION);
+  const ::flatbuffers::String *action() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_ACTION);
   }
-  const flatbuffers::String *data() const {
-    return GetPointer<const flatbuffers::String *>(VT_DATA);
+  const ::flatbuffers::String *data() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_DATA);
   }
-  const flatbuffers::String *type() const {
-    return GetPointer<const flatbuffers::String *>(VT_TYPE);
+  const ::flatbuffers::String *type() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_TYPE);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>> *extra() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>> *>(VT_EXTRA);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>> *extra() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>> *>(VT_EXTRA);
   }
-  const flatbuffers::Vector<int32_t> *variable() const {
-    return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_VARIABLE);
+  const ::flatbuffers::Vector<int32_t> *variable() const {
+    return GetPointer<const ::flatbuffers::Vector<int32_t> *>(VT_VARIABLE);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>> *condition() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>> *>(VT_CONDITION);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>> *condition() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>> *>(VT_CONDITION);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_ACTION) &&
            verifier.VerifyString(action()) &&
@@ -751,52 +774,52 @@ struct AndroidSimpleIntentGeneratorOptions FLATBUFFERS_FINAL_CLASS : private fla
            verifier.VerifyVectorOfTables(condition()) &&
            verifier.EndTable();
   }
-  AndroidSimpleIntentGeneratorOptionsT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(AndroidSimpleIntentGeneratorOptionsT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  AndroidSimpleIntentGeneratorOptionsT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(AndroidSimpleIntentGeneratorOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct AndroidSimpleIntentGeneratorOptionsBuilder {
   typedef AndroidSimpleIntentGeneratorOptions Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_action(flatbuffers::Offset<flatbuffers::String> action) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_action(::flatbuffers::Offset<::flatbuffers::String> action) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorOptions::VT_ACTION, action);
   }
-  void add_data(flatbuffers::Offset<flatbuffers::String> data) {
+  void add_data(::flatbuffers::Offset<::flatbuffers::String> data) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorOptions::VT_DATA, data);
   }
-  void add_type(flatbuffers::Offset<flatbuffers::String> type) {
+  void add_type(::flatbuffers::Offset<::flatbuffers::String> type) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorOptions::VT_TYPE, type);
   }
-  void add_extra(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>>> extra) {
+  void add_extra(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>>> extra) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorOptions::VT_EXTRA, extra);
   }
-  void add_variable(flatbuffers::Offset<flatbuffers::Vector<int32_t>> variable) {
+  void add_variable(::flatbuffers::Offset<::flatbuffers::Vector<int32_t>> variable) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorOptions::VT_VARIABLE, variable);
   }
-  void add_condition(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>>> condition) {
+  void add_condition(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>>> condition) {
     fbb_.AddOffset(AndroidSimpleIntentGeneratorOptions::VT_CONDITION, condition);
   }
-  explicit AndroidSimpleIntentGeneratorOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AndroidSimpleIntentGeneratorOptionsBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> Finish() {
+  ::flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions>(end);
+    auto o = ::flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSimpleIntentGeneratorOptions(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> action = 0,
-    flatbuffers::Offset<flatbuffers::String> data = 0,
-    flatbuffers::Offset<flatbuffers::String> type = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>>> extra = 0,
-    flatbuffers::Offset<flatbuffers::Vector<int32_t>> variable = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>>> condition = 0) {
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSimpleIntentGeneratorOptions(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> action = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> data = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> type = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>>> extra = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<int32_t>> variable = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>>> condition = 0) {
   AndroidSimpleIntentGeneratorOptionsBuilder builder_(_fbb);
   builder_.add_condition(condition);
   builder_.add_variable(variable);
@@ -807,20 +830,20 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSim
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSimpleIntentGeneratorOptionsDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSimpleIntentGeneratorOptionsDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *action = nullptr,
     const char *data = nullptr,
     const char *type = nullptr,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>> *extra = nullptr,
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>> *extra = nullptr,
     const std::vector<int32_t> *variable = nullptr,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>> *condition = nullptr) {
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>> *condition = nullptr) {
   auto action__ = action ? _fbb.CreateString(action) : 0;
   auto data__ = data ? _fbb.CreateString(data) : 0;
   auto type__ = type ? _fbb.CreateString(type) : 0;
-  auto extra__ = extra ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>>(*extra) : 0;
+  auto extra__ = extra ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>>(*extra) : 0;
   auto variable__ = variable ? _fbb.CreateVector<int32_t>(*variable) : 0;
-  auto condition__ = condition ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>>(*condition) : 0;
+  auto condition__ = condition ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>>(*condition) : 0;
   return libtextclassifier3::CreateAndroidSimpleIntentGeneratorOptions(
       _fbb,
       action__,
@@ -831,18 +854,22 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSim
       condition__);
 }
 
-flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSimpleIntentGeneratorOptions(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSimpleIntentGeneratorOptions(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 namespace IntentFactoryModel_ {
 
-struct IntentGeneratorT : public flatbuffers::NativeTable {
+struct IntentGeneratorT : public ::flatbuffers::NativeTable {
   typedef IntentGenerator TableType;
   std::string type{};
   std::vector<uint8_t> lua_template_generator{};
   std::unique_ptr<libtextclassifier3::CompressedBufferT> compressed_lua_template_generator{};
+  IntentGeneratorT() = default;
+  IntentGeneratorT(const IntentGeneratorT &o);
+  IntentGeneratorT(IntentGeneratorT&&) FLATBUFFERS_NOEXCEPT = default;
+  IntentGeneratorT &operator=(IntentGeneratorT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct IntentGenerator FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct IntentGenerator FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef IntentGeneratorT NativeTableType;
   typedef IntentGeneratorBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -850,16 +877,16 @@ struct IntentGenerator FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_LUA_TEMPLATE_GENERATOR = 6,
     VT_COMPRESSED_LUA_TEMPLATE_GENERATOR = 8
   };
-  const flatbuffers::String *type() const {
-    return GetPointer<const flatbuffers::String *>(VT_TYPE);
+  const ::flatbuffers::String *type() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_TYPE);
   }
-  const flatbuffers::Vector<uint8_t> *lua_template_generator() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_LUA_TEMPLATE_GENERATOR);
+  const ::flatbuffers::Vector<uint8_t> *lua_template_generator() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_LUA_TEMPLATE_GENERATOR);
   }
   const libtextclassifier3::CompressedBuffer *compressed_lua_template_generator() const {
     return GetPointer<const libtextclassifier3::CompressedBuffer *>(VT_COMPRESSED_LUA_TEMPLATE_GENERATOR);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_TYPE) &&
            verifier.VerifyString(type()) &&
@@ -869,40 +896,40 @@ struct IntentGenerator FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyTable(compressed_lua_template_generator()) &&
            verifier.EndTable();
   }
-  IntentGeneratorT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(IntentGeneratorT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<IntentGenerator> Pack(flatbuffers::FlatBufferBuilder &_fbb, const IntentGeneratorT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  IntentGeneratorT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(IntentGeneratorT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<IntentGenerator> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const IntentGeneratorT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct IntentGeneratorBuilder {
   typedef IntentGenerator Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_type(flatbuffers::Offset<flatbuffers::String> type) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_type(::flatbuffers::Offset<::flatbuffers::String> type) {
     fbb_.AddOffset(IntentGenerator::VT_TYPE, type);
   }
-  void add_lua_template_generator(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> lua_template_generator) {
+  void add_lua_template_generator(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> lua_template_generator) {
     fbb_.AddOffset(IntentGenerator::VT_LUA_TEMPLATE_GENERATOR, lua_template_generator);
   }
-  void add_compressed_lua_template_generator(flatbuffers::Offset<libtextclassifier3::CompressedBuffer> compressed_lua_template_generator) {
+  void add_compressed_lua_template_generator(::flatbuffers::Offset<libtextclassifier3::CompressedBuffer> compressed_lua_template_generator) {
     fbb_.AddOffset(IntentGenerator::VT_COMPRESSED_LUA_TEMPLATE_GENERATOR, compressed_lua_template_generator);
   }
-  explicit IntentGeneratorBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit IntentGeneratorBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<IntentGenerator> Finish() {
+  ::flatbuffers::Offset<IntentGenerator> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<IntentGenerator>(end);
+    auto o = ::flatbuffers::Offset<IntentGenerator>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<IntentGenerator> CreateIntentGenerator(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> type = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> lua_template_generator = 0,
-    flatbuffers::Offset<libtextclassifier3::CompressedBuffer> compressed_lua_template_generator = 0) {
+inline ::flatbuffers::Offset<IntentGenerator> CreateIntentGenerator(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> type = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> lua_template_generator = 0,
+    ::flatbuffers::Offset<libtextclassifier3::CompressedBuffer> compressed_lua_template_generator = 0) {
   IntentGeneratorBuilder builder_(_fbb);
   builder_.add_compressed_lua_template_generator(compressed_lua_template_generator);
   builder_.add_lua_template_generator(lua_template_generator);
@@ -910,11 +937,11 @@ inline flatbuffers::Offset<IntentGenerator> CreateIntentGenerator(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<IntentGenerator> CreateIntentGeneratorDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<IntentGenerator> CreateIntentGeneratorDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *type = nullptr,
     const std::vector<uint8_t> *lua_template_generator = nullptr,
-    flatbuffers::Offset<libtextclassifier3::CompressedBuffer> compressed_lua_template_generator = 0) {
+    ::flatbuffers::Offset<libtextclassifier3::CompressedBuffer> compressed_lua_template_generator = 0) {
   auto type__ = type ? _fbb.CreateString(type) : 0;
   auto lua_template_generator__ = lua_template_generator ? _fbb.CreateVector<uint8_t>(*lua_template_generator) : 0;
   return libtextclassifier3::IntentFactoryModel_::CreateIntentGenerator(
@@ -924,66 +951,70 @@ inline flatbuffers::Offset<IntentGenerator> CreateIntentGeneratorDirect(
       compressed_lua_template_generator);
 }
 
-flatbuffers::Offset<IntentGenerator> CreateIntentGenerator(flatbuffers::FlatBufferBuilder &_fbb, const IntentGeneratorT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<IntentGenerator> CreateIntentGenerator(::flatbuffers::FlatBufferBuilder &_fbb, const IntentGeneratorT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 }  // namespace IntentFactoryModel_
 
-struct IntentFactoryModelT : public flatbuffers::NativeTable {
+struct IntentFactoryModelT : public ::flatbuffers::NativeTable {
   typedef IntentFactoryModel TableType;
   std::vector<std::unique_ptr<libtextclassifier3::IntentFactoryModel_::IntentGeneratorT>> generator{};
   bool precompile_generators = false;
+  IntentFactoryModelT() = default;
+  IntentFactoryModelT(const IntentFactoryModelT &o);
+  IntentFactoryModelT(IntentFactoryModelT&&) FLATBUFFERS_NOEXCEPT = default;
+  IntentFactoryModelT &operator=(IntentFactoryModelT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct IntentFactoryModel FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct IntentFactoryModel FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef IntentFactoryModelT NativeTableType;
   typedef IntentFactoryModelBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_GENERATOR = 4,
     VT_PRECOMPILE_GENERATORS = 6
   };
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>> *generator() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>> *>(VT_GENERATOR);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>> *generator() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>> *>(VT_GENERATOR);
   }
   bool precompile_generators() const {
     return GetField<uint8_t>(VT_PRECOMPILE_GENERATORS, 0) != 0;
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_GENERATOR) &&
            verifier.VerifyVector(generator()) &&
            verifier.VerifyVectorOfTables(generator()) &&
-           VerifyField<uint8_t>(verifier, VT_PRECOMPILE_GENERATORS) &&
+           VerifyField<uint8_t>(verifier, VT_PRECOMPILE_GENERATORS, 1) &&
            verifier.EndTable();
   }
-  IntentFactoryModelT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(IntentFactoryModelT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<IntentFactoryModel> Pack(flatbuffers::FlatBufferBuilder &_fbb, const IntentFactoryModelT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  IntentFactoryModelT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(IntentFactoryModelT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<IntentFactoryModel> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const IntentFactoryModelT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct IntentFactoryModelBuilder {
   typedef IntentFactoryModel Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_generator(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>>> generator) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_generator(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>>> generator) {
     fbb_.AddOffset(IntentFactoryModel::VT_GENERATOR, generator);
   }
   void add_precompile_generators(bool precompile_generators) {
     fbb_.AddElement<uint8_t>(IntentFactoryModel::VT_PRECOMPILE_GENERATORS, static_cast<uint8_t>(precompile_generators), 0);
   }
-  explicit IntentFactoryModelBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit IntentFactoryModelBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<IntentFactoryModel> Finish() {
+  ::flatbuffers::Offset<IntentFactoryModel> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<IntentFactoryModel>(end);
+    auto o = ::flatbuffers::Offset<IntentFactoryModel>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModel(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>>> generator = 0,
+inline ::flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModel(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>>> generator = 0,
     bool precompile_generators = false) {
   IntentFactoryModelBuilder builder_(_fbb);
   builder_.add_generator(generator);
@@ -991,96 +1022,130 @@ inline flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModel(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModelDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>> *generator = nullptr,
+inline ::flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModelDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>> *generator = nullptr,
     bool precompile_generators = false) {
-  auto generator__ = generator ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>>(*generator) : 0;
+  auto generator__ = generator ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>>(*generator) : 0;
   return libtextclassifier3::CreateIntentFactoryModel(
       _fbb,
       generator__,
       precompile_generators);
 }
 
-flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModel(flatbuffers::FlatBufferBuilder &_fbb, const IntentFactoryModelT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModel(::flatbuffers::FlatBufferBuilder &_fbb, const IntentFactoryModelT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline AndroidIntentFactoryOptionsT *AndroidIntentFactoryOptions::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline AndroidIntentFactoryOptionsT::AndroidIntentFactoryOptionsT(const AndroidIntentFactoryOptionsT &o) {
+  entity.reserve(o.entity.size());
+  for (const auto &entity_ : o.entity) { entity.emplace_back((entity_) ? new libtextclassifier3::AndroidIntentFactoryEntityOptionsT(*entity_) : nullptr); }
+}
+
+inline AndroidIntentFactoryOptionsT &AndroidIntentFactoryOptionsT::operator=(AndroidIntentFactoryOptionsT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(entity, o.entity);
+  return *this;
+}
+
+inline AndroidIntentFactoryOptionsT *AndroidIntentFactoryOptions::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<AndroidIntentFactoryOptionsT>(new AndroidIntentFactoryOptionsT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void AndroidIntentFactoryOptions::UnPackTo(AndroidIntentFactoryOptionsT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void AndroidIntentFactoryOptions::UnPackTo(AndroidIntentFactoryOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = entity(); if (_e) { _o->entity.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->entity[_i] = std::unique_ptr<libtextclassifier3::AndroidIntentFactoryEntityOptionsT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = entity(); if (_e) { _o->entity.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->entity[_i]) { _e->Get(_i)->UnPackTo(_o->entity[_i].get(), _resolver); } else { _o->entity[_i] = std::unique_ptr<libtextclassifier3::AndroidIntentFactoryEntityOptionsT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->entity.resize(0); } }
 }
 
-inline flatbuffers::Offset<AndroidIntentFactoryOptions> AndroidIntentFactoryOptions::Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidIntentFactoryOptions> AndroidIntentFactoryOptions::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateAndroidIntentFactoryOptions(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<AndroidIntentFactoryOptions> CreateAndroidIntentFactoryOptions(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidIntentFactoryOptions> CreateAndroidIntentFactoryOptions(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AndroidIntentFactoryOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _entity = _o->entity.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>> (_o->entity.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidIntentFactoryEntityOptions(*__va->__fbb, __va->__o->entity[i].get(), __va->__rehasher); }, &_va ) : 0;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const AndroidIntentFactoryOptionsT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _entity = _o->entity.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentFactoryEntityOptions>> (_o->entity.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidIntentFactoryEntityOptions(*__va->__fbb, __va->__o->entity[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::CreateAndroidIntentFactoryOptions(
       _fbb,
       _entity);
 }
 
-inline AndroidIntentFactoryEntityOptionsT *AndroidIntentFactoryEntityOptions::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline AndroidIntentFactoryEntityOptionsT::AndroidIntentFactoryEntityOptionsT(const AndroidIntentFactoryEntityOptionsT &o)
+      : entity_type(o.entity_type) {
+  generator.reserve(o.generator.size());
+  for (const auto &generator_ : o.generator) { generator.emplace_back((generator_) ? new libtextclassifier3::AndroidIntentGeneratorOptionsT(*generator_) : nullptr); }
+}
+
+inline AndroidIntentFactoryEntityOptionsT &AndroidIntentFactoryEntityOptionsT::operator=(AndroidIntentFactoryEntityOptionsT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(entity_type, o.entity_type);
+  std::swap(generator, o.generator);
+  return *this;
+}
+
+inline AndroidIntentFactoryEntityOptionsT *AndroidIntentFactoryEntityOptions::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<AndroidIntentFactoryEntityOptionsT>(new AndroidIntentFactoryEntityOptionsT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void AndroidIntentFactoryEntityOptions::UnPackTo(AndroidIntentFactoryEntityOptionsT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void AndroidIntentFactoryEntityOptions::UnPackTo(AndroidIntentFactoryEntityOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = entity_type(); if (_e) _o->entity_type = _e->str(); }
-  { auto _e = generator(); if (_e) { _o->generator.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->generator[_i] = std::unique_ptr<libtextclassifier3::AndroidIntentGeneratorOptionsT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = generator(); if (_e) { _o->generator.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->generator[_i]) { _e->Get(_i)->UnPackTo(_o->generator[_i].get(), _resolver); } else { _o->generator[_i] = std::unique_ptr<libtextclassifier3::AndroidIntentGeneratorOptionsT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->generator.resize(0); } }
 }
 
-inline flatbuffers::Offset<AndroidIntentFactoryEntityOptions> AndroidIntentFactoryEntityOptions::Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryEntityOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidIntentFactoryEntityOptions> AndroidIntentFactoryEntityOptions::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryEntityOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateAndroidIntentFactoryEntityOptions(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<AndroidIntentFactoryEntityOptions> CreateAndroidIntentFactoryEntityOptions(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryEntityOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidIntentFactoryEntityOptions> CreateAndroidIntentFactoryEntityOptions(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentFactoryEntityOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AndroidIntentFactoryEntityOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const AndroidIntentFactoryEntityOptionsT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _entity_type = _o->entity_type.empty() ? 0 : _fbb.CreateString(_o->entity_type);
-  auto _generator = _o->generator.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>> (_o->generator.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidIntentGeneratorOptions(*__va->__fbb, __va->__o->generator[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _generator = _o->generator.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorOptions>> (_o->generator.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidIntentGeneratorOptions(*__va->__fbb, __va->__o->generator[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::CreateAndroidIntentFactoryEntityOptions(
       _fbb,
       _entity_type,
       _generator);
 }
 
-inline AndroidIntentGeneratorOptionsT *AndroidIntentGeneratorOptions::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline AndroidIntentGeneratorOptionsT::AndroidIntentGeneratorOptionsT(const AndroidIntentGeneratorOptionsT &o)
+      : simple((o.simple) ? new libtextclassifier3::AndroidSimpleIntentGeneratorOptionsT(*o.simple) : nullptr) {
+  strings.reserve(o.strings.size());
+  for (const auto &strings_ : o.strings) { strings.emplace_back((strings_) ? new libtextclassifier3::AndroidIntentGeneratorStringsT(*strings_) : nullptr); }
+}
+
+inline AndroidIntentGeneratorOptionsT &AndroidIntentGeneratorOptionsT::operator=(AndroidIntentGeneratorOptionsT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(strings, o.strings);
+  std::swap(simple, o.simple);
+  return *this;
+}
+
+inline AndroidIntentGeneratorOptionsT *AndroidIntentGeneratorOptions::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<AndroidIntentGeneratorOptionsT>(new AndroidIntentGeneratorOptionsT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void AndroidIntentGeneratorOptions::UnPackTo(AndroidIntentGeneratorOptionsT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void AndroidIntentGeneratorOptions::UnPackTo(AndroidIntentGeneratorOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = strings(); if (_e) { _o->strings.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->strings[_i] = std::unique_ptr<libtextclassifier3::AndroidIntentGeneratorStringsT>(_e->Get(_i)->UnPack(_resolver)); } } }
-  { auto _e = simple(); if (_e) _o->simple = std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorOptionsT>(_e->UnPack(_resolver)); }
+  { auto _e = strings(); if (_e) { _o->strings.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->strings[_i]) { _e->Get(_i)->UnPackTo(_o->strings[_i].get(), _resolver); } else { _o->strings[_i] = std::unique_ptr<libtextclassifier3::AndroidIntentGeneratorStringsT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->strings.resize(0); } }
+  { auto _e = simple(); if (_e) { if(_o->simple) { _e->UnPackTo(_o->simple.get(), _resolver); } else { _o->simple = std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorOptionsT>(_e->UnPack(_resolver)); } } else if (_o->simple) { _o->simple.reset(); } }
 }
 
-inline flatbuffers::Offset<AndroidIntentGeneratorOptions> AndroidIntentGeneratorOptions::Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidIntentGeneratorOptions> AndroidIntentGeneratorOptions::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateAndroidIntentGeneratorOptions(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGeneratorOptions(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGeneratorOptions(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AndroidIntentGeneratorOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _strings = _o->strings.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>> (_o->strings.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidIntentGeneratorStrings(*__va->__fbb, __va->__o->strings[i].get(), __va->__rehasher); }, &_va ) : 0;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const AndroidIntentGeneratorOptionsT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _strings = _o->strings.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidIntentGeneratorStrings>> (_o->strings.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidIntentGeneratorStrings(*__va->__fbb, __va->__o->strings[i].get(), __va->__rehasher); }, &_va ) : 0;
   auto _simple = _o->simple ? CreateAndroidSimpleIntentGeneratorOptions(_fbb, _o->simple.get(), _rehasher) : 0;
   return libtextclassifier3::CreateAndroidIntentGeneratorOptions(
       _fbb,
@@ -1088,13 +1153,13 @@ inline flatbuffers::Offset<AndroidIntentGeneratorOptions> CreateAndroidIntentGen
       _simple);
 }
 
-inline AndroidIntentGeneratorStringsT *AndroidIntentGeneratorStrings::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline AndroidIntentGeneratorStringsT *AndroidIntentGeneratorStrings::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<AndroidIntentGeneratorStringsT>(new AndroidIntentGeneratorStringsT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void AndroidIntentGeneratorStrings::UnPackTo(AndroidIntentGeneratorStringsT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void AndroidIntentGeneratorStrings::UnPackTo(AndroidIntentGeneratorStringsT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = language_tag(); if (_e) _o->language_tag = _e->str(); }
@@ -1102,14 +1167,14 @@ inline void AndroidIntentGeneratorStrings::UnPackTo(AndroidIntentGeneratorString
   { auto _e = description(); if (_e) _o->description = _e->str(); }
 }
 
-inline flatbuffers::Offset<AndroidIntentGeneratorStrings> AndroidIntentGeneratorStrings::Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorStringsT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidIntentGeneratorStrings> AndroidIntentGeneratorStrings::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorStringsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateAndroidIntentGeneratorStrings(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGeneratorStrings(flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorStringsT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGeneratorStrings(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidIntentGeneratorStringsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AndroidIntentGeneratorStringsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const AndroidIntentGeneratorStringsT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _language_tag = _o->language_tag.empty() ? 0 : _fbb.CreateString(_o->language_tag);
   auto _title = _o->title.empty() ? 0 : _fbb.CreateString(_o->title);
   auto _description = _o->description.empty() ? 0 : _fbb.CreateString(_o->description);
@@ -1120,13 +1185,13 @@ inline flatbuffers::Offset<AndroidIntentGeneratorStrings> CreateAndroidIntentGen
       _description);
 }
 
-inline AndroidSimpleIntentGeneratorExtraT *AndroidSimpleIntentGeneratorExtra::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline AndroidSimpleIntentGeneratorExtraT *AndroidSimpleIntentGeneratorExtra::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<AndroidSimpleIntentGeneratorExtraT>(new AndroidSimpleIntentGeneratorExtraT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void AndroidSimpleIntentGeneratorExtra::UnPackTo(AndroidSimpleIntentGeneratorExtraT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void AndroidSimpleIntentGeneratorExtra::UnPackTo(AndroidSimpleIntentGeneratorExtraT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = name(); if (_e) _o->name = _e->str(); }
@@ -1136,14 +1201,14 @@ inline void AndroidSimpleIntentGeneratorExtra::UnPackTo(AndroidSimpleIntentGener
   { auto _e = int32_(); _o->int32_ = _e; }
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> AndroidSimpleIntentGeneratorExtra::Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorExtraT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> AndroidSimpleIntentGeneratorExtra::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorExtraT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateAndroidSimpleIntentGeneratorExtra(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpleIntentGeneratorExtra(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorExtraT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpleIntentGeneratorExtra(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorExtraT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AndroidSimpleIntentGeneratorExtraT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const AndroidSimpleIntentGeneratorExtraT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
   auto _type = _o->type;
   auto _string_ = _o->string_.empty() ? 0 : _fbb.CreateString(_o->string_);
@@ -1158,13 +1223,13 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorExtra> CreateAndroidSimpl
       _int32_);
 }
 
-inline AndroidSimpleIntentGeneratorConditionT *AndroidSimpleIntentGeneratorCondition::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline AndroidSimpleIntentGeneratorConditionT *AndroidSimpleIntentGeneratorCondition::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<AndroidSimpleIntentGeneratorConditionT>(new AndroidSimpleIntentGeneratorConditionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void AndroidSimpleIntentGeneratorCondition::UnPackTo(AndroidSimpleIntentGeneratorConditionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void AndroidSimpleIntentGeneratorCondition::UnPackTo(AndroidSimpleIntentGeneratorConditionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = type(); _o->type = _e; }
@@ -1173,14 +1238,14 @@ inline void AndroidSimpleIntentGeneratorCondition::UnPackTo(AndroidSimpleIntentG
   { auto _e = int64_(); _o->int64_ = _e; }
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> AndroidSimpleIntentGeneratorCondition::Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorConditionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> AndroidSimpleIntentGeneratorCondition::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorConditionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateAndroidSimpleIntentGeneratorCondition(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidSimpleIntentGeneratorCondition(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorConditionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidSimpleIntentGeneratorCondition(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorConditionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AndroidSimpleIntentGeneratorConditionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const AndroidSimpleIntentGeneratorConditionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _type = _o->type;
   auto _string_ = _o->string_.empty() ? 0 : _fbb.CreateString(_o->string_);
   auto _int32_ = _o->int32_;
@@ -1193,37 +1258,58 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorCondition> CreateAndroidS
       _int64_);
 }
 
-inline AndroidSimpleIntentGeneratorOptionsT *AndroidSimpleIntentGeneratorOptions::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline AndroidSimpleIntentGeneratorOptionsT::AndroidSimpleIntentGeneratorOptionsT(const AndroidSimpleIntentGeneratorOptionsT &o)
+      : action(o.action),
+        data(o.data),
+        type(o.type),
+        variable(o.variable) {
+  extra.reserve(o.extra.size());
+  for (const auto &extra_ : o.extra) { extra.emplace_back((extra_) ? new libtextclassifier3::AndroidSimpleIntentGeneratorExtraT(*extra_) : nullptr); }
+  condition.reserve(o.condition.size());
+  for (const auto &condition_ : o.condition) { condition.emplace_back((condition_) ? new libtextclassifier3::AndroidSimpleIntentGeneratorConditionT(*condition_) : nullptr); }
+}
+
+inline AndroidSimpleIntentGeneratorOptionsT &AndroidSimpleIntentGeneratorOptionsT::operator=(AndroidSimpleIntentGeneratorOptionsT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(action, o.action);
+  std::swap(data, o.data);
+  std::swap(type, o.type);
+  std::swap(extra, o.extra);
+  std::swap(variable, o.variable);
+  std::swap(condition, o.condition);
+  return *this;
+}
+
+inline AndroidSimpleIntentGeneratorOptionsT *AndroidSimpleIntentGeneratorOptions::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<AndroidSimpleIntentGeneratorOptionsT>(new AndroidSimpleIntentGeneratorOptionsT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void AndroidSimpleIntentGeneratorOptions::UnPackTo(AndroidSimpleIntentGeneratorOptionsT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void AndroidSimpleIntentGeneratorOptions::UnPackTo(AndroidSimpleIntentGeneratorOptionsT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = action(); if (_e) _o->action = _e->str(); }
   { auto _e = data(); if (_e) _o->data = _e->str(); }
   { auto _e = type(); if (_e) _o->type = _e->str(); }
-  { auto _e = extra(); if (_e) { _o->extra.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->extra[_i] = std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorExtraT>(_e->Get(_i)->UnPack(_resolver)); } } }
-  { auto _e = variable(); if (_e) { _o->variable.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->variable[_i] = static_cast<libtextclassifier3::AndroidSimpleIntentGeneratorVariableType>(_e->Get(_i)); } } }
-  { auto _e = condition(); if (_e) { _o->condition.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->condition[_i] = std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorConditionT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = extra(); if (_e) { _o->extra.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->extra[_i]) { _e->Get(_i)->UnPackTo(_o->extra[_i].get(), _resolver); } else { _o->extra[_i] = std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorExtraT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->extra.resize(0); } }
+  { auto _e = variable(); if (_e) { _o->variable.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->variable[_i] = static_cast<libtextclassifier3::AndroidSimpleIntentGeneratorVariableType>(_e->Get(_i)); } } else { _o->variable.resize(0); } }
+  { auto _e = condition(); if (_e) { _o->condition.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->condition[_i]) { _e->Get(_i)->UnPackTo(_o->condition[_i].get(), _resolver); } else { _o->condition[_i] = std::unique_ptr<libtextclassifier3::AndroidSimpleIntentGeneratorConditionT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->condition.resize(0); } }
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> AndroidSimpleIntentGeneratorOptions::Pack(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> AndroidSimpleIntentGeneratorOptions::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorOptionsT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateAndroidSimpleIntentGeneratorOptions(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSimpleIntentGeneratorOptions(flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorOptionsT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSimpleIntentGeneratorOptions(::flatbuffers::FlatBufferBuilder &_fbb, const AndroidSimpleIntentGeneratorOptionsT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AndroidSimpleIntentGeneratorOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const AndroidSimpleIntentGeneratorOptionsT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _action = _o->action.empty() ? 0 : _fbb.CreateString(_o->action);
   auto _data = _o->data.empty() ? 0 : _fbb.CreateString(_o->data);
   auto _type = _o->type.empty() ? 0 : _fbb.CreateString(_o->type);
-  auto _extra = _o->extra.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>> (_o->extra.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidSimpleIntentGeneratorExtra(*__va->__fbb, __va->__o->extra[i].get(), __va->__rehasher); }, &_va ) : 0;
-  auto _variable = _o->variable.size() ? _fbb.CreateVectorScalarCast<int32_t>(flatbuffers::data(_o->variable), _o->variable.size()) : 0;
-  auto _condition = _o->condition.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>> (_o->condition.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidSimpleIntentGeneratorCondition(*__va->__fbb, __va->__o->condition[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _extra = _o->extra.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorExtra>> (_o->extra.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidSimpleIntentGeneratorExtra(*__va->__fbb, __va->__o->extra[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _variable = _o->variable.size() ? _fbb.CreateVectorScalarCast<int32_t>(::flatbuffers::data(_o->variable), _o->variable.size()) : 0;
+  auto _condition = _o->condition.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::AndroidSimpleIntentGeneratorCondition>> (_o->condition.size(), [](size_t i, _VectorArgs *__va) { return CreateAndroidSimpleIntentGeneratorCondition(*__va->__fbb, __va->__o->condition[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::CreateAndroidSimpleIntentGeneratorOptions(
       _fbb,
       _action,
@@ -1236,28 +1322,41 @@ inline flatbuffers::Offset<AndroidSimpleIntentGeneratorOptions> CreateAndroidSim
 
 namespace IntentFactoryModel_ {
 
-inline IntentGeneratorT *IntentGenerator::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline IntentGeneratorT::IntentGeneratorT(const IntentGeneratorT &o)
+      : type(o.type),
+        lua_template_generator(o.lua_template_generator),
+        compressed_lua_template_generator((o.compressed_lua_template_generator) ? new libtextclassifier3::CompressedBufferT(*o.compressed_lua_template_generator) : nullptr) {
+}
+
+inline IntentGeneratorT &IntentGeneratorT::operator=(IntentGeneratorT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(type, o.type);
+  std::swap(lua_template_generator, o.lua_template_generator);
+  std::swap(compressed_lua_template_generator, o.compressed_lua_template_generator);
+  return *this;
+}
+
+inline IntentGeneratorT *IntentGenerator::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<IntentGeneratorT>(new IntentGeneratorT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void IntentGenerator::UnPackTo(IntentGeneratorT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void IntentGenerator::UnPackTo(IntentGeneratorT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = type(); if (_e) _o->type = _e->str(); }
   { auto _e = lua_template_generator(); if (_e) { _o->lua_template_generator.resize(_e->size()); std::copy(_e->begin(), _e->end(), _o->lua_template_generator.begin()); } }
-  { auto _e = compressed_lua_template_generator(); if (_e) _o->compressed_lua_template_generator = std::unique_ptr<libtextclassifier3::CompressedBufferT>(_e->UnPack(_resolver)); }
+  { auto _e = compressed_lua_template_generator(); if (_e) { if(_o->compressed_lua_template_generator) { _e->UnPackTo(_o->compressed_lua_template_generator.get(), _resolver); } else { _o->compressed_lua_template_generator = std::unique_ptr<libtextclassifier3::CompressedBufferT>(_e->UnPack(_resolver)); } } else if (_o->compressed_lua_template_generator) { _o->compressed_lua_template_generator.reset(); } }
 }
 
-inline flatbuffers::Offset<IntentGenerator> IntentGenerator::Pack(flatbuffers::FlatBufferBuilder &_fbb, const IntentGeneratorT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<IntentGenerator> IntentGenerator::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const IntentGeneratorT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateIntentGenerator(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<IntentGenerator> CreateIntentGenerator(flatbuffers::FlatBufferBuilder &_fbb, const IntentGeneratorT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<IntentGenerator> CreateIntentGenerator(::flatbuffers::FlatBufferBuilder &_fbb, const IntentGeneratorT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const IntentGeneratorT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const IntentGeneratorT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _type = _o->type.empty() ? 0 : _fbb.CreateString(_o->type);
   auto _lua_template_generator = _o->lua_template_generator.size() ? _fbb.CreateVector(_o->lua_template_generator) : 0;
   auto _compressed_lua_template_generator = _o->compressed_lua_template_generator ? CreateCompressedBuffer(_fbb, _o->compressed_lua_template_generator.get(), _rehasher) : 0;
@@ -1270,28 +1369,40 @@ inline flatbuffers::Offset<IntentGenerator> CreateIntentGenerator(flatbuffers::F
 
 }  // namespace IntentFactoryModel_
 
-inline IntentFactoryModelT *IntentFactoryModel::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline IntentFactoryModelT::IntentFactoryModelT(const IntentFactoryModelT &o)
+      : precompile_generators(o.precompile_generators) {
+  generator.reserve(o.generator.size());
+  for (const auto &generator_ : o.generator) { generator.emplace_back((generator_) ? new libtextclassifier3::IntentFactoryModel_::IntentGeneratorT(*generator_) : nullptr); }
+}
+
+inline IntentFactoryModelT &IntentFactoryModelT::operator=(IntentFactoryModelT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(generator, o.generator);
+  std::swap(precompile_generators, o.precompile_generators);
+  return *this;
+}
+
+inline IntentFactoryModelT *IntentFactoryModel::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<IntentFactoryModelT>(new IntentFactoryModelT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void IntentFactoryModel::UnPackTo(IntentFactoryModelT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void IntentFactoryModel::UnPackTo(IntentFactoryModelT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = generator(); if (_e) { _o->generator.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->generator[_i] = std::unique_ptr<libtextclassifier3::IntentFactoryModel_::IntentGeneratorT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = generator(); if (_e) { _o->generator.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->generator[_i]) { _e->Get(_i)->UnPackTo(_o->generator[_i].get(), _resolver); } else { _o->generator[_i] = std::unique_ptr<libtextclassifier3::IntentFactoryModel_::IntentGeneratorT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->generator.resize(0); } }
   { auto _e = precompile_generators(); _o->precompile_generators = _e; }
 }
 
-inline flatbuffers::Offset<IntentFactoryModel> IntentFactoryModel::Pack(flatbuffers::FlatBufferBuilder &_fbb, const IntentFactoryModelT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<IntentFactoryModel> IntentFactoryModel::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const IntentFactoryModelT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateIntentFactoryModel(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModel(flatbuffers::FlatBufferBuilder &_fbb, const IntentFactoryModelT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<IntentFactoryModel> CreateIntentFactoryModel(::flatbuffers::FlatBufferBuilder &_fbb, const IntentFactoryModelT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const IntentFactoryModelT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _generator = _o->generator.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>> (_o->generator.size(), [](size_t i, _VectorArgs *__va) { return CreateIntentGenerator(*__va->__fbb, __va->__o->generator[i].get(), __va->__rehasher); }, &_va ) : 0;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const IntentFactoryModelT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _generator = _o->generator.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::IntentFactoryModel_::IntentGenerator>> (_o->generator.size(), [](size_t i, _VectorArgs *__va) { return CreateIntentGenerator(*__va->__fbb, __va->__o->generator[i].get(), __va->__rehasher); }, &_va ) : 0;
   auto _precompile_generators = _o->precompile_generators;
   return libtextclassifier3::CreateIntentFactoryModel(
       _fbb,

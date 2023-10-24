@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libpipeline", "version": "1.5.7", "revision": 0, "fullname": "dev-libs/libpipeline", "fullnamerev": "dev-libs/libpipeline-1.5.7", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://libpipeline.nongnu.org/"], "skip": false, "tainted": false, "ebuild_path": null}

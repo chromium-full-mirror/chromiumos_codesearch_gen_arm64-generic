@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component type="console-application">
+  <id>org.freedesktop.fwupd</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-2.0+</project_license>
+  <name>fwupd</name>
+  <summary>Update device firmware on Linux</summary>
+  <description>
+    <p>
+      This project aims to make updating firmware on Linux automatic, safe and
+      reliable.
+      You can either use a GUI software manager like GNOME Software to view and
+      apply updates, the command-line tool or the D-Bus interface directly.
+    </p>
+    <p>
+      The fwupd process is a system daemon to allow session software to update
+      device firmware on your local machine.
+      It is designed for desktops, but this project is also usable on phones,
+      tablets and on headless servers.
+    </p>
+  </description>
+  <url type="bugtracker">https://github.com/fwupd/fwupd/issues</url>
+  <url type="homepage">https://fwupd.org/</url>
+  <url type="translate">https://www.transifex.com/freedesktop/fwupd/</url>
+  <update_contact>richard_at_hughsie.com</update_contact>
+  <translation type="gettext">fwupd</translation>
+  <content_rating type="oars-1.0">
+    <content_attribute id="social-info">moderate</content_attribute>
+  </content_rating>
+  <provides>
+    <binary>fwupdmgr</binary>
+    <binary>fwupdtool</binary>
+  </provides>
+  <releases>
+    <release version="1.9.6" date="2023-10-06">
+      <description>
+        <p>
+          This release adds the following features:
+        </p>
+        <ul>
+          <li>Add a launchd agent for macOS</li>
+          <li>Add a new security attribute for BIOS capsule updates to be enabled</li>
+          <li>Add functionality to fix specific host security attributes</li>
+          <li>Add global information from the context into the report data</li>
+          <li>Add support for coSWID payload sections</li>
+          <li>Add support for parsing the EDID</li>
+          <li>Allow adding only-quirk instance IDs from quirk files</li>
+          <li>Install a sysusers.d systemd file when using -Dsystemd_unit_user</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Allow devices to require a connected display</li>
+          <li>Allow Wacom modules to specify a status polling interval</li>
+          <li>Do not show Intel CET unsupported as success</li>
+          <li>Do not show multiple Genesys GL32xx devices for the same physical device</li>
+          <li>Fix a fuzzing timeout in the HID descriptor parser</li>
+          <li>Recalculate the SUPPORTED flag after adopting a child device</li>
+          <li>Reduce the amount of memory used when chunking large firmware</li>
+          <li>Speed up logitech-bulkcontroller firmware updates</li>
+          <li>Stop reading ownership and TPM flashes left in Dell plugin</li>
+          <li>Try to use the LVFS when using report-history --force</li>
+          <li>Write the coSWID TAG_ID as a bytestring when possible</li>
+        </ul>
+        <p>This release adds support for the following hardware:</p>
+        <ul>
+          <li>AMD dGPUs, Navi3x and above</li>
+          <li>Foxconn SDX12, SDX55 and SDX6X devices</li>
+          <li>Google Rex Intel USB-4 retimers</li>
+          <li>MediaTek DP AUX Scalers</li>
+          <li>Quectel EM160 module</li>
+          <li>Star Labs StarBook Mk VIr2</li>
+          <li>VLI VL105-VL109</li>
+          <li>Wacom DTH134 and DTC121 Tablets</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.9.5" date="2023-09-04">
+      <description>
+        <p>
+          This release adds the following features:
+        </p>
+        <ul>
+          <li>Add optional support for Passim, a local caching server</li>
+          <li>Allow using fwupdtool get-devices --json</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Allow adding UF2 devices without a filesystem UUID</li>
+          <li>Correctly read the size of Synaptics Panamera MST firmware</li>
+          <li>Do not return historical results with no AppStream ID</li>
+          <li>Fix parallel build when using a machine with a lot of cores</li>
+          <li>Fix uninhibiting ModemManager after the fastboot flash has completed</li>
+          <li>Make firmware USI dock flashing more reliable</li>
+          <li>Record the update state of success when the device is returned to runtime</li>
+          <li>Remove the default-installed fwupd-refresh systemd preset</li>
+          <li>Sort composite updates by the device order when required</li>
+        </ul>
+        <p>This release adds support for the following hardware:</p>
+        <ul>
+          <li>EPOS ADAPT 1x5</li>
+          <li>Fibocom FM101</li>
+          <li>Foxconn T99W373</li>
+          <li>Genesys GL3525S USB Hub</li>
+          <li>HP Rata/Remi BLE Mice</li>
+          <li>Luxshare Quad USB4 Dock</li>
+          <li>System76 Launch 3, Launch Heavy 3 and Thelio IO 2</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.9.4" date="2023-08-14">
+      <description>
+        <p>
+          This release adds the following features:
+        </p>
+        <ul>
+          <li>Add a new HSI attribute that detects any missing Intel GDS mitigation</li>
+          <li>Allow configuring the refresh interval per-remote rather than per-system</li>
+          <li>Remove the libsoup-2.4 compatibility code</li>
+          <li>Show the firmware release checksum in CLI tools</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Correctly query the Steelseries Fizz version on reconnect</li>
+          <li>Correctly wait for USB replug on macOS</li>
+          <li>Do not add gl32xx disk partitions as extra devices</li>
+          <li>Do not assume the logical block size is always 0x200</li>
+          <li>Ensure the AppStream ID is set on historical releases</li>
+          <li>Enumerate Synaptics MST devices correctly</li>
+          <li>Fix a possible CFU crash when adding modules</li>
+          <li>Fix 'fwupdmgr get-history --json' output to only show one release</li>
+          <li>Fix 'fwupdmgr modify-remote' on ChromeOS</li>
+          <li>Fix incorrect OEM trusted reports flags being set when not matching</li>
+          <li>Fix regression in returning device history with libxmlb 0.3.12</li>
+          <li>Fix some Wacom hardware by only attempting retries for the busy error state</li>
+          <li>Fix transaction timed out issue for T99W373 QDU device</li>
+          <li>Handle cros-ec boards with '_v' in their name</li>
+          <li>Ignore the authentication when username and password are both empty</li>
+          <li>Load the effective size of a PE section instead of raw size</li>
+          <li>Set some feature flags when non-interactive</li>
+          <li>Set the HWIDs correctly when running macOS</li>
+          <li>Use a much larger USB timeout for STM32 erase operations</li>
+          <li>Use the correct offsets when checking Synaptics MST Spyder devices</li>
+          <li>Use the correct URI when downloading from authenticated remotes</li>
+          <li>Use /var/run when /run/lock does not exist</li>
+        </ul>
+        <p>This release adds support for the following hardware:</p>
+        <ul>
+          <li>Genesys GL352350 and GL3590</li>
+          <li>Logitech Huddle</li>
+          <li>Microsoft USB-C Travel Hub</li>
+          <li>PixArt BLE HPAC OTA</li>
+          <li>Quectel RM520</li>
+          <li>Synaptics Triton devices</li>
+          <li>VIA VL122, VL817S and VL822T</li>
+          <li>Wacom One 13 and One 12 Tablets</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.9.3" date="2023-07-11">
+      <description>
+        <p>
+          This release adds the following features:
+        </p>
+        <ul>
+          <li>Add the expected result to each HSI test attribute</li>
+          <li>Allow autodetection when using fwupdtool firmware-parse</li>
+          <li>Allow devices to only accept explicitly specified release versions</li>
+          <li>Allow filtering by release flags from fwupdtool and fwupdmgr</li>
+          <li>Allow filtering by remote when looking for trusted reports</li>
+          <li>Drop the libefiboot dependency and generate UEFI DPs directly</li>
+          <li>Ensure that BootService-only variables cannot be read in runtime mode</li>
+          <li>Parse the various SBAT sections from PE firmware</li>
+          <li>Record the NVRAM space used as report metadata</li>
+          <li>Show the user a warning when the ESP may not be valid</li>
+          <li>Speed up the daemon startup by 35% and reduce RSS by 12%</li>
+          <li>Support reading and writing EFI variables on Windows</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Check only the EFI executables from the boot menu when using --force</li>
+          <li>Correctly obtain the Thunderbolt is_native controller attribute</li>
+          <li>Deduplicate the remotes as required</li>
+          <li>Do not accidentally depend on python 3.9</li>
+          <li>Do not misuse the offset as an address in the SREC parser</li>
+          <li>Do not truncate feature reports to fix Wacom ID6 update</li>
+          <li>Fix parsing of IGSC code firmware</li>
+          <li>Get the Jabra GNP device name from the device</li>
+          <li>Ignore small ESP block devices if there are multiple choices</li>
+          <li>Never install a shim too new for the system</li>
+          <li>Only add the little-used _REV instance IDs by request</li>
+          <li>Use a CapsuleOnDisk filename supported by InsydeH2O</li>
+        </ul>
+        <p>This release adds support for the following hardware:</p>
+        <ul>
+          <li>Belkin Thunderbolt 4 Core Hub dock</li>
+          <li>CE-LINK TB4 Docks</li>
+          <li>Genesys GL32XX SD readers</li>
+          <li>Genesys GL352350 USB 3.1 hub</li>
+          <li>Nordic HID devices without DFU support</li>
+          <li>TUXEDO InfinityBook Pro 13 v3</li>
+          <li>Wacom tablets with ID9 Bluetooth chipsets</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.9.2" date="2023-06-12">
+      <description>
+        <p>
+          This release adds the following features:
+        </p>
+        <ul>
+          <li>Beep the console when CLI programs are waiting for user input</li>
+          <li>Bump requirements of various dependencies to remove a lot of fallback code</li>
+          <li>Show devices with problems in fwupdmgr get-upgrades</li>
+        </ul>
+        <p>This release fixes the following bugs:</p>
+        <ul>
+          <li>Auto-detect the BCM57xx OEM PCI cards with double the expected EEPROM</li>
+          <li>Disable ThunderBolt retimer offline mode for some hardware</li>
+          <li>Do not assume a file descriptor of 0 is invalid when updating NVMe hardware</li>
+          <li>Fix discovery of Nordic peripherals connected via the dongle</li>
+          <li>Fix high memory usage when writing some EFI filesystem images</li>
+          <li>Fix USI dock devices with an incorrect factory-set firmware version</li>
+          <li>Ignore a client refresh on a non-download remote to fix old versions of KDE</li>
+          <li>Ignore the immutable flatpak config file file permission being incorrect</li>
+          <li>Limit the number of possible file objects in the EFI filesystem</li>
+          <li>Make the installed size smaller by deduping and filtering assets</li>
+          <li>Only expose --force for security attributes for unsupported builds</li>
+          <li>Require the user to manually replug the USI dock after update has completed</li>
+        </ul>
+        <p>This release adds support for the following hardware:</p>
+        <ul>
+          <li>AVer FONE540</li>
+          <li>Genesys GL3525 USB hubs</li>
+          <li>Goodix Touch controllers</li>
+          <li>Jabra Evolve 65e/t and SE, Evolve2, Speak2 and Link devices</li>
+        </ul>
+      </description>
+    </release>
+    </releases>
+</component>

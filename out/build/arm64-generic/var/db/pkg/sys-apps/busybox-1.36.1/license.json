@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "busybox", "version": "1.36.1", "revision": 0, "fullname": "sys-apps/busybox", "fullnamerev": "sys-apps/busybox-1.36.1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.busybox.net/"], "skip": false, "tainted": false, "ebuild_path": null}

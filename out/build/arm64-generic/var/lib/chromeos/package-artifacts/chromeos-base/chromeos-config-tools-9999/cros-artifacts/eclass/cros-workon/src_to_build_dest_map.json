@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-config-tools-9999/work/chromeos-config-tools-9999/platform2"
+    },
+    {
+      "src_path": "src/platform/dev",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-config-tools-9999/work/chromeos-config-tools-9999/platform/dev"
+    }
+  ]
+}

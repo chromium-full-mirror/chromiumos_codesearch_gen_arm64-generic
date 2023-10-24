@@ -1,0 +1,44 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/js/autofill_metadata.ts",
+    "preprocessed/js/jelly_colors.ts",
+    "preprocessed/js/feedback.ts",
+    "preprocessed/js/feedback_util.ts",
+    "preprocessed/js/logs_map_page.ts",
+    "preprocessed/js/questionnaire.ts",
+    "preprocessed/js/sys_info.ts",
+    "preprocessed/js/take_screenshot.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/feedback_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

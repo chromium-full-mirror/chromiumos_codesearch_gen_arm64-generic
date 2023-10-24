@@ -6,19 +6,26 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 
 struct CodepointRange;
 struct CodepointRangeBuilder;
 struct CodepointRangeT;
 
-struct CodepointRangeT : public flatbuffers::NativeTable {
+struct CodepointRangeT : public ::flatbuffers::NativeTable {
   typedef CodepointRange TableType;
   int32_t start = 0;
   int32_t end = 0;
 };
 
-struct CodepointRange FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct CodepointRange FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef CodepointRangeT NativeTableType;
   typedef CodepointRangeBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -31,40 +38,40 @@ struct CodepointRange FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t end() const {
     return GetField<int32_t>(VT_END, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_START) &&
-           VerifyField<int32_t>(verifier, VT_END) &&
+           VerifyField<int32_t>(verifier, VT_START, 4) &&
+           VerifyField<int32_t>(verifier, VT_END, 4) &&
            verifier.EndTable();
   }
-  CodepointRangeT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(CodepointRangeT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<CodepointRange> Pack(flatbuffers::FlatBufferBuilder &_fbb, const CodepointRangeT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  CodepointRangeT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(CodepointRangeT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<CodepointRange> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const CodepointRangeT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct CodepointRangeBuilder {
   typedef CodepointRange Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_start(int32_t start) {
     fbb_.AddElement<int32_t>(CodepointRange::VT_START, start, 0);
   }
   void add_end(int32_t end) {
     fbb_.AddElement<int32_t>(CodepointRange::VT_END, end, 0);
   }
-  explicit CodepointRangeBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit CodepointRangeBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<CodepointRange> Finish() {
+  ::flatbuffers::Offset<CodepointRange> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<CodepointRange>(end);
+    auto o = ::flatbuffers::Offset<CodepointRange>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<CodepointRange> CreateCodepointRange(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<CodepointRange> CreateCodepointRange(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t start = 0,
     int32_t end = 0) {
   CodepointRangeBuilder builder_(_fbb);
@@ -73,29 +80,29 @@ inline flatbuffers::Offset<CodepointRange> CreateCodepointRange(
   return builder_.Finish();
 }
 
-flatbuffers::Offset<CodepointRange> CreateCodepointRange(flatbuffers::FlatBufferBuilder &_fbb, const CodepointRangeT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<CodepointRange> CreateCodepointRange(::flatbuffers::FlatBufferBuilder &_fbb, const CodepointRangeT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline CodepointRangeT *CodepointRange::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline CodepointRangeT *CodepointRange::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<CodepointRangeT>(new CodepointRangeT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void CodepointRange::UnPackTo(CodepointRangeT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void CodepointRange::UnPackTo(CodepointRangeT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = start(); _o->start = _e; }
   { auto _e = end(); _o->end = _e; }
 }
 
-inline flatbuffers::Offset<CodepointRange> CodepointRange::Pack(flatbuffers::FlatBufferBuilder &_fbb, const CodepointRangeT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<CodepointRange> CodepointRange::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const CodepointRangeT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateCodepointRange(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<CodepointRange> CreateCodepointRange(flatbuffers::FlatBufferBuilder &_fbb, const CodepointRangeT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<CodepointRange> CreateCodepointRange(::flatbuffers::FlatBufferBuilder &_fbb, const CodepointRangeT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CodepointRangeT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const CodepointRangeT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _start = _o->start;
   auto _end = _o->end;
   return libtextclassifier3::CreateCodepointRange(

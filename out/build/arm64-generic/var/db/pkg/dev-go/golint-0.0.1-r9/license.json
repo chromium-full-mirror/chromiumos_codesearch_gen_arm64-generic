@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "golint", "version": "0.0.1", "revision": 9, "fullname": "dev-go/golint", "fullnamerev": "dev-go/golint-0.0.1-r9", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/golang/lint"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -78,8 +78,8 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) override;
   void DEPRECATED_RunLedLitUpRoutine(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier, DEPRECATED_RunLedLitUpRoutineCallback callback) override;
   void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) override;
-  void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) override;
-  void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, RunAudioSetGainRoutineCallback callback) override;
+  void DEPRECATED_RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, DEPRECATED_RunAudioSetVolumeRoutineCallback callback) override;
+  void DEPRECATED_RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, DEPRECATED_RunAudioSetGainRoutineCallback callback) override;
   void RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) override;
   void RunBluetoothDiscoveryRoutine(RunBluetoothDiscoveryRoutineCallback callback) override;
   void RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) override;
@@ -87,6 +87,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunPowerButtonRoutine(uint32_t timeout_seconds, RunPowerButtonRoutineCallback callback) override;
   void RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) override;
   void RunUfsLifetimeRoutine(RunUfsLifetimeRoutineCallback callback) override;
+  void RunFanRoutine(RunFanRoutineCallback callback) override;
 };
 class  CrosHealthdDiagnosticsServiceAsyncWaiter {
  public:
@@ -213,12 +214,12 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunEmmcLifetimeRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunEmmcLifetimeRoutine();
-  void RunAudioSetVolumeRoutine(
+  void DEPRECATED_RunAudioSetVolumeRoutine(
       uint64_t node_id, uint8_t volume, bool mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on);
-  void RunAudioSetGainRoutine(
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr DEPRECATED_RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on);
+  void DEPRECATED_RunAudioSetGainRoutine(
       uint64_t node_id, uint8_t gain, bool deprecated_mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr DEPRECATED_RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on);
   void RunBluetoothPowerRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBluetoothPowerRoutine();
@@ -240,6 +241,9 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunUfsLifetimeRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunUfsLifetimeRoutine();
+  void RunFanRoutine(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunFanRoutine();
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;

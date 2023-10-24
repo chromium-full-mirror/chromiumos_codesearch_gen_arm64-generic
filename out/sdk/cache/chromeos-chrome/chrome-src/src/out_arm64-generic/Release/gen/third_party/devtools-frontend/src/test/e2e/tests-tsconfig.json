@@ -1,0 +1,146 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules",
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/e2e",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "tests-tsconfig.json.tsbuildinfo",
+    "typeRoots": [
+      "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types"
+    ],
+    "types": [
+      "mocha",
+      "chai",
+      "sinon",
+      "karma-chai-sinon",
+      "node"
+    ],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/request_idle_callback.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "animations/animations-tsconfig.json"
+    },
+    {
+      "path": "application/application-tsconfig.json"
+    },
+    {
+      "path": "assertion/assertion-tsconfig.json"
+    },
+    {
+      "path": "changes/changes-tsconfig.json"
+    },
+    {
+      "path": "console/console-tsconfig.json"
+    },
+    {
+      "path": "coverage/coverage-tsconfig.json"
+    },
+    {
+      "path": "cross_tool_integration/cross_tool_integration-tsconfig.json"
+    },
+    {
+      "path": "css_overview/css_overview-tsconfig.json"
+    },
+    {
+      "path": "elements/elements-tsconfig.json"
+    },
+    {
+      "path": "emulation/emulation-tsconfig.json"
+    },
+    {
+      "path": "extensions/extensions-tsconfig.json"
+    },
+    {
+      "path": "host/host-tsconfig.json"
+    },
+    {
+      "path": "inline_editor/inline_editor-tsconfig.json"
+    },
+    {
+      "path": "issues/issues-tsconfig.json"
+    },
+    {
+      "path": "layers/layers-tsconfig.json"
+    },
+    {
+      "path": "lighthouse/lighthouse-tsconfig.json"
+    },
+    {
+      "path": "media/media-tsconfig.json"
+    },
+    {
+      "path": "memory/memory-tsconfig.json"
+    },
+    {
+      "path": "network/network-tsconfig.json"
+    },
+    {
+      "path": "performance/performance-tsconfig.json"
+    },
+    {
+      "path": "profiler/profiler-tsconfig.json"
+    },
+    {
+      "path": "puppeteer/puppeteer-tsconfig.json"
+    },
+    {
+      "path": "quick_open/quick_open-tsconfig.json"
+    },
+    {
+      "path": "rendering/rendering-tsconfig.json"
+    },
+    {
+      "path": "search/search-tsconfig.json"
+    },
+    {
+      "path": "security/security-tsconfig.json"
+    },
+    {
+      "path": "sensors/sensors-tsconfig.json"
+    },
+    {
+      "path": "settings/settings-tsconfig.json"
+    },
+    {
+      "path": "snippets/snippets-tsconfig.json"
+    },
+    {
+      "path": "sources/sources-tsconfig.json"
+    },
+    {
+      "path": "recorder/recorder-tsconfig.json"
+    },
+    {
+      "path": "webaudio/webaudio-tsconfig.json"
+    }
+  ]
+}

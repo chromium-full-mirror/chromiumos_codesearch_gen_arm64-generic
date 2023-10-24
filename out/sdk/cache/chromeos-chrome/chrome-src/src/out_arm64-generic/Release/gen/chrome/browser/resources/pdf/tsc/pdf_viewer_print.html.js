@@ -1,0 +1,18 @@
+import { html } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="pdf-viewer-shared-style">viewer-page-indicator{opacity:0;visibility:hidden;z-index:2}@media(max-height:200px){viewer-zoom-toolbar{display:none}}@media(max-width:300px){viewer-zoom-toolbar{display:none}}</style>
+
+<div id="sizer"></div>
+
+<viewer-zoom-toolbar id="zoomToolbar" on-fit-to-changed="onFitToChanged" on-zoom-in="onZoomIn" on-zoom-out="onZoomOut">
+</viewer-zoom-toolbar>
+
+<viewer-page-indicator id="pageIndicator"></viewer-page-indicator>
+
+<div id="content"></div>
+
+<template is="dom-if" if="[[showErrorDialog]]">
+  <viewer-error-dialog id="error-dialog"></viewer-error-dialog>
+</template>
+<!--_html_template_end_-->`;
+}

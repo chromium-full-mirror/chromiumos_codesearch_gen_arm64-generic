@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "XML-Simple", "version": "2.250.0", "revision": 1, "fullname": "dev-perl/XML-Simple", "fullnamerev": "dev-perl/XML-Simple-2.250.0-r1", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/XML-Simple"], "skip": false, "tainted": false, "ebuild_path": null}

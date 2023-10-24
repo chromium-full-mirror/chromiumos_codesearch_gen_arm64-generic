@@ -1,26 +1,10 @@
-/***
-  This file is part of systemd.
-
-  Copyright 2008-2012 Kay Sievers <kay@vrfy.org>
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
-***/
+/* SPDX-License-Identifier: LGPL-2.1-or-later */
 
 #ifndef _LIBUDEV_H_
 #define _LIBUDEV_H_
 
 #include <stdarg.h>
+#include <sys/sysmacros.h>
 #include <sys/types.h>
 
 #ifdef __cplusplus
@@ -40,9 +24,9 @@ struct udev *udev_new(void);
 void udev_set_log_fn(struct udev *udev,
                             void (*log_fn)(struct udev *udev,
                                            int priority, const char *file, int line, const char *fn,
-                                           const char *format, va_list args)) __attribute__ ((deprecated));
-int udev_get_log_priority(struct udev *udev) __attribute__ ((deprecated));
-void udev_set_log_priority(struct udev *udev, int priority) __attribute__ ((deprecated));
+                                           const char *format, va_list args)) __attribute__((__deprecated__));
+int udev_get_log_priority(struct udev *udev) __attribute__((__deprecated__));
+void udev_set_log_priority(struct udev *udev, int priority) __attribute__((__deprecated__));
 void *udev_get_userdata(struct udev *udev);
 void udev_set_userdata(struct udev *udev, void *userdata);
 
@@ -65,7 +49,7 @@ const char *udev_list_entry_get_value(struct udev_list_entry *list_entry);
  */
 #define udev_list_entry_foreach(list_entry, first_entry) \
         for (list_entry = first_entry; \
-             list_entry != NULL; \
+             list_entry; \
              list_entry = udev_list_entry_get_next(list_entry))
 
 /*
@@ -98,6 +82,7 @@ int udev_device_get_is_initialized(struct udev_device *udev_device);
 struct udev_list_entry *udev_device_get_devlinks_list_entry(struct udev_device *udev_device);
 struct udev_list_entry *udev_device_get_properties_list_entry(struct udev_device *udev_device);
 struct udev_list_entry *udev_device_get_tags_list_entry(struct udev_device *udev_device);
+struct udev_list_entry *udev_device_get_current_tags_list_entry(struct udev_device *udev_device);
 struct udev_list_entry *udev_device_get_sysattr_list_entry(struct udev_device *udev_device);
 const char *udev_device_get_property_value(struct udev_device *udev_device, const char *key);
 const char *udev_device_get_driver(struct udev_device *udev_device);
@@ -106,8 +91,9 @@ const char *udev_device_get_action(struct udev_device *udev_device);
 unsigned long long int udev_device_get_seqnum(struct udev_device *udev_device);
 unsigned long long int udev_device_get_usec_since_initialized(struct udev_device *udev_device);
 const char *udev_device_get_sysattr_value(struct udev_device *udev_device, const char *sysattr);
-int udev_device_set_sysattr_value(struct udev_device *udev_device, const char *sysattr, char *value);
+int udev_device_set_sysattr_value(struct udev_device *udev_device, const char *sysattr, const char *value);
 int udev_device_has_tag(struct udev_device *udev_device, const char *tag);
+int udev_device_has_current_tag(struct udev_device *udev_device, const char *tag);
 
 /*
  * udev_monitor
@@ -169,16 +155,16 @@ struct udev_queue *udev_queue_ref(struct udev_queue *udev_queue);
 struct udev_queue *udev_queue_unref(struct udev_queue *udev_queue);
 struct udev *udev_queue_get_udev(struct udev_queue *udev_queue);
 struct udev_queue *udev_queue_new(struct udev *udev);
-unsigned long long int udev_queue_get_kernel_seqnum(struct udev_queue *udev_queue) __attribute__ ((deprecated));
-unsigned long long int udev_queue_get_udev_seqnum(struct udev_queue *udev_queue) __attribute__ ((deprecated));
+unsigned long long int udev_queue_get_kernel_seqnum(struct udev_queue *udev_queue) __attribute__((__deprecated__));
+unsigned long long int udev_queue_get_udev_seqnum(struct udev_queue *udev_queue) __attribute__((__deprecated__));
 int udev_queue_get_udev_is_active(struct udev_queue *udev_queue);
 int udev_queue_get_queue_is_empty(struct udev_queue *udev_queue);
-int udev_queue_get_seqnum_is_finished(struct udev_queue *udev_queue, unsigned long long int seqnum) __attribute__ ((deprecated));
+int udev_queue_get_seqnum_is_finished(struct udev_queue *udev_queue, unsigned long long int seqnum) __attribute__((__deprecated__));
 int udev_queue_get_seqnum_sequence_is_finished(struct udev_queue *udev_queue,
-                                               unsigned long long int start, unsigned long long int end) __attribute__ ((deprecated));
+                                               unsigned long long int start, unsigned long long int end) __attribute__((__deprecated__));
 int udev_queue_get_fd(struct udev_queue *udev_queue);
 int udev_queue_flush(struct udev_queue *udev_queue);
-struct udev_list_entry *udev_queue_get_queued_list_entry(struct udev_queue *udev_queue) __attribute__ ((deprecated));
+struct udev_list_entry *udev_queue_get_queued_list_entry(struct udev_queue *udev_queue) __attribute__((__deprecated__));
 
 /*
  *  udev_hwdb
@@ -189,7 +175,7 @@ struct udev_hwdb;
 struct udev_hwdb *udev_hwdb_new(struct udev *udev);
 struct udev_hwdb *udev_hwdb_ref(struct udev_hwdb *hwdb);
 struct udev_hwdb *udev_hwdb_unref(struct udev_hwdb *hwdb);
-struct udev_list_entry *udev_hwdb_get_properties_list_entry(struct udev_hwdb *hwdb, const char *modalias, unsigned int flags);
+struct udev_list_entry *udev_hwdb_get_properties_list_entry(struct udev_hwdb *hwdb, const char *modalias, unsigned flags);
 
 /*
  * udev_util
@@ -197,7 +183,6 @@ struct udev_list_entry *udev_hwdb_get_properties_list_entry(struct udev_hwdb *hw
  * udev specific utilities
  */
 int udev_util_encode_string(const char *str, char *str_enc, size_t len);
-
 
 #ifdef __cplusplus
 } /* extern "C" */

@@ -42,6 +42,12 @@ class LedLitUpRoutineArgumentDataView;
 
 class FloatingPointRoutineArgumentDataView;
 
+class BluetoothPowerRoutineArgumentDataView;
+
+class BluetoothDiscoveryRoutineArgumentDataView;
+
+class FanRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -74,6 +80,16 @@ class VolumeButtonRoutineDetailDataView;
 
 class LedLitUpRoutineDetailDataView;
 
+class BluetoothPoweredDetailDataView;
+
+class BluetoothPowerRoutineDetailDataView;
+
+class BluetoothDiscoveringDetailDataView;
+
+class BluetoothDiscoveryRoutineDetailDataView;
+
+class FanRoutineDetailDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
 class RoutineDetailDataView;
@@ -85,6 +101,8 @@ enum class DiskReadTypeEnum : int32_t;
 enum class LedName : int32_t;
 
 enum class LedColor : int32_t;
+
+enum class HardwarePresenceStatus : int32_t;
 
 enum class VolumeButtonRoutineArgument_ButtonType : int32_t;
 
@@ -118,6 +136,15 @@ using LedLitUpRoutineArgumentPtr = mojo::StructPtr<LedLitUpRoutineArgument>;
 
 class FloatingPointRoutineArgument;
 using FloatingPointRoutineArgumentPtr = mojo::StructPtr<FloatingPointRoutineArgument>;
+
+class BluetoothPowerRoutineArgument;
+using BluetoothPowerRoutineArgumentPtr = mojo::InlinedStructPtr<BluetoothPowerRoutineArgument>;
+
+class BluetoothDiscoveryRoutineArgument;
+using BluetoothDiscoveryRoutineArgumentPtr = mojo::InlinedStructPtr<BluetoothDiscoveryRoutineArgument>;
+
+class FanRoutineArgument;
+using FanRoutineArgumentPtr = mojo::InlinedStructPtr<FanRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -166,6 +193,21 @@ using VolumeButtonRoutineDetailPtr = mojo::InlinedStructPtr<VolumeButtonRoutineD
 
 class LedLitUpRoutineDetail;
 using LedLitUpRoutineDetailPtr = mojo::InlinedStructPtr<LedLitUpRoutineDetail>;
+
+class BluetoothPoweredDetail;
+using BluetoothPoweredDetailPtr = mojo::InlinedStructPtr<BluetoothPoweredDetail>;
+
+class BluetoothPowerRoutineDetail;
+using BluetoothPowerRoutineDetailPtr = mojo::StructPtr<BluetoothPowerRoutineDetail>;
+
+class BluetoothDiscoveringDetail;
+using BluetoothDiscoveringDetailPtr = mojo::InlinedStructPtr<BluetoothDiscoveringDetail>;
+
+class BluetoothDiscoveryRoutineDetail;
+using BluetoothDiscoveryRoutineDetailPtr = mojo::StructPtr<BluetoothDiscoveryRoutineDetail>;
+
+class FanRoutineDetail;
+using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;
 
 class RoutineArgument;
 

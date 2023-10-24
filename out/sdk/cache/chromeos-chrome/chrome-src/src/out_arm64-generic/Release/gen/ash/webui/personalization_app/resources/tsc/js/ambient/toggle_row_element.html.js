@@ -1,0 +1,17 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="common">#toggleRowTitle{margin:0 8px 2px 0}</style>
+<template is="dom-if" if="[[isPersonalizationJellyEnabled_]]">
+  <h3 id="toggleRowTitle" class="ambient-subpage-element-title" aria-hidden="true">
+    [[getToggleRowTitle_(ambientModeEnabled_)]]
+  </h3>
+</template>
+<div class="ambient-toggle-row-container">
+  <div class="ambient-toggle-row">
+    <p id="toggleDescription">$i18n{ambientModePageDescription}</p>
+    <cr-toggle id="toggle" class="clickable" checked="[[ambientModeEnabled_]]" aria-labelledby="toggleDescription" on-change="onAmbientModeToggled_">
+    </cr-toggle>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libgpg-error", "version": "1.46", "revision": 1, "fullname": "dev-libs/libgpg-error", "fullnamerev": "dev-libs/libgpg-error-1.46-r1", "license_names": ["GPL-2", "LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://www.gnupg.org/related_software/libgpg-error"], "skip": false, "tainted": false, "ebuild_path": null}

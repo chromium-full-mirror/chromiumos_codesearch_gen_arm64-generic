@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "protobuf-legacy-api", "version": "1.5.2", "revision": 5, "fullname": "dev-go/protobuf-legacy-api", "fullnamerev": "dev-go/protobuf-legacy-api-1.5.2-r5", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/golang/protobuf"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,174 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/help_bubble/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/help_bubble/*"
+      ],
+      "chrome://resources/cr_components/help_bubble/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/help_bubble/*"
+      ],
+      "//resources/cr_components/settings_prefs/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/settings_prefs/*"
+      ],
+      "chrome://resources/cr_components/settings_prefs/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/settings_prefs/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "/shared/settings/*": [
+        "./../settings_shared/tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/checkup_section.ts",
+    "preprocessed/checkup_details_section.ts",
+    "preprocessed/checkup_list_item.ts",
+    "preprocessed/dialogs/add_password_dialog.ts",
+    "preprocessed/dialogs/auth_timed_out_dialog.ts",
+    "preprocessed/dialogs/delete_password_disclaimer_dialog.ts",
+    "preprocessed/dialogs/delete_passkey_dialog.ts",
+    "preprocessed/dialogs/edit_passkey_dialog.ts",
+    "preprocessed/dialogs/edit_password_dialog.ts",
+    "preprocessed/dialogs/edit_password_disclaimer_dialog.ts",
+    "preprocessed/dialogs/multi_store_delete_password_dialog.ts",
+    "preprocessed/dialogs/move_passwords_dialog.ts",
+    "preprocessed/dialogs/password_preview_item.ts",
+    "preprocessed/credential_details/credential_note.ts",
+    "preprocessed/credential_details/credential_field.ts",
+    "preprocessed/credential_details/passkey_details_card.ts",
+    "preprocessed/credential_details/password_details_card.ts",
+    "preprocessed/password_details_section.ts",
+    "preprocessed/password_list_item.ts",
+    "preprocessed/password_manager_app.ts",
+    "preprocessed/passwords_exporter.ts",
+    "preprocessed/passwords_importer.ts",
+    "preprocessed/passwords_section.ts",
+    "preprocessed/prefs/pref_toggle_button.ts",
+    "preprocessed/settings_section.ts",
+    "preprocessed/sharing/share_password_flow.ts",
+    "preprocessed/sharing/share_password_dialog_header.ts",
+    "preprocessed/sharing/share_password_group_avatar.ts",
+    "preprocessed/sharing/share_password_recipient.ts",
+    "preprocessed/sharing/share_password_family_picker_dialog.ts",
+    "preprocessed/sharing/share_password_loading_dialog.ts",
+    "preprocessed/sharing/share_password_error_dialog.ts",
+    "preprocessed/sharing/share_password_no_other_family_members_dialog.ts",
+    "preprocessed/sharing/share_password_not_family_member_dialog.ts",
+    "preprocessed/sharing/share_password_confirmation_dialog.ts",
+    "preprocessed/side_bar.ts",
+    "preprocessed/site_favicon.ts",
+    "preprocessed/toolbar.ts",
+    "preprocessed/password_manager.ts",
+    "preprocessed/passkeys_browser_proxy.ts",
+    "preprocessed/password_manager_proxy.ts",
+    "preprocessed/focus_config.ts",
+    "preprocessed/router.ts",
+    "preprocessed/searchable_label.ts",
+    "preprocessed/show_password_mixin.ts",
+    "preprocessed/sync_browser_proxy.ts",
+    "preprocessed/user_utils_mixin.ts",
+    "preprocessed/promo_cards/promo_cards_browser_proxy.ts",
+    "preprocessed/sharing/metrics_utils.ts",
+    "preprocessed/checkup_section.html.ts",
+    "preprocessed/checkup_details_section.html.ts",
+    "preprocessed/checkup_list_item.html.ts",
+    "preprocessed/dialogs/add_password_dialog.html.ts",
+    "preprocessed/dialogs/auth_timed_out_dialog.html.ts",
+    "preprocessed/dialogs/delete_password_disclaimer_dialog.html.ts",
+    "preprocessed/dialogs/delete_passkey_dialog.html.ts",
+    "preprocessed/dialogs/edit_passkey_dialog.html.ts",
+    "preprocessed/dialogs/edit_password_dialog.html.ts",
+    "preprocessed/dialogs/edit_password_disclaimer_dialog.html.ts",
+    "preprocessed/dialogs/multi_store_delete_password_dialog.html.ts",
+    "preprocessed/dialogs/move_passwords_dialog.html.ts",
+    "preprocessed/dialogs/password_preview_item.html.ts",
+    "preprocessed/credential_details/credential_note.html.ts",
+    "preprocessed/credential_details/credential_field.html.ts",
+    "preprocessed/credential_details/passkey_details_card.html.ts",
+    "preprocessed/credential_details/password_details_card.html.ts",
+    "preprocessed/password_details_section.html.ts",
+    "preprocessed/password_list_item.html.ts",
+    "preprocessed/password_manager_app.html.ts",
+    "preprocessed/passwords_exporter.html.ts",
+    "preprocessed/passwords_importer.html.ts",
+    "preprocessed/passwords_section.html.ts",
+    "preprocessed/prefs/pref_toggle_button.html.ts",
+    "preprocessed/settings_section.html.ts",
+    "preprocessed/sharing/share_password_flow.html.ts",
+    "preprocessed/sharing/share_password_dialog_header.html.ts",
+    "preprocessed/sharing/share_password_group_avatar.html.ts",
+    "preprocessed/sharing/share_password_recipient.html.ts",
+    "preprocessed/sharing/share_password_family_picker_dialog.html.ts",
+    "preprocessed/sharing/share_password_loading_dialog.html.ts",
+    "preprocessed/sharing/share_password_error_dialog.html.ts",
+    "preprocessed/sharing/share_password_no_other_family_members_dialog.html.ts",
+    "preprocessed/sharing/share_password_not_family_member_dialog.html.ts",
+    "preprocessed/sharing/share_password_confirmation_dialog.html.ts",
+    "preprocessed/side_bar.html.ts",
+    "preprocessed/site_favicon.html.ts",
+    "preprocessed/toolbar.html.ts",
+    "preprocessed/icons.html.ts",
+    "preprocessed/credential_details/credential_details_card.css.ts",
+    "preprocessed/shared_vars.css.ts",
+    "preprocessed/shared_style.css.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_event.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/passwords_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/runtime.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/settings_private.d.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/tabs.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../settings_shared/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_components/help_bubble/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_components/settings_prefs/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

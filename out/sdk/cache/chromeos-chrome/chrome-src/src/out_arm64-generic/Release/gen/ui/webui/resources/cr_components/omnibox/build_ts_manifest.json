@@ -1,0 +1,1 @@
+{"base_dir": "gen/ui/webui/resources/tsc/cr_components/omnibox", "files": ["realbox_action.js", "realbox_dropdown.js", "realbox_icon.js", "realbox_match.js", "realbox_browser_proxy.js", "utils.js", "realbox_action.html.js", "realbox_dropdown.html.js", "realbox_icon.html.js", "realbox_match.html.js", "realbox_dropdown_shared_style.css.js", "omnibox.mojom-webui.js"]}

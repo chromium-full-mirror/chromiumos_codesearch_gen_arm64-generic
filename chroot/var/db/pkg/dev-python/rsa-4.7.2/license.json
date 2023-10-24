@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-python", "name": "rsa", "version": "4.7.2", "revision": 0, "fullname": "dev-python/rsa", "fullnamerev": "dev-python/rsa-4.7.2", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://stuvel.eu/rsa/", "https://pypi.org/project/rsa/"], "skip": false, "tainted": false, "ebuild_path": null}

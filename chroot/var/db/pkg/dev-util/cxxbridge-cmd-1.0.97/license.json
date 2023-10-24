@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "cxxbridge-cmd", "version": "1.0.97", "revision": 0, "fullname": "dev-util/cxxbridge-cmd", "fullnamerev": "dev-util/cxxbridge-cmd-1.0.97", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://crates.io/crates/cxxbridge-cmd"], "skip": false, "tainted": false, "ebuild_path": null}

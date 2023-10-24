@@ -1,0 +1,1 @@
+{"rustc":10012222711457729657,"features":"","target":0,"profile":0,"path":0,"deps":[[8121635694596382552,"build_script_build",false,2049045258536601921]],"local":[{"RerunIfChanged":{"output":"aarch64-cros-linux-gnu/release/build/num-traits-2b65d53288b42018/output","paths":["build.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

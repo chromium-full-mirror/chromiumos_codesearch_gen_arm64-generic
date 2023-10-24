@@ -1,0 +1,4 @@
+// Copyright 2013 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+export function createElementFromText(elementName,text,attributes){const element=document.createElement(elementName);element.appendChild(document.createTextNode(text));if(attributes){for(const key in attributes){element.setAttribute(key,attributes[key])}}return element}export function createElementFromDictionary(elementName,dict){const element=document.createElement(elementName);for(const key in dict){element.appendChild(document.createTextNode(key+": "+dict[key]));element.appendChild(document.createElement("br"))}return element}

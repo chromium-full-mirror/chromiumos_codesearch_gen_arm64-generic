@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform2",
+      "build_dest_path": "/var/tmp/portage/dev-util/puffin-1.0.0-r448/work/puffin-1.0.0/platform2"
+    },
+    {
+      "src_path": "src/third_party/../aosp/external/puffin",
+      "build_dest_path": "/var/tmp/portage/dev-util/puffin-1.0.0-r448/work/puffin-1.0.0/platform2/puffin"
+    }
+  ]
+}

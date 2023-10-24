@@ -79,8 +79,6 @@ class SessionManagerInterfaceInterface {
       std::string* out_username,
       std::string* out_sanitized_username) = 0;
   virtual bool IsGuestSessionActive() = 0;
-  virtual void HandleSupervisedUserCreationStarting() = 0;
-  virtual void HandleSupervisedUserCreationFinished() = 0;
   virtual bool LockScreen(
       brillo::ErrorPtr* error) = 0;
   virtual void HandleLockScreenShown() = 0;
@@ -242,14 +240,6 @@ class SessionManagerInterfaceAdaptor {
         "IsGuestSessionActive",
         base::Unretained(interface_),
         &SessionManagerInterfaceInterface::IsGuestSessionActive);
-    itf->AddSimpleMethodHandler(
-        "HandleSupervisedUserCreationStarting",
-        base::Unretained(interface_),
-        &SessionManagerInterfaceInterface::HandleSupervisedUserCreationStarting);
-    itf->AddSimpleMethodHandler(
-        "HandleSupervisedUserCreationFinished",
-        base::Unretained(interface_),
-        &SessionManagerInterfaceInterface::HandleSupervisedUserCreationFinished);
     itf->AddSimpleMethodHandlerWithError(
         "LockScreen",
         base::Unretained(interface_),
@@ -487,10 +477,6 @@ class SessionManagerInterfaceAdaptor {
         "    </method>\n"
         "    <method name=\"IsGuestSessionActive\">\n"
         "      <arg name=\"is_guest\" type=\"b\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"HandleSupervisedUserCreationStarting\">\n"
-        "    </method>\n"
-        "    <method name=\"HandleSupervisedUserCreationFinished\">\n"
         "    </method>\n"
         "    <method name=\"LockScreen\">\n"
         "    </method>\n"

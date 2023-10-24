@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-libs", "name": "libmnl", "version": "1.0.4", "revision": 0, "fullname": "net-libs/libmnl", "fullnamerev": "net-libs/libmnl-1.0.4", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://netfilter.org/projects/libmnl/"], "skip": false, "tainted": false, "ebuild_path": null}

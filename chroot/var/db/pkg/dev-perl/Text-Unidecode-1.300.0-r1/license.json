@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "Text-Unidecode", "version": "1.300.0", "revision": 1, "fullname": "dev-perl/Text-Unidecode", "fullnamerev": "dev-perl/Text-Unidecode-1.300.0-r1", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Text-Unidecode"], "skip": false, "tainted": false, "ebuild_path": null}

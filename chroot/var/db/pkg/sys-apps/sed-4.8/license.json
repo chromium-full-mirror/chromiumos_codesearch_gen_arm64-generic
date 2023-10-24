@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "sed", "version": "4.8", "revision": 0, "fullname": "sys-apps/sed", "fullnamerev": "sys-apps/sed-4.8", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["http://sed.sourceforge.net/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-portage", "name": "gentoolkit", "version": "0.5.1", "revision": 1, "fullname": "app-portage/gentoolkit", "fullnamerev": "app-portage/gentoolkit-0.5.1-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.gentoo.org/wiki/Project:Portage-Tools"], "skip": false, "tainted": false, "ebuild_path": null}

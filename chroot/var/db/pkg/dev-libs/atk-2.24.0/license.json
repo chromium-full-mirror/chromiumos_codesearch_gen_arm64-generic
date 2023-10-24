@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "atk", "version": "2.24.0", "revision": 0, "fullname": "dev-libs/atk", "fullnamerev": "dev-libs/atk-2.24.0", "license_names": ["LGPL-2", "LGPL-2+"], "license_text_scanned": [], "homepages": ["https://wiki.gnome.org/Accessibility"], "skip": false, "tainted": false, "ebuild_path": null}

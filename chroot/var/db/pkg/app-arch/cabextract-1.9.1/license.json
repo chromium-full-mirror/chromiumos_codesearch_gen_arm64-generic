@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-arch", "name": "cabextract", "version": "1.9.1", "revision": 0, "fullname": "app-arch/cabextract", "fullnamerev": "app-arch/cabextract-1.9.1", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.cabextract.org.uk/"], "skip": false, "tainted": false, "ebuild_path": null}

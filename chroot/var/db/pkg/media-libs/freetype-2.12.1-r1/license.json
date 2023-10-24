@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "media-libs", "name": "freetype", "version": "2.12.1", "revision": 1, "fullname": "media-libs/freetype", "fullnamerev": "media-libs/freetype-2.12.1-r1", "license_names": ["FTL"], "license_text_scanned": [], "homepages": ["https://www.freetype.org/"], "skip": false, "tainted": false, "ebuild_path": null}

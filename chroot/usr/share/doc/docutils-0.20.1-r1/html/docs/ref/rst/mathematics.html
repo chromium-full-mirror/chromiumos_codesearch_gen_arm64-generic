@@ -1,0 +1,2551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.20.1: https://docutils.sourceforge.io/" />
+<title>LaTeX syntax for mathematics</title>
+<link rel="stylesheet" href="../../../html4css1.css" type="text/css" />
+<link rel="stylesheet" href="../../../../docutils-0.20.1-python3_8/lib/docutils/writers/html5_polyglot/math.css" type="text/css" />
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="https://docutils.sourceforge.io">Docutils</a> | <a class="reference external" href="../../index.html">Overview</a> | <a class="reference external" href="../../index.html#project-fundamentals">About</a> | <a class="reference external" href="../../index.html#user">Users</a> | <a class="reference external" href="../../index.html#ref">Reference</a> | <a class="reference external" href="../../index.html#howto">Developers</a>
+<hr class="header"/>
+</div>
+<div class="document" id="latex-syntax-for-mathematics">
+<h1 class="title">LaTeX syntax for mathematics</h1>
+
+<div class="abstract topic">
+<p class="topic-title">Abstract</p>
+<p>Docutils supports mathematical content with a <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#math">&quot;math&quot;
+directive</a> and <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/roles.html#math">role</a>. The input format is <em>LaTeX math
+syntax</em><a class="footnote-reference" href="#math-syntax" id="footnote-reference-1">[1]</a> with support for literal Unicode symbols.</p>
+</div>
+<!-- Minimal menu bar for inclusion in documentation sources
+in ``docutils/docs/*/`` sub-sub-diretories.
+
+Attention: this is not a standalone document. -->
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#inline-formulas-and-displayed-equations" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Inline formulas and displayed equations</a></li>
+<li><a class="reference internal" href="#mathematical-symbols" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Mathematical symbols</a><ul class="auto-toc">
+<li><a class="reference internal" href="#accents-and-embellishments" id="toc-entry-3">2.1&nbsp;&nbsp;&nbsp;Accents and embellishments</a></li>
+<li><a class="reference internal" href="#binary-operators" id="toc-entry-4">2.2&nbsp;&nbsp;&nbsp;Binary operators</a></li>
+<li><a class="reference internal" href="#extensible-delimiters" id="toc-entry-5">2.3&nbsp;&nbsp;&nbsp;Extensible delimiters</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pairing-delimiters" id="toc-entry-6">2.3.1&nbsp;&nbsp;&nbsp;Pairing delimiters</a></li>
+<li><a class="reference internal" href="#nonpairing-delimiters" id="toc-entry-7">2.3.2&nbsp;&nbsp;&nbsp;Nonpairing delimiters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extensible-vertical-arrows" id="toc-entry-8">2.4&nbsp;&nbsp;&nbsp;Extensible vertical arrows</a></li>
+<li><a class="reference internal" href="#functions-named-operators" id="toc-entry-9">2.5&nbsp;&nbsp;&nbsp;Functions (named operators)</a></li>
+<li><a class="reference internal" href="#greek-letters" id="toc-entry-10">2.6&nbsp;&nbsp;&nbsp;Greek letters</a></li>
+<li><a class="reference internal" href="#letterlike-symbols" id="toc-entry-11">2.7&nbsp;&nbsp;&nbsp;Letterlike symbols</a></li>
+<li><a class="reference internal" href="#mathematical-alphabets" id="toc-entry-12">2.8&nbsp;&nbsp;&nbsp;Mathematical Alphabets</a></li>
+<li><a class="reference internal" href="#miscellaneous-symbols" id="toc-entry-13">2.9&nbsp;&nbsp;&nbsp;Miscellaneous symbols</a></li>
+<li><a class="reference internal" href="#punctuation" id="toc-entry-14">2.10&nbsp;&nbsp;&nbsp;Punctuation</a></li>
+<li><a class="reference internal" href="#relation-symbols" id="toc-entry-15">2.11&nbsp;&nbsp;&nbsp;Relation symbols</a><ul class="auto-toc">
+<li><a class="reference internal" href="#arrows" id="toc-entry-16">2.11.1&nbsp;&nbsp;&nbsp;Arrows</a></li>
+<li><a class="reference internal" href="#comparison" id="toc-entry-17">2.11.2&nbsp;&nbsp;&nbsp;Comparison</a></li>
+<li><a class="reference internal" href="#miscellaneous-relations" id="toc-entry-18">2.11.3&nbsp;&nbsp;&nbsp;Miscellaneous relations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#variable-sized-operators" id="toc-entry-19">2.12&nbsp;&nbsp;&nbsp;Variable-sized operators</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notations" id="toc-entry-20">3&nbsp;&nbsp;&nbsp;Notations</a><ul class="auto-toc">
+<li><a class="reference internal" href="#top-and-bottom-embellishments" id="toc-entry-21">3.1&nbsp;&nbsp;&nbsp;Top and bottom embellishments</a></li>
+<li><a class="reference internal" href="#extensible-arrows" id="toc-entry-22">3.2&nbsp;&nbsp;&nbsp;Extensible arrows</a></li>
+<li><a class="reference internal" href="#affixing-symbols-to-other-symbols" id="toc-entry-23">3.3&nbsp;&nbsp;&nbsp;Affixing symbols to other symbols</a></li>
+<li><a class="reference internal" href="#matrices" id="toc-entry-24">3.4&nbsp;&nbsp;&nbsp;Matrices</a></li>
+<li><a class="reference internal" href="#spacing-commands" id="toc-entry-25">3.5&nbsp;&nbsp;&nbsp;Spacing commands</a></li>
+<li><a class="reference internal" href="#modular-arithmetic-and-modulo-operation" id="toc-entry-26">3.6&nbsp;&nbsp;&nbsp;Modular arithmetic and modulo operation</a></li>
+<li><a class="reference internal" href="#roots" id="toc-entry-27">3.7&nbsp;&nbsp;&nbsp;Roots</a></li>
+<li><a class="reference internal" href="#boxed-formulas" id="toc-entry-28">3.8&nbsp;&nbsp;&nbsp;Boxed formulas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fractions-and-related-constructions" id="toc-entry-29">4&nbsp;&nbsp;&nbsp;Fractions and related constructions</a></li>
+<li><a class="reference internal" href="#delimiter-sizes" id="toc-entry-30">5&nbsp;&nbsp;&nbsp;Delimiter sizes</a></li>
+<li><a class="reference internal" href="#text" id="toc-entry-31">6&nbsp;&nbsp;&nbsp;Text</a></li>
+<li><a class="reference internal" href="#integrals-and-sums" id="toc-entry-32">7&nbsp;&nbsp;&nbsp;Integrals and sums</a><ul class="auto-toc">
+<li><a class="reference internal" href="#altering-the-placement-of-limits" id="toc-entry-33">7.1&nbsp;&nbsp;&nbsp;Altering the placement of limits</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#changing-the-size-of-elements-in-a-formula" id="toc-entry-34">8&nbsp;&nbsp;&nbsp;Changing the size of elements in a formula</a></li>
+<li><a class="reference internal" href="#appendix" id="toc-entry-35">9&nbsp;&nbsp;&nbsp;Appendix</a><ul class="auto-toc">
+<li><a class="reference internal" href="#tests" id="toc-entry-36">9.1&nbsp;&nbsp;&nbsp;Tests</a><ul class="auto-toc">
+<li><a class="reference internal" href="#font-changes" id="toc-entry-37">9.1.1&nbsp;&nbsp;&nbsp;Font changes</a></li>
+<li><a class="reference internal" href="#inferred-mrow-s-in-mathml" id="toc-entry-38">9.1.2&nbsp;&nbsp;&nbsp;Inferred &lt;mrow&gt;s in MathML</a></li>
+<li><a class="reference internal" href="#scripts-and-limits" id="toc-entry-39">9.1.3&nbsp;&nbsp;&nbsp;Scripts and Limits</a></li>
+<li><a class="reference internal" href="#nested-groups" id="toc-entry-40">9.1.4&nbsp;&nbsp;&nbsp;Nested groups</a></li>
+<li><a class="reference internal" href="#big-delimiters-and-symbols" id="toc-entry-41">9.1.5&nbsp;&nbsp;&nbsp;Big delimiters and symbols</a></li>
+<li><a class="reference internal" href="#text-1" id="toc-entry-42">9.1.6&nbsp;&nbsp;&nbsp;Text</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="inline-formulas-and-displayed-equations">
+<h1><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Inline formulas and displayed equations</a></h1>
+<p>The <strong>math role</strong> can be used for inline mathematical expressions:
+<tt class="docutils literal"><span class="pre">:math:`\psi(r)</span> = <span class="pre">\exp(-2r)`</span></tt> will produce <span class="m formula"><i>ψ</i>(<i>r</i>) = exp( − 2<i>r</i>)</span>.
+Inside the backtics you can write anything you would write between dollar
+signs in a LaTeX document.  <a class="footnote-reference" href="#math-syntax" id="footnote-reference-2">[1]</a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you put <tt class="docutils literal">.. <span class="pre">default-role::</span> math</tt> at the top of your
+document, you can write <tt class="docutils literal">`x^2`</tt> instead of the longer
+version: <tt class="docutils literal"><span class="pre">:math:`x^2`</span></tt>.  You can also introduce an
+abbreviation like this <tt class="docutils literal">.. role:: m(math)</tt>.  That will allow
+you to write <tt class="docutils literal"><span class="pre">:m:`x^2`</span></tt> or <tt class="docutils literal"><span class="pre">`x^2`:m:</span></tt>.</p>
+</div>
+<p>The <strong>math directive</strong> is used for displayed equations. It corresponds to
+an <tt class="docutils literal">equation*</tt> or <tt class="docutils literal">align*</tt> environment in a LaTeX document. If you
+write:</p>
+<pre class="literal-block">
+.. math:: \psi(r) = e^{-2r}
+</pre>
+<p>you will get:</p>
+<div class="formula">
+<i>ψ</i>(<i>r</i>) = <i>e</i><sup> − 2<i>r</i></sup>
+</div>
+<p>A more complex example is the definition of the <a class="reference internal" href="#fourier-transform">Fourier transform</a>:</p>
+<pre class="literal-block">
+.. math::
+   :name: Fourier transform
+
+   (\mathcal{F}f)(y)
+    = \frac{1}{\sqrt{2\pi}^{\ n}}
+      \int_{\mathbb{R}^n} f(x)\,
+      e^{-\mathrm{i} y \cdot x} \,\mathrm{d} x.
+</pre>
+<p>which is rendered as:</p>
+<div class="formula" id="fourier-transform">
+(ℱ<i>f</i>)(<i>y</i>) = <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">2<i>π</i></span><span class="ignored">)</span></span><sup> <i>n</i></sup></span><span class="ignored">)</span></span><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">ℝ<sup><i>n</i></sup></sub></span><i>f</i>(<i>x</i>) <i>e</i><sup> − <span class="mathrm">i</span><i>y</i>⋅<i>x</i></sup> <span class="mathrm">d</span><i>x</i>.
+</div>
+<p>The <tt class="docutils literal">:name:</tt> option puts a label on the equation that can be
+linked to by <a class="reference external" href="../ref/rst/restructuredtext.html#hyperlink-references">hyperlink references</a>.</p>
+<p>Displayed equations can use <tt class="docutils literal">\\</tt> and <tt class="docutils literal">&amp;</tt> for line shifts and alignments:</p>
+<pre class="literal-block">
+.. math::
+
+ a &amp;= (x + y)^2         &amp;  b &amp;= (x - y)^2 \\
+   &amp;= x^2 + 2xy + y^2   &amp;    &amp;= x^2 - 2xy + y^2
+</pre>
+<p>LaTeX output will wrap it in an <tt class="docutils literal">align*</tt> environment.
+The result is:</p>
+<div class="formula">
+<span class="environment align"><span class="arrayrow">
+<span class="arraycell align-r">
+<i>a</i>
+</span>
+<span class="arraycell align-l">
+ = (<i>x</i> + <i>y</i>)<sup>2</sup>
+</span>
+<span class="arraycell align-r">
+<i>b</i>
+</span>
+<span class="arraycell align-l">
+ = (<i>x</i> − <i>y</i>)<sup>2</sup>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+<span class="arraycell align-r">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+
+</span>
+<span class="arraycell align-l">
+ = <i>x</i><sup>2</sup> + 2<i>xy</i> + <i>y</i><sup>2</sup>
+</span>
+<span class="arraycell align-r">
+
+</span>
+<span class="arraycell align-l">
+ = <i>x</i><sup>2</sup> − 2<i>xy</i> + <i>y</i><sup>2</sup>
+</span>
+
+</span>
+</span>
+</div>
+<table class="docutils footnote" frame="void" id="math-syntax" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#footnote-reference-1">1</a>, <a class="fn-backref" href="#footnote-reference-2">2</a>)</em> <p>The supported LaTeX commands include AMS extensions
+(see, e.g., the <a class="reference external" href="https://mirrors.ctan.org/info/short-math-guide/short-math-guide.pdf">Short Math Guide</a>). Some of the shown symbols
+require the &quot;amssymb&quot; <a class="reference external" href="../../user/latex.html#latex-document-classes-and-packages">LaTeX package</a> (or another package providing
+the AMS symbol macros) when exported with the &quot;latex&quot; writer.</p>
+<p class="last">The support is limited to a subset of <em>LaTeX math</em> by the conversion
+required for many output formats.  For HTML, the <a class="reference external" href="https://docutils.sourceforge.io/docs/user/config.html#math-output">math_output</a>
+configuration setting (or the corresponding <tt class="docutils literal"><span class="pre">--math-output</span></tt> command
+line option) selects between alternative output formats with different
+subsets of supported elements. If a writer does not support math
+typesetting, the content is inserted verbatim.</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mathematical-symbols">
+<h1><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Mathematical symbols</a></h1>
+<p>The following tables are adapted from the first edition of
+&quot;The LaTeX Companion&quot; (Goossens, Mittelbach, Samarin) and the
+AMS <a class="reference external" href="https://mirrors.ctan.org/info/short-math-guide/short-math-guide.pdf">Short Math Guide</a>.</p>
+<div class="section" id="accents-and-embellishments">
+<h2><a class="toc-backref" href="#toc-entry-3">2.1&nbsp;&nbsp;&nbsp;Accents and embellishments</a></h2>
+<p>The &quot;narrow&quot; accents are intended for a single-letter base.</p>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula"><i>x́</i></span></td>
+<td><tt class="docutils literal">\acute{x}</tt></td>
+<td><span class="formula"><i>ṫ</i></span></td>
+<td><tt class="docutils literal">\dot{t}</tt></td>
+<td><span class="formula"><i>x̂</i></span></td>
+<td><tt class="docutils literal">\hat{x}</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="embellished"><sup>‒</sup><span class="base"><i>v</i></span></span></span></td>
+<td><tt class="docutils literal">\bar{v}</tt></td>
+<td><span class="formula"><i>ẗ</i></span></td>
+<td><tt class="docutils literal">\ddot{t}</tt></td>
+<td><span class="formula"><i>x̊</i></span></td>
+<td><tt class="docutils literal">\mathring{x}</tt></td>
+</tr>
+<tr><td><span class="formula"><i>x̆</i></span></td>
+<td><tt class="docutils literal">\breve{x}</tt></td>
+<td><span class="formula"><span class="embellished"><sup><span class="smallsymbol">⋯</span></sup><span class="base"><i>t</i></span></span></span></td>
+<td><tt class="docutils literal">\dddot{t}</tt></td>
+<td><span class="formula"><i>ñ</i></span></td>
+<td><tt class="docutils literal">\tilde{n}</tt></td>
+</tr>
+<tr><td><span class="formula"><i>x̌</i></span></td>
+<td><tt class="docutils literal">\check{x}</tt></td>
+<td><span class="formula"><i>x̀</i></span></td>
+<td><tt class="docutils literal">\grave{x}</tt></td>
+<td><span class="formula"><span class="embellished"><sup><span class="smallsymbol">→</span></sup><span class="base"><i>x</i></span></span></span></td>
+<td><tt class="docutils literal">\vec{x}</tt></td>
+</tr>
+</tbody>
+</table>
+<p>When adding an accent to an i or j in math, dotless variants can be
+obtained with <tt class="docutils literal">\imath</tt> and <tt class="docutils literal">\jmath</tt>: <span class="formula"><i>ı̂</i></span>, <span class="formula"><span class="embellished"><sup><span class="smallsymbol">→</span></sup><span class="base"><i>ȷ</i></span></span></span>.</p>
+<p>For embellishments that span multiple symbols, use:</p>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula"><span class="embellished"><sup>～</sup><span class="base"><i>gbi</i></span></span></span></td>
+<td><tt class="docutils literal">\widetilde{gbi}</tt></td>
+<td><span class="formula"><span class="embellished"><sup>^</sup><span class="base"><i>gbi</i></span></span></span></td>
+<td><tt class="docutils literal">\widehat{gbi}</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="overline"><i>gbi</i></span></span></td>
+<td><tt class="docutils literal">\overline{gbi}</tt></td>
+<td><span class="formula"><i>gbi</i></span></td>
+<td><tt class="docutils literal">\underline{gbi}</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="overbrace"><i>gbi</i></span></span></td>
+<td><tt class="docutils literal">\overbrace{gbi}</tt></td>
+<td><span class="formula"><span class="underbrace"><i>gbi</i></span></span></td>
+<td><tt class="docutils literal">\underbrace{gbi}</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="embellished"><sup>⟵</sup><span class="base"><i>gbi</i></span></span></span></td>
+<td><tt class="docutils literal">\overleftarrow{gbi}</tt></td>
+<td><span class="formula"><span class="embellished"><sub>⟵</sub><span class="base"><i>gbi</i></span></span></span></td>
+<td><tt class="docutils literal">\underleftarrow{gbi}</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="embellished"><sup>⟶</sup><span class="base"><i>gbi</i></span></span></span></td>
+<td><tt class="docutils literal">\overrightarrow{gbi}</tt></td>
+<td><span class="formula"><span class="embellished"><sub>⟶</sub><span class="base"><i>gbi</i></span></span></span></td>
+<td><tt class="docutils literal">\underrightarrow{gbi}</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="embellished"><sup>⟷</sup><span class="base"><i>gbi</i></span></span></span></td>
+<td><tt class="docutils literal">\overleftrightarrow{gbi}</tt></td>
+<td><span class="formula"><span class="embellished"><sub>⟷</sub><span class="base"><i>gbi</i></span></span></span></td>
+<td><tt class="docutils literal">\underleftrightarrow{gbi}</tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="binary-operators">
+<h2><a class="toc-backref" href="#toc-entry-4">2.2&nbsp;&nbsp;&nbsp;Binary operators</a></h2>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula">*</span></td>
+<td><tt class="docutils literal">*</tt></td>
+<td><span class="formula">⊛</span></td>
+<td><tt class="docutils literal">\circledast</tt></td>
+<td><span class="formula">⊖</span></td>
+<td><tt class="docutils literal">\ominus</tt></td>
+</tr>
+<tr><td><span class="formula"> + </span></td>
+<td><tt class="docutils literal">+</tt></td>
+<td><span class="formula">⊚</span></td>
+<td><tt class="docutils literal">\circledcirc</tt></td>
+<td><span class="formula">⊕</span></td>
+<td><tt class="docutils literal">\oplus</tt></td>
+</tr>
+<tr><td><span class="formula"> − </span></td>
+<td><tt class="docutils literal">-</tt></td>
+<td><span class="formula">⊝</span></td>
+<td><tt class="docutils literal">\circleddash</tt></td>
+<td><span class="formula">⊘</span></td>
+<td><tt class="docutils literal">\oslash</tt></td>
+</tr>
+<tr><td><span class="formula"> : </span></td>
+<td><tt class="docutils literal">:</tt></td>
+<td><span class="formula">∪</span></td>
+<td><tt class="docutils literal">\cup</tt></td>
+<td><span class="formula">⊗</span></td>
+<td><tt class="docutils literal">\otimes</tt></td>
+</tr>
+<tr><td><span class="formula">⋒</span></td>
+<td><tt class="docutils literal">\Cap</tt></td>
+<td><span class="formula">⋎</span></td>
+<td><tt class="docutils literal">\curlyvee</tt></td>
+<td><span class="formula">±</span></td>
+<td><tt class="docutils literal">\pm</tt></td>
+</tr>
+<tr><td><span class="formula">⋓</span></td>
+<td><tt class="docutils literal">\Cup</tt></td>
+<td><span class="formula">⋏</span></td>
+<td><tt class="docutils literal">\curlywedge</tt></td>
+<td><span class="formula">⋌</span></td>
+<td><tt class="docutils literal">\rightthreetimes</tt></td>
+</tr>
+<tr><td><span class="formula">⨿</span></td>
+<td><tt class="docutils literal">\amalg</tt></td>
+<td><span class="formula">†</span></td>
+<td><tt class="docutils literal">\dagger</tt></td>
+<td><span class="formula">⋊</span></td>
+<td><tt class="docutils literal">\rtimes</tt></td>
+</tr>
+<tr><td><span class="formula">∗</span></td>
+<td><tt class="docutils literal">\ast</tt></td>
+<td><span class="formula">‡</span></td>
+<td><tt class="docutils literal">\ddagger</tt></td>
+<td><span class="formula">⧵</span></td>
+<td><tt class="docutils literal">\setminus</tt></td>
+</tr>
+<tr><td><span class="formula">◯</span></td>
+<td><tt class="docutils literal">\bigcirc</tt></td>
+<td><span class="formula">⋄</span></td>
+<td><tt class="docutils literal">\diamond</tt></td>
+<td><span class="formula">∖</span></td>
+<td><tt class="docutils literal">\smallsetminus</tt></td>
+</tr>
+<tr><td><span class="formula">▽</span></td>
+<td><tt class="docutils literal">\bigtriangledown</tt></td>
+<td><span class="formula">÷</span></td>
+<td><tt class="docutils literal">\div</tt></td>
+<td><span class="formula">⊓</span></td>
+<td><tt class="docutils literal">\sqcap</tt></td>
+</tr>
+<tr><td><span class="formula">△</span></td>
+<td><tt class="docutils literal">\bigtriangleup</tt></td>
+<td><span class="formula">⋇</span></td>
+<td><tt class="docutils literal">\divideontimes</tt></td>
+<td><span class="formula">⊔</span></td>
+<td><tt class="docutils literal">\sqcup</tt></td>
+</tr>
+<tr><td><span class="formula">⊡</span></td>
+<td><tt class="docutils literal">\boxdot</tt></td>
+<td><span class="formula">∔</span></td>
+<td><tt class="docutils literal">\dotplus</tt></td>
+<td><span class="formula">⋆</span></td>
+<td><tt class="docutils literal">\star</tt></td>
+</tr>
+<tr><td><span class="formula">⊟</span></td>
+<td><tt class="docutils literal">\boxminus</tt></td>
+<td><span class="formula">⩞</span></td>
+<td><tt class="docutils literal">\doublebarwedge</tt></td>
+<td><span class="formula">×</span></td>
+<td><tt class="docutils literal">\times</tt></td>
+</tr>
+<tr><td><span class="formula">⊞</span></td>
+<td><tt class="docutils literal">\boxplus</tt></td>
+<td><span class="formula">⋗</span></td>
+<td><tt class="docutils literal">\gtrdot</tt></td>
+<td><span class="formula">◃</span></td>
+<td><tt class="docutils literal">\triangleleft</tt></td>
+</tr>
+<tr><td><span class="formula">⊠</span></td>
+<td><tt class="docutils literal">\boxtimes</tt></td>
+<td><span class="formula">⊺</span></td>
+<td><tt class="docutils literal">\intercal</tt></td>
+<td><span class="formula">▹</span></td>
+<td><tt class="docutils literal">\triangleright</tt></td>
+</tr>
+<tr><td><span class="formula">•</span></td>
+<td><tt class="docutils literal">\bullet</tt></td>
+<td><span class="formula">⋋</span></td>
+<td><tt class="docutils literal">\leftthreetimes</tt></td>
+<td><span class="formula">⊎</span></td>
+<td><tt class="docutils literal">\uplus</tt></td>
+</tr>
+<tr><td><span class="formula">∩</span></td>
+<td><tt class="docutils literal">\cap</tt></td>
+<td><span class="formula">⋖</span></td>
+<td><tt class="docutils literal">\lessdot</tt></td>
+<td><span class="formula">∨</span></td>
+<td><tt class="docutils literal">\vee</tt></td>
+</tr>
+<tr><td><span class="formula">⋅</span></td>
+<td><tt class="docutils literal">\cdot</tt></td>
+<td><span class="formula">⋉</span></td>
+<td><tt class="docutils literal">\ltimes</tt></td>
+<td><span class="formula">⊻</span></td>
+<td><tt class="docutils literal">\veebar</tt></td>
+</tr>
+<tr><td><span class="formula">⬝</span></td>
+<td><tt class="docutils literal">\centerdot</tt></td>
+<td><span class="formula">∓</span></td>
+<td><tt class="docutils literal">\mp</tt></td>
+<td><span class="formula">∧</span></td>
+<td><tt class="docutils literal">\wedge</tt></td>
+</tr>
+<tr><td><span class="formula">∘</span></td>
+<td><tt class="docutils literal">\circ</tt></td>
+<td><span class="formula">⊙</span></td>
+<td><tt class="docutils literal">\odot</tt></td>
+<td><span class="formula">≀</span></td>
+<td><tt class="docutils literal">\wr</tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="extensible-delimiters">
+<h2><a class="toc-backref" href="#toc-entry-5">2.3&nbsp;&nbsp;&nbsp;Extensible delimiters</a></h2>
+<p>Unless you indicate otherwise, delimiters in math formulas remain at the
+standard size regardless of the height of the enclosed material. To get
+adaptable sizes, use <tt class="docutils literal">\left</tt> and <tt class="docutils literal">\right</tt> prefixes, for example
+<span class="formula"><i>g</i>(<i>A</i>, <i>B</i>, <i>Y</i>) = <i>f</i><span class="stretchy">(</span><i>A</i>, <i>B</i>, <i>X</i> = <i>h</i><sup>[<i>X</i>]</sup>(<i>Y</i>)<span class="stretchy">)</span></span> or</p>
+<div class="formula">
+<i>a</i><sub><i>n</i></sub> = <span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><sup><i>n</i></sup>
+</div>
+<p>Use <tt class="docutils literal">.</tt> for &quot;empty&quot; delimiters:</p>
+<div class="formula">
+<i>A</i> = <span class="emptydot"></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator">1 − <i>n</i></span><span class="ignored">)</span></span> <span class="array"><span class="arrayrow"><span class="bracket align-right">|</span></span><span class="arrayrow"><span class="bracket align-right">|</span></span></span><span class="scripts"><sup class="script">∞</sup><sub class="script"><i>n</i> = 0</sub></span>
+</div>
+<p>See also the commands for fixed <a class="reference internal" href="#delimiter-sizes">delimiter sizes</a> below.</p>
+<p>The following symbols extend when used with <tt class="docutils literal">\left</tt> and <tt class="docutils literal">\right</tt>:</p>
+<div class="section" id="pairing-delimiters">
+<h3><a class="toc-backref" href="#toc-entry-6">2.3.1&nbsp;&nbsp;&nbsp;Pairing delimiters</a></h3>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula">()</span></td>
+<td><tt class="docutils literal">( )</tt></td>
+<td><span class="formula">⟨⟩</span></td>
+<td><tt class="docutils literal">\langle \rangle</tt></td>
+</tr>
+<tr><td><span class="formula">[]</span></td>
+<td><tt class="docutils literal">[ ]</tt></td>
+<td><span class="formula">⌈⌉</span></td>
+<td><tt class="docutils literal">\lceil \rceil</tt></td>
+</tr>
+<tr><td><span class="formula">{}</span></td>
+<td><tt class="docutils literal">\{ \}</tt></td>
+<td><span class="formula">⌊⌋</span></td>
+<td><tt class="docutils literal">\lfloor \rfloor</tt></td>
+</tr>
+<tr><td><span class="formula">||</span></td>
+<td><tt class="docutils literal">\lvert \rvert</tt></td>
+<td><span class="formula">⟮⟯</span></td>
+<td><tt class="docutils literal">\lgroup \rgroup</tt></td>
+</tr>
+<tr><td><span class="formula">‖‖</span></td>
+<td><tt class="docutils literal">\lVert \rVert</tt></td>
+<td><span class="formula">⎰⎱</span></td>
+<td><tt class="docutils literal">\lmoustache \rmoustache</tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="nonpairing-delimiters">
+<h3><a class="toc-backref" href="#toc-entry-7">2.3.2&nbsp;&nbsp;&nbsp;Nonpairing delimiters</a></h3>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula">|</span></td>
+<td><tt class="docutils literal">|</tt></td>
+<td><span class="formula">|</span></td>
+<td><tt class="docutils literal">\vert</tt></td>
+<td><span class="formula">⏐</span></td>
+<td><tt class="docutils literal">\arrowvert</tt></td>
+</tr>
+<tr><td><span class="formula">‖</span></td>
+<td><tt class="docutils literal">\|</tt></td>
+<td><span class="formula">‖</span></td>
+<td><tt class="docutils literal">\Vert</tt></td>
+<td><span class="formula">‖</span></td>
+<td><tt class="docutils literal">\Arrowvert</tt></td>
+</tr>
+<tr><td><span class="formula"> ⁄ </span></td>
+<td><tt class="docutils literal">/</tt></td>
+<td><span class="formula">\</span></td>
+<td><tt class="docutils literal">\backslash</tt></td>
+<td><span class="formula">⎪</span></td>
+<td><tt class="docutils literal">\bracevert</tt></td>
+</tr>
+</tbody>
+</table>
+<p>The use of <tt class="docutils literal">|</tt> and <tt class="docutils literal">\|</tt> for pairs of vertical bars may produce
+incorrect spacing, e.g., <tt class="docutils literal"><span class="pre">|k|=|-k|</span></tt> produces <span class="formula">|<i>k</i>| = | − <i>k</i>|</span> and
+<tt class="docutils literal">|\sin(x)|</tt> produces <span class="formula">|sin(<i>x</i>)|</span>. The pairing delimiters, e.g.
+<span class="formula">| − <i>k</i>|</span> and <span class="formula">|sin(<i>x</i>)|</span>, prevent this problem.</p>
+</div>
+</div>
+<div class="section" id="extensible-vertical-arrows">
+<h2><a class="toc-backref" href="#toc-entry-8">2.4&nbsp;&nbsp;&nbsp;Extensible vertical arrows</a></h2>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula"> ↑ </span>     <tt class="docutils literal">\uparrow</tt></td>
+<td><span class="formula"> ⇑ </span>     <tt class="docutils literal">\Uparrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↓ </span>   <tt class="docutils literal">\downarrow</tt></td>
+<td><span class="formula"> ⇓ </span>   <tt class="docutils literal">\Downarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↕ </span> <tt class="docutils literal">\updownarrow</tt></td>
+<td><span class="formula"> ⇕ </span> <tt class="docutils literal">\Updownarrow</tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions-named-operators">
+<h2><a class="toc-backref" href="#toc-entry-9">2.5&nbsp;&nbsp;&nbsp;Functions (named operators)</a></h2>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula">arccos</span></td>
+<td><tt class="docutils literal">\arccos</tt></td>
+<td><span class="formula">gcd</span></td>
+<td><tt class="docutils literal">\gcd</tt></td>
+<td><span class="formula">Pr</span></td>
+<td><tt class="docutils literal">\Pr</tt></td>
+</tr>
+<tr><td><span class="formula">arcsin</span></td>
+<td><tt class="docutils literal">\arcsin</tt></td>
+<td><span class="formula">hom</span></td>
+<td><tt class="docutils literal">\hom</tt></td>
+<td><span class="formula">proj lim</span></td>
+<td><tt class="docutils literal">\projlim</tt></td>
+</tr>
+<tr><td><span class="formula">arctan</span></td>
+<td><tt class="docutils literal">\arctan</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit">inf</span></span></span></td>
+<td><tt class="docutils literal">\inf</tt></td>
+<td><span class="formula">sec</span></td>
+<td><tt class="docutils literal">\sec</tt></td>
+</tr>
+<tr><td><span class="formula">arg</span></td>
+<td><tt class="docutils literal">\arg</tt></td>
+<td><span class="formula">inj lim</span></td>
+<td><tt class="docutils literal">\injlim</tt></td>
+<td><span class="formula">sin</span></td>
+<td><tt class="docutils literal">\sin</tt></td>
+</tr>
+<tr><td><span class="formula">cos</span></td>
+<td><tt class="docutils literal">\cos</tt></td>
+<td><span class="formula">ker</span></td>
+<td><tt class="docutils literal">\ker</tt></td>
+<td><span class="formula">sinh</span></td>
+<td><tt class="docutils literal">\sinh</tt></td>
+</tr>
+<tr><td><span class="formula">cosh</span></td>
+<td><tt class="docutils literal">\cosh</tt></td>
+<td><span class="formula">lg</span></td>
+<td><tt class="docutils literal">\lg</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit">sup</span></span></span></td>
+<td><tt class="docutils literal">\sup</tt></td>
+</tr>
+<tr><td><span class="formula">cot</span></td>
+<td><tt class="docutils literal">\cot</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit">lim</span></span></span></td>
+<td><tt class="docutils literal">\lim</tt></td>
+<td><span class="formula">tan</span></td>
+<td><tt class="docutils literal">\tan</tt></td>
+</tr>
+<tr><td><span class="formula">coth</span></td>
+<td><tt class="docutils literal">\coth</tt></td>
+<td><span class="formula">lim inf</span></td>
+<td><tt class="docutils literal">\liminf</tt></td>
+<td><span class="formula">tanh</span></td>
+<td><tt class="docutils literal">\tanh</tt></td>
+</tr>
+<tr><td><span class="formula">csc</span></td>
+<td><tt class="docutils literal">\csc</tt></td>
+<td><span class="formula">lim sup</span></td>
+<td><tt class="docutils literal">\limsup</tt></td>
+<td><span class="formula"><span class="unknown">\varlimsup</span></span></td>
+<td><tt class="docutils literal">\varlimsup</tt></td>
+</tr>
+<tr><td><span class="formula">deg</span></td>
+<td><tt class="docutils literal">\deg</tt></td>
+<td><span class="formula">ln</span></td>
+<td><tt class="docutils literal">\ln</tt></td>
+<td><span class="formula"><span class="unknown">\varliminf</span></span></td>
+<td><tt class="docutils literal">\varliminf</tt></td>
+</tr>
+<tr><td><span class="formula">det</span></td>
+<td><tt class="docutils literal">\det</tt></td>
+<td><span class="formula">log</span></td>
+<td><tt class="docutils literal">\log</tt></td>
+<td><span class="formula"><span class="unknown">\varprojlim</span></span></td>
+<td><tt class="docutils literal">\varprojlim</tt></td>
+</tr>
+<tr><td><span class="formula">dim</span></td>
+<td><tt class="docutils literal">\dim</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit">max</span></span></span></td>
+<td><tt class="docutils literal">\max</tt></td>
+<td><span class="formula"><span class="unknown">\varinjlim</span></span></td>
+<td><tt class="docutils literal">\varinjlim</tt></td>
+</tr>
+<tr><td><span class="formula">exp</span></td>
+<td><tt class="docutils literal">\exp</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit">min</span></span></span></td>
+<td><tt class="docutils literal">\min</tt></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>Named operators outside the above list can be typeset with
+<tt class="docutils literal">\operatorname{name}</tt>, e.g.</p>
+<div class="formula">
+<span class="mathrm">sgn</span>( − 3) =  − 1.
+</div>
+<!-- TODO: \operatorname* for function name with limits. -->
+<p>The <tt class="docutils literal">\DeclareMathOperator</tt> command can only be used in the
+<a class="reference external" href="latex.html#latex-preamble">LaTeX preamble</a>.</p>
+</div>
+<div class="section" id="greek-letters">
+<h2><a class="toc-backref" href="#toc-entry-10">2.6&nbsp;&nbsp;&nbsp;Greek letters</a></h2>
+<p>Greek letters that have Latin look-alikes are rarely used in math
+formulas and not supported by LaTeX.</p>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula">Γ</span></td>
+<td><tt class="docutils literal">\Gamma</tt></td>
+<td><span class="formula"><i>α</i></span></td>
+<td><tt class="docutils literal">\alpha</tt></td>
+<td><span class="formula"><i>μ</i></span></td>
+<td><tt class="docutils literal">\mu</tt></td>
+<td><span class="formula"><i>ω</i></span></td>
+<td><tt class="docutils literal">\omega</tt></td>
+</tr>
+<tr><td><span class="formula">Δ</span></td>
+<td><tt class="docutils literal">\Delta</tt></td>
+<td><span class="formula"><i>β</i></span></td>
+<td><tt class="docutils literal">\beta</tt></td>
+<td><span class="formula"><i>ν</i></span></td>
+<td><tt class="docutils literal">\nu</tt></td>
+<td><span class="formula"><i>ϝ</i></span></td>
+<td><tt class="docutils literal">\digamma</tt></td>
+</tr>
+<tr><td><span class="formula">Λ</span></td>
+<td><tt class="docutils literal">\Lambda</tt></td>
+<td><span class="formula"><i>γ</i></span></td>
+<td><tt class="docutils literal">\gamma</tt></td>
+<td><span class="formula"><i>ξ</i></span></td>
+<td><tt class="docutils literal">\xi</tt></td>
+<td><span class="formula"><i>ε</i></span></td>
+<td><tt class="docutils literal">\varepsilon</tt></td>
+</tr>
+<tr><td><span class="formula">Φ</span></td>
+<td><tt class="docutils literal">\Phi</tt></td>
+<td><span class="formula"><i>δ</i></span></td>
+<td><tt class="docutils literal">\delta</tt></td>
+<td><span class="formula"><i>π</i></span></td>
+<td><tt class="docutils literal">\pi</tt></td>
+<td><span class="formula"><i>ϰ</i></span></td>
+<td><tt class="docutils literal">\varkappa</tt></td>
+</tr>
+<tr><td><span class="formula">Π</span></td>
+<td><tt class="docutils literal">\Pi</tt></td>
+<td><span class="formula"><i>ϵ</i></span></td>
+<td><tt class="docutils literal">\epsilon</tt></td>
+<td><span class="formula"><i>ρ</i></span></td>
+<td><tt class="docutils literal">\rho</tt></td>
+<td><span class="formula"><i>φ</i></span></td>
+<td><tt class="docutils literal">\varphi</tt></td>
+</tr>
+<tr><td><span class="formula">Ψ</span></td>
+<td><tt class="docutils literal">\Psi</tt></td>
+<td><span class="formula"><i>ζ</i></span></td>
+<td><tt class="docutils literal">\zeta</tt></td>
+<td><span class="formula"><i>σ</i></span></td>
+<td><tt class="docutils literal">\sigma</tt></td>
+<td><span class="formula"><i>ϖ</i></span></td>
+<td><tt class="docutils literal">\varpi</tt></td>
+</tr>
+<tr><td><span class="formula">Σ</span></td>
+<td><tt class="docutils literal">\Sigma</tt></td>
+<td><span class="formula"><i>η</i></span></td>
+<td><tt class="docutils literal">\eta</tt></td>
+<td><span class="formula"><i>τ</i></span></td>
+<td><tt class="docutils literal">\tau</tt></td>
+<td><span class="formula"><i>ϱ</i></span></td>
+<td><tt class="docutils literal">\varrho</tt></td>
+</tr>
+<tr><td><span class="formula">Θ</span></td>
+<td><tt class="docutils literal">\Theta</tt></td>
+<td><span class="formula"><i>θ</i></span></td>
+<td><tt class="docutils literal">\theta</tt></td>
+<td><span class="formula"><i>υ</i></span></td>
+<td><tt class="docutils literal">\upsilon</tt></td>
+<td><span class="formula"><i>ς</i></span></td>
+<td><tt class="docutils literal">\varsigma</tt></td>
+</tr>
+<tr><td><span class="formula">Υ</span></td>
+<td><tt class="docutils literal">\Upsilon</tt></td>
+<td><span class="formula"><i>ι</i></span></td>
+<td><tt class="docutils literal">\iota</tt></td>
+<td><span class="formula"><i>ϕ</i></span></td>
+<td><tt class="docutils literal">\phi</tt></td>
+<td><span class="formula"><i>ϑ</i></span></td>
+<td><tt class="docutils literal">\vartheta</tt></td>
+</tr>
+<tr><td><span class="formula">Ξ</span></td>
+<td><tt class="docutils literal">\Xi</tt></td>
+<td><span class="formula"><i>κ</i></span></td>
+<td><tt class="docutils literal">\kappa</tt></td>
+<td><span class="formula"><i>χ</i></span></td>
+<td><tt class="docutils literal">\chi</tt></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><span class="formula">Ω</span></td>
+<td><tt class="docutils literal">\Omega</tt></td>
+<td><span class="formula"><i>λ</i></span></td>
+<td><tt class="docutils literal">\lambda</tt></td>
+<td><span class="formula"><i>ψ</i></span></td>
+<td><tt class="docutils literal">\psi</tt></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>In LaTeX, the default font for capital Greek letters is upright/roman.
+<em>Italic</em> capital Greek letters can be obtained by loading a <a class="reference external" href="https://mirrors.ctan.org/macros/latex/contrib/isomath/isomath.html#table-2">package
+providing the &quot;ISO&quot; math style</a>. They are used by default in MathML.</p>
+<p>Individual Greek italic capitals can also be achieved preceding the
+letter name with <tt class="docutils literal">var</tt> like <tt class="docutils literal">\varPhi</tt>:
+<span class="formula"><i>𝛤</i> <i>𝛥</i> <i>𝛬</i> <i>𝛷</i> <i>𝛱</i> <i>𝛹</i> <i>𝛴</i> <i>𝛩</i> <i>𝛶</i> <i>𝛯</i> <i>𝛺</i></span></p>
+</div>
+<div class="section" id="letterlike-symbols">
+<h2><a class="toc-backref" href="#toc-entry-11">2.7&nbsp;&nbsp;&nbsp;Letterlike symbols</a></h2>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula">∀</span></td>
+<td><tt class="docutils literal">\forall</tt></td>
+<td><span class="formula"><i>ℵ</i></span></td>
+<td><tt class="docutils literal">\aleph</tt></td>
+<td><span class="formula"><i>ħ</i></span></td>
+<td><tt class="docutils literal">\hbar</tt></td>
+<td><span class="formula"><i>ℓ</i></span></td>
+<td><tt class="docutils literal">\ell</tt></td>
+</tr>
+<tr><td><span class="formula">∁</span></td>
+<td><tt class="docutils literal">\complement</tt></td>
+<td><span class="formula"><i>ℶ</i></span></td>
+<td><tt class="docutils literal">\beth</tt></td>
+<td><span class="formula"><i>ℏ</i></span></td>
+<td><tt class="docutils literal">\hslash</tt></td>
+<td><span class="formula"><i>℘</i></span></td>
+<td><tt class="docutils literal">\wp</tt></td>
+</tr>
+<tr><td><span class="formula">∃</span></td>
+<td><tt class="docutils literal">\exists</tt></td>
+<td><span class="formula"><i>ℷ</i></span></td>
+<td><tt class="docutils literal">\gimel</tt></td>
+<td><span class="formula"><i>ℑ</i></span></td>
+<td><tt class="docutils literal">\Im</tt></td>
+<td><span class="formula"><i>ℜ</i></span></td>
+<td><tt class="docutils literal">\Re</tt></td>
+</tr>
+<tr><td><span class="formula">Ⅎ</span></td>
+<td><tt class="docutils literal">\Finv</tt></td>
+<td><span class="formula"><i>ℸ</i></span></td>
+<td><tt class="docutils literal">\daleth</tt></td>
+<td><span class="formula"><i>ı</i></span></td>
+<td><tt class="docutils literal">\imath</tt></td>
+<td><span class="formula">Ⓡ</span></td>
+<td><tt class="docutils literal">\circledR</tt></td>
+</tr>
+<tr><td><span class="formula">⅁</span></td>
+<td><tt class="docutils literal">\Game</tt></td>
+<td><span class="formula">∂</span></td>
+<td><tt class="docutils literal">\partial</tt></td>
+<td><span class="formula"><i>ȷ</i></span></td>
+<td><tt class="docutils literal">\jmath</tt></td>
+<td><span class="formula">Ⓢ</span></td>
+<td><tt class="docutils literal">\circledS</tt></td>
+</tr>
+<tr><td><span class="formula">℧</span></td>
+<td><tt class="docutils literal">\mho</tt></td>
+<td><span class="formula"><i>ð</i></span></td>
+<td><tt class="docutils literal">\eth</tt></td>
+<td><span class="formula"><i>𝕜</i></span></td>
+<td><tt class="docutils literal">\Bbbk</tt></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mathematical-alphabets">
+<h2><a class="toc-backref" href="#toc-entry-12">2.8&nbsp;&nbsp;&nbsp;Mathematical Alphabets</a></h2>
+<p>Mathematical alphabets select a combination of font attributes (shape,
+weight, family) <a class="footnote-reference" href="#footnote-1" id="footnote-reference-3">[2]</a>. They are intended for mathematical variables where
+style variations are important semantically.</p>
+<table border="1" class="docutils">
+<thead valign="bottom">
+<tr><th class="head">command</th>
+<th class="head">example</th>
+<th class="head">result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal">\mathbf</tt></td>
+<td><tt class="docutils literal"><span class="pre">\mathbf{r}^2=x^2+y^2+z^2</span></tt></td>
+<td><span class="formula"><b>r</b><sup>2</sup> = <i>x</i><sup>2</sup> + <i>y</i><sup>2</sup> + <i>z</i><sup>2</sup></span></td>
+</tr>
+<tr><td><tt class="docutils literal">\mathbb</tt></td>
+<td><tt class="docutils literal">\mathbb{R \subset C}</tt></td>
+<td><span class="formula"><span class="blackboard">R ⊂ C</span></span></td>
+</tr>
+<tr><td><tt class="docutils literal">\mathcal</tt></td>
+<td><tt class="docutils literal">\mathcal{F}f(x)</tt></td>
+<td><span class="formula">ℱ<i>f</i>(<i>x</i>)</span></td>
+</tr>
+<tr><td><tt class="docutils literal">\mathfrak</tt></td>
+<td><tt class="docutils literal">\mathfrak{a}</tt></td>
+<td><span class="formula"><span class="fraktur">a</span></span></td>
+</tr>
+<tr><td><tt class="docutils literal">\mathit</tt></td>
+<td><tt class="docutils literal"><span class="pre">\mathit{\Gamma}</span></tt></td>
+<td><span class="formula"><i>Γ</i></span></td>
+</tr>
+<tr><td><tt class="docutils literal">\mathrm</tt></td>
+<td><tt class="docutils literal">s_\mathrm{out}</tt></td>
+<td><span class="formula"><i>s</i><sub><span class="mathrm">out</span></sub></span></td>
+</tr>
+<tr><td><tt class="docutils literal">\mathsf</tt></td>
+<td><tt class="docutils literal">\mathsf x</tt></td>
+<td><span class="formula"><span class="mathsf">x</span></span></td>
+</tr>
+<tr><td><tt class="docutils literal">\mathtt</tt></td>
+<td><tt class="docutils literal">\mathtt{0.12}</tt></td>
+<td><span class="formula"><span class="mathtt">0.12</span></span></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-3">[2]</a></td><td>TeX’s <em>math alphabets</em> correspond to the <a class="reference external" href="https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols">mathematical
+alphanumeric symbols</a> block in Unicode and the &quot;mathvariant&quot; <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/MathML/Attribute">style
+attribute</a> in MathML.</td></tr>
+</tbody>
+</table>
+<p>Additional alphabets are defined in LaTeX packages, e.g.</p>
+<table border="1" class="docutils">
+<thead valign="bottom">
+<tr><th class="head">TeX command</th>
+<th class="head">LaTeX package</th>
+<th class="head">MathML &quot;mathvariant&quot;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>mathbfit</td>
+<td><a class="reference external" href="https://www.ctan.org/pkg/isomath">isomath</a></td>
+<td>bold-italic</td>
+</tr>
+<tr><td>mathsfit</td>
+<td><a class="reference external" href="https://www.ctan.org/pkg/isomath">isomath</a></td>
+<td>sans-serif-italic</td>
+</tr>
+<tr><td>mathsfbfit</td>
+<td><a class="reference external" href="https://www.ctan.org/pkg/isomath">isomath</a></td>
+<td>sans-serif-bold-italic</td>
+</tr>
+<tr><td>mathscr</td>
+<td><a class="reference external" href="https://www.ctan.org/pkg/mathrsfs">mathrsfs</a></td>
+<td>script</td>
+</tr>
+</tbody>
+</table>
+<p>This can be used to typeset vector symbols in bold italic
+in line with the International Standard [ISO-80000-2].</p>
+<!-- ``\mathbfit{r}^2=x^2+y^2+z^2`` becomes
+
+.. math:: \mathbfit{r}^2=x^2+y^2+z^2. -->
+<p>The package <a class="reference external" href="https://www.ctan.org/pkg/mathrsfs">mathrsfs</a> (and some drop-in replacements) define the <tt class="docutils literal">\mathscr</tt>
+macro that selects a differently shaped &quot;script&quot; alphabet.
+Compare <span class="formula"><span class="mathscr">A, B, …, Z, a, b, …, z</span></span>
+with <span class="formula"><span class="scriptfont">A, B, …, Z, a, b, …, z</span></span>.</p>
+<p>In contrast to the math alphabet selectors, <tt class="docutils literal">\boldsymbol</tt> only changes
+the <em>font weight</em>. In LaTeX, it can be used to get a bold version of any
+mathematical symbol (for other output formats, results are mixed):</p>
+<div class="formula">
+<b>cos(x)±α ≈ 3Γ ∀x ∈ ℝ</b>
+</div>
+</div>
+<div class="section" id="miscellaneous-symbols">
+<h2><a class="toc-backref" href="#toc-entry-13">2.9&nbsp;&nbsp;&nbsp;Miscellaneous symbols</a></h2>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula">#</span></td>
+<td><tt class="docutils literal">\#</tt></td>
+<td><span class="formula">♣</span></td>
+<td><tt class="docutils literal">\clubsuit</tt></td>
+<td><span class="formula">¬</span></td>
+<td><tt class="docutils literal">\neg</tt></td>
+</tr>
+<tr><td><span class="formula">&</span></td>
+<td><tt class="docutils literal">\&amp;</tt></td>
+<td><span class="formula">♢</span></td>
+<td><tt class="docutils literal">\diamondsuit</tt></td>
+<td><span class="formula">∄</span></td>
+<td><tt class="docutils literal">\nexists</tt></td>
+</tr>
+<tr><td><span class="formula">∠</span></td>
+<td><tt class="docutils literal">\angle</tt></td>
+<td><span class="formula">∅</span></td>
+<td><tt class="docutils literal">\emptyset</tt></td>
+<td><span class="formula">′</span></td>
+<td><tt class="docutils literal">\prime</tt></td>
+</tr>
+<tr><td><span class="formula">‵</span></td>
+<td><tt class="docutils literal">\backprime</tt></td>
+<td><span class="formula">∃</span></td>
+<td><tt class="docutils literal">\exists</tt></td>
+<td><span class="formula">♯</span></td>
+<td><tt class="docutils literal">\sharp</tt></td>
+</tr>
+<tr><td><span class="formula">★</span></td>
+<td><tt class="docutils literal">\bigstar</tt></td>
+<td><span class="formula">♭</span></td>
+<td><tt class="docutils literal">\flat</tt></td>
+<td><span class="formula">♠</span></td>
+<td><tt class="docutils literal">\spadesuit</tt></td>
+</tr>
+<tr><td><span class="formula">⧫</span></td>
+<td><tt class="docutils literal">\blacklozenge</tt></td>
+<td><span class="formula">∀</span></td>
+<td><tt class="docutils literal">\forall</tt></td>
+<td><span class="formula">∢</span></td>
+<td><tt class="docutils literal">\sphericalangle</tt></td>
+</tr>
+<tr><td><span class="formula">◼</span></td>
+<td><tt class="docutils literal">\blacksquare</tt></td>
+<td><span class="formula">♡</span></td>
+<td><tt class="docutils literal">\heartsuit</tt></td>
+<td><span class="formula">◻</span></td>
+<td><tt class="docutils literal">\square</tt></td>
+</tr>
+<tr><td><span class="formula">▴</span></td>
+<td><tt class="docutils literal">\blacktriangle</tt></td>
+<td><span class="formula">∞</span></td>
+<td><tt class="docutils literal">\infty</tt></td>
+<td><span class="formula">√</span></td>
+<td><tt class="docutils literal">\surd</tt></td>
+</tr>
+<tr><td><span class="formula">▾</span></td>
+<td><tt class="docutils literal">\blacktriangledown</tt></td>
+<td><span class="formula">◊</span></td>
+<td><tt class="docutils literal">\lozenge</tt></td>
+<td><span class="formula">⊤</span></td>
+<td><tt class="docutils literal">\top</tt></td>
+</tr>
+<tr><td><span class="formula">⊥</span></td>
+<td><tt class="docutils literal">\bot</tt></td>
+<td><span class="formula">∡</span></td>
+<td><tt class="docutils literal">\measuredangle</tt></td>
+<td><span class="formula">△</span></td>
+<td><tt class="docutils literal">\triangle</tt></td>
+</tr>
+<tr><td><span class="formula">⟍</span></td>
+<td><tt class="docutils literal">\diagdown</tt></td>
+<td><span class="formula">∇</span></td>
+<td><tt class="docutils literal">\nabla</tt></td>
+<td><span class="formula">▽</span></td>
+<td><tt class="docutils literal">\triangledown</tt></td>
+</tr>
+<tr><td><span class="formula">⟋</span></td>
+<td><tt class="docutils literal">\diagup</tt></td>
+<td><span class="formula">♮</span></td>
+<td><tt class="docutils literal">\natural</tt></td>
+<td><span class="formula">⌀</span></td>
+<td><tt class="docutils literal">\varnothing</tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="punctuation">
+<h2><a class="toc-backref" href="#toc-entry-14">2.10&nbsp;&nbsp;&nbsp;Punctuation</a></h2>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula">.</span></td>
+<td><tt class="docutils literal">.</tt></td>
+<td><span class="formula">!</span></td>
+<td><tt class="docutils literal">!</tt></td>
+<td><span class="formula">⋮</span></td>
+<td><tt class="docutils literal">\vdots</tt></td>
+</tr>
+<tr><td><span class="formula"> ⁄ </span></td>
+<td><tt class="docutils literal">/</tt></td>
+<td><span class="formula">?</span></td>
+<td><tt class="docutils literal">?</tt></td>
+<td><span class="formula">⋯</span></td>
+<td><tt class="docutils literal">\dotsb</tt></td>
+</tr>
+<tr><td><span class="formula">|</span></td>
+<td><tt class="docutils literal">|</tt></td>
+<td><span class="formula">: </span></td>
+<td><tt class="docutils literal">\colon</tt> <a class="footnote-reference" href="#footnote-2" id="footnote-reference-4">[3]</a></td>
+<td><span class="formula">…</span></td>
+<td><tt class="docutils literal">\dotsc</tt></td>
+</tr>
+<tr><td><span class="formula">’</span></td>
+<td><tt class="docutils literal">'</tt></td>
+<td><span class="formula">⋯</span></td>
+<td><tt class="docutils literal">\cdots</tt></td>
+<td><span class="formula">⋯</span></td>
+<td><tt class="docutils literal">\dotsi</tt></td>
+</tr>
+<tr><td><span class="formula">;</span></td>
+<td><tt class="docutils literal">;</tt></td>
+<td><span class="formula">⋱</span></td>
+<td><tt class="docutils literal">\ddots</tt></td>
+<td><span class="formula">⋯</span></td>
+<td><tt class="docutils literal">\dotsm</tt></td>
+</tr>
+<tr><td><span class="formula"> : </span></td>
+<td><tt class="docutils literal">:</tt></td>
+<td><span class="formula">…</span></td>
+<td><tt class="docutils literal">\ldots</tt></td>
+<td><span class="formula">…</span></td>
+<td><tt class="docutils literal">\dotso</tt></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-4">[3]</a></td><td>Punctuation (not ratio):
+Compare spacing in <span class="formula"><i>a</i>: <i>b</i> → <i>c</i></span> to <span class="formula"><i>a</i> : <i>b</i> = <i>c</i></span>.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="relation-symbols">
+<h2><a class="toc-backref" href="#toc-entry-15">2.11&nbsp;&nbsp;&nbsp;Relation symbols</a></h2>
+<div class="section" id="arrows">
+<h3><a class="toc-backref" href="#toc-entry-16">2.11.1&nbsp;&nbsp;&nbsp;Arrows</a></h3>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula"> ↺ </span></td>
+<td><tt class="docutils literal">\circlearrowleft</tt></td>
+<td><span class="formula"> ↻ </span></td>
+<td><tt class="docutils literal">\circlearrowright</tt></td>
+</tr>
+<tr><td><span class="formula"> ↶ </span></td>
+<td><tt class="docutils literal">\curvearrowleft</tt></td>
+<td><span class="formula"> ↷ </span></td>
+<td><tt class="docutils literal">\curvearrowright</tt></td>
+</tr>
+<tr><td><span class="formula"> ↩ </span></td>
+<td><tt class="docutils literal">\hookleftarrow</tt></td>
+<td><span class="formula"> ↪ </span></td>
+<td><tt class="docutils literal">\hookrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ← </span></td>
+<td><tt class="docutils literal">\leftarrow</tt></td>
+<td><span class="formula"> → </span></td>
+<td><tt class="docutils literal">\rightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ⇐ </span></td>
+<td><tt class="docutils literal">\Leftarrow</tt></td>
+<td><span class="formula"> ⇒ </span></td>
+<td><tt class="docutils literal">\Rightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↢ </span></td>
+<td><tt class="docutils literal">\leftarrowtail</tt></td>
+<td><span class="formula"> ↣ </span></td>
+<td><tt class="docutils literal">\rightarrowtail</tt></td>
+</tr>
+<tr><td><span class="formula"> ↽ </span></td>
+<td><tt class="docutils literal">\leftharpoondown</tt></td>
+<td><span class="formula"> ⇁ </span></td>
+<td><tt class="docutils literal">\rightharpoondown</tt></td>
+</tr>
+<tr><td><span class="formula"> ↼ </span></td>
+<td><tt class="docutils literal">\leftharpoonup</tt></td>
+<td><span class="formula"> ⇀ </span></td>
+<td><tt class="docutils literal">\rightharpoonup</tt></td>
+</tr>
+<tr><td><span class="formula"> ⇇ </span></td>
+<td><tt class="docutils literal">\leftleftarrows</tt></td>
+<td><span class="formula"> ⇉ </span></td>
+<td><tt class="docutils literal">\rightrightarrows</tt></td>
+</tr>
+<tr><td><span class="formula"> ↔ </span></td>
+<td><tt class="docutils literal">\leftrightarrow</tt></td>
+<td><span class="formula"> ⇔ </span></td>
+<td><tt class="docutils literal">\Leftrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ⇆ </span></td>
+<td><tt class="docutils literal">\leftrightarrows</tt></td>
+<td><span class="formula"> ⇄ </span></td>
+<td><tt class="docutils literal">\rightleftarrows</tt></td>
+</tr>
+<tr><td><span class="formula"> ⇋ </span></td>
+<td><tt class="docutils literal">\leftrightharpoons</tt></td>
+<td><span class="formula"> ⇌ </span></td>
+<td><tt class="docutils literal">\rightleftharpoons</tt></td>
+</tr>
+<tr><td><span class="formula"> ↭ </span></td>
+<td><tt class="docutils literal">\leftrightsquigarrow</tt></td>
+<td><span class="formula"> ⇝ </span></td>
+<td><tt class="docutils literal">\rightsquigarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ⇚ </span></td>
+<td><tt class="docutils literal">\Lleftarrow</tt></td>
+<td><span class="formula"> ⇛ </span></td>
+<td><tt class="docutils literal">\Rrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ⟵ </span></td>
+<td><tt class="docutils literal">\longleftarrow</tt></td>
+<td><span class="formula"> ⟶ </span></td>
+<td><tt class="docutils literal">\longrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ⟸ </span></td>
+<td><tt class="docutils literal">\Longleftarrow</tt></td>
+<td><span class="formula"> ⟹ </span></td>
+<td><tt class="docutils literal">\Longrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ⟷ </span></td>
+<td><tt class="docutils literal">\longleftrightarrow</tt></td>
+<td><span class="formula"> ⟺ </span></td>
+<td><tt class="docutils literal">\Longleftrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↫ </span></td>
+<td><tt class="docutils literal">\looparrowleft</tt></td>
+<td><span class="formula"> ↬ </span></td>
+<td><tt class="docutils literal">\looparrowright</tt></td>
+</tr>
+<tr><td><span class="formula"> ↰ </span></td>
+<td><tt class="docutils literal">\Lsh</tt></td>
+<td><span class="formula"> ↱ </span></td>
+<td><tt class="docutils literal">\Rsh</tt></td>
+</tr>
+<tr><td><span class="formula"> ↦ </span></td>
+<td><tt class="docutils literal">\mapsto</tt></td>
+<td><span class="formula"> ⟼ </span></td>
+<td><tt class="docutils literal">\longmapsto</tt></td>
+</tr>
+<tr><td><span class="formula"> ⊸ </span></td>
+<td><tt class="docutils literal">\multimap</tt></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><span class="formula"> ↚ </span></td>
+<td><tt class="docutils literal">\nleftarrow</tt></td>
+<td><span class="formula"> ↛ </span></td>
+<td><tt class="docutils literal">\nrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ⇍ </span></td>
+<td><tt class="docutils literal">\nLeftarrow</tt></td>
+<td><span class="formula"> ⇏ </span></td>
+<td><tt class="docutils literal">\nRightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↮ </span></td>
+<td><tt class="docutils literal">\nleftrightarrow</tt></td>
+<td><span class="formula"> ⇎ </span></td>
+<td><tt class="docutils literal">\nLeftrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↖ </span></td>
+<td><tt class="docutils literal">\nwarrow</tt></td>
+<td><span class="formula"> ↗ </span></td>
+<td><tt class="docutils literal">\nearrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↙ </span></td>
+<td><tt class="docutils literal">\swarrow</tt></td>
+<td><span class="formula"> ↘ </span></td>
+<td><tt class="docutils literal">\searrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↞ </span></td>
+<td><tt class="docutils literal">\twoheadleftarrow</tt></td>
+<td><span class="formula"> ↠ </span></td>
+<td><tt class="docutils literal">\twoheadrightarrow</tt></td>
+</tr>
+<tr><td><span class="formula"> ↿ </span></td>
+<td><tt class="docutils literal">\upharpoonleft</tt></td>
+<td><span class="formula"> ↾ </span></td>
+<td><tt class="docutils literal">\upharpoonright</tt></td>
+</tr>
+<tr><td><span class="formula"> ⇃ </span></td>
+<td><tt class="docutils literal">\downharpoonleft</tt></td>
+<td><span class="formula"> ⇂ </span></td>
+<td><tt class="docutils literal">\downharpoonright</tt></td>
+</tr>
+<tr><td><span class="formula"> ⇈ </span></td>
+<td><tt class="docutils literal">\upuparrows</tt></td>
+<td><span class="formula"> ⇊ </span></td>
+<td><tt class="docutils literal">\downdownarrows</tt></td>
+</tr>
+</tbody>
+</table>
+<p>Synonyms: <span class="formula"> ← </span> <tt class="docutils literal">\gets</tt>, <span class="formula"> → </span> <tt class="docutils literal">\to</tt>, <span class="formula"> ↾ </span> <tt class="docutils literal">\restriction</tt>.</p>
+</div>
+<div class="section" id="comparison">
+<h3><a class="toc-backref" href="#toc-entry-17">2.11.2&nbsp;&nbsp;&nbsp;Comparison</a></h3>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula"> &lt; </span></td>
+<td><tt class="docutils literal">&lt;</tt></td>
+<td><span class="formula"> ≥ </span></td>
+<td><tt class="docutils literal">\geq</tt></td>
+<td><span class="formula"> ≪ </span></td>
+<td><tt class="docutils literal">\ll</tt></td>
+<td><span class="formula"> ≺ </span></td>
+<td><tt class="docutils literal">\prec</tt></td>
+</tr>
+<tr><td><span class="formula"> = </span></td>
+<td><tt class="docutils literal">=</tt></td>
+<td><span class="formula"> ≧ </span></td>
+<td><tt class="docutils literal">\geqq</tt></td>
+<td><span class="formula"> ⋘ </span></td>
+<td><tt class="docutils literal">\lll</tt></td>
+<td><span class="formula"> ⪷ </span></td>
+<td><tt class="docutils literal">\precapprox</tt></td>
+</tr>
+<tr><td><span class="formula"> &gt; </span></td>
+<td><tt class="docutils literal">&gt;</tt></td>
+<td><span class="formula"> ⩾ </span></td>
+<td><tt class="docutils literal">\geqslant</tt></td>
+<td><span class="formula"> ⪉ </span></td>
+<td><tt class="docutils literal">\lnapprox</tt></td>
+<td><span class="formula"> ≼ </span></td>
+<td><tt class="docutils literal">\preccurlyeq</tt></td>
+</tr>
+<tr><td><span class="formula"> ≈ </span></td>
+<td><tt class="docutils literal">\approx</tt></td>
+<td><span class="formula"> ≫ </span></td>
+<td><tt class="docutils literal">\gg</tt></td>
+<td><span class="formula"> ⪇ </span></td>
+<td><tt class="docutils literal">\lneq</tt></td>
+<td><span class="formula"> ⪯ </span></td>
+<td><tt class="docutils literal">\preceq</tt></td>
+</tr>
+<tr><td><span class="formula"> ≊ </span></td>
+<td><tt class="docutils literal">\approxeq</tt></td>
+<td><span class="formula"> ⋙ </span></td>
+<td><tt class="docutils literal">\ggg</tt></td>
+<td><span class="formula"> ≨ </span></td>
+<td><tt class="docutils literal">\lneqq</tt></td>
+<td><span class="formula"> ⪹ </span></td>
+<td><tt class="docutils literal">\precnapprox</tt></td>
+</tr>
+<tr><td><span class="formula"> ≍ </span></td>
+<td><tt class="docutils literal">\asymp</tt></td>
+<td><span class="formula"> ⪊ </span></td>
+<td><tt class="docutils literal">\gnapprox</tt></td>
+<td><span class="formula"> ⋦ </span></td>
+<td><tt class="docutils literal">\lnsim</tt></td>
+<td><span class="formula"> ⪵ </span></td>
+<td><tt class="docutils literal">\precneqq</tt></td>
+</tr>
+<tr><td><span class="formula"> ∽ </span></td>
+<td><tt class="docutils literal">\backsim</tt></td>
+<td><span class="formula"> ⪈ </span></td>
+<td><tt class="docutils literal">\gneq</tt></td>
+<td><span class="formula"> ≇ </span></td>
+<td><tt class="docutils literal">\ncong</tt></td>
+<td><span class="formula"> ⋨ </span></td>
+<td><tt class="docutils literal">\precnsim</tt></td>
+</tr>
+<tr><td><span class="formula"> ⋍ </span></td>
+<td><tt class="docutils literal">\backsimeq</tt></td>
+<td><span class="formula"> ≩ </span></td>
+<td><tt class="docutils literal">\gneqq</tt></td>
+<td><span class="formula"> ≠ </span></td>
+<td><tt class="docutils literal">\neq</tt></td>
+<td><span class="formula"> ≾ </span></td>
+<td><tt class="docutils literal">\precsim</tt></td>
+</tr>
+<tr><td><span class="formula"> ≏ </span></td>
+<td><tt class="docutils literal">\bumpeq</tt></td>
+<td><span class="formula"> ⋧ </span></td>
+<td><tt class="docutils literal">\gnsim</tt></td>
+<td><span class="formula"> ≱ </span></td>
+<td><tt class="docutils literal">\ngeq</tt></td>
+<td><span class="formula"> ≓ </span></td>
+<td><tt class="docutils literal">\risingdotseq</tt></td>
+</tr>
+<tr><td><span class="formula"> ≎ </span></td>
+<td><tt class="docutils literal">\Bumpeq</tt></td>
+<td><span class="formula"> ⪆ </span></td>
+<td><tt class="docutils literal">\gtrapprox</tt></td>
+<td><span class="formula"> ≧̸ </span></td>
+<td><tt class="docutils literal">\ngeqq</tt></td>
+<td><span class="formula"> ∼ </span></td>
+<td><tt class="docutils literal">\sim</tt></td>
+</tr>
+<tr><td><span class="formula"> ≗ </span></td>
+<td><tt class="docutils literal">\circeq</tt></td>
+<td><span class="formula"> ⋛ </span></td>
+<td><tt class="docutils literal">\gtreqless</tt></td>
+<td><span class="formula"> ⩾̸ </span></td>
+<td><tt class="docutils literal">\ngeqslant</tt></td>
+<td><span class="formula"> ≃ </span></td>
+<td><tt class="docutils literal">\simeq</tt></td>
+</tr>
+<tr><td><span class="formula"> ≅ </span></td>
+<td><tt class="docutils literal">\cong</tt></td>
+<td><span class="formula"> ⪌ </span></td>
+<td><tt class="docutils literal">\gtreqqless</tt></td>
+<td><span class="formula"> ≯ </span></td>
+<td><tt class="docutils literal">\ngtr</tt></td>
+<td><span class="formula"> ≻ </span></td>
+<td><tt class="docutils literal">\succ</tt></td>
+</tr>
+<tr><td><span class="formula"> ⋞ </span></td>
+<td><tt class="docutils literal">\curlyeqprec</tt></td>
+<td><span class="formula"> ≷ </span></td>
+<td><tt class="docutils literal">\gtrless</tt></td>
+<td><span class="formula"> ≰ </span></td>
+<td><tt class="docutils literal">\nleq</tt></td>
+<td><span class="formula"> ⪸ </span></td>
+<td><tt class="docutils literal">\succapprox</tt></td>
+</tr>
+<tr><td><span class="formula"> ⋟ </span></td>
+<td><tt class="docutils literal">\curlyeqsucc</tt></td>
+<td><span class="formula"> ≳ </span></td>
+<td><tt class="docutils literal">\gtrsim</tt></td>
+<td><span class="formula"> ≦̸ </span></td>
+<td><tt class="docutils literal">\nleqq</tt></td>
+<td><span class="formula"> ≽ </span></td>
+<td><tt class="docutils literal">\succcurlyeq</tt></td>
+</tr>
+<tr><td><span class="formula"> ≐ </span></td>
+<td><tt class="docutils literal">\doteq</tt></td>
+<td><span class="formula"> ≤ </span></td>
+<td><tt class="docutils literal">\leq</tt></td>
+<td><span class="formula"> ⩽̸ </span></td>
+<td><tt class="docutils literal">\nleqslant</tt></td>
+<td><span class="formula"> ⪰ </span></td>
+<td><tt class="docutils literal">\succeq</tt></td>
+</tr>
+<tr><td><span class="formula"> ≑ </span></td>
+<td><tt class="docutils literal">\doteqdot</tt></td>
+<td><span class="formula"> ≦ </span></td>
+<td><tt class="docutils literal">\leqq</tt></td>
+<td><span class="formula"> ≮ </span></td>
+<td><tt class="docutils literal">\nless</tt></td>
+<td><span class="formula"> ⪺ </span></td>
+<td><tt class="docutils literal">\succnapprox</tt></td>
+</tr>
+<tr><td><span class="formula"> ≖ </span></td>
+<td><tt class="docutils literal">\eqcirc</tt></td>
+<td><span class="formula"> ⩽ </span></td>
+<td><tt class="docutils literal">\leqslant</tt></td>
+<td><span class="formula"> ⊀ </span></td>
+<td><tt class="docutils literal">\nprec</tt></td>
+<td><span class="formula"> ⪶ </span></td>
+<td><tt class="docutils literal">\succneqq</tt></td>
+</tr>
+<tr><td><span class="formula"> ≂ </span></td>
+<td><tt class="docutils literal">\eqsim</tt></td>
+<td><span class="formula"> ⪅ </span></td>
+<td><tt class="docutils literal">\lessapprox</tt></td>
+<td><span class="formula"> ⋠ </span></td>
+<td><tt class="docutils literal">\npreceq</tt></td>
+<td><span class="formula"> ⋩ </span></td>
+<td><tt class="docutils literal">\succnsim</tt></td>
+</tr>
+<tr><td><span class="formula"> ⪖ </span></td>
+<td><tt class="docutils literal">\eqslantgtr</tt></td>
+<td><span class="formula"> ⋚ </span></td>
+<td><tt class="docutils literal">\lesseqgtr</tt></td>
+<td><span class="formula"> ≁ </span></td>
+<td><tt class="docutils literal">\nsim</tt></td>
+<td><span class="formula"> ≿ </span></td>
+<td><tt class="docutils literal">\succsim</tt></td>
+</tr>
+<tr><td><span class="formula"> ⪕ </span></td>
+<td><tt class="docutils literal">\eqslantless</tt></td>
+<td><span class="formula"> ⪋ </span></td>
+<td><tt class="docutils literal">\lesseqqgtr</tt></td>
+<td><span class="formula"> ⊁ </span></td>
+<td><tt class="docutils literal">\nsucc</tt></td>
+<td><span class="formula"> <span class="boldsymbol">≈</span> </span></td>
+<td><tt class="docutils literal">\thickapprox</tt></td>
+</tr>
+<tr><td><span class="formula"> ≡ </span></td>
+<td><tt class="docutils literal">\equiv</tt></td>
+<td><span class="formula"> ≶ </span></td>
+<td><tt class="docutils literal">\lessgtr</tt></td>
+<td><span class="formula"> ⋡ </span></td>
+<td><tt class="docutils literal">\nsucceq</tt></td>
+<td><span class="formula"> <span class="boldsymbol">∼</span> </span></td>
+<td><tt class="docutils literal">\thicksim</tt></td>
+</tr>
+<tr><td><span class="formula"> ≒ </span></td>
+<td><tt class="docutils literal">\fallingdotseq</tt></td>
+<td><span class="formula"> ≲ </span></td>
+<td><tt class="docutils literal">\lesssim</tt></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><span class="formula"> ≜ </span></td>
+<td><tt class="docutils literal">\triangleq</tt></td>
+</tr>
+</tbody>
+</table>
+<p>The commands <tt class="docutils literal">\lvertneqq</tt> and <tt class="docutils literal">\gvertneqq</tt> are not supported by
+LateX2MathML, as there is no corresponding Unicode character.</p>
+<p>Synonyms: <span class="formula"> ≠ </span> <tt class="docutils literal">\ne</tt>, <span class="formula"> ≤ </span> <tt class="docutils literal">\le</tt>, <span class="formula"> ≥ </span> <tt class="docutils literal">\ge</tt>,
+<span class="formula"> ≑ </span> <tt class="docutils literal">\Doteq</tt>, <span class="formula"> ⋘ </span> <tt class="docutils literal">\llless</tt>, <span class="formula"> ⋙ </span> <tt class="docutils literal">\gggtr</tt>.</p>
+<p>Symbols can be negated prepending <tt class="docutils literal">\not</tt>, e.g.
+<span class="formula"> ≠ </span> <tt class="docutils literal">\not=</tt>, <span class="formula"> ≢ </span> <tt class="docutils literal">\not\equiv</tt>,
+<span class="formula"> ≹ </span> <tt class="docutils literal">\not\gtrless</tt>, <span class="formula"> ≸ </span> <tt class="docutils literal">\not\lessgtr</tt>.</p>
+</div>
+<div class="section" id="miscellaneous-relations">
+<h3><a class="toc-backref" href="#toc-entry-18">2.11.3&nbsp;&nbsp;&nbsp;Miscellaneous relations</a></h3>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula"> ∍ </span></td>
+<td><tt class="docutils literal">\backepsilon</tt></td>
+<td><span class="formula"> ⋬ </span></td>
+<td><tt class="docutils literal">\ntrianglelefteq</tt></td>
+<td><span class="formula"> ⊆ </span></td>
+<td><tt class="docutils literal">\subseteq</tt></td>
+</tr>
+<tr><td><span class="formula"> ∵ </span></td>
+<td><tt class="docutils literal">\because</tt></td>
+<td><span class="formula"> ⋫ </span></td>
+<td><tt class="docutils literal">\ntriangleright</tt></td>
+<td><span class="formula"> ⫅ </span></td>
+<td><tt class="docutils literal">\subseteqq</tt></td>
+</tr>
+<tr><td><span class="formula"> ≬ </span></td>
+<td><tt class="docutils literal">\between</tt></td>
+<td><span class="formula"> ⋭ </span></td>
+<td><tt class="docutils literal">\ntrianglerighteq</tt></td>
+<td><span class="formula"> ⊊ </span></td>
+<td><tt class="docutils literal">\subsetneq</tt></td>
+</tr>
+<tr><td><span class="formula"> ◂ </span></td>
+<td><tt class="docutils literal">\blacktriangleleft</tt></td>
+<td><span class="formula"> ⊬ </span></td>
+<td><tt class="docutils literal">\nvdash</tt></td>
+<td><span class="formula"> ⫋ </span></td>
+<td><tt class="docutils literal">\subsetneqq</tt></td>
+</tr>
+<tr><td><span class="formula"> ▸ </span></td>
+<td><tt class="docutils literal">\blacktriangleright</tt></td>
+<td><span class="formula"> ⊮ </span></td>
+<td><tt class="docutils literal">\nVdash</tt></td>
+<td><span class="formula"> ⊃ </span></td>
+<td><tt class="docutils literal">\supset</tt></td>
+</tr>
+<tr><td><span class="formula"> ⋈ </span></td>
+<td><tt class="docutils literal">\bowtie</tt></td>
+<td><span class="formula"> ⊭ </span></td>
+<td><tt class="docutils literal">\nvDash</tt></td>
+<td><span class="formula"> ⋑ </span></td>
+<td><tt class="docutils literal">\Supset</tt></td>
+</tr>
+<tr><td><span class="formula"> ⊣ </span></td>
+<td><tt class="docutils literal">\dashv</tt></td>
+<td><span class="formula"> ⊯ </span></td>
+<td><tt class="docutils literal">\nVDash</tt></td>
+<td><span class="formula"> ⊇ </span></td>
+<td><tt class="docutils literal">\supseteq</tt></td>
+</tr>
+<tr><td><span class="formula"> ⌢ </span></td>
+<td><tt class="docutils literal">\frown</tt></td>
+<td><span class="formula"> ∥ </span></td>
+<td><tt class="docutils literal">\parallel</tt></td>
+<td><span class="formula"> ⫆ </span></td>
+<td><tt class="docutils literal">\supseteqq</tt></td>
+</tr>
+<tr><td><span class="formula"> ∈ </span></td>
+<td><tt class="docutils literal">\in</tt></td>
+<td><span class="formula"> ⟂ </span></td>
+<td><tt class="docutils literal">\perp</tt></td>
+<td><span class="formula"> ⊋ </span></td>
+<td><tt class="docutils literal">\supsetneq</tt></td>
+</tr>
+<tr><td><span class="formula"> ∣ </span></td>
+<td><tt class="docutils literal">\mid</tt></td>
+<td><span class="formula"> ⋔ </span></td>
+<td><tt class="docutils literal">\pitchfork</tt></td>
+<td><span class="formula"> ⫌ </span></td>
+<td><tt class="docutils literal">\supsetneqq</tt></td>
+</tr>
+<tr><td><span class="formula"> ⊧ </span></td>
+<td><tt class="docutils literal">\models</tt></td>
+<td><span class="formula"> ∝ </span></td>
+<td><tt class="docutils literal">\propto</tt></td>
+<td><span class="formula"> ∴ </span></td>
+<td><tt class="docutils literal">\therefore</tt></td>
+</tr>
+<tr><td><span class="formula"> ∋ </span></td>
+<td><tt class="docutils literal">\ni</tt></td>
+<td><span class="formula"> <span class="smallsymbol">∣</span> </span></td>
+<td><tt class="docutils literal">\shortmid</tt></td>
+<td><span class="formula"> ⊴ </span></td>
+<td><tt class="docutils literal">\trianglelefteq</tt></td>
+</tr>
+<tr><td><span class="formula"> ∤ </span></td>
+<td><tt class="docutils literal">\nmid</tt></td>
+<td><span class="formula"> <span class="smallsymbol">∥</span> </span></td>
+<td><tt class="docutils literal">\shortparallel</tt></td>
+<td><span class="formula"> ⊵ </span></td>
+<td><tt class="docutils literal">\trianglerighteq</tt></td>
+</tr>
+<tr><td><span class="formula"> ∉ </span></td>
+<td><tt class="docutils literal">\notin</tt></td>
+<td><span class="formula"> <span class="smallsymbol">⌢</span> </span></td>
+<td><tt class="docutils literal">\smallfrown</tt></td>
+<td><span class="formula"> <span class="mathsf">∝</span> </span></td>
+<td><tt class="docutils literal">\varpropto</tt></td>
+</tr>
+<tr><td><span class="formula"> ∦ </span></td>
+<td><tt class="docutils literal">\nparallel</tt></td>
+<td><span class="formula"> <span class="smallsymbol">⌣</span> </span></td>
+<td><tt class="docutils literal">\smallsmile</tt></td>
+<td><span class="formula"> ▵ </span></td>
+<td><tt class="docutils literal">\vartriangle</tt></td>
+</tr>
+<tr><td><span class="formula"> <span class="smallsymbol">∤</span> </span></td>
+<td><tt class="docutils literal">\nshortmid</tt></td>
+<td><span class="formula"> ⌣ </span></td>
+<td><tt class="docutils literal">\smile</tt></td>
+<td><span class="formula"> ⊲ </span></td>
+<td><tt class="docutils literal">\vartriangleleft</tt></td>
+</tr>
+<tr><td><span class="formula"> <span class="smallsymbol">∦</span> </span></td>
+<td><tt class="docutils literal">\nshortparallel</tt></td>
+<td><span class="formula"> ⊏ </span></td>
+<td><tt class="docutils literal">\sqsubset</tt></td>
+<td><span class="formula"> ⊳ </span></td>
+<td><tt class="docutils literal">\vartriangleright</tt></td>
+</tr>
+<tr><td><span class="formula"> ⊈ </span></td>
+<td><tt class="docutils literal">\nsubseteq</tt></td>
+<td><span class="formula"> ⊑ </span></td>
+<td><tt class="docutils literal">\sqsubseteq</tt></td>
+<td><span class="formula"> ⊢ </span></td>
+<td><tt class="docutils literal">\vdash</tt></td>
+</tr>
+<tr><td><span class="formula"> ⫅̸ </span></td>
+<td><tt class="docutils literal">\nsubseteqq</tt></td>
+<td><span class="formula"> ⊐ </span></td>
+<td><tt class="docutils literal">\sqsupset</tt></td>
+<td><span class="formula"> ⊩ </span></td>
+<td><tt class="docutils literal">\Vdash</tt></td>
+</tr>
+<tr><td><span class="formula"> ⊉ </span></td>
+<td><tt class="docutils literal">\nsupseteq</tt></td>
+<td><span class="formula"> ⊒ </span></td>
+<td><tt class="docutils literal">\sqsupseteq</tt></td>
+<td><span class="formula"> ⊨ </span></td>
+<td><tt class="docutils literal">\vDash</tt></td>
+</tr>
+<tr><td><span class="formula"> ⫆̸ </span></td>
+<td><tt class="docutils literal">\nsupseteqq</tt></td>
+<td><span class="formula"> ⊂ </span></td>
+<td><tt class="docutils literal">\subset</tt></td>
+<td><span class="formula"> ⊪ </span></td>
+<td><tt class="docutils literal">\Vvdash</tt></td>
+</tr>
+<tr><td><span class="formula"> ⋪ </span></td>
+<td><tt class="docutils literal">\ntriangleleft</tt></td>
+<td><span class="formula"> ⋐ </span></td>
+<td><tt class="docutils literal">\Subset</tt></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>Synonyms: <span class="formula"> ∋ </span> <tt class="docutils literal">\owns</tt>.</p>
+<p>Symbols can be negated prepending <tt class="docutils literal">\not</tt>, e.g.
+<span class="formula"> ∉ </span> <tt class="docutils literal">\not\in</tt>, <span class="formula"> ∌ </span> <tt class="docutils literal">\not\ni</tt>.</p>
+<p>The commands <tt class="docutils literal">\varsubsetneq</tt>, <tt class="docutils literal">\varsubsetneqq</tt>, <tt class="docutils literal">\varsupsetneq</tt>,
+and <tt class="docutils literal">\varsupsetneqq</tt> are not supported by LateX2MathML, as there is no
+corresponding Unicode character.</p>
+</div>
+</div>
+<div class="section" id="variable-sized-operators">
+<h2><a class="toc-backref" href="#toc-entry-19">2.12&nbsp;&nbsp;&nbsp;Variable-sized operators</a></h2>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span></span>      <tt class="docutils literal">\sum</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">∏</span></span></span></span>     <tt class="docutils literal">\prod</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⋂</span></span></span></span>   <tt class="docutils literal">\bigcap</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⨀</span></span></span></span>   <tt class="docutils literal">\bigodot</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span></span>      <tt class="docutils literal">\int</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">∐</span></span></span></span>   <tt class="docutils literal">\coprod</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⋃</span></span></span></span>   <tt class="docutils literal">\bigcup</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⨁</span></span></span></span>  <tt class="docutils literal">\bigoplus</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator integral">∮</span></span></span></span>     <tt class="docutils literal">\oint</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⋀</span></span></span></span> <tt class="docutils literal">\bigwedge</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⨄</span></span></span></span> <tt class="docutils literal">\biguplus</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⨂</span></span></span></span> <tt class="docutils literal">\bigotimes</tt></td>
+</tr>
+<tr><td><span class="formula"><span class="limits"><span class="limit"><span class="smallsymbol integral">∫</span></span></span></span> <tt class="docutils literal">\smallint</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⋁</span></span></span></span>   <tt class="docutils literal">\bigvee</tt></td>
+<td><span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">⨆</span></span></span></span> <tt class="docutils literal">\bigsqcup</tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>Larger symbols are used in displayed formulas, sum-like symbols have
+indices above/below the symbol (see also <a class="reference internal" href="#scripts-and-limits">scripts and limits</a>):</p>
+<div class="formula">
+<span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit"><i>n</i> = 1</sub></span><i>a</i><sub><i>n</i></sub>  <span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">0</sub></span><i>f</i>(<i>x</i>) <i>dx</i>  <span class="limits"><sup class="limit">10</sup><span class="limit"><span class="bigoperator">∏</span></span><sub class="limit"><i>i</i> = 1</sub></span><i>b</i><sub><i>i</i></sub>…
+</div>
+</div>
+</div>
+<div class="section" id="notations">
+<h1><a class="toc-backref" href="#toc-entry-20">3&nbsp;&nbsp;&nbsp;Notations</a></h1>
+<div class="section" id="top-and-bottom-embellishments">
+<h2><a class="toc-backref" href="#toc-entry-21">3.1&nbsp;&nbsp;&nbsp;Top and bottom embellishments</a></h2>
+<p>See <a class="reference internal" href="#accents-and-embellishments">Accents and embellishments</a>.</p>
+</div>
+<div class="section" id="extensible-arrows">
+<h2><a class="toc-backref" href="#toc-entry-22">3.2&nbsp;&nbsp;&nbsp;Extensible arrows</a></h2>
+<p>xleftarrow and xrightarrow produce arrows that extend automatically to
+accommodate unusually wide subscripts or superscripts. These commands
+take one optional argument (the subscript) and one mandatory argument
+(the superscript, possibly empty):</p>
+<pre class="literal-block">
+A \xleftarrow{n+\mu-1} B \xrightarrow[T]{n\pm i-1} C
+</pre>
+<p>results in</p>
+<div class="formula">
+<i>A</i><span class="unknown">\xleftarrow</span><i>n</i> + <i>μ</i> − 1<i>B</i><span class="unknown">\xrightarrow</span>[<i>T</i>]<i>n</i>±<i>i</i> − 1<i>C</i>
+</div>
+</div>
+<div class="section" id="affixing-symbols-to-other-symbols">
+<h2><a class="toc-backref" href="#toc-entry-23">3.3&nbsp;&nbsp;&nbsp;Affixing symbols to other symbols</a></h2>
+<p>In addition to the standard <a class="reference internal" href="#accents-and-embellishments">accents and embellishments</a>, other symbols
+can be placed above or below a base symbol with the <tt class="docutils literal">\overset</tt> and
+<tt class="docutils literal">\underset</tt> commands. The symbol is set in &quot;scriptstyle&quot; (smaller font
+size). For example, writing <tt class="docutils literal"><span class="pre">\overset{*}{X}</span></tt> becomes <span class="formula"><span class="unknown">\overset</span>*<i>X</i></span>
+and <tt class="docutils literal"><span class="pre">\underset{+}{M}</span></tt> becomes <span class="formula"><span class="unknown">\underset</span> + <i>M</i></span>.</p>
+</div>
+<div class="section" id="matrices">
+<h2><a class="toc-backref" href="#toc-entry-24">3.4&nbsp;&nbsp;&nbsp;Matrices</a></h2>
+<p>The <tt class="docutils literal">matrix</tt> and <tt class="docutils literal">cases</tt> environments can also contain <tt class="docutils literal">\\</tt> and
+<tt class="docutils literal">&amp;</tt>:</p>
+<pre class="literal-block">
+.. math::
+   \left ( \begin{matrix} a &amp; b \\ c &amp; d \end{matrix}\right)
+</pre>
+<p>Result:</p>
+<div class="formula">
+<span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="array"><span class="arrayrow">
+<span class="arraycell align-c">
+<i>a</i>
+</span>
+<span class="arraycell align-c">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>c</i>
+</span>
+<span class="arraycell align-c">
+<i>d</i>
+</span>
+
+</span>
+</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>
+</div>
+<p>The environments <tt class="docutils literal">pmatrix</tt>, <tt class="docutils literal">bmatrix</tt>, <tt class="docutils literal">Bmatrix</tt>, <tt class="docutils literal">vmatrix</tt>, and
+<tt class="docutils literal">Vmatrix</tt> have (respectively) ( ), [ ], { }, | |, and <span class="formula">‖ ‖</span>
+delimiters built in, e.g.</p>
+<div class="formula">
+<span class="unknown">\begin{pmatrix} <span class="arrayrow">
+<span class="arraycell align-l">
+<i>a</i>
+</span>
+<span class="arraycell align-l">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-l">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-l">
+<i>c</i>
+</span>
+<span class="arraycell align-l">
+<i>d</i>
+</span>
+
+</span>
+</span>  <span class="unknown">\begin{bmatrix} <span class="arrayrow">
+<span class="arraycell align-l">
+<i>a</i>
+</span>
+<span class="arraycell align-l">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-l">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-l">
+<i>c</i>
+</span>
+<span class="arraycell align-l">
+<i>d</i>
+</span>
+
+</span>
+</span>  <span class="unknown">\begin{Vmatrix} <span class="arrayrow">
+<span class="arraycell align-l">
+<i>a</i>
+</span>
+<span class="arraycell align-l">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-l">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-l">
+<i>c</i>
+</span>
+<span class="arraycell align-l">
+<i>d</i>
+</span>
+
+</span>
+</span>
+</div>
+<p>To produce a small matrix suitable for use in text, there is a
+<tt class="docutils literal">smallmatrix</tt> environment
+<span class="formula"><span class="bigdelimiter size1">(</span><span class="environment smallmatrix"><span class="arrayrow">
+<span class="arraycell align-c">
+<i>a</i>
+</span>
+<span class="arraycell align-c">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>c</i>
+</span>
+<span class="arraycell align-c">
+<i>d</i>
+</span>
+
+</span>
+</span><span class="bigdelimiter size1">)</span></span>
+that comes closer to fitting within a single text line than a normal
+matrix.</p>
+<p>For piecewise function definitions there is a <tt class="docutils literal">cases</tt> environment:</p>
+<div class="formula">
+<span class="mathrm">sgn</span>(<i>x</i>) = <span class="array"><span class="arrayrow"><span class="bracket align-l">⎧</span></span><span class="arrayrow"><span class="bracket align-l">⎨</span></span><span class="arrayrow"><span class="bracket align-l">⎩</span></span></span><span class="bracketcases">
+<span class="arrayrow">
+<span class="case align-l">
+ − 1 
+</span>
+<span class="case align-l">
+<i>x</i> &lt; 0 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="case align-l">
+  
+</span>
+<span class="case align-l">
+  
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="case align-l">
+<span class="phantom"> − </span>1 
+</span>
+<span class="case align-l">
+<i>x</i> &gt; 0 
+</span>
+
+</span>
+
+</span>
+
+</div>
+</div>
+<div class="section" id="spacing-commands">
+<h2><a class="toc-backref" href="#toc-entry-25">3.5&nbsp;&nbsp;&nbsp;Spacing commands</a></h2>
+<p>Horizontal spacing of elements can be controlled with the following
+commands:</p>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td><span class="m formula">3  4</span></td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal">3\qquad 4</tt></td>
+<td>= 2em</td>
+</tr>
+<tr><td><span class="m formula">3 4</span></td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal">3\quad 4</tt></td>
+<td>= 1em</td>
+</tr>
+<tr><td><span class="m formula">3 4</span></td>
+<td><tt class="docutils literal">3~4</tt></td>
+<td><tt class="docutils literal">3\nobreakspace 4</tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><span class="m formula">3 4</span></td>
+<td><tt class="docutils literal">3\ 4</tt></td>
+<td>&nbsp;</td>
+<td>escaped space</td>
+</tr>
+<tr><td><span class="m formula">3<span class="thickspace"> </span>4</span></td>
+<td><tt class="docutils literal"><span class="pre">3\;4</span></tt></td>
+<td><tt class="docutils literal">3\thickspace 4</tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><span class="m formula">3 4</span></td>
+<td><tt class="docutils literal"><span class="pre">3\:4</span></tt></td>
+<td><tt class="docutils literal">3\medspace 4</tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><span class="m formula">3 4</span></td>
+<td><tt class="docutils literal"><span class="pre">3\,4</span></tt></td>
+<td><tt class="docutils literal">3\thinspace 4</tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><span class="m formula">34</span></td>
+<td><tt class="docutils literal">3&nbsp; 4</tt></td>
+<td>&nbsp;</td>
+<td>regular space <a class="footnote-reference" href="#footnote-3" id="footnote-reference-5">[4]</a></td>
+</tr>
+<tr><td><span class="m formula">3<span class="unknown">\!</span>4</span></td>
+<td><tt class="docutils literal"><span class="pre">3\!4</span></tt></td>
+<td><tt class="docutils literal">3\negthinspace 4</tt></td>
+<td>negative space <a class="footnote-reference" href="#footnote-4" id="footnote-reference-6">[5]</a></td>
+</tr>
+<tr><td><span class="m formula">3<span class="unknown">\negmedspace</span>4</span></td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal">3\negmedspace 4</tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><span class="m formula">3<span class="unknown">\negthickspace</span>4</span></td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal">3\negthickspace 4</tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><span class="formula">3<span class="hspace" style="width: 1ex;"> </span>4</span></td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal">3\hspace{1ex}4</tt></td>
+<td>custom length</td>
+</tr>
+<tr><td><span class="formula">3<span class="unknown">\mspace</span>20<i>mu</i>4</span></td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal">3\mspace{20mu}4</tt></td>
+<td>custom length <a class="footnote-reference" href="#footnote-5" id="footnote-reference-7">[6]</a></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-5">[4]</a></td><td>Whitespace characters are ignored in LaTeX math mode.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-6">[5]</a></td><td>Negative spacing does not work with MathML (last tested in Firefox 102).</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-7">[6]</a></td><td>In LaTeX, the unit must be 'mu' (1 mu = 1/18em).</td></tr>
+</tbody>
+</table>
+<p>There are also three commands that leave a space equal to the height and
+width of its argument. For example <tt class="docutils literal">\phantom{XXX}</tt> results in space as
+wide and high as three X’s:</p>
+<div class="formula">
+<span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="phantom"><i>XXX</i></span> + 1</span><span class="ignored">)/(</span><span class="denominator"><i>XXX</i> − 1</span><span class="ignored">)</span></span>
+</div>
+<p>The commands <tt class="docutils literal">\hphantom</tt> and <tt class="docutils literal">\vphantom</tt> insert space with the
+width or height of the argument. They are not supported with <a class="reference external" href="https://docutils.sourceforge.io/docs/user/config.html#math-output">math_output</a>
+MathML.</p>
+</div>
+<div class="section" id="modular-arithmetic-and-modulo-operation">
+<h2><a class="toc-backref" href="#toc-entry-26">3.6&nbsp;&nbsp;&nbsp;Modular arithmetic and modulo operation</a></h2>
+<p>The commands <tt class="docutils literal">\bmod</tt>, <tt class="docutils literal">\pmod</tt>, <tt class="docutils literal">\mod</tt>, and <tt class="docutils literal">\pod</tt> deal with the
+special spacing conventions of the “mod” notation. <a class="footnote-reference" href="#footnote-6" id="footnote-reference-8">[7]</a></p>
+<table border="1" class="docutils">
+<thead valign="bottom">
+<tr><th class="head">command</th>
+<th class="head">example</th>
+<th class="head">result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal">\bmod</tt></td>
+<td><tt class="docutils literal">\gcd(n,m \bmod n)</tt></td>
+<td><span class="formula">gcd(<i>n</i>, <i>m</i><span class="unknown">\bmod</span><i>n</i>)</span></td>
+</tr>
+<tr><td><tt class="docutils literal">\pmod</tt></td>
+<td><tt class="docutils literal">x\equiv y \pmod b</tt></td>
+<td><span class="formula"><i>x</i> ≡ <i>y</i><span class="unknown">\pmod</span><i>b</i></span></td>
+</tr>
+<tr><td><tt class="docutils literal">\mod</tt></td>
+<td><tt class="docutils literal">x\equiv y \mod c</tt></td>
+<td><span class="formula"><i>x</i> ≡ <i>y</i><span class="unknown">\mod</span><i>c</i></span></td>
+</tr>
+<tr><td><tt class="docutils literal">\pod</tt></td>
+<td><tt class="docutils literal">x\equiv y \pod d</tt></td>
+<td><span class="formula"><i>x</i> ≡ <i>y</i><span class="unknown">\pod</span><i>d</i></span></td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td><tt class="docutils literal"><span class="pre">\operatorname{mod}(m,n)</span></tt></td>
+<td><span class="formula"><span class="mathrm">mod</span>(<i>m</i>, <i>n</i>)</span></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-8">[7]</a></td><td>Currently <a class="reference external" href="https://sourceforge.net/p/docutils/feature-requests/93/">not supported</a> by the &quot;HTML&quot; <a class="reference external" href="https://docutils.sourceforge.io/docs/user/config.html#math-output">math_output</a> option
+of the HTML writer.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="roots">
+<h2><a class="toc-backref" href="#toc-entry-27">3.7&nbsp;&nbsp;&nbsp;Roots</a></h2>
+<table border="1" class="docutils">
+<thead valign="bottom">
+<tr><th class="head">command</th>
+<th class="head">example</th>
+<th class="head">result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal">\sqrt</tt></td>
+<td><tt class="docutils literal"><span class="pre">\sqrt{x^2-1}</span></tt></td>
+<td><span class="formula"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><i>x</i><sup>2</sup> − 1</span><span class="ignored">)</span></span></span></td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td><tt class="docutils literal"><span class="pre">\sqrt[3n]{x^2-1}</span></tt></td>
+<td><span class="formula"><span class="sqrt"><sup class="root">3<i>n</i></sup><span class="radical">√</span><span class="ignored">(</span><span class="root"><i>x</i><sup>2</sup> − 1</span><span class="ignored">)</span></span></span></td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td><tt class="docutils literal"><span class="pre">\sqrt\frac{1}{2}</span></tt></td>
+<td><span class="formula"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="boxed-formulas">
+<h2><a class="toc-backref" href="#toc-entry-28">3.8&nbsp;&nbsp;&nbsp;Boxed formulas</a></h2>
+<p>The command <tt class="docutils literal">\boxed</tt> puts a box around its argument:</p>
+<div class="formula">
+<span class="boxed"><i>η</i> ≤ <i>C</i>(<i>δ</i>(<i>η</i>) + Λ<sub><i>M</i></sub>(0, <i>δ</i>))</span>
+</div>
+</div>
+</div>
+<div class="section" id="fractions-and-related-constructions">
+<h1><a class="toc-backref" href="#toc-entry-29">4&nbsp;&nbsp;&nbsp;Fractions and related constructions</a></h1>
+<p>The <tt class="docutils literal">\frac</tt> command takes two ar guments, numerator and denominator,
+and typesets them in normal fraction form. For example, <tt class="docutils literal">U = <span class="pre">\frac{R}{I}</span></tt>
+produces <span class="formula"><i>U</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>R</i></span><span class="ignored">)/(</span><span class="denominator"><i>I</i></span><span class="ignored">)</span></span></span>. Use <tt class="docutils literal">\dfrac</tt> or <tt class="docutils literal">\tfrac</tt> to
+force text style and display style respectively.</p>
+<div class="formula">
+<span class="fraction"><span class="ignored">(</span><span class="numerator"><i>x</i> + 1</span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span> <span class="fullfraction"><span class="ignored">(</span><span class="numerator"><i>x</i> + 1</span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span> <span class="textfraction"><span class="ignored">(</span><span class="numerator"><i>x</i> + 1</span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span>
+</div>
+<p>and in text: <span class="formula"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>x</i> + 1</span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span></span>, <span class="formula"><span class="fullfraction"><span class="ignored">(</span><span class="numerator"><i>x</i> + 1</span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span></span>, <span class="formula"><span class="textfraction"><span class="ignored">(</span><span class="numerator"><i>x</i> + 1</span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span></span>.</p>
+<p>For binomial expressions such as <span class="formula"><span class="bigdelimiter size2">(</span><span class="binom"><span class="binomstack"><i>n</i></span><span class="binomstack"><i>k</i></span></span><span class="bigdelimiter size2">)</span></span>,
+there are <tt class="docutils literal">\binom</tt>, <tt class="docutils literal">\dbinom</tt> and <tt class="docutils literal">\tbinom</tt> commands:</p>
+<pre class="literal-block">
+2^k-\binom{k}{1}2^{k-1}+\binom{k}{2}2^{k-2}
+</pre>
+<p>prints</p>
+<div class="formula">
+2<sup><i>k</i></sup> − <span class="bigdelimiter size2">(</span><span class="binom"><span class="binomstack"><i>k</i></span><span class="binomstack">1</span></span><span class="bigdelimiter size2">)</span>2<sup><i>k</i> − 1</sup> + <span class="bigdelimiter size2">(</span><span class="binom"><span class="binomstack"><i>k</i></span><span class="binomstack">2</span></span><span class="bigdelimiter size2">)</span>2<sup><i>k</i> − 2</sup>
+</div>
+<p>The <tt class="docutils literal">\cfrac</tt> command for continued fractions uses displaystyle and
+padding for sub-fractions:</p>
+<div class="formula">
+<span class="fraction"><span class="ignored">(</span><span class="numerator"><i>π</i></span><span class="ignored">)/(</span><span class="denominator">4</span><span class="ignored">)</span></span> = 1 + <span class="fullfraction"><span class="ignored">(</span><span class="numerator align-">1<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2 + <span class="fullfraction"><span class="ignored">(</span><span class="numerator align-">3<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2 + <span class="fullfraction"><span class="ignored">(</span><span class="numerator align-">5<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2 + <span class="fullfraction"><span class="ignored">(</span><span class="numerator align-">7<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2 + ⋯</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span></span><span class="ignored">)</span></span></span><span class="ignored">)</span></span>  <span class="text"> vs.</span>  <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>π</i></span><span class="ignored">)/(</span><span class="denominator">4</span><span class="ignored">)</span></span> = 1 + <span class="fraction"><span class="ignored">(</span><span class="numerator">1<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2 + <span class="fraction"><span class="ignored">(</span><span class="numerator">3<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2 + <span class="fraction"><span class="ignored">(</span><span class="numerator">5<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2 + <span class="fraction"><span class="ignored">(</span><span class="numerator">7<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2 + ⋯</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span></span><span class="ignored">)</span></span></span><span class="ignored">)</span></span>
+</div>
+<p>The optional argument <tt class="docutils literal">[l]</tt> or <tt class="docutils literal">[r]</tt> for left or right placement of
+the numerator is <a class="reference external" href="https://github.com/w3c/mathml/issues/30">not supported by MathML Core</a>:</p>
+<div class="formula">
+<span class="fullfraction"><span class="ignored">(</span><span class="numerator align-l"><i>x</i></span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span> <span class="fullfraction"><span class="ignored">(</span><span class="numerator align-"><i>x</i></span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span> <span class="fullfraction"><span class="ignored">(</span><span class="numerator align-r"><i>x</i></span><span class="ignored">)/(</span><span class="denominator"><i>x</i> − 1</span><span class="ignored">)</span></span>
+</div>
+</div>
+<div class="section" id="delimiter-sizes">
+<h1><a class="toc-backref" href="#toc-entry-30">5&nbsp;&nbsp;&nbsp;Delimiter sizes</a></h1>
+<p>Besides the automatic scaling of <a class="reference internal" href="#extensible-delimiters">extensible delimiters</a> with <tt class="docutils literal">\left</tt>
+and <tt class="docutils literal">\right</tt>, there are four commands to manually select delimiters of
+fixed size:</p>
+<table border="1" class="docutils">
+<tbody valign="top">
+<tr><td>Sizing</td>
+<td>no</td>
+<td><tt class="docutils literal">\left</tt></td>
+<td><tt class="docutils literal">\bigl</tt></td>
+<td><tt class="docutils literal">\Bigl</tt></td>
+<td><tt class="docutils literal">\biggl</tt></td>
+<td><tt class="docutils literal">\Biggl</tt></td>
+</tr>
+<tr><td>command</td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal">\right</tt></td>
+<td><tt class="docutils literal">\bigr</tt></td>
+<td><tt class="docutils literal">\Bigr</tt></td>
+<td><tt class="docutils literal">\biggr</tt></td>
+<td><tt class="docutils literal">\Biggr</tt></td>
+</tr>
+<tr><td>Result</td>
+<td><span class="formula"><span class="displaystyle">(</span><i>b</i>)(<span class="fraction"><span class="ignored">(</span><span class="numerator"><i>c</i></span><span class="ignored">)/(</span><span class="denominator"><i>d</i></span><span class="ignored">)</span></span>)</span></td>
+<td><span class="formula"><span class="displaystyle"><span class="stretchy">(</span></span><i>b</i><span class="stretchy">)</span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>c</i></span><span class="ignored">)/(</span><span class="denominator"><i>d</i></span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span></span></td>
+<td><span class="formula"><span class="displaystyle"><span class="bigdelimiter size1">(</span></span><i>b</i><span class="bigdelimiter size1">)</span><span class="bigdelimiter size1">(</span><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>c</i></span><span class="ignored">)/(</span><span class="denominator"><i>d</i></span><span class="ignored">)</span></span><span class="bigdelimiter size1">)</span></span></td>
+<td><span class="formula"><span class="displaystyle"><span class="bigdelimiter size2">(</span></span><i>b</i><span class="bigdelimiter size2">)</span><span class="bigdelimiter size2">(</span><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>c</i></span><span class="ignored">)/(</span><span class="denominator"><i>d</i></span><span class="ignored">)</span></span><span class="bigdelimiter size2">)</span></span></td>
+<td><span class="formula"><span class="displaystyle"><span class="bigdelimiter size3">(</span></span><i>b</i><span class="bigdelimiter size3">)</span><span class="bigdelimiter size3">(</span><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>c</i></span><span class="ignored">)/(</span><span class="denominator"><i>d</i></span><span class="ignored">)</span></span><span class="bigdelimiter size3">)</span></span></td>
+<td><span class="formula"><span class="displaystyle"><span class="bigdelimiter size4">(</span></span><i>b</i><span class="bigdelimiter size4">)</span><span class="bigdelimiter size4">(</span><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>c</i></span><span class="ignored">)/(</span><span class="denominator"><i>d</i></span><span class="ignored">)</span></span><span class="bigdelimiter size4">)</span></span></td>
+</tr>
+</tbody>
+</table>
+<p>There are two or three situations where the delimiter size is commonly
+adjusted using these commands:</p>
+<p>The first kind of adjustment is done for cumulative operators with
+limits, such as summation signs. With <tt class="docutils literal">\left</tt> and <tt class="docutils literal">\right</tt> the
+delimiters usually turn out larger than necessary, and using the <tt class="docutils literal">Big</tt>
+or <tt class="docutils literal">bigg</tt> sizes instead gives better results:</p>
+<div class="formula">
+<span class="stretchy">[</span><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit"><i>i</i></sub></span><i>a</i><sub><i>i</i></sub><span class="stretchy">|</span><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit"><i>j</i></sub></span><i>x</i><sub><i>ij</i></sub><span class="stretchy">|</span><sup><i>p</i></sup><span class="stretchy">]</span><sup>1 ⁄ <i>p</i></sup><span class="text"> versus </span><span class="bigdelimiter size3">[</span><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit"><i>i</i></sub></span><i>a</i><sub><i>i</i></sub><span class="bigdelimiter size2">|</span><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit"><i>j</i></sub></span><i>x</i><sub><i>ij</i></sub><span class="bigdelimiter size2">|</span><sup><i>p</i></sup><span class="bigdelimiter size3">]</span><sup>1 ⁄ <i>p</i></sup>
+</div>
+<p>The second kind of situation is clustered pairs of delimiters, where
+left and right make them all the same size (because that is adequate to
+cover the encompassed material), but what you really want is to make some
+of the delimiters slightly larger to make the nesting easier to see.</p>
+<div class="formula">
+<span class="stretchy">(</span>(<i>a</i><sub>1</sub><i>b</i><sub>1</sub>) − (<i>a</i><sub>2</sub><i>b</i><sub>2</sub>)<span class="stretchy">)</span><span class="stretchy">(</span>(<i>a</i><sub>2</sub><i>b</i><sub>1</sub>) + (<i>a</i><sub>1</sub><i>b</i><sub>2</sub>)<span class="stretchy">)</span> <span class="text"> versus</span> <span class="bigdelimiter size1">(</span>(<i>a</i><sub>1</sub><i>b</i><sub>1</sub>) − (<i>a</i><sub>2</sub><i>b</i><sub>2</sub>)<span class="bigdelimiter size1">)</span><span class="bigdelimiter size1">(</span>(<i>a</i><sub>2</sub><i>b</i><sub>1</sub>) + (<i>a</i><sub>1</sub><i>b</i><sub>2</sub>)<span class="bigdelimiter size1">)</span>
+</div>
+<p>The third kind of situation is a slightly oversize object in running
+text, such as <span class="formula"><span class="array"><span class="arrayrow"><span class="bracket align-left">|</span></span><span class="arrayrow"><span class="bracket align-left">|</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>b</i>’</span><span class="ignored">)/(</span><span class="denominator"><i>d</i>’</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">|</span></span><span class="arrayrow"><span class="bracket align-right">|</span></span></span></span> where the delimiters produced
+by <tt class="docutils literal">\left</tt> and <tt class="docutils literal">\right</tt> cause too much line spreading. <a class="footnote-reference" href="#footnote-7" id="footnote-reference-9">[8]</a> In that case
+<tt class="docutils literal">\bigl</tt> and <tt class="docutils literal">\bigr</tt> can be used to produce delimiters that are larger
+than the base size but still able to fit within the normal line spacing:
+<span class="formula"><span class="bigdelimiter size1">|</span><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>b</i>’</span><span class="ignored">)/(</span><span class="denominator"><i>d</i>’</span><span class="ignored">)</span></span><span class="bigdelimiter size1">|</span></span>.</p>
+<table class="docutils footnote" frame="void" id="footnote-7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-9">[8]</a></td><td>With MathML, an example would be parentheses
+around a <tt class="docutils literal">smallmatrix</tt> environment
+<span class="formula"><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="environment smallmatrix"><span class="arrayrow">
+<span class="arraycell align-c">
+<i>a</i>
+</span>
+<span class="arraycell align-c">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>c</i>
+</span>
+<span class="arraycell align-c">
+<i>d</i>
+</span>
+
+</span>
+</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span></span>
+vs. <span class="formula"><span class="bigdelimiter size2">(</span><span class="environment smallmatrix"><span class="arrayrow">
+<span class="arraycell align-c">
+<i>a</i>
+</span>
+<span class="arraycell align-c">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>c</i>
+</span>
+<span class="arraycell align-c">
+<i>d</i>
+</span>
+
+</span>
+</span><span class="bigdelimiter size2">)</span></span>.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="text">
+<h1><a class="toc-backref" href="#toc-entry-31">6&nbsp;&nbsp;&nbsp;Text</a></h1>
+<p>The main use of the command <tt class="docutils literal">\text</tt> is for words or phrases in a
+display. It is similar to <tt class="docutils literal">\mbox</tt> in its effects but, unlike <tt class="docutils literal">\mbox</tt>,
+automatically produces subscript-size text if used in a subscript,
+<tt class="docutils literal"><span class="pre">k_{\text{B}}T</span></tt> becomes <span class="formula"><i>k</i><sub><span class="text">B</span></sub><i>T</i></span>.</p>
+<p>Whitespace is kept inside the argument:</p>
+<div class="formula">
+<i>f</i><sub>[<i>x</i><sub><i>i</i> − 1</sub>, <i>x</i><sub><i>i</i></sub>]</sub><span class="text"> is monotonic for </span><i>i</i> = 1,  …,  <i>c</i> + 1
+</div>
+<p>The text may contain math commands wrapped in <tt class="docutils literal">$</tt> signs, e.g.</p>
+<div class="formula">
+( − 1)<sup><i>n</i><sub><i>i</i></sub></sup> = <span class="array"><span class="arrayrow"><span class="bracket align-l">⎧</span></span><span class="arrayrow"><span class="bracket align-l">⎨</span></span><span class="arrayrow"><span class="bracket align-l">⎩</span></span></span><span class="bracketcases">
+<span class="arrayrow">
+<span class="case align-l">
+ − 1 <span class="text"> if $n<sub>i</sub>$ is odd,</span> 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="case align-l">
+  
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="case align-l">
+ + 1 <span class="text"> if $n<sub>i</sub>$ is even.</span> 
+</span>
+
+</span>
+
+</span>
+
+</div>
+<!-- TODO ignore {}, handle text-mode commands -->
+</div>
+<div class="section" id="integrals-and-sums">
+<h1><a class="toc-backref" href="#toc-entry-32">7&nbsp;&nbsp;&nbsp;Integrals and sums</a></h1>
+<p>The limits on integrals, sums, and similar symbols are placed either to
+the side of or above and below the base symbol, depending on convention
+and context. In inline formulas and fractions, the limits on sums, and
+similar symbols like</p>
+<div class="formula">
+<span class="limits"><sup class="limit"> </sup><span class="limit">lim</span><sub class="limit"><i>n</i> → ∞</sub></span><span class="limits"><sup class="limit"><i>n</i></sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit">1</sub></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>n</i></span><span class="ignored">)</span></span>
+</div>
+<p>move to index positions: <span class="formula"><span class="limits"><span class="limit">lim</span></span><sub><i>n</i> → ∞</sub><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span><span class="scripts"><sup class="script"><i>n</i></sup><sub class="script">1</sub></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>n</i></span><span class="ignored">)</span></span></span>.</p>
+<div class="section" id="altering-the-placement-of-limits">
+<h2><a class="toc-backref" href="#toc-entry-33">7.1&nbsp;&nbsp;&nbsp;Altering the placement of limits</a></h2>
+<p>The commands <tt class="docutils literal">\intop</tt> and <tt class="docutils literal">\ointop</tt> produce integral signs with
+limits as in sums and similar: <span class="formula"><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span><span class="scripts"><sup class="script">1</sup><sub class="script">0</sub></span></span>, <span class="formula"><span class="limits"><span class="limit"><span class="bigoperator integral">∮</span></span></span><sub><i>c</i></sub></span> and</p>
+<div class="formula">
+<span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">0</sub></span> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator integral">∮</span></span><sub class="limit"><i>c</i></sub></span> <span class="text">vs.</span> <span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">0</sub></span> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator integral">∮</span></span><sub class="limit"><i>c</i></sub></span>
+</div>
+<p>The commands <tt class="docutils literal">\limits</tt> and <tt class="docutils literal">\nolimits</tt> override the default placement
+of the limits for any operator; <tt class="docutils literal">\displaylimits</tt> forces standard
+positioning as for the sum command. They should follow immediately after
+the operator to which they apply.</p>
+<p>Compare the same term with default positions, <tt class="docutils literal">\limits</tt>, and
+<tt class="docutils literal">\nolimits</tt> in inline and display mode: <span class="formula"><span class="limits"><span class="limit">lim</span></span><sub><i>x</i> → 0</sub><i>f</i>(<i>x</i>)</span>,
+<span class="formula"><span class="limits"><span class="limit">lim</span></span><span class="unknown">\limits</span><sub><i>x</i> → 0</sub><i>f</i>(<i>x</i>)</span>, <span class="formula"><span class="limits"><span class="limit">lim</span></span><sub><i>x</i> → 0</sub><i>f</i>(<i>x</i>)</span>, vs.</p>
+<div class="formula">
+<span class="limits"><sup class="limit"> </sup><span class="limit">lim</span><sub class="limit"><i>x</i> → 0</sub></span><i>f</i>(<i>x</i>),  <span class="limits"><span class="limit">lim</span></span><span class="unknown">\limits</span><sub><i>x</i> → 0</sub><i>f</i>(<i>x</i>) <span class="limits"><span class="limit">lim</span></span><sub><i>x</i> → 0</sub><i>f</i>(<i>x</i>).
+</div>
+<!-- TODO: \substack -->
+<!-- TODO: \sideset -->
+</div>
+</div>
+<div class="section" id="changing-the-size-of-elements-in-a-formula">
+<h1><a class="toc-backref" href="#toc-entry-34">8&nbsp;&nbsp;&nbsp;Changing the size of elements in a formula</a></h1>
+<p>The declarations <a class="footnote-reference" href="#footnote-8" id="footnote-reference-10">[9]</a> <tt class="docutils literal">\displaystyle</tt>, <tt class="docutils literal">\textstyle</tt>,
+<tt class="docutils literal">\scriptstyle</tt>, and <tt class="docutils literal">\scriptscriptstyle</tt>, select a symbol size and
+spacing that would be applied in (respectively) display math, inline
+math, first-order subscript, or second-order subscript, even when the
+current context would normally yield some other size.</p>
+<p>For example <tt class="docutils literal"><span class="pre">:math:`\displaystyle</span> <span class="pre">\sum_{n=0}^\infty</span>
+<span class="pre">\frac{1}{n}`</span></tt> is printed as <span class="formula"><span class="displaystyle"><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span></span><span class="scripts"><sup class="script">∞</sup><sub class="script"><i>n</i> = 0</sub></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>n</i></span><span class="ignored">)</span></span></span>
+rather than <span class="formula"><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span><span class="scripts"><sup class="script">∞</sup><sub class="script"><i>n</i> = 0</sub></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>n</i></span><span class="ignored">)</span></span></span> and</p>
+<pre class="literal-block">
+\frac{\scriptstyle\sum_{n &gt; 0} z^n}
+{\displaystyle\prod_{1\leq k\leq n} (1-q^k)}
+</pre>
+<p>yields</p>
+<div class="formula">
+<span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="scriptstyle"><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span></span><sub><i>n</i> &gt; 0</sub><i>z</i><sup><i>n</i></sup></span><span class="ignored">)/(</span><span class="denominator"><span class="displaystyle"><span class="limits"><span class="limit"><span class="bigoperator">∏</span></span></span></span><sub>1 ≤ <i>k</i> ≤ <i>n</i></sub>(1 − <i>q</i><sup><i>k</i></sup>)</span><span class="ignored">)</span></span><span class="text"> instead of the default </span><span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit"><i>n</i> &gt; 0</sub></span><i>z</i><sup><i>n</i></sup></span><span class="ignored">)/(</span><span class="denominator"><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∏</span></span><sub class="limit">1 ≤ <i>k</i> ≤ <i>n</i></sub></span>(1 − <i>q</i><sup><i>k</i></sup>)</span><span class="ignored">)</span></span>.
+</div>
+<table class="docutils footnote" frame="void" id="footnote-8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-10">[9]</a></td><td><p class="first">&quot;Declarations&quot; are commands that affect processing of the current
+&quot;group&quot;. In particular, notice where the braces fall that delimit the
+effect of the command: Right: <tt class="docutils literal">{\displaystyle <span class="pre">...}</span></tt> Wrong:
+<tt class="docutils literal"><span class="pre">\displaystyle{...}</span></tt>.</p>
+<p class="last">With <a class="reference external" href="https://docutils.sourceforge.io/docs/user/config.html#math-output">math_output</a> MathML, the declaration must be the first element
+after the opening bracket.</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="appendix">
+<h1><a class="toc-backref" href="#toc-entry-35">9&nbsp;&nbsp;&nbsp;Appendix</a></h1>
+<div class="section" id="tests">
+<h2><a class="toc-backref" href="#toc-entry-36">9.1&nbsp;&nbsp;&nbsp;Tests</a></h2>
+<div class="section" id="font-changes">
+<h3><a class="toc-backref" href="#toc-entry-37">9.1.1&nbsp;&nbsp;&nbsp;Font changes</a></h3>
+<p>Math alphabet macros change the default alphabet (&quot;mathvariant&quot; in
+MathML), leaving some symbols unchanged:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">normal:</th><td class="field-body"><span class="formula"><i>abs</i>(<i>x</i>)±<i>α</i> ≈ 3Γ ∀<i>x</i> ∈ <i>R</i></span></td>
+</tr>
+<tr class="field"><th class="field-name">mathrm:</th><td class="field-body"><span class="formula"><span class="mathrm">abs(x)±α ≈ 3Γ ∀x ∈ R</span></span></td>
+</tr>
+<tr class="field"><th class="field-name">mathit:</th><td class="field-body"><span class="formula"><i>abs(x)±α ≈ 3Γ ∀x ∈ R</i></span></td>
+</tr>
+<tr class="field"><th class="field-name">mathsf:</th><td class="field-body"><span class="formula"><span class="mathsf">abs(x)±α ≈ 3Γ ∀x ∈ R</span></span></td>
+</tr>
+<tr class="field"><th class="field-name">mathbb:</th><td class="field-body"><span class="formula"><span class="blackboard">abs(x)±α ≈ 3Γ ∀x ∈ R</span></span></td>
+</tr>
+<tr class="field"><th class="field-name">mathbf:</th><td class="field-body"><span class="formula"><b>abs(x)±α ≈ 3Γ ∀x ∈ R</b></span></td>
+</tr>
+<tr class="field"><th class="field-name">mathcal:</th><td class="field-body"><span class="formula"><span class="scriptfont">abs(x)±α ≈ 3Γ ∀x ∈ R</span></span></td>
+</tr>
+<tr class="field"><th class="field-name">mathscr:</th><td class="field-body"><span class="formula"><span class="mathscr">abs(x)±α ≈ 3Γ ∀x ∈ R</span></span></td>
+</tr>
+</tbody>
+</table>
+<p>Without additional packages, LaTeX supports &quot;blackboard-bold&quot; only for
+capital Latin letters.
+Unicode supports also small Latin letters, some Greek letters, and digits:
+<span class="formula"><span class="blackboard">A…Za…z</span><span class="blackboard">Γ</span><span class="blackboard">Π</span><span class="blackboard">Σ</span><span class="blackboard">γ</span><span class="blackboard">π</span><span class="blackboard">0…9</span></span>.</p>
+</div>
+<div class="section" id="inferred-mrow-s-in-mathml">
+<h3><a class="toc-backref" href="#toc-entry-38">9.1.2&nbsp;&nbsp;&nbsp;Inferred &lt;mrow&gt;s in MathML</a></h3>
+<p>The elements &lt;msqrt&gt;, &lt;mstyle&gt;, &lt;merror&gt;, &lt;mpadded&gt;, &lt;mphantom&gt;, &lt;menclose&gt;,
+&lt;mtd&gt;, &lt;mscarry&gt;, and &lt;math&gt; treat their contents as a single inferred mrow
+formed from all their children.</p>
+<div class="formula">
+<i>a</i> = <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">2</span><span class="ignored">)</span></span> + <i>x</i>,  <i>b</i> = <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">1 + <i>x</i><sup>2</sup></span><span class="ignored">)</span></span>,  <i>c</i> = <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="fraction"><span class="ignored">(</span><span class="numerator">sin(<i>x</i>)</span><span class="ignored">)/(</span><span class="denominator">23</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span>, 
+</div>
+<p>inline: <span class="formula"><i>a</i> = <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">2</span><span class="ignored">)</span></span> + <i>x</i>, <i>b</i> = <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">1 + <i>x</i><sup>2</sup></span><span class="ignored">)</span></span>, <i>c</i> = <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="fraction"><span class="ignored">(</span><span class="numerator">sin(<i>x</i>)</span><span class="ignored">)/(</span><span class="denominator">23</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span></span>.</p>
+</div>
+<div class="section" id="scripts-and-limits">
+<h3><a class="toc-backref" href="#toc-entry-39">9.1.3&nbsp;&nbsp;&nbsp;Scripts and Limits</a></h3>
+<p>Accents should be nearer to the base:
+<span class="formula"><span class="embellished"><sup>‒</sup><i><span class="base">a</span></i></span><span class="overline"><i>a</i></span>, <span class="embellished"><sup>‒</sup><i><span class="base">l</span></i></span><span class="overline"><i>l</i></span>, <span class="embellished"><sup>‒</sup><i><span class="base">i</span></i></span><span class="overline"><i>i</i></span></span>,
+<span class="formula"><span class="embellished"><sup><span class="smallsymbol">→</span></sup><span class="base"><i>r</i></span></span></span> <span class="formula"><span class="embellished"><sup>⟶</sup><span class="base"><i>r</i></span></span></span>.</p>
+<p>Sub- and superscript may be given in any order:
+<span class="formula"><i>x</i><span class="scripts"><sup class="script"><i>j</i></sup><sub class="script"><i>i</i></sub></span> = <i>x</i><span class="scripts"><sup class="script"><i>j</i></sup><sub class="script"><i>i</i></sub></span></span> and <span class="formula"><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span><span class="scripts"><sup class="script">1</sup><sub class="script">0</sub></span> = <span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span><span class="scripts"><sup class="script">1</sup><sub class="script">0</sub></span></span>.</p>
+<p>Double exponent: <span class="formula"><i>x</i><sup>10<sup>4</sup></sup></span>, <span class="formula"><i>r</i><sub><i>T</i><sub><span class="mathrm">in</span></sub></sub></span> and <span class="formula"><i>x</i><span class="scripts"><sup class="script"><i>n</i><sup>2</sup></sup><sub class="script"><i>i</i></sub></span></span>.</p>
+</div>
+<div class="section" id="nested-groups">
+<h3><a class="toc-backref" href="#toc-entry-40">9.1.4&nbsp;&nbsp;&nbsp;Nested groups</a></h3>
+<p>tex-token returns &quot;{&quot; for nested groups:</p>
+<div class="formula">
+<span class="text">das ist ein  tollertext (unescaped {and }is
+ignored by LaTeX)</span>
+</div>
+</div>
+<div class="section" id="big-delimiters-and-symbols">
+<h3><a class="toc-backref" href="#toc-entry-41">9.1.5&nbsp;&nbsp;&nbsp;Big delimiters and symbols</a></h3>
+<p>Compare automatic sizing with fixed sizes:</p>
+<!-- math:  \left( \frac{\frac1x}{\frac{1}{n}}\right) &= \Biggl(\text{Bigg}\Biggr)\\ -->
+<div class="formula">
+<span class="environment align"><span class="arrayrow">
+<span class="arraycell align-r">
+<span class="stretchy">(</span>3<span class="stretchy">)</span><span class="stretchy">(</span><i>f</i>(<i>x</i>)<span class="stretchy">)</span><span class="stretchy">(</span><span class="embellished"><sup>‒</sup><i><span class="base">x</span></i></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="overline"><i>x</i></span><span class="stretchy">)</span><span class="stretchy">(</span><i>n</i><sub><i>i</i></sub><span class="stretchy">)</span>
+</span>
+<span class="arraycell align-l">
+ = ()
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+<span class="stretchy">(</span><i>x</i><span class="stretchy">)</span>
+</span>
+<span class="arraycell align-l">
+ = <span class="bigdelimiter size1">(</span><span class="text">big</span><span class="bigdelimiter size1">)</span>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+<span class="stretchy">(</span>3<sup>2</sup><span class="stretchy">)</span><span class="stretchy">(</span><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">3</span><span class="ignored">)</span></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">3<sup>2</sup></span><span class="ignored">)</span></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">⨂</span></span></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">∏</span></span></span><span class="stretchy">)</span>
+</span>
+<span class="arraycell align-l">
+ = <span class="bigdelimiter size2">(</span><span class="text"> Big</span><span class="bigdelimiter size2">)</span>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+<span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">3</span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">3<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2<sup>4</sup></span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><span class="bigdelimiter size2">(</span><span class="binom"><span class="binomstack">3</span><span class="binomstack">2</span></span><span class="bigdelimiter size2">)</span><span class="unknown">\begin{pmatrix} <span class="arrayrow">
+<span class="arraycell align-l">
+<i>a</i>
+</span>
+<span class="arraycell align-l">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-l">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-l">
+<i>c</i>
+</span>
+<span class="arraycell align-l">
+<i>d</i>
+</span>
+
+</span>
+</span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">2</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">0</sub></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator integral">∫</span></span><sup class="limit"> </sup></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">0</sub></span><span class="stretchy">)</span>
+</span>
+<span class="arraycell align-l">
+ = <span class="bigdelimiter size3">(</span><span class="text"> bigg</span><span class="bigdelimiter size3">)</span>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+<span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">2</span><span class="ignored">)</span></span></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><span class="stretchy">(</span><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit">0</sub></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator">∑</span></span><sup class="limit"> </sup></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit">0</sub></span><span class="stretchy">)</span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>x</i></span><span class="ignored">)</span></span></span><span class="ignored">)/(</span><span class="denominator"><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>n</i></span><span class="ignored">)</span></span></span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>
+</span>
+<span class="arraycell align-l">
+ = <span class="bigdelimiter size4">(</span><span class="text">Bigg</span><span class="bigdelimiter size4">)</span>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+ 
+</span>
+<span class="arraycell align-l">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-r">
+<span class="stretchy">(</span><span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">0</sub></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator integral">∫</span></span><sup class="limit"> </sup></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><sup class="limit">1</sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">0</sub></span><span class="stretchy">)</span>
+</span>
+
+</span>
+</span>
+</div>
+<p>And in text:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name"><span class="formula">()</span>:</th><td class="field-body"><span class="formula"><span class="stretchy">(</span>3<span class="stretchy">)</span><span class="stretchy">(</span><i>f</i>(<i>x</i>)<span class="stretchy">)</span><span class="stretchy">(</span><span class="embellished"><sup>‒</sup><i><span class="base">x</span></i></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="overline"><i>x</i></span><span class="stretchy">)</span><span class="stretchy">(</span><i>n</i><sub><i>i</i></sub><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span><sub>0</sub><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">∏</span></span></span><span class="stretchy">)</span></span></td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2"><span class="formula"><span class="bigdelimiter size1">(</span><span class="text">big</span><span class="bigdelimiter size1">)</span></span>:</th></tr>
+<tr class="field"><td>&nbsp;</td><td class="field-body"><span class="formula"><span class="stretchy">(</span><i>x</i><span class="stretchy">)</span><span class="stretchy">(</span>3<sup>2</sup><span class="stretchy">)</span><span class="bigdelimiter size2">(</span><span class="binom"><span class="binomstack">3</span><span class="binomstack">2</span></span><span class="bigdelimiter size2">)</span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="environment smallmatrix"><span class="arrayrow">
+<span class="arraycell align-c">
+<i>a</i>
+</span>
+<span class="arraycell align-c">
+<i>b</i>
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+ 
+</span>
+<span class="arraycell align-c">
+ 
+</span>
+
+</span>
+<span class="arrayrow">
+<span class="arraycell align-c">
+<i>c</i>
+</span>
+<span class="arraycell align-c">
+<i>d</i>
+</span>
+
+</span>
+</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">⨂</span></span></span><span class="stretchy">)</span></span></td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2"><span class="formula"><span class="bigdelimiter size2">(</span><span class="text">Big</span><span class="bigdelimiter size2">)</span></span>:</th></tr>
+<tr class="field"><td>&nbsp;</td><td class="field-body"><span class="formula"><span class="stretchy">(</span><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">3</span><span class="ignored">)</span></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">3<sup>2</sup></span><span class="ignored">)</span></span><span class="stretchy">)</span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">3</span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">3<sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2<sup>4</sup></span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">2</span><span class="ignored">)</span></span></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span><sub>0</sub><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span><sup>1</sup><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span><span class="scripts"><sup class="script">1</sup><sub class="script">0</sub></span><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span><sup>1</sup><span class="stretchy">)</span><span class="stretchy">(</span><span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span><span class="scripts"><sup class="script">1</sup><sub class="script">0</sub></span><span class="stretchy">)</span><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>x</i></span><span class="ignored">)</span></span></span><span class="ignored">)/(</span><span class="denominator"><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>n</i></span><span class="ignored">)</span></span></span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+<p>Test <tt class="docutils literal">\left</tt>, <tt class="docutils literal">\right</tt>, and the  bigl/bigr, … size commands
+with all extensible delimiters.</p>
+<div class="formula">
+<span class="emptydot"></span>(<i>b</i><span class="stretchy">)</span> <span class="bigdelimiter size1">(</span><i>b</i><span class="bigdelimiter size2">)</span> <span class="bigdelimiter size3">(</span><i>b</i><span class="bigdelimiter size4">)</span> <span class="emptydot"></span>[<i>b</i><span class="stretchy">]</span> <span class="bigdelimiter size1">[</span><i>b</i><span class="bigdelimiter size2">]</span> <span class="bigdelimiter size3">[</span><i>b</i><span class="bigdelimiter size4">]</span> <span class="emptydot"></span>{<i>b</i><span class="stretchy">}</span> <span class="bigdelimiter size1">{</span><i>b</i><span class="bigdelimiter size2">}</span> <span class="bigdelimiter size3">{</span><i>b</i><span class="bigdelimiter size4">}</span> <span class="emptydot"></span>⟨<i>b</i><span class="stretchy">⟩</span> <span class="bigdelimiter size1">⟨</span><i>b</i><span class="bigdelimiter size2">⟩</span> <span class="bigdelimiter size3">⟨</span><i>b</i><span class="bigdelimiter size4">⟩</span>
+</div>
+<div class="formula">
+<span class="emptydot"></span>⌈<i>b</i><span class="stretchy">⌉</span> <span class="bigdelimiter size1">⌈</span><i>b</i><span class="bigdelimiter size2">⌉</span> <span class="bigdelimiter size3">⌈</span><i>b</i><span class="bigdelimiter size4">⌉</span> <span class="emptydot"></span>⌊<i>b</i><span class="stretchy">⌋</span> <span class="bigdelimiter size1">⌊</span><i>b</i><span class="bigdelimiter size2">⌋</span> <span class="bigdelimiter size3">⌊</span><i>b</i><span class="bigdelimiter size4">⌋</span> <span class="emptydot"></span>|<i>b</i><span class="stretchy">|</span> <span class="bigdelimiter size1">|</span><i>b</i><span class="bigdelimiter size2">|</span> <span class="bigdelimiter size3">|</span><i>b</i><span class="bigdelimiter size4">|</span> <span class="emptydot"></span>‖<i>b</i><span class="stretchy">‖</span> <span class="bigdelimiter size1">‖</span><i>b</i><span class="bigdelimiter size2">‖</span> <span class="bigdelimiter size3">‖</span><i>b</i><span class="bigdelimiter size4">‖</span>
+</div>
+<div class="formula">
+<span class="emptydot"></span>⟮<i>b</i><span class="stretchy">⟯</span> <span class="bigdelimiter size1">⟮</span><i>b</i><span class="bigdelimiter size2">⟯</span> <span class="bigdelimiter size3">⟮</span><i>b</i><span class="bigdelimiter size4">⟯</span> <span class="emptydot"></span>⎰<i>b</i><span class="stretchy">⎱</span> <span class="bigdelimiter size1">⎰</span><i>b</i><span class="bigdelimiter size2">⎱</span> <span class="bigdelimiter size3">⎰</span><i>b</i><span class="bigdelimiter size4">⎱</span> <span class="emptydot"></span> ⁄ <i>b</i><span class="stretchy">\</span> <span class="bigdelimiter size1"> ⁄ </span><i>b</i><span class="bigdelimiter size2">\</span> <span class="bigdelimiter size3"> ⁄ </span><i>b</i><span class="bigdelimiter size4">\</span>
+</div>
+<div class="formula">
+<span class="emptydot"></span>|<i>b</i><span class="stretchy">‖</span> <span class="bigdelimiter size1">|</span><i>b</i><span class="bigdelimiter size2">‖</span> <span class="bigdelimiter size3">|</span><i>b</i><span class="bigdelimiter size4">‖</span> <span class="emptydot"></span>|<i>b</i><span class="stretchy">‖</span> <span class="bigdelimiter size1">|</span><i>b</i><span class="bigdelimiter size2">‖</span> <span class="bigdelimiter size3">|</span><i>b</i><span class="bigdelimiter size4">‖</span> <span class="emptydot"></span>⏐<i>b</i><span class="stretchy">‖</span> <span class="bigdelimiter size1">⏐</span><i>b</i><span class="bigdelimiter size2">‖</span> <span class="bigdelimiter size3">⏐</span><i>b</i><span class="bigdelimiter size4">‖</span> <span class="emptydot"></span>⎪<i>b</i><span class="stretchy">⎪</span> <span class="bigdelimiter size1">⎪</span><i>b</i><span class="bigdelimiter size2">⎪</span> <span class="bigdelimiter size3">⎪</span><i>b</i><span class="bigdelimiter size4">⎪</span> <span class="emptydot"></span>|<i>b</i><span class="stretchy">‖</span> <span class="bigdelimiter size1">|</span><i>b</i><span class="bigdelimiter size2">‖</span> <span class="bigdelimiter size3">|</span><i>b</i><span class="bigdelimiter size4">‖</span>
+</div>
+<p>Variable-sized operators:</p>
+<p>Inline: <span class="formula"><span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">∬</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">∭</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">⨌</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">∫⋯∫</span></span></span><span class="limits"><span class="limit"><span class="bigoperator integral">∮</span></span></span> <span class="limits"><span class="limit"><span class="smallsymbol integral">∫</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">∏</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">∐</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⋀</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⋁</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⋂</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⋃</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨄</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨆</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨀</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨁</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨂</span></span></span></span> and Display:</p>
+<div class="formula">
+<span class="limits"><span class="limit"><span class="bigoperator integral">∫</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">∬</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">∭</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">⨌</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">∫⋯∫</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator integral">∮</span></span></span> <span class="limits"><span class="limit"><span class="smallsymbol integral">∫</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">∑</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">∏</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">∐</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⋀</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⋁</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⋂</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⋃</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨄</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨆</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨀</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨁</span></span></span> <span class="limits"><span class="limit"><span class="bigoperator">⨂</span></span></span>
+</div>
+<div class="formula">
+<span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">1</sub></span><i>f</i> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">1</sub></span><i>f</i> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator integral">∬</span></span><sub class="limit">1</sub></span><i>f</i> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="smallsymbol integral">∫</span></span><sub class="limit">1</sub></span><i>f</i> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">∏</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">⋀</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">⋂</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">⨄</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"> </sup><span class="limit"><span class="bigoperator">⨀</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∫</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∫</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">⨌</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∮</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="smallsymbol integral">∫</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">∑</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">∐</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⋁</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⋃</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⨆</span></span><sup class="limit"> </sup></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⨂</span></span><sup class="limit"> </sup></span>
+</div>
+<div class="formula">
+<span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∫</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∬</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∭</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">⨌</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∫⋯∫</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator integral">∮</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="smallsymbol integral">∫</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">∑</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">∏</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">∐</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⋀</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⋁</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⋂</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⋃</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⨄</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⨆</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⨀</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⨁</span></span><sub class="limit">1</sub></span> <span class="limits"><sup class="limit"><i>N</i></sup><span class="limit"><span class="bigoperator">⨂</span></span><sub class="limit">1</sub></span>
+</div>
+</div>
+<div class="section" id="text-1">
+<h3><a class="toc-backref" href="#toc-entry-42">9.1.6&nbsp;&nbsp;&nbsp;Text</a></h3>
+<p>The text may contain non-ASCII characters: <span class="formula"><i>n</i><sub><span class="text">Stoß</span></sub></span>.</p>
+<p>Some text-mode LaTeX commands are supported with <a class="reference external" href="https://docutils.sourceforge.io/docs/user/config.html#math-output">math_output</a> &quot;html&quot;.
+In other output formats, use literal Unicode: <span class="formula"><span class="text">ç é è ë ê ñ ů ž ©</span></span>
+to get the result of the accent macros
+<span class="formula"><span class="text">çéèëêñůžc⃝</span></span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="mathematics.txt">View document source</a>.
+Generated on: 2023-10-17 05:47 UTC.
+Generated by <a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> from <a class="reference external" href="https://docutils.sourceforge.io/rst.html">reStructuredText</a> source.
+
+</div>
+</body>
+</html>

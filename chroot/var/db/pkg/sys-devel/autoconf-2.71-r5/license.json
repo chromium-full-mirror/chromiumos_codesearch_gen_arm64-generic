@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "autoconf", "version": "2.71", "revision": 5, "fullname": "sys-devel/autoconf", "fullnamerev": "sys-devel/autoconf-2.71-r5", "license_names": ["GPL-3+"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/autoconf/autoconf.html"], "skip": false, "tainted": false, "ebuild_path": null}

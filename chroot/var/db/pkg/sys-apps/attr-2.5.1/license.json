@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "attr", "version": "2.5.1", "revision": 0, "fullname": "sys-apps/attr", "fullnamerev": "sys-apps/attr-2.5.1", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://savannah.nongnu.org/projects/attr"], "skip": false, "tainted": false, "ebuild_path": null}

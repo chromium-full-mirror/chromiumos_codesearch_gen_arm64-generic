@@ -1,0 +1,21 @@
+import { getTrustedHTML } from '//resources/js/static_types.js';
+export function getTemplate() {
+    return getTrustedHTML `<!--_html_template_start_--><style>
+  warning-banner {
+    --icon-bg: var(--cros-sys-on_error_container);
+    --icon-holder-bg: var(--cros-sys-error_container);
+    --icon-src: url(/foreground/images/files/ui/error_banner_icon.svg);
+  }
+</style>
+<warning-banner role="banner" class="tast-drive-out-of-individual-space">
+  <span slot="text" aria-label="$i18n{DRIVE_WARNING_QUOTA_OVER}: $i18n{DRIVE_INDIVIDUAL_QUOTA_OVER}">
+    <span aria-hidden="true">
+      $i18n{DRIVE_INDIVIDUAL_QUOTA_OVER}
+    </span>
+  </span>
+  <cr-button slot="extra-button" href="$i18n{GOOGLE_DRIVE_MANAGE_STORAGE_URL}">
+    $i18n{LEARN_MORE_LABEL}
+  </cr-button>
+</warning-banner>
+<!--_html_template_end_-->`;
+}

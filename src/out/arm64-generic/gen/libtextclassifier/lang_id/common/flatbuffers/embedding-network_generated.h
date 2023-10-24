@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 namespace saft_fbs {
 
@@ -56,12 +63,12 @@ inline const char * const *EnumNamesQuantizationType() {
 }
 
 inline const char *EnumNameQuantizationType(QuantizationType e) {
-  if (flatbuffers::IsOutRange(e, QuantizationType_NONE, QuantizationType_FLOAT16)) return "";
+  if (::flatbuffers::IsOutRange(e, QuantizationType_NONE, QuantizationType_FLOAT16)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesQuantizationType()[index];
 }
 
-struct MatrixT : public flatbuffers::NativeTable {
+struct MatrixT : public ::flatbuffers::NativeTable {
   typedef Matrix TableType;
   int32_t rows = 0;
   int32_t cols = 0;
@@ -71,7 +78,7 @@ struct MatrixT : public flatbuffers::NativeTable {
   std::vector<uint16_t> scales{};
 };
 
-struct Matrix FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Matrix FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef MatrixT NativeTableType;
   typedef MatrixBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -91,20 +98,20 @@ struct Matrix FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   libtextclassifier3::saft_fbs::QuantizationType quantization_type() const {
     return static_cast<libtextclassifier3::saft_fbs::QuantizationType>(GetField<int8_t>(VT_QUANTIZATION_TYPE, 0));
   }
-  const flatbuffers::Vector<float> *values() const {
-    return GetPointer<const flatbuffers::Vector<float> *>(VT_VALUES);
+  const ::flatbuffers::Vector<float> *values() const {
+    return GetPointer<const ::flatbuffers::Vector<float> *>(VT_VALUES);
   }
-  const flatbuffers::Vector<uint8_t> *quantized_values() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_QUANTIZED_VALUES);
+  const ::flatbuffers::Vector<uint8_t> *quantized_values() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_QUANTIZED_VALUES);
   }
-  const flatbuffers::Vector<uint16_t> *scales() const {
-    return GetPointer<const flatbuffers::Vector<uint16_t> *>(VT_SCALES);
+  const ::flatbuffers::Vector<uint16_t> *scales() const {
+    return GetPointer<const ::flatbuffers::Vector<uint16_t> *>(VT_SCALES);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_ROWS) &&
-           VerifyField<int32_t>(verifier, VT_COLS) &&
-           VerifyField<int8_t>(verifier, VT_QUANTIZATION_TYPE) &&
+           VerifyField<int32_t>(verifier, VT_ROWS, 4) &&
+           VerifyField<int32_t>(verifier, VT_COLS, 4) &&
+           VerifyField<int8_t>(verifier, VT_QUANTIZATION_TYPE, 1) &&
            VerifyOffset(verifier, VT_VALUES) &&
            verifier.VerifyVector(values()) &&
            VerifyOffset(verifier, VT_QUANTIZED_VALUES) &&
@@ -113,15 +120,15 @@ struct Matrix FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyVector(scales()) &&
            verifier.EndTable();
   }
-  MatrixT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(MatrixT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Matrix> Pack(flatbuffers::FlatBufferBuilder &_fbb, const MatrixT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  MatrixT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(MatrixT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Matrix> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const MatrixT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct MatrixBuilder {
   typedef Matrix Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_rows(int32_t rows) {
     fbb_.AddElement<int32_t>(Matrix::VT_ROWS, rows, 0);
   }
@@ -131,34 +138,34 @@ struct MatrixBuilder {
   void add_quantization_type(libtextclassifier3::saft_fbs::QuantizationType quantization_type) {
     fbb_.AddElement<int8_t>(Matrix::VT_QUANTIZATION_TYPE, static_cast<int8_t>(quantization_type), 0);
   }
-  void add_values(flatbuffers::Offset<flatbuffers::Vector<float>> values) {
+  void add_values(::flatbuffers::Offset<::flatbuffers::Vector<float>> values) {
     fbb_.AddOffset(Matrix::VT_VALUES, values);
   }
-  void add_quantized_values(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> quantized_values) {
+  void add_quantized_values(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> quantized_values) {
     fbb_.AddOffset(Matrix::VT_QUANTIZED_VALUES, quantized_values);
   }
-  void add_scales(flatbuffers::Offset<flatbuffers::Vector<uint16_t>> scales) {
+  void add_scales(::flatbuffers::Offset<::flatbuffers::Vector<uint16_t>> scales) {
     fbb_.AddOffset(Matrix::VT_SCALES, scales);
   }
-  explicit MatrixBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit MatrixBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Matrix> Finish() {
+  ::flatbuffers::Offset<Matrix> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Matrix>(end);
+    auto o = ::flatbuffers::Offset<Matrix>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Matrix> CreateMatrix(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Matrix> CreateMatrix(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t rows = 0,
     int32_t cols = 0,
     libtextclassifier3::saft_fbs::QuantizationType quantization_type = libtextclassifier3::saft_fbs::QuantizationType_NONE,
-    flatbuffers::Offset<flatbuffers::Vector<float>> values = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> quantized_values = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint16_t>> scales = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<float>> values = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> quantized_values = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint16_t>> scales = 0) {
   MatrixBuilder builder_(_fbb);
   builder_.add_scales(scales);
   builder_.add_quantized_values(quantized_values);
@@ -169,8 +176,8 @@ inline flatbuffers::Offset<Matrix> CreateMatrix(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<Matrix> CreateMatrixDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<Matrix> CreateMatrixDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t rows = 0,
     int32_t cols = 0,
     libtextclassifier3::saft_fbs::QuantizationType quantization_type = libtextclassifier3::saft_fbs::QuantizationType_NONE,
@@ -190,15 +197,19 @@ inline flatbuffers::Offset<Matrix> CreateMatrixDirect(
       scales__);
 }
 
-flatbuffers::Offset<Matrix> CreateMatrix(flatbuffers::FlatBufferBuilder &_fbb, const MatrixT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Matrix> CreateMatrix(::flatbuffers::FlatBufferBuilder &_fbb, const MatrixT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct InputChunkT : public flatbuffers::NativeTable {
+struct InputChunkT : public ::flatbuffers::NativeTable {
   typedef InputChunk TableType;
   std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT> embedding{};
   int32_t num_features = 0;
+  InputChunkT() = default;
+  InputChunkT(const InputChunkT &o);
+  InputChunkT(InputChunkT&&) FLATBUFFERS_NOEXCEPT = default;
+  InputChunkT &operator=(InputChunkT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct InputChunk FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct InputChunk FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef InputChunkT NativeTableType;
   typedef InputChunkBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -211,42 +222,42 @@ struct InputChunk FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t num_features() const {
     return GetField<int32_t>(VT_NUM_FEATURES, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_EMBEDDING) &&
            verifier.VerifyTable(embedding()) &&
-           VerifyField<int32_t>(verifier, VT_NUM_FEATURES) &&
+           VerifyField<int32_t>(verifier, VT_NUM_FEATURES, 4) &&
            verifier.EndTable();
   }
-  InputChunkT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(InputChunkT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<InputChunk> Pack(flatbuffers::FlatBufferBuilder &_fbb, const InputChunkT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  InputChunkT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(InputChunkT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<InputChunk> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const InputChunkT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct InputChunkBuilder {
   typedef InputChunk Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_embedding(flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> embedding) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_embedding(::flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> embedding) {
     fbb_.AddOffset(InputChunk::VT_EMBEDDING, embedding);
   }
   void add_num_features(int32_t num_features) {
     fbb_.AddElement<int32_t>(InputChunk::VT_NUM_FEATURES, num_features, 0);
   }
-  explicit InputChunkBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit InputChunkBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<InputChunk> Finish() {
+  ::flatbuffers::Offset<InputChunk> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<InputChunk>(end);
+    auto o = ::flatbuffers::Offset<InputChunk>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<InputChunk> CreateInputChunk(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> embedding = 0,
+inline ::flatbuffers::Offset<InputChunk> CreateInputChunk(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> embedding = 0,
     int32_t num_features = 0) {
   InputChunkBuilder builder_(_fbb);
   builder_.add_num_features(num_features);
@@ -254,15 +265,19 @@ inline flatbuffers::Offset<InputChunk> CreateInputChunk(
   return builder_.Finish();
 }
 
-flatbuffers::Offset<InputChunk> CreateInputChunk(flatbuffers::FlatBufferBuilder &_fbb, const InputChunkT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<InputChunk> CreateInputChunk(::flatbuffers::FlatBufferBuilder &_fbb, const InputChunkT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct NeuralLayerT : public flatbuffers::NativeTable {
+struct NeuralLayerT : public ::flatbuffers::NativeTable {
   typedef NeuralLayer TableType;
   std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT> weights{};
   std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT> bias{};
+  NeuralLayerT() = default;
+  NeuralLayerT(const NeuralLayerT &o);
+  NeuralLayerT(NeuralLayerT&&) FLATBUFFERS_NOEXCEPT = default;
+  NeuralLayerT &operator=(NeuralLayerT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct NeuralLayer FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct NeuralLayer FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef NeuralLayerT NativeTableType;
   typedef NeuralLayerBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -275,7 +290,7 @@ struct NeuralLayer FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const libtextclassifier3::saft_fbs::Matrix *bias() const {
     return GetPointer<const libtextclassifier3::saft_fbs::Matrix *>(VT_BIAS);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_WEIGHTS) &&
            verifier.VerifyTable(weights()) &&
@@ -283,64 +298,68 @@ struct NeuralLayer FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyTable(bias()) &&
            verifier.EndTable();
   }
-  NeuralLayerT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(NeuralLayerT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<NeuralLayer> Pack(flatbuffers::FlatBufferBuilder &_fbb, const NeuralLayerT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  NeuralLayerT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(NeuralLayerT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<NeuralLayer> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const NeuralLayerT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct NeuralLayerBuilder {
   typedef NeuralLayer Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_weights(flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> weights) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_weights(::flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> weights) {
     fbb_.AddOffset(NeuralLayer::VT_WEIGHTS, weights);
   }
-  void add_bias(flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> bias) {
+  void add_bias(::flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> bias) {
     fbb_.AddOffset(NeuralLayer::VT_BIAS, bias);
   }
-  explicit NeuralLayerBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit NeuralLayerBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<NeuralLayer> Finish() {
+  ::flatbuffers::Offset<NeuralLayer> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<NeuralLayer>(end);
+    auto o = ::flatbuffers::Offset<NeuralLayer>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<NeuralLayer> CreateNeuralLayer(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> weights = 0,
-    flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> bias = 0) {
+inline ::flatbuffers::Offset<NeuralLayer> CreateNeuralLayer(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> weights = 0,
+    ::flatbuffers::Offset<libtextclassifier3::saft_fbs::Matrix> bias = 0) {
   NeuralLayerBuilder builder_(_fbb);
   builder_.add_bias(bias);
   builder_.add_weights(weights);
   return builder_.Finish();
 }
 
-flatbuffers::Offset<NeuralLayer> CreateNeuralLayer(flatbuffers::FlatBufferBuilder &_fbb, const NeuralLayerT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<NeuralLayer> CreateNeuralLayer(::flatbuffers::FlatBufferBuilder &_fbb, const NeuralLayerT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct EmbeddingNetworkT : public flatbuffers::NativeTable {
+struct EmbeddingNetworkT : public ::flatbuffers::NativeTable {
   typedef EmbeddingNetwork TableType;
   std::vector<std::unique_ptr<libtextclassifier3::saft_fbs::InputChunkT>> input_chunks{};
   std::vector<std::unique_ptr<libtextclassifier3::saft_fbs::NeuralLayerT>> layers{};
+  EmbeddingNetworkT() = default;
+  EmbeddingNetworkT(const EmbeddingNetworkT &o);
+  EmbeddingNetworkT(EmbeddingNetworkT&&) FLATBUFFERS_NOEXCEPT = default;
+  EmbeddingNetworkT &operator=(EmbeddingNetworkT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct EmbeddingNetwork FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct EmbeddingNetwork FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef EmbeddingNetworkT NativeTableType;
   typedef EmbeddingNetworkBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_INPUT_CHUNKS = 4,
     VT_LAYERS = 6
   };
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>> *input_chunks() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>> *>(VT_INPUT_CHUNKS);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>> *input_chunks() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>> *>(VT_INPUT_CHUNKS);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>> *layers() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>> *>(VT_LAYERS);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>> *layers() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>> *>(VT_LAYERS);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_INPUT_CHUNKS) &&
            verifier.VerifyVector(input_chunks()) &&
@@ -350,81 +369,81 @@ struct EmbeddingNetwork FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyVectorOfTables(layers()) &&
            verifier.EndTable();
   }
-  EmbeddingNetworkT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(EmbeddingNetworkT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<EmbeddingNetwork> Pack(flatbuffers::FlatBufferBuilder &_fbb, const EmbeddingNetworkT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  EmbeddingNetworkT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(EmbeddingNetworkT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<EmbeddingNetwork> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const EmbeddingNetworkT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct EmbeddingNetworkBuilder {
   typedef EmbeddingNetwork Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_input_chunks(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>>> input_chunks) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_input_chunks(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>>> input_chunks) {
     fbb_.AddOffset(EmbeddingNetwork::VT_INPUT_CHUNKS, input_chunks);
   }
-  void add_layers(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>>> layers) {
+  void add_layers(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>>> layers) {
     fbb_.AddOffset(EmbeddingNetwork::VT_LAYERS, layers);
   }
-  explicit EmbeddingNetworkBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit EmbeddingNetworkBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<EmbeddingNetwork> Finish() {
+  ::flatbuffers::Offset<EmbeddingNetwork> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<EmbeddingNetwork>(end);
+    auto o = ::flatbuffers::Offset<EmbeddingNetwork>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetwork(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>>> input_chunks = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>>> layers = 0) {
+inline ::flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetwork(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>>> input_chunks = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>>> layers = 0) {
   EmbeddingNetworkBuilder builder_(_fbb);
   builder_.add_layers(layers);
   builder_.add_input_chunks(input_chunks);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetworkDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>> *input_chunks = nullptr,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>> *layers = nullptr) {
-  auto input_chunks__ = input_chunks ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>>(*input_chunks) : 0;
-  auto layers__ = layers ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>>(*layers) : 0;
+inline ::flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetworkDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>> *input_chunks = nullptr,
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>> *layers = nullptr) {
+  auto input_chunks__ = input_chunks ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>>(*input_chunks) : 0;
+  auto layers__ = layers ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>>(*layers) : 0;
   return libtextclassifier3::saft_fbs::CreateEmbeddingNetwork(
       _fbb,
       input_chunks__,
       layers__);
 }
 
-flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetwork(flatbuffers::FlatBufferBuilder &_fbb, const EmbeddingNetworkT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetwork(::flatbuffers::FlatBufferBuilder &_fbb, const EmbeddingNetworkT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline MatrixT *Matrix::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline MatrixT *Matrix::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<MatrixT>(new MatrixT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Matrix::UnPackTo(MatrixT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Matrix::UnPackTo(MatrixT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = rows(); _o->rows = _e; }
   { auto _e = cols(); _o->cols = _e; }
   { auto _e = quantization_type(); _o->quantization_type = _e; }
-  { auto _e = values(); if (_e) { _o->values.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->values[_i] = _e->Get(_i); } } }
+  { auto _e = values(); if (_e) { _o->values.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->values[_i] = _e->Get(_i); } } else { _o->values.resize(0); } }
   { auto _e = quantized_values(); if (_e) { _o->quantized_values.resize(_e->size()); std::copy(_e->begin(), _e->end(), _o->quantized_values.begin()); } }
-  { auto _e = scales(); if (_e) { _o->scales.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->scales[_i] = _e->Get(_i); } } }
+  { auto _e = scales(); if (_e) { _o->scales.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->scales[_i] = _e->Get(_i); } } else { _o->scales.resize(0); } }
 }
 
-inline flatbuffers::Offset<Matrix> Matrix::Pack(flatbuffers::FlatBufferBuilder &_fbb, const MatrixT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Matrix> Matrix::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const MatrixT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateMatrix(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Matrix> CreateMatrix(flatbuffers::FlatBufferBuilder &_fbb, const MatrixT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Matrix> CreateMatrix(::flatbuffers::FlatBufferBuilder &_fbb, const MatrixT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MatrixT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const MatrixT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _rows = _o->rows;
   auto _cols = _o->cols;
   auto _quantization_type = _o->quantization_type;
@@ -441,27 +460,38 @@ inline flatbuffers::Offset<Matrix> CreateMatrix(flatbuffers::FlatBufferBuilder &
       _scales);
 }
 
-inline InputChunkT *InputChunk::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline InputChunkT::InputChunkT(const InputChunkT &o)
+      : embedding((o.embedding) ? new libtextclassifier3::saft_fbs::MatrixT(*o.embedding) : nullptr),
+        num_features(o.num_features) {
+}
+
+inline InputChunkT &InputChunkT::operator=(InputChunkT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(embedding, o.embedding);
+  std::swap(num_features, o.num_features);
+  return *this;
+}
+
+inline InputChunkT *InputChunk::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<InputChunkT>(new InputChunkT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void InputChunk::UnPackTo(InputChunkT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void InputChunk::UnPackTo(InputChunkT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = embedding(); if (_e) _o->embedding = std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT>(_e->UnPack(_resolver)); }
+  { auto _e = embedding(); if (_e) { if(_o->embedding) { _e->UnPackTo(_o->embedding.get(), _resolver); } else { _o->embedding = std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT>(_e->UnPack(_resolver)); } } else if (_o->embedding) { _o->embedding.reset(); } }
   { auto _e = num_features(); _o->num_features = _e; }
 }
 
-inline flatbuffers::Offset<InputChunk> InputChunk::Pack(flatbuffers::FlatBufferBuilder &_fbb, const InputChunkT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<InputChunk> InputChunk::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const InputChunkT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateInputChunk(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<InputChunk> CreateInputChunk(flatbuffers::FlatBufferBuilder &_fbb, const InputChunkT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<InputChunk> CreateInputChunk(::flatbuffers::FlatBufferBuilder &_fbb, const InputChunkT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const InputChunkT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const InputChunkT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _embedding = _o->embedding ? CreateMatrix(_fbb, _o->embedding.get(), _rehasher) : 0;
   auto _num_features = _o->num_features;
   return libtextclassifier3::saft_fbs::CreateInputChunk(
@@ -470,27 +500,38 @@ inline flatbuffers::Offset<InputChunk> CreateInputChunk(flatbuffers::FlatBufferB
       _num_features);
 }
 
-inline NeuralLayerT *NeuralLayer::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline NeuralLayerT::NeuralLayerT(const NeuralLayerT &o)
+      : weights((o.weights) ? new libtextclassifier3::saft_fbs::MatrixT(*o.weights) : nullptr),
+        bias((o.bias) ? new libtextclassifier3::saft_fbs::MatrixT(*o.bias) : nullptr) {
+}
+
+inline NeuralLayerT &NeuralLayerT::operator=(NeuralLayerT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(weights, o.weights);
+  std::swap(bias, o.bias);
+  return *this;
+}
+
+inline NeuralLayerT *NeuralLayer::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<NeuralLayerT>(new NeuralLayerT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void NeuralLayer::UnPackTo(NeuralLayerT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void NeuralLayer::UnPackTo(NeuralLayerT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = weights(); if (_e) _o->weights = std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT>(_e->UnPack(_resolver)); }
-  { auto _e = bias(); if (_e) _o->bias = std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT>(_e->UnPack(_resolver)); }
+  { auto _e = weights(); if (_e) { if(_o->weights) { _e->UnPackTo(_o->weights.get(), _resolver); } else { _o->weights = std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT>(_e->UnPack(_resolver)); } } else if (_o->weights) { _o->weights.reset(); } }
+  { auto _e = bias(); if (_e) { if(_o->bias) { _e->UnPackTo(_o->bias.get(), _resolver); } else { _o->bias = std::unique_ptr<libtextclassifier3::saft_fbs::MatrixT>(_e->UnPack(_resolver)); } } else if (_o->bias) { _o->bias.reset(); } }
 }
 
-inline flatbuffers::Offset<NeuralLayer> NeuralLayer::Pack(flatbuffers::FlatBufferBuilder &_fbb, const NeuralLayerT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<NeuralLayer> NeuralLayer::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const NeuralLayerT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateNeuralLayer(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<NeuralLayer> CreateNeuralLayer(flatbuffers::FlatBufferBuilder &_fbb, const NeuralLayerT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<NeuralLayer> CreateNeuralLayer(::flatbuffers::FlatBufferBuilder &_fbb, const NeuralLayerT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const NeuralLayerT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const NeuralLayerT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _weights = _o->weights ? CreateMatrix(_fbb, _o->weights.get(), _rehasher) : 0;
   auto _bias = _o->bias ? CreateMatrix(_fbb, _o->bias.get(), _rehasher) : 0;
   return libtextclassifier3::saft_fbs::CreateNeuralLayer(
@@ -499,29 +540,42 @@ inline flatbuffers::Offset<NeuralLayer> CreateNeuralLayer(flatbuffers::FlatBuffe
       _bias);
 }
 
-inline EmbeddingNetworkT *EmbeddingNetwork::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline EmbeddingNetworkT::EmbeddingNetworkT(const EmbeddingNetworkT &o) {
+  input_chunks.reserve(o.input_chunks.size());
+  for (const auto &input_chunks_ : o.input_chunks) { input_chunks.emplace_back((input_chunks_) ? new libtextclassifier3::saft_fbs::InputChunkT(*input_chunks_) : nullptr); }
+  layers.reserve(o.layers.size());
+  for (const auto &layers_ : o.layers) { layers.emplace_back((layers_) ? new libtextclassifier3::saft_fbs::NeuralLayerT(*layers_) : nullptr); }
+}
+
+inline EmbeddingNetworkT &EmbeddingNetworkT::operator=(EmbeddingNetworkT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(input_chunks, o.input_chunks);
+  std::swap(layers, o.layers);
+  return *this;
+}
+
+inline EmbeddingNetworkT *EmbeddingNetwork::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<EmbeddingNetworkT>(new EmbeddingNetworkT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void EmbeddingNetwork::UnPackTo(EmbeddingNetworkT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void EmbeddingNetwork::UnPackTo(EmbeddingNetworkT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = input_chunks(); if (_e) { _o->input_chunks.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->input_chunks[_i] = std::unique_ptr<libtextclassifier3::saft_fbs::InputChunkT>(_e->Get(_i)->UnPack(_resolver)); } } }
-  { auto _e = layers(); if (_e) { _o->layers.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->layers[_i] = std::unique_ptr<libtextclassifier3::saft_fbs::NeuralLayerT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = input_chunks(); if (_e) { _o->input_chunks.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->input_chunks[_i]) { _e->Get(_i)->UnPackTo(_o->input_chunks[_i].get(), _resolver); } else { _o->input_chunks[_i] = std::unique_ptr<libtextclassifier3::saft_fbs::InputChunkT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->input_chunks.resize(0); } }
+  { auto _e = layers(); if (_e) { _o->layers.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->layers[_i]) { _e->Get(_i)->UnPackTo(_o->layers[_i].get(), _resolver); } else { _o->layers[_i] = std::unique_ptr<libtextclassifier3::saft_fbs::NeuralLayerT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->layers.resize(0); } }
 }
 
-inline flatbuffers::Offset<EmbeddingNetwork> EmbeddingNetwork::Pack(flatbuffers::FlatBufferBuilder &_fbb, const EmbeddingNetworkT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<EmbeddingNetwork> EmbeddingNetwork::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const EmbeddingNetworkT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateEmbeddingNetwork(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetwork(flatbuffers::FlatBufferBuilder &_fbb, const EmbeddingNetworkT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetwork(::flatbuffers::FlatBufferBuilder &_fbb, const EmbeddingNetworkT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const EmbeddingNetworkT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _input_chunks = _o->input_chunks.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>> (_o->input_chunks.size(), [](size_t i, _VectorArgs *__va) { return CreateInputChunk(*__va->__fbb, __va->__o->input_chunks[i].get(), __va->__rehasher); }, &_va ) : 0;
-  auto _layers = _o->layers.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>> (_o->layers.size(), [](size_t i, _VectorArgs *__va) { return CreateNeuralLayer(*__va->__fbb, __va->__o->layers[i].get(), __va->__rehasher); }, &_va ) : 0;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const EmbeddingNetworkT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _input_chunks = _o->input_chunks.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::InputChunk>> (_o->input_chunks.size(), [](size_t i, _VectorArgs *__va) { return CreateInputChunk(*__va->__fbb, __va->__o->input_chunks[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _layers = _o->layers.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::saft_fbs::NeuralLayer>> (_o->layers.size(), [](size_t i, _VectorArgs *__va) { return CreateNeuralLayer(*__va->__fbb, __va->__o->layers[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::saft_fbs::CreateEmbeddingNetwork(
       _fbb,
       _input_chunks,
@@ -529,11 +583,11 @@ inline flatbuffers::Offset<EmbeddingNetwork> CreateEmbeddingNetwork(flatbuffers:
 }
 
 inline const libtextclassifier3::saft_fbs::EmbeddingNetwork *GetEmbeddingNetwork(const void *buf) {
-  return flatbuffers::GetRoot<libtextclassifier3::saft_fbs::EmbeddingNetwork>(buf);
+  return ::flatbuffers::GetRoot<libtextclassifier3::saft_fbs::EmbeddingNetwork>(buf);
 }
 
 inline const libtextclassifier3::saft_fbs::EmbeddingNetwork *GetSizePrefixedEmbeddingNetwork(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<libtextclassifier3::saft_fbs::EmbeddingNetwork>(buf);
+  return ::flatbuffers::GetSizePrefixedRoot<libtextclassifier3::saft_fbs::EmbeddingNetwork>(buf);
 }
 
 inline const char *EmbeddingNetworkIdentifier() {
@@ -541,41 +595,46 @@ inline const char *EmbeddingNetworkIdentifier() {
 }
 
 inline bool EmbeddingNetworkBufferHasIdentifier(const void *buf) {
-  return flatbuffers::BufferHasIdentifier(
+  return ::flatbuffers::BufferHasIdentifier(
       buf, EmbeddingNetworkIdentifier());
 }
 
+inline bool SizePrefixedEmbeddingNetworkBufferHasIdentifier(const void *buf) {
+  return ::flatbuffers::BufferHasIdentifier(
+      buf, EmbeddingNetworkIdentifier(), true);
+}
+
 inline bool VerifyEmbeddingNetworkBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifyBuffer<libtextclassifier3::saft_fbs::EmbeddingNetwork>(EmbeddingNetworkIdentifier());
 }
 
 inline bool VerifySizePrefixedEmbeddingNetworkBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifySizePrefixedBuffer<libtextclassifier3::saft_fbs::EmbeddingNetwork>(EmbeddingNetworkIdentifier());
 }
 
 inline void FinishEmbeddingNetworkBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<libtextclassifier3::saft_fbs::EmbeddingNetwork> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<libtextclassifier3::saft_fbs::EmbeddingNetwork> root) {
   fbb.Finish(root, EmbeddingNetworkIdentifier());
 }
 
 inline void FinishSizePrefixedEmbeddingNetworkBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<libtextclassifier3::saft_fbs::EmbeddingNetwork> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<libtextclassifier3::saft_fbs::EmbeddingNetwork> root) {
   fbb.FinishSizePrefixed(root, EmbeddingNetworkIdentifier());
 }
 
 inline std::unique_ptr<libtextclassifier3::saft_fbs::EmbeddingNetworkT> UnPackEmbeddingNetwork(
     const void *buf,
-    const flatbuffers::resolver_function_t *res = nullptr) {
+    const ::flatbuffers::resolver_function_t *res = nullptr) {
   return std::unique_ptr<libtextclassifier3::saft_fbs::EmbeddingNetworkT>(GetEmbeddingNetwork(buf)->UnPack(res));
 }
 
 inline std::unique_ptr<libtextclassifier3::saft_fbs::EmbeddingNetworkT> UnPackSizePrefixedEmbeddingNetwork(
     const void *buf,
-    const flatbuffers::resolver_function_t *res = nullptr) {
+    const ::flatbuffers::resolver_function_t *res = nullptr) {
   return std::unique_ptr<libtextclassifier3::saft_fbs::EmbeddingNetworkT>(GetSizePrefixedEmbeddingNetwork(buf)->UnPack(res));
 }
 

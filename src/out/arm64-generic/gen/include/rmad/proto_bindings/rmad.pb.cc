@@ -223,6 +223,7 @@ PROTOBUF_CONSTEXPR UpdateDeviceInfoState::UpdateDeviceInfoState(
   , /*decltype(_impl_._sku_list_cached_byte_size_)*/{0}
   , /*decltype(_impl_.whitelabel_list_)*/{}
   , /*decltype(_impl_.custom_label_list_)*/{}
+  , /*decltype(_impl_.sku_description_list_)*/{}
   , /*decltype(_impl_.serial_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.dram_part_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.original_serial_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -5942,6 +5943,7 @@ UpdateDeviceInfoState::UpdateDeviceInfoState(const UpdateDeviceInfoState& from)
     , /*decltype(_impl_._sku_list_cached_byte_size_)*/{0}
     , decltype(_impl_.whitelabel_list_){from._impl_.whitelabel_list_}
     , decltype(_impl_.custom_label_list_){from._impl_.custom_label_list_}
+    , decltype(_impl_.sku_description_list_){from._impl_.sku_description_list_}
     , decltype(_impl_.serial_number_){}
     , decltype(_impl_.dram_part_number_){}
     , decltype(_impl_.original_serial_number_){}
@@ -6009,6 +6011,7 @@ inline void UpdateDeviceInfoState::SharedCtor(
     , /*decltype(_impl_._sku_list_cached_byte_size_)*/{0}
     , decltype(_impl_.whitelabel_list_){arena}
     , decltype(_impl_.custom_label_list_){arena}
+    , decltype(_impl_.sku_description_list_){arena}
     , decltype(_impl_.serial_number_){}
     , decltype(_impl_.dram_part_number_){}
     , decltype(_impl_.original_serial_number_){}
@@ -6060,6 +6063,7 @@ inline void UpdateDeviceInfoState::SharedDtor() {
   _impl_.sku_list_.~RepeatedField();
   _impl_.whitelabel_list_.~RepeatedPtrField();
   _impl_.custom_label_list_.~RepeatedPtrField();
+  _impl_.sku_description_list_.~RepeatedPtrField();
   _impl_.serial_number_.Destroy();
   _impl_.dram_part_number_.Destroy();
   _impl_.original_serial_number_.Destroy();
@@ -6080,6 +6084,7 @@ void UpdateDeviceInfoState::Clear() {
   _impl_.sku_list_.Clear();
   _impl_.whitelabel_list_.Clear();
   _impl_.custom_label_list_.Clear();
+  _impl_.sku_description_list_.Clear();
   _impl_.serial_number_.ClearToEmpty();
   _impl_.dram_part_number_.ClearToEmpty();
   _impl_.original_serial_number_.ClearToEmpty();
@@ -6217,6 +6222,21 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::_pbi::Parse
             CHK_(::_pbi::VerifyUTF8(str, nullptr));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<850>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string sku_description_list = 107;
+      case 107:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            auto str = _internal_add_sku_description_list();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<858>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -6413,6 +6433,16 @@ uint8_t* UpdateDeviceInfoState::_InternalSerialize(
     target = stream->WriteString(106, s, target);
   }
 
+  // repeated string sku_description_list = 107;
+  for (int i = 0, n = this->_internal_sku_description_list_size(); i < n; i++) {
+    const auto& s = this->_internal_sku_description_list(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "rmad.UpdateDeviceInfoState.sku_description_list");
+    target = stream->WriteString(107, s, target);
+  }
+
   // string original_serial_number = 201;
   if (!this->_internal_original_serial_number().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
@@ -6522,6 +6552,14 @@ size_t UpdateDeviceInfoState::ByteSizeLong() const {
   for (int i = 0, n = _impl_.custom_label_list_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       _impl_.custom_label_list_.Get(i));
+  }
+
+  // repeated string sku_description_list = 107;
+  total_size += 2 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.sku_description_list_.size());
+  for (int i = 0, n = _impl_.sku_description_list_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      _impl_.sku_description_list_.Get(i));
   }
 
   // string serial_number = 1;
@@ -6646,6 +6684,7 @@ void UpdateDeviceInfoState::MergeFrom(const UpdateDeviceInfoState& from) {
   _this->_impl_.sku_list_.MergeFrom(from._impl_.sku_list_);
   _this->_impl_.whitelabel_list_.MergeFrom(from._impl_.whitelabel_list_);
   _this->_impl_.custom_label_list_.MergeFrom(from._impl_.custom_label_list_);
+  _this->_impl_.sku_description_list_.MergeFrom(from._impl_.sku_description_list_);
   if (!from._internal_serial_number().empty()) {
     _this->_internal_set_serial_number(from._internal_serial_number());
   }
@@ -6717,6 +6756,7 @@ void UpdateDeviceInfoState::InternalSwap(UpdateDeviceInfoState* other) {
   _impl_.sku_list_.InternalSwap(&other->_impl_.sku_list_);
   _impl_.whitelabel_list_.InternalSwap(&other->_impl_.whitelabel_list_);
   _impl_.custom_label_list_.InternalSwap(&other->_impl_.custom_label_list_);
+  _impl_.sku_description_list_.InternalSwap(&other->_impl_.sku_description_list_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.serial_number_, lhs_arena,
       &other->_impl_.serial_number_, rhs_arena

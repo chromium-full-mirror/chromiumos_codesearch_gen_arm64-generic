@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "crypto", "version": "0.9.0", "revision": 2, "fullname": "dev-go/crypto", "fullnamerev": "dev-go/crypto-0.9.0-r2", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://golang.org/x/crypto"], "skip": false, "tainted": false, "ebuild_path": null}

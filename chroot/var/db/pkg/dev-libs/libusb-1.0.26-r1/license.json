@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libusb", "version": "1.0.26", "revision": 1, "fullname": "dev-libs/libusb", "fullnamerev": "dev-libs/libusb-1.0.26-r1", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://libusb.info/", "https://github.com/libusb/libusb"], "skip": false, "tainted": false, "ebuild_path": null}

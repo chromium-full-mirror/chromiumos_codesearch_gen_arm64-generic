@@ -70,14 +70,6 @@ struct FromFlatBuffer<::cryptohome::UserSecretStashEncryptionAlgorithm> {
     return static_cast<::cryptohome::UserSecretStashEncryptionAlgorithm>(
         object);
   }
-
-  ::cryptohome::UserSecretStashEncryptionAlgorithm operator()(
-      std::underlying_type_t<
-          ::cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm>
-          object) const {
-    return static_cast<::cryptohome::UserSecretStashEncryptionAlgorithm>(
-        object);
-  }
 };
 
 }  // namespace hwsec_foundation

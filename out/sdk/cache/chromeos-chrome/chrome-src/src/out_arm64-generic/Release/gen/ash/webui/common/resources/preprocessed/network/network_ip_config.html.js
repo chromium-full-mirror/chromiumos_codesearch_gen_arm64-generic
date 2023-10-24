@@ -1,0 +1,36 @@
+import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+  return html`<!--_html_template_start_--><style include="network-shared iron-flex">
+  cr-toggle {
+    margin-inline-start: var(--settings-control-label-spacing);
+  }
+</style>
+<template is="dom-if" if="[[shouldShowAutoIpConfigToggle_]]" restamp>
+  <div id="autoConfig" class="property-box">
+    <div id="autoIPConfigLabel" class="start">
+      [[i18n('networkIPConfigAuto')]]
+    </div>
+    <cr-policy-indicator indicator-type="[[getPolicyIndicatorType(
+        managedProperties.ipAddressConfigType)]]">
+    </cr-policy-indicator>
+    <cr-toggle id="autoConfigIpToggle" checked="{{automatic_}}"
+        disabled="[[!canChangeIPConfigType_(managedProperties, disabled)]]"
+        on-change="onAutomaticChange_"
+        aria-labelledby="autoIPConfigLabel">
+    </cr-toggle>
+  </div>
+</template>
+<template is="dom-if" if="[[hasIpConfigFields_(ipConfig_)]]">
+  <div class$="[[getFieldsClassList_(shouldShowAutoIpConfigToggle_)]]">
+    <network-property-list-mojo fields="[[ipConfigFields_]]"
+        all-fields-read-only="[[automatic_]]"
+        property-dict="[[ipConfig_]]"
+        edit-field-types="[[getIPEditFields_(automatic_,
+            managedProperties)]]"
+        on-property-change="onIPChange_"
+        disabled="[[disabled]]">
+    </network-property-list-mojo>
+  </div>
+</template>
+<!--_html_template_end_-->`;
+}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "secilc", "version": "2.7", "revision": 1, "fullname": "sys-apps/secilc", "fullnamerev": "sys-apps/secilc-2.7-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/SELinuxProject/selinux/wiki"], "skip": false, "tainted": false, "ebuild_path": null}

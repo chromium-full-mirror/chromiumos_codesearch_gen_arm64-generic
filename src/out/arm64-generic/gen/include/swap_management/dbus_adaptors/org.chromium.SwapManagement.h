@@ -62,6 +62,17 @@ class SwapManagementInterface {
   virtual bool InitiateSwapZramWriteback(
       brillo::ErrorPtr* error,
       uint32_t in_mode) = 0;
+  // Initiate a zram recompression using the provided |mode|.
+  virtual bool InitiateSwapZramRecompression(
+      brillo::ErrorPtr* error,
+      uint32_t in_mode,
+      uint32_t in_threshold,
+      const std::string& in_algo) = 0;
+  // Set zram recompression algorithm in swap file. Change can be applied
+  // after SwapRestart or reboot, and persistently across reboot.
+  virtual bool SwapZramSetRecompAlgorithms(
+      brillo::ErrorPtr* error,
+      const std::vector<std::string>& in_algorithm) = 0;
 };
 
 // Interface adaptor for org::chromium::SwapManagement.
@@ -119,6 +130,14 @@ class SwapManagementAdaptor {
         "InitiateSwapZramWriteback",
         base::Unretained(interface_),
         &SwapManagementInterface::InitiateSwapZramWriteback);
+    itf->AddSimpleMethodHandlerWithError(
+        "InitiateSwapZramRecompression",
+        base::Unretained(interface_),
+        &SwapManagementInterface::InitiateSwapZramRecompression);
+    itf->AddSimpleMethodHandlerWithError(
+        "SwapZramSetRecompAlgorithms",
+        base::Unretained(interface_),
+        &SwapManagementInterface::SwapZramSetRecompAlgorithms);
   }
 
   static dbus::ObjectPath GetObjectPath() {
@@ -157,6 +176,14 @@ class SwapManagementAdaptor {
         "    </method>\n"
         "    <method name=\"InitiateSwapZramWriteback\">\n"
         "      <arg name=\"mode\" type=\"u\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"InitiateSwapZramRecompression\">\n"
+        "      <arg name=\"mode\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"threshold\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"algo\" type=\"s\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"SwapZramSetRecompAlgorithms\">\n"
+        "      <arg name=\"algorithm\" type=\"as\" direction=\"in\"/>\n"
         "    </method>\n"
         "  </interface>\n";
   }

@@ -1,0 +1,22 @@
+import { getTrustedHTML } from '//resources/js/static_types.js';
+export function getTemplate() {
+    return getTrustedHTML `<!--_html_template_start_--><style>
+  educational-banner {
+    --feature-icon-src: url(/foreground/images/files/ui/drive_bulk_pinning.svg);
+    --buttons-direction: row-reverse;
+  }
+
+  /* action-button's hover effect is handled by hoverBackground. */
+  cr-button.action-button:hover::part(hoverBackground) {
+    background-color: var(--cros-sys-hover_on_prominent);
+    display: block;
+  }
+</style>
+<educational-banner role="banner" class="tast-bulk-pinning-banner">
+  <span slot="title">$i18n{BULK_PINNING_TITLE}</span>
+  <cr-button slot="extra-button" class="action-button">
+    $i18n{BULK_PINNING_GET_STARTED}
+  </cr-button>
+</educational-banner>
+<!--_html_template_end_-->`;
+}

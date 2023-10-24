@@ -1,0 +1,4 @@
+// Copyright 2018 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{dedupingMixin}from"chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js";export const SortedTableMixin=dedupingMixin((superClass=>{class SortedTableMixin extends superClass{static get properties(){return{sortKey:String,sortReverse:Boolean}}setSortKey(sortKey){this.sortKey=sortKey}onSortClick(e){const oldElement=this.shadowRoot.querySelector(".sort-column, .sort-column-reverse");if(oldElement){oldElement.classList.remove("sort-column");oldElement.classList.remove("sort-column-reverse")}const target=e.currentTarget;const newSortKey=target.dataset["sortKey"];if(newSortKey===this.sortKey){this.sortReverse=!this.sortReverse}else{this.setSortKey(newSortKey)}const newClass=this.sortReverse?"sort-column-reverse":"sort-column";target.classList.add(newClass)}}return SortedTableMixin}));

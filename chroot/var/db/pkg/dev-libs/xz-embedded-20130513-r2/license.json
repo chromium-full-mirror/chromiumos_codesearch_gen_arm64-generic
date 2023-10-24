@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "xz-embedded", "version": "20130513", "revision": 2, "fullname": "dev-libs/xz-embedded", "fullnamerev": "dev-libs/xz-embedded-20130513-r2", "license_names": ["public-domain"], "license_text_scanned": [], "homepages": ["https://tukaani.org/xz/embedded.html"], "skip": false, "tainted": false, "ebuild_path": null}

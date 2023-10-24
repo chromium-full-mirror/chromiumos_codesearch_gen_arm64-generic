@@ -1,0 +1,4 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const DELIM_START="---------- START ----------";const DELIM_END="---------- END ----------";export function parseSystemLog(text){const details=[];const lines=text.split("\n");for(let i=0,len=lines.length;i<len;i++){if(!lines[i]){continue}const delimiter=lines[i].indexOf("=");if(delimiter<=0){if(i===lines.length-1){break}return null}const name=lines[i].substring(0,delimiter);let value="";if(lines[i].length>delimiter+1){value=lines[i].substring(delimiter+1)}if(value==="<multiline>"){if(i===len-1||lines[++i].indexOf(DELIM_START)===-1){return null}++i;value="";while(i<len&&lines[i]!==DELIM_END){value+=lines[i++]+"\n"}if(value){value=value.substr(0,value.length-1)}}details.push({statName:name,statValue:value})}return details}

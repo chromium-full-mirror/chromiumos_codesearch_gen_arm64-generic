@@ -1,0 +1,4 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const ProcessIdSpec={$:{}};mojo.internal.Struct(ProcessIdSpec.$,"ProcessId",[mojo.internal.StructField("pid",0,0,mojo.internal.Uint32,0,false,0)],[[0,16]]);export class ProcessId{constructor(){this.pid}}

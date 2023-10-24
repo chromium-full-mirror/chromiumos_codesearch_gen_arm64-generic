@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 
 struct TextEncoderConfig;
@@ -37,12 +44,12 @@ inline const char * const *EnumNamesSentencePieceMatcherType() {
 }
 
 inline const char *EnumNameSentencePieceMatcherType(SentencePieceMatcherType e) {
-  if (flatbuffers::IsOutRange(e, SentencePieceMatcherType_MAPPED_TRIE, SentencePieceMatcherType_SORTED_STRING_TABLE)) return "";
+  if (::flatbuffers::IsOutRange(e, SentencePieceMatcherType_MAPPED_TRIE, SentencePieceMatcherType_SORTED_STRING_TABLE)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesSentencePieceMatcherType()[index];
 }
 
-struct TextEncoderConfigT : public flatbuffers::NativeTable {
+struct TextEncoderConfigT : public ::flatbuffers::NativeTable {
   typedef TextEncoderConfig TableType;
   int32_t start_code = 0;
   int32_t end_code = 1;
@@ -60,7 +67,7 @@ struct TextEncoderConfigT : public flatbuffers::NativeTable {
   libtextclassifier3::SentencePieceMatcherType matcher_type = libtextclassifier3::SentencePieceMatcherType_MAPPED_TRIE;
 };
 
-struct TextEncoderConfig FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct TextEncoderConfig FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef TextEncoderConfigT NativeTableType;
   typedef TextEncoderConfigBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -94,11 +101,11 @@ struct TextEncoderConfig FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   float unknown_score() const {
     return GetField<float>(VT_UNKNOWN_SCORE, 0.0f);
   }
-  const flatbuffers::String *normalization_charsmap() const {
-    return GetPointer<const flatbuffers::String *>(VT_NORMALIZATION_CHARSMAP);
+  const ::flatbuffers::String *normalization_charsmap() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NORMALIZATION_CHARSMAP);
   }
-  const flatbuffers::String *normalization_charsmap_values() const {
-    return GetPointer<const flatbuffers::String *>(VT_NORMALIZATION_CHARSMAP_VALUES);
+  const ::flatbuffers::String *normalization_charsmap_values() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NORMALIZATION_CHARSMAP_VALUES);
   }
   bool add_dummy_prefix() const {
     return GetField<uint8_t>(VT_ADD_DUMMY_PREFIX, 1) != 0;
@@ -109,50 +116,50 @@ struct TextEncoderConfig FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool escape_whitespaces() const {
     return GetField<uint8_t>(VT_ESCAPE_WHITESPACES, 1) != 0;
   }
-  const flatbuffers::Vector<float> *pieces_scores() const {
-    return GetPointer<const flatbuffers::Vector<float> *>(VT_PIECES_SCORES);
+  const ::flatbuffers::Vector<float> *pieces_scores() const {
+    return GetPointer<const ::flatbuffers::Vector<float> *>(VT_PIECES_SCORES);
   }
-  const flatbuffers::String *pieces() const {
-    return GetPointer<const flatbuffers::String *>(VT_PIECES);
+  const ::flatbuffers::String *pieces() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_PIECES);
   }
-  const flatbuffers::Vector<uint32_t> *pieces_offsets() const {
-    return GetPointer<const flatbuffers::Vector<uint32_t> *>(VT_PIECES_OFFSETS);
+  const ::flatbuffers::Vector<uint32_t> *pieces_offsets() const {
+    return GetPointer<const ::flatbuffers::Vector<uint32_t> *>(VT_PIECES_OFFSETS);
   }
   libtextclassifier3::SentencePieceMatcherType matcher_type() const {
     return static_cast<libtextclassifier3::SentencePieceMatcherType>(GetField<int8_t>(VT_MATCHER_TYPE, 0));
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_START_CODE) &&
-           VerifyField<int32_t>(verifier, VT_END_CODE) &&
-           VerifyField<int32_t>(verifier, VT_ENCODING_OFFSET) &&
-           VerifyField<int32_t>(verifier, VT_UNKNOWN_CODE) &&
-           VerifyField<float>(verifier, VT_UNKNOWN_SCORE) &&
+           VerifyField<int32_t>(verifier, VT_START_CODE, 4) &&
+           VerifyField<int32_t>(verifier, VT_END_CODE, 4) &&
+           VerifyField<int32_t>(verifier, VT_ENCODING_OFFSET, 4) &&
+           VerifyField<int32_t>(verifier, VT_UNKNOWN_CODE, 4) &&
+           VerifyField<float>(verifier, VT_UNKNOWN_SCORE, 4) &&
            VerifyOffset(verifier, VT_NORMALIZATION_CHARSMAP) &&
            verifier.VerifyString(normalization_charsmap()) &&
            VerifyOffset(verifier, VT_NORMALIZATION_CHARSMAP_VALUES) &&
            verifier.VerifyString(normalization_charsmap_values()) &&
-           VerifyField<uint8_t>(verifier, VT_ADD_DUMMY_PREFIX) &&
-           VerifyField<uint8_t>(verifier, VT_REMOVE_EXTRA_WHITESPACES) &&
-           VerifyField<uint8_t>(verifier, VT_ESCAPE_WHITESPACES) &&
+           VerifyField<uint8_t>(verifier, VT_ADD_DUMMY_PREFIX, 1) &&
+           VerifyField<uint8_t>(verifier, VT_REMOVE_EXTRA_WHITESPACES, 1) &&
+           VerifyField<uint8_t>(verifier, VT_ESCAPE_WHITESPACES, 1) &&
            VerifyOffset(verifier, VT_PIECES_SCORES) &&
            verifier.VerifyVector(pieces_scores()) &&
            VerifyOffset(verifier, VT_PIECES) &&
            verifier.VerifyString(pieces()) &&
            VerifyOffset(verifier, VT_PIECES_OFFSETS) &&
            verifier.VerifyVector(pieces_offsets()) &&
-           VerifyField<int8_t>(verifier, VT_MATCHER_TYPE) &&
+           VerifyField<int8_t>(verifier, VT_MATCHER_TYPE, 1) &&
            verifier.EndTable();
   }
-  TextEncoderConfigT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(TextEncoderConfigT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<TextEncoderConfig> Pack(flatbuffers::FlatBufferBuilder &_fbb, const TextEncoderConfigT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  TextEncoderConfigT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(TextEncoderConfigT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<TextEncoderConfig> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const TextEncoderConfigT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct TextEncoderConfigBuilder {
   typedef TextEncoderConfig Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_start_code(int32_t start_code) {
     fbb_.AddElement<int32_t>(TextEncoderConfig::VT_START_CODE, start_code, 0);
   }
@@ -168,10 +175,10 @@ struct TextEncoderConfigBuilder {
   void add_unknown_score(float unknown_score) {
     fbb_.AddElement<float>(TextEncoderConfig::VT_UNKNOWN_SCORE, unknown_score, 0.0f);
   }
-  void add_normalization_charsmap(flatbuffers::Offset<flatbuffers::String> normalization_charsmap) {
+  void add_normalization_charsmap(::flatbuffers::Offset<::flatbuffers::String> normalization_charsmap) {
     fbb_.AddOffset(TextEncoderConfig::VT_NORMALIZATION_CHARSMAP, normalization_charsmap);
   }
-  void add_normalization_charsmap_values(flatbuffers::Offset<flatbuffers::String> normalization_charsmap_values) {
+  void add_normalization_charsmap_values(::flatbuffers::Offset<::flatbuffers::String> normalization_charsmap_values) {
     fbb_.AddOffset(TextEncoderConfig::VT_NORMALIZATION_CHARSMAP_VALUES, normalization_charsmap_values);
   }
   void add_add_dummy_prefix(bool add_dummy_prefix) {
@@ -183,44 +190,44 @@ struct TextEncoderConfigBuilder {
   void add_escape_whitespaces(bool escape_whitespaces) {
     fbb_.AddElement<uint8_t>(TextEncoderConfig::VT_ESCAPE_WHITESPACES, static_cast<uint8_t>(escape_whitespaces), 1);
   }
-  void add_pieces_scores(flatbuffers::Offset<flatbuffers::Vector<float>> pieces_scores) {
+  void add_pieces_scores(::flatbuffers::Offset<::flatbuffers::Vector<float>> pieces_scores) {
     fbb_.AddOffset(TextEncoderConfig::VT_PIECES_SCORES, pieces_scores);
   }
-  void add_pieces(flatbuffers::Offset<flatbuffers::String> pieces) {
+  void add_pieces(::flatbuffers::Offset<::flatbuffers::String> pieces) {
     fbb_.AddOffset(TextEncoderConfig::VT_PIECES, pieces);
   }
-  void add_pieces_offsets(flatbuffers::Offset<flatbuffers::Vector<uint32_t>> pieces_offsets) {
+  void add_pieces_offsets(::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> pieces_offsets) {
     fbb_.AddOffset(TextEncoderConfig::VT_PIECES_OFFSETS, pieces_offsets);
   }
   void add_matcher_type(libtextclassifier3::SentencePieceMatcherType matcher_type) {
     fbb_.AddElement<int8_t>(TextEncoderConfig::VT_MATCHER_TYPE, static_cast<int8_t>(matcher_type), 0);
   }
-  explicit TextEncoderConfigBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TextEncoderConfigBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<TextEncoderConfig> Finish() {
+  ::flatbuffers::Offset<TextEncoderConfig> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<TextEncoderConfig>(end);
+    auto o = ::flatbuffers::Offset<TextEncoderConfig>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfig(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfig(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t start_code = 0,
     int32_t end_code = 1,
     int32_t encoding_offset = 2,
     int32_t unknown_code = -1,
     float unknown_score = 0.0f,
-    flatbuffers::Offset<flatbuffers::String> normalization_charsmap = 0,
-    flatbuffers::Offset<flatbuffers::String> normalization_charsmap_values = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> normalization_charsmap = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> normalization_charsmap_values = 0,
     bool add_dummy_prefix = true,
     bool remove_extra_whitespaces = true,
     bool escape_whitespaces = true,
-    flatbuffers::Offset<flatbuffers::Vector<float>> pieces_scores = 0,
-    flatbuffers::Offset<flatbuffers::String> pieces = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint32_t>> pieces_offsets = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<float>> pieces_scores = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> pieces = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> pieces_offsets = 0,
     libtextclassifier3::SentencePieceMatcherType matcher_type = libtextclassifier3::SentencePieceMatcherType_MAPPED_TRIE) {
   TextEncoderConfigBuilder builder_(_fbb);
   builder_.add_pieces_offsets(pieces_offsets);
@@ -240,8 +247,8 @@ inline flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfig(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfigDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfigDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t start_code = 0,
     int32_t end_code = 1,
     int32_t encoding_offset = 2,
@@ -279,15 +286,15 @@ inline flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfigDirect(
       matcher_type);
 }
 
-flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfig(flatbuffers::FlatBufferBuilder &_fbb, const TextEncoderConfigT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfig(::flatbuffers::FlatBufferBuilder &_fbb, const TextEncoderConfigT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline TextEncoderConfigT *TextEncoderConfig::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline TextEncoderConfigT *TextEncoderConfig::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<TextEncoderConfigT>(new TextEncoderConfigT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void TextEncoderConfig::UnPackTo(TextEncoderConfigT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void TextEncoderConfig::UnPackTo(TextEncoderConfigT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = start_code(); _o->start_code = _e; }
@@ -300,20 +307,20 @@ inline void TextEncoderConfig::UnPackTo(TextEncoderConfigT *_o, const flatbuffer
   { auto _e = add_dummy_prefix(); _o->add_dummy_prefix = _e; }
   { auto _e = remove_extra_whitespaces(); _o->remove_extra_whitespaces = _e; }
   { auto _e = escape_whitespaces(); _o->escape_whitespaces = _e; }
-  { auto _e = pieces_scores(); if (_e) { _o->pieces_scores.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->pieces_scores[_i] = _e->Get(_i); } } }
+  { auto _e = pieces_scores(); if (_e) { _o->pieces_scores.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->pieces_scores[_i] = _e->Get(_i); } } else { _o->pieces_scores.resize(0); } }
   { auto _e = pieces(); if (_e) _o->pieces = _e->str(); }
-  { auto _e = pieces_offsets(); if (_e) { _o->pieces_offsets.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->pieces_offsets[_i] = _e->Get(_i); } } }
+  { auto _e = pieces_offsets(); if (_e) { _o->pieces_offsets.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->pieces_offsets[_i] = _e->Get(_i); } } else { _o->pieces_offsets.resize(0); } }
   { auto _e = matcher_type(); _o->matcher_type = _e; }
 }
 
-inline flatbuffers::Offset<TextEncoderConfig> TextEncoderConfig::Pack(flatbuffers::FlatBufferBuilder &_fbb, const TextEncoderConfigT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<TextEncoderConfig> TextEncoderConfig::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const TextEncoderConfigT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateTextEncoderConfig(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfig(flatbuffers::FlatBufferBuilder &_fbb, const TextEncoderConfigT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<TextEncoderConfig> CreateTextEncoderConfig(::flatbuffers::FlatBufferBuilder &_fbb, const TextEncoderConfigT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const TextEncoderConfigT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const TextEncoderConfigT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _start_code = _o->start_code;
   auto _end_code = _o->end_code;
   auto _encoding_offset = _o->encoding_offset;

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libassuan", "version": "2.5.5", "revision": 0, "fullname": "dev-libs/libassuan", "fullnamerev": "dev-libs/libassuan-2.5.5", "license_names": ["GPL-3", "LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://www.gnupg.org/related_software/libassuan/index.en.html"], "skip": false, "tainted": false, "ebuild_path": null}

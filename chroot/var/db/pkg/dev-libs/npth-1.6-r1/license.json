@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "npth", "version": "1.6", "revision": 1, "fullname": "dev-libs/npth", "fullnamerev": "dev-libs/npth-1.6-r1", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://git.gnupg.org/cgi-bin/gitweb.cgi?p=npth.git"], "skip": false, "tainted": false, "ebuild_path": null}

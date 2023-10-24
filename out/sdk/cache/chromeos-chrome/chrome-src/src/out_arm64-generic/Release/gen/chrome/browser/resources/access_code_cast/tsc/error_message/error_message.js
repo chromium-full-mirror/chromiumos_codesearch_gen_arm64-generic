@@ -1,0 +1,125 @@
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { AddSinkResultCode } from '../access_code_cast.mojom-webui.js';
+import { RouteRequestResultCode } from '../route_request_result_code.mojom-webui.js';
+import { getTemplate } from './error_message.html.js';
+var ErrorMessage;
+(function (ErrorMessage) {
+    ErrorMessage[ErrorMessage["NO_ERROR"] = 0] = "NO_ERROR";
+    ErrorMessage[ErrorMessage["GENERIC"] = 1] = "GENERIC";
+    ErrorMessage[ErrorMessage["ACCESS_CODE"] = 2] = "ACCESS_CODE";
+    ErrorMessage[ErrorMessage["NETWORK"] = 3] = "NETWORK";
+    ErrorMessage[ErrorMessage["PERMISSION"] = 4] = "PERMISSION";
+    ErrorMessage[ErrorMessage["TOO_MANY_REQUESTS"] = 5] = "TOO_MANY_REQUESTS";
+    ErrorMessage[ErrorMessage["PROFILE_SYNC_ERROR"] = 6] = "PROFILE_SYNC_ERROR";
+    ErrorMessage[ErrorMessage["DIFFERENT_NETWORK"] = 7] = "DIFFERENT_NETWORK";
+})(ErrorMessage || (ErrorMessage = {}));
+export class ErrorMessageElement extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        // Needed for Polymer data binding
+        this.errorMessageEnum = ErrorMessage;
+        this.messageCode = ErrorMessage.NO_ERROR;
+    }
+    static { this.ADD_RESULT_MESSAGE_CODES = [
+        [ErrorMessage.NO_ERROR, [AddSinkResultCode.OK]],
+        [
+            ErrorMessage.GENERIC,
+            [
+                AddSinkResultCode.UNKNOWN_ERROR,
+                AddSinkResultCode.SINK_CREATION_ERROR,
+                AddSinkResultCode.INTERNAL_MEDIA_ROUTER_ERROR,
+            ],
+        ],
+        [
+            ErrorMessage.ACCESS_CODE,
+            [
+                AddSinkResultCode.INVALID_ACCESS_CODE,
+                AddSinkResultCode.ACCESS_CODE_NOT_FOUND,
+            ],
+        ],
+        [
+            ErrorMessage.NETWORK,
+            [
+                AddSinkResultCode.HTTP_RESPONSE_CODE_ERROR,
+                AddSinkResultCode.RESPONSE_MALFORMED,
+                AddSinkResultCode.EMPTY_RESPONSE,
+                AddSinkResultCode.SERVICE_NOT_PRESENT,
+                AddSinkResultCode.SERVER_ERROR,
+            ],
+        ],
+        [ErrorMessage.PERMISSION, [AddSinkResultCode.AUTH_ERROR]],
+        [ErrorMessage.TOO_MANY_REQUESTS, [AddSinkResultCode.TOO_MANY_REQUESTS]],
+        [
+            ErrorMessage.PROFILE_SYNC_ERROR,
+            [AddSinkResultCode.PROFILE_SYNC_ERROR],
+        ],
+        [
+            ErrorMessage.DIFFERENT_NETWORK,
+            [AddSinkResultCode.CHANNEL_OPEN_ERROR],
+        ],
+    ]; }
+    static { this.CAST_RESULT_MESSAGE_CODES = [
+        [ErrorMessage.NO_ERROR, [RouteRequestResultCode.OK]],
+        [
+            ErrorMessage.GENERIC,
+            [
+                RouteRequestResultCode.UNKNOWN_ERROR,
+                RouteRequestResultCode.INVALID_ORIGIN,
+                RouteRequestResultCode.DEPRECATED_OFF_THE_RECORD_MISMATCH,
+                RouteRequestResultCode.NO_SUPPORTED_PROVIDER,
+                RouteRequestResultCode.CANCELLED,
+                RouteRequestResultCode.ROUTE_ALREADY_EXISTS,
+                RouteRequestResultCode.DESKTOP_PICKER_FAILED,
+                RouteRequestResultCode.ROUTE_ALREADY_TERMINATED,
+            ],
+        ],
+        [
+            ErrorMessage.NETWORK,
+            [
+                RouteRequestResultCode.TIMED_OUT,
+                RouteRequestResultCode.ROUTE_NOT_FOUND,
+                RouteRequestResultCode.SINK_NOT_FOUND,
+            ],
+        ],
+    ]; }
+    static { this.ADD_RESULT_MESSAGE_MAP = new Map(ErrorMessageElement.ADD_RESULT_MESSAGE_CODES); }
+    static { this.CAST_RESULT_MESSAGE_MAP = new Map(ErrorMessageElement.CAST_RESULT_MESSAGE_CODES); }
+    static get is() {
+        return 'c2c-error-message';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    setAddSinkError(resultCode) {
+        this.messageCode = this.findErrorMessage(resultCode, ErrorMessageElement.ADD_RESULT_MESSAGE_MAP);
+    }
+    setCastError(resultCode) {
+        this.messageCode = this.findErrorMessage(resultCode, ErrorMessageElement.CAST_RESULT_MESSAGE_MAP);
+    }
+    setNoError() {
+        this.messageCode = ErrorMessage.NO_ERROR;
+    }
+    getMessageCode() {
+        return this.messageCode;
+    }
+    isEqual(a, b) {
+        return a === b;
+    }
+    isNotEqual(a, b) {
+        return a !== b;
+    }
+    findErrorMessage(resultCode, messageCodes) {
+        for (const key of messageCodes.keys()) {
+            if (messageCodes.get(key).includes(resultCode)) {
+                return key;
+            }
+        }
+        return ErrorMessage.NO_ERROR;
+    }
+}
+customElements.define(ErrorMessageElement.is, ErrorMessageElement);

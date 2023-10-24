@@ -1,0 +1,1 @@
+{"base_dir": "gen/chrome/browser/resources/chromeos/manage_mirrorsync/tsc", "files": ["manage_mirrorsync.mojom-webui.js", "browser_proxy.js", "components/manage_mirrorsync.js", "components/folder_selector.js", "components/manage_mirrorsync.html.js", "components/folder_selector.html.js"]}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "chromeos-bsp-arm64-generic", "version": "0.0.1", "revision": 4, "fullname": "chromeos-base/chromeos-bsp-arm64-generic", "fullnamerev": "chromeos-base/chromeos-bsp-arm64-generic-0.0.1-r4", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

@@ -267,8 +267,8 @@ NOINLINE static const char* BluetoothDeviceTypeToStringHelper(BluetoothDeviceTyp
   switch(value) {
     case BluetoothDeviceType::kUnmappedEnumField:
       return "kUnmappedEnumField";
-    case BluetoothDeviceType::kUnfound:
-      return "kUnfound";
+    case BluetoothDeviceType::kUnknown:
+      return "kUnknown";
     case BluetoothDeviceType::kBrEdr:
       return "kBrEdr";
     case BluetoothDeviceType::kLe:
@@ -445,8 +445,8 @@ NOINLINE static const char* UsbSpecSpeedToStringHelper(UsbSpecSpeed value) {
       return "k1_5Mbps";
     case UsbSpecSpeed::k12Mbps:
       return "k12Mbps";
-    case UsbSpecSpeed::kDeprecateSpeed:
-      return "kDeprecateSpeed";
+    case UsbSpecSpeed::kDeprecatedSpeed:
+      return "kDeprecatedSpeed";
     case UsbSpecSpeed::k480Mbps:
       return "k480Mbps";
     case UsbSpecSpeed::k5Gbps:
@@ -1693,7 +1693,7 @@ bool BluetoothResult_Data::Validate(
   }
 }
 // static
-bool DEPRECATE_SystemResult_Data::Validate(
+bool DEPRECATED_SystemResult_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
     bool inlined) {
@@ -1712,14 +1712,14 @@ bool DEPRECATE_SystemResult_Data::Validate(
     return false;
   }
 
-  const DEPRECATE_SystemResult_Data* object = static_cast<const DEPRECATE_SystemResult_Data*>(data);
+  const DEPRECATED_SystemResult_Data* object = static_cast<const DEPRECATED_SystemResult_Data*>(data);
 
   if (inlined && object->is_null())
     return true;
 
   switch (object->tag) {
 
-    case DEPRECATE_SystemResult_Tag::kError: {
+    case DEPRECATED_SystemResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 1, validation_context)) {
@@ -1734,7 +1734,7 @@ bool DEPRECATE_SystemResult_Data::Validate(
       ReportValidationError(
           validation_context,
           mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in DEPRECATE_SystemResult");
+          "unknown tag in DEPRECATED_SystemResult");
       return false;
     }
   }
@@ -3595,7 +3595,7 @@ bool BluetoothAdapterInfo_Data::Validate(
   if (object->header_.version < 2)
     return true;
 
-  if (!mojo::internal::ValidateStruct(object->deprecate_supported_capabilities, validation_context))
+  if (!mojo::internal::ValidateStruct(object->deprecated_capabilities, validation_context))
     return false;
 
   return true;
@@ -3690,25 +3690,25 @@ BluetoothDeviceInfo_Data::BluetoothDeviceInfo_Data()
 
 
 // static
-bool DEPRECATE_SupportedCapabilities_Data::Validate(
+bool DEPRECATED_SupportedCapabilities_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 8, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const DEPRECATE_SupportedCapabilities_Data* object =
-      static_cast<const DEPRECATE_SupportedCapabilities_Data*>(data);
+  [[maybe_unused]] const DEPRECATED_SupportedCapabilities_Data* object =
+      static_cast<const DEPRECATED_SupportedCapabilities_Data*>(data);
 
   return true;
 }
 
-DEPRECATE_SupportedCapabilities_Data::DEPRECATE_SupportedCapabilities_Data()
+DEPRECATED_SupportedCapabilities_Data::DEPRECATED_SupportedCapabilities_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -5796,7 +5796,7 @@ bool TelemetryInfo_Data::Validate(
   if (!mojo::internal::ValidateInlinedUnion(object->bluetooth_result, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateInlinedUnion(object->deprecate_system_result, validation_context))
+  if (!mojo::internal::ValidateInlinedUnion(object->deprecated_system_result, validation_context))
     return false;
 
   if (!mojo::internal::ValidateInlinedUnion(object->network_result, validation_context))

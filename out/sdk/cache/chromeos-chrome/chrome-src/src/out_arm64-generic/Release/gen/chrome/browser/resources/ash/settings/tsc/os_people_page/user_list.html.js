@@ -1,0 +1,24 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex">.user-list{max-height:calc(4 * (var(--cr-section-two-line-min-height) + 1px));overflow-y:auto}.user{border-bottom:var(--cr-separator-line)}.user-icon{background-position:center;background-repeat:no-repeat;background-size:cover;border-radius:20px;flex-shrink:0;height:40px;width:40px}.user-info{padding-inline-start:20px}:host([disabled]) .user-list{opacity:var(--cr-disabled-opacity);overflow:auto}</style>
+<div class="user-list" scrollable>
+  <template is="dom-repeat" items="[[users_]]">
+    <div class="user layout horizontal center two-line">
+      <img class="user-icon" src="[[getProfilePictureUrl_(item)]]" aria-hidden="true">
+      <div class="flex layout vertical user-info no-min-width">
+        <div class="text-elide" title="[[getTooltip_(item)]]" aria-describedby="userEmail-[[index]]">
+          [[getUserName_(item)]]
+        </div>
+        <div class="secondary text-elide" id="userEmail-[[index]]" title="[[item.displayEmail]]" hidden$="[[!shouldShowEmail_(item)]]" aria-hidden="true">
+          [[item.displayEmail]]
+        </div>
+      </div>
+      <template is="dom-if" if="[[!shouldHideCloseButton_(disabled, item.isOwner)]]">
+        <cr-icon-button class="icon-clear" title="[[getRemoveUserTooltip_(item)]]" on-click="removeUser_">
+        </cr-icon-button>
+      </template>
+    </div>
+  </template>
+</div>
+<!--_html_template_end_-->`;
+}

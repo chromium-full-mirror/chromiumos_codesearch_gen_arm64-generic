@@ -1,0 +1,1 @@
+{"rustc":10012222711457729657,"features":"","target":0,"profile":0,"path":0,"deps":[[16212523666406317869,"build_script_build",false,10488628710890442933]],"local":[{"RerunIfChanged":{"output":"aarch64-cros-linux-gnu/release/build/crc32fast-e5c58d624718748e/output","paths":["build.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

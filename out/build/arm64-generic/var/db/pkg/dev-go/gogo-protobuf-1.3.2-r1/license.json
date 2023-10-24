@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "gogo-protobuf", "version": "1.3.2", "revision": 1, "fullname": "dev-go/gogo-protobuf", "fullnamerev": "dev-go/gogo-protobuf-1.3.2-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://github.com/gogo/protobuf"], "skip": false, "tainted": false, "ebuild_path": null}

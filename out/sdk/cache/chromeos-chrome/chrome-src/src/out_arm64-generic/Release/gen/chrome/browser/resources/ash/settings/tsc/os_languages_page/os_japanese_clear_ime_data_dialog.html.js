@@ -1,0 +1,26 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="settings-shared shared-style">[slot=body]{display:flex;flex-direction:column;height:175px;overflow:auto}cr-checkbox::part(label-container){white-space:nowrap}</style>
+<cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
+  TODO(b/234790486): Add the correct contents here. this is
+  just a placeholder.
+  <div slot="title">Clear personalization data</div>
+  <div id="dialogBody" slot="body" scrollable>
+    <cr-checkbox class="list-item no-outline is-width-of-dialog">
+      Conversion History
+    </cr-checkbox>
+    <cr-checkbox class="list-item no-outline is-width-of-dialog">
+      Suggestion History
+    </cr-checkbox>
+    <div slot="button-container">
+      <cr-button class="action-button">
+        Clear Personalized data
+      </cr-button>
+      <cr-button class="cancel-button" on-click="onCancelButtonClick_">
+        $i18n{cancel}
+      </cr-button>
+    </div>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}

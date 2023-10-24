@@ -1,0 +1,4 @@
+// Copyright 2015 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{dedupingMixin}from"chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js";export const CrPolicyPrefMixin=dedupingMixin((superClass=>{class CrPolicyPrefMixin extends superClass{static get properties(){return{noExtensionIndicator:Boolean,pref:Object}}isPrefEnforced(){return!!this.pref&&this.pref.enforcement===chrome.settingsPrivate.Enforcement.ENFORCED}hasPrefPolicyIndicator(){if(!this.pref){return false}if(this.noExtensionIndicator&&this.pref.controlledBy===chrome.settingsPrivate.ControlledBy.EXTENSION){return false}return this.isPrefEnforced()||this.pref.enforcement===chrome.settingsPrivate.Enforcement.RECOMMENDED}}return CrPolicyPrefMixin}));

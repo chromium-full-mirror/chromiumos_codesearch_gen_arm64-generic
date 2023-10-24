@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head><title>GetUserMedia test</title></head>
+<body>
+  <script src="third_party/blackframe.js"></script>
+<script>
+const resolutions = [[640, 480], [1280, 720]];
+let scriptReady = false;
+let isTestDone = false;
+let enumerateDevicesError = '';
+const globalErrors = [];
+const results = [];
+const logs = [];
+
+function addLog(msg) {
+  const curTime = new Date().toISOString();
+  logs.push(`[${curTime}] ${msg}`);
+}
+
+async function testGetUserMedia(durationSec) {
+  addLog('testGetUserMedia');
+  try {
+    await loadScript("third_party/ssim.js");
+    for (const resolution of resolutions) {
+      const test = new CameraTest(resolution);
+      test.checkVideoFrames();
+      await test.callGetUserMedia();
+      await new Promise(r => setTimeout(r, durationSec * 1000));
+      test.stop();
+    }
+  } finally {
+    reportTestDone();
+  }
+}
+
+async function testImageCaptureAPI() {
+  addLog('testImageCaptureAPI');
+  try {
+    await loadScript("third_party/ssim.js");
+    for (const resolution of resolutions) {
+      const test = new CameraTest(resolution);
+      test.checkVideoFrames();
+      await test.callGetUserMedia();
+      await test.checkImageCaptureAPIs();
+      test.stop();
+    }
+  } finally {
+    reportTestDone();
+  }
+}
+
+function loadScript(src) {
+  return new Promise(function(resolve, reject) {
+    let script = document.createElement('script');
+    script.src = src;
+
+    script.onload = () => resolve(script);
+    script.onerror = () => reject(new Error("Script load error: " + src));
+
+    document.body.append(script);
+  });
+}
+
+function reportTestDone() {
+  console.log('tests completed');
+  isTestDone = true;
+}
+
+function getResults() {
+  return results;
+}
+
+function getLogs() {
+  return logs;
+}
+
+function resolutionMatchesIndependentOfRotation(aWidth, aHeight,
+    bWidth, bHeight) {
+  return (aWidth === bWidth && aHeight === bHeight) ||
+         (aWidth === bHeight && aHeight === bWidth);
+}
+
+function saveResult(resolution, verdict) {
+  results.push(verdict);
+}
+
+// Check if a video input exists
+async function checkVideoInput() {
+  let isVideoInputFound = false;
+  addLog('checkVideoInput');
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    isVideoInputFound = devices.some((dev) => dev.kind == 'videoinput');
+  } catch (error) {
+    gotEnumerateDevicesError(error);
+  }
+  return isVideoInputFound;
+}
+
+function gotEnumerateDevicesError(error) {
+  console.log('navigator.mediaDevices.enumerateDevices error: ', error);
+  enumerateDevicesError = error.toString();
+}
+
+function CameraTest(resolution) {
+  this.resolution = resolution;
+  this.localVideo = document.createElement('video');
+  this.localVideo.id = 'local-video';
+  this.localVideo.autoplay = true;
+  document.body.appendChild(this.localVideo);
+  this.localStream = null;
+  this.canvas = document.createElement('canvas');
+  this.context = this.canvas.getContext('2d');
+  this.previousFrame = [];
+  this.identicalFrameSsimThreshold = 0.985;
+  this.frameComparator = new Ssim();
+  this.results = {
+    width: resolution[0],
+    height: resolution[1],
+    errors: [],
+    frameStats: {totalFrames: 0, blackFrames: 0, frozenFrames: 0},
+  };
+
+  this.constraints = {
+    'audio': false,
+    'video': {
+      'mandatory': {
+        'maxWidth': this.resolution[0].toString(),
+        'maxHeight': this.resolution[1].toString(),
+        'minWidth': this.resolution[0].toString(),
+        'minHeight': this.resolution[1].toString(),
+      },
+    },
+  };
+}
+
+CameraTest.prototype = {
+
+  checkVideoFrames: function() {
+    addLog('CameraTest.checkVideoFrames');
+    this.localVideo.addEventListener('play',
+        this.startVideoFrameChecker.bind(this), false);
+  },
+
+  startVideoFrameChecker: function() {
+    addLog('CameraTest.startVideoFrameChecker');
+    if (!resolutionMatchesIndependentOfRotation(this.localVideo.videoWidth,
+        this.localVideo.videoHeight, this.resolution[0], this.resolution[1])) {
+      this.results.errors.push('resolution', 'Got ' +
+          this.localVideo.videoWidth + 'x' + this.localVideo.videoHeight +
+          ', expected ' + this.resolution[0] + 'x' + this.resolution[1] +
+          ' or rotated version thereof');
+    }
+
+    this.videoFrameChecker = setInterval(this.checkVideoFrame.bind(this), 20);
+  },
+
+  checkVideoFrame: function() {
+    this.context.drawImage(this.localVideo, 0, 0, this.canvas.width,
+        this.canvas.height);
+    const imageData = this.context.getImageData(0, 0, this.canvas.width,
+        this.canvas.height);
+
+    if (isBlackFrame(imageData.data, imageData.data.length)) {
+      this.results.frameStats.blackFrames++;
+    }
+
+    if (this.frameComparator.calculate(this.previousFrame, imageData.data) >
+      this.identicalFrameSsimThreshold) {
+      this.results.frameStats.frozenFrames++;
+    }
+
+    this.previousFrame = imageData.data;
+    this.results.frameStats.totalFrames++;
+  },
+
+  callGetUserMedia: async function() {
+    addLog('CameraTest.callGetUserMedia: ${this.resolution[0]}x${this.resolution[1]}');
+    try{
+      this.localStream = await navigator.mediaDevices.getUserMedia(this.constraints);
+      this.localVideo.srcObject = this.localStream;
+    } catch (error) {
+      this.gotUserMediaError(error);
+      throw error;
+    }
+  },
+
+  gotUserMediaError: function(error) {
+    console.log('navigator.mediaDevices.getUserMedia error: ', error);
+    this.results.errors.push('getUserMedia error: ' + error.toString());
+  },
+
+  checkImageCaptureAPIs: async function() {
+    addLog('CameraTest.checkImageCaptureAPIs');
+    this.ImageCapturer = new ImageCapture(this.localStream.getVideoTracks()[0]);
+    const p1 = this.ImageCapturer.getPhotoCapabilities();
+    const p2 = this.ImageCapturer.getPhotoSettings();
+    const p3 = this.ImageCapturer.grabFrame();
+    const p4 = this.ImageCapturer.takePhoto();
+
+    try {
+      await Promise.all([p1, p2, p3, p4]);
+    } catch (error) {
+      this.gotImageCaptureError(error);
+    }
+  },
+
+  gotImageCaptureError: function(error) {
+    console.log('ImageCapture error: ', error);
+    this.results.errors.push('ImageCapture error: ' + error.toString());
+  },
+
+  stop: function() {
+    addLog('CameraTest.stop');
+    clearInterval(this.videoFrameChecker);
+    saveResult(this.resolution, this.results);
+    this.localStream.getTracks().forEach((track) => track.stop());
+    this.localVideo.srcObject = null;
+    document.body.removeChild(this.localVideo);
+  },
+};
+
+window.onerror = function(message, filename, lineno, colno, error) {
+  const msg = 'Something went wrong, here is the stack trace --> ' +
+        error.stack;
+  console.log(msg);
+  globalErrors.push(msg);
+};
+
+scriptReady = true;
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const Int128Spec={$:{}};export const Uint128Spec={$:{}};mojo.internal.Struct(Int128Spec.$,"Int128",[mojo.internal.StructField("high",0,0,mojo.internal.Int64,BigInt(0),false,0),mojo.internal.StructField("low",8,0,mojo.internal.Uint64,BigInt(0),false,0)],[[0,24]]);export class Int128{constructor(){this.high;this.low}}mojo.internal.Struct(Uint128Spec.$,"Uint128",[mojo.internal.StructField("high",0,0,mojo.internal.Uint64,BigInt(0),false,0),mojo.internal.StructField("low",8,0,mojo.internal.Uint64,BigInt(0),false,0)],[[0,24]]);export class Uint128{constructor(){this.high;this.low}}

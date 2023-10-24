@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 #include "utils/flatbuffers/flatbuffers_generated.h"
 
 namespace libtextclassifier3 {
@@ -96,7 +103,7 @@ inline const char * const *EnumNamesExpression() {
 }
 
 inline const char *EnumNameExpression(Expression e) {
-  if (flatbuffers::IsOutRange(e, Expression_NONE, Expression_ArithmeticExpression)) return "";
+  if (::flatbuffers::IsOutRange(e, Expression_NONE, Expression_ArithmeticExpression)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesExpression()[index];
 }
@@ -133,6 +140,38 @@ template<> struct ExpressionTraits<libtextclassifier3::grammar::ArithmeticExpres
   static const Expression enum_value = Expression_ArithmeticExpression;
 };
 
+template<typename T> struct ExpressionUnionTraits {
+  static const Expression enum_value = Expression_NONE;
+};
+
+template<> struct ExpressionUnionTraits<libtextclassifier3::grammar::ConstValueExpressionT> {
+  static const Expression enum_value = Expression_ConstValueExpression;
+};
+
+template<> struct ExpressionUnionTraits<libtextclassifier3::grammar::ConstituentExpressionT> {
+  static const Expression enum_value = Expression_ConstituentExpression;
+};
+
+template<> struct ExpressionUnionTraits<libtextclassifier3::grammar::ComposeExpressionT> {
+  static const Expression enum_value = Expression_ComposeExpression;
+};
+
+template<> struct ExpressionUnionTraits<libtextclassifier3::grammar::SpanAsStringExpressionT> {
+  static const Expression enum_value = Expression_SpanAsStringExpression;
+};
+
+template<> struct ExpressionUnionTraits<libtextclassifier3::grammar::ParseNumberExpressionT> {
+  static const Expression enum_value = Expression_ParseNumberExpression;
+};
+
+template<> struct ExpressionUnionTraits<libtextclassifier3::grammar::MergeValueExpressionT> {
+  static const Expression enum_value = Expression_MergeValueExpression;
+};
+
+template<> struct ExpressionUnionTraits<libtextclassifier3::grammar::ArithmeticExpressionT> {
+  static const Expression enum_value = Expression_ArithmeticExpression;
+};
+
 struct ExpressionUnion {
   Expression type;
   void *value;
@@ -150,20 +189,18 @@ struct ExpressionUnion {
 
   void Reset();
 
-#ifndef FLATBUFFERS_CPP98_STL
   template <typename T>
   void Set(T&& val) {
-    using RT = typename std::remove_reference<T>::type;
+    typedef typename std::remove_reference<T>::type RT;
     Reset();
-    type = ExpressionTraits<typename RT::TableType>::enum_value;
+    type = ExpressionUnionTraits<RT>::enum_value;
     if (type != Expression_NONE) {
       value = new RT(std::forward<T>(val));
     }
   }
-#endif  // FLATBUFFERS_CPP98_STL
 
-  static void *UnPack(const void *obj, Expression type, const flatbuffers::resolver_function_t *resolver);
-  flatbuffers::Offset<void> Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher = nullptr) const;
+  static void *UnPack(const void *obj, Expression type, const ::flatbuffers::resolver_function_t *resolver);
+  ::flatbuffers::Offset<void> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr) const;
 
   libtextclassifier3::grammar::ConstValueExpressionT *AsConstValueExpression() {
     return type == Expression_ConstValueExpression ?
@@ -223,8 +260,8 @@ struct ExpressionUnion {
   }
 };
 
-bool VerifyExpression(flatbuffers::Verifier &verifier, const void *obj, Expression type);
-bool VerifyExpressionVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types);
+bool VerifyExpression(::flatbuffers::Verifier &verifier, const void *obj, Expression type);
+bool VerifyExpressionVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<uint8_t> *types);
 
 }  // namespace SemanticExpression_
 
@@ -264,19 +301,19 @@ inline const char * const *EnumNamesOperator() {
 }
 
 inline const char *EnumNameOperator(Operator e) {
-  if (flatbuffers::IsOutRange(e, Operator_NO_OP, Operator_OP_MIN)) return "";
+  if (::flatbuffers::IsOutRange(e, Operator_NO_OP, Operator_OP_MIN)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesOperator()[index];
 }
 
 }  // namespace ArithmeticExpression_
 
-struct SemanticExpressionT : public flatbuffers::NativeTable {
+struct SemanticExpressionT : public ::flatbuffers::NativeTable {
   typedef SemanticExpression TableType;
   libtextclassifier3::grammar::SemanticExpression_::ExpressionUnion expression{};
 };
 
-struct SemanticExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct SemanticExpression FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef SemanticExpressionT NativeTableType;
   typedef SemanticExpressionBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -311,16 +348,16 @@ struct SemanticExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const libtextclassifier3::grammar::ArithmeticExpression *expression_as_ArithmeticExpression() const {
     return expression_type() == libtextclassifier3::grammar::SemanticExpression_::Expression_ArithmeticExpression ? static_cast<const libtextclassifier3::grammar::ArithmeticExpression *>(expression()) : nullptr;
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_EXPRESSION_TYPE) &&
+           VerifyField<uint8_t>(verifier, VT_EXPRESSION_TYPE, 1) &&
            VerifyOffset(verifier, VT_EXPRESSION) &&
            VerifyExpression(verifier, expression(), expression_type()) &&
            verifier.EndTable();
   }
-  SemanticExpressionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(SemanticExpressionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<SemanticExpression> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SemanticExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  SemanticExpressionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SemanticExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<SemanticExpression> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const SemanticExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 template<> inline const libtextclassifier3::grammar::ConstValueExpression *SemanticExpression::expression_as<libtextclassifier3::grammar::ConstValueExpression>() const {
@@ -353,45 +390,45 @@ template<> inline const libtextclassifier3::grammar::ArithmeticExpression *Seman
 
 struct SemanticExpressionBuilder {
   typedef SemanticExpression Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_expression_type(libtextclassifier3::grammar::SemanticExpression_::Expression expression_type) {
     fbb_.AddElement<uint8_t>(SemanticExpression::VT_EXPRESSION_TYPE, static_cast<uint8_t>(expression_type), 0);
   }
-  void add_expression(flatbuffers::Offset<void> expression) {
+  void add_expression(::flatbuffers::Offset<void> expression) {
     fbb_.AddOffset(SemanticExpression::VT_EXPRESSION, expression);
   }
-  explicit SemanticExpressionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit SemanticExpressionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<SemanticExpression> Finish() {
+  ::flatbuffers::Offset<SemanticExpression> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<SemanticExpression>(end);
+    auto o = ::flatbuffers::Offset<SemanticExpression>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<SemanticExpression> CreateSemanticExpression(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<SemanticExpression> CreateSemanticExpression(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     libtextclassifier3::grammar::SemanticExpression_::Expression expression_type = libtextclassifier3::grammar::SemanticExpression_::Expression_NONE,
-    flatbuffers::Offset<void> expression = 0) {
+    ::flatbuffers::Offset<void> expression = 0) {
   SemanticExpressionBuilder builder_(_fbb);
   builder_.add_expression(expression);
   builder_.add_expression_type(expression_type);
   return builder_.Finish();
 }
 
-flatbuffers::Offset<SemanticExpression> CreateSemanticExpression(flatbuffers::FlatBufferBuilder &_fbb, const SemanticExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<SemanticExpression> CreateSemanticExpression(::flatbuffers::FlatBufferBuilder &_fbb, const SemanticExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct ConstValueExpressionT : public flatbuffers::NativeTable {
+struct ConstValueExpressionT : public ::flatbuffers::NativeTable {
   typedef ConstValueExpression TableType;
   int32_t base_type = 0;
   int32_t type = 0;
   std::vector<uint8_t> value{};
 };
 
-struct ConstValueExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ConstValueExpression FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ConstValueExpressionT NativeTableType;
   typedef ConstValueExpressionBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -405,51 +442,51 @@ struct ConstValueExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   int32_t type() const {
     return GetField<int32_t>(VT_TYPE, 0);
   }
-  const flatbuffers::Vector<uint8_t> *value() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_VALUE);
+  const ::flatbuffers::Vector<uint8_t> *value() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_VALUE);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_BASE_TYPE) &&
-           VerifyField<int32_t>(verifier, VT_TYPE) &&
+           VerifyField<int32_t>(verifier, VT_BASE_TYPE, 4) &&
+           VerifyField<int32_t>(verifier, VT_TYPE, 4) &&
            VerifyOffset(verifier, VT_VALUE) &&
            verifier.VerifyVector(value()) &&
            verifier.EndTable();
   }
-  ConstValueExpressionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(ConstValueExpressionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<ConstValueExpression> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ConstValueExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  ConstValueExpressionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ConstValueExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<ConstValueExpression> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ConstValueExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct ConstValueExpressionBuilder {
   typedef ConstValueExpression Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_base_type(int32_t base_type) {
     fbb_.AddElement<int32_t>(ConstValueExpression::VT_BASE_TYPE, base_type, 0);
   }
   void add_type(int32_t type) {
     fbb_.AddElement<int32_t>(ConstValueExpression::VT_TYPE, type, 0);
   }
-  void add_value(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> value) {
+  void add_value(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> value) {
     fbb_.AddOffset(ConstValueExpression::VT_VALUE, value);
   }
-  explicit ConstValueExpressionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ConstValueExpressionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ConstValueExpression> Finish() {
+  ::flatbuffers::Offset<ConstValueExpression> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ConstValueExpression>(end);
+    auto o = ::flatbuffers::Offset<ConstValueExpression>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ConstValueExpression> CreateConstValueExpression(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ConstValueExpression> CreateConstValueExpression(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t base_type = 0,
     int32_t type = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> value = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> value = 0) {
   ConstValueExpressionBuilder builder_(_fbb);
   builder_.add_value(value);
   builder_.add_type(type);
@@ -457,8 +494,8 @@ inline flatbuffers::Offset<ConstValueExpression> CreateConstValueExpression(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<ConstValueExpression> CreateConstValueExpressionDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ConstValueExpression> CreateConstValueExpressionDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t base_type = 0,
     int32_t type = 0,
     const std::vector<uint8_t> *value = nullptr) {
@@ -470,14 +507,14 @@ inline flatbuffers::Offset<ConstValueExpression> CreateConstValueExpressionDirec
       value__);
 }
 
-flatbuffers::Offset<ConstValueExpression> CreateConstValueExpression(flatbuffers::FlatBufferBuilder &_fbb, const ConstValueExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<ConstValueExpression> CreateConstValueExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ConstValueExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct ConstituentExpressionT : public flatbuffers::NativeTable {
+struct ConstituentExpressionT : public ::flatbuffers::NativeTable {
   typedef ConstituentExpression TableType;
   uint16_t id = 0;
 };
 
-struct ConstituentExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ConstituentExpression FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ConstituentExpressionT NativeTableType;
   typedef ConstituentExpressionBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -486,53 +523,57 @@ struct ConstituentExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tabl
   uint16_t id() const {
     return GetField<uint16_t>(VT_ID, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint16_t>(verifier, VT_ID) &&
+           VerifyField<uint16_t>(verifier, VT_ID, 2) &&
            verifier.EndTable();
   }
-  ConstituentExpressionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(ConstituentExpressionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<ConstituentExpression> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ConstituentExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  ConstituentExpressionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ConstituentExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<ConstituentExpression> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ConstituentExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct ConstituentExpressionBuilder {
   typedef ConstituentExpression Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_id(uint16_t id) {
     fbb_.AddElement<uint16_t>(ConstituentExpression::VT_ID, id, 0);
   }
-  explicit ConstituentExpressionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ConstituentExpressionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ConstituentExpression> Finish() {
+  ::flatbuffers::Offset<ConstituentExpression> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ConstituentExpression>(end);
+    auto o = ::flatbuffers::Offset<ConstituentExpression>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ConstituentExpression> CreateConstituentExpression(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ConstituentExpression> CreateConstituentExpression(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     uint16_t id = 0) {
   ConstituentExpressionBuilder builder_(_fbb);
   builder_.add_id(id);
   return builder_.Finish();
 }
 
-flatbuffers::Offset<ConstituentExpression> CreateConstituentExpression(flatbuffers::FlatBufferBuilder &_fbb, const ConstituentExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<ConstituentExpression> CreateConstituentExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ConstituentExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 namespace ComposeExpression_ {
 
-struct FieldT : public flatbuffers::NativeTable {
+struct FieldT : public ::flatbuffers::NativeTable {
   typedef Field TableType;
   std::unique_ptr<libtextclassifier3::FlatbufferFieldPathT> path{};
   std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT> value{};
+  FieldT() = default;
+  FieldT(const FieldT &o);
+  FieldT(FieldT&&) FLATBUFFERS_NOEXCEPT = default;
+  FieldT &operator=(FieldT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct Field FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct Field FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef FieldT NativeTableType;
   typedef FieldBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -545,7 +586,7 @@ struct Field FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const libtextclassifier3::grammar::SemanticExpression *value() const {
     return GetPointer<const libtextclassifier3::grammar::SemanticExpression *>(VT_VALUE);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_PATH) &&
            verifier.VerifyTable(path()) &&
@@ -553,53 +594,57 @@ struct Field FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.VerifyTable(value()) &&
            verifier.EndTable();
   }
-  FieldT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(FieldT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<Field> Pack(flatbuffers::FlatBufferBuilder &_fbb, const FieldT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  FieldT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(FieldT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<Field> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const FieldT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct FieldBuilder {
   typedef Field Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_path(flatbuffers::Offset<libtextclassifier3::FlatbufferFieldPath> path) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_path(::flatbuffers::Offset<libtextclassifier3::FlatbufferFieldPath> path) {
     fbb_.AddOffset(Field::VT_PATH, path);
   }
-  void add_value(flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression> value) {
+  void add_value(::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression> value) {
     fbb_.AddOffset(Field::VT_VALUE, value);
   }
-  explicit FieldBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit FieldBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<Field> Finish() {
+  ::flatbuffers::Offset<Field> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<Field>(end);
+    auto o = ::flatbuffers::Offset<Field>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<Field> CreateField(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<libtextclassifier3::FlatbufferFieldPath> path = 0,
-    flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression> value = 0) {
+inline ::flatbuffers::Offset<Field> CreateField(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<libtextclassifier3::FlatbufferFieldPath> path = 0,
+    ::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression> value = 0) {
   FieldBuilder builder_(_fbb);
   builder_.add_value(value);
   builder_.add_path(path);
   return builder_.Finish();
 }
 
-flatbuffers::Offset<Field> CreateField(flatbuffers::FlatBufferBuilder &_fbb, const FieldT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<Field> CreateField(::flatbuffers::FlatBufferBuilder &_fbb, const FieldT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
 }  // namespace ComposeExpression_
 
-struct ComposeExpressionT : public flatbuffers::NativeTable {
+struct ComposeExpressionT : public ::flatbuffers::NativeTable {
   typedef ComposeExpression TableType;
   int32_t type = 0;
   std::vector<std::unique_ptr<libtextclassifier3::grammar::ComposeExpression_::FieldT>> fields{};
+  ComposeExpressionT() = default;
+  ComposeExpressionT(const ComposeExpressionT &o);
+  ComposeExpressionT(ComposeExpressionT&&) FLATBUFFERS_NOEXCEPT = default;
+  ComposeExpressionT &operator=(ComposeExpressionT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct ComposeExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ComposeExpression FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ComposeExpressionT NativeTableType;
   typedef ComposeExpressionBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -609,112 +654,116 @@ struct ComposeExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t type() const {
     return GetField<int32_t>(VT_TYPE, 0);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>> *fields() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>> *>(VT_FIELDS);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>> *fields() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>> *>(VT_FIELDS);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_TYPE) &&
+           VerifyField<int32_t>(verifier, VT_TYPE, 4) &&
            VerifyOffset(verifier, VT_FIELDS) &&
            verifier.VerifyVector(fields()) &&
            verifier.VerifyVectorOfTables(fields()) &&
            verifier.EndTable();
   }
-  ComposeExpressionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(ComposeExpressionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<ComposeExpression> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ComposeExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  ComposeExpressionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ComposeExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<ComposeExpression> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ComposeExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct ComposeExpressionBuilder {
   typedef ComposeExpression Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_type(int32_t type) {
     fbb_.AddElement<int32_t>(ComposeExpression::VT_TYPE, type, 0);
   }
-  void add_fields(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>>> fields) {
+  void add_fields(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>>> fields) {
     fbb_.AddOffset(ComposeExpression::VT_FIELDS, fields);
   }
-  explicit ComposeExpressionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ComposeExpressionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ComposeExpression> Finish() {
+  ::flatbuffers::Offset<ComposeExpression> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ComposeExpression>(end);
+    auto o = ::flatbuffers::Offset<ComposeExpression>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ComposeExpression> CreateComposeExpression(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ComposeExpression> CreateComposeExpression(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t type = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>>> fields = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>>> fields = 0) {
   ComposeExpressionBuilder builder_(_fbb);
   builder_.add_fields(fields);
   builder_.add_type(type);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<ComposeExpression> CreateComposeExpressionDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ComposeExpression> CreateComposeExpressionDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t type = 0,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>> *fields = nullptr) {
-  auto fields__ = fields ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>>(*fields) : 0;
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>> *fields = nullptr) {
+  auto fields__ = fields ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>>(*fields) : 0;
   return libtextclassifier3::grammar::CreateComposeExpression(
       _fbb,
       type,
       fields__);
 }
 
-flatbuffers::Offset<ComposeExpression> CreateComposeExpression(flatbuffers::FlatBufferBuilder &_fbb, const ComposeExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<ComposeExpression> CreateComposeExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ComposeExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct SpanAsStringExpressionT : public flatbuffers::NativeTable {
+struct SpanAsStringExpressionT : public ::flatbuffers::NativeTable {
   typedef SpanAsStringExpression TableType;
 };
 
-struct SpanAsStringExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct SpanAsStringExpression FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef SpanAsStringExpressionT NativeTableType;
   typedef SpanAsStringExpressionBuilder Builder;
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            verifier.EndTable();
   }
-  SpanAsStringExpressionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(SpanAsStringExpressionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<SpanAsStringExpression> Pack(flatbuffers::FlatBufferBuilder &_fbb, const SpanAsStringExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  SpanAsStringExpressionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(SpanAsStringExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<SpanAsStringExpression> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const SpanAsStringExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct SpanAsStringExpressionBuilder {
   typedef SpanAsStringExpression Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  explicit SpanAsStringExpressionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  explicit SpanAsStringExpressionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<SpanAsStringExpression> Finish() {
+  ::flatbuffers::Offset<SpanAsStringExpression> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<SpanAsStringExpression>(end);
+    auto o = ::flatbuffers::Offset<SpanAsStringExpression>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<SpanAsStringExpression> CreateSpanAsStringExpression(
-    flatbuffers::FlatBufferBuilder &_fbb) {
+inline ::flatbuffers::Offset<SpanAsStringExpression> CreateSpanAsStringExpression(
+    ::flatbuffers::FlatBufferBuilder &_fbb) {
   SpanAsStringExpressionBuilder builder_(_fbb);
   return builder_.Finish();
 }
 
-flatbuffers::Offset<SpanAsStringExpression> CreateSpanAsStringExpression(flatbuffers::FlatBufferBuilder &_fbb, const SpanAsStringExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<SpanAsStringExpression> CreateSpanAsStringExpression(::flatbuffers::FlatBufferBuilder &_fbb, const SpanAsStringExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct ParseNumberExpressionT : public flatbuffers::NativeTable {
+struct ParseNumberExpressionT : public ::flatbuffers::NativeTable {
   typedef ParseNumberExpression TableType;
   int32_t base_type = 0;
   std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT> value{};
+  ParseNumberExpressionT() = default;
+  ParseNumberExpressionT(const ParseNumberExpressionT &o);
+  ParseNumberExpressionT(ParseNumberExpressionT&&) FLATBUFFERS_NOEXCEPT = default;
+  ParseNumberExpressionT &operator=(ParseNumberExpressionT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct ParseNumberExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ParseNumberExpression FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ParseNumberExpressionT NativeTableType;
   typedef ParseNumberExpressionBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -727,58 +776,62 @@ struct ParseNumberExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tabl
   const libtextclassifier3::grammar::SemanticExpression *value() const {
     return GetPointer<const libtextclassifier3::grammar::SemanticExpression *>(VT_VALUE);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_BASE_TYPE) &&
+           VerifyField<int32_t>(verifier, VT_BASE_TYPE, 4) &&
            VerifyOffset(verifier, VT_VALUE) &&
            verifier.VerifyTable(value()) &&
            verifier.EndTable();
   }
-  ParseNumberExpressionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(ParseNumberExpressionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<ParseNumberExpression> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ParseNumberExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  ParseNumberExpressionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ParseNumberExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<ParseNumberExpression> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ParseNumberExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct ParseNumberExpressionBuilder {
   typedef ParseNumberExpression Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_base_type(int32_t base_type) {
     fbb_.AddElement<int32_t>(ParseNumberExpression::VT_BASE_TYPE, base_type, 0);
   }
-  void add_value(flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression> value) {
+  void add_value(::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression> value) {
     fbb_.AddOffset(ParseNumberExpression::VT_VALUE, value);
   }
-  explicit ParseNumberExpressionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ParseNumberExpressionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ParseNumberExpression> Finish() {
+  ::flatbuffers::Offset<ParseNumberExpression> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ParseNumberExpression>(end);
+    auto o = ::flatbuffers::Offset<ParseNumberExpression>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ParseNumberExpression> CreateParseNumberExpression(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ParseNumberExpression> CreateParseNumberExpression(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t base_type = 0,
-    flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression> value = 0) {
+    ::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression> value = 0) {
   ParseNumberExpressionBuilder builder_(_fbb);
   builder_.add_value(value);
   builder_.add_base_type(base_type);
   return builder_.Finish();
 }
 
-flatbuffers::Offset<ParseNumberExpression> CreateParseNumberExpression(flatbuffers::FlatBufferBuilder &_fbb, const ParseNumberExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<ParseNumberExpression> CreateParseNumberExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ParseNumberExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct MergeValueExpressionT : public flatbuffers::NativeTable {
+struct MergeValueExpressionT : public ::flatbuffers::NativeTable {
   typedef MergeValueExpression TableType;
   int32_t type = 0;
   std::vector<std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>> values{};
+  MergeValueExpressionT() = default;
+  MergeValueExpressionT(const MergeValueExpressionT &o);
+  MergeValueExpressionT(MergeValueExpressionT&&) FLATBUFFERS_NOEXCEPT = default;
+  MergeValueExpressionT &operator=(MergeValueExpressionT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct MergeValueExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct MergeValueExpression FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef MergeValueExpressionT NativeTableType;
   typedef MergeValueExpressionBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -788,74 +841,78 @@ struct MergeValueExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   int32_t type() const {
     return GetField<int32_t>(VT_TYPE, 0);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *values() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *>(VT_VALUES);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *values() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *>(VT_VALUES);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_TYPE) &&
+           VerifyField<int32_t>(verifier, VT_TYPE, 4) &&
            VerifyOffset(verifier, VT_VALUES) &&
            verifier.VerifyVector(values()) &&
            verifier.VerifyVectorOfTables(values()) &&
            verifier.EndTable();
   }
-  MergeValueExpressionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(MergeValueExpressionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<MergeValueExpression> Pack(flatbuffers::FlatBufferBuilder &_fbb, const MergeValueExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  MergeValueExpressionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(MergeValueExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<MergeValueExpression> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const MergeValueExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct MergeValueExpressionBuilder {
   typedef MergeValueExpression Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_type(int32_t type) {
     fbb_.AddElement<int32_t>(MergeValueExpression::VT_TYPE, type, 0);
   }
-  void add_values(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>> values) {
+  void add_values(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>> values) {
     fbb_.AddOffset(MergeValueExpression::VT_VALUES, values);
   }
-  explicit MergeValueExpressionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit MergeValueExpressionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<MergeValueExpression> Finish() {
+  ::flatbuffers::Offset<MergeValueExpression> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<MergeValueExpression>(end);
+    auto o = ::flatbuffers::Offset<MergeValueExpression>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<MergeValueExpression> CreateMergeValueExpression(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<MergeValueExpression> CreateMergeValueExpression(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t type = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>> values = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>> values = 0) {
   MergeValueExpressionBuilder builder_(_fbb);
   builder_.add_values(values);
   builder_.add_type(type);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<MergeValueExpression> CreateMergeValueExpressionDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<MergeValueExpression> CreateMergeValueExpressionDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t type = 0,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *values = nullptr) {
-  auto values__ = values ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>(*values) : 0;
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *values = nullptr) {
+  auto values__ = values ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>(*values) : 0;
   return libtextclassifier3::grammar::CreateMergeValueExpression(
       _fbb,
       type,
       values__);
 }
 
-flatbuffers::Offset<MergeValueExpression> CreateMergeValueExpression(flatbuffers::FlatBufferBuilder &_fbb, const MergeValueExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<MergeValueExpression> CreateMergeValueExpression(::flatbuffers::FlatBufferBuilder &_fbb, const MergeValueExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct ArithmeticExpressionT : public flatbuffers::NativeTable {
+struct ArithmeticExpressionT : public ::flatbuffers::NativeTable {
   typedef ArithmeticExpression TableType;
   int32_t base_type = 0;
   libtextclassifier3::grammar::ArithmeticExpression_::Operator op = libtextclassifier3::grammar::ArithmeticExpression_::Operator_NO_OP;
   std::vector<std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>> values{};
+  ArithmeticExpressionT() = default;
+  ArithmeticExpressionT(const ArithmeticExpressionT &o);
+  ArithmeticExpressionT(ArithmeticExpressionT&&) FLATBUFFERS_NOEXCEPT = default;
+  ArithmeticExpressionT &operator=(ArithmeticExpressionT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct ArithmeticExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct ArithmeticExpression FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ArithmeticExpressionT NativeTableType;
   typedef ArithmeticExpressionBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -869,52 +926,52 @@ struct ArithmeticExpression FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   libtextclassifier3::grammar::ArithmeticExpression_::Operator op() const {
     return static_cast<libtextclassifier3::grammar::ArithmeticExpression_::Operator>(GetField<int32_t>(VT_OP, 0));
   }
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *values() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *>(VT_VALUES);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *values() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *>(VT_VALUES);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_BASE_TYPE) &&
-           VerifyField<int32_t>(verifier, VT_OP) &&
+           VerifyField<int32_t>(verifier, VT_BASE_TYPE, 4) &&
+           VerifyField<int32_t>(verifier, VT_OP, 4) &&
            VerifyOffset(verifier, VT_VALUES) &&
            verifier.VerifyVector(values()) &&
            verifier.VerifyVectorOfTables(values()) &&
            verifier.EndTable();
   }
-  ArithmeticExpressionT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(ArithmeticExpressionT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<ArithmeticExpression> Pack(flatbuffers::FlatBufferBuilder &_fbb, const ArithmeticExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  ArithmeticExpressionT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(ArithmeticExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<ArithmeticExpression> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ArithmeticExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct ArithmeticExpressionBuilder {
   typedef ArithmeticExpression Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_base_type(int32_t base_type) {
     fbb_.AddElement<int32_t>(ArithmeticExpression::VT_BASE_TYPE, base_type, 0);
   }
   void add_op(libtextclassifier3::grammar::ArithmeticExpression_::Operator op) {
     fbb_.AddElement<int32_t>(ArithmeticExpression::VT_OP, static_cast<int32_t>(op), 0);
   }
-  void add_values(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>> values) {
+  void add_values(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>> values) {
     fbb_.AddOffset(ArithmeticExpression::VT_VALUES, values);
   }
-  explicit ArithmeticExpressionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ArithmeticExpressionBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<ArithmeticExpression> Finish() {
+  ::flatbuffers::Offset<ArithmeticExpression> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<ArithmeticExpression>(end);
+    auto o = ::flatbuffers::Offset<ArithmeticExpression>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpression(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpression(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t base_type = 0,
     libtextclassifier3::grammar::ArithmeticExpression_::Operator op = libtextclassifier3::grammar::ArithmeticExpression_::Operator_NO_OP,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>> values = 0) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>> values = 0) {
   ArithmeticExpressionBuilder builder_(_fbb);
   builder_.add_values(values);
   builder_.add_op(op);
@@ -922,12 +979,12 @@ inline flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpression(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpressionDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpressionDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     int32_t base_type = 0,
     libtextclassifier3::grammar::ArithmeticExpression_::Operator op = libtextclassifier3::grammar::ArithmeticExpression_::Operator_NO_OP,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *values = nullptr) {
-  auto values__ = values ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>(*values) : 0;
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> *values = nullptr) {
+  auto values__ = values ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>>(*values) : 0;
   return libtextclassifier3::grammar::CreateArithmeticExpression(
       _fbb,
       base_type,
@@ -935,29 +992,29 @@ inline flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpressionDirec
       values__);
 }
 
-flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpression(flatbuffers::FlatBufferBuilder &_fbb, const ArithmeticExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ArithmeticExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline SemanticExpressionT *SemanticExpression::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline SemanticExpressionT *SemanticExpression::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<SemanticExpressionT>(new SemanticExpressionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void SemanticExpression::UnPackTo(SemanticExpressionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void SemanticExpression::UnPackTo(SemanticExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = expression_type(); _o->expression.type = _e; }
   { auto _e = expression(); if (_e) _o->expression.value = libtextclassifier3::grammar::SemanticExpression_::ExpressionUnion::UnPack(_e, expression_type(), _resolver); }
 }
 
-inline flatbuffers::Offset<SemanticExpression> SemanticExpression::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SemanticExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<SemanticExpression> SemanticExpression::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const SemanticExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateSemanticExpression(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<SemanticExpression> CreateSemanticExpression(flatbuffers::FlatBufferBuilder &_fbb, const SemanticExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<SemanticExpression> CreateSemanticExpression(::flatbuffers::FlatBufferBuilder &_fbb, const SemanticExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SemanticExpressionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const SemanticExpressionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _expression_type = _o->expression.type;
   auto _expression = _o->expression.Pack(_fbb);
   return libtextclassifier3::grammar::CreateSemanticExpression(
@@ -966,13 +1023,13 @@ inline flatbuffers::Offset<SemanticExpression> CreateSemanticExpression(flatbuff
       _expression);
 }
 
-inline ConstValueExpressionT *ConstValueExpression::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline ConstValueExpressionT *ConstValueExpression::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<ConstValueExpressionT>(new ConstValueExpressionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void ConstValueExpression::UnPackTo(ConstValueExpressionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void ConstValueExpression::UnPackTo(ConstValueExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = base_type(); _o->base_type = _e; }
@@ -980,14 +1037,14 @@ inline void ConstValueExpression::UnPackTo(ConstValueExpressionT *_o, const flat
   { auto _e = value(); if (_e) { _o->value.resize(_e->size()); std::copy(_e->begin(), _e->end(), _o->value.begin()); } }
 }
 
-inline flatbuffers::Offset<ConstValueExpression> ConstValueExpression::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ConstValueExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ConstValueExpression> ConstValueExpression::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ConstValueExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateConstValueExpression(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<ConstValueExpression> CreateConstValueExpression(flatbuffers::FlatBufferBuilder &_fbb, const ConstValueExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ConstValueExpression> CreateConstValueExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ConstValueExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ConstValueExpressionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const ConstValueExpressionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _base_type = _o->base_type;
   auto _type = _o->type;
   auto _value = _o->value.size() ? _fbb.CreateVector(_o->value) : 0;
@@ -998,26 +1055,26 @@ inline flatbuffers::Offset<ConstValueExpression> CreateConstValueExpression(flat
       _value);
 }
 
-inline ConstituentExpressionT *ConstituentExpression::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline ConstituentExpressionT *ConstituentExpression::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<ConstituentExpressionT>(new ConstituentExpressionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void ConstituentExpression::UnPackTo(ConstituentExpressionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void ConstituentExpression::UnPackTo(ConstituentExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = id(); _o->id = _e; }
 }
 
-inline flatbuffers::Offset<ConstituentExpression> ConstituentExpression::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ConstituentExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ConstituentExpression> ConstituentExpression::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ConstituentExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateConstituentExpression(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<ConstituentExpression> CreateConstituentExpression(flatbuffers::FlatBufferBuilder &_fbb, const ConstituentExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ConstituentExpression> CreateConstituentExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ConstituentExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ConstituentExpressionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const ConstituentExpressionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _id = _o->id;
   return libtextclassifier3::grammar::CreateConstituentExpression(
       _fbb,
@@ -1026,27 +1083,38 @@ inline flatbuffers::Offset<ConstituentExpression> CreateConstituentExpression(fl
 
 namespace ComposeExpression_ {
 
-inline FieldT *Field::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline FieldT::FieldT(const FieldT &o)
+      : path((o.path) ? new libtextclassifier3::FlatbufferFieldPathT(*o.path) : nullptr),
+        value((o.value) ? new libtextclassifier3::grammar::SemanticExpressionT(*o.value) : nullptr) {
+}
+
+inline FieldT &FieldT::operator=(FieldT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(path, o.path);
+  std::swap(value, o.value);
+  return *this;
+}
+
+inline FieldT *Field::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<FieldT>(new FieldT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void Field::UnPackTo(FieldT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void Field::UnPackTo(FieldT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = path(); if (_e) _o->path = std::unique_ptr<libtextclassifier3::FlatbufferFieldPathT>(_e->UnPack(_resolver)); }
-  { auto _e = value(); if (_e) _o->value = std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>(_e->UnPack(_resolver)); }
+  { auto _e = path(); if (_e) { if(_o->path) { _e->UnPackTo(_o->path.get(), _resolver); } else { _o->path = std::unique_ptr<libtextclassifier3::FlatbufferFieldPathT>(_e->UnPack(_resolver)); } } else if (_o->path) { _o->path.reset(); } }
+  { auto _e = value(); if (_e) { if(_o->value) { _e->UnPackTo(_o->value.get(), _resolver); } else { _o->value = std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>(_e->UnPack(_resolver)); } } else if (_o->value) { _o->value.reset(); } }
 }
 
-inline flatbuffers::Offset<Field> Field::Pack(flatbuffers::FlatBufferBuilder &_fbb, const FieldT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Field> Field::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const FieldT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateField(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<Field> CreateField(flatbuffers::FlatBufferBuilder &_fbb, const FieldT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<Field> CreateField(::flatbuffers::FlatBufferBuilder &_fbb, const FieldT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const FieldT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const FieldT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _path = _o->path ? CreateFlatbufferFieldPath(_fbb, _o->path.get(), _rehasher) : 0;
   auto _value = _o->value ? CreateSemanticExpression(_fbb, _o->value.get(), _rehasher) : 0;
   return libtextclassifier3::grammar::ComposeExpression_::CreateField(
@@ -1057,79 +1125,102 @@ inline flatbuffers::Offset<Field> CreateField(flatbuffers::FlatBufferBuilder &_f
 
 }  // namespace ComposeExpression_
 
-inline ComposeExpressionT *ComposeExpression::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline ComposeExpressionT::ComposeExpressionT(const ComposeExpressionT &o)
+      : type(o.type) {
+  fields.reserve(o.fields.size());
+  for (const auto &fields_ : o.fields) { fields.emplace_back((fields_) ? new libtextclassifier3::grammar::ComposeExpression_::FieldT(*fields_) : nullptr); }
+}
+
+inline ComposeExpressionT &ComposeExpressionT::operator=(ComposeExpressionT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(type, o.type);
+  std::swap(fields, o.fields);
+  return *this;
+}
+
+inline ComposeExpressionT *ComposeExpression::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<ComposeExpressionT>(new ComposeExpressionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void ComposeExpression::UnPackTo(ComposeExpressionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void ComposeExpression::UnPackTo(ComposeExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = type(); _o->type = _e; }
-  { auto _e = fields(); if (_e) { _o->fields.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->fields[_i] = std::unique_ptr<libtextclassifier3::grammar::ComposeExpression_::FieldT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = fields(); if (_e) { _o->fields.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->fields[_i]) { _e->Get(_i)->UnPackTo(_o->fields[_i].get(), _resolver); } else { _o->fields[_i] = std::unique_ptr<libtextclassifier3::grammar::ComposeExpression_::FieldT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->fields.resize(0); } }
 }
 
-inline flatbuffers::Offset<ComposeExpression> ComposeExpression::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ComposeExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ComposeExpression> ComposeExpression::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ComposeExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateComposeExpression(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<ComposeExpression> CreateComposeExpression(flatbuffers::FlatBufferBuilder &_fbb, const ComposeExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ComposeExpression> CreateComposeExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ComposeExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ComposeExpressionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const ComposeExpressionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _type = _o->type;
-  auto _fields = _o->fields.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>> (_o->fields.size(), [](size_t i, _VectorArgs *__va) { return CreateField(*__va->__fbb, __va->__o->fields[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _fields = _o->fields.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::grammar::ComposeExpression_::Field>> (_o->fields.size(), [](size_t i, _VectorArgs *__va) { return CreateField(*__va->__fbb, __va->__o->fields[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::grammar::CreateComposeExpression(
       _fbb,
       _type,
       _fields);
 }
 
-inline SpanAsStringExpressionT *SpanAsStringExpression::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline SpanAsStringExpressionT *SpanAsStringExpression::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<SpanAsStringExpressionT>(new SpanAsStringExpressionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void SpanAsStringExpression::UnPackTo(SpanAsStringExpressionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void SpanAsStringExpression::UnPackTo(SpanAsStringExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
 }
 
-inline flatbuffers::Offset<SpanAsStringExpression> SpanAsStringExpression::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SpanAsStringExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<SpanAsStringExpression> SpanAsStringExpression::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const SpanAsStringExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateSpanAsStringExpression(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<SpanAsStringExpression> CreateSpanAsStringExpression(flatbuffers::FlatBufferBuilder &_fbb, const SpanAsStringExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<SpanAsStringExpression> CreateSpanAsStringExpression(::flatbuffers::FlatBufferBuilder &_fbb, const SpanAsStringExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SpanAsStringExpressionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const SpanAsStringExpressionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   return libtextclassifier3::grammar::CreateSpanAsStringExpression(
       _fbb);
 }
 
-inline ParseNumberExpressionT *ParseNumberExpression::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline ParseNumberExpressionT::ParseNumberExpressionT(const ParseNumberExpressionT &o)
+      : base_type(o.base_type),
+        value((o.value) ? new libtextclassifier3::grammar::SemanticExpressionT(*o.value) : nullptr) {
+}
+
+inline ParseNumberExpressionT &ParseNumberExpressionT::operator=(ParseNumberExpressionT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(base_type, o.base_type);
+  std::swap(value, o.value);
+  return *this;
+}
+
+inline ParseNumberExpressionT *ParseNumberExpression::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<ParseNumberExpressionT>(new ParseNumberExpressionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void ParseNumberExpression::UnPackTo(ParseNumberExpressionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void ParseNumberExpression::UnPackTo(ParseNumberExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = base_type(); _o->base_type = _e; }
-  { auto _e = value(); if (_e) _o->value = std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>(_e->UnPack(_resolver)); }
+  { auto _e = value(); if (_e) { if(_o->value) { _e->UnPackTo(_o->value.get(), _resolver); } else { _o->value = std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>(_e->UnPack(_resolver)); } } else if (_o->value) { _o->value.reset(); } }
 }
 
-inline flatbuffers::Offset<ParseNumberExpression> ParseNumberExpression::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ParseNumberExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ParseNumberExpression> ParseNumberExpression::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ParseNumberExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateParseNumberExpression(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<ParseNumberExpression> CreateParseNumberExpression(flatbuffers::FlatBufferBuilder &_fbb, const ParseNumberExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ParseNumberExpression> CreateParseNumberExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ParseNumberExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ParseNumberExpressionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const ParseNumberExpressionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _base_type = _o->base_type;
   auto _value = _o->value ? CreateSemanticExpression(_fbb, _o->value.get(), _rehasher) : 0;
   return libtextclassifier3::grammar::CreateParseNumberExpression(
@@ -1138,60 +1229,86 @@ inline flatbuffers::Offset<ParseNumberExpression> CreateParseNumberExpression(fl
       _value);
 }
 
-inline MergeValueExpressionT *MergeValueExpression::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline MergeValueExpressionT::MergeValueExpressionT(const MergeValueExpressionT &o)
+      : type(o.type) {
+  values.reserve(o.values.size());
+  for (const auto &values_ : o.values) { values.emplace_back((values_) ? new libtextclassifier3::grammar::SemanticExpressionT(*values_) : nullptr); }
+}
+
+inline MergeValueExpressionT &MergeValueExpressionT::operator=(MergeValueExpressionT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(type, o.type);
+  std::swap(values, o.values);
+  return *this;
+}
+
+inline MergeValueExpressionT *MergeValueExpression::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<MergeValueExpressionT>(new MergeValueExpressionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void MergeValueExpression::UnPackTo(MergeValueExpressionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void MergeValueExpression::UnPackTo(MergeValueExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = type(); _o->type = _e; }
-  { auto _e = values(); if (_e) { _o->values.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->values[_i] = std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = values(); if (_e) { _o->values.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->values[_i]) { _e->Get(_i)->UnPackTo(_o->values[_i].get(), _resolver); } else { _o->values[_i] = std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->values.resize(0); } }
 }
 
-inline flatbuffers::Offset<MergeValueExpression> MergeValueExpression::Pack(flatbuffers::FlatBufferBuilder &_fbb, const MergeValueExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<MergeValueExpression> MergeValueExpression::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const MergeValueExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateMergeValueExpression(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<MergeValueExpression> CreateMergeValueExpression(flatbuffers::FlatBufferBuilder &_fbb, const MergeValueExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<MergeValueExpression> CreateMergeValueExpression(::flatbuffers::FlatBufferBuilder &_fbb, const MergeValueExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MergeValueExpressionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const MergeValueExpressionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _type = _o->type;
-  auto _values = _o->values.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> (_o->values.size(), [](size_t i, _VectorArgs *__va) { return CreateSemanticExpression(*__va->__fbb, __va->__o->values[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _values = _o->values.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> (_o->values.size(), [](size_t i, _VectorArgs *__va) { return CreateSemanticExpression(*__va->__fbb, __va->__o->values[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::grammar::CreateMergeValueExpression(
       _fbb,
       _type,
       _values);
 }
 
-inline ArithmeticExpressionT *ArithmeticExpression::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline ArithmeticExpressionT::ArithmeticExpressionT(const ArithmeticExpressionT &o)
+      : base_type(o.base_type),
+        op(o.op) {
+  values.reserve(o.values.size());
+  for (const auto &values_ : o.values) { values.emplace_back((values_) ? new libtextclassifier3::grammar::SemanticExpressionT(*values_) : nullptr); }
+}
+
+inline ArithmeticExpressionT &ArithmeticExpressionT::operator=(ArithmeticExpressionT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(base_type, o.base_type);
+  std::swap(op, o.op);
+  std::swap(values, o.values);
+  return *this;
+}
+
+inline ArithmeticExpressionT *ArithmeticExpression::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<ArithmeticExpressionT>(new ArithmeticExpressionT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void ArithmeticExpression::UnPackTo(ArithmeticExpressionT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void ArithmeticExpression::UnPackTo(ArithmeticExpressionT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = base_type(); _o->base_type = _e; }
   { auto _e = op(); _o->op = _e; }
-  { auto _e = values(); if (_e) { _o->values.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->values[_i] = std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = values(); if (_e) { _o->values.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->values[_i]) { _e->Get(_i)->UnPackTo(_o->values[_i].get(), _resolver); } else { _o->values[_i] = std::unique_ptr<libtextclassifier3::grammar::SemanticExpressionT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->values.resize(0); } }
 }
 
-inline flatbuffers::Offset<ArithmeticExpression> ArithmeticExpression::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ArithmeticExpressionT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ArithmeticExpression> ArithmeticExpression::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ArithmeticExpressionT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateArithmeticExpression(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpression(flatbuffers::FlatBufferBuilder &_fbb, const ArithmeticExpressionT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpression(::flatbuffers::FlatBufferBuilder &_fbb, const ArithmeticExpressionT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ArithmeticExpressionT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const ArithmeticExpressionT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _base_type = _o->base_type;
   auto _op = _o->op;
-  auto _values = _o->values.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> (_o->values.size(), [](size_t i, _VectorArgs *__va) { return CreateSemanticExpression(*__va->__fbb, __va->__o->values[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _values = _o->values.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::grammar::SemanticExpression>> (_o->values.size(), [](size_t i, _VectorArgs *__va) { return CreateSemanticExpression(*__va->__fbb, __va->__o->values[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::grammar::CreateArithmeticExpression(
       _fbb,
       _base_type,
@@ -1201,7 +1318,7 @@ inline flatbuffers::Offset<ArithmeticExpression> CreateArithmeticExpression(flat
 
 namespace SemanticExpression_ {
 
-inline bool VerifyExpression(flatbuffers::Verifier &verifier, const void *obj, Expression type) {
+inline bool VerifyExpression(::flatbuffers::Verifier &verifier, const void *obj, Expression type) {
   switch (type) {
     case Expression_NONE: {
       return true;
@@ -1238,10 +1355,10 @@ inline bool VerifyExpression(flatbuffers::Verifier &verifier, const void *obj, E
   }
 }
 
-inline bool VerifyExpressionVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types) {
+inline bool VerifyExpressionVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<uint8_t> *types) {
   if (!values || !types) return !values && !types;
   if (values->size() != types->size()) return false;
-  for (flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
+  for (::flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
     if (!VerifyExpression(
         verifier,  values->Get(i), types->GetEnum<Expression>(i))) {
       return false;
@@ -1250,7 +1367,8 @@ inline bool VerifyExpressionVector(flatbuffers::Verifier &verifier, const flatbu
   return true;
 }
 
-inline void *ExpressionUnion::UnPack(const void *obj, Expression type, const flatbuffers::resolver_function_t *resolver) {
+inline void *ExpressionUnion::UnPack(const void *obj, Expression type, const ::flatbuffers::resolver_function_t *resolver) {
+  (void)resolver;
   switch (type) {
     case Expression_ConstValueExpression: {
       auto ptr = reinterpret_cast<const libtextclassifier3::grammar::ConstValueExpression *>(obj);
@@ -1284,7 +1402,8 @@ inline void *ExpressionUnion::UnPack(const void *obj, Expression type, const fla
   }
 }
 
-inline flatbuffers::Offset<void> ExpressionUnion::Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher) const {
+inline ::flatbuffers::Offset<void> ExpressionUnion::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const ::flatbuffers::rehasher_function_t *_rehasher) const {
+  (void)_rehasher;
   switch (type) {
     case Expression_ConstValueExpression: {
       auto ptr = reinterpret_cast<const libtextclassifier3::grammar::ConstValueExpressionT *>(value);
@@ -1329,7 +1448,7 @@ inline ExpressionUnion::ExpressionUnion(const ExpressionUnion &u) : type(u.type)
       break;
     }
     case Expression_ComposeExpression: {
-      FLATBUFFERS_ASSERT(false);  // libtextclassifier3::grammar::ComposeExpressionT not copyable.
+      value = new libtextclassifier3::grammar::ComposeExpressionT(*reinterpret_cast<libtextclassifier3::grammar::ComposeExpressionT *>(u.value));
       break;
     }
     case Expression_SpanAsStringExpression: {
@@ -1337,15 +1456,15 @@ inline ExpressionUnion::ExpressionUnion(const ExpressionUnion &u) : type(u.type)
       break;
     }
     case Expression_ParseNumberExpression: {
-      FLATBUFFERS_ASSERT(false);  // libtextclassifier3::grammar::ParseNumberExpressionT not copyable.
+      value = new libtextclassifier3::grammar::ParseNumberExpressionT(*reinterpret_cast<libtextclassifier3::grammar::ParseNumberExpressionT *>(u.value));
       break;
     }
     case Expression_MergeValueExpression: {
-      FLATBUFFERS_ASSERT(false);  // libtextclassifier3::grammar::MergeValueExpressionT not copyable.
+      value = new libtextclassifier3::grammar::MergeValueExpressionT(*reinterpret_cast<libtextclassifier3::grammar::MergeValueExpressionT *>(u.value));
       break;
     }
     case Expression_ArithmeticExpression: {
-      FLATBUFFERS_ASSERT(false);  // libtextclassifier3::grammar::ArithmeticExpressionT not copyable.
+      value = new libtextclassifier3::grammar::ArithmeticExpressionT(*reinterpret_cast<libtextclassifier3::grammar::ArithmeticExpressionT *>(u.value));
       break;
     }
     default:

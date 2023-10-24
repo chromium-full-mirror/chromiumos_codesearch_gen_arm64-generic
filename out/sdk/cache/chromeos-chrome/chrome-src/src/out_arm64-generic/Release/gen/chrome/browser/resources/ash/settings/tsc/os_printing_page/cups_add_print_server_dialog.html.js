@@ -1,0 +1,26 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="cups-printer-shared">[slot=dialog-body]{height:90px}[slot=dialog-buttons]{width:auto}</style>
+<add-printer-dialog id="printServerDialog">
+  <div slot="dialog-title">
+    $i18n{addPrintServerTitle}
+    <printer-dialog-error id="server-dialog-error" error-text="[[errorText_]]">
+    </printer-dialog-error>
+  </div>
+  <div slot="dialog-body">
+    <div class="settings-box first two-line">
+      <cr-input id="printServerAddressInput" label="$i18n{printServerAddress}" value="{{printServerAddress_}}" error-message="$i18n{printServerInvalidUrlAddress}" on-keypress="onKeypress" maxlength="63" autofocus>
+      </cr-input>
+    </div>
+  </div>
+  <div slot="dialog-buttons">
+    <cr-button class="cancel-button" on-click="onCancelClick_">
+      $i18n{cancel}
+    </cr-button>
+    <cr-button class="action-button" on-click="onAddPrintServerClick_" disabled="[[inProgress_]]">
+      $i18n{addPrinterButtonText}
+    </cr-button>
+  </div>
+</add-printer-dialog>
+<!--_html_template_end_-->`;
+}

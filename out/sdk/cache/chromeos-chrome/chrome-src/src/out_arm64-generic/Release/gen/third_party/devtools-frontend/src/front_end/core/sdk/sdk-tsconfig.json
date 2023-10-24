@@ -1,0 +1,140 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "sdk-tsconfig.json.tsbuildinfo",
+    "typeRoots": [],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/AccessibilityModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CPUProfileDataModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CPUProfilerModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CPUThrottlingManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSContainerQuery.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSFontFace.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSLayer.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSMatchedStyles.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSMedia.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSMetadata.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSProperty.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSPropertyParser.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSQuery.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSRule.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSScope.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSStyleDeclaration.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSStyleSheetHeader.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CSSSupports.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CategorizedBreakpoint.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ChildTargetManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CompilerSourceMappingContentProvider.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/Connections.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ConsoleModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ConsoleModelTypes.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/Cookie.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CookieModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/CookieParser.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/DOMDebuggerModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/DOMModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/DebuggerModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/EmulationModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/EventBreakpointsModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/FrameAssociated.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/FrameManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/HeapProfilerModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/HttpReasonPhraseStrings.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/IOModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/IsolateManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/IssuesModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/LayerTreeBase.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/LogModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/NetworkManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/NetworkRequest.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/OverlayColorGenerator.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/OverlayModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/OverlayPersistentHighlighter.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/PageLoad.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/PageResourceLoader.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/PaintProfiler.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/PerformanceMetricsModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/PreloadingModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ProfileTreeModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/RemoteObject.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/Resource.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ResourceTreeModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/RuntimeModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/SDKModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ScreenCaptureModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/Script.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/SecurityOriginManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ServerTiming.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ServiceWorkerCacheModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/ServiceWorkerManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/SourceMap.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/SourceMapManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/StorageBucketsModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/StorageKeyManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/Target.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/TargetManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/sdk/WebAuthnModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/request_idle_callback.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../common/bundle-tsconfig.json"
+    },
+    {
+      "path": "../host/bundle-tsconfig.json"
+    },
+    {
+      "path": "../i18n/bundle-tsconfig.json"
+    },
+    {
+      "path": "../platform/bundle-tsconfig.json"
+    },
+    {
+      "path": "../protocol_client/bundle-tsconfig.json"
+    },
+    {
+      "path": "../root/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../generated/generated-tsconfig.json"
+    },
+    {
+      "path": "../../generated/protocol-tsconfig.json"
+    },
+    {
+      "path": "../../models/cpu_profile/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../models/text_utils/bundle-tsconfig.json"
+    }
+  ]
+}

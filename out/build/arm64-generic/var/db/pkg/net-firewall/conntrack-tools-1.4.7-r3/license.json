@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-firewall", "name": "conntrack-tools", "version": "1.4.7", "revision": 3, "fullname": "net-firewall/conntrack-tools", "fullnamerev": "net-firewall/conntrack-tools-1.4.7-r3", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://conntrack-tools.netfilter.org"], "skip": false, "tainted": false, "ebuild_path": null}

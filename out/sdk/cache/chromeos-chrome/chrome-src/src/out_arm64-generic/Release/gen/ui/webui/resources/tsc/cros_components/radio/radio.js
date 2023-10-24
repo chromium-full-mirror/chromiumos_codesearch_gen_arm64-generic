@@ -1,0 +1,64 @@
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+import 'chrome://resources/mwc/@material/web/radio/radio.js';
+import { css, html, LitElement } from '//resources/mwc/lit/index.js';
+/**
+ * A chromeOS compliant radio button.
+ * See spec
+ * https://www.figma.com/file/1XsFoZH868xLcLPfPZRxLh/CrOS-Next---Component-Library-%26-Spec?node-id=2673%3A11119
+ */
+export class Radio extends LitElement {
+    /** @nocollapse */
+    static { this.styles = css `
+    :host {
+      display: inline-block;
+    }
+    md-radio {
+      --md-focus-ring-duration: 0s;
+      --md-radio-icon-size: 16px;
+      --md-radio-icon-color: var(--cros-sys-on_surface);
+      --md-radio-pressed-state-layer-color: var(--cros-sys-ripple_primary);
+      --md-radio-pressed-state-layer-opacity: 32%;
+      --md-radio-selected-pressed-state-layer-color: var(--cros-sys-ripple_primary);
+      --md-radio-selected-pressed-state-layer-opacity: 32%;
+      --md-sys-color-on-surface: var(--cros-sys-on_surface);
+      --md-sys-color-primary: var(--cros-sys-primary);
+    }
+    md-radio::part(focus-ring) {
+      --md-focus-ring-color: var(--cros-sys-primary);
+      --md-focus-ring-width: 2px;
+    }
+  `; }
+    /** @nocollapse */
+    static { this.properties = {
+        checked: { type: Boolean },
+        disabled: { type: Boolean },
+    }; }
+    get mdRadio() {
+        return this.renderRoot?.querySelector('md-radio') || undefined;
+    }
+    /** @export */
+    get checked() {
+        return this.mdRadio?.checked || false;
+    }
+    set checked(value) {
+        // Store the value for `checked`, so that it is not lost if it is set before
+        // the first render.
+        this.checkedInternal = value;
+        this.requestUpdate();
+    }
+    constructor() {
+        super();
+        this.checkedInternal = false;
+        this.disabled = false;
+    }
+    render() {
+        return html `
+      <md-radio ?disabled=${this.disabled} ?checked=${this.checkedInternal} touch-target="wrapper"></md-radio>
+    `;
+    }
+}
+customElements.define('cros-radio', Radio);

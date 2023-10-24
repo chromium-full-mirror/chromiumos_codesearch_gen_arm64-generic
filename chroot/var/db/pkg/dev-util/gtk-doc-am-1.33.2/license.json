@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "gtk-doc-am", "version": "1.33.2", "revision": 0, "fullname": "dev-util/gtk-doc-am", "fullnamerev": "dev-util/gtk-doc-am-1.33.2", "license_names": ["FDL-1.1", "GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.gnome.org/DocumentationProject/GtkDoc"], "skip": false, "tainted": false, "ebuild_path": null}

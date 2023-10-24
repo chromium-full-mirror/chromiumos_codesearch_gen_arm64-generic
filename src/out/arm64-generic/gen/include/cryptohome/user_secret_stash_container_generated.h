@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace cryptohome {
 namespace _serialized_ {
 
@@ -40,12 +47,12 @@ inline const char * const *EnumNamesUserSecretStashEncryptionAlgorithm() {
 }
 
 inline const char *EnumNameUserSecretStashEncryptionAlgorithm(UserSecretStashEncryptionAlgorithm e) {
-  if (flatbuffers::IsOutRange(e, UserSecretStashEncryptionAlgorithm::AES_GCM_256, UserSecretStashEncryptionAlgorithm::AES_GCM_256)) return "";
+  if (::flatbuffers::IsOutRange(e, UserSecretStashEncryptionAlgorithm::AES_GCM_256, UserSecretStashEncryptionAlgorithm::AES_GCM_256)) return "";
   const size_t index = static_cast<size_t>(e) - static_cast<size_t>(UserSecretStashEncryptionAlgorithm::AES_GCM_256);
   return EnumNamesUserSecretStashEncryptionAlgorithm()[index];
 }
 
-struct UserSecretStashContainer FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct UserSecretStashContainer FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef UserSecretStashContainerBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ENCRYPTION_ALGORITHM = 4,
@@ -56,30 +63,30 @@ struct UserSecretStashContainer FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
     VT_CREATED_ON_OS_VERSION = 14,
     VT_USER_METADATA = 16
   };
-  flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm() const {
+  ::flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm() const {
     return GetOptional<int32_t, cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm>(VT_ENCRYPTION_ALGORITHM);
   }
-  const flatbuffers::Vector<uint8_t> *ciphertext() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_CIPHERTEXT);
+  const ::flatbuffers::Vector<uint8_t> *ciphertext() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_CIPHERTEXT);
   }
-  const flatbuffers::Vector<uint8_t> *iv() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_IV);
+  const ::flatbuffers::Vector<uint8_t> *iv() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_IV);
   }
-  const flatbuffers::Vector<uint8_t> *gcm_tag() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_GCM_TAG);
+  const ::flatbuffers::Vector<uint8_t> *gcm_tag() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_GCM_TAG);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>> *wrapped_key_blocks() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>> *>(VT_WRAPPED_KEY_BLOCKS);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>> *wrapped_key_blocks() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>> *>(VT_WRAPPED_KEY_BLOCKS);
   }
-  const flatbuffers::String *created_on_os_version() const {
-    return GetPointer<const flatbuffers::String *>(VT_CREATED_ON_OS_VERSION);
+  const ::flatbuffers::String *created_on_os_version() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_CREATED_ON_OS_VERSION);
   }
   const cryptohome::_serialized_::UserMetadata *user_metadata() const {
     return GetPointer<const cryptohome::_serialized_::UserMetadata *>(VT_USER_METADATA);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<int32_t>(verifier, VT_ENCRYPTION_ALGORITHM) &&
+           VerifyField<int32_t>(verifier, VT_ENCRYPTION_ALGORITHM, 4) &&
            VerifyOffset(verifier, VT_CIPHERTEXT) &&
            verifier.VerifyVector(ciphertext()) &&
            VerifyOffset(verifier, VT_IV) &&
@@ -99,49 +106,49 @@ struct UserSecretStashContainer FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
 
 struct UserSecretStashContainerBuilder {
   typedef UserSecretStashContainer Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_encryption_algorithm(cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm encryption_algorithm) {
     fbb_.AddElement<int32_t>(UserSecretStashContainer::VT_ENCRYPTION_ALGORITHM, static_cast<int32_t>(encryption_algorithm));
   }
-  void add_ciphertext(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> ciphertext) {
+  void add_ciphertext(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> ciphertext) {
     fbb_.AddOffset(UserSecretStashContainer::VT_CIPHERTEXT, ciphertext);
   }
-  void add_iv(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> iv) {
+  void add_iv(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> iv) {
     fbb_.AddOffset(UserSecretStashContainer::VT_IV, iv);
   }
-  void add_gcm_tag(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gcm_tag) {
+  void add_gcm_tag(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> gcm_tag) {
     fbb_.AddOffset(UserSecretStashContainer::VT_GCM_TAG, gcm_tag);
   }
-  void add_wrapped_key_blocks(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>>> wrapped_key_blocks) {
+  void add_wrapped_key_blocks(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>>> wrapped_key_blocks) {
     fbb_.AddOffset(UserSecretStashContainer::VT_WRAPPED_KEY_BLOCKS, wrapped_key_blocks);
   }
-  void add_created_on_os_version(flatbuffers::Offset<flatbuffers::String> created_on_os_version) {
+  void add_created_on_os_version(::flatbuffers::Offset<::flatbuffers::String> created_on_os_version) {
     fbb_.AddOffset(UserSecretStashContainer::VT_CREATED_ON_OS_VERSION, created_on_os_version);
   }
-  void add_user_metadata(flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata) {
+  void add_user_metadata(::flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata) {
     fbb_.AddOffset(UserSecretStashContainer::VT_USER_METADATA, user_metadata);
   }
-  explicit UserSecretStashContainerBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit UserSecretStashContainerBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<UserSecretStashContainer> Finish() {
+  ::flatbuffers::Offset<UserSecretStashContainer> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<UserSecretStashContainer>(end);
+    auto o = ::flatbuffers::Offset<UserSecretStashContainer>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContainer(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> ciphertext = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> iv = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gcm_tag = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>>> wrapped_key_blocks = 0,
-    flatbuffers::Offset<flatbuffers::String> created_on_os_version = 0,
-    flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata = 0) {
+inline ::flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContainer(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> ciphertext = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> iv = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> gcm_tag = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>>> wrapped_key_blocks = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> created_on_os_version = 0,
+    ::flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata = 0) {
   UserSecretStashContainerBuilder builder_(_fbb);
   builder_.add_user_metadata(user_metadata);
   builder_.add_created_on_os_version(created_on_os_version);
@@ -153,19 +160,19 @@ inline flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContai
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContainerDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm = flatbuffers::nullopt,
+inline ::flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContainerDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm = ::flatbuffers::nullopt,
     const std::vector<uint8_t> *ciphertext = nullptr,
     const std::vector<uint8_t> *iv = nullptr,
     const std::vector<uint8_t> *gcm_tag = nullptr,
-    const std::vector<flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>> *wrapped_key_blocks = nullptr,
+    const std::vector<::flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>> *wrapped_key_blocks = nullptr,
     const char *created_on_os_version = nullptr,
-    flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata = 0) {
+    ::flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata = 0) {
   auto ciphertext__ = ciphertext ? _fbb.CreateVector<uint8_t>(*ciphertext) : 0;
   auto iv__ = iv ? _fbb.CreateVector<uint8_t>(*iv) : 0;
   auto gcm_tag__ = gcm_tag ? _fbb.CreateVector<uint8_t>(*gcm_tag) : 0;
-  auto wrapped_key_blocks__ = wrapped_key_blocks ? _fbb.CreateVector<flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>>(*wrapped_key_blocks) : 0;
+  auto wrapped_key_blocks__ = wrapped_key_blocks ? _fbb.CreateVector<::flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>>(*wrapped_key_blocks) : 0;
   auto created_on_os_version__ = created_on_os_version ? _fbb.CreateString(created_on_os_version) : 0;
   return cryptohome::_serialized_::CreateUserSecretStashContainer(
       _fbb,
@@ -178,7 +185,7 @@ inline flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContai
       user_metadata);
 }
 
-struct UserSecretStashWrappedKeyBlock FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct UserSecretStashWrappedKeyBlock FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef UserSecretStashWrappedKeyBlockBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WRAPPING_ID = 4,
@@ -187,26 +194,26 @@ struct UserSecretStashWrappedKeyBlock FLATBUFFERS_FINAL_CLASS : private flatbuff
     VT_IV = 10,
     VT_GCM_TAG = 12
   };
-  const flatbuffers::String *wrapping_id() const {
-    return GetPointer<const flatbuffers::String *>(VT_WRAPPING_ID);
+  const ::flatbuffers::String *wrapping_id() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_WRAPPING_ID);
   }
-  flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm() const {
+  ::flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm() const {
     return GetOptional<int32_t, cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm>(VT_ENCRYPTION_ALGORITHM);
   }
-  const flatbuffers::Vector<uint8_t> *encrypted_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_KEY);
+  const ::flatbuffers::Vector<uint8_t> *encrypted_key() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_KEY);
   }
-  const flatbuffers::Vector<uint8_t> *iv() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_IV);
+  const ::flatbuffers::Vector<uint8_t> *iv() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_IV);
   }
-  const flatbuffers::Vector<uint8_t> *gcm_tag() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_GCM_TAG);
+  const ::flatbuffers::Vector<uint8_t> *gcm_tag() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_GCM_TAG);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_WRAPPING_ID) &&
            verifier.VerifyString(wrapping_id()) &&
-           VerifyField<int32_t>(verifier, VT_ENCRYPTION_ALGORITHM) &&
+           VerifyField<int32_t>(verifier, VT_ENCRYPTION_ALGORITHM, 4) &&
            VerifyOffset(verifier, VT_ENCRYPTED_KEY) &&
            verifier.VerifyVector(encrypted_key()) &&
            VerifyOffset(verifier, VT_IV) &&
@@ -219,41 +226,41 @@ struct UserSecretStashWrappedKeyBlock FLATBUFFERS_FINAL_CLASS : private flatbuff
 
 struct UserSecretStashWrappedKeyBlockBuilder {
   typedef UserSecretStashWrappedKeyBlock Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_wrapping_id(flatbuffers::Offset<flatbuffers::String> wrapping_id) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_wrapping_id(::flatbuffers::Offset<::flatbuffers::String> wrapping_id) {
     fbb_.AddOffset(UserSecretStashWrappedKeyBlock::VT_WRAPPING_ID, wrapping_id);
   }
   void add_encryption_algorithm(cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm encryption_algorithm) {
     fbb_.AddElement<int32_t>(UserSecretStashWrappedKeyBlock::VT_ENCRYPTION_ALGORITHM, static_cast<int32_t>(encryption_algorithm));
   }
-  void add_encrypted_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_key) {
+  void add_encrypted_key(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> encrypted_key) {
     fbb_.AddOffset(UserSecretStashWrappedKeyBlock::VT_ENCRYPTED_KEY, encrypted_key);
   }
-  void add_iv(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> iv) {
+  void add_iv(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> iv) {
     fbb_.AddOffset(UserSecretStashWrappedKeyBlock::VT_IV, iv);
   }
-  void add_gcm_tag(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gcm_tag) {
+  void add_gcm_tag(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> gcm_tag) {
     fbb_.AddOffset(UserSecretStashWrappedKeyBlock::VT_GCM_TAG, gcm_tag);
   }
-  explicit UserSecretStashWrappedKeyBlockBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit UserSecretStashWrappedKeyBlockBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<UserSecretStashWrappedKeyBlock> Finish() {
+  ::flatbuffers::Offset<UserSecretStashWrappedKeyBlock> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<UserSecretStashWrappedKeyBlock>(end);
+    auto o = ::flatbuffers::Offset<UserSecretStashWrappedKeyBlock>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretStashWrappedKeyBlock(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> wrapping_id = 0,
-    flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_key = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> iv = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gcm_tag = 0) {
+inline ::flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretStashWrappedKeyBlock(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> wrapping_id = 0,
+    ::flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> encrypted_key = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> iv = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> gcm_tag = 0) {
   UserSecretStashWrappedKeyBlockBuilder builder_(_fbb);
   builder_.add_gcm_tag(gcm_tag);
   builder_.add_iv(iv);
@@ -263,10 +270,10 @@ inline flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretStash
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretStashWrappedKeyBlockDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretStashWrappedKeyBlockDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *wrapping_id = nullptr,
-    flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm = flatbuffers::nullopt,
+    ::flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm = ::flatbuffers::nullopt,
     const std::vector<uint8_t> *encrypted_key = nullptr,
     const std::vector<uint8_t> *iv = nullptr,
     const std::vector<uint8_t> *gcm_tag = nullptr) {
@@ -283,74 +290,74 @@ inline flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretStash
       gcm_tag__);
 }
 
-struct UserMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct UserMetadata FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef UserMetadataBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FINGERPRINT_RATE_LIMITER_ID = 4
   };
-  flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id() const {
+  ::flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id() const {
     return GetOptional<uint64_t, uint64_t>(VT_FINGERPRINT_RATE_LIMITER_ID);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_FINGERPRINT_RATE_LIMITER_ID) &&
+           VerifyField<uint64_t>(verifier, VT_FINGERPRINT_RATE_LIMITER_ID, 8) &&
            verifier.EndTable();
   }
 };
 
 struct UserMetadataBuilder {
   typedef UserMetadata Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
   void add_fingerprint_rate_limiter_id(uint64_t fingerprint_rate_limiter_id) {
     fbb_.AddElement<uint64_t>(UserMetadata::VT_FINGERPRINT_RATE_LIMITER_ID, fingerprint_rate_limiter_id);
   }
-  explicit UserMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit UserMetadataBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<UserMetadata> Finish() {
+  ::flatbuffers::Offset<UserMetadata> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<UserMetadata>(end);
+    auto o = ::flatbuffers::Offset<UserMetadata>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<UserMetadata> CreateUserMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id = flatbuffers::nullopt) {
+inline ::flatbuffers::Offset<UserMetadata> CreateUserMetadata(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id = ::flatbuffers::nullopt) {
   UserMetadataBuilder builder_(_fbb);
   if(fingerprint_rate_limiter_id) { builder_.add_fingerprint_rate_limiter_id(*fingerprint_rate_limiter_id); }
   return builder_.Finish();
 }
 
 inline const cryptohome::_serialized_::UserSecretStashContainer *GetUserSecretStashContainer(const void *buf) {
-  return flatbuffers::GetRoot<cryptohome::_serialized_::UserSecretStashContainer>(buf);
+  return ::flatbuffers::GetRoot<cryptohome::_serialized_::UserSecretStashContainer>(buf);
 }
 
 inline const cryptohome::_serialized_::UserSecretStashContainer *GetSizePrefixedUserSecretStashContainer(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<cryptohome::_serialized_::UserSecretStashContainer>(buf);
+  return ::flatbuffers::GetSizePrefixedRoot<cryptohome::_serialized_::UserSecretStashContainer>(buf);
 }
 
 inline bool VerifyUserSecretStashContainerBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifyBuffer<cryptohome::_serialized_::UserSecretStashContainer>(nullptr);
 }
 
 inline bool VerifySizePrefixedUserSecretStashContainerBuffer(
-    flatbuffers::Verifier &verifier) {
+    ::flatbuffers::Verifier &verifier) {
   return verifier.VerifySizePrefixedBuffer<cryptohome::_serialized_::UserSecretStashContainer>(nullptr);
 }
 
 inline void FinishUserSecretStashContainerBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashContainer> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashContainer> root) {
   fbb.Finish(root);
 }
 
 inline void FinishSizePrefixedUserSecretStashContainerBuffer(
-    flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashContainer> root) {
+    ::flatbuffers::FlatBufferBuilder &fbb,
+    ::flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashContainer> root) {
   fbb.FinishSizePrefixed(root);
 }
 

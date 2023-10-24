@@ -1,0 +1,4 @@
+gen/chrome/grit/oobe_unconditional_resources.h
+gen/chrome/grit/oobe_unconditional_resources_map.h
+gen/chrome/grit/oobe_unconditional_resources_map.cc
+gen/chrome/oobe_unconditional_resources.pak

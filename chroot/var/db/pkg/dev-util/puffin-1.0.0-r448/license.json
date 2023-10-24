@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "puffin", "version": "1.0.0", "revision": 448, "fullname": "dev-util/puffin", "fullnamerev": "dev-util/puffin-1.0.0-r448", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://android.googlesource.com/platform/external/puffin/"], "skip": false, "tainted": false, "ebuild_path": null}

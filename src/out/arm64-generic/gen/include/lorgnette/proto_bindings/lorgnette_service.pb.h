@@ -7598,6 +7598,7 @@ class ReadScanDataResponse final :
     kDataFieldNumber = 3,
     kJobHandleFieldNumber = 1,
     kResultFieldNumber = 2,
+    kEstimatedCompletionFieldNumber = 4,
   };
   // optional bytes data = 3;
   bool has_data() const;
@@ -7644,6 +7645,19 @@ class ReadScanDataResponse final :
   void _internal_set_result(::lorgnette::OperationResult value);
   public:
 
+  // optional uint32 estimated_completion = 4;
+  bool has_estimated_completion() const;
+  private:
+  bool _internal_has_estimated_completion() const;
+  public:
+  void clear_estimated_completion();
+  uint32_t estimated_completion() const;
+  void set_estimated_completion(uint32_t value);
+  private:
+  uint32_t _internal_estimated_completion() const;
+  void _internal_set_estimated_completion(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:lorgnette.ReadScanDataResponse)
  private:
   class _Internal;
@@ -7657,6 +7671,7 @@ class ReadScanDataResponse final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
     ::lorgnette::JobHandle* job_handle_;
     int result_;
+    uint32_t estimated_completion_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_lorgnette_5fservice_2eproto;
@@ -13549,6 +13564,34 @@ inline void ReadScanDataResponse::set_allocated_data(std::string* data) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:lorgnette.ReadScanDataResponse.data)
+}
+
+// optional uint32 estimated_completion = 4;
+inline bool ReadScanDataResponse::_internal_has_estimated_completion() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ReadScanDataResponse::has_estimated_completion() const {
+  return _internal_has_estimated_completion();
+}
+inline void ReadScanDataResponse::clear_estimated_completion() {
+  _impl_.estimated_completion_ = 0u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline uint32_t ReadScanDataResponse::_internal_estimated_completion() const {
+  return _impl_.estimated_completion_;
+}
+inline uint32_t ReadScanDataResponse::estimated_completion() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ReadScanDataResponse.estimated_completion)
+  return _internal_estimated_completion();
+}
+inline void ReadScanDataResponse::_internal_set_estimated_completion(uint32_t value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.estimated_completion_ = value;
+}
+inline void ReadScanDataResponse::set_estimated_completion(uint32_t value) {
+  _internal_set_estimated_completion(value);
+  // @@protoc_insertion_point(field_set:lorgnette.ReadScanDataResponse.estimated_completion)
 }
 
 #ifdef __GNUC__

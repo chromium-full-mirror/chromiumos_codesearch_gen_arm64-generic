@@ -672,7 +672,8 @@ PROTOBUF_CONSTEXPR ReadScanDataResponse::ReadScanDataResponse(
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.job_handle_)*/nullptr
-  , /*decltype(_impl_.result_)*/0} {}
+  , /*decltype(_impl_.result_)*/0
+  , /*decltype(_impl_.estimated_completion_)*/0u} {}
 struct ReadScanDataResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ReadScanDataResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -12826,6 +12827,9 @@ class ReadScanDataResponse::_Internal {
   static void set_has_data(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_estimated_completion(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::lorgnette::JobHandle&
@@ -12846,7 +12850,8 @@ ReadScanDataResponse::ReadScanDataResponse(const ReadScanDataResponse& from)
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.data_){}
     , decltype(_impl_.job_handle_){nullptr}
-    , decltype(_impl_.result_){}};
+    , decltype(_impl_.result_){}
+    , decltype(_impl_.estimated_completion_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.data_.InitDefault();
@@ -12860,7 +12865,9 @@ ReadScanDataResponse::ReadScanDataResponse(const ReadScanDataResponse& from)
   if (from._internal_has_job_handle()) {
     _this->_impl_.job_handle_ = new ::lorgnette::JobHandle(*from._impl_.job_handle_);
   }
-  _this->_impl_.result_ = from._impl_.result_;
+  ::memcpy(&_impl_.result_, &from._impl_.result_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.estimated_completion_) -
+    reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.estimated_completion_));
   // @@protoc_insertion_point(copy_constructor:lorgnette.ReadScanDataResponse)
 }
 
@@ -12874,6 +12881,7 @@ inline void ReadScanDataResponse::SharedCtor(
     , decltype(_impl_.data_){}
     , decltype(_impl_.job_handle_){nullptr}
     , decltype(_impl_.result_){0}
+    , decltype(_impl_.estimated_completion_){0u}
   };
   _impl_.data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -12915,6 +12923,7 @@ void ReadScanDataResponse::Clear() {
   }
   _impl_.job_handle_ = nullptr;
   _impl_.result_ = 0;
+  _impl_.estimated_completion_ = 0u;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -12948,6 +12957,15 @@ const char* ReadScanDataResponse::_InternalParse(const char* ptr, ::_pbi::ParseC
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_data();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint32 estimated_completion = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_estimated_completion(&has_bits);
+          _impl_.estimated_completion_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -13002,6 +13020,12 @@ uint8_t* ReadScanDataResponse::_InternalSerialize(
         3, this->_internal_data(), target);
   }
 
+  // optional uint32 estimated_completion = 4;
+  if (_internal_has_estimated_completion()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_estimated_completion(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -13039,6 +13063,11 @@ size_t ReadScanDataResponse::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_result());
   }
 
+  // optional uint32 estimated_completion = 4;
+  if (cached_has_bits & 0x00000002u) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_estimated_completion());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -13070,6 +13099,9 @@ void ReadScanDataResponse::MergeFrom(const ReadScanDataResponse& from) {
   if (from._internal_result() != 0) {
     _this->_internal_set_result(from._internal_result());
   }
+  if (from._internal_has_estimated_completion()) {
+    _this->_internal_set_estimated_completion(from._internal_estimated_completion());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -13095,8 +13127,8 @@ void ReadScanDataResponse::InternalSwap(ReadScanDataResponse* other) {
       &other->_impl_.data_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ReadScanDataResponse, _impl_.result_)
-      + sizeof(ReadScanDataResponse::_impl_.result_)
+      PROTOBUF_FIELD_OFFSET(ReadScanDataResponse, _impl_.estimated_completion_)
+      + sizeof(ReadScanDataResponse::_impl_.estimated_completion_)
       - PROTOBUF_FIELD_OFFSET(ReadScanDataResponse, _impl_.job_handle_)>(
           reinterpret_cast<char*>(&_impl_.job_handle_),
           reinterpret_cast<char*>(&other->_impl_.job_handle_));

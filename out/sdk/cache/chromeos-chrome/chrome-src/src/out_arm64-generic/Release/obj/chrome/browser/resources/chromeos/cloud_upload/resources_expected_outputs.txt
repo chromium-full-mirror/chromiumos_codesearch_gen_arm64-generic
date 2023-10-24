@@ -1,0 +1,4 @@
+gen/chrome/grit/cloud_upload_resources.h
+gen/chrome/grit/cloud_upload_resources_map.cc
+gen/chrome/grit/cloud_upload_resources_map.h
+gen/chrome/cloud_upload_resources.pak

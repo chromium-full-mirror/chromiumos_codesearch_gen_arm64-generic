@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "binutils-config", "version": "5.3.1", "revision": 0, "fullname": "sys-devel/binutils-config", "fullnamerev": "sys-devel/binutils-config-5.3.1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.gentoo.org/wiki/Project:Toolchain"], "skip": false, "tainted": false, "ebuild_path": null}

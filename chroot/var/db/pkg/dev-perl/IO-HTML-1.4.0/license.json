@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "IO-HTML", "version": "1.4.0", "revision": 0, "fullname": "dev-perl/IO-HTML", "fullnamerev": "dev-perl/IO-HTML-1.4.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/IO-HTML"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,1 @@
+{"launch.rollup.js": ["../stage/unguessable_token.mojom-lite.js", "../stage/file_system_access_transfer_token.mojom-lite.js", "../stage/error_reporter.js", "../stage/message_pipe.js", "../stage/message_types.js", "../stage/media_app_ui.mojom-lite.js", "../stage/mojo_api_bootstrap.js", "../stage/app_context_test_support.js", "../stage/launch.js"]}

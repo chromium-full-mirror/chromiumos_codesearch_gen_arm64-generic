@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-python", "name": "contextlib2", "version": "0.5.5", "revision": 0, "fullname": "dev-python/contextlib2", "fullnamerev": "dev-python/contextlib2-0.5.5", "license_names": ["PSF-2.4"], "license_text_scanned": [], "homepages": ["https://pypi.org/project/contextlib2/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="7" failures="0" disabled="0" errors="0" time="0.06" timestamp="2023-10-23T22:48:12.765" name="AllTests">
+  <testsuite name="RClientSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.009" timestamp="2023-10-23T22:48:12.781">
+    <testcase name="CreateSendMessage" file="cras/src/tests/playback_rclient_unittest.cc" line="42" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:12.787" classname="RClientSuite" />
+  </testsuite>
+  <testsuite name="CPRMessageSuite" tests="6" failures="0" disabled="0" skipped="0" errors="0" time="0.032" timestamp="2023-10-23T22:48:12.792">
+    <testcase name="StreamConnectMessage" file="cras/src/tests/playback_rclient_unittest.cc" line="105" status="run" result="completed" time="0.027" timestamp="2023-10-23T22:48:12.792" classname="CPRMessageSuite" />
+    <testcase name="StreamConnectMessageInvalidDirection" file="cras/src/tests/playback_rclient_unittest.cc" line="128" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:12.820" classname="CPRMessageSuite" />
+    <testcase name="StreamConnectMessageInvalidClientId" file="cras/src/tests/playback_rclient_unittest.cc" line="160" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:12.822" classname="CPRMessageSuite" />
+    <testcase name="StreamConnectMessageInvalidAudioFormat" file="cras/src/tests/playback_rclient_unittest.cc" line="186" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:12.823" classname="CPRMessageSuite" />
+    <testcase name="StreamDisconnectMessage" file="cras/src/tests/playback_rclient_unittest.cc" line="214" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:12.824" classname="CPRMessageSuite" />
+    <testcase name="StreamDisconnectMessageInvalidClientId" file="cras/src/tests/playback_rclient_unittest.cc" line="224" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:12.824" classname="CPRMessageSuite" />
+  </testsuite>
+</testsuites>

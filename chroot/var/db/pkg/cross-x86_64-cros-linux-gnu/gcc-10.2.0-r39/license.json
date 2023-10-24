@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "cross-x86_64-cros-linux-gnu", "name": "gcc", "version": "10.2.0", "revision": 39, "fullname": "cross-x86_64-cros-linux-gnu/gcc", "fullnamerev": "cross-x86_64-cros-linux-gnu/gcc-10.2.0-r39", "license_names": ["FDL-1.2", "GPL-3", "LGPL-3", "libgcc"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

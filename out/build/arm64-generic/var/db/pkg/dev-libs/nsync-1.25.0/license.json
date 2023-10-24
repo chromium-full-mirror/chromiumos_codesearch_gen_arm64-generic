@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "nsync", "version": "1.25.0", "revision": 0, "fullname": "dev-libs/nsync", "fullnamerev": "dev-libs/nsync-1.25.0", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/nsync"], "skip": false, "tainted": false, "ebuild_path": null}

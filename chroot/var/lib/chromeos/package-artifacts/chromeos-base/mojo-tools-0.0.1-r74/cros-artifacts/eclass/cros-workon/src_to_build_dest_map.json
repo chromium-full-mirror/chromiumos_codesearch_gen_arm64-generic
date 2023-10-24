@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform/libchrome",
+      "build_dest_path": "/var/tmp/portage/chromeos-base/mojo-tools-0.0.1-r74/work/mojo-tools-0.0.1"
+    }
+  ]
+}

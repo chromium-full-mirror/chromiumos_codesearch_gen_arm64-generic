@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "term", "version": "0.0.1", "revision": 1, "fullname": "dev-go/term", "fullnamerev": "dev-go/term-0.0.1-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://golang.org/x/term"], "skip": false, "tainted": false, "ebuild_path": null}

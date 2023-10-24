@@ -1,0 +1,19 @@
+{
+	"package": "0b7ec3658da95a961eeca0c6fdd32356d872824e18fd3be67114f78df0417c92",
+	"files": {
+		"Android.bp": "6935900c897d6df04ceb4269360754b93d824b02742a465335b701ae5aa392e3",
+		"Cargo.toml": "f9a58b38b57f2a45f83241c3b44b9cfcd5ef384a9abfe3a2aaa666656c2279c9",
+		"Cargo.toml.orig": "19bf78057ad3a71fe8958411cfe27e48a506a6c3145c412fd86e02759dc78792",
+		"src/tokio_async.rs": "0b1457ef9122c20e0486a71c16053b07a41f7a6dad6071f7dd03a393139b1136",
+		"src/async_.rs": "7ddaa02f8c4e9483889aabdf8612dc8f4875e078ff5e358451f74c28064bdb76",
+		"src/cras_server_socket.rs": "b130b7fa6d9fb065ab8af7a187d3d34209728a0b901913f94c9fd832549022d2",
+		"src/audio_socket.rs": "d90da886b295a1eacd6586ce5dd4f7df9d12f698df9926bce0cdd827cb3a666c",
+		"src/unaligned_memory.rs": "0d38969e0199e699f9a454941ba9b5d03b7f098a7c193b7b2c14bc92988a86bb",
+		"src/cras_shm.rs": "dccbf8fc90776303d4eaa5fce6be0e38f6ea69cb7336f765b91d37838bb6ca59",
+		"src/scm_socket.rs": "f9a4248d595a3e35a31bdb7184c893a411c6a29e8617500d2eb517c13a934821",
+		"src/cras_shm_stream.rs": "0e6825345fc54c1423c92b5975bb4a52e07e6ea6846e9e683231448d9d4f5430",
+		"src/cras_client_message.rs": "0c449c63e604eb1d07ce906d393cfeb137800e8baf3ae6f30766ba10f98edf07",
+		"src/libcras.rs": "c5041121f72a15ee8d2ff3c8690485a210bcd3d5fa8c08bdf02c0d3fb97cdd52",
+		"src/cras_stream.rs": "29b915f94c4866d4ad278ca1c3ca37f836f84fd3891d8e62c4607937ee3ebe7b"
+	}
+}

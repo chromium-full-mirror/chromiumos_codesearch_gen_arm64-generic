@@ -1,0 +1,118 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import '//resources/cr_elements/cr_button/cr_button.js';
+import '//resources/cr_elements/cr_hidden_style.css.js';
+import '//resources/cr_elements/cr_input/cr_input.js';
+import '//resources/cr_elements/cr_shared_vars.css.js';
+import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { getTemplate } from './app.html.js';
+import { BrowserProxy } from './browser_proxy.js';
+import { StreamingResponderCallbackRouter } from './on_device_model.mojom-webui.js';
+class OnDeviceInternalsAppElement extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        this.proxy_ = BrowserProxy.getInstance();
+    }
+    static get is() {
+        return 'on-device-internals-app';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            modelPath_: {
+                type: String,
+                value: '',
+            },
+            error_: String,
+            text_: String,
+            loadModelStart_: {
+                type: Number,
+                value: 0,
+            },
+            currentResponse_: {
+                type: Object,
+                value: null,
+            },
+            responses_: {
+                type: Array,
+                value: () => [],
+            },
+            model_: {
+                type: Object,
+                value: null,
+            },
+        };
+    }
+    static get observers() {
+        return [
+            'onModelOrErrorChanged_(model_, error_)',
+        ];
+    }
+    onModelOrErrorChanged_() {
+        if (this.model_ !== null) {
+            this.loadModelDuration_ = new Date().getTime() - this.loadModelStart_;
+            this.$.textInput.focus();
+        }
+        this.loadModelStart_ = 0;
+    }
+    onLoadClick_() {
+        this.onModelSelected_();
+    }
+    async onModelSelected_() {
+        this.error_ = '';
+        this.model_ = null;
+        this.loadModelStart_ = new Date().getTime();
+        const modelPath = this.$.modelInput.value;
+        // 
+        // 
+        const processedPath = modelPath;
+        // 
+        const { result } = await this.proxy_.handler.loadModel({ path: { path: processedPath } });
+        if (result.error) {
+            this.error_ = result.error;
+        }
+        else {
+            this.model_ = result.model || null;
+            this.modelPath_ = modelPath;
+        }
+    }
+    onExecuteClick_() {
+        this.onExecute_();
+    }
+    onExecute_() {
+        if (this.model_ === null) {
+            return;
+        }
+        const router = new StreamingResponderCallbackRouter();
+        this.model_.execute(this.text_, router.$.bindNewPipeAndPassRemote());
+        const onResponseId = router.onResponse.addListener((text) => {
+            this.set('currentResponse_.response', (this.currentResponse_?.response + text).trimStart());
+        });
+        const onCompleteId = router.onComplete.addListener(() => {
+            this.unshift('responses_', this.currentResponse_);
+            this.currentResponse_ = null;
+            this.$.textInput.focus();
+            router.removeListener(onResponseId);
+            router.removeListener(onCompleteId);
+        });
+        this.currentResponse_ = { text: this.text_, response: '' };
+        this.text_ = '';
+    }
+    canExecute_() {
+        return !this.currentResponse_ && this.model_ !== null;
+    }
+    isLoading_() {
+        return this.loadModelStart_ !== 0;
+    }
+    getModelText_() {
+        if (this.modelPath_.length === 0) {
+            return '';
+        }
+        return 'Model loaded from ' + this.modelPath_ + ' in ' +
+            this.loadModelDuration_ + 'ms';
+    }
+}
+customElements.define(OnDeviceInternalsAppElement.is, OnDeviceInternalsAppElement);

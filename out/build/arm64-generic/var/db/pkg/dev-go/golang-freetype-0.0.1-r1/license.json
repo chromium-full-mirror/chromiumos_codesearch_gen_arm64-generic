@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "golang-freetype", "version": "0.0.1", "revision": 1, "fullname": "dev-go/golang-freetype", "fullnamerev": "dev-go/golang-freetype-0.0.1-r1", "license_names": ["FTL"], "license_text_scanned": [], "homepages": ["https://github.com/golang/freetype"], "skip": false, "tainted": false, "ebuild_path": null}

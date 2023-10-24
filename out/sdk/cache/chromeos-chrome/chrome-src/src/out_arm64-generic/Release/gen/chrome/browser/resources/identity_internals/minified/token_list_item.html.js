@@ -1,0 +1,41 @@
+import{getTrustedHTML}from"//resources/js/static_types.js";export function getTemplate(){return getTrustedHTML`<!--_html_template_start_--><style>tr:nth-child(odd){background:#eff3ff}td.label{font-weight:700;vertical-align:top;white-space:nowrap}td.token-actions{text-align:center}</style>
+<table>
+  <tbody>
+    <tr>
+      <td class="label">Access Token</td>
+      <td class="value access-token"></td>
+    </tr>
+    <tr>
+      <td class="label">Extension Name</td>
+      <td class="value extension-name"></td>
+    </tr>
+    <tr>
+      <td class="label">Extension Id</td>
+      <td class="value extension-id"></td>
+    </tr>
+    <tr>
+      <td class="label">Account Id</td>
+      <td class="value account-id"></td>
+    </tr>
+    <tr>
+      <td class="label">Token Status</td>
+      <td class="value status"></td>
+    </tr>
+    <tr>
+      <td class="label">Expiration Time</td>
+      <td class="value expiration-time"></td>
+    </tr>
+    <tr>
+      <td class="label">Scopes</td>
+      <td class="value scope-list"></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td class="token-actions" colspan="2">
+        <button class="revoke-button">Revoke</button>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+<!--_html_template_end_-->`}

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "kmod", "version": "30", "revision": 0, "fullname": "sys-apps/kmod", "fullnamerev": "sys-apps/kmod-30", "license_names": ["LGPL-2"], "license_text_scanned": [], "homepages": ["https://git.kernel.org/?p=utils/kernel/kmod/kmod.git"], "skip": false, "tainted": false, "ebuild_path": null}

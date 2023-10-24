@@ -1,0 +1,4 @@
+// Copyright 2013 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+export class PlayerInfo{constructor(id){this.id=id;this.properties={};this.allEvents=[];this.lastRendered=0;this.firstTimestamp_=-1}addProperty(timestamp,key,value){if(this.firstTimestamp_===-1){this.firstTimestamp_=timestamp}if(typeof key!=="string"){throw new Error(typeof key+" is not a valid key type")}this.properties[key]=value;var recordValue={time:timestamp-this.firstTimestamp_,key:key,value:value};this.allEvents.push(recordValue)}addPropertyNoRecord(timestamp,key,value){this.addProperty(timestamp,key,value);this.allEvents.pop()}}window.PlayerInfo=PlayerInfo;

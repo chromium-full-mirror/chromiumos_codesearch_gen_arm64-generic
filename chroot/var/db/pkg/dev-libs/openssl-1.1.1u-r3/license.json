@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "openssl", "version": "1.1.1u", "revision": 3, "fullname": "dev-libs/openssl", "fullnamerev": "dev-libs/openssl-1.1.1u-r3", "license_names": ["openssl"], "license_text_scanned": [], "homepages": ["https://www.openssl.org/"], "skip": false, "tainted": false, "ebuild_path": null}

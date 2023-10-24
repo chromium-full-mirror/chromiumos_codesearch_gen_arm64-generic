@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "jsoncpp", "version": "1.9.3_pre20200412", "revision": 1, "fullname": "dev-libs/jsoncpp", "fullnamerev": "dev-libs/jsoncpp-1.9.3_pre20200412-r1", "license_names": ["public-domain"], "license_text_scanned": [], "homepages": ["https://github.com/open-source-parsers/jsoncpp"], "skip": false, "tainted": false, "ebuild_path": null}

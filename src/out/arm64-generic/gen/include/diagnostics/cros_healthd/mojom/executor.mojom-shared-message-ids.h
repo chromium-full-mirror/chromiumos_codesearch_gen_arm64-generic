@@ -56,7 +56,7 @@ constexpr uint32_t kExecutor_MonitorStylus_Name = 20;
 constexpr uint32_t kExecutor_GetPsr_Name = 21;
 constexpr uint32_t kExecutor_RunFio_Name = 22;
 constexpr uint32_t kExecutor_RemoveFioTestFile_Name = 23;
-constexpr uint32_t kExecutor_GetConnectedHdmiConnectors_Name = 24;
+constexpr uint32_t kExecutor_GetConnectedExternalDisplayConnectors_Name = 24;
 constexpr uint32_t kExecutor_GetPrivacyScreenInfo_Name = 25;
 constexpr uint32_t kExecutor_FetchDisplayInfo_Name = 26;
 constexpr uint32_t kExecutor_FetchCrashFromCrashSender_Name = 27;
@@ -64,6 +64,11 @@ constexpr uint32_t kExecutor_MonitorPowerButton_Name = 28;
 constexpr uint32_t kExecutor_RunPrimeSearch_Name = 29;
 constexpr uint32_t kExecutor_MonitorVolumeButton_Name = 30;
 constexpr uint32_t kExecutor_RunFloatingPoint_Name = 31;
+constexpr uint32_t kExecutor_StartBtmon_Name = 32;
+constexpr uint32_t kExecutor_ReadBtmonLog_Name = 33;
+constexpr uint32_t kExecutor_RemoveBtmonLog_Name = 34;
+constexpr uint32_t kExecutor_SetFanSpeed_Name = 35;
+constexpr uint32_t kExecutor_SetAllFanAutoControl_Name = 36;
 
 }  // namespace internal
 

@@ -17,9 +17,25 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
+PROTOBUF_CONSTEXPR ChromeOSVersion::ChromeOSVersion(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.major_)*/0u
+  , /*decltype(_impl_.minor_)*/0u
+  , /*decltype(_impl_.patch_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ChromeOSVersionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ChromeOSVersionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ChromeOSVersionDefaultTypeInternal() {}
+  union {
+    ChromeOSVersion _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChromeOSVersionDefaultTypeInternal _ChromeOSVersion_default_instance_;
 PROTOBUF_CONSTEXPR EventData::EventData(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.event_)*/0
+    /*decltype(_impl_.event_chromeos_version_)*/nullptr
+  , /*decltype(_impl_.event_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EventDataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EventDataDefaultTypeInternal()
@@ -46,12 +62,8 @@ struct EnterpriseRollbackMetricsDataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnterpriseRollbackMetricsDataDefaultTypeInternal _EnterpriseRollbackMetricsData_default_instance_;
 PROTOBUF_CONSTEXPR RollbackMetadata::RollbackMetadata(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.origin_chromeos_version_major_)*/0u
-  , /*decltype(_impl_.origin_chromeos_version_minor_)*/0u
-  , /*decltype(_impl_.origin_chromeos_version_patch_)*/0u
-  , /*decltype(_impl_.target_chromeos_version_major_)*/0u
-  , /*decltype(_impl_.target_chromeos_version_minor_)*/0u
-  , /*decltype(_impl_.target_chromeos_version_patch_)*/0u
+    /*decltype(_impl_.origin_chromeos_version_)*/nullptr
+  , /*decltype(_impl_.target_chromeos_version_)*/nullptr
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RollbackMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RollbackMetadataDefaultTypeInternal()
@@ -66,26 +78,58 @@ bool EnterpriseRollbackEvent_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> EnterpriseRollbackEvent_strings[2] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> EnterpriseRollbackEvent_strings[10] = {};
 
 static const char EnterpriseRollbackEvent_names[] =
   "EVENT_UNSPECIFIED"
-  "ROLLBACK_POLICY_ACTIVATED";
+  "ROLLBACK_OOBE_CONFIG_RESTORE_FAILURE_CONFIG"
+  "ROLLBACK_OOBE_CONFIG_RESTORE_FAILURE_DECRYPT"
+  "ROLLBACK_OOBE_CONFIG_RESTORE_FAILURE_PARSE"
+  "ROLLBACK_OOBE_CONFIG_RESTORE_FAILURE_READ"
+  "ROLLBACK_OOBE_CONFIG_RESTORE_SUCCESS"
+  "ROLLBACK_OOBE_CONFIG_SAVE_FAILURE"
+  "ROLLBACK_OOBE_CONFIG_SAVE_SUCCESS"
+  "ROLLBACK_POLICY_ACTIVATED"
+  "ROLLBACK_UPDATE_FAILURE";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry EnterpriseRollbackEvent_entries[] = {
   { {EnterpriseRollbackEvent_names + 0, 17}, 0 },
-  { {EnterpriseRollbackEvent_names + 17, 25}, 1 },
+  { {EnterpriseRollbackEvent_names + 17, 43}, 8 },
+  { {EnterpriseRollbackEvent_names + 60, 44}, 5 },
+  { {EnterpriseRollbackEvent_names + 104, 42}, 7 },
+  { {EnterpriseRollbackEvent_names + 146, 41}, 6 },
+  { {EnterpriseRollbackEvent_names + 187, 36}, 4 },
+  { {EnterpriseRollbackEvent_names + 223, 33}, 3 },
+  { {EnterpriseRollbackEvent_names + 256, 33}, 2 },
+  { {EnterpriseRollbackEvent_names + 289, 25}, 1 },
+  { {EnterpriseRollbackEvent_names + 314, 23}, 9 },
 };
 
 static const int EnterpriseRollbackEvent_entries_by_number[] = {
   0, // 0 -> EVENT_UNSPECIFIED
-  1, // 1 -> ROLLBACK_POLICY_ACTIVATED
+  8, // 1 -> ROLLBACK_POLICY_ACTIVATED
+  7, // 2 -> ROLLBACK_OOBE_CONFIG_SAVE_SUCCESS
+  6, // 3 -> ROLLBACK_OOBE_CONFIG_SAVE_FAILURE
+  5, // 4 -> ROLLBACK_OOBE_CONFIG_RESTORE_SUCCESS
+  2, // 5 -> ROLLBACK_OOBE_CONFIG_RESTORE_FAILURE_DECRYPT
+  4, // 6 -> ROLLBACK_OOBE_CONFIG_RESTORE_FAILURE_READ
+  3, // 7 -> ROLLBACK_OOBE_CONFIG_RESTORE_FAILURE_PARSE
+  1, // 8 -> ROLLBACK_OOBE_CONFIG_RESTORE_FAILURE_CONFIG
+  9, // 9 -> ROLLBACK_UPDATE_FAILURE
 };
 
 const std::string& EnterpriseRollbackEvent_Name(
@@ -94,12 +138,12 @@ const std::string& EnterpriseRollbackEvent_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           EnterpriseRollbackEvent_entries,
           EnterpriseRollbackEvent_entries_by_number,
-          2, EnterpriseRollbackEvent_strings);
+          10, EnterpriseRollbackEvent_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       EnterpriseRollbackEvent_entries,
       EnterpriseRollbackEvent_entries_by_number,
-      2, value);
+      10, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      EnterpriseRollbackEvent_strings[idx].get();
 }
@@ -107,7 +151,7 @@ bool EnterpriseRollbackEvent_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EnterpriseRollbackEvent* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      EnterpriseRollbackEvent_entries, 2, name, &int_value);
+      EnterpriseRollbackEvent_entries, 10, name, &int_value);
   if (success) {
     *value = static_cast<EnterpriseRollbackEvent>(int_value);
   }
@@ -116,10 +160,252 @@ bool EnterpriseRollbackEvent_Parse(
 
 // ===================================================================
 
-class EventData::_Internal {
+class ChromeOSVersion::_Internal {
  public:
 };
 
+ChromeOSVersion::ChromeOSVersion(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ChromeOSVersion)
+}
+ChromeOSVersion::ChromeOSVersion(const ChromeOSVersion& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ChromeOSVersion* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.major_){}
+    , decltype(_impl_.minor_){}
+    , decltype(_impl_.patch_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&_impl_.major_, &from._impl_.major_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.patch_) -
+    reinterpret_cast<char*>(&_impl_.major_)) + sizeof(_impl_.patch_));
+  // @@protoc_insertion_point(copy_constructor:ChromeOSVersion)
+}
+
+inline void ChromeOSVersion::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.major_){0u}
+    , decltype(_impl_.minor_){0u}
+    , decltype(_impl_.patch_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+ChromeOSVersion::~ChromeOSVersion() {
+  // @@protoc_insertion_point(destructor:ChromeOSVersion)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ChromeOSVersion::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ChromeOSVersion::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ChromeOSVersion::Clear() {
+// @@protoc_insertion_point(message_clear_start:ChromeOSVersion)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.major_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.patch_) -
+      reinterpret_cast<char*>(&_impl_.major_)) + sizeof(_impl_.patch_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ChromeOSVersion::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 major = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.major_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 minor = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.minor_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 patch = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.patch_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ChromeOSVersion::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ChromeOSVersion)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 major = 1;
+  if (this->_internal_major() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_major(), target);
+  }
+
+  // uint32 minor = 2;
+  if (this->_internal_minor() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_minor(), target);
+  }
+
+  // uint32 patch = 3;
+  if (this->_internal_patch() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_patch(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ChromeOSVersion)
+  return target;
+}
+
+size_t ChromeOSVersion::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ChromeOSVersion)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 major = 1;
+  if (this->_internal_major() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_major());
+  }
+
+  // uint32 minor = 2;
+  if (this->_internal_minor() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_minor());
+  }
+
+  // uint32 patch = 3;
+  if (this->_internal_patch() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_patch());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ChromeOSVersion::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ChromeOSVersion*>(
+      &from));
+}
+
+void ChromeOSVersion::MergeFrom(const ChromeOSVersion& from) {
+  ChromeOSVersion* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:ChromeOSVersion)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_major() != 0) {
+    _this->_internal_set_major(from._internal_major());
+  }
+  if (from._internal_minor() != 0) {
+    _this->_internal_set_minor(from._internal_minor());
+  }
+  if (from._internal_patch() != 0) {
+    _this->_internal_set_patch(from._internal_patch());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ChromeOSVersion::CopyFrom(const ChromeOSVersion& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ChromeOSVersion)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChromeOSVersion::IsInitialized() const {
+  return true;
+}
+
+void ChromeOSVersion::InternalSwap(ChromeOSVersion* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ChromeOSVersion, _impl_.patch_)
+      + sizeof(ChromeOSVersion::_impl_.patch_)
+      - PROTOBUF_FIELD_OFFSET(ChromeOSVersion, _impl_.major_)>(
+          reinterpret_cast<char*>(&_impl_.major_),
+          reinterpret_cast<char*>(&other->_impl_.major_));
+}
+
+std::string ChromeOSVersion::GetTypeName() const {
+  return "ChromeOSVersion";
+}
+
+
+// ===================================================================
+
+class EventData::_Internal {
+ public:
+  static const ::ChromeOSVersion& event_chromeos_version(const EventData* msg);
+};
+
+const ::ChromeOSVersion&
+EventData::_Internal::event_chromeos_version(const EventData* msg) {
+  return *msg->_impl_.event_chromeos_version_;
+}
 EventData::EventData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -130,10 +416,14 @@ EventData::EventData(const EventData& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   EventData* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.event_){}
+      decltype(_impl_.event_chromeos_version_){nullptr}
+    , decltype(_impl_.event_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_event_chromeos_version()) {
+    _this->_impl_.event_chromeos_version_ = new ::ChromeOSVersion(*from._impl_.event_chromeos_version_);
+  }
   _this->_impl_.event_ = from._impl_.event_;
   // @@protoc_insertion_point(copy_constructor:EventData)
 }
@@ -143,7 +433,8 @@ inline void EventData::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.event_){0}
+      decltype(_impl_.event_chromeos_version_){nullptr}
+    , decltype(_impl_.event_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -159,6 +450,7 @@ EventData::~EventData() {
 
 inline void EventData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.event_chromeos_version_;
 }
 
 void EventData::SetCachedSize(int size) const {
@@ -171,6 +463,10 @@ void EventData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  if (GetArenaForAllocation() == nullptr && _impl_.event_chromeos_version_ != nullptr) {
+    delete _impl_.event_chromeos_version_;
+  }
+  _impl_.event_chromeos_version_ = nullptr;
   _impl_.event_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
@@ -187,6 +483,14 @@ const char* EventData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_event(static_cast<::EnterpriseRollbackEvent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .ChromeOSVersion event_chromeos_version = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_event_chromeos_version(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -226,6 +530,13 @@ uint8_t* EventData::_InternalSerialize(
       1, this->_internal_event(), target);
   }
 
+  // .ChromeOSVersion event_chromeos_version = 2;
+  if (this->_internal_has_event_chromeos_version()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::event_chromeos_version(this),
+        _Internal::event_chromeos_version(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -241,6 +552,13 @@ size_t EventData::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // .ChromeOSVersion event_chromeos_version = 2;
+  if (this->_internal_has_event_chromeos_version()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.event_chromeos_version_);
+  }
 
   // .EnterpriseRollbackEvent event = 1;
   if (this->_internal_event() != 0) {
@@ -269,6 +587,10 @@ void EventData::MergeFrom(const EventData& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from._internal_has_event_chromeos_version()) {
+    _this->_internal_mutable_event_chromeos_version()->::ChromeOSVersion::MergeFrom(
+        from._internal_event_chromeos_version());
+  }
   if (from._internal_event() != 0) {
     _this->_internal_set_event(from._internal_event());
   }
@@ -289,7 +611,12 @@ bool EventData::IsInitialized() const {
 void EventData::InternalSwap(EventData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.event_, other->_impl_.event_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(EventData, _impl_.event_)
+      + sizeof(EventData::_impl_.event_)
+      - PROTOBUF_FIELD_OFFSET(EventData, _impl_.event_chromeos_version_)>(
+          reinterpret_cast<char*>(&_impl_.event_chromeos_version_),
+          reinterpret_cast<char*>(&other->_impl_.event_chromeos_version_));
 }
 
 std::string EventData::GetTypeName() const {
@@ -530,8 +857,18 @@ std::string EnterpriseRollbackMetricsData::GetTypeName() const {
 
 class RollbackMetadata::_Internal {
  public:
+  static const ::ChromeOSVersion& origin_chromeos_version(const RollbackMetadata* msg);
+  static const ::ChromeOSVersion& target_chromeos_version(const RollbackMetadata* msg);
 };
 
+const ::ChromeOSVersion&
+RollbackMetadata::_Internal::origin_chromeos_version(const RollbackMetadata* msg) {
+  return *msg->_impl_.origin_chromeos_version_;
+}
+const ::ChromeOSVersion&
+RollbackMetadata::_Internal::target_chromeos_version(const RollbackMetadata* msg) {
+  return *msg->_impl_.target_chromeos_version_;
+}
 RollbackMetadata::RollbackMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -542,18 +879,17 @@ RollbackMetadata::RollbackMetadata(const RollbackMetadata& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   RollbackMetadata* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.origin_chromeos_version_major_){}
-    , decltype(_impl_.origin_chromeos_version_minor_){}
-    , decltype(_impl_.origin_chromeos_version_patch_){}
-    , decltype(_impl_.target_chromeos_version_major_){}
-    , decltype(_impl_.target_chromeos_version_minor_){}
-    , decltype(_impl_.target_chromeos_version_patch_){}
+      decltype(_impl_.origin_chromeos_version_){nullptr}
+    , decltype(_impl_.target_chromeos_version_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.origin_chromeos_version_major_, &from._impl_.origin_chromeos_version_major_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.target_chromeos_version_patch_) -
-    reinterpret_cast<char*>(&_impl_.origin_chromeos_version_major_)) + sizeof(_impl_.target_chromeos_version_patch_));
+  if (from._internal_has_origin_chromeos_version()) {
+    _this->_impl_.origin_chromeos_version_ = new ::ChromeOSVersion(*from._impl_.origin_chromeos_version_);
+  }
+  if (from._internal_has_target_chromeos_version()) {
+    _this->_impl_.target_chromeos_version_ = new ::ChromeOSVersion(*from._impl_.target_chromeos_version_);
+  }
   // @@protoc_insertion_point(copy_constructor:RollbackMetadata)
 }
 
@@ -562,12 +898,8 @@ inline void RollbackMetadata::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.origin_chromeos_version_major_){0u}
-    , decltype(_impl_.origin_chromeos_version_minor_){0u}
-    , decltype(_impl_.origin_chromeos_version_patch_){0u}
-    , decltype(_impl_.target_chromeos_version_major_){0u}
-    , decltype(_impl_.target_chromeos_version_minor_){0u}
-    , decltype(_impl_.target_chromeos_version_patch_){0u}
+      decltype(_impl_.origin_chromeos_version_){nullptr}
+    , decltype(_impl_.target_chromeos_version_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -583,6 +915,8 @@ RollbackMetadata::~RollbackMetadata() {
 
 inline void RollbackMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.origin_chromeos_version_;
+  if (this != internal_default_instance()) delete _impl_.target_chromeos_version_;
 }
 
 void RollbackMetadata::SetCachedSize(int size) const {
@@ -595,9 +929,14 @@ void RollbackMetadata::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.origin_chromeos_version_major_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.target_chromeos_version_patch_) -
-      reinterpret_cast<char*>(&_impl_.origin_chromeos_version_major_)) + sizeof(_impl_.target_chromeos_version_patch_));
+  if (GetArenaForAllocation() == nullptr && _impl_.origin_chromeos_version_ != nullptr) {
+    delete _impl_.origin_chromeos_version_;
+  }
+  _impl_.origin_chromeos_version_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.target_chromeos_version_ != nullptr) {
+    delete _impl_.target_chromeos_version_;
+  }
+  _impl_.target_chromeos_version_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -607,50 +946,18 @@ const char* RollbackMetadata::_InternalParse(const char* ptr, ::_pbi::ParseConte
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 origin_chromeos_version_major = 1;
+      // .ChromeOSVersion origin_chromeos_version = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.origin_chromeos_version_major_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_origin_chromeos_version(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // uint32 origin_chromeos_version_minor = 2;
+      // .ChromeOSVersion target_chromeos_version = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.origin_chromeos_version_minor_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // uint32 origin_chromeos_version_patch = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.origin_chromeos_version_patch_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // uint32 target_chromeos_version_major = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.target_chromeos_version_major_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // uint32 target_chromeos_version_minor = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          _impl_.target_chromeos_version_minor_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // uint32 target_chromeos_version_patch = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          _impl_.target_chromeos_version_patch_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_target_chromeos_version(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -684,40 +991,18 @@ uint8_t* RollbackMetadata::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 origin_chromeos_version_major = 1;
-  if (this->_internal_origin_chromeos_version_major() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_origin_chromeos_version_major(), target);
+  // .ChromeOSVersion origin_chromeos_version = 1;
+  if (this->_internal_has_origin_chromeos_version()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::origin_chromeos_version(this),
+        _Internal::origin_chromeos_version(this).GetCachedSize(), target, stream);
   }
 
-  // uint32 origin_chromeos_version_minor = 2;
-  if (this->_internal_origin_chromeos_version_minor() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_origin_chromeos_version_minor(), target);
-  }
-
-  // uint32 origin_chromeos_version_patch = 3;
-  if (this->_internal_origin_chromeos_version_patch() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_origin_chromeos_version_patch(), target);
-  }
-
-  // uint32 target_chromeos_version_major = 4;
-  if (this->_internal_target_chromeos_version_major() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_target_chromeos_version_major(), target);
-  }
-
-  // uint32 target_chromeos_version_minor = 5;
-  if (this->_internal_target_chromeos_version_minor() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_target_chromeos_version_minor(), target);
-  }
-
-  // uint32 target_chromeos_version_patch = 6;
-  if (this->_internal_target_chromeos_version_patch() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(6, this->_internal_target_chromeos_version_patch(), target);
+  // .ChromeOSVersion target_chromeos_version = 2;
+  if (this->_internal_has_target_chromeos_version()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::target_chromeos_version(this),
+        _Internal::target_chromeos_version(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -736,34 +1021,18 @@ size_t RollbackMetadata::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint32 origin_chromeos_version_major = 1;
-  if (this->_internal_origin_chromeos_version_major() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_origin_chromeos_version_major());
+  // .ChromeOSVersion origin_chromeos_version = 1;
+  if (this->_internal_has_origin_chromeos_version()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.origin_chromeos_version_);
   }
 
-  // uint32 origin_chromeos_version_minor = 2;
-  if (this->_internal_origin_chromeos_version_minor() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_origin_chromeos_version_minor());
-  }
-
-  // uint32 origin_chromeos_version_patch = 3;
-  if (this->_internal_origin_chromeos_version_patch() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_origin_chromeos_version_patch());
-  }
-
-  // uint32 target_chromeos_version_major = 4;
-  if (this->_internal_target_chromeos_version_major() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_target_chromeos_version_major());
-  }
-
-  // uint32 target_chromeos_version_minor = 5;
-  if (this->_internal_target_chromeos_version_minor() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_target_chromeos_version_minor());
-  }
-
-  // uint32 target_chromeos_version_patch = 6;
-  if (this->_internal_target_chromeos_version_patch() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_target_chromeos_version_patch());
+  // .ChromeOSVersion target_chromeos_version = 2;
+  if (this->_internal_has_target_chromeos_version()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.target_chromeos_version_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -787,23 +1056,13 @@ void RollbackMetadata::MergeFrom(const RollbackMetadata& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_origin_chromeos_version_major() != 0) {
-    _this->_internal_set_origin_chromeos_version_major(from._internal_origin_chromeos_version_major());
+  if (from._internal_has_origin_chromeos_version()) {
+    _this->_internal_mutable_origin_chromeos_version()->::ChromeOSVersion::MergeFrom(
+        from._internal_origin_chromeos_version());
   }
-  if (from._internal_origin_chromeos_version_minor() != 0) {
-    _this->_internal_set_origin_chromeos_version_minor(from._internal_origin_chromeos_version_minor());
-  }
-  if (from._internal_origin_chromeos_version_patch() != 0) {
-    _this->_internal_set_origin_chromeos_version_patch(from._internal_origin_chromeos_version_patch());
-  }
-  if (from._internal_target_chromeos_version_major() != 0) {
-    _this->_internal_set_target_chromeos_version_major(from._internal_target_chromeos_version_major());
-  }
-  if (from._internal_target_chromeos_version_minor() != 0) {
-    _this->_internal_set_target_chromeos_version_minor(from._internal_target_chromeos_version_minor());
-  }
-  if (from._internal_target_chromeos_version_patch() != 0) {
-    _this->_internal_set_target_chromeos_version_patch(from._internal_target_chromeos_version_patch());
+  if (from._internal_has_target_chromeos_version()) {
+    _this->_internal_mutable_target_chromeos_version()->::ChromeOSVersion::MergeFrom(
+        from._internal_target_chromeos_version());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -823,11 +1082,11 @@ void RollbackMetadata::InternalSwap(RollbackMetadata* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RollbackMetadata, _impl_.target_chromeos_version_patch_)
-      + sizeof(RollbackMetadata::_impl_.target_chromeos_version_patch_)
-      - PROTOBUF_FIELD_OFFSET(RollbackMetadata, _impl_.origin_chromeos_version_major_)>(
-          reinterpret_cast<char*>(&_impl_.origin_chromeos_version_major_),
-          reinterpret_cast<char*>(&other->_impl_.origin_chromeos_version_major_));
+      PROTOBUF_FIELD_OFFSET(RollbackMetadata, _impl_.target_chromeos_version_)
+      + sizeof(RollbackMetadata::_impl_.target_chromeos_version_)
+      - PROTOBUF_FIELD_OFFSET(RollbackMetadata, _impl_.origin_chromeos_version_)>(
+          reinterpret_cast<char*>(&_impl_.origin_chromeos_version_),
+          reinterpret_cast<char*>(&other->_impl_.origin_chromeos_version_));
 }
 
 std::string RollbackMetadata::GetTypeName() const {
@@ -837,6 +1096,10 @@ std::string RollbackMetadata::GetTypeName() const {
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::ChromeOSVersion*
+Arena::CreateMaybeMessage< ::ChromeOSVersion >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ChromeOSVersion >(arena);
+}
 template<> PROTOBUF_NOINLINE ::EventData*
 Arena::CreateMaybeMessage< ::EventData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::EventData >(arena);

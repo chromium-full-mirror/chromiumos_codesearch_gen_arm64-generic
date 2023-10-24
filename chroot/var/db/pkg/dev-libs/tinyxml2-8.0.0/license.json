@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "tinyxml2", "version": "8.0.0", "revision": 0, "fullname": "dev-libs/tinyxml2", "fullnamerev": "dev-libs/tinyxml2-8.0.0", "license_names": ["ZLIB"], "license_text_scanned": [], "homepages": ["http://www.grinninglizard.com/tinyxml2/", "https://github.com/leethomason/tinyxml2/"], "skip": false, "tainted": false, "ebuild_path": null}

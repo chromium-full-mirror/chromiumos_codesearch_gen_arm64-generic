@@ -1,0 +1,123 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "allowJs": true,
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/js/accelerator_edit_dialog.ts",
+    "preprocessed/js/accelerator_edit_view.ts",
+    "preprocessed/js/accelerator_row.ts",
+    "preprocessed/js/accelerator_subsection.ts",
+    "preprocessed/js/accelerator_view.ts",
+    "preprocessed/js/bottom_nav_content.ts",
+    "preprocessed/js/input_key.ts",
+    "preprocessed/js/search/search_box.ts",
+    "preprocessed/js/search/search_result_row.ts",
+    "preprocessed/js/shortcut_customization_app.ts",
+    "preprocessed/js/shortcut_input.ts",
+    "preprocessed/js/shortcuts_page.ts",
+    "preprocessed/js/text_accelerator.ts",
+    "preprocessed/js/accelerator_lookup_manager.ts",
+    "preprocessed/js/fake_data.ts",
+    "preprocessed/js/fake_shortcut_provider.ts",
+    "preprocessed/js/mojo_interface_provider.ts",
+    "preprocessed/js/router.ts",
+    "preprocessed/js/search/fake_shortcut_search_handler.ts",
+    "preprocessed/js/search/search_result_bolding.ts",
+    "preprocessed/js/search/shortcut_search_handler.ts",
+    "preprocessed/js/shortcut_types.ts",
+    "preprocessed/js/shortcut_utils.ts",
+    "preprocessed/css/shortcut_customization_shared.css.js",
+    "preprocessed/js/accelerator_edit_dialog.html.js",
+    "preprocessed/js/accelerator_edit_view.html.js",
+    "preprocessed/js/accelerator_row.html.js",
+    "preprocessed/js/accelerator_subsection.html.js",
+    "preprocessed/js/accelerator_view.html.js",
+    "preprocessed/js/bottom_nav_content.html.js",
+    "preprocessed/js/input_key.html.js",
+    "preprocessed/js/search/search_box.html.js",
+    "preprocessed/js/search/search_result_row.html.js",
+    "preprocessed/js/shortcut_customization_app.html.js",
+    "preprocessed/js/shortcut_input.html.js",
+    "preprocessed/js/shortcuts_page.html.js",
+    "preprocessed/js/text_accelerator.html.js",
+    "preprocessed/common/icons.html.js",
+    "preprocessed/mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.ts",
+    "preprocessed/mojom-webui/ash/webui/shortcut_customization_ui/backend/search/search.mojom-webui.ts",
+    "preprocessed/mojom-webui/accelerator_info.mojom-webui.ts",
+    "preprocessed/mojom-webui/accelerator_configuration.mojom-webui.ts",
+    "preprocessed/mojom-webui/accelerator_keys.mojom-webui.ts"
+  ],
+  "references": [
+    {
+      "path": "../../common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

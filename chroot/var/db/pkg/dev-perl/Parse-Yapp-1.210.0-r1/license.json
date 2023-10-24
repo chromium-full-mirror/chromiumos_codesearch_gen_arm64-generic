@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "Parse-Yapp", "version": "1.210.0", "revision": 1, "fullname": "dev-perl/Parse-Yapp", "fullnamerev": "dev-perl/Parse-Yapp-1.210.0-r1", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/Parse-Yapp"], "skip": false, "tainted": false, "ebuild_path": null}

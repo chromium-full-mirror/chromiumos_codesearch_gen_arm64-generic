@@ -530,6 +530,7 @@ class SeedDetails final :
     kPermanentConsistencyCountryFieldNumber = 6,
     kSessionConsistencyCountryFieldNumber = 7,
     kSignatureFieldNumber = 8,
+    kB64CompressedDataFieldNumber = 11,
     kDateFieldNumber = 9,
     kFetchTimeFieldNumber = 10,
     kMilestoneFieldNumber = 5,
@@ -604,6 +605,20 @@ class SeedDetails final :
   std::string* _internal_mutable_signature();
   public:
 
+  // bytes b64_compressed_data = 11;
+  void clear_b64_compressed_data();
+  const std::string& b64_compressed_data() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_b64_compressed_data(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_b64_compressed_data();
+  PROTOBUF_NODISCARD std::string* release_b64_compressed_data();
+  void set_allocated_b64_compressed_data(std::string* b64_compressed_data);
+  private:
+  const std::string& _internal_b64_compressed_data() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_b64_compressed_data(const std::string& value);
+  std::string* _internal_mutable_b64_compressed_data();
+  public:
+
   // int64 date = 9;
   void clear_date();
   int64_t date() const;
@@ -644,6 +659,7 @@ class SeedDetails final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr permanent_consistency_country_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr session_consistency_country_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signature_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr b64_compressed_data_;
     int64_t date_;
     int64_t fetch_time_;
     int32_t milestone_;
@@ -1769,6 +1785,56 @@ inline void SeedDetails::_internal_set_fetch_time(int64_t value) {
 inline void SeedDetails::set_fetch_time(int64_t value) {
   _internal_set_fetch_time(value);
   // @@protoc_insertion_point(field_set:featured.SeedDetails.fetch_time)
+}
+
+// bytes b64_compressed_data = 11;
+inline void SeedDetails::clear_b64_compressed_data() {
+  _impl_.b64_compressed_data_.ClearToEmpty();
+}
+inline const std::string& SeedDetails::b64_compressed_data() const {
+  // @@protoc_insertion_point(field_get:featured.SeedDetails.b64_compressed_data)
+  return _internal_b64_compressed_data();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SeedDetails::set_b64_compressed_data(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.b64_compressed_data_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:featured.SeedDetails.b64_compressed_data)
+}
+inline std::string* SeedDetails::mutable_b64_compressed_data() {
+  std::string* _s = _internal_mutable_b64_compressed_data();
+  // @@protoc_insertion_point(field_mutable:featured.SeedDetails.b64_compressed_data)
+  return _s;
+}
+inline const std::string& SeedDetails::_internal_b64_compressed_data() const {
+  return _impl_.b64_compressed_data_.Get();
+}
+inline void SeedDetails::_internal_set_b64_compressed_data(const std::string& value) {
+  
+  _impl_.b64_compressed_data_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SeedDetails::_internal_mutable_b64_compressed_data() {
+  
+  return _impl_.b64_compressed_data_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SeedDetails::release_b64_compressed_data() {
+  // @@protoc_insertion_point(field_release:featured.SeedDetails.b64_compressed_data)
+  return _impl_.b64_compressed_data_.Release();
+}
+inline void SeedDetails::set_allocated_b64_compressed_data(std::string* b64_compressed_data) {
+  if (b64_compressed_data != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.b64_compressed_data_.SetAllocated(b64_compressed_data, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.b64_compressed_data_.IsDefault()) {
+    _impl_.b64_compressed_data_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:featured.SeedDetails.b64_compressed_data)
 }
 
 // -------------------------------------------------------------------

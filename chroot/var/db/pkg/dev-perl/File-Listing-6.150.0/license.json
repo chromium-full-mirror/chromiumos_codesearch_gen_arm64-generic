@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-perl", "name": "File-Listing", "version": "6.150.0", "revision": 0, "fullname": "dev-perl/File-Listing", "fullnamerev": "dev-perl/File-Listing-6.150.0", "license_names": ["Artistic"], "license_text_scanned": [], "homepages": ["https://metacpan.org/release/File-Listing"], "skip": false, "tainted": false, "ebuild_path": null}

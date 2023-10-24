@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "zipalign", "version": "0.0.1", "revision": 0, "fullname": "sys-devel/zipalign", "fullnamerev": "sys-devel/zipalign-0.0.1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

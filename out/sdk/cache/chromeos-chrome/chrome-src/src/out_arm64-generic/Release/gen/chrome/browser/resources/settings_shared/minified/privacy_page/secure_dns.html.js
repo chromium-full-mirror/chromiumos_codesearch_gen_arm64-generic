@@ -1,0 +1,48 @@
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_-->    <style include="cr-shared-style md-select cros-color-overrides">#automaticRadioButton{align-items:flex-start;min-height:var(--cr-section-min-height);padding:6px 0;--cr-radio-button-disc-margin-block-start:calc(
+            (1.54em  - var(--cr-radio-button-size)) / 2)}#secureDnsRadioGroup{display:block;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}#secureResolverSelectRadioButton{align-items:flex-start;--cr-radio-button-disc-margin-block-start:calc(
+            (1.54em  + 12px  -
+             var(--cr-radio-button-size)) / 2)}#secureRadioButtonItem{align-items:baseline;display:flex;min-height:var(--cr-section-min-height)}#secureRadioButtonItemInner{margin-inline-start:.5em;width:80%}#privacyPolicy{display:none;padding:8px}#privacyPolicy a{color:var(--cr-link-color)}#secureDnsInput{margin-top:6px}</style>
+
+
+
+    <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
+      <settings-toggle-button id="secureDnsToggle" class="hr" pref="{{secureDnsToggle_}}" label="$i18n{secureDnsOsSettingsTitle}" sub-label="[[secureDnsDescription_]]" on-change="onToggleChanged_">
+      </settings-toggle-button>
+    </template>
+
+    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+      <settings-toggle-button id="secureDnsToggle" class="hr" pref="[[secureDnsToggle_]]" label="$i18n{secureDnsOsSettingsTitle}" sub-label="[[secureDnsDescription_]]" on-settings-boolean-control-change="onDnsToggleClick_" no-set-pref>
+      </settings-toggle-button>
+    </template>
+
+
+    <cr-radio-group id="secureDnsRadioGroup" selected="{{secureDnsRadio_}}" on-selected-changed="onRadioSelectionChanged_" hidden="[[!showRadioGroup_]]">
+      <cr-radio-button id="automaticRadioButton" name="[[secureDnsModeEnum_.AUTOMATIC]]" label="$i18n{secureDnsAutomaticModeDescription}">
+        <div class="cr-secondary-text">
+          $i18n{secureDnsAutomaticModeDescriptionSecondary}
+        </div>
+      </cr-radio-button>
+      <cr-radio-button id="secureResolverSelectRadioButton" name="[[secureDnsModeEnum_.SECURE]]" aria-label="$i18n{secureDnsSecureModeA11yLabel}">
+        <div id="secureRadioButtonItem">
+          $i18n{secureDnsSecureDropdownModeDescription}
+          <div id="secureRadioButtonItemInner">
+            <select id="secureResolverSelect" class="md-select" aria-label="$i18n{secureDnsDropdownA11yLabel}" on-click="stopEventPropagation_" on-change="onDropdownSelectionChanged_">
+              <template is="dom-repeat" items="[[resolverOptions_]]">
+                <option value="[[item.value]]">[[item.name]]</option>
+              </template>
+            </select>
+            <div id="privacyPolicy" class="cr-secondary-text" inner-h-t-m-l="[[privacyPolicyString_]]"></div>
+            <secure-dns-input id="secureDnsInput" value="[[secureDnsInputValue_]]" on-value-update="onSecureDnsInputEvaluated_" on-click="stopEventPropagation_">
+            </secure-dns-input>
+          </div>
+        </div>
+      </cr-radio-button>
+    </cr-radio-group>
+
+
+    <template is="dom-if" if="[[showDisableDnsDialog_]]" restamp>
+      <settings-secure-dns-dialog id="warningDialog" on-close="onDisableDnsDialogClosed_" prefs="{{prefs}}">
+      </settings-secure-dns-dialog>
+    </template>
+
+<!--_html_template_end_-->`}

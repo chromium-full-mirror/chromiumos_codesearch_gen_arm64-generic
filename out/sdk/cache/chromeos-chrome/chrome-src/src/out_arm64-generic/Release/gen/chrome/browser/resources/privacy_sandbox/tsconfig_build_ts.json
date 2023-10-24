@@ -1,0 +1,72 @@
+{
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/privacy_sandbox_dialog_app.ts",
+    "preprocessed/privacy_sandbox_combined_dialog_app.ts",
+    "preprocessed/privacy_sandbox_notice_dialog_app.ts",
+    "preprocessed/privacy_sandbox_notice_restricted_dialog_app.ts",
+    "preprocessed/privacy_sandbox_dialog_consent_step.ts",
+    "preprocessed/privacy_sandbox_dialog_notice_step.ts",
+    "preprocessed/privacy_sandbox_dialog_learn_more.ts",
+    "preprocessed/privacy_sandbox_dialog_browser_proxy.ts",
+    "preprocessed/privacy_sandbox_dialog_resize_mixin.ts",
+    "preprocessed/privacy_sandbox_dialog_mixin.ts",
+    "preprocessed/privacy_sandbox_dialog_app.html.ts",
+    "preprocessed/privacy_sandbox_combined_dialog_app.html.ts",
+    "preprocessed/privacy_sandbox_notice_dialog_app.html.ts",
+    "preprocessed/privacy_sandbox_notice_restricted_dialog_app.html.ts",
+    "preprocessed/privacy_sandbox_dialog_consent_step.html.ts",
+    "preprocessed/privacy_sandbox_dialog_notice_step.html.ts",
+    "preprocessed/privacy_sandbox_dialog_learn_more.html.ts",
+    "preprocessed/shared_style.css.ts",
+    "preprocessed/shared_vars.css.ts",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

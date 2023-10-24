@@ -592,7 +592,7 @@ Delegate_GetPsr_ResponseParams_Data::Delegate_GetPsr_ResponseParams_Data()
 
 
 // static
-bool Delegate_GetConnectedHdmiConnectors_Params_Data::Validate(
+bool Delegate_GetConnectedExternalDisplayConnectors_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -604,18 +604,18 @@ bool Delegate_GetConnectedHdmiConnectors_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Delegate_GetConnectedHdmiConnectors_Params_Data* object =
-      static_cast<const Delegate_GetConnectedHdmiConnectors_Params_Data*>(data);
+  [[maybe_unused]] const Delegate_GetConnectedExternalDisplayConnectors_Params_Data* object =
+      static_cast<const Delegate_GetConnectedExternalDisplayConnectors_Params_Data*>(data);
 
   return true;
 }
 
-Delegate_GetConnectedHdmiConnectors_Params_Data::Delegate_GetConnectedHdmiConnectors_Params_Data()
+Delegate_GetConnectedExternalDisplayConnectors_Params_Data::Delegate_GetConnectedExternalDisplayConnectors_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Validate(
+bool Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -627,8 +627,8 @@ bool Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Delegate_GetConnectedHdmiConnectors_ResponseParams_Data* object =
-      static_cast<const Delegate_GetConnectedHdmiConnectors_ResponseParams_Data*>(data);
+  [[maybe_unused]] const Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data* object =
+      static_cast<const Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->connectors, 1, validation_context)) {
@@ -651,7 +651,7 @@ bool Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Validate(
   return true;
 }
 
-Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data()
+Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data::Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -992,6 +992,123 @@ bool Delegate_GetAllFanSpeed_ResponseParams_Data::Validate(
 }
 
 Delegate_GetAllFanSpeed_ResponseParams_Data::Delegate_GetAllFanSpeed_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_SetFanSpeed_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_SetFanSpeed_Params_Data* object =
+      static_cast<const Delegate_SetFanSpeed_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->fan_id_to_rpm, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& fan_id_to_rpm_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->fan_id_to_rpm, validation_context,
+                                         &fan_id_to_rpm_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_SetFanSpeed_Params_Data::Delegate_SetFanSpeed_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_SetFanSpeed_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_SetFanSpeed_ResponseParams_Data* object =
+      static_cast<const Delegate_SetFanSpeed_ResponseParams_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_SetFanSpeed_ResponseParams_Data::Delegate_SetFanSpeed_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_SetAllFanAutoControl_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_SetAllFanAutoControl_Params_Data* object =
+      static_cast<const Delegate_SetAllFanAutoControl_Params_Data*>(data);
+
+  return true;
+}
+
+Delegate_SetAllFanAutoControl_Params_Data::Delegate_SetAllFanAutoControl_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_SetAllFanAutoControl_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_SetAllFanAutoControl_ResponseParams_Data* object =
+      static_cast<const Delegate_SetAllFanAutoControl_ResponseParams_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_SetAllFanAutoControl_ResponseParams_Data::Delegate_SetAllFanAutoControl_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

@@ -1,0 +1,4 @@
+gen/ash/webui/file_manager/resources/grit/file_manager_swa_resources.h
+gen/ash/webui/file_manager/resources/grit/file_manager_swa_resources_map.cc
+gen/ash/webui/file_manager/resources/grit/file_manager_swa_resources_map.h
+gen/ash/webui/file_manager/resources/file_manager_swa_resources.pak

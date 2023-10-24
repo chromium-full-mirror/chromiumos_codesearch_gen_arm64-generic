@@ -1,0 +1,31 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// vector_icons.h.template is used to generate vector_icons.h. Edit the former
+// rather than the latter.
+
+#ifndef CHROME_BROWSER_UI_VIEWS_EDITOR_MENU_VECTOR_ICONS_VECTOR_ICONS_H_
+#define CHROME_BROWSER_UI_VIEWS_EDITOR_MENU_VECTOR_ICONS_VECTOR_ICONS_H_
+
+namespace gfx {
+struct VectorIcon;
+}
+
+#define VECTOR_ICON_TEMPLATE_H(icon_name) \
+extern const gfx::VectorIcon icon_name;
+
+namespace chromeos::editor_menu {
+
+VECTOR_ICON_TEMPLATE_H(kEditorMenuElaborateIcon)
+VECTOR_ICON_TEMPLATE_H(kEditorMenuEmojifyIcon)
+VECTOR_ICON_TEMPLATE_H(kEditorMenuFormalizeIcon)
+VECTOR_ICON_TEMPLATE_H(kEditorMenuPenSparkIcon)
+VECTOR_ICON_TEMPLATE_H(kEditorMenuRephraseIcon)
+VECTOR_ICON_TEMPLATE_H(kEditorMenuShortenIcon)
+
+}  // namespace chromeos::editor_menu
+
+#undef VECTOR_ICON_TEMPLATE_H
+
+#endif  // CHROME_BROWSER_UI_VIEWS_EDITOR_MENU_VECTOR_ICONS_VECTOR_ICONS_H_

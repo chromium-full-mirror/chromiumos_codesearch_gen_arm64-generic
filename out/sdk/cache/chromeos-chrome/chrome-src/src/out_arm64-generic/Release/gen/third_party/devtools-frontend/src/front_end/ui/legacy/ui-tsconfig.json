@@ -1,0 +1,142 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "ui-tsconfig.json.tsbuildinfo",
+    "typeRoots": [],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ARIAUtils.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ActionRegistration.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ActionRegistry.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Context.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ContextFlavorListener.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ContextMenu.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Dialog.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/DockController.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/DropTarget.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/EmptyWidget.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/FilterBar.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/FilterSuggestionBuilder.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ForwardedInputEventHandler.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Fragment.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Geometry.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/GlassPane.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/HistoryInput.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Icon.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Infobar.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/InplaceEditor.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/InspectorView.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/KeyboardShortcut.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ListControl.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ListModel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ListWidget.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Panel.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/PopoverHelper.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ProgressIndicator.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/RemoteDebuggingTerminatedScreen.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ReportView.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ResizerWidget.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/RootView.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/SearchableView.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/SettingsUI.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ShortcutRegistry.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/SoftContextMenu.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/SoftDropDown.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/SplitWidget.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/SuggestBox.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/TabbedPane.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/TargetCrashedScreen.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/TextPrompt.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ThrottledWidget.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Toolbar.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Tooltip.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Treeoutline.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/UIUtils.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/View.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ViewManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ViewRegistration.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/Widget.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/XElement.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/XLink.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/XWidget.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/ui/legacy/ZoomManager.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/global_typings/request_idle_callback.d.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../core/common/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/dom_extension/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/host/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/i18n/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/platform/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/root/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/sdk/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../models/text_utils/bundle-tsconfig.json"
+    },
+    {
+      "path": "theme_support/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/adorners/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/helpers/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/icon_button/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/settings/bundle-tsconfig.json"
+    },
+    {
+      "path": "../lit-html/bundle-tsconfig.json"
+    },
+    {
+      "path": "../visual_logging/bundle-tsconfig.json"
+    },
+    {
+      "path": "utils/bundle-tsconfig.json"
+    }
+  ]
+}

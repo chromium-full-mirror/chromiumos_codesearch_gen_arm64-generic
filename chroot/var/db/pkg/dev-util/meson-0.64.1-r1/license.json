@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-util", "name": "meson", "version": "0.64.1", "revision": 1, "fullname": "dev-util/meson", "fullnamerev": "dev-util/meson-0.64.1-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://mesonbuild.com/"], "skip": false, "tainted": false, "ebuild_path": null}

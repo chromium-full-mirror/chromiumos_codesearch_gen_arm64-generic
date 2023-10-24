@@ -118,6 +118,63 @@ class  CameraHalClientAsyncWaiter {
 };
 
 
+class  CrosCameraServiceObserverInterceptorForTesting : public CrosCameraServiceObserver {
+  virtual CrosCameraServiceObserver* GetForwardingInterface() = 0;
+  void CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) override;
+  void CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) override;
+  void CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) override;
+};
+class  CrosCameraServiceObserverAsyncWaiter {
+ public:
+  explicit CrosCameraServiceObserverAsyncWaiter(CrosCameraServiceObserver* proxy);
+
+  CrosCameraServiceObserverAsyncWaiter(const CrosCameraServiceObserverAsyncWaiter&) = delete;
+  CrosCameraServiceObserverAsyncWaiter& operator=(const CrosCameraServiceObserverAsyncWaiter&) = delete;
+
+  ~CrosCameraServiceObserverAsyncWaiter();
+
+ private:
+  CrosCameraServiceObserver* const proxy_;
+};
+
+
+class  CrosCameraServiceInterceptorForTesting : public CrosCameraService {
+  virtual CrosCameraService* GetForwardingInterface() = 0;
+  void GetCameraModule(CameraClientType type, GetCameraModuleCallback callback) override;
+  void SetTracingEnabled(bool enabled) override;
+  void SetAutoFramingState(CameraAutoFramingState state) override;
+  void GetCameraSWPrivacySwitchState(GetCameraSWPrivacySwitchStateCallback callback) override;
+  void SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) override;
+  void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) override;
+  void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) override;
+  void AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) override;
+};
+class  CrosCameraServiceAsyncWaiter {
+ public:
+  explicit CrosCameraServiceAsyncWaiter(CrosCameraService* proxy);
+
+  CrosCameraServiceAsyncWaiter(const CrosCameraServiceAsyncWaiter&) = delete;
+  CrosCameraServiceAsyncWaiter& operator=(const CrosCameraServiceAsyncWaiter&) = delete;
+
+  ~CrosCameraServiceAsyncWaiter();
+  void GetCameraModule(
+      CameraClientType type, ::mojo::PendingRemote<::cros::mojom::CameraModule>* out_camera_module_receiver);
+  ::mojo::PendingRemote<::cros::mojom::CameraModule> GetCameraModule(CameraClientType type);
+  void GetCameraSWPrivacySwitchState(
+      CameraPrivacySwitchState* out_state);
+  CameraPrivacySwitchState GetCameraSWPrivacySwitchState();
+  void GetAutoFramingSupported(
+      bool* out_supported);
+  bool GetAutoFramingSupported();
+  void SetCameraEffect(
+      ::cros::mojom::EffectsConfigPtr config, SetEffectResult* out_result);
+  SetEffectResult SetCameraEffect(::cros::mojom::EffectsConfigPtr config);
+
+ private:
+  CrosCameraService* const proxy_;
+};
+
+
 
 
 }  // cros::mojom

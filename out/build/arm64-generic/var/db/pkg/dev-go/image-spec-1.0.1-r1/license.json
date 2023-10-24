@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "image-spec", "version": "1.0.1", "revision": 1, "fullname": "dev-go/image-spec", "fullnamerev": "dev-go/image-spec-1.0.1-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/opencontainers/image-spec"], "skip": false, "tainted": false, "ebuild_path": null}

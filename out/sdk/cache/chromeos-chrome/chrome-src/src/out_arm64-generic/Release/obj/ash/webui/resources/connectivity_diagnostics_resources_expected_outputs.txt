@@ -1,0 +1,4 @@
+gen/ash/webui/connectivity_diagnostics_resources.pak
+gen/ash/webui/grit/connectivity_diagnostics_resources.h
+gen/ash/webui/grit/connectivity_diagnostics_resources_map.cc
+gen/ash/webui/grit/connectivity_diagnostics_resources_map.h

@@ -1,0 +1,38 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style">:host{display:flex;flex-direction:column}.box{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow)}.card-container{align-items:stretch;display:flex;gap:13px;justify-content:space-between;width:100%}.card:hover{background-color:var(--cr-hover-background-color)}.module{height:fit-content;margin-bottom:24px}.section-header{font-size:.8125rem;margin:16px 0;width:100%;flex:1;user-select:none}</style>
+
+<div class="section-header cr-secondary-text">
+  $i18n{safetyHubPageCardSectionHeader}
+</div>
+<div class="card-container">
+  <settings-safety-hub-card id="passwords" class="card box" data="[[passwordCardData_]]" on-click="onPasswordsClick_" tabindex="0" on-keydown="onPasswordsKeyPress_">
+  </settings-safety-hub-card>
+  <settings-safety-hub-card id="version" class="card box" data="[[versionCardData_]]" on-click="onVersionClick_" tabindex="0" on-keydown="onVersionKeyPress_">
+  </settings-safety-hub-card>
+  <settings-safety-hub-card id="safeBrowsing" class="card box" data="[[safeBrowsingCardData_]]" on-click="onSafeBrowsingClick_" tabindex="0" on-keydown="onSafeBrowsingKeyPress_">
+  </settings-safety-hub-card>
+</div>
+<div class="section-header cr-secondary-text">
+  $i18n{safetyHubPageModuleSectionHeader}
+</div>
+<template is="dom-if" if="[[showNotificationPermissions_]]">
+  <settings-safety-hub-notification-permissions-module class="module box">
+  </settings-safety-hub-notification-permissions-module>
+</template>
+<template is="dom-if" if="[[showUnusedSitePermissions_]]">
+  <settings-safety-hub-unused-site-permissions class="module box">
+  </settings-safety-hub-unused-site-permissions>
+</template>
+<template is="dom-if" if="[[showExtensions_]]">
+  <settings-safety-hub-extensions-module class="module box">
+  </settings-safety-hub-extensions-module>
+</template>
+<template is="dom-if" if="[[showNoRecommendationsState_]]">
+  <settings-safety-hub-module id="emptyStateModule" class="module box" header="$i18n{safetyHubEmptyStateModuleHeader}" subheader="$i18n{safetyHubEmptyStateModuleSubheader}" header-icon="cr:check">
+  </settings-safety-hub-module>
+  <settings-safety-hub-module id="userEducationModule" class="module box" header="$i18n{safetyHubUserEduModuleHeader}" header-icon="settings20:lightbulb" sites="[[userEducationItemList_]]">
+  </settings-safety-hub-module>
+</template>
+<!--_html_template_end_-->`;
+}

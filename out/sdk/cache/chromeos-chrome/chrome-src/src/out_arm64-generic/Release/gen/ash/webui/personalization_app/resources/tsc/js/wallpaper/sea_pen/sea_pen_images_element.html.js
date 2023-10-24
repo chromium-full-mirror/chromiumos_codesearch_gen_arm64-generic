@@ -1,0 +1,23 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="common">:host{overflow:hidden}iron-list{width:100%}.thumbnail-item-container,.thumbnail-placeholder-container{box-sizing:border-box;height:250px;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:calc(100% / 2 - .5px)}.thumbnail-placeholder{background-color:var(--personalization-app-grid-item-background-color);border-radius:var(--personalization-app-grid-item-border-radius);height:100%}img{border-radius:var(--personalization-app-grid-item-border-radius);height:100%;object-fit:cover;width:100%}</style>
+<template is="dom-if" if="[[shouldShowThumbnailPlaceholders_(thumbnailsLoading_, thumbnails_)]]">
+  <iron-list class="thumbnail-placeholder-list" items="[[getPlaceholders_(4)]]" grid>
+    <template>
+      <div class="thumbnail-placeholder-container">
+        <div class$="[[getThumbnailPlaceholderClass_(thumbnailsLoading_)]]"></div>
+      </div>
+    </template>
+  </iron-list>
+</template>
+<template is="dom-if" if="[[shouldShowImageThumbnails_(thumbnailsLoading_, thumbnails_)]]">
+  <iron-list id="grid" items="[[thumbnails_]]" as="image" grid role="list">
+    <template>
+      <div class="thumbnail-item-container" role="listitem">
+        <img is="cr-auto-img" auto-src="[[image.url.url]]">
+      </div>
+    </template>
+  </iron-list>
+</template>
+<!--_html_template_end_-->`;
+}

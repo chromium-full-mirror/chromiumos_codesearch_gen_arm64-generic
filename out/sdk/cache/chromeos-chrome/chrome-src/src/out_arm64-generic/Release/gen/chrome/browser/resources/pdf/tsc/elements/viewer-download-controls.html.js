@@ -1,0 +1,14 @@
+import { html } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="pdf-shared">:host{display:contents}cr-action-menu::part(dialog){position:fixed;top:48px}:host([menu-open_]) #download{background-color:var(--active-button-bg);border-radius:50%}</style>
+<cr-icon-button id="download" iron-icon="cr:file-download" on-click="onDownloadClick_" aria-label="$i18n{tooltipDownload}" aria-haspopup$="[[downloadHasPopup_]]" title="$i18n{tooltipDownload}"></cr-icon-button>
+<cr-action-menu id="menu" on-open-changed="onOpenChanged_">
+  <button id="download-edited" class="dropdown-item" on-click="onDownloadEditedClick_">
+    $i18n{downloadEdited}
+  </button>
+  <button id="download-original" class="dropdown-item" on-click="onDownloadOriginalClick_">
+    $i18n{downloadOriginal}
+  </button>
+</cr-action-menu>
+<!--_html_template_end_-->`;
+}

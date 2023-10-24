@@ -1,0 +1,39 @@
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
+import '//resources/polymer/v3_0/iron-media-query/iron-media-query.js';
+import './components/common_styles/oobe_dialog_host_styles.css.js';
+import './components/dialogs/oobe_adaptive_dialog.js';
+import './components/oobe_icons.html.js';
+import './components/common_styles/oobe_common_styles.css.js';
+import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { getTemplate } from './curtain_screen.html.js';
+function setDialogSizeAndOrientation() {
+    document.documentElement.style.setProperty('--oobe-oobe-dialog-height-base', window.innerHeight + 'px');
+    document.documentElement.style.setProperty('--oobe-oobe-dialog-width-base', window.innerWidth + 'px');
+    // Screen orientation value needs to be kept up-to-date.
+    document.documentElement.setAttribute('orientation', window.innerWidth > window.innerHeight ? 'horizontal' : 'vertical');
+}
+class CurtainScreenElement extends PolymerElement {
+    static get is() {
+        return 'curtain-screen';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    ready() {
+        super.ready();
+        this.$.mainCurtainDialog.onBeforeShow();
+        setDialogSizeAndOrientation();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('resize', setDialogSizeAndOrientation);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('resize', setDialogSizeAndOrientation);
+    }
+}
+customElements.define(CurtainScreenElement.is, CurtainScreenElement);

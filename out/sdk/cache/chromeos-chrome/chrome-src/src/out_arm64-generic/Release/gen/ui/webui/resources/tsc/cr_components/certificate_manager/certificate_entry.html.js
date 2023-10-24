@@ -1,0 +1,20 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_-->    <style include="certificate-shared iron-flex">.expand-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:48px;padding:0 20px}</style>
+    <div class="expand-box">
+      <div class="flex">[[model.id]]</div>
+      <cr-policy-indicator indicator-type="[[getPolicyIndicatorType_(model)]]">
+      </cr-policy-indicator>
+      <cr-expand-button no-hover expanded="{{expanded_}}" aria-label="[[i18n('certificateManagerExpandA11yLabel')]]">
+      </cr-expand-button>
+    </div>
+    <template is="dom-if" if="[[expanded_]]">
+      <div class="list-frame">
+        <template is="dom-repeat" items="[[model.subnodes]]">
+          <certificate-subentry model="[[item]]" certificate-type="[[certificateType]]" is-last$="[[isLast_(index, model)]]">
+          </certificate-subentry>
+        </template>
+      </div>
+    </template>
+<!--_html_template_end_-->`;
+}

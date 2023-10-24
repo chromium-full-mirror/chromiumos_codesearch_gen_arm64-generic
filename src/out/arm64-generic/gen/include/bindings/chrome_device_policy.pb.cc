@@ -2109,6 +2109,34 @@ struct DeviceChargingSoundsProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceChargingSoundsProtoDefaultTypeInternal _DeviceChargingSoundsProto_default_instance_;
+PROTOBUF_CONSTEXPR DeviceSwitchFunctionKeysBehaviorEnabledProto::DeviceSwitchFunctionKeysBehaviorEnabledProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.enabled_)*/false} {}
+struct DeviceSwitchFunctionKeysBehaviorEnabledProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeviceSwitchFunctionKeysBehaviorEnabledProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeviceSwitchFunctionKeysBehaviorEnabledProtoDefaultTypeInternal() {}
+  union {
+    DeviceSwitchFunctionKeysBehaviorEnabledProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceSwitchFunctionKeysBehaviorEnabledProtoDefaultTypeInternal _DeviceSwitchFunctionKeysBehaviorEnabledProto_default_instance_;
+PROTOBUF_CONSTEXPR ExtendedFkeysModifierProto::ExtendedFkeysModifierProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.modifier_)*/0} {}
+struct ExtendedFkeysModifierProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ExtendedFkeysModifierProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ExtendedFkeysModifierProtoDefaultTypeInternal() {}
+  union {
+    ExtendedFkeysModifierProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExtendedFkeysModifierProtoDefaultTypeInternal _ExtendedFkeysModifierProto_default_instance_;
 PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -2261,7 +2289,11 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , /*decltype(_impl_.device_low_battery_sound_)*/nullptr
   , /*decltype(_impl_.device_charging_sounds_)*/nullptr
   , /*decltype(_impl_.device_authentication_url_blocklist_)*/nullptr
-  , /*decltype(_impl_.device_authentication_url_allowlist_)*/nullptr} {}
+  , /*decltype(_impl_.device_authentication_url_allowlist_)*/nullptr
+  , /*decltype(_impl_.device_switch_function_keys_behavior_enabled_)*/nullptr
+  , /*decltype(_impl_.device_dlc_predownload_list_)*/nullptr
+  , /*decltype(_impl_.device_ephemeral_network_policies_enabled_)*/nullptr
+  , /*decltype(_impl_.extended_fkeys_modifier_)*/nullptr} {}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3924,6 +3956,74 @@ constexpr DeviceCrostiniArcAdbSideloadingAllowedProto_AllowanceMode DeviceCrosti
 constexpr DeviceCrostiniArcAdbSideloadingAllowedProto_AllowanceMode DeviceCrostiniArcAdbSideloadingAllowedProto::AllowanceMode_MIN;
 constexpr DeviceCrostiniArcAdbSideloadingAllowedProto_AllowanceMode DeviceCrostiniArcAdbSideloadingAllowedProto::AllowanceMode_MAX;
 constexpr int DeviceCrostiniArcAdbSideloadingAllowedProto::AllowanceMode_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool ExtendedFkeysModifierProto_ExtendedFkeysModifier_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ExtendedFkeysModifierProto_ExtendedFkeysModifier_strings[4] = {};
+
+static const char ExtendedFkeysModifierProto_ExtendedFkeysModifier_names[] =
+  "ALT"
+  "CTRL_SHIFT"
+  "DISABLED"
+  "SHIFT";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries[] = {
+  { {ExtendedFkeysModifierProto_ExtendedFkeysModifier_names + 0, 3}, 1 },
+  { {ExtendedFkeysModifierProto_ExtendedFkeysModifier_names + 3, 10}, 3 },
+  { {ExtendedFkeysModifierProto_ExtendedFkeysModifier_names + 13, 8}, 0 },
+  { {ExtendedFkeysModifierProto_ExtendedFkeysModifier_names + 21, 5}, 2 },
+};
+
+static const int ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries_by_number[] = {
+  2, // 0 -> DISABLED
+  0, // 1 -> ALT
+  3, // 2 -> SHIFT
+  1, // 3 -> CTRL_SHIFT
+};
+
+const std::string& ExtendedFkeysModifierProto_ExtendedFkeysModifier_Name(
+    ExtendedFkeysModifierProto_ExtendedFkeysModifier value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries,
+          ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries_by_number,
+          4, ExtendedFkeysModifierProto_ExtendedFkeysModifier_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries,
+      ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     ExtendedFkeysModifierProto_ExtendedFkeysModifier_strings[idx].get();
+}
+bool ExtendedFkeysModifierProto_ExtendedFkeysModifier_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ExtendedFkeysModifierProto_ExtendedFkeysModifier* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      ExtendedFkeysModifierProto_ExtendedFkeysModifier_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<ExtendedFkeysModifierProto_ExtendedFkeysModifier>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::DISABLED;
+constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::ALT;
+constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::SHIFT;
+constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::CTRL_SHIFT;
+constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::ExtendedFkeysModifier_MIN;
+constexpr ExtendedFkeysModifierProto_ExtendedFkeysModifier ExtendedFkeysModifierProto::ExtendedFkeysModifier_MAX;
+constexpr int ExtendedFkeysModifierProto::ExtendedFkeysModifier_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
 // ===================================================================
@@ -37188,6 +37288,398 @@ std::string DeviceChargingSoundsProto::GetTypeName() const {
 
 // ===================================================================
 
+class DeviceSwitchFunctionKeysBehaviorEnabledProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeviceSwitchFunctionKeysBehaviorEnabledProto>()._impl_._has_bits_);
+  static void set_has_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+DeviceSwitchFunctionKeysBehaviorEnabledProto::DeviceSwitchFunctionKeysBehaviorEnabledProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+}
+DeviceSwitchFunctionKeysBehaviorEnabledProto::DeviceSwitchFunctionKeysBehaviorEnabledProto(const DeviceSwitchFunctionKeysBehaviorEnabledProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DeviceSwitchFunctionKeysBehaviorEnabledProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.enabled_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.enabled_ = from._impl_.enabled_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+}
+
+inline void DeviceSwitchFunctionKeysBehaviorEnabledProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.enabled_){false}
+  };
+}
+
+DeviceSwitchFunctionKeysBehaviorEnabledProto::~DeviceSwitchFunctionKeysBehaviorEnabledProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeviceSwitchFunctionKeysBehaviorEnabledProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DeviceSwitchFunctionKeysBehaviorEnabledProto::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void DeviceSwitchFunctionKeysBehaviorEnabledProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.enabled_ = false;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeviceSwitchFunctionKeysBehaviorEnabledProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool enabled = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_enabled(&has_bits);
+          _impl_.enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeviceSwitchFunctionKeysBehaviorEnabledProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional bool enabled = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+  return target;
+}
+
+size_t DeviceSwitchFunctionKeysBehaviorEnabledProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bool enabled = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeviceSwitchFunctionKeysBehaviorEnabledProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DeviceSwitchFunctionKeysBehaviorEnabledProto*>(
+      &from));
+}
+
+void DeviceSwitchFunctionKeysBehaviorEnabledProto::MergeFrom(const DeviceSwitchFunctionKeysBehaviorEnabledProto& from) {
+  DeviceSwitchFunctionKeysBehaviorEnabledProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_enabled()) {
+    _this->_internal_set_enabled(from._internal_enabled());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeviceSwitchFunctionKeysBehaviorEnabledProto::CopyFrom(const DeviceSwitchFunctionKeysBehaviorEnabledProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeviceSwitchFunctionKeysBehaviorEnabledProto::IsInitialized() const {
+  return true;
+}
+
+void DeviceSwitchFunctionKeysBehaviorEnabledProto::InternalSwap(DeviceSwitchFunctionKeysBehaviorEnabledProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.enabled_, other->_impl_.enabled_);
+}
+
+std::string DeviceSwitchFunctionKeysBehaviorEnabledProto::GetTypeName() const {
+  return "enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto";
+}
+
+
+// ===================================================================
+
+class ExtendedFkeysModifierProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ExtendedFkeysModifierProto>()._impl_._has_bits_);
+  static void set_has_modifier(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ExtendedFkeysModifierProto::ExtendedFkeysModifierProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.ExtendedFkeysModifierProto)
+}
+ExtendedFkeysModifierProto::ExtendedFkeysModifierProto(const ExtendedFkeysModifierProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ExtendedFkeysModifierProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.modifier_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.modifier_ = from._impl_.modifier_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.ExtendedFkeysModifierProto)
+}
+
+inline void ExtendedFkeysModifierProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.modifier_){0}
+  };
+}
+
+ExtendedFkeysModifierProto::~ExtendedFkeysModifierProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.ExtendedFkeysModifierProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ExtendedFkeysModifierProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ExtendedFkeysModifierProto::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ExtendedFkeysModifierProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.ExtendedFkeysModifierProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.modifier_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ExtendedFkeysModifierProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .enterprise_management.ExtendedFkeysModifierProto.ExtendedFkeysModifier modifier = 1 [default = DISABLED];
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::ExtendedFkeysModifierProto_ExtendedFkeysModifier_IsValid(val))) {
+            _internal_set_modifier(static_cast<::enterprise_management::ExtendedFkeysModifierProto_ExtendedFkeysModifier>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ExtendedFkeysModifierProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.ExtendedFkeysModifierProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .enterprise_management.ExtendedFkeysModifierProto.ExtendedFkeysModifier modifier = 1 [default = DISABLED];
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_modifier(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.ExtendedFkeysModifierProto)
+  return target;
+}
+
+size_t ExtendedFkeysModifierProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.ExtendedFkeysModifierProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .enterprise_management.ExtendedFkeysModifierProto.ExtendedFkeysModifier modifier = 1 [default = DISABLED];
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_modifier());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ExtendedFkeysModifierProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ExtendedFkeysModifierProto*>(
+      &from));
+}
+
+void ExtendedFkeysModifierProto::MergeFrom(const ExtendedFkeysModifierProto& from) {
+  ExtendedFkeysModifierProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.ExtendedFkeysModifierProto)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_modifier()) {
+    _this->_internal_set_modifier(from._internal_modifier());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ExtendedFkeysModifierProto::CopyFrom(const ExtendedFkeysModifierProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.ExtendedFkeysModifierProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ExtendedFkeysModifierProto::IsInitialized() const {
+  return true;
+}
+
+void ExtendedFkeysModifierProto::InternalSwap(ExtendedFkeysModifierProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.modifier_, other->_impl_.modifier_);
+}
+
+std::string ExtendedFkeysModifierProto::GetTypeName() const {
+  return "enterprise_management.ExtendedFkeysModifierProto";
+}
+
+
+// ===================================================================
+
 class ChromeDeviceSettingsProto::_Internal {
  public:
   using HasBits = decltype(std::declval<ChromeDeviceSettingsProto>()._impl_._has_bits_);
@@ -37787,6 +38279,22 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_authentication_url_allowlist(HasBits* has_bits) {
     (*has_bits)[4] |= 1048576u;
   }
+  static const ::enterprise_management::DeviceSwitchFunctionKeysBehaviorEnabledProto& device_switch_function_keys_behavior_enabled(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_switch_function_keys_behavior_enabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 2097152u;
+  }
+  static const ::enterprise_management::StringListPolicyProto& device_dlc_predownload_list(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_dlc_predownload_list(HasBits* has_bits) {
+    (*has_bits)[4] |= 4194304u;
+  }
+  static const ::enterprise_management::BooleanPolicyProto& device_ephemeral_network_policies_enabled(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_ephemeral_network_policies_enabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 8388608u;
+  }
+  static const ::enterprise_management::ExtendedFkeysModifierProto& extended_fkeys_modifier(const ChromeDeviceSettingsProto* msg);
+  static void set_has_extended_fkeys_modifier(HasBits* has_bits) {
+    (*has_bits)[4] |= 16777216u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -38385,6 +38893,22 @@ const ::enterprise_management::StringListPolicyProto&
 ChromeDeviceSettingsProto::_Internal::device_authentication_url_allowlist(const ChromeDeviceSettingsProto* msg) {
   return *msg->_impl_.device_authentication_url_allowlist_;
 }
+const ::enterprise_management::DeviceSwitchFunctionKeysBehaviorEnabledProto&
+ChromeDeviceSettingsProto::_Internal::device_switch_function_keys_behavior_enabled(const ChromeDeviceSettingsProto* msg) {
+  return *msg->_impl_.device_switch_function_keys_behavior_enabled_;
+}
+const ::enterprise_management::StringListPolicyProto&
+ChromeDeviceSettingsProto::_Internal::device_dlc_predownload_list(const ChromeDeviceSettingsProto* msg) {
+  return *msg->_impl_.device_dlc_predownload_list_;
+}
+const ::enterprise_management::BooleanPolicyProto&
+ChromeDeviceSettingsProto::_Internal::device_ephemeral_network_policies_enabled(const ChromeDeviceSettingsProto* msg) {
+  return *msg->_impl_.device_ephemeral_network_policies_enabled_;
+}
+const ::enterprise_management::ExtendedFkeysModifierProto&
+ChromeDeviceSettingsProto::_Internal::extended_fkeys_modifier(const ChromeDeviceSettingsProto* msg) {
+  return *msg->_impl_.extended_fkeys_modifier_;
+}
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (_impl_.device_login_screen_system_info_enforced_ != nullptr) _impl_.device_login_screen_system_info_enforced_->Clear();
   _impl_._has_bits_[2] &= ~0x02000000u;
@@ -38452,6 +38976,14 @@ void ChromeDeviceSettingsProto::clear_device_authentication_url_blocklist() {
 void ChromeDeviceSettingsProto::clear_device_authentication_url_allowlist() {
   if (_impl_.device_authentication_url_allowlist_ != nullptr) _impl_.device_authentication_url_allowlist_->Clear();
   _impl_._has_bits_[4] &= ~0x00100000u;
+}
+void ChromeDeviceSettingsProto::clear_device_dlc_predownload_list() {
+  if (_impl_.device_dlc_predownload_list_ != nullptr) _impl_.device_dlc_predownload_list_->Clear();
+  _impl_._has_bits_[4] &= ~0x00400000u;
+}
+void ChromeDeviceSettingsProto::clear_device_ephemeral_network_policies_enabled() {
+  if (_impl_.device_ephemeral_network_policies_enabled_ != nullptr) _impl_.device_ephemeral_network_policies_enabled_->Clear();
+  _impl_._has_bits_[4] &= ~0x00800000u;
 }
 ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -38613,7 +39145,11 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     , decltype(_impl_.device_low_battery_sound_){nullptr}
     , decltype(_impl_.device_charging_sounds_){nullptr}
     , decltype(_impl_.device_authentication_url_blocklist_){nullptr}
-    , decltype(_impl_.device_authentication_url_allowlist_){nullptr}};
+    , decltype(_impl_.device_authentication_url_allowlist_){nullptr}
+    , decltype(_impl_.device_switch_function_keys_behavior_enabled_){nullptr}
+    , decltype(_impl_.device_dlc_predownload_list_){nullptr}
+    , decltype(_impl_.device_ephemeral_network_policies_enabled_){nullptr}
+    , decltype(_impl_.extended_fkeys_modifier_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_device_policy_refresh_rate()) {
@@ -39063,6 +39599,18 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   if (from._internal_has_device_authentication_url_allowlist()) {
     _this->_impl_.device_authentication_url_allowlist_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.device_authentication_url_allowlist_);
   }
+  if (from._internal_has_device_switch_function_keys_behavior_enabled()) {
+    _this->_impl_.device_switch_function_keys_behavior_enabled_ = new ::enterprise_management::DeviceSwitchFunctionKeysBehaviorEnabledProto(*from._impl_.device_switch_function_keys_behavior_enabled_);
+  }
+  if (from._internal_has_device_dlc_predownload_list()) {
+    _this->_impl_.device_dlc_predownload_list_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.device_dlc_predownload_list_);
+  }
+  if (from._internal_has_device_ephemeral_network_policies_enabled()) {
+    _this->_impl_.device_ephemeral_network_policies_enabled_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.device_ephemeral_network_policies_enabled_);
+  }
+  if (from._internal_has_extended_fkeys_modifier()) {
+    _this->_impl_.extended_fkeys_modifier_ = new ::enterprise_management::ExtendedFkeysModifierProto(*from._impl_.extended_fkeys_modifier_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
@@ -39222,6 +39770,10 @@ inline void ChromeDeviceSettingsProto::SharedCtor(
     , decltype(_impl_.device_charging_sounds_){nullptr}
     , decltype(_impl_.device_authentication_url_blocklist_){nullptr}
     , decltype(_impl_.device_authentication_url_allowlist_){nullptr}
+    , decltype(_impl_.device_switch_function_keys_behavior_enabled_){nullptr}
+    , decltype(_impl_.device_dlc_predownload_list_){nullptr}
+    , decltype(_impl_.device_ephemeral_network_policies_enabled_){nullptr}
+    , decltype(_impl_.extended_fkeys_modifier_){nullptr}
   };
 }
 
@@ -39385,6 +39937,10 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.device_charging_sounds_;
   if (this != internal_default_instance()) delete _impl_.device_authentication_url_blocklist_;
   if (this != internal_default_instance()) delete _impl_.device_authentication_url_allowlist_;
+  if (this != internal_default_instance()) delete _impl_.device_switch_function_keys_behavior_enabled_;
+  if (this != internal_default_instance()) delete _impl_.device_dlc_predownload_list_;
+  if (this != internal_default_instance()) delete _impl_.device_ephemeral_network_policies_enabled_;
+  if (this != internal_default_instance()) delete _impl_.extended_fkeys_modifier_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -40014,7 +40570,7 @@ void ChromeDeviceSettingsProto::Clear() {
       _impl_.device_login_screen_geolocation_access_level_->Clear();
     }
   }
-  if (cached_has_bits & 0x001f0000u) {
+  if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
       GOOGLE_DCHECK(_impl_.device_login_screen_webhid_allow_devices_for_urls_ != nullptr);
       _impl_.device_login_screen_webhid_allow_devices_for_urls_->Clear();
@@ -40035,6 +40591,22 @@ void ChromeDeviceSettingsProto::Clear() {
       GOOGLE_DCHECK(_impl_.device_authentication_url_allowlist_ != nullptr);
       _impl_.device_authentication_url_allowlist_->Clear();
     }
+    if (cached_has_bits & 0x00200000u) {
+      GOOGLE_DCHECK(_impl_.device_switch_function_keys_behavior_enabled_ != nullptr);
+      _impl_.device_switch_function_keys_behavior_enabled_->Clear();
+    }
+    if (cached_has_bits & 0x00400000u) {
+      GOOGLE_DCHECK(_impl_.device_dlc_predownload_list_ != nullptr);
+      _impl_.device_dlc_predownload_list_->Clear();
+    }
+    if (cached_has_bits & 0x00800000u) {
+      GOOGLE_DCHECK(_impl_.device_ephemeral_network_policies_enabled_ != nullptr);
+      _impl_.device_ephemeral_network_policies_enabled_->Clear();
+    }
+  }
+  if (cached_has_bits & 0x01000000u) {
+    GOOGLE_DCHECK(_impl_.extended_fkeys_modifier_ != nullptr);
+    _impl_.extended_fkeys_modifier_->Clear();
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -41238,6 +41810,38 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto device_switch_function_keys_behavior_enabled = 153;
+      case 153:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 202)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_switch_function_keys_behavior_enabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.StringListPolicyProto device_dlc_predownload_list = 154;
+      case 154:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 210)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_dlc_predownload_list(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.BooleanPolicyProto device_ephemeral_network_policies_enabled = 155;
+      case 155:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 218)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_ephemeral_network_policies_enabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.ExtendedFkeysModifierProto extended_fkeys_modifier = 156;
+      case 156:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 226)) {
+          ptr = ctx->ParseMessage(_internal_mutable_extended_fkeys_modifier(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -42315,6 +42919,34 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::device_authentication_url_allowlist(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto device_switch_function_keys_behavior_enabled = 153;
+  if (cached_has_bits & 0x00200000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(153, _Internal::device_switch_function_keys_behavior_enabled(this),
+        _Internal::device_switch_function_keys_behavior_enabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.StringListPolicyProto device_dlc_predownload_list = 154;
+  if (cached_has_bits & 0x00400000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(154, _Internal::device_dlc_predownload_list(this),
+        _Internal::device_dlc_predownload_list(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.BooleanPolicyProto device_ephemeral_network_policies_enabled = 155;
+  if (cached_has_bits & 0x00800000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(155, _Internal::device_ephemeral_network_policies_enabled(this),
+        _Internal::device_ephemeral_network_policies_enabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.ExtendedFkeysModifierProto extended_fkeys_modifier = 156;
+  if (cached_has_bits & 0x01000000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(156, _Internal::extended_fkeys_modifier(this),
+        _Internal::extended_fkeys_modifier(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -43380,7 +44012,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x001f0000u) {
+  if (cached_has_bits & 0x00ff0000u) {
     // optional .enterprise_management.StringPolicyProto device_login_screen_webhid_allow_devices_for_urls = 148;
     if (cached_has_bits & 0x00010000u) {
       total_size += 2 +
@@ -43416,7 +44048,35 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
           *_impl_.device_authentication_url_allowlist_);
     }
 
+    // optional .enterprise_management.DeviceSwitchFunctionKeysBehaviorEnabledProto device_switch_function_keys_behavior_enabled = 153;
+    if (cached_has_bits & 0x00200000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.device_switch_function_keys_behavior_enabled_);
+    }
+
+    // optional .enterprise_management.StringListPolicyProto device_dlc_predownload_list = 154;
+    if (cached_has_bits & 0x00400000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.device_dlc_predownload_list_);
+    }
+
+    // optional .enterprise_management.BooleanPolicyProto device_ephemeral_network_policies_enabled = 155;
+    if (cached_has_bits & 0x00800000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.device_ephemeral_network_policies_enabled_);
+    }
+
   }
+  // optional .enterprise_management.ExtendedFkeysModifierProto extended_fkeys_modifier = 156;
+  if (cached_has_bits & 0x01000000u) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.extended_fkeys_modifier_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -44055,7 +44715,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
           from._internal_device_login_screen_geolocation_access_level());
     }
   }
-  if (cached_has_bits & 0x001f0000u) {
+  if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
       _this->_internal_mutable_device_login_screen_webhid_allow_devices_for_urls()->::enterprise_management::StringPolicyProto::MergeFrom(
           from._internal_device_login_screen_webhid_allow_devices_for_urls());
@@ -44076,6 +44736,22 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _this->_internal_mutable_device_authentication_url_allowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(
           from._internal_device_authentication_url_allowlist());
     }
+    if (cached_has_bits & 0x00200000u) {
+      _this->_internal_mutable_device_switch_function_keys_behavior_enabled()->::enterprise_management::DeviceSwitchFunctionKeysBehaviorEnabledProto::MergeFrom(
+          from._internal_device_switch_function_keys_behavior_enabled());
+    }
+    if (cached_has_bits & 0x00400000u) {
+      _this->_internal_mutable_device_dlc_predownload_list()->::enterprise_management::StringListPolicyProto::MergeFrom(
+          from._internal_device_dlc_predownload_list());
+    }
+    if (cached_has_bits & 0x00800000u) {
+      _this->_internal_mutable_device_ephemeral_network_policies_enabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
+          from._internal_device_ephemeral_network_policies_enabled());
+    }
+  }
+  if (cached_has_bits & 0x01000000u) {
+    _this->_internal_mutable_extended_fkeys_modifier()->::enterprise_management::ExtendedFkeysModifierProto::MergeFrom(
+        from._internal_extended_fkeys_modifier());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -44100,8 +44776,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_authentication_url_allowlist_)
-      + sizeof(ChromeDeviceSettingsProto::_impl_.device_authentication_url_allowlist_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.extended_fkeys_modifier_)
+      + sizeof(ChromeDeviceSettingsProto::_impl_.extended_fkeys_modifier_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&_impl_.device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->_impl_.device_policy_refresh_rate_));
@@ -44678,6 +45354,14 @@ Arena::CreateMaybeMessage< ::enterprise_management::DeviceLowBatterySoundProto >
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceChargingSoundsProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceChargingSoundsProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceChargingSoundsProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceSwitchFunctionKeysBehaviorEnabledProto*
+Arena::CreateMaybeMessage< ::enterprise_management::DeviceSwitchFunctionKeysBehaviorEnabledProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DeviceSwitchFunctionKeysBehaviorEnabledProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::ExtendedFkeysModifierProto*
+Arena::CreateMaybeMessage< ::enterprise_management::ExtendedFkeysModifierProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::ExtendedFkeysModifierProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::ChromeDeviceSettingsProto*
 Arena::CreateMaybeMessage< ::enterprise_management::ChromeDeviceSettingsProto >(Arena* arena) {

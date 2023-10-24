@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-rust", "name": "dbus-codegen", "version": "0.10.0", "revision": 5, "fullname": "dev-rust/dbus-codegen", "fullnamerev": "dev-rust/dbus-codegen-0.10.0-r5", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://crates.io/crates/dbus-codegen"], "skip": false, "tainted": false, "ebuild_path": null}

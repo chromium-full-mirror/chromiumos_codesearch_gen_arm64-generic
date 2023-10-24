@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-libs", "name": "gdbm", "version": "1.23", "revision": 0, "fullname": "sys-libs/gdbm", "fullnamerev": "sys-libs/gdbm-1.23", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.gnu.org/software/gdbm/"], "skip": false, "tainted": false, "ebuild_path": null}

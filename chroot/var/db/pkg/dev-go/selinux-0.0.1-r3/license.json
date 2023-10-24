@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "selinux", "version": "0.0.1", "revision": 3, "fullname": "dev-go/selinux", "fullnamerev": "dev-go/selinux-0.0.1-r3", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/opencontainers/selinux"], "skip": false, "tainted": false, "ebuild_path": null}

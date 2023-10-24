@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="19" failures="0" disabled="0" errors="0" time="0." timestamp="1970-01-01T00:00:00.000" name="AllTests">
+  <testsuite name="StreamDeviceSuite" tests="17" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="1970-01-01T00:00:00.000">
+    <testcase name="AddRemoveOpenOutputDevice" file="cras/src/tests/audio_thread_unittest.cc" line="258" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="StartRamp" file="cras/src/tests/audio_thread_unittest.cc" line="274" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="AddRemoveOpenInputDevice" file="cras/src/tests/audio_thread_unittest.cc" line="327" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="AddRemoveMultipleOpenDevices" file="cras/src/tests/audio_thread_unittest.cc" line="343" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="MultipleInputStreamsCopyFirstStreamOffset" file="cras/src/tests/audio_thread_unittest.cc" line="399" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="InputStreamsSetInputDeviceWakeTime" file="cras/src/tests/audio_thread_unittest.cc" line="447" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="AddOutputStream" file="cras/src/tests/audio_thread_unittest.cc" line="489" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="OutputStreamFetchTime" file="cras/src/tests/audio_thread_unittest.cc" line="529" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="AddRemoveMultipleStreamsOnMultipleDevices" file="cras/src/tests/audio_thread_unittest.cc" line="590" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="FetchStreams" file="cras/src/tests/audio_thread_unittest.cc" line="660" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="WriteOutputSamplesPrepareOutputFailed" file="cras/src/tests/audio_thread_unittest.cc" line="714" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="WriteOutputSamplesNoStream" file="cras/src/tests/audio_thread_unittest.cc" line="747" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="WriteOutputSamplesLeaveNoStream" file="cras/src/tests/audio_thread_unittest.cc" line="775" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="MixOutputSamples" file="cras/src/tests/audio_thread_unittest.cc" line="816" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="DoPlaybackNoStream" file="cras/src/tests/audio_thread_unittest.cc" line="883" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="DoPlaybackUnderrun" file="cras/src/tests/audio_thread_unittest.cc" line="916" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+    <testcase name="DoPlaybackSevereUnderrun" file="cras/src/tests/audio_thread_unittest.cc" line="952" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="StreamDeviceSuite" />
+  </testsuite>
+  <testsuite name="AudioThreadStreams" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="1970-01-01T00:00:00.000">
+    <testcase name="DrainStream" file="cras/src/tests/audio_thread_unittest.cc" line="988" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="AudioThreadStreams" />
+  </testsuite>
+  <testsuite name="BusyloopDetectSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="1970-01-01T00:00:00.000">
+    <testcase name="CheckerTest" file="cras/src/tests/audio_thread_unittest.cc" line="1011" status="run" result="completed" time="0." timestamp="1970-01-01T00:00:00.000" classname="BusyloopDetectSuite" />
+  </testsuite>
+</testsuites>

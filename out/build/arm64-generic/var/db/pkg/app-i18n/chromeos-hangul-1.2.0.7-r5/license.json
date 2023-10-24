@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-i18n", "name": "chromeos-hangul", "version": "1.2.0.7", "revision": 5, "fullname": "app-i18n/chromeos-hangul", "fullnamerev": "app-i18n/chromeos-hangul-1.2.0.7-r5", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://github.com/google/google-input-tools"], "skip": false, "tainted": false, "ebuild_path": null}

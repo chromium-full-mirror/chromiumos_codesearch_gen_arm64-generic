@@ -27,7 +27,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) override;
   void GetLidAngle(GetLidAngleCallback callback) override;
   void GetPsr(GetPsrCallback callback) override;
-  void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) override;
+  void GetConnectedExternalDisplayConnectors(GetConnectedExternalDisplayConnectorsCallback callback) override;
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) override;
@@ -35,6 +35,8 @@ class  DelegateInterceptorForTesting : public Delegate {
   void MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) override;
   void RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) override;
   void GetAllFanSpeed(GetAllFanSpeedCallback callback) override;
+  void SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) override;
+  void SetAllFanAutoControl(SetAllFanAutoControlCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -65,7 +67,7 @@ class  DelegateAsyncWaiter {
   void GetPsr(
       ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, absl::optional<std::string>* out_err);
   
-  void GetConnectedHdmiConnectors(
+  void GetConnectedExternalDisplayConnectors(
       base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err);
   
   void GetPrivacyScreenInfo(
@@ -81,8 +83,14 @@ class  DelegateAsyncWaiter {
       base::TimeDelta exec_duration, bool* out_passed);
   bool RunFloatingPoint(base::TimeDelta exec_duration);
   void GetAllFanSpeed(
-      std::vector<uint32_t>* out_fan_rpms, absl::optional<std::string>* out_err);
+      std::vector<uint16_t>* out_fan_rpms, absl::optional<std::string>* out_err);
   
+  void SetFanSpeed(
+      const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, absl::optional<std::string>* out_err);
+  absl::optional<std::string> SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm);
+  void SetAllFanAutoControl(
+      absl::optional<std::string>* out_err);
+  absl::optional<std::string> SetAllFanAutoControl();
 
  private:
   Delegate* const proxy_;

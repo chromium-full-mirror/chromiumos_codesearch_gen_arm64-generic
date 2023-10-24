@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "libp11", "version": "0.4.12", "revision": 4, "fullname": "dev-libs/libp11", "fullnamerev": "dev-libs/libp11-0.4.12-r4", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://github.com/opensc/libp11/wiki"], "skip": false, "tainted": false, "ebuild_path": null}

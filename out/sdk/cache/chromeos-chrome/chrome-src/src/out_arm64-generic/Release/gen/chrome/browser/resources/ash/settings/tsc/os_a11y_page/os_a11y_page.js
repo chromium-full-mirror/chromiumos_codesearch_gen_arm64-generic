@@ -1,0 +1,155 @@
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'os-settings-a11y-page' is the small section of advanced settings containing
+ * a subpage with Accessibility settings for ChromeOS.
+ */
+import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
+import '/shared/settings/controls/settings_toggle_button.js';
+import '../os_settings_page/os_settings_animated_pages.js';
+import '../os_settings_page/os_settings_subpage.js';
+import '../os_settings_page/settings_card.js';
+import '../settings_shared.css.js';
+import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { Section } from '../mojom-webui/routes.mojom-webui.js';
+import { Setting } from '../mojom-webui/setting.mojom-webui.js';
+import { RouteOriginMixin } from '../route_origin_mixin.js';
+import { Router, routes } from '../router.js';
+import { getTemplate } from './os_a11y_page.html.js';
+import { OsA11yPageBrowserProxyImpl } from './os_a11y_page_browser_proxy.js';
+const OsSettingsA11yPageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(PolymerElement))));
+export class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
+    static get is() {
+        return 'os-settings-a11y-page';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            /**
+             * The current active route.
+             */
+            currentRoute: {
+                type: Object,
+                notify: true,
+            },
+            section_: {
+                type: Number,
+                value: Section.kAccessibility,
+                readOnly: true,
+            },
+            /**
+             * Whether a screen reader is enabled.
+             */
+            hasScreenReader_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Whether to show accessibility labels settings.
+             */
+            showAccessibilityLabelsSetting_: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Whether the user is in kiosk mode.
+             */
+            isKioskModeActive_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isKioskModeActive');
+                },
+            },
+            /**
+             * Whether the user is in guest mode.
+             */
+            isGuest_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isGuest');
+                },
+            },
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([
+                    Setting.kA11yQuickSettings,
+                    Setting.kGetImageDescriptionsFromGoogle,
+                    Setting.kLiveCaption,
+                ]),
+            },
+        };
+    }
+    constructor() {
+        super();
+        /** RouteOriginMixin override */
+        this.route = routes.OS_ACCESSIBILITY;
+        this.browserProxy_ = OsA11yPageBrowserProxyImpl.getInstance();
+    }
+    ready() {
+        super.ready();
+        if (routes.A11Y_TEXT_TO_SPEECH) {
+            this.addFocusConfig(routes.A11Y_TEXT_TO_SPEECH, '#textToSpeechSubpageTrigger');
+        }
+        if (routes.A11Y_DISPLAY_AND_MAGNIFICATION) {
+            this.addFocusConfig(routes.A11Y_DISPLAY_AND_MAGNIFICATION, '#displayAndMagnificationPageTrigger');
+        }
+        if (routes.A11Y_KEYBOARD_AND_TEXT_INPUT) {
+            this.addFocusConfig(routes.A11Y_KEYBOARD_AND_TEXT_INPUT, '#keyboardAndTextInputPageTrigger');
+        }
+        if (routes.A11Y_CURSOR_AND_TOUCHPAD) {
+            this.addFocusConfig(routes.A11Y_CURSOR_AND_TOUCHPAD, '#cursorAndTouchpadPageTrigger');
+        }
+        if (routes.A11Y_AUDIO_AND_CAPTIONS) {
+            this.addFocusConfig(routes.A11Y_AUDIO_AND_CAPTIONS, '#audioAndCaptionsPageTrigger');
+        }
+        this.addWebUiListener('screen-reader-state-changed', (hasScreenReader) => this.onScreenReaderStateChanged_(hasScreenReader));
+        // Enables javascript and gets the screen reader state.
+        this.browserProxy_.a11yPageReady();
+    }
+    currentRouteChanged(newRoute, prevRoute) {
+        super.currentRouteChanged(newRoute, prevRoute);
+        if (newRoute === this.route) {
+            this.attemptDeepLink();
+        }
+    }
+    onScreenReaderStateChanged_(hasScreenReader) {
+        this.hasScreenReader_ = hasScreenReader;
+        this.showAccessibilityLabelsSetting_ = this.hasScreenReader_;
+    }
+    onToggleAccessibilityImageLabels_() {
+        const a11yImageLabelsOn = this.$.a11yImageLabelsToggle.checked;
+        if (a11yImageLabelsOn) {
+            this.browserProxy_.confirmA11yImageLabels();
+        }
+    }
+    onTextToSpeechClick_() {
+        Router.getInstance().navigateTo(routes.A11Y_TEXT_TO_SPEECH);
+    }
+    onDisplayAndMagnificationClick_() {
+        Router.getInstance().navigateTo(routes.A11Y_DISPLAY_AND_MAGNIFICATION);
+    }
+    onKeyboardAndTextInputClick_() {
+        Router.getInstance().navigateTo(routes.A11Y_KEYBOARD_AND_TEXT_INPUT);
+    }
+    onCursorAndTouchpadClick_() {
+        Router.getInstance().navigateTo(routes.A11Y_CURSOR_AND_TOUCHPAD);
+    }
+    onAudioAndCaptionsClick_() {
+        Router.getInstance().navigateTo(routes.A11Y_AUDIO_AND_CAPTIONS);
+    }
+    onAdditionalFeaturesClick_() {
+        window.open('https://chrome.google.com/webstore/category/collection/3p_accessibility_extensions');
+    }
+}
+customElements.define(OsSettingsA11yPageElement.is, OsSettingsA11yPageElement);

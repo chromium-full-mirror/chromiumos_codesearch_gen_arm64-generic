@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-fs", "name": "mtd-utils", "version": "2.1.5", "revision": 0, "fullname": "sys-fs/mtd-utils", "fullnamerev": "sys-fs/mtd-utils-2.1.5", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://git.infradead.org/?p=mtd-utils.git;a=summary"], "skip": false, "tainted": false, "ebuild_path": null}

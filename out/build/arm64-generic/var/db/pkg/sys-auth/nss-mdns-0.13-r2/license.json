@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-auth", "name": "nss-mdns", "version": "0.13", "revision": 2, "fullname": "sys-auth/nss-mdns", "fullnamerev": "sys-auth/nss-mdns-0.13-r2", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://github.com/lathiat/nss-mdns"], "skip": false, "tainted": false, "ebuild_path": null}

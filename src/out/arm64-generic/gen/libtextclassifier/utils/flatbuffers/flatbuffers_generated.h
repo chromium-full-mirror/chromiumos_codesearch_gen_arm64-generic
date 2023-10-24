@@ -6,6 +6,13 @@
 
 #include "flatbuffers/flatbuffers.h"
 
+// Ensure the included flatbuffers.h is the same version as when this file was
+// generated, otherwise it may not be compatible.
+static_assert(FLATBUFFERS_VERSION_MAJOR == 23 &&
+              FLATBUFFERS_VERSION_MINOR == 5 &&
+              FLATBUFFERS_VERSION_REVISION == 26,
+             "Non-compatible flatbuffers version included");
+
 namespace libtextclassifier3 {
 
 struct FlatbufferField;
@@ -16,61 +23,61 @@ struct FlatbufferFieldPath;
 struct FlatbufferFieldPathBuilder;
 struct FlatbufferFieldPathT;
 
-struct FlatbufferFieldT : public flatbuffers::NativeTable {
+struct FlatbufferFieldT : public ::flatbuffers::NativeTable {
   typedef FlatbufferField TableType;
   std::string field_name{};
   int32_t field_offset = 0;
 };
 
-struct FlatbufferField FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct FlatbufferField FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef FlatbufferFieldT NativeTableType;
   typedef FlatbufferFieldBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FIELD_NAME = 4,
     VT_FIELD_OFFSET = 6
   };
-  const flatbuffers::String *field_name() const {
-    return GetPointer<const flatbuffers::String *>(VT_FIELD_NAME);
+  const ::flatbuffers::String *field_name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_FIELD_NAME);
   }
   int32_t field_offset() const {
     return GetField<int32_t>(VT_FIELD_OFFSET, 0);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_FIELD_NAME) &&
            verifier.VerifyString(field_name()) &&
-           VerifyField<int32_t>(verifier, VT_FIELD_OFFSET) &&
+           VerifyField<int32_t>(verifier, VT_FIELD_OFFSET, 4) &&
            verifier.EndTable();
   }
-  FlatbufferFieldT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(FlatbufferFieldT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<FlatbufferField> Pack(flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  FlatbufferFieldT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(FlatbufferFieldT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<FlatbufferField> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct FlatbufferFieldBuilder {
   typedef FlatbufferField Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_field_name(flatbuffers::Offset<flatbuffers::String> field_name) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_field_name(::flatbuffers::Offset<::flatbuffers::String> field_name) {
     fbb_.AddOffset(FlatbufferField::VT_FIELD_NAME, field_name);
   }
   void add_field_offset(int32_t field_offset) {
     fbb_.AddElement<int32_t>(FlatbufferField::VT_FIELD_OFFSET, field_offset, 0);
   }
-  explicit FlatbufferFieldBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit FlatbufferFieldBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<FlatbufferField> Finish() {
+  ::flatbuffers::Offset<FlatbufferField> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<FlatbufferField>(end);
+    auto o = ::flatbuffers::Offset<FlatbufferField>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<FlatbufferField> CreateFlatbufferField(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::String> field_name = 0,
+inline ::flatbuffers::Offset<FlatbufferField> CreateFlatbufferField(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> field_name = 0,
     int32_t field_offset = 0) {
   FlatbufferFieldBuilder builder_(_fbb);
   builder_.add_field_offset(field_offset);
@@ -78,8 +85,8 @@ inline flatbuffers::Offset<FlatbufferField> CreateFlatbufferField(
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<FlatbufferField> CreateFlatbufferFieldDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
+inline ::flatbuffers::Offset<FlatbufferField> CreateFlatbufferFieldDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *field_name = nullptr,
     int32_t field_offset = 0) {
   auto field_name__ = field_name ? _fbb.CreateString(field_name) : 0;
@@ -89,92 +96,96 @@ inline flatbuffers::Offset<FlatbufferField> CreateFlatbufferFieldDirect(
       field_offset);
 }
 
-flatbuffers::Offset<FlatbufferField> CreateFlatbufferField(flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<FlatbufferField> CreateFlatbufferField(::flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-struct FlatbufferFieldPathT : public flatbuffers::NativeTable {
+struct FlatbufferFieldPathT : public ::flatbuffers::NativeTable {
   typedef FlatbufferFieldPath TableType;
   std::vector<std::unique_ptr<libtextclassifier3::FlatbufferFieldT>> field{};
+  FlatbufferFieldPathT() = default;
+  FlatbufferFieldPathT(const FlatbufferFieldPathT &o);
+  FlatbufferFieldPathT(FlatbufferFieldPathT&&) FLATBUFFERS_NOEXCEPT = default;
+  FlatbufferFieldPathT &operator=(FlatbufferFieldPathT o) FLATBUFFERS_NOEXCEPT;
 };
 
-struct FlatbufferFieldPath FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct FlatbufferFieldPath FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef FlatbufferFieldPathT NativeTableType;
   typedef FlatbufferFieldPathBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FIELD = 4
   };
-  const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::FlatbufferField>> *field() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::FlatbufferField>> *>(VT_FIELD);
+  const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::FlatbufferField>> *field() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::FlatbufferField>> *>(VT_FIELD);
   }
-  bool Verify(flatbuffers::Verifier &verifier) const {
+  bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_FIELD) &&
            verifier.VerifyVector(field()) &&
            verifier.VerifyVectorOfTables(field()) &&
            verifier.EndTable();
   }
-  FlatbufferFieldPathT *UnPack(const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  void UnPackTo(FlatbufferFieldPathT *_o, const flatbuffers::resolver_function_t *_resolver = nullptr) const;
-  static flatbuffers::Offset<FlatbufferFieldPath> Pack(flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldPathT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+  FlatbufferFieldPathT *UnPack(const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  void UnPackTo(FlatbufferFieldPathT *_o, const ::flatbuffers::resolver_function_t *_resolver = nullptr) const;
+  static ::flatbuffers::Offset<FlatbufferFieldPath> Pack(::flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldPathT* _o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
 struct FlatbufferFieldPathBuilder {
   typedef FlatbufferFieldPath Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_field(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::FlatbufferField>>> field) {
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_field(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::FlatbufferField>>> field) {
     fbb_.AddOffset(FlatbufferFieldPath::VT_FIELD, field);
   }
-  explicit FlatbufferFieldPathBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit FlatbufferFieldPathBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  flatbuffers::Offset<FlatbufferFieldPath> Finish() {
+  ::flatbuffers::Offset<FlatbufferFieldPath> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<FlatbufferFieldPath>(end);
+    auto o = ::flatbuffers::Offset<FlatbufferFieldPath>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<FlatbufferFieldPath> CreateFlatbufferFieldPath(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<libtextclassifier3::FlatbufferField>>> field = 0) {
+inline ::flatbuffers::Offset<FlatbufferFieldPath> CreateFlatbufferFieldPath(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<libtextclassifier3::FlatbufferField>>> field = 0) {
   FlatbufferFieldPathBuilder builder_(_fbb);
   builder_.add_field(field);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<FlatbufferFieldPath> CreateFlatbufferFieldPathDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<libtextclassifier3::FlatbufferField>> *field = nullptr) {
-  auto field__ = field ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::FlatbufferField>>(*field) : 0;
+inline ::flatbuffers::Offset<FlatbufferFieldPath> CreateFlatbufferFieldPathDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<::flatbuffers::Offset<libtextclassifier3::FlatbufferField>> *field = nullptr) {
+  auto field__ = field ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::FlatbufferField>>(*field) : 0;
   return libtextclassifier3::CreateFlatbufferFieldPath(
       _fbb,
       field__);
 }
 
-flatbuffers::Offset<FlatbufferFieldPath> CreateFlatbufferFieldPath(flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldPathT *_o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
+::flatbuffers::Offset<FlatbufferFieldPath> CreateFlatbufferFieldPath(::flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldPathT *_o, const ::flatbuffers::rehasher_function_t *_rehasher = nullptr);
 
-inline FlatbufferFieldT *FlatbufferField::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline FlatbufferFieldT *FlatbufferField::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<FlatbufferFieldT>(new FlatbufferFieldT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void FlatbufferField::UnPackTo(FlatbufferFieldT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void FlatbufferField::UnPackTo(FlatbufferFieldT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
   { auto _e = field_name(); if (_e) _o->field_name = _e->str(); }
   { auto _e = field_offset(); _o->field_offset = _e; }
 }
 
-inline flatbuffers::Offset<FlatbufferField> FlatbufferField::Pack(flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<FlatbufferField> FlatbufferField::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateFlatbufferField(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<FlatbufferField> CreateFlatbufferField(flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<FlatbufferField> CreateFlatbufferField(::flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const FlatbufferFieldT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const FlatbufferFieldT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _field_name = _o->field_name.empty() ? 0 : _fbb.CreateString(_o->field_name);
   auto _field_offset = _o->field_offset;
   return libtextclassifier3::CreateFlatbufferField(
@@ -183,27 +194,37 @@ inline flatbuffers::Offset<FlatbufferField> CreateFlatbufferField(flatbuffers::F
       _field_offset);
 }
 
-inline FlatbufferFieldPathT *FlatbufferFieldPath::UnPack(const flatbuffers::resolver_function_t *_resolver) const {
+inline FlatbufferFieldPathT::FlatbufferFieldPathT(const FlatbufferFieldPathT &o) {
+  field.reserve(o.field.size());
+  for (const auto &field_ : o.field) { field.emplace_back((field_) ? new libtextclassifier3::FlatbufferFieldT(*field_) : nullptr); }
+}
+
+inline FlatbufferFieldPathT &FlatbufferFieldPathT::operator=(FlatbufferFieldPathT o) FLATBUFFERS_NOEXCEPT {
+  std::swap(field, o.field);
+  return *this;
+}
+
+inline FlatbufferFieldPathT *FlatbufferFieldPath::UnPack(const ::flatbuffers::resolver_function_t *_resolver) const {
   auto _o = std::unique_ptr<FlatbufferFieldPathT>(new FlatbufferFieldPathT());
   UnPackTo(_o.get(), _resolver);
   return _o.release();
 }
 
-inline void FlatbufferFieldPath::UnPackTo(FlatbufferFieldPathT *_o, const flatbuffers::resolver_function_t *_resolver) const {
+inline void FlatbufferFieldPath::UnPackTo(FlatbufferFieldPathT *_o, const ::flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = field(); if (_e) { _o->field.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->field[_i] = std::unique_ptr<libtextclassifier3::FlatbufferFieldT>(_e->Get(_i)->UnPack(_resolver)); } } }
+  { auto _e = field(); if (_e) { _o->field.resize(_e->size()); for (::flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->field[_i]) { _e->Get(_i)->UnPackTo(_o->field[_i].get(), _resolver); } else { _o->field[_i] = std::unique_ptr<libtextclassifier3::FlatbufferFieldT>(_e->Get(_i)->UnPack(_resolver)); }; } } else { _o->field.resize(0); } }
 }
 
-inline flatbuffers::Offset<FlatbufferFieldPath> FlatbufferFieldPath::Pack(flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldPathT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<FlatbufferFieldPath> FlatbufferFieldPath::Pack(::flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldPathT* _o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   return CreateFlatbufferFieldPath(_fbb, _o, _rehasher);
 }
 
-inline flatbuffers::Offset<FlatbufferFieldPath> CreateFlatbufferFieldPath(flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldPathT *_o, const flatbuffers::rehasher_function_t *_rehasher) {
+inline ::flatbuffers::Offset<FlatbufferFieldPath> CreateFlatbufferFieldPath(::flatbuffers::FlatBufferBuilder &_fbb, const FlatbufferFieldPathT *_o, const ::flatbuffers::rehasher_function_t *_rehasher) {
   (void)_rehasher;
   (void)_o;
-  struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const FlatbufferFieldPathT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _field = _o->field.size() ? _fbb.CreateVector<flatbuffers::Offset<libtextclassifier3::FlatbufferField>> (_o->field.size(), [](size_t i, _VectorArgs *__va) { return CreateFlatbufferField(*__va->__fbb, __va->__o->field[i].get(), __va->__rehasher); }, &_va ) : 0;
+  struct _VectorArgs { ::flatbuffers::FlatBufferBuilder *__fbb; const FlatbufferFieldPathT* __o; const ::flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
+  auto _field = _o->field.size() ? _fbb.CreateVector<::flatbuffers::Offset<libtextclassifier3::FlatbufferField>> (_o->field.size(), [](size_t i, _VectorArgs *__va) { return CreateFlatbufferField(*__va->__fbb, __va->__o->field[i].get(), __va->__rehasher); }, &_va ) : 0;
   return libtextclassifier3::CreateFlatbufferFieldPath(
       _fbb,
       _field);

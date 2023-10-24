@@ -1,0 +1,17 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><style include="print-preview-shared">:host([has-pin-setting_]){margin-bottom:0!important}</style>
+
+
+  <print-preview-destination-select-cros id="destinationSelect" active-user="[[activeUser_]]" dark="[[dark]]" destination="[[destination]]" disabled="[[shouldDisableDropdown_(
+                      destinationState, state, disabled)]]" drive-destination-key="[[driveDestinationKey_]]" loaded="[[loaded_]]" no-destinations="[[noDestinations_]]" pdf-printer-disabled="[[pdfPrinterDisabled_]]" recent-destination-list="[[displayedDestinations_]]" on-selected-option-change="onSelectedDestinationOptionChange_">
+  </print-preview-destination-select-cros>
+  <cr-lazy-render id="destinationDialog">
+    <template>
+      <print-preview-destination-dialog-cros destination-store="[[destinationStore_]]" recent-destination-list="[[recentDestinationList_]]" on-close="onDialogClose_">
+      </print-preview-destination-dialog-cros>
+    </template>
+  </cr-lazy-render>
+
+<!--_html_template_end_-->`;
+}

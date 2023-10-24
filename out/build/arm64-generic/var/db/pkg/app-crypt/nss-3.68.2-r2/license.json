@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-crypt", "name": "nss", "version": "3.68.2", "revision": 2, "fullname": "app-crypt/nss", "fullnamerev": "app-crypt/nss-3.68.2-r2", "license_names": ["MPL-2.0"], "license_text_scanned": [], "homepages": ["https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"], "skip": false, "tainted": false, "ebuild_path": null}

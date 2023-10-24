@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "app-editors", "name": "nano", "version": "6.4", "revision": 0, "fullname": "app-editors/nano", "fullnamerev": "app-editors/nano-6.4", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.nano-editor.org/", "https://wiki.gentoo.org/wiki/Nano/Basics_Guide"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -305,30 +305,6 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
               (override));
 
   MOCK_METHOD(bool,
-              HandleSupervisedUserCreationStarting,
-              (brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              HandleSupervisedUserCreationStartingAsync,
-              (base::OnceCallback<void()> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              HandleSupervisedUserCreationFinished,
-              (brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              HandleSupervisedUserCreationFinishedAsync,
-              (base::OnceCallback<void()> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
               LockScreen,
               (brillo::ErrorPtr* /*error*/,
                int /*timeout_ms*/),

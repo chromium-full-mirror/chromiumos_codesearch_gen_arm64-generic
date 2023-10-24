@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "crossdev", "version": "20211027", "revision": 4, "fullname": "sys-devel/crossdev", "fullnamerev": "sys-devel/crossdev-20211027-r4", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://wiki.gentoo.org/wiki/Project:Crossdev"], "skip": false, "tainted": false, "ebuild_path": null}

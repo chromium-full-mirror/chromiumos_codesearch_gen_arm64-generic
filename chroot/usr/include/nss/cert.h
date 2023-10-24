@@ -542,6 +542,10 @@ extern CERTCertificate *CERT_FindCertByNickname(CERTCertDBHandle *handle,
 extern CERTCertificate *CERT_FindCertByDERCert(CERTCertDBHandle *handle,
                                                SECItem *derCert);
 
+extern CERTCertificate *CERT_FindCertByDERCertForChromium(CERTCertDBHandle *handle,
+                                                          SECItem *derCert,
+                                                          PRBool ignoreChaps);
+
 /*
 ** Find a certificate in the database by a email address
 **	"emailAddr" is the email address to look up
@@ -1241,6 +1245,12 @@ CERTCertList *CERT_CreateSubjectCertList(CERTCertList *certList,
                                          CERTCertDBHandle *handle,
                                          const SECItem *name, PRTime sorttime,
                                          PRBool validOnly);
+
+CERTCertList *CERT_CreateSubjectCertListForChromium(CERTCertList *certList,
+                                                    CERTCertDBHandle *handle,
+                                                    const SECItem *name, PRTime sorttime,
+                                                    PRBool validOnly,
+                                                    PRBool ignoreChaps);
 
 /*
  * remove certs from a list that don't have keyUsage and certType

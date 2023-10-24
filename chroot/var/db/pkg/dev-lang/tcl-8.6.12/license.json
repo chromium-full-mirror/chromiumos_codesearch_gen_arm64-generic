@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-lang", "name": "tcl", "version": "8.6.12", "revision": 0, "fullname": "dev-lang/tcl", "fullnamerev": "dev-lang/tcl-8.6.12", "license_names": ["tcltk"], "license_text_scanned": [], "homepages": ["http://www.tcl.tk/"], "skip": false, "tainted": false, "ebuild_path": null}

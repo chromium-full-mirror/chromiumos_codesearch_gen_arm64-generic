@@ -1,0 +1,1918 @@
+{
+    "ref_tokens": [
+        {
+            "token_name": "cros.ref.primary0",
+            "css_variable": "--cros-ref-primary0"
+        },
+        {
+            "token_name": "cros.ref.primary10",
+            "css_variable": "--cros-ref-primary10"
+        },
+        {
+            "token_name": "cros.ref.primary20",
+            "css_variable": "--cros-ref-primary20"
+        },
+        {
+            "token_name": "cros.ref.primary30",
+            "css_variable": "--cros-ref-primary30"
+        },
+        {
+            "token_name": "cros.ref.primary40",
+            "css_variable": "--cros-ref-primary40"
+        },
+        {
+            "token_name": "cros.ref.primary50",
+            "css_variable": "--cros-ref-primary50"
+        },
+        {
+            "token_name": "cros.ref.primary60",
+            "css_variable": "--cros-ref-primary60"
+        },
+        {
+            "token_name": "cros.ref.primary70",
+            "css_variable": "--cros-ref-primary70"
+        },
+        {
+            "token_name": "cros.ref.primary80",
+            "css_variable": "--cros-ref-primary80"
+        },
+        {
+            "token_name": "cros.ref.primary90",
+            "css_variable": "--cros-ref-primary90"
+        },
+        {
+            "token_name": "cros.ref.primary95",
+            "css_variable": "--cros-ref-primary95"
+        },
+        {
+            "token_name": "cros.ref.primary99",
+            "css_variable": "--cros-ref-primary99"
+        },
+        {
+            "token_name": "cros.ref.primary100",
+            "css_variable": "--cros-ref-primary100"
+        },
+        {
+            "token_name": "cros.ref.secondary0",
+            "css_variable": "--cros-ref-secondary0"
+        },
+        {
+            "token_name": "cros.ref.secondary10",
+            "css_variable": "--cros-ref-secondary10"
+        },
+        {
+            "token_name": "cros.ref.secondary12",
+            "css_variable": "--cros-ref-secondary12"
+        },
+        {
+            "token_name": "cros.ref.secondary15",
+            "css_variable": "--cros-ref-secondary15"
+        },
+        {
+            "token_name": "cros.ref.secondary20",
+            "css_variable": "--cros-ref-secondary20"
+        },
+        {
+            "token_name": "cros.ref.secondary30",
+            "css_variable": "--cros-ref-secondary30"
+        },
+        {
+            "token_name": "cros.ref.secondary40",
+            "css_variable": "--cros-ref-secondary40"
+        },
+        {
+            "token_name": "cros.ref.secondary50",
+            "css_variable": "--cros-ref-secondary50"
+        },
+        {
+            "token_name": "cros.ref.secondary60",
+            "css_variable": "--cros-ref-secondary60"
+        },
+        {
+            "token_name": "cros.ref.secondary70",
+            "css_variable": "--cros-ref-secondary70"
+        },
+        {
+            "token_name": "cros.ref.secondary80",
+            "css_variable": "--cros-ref-secondary80"
+        },
+        {
+            "token_name": "cros.ref.secondary90",
+            "css_variable": "--cros-ref-secondary90"
+        },
+        {
+            "token_name": "cros.ref.secondary95",
+            "css_variable": "--cros-ref-secondary95"
+        },
+        {
+            "token_name": "cros.ref.secondary99",
+            "css_variable": "--cros-ref-secondary99"
+        },
+        {
+            "token_name": "cros.ref.secondary100",
+            "css_variable": "--cros-ref-secondary100"
+        },
+        {
+            "token_name": "cros.ref.tertiary0",
+            "css_variable": "--cros-ref-tertiary0"
+        },
+        {
+            "token_name": "cros.ref.tertiary10",
+            "css_variable": "--cros-ref-tertiary10"
+        },
+        {
+            "token_name": "cros.ref.tertiary20",
+            "css_variable": "--cros-ref-tertiary20"
+        },
+        {
+            "token_name": "cros.ref.tertiary30",
+            "css_variable": "--cros-ref-tertiary30"
+        },
+        {
+            "token_name": "cros.ref.tertiary40",
+            "css_variable": "--cros-ref-tertiary40"
+        },
+        {
+            "token_name": "cros.ref.tertiary50",
+            "css_variable": "--cros-ref-tertiary50"
+        },
+        {
+            "token_name": "cros.ref.tertiary60",
+            "css_variable": "--cros-ref-tertiary60"
+        },
+        {
+            "token_name": "cros.ref.tertiary70",
+            "css_variable": "--cros-ref-tertiary70"
+        },
+        {
+            "token_name": "cros.ref.tertiary80",
+            "css_variable": "--cros-ref-tertiary80"
+        },
+        {
+            "token_name": "cros.ref.tertiary90",
+            "css_variable": "--cros-ref-tertiary90"
+        },
+        {
+            "token_name": "cros.ref.tertiary95",
+            "css_variable": "--cros-ref-tertiary95"
+        },
+        {
+            "token_name": "cros.ref.tertiary99",
+            "css_variable": "--cros-ref-tertiary99"
+        },
+        {
+            "token_name": "cros.ref.tertiary100",
+            "css_variable": "--cros-ref-tertiary100"
+        },
+        {
+            "token_name": "cros.ref.error0",
+            "css_variable": "--cros-ref-error0"
+        },
+        {
+            "token_name": "cros.ref.error10",
+            "css_variable": "--cros-ref-error10"
+        },
+        {
+            "token_name": "cros.ref.error20",
+            "css_variable": "--cros-ref-error20"
+        },
+        {
+            "token_name": "cros.ref.error30",
+            "css_variable": "--cros-ref-error30"
+        },
+        {
+            "token_name": "cros.ref.error40",
+            "css_variable": "--cros-ref-error40"
+        },
+        {
+            "token_name": "cros.ref.error50",
+            "css_variable": "--cros-ref-error50"
+        },
+        {
+            "token_name": "cros.ref.error60",
+            "css_variable": "--cros-ref-error60"
+        },
+        {
+            "token_name": "cros.ref.error70",
+            "css_variable": "--cros-ref-error70"
+        },
+        {
+            "token_name": "cros.ref.error80",
+            "css_variable": "--cros-ref-error80"
+        },
+        {
+            "token_name": "cros.ref.error90",
+            "css_variable": "--cros-ref-error90"
+        },
+        {
+            "token_name": "cros.ref.error95",
+            "css_variable": "--cros-ref-error95"
+        },
+        {
+            "token_name": "cros.ref.error99",
+            "css_variable": "--cros-ref-error99"
+        },
+        {
+            "token_name": "cros.ref.error100",
+            "css_variable": "--cros-ref-error100"
+        },
+        {
+            "token_name": "cros.ref.neutral0",
+            "css_variable": "--cros-ref-neutral0"
+        },
+        {
+            "token_name": "cros.ref.neutral8",
+            "css_variable": "--cros-ref-neutral8"
+        },
+        {
+            "token_name": "cros.ref.neutral10",
+            "css_variable": "--cros-ref-neutral10"
+        },
+        {
+            "token_name": "cros.ref.neutral20",
+            "css_variable": "--cros-ref-neutral20"
+        },
+        {
+            "token_name": "cros.ref.neutral25",
+            "css_variable": "--cros-ref-neutral25"
+        },
+        {
+            "token_name": "cros.ref.neutral30",
+            "css_variable": "--cros-ref-neutral30"
+        },
+        {
+            "token_name": "cros.ref.neutral40",
+            "css_variable": "--cros-ref-neutral40"
+        },
+        {
+            "token_name": "cros.ref.neutral50",
+            "css_variable": "--cros-ref-neutral50"
+        },
+        {
+            "token_name": "cros.ref.neutral60",
+            "css_variable": "--cros-ref-neutral60"
+        },
+        {
+            "token_name": "cros.ref.neutral70",
+            "css_variable": "--cros-ref-neutral70"
+        },
+        {
+            "token_name": "cros.ref.neutral80",
+            "css_variable": "--cros-ref-neutral80"
+        },
+        {
+            "token_name": "cros.ref.neutral90",
+            "css_variable": "--cros-ref-neutral90"
+        },
+        {
+            "token_name": "cros.ref.neutral95",
+            "css_variable": "--cros-ref-neutral95"
+        },
+        {
+            "token_name": "cros.ref.neutral99",
+            "css_variable": "--cros-ref-neutral99"
+        },
+        {
+            "token_name": "cros.ref.neutral100",
+            "css_variable": "--cros-ref-neutral100"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant0",
+            "css_variable": "--cros-ref-neutralvariant0"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant10",
+            "css_variable": "--cros-ref-neutralvariant10"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant20",
+            "css_variable": "--cros-ref-neutralvariant20"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant30",
+            "css_variable": "--cros-ref-neutralvariant30"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant40",
+            "css_variable": "--cros-ref-neutralvariant40"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant50",
+            "css_variable": "--cros-ref-neutralvariant50"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant60",
+            "css_variable": "--cros-ref-neutralvariant60"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant70",
+            "css_variable": "--cros-ref-neutralvariant70"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant80",
+            "css_variable": "--cros-ref-neutralvariant80"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant90",
+            "css_variable": "--cros-ref-neutralvariant90"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant95",
+            "css_variable": "--cros-ref-neutralvariant95"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant99",
+            "css_variable": "--cros-ref-neutralvariant99"
+        },
+        {
+            "token_name": "cros.ref.neutralvariant100",
+            "css_variable": "--cros-ref-neutralvariant100"
+        },
+        {
+            "token_name": "cros.ref.red0",
+            "css_variable": "--cros-ref-red0"
+        },
+        {
+            "token_name": "cros.ref.red10",
+            "css_variable": "--cros-ref-red10"
+        },
+        {
+            "token_name": "cros.ref.red20",
+            "css_variable": "--cros-ref-red20"
+        },
+        {
+            "token_name": "cros.ref.red30",
+            "css_variable": "--cros-ref-red30"
+        },
+        {
+            "token_name": "cros.ref.red40",
+            "css_variable": "--cros-ref-red40"
+        },
+        {
+            "token_name": "cros.ref.red50",
+            "css_variable": "--cros-ref-red50"
+        },
+        {
+            "token_name": "cros.ref.red60",
+            "css_variable": "--cros-ref-red60"
+        },
+        {
+            "token_name": "cros.ref.red70",
+            "css_variable": "--cros-ref-red70"
+        },
+        {
+            "token_name": "cros.ref.red80",
+            "css_variable": "--cros-ref-red80"
+        },
+        {
+            "token_name": "cros.ref.red90",
+            "css_variable": "--cros-ref-red90"
+        },
+        {
+            "token_name": "cros.ref.red95",
+            "css_variable": "--cros-ref-red95"
+        },
+        {
+            "token_name": "cros.ref.red99",
+            "css_variable": "--cros-ref-red99"
+        },
+        {
+            "token_name": "cros.ref.red100",
+            "css_variable": "--cros-ref-red100"
+        },
+        {
+            "token_name": "cros.ref.blue0",
+            "css_variable": "--cros-ref-blue0"
+        },
+        {
+            "token_name": "cros.ref.blue10",
+            "css_variable": "--cros-ref-blue10"
+        },
+        {
+            "token_name": "cros.ref.blue20",
+            "css_variable": "--cros-ref-blue20"
+        },
+        {
+            "token_name": "cros.ref.blue30",
+            "css_variable": "--cros-ref-blue30"
+        },
+        {
+            "token_name": "cros.ref.blue40",
+            "css_variable": "--cros-ref-blue40"
+        },
+        {
+            "token_name": "cros.ref.blue50",
+            "css_variable": "--cros-ref-blue50"
+        },
+        {
+            "token_name": "cros.ref.blue60",
+            "css_variable": "--cros-ref-blue60"
+        },
+        {
+            "token_name": "cros.ref.blue70",
+            "css_variable": "--cros-ref-blue70"
+        },
+        {
+            "token_name": "cros.ref.blue80",
+            "css_variable": "--cros-ref-blue80"
+        },
+        {
+            "token_name": "cros.ref.blue90",
+            "css_variable": "--cros-ref-blue90"
+        },
+        {
+            "token_name": "cros.ref.blue95",
+            "css_variable": "--cros-ref-blue95"
+        },
+        {
+            "token_name": "cros.ref.blue99",
+            "css_variable": "--cros-ref-blue99"
+        },
+        {
+            "token_name": "cros.ref.blue100",
+            "css_variable": "--cros-ref-blue100"
+        },
+        {
+            "token_name": "cros.ref.yellow0",
+            "css_variable": "--cros-ref-yellow0"
+        },
+        {
+            "token_name": "cros.ref.yellow10",
+            "css_variable": "--cros-ref-yellow10"
+        },
+        {
+            "token_name": "cros.ref.yellow20",
+            "css_variable": "--cros-ref-yellow20"
+        },
+        {
+            "token_name": "cros.ref.yellow30",
+            "css_variable": "--cros-ref-yellow30"
+        },
+        {
+            "token_name": "cros.ref.yellow40",
+            "css_variable": "--cros-ref-yellow40"
+        },
+        {
+            "token_name": "cros.ref.yellow50",
+            "css_variable": "--cros-ref-yellow50"
+        },
+        {
+            "token_name": "cros.ref.yellow60",
+            "css_variable": "--cros-ref-yellow60"
+        },
+        {
+            "token_name": "cros.ref.yellow70",
+            "css_variable": "--cros-ref-yellow70"
+        },
+        {
+            "token_name": "cros.ref.yellow80",
+            "css_variable": "--cros-ref-yellow80"
+        },
+        {
+            "token_name": "cros.ref.yellow90",
+            "css_variable": "--cros-ref-yellow90"
+        },
+        {
+            "token_name": "cros.ref.yellow95",
+            "css_variable": "--cros-ref-yellow95"
+        },
+        {
+            "token_name": "cros.ref.yellow99",
+            "css_variable": "--cros-ref-yellow99"
+        },
+        {
+            "token_name": "cros.ref.yellow100",
+            "css_variable": "--cros-ref-yellow100"
+        },
+        {
+            "token_name": "cros.ref.green0",
+            "css_variable": "--cros-ref-green0"
+        },
+        {
+            "token_name": "cros.ref.green10",
+            "css_variable": "--cros-ref-green10"
+        },
+        {
+            "token_name": "cros.ref.green20",
+            "css_variable": "--cros-ref-green20"
+        },
+        {
+            "token_name": "cros.ref.green30",
+            "css_variable": "--cros-ref-green30"
+        },
+        {
+            "token_name": "cros.ref.green40",
+            "css_variable": "--cros-ref-green40"
+        },
+        {
+            "token_name": "cros.ref.green50",
+            "css_variable": "--cros-ref-green50"
+        },
+        {
+            "token_name": "cros.ref.green60",
+            "css_variable": "--cros-ref-green60"
+        },
+        {
+            "token_name": "cros.ref.green70",
+            "css_variable": "--cros-ref-green70"
+        },
+        {
+            "token_name": "cros.ref.green80",
+            "css_variable": "--cros-ref-green80"
+        },
+        {
+            "token_name": "cros.ref.green90",
+            "css_variable": "--cros-ref-green90"
+        },
+        {
+            "token_name": "cros.ref.green95",
+            "css_variable": "--cros-ref-green95"
+        },
+        {
+            "token_name": "cros.ref.green99",
+            "css_variable": "--cros-ref-green99"
+        },
+        {
+            "token_name": "cros.ref.green100",
+            "css_variable": "--cros-ref-green100"
+        }
+    ],
+    "sys_tokens": [
+        {
+            "token_name": "cros.sys.primary_light",
+            "css_variable": "--cros-sys-primary-light",
+            "mode_values": {
+                "light": "cros.ref.primary40",
+                "dark": "cros.ref.primary40"
+            }
+        },
+        {
+            "token_name": "cros.sys.primary_dark",
+            "css_variable": "--cros-sys-primary-dark",
+            "mode_values": {
+                "light": "cros.ref.primary80",
+                "dark": "cros.ref.primary80"
+            }
+        },
+        {
+            "token_name": "cros.sys.primary",
+            "css_variable": "--cros-sys-primary",
+            "mode_values": {
+                "light": "cros.sys.primary_light",
+                "dark": "cros.sys.primary_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.inverse-primary",
+            "css_variable": "--cros-sys-inverse_primary",
+            "mode_values": {
+                "light": "cros.ref.primary80",
+                "dark": "cros.ref.primary40"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-primary_light",
+            "css_variable": "--cros-sys-on_primary-light",
+            "mode_values": {
+                "light": "cros.ref.primary100",
+                "dark": "cros.ref.primary100"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-primary_dark",
+            "css_variable": "--cros-sys-on_primary-dark",
+            "mode_values": {
+                "light": "cros.ref.primary20",
+                "dark": "cros.ref.primary20"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-primary",
+            "css_variable": "--cros-sys-on_primary",
+            "mode_values": {
+                "light": "cros.sys.on-primary_light",
+                "dark": "cros.sys.on-primary_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.primary-container",
+            "css_variable": "--cros-sys-primary_container",
+            "mode_values": {
+                "light": "cros.ref.primary90",
+                "dark": "blend(cros.ref.primary30.rgb @ 8%, cros.ref.secondary30)"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-primary-container",
+            "css_variable": "--cros-sys-on_primary_container",
+            "mode_values": {
+                "light": "cros.ref.primary10",
+                "dark": "cros.ref.primary90"
+            }
+        },
+        {
+            "token_name": "cros.sys.secondary_light",
+            "css_variable": "--cros-sys-secondary-light",
+            "mode_values": {
+                "light": "cros.ref.secondary40",
+                "dark": "cros.ref.secondary40"
+            }
+        },
+        {
+            "token_name": "cros.sys.secondary_dark",
+            "css_variable": "--cros-sys-secondary-dark",
+            "mode_values": {
+                "light": "cros.ref.secondary80",
+                "dark": "cros.ref.secondary80"
+            }
+        },
+        {
+            "token_name": "cros.sys.secondary",
+            "css_variable": "--cros-sys-secondary",
+            "mode_values": {
+                "light": "cros.sys.secondary_light",
+                "dark": "cros.sys.secondary_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-secondary",
+            "css_variable": "--cros-sys-on_secondary",
+            "mode_values": {
+                "light": "cros.ref.secondary100",
+                "dark": "cros.ref.secondary20"
+            }
+        },
+        {
+            "token_name": "cros.sys.secondary-container",
+            "css_variable": "--cros-sys-secondary_container",
+            "mode_values": {
+                "light": "cros.ref.secondary90",
+                "dark": "cros.ref.secondary30"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-secondary-container",
+            "css_variable": "--cros-sys-on_secondary_container",
+            "mode_values": {
+                "light": "cros.ref.secondary10",
+                "dark": "cros.ref.secondary90"
+            }
+        },
+        {
+            "token_name": "cros.sys.tertiary",
+            "css_variable": "--cros-sys-tertiary",
+            "mode_values": {
+                "light": "cros.ref.tertiary40",
+                "dark": "cros.ref.tertiary80"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-tertiary",
+            "css_variable": "--cros-sys-on_tertiary",
+            "mode_values": {
+                "light": "cros.ref.tertiary100",
+                "dark": "cros.ref.tertiary20"
+            }
+        },
+        {
+            "token_name": "cros.sys.tertiary-container",
+            "css_variable": "--cros-sys-tertiary_container",
+            "mode_values": {
+                "light": "cros.ref.tertiary90",
+                "dark": "cros.ref.tertiary30"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-tertiary-container",
+            "css_variable": "--cros-sys-on_tertiary_container",
+            "mode_values": {
+                "light": "cros.ref.tertiary10",
+                "dark": "cros.ref.tertiary90"
+            }
+        },
+        {
+            "token_name": "cros.sys.error",
+            "css_variable": "--cros-sys-error",
+            "mode_values": {
+                "light": "cros.ref.red50",
+                "dark": "cros.ref.red80"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-error",
+            "css_variable": "--cros-sys-on_error",
+            "mode_values": {
+                "light": "cros.ref.error100",
+                "dark": "cros.ref.error20"
+            }
+        },
+        {
+            "token_name": "cros.sys.error-container",
+            "css_variable": "--cros-sys-error_container",
+            "mode_values": {
+                "light": "cros.ref.red90",
+                "dark": "blend(cros.ref.red80.rgb @ 20%, rgba(0, 0, 0, 1))"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-error-container",
+            "css_variable": "--cros-sys-on_error_container",
+            "mode_values": {
+                "light": "cros.ref.red30",
+                "dark": "cros.ref.red80"
+            }
+        },
+        {
+            "token_name": "cros.sys.error-highlight",
+            "css_variable": "--cros-sys-error_highlight",
+            "mode_values": {
+                "light": "cros.ref.error40.rgb @ 30%",
+                "dark": "cros.ref.error80.rgb @ 30%"
+            }
+        },
+        {
+            "token_name": "cros.sys.surface-variant",
+            "css_variable": "--cros-sys-surface_variant",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant90",
+                "dark": "cros.ref.neutralvariant30"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-surface-variant_light",
+            "css_variable": "--cros-sys-on_surface_variant-light",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant30",
+                "dark": "cros.ref.neutralvariant30"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-surface-variant_dark",
+            "css_variable": "--cros-sys-on_surface_variant-dark",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant80",
+                "dark": "cros.ref.neutralvariant80"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-surface-variant",
+            "css_variable": "--cros-sys-on_surface_variant",
+            "mode_values": {
+                "light": "cros.sys.on-surface-variant_light",
+                "dark": "cros.sys.on-surface-variant_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.outline",
+            "css_variable": "--cros-sys-outline",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant50",
+                "dark": "cros.ref.neutralvariant60"
+            }
+        },
+        {
+            "token_name": "cros.sys.separator",
+            "css_variable": "--cros-sys-separator",
+            "mode_values": {
+                "light": "cros.ref.neutral10.rgb @ 14%",
+                "dark": "cros.ref.neutral90.rgb @ 14%"
+            }
+        },
+        {
+            "token_name": "cros.sys.white",
+            "css_variable": "--cros-sys-white",
+            "mode_values": {
+                "light": "cros.ref.neutral100",
+                "dark": "cros.ref.neutral100"
+            }
+        },
+        {
+            "token_name": "cros.sys.black",
+            "css_variable": "--cros-sys-black",
+            "mode_values": {
+                "light": "cros.ref.neutral0",
+                "dark": "cros.ref.neutral0"
+            }
+        },
+        {
+            "token_name": "cros.sys.header",
+            "css_variable": "--cros-sys-header",
+            "mode_values": {
+                "light": "cros.ref.secondary90",
+                "dark": "cros.ref.secondary12"
+            }
+        },
+        {
+            "token_name": "cros.sys.header-unfocused",
+            "css_variable": "--cros-sys-header_unfocused",
+            "mode_values": {
+                "light": "blend(cros.ref.secondary90.rgb @ 28%, cros.ref.neutralvariant90)",
+                "dark": "blend(cros.ref.secondary12.rgb @ 60%, cros.ref.neutral25)"
+            }
+        },
+        {
+            "token_name": "cros.sys.app-base-shaded",
+            "css_variable": "--cros-sys-app_base_shaded",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant95",
+                "dark": "cros.ref.neutral0"
+            }
+        },
+        {
+            "token_name": "cros.sys.app-base",
+            "css_variable": "--cros-sys-app_base",
+            "mode_values": {
+                "light": "cros.ref.neutral99",
+                "dark": "cros.ref.neutral8"
+            }
+        },
+        {
+            "token_name": "cros.sys.base-elevated_light",
+            "css_variable": "--cros-sys-base_elevated-light",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant100",
+                "dark": "cros.ref.neutralvariant100"
+            }
+        },
+        {
+            "token_name": "cros.sys.base-elevated_dark",
+            "css_variable": "--cros-sys-base_elevated-dark",
+            "mode_values": {
+                "light": "blend(cros.ref.primary80, 11, blend(cros.ref.neutral80, 2, cros.ref.neutral10))",
+                "dark": "blend(cros.ref.primary80, 11, blend(cros.ref.neutral80, 2, cros.ref.neutral10))"
+            }
+        },
+        {
+            "token_name": "cros.sys.base-elevated",
+            "css_variable": "--cros-sys-base_elevated",
+            "mode_values": {
+                "light": "cros.sys.base-elevated_light",
+                "dark": "cros.sys.base-elevated_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-base",
+            "css_variable": "--cros-sys-system_base",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant90",
+                "dark": "cros.ref.neutralvariant0"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-base-elevated",
+            "css_variable": "--cros-sys-system_base_elevated",
+            "mode_values": {
+                "light": "cros.sys.surface3.rgb @ 90%",
+                "dark": "cros.sys.surface3.rgb @ 90%"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-base-elevated-opaque",
+            "css_variable": "--cros-sys-system_base_elevated_opaque",
+            "mode_values": {
+                "light": "cros.sys.surface3",
+                "dark": "cros.sys.surface3"
+            }
+        },
+        {
+            "token_name": "cros.sys.surface",
+            "css_variable": "--cros-sys-surface",
+            "mode_values": {
+                "light": "cros.ref.neutral99",
+                "dark": "cros.ref.neutral10"
+            }
+        },
+        {
+            "token_name": "cros.sys.surface1",
+            "css_variable": "--cros-sys-surface1",
+            "mode_values": {
+                "light": "blend(cros.ref.primary40.rgb @ 5%, cros.ref.neutral99)",
+                "dark": "blend(cros.ref.primary80.rgb @ 5%, cros.ref.neutral10)"
+            }
+        },
+        {
+            "token_name": "cros.sys.surface2",
+            "css_variable": "--cros-sys-surface2",
+            "mode_values": {
+                "light": "blend(cros.ref.primary40.rgb @ 8%, cros.ref.neutral99)",
+                "dark": "blend(cros.ref.primary80.rgb @ 8%, cros.ref.neutral10)"
+            }
+        },
+        {
+            "token_name": "cros.sys.surface3",
+            "css_variable": "--cros-sys-surface3",
+            "mode_values": {
+                "light": "blend(cros.ref.primary40.rgb @ 11%, cros.ref.neutral99)",
+                "dark": "blend(cros.ref.primary80.rgb @ 11%, cros.ref.neutral10)"
+            }
+        },
+        {
+            "token_name": "cros.sys.surface4",
+            "css_variable": "--cros-sys-surface4",
+            "mode_values": {
+                "light": "blend(cros.ref.primary40.rgb @ 12%, cros.ref.neutral99)",
+                "dark": "blend(cros.ref.primary80.rgb @ 12%, cros.ref.neutral10)"
+            }
+        },
+        {
+            "token_name": "cros.sys.surface5",
+            "css_variable": "--cros-sys-surface5",
+            "mode_values": {
+                "light": "blend(cros.ref.primary40.rgb @ 14%, cros.ref.neutral99)",
+                "dark": "blend(cros.ref.primary80.rgb @ 14%, cros.ref.neutral10)"
+            }
+        },
+        {
+            "token_name": "cros.sys.scrim",
+            "css_variable": "--cros-sys-scrim",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant60.rgb @ 60%",
+                "dark": "cros.ref.neutralvariant0.rgb @ 60%"
+            }
+        },
+        {
+            "token_name": "cros.sys.scrim2",
+            "css_variable": "--cros-sys-scrim2",
+            "mode_values": {
+                "light": "cros.ref.secondary90.rgb @ 60%",
+                "dark": "cros.ref.secondary30.rgb @ 48%"
+            }
+        },
+        {
+            "token_name": "cros.sys.dialog-container",
+            "css_variable": "--cros-sys-dialog_container",
+            "mode_values": {
+                "light": "cros.sys.base-elevated",
+                "dark": "cros.sys.base-elevated"
+            }
+        },
+        {
+            "token_name": "cros.sys.inverse-surface",
+            "css_variable": "--cros-sys-inverse_surface",
+            "mode_values": {
+                "light": "cros.ref.neutral20",
+                "dark": "cros.ref.neutral90"
+            }
+        },
+        {
+            "token_name": "cros.sys.scrollbar",
+            "css_variable": "--cros-sys-scrollbar",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant60.rgb @ 60%",
+                "dark": "cros.ref.neutralvariant50.rgb @ 60%"
+            }
+        },
+        {
+            "token_name": "cros.sys.scrollbar-hover",
+            "css_variable": "--cros-sys-scrollbar_hover",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant30.rgb @ 60%",
+                "dark": "cros.ref.neutralvariant90.rgb @ 60%"
+            }
+        },
+        {
+            "token_name": "cros.sys.scrollbar-border",
+            "css_variable": "--cros-sys-scrollbar_border",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant100.rgb @ 14%",
+                "dark": "cros.ref.neutralvariant0.rgb @ 14%"
+            }
+        },
+        {
+            "token_name": "cros.sys.input-field-on-shaded",
+            "css_variable": "--cros-sys-input_field_on_shaded",
+            "mode_values": {
+                "light": "cros.ref.neutral99",
+                "dark": "cros.ref.neutral50.rgb @ 40%"
+            }
+        },
+        {
+            "token_name": "cros.sys.input-field-on-base",
+            "css_variable": "--cros-sys-input_field_on_base",
+            "mode_values": {
+                "light": "cros.ref.neutral95",
+                "dark": "cros.ref.neutral0.rgb @ 60%"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-on-base",
+            "css_variable": "--cros-sys-system_on_base",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant99.rgb @ 60%",
+                "dark": "cros.ref.neutralvariant40.rgb @ 50%"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-on-base-opaque",
+            "css_variable": "--cros-sys-system_on_base_opaque",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant95",
+                "dark": "cros.ref.neutralvariant30"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-on-base1",
+            "css_variable": "--cros-sys-system_on_base1",
+            "mode_values": {
+                "light": "cros.ref.neutral10.rgb @ 6%",
+                "dark": "cros.ref.neutral99.rgb @ 10%"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-primary-container",
+            "css_variable": "--cros-sys-system_primary_container",
+            "mode_values": {
+                "light": "cros.ref.primary80",
+                "dark": "cros.ref.primary80"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-on-primary-container",
+            "css_variable": "--cros-sys-system_on_primary_container",
+            "mode_values": {
+                "light": "cros.ref.primary10",
+                "dark": "cros.ref.primary10"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-on-primary-container-disabled",
+            "css_variable": "--cros-sys-system_on_primary_container_disabled",
+            "mode_values": {
+                "light": "cros.sys.system-on-primary-container.rgb @ 38%",
+                "dark": "cros.sys.system-on-primary-container.rgb @ 38%"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-positive-container",
+            "css_variable": "--cros-sys-on_positive_container",
+            "mode_values": {
+                "light": "cros.ref.green30",
+                "dark": "cros.ref.green90"
+            }
+        },
+        {
+            "token_name": "cros.sys.positive-container",
+            "css_variable": "--cros-sys-positive_container",
+            "mode_values": {
+                "light": "cros.ref.green95",
+                "dark": "blend(cros.ref.green95.rgb @ 20%, rgba(0, 0, 0, 1))"
+            }
+        },
+        {
+            "token_name": "cros.sys.positive",
+            "css_variable": "--cros-sys-positive",
+            "mode_values": {
+                "light": "cros.ref.green50",
+                "dark": "cros.ref.green80"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-warning-container",
+            "css_variable": "--cros-sys-on_warning_container",
+            "mode_values": {
+                "light": "cros.ref.yellow30",
+                "dark": "cros.ref.yellow80"
+            }
+        },
+        {
+            "token_name": "cros.sys.warning-container",
+            "css_variable": "--cros-sys-warning_container",
+            "mode_values": {
+                "light": "cros.ref.yellow90",
+                "dark": "blend(cros.ref.yellow90.rgb @ 20%, rgba(0, 0, 0, 1))"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-on-warning-container",
+            "css_variable": "--cros-sys-system_on_warning_container",
+            "mode_values": {
+                "light": "cros.ref.yellow10",
+                "dark": "cros.ref.yellow10"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-warning-container",
+            "css_variable": "--cros-sys-system_warning_container",
+            "mode_values": {
+                "light": "cros.ref.yellow80",
+                "dark": "cros.ref.yellow80"
+            }
+        },
+        {
+            "token_name": "cros.sys.warning",
+            "css_variable": "--cros-sys-warning",
+            "mode_values": {
+                "light": "cros.ref.yellow50",
+                "dark": "cros.ref.yellow80"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-progress-container",
+            "css_variable": "--cros-sys-on_progress_container",
+            "mode_values": {
+                "light": "cros.ref.blue30",
+                "dark": "cros.ref.blue80"
+            }
+        },
+        {
+            "token_name": "cros.sys.progress-container",
+            "css_variable": "--cros-sys-progress_container",
+            "mode_values": {
+                "light": "cros.ref.blue90",
+                "dark": "blend(cros.ref.blue80.rgb @ 20%, rgba(0, 0, 0, 1))"
+            }
+        },
+        {
+            "token_name": "cros.sys.progress",
+            "css_variable": "--cros-sys-progress",
+            "mode_values": {
+                "light": "cros.ref.blue50",
+                "dark": "cros.ref.blue80"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-on-negative-container",
+            "css_variable": "--cros-sys-system_on_negative_container",
+            "mode_values": {
+                "light": "cros.ref.red10",
+                "dark": "cros.ref.red10"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-negative-container",
+            "css_variable": "--cros-sys-system_negative_container",
+            "mode_values": {
+                "light": "cros.ref.red80",
+                "dark": "cros.ref.red80"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-surface_light",
+            "css_variable": "--cros-sys-on_surface-light",
+            "mode_values": {
+                "light": "cros.ref.neutral10",
+                "dark": "cros.ref.neutral10"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-surface_dark",
+            "css_variable": "--cros-sys-on_surface-dark",
+            "mode_values": {
+                "light": "cros.ref.neutral90",
+                "dark": "cros.ref.neutral90"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-surface",
+            "css_variable": "--cros-sys-on_surface",
+            "mode_values": {
+                "light": "cros.sys.on-surface_light",
+                "dark": "cros.sys.on-surface_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.inverse-on-surface",
+            "css_variable": "--cros-sys-inverse_on_surface",
+            "mode_values": {
+                "light": "cros.ref.neutral95",
+                "dark": "cros.ref.neutral10"
+            }
+        },
+        {
+            "token_name": "cros.sys.on-surface-bodytext",
+            "css_variable": "--cros-sys-on_surface_bodytext",
+            "mode_values": {
+                "light": "cros.ref.neutral40",
+                "dark": "cros.ref.neutral70"
+            }
+        },
+        {
+            "token_name": "cros.sys.disabled",
+            "css_variable": "--cros-sys-disabled",
+            "mode_values": {
+                "light": "cros.sys.on-surface.rgb @ 38%",
+                "dark": "cros.sys.on-surface.rgb @ 38%"
+            }
+        },
+        {
+            "token_name": "cros.sys.disabled-opaque",
+            "css_variable": "--cros-sys-disabled_opaque",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant80",
+                "dark": "cros.ref.neutralvariant30"
+            }
+        },
+        {
+            "token_name": "cros.sys.disabled-container",
+            "css_variable": "--cros-sys-disabled_container",
+            "mode_values": {
+                "light": "cros.sys.on-surface.rgb @ 12%",
+                "dark": "cros.sys.on-surface.rgb @ 12%"
+            }
+        },
+        {
+            "token_name": "cros.sys.privacy-indicator",
+            "css_variable": "--cros-sys-privacy_indicator",
+            "mode_values": {
+                "light": "rgba(20, 108, 46, 1)",
+                "dark": "rgba(55, 190, 95, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.hover-on-prominent",
+            "css_variable": "--cros-sys-hover_on_prominent",
+            "mode_values": {
+                "light": "cros.ref.neutral99.rgb @ 10%",
+                "dark": "cros.ref.neutral10.rgb @ 6%"
+            }
+        },
+        {
+            "token_name": "cros.sys.hover-on-subtle",
+            "css_variable": "--cros-sys-hover_on_subtle",
+            "mode_values": {
+                "light": "cros.ref.neutral10.rgb @ 6%",
+                "dark": "cros.ref.neutral99.rgb @ 10%"
+            }
+        },
+        {
+            "token_name": "cros.sys.inverse-hover-on-subtle",
+            "css_variable": "--cros-sys-inverse_hover_on_subtle",
+            "mode_values": {
+                "light": "cros.ref.neutral99.rgb @ 10%",
+                "dark": "cros.ref.neutral10.rgb @ 6%"
+            }
+        },
+        {
+            "token_name": "cros.sys.ripple-primary",
+            "css_variable": "--cros-sys-ripple_primary",
+            "mode_values": {
+                "light": "cros.ref.primary70.rgb @ 32%",
+                "dark": "cros.ref.primary60.rgb @ 32%"
+            }
+        },
+        {
+            "token_name": "cros.sys.ripple-neutral-on-prominent",
+            "css_variable": "--cros-sys-ripple_neutral_on_prominent",
+            "mode_values": {
+                "light": "cros.ref.neutral99.rgb @ 16%",
+                "dark": "cros.ref.neutral10.rgb @ 8%"
+            }
+        },
+        {
+            "token_name": "cros.sys.ripple-neutral-on-subtle",
+            "css_variable": "--cros-sys-ripple_neutral_on_subtle",
+            "mode_values": {
+                "light": "cros.ref.neutral10.rgb @ 12%",
+                "dark": "cros.ref.neutral90.rgb @ 16%"
+            }
+        },
+        {
+            "token_name": "cros.sys.highlight-shape",
+            "css_variable": "--cros-sys-highlight_shape",
+            "mode_values": {
+                "light": "cros.ref.primary70.rgb @ 30%",
+                "dark": "cros.ref.primary70.rgb @ 30%"
+            }
+        },
+        {
+            "token_name": "cros.sys.highlight-text",
+            "css_variable": "--cros-sys-highlight_text",
+            "mode_values": {
+                "light": "cros.ref.primary70.rgb @ 60%",
+                "dark": "cros.ref.primary70.rgb @ 60%"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-highlight",
+            "css_variable": "--cros-sys-system_highlight",
+            "mode_values": {
+                "light": "cros.ref.neutral100.rgb @ 16%",
+                "dark": "cros.ref.neutral100.rgb @ 6%"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-border",
+            "css_variable": "--cros-sys-system_border",
+            "mode_values": {
+                "light": "cros.ref.neutral0.rgb @ 8%",
+                "dark": "cros.ref.neutral0.rgb @ 8%"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-highlight1",
+            "css_variable": "--cros-sys-system_highlight1",
+            "mode_values": {
+                "light": "cros.ref.neutral100.rgb @ 16%",
+                "dark": "cros.ref.neutral100.rgb @ 6%"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-border1",
+            "css_variable": "--cros-sys-system_border1",
+            "mode_values": {
+                "light": "cros.ref.neutral0.rgb @ 6%",
+                "dark": "cros.ref.neutral0.rgb @ 8%"
+            }
+        },
+        {
+            "token_name": "cros.sys.focus-ring",
+            "css_variable": "--cros-sys-focus_ring",
+            "mode_values": {
+                "light": "cros.ref.primary40",
+                "dark": "cros.ref.primary80"
+            }
+        },
+        {
+            "token_name": "cros.sys.inverse-focus-ring",
+            "css_variable": "--cros-sys-inverse_focus_ring",
+            "mode_values": {
+                "light": "cros.ref.primary80",
+                "dark": "cros.ref.primary40"
+            }
+        },
+        {
+            "token_name": "cros.sys.focus-ring-on-primary-container",
+            "css_variable": "--cros-sys-focus_ring_on_primary_container",
+            "mode_values": {
+                "light": "cros.ref.primary40",
+                "dark": "cros.ref.primary40"
+            }
+        },
+        {
+            "token_name": "cros.sys.shadow",
+            "css_variable": "--cros-sys-shadow",
+            "mode_values": {
+                "light": "cros.ref.neutral30",
+                "dark": "cros.ref.neutral0"
+            }
+        },
+        {
+            "token_name": "cros.sys.pressed-on-prominent",
+            "css_variable": "--cros-sys-pressed_on_prominent",
+            "mode_values": {
+                "light": "blend(cros.sys.hover-on-prominent, cros.sys.ripple-neutral-on-prominent)",
+                "dark": "blend(cros.sys.hover-on-prominent, cros.sys.ripple-neutral-on-prominent)"
+            }
+        },
+        {
+            "token_name": "cros.sys.pressed-on-subtle",
+            "css_variable": "--cros-sys-pressed_on_subtle",
+            "mode_values": {
+                "light": "blend(cros.sys.hover-on-subtle, cros.sys.ripple-neutral-on-subtle)",
+                "dark": "blend(cros.sys.hover-on-subtle, cros.sys.ripple-neutral-on-subtle)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1_light",
+            "css_variable": "--cros-sys-illo-color1-light",
+            "mode_values": {
+                "light": "cros.ref.primary30",
+                "dark": "cros.ref.primary30"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1_dark",
+            "css_variable": "--cros-sys-illo-color1-dark",
+            "mode_values": {
+                "light": "cros.ref.primary80",
+                "dark": "cros.ref.primary80"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1",
+            "css_variable": "--cros-sys-illo-color1",
+            "mode_values": {
+                "light": "cros.sys.illo.color1_light",
+                "dark": "cros.sys.illo.color1_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1.1_light",
+            "css_variable": "--cros-sys-illo-color1-1-light",
+            "mode_values": {
+                "light": "cros.ref.primary80",
+                "dark": "cros.ref.primary80"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1.1_dark",
+            "css_variable": "--cros-sys-illo-color1-1-dark",
+            "mode_values": {
+                "light": "cros.ref.secondary40",
+                "dark": "cros.ref.secondary40"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1.1",
+            "css_variable": "--cros-sys-illo-color1-1",
+            "mode_values": {
+                "light": "cros.sys.illo.color1.1_light",
+                "dark": "cros.sys.illo.color1.1_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1.2_light",
+            "css_variable": "--cros-sys-illo-color1-2-light",
+            "mode_values": {
+                "light": "cros.ref.primary90",
+                "dark": "cros.ref.primary90"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1.2_dark",
+            "css_variable": "--cros-sys-illo-color1-2-dark",
+            "mode_values": {
+                "light": "cros.ref.secondary30",
+                "dark": "cros.ref.secondary30"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color1.2",
+            "css_variable": "--cros-sys-illo-color1-2",
+            "mode_values": {
+                "light": "cros.sys.illo.color1.2_light",
+                "dark": "cros.sys.illo.color1.2_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color2_light",
+            "css_variable": "--cros-sys-illo-color2-light",
+            "mode_values": {
+                "light": "cros.ref.green60",
+                "dark": "cros.ref.green60"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color2_dark",
+            "css_variable": "--cros-sys-illo-color2-dark",
+            "mode_values": {
+                "light": "cros.ref.green70",
+                "dark": "cros.ref.green70"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color2",
+            "css_variable": "--cros-sys-illo-color2",
+            "mode_values": {
+                "light": "cros.sys.illo.color2_light",
+                "dark": "cros.sys.illo.color2_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color3_light",
+            "css_variable": "--cros-sys-illo-color3-light",
+            "mode_values": {
+                "light": "cros.ref.yellow70",
+                "dark": "cros.ref.yellow70"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color3_dark",
+            "css_variable": "--cros-sys-illo-color3-dark",
+            "mode_values": {
+                "light": "cros.ref.yellow80",
+                "dark": "cros.ref.yellow80"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color3",
+            "css_variable": "--cros-sys-illo-color3",
+            "mode_values": {
+                "light": "cros.sys.illo.color3_light",
+                "dark": "cros.sys.illo.color3_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color4_light",
+            "css_variable": "--cros-sys-illo-color4-light",
+            "mode_values": {
+                "light": "cros.ref.red60",
+                "dark": "cros.ref.red60"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color4_dark",
+            "css_variable": "--cros-sys-illo-color4-dark",
+            "mode_values": {
+                "light": "cros.ref.red60",
+                "dark": "cros.ref.red60"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color4",
+            "css_variable": "--cros-sys-illo-color4",
+            "mode_values": {
+                "light": "cros.sys.illo.color4_light",
+                "dark": "cros.sys.illo.color4_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color5_light",
+            "css_variable": "--cros-sys-illo-color5-light",
+            "mode_values": {
+                "light": "cros.ref.tertiary70",
+                "dark": "cros.ref.tertiary70"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color5_dark",
+            "css_variable": "--cros-sys-illo-color5-dark",
+            "mode_values": {
+                "light": "cros.ref.tertiary40",
+                "dark": "cros.ref.tertiary40"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color5",
+            "css_variable": "--cros-sys-illo-color5",
+            "mode_values": {
+                "light": "cros.sys.illo.color5_light",
+                "dark": "cros.sys.illo.color5_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color6_light",
+            "css_variable": "--cros-sys-illo-color6-light",
+            "mode_values": {
+                "light": "cros.ref.secondary90",
+                "dark": "cros.ref.secondary90"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color6_dark",
+            "css_variable": "--cros-sys-illo-color6-dark",
+            "mode_values": {
+                "light": "cros.ref.secondary50",
+                "dark": "cros.ref.secondary50"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.color6",
+            "css_variable": "--cros-sys-illo-color6",
+            "mode_values": {
+                "light": "cros.sys.illo.color6_light",
+                "dark": "cros.sys.illo.color6_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.base_light",
+            "css_variable": "--cros-sys-illo-base-light",
+            "mode_values": {
+                "light": "cros.ref.secondary100",
+                "dark": "cros.ref.secondary100"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.base_dark",
+            "css_variable": "--cros-sys-illo-base-dark",
+            "mode_values": {
+                "light": "cros.ref.secondary0",
+                "dark": "cros.ref.secondary0"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.base",
+            "css_variable": "--cros-sys-illo-base",
+            "mode_values": {
+                "light": "cros.sys.illo.base_light",
+                "dark": "cros.sys.illo.base_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.secondary_light",
+            "css_variable": "--cros-sys-illo-secondary-light",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant90",
+                "dark": "cros.ref.neutralvariant90"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.secondary_dark",
+            "css_variable": "--cros-sys-illo-secondary-dark",
+            "mode_values": {
+                "light": "cros.ref.neutralvariant40",
+                "dark": "cros.ref.neutralvariant40"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.secondary",
+            "css_variable": "--cros-sys-illo-secondary",
+            "mode_values": {
+                "light": "cros.sys.illo.secondary_light",
+                "dark": "cros.sys.illo.secondary_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color1_light",
+            "css_variable": "--cros-sys-illo-card-color1-light",
+            "mode_values": {
+                "light": "rgba(252, 227, 224, 1)",
+                "dark": "rgba(252, 227, 224, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color1_dark",
+            "css_variable": "--cros-sys-illo-card-color1-dark",
+            "mode_values": {
+                "light": "rgba(77, 39, 38, 1)",
+                "dark": "rgba(77, 39, 38, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color1",
+            "css_variable": "--cros-sys-illo-card-color1",
+            "mode_values": {
+                "light": "cros.sys.illo.card.color1_light",
+                "dark": "cros.sys.illo.card.color1_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color1_light",
+            "css_variable": "--cros-sys-illo-card-on_color1-light",
+            "mode_values": {
+                "light": "rgba(165, 14, 14, 1)",
+                "dark": "rgba(165, 14, 14, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color1_dark",
+            "css_variable": "--cros-sys-illo-card-on_color1-dark",
+            "mode_values": {
+                "light": "rgba(246, 174, 169, 1)",
+                "dark": "rgba(246, 174, 169, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color1",
+            "css_variable": "--cros-sys-illo-card-on_color1",
+            "mode_values": {
+                "light": "cros.sys.illo.card.on-color1_light",
+                "dark": "cros.sys.illo.card.on-color1_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color2_light",
+            "css_variable": "--cros-sys-illo-card-color2-light",
+            "mode_values": {
+                "light": "rgba(254, 242, 203, 1)",
+                "dark": "rgba(254, 242, 203, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color2_dark",
+            "css_variable": "--cros-sys-illo-card-color2-dark",
+            "mode_values": {
+                "light": "rgba(68, 49, 23, 1)",
+                "dark": "rgba(68, 49, 23, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color2",
+            "css_variable": "--cros-sys-illo-card-color2",
+            "mode_values": {
+                "light": "cros.sys.illo.card.color2_light",
+                "dark": "cros.sys.illo.card.color2_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color2_light",
+            "css_variable": "--cros-sys-illo-card-on_color2-light",
+            "mode_values": {
+                "light": "rgba(155, 97, 0, 1)",
+                "dark": "rgba(155, 97, 0, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color2_dark",
+            "css_variable": "--cros-sys-illo-card-on_color2-dark",
+            "mode_values": {
+                "light": "rgba(253, 226, 147, 1)",
+                "dark": "rgba(253, 226, 147, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color2",
+            "css_variable": "--cros-sys-illo-card-on_color2",
+            "mode_values": {
+                "light": "cros.sys.illo.card.on-color2_light",
+                "dark": "cros.sys.illo.card.on-color2_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color3_light",
+            "css_variable": "--cros-sys-illo-card-color3-light",
+            "mode_values": {
+                "light": "rgba(220, 244, 227, 1)",
+                "dark": "rgba(220, 244, 227, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color3_dark",
+            "css_variable": "--cros-sys-illo-card-color3-dark",
+            "mode_values": {
+                "light": "rgba(22, 52, 30, 1)",
+                "dark": "rgba(22, 52, 30, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color3",
+            "css_variable": "--cros-sys-illo-card-color3",
+            "mode_values": {
+                "light": "cros.sys.illo.card.color3_light",
+                "dark": "cros.sys.illo.card.color3_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color3_light",
+            "css_variable": "--cros-sys-illo-card-on_color3-light",
+            "mode_values": {
+                "light": "rgba(13, 101, 45, 1)",
+                "dark": "rgba(13, 101, 45, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color3_dark",
+            "css_variable": "--cros-sys-illo-card-on_color3-dark",
+            "mode_values": {
+                "light": "rgba(168, 218, 181, 1)",
+                "dark": "rgba(168, 218, 181, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color3",
+            "css_variable": "--cros-sys-illo-card-on_color3",
+            "mode_values": {
+                "light": "cros.sys.illo.card.on-color3_light",
+                "dark": "cros.sys.illo.card.on-color3_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color4_light",
+            "css_variable": "--cros-sys-illo-card-color4-light",
+            "mode_values": {
+                "light": "rgba(214, 229, 252, 1)",
+                "dark": "rgba(214, 229, 252, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color4_dark",
+            "css_variable": "--cros-sys-illo-card-color4-dark",
+            "mode_values": {
+                "light": "rgba(32, 49, 78, 1)",
+                "dark": "rgba(32, 49, 78, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color4",
+            "css_variable": "--cros-sys-illo-card-color4",
+            "mode_values": {
+                "light": "cros.sys.illo.card.color4_light",
+                "dark": "cros.sys.illo.card.color4_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color4_light",
+            "css_variable": "--cros-sys-illo-card-on_color4-light",
+            "mode_values": {
+                "light": "rgba(24, 90, 188, 1)",
+                "dark": "rgba(24, 90, 188, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color4_dark",
+            "css_variable": "--cros-sys-illo-card-on_color4-dark",
+            "mode_values": {
+                "light": "rgba(174, 203, 250, 1)",
+                "dark": "rgba(174, 203, 250, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color4",
+            "css_variable": "--cros-sys-illo-card-on_color4",
+            "mode_values": {
+                "light": "cros.sys.illo.card.on-color4_light",
+                "dark": "cros.sys.illo.card.on-color4_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color5_light",
+            "css_variable": "--cros-sys-illo-card-color5-light",
+            "mode_values": {
+                "light": "rgba(244, 227, 254, 1)",
+                "dark": "rgba(244, 227, 254, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color5_dark",
+            "css_variable": "--cros-sys-illo-card-color5-dark",
+            "mode_values": {
+                "light": "rgba(67, 51, 85, 1)",
+                "dark": "rgba(67, 51, 85, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.color5",
+            "css_variable": "--cros-sys-illo-card-color5",
+            "mode_values": {
+                "light": "cros.sys.illo.card.color5_light",
+                "dark": "cros.sys.illo.card.color5_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color5_light",
+            "css_variable": "--cros-sys-illo-card-on_color5-light",
+            "mode_values": {
+                "light": "rgba(117, 9, 155, 1)",
+                "dark": "rgba(117, 9, 155, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color5_dark",
+            "css_variable": "--cros-sys-illo-card-on_color5-dark",
+            "mode_values": {
+                "light": "rgba(215, 174, 251, 1)",
+                "dark": "rgba(215, 174, 251, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.card.on-color5",
+            "css_variable": "--cros-sys-illo-card-on_color5",
+            "mode_values": {
+                "light": "cros.sys.illo.card.on-color5_light",
+                "dark": "cros.sys.illo.card.on-color5_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.elevated.color1.1",
+            "css_variable": "--cros-sys-illo-elevated-color1-1",
+            "mode_values": {
+                "light": "cros.sys.illo.color1.1",
+                "dark": "cros.sys.illo.color1.1"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.elevated.color1.2",
+            "css_variable": "--cros-sys-illo-elevated-color1-2",
+            "mode_values": {
+                "light": "cros.sys.illo.color1.2",
+                "dark": "cros.sys.illo.color1.2"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.elevated.base",
+            "css_variable": "--cros-sys-illo-elevated-base",
+            "mode_values": {
+                "light": "cros.sys.illo.base",
+                "dark": "cros.sys.illo.base"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.elevated.secondary",
+            "css_variable": "--cros-sys-illo-elevated-secondary",
+            "mode_values": {
+                "light": "cros.sys.illo.secondary",
+                "dark": "cros.sys.illo.secondary"
+            }
+        },
+        {
+            "token_name": "cros.sys.file-ms-excel",
+            "css_variable": "--cros-sys-file_ms_excel",
+            "mode_values": {
+                "light": "rgba(22, 167, 101, 1)",
+                "dark": "rgba(22, 167, 101, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.file-ms-word",
+            "css_variable": "--cros-sys-file_ms_word",
+            "mode_values": {
+                "light": "rgba(73, 134, 231, 1)",
+                "dark": "rgba(73, 134, 231, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.file-ms-ppt",
+            "css_variable": "--cros-sys-file_ms_ppt",
+            "mode_values": {
+                "light": "rgba(255, 118, 55, 1)",
+                "dark": "rgba(255, 118, 55, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.file-site",
+            "css_variable": "--cros-sys-file_site",
+            "mode_values": {
+                "light": "rgba(71, 88, 181, 1)",
+                "dark": "rgba(140, 158, 255, 1)"
+            }
+        },
+        {
+            "token_name": "cros.sys.file-form",
+            "css_variable": "--cros-sys-file_form",
+            "mode_values": {
+                "light": "rgba(114, 72, 185, 1)",
+                "dark": "rgba(180, 140, 255, 1)"
+            }
+        }
+    ]
+}

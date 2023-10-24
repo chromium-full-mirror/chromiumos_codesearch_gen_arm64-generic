@@ -191,7 +191,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetFingerprintInfo(GetFingerprintInfoCallback callback) override;
   void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) override;
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) override;
-  void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) override;
+  void GetHciDeviceConfig(int32_t hci_interface, GetHciDeviceConfigCallback callback) override;
   void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void RunStressAppTest(uint32_t test_mem_mib, uint32_t test_seconds, StressAppTestType test_type, ::mojo::PendingReceiver<ProcessControl> receiver) override;
@@ -202,7 +202,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetPsr(GetPsrCallback callback) override;
   void RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) override;
   void RemoveFioTestFile(RemoveFioTestFileCallback callback) override;
-  void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) override;
+  void GetConnectedExternalDisplayConnectors(GetConnectedExternalDisplayConnectorsCallback callback) override;
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) override;
@@ -210,6 +210,11 @@ class  ExecutorInterceptorForTesting : public Executor {
   void RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) override;
   void MonitorVolumeButton(::mojo::PendingRemote<VolumeButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void RunFloatingPoint(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunFloatingPointCallback callback) override;
+  void StartBtmon(int32_t hci_interface, ::mojo::PendingReceiver<ProcessControl> receiver) override;
+  void ReadBtmonLog(ReadBtmonLogCallback callback) override;
+  void RemoveBtmonLog(RemoveBtmonLogCallback callback) override;
+  void SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) override;
+  void SetAllFanAutoControl(SetAllFanAutoControlCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -229,7 +234,7 @@ class  ExecutorAsyncWaiter {
       Executor::File file_enum, FileInfoPtr* out_info);
   FileInfoPtr GetFileInfo(Executor::File file_enum);
   void GetAllFanSpeed(
-      std::vector<uint32_t>* out_fan_rpms, absl::optional<std::string>* out_err);
+      std::vector<uint16_t>* out_fan_rpms, absl::optional<std::string>* out_err);
   
   void RunIw(
       Executor::IwCommand cmd, const std::string& interface_name, ExecutedProcessResultPtr* out_result);
@@ -256,8 +261,8 @@ class  ExecutorAsyncWaiter {
       ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err);
   absl::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
   void GetHciDeviceConfig(
-      ExecutedProcessResultPtr* out_result);
-  ExecutedProcessResultPtr GetHciDeviceConfig();
+      int32_t hci_interface, ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr GetHciDeviceConfig(int32_t hci_interface);
   void FetchBootPerformance(
       ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result);
   ::ash::cros_healthd::mojom::BootPerformanceResultPtr FetchBootPerformance();
@@ -267,7 +272,7 @@ class  ExecutorAsyncWaiter {
   void RemoveFioTestFile(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr RemoveFioTestFile();
-  void GetConnectedHdmiConnectors(
+  void GetConnectedExternalDisplayConnectors(
       base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err);
   
   void GetPrivacyScreenInfo(
@@ -285,6 +290,18 @@ class  ExecutorAsyncWaiter {
   void RunFloatingPoint(
       base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, bool* out_passed);
   bool RunFloatingPoint(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control);
+  void ReadBtmonLog(
+      ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr ReadBtmonLog();
+  void RemoveBtmonLog(
+      ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr RemoveBtmonLog();
+  void SetFanSpeed(
+      const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, absl::optional<std::string>* out_err);
+  absl::optional<std::string> SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm);
+  void SetAllFanAutoControl(
+      absl::optional<std::string>* out_err);
+  absl::optional<std::string> SetAllFanAutoControl();
 
  private:
   Executor* const proxy_;

@@ -1,0 +1,4 @@
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+export const CATEGORY_BUTTON_CLICK="category-button-click";export const GROUP_BUTTON_CLICK="group-button-click";export const EMOJI_TEXT_BUTTON_CLICK="emoji-text-button-click";export const EMOJI_IMG_BUTTON_CLICK="emoji-img-button-click";export const EMOJI_VARIANTS_SHOWN="emoji-variants-shown";export const CATEGORY_DATA_LOADED="category-data-loaded";export const GIF_ERROR_TRY_AGAIN="gif-error-try-again";export const EMOJI_PICKER_READY="emoji-picker-ready";export const EMOJI_CLEAR_RECENTS_CLICK="emoji-clear-recents-click";export function createCustomEvent(type,detail){return new CustomEvent(type,{bubbles:true,composed:true,detail:detail})}

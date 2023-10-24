@@ -1,0 +1,4 @@
+gen/ash/webui/ash_projector_app_untrusted_resources.pak
+gen/ash/webui/grit/ash_projector_app_untrusted_resources.h
+gen/ash/webui/grit/ash_projector_app_untrusted_resources_map.cc
+gen/ash/webui/grit/ash_projector_app_untrusted_resources_map.h

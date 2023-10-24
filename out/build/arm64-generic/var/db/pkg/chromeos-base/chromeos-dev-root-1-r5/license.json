@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "chromeos-dev-root", "version": "1", "revision": 5, "fullname": "chromeos-base/chromeos-dev-root", "fullnamerev": "chromeos-base/chromeos-dev-root-1-r5", "license_names": ["metapackage"], "license_text_scanned": [], "homepages": ["https://dev.chromium.org/"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -1,0 +1,15 @@
+import{getTrustedHTML}from"//resources/js/static_types.js";export function getTemplate(){return getTrustedHTML`<!--_html_template_start_--><link rel="stylesheet" href="//resources/css/spinner.css">
+<link rel="stylesheet" href="//resources/css/throbber.css">
+
+<style>.demos{align-items:flex-start;display:flex;flex-direction:column;gap:16px;margin-bottom:24px}</style>
+
+<h1>throbber, 16px</h1>
+<div class="demos">
+  <div class="throbber"></div>
+</div>
+
+<h1>spinner, 22px</h1>
+<div class="demos">
+  <div class="spinner"></div>
+</div>
+<!--_html_template_end_-->`}

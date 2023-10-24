@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-vcs", "name": "git", "version": "2.39.2", "revision": 1, "fullname": "dev-vcs/git", "fullnamerev": "dev-vcs/git-2.39.2-r1", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["https://www.git-scm.com/"], "skip": false, "tainted": false, "ebuild_path": null}

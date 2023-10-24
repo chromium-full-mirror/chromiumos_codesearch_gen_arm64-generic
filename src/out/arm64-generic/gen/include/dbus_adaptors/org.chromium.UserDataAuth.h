@@ -34,9 +34,6 @@ class UserDataAuthInterfaceInterface {
   virtual void Remove(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RemoveReply>> response,
       const user_data_auth::RemoveRequest& in_request) = 0;
-  virtual void ListKeys(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::ListKeysReply>> response,
-      const user_data_auth::ListKeysRequest& in_request) = 0;
   virtual void GetWebAuthnSecret(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetWebAuthnSecretReply>> response,
       const user_data_auth::GetWebAuthnSecretRequest& in_request) = 0;
@@ -88,6 +85,9 @@ class UserDataAuthInterfaceInterface {
   virtual void PreparePersistentVault(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::PreparePersistentVaultReply>> response,
       const user_data_auth::PreparePersistentVaultRequest& in_request) = 0;
+  virtual void EvictDeviceKey(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::EvictDeviceKeyReply>> response,
+      const user_data_auth::EvictDeviceKeyRequest& in_request) = 0;
   virtual void PrepareVaultForMigration(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::PrepareVaultForMigrationReply>> response,
       const user_data_auth::PrepareVaultForMigrationRequest& in_request) = 0;
@@ -130,6 +130,9 @@ class UserDataAuthInterfaceInterface {
   virtual void CreateVaultKeyset(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::CreateVaultKeysetReply>> response,
       const user_data_auth::CreateVaultKeysetRequest& in_request) = 0;
+  virtual void RestoreDeviceKey(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RestoreDeviceKeyReply>> response,
+      const user_data_auth::RestoreDeviceKeyRequest& in_request) = 0;
   virtual void GetArcDiskFeatures(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetArcDiskFeaturesReply>> response,
       const user_data_auth::GetArcDiskFeaturesRequest& in_request) = 0;
@@ -158,10 +161,6 @@ class UserDataAuthInterfaceAdaptor {
         "Remove",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::Remove);
-    itf->AddMethodHandler(
-        "ListKeys",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::ListKeys);
     itf->AddMethodHandler(
         "GetWebAuthnSecret",
         base::Unretained(interface_),
@@ -231,6 +230,10 @@ class UserDataAuthInterfaceAdaptor {
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::PreparePersistentVault);
     itf->AddMethodHandler(
+        "EvictDeviceKey",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::EvictDeviceKey);
+    itf->AddMethodHandler(
         "PrepareVaultForMigration",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::PrepareVaultForMigration);
@@ -286,6 +289,10 @@ class UserDataAuthInterfaceAdaptor {
         "CreateVaultKeyset",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::CreateVaultKeyset);
+    itf->AddMethodHandler(
+        "RestoreDeviceKey",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::RestoreDeviceKey);
     itf->AddMethodHandler(
         "GetArcDiskFeatures",
         base::Unretained(interface_),
@@ -352,10 +359,6 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"Remove\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"ListKeys\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
@@ -427,6 +430,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <method name=\"EvictDeviceKey\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
         "    <method name=\"PrepareVaultForMigration\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
@@ -480,6 +487,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CreateVaultKeyset\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"RestoreDeviceKey\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

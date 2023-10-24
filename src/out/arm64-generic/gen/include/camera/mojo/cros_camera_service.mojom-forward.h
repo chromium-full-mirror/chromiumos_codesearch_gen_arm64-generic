@@ -37,6 +37,10 @@ class CameraHalServerCallbacks;
 
 class CameraHalClient;
 
+class CrosCameraServiceObserver;
+
+class CrosCameraService;
+
 
 
 

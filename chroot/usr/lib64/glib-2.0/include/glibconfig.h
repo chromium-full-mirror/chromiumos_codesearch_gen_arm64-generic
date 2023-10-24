@@ -12,16 +12,18 @@
 #include <float.h>
 #define GLIB_HAVE_ALLOCA_H
 
+/* #undef GLIB_STATIC_COMPILATION */
+/* #undef GOBJECT_STATIC_COMPILATION */
+/* #undef GIO_STATIC_COMPILATION */
+/* #undef GMODULE_STATIC_COMPILATION */
+/* #undef G_INTL_STATIC_COMPILATION */
+/* #undef FFI_STATIC_BUILD */
+
 /* Specifies that GLib's g_print*() functions wrap the
  * system printf functions.  This is useful to know, for example,
  * when using glibc's register_printf_function().
  */
 #define GLIB_USING_SYSTEM_PRINTF
-
-/* #undef GLIB_STATIC_COMPILATION */
-/* #undef GOBJECT_STATIC_COMPILATION */
-/* #undef G_INTL_STATIC_COMPILATION */
-/* #undef FFI_STATIC_BUILD */
 
 G_BEGIN_DECLS
 
@@ -111,12 +113,13 @@ typedef unsigned long guintptr;
 #define G_GUINTPTR_FORMAT       "lu"
 
 #define GLIB_MAJOR_VERSION 2
-#define GLIB_MINOR_VERSION 74
-#define GLIB_MICRO_VERSION 1
+#define GLIB_MINOR_VERSION 76
+#define GLIB_MICRO_VERSION 4
 
 #define G_OS_UNIX
 
 #define G_VA_COPY va_copy
+
 #define G_VA_COPY_AS_ARRAY 1
 
 #define G_HAVE_ISO_VARARGS 1
@@ -130,7 +133,6 @@ typedef unsigned long guintptr;
 #endif
 
 #define G_HAVE_GROWING_STACK 0
-#define G_HAVE_GNUC_VISIBILITY 1
 
 #ifndef _MSC_VER
 # define G_HAVE_GNUC_VARARGS 1
@@ -187,7 +189,13 @@ typedef unsigned long guintptr;
 #define GLIB_SYSDEF_POLLERR =8
 #define GLIB_SYSDEF_POLLNVAL =32
 
+/* No way to disable deprecation warnings for macros, so only emit deprecation
+ * warnings on platforms where usage of this macro is broken */
+#if defined(__APPLE__) || defined(_MSC_VER) || defined(__CYGWIN__)
+#define G_MODULE_SUFFIX "so" GLIB_DEPRECATED_MACRO_IN_2_76
+#else
 #define G_MODULE_SUFFIX "so"
+#endif
 
 typedef int GPid;
 #define G_PID_FORMAT "i"

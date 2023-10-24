@@ -1,0 +1,4 @@
+gen/chrome/grit/cros_styles_resources.h
+gen/chrome/grit/cros_styles_resources_map.cc
+gen/chrome/grit/cros_styles_resources_map.h
+gen/chrome/cros_styles_resources.pak
