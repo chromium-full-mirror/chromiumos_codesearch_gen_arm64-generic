@@ -16,7 +16,6 @@
 // cryptohome/flatbuffer_schemas/enumerations_flatbuffer.h
 // --test_utils_header_include_path cryptohome/flatbuffer_schemas/enumerations.h
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome-dev-utils/out/Default/gen/bfbs/enumerations.bfbs
-// --filter_by_namespace cryptohome::enumeration
 
 #ifndef CRYPTOHOME_FLATBUFFER_SCHEMAS_ENUMERATIONS_ENUMERATIONS_H_
 #define CRYPTOHOME_FLATBUFFER_SCHEMAS_ENUMERATIONS_ENUMERATIONS_H_
@@ -29,7 +28,7 @@
 
 #include <brillo/secure_blob.h>
 
-namespace cryptohome::enumeration {
+namespace cryptohome {
 
 enum class SerializedAuthFactorType : int32_t {
   kPassword = 1,
@@ -41,9 +40,9 @@ enum class SerializedAuthFactorType : int32_t {
   kFingerprint = 7,
 };
 
-}  // namespace cryptohome::enumeration
+}  // namespace cryptohome
 
-namespace cryptohome::enumeration {
+namespace cryptohome {
 
 enum class SerializedAuthIntent : int32_t {
   kDecrypt = 1,
@@ -51,6 +50,6 @@ enum class SerializedAuthIntent : int32_t {
   kWebAuthn = 3,
 };
 
-}  // namespace cryptohome::enumeration
+}  // namespace cryptohome
 
 #endif  // CRYPTOHOME_FLATBUFFER_SCHEMAS_ENUMERATIONS_ENUMERATIONS_H_

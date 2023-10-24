@@ -1,0 +1,58 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../bootstat-9999/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _bootstat-install_config: phony obj/bootstat/_bootstat-install_config.stamp
+build _libbootstat-install_config: phony obj/bootstat/_libbootstat-install_config.stamp
+build install_bootstat_headers: phony obj/bootstat/install_bootstat_headers.stamp
+build install_bootstat_sbin_scripts: phony obj/bootstat/install_bootstat_sbin_scripts.stamp
+build install_bootstat_summary: phony obj/bootstat/install_bootstat_summary.stamp
+build install_tmpfiles_config: phony obj/bootstat/install_tmpfiles_config.stamp
+build libbootstat: phony ./lib/libbootstat.so
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build bootstat$:_bootstat-install_config: phony obj/bootstat/_bootstat-install_config.stamp
+build bootstat$:_libbootstat-install_config: phony obj/bootstat/_libbootstat-install_config.stamp
+build bootstat$:all: phony obj/bootstat/all.stamp
+build bootstat$:bootstat: phony ./bootstat
+build bootstat$:install_bootstat_headers: phony obj/bootstat/install_bootstat_headers.stamp
+build bootstat$:install_bootstat_sbin_scripts: phony obj/bootstat/install_bootstat_sbin_scripts.stamp
+build bootstat$:install_bootstat_summary: phony obj/bootstat/install_bootstat_summary.stamp
+build bootstat$:install_tmpfiles_config: phony obj/bootstat/install_tmpfiles_config.stamp
+build bootstat$:libbootstat: phony ./lib/libbootstat.so
+build bootstat$:libbootstat_unittests: phony ./libbootstat_unittests
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+
+build all: phony $
+    obj/bootstat/_bootstat-install_config.stamp $
+    obj/bootstat/_libbootstat-install_config.stamp $
+    obj/bootstat/all.stamp $
+    ./bootstat $
+    obj/bootstat/install_bootstat_headers.stamp $
+    obj/bootstat/install_bootstat_sbin_scripts.stamp $
+    obj/bootstat/install_bootstat_summary.stamp $
+    obj/bootstat/install_tmpfiles_config.stamp $
+    ./lib/libbootstat.so $
+    ./libbootstat_unittests $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a
+
+default all

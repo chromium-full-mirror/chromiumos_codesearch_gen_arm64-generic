@@ -1,0 +1,13 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libchromeos-ui-9999/work/libchromeos-ui-9999/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/libchromeos-ui-9999/work/libchromeos-ui-9999/platform2/libchromeos-ui
+root_out_dir = .
+target_output_name = libchromeos-ui
+
+
+build ./lib/libchromeos-ui.so: solink obj/libchromeos-ui/chromeos/ui/libchromeos-ui_source_set.chromium_command_builder.o obj/libchromeos-ui/chromeos/ui/libchromeos-ui_source_set.util.o || obj/libchromeos-ui/libchromeos-ui_source_set.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic
+  libs = -lbrillo -lbase -lpthread -lcros_config
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

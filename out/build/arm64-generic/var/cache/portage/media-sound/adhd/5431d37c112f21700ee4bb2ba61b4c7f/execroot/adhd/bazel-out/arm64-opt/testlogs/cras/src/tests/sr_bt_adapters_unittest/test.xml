@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.042" timestamp="2023-10-23T22:49:03.553" name="AllTests">
-  <testsuite name="SrBtAdaptersTest" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.009" timestamp="2023-10-23T22:49:03.572">
-    <testcase name="FramesQueued" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="117" status="run" result="completed" time="0.004" timestamp="2023-10-23T22:49:03.572" classname="SrBtAdaptersTest" />
-    <testcase name="DelayFrames" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="134" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:03.578" classname="SrBtAdaptersTest" />
-    <testcase name="FramesQueuedMoreThanNumFramesPerRunMs" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="144" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:49:03.579" classname="SrBtAdaptersTest" />
-    <testcase name="FlushBuffer" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="209" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:03.580" classname="SrBtAdaptersTest" />
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.063" timestamp="2023-10-24T11:12:26.157" name="AllTests">
+  <testsuite name="SrBtAdaptersTest" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.032" timestamp="2023-10-24T11:12:26.187">
+    <testcase name="FramesQueued" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="117" status="run" result="completed" time="0.008" timestamp="2023-10-24T11:12:26.187" classname="SrBtAdaptersTest" />
+    <testcase name="DelayFrames" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="134" status="run" result="completed" time="0." timestamp="2023-10-24T11:12:26.213" classname="SrBtAdaptersTest" />
+    <testcase name="FramesQueuedMoreThanNumFramesPerRunMs" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="144" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:12:26.214" classname="SrBtAdaptersTest" />
+    <testcase name="FlushBuffer" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="209" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:12:26.217" classname="SrBtAdaptersTest" />
   </testsuite>
 </testsuites>

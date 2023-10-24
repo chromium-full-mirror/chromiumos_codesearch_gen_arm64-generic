@@ -1,0 +1,125 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_GLIB=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DIS_PARTITION_ALLOC_IMPL
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Ihost/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src -Ihost/gen/base/allocator/partition_allocator/src
+cflags = -gline-tables-only -fdebug-info-for-profiling -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Wshadow -Werror -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fstack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -m64 -msse3 -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wexit-time-destructors -O3 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = allocator_core
+target_out_dir = host/obj/base/allocator/partition_allocator/src/partition_alloc
+target_output_name = allocator_core
+
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp: host_stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/chromecast_buildflags.stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/chromeos_buildflags.stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/debugging_buildflags.stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_buildflags.stamp
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/address_pool_manager.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/address_pool_manager.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = address_pool_manager.cc
+  source_name_part = address_pool_manager
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/address_pool_manager_bitmap.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/address_pool_manager_bitmap.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = address_pool_manager_bitmap.cc
+  source_name_part = address_pool_manager_bitmap
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/address_space_randomization.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/address_space_randomization.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = address_space_randomization.cc
+  source_name_part = address_space_randomization
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/allocation_guard.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/allocation_guard.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = allocation_guard.cc
+  source_name_part = allocation_guard
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/compressed_pointer.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/compressed_pointer.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = compressed_pointer.cc
+  source_name_part = compressed_pointer
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/dangling_raw_ptr_checks.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/dangling_raw_ptr_checks.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = dangling_raw_ptr_checks.cc
+  source_name_part = dangling_raw_ptr_checks
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/gwp_asan_support.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/gwp_asan_support.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = gwp_asan_support.cc
+  source_name_part = gwp_asan_support
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/memory_reclaimer.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/memory_reclaimer.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = memory_reclaimer.cc
+  source_name_part = memory_reclaimer
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/oom.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/oom.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = oom.cc
+  source_name_part = oom
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/oom_callback.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/oom_callback.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = oom_callback.cc
+  source_name_part = oom_callback
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/page_allocator.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/page_allocator.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = page_allocator.cc
+  source_name_part = page_allocator
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_address_space.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_address_space.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_address_space.cc
+  source_name_part = partition_address_space
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_alloc.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_alloc.cc
+  source_name_part = partition_alloc
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_alloc_hooks.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_hooks.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_alloc_hooks.cc
+  source_name_part = partition_alloc_hooks
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_bucket.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_bucket.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_bucket.cc
+  source_name_part = partition_bucket
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_dcheck_helper.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_dcheck_helper.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_dcheck_helper.cc
+  source_name_part = partition_dcheck_helper
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_freelist_entry.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_freelist_entry.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_freelist_entry.cc
+  source_name_part = partition_freelist_entry
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_oom.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_oom.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_oom.cc
+  source_name_part = partition_oom
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_page.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_page.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_page.cc
+  source_name_part = partition_page
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_root.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_root.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_root.cc
+  source_name_part = partition_root
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_stats.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/partition_stats.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = partition_stats.cc
+  source_name_part = partition_stats
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/random.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/random.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = random.cc
+  source_name_part = random
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/reservation_offset_table.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/reservation_offset_table.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = reservation_offset_table.cc
+  source_name_part = reservation_offset_table
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/spinning_mutex.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/spinning_mutex.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = spinning_mutex.cc
+  source_name_part = spinning_mutex
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/tagging.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/tagging.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = tagging.cc
+  source_name_part = tagging
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/thread_cache.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/thread_cache.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = thread_cache.cc
+  source_name_part = thread_cache
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/pkey.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/thread_isolation/pkey.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = pkey.cc
+  source_name_part = pkey
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/thread_isolation.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/thread_isolation/thread_isolation.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = thread_isolation.cc
+  source_name_part = thread_isolation
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/metadata_allocator.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/metadata_allocator.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = metadata_allocator.cc
+  source_name_part = metadata_allocator
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/pcscan.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/pcscan.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = pcscan.cc
+  source_name_part = pcscan
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/pcscan_internal.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/pcscan_internal.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = pcscan_internal.cc
+  source_name_part = pcscan_internal
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/pcscan_scheduling.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/pcscan_scheduling.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = pcscan_scheduling.cc
+  source_name_part = pcscan_scheduling
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/snapshot.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/snapshot.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = snapshot.cc
+  source_name_part = snapshot
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/stack.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/stack/stack.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = stack.cc
+  source_name_part = stack
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/stats_collector.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/stats_collector.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = stats_collector.cc
+  source_name_part = stats_collector
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/write_protector.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/write_protector.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = write_protector.cc
+  source_name_part = write_protector
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/page_allocator_internals_posix.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/page_allocator_internals_posix.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = page_allocator_internals_posix.cc
+  source_name_part = page_allocator_internals_posix
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/push_registers_asm.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src/partition_alloc/starscan/stack/asm/x64/push_registers_asm.cc || host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.inputdeps.stamp
+  source_file_part = push_registers_asm.cc
+  source_name_part = push_registers_asm
+
+build host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.stamp: host_stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/address_pool_manager.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/address_pool_manager_bitmap.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/address_space_randomization.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/allocation_guard.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/compressed_pointer.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/dangling_raw_ptr_checks.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/gwp_asan_support.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/memory_reclaimer.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/oom.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/oom_callback.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/page_allocator.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_address_space.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_alloc.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_alloc_hooks.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_bucket.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_dcheck_helper.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_freelist_entry.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_oom.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_page.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_root.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/partition_stats.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/random.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/reservation_offset_table.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/spinning_mutex.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/tagging.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/thread_cache.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/pkey.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/thread_isolation.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/metadata_allocator.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/pcscan.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/pcscan_internal.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/pcscan_scheduling.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/snapshot.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/stack.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/stats_collector.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/write_protector.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/page_allocator_internals_posix.o host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core/push_registers_asm.o || host/obj/base/allocator/partition_allocator/src/partition_alloc/chromecast_buildflags.stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/chromeos_buildflags.stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/debugging_buildflags.stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_buildflags.stamp host/obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base.stamp

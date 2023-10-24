@@ -1,0 +1,17 @@
+[
+  {
+    "traits_deps": [
+      "//content/common:mojo_bindings"
+    ],
+    "traits_headers": [
+      "content/browser/attribution_reporting/attribution_internals_mojom_traits.h",
+      "content/browser/attribution_reporting/attribution_report.h"
+    ],
+    "types": [
+      {
+        "cpp": "::content::AttributionReport::Id",
+        "mojom": "attribution_internals.mojom.ReportID"
+      }
+    ]
+  }
+]

@@ -1,0 +1,82 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DV8_TYPED_ARRAY_MAX_SIZE_IN_HEAP=64 -DV8_INTL_SUPPORT -DV8_USE_EXTERNAL_STARTUP_DATA -DV8_ATOMIC_OBJECT_FIELD_WRITES -DV8_ENABLE_LAZY_SOURCE_POSITIONS -DV8_SHARED_RO_HEAP -DV8_WIN64_UNWINDING_INFO -DV8_ENABLE_REGEXP_INTERPRETER_THREADED_DISPATCH -DV8_SNAPSHOT_COMPRESSION -DV8_SHORT_BUILTIN_CALLS -DV8_EXTERNAL_CODE_SPACE -DV8_ENABLE_SPARKPLUG -DV8_ENABLE_MAGLEV -DV8_ENABLE_TURBOFAN -DV8_ENABLE_WEBASSEMBLY -DV8_ALLOCATION_FOLDING -DV8_ALLOCATION_SITE_TRACKING -DV8_ADVANCED_BIGINT_ALGORITHMS -DV8_STATIC_ROOTS -DV8_USE_ZLIB -DV8_USE_LIBM_TRIG_FUNCTIONS -DV8_ENABLE_EXTENSIBLE_RO_SNAPSHOT -DV8_COMPRESS_POINTERS -DV8_COMPRESS_POINTERS_IN_SHARED_CAGE -DV8_31BIT_SMIS_ON_64BIT_ARCH -DV8_ENABLE_SANDBOX -DV8_DEPRECATION_WARNINGS -DCPPGC_CAGED_HEAP -DCPPGC_YOUNG_GENERATION -DCPPGC_POINTER_COMPRESSION -DCPPGC_SLIM_WRITE_BARRIER -DV8_TARGET_ARCH_ARM64 -DV8_HAVE_TARGET_OS -DV8_TARGET_OS_CHROMEOS -DV8_RUNTIME_CALL_STATS
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/v8 -I../../../../../../../home/chrome-bot/chrome_root/src/v8/include -Igen/v8 -Igen/v8/include
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Wshadow -Werror -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wmissing-field-initializers -Wunreachable-code -Wno-shadow -Wctad-maybe-unsupported -Wshorten-64-to-32 -Wno-invalid-offsetof -O3 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -Wexit-time-destructors
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden -fexceptions -frtti
+label_name = torque_base
+target_out_dir = obj/v8
+target_output_name = torque_base
+
+build obj/v8/torque_base/cc-generator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/cc-generator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = cc-generator.cc
+  source_name_part = cc-generator
+build obj/v8/torque_base/cfg.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/cfg.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = cfg.cc
+  source_name_part = cfg
+build obj/v8/torque_base/class-debug-reader-generator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/class-debug-reader-generator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = class-debug-reader-generator.cc
+  source_name_part = class-debug-reader-generator
+build obj/v8/torque_base/cpp-builder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/cpp-builder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = cpp-builder.cc
+  source_name_part = cpp-builder
+build obj/v8/torque_base/csa-generator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/csa-generator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = csa-generator.cc
+  source_name_part = csa-generator
+build obj/v8/torque_base/declarable.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/declarable.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = declarable.cc
+  source_name_part = declarable
+build obj/v8/torque_base/declaration-visitor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/declaration-visitor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = declaration-visitor.cc
+  source_name_part = declaration-visitor
+build obj/v8/torque_base/declarations.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/declarations.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = declarations.cc
+  source_name_part = declarations
+build obj/v8/torque_base/earley-parser.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/earley-parser.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = earley-parser.cc
+  source_name_part = earley-parser
+build obj/v8/torque_base/global-context.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/global-context.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = global-context.cc
+  source_name_part = global-context
+build obj/v8/torque_base/implementation-visitor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/implementation-visitor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = implementation-visitor.cc
+  source_name_part = implementation-visitor
+build obj/v8/torque_base/instance-type-generator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/instance-type-generator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = instance-type-generator.cc
+  source_name_part = instance-type-generator
+build obj/v8/torque_base/instructions.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/instructions.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = instructions.cc
+  source_name_part = instructions
+build obj/v8/torque_base/kythe-data.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/kythe-data.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = kythe-data.cc
+  source_name_part = kythe-data
+build obj/v8/torque_base/server-data.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/server-data.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = server-data.cc
+  source_name_part = server-data
+build obj/v8/torque_base/source-positions.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/source-positions.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = source-positions.cc
+  source_name_part = source-positions
+build obj/v8/torque_base/torque-code-generator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/torque-code-generator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = torque-code-generator.cc
+  source_name_part = torque-code-generator
+build obj/v8/torque_base/torque-compiler.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/torque-compiler.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = torque-compiler.cc
+  source_name_part = torque-compiler
+build obj/v8/torque_base/torque-parser.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/torque-parser.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = torque-parser.cc
+  source_name_part = torque-parser
+build obj/v8/torque_base/type-inference.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/type-inference.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = type-inference.cc
+  source_name_part = type-inference
+build obj/v8/torque_base/type-oracle.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/type-oracle.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = type-oracle.cc
+  source_name_part = type-oracle
+build obj/v8/torque_base/type-visitor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/type-visitor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = type-visitor.cc
+  source_name_part = type-visitor
+build obj/v8/torque_base/types.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/types.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = types.cc
+  source_name_part = types
+build obj/v8/torque_base/utils.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/torque/utils.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = utils.cc
+  source_name_part = utils
+
+build obj/v8/torque_base.stamp: stamp obj/v8/torque_base/cc-generator.o obj/v8/torque_base/cfg.o obj/v8/torque_base/class-debug-reader-generator.o obj/v8/torque_base/cpp-builder.o obj/v8/torque_base/csa-generator.o obj/v8/torque_base/declarable.o obj/v8/torque_base/declaration-visitor.o obj/v8/torque_base/declarations.o obj/v8/torque_base/earley-parser.o obj/v8/torque_base/global-context.o obj/v8/torque_base/implementation-visitor.o obj/v8/torque_base/instance-type-generator.o obj/v8/torque_base/instructions.o obj/v8/torque_base/kythe-data.o obj/v8/torque_base/server-data.o obj/v8/torque_base/source-positions.o obj/v8/torque_base/torque-code-generator.o obj/v8/torque_base/torque-compiler.o obj/v8/torque_base/torque-parser.o obj/v8/torque_base/type-inference.o obj/v8/torque_base/type-oracle.o obj/v8/torque_base/type-visitor.o obj/v8/torque_base/types.o obj/v8/torque_base/utils.o || obj/v8/libv8_libbase.a obj/v8/v8_flags.stamp obj/v8/v8_shared_internal_headers.stamp obj/v8/v8_config_headers.stamp obj/v8/libm.stamp obj/v8/v8_headers.stamp obj/v8/cppgc_headers.stamp obj/v8/libv8_libplatform.a obj/v8/v8_version.stamp

@@ -1,0 +1,146 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-headers/src/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/include -Igen/third_party/vulkan-deps/spirv-tools/src
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wno-implicit-fallthrough -Wno-newline-eof -Wno-unreachable-code-break -Wno-unreachable-code-return -std=c++17
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = spvtools_val
+target_out_dir = obj/third_party/vulkan-deps/spirv-tools/src
+target_output_name = libspvtools_val
+
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp: stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_core_enums_unified1.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_core_tables_unified1.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_generators_inc.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_glsl_tables_glsl1-0.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_language_header_cldebuginfo100.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_language_header_debuginfo.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_language_header_vkdebuginfo100.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_opencl_tables_opencl1-0.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_vendor_tables_debuginfo.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_vendor_tables_nonsemantic.clspvreflection.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_vendor_tables_nonsemantic.shader.debuginfo.100.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_vendor_tables_opencl.debuginfo.100.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_vendor_tables_spv-amd-gcn-shader.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-ballot.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-explicit-vertex-parameter.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-trinary-minmax.stamp
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/basic_block.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/basic_block.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = basic_block.cpp
+  source_name_part = basic_block
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/construct.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/construct.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = construct.cpp
+  source_name_part = construct
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/function.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/function.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = function.cpp
+  source_name_part = function
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/instruction.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/instruction.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = instruction.cpp
+  source_name_part = instruction
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate.cpp
+  source_name_part = validate
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_adjacency.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_adjacency.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_adjacency.cpp
+  source_name_part = validate_adjacency
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_annotation.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_annotation.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_annotation.cpp
+  source_name_part = validate_annotation
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_arithmetics.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_arithmetics.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_arithmetics.cpp
+  source_name_part = validate_arithmetics
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_atomics.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_atomics.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_atomics.cpp
+  source_name_part = validate_atomics
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_barriers.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_barriers.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_barriers.cpp
+  source_name_part = validate_barriers
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_bitwise.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_bitwise.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_bitwise.cpp
+  source_name_part = validate_bitwise
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_builtins.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_builtins.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_builtins.cpp
+  source_name_part = validate_builtins
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_capability.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_capability.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_capability.cpp
+  source_name_part = validate_capability
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_cfg.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_cfg.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_cfg.cpp
+  source_name_part = validate_cfg
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_composites.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_composites.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_composites.cpp
+  source_name_part = validate_composites
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_constants.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_constants.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_constants.cpp
+  source_name_part = validate_constants
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_conversion.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_conversion.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_conversion.cpp
+  source_name_part = validate_conversion
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_debug.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_debug.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_debug.cpp
+  source_name_part = validate_debug
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_decorations.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_decorations.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_decorations.cpp
+  source_name_part = validate_decorations
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_derivatives.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_derivatives.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_derivatives.cpp
+  source_name_part = validate_derivatives
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_execution_limitations.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_execution_limitations.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_execution_limitations.cpp
+  source_name_part = validate_execution_limitations
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_extensions.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_extensions.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_extensions.cpp
+  source_name_part = validate_extensions
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_function.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_function.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_function.cpp
+  source_name_part = validate_function
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_id.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_id.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_id.cpp
+  source_name_part = validate_id
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_image.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_image.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_image.cpp
+  source_name_part = validate_image
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_instruction.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_instruction.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_instruction.cpp
+  source_name_part = validate_instruction
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_interfaces.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_interfaces.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_interfaces.cpp
+  source_name_part = validate_interfaces
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_layout.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_layout.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_layout.cpp
+  source_name_part = validate_layout
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_literals.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_literals.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_literals.cpp
+  source_name_part = validate_literals
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_logicals.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_logicals.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_logicals.cpp
+  source_name_part = validate_logicals
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_memory.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_memory.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_memory.cpp
+  source_name_part = validate_memory
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_memory_semantics.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_memory_semantics.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_memory_semantics.cpp
+  source_name_part = validate_memory_semantics
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_mesh_shading.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_mesh_shading.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_mesh_shading.cpp
+  source_name_part = validate_mesh_shading
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_misc.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_misc.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_misc.cpp
+  source_name_part = validate_misc
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_mode_setting.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_mode_setting.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_mode_setting.cpp
+  source_name_part = validate_mode_setting
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_non_uniform.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_non_uniform.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_non_uniform.cpp
+  source_name_part = validate_non_uniform
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_primitives.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_primitives.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_primitives.cpp
+  source_name_part = validate_primitives
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_ray_query.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_ray_query.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_ray_query.cpp
+  source_name_part = validate_ray_query
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_ray_tracing.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_ray_tracing.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_ray_tracing.cpp
+  source_name_part = validate_ray_tracing
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_ray_tracing_reorder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_ray_tracing_reorder.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_ray_tracing_reorder.cpp
+  source_name_part = validate_ray_tracing_reorder
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_scopes.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_scopes.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_scopes.cpp
+  source_name_part = validate_scopes
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_small_type_uses.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_small_type_uses.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_small_type_uses.cpp
+  source_name_part = validate_small_type_uses
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_type.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validate_type.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validate_type.cpp
+  source_name_part = validate_type
+build obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validation_state.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/source/val/validation_state.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val.inputdeps.stamp
+  source_file_part = validation_state.cpp
+  source_name_part = validation_state
+
+build obj/third_party/vulkan-deps/spirv-tools/src/libspvtools_val.a: alink obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/basic_block.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/construct.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/function.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/instruction.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_adjacency.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_annotation.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_arithmetics.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_atomics.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_barriers.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_bitwise.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_builtins.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_capability.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_cfg.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_composites.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_constants.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_conversion.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_debug.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_decorations.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_derivatives.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_execution_limitations.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_extensions.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_function.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_id.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_image.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_instruction.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_interfaces.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_layout.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_literals.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_logicals.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_memory.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_memory_semantics.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_mesh_shading.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_misc.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_mode_setting.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_non_uniform.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_primitives.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_ray_query.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_ray_tracing.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_ray_tracing_reorder.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_scopes.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_small_type_uses.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validate_type.o obj/third_party/vulkan-deps/spirv-tools/src/spvtools_val/validation_state.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/vulkan-deps/spirv-tools/src/spvtools_headers.stamp obj/third_party/vulkan-deps/spirv-tools/src/libspvtools.a obj/third_party/vulkan-deps/spirv-tools/src/spvtools_language_header_cldebuginfo100.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_language_header_debuginfo.stamp obj/third_party/vulkan-deps/spirv-tools/src/spvtools_language_header_vkdebuginfo100.stamp obj/third_party/vulkan-deps/spirv-headers/src/spv_headers.stamp
+  arflags = -T
+  output_extension = .a
+  output_dir = obj/third_party/vulkan-deps/spirv-tools/src

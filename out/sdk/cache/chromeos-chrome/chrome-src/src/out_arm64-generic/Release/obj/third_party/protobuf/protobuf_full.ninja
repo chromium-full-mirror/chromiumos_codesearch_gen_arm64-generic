@@ -1,0 +1,169 @@
+defines = -DHAVE_ZLIB -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DGOOGLE_PROTOBUF_NO_RTTI -DGOOGLE_PROTOBUF_NO_STATIC_INITIALIZER -DGOOGLE_PROTOBUF_INTERNAL_DONATE_STEAL_INLINE=0 -DHAVE_PTHREAD
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wno-unused-function
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = protobuf_full
+target_out_dir = obj/third_party/protobuf
+target_output_name = libprotobuf_full
+
+build obj/third_party/protobuf/protobuf_full/any.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/any.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = any.cc
+  source_name_part = any
+build obj/third_party/protobuf/protobuf_full/any.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/any.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = any.pb.cc
+  source_name_part = any.pb
+build obj/third_party/protobuf/protobuf_full/api.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/api.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = api.pb.cc
+  source_name_part = api.pb
+build obj/third_party/protobuf/protobuf_full/importer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/compiler/importer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = importer.cc
+  source_name_part = importer
+build obj/third_party/protobuf/protobuf_full/parser.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/compiler/parser.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = parser.cc
+  source_name_part = parser
+build obj/third_party/protobuf/protobuf_full/descriptor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/descriptor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = descriptor.cc
+  source_name_part = descriptor
+build obj/third_party/protobuf/protobuf_full/descriptor.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/descriptor.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = descriptor.pb.cc
+  source_name_part = descriptor.pb
+build obj/third_party/protobuf/protobuf_full/descriptor_database.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/descriptor_database.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = descriptor_database.cc
+  source_name_part = descriptor_database
+build obj/third_party/protobuf/protobuf_full/duration.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/duration.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = duration.pb.cc
+  source_name_part = duration.pb
+build obj/third_party/protobuf/protobuf_full/dynamic_message.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/dynamic_message.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = dynamic_message.cc
+  source_name_part = dynamic_message
+build obj/third_party/protobuf/protobuf_full/empty.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/empty.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = empty.pb.cc
+  source_name_part = empty.pb
+build obj/third_party/protobuf/protobuf_full/extension_set_heavy.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/extension_set_heavy.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = extension_set_heavy.cc
+  source_name_part = extension_set_heavy
+build obj/third_party/protobuf/protobuf_full/field_mask.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/field_mask.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = field_mask.pb.cc
+  source_name_part = field_mask.pb
+build obj/third_party/protobuf/protobuf_full/generated_message_bases.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/generated_message_bases.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = generated_message_bases.cc
+  source_name_part = generated_message_bases
+build obj/third_party/protobuf/protobuf_full/generated_message_reflection.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/generated_message_reflection.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = generated_message_reflection.cc
+  source_name_part = generated_message_reflection
+build obj/third_party/protobuf/protobuf_full/generated_message_tctable_full.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/generated_message_tctable_full.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = generated_message_tctable_full.cc
+  source_name_part = generated_message_tctable_full
+build obj/third_party/protobuf/protobuf_full/gzip_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/io/gzip_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = gzip_stream.cc
+  source_name_part = gzip_stream
+build obj/third_party/protobuf/protobuf_full/printer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/io/printer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = printer.cc
+  source_name_part = printer
+build obj/third_party/protobuf/protobuf_full/tokenizer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/io/tokenizer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = tokenizer.cc
+  source_name_part = tokenizer
+build obj/third_party/protobuf/protobuf_full/map_field.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/map_field.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = map_field.cc
+  source_name_part = map_field
+build obj/third_party/protobuf/protobuf_full/message.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/message.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = message.cc
+  source_name_part = message
+build obj/third_party/protobuf/protobuf_full/reflection_ops.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/reflection_ops.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = reflection_ops.cc
+  source_name_part = reflection_ops
+build obj/third_party/protobuf/protobuf_full/service.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/service.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = service.cc
+  source_name_part = service
+build obj/third_party/protobuf/protobuf_full/source_context.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/source_context.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = source_context.pb.cc
+  source_name_part = source_context.pb
+build obj/third_party/protobuf/protobuf_full/struct.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/struct.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = struct.pb.cc
+  source_name_part = struct.pb
+build obj/third_party/protobuf/protobuf_full/substitute.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/stubs/substitute.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = substitute.cc
+  source_name_part = substitute
+build obj/third_party/protobuf/protobuf_full/text_format.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/text_format.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = text_format.cc
+  source_name_part = text_format
+build obj/third_party/protobuf/protobuf_full/timestamp.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/timestamp.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = timestamp.pb.cc
+  source_name_part = timestamp.pb
+build obj/third_party/protobuf/protobuf_full/type.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/type.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = type.pb.cc
+  source_name_part = type.pb
+build obj/third_party/protobuf/protobuf_full/unknown_field_set.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/unknown_field_set.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = unknown_field_set.cc
+  source_name_part = unknown_field_set
+build obj/third_party/protobuf/protobuf_full/delimited_message_util.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/delimited_message_util.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = delimited_message_util.cc
+  source_name_part = delimited_message_util
+build obj/third_party/protobuf/protobuf_full/field_comparator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/field_comparator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = field_comparator.cc
+  source_name_part = field_comparator
+build obj/third_party/protobuf/protobuf_full/field_mask_util.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/field_mask_util.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = field_mask_util.cc
+  source_name_part = field_mask_util
+build obj/third_party/protobuf/protobuf_full/datapiece.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/datapiece.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = datapiece.cc
+  source_name_part = datapiece
+build obj/third_party/protobuf/protobuf_full/default_value_objectwriter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/default_value_objectwriter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = default_value_objectwriter.cc
+  source_name_part = default_value_objectwriter
+build obj/third_party/protobuf/protobuf_full/error_listener.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/error_listener.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = error_listener.cc
+  source_name_part = error_listener
+build obj/third_party/protobuf/protobuf_full/field_mask_utility.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/field_mask_utility.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = field_mask_utility.cc
+  source_name_part = field_mask_utility
+build obj/third_party/protobuf/protobuf_full/json_escaping.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/json_escaping.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = json_escaping.cc
+  source_name_part = json_escaping
+build obj/third_party/protobuf/protobuf_full/json_objectwriter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/json_objectwriter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = json_objectwriter.cc
+  source_name_part = json_objectwriter
+build obj/third_party/protobuf/protobuf_full/json_stream_parser.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/json_stream_parser.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = json_stream_parser.cc
+  source_name_part = json_stream_parser
+build obj/third_party/protobuf/protobuf_full/object_writer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/object_writer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = object_writer.cc
+  source_name_part = object_writer
+build obj/third_party/protobuf/protobuf_full/proto_writer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/proto_writer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = proto_writer.cc
+  source_name_part = proto_writer
+build obj/third_party/protobuf/protobuf_full/protostream_objectsource.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/protostream_objectsource.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = protostream_objectsource.cc
+  source_name_part = protostream_objectsource
+build obj/third_party/protobuf/protobuf_full/protostream_objectwriter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/protostream_objectwriter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = protostream_objectwriter.cc
+  source_name_part = protostream_objectwriter
+build obj/third_party/protobuf/protobuf_full/type_info.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/type_info.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = type_info.cc
+  source_name_part = type_info
+build obj/third_party/protobuf/protobuf_full/utility.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/internal/utility.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = utility.cc
+  source_name_part = utility
+build obj/third_party/protobuf/protobuf_full/json_util.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/json_util.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = json_util.cc
+  source_name_part = json_util
+build obj/third_party/protobuf/protobuf_full/message_differencer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/message_differencer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = message_differencer.cc
+  source_name_part = message_differencer
+build obj/third_party/protobuf/protobuf_full/time_util.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/time_util.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = time_util.cc
+  source_name_part = time_util
+build obj/third_party/protobuf/protobuf_full/type_resolver_util.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/util/type_resolver_util.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = type_resolver_util.cc
+  source_name_part = type_resolver_util
+build obj/third_party/protobuf/protobuf_full/wire_format.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/wire_format.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = wire_format.cc
+  source_name_part = wire_format
+build obj/third_party/protobuf/protobuf_full/wrappers.pb.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src/google/protobuf/wrappers.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = wrappers.pb.cc
+  source_name_part = wrappers.pb
+
+build obj/third_party/protobuf/libprotobuf_full.a: alink obj/third_party/protobuf/protobuf_full/any.o obj/third_party/protobuf/protobuf_full/any.pb.o obj/third_party/protobuf/protobuf_full/api.pb.o obj/third_party/protobuf/protobuf_full/importer.o obj/third_party/protobuf/protobuf_full/parser.o obj/third_party/protobuf/protobuf_full/descriptor.o obj/third_party/protobuf/protobuf_full/descriptor.pb.o obj/third_party/protobuf/protobuf_full/descriptor_database.o obj/third_party/protobuf/protobuf_full/duration.pb.o obj/third_party/protobuf/protobuf_full/dynamic_message.o obj/third_party/protobuf/protobuf_full/empty.pb.o obj/third_party/protobuf/protobuf_full/extension_set_heavy.o obj/third_party/protobuf/protobuf_full/field_mask.pb.o obj/third_party/protobuf/protobuf_full/generated_message_bases.o obj/third_party/protobuf/protobuf_full/generated_message_reflection.o obj/third_party/protobuf/protobuf_full/generated_message_tctable_full.o obj/third_party/protobuf/protobuf_full/gzip_stream.o obj/third_party/protobuf/protobuf_full/printer.o obj/third_party/protobuf/protobuf_full/tokenizer.o obj/third_party/protobuf/protobuf_full/map_field.o obj/third_party/protobuf/protobuf_full/message.o obj/third_party/protobuf/protobuf_full/reflection_ops.o obj/third_party/protobuf/protobuf_full/service.o obj/third_party/protobuf/protobuf_full/source_context.pb.o obj/third_party/protobuf/protobuf_full/struct.pb.o obj/third_party/protobuf/protobuf_full/substitute.o obj/third_party/protobuf/protobuf_full/text_format.o obj/third_party/protobuf/protobuf_full/timestamp.pb.o obj/third_party/protobuf/protobuf_full/type.pb.o obj/third_party/protobuf/protobuf_full/unknown_field_set.o obj/third_party/protobuf/protobuf_full/delimited_message_util.o obj/third_party/protobuf/protobuf_full/field_comparator.o obj/third_party/protobuf/protobuf_full/field_mask_util.o obj/third_party/protobuf/protobuf_full/datapiece.o obj/third_party/protobuf/protobuf_full/default_value_objectwriter.o obj/third_party/protobuf/protobuf_full/error_listener.o obj/third_party/protobuf/protobuf_full/field_mask_utility.o obj/third_party/protobuf/protobuf_full/json_escaping.o obj/third_party/protobuf/protobuf_full/json_objectwriter.o obj/third_party/protobuf/protobuf_full/json_stream_parser.o obj/third_party/protobuf/protobuf_full/object_writer.o obj/third_party/protobuf/protobuf_full/proto_writer.o obj/third_party/protobuf/protobuf_full/protostream_objectsource.o obj/third_party/protobuf/protobuf_full/protostream_objectwriter.o obj/third_party/protobuf/protobuf_full/type_info.o obj/third_party/protobuf/protobuf_full/utility.o obj/third_party/protobuf/protobuf_full/json_util.o obj/third_party/protobuf/protobuf_full/message_differencer.o obj/third_party/protobuf/protobuf_full/time_util.o obj/third_party/protobuf/protobuf_full/type_resolver_util.o obj/third_party/protobuf/protobuf_full/wire_format.o obj/third_party/protobuf/protobuf_full/wrappers.pb.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/zlib/libchrome_zlib.a obj/third_party/protobuf/libprotobuf_lite.a obj/third_party/zlib/zlib_adler32_simd.stamp obj/third_party/zlib/zlib_common_headers.stamp obj/third_party/zlib/zlib_inflate_chunk_simd.stamp obj/third_party/zlib/zlib_slide_hash_simd.stamp obj/third_party/zlib/zlib_arm_crc32.stamp
+  arflags = -T
+  output_extension = .a
+  output_dir = obj/third_party/protobuf

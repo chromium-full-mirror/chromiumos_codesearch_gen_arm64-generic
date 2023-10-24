@@ -1,0 +1,20 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DNDEBUG -DNVALGRIND -D_POSIX_C_SOURCE=199506 -D_XOPEN_SOURCE=600 -D_GNU_SOURCE=1 -D__STDC_LIMIT_MACROS=1 -DDYNAMIC_ANNOTATIONS_ENABLED=1 -DDYNAMIC_ANNOTATIONS_PREFIX=NACL_
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iclang_newlib_arm/gen
+cflags = -gline-tables-only -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wno-missing-field-initializers -Wno-unused-parameter -Wloop-analysis -Wno-unneeded-internal-declaration -Werror -fno-ident -fno-strict-aliasing -fcolor-diagnostics -fmerge-all-constants -U__STRICT_ANSI__ -integrated-as -Xclang -fdebug-compilation-dir -Xclang . -O2 -fdata-sections -ffunction-sections -fno-math-errno -fomit-frame-pointer -gsplit-dwarf -fvisibility=hidden
+cflags_cc = -std=c++14 -fno-trigraphs -Wno-trigraphs -fno-exceptions -fno-rtti -fvisibility-inlines-hidden
+label_name = ppapi_ppb_instance_nexe
+root_out_dir = clang_newlib_arm
+target_out_dir = clang_newlib_arm/obj/chrome/test/data/nacl
+target_output_name = ppapi_ppb_instance_newlib_arm
+
+build clang_newlib_arm/obj/chrome/test/data/nacl/ppapi_ppb_instance_nexe/ppapi_ppb_instance.o: clang_newlib_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/nacl/ppapi/ppb_instance/ppapi_ppb_instance.cc
+  source_file_part = ppapi_ppb_instance.cc
+  source_name_part = ppapi_ppb_instance
+
+build clang_newlib_arm/ppapi_ppb_instance_newlib_arm.nexe clang_newlib_arm/exe.unstripped/ppapi_ppb_instance_newlib_arm.nexe: clang_newlib_arm_link clang_newlib_arm/obj/chrome/test/data/nacl/ppapi_ppb_instance_nexe/ppapi_ppb_instance.o clang_newlib_arm/obj/chrome/test/data/nacl/libppapi_test_lib.a clang_newlib_arm/obj/ppapi/native_client/src/untrusted/irt_stub/libppapi_stub.a clang_newlib_arm/obj/native_client/src/shared/gio/libgio.a clang_newlib_arm/obj/native_client/src/shared/platform/libplatform.a || clang_newlib_arm/obj/build/config/nacl/nacl_base.stamp clang_newlib_arm/obj/ppapi/c/c.stamp clang_newlib_arm/obj/ppapi/native_client/ppapi_lib.stamp clang_newlib_arm/obj/build/config/executable_deps.stamp
+  ldflags = -pthread -Werror -Wl,--fatal-warnings -Wl,--build-id=sha1 -Wl,-O2 -Wl,--gc-sections
+  libs =
+  frameworks =
+  swiftmodules =
+  output_extension = .nexe
+  output_dir = clang_newlib_arm

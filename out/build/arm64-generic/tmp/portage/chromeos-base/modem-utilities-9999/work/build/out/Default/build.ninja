@@ -1,0 +1,35 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build install_bin: phony obj/modem-utilities/install_bin.stamp
+build install_scripts: phony obj/modem-utilities/install_scripts.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build modem-utilities$:all: phony obj/modem-utilities/all.stamp
+build modem-utilities$:install_bin: phony obj/modem-utilities/install_bin.stamp
+build modem-utilities$:install_scripts: phony obj/modem-utilities/install_scripts.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/modem-utilities/all.stamp $
+    obj/modem-utilities/install_bin.stamp $
+    obj/modem-utilities/install_scripts.stamp
+
+default all

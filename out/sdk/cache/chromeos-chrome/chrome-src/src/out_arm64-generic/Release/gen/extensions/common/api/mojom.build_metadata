@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/extensions/common/api/mime_handler.mojom"
+  ]
+}

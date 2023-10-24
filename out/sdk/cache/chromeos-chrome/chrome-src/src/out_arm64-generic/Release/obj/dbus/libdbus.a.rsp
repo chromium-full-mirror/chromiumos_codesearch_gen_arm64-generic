@@ -1,0 +1,1 @@
+obj/dbus/dbus/bus.o obj/dbus/dbus/dbus_result.o obj/dbus/dbus/dbus_statistics.o obj/dbus/dbus/error.o obj/dbus/dbus/exported_object.o obj/dbus/dbus/message.o obj/dbus/dbus/object_manager.o obj/dbus/dbus/object_path.o obj/dbus/dbus/object_proxy.o obj/dbus/dbus/property.o obj/dbus/dbus/scoped_dbus_error.o obj/dbus/dbus/string_util.o obj/dbus/dbus/util.o obj/dbus/dbus/values_util.o

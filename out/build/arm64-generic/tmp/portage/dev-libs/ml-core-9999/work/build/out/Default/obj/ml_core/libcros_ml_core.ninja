@@ -1,0 +1,13 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../ml-core-9999/platform2 -I/build/arm64-generic/usr/include
+root_out_dir = .
+target_output_name = libcros_ml_core
+
+
+build ./lib/libcros_ml_core.so: solink || obj/ml_core/_libcros_ml_core-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic
+  libs = -lbrillo -lbase -lpthread
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

@@ -1,0 +1,1 @@
+obj/chromeos/ash/components/dbus/cdm_factory_daemon/cdm_factory_daemon/cdm_factory_daemon_client.o obj/chromeos/ash/components/dbus/cdm_factory_daemon/cdm_factory_daemon/fake_cdm_factory_daemon_client.o

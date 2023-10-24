@@ -1,0 +1,11 @@
+{
+  "deps": [
+    "../../../../skia/public/mojom/mojom.build_metadata",
+    "../../../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../../../ui/gfx/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/device/vr/public/mojom/xr_device.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/device/vr/public/mojom/xr_session.mojom"
+  ]
+}

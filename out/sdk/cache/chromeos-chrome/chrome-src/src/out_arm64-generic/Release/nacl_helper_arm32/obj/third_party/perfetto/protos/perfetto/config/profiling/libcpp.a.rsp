@@ -1,0 +1,1 @@
+nacl_helper_arm32/obj/third_party/perfetto/protos/perfetto/config/profiling/cpp/heapprofd_config.gen.o nacl_helper_arm32/obj/third_party/perfetto/protos/perfetto/config/profiling/cpp/java_hprof_config.gen.o nacl_helper_arm32/obj/third_party/perfetto/protos/perfetto/config/profiling/cpp/perf_event_config.gen.o

@@ -1,0 +1,117 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/runtime_probe/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/runtime_probe/_runtime_probe-install_config.stamp: stamp
+build obj/runtime_probe/all.stamp: stamp obj/runtime_probe/install_minijail_conf.stamp ./runtime_probe obj/runtime_probe/dbus/dbus.stamp obj/runtime_probe/init/init.stamp obj/runtime_probe/sandbox/sandbox.stamp ./unittest_runner
+subninja obj/runtime_probe/daemon.ninja
+rule __runtime_probe_dbus-adaptors___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/runtime_probe/out/Default/gen/include/runtime_probe/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/runtime_probe/dbus_bindings/dbus-service-config.json ${in}
+  description = ACTION //runtime_probe:dbus-adaptors(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/runtime_probe/dbus_adaptors/org.chromium.RuntimeProbe.h: __runtime_probe_dbus-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/dbus_bindings/org.chromium.RuntimeProbe.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.RuntimeProbe
+
+build obj/runtime_probe/dbus-adaptors.stamp: stamp gen/include/runtime_probe/dbus_adaptors/org.chromium.RuntimeProbe.h
+build obj/runtime_probe/install_minijail_conf.stamp: stamp
+subninja obj/runtime_probe/lib.ninja
+subninja obj/runtime_probe/runtime_probe.ninja
+subninja obj/runtime_probe/unittest_runner.ninja
+build obj/runtime_probe/dbus/dbus.stamp: stamp obj/runtime_probe/dbus/install_dbus_config.stamp obj/runtime_probe/dbus/install_dbus_service_activation_config.stamp
+build obj/runtime_probe/dbus/install_dbus_config.stamp: stamp
+build obj/runtime_probe/dbus/install_dbus_service_activation_config.stamp: stamp
+subninja obj/runtime_probe/function_templates/function_templates.ninja
+subninja obj/runtime_probe/function_templates/test.ninja
+subninja obj/runtime_probe/functions/functions.ninja
+subninja obj/runtime_probe/functions/test.ninja
+rule __runtime_probe_init__install_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env /usr/bin/compile_seccomp_policy --arch-json /build/arm64-generic/build/share/constants.json ${in} /build/arm64-generic/var/cache/portage/chromeos-base/runtime_probe/out/Default/gen/runtime_probe/init/seccomp/${source_name_part}.bpf
+  description = ACTION //runtime_probe/init:_install_seccomp-check_seccomp(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/runtime_probe/init/seccomp/runtime_probe-seccomp.bpf: __runtime_probe_init__install_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/init/seccomp/arm64/runtime_probe-seccomp.policy | ../../../../../../../../../usr/bin/compile_seccomp_policy ../../../../../../../build/share/constants.json
+  source_name_part = runtime_probe-seccomp
+
+build obj/runtime_probe/init/_install_seccomp-check_seccomp.stamp: stamp gen/runtime_probe/init/seccomp/runtime_probe-seccomp.bpf
+build obj/runtime_probe/init/init.stamp: stamp obj/runtime_probe/init/install_init_config.stamp obj/runtime_probe/init/install_seccomp.stamp
+build obj/runtime_probe/init/install_init_config.stamp: stamp
+build obj/runtime_probe/init/install_seccomp.stamp: stamp obj/runtime_probe/init/_install_seccomp-check_seccomp.stamp
+rule __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env /usr/bin/compile_seccomp_policy --arch-json /build/arm64-generic/build/share/constants.json ${in} /build/arm64-generic/var/cache/portage/chromeos-base/runtime_probe/out/Default/gen/runtime_probe/sandbox/seccomp/${source_name_part}.bpf
+  description = ACTION //runtime_probe/sandbox:_install_sandbox_seccomp-check_seccomp(//common-mk/toolchain:toolchain)
+  restat = 1
+build obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp: stamp ../../../../../../../../../usr/bin/compile_seccomp_policy ../../../../../../../build/share/constants.json
+
+build gen/runtime_probe/sandbox/seccomp/ata_storage-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/ata_storage-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = ata_storage-seccomp
+build gen/runtime_probe/sandbox/seccomp/audio_codec-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/audio_codec-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = audio_codec-seccomp
+build gen/runtime_probe/sandbox/seccomp/edid-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/edid-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = edid-seccomp
+build gen/runtime_probe/sandbox/seccomp/ethernet_network-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/ethernet_network-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = ethernet_network-seccomp
+build gen/runtime_probe/sandbox/seccomp/generic_battery-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/generic_battery-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = generic_battery-seccomp
+build gen/runtime_probe/sandbox/seccomp/input_device-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/input_device-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = input_device-seccomp
+build gen/runtime_probe/sandbox/seccomp/mipi_camera-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/mipi_camera-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = mipi_camera-seccomp
+build gen/runtime_probe/sandbox/seccomp/mmc_host-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/mmc_host-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = mmc_host-seccomp
+build gen/runtime_probe/sandbox/seccomp/mmc_storage-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/mmc_storage-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = mmc_storage-seccomp
+build gen/runtime_probe/sandbox/seccomp/network-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/network-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = network-seccomp
+build gen/runtime_probe/sandbox/seccomp/nvme_storage-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/nvme_storage-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = nvme_storage-seccomp
+build gen/runtime_probe/sandbox/seccomp/tcpc-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/tcpc-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = tcpc-seccomp
+build gen/runtime_probe/sandbox/seccomp/usb_camera-seccomp.bpf: __runtime_probe_sandbox__install_sandbox_seccomp-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/runtime_probe/sandbox/arm64/usb_camera-seccomp.policy | obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.inputdeps.stamp
+  source_name_part = usb_camera-seccomp
+
+build obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.stamp: stamp gen/runtime_probe/sandbox/seccomp/ata_storage-seccomp.bpf gen/runtime_probe/sandbox/seccomp/audio_codec-seccomp.bpf gen/runtime_probe/sandbox/seccomp/edid-seccomp.bpf gen/runtime_probe/sandbox/seccomp/ethernet_network-seccomp.bpf gen/runtime_probe/sandbox/seccomp/generic_battery-seccomp.bpf gen/runtime_probe/sandbox/seccomp/input_device-seccomp.bpf gen/runtime_probe/sandbox/seccomp/mipi_camera-seccomp.bpf gen/runtime_probe/sandbox/seccomp/mmc_host-seccomp.bpf gen/runtime_probe/sandbox/seccomp/mmc_storage-seccomp.bpf gen/runtime_probe/sandbox/seccomp/network-seccomp.bpf gen/runtime_probe/sandbox/seccomp/nvme_storage-seccomp.bpf gen/runtime_probe/sandbox/seccomp/tcpc-seccomp.bpf gen/runtime_probe/sandbox/seccomp/usb_camera-seccomp.bpf
+build obj/runtime_probe/sandbox/install_sandbox_args.stamp: stamp
+build obj/runtime_probe/sandbox/install_sandbox_seccomp.stamp: stamp obj/runtime_probe/sandbox/_install_sandbox_seccomp-check_seccomp.stamp
+build obj/runtime_probe/sandbox/sandbox.stamp: stamp obj/runtime_probe/sandbox/install_sandbox_args.stamp obj/runtime_probe/sandbox/install_sandbox_seccomp.stamp
+subninja obj/runtime_probe/system/context_factory.ninja
+subninja obj/runtime_probe/system/context_production.ninja
+subninja obj/runtime_probe/system/helper_invoker_direct.ninja
+subninja obj/runtime_probe/system/system_base.ninja
+subninja obj/runtime_probe/system/test_utils.ninja
+subninja obj/runtime_probe/utils/test.ninja
+subninja obj/runtime_probe/utils/test_utils.ninja
+subninja obj/runtime_probe/utils/utils.ninja

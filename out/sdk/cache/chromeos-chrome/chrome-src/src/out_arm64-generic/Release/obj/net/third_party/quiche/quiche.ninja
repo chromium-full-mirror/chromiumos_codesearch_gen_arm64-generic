@@ -1,0 +1,899 @@
+defines = -DIS_QUICHE_IMPL -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DGOOGLE_PROTOBUF_NO_RTTI -DGOOGLE_PROTOBUF_NO_STATIC_INITIALIZER -DGOOGLE_PROTOBUF_INTERNAL_DONATE_STEAL_INLINE=0 -DHAVE_PTHREAD
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/overrides -I../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/platform/default -I../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/include -Igen/third_party/perfetto/build_config -Igen/third_party/perfetto -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/protobuf/src -Igen/protoc_out -Igen/net/third_party/quiche/src -I../../../../../../../home/chrome-bot/chrome_root/src/base/allocator/partition_allocator/src -Igen/base/allocator/partition_allocator/src -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/boringssl/src/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Wshadow -Werror -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wno-unused-private-field -Wno-shadow -Wno-sign-compare -DPROTOBUF_ALLOW_DEPRECATED=1
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = quiche
+target_out_dir = obj/net/third_party/quiche
+target_output_name = libquiche
+
+build obj/net/third_party/quiche/quiche.inputdeps.stamp: stamp obj/base/anchor_functions_buildflags.stamp obj/base/build_date.stamp obj/base/cfi_buildflags.stamp obj/base/clang_profiling_buildflags.stamp obj/base/debugging_buildflags.stamp obj/base/feature_list_buildflags.stamp obj/base/ios_cronet_buildflags.stamp obj/base/logging_buildflags.stamp obj/base/message_pump_buildflags.stamp obj/base/orderfile_buildflags.stamp obj/base/power_monitor_buildflags.stamp obj/base/profiler_buildflags.stamp obj/base/rust_buildflags.stamp obj/base/sanitizer_buildflags.stamp obj/base/synchronization_buildflags.stamp obj/base/tracing_buildflags.stamp obj/base/allocator/buildflags.stamp obj/base/allocator/partition_allocator/src/partition_alloc/chromecast_buildflags.stamp obj/base/allocator/partition_allocator/src/partition_alloc/chromeos_buildflags.stamp obj/base/allocator/partition_allocator/src/partition_alloc/debugging_buildflags.stamp obj/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_buildflags.stamp obj/base/allocator/partition_allocator/src/partition_alloc/raw_ptr_buildflags.stamp obj/base/tracing/protos/chrome_track_event_gen.stamp obj/base/tracing/protos/chrome_track_event_zero_gen.stamp obj/build/blink_buildflags.stamp obj/build/branding_buildflags.stamp obj/build/chromecast_buildflags.stamp obj/build/chromeos_buildflags.stamp obj/build/robolectric_buildflags.stamp obj/build/config/compiler/compiler_buildflags.stamp obj/build/rust/std/empty_sysroot_for_std_build.stamp host_for_rust_host_build_tools/obj/build/rust/std/prebuilt_rustc_copy_to_sysroot.stamp obj/build/rust/std/rules/compiler_builtins_compiler_builtins_vunknown_build_script_output.stamp obj/build/rust/std/rules/libc_libc_vunknown_build_script_output.stamp obj/build/rust/std/rules/memchr_memchr_vunknown_build_script_output.stamp obj/build/rust/std/rules/std_std_vunknown_build_script_output.stamp obj/net/third_party/quiche/net_quic_proto_gen.stamp obj/third_party/icu/copy_icudata.stamp obj/third_party/icu/icudata_hash.stamp obj/third_party/perfetto/gn/gen_buildflags.stamp obj/third_party/perfetto/protos/perfetto/common/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/common/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/android/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/android/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/ftrace/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/ftrace/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/gpu/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/gpu/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/inode_file/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/inode_file/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/interceptors/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/interceptors/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/power/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/power/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/process_stats/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/process_stats/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/profiling/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/profiling/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/statsd/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/statsd/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/sys_stats/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/sys_stats/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/system_info/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/system_info/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/config/track_event/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/config/track_event/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/ipc/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/ipc/ipc_gen.stamp obj/third_party/perfetto/protos/perfetto/ipc/wire_protocol_cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/minimal_zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/non_minimal_zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/android/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/chrome/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/etw/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/filesystem/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/ftrace/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/gpu/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/interned_data/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/perfetto/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/power/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/profiling/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/ps/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/statsd/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/sys_stats/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/system_info/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/track_event/cpp_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/track_event/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace/translation/zero_gen.stamp obj/third_party/perfetto/protos/perfetto/trace_processor/zero_gen.stamp obj/third_party/perfetto/src/trace_processor/importers/proto/gen_cc_chrome_track_event_descriptor.stamp obj/third_party/perfetto/src/trace_processor/importers/proto/gen_cc_track_event_descriptor.stamp obj/third_party/perfetto/src/trace_processor/tables/tables_python.stamp obj/third_party/rust/cxx/v1/cxx_lib_v1_build_script_output.stamp obj/third_party/rust/link_cplusplus/v1/link_cplusplus_lib_v1_build_script_output.stamp host_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script_output.stamp
+build obj/net/third_party/quiche/quiche/quiche_mutex_impl.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/overrides/quiche_platform_impl/quiche_mutex_impl.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_mutex_impl.cc
+  source_name_part = quiche_mutex_impl
+build obj/net/third_party/quiche/quiche/quiche_time_utils_impl.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/overrides/quiche_platform_impl/quiche_time_utils_impl.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_time_utils_impl.cc
+  source_name_part = quiche_time_utils_impl
+build obj/net/third_party/quiche/quiche/quiche_url_utils_impl.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/overrides/quiche_platform_impl/quiche_url_utils_impl.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_url_utils_impl.cc
+  source_name_part = quiche_url_utils_impl
+build obj/net/third_party/quiche/quiche/quiche_flags_impl.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/platform/default/quiche_platform_impl/quiche_flags_impl.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_flags_impl.cc
+  source_name_part = quiche_flags_impl
+build obj/net/third_party/quiche/quiche/capsule.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/capsule.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = capsule.cc
+  source_name_part = capsule
+build obj/net/third_party/quiche/quiche/http_header_block.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/http/http_header_block.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http_header_block.cc
+  source_name_part = http_header_block
+build obj/net/third_party/quiche/quiche/http_header_storage.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/http/http_header_storage.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http_header_storage.cc
+  source_name_part = http_header_storage
+build obj/net/third_party/quiche/quiche/connect_udp_datagram_payload.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/masque/connect_udp_datagram_payload.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = connect_udp_datagram_payload.cc
+  source_name_part = connect_udp_datagram_payload
+build obj/net/third_party/quiche/quiche/quiche_hostname_utils.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/platform/api/quiche_hostname_utils.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_hostname_utils.cc
+  source_name_part = quiche_hostname_utils
+build obj/net/third_party/quiche/quiche/quiche_mutex.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/platform/api/quiche_mutex.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_mutex.cc
+  source_name_part = quiche_mutex
+build obj/net/third_party/quiche/quiche/quiche_buffer_allocator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_buffer_allocator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_buffer_allocator.cc
+  source_name_part = quiche_buffer_allocator
+build obj/net/third_party/quiche/quiche/quiche_crypto_logging.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_crypto_logging.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_crypto_logging.cc
+  source_name_part = quiche_crypto_logging
+build obj/net/third_party/quiche/quiche/quiche_data_reader.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_data_reader.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_data_reader.cc
+  source_name_part = quiche_data_reader
+build obj/net/third_party/quiche/quiche/quiche_data_writer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_data_writer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_data_writer.cc
+  source_name_part = quiche_data_writer
+build obj/net/third_party/quiche/quiche/quiche_ip_address.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_ip_address.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_ip_address.cc
+  source_name_part = quiche_ip_address
+build obj/net/third_party/quiche/quiche/quiche_ip_address_family.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_ip_address_family.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_ip_address_family.cc
+  source_name_part = quiche_ip_address_family
+build obj/net/third_party/quiche/quiche/quiche_mem_slice_storage.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_mem_slice_storage.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_mem_slice_storage.cc
+  source_name_part = quiche_mem_slice_storage
+build obj/net/third_party/quiche/quiche/quiche_random.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_random.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_random.cc
+  source_name_part = quiche_random
+build obj/net/third_party/quiche/quiche/quiche_simple_arena.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_simple_arena.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_simple_arena.cc
+  source_name_part = quiche_simple_arena
+build obj/net/third_party/quiche/quiche/quiche_text_utils.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/quiche_text_utils.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quiche_text_utils.cc
+  source_name_part = quiche_text_utils
+build obj/net/third_party/quiche/quiche/simple_buffer_allocator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/simple_buffer_allocator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = simple_buffer_allocator.cc
+  source_name_part = simple_buffer_allocator
+build obj/net/third_party/quiche/quiche/structured_headers.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/common/structured_headers.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = structured_headers.cc
+  source_name_part = structured_headers
+build obj/net/third_party/quiche/quiche/event_forwarder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/event_forwarder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = event_forwarder.cc
+  source_name_part = event_forwarder
+build obj/net/third_party/quiche/quiche/header_validator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/header_validator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = header_validator.cc
+  source_name_part = header_validator
+build obj/net/third_party/quiche/quiche/http2_protocol.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/http2_protocol.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_protocol.cc
+  source_name_part = http2_protocol
+build obj/net/third_party/quiche/quiche/http2_util.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/http2_util.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_util.cc
+  source_name_part = http2_util
+build obj/net/third_party/quiche/quiche/noop_header_validator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/noop_header_validator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = noop_header_validator.cc
+  source_name_part = noop_header_validator
+build obj/net/third_party/quiche/quiche/oghttp2_adapter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/oghttp2_adapter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = oghttp2_adapter.cc
+  source_name_part = oghttp2_adapter
+build obj/net/third_party/quiche/quiche/oghttp2_session.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/oghttp2_session.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = oghttp2_session.cc
+  source_name_part = oghttp2_session
+build obj/net/third_party/quiche/quiche/oghttp2_util.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/oghttp2_util.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = oghttp2_util.cc
+  source_name_part = oghttp2_util
+build obj/net/third_party/quiche/quiche/window_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/adapter/window_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = window_manager.cc
+  source_name_part = window_manager
+build obj/net/third_party/quiche/quiche/http2_trace_logging.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/core/http2_trace_logging.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_trace_logging.cc
+  source_name_part = http2_trace_logging
+build obj/net/third_party/quiche/quiche/decode_buffer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/decode_buffer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = decode_buffer.cc
+  source_name_part = decode_buffer
+build obj/net/third_party/quiche/quiche/decode_http2_structures.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/decode_http2_structures.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = decode_http2_structures.cc
+  source_name_part = decode_http2_structures
+build obj/net/third_party/quiche/quiche/decode_status.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/decode_status.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = decode_status.cc
+  source_name_part = decode_status
+build obj/net/third_party/quiche/quiche/frame_decoder_state.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/frame_decoder_state.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = frame_decoder_state.cc
+  source_name_part = frame_decoder_state
+build obj/net/third_party/quiche/quiche/http2_frame_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/http2_frame_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_frame_decoder.cc
+  source_name_part = http2_frame_decoder
+build obj/net/third_party/quiche/quiche/http2_frame_decoder_listener.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/http2_frame_decoder_listener.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_frame_decoder_listener.cc
+  source_name_part = http2_frame_decoder_listener
+build obj/net/third_party/quiche/quiche/http2_structure_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/http2_structure_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_structure_decoder.cc
+  source_name_part = http2_structure_decoder
+build obj/net/third_party/quiche/quiche/altsvc_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/altsvc_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = altsvc_payload_decoder.cc
+  source_name_part = altsvc_payload_decoder
+build obj/net/third_party/quiche/quiche/continuation_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/continuation_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = continuation_payload_decoder.cc
+  source_name_part = continuation_payload_decoder
+build obj/net/third_party/quiche/quiche/data_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/data_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = data_payload_decoder.cc
+  source_name_part = data_payload_decoder
+build obj/net/third_party/quiche/quiche/goaway_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/goaway_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = goaway_payload_decoder.cc
+  source_name_part = goaway_payload_decoder
+build obj/net/third_party/quiche/quiche/headers_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/headers_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = headers_payload_decoder.cc
+  source_name_part = headers_payload_decoder
+build obj/net/third_party/quiche/quiche/ping_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/ping_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = ping_payload_decoder.cc
+  source_name_part = ping_payload_decoder
+build obj/net/third_party/quiche/quiche/priority_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/priority_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = priority_payload_decoder.cc
+  source_name_part = priority_payload_decoder
+build obj/net/third_party/quiche/quiche/priority_update_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/priority_update_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = priority_update_payload_decoder.cc
+  source_name_part = priority_update_payload_decoder
+build obj/net/third_party/quiche/quiche/push_promise_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/push_promise_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = push_promise_payload_decoder.cc
+  source_name_part = push_promise_payload_decoder
+build obj/net/third_party/quiche/quiche/rst_stream_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/rst_stream_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = rst_stream_payload_decoder.cc
+  source_name_part = rst_stream_payload_decoder
+build obj/net/third_party/quiche/quiche/settings_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/settings_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = settings_payload_decoder.cc
+  source_name_part = settings_payload_decoder
+build obj/net/third_party/quiche/quiche/unknown_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/unknown_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = unknown_payload_decoder.cc
+  source_name_part = unknown_payload_decoder
+build obj/net/third_party/quiche/quiche/window_update_payload_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/decoder/payload_decoders/window_update_payload_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = window_update_payload_decoder.cc
+  source_name_part = window_update_payload_decoder
+build obj/net/third_party/quiche/quiche/hpack_block_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_block_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_block_decoder.cc
+  source_name_part = hpack_block_decoder
+build obj/net/third_party/quiche/quiche/hpack_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_decoder.cc
+  source_name_part = hpack_decoder
+build obj/net/third_party/quiche/quiche/hpack_decoder_listener.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_decoder_listener.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_decoder_listener.cc
+  source_name_part = hpack_decoder_listener
+build obj/net/third_party/quiche/quiche/hpack_decoder_state.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_decoder_state.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_decoder_state.cc
+  source_name_part = hpack_decoder_state
+build obj/net/third_party/quiche/quiche/hpack_decoder_string_buffer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_decoder_string_buffer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_decoder_string_buffer.cc
+  source_name_part = hpack_decoder_string_buffer
+build obj/net/third_party/quiche/quiche/hpack_decoder_tables.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_decoder_tables.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_decoder_tables.cc
+  source_name_part = hpack_decoder_tables
+build obj/net/third_party/quiche/quiche/hpack_decoding_error.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_decoding_error.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_decoding_error.cc
+  source_name_part = hpack_decoding_error
+build obj/net/third_party/quiche/quiche/hpack_entry_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_entry_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_entry_decoder.cc
+  source_name_part = hpack_entry_decoder
+build obj/net/third_party/quiche/quiche/hpack_entry_decoder_listener.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_entry_decoder_listener.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_entry_decoder_listener.cc
+  source_name_part = hpack_entry_decoder_listener
+build obj/net/third_party/quiche/quiche/hpack_entry_type_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_entry_type_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_entry_type_decoder.cc
+  source_name_part = hpack_entry_type_decoder
+build obj/net/third_party/quiche/quiche/hpack_string_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_string_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_string_decoder.cc
+  source_name_part = hpack_string_decoder
+build obj/net/third_party/quiche/quiche/hpack_string_decoder_listener.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_string_decoder_listener.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_string_decoder_listener.cc
+  source_name_part = hpack_string_decoder_listener
+build obj/net/third_party/quiche/quiche/hpack_whole_entry_buffer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_whole_entry_buffer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_whole_entry_buffer.cc
+  source_name_part = hpack_whole_entry_buffer
+build obj/net/third_party/quiche/quiche/hpack_whole_entry_listener.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/decoder/hpack_whole_entry_listener.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_whole_entry_listener.cc
+  source_name_part = hpack_whole_entry_listener
+build obj/net/third_party/quiche/quiche/http2_hpack_constants.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/http2_hpack_constants.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_hpack_constants.cc
+  source_name_part = http2_hpack_constants
+build obj/net/third_party/quiche/quiche/hpack_huffman_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/huffman/hpack_huffman_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_huffman_decoder.cc
+  source_name_part = hpack_huffman_decoder
+build obj/net/third_party/quiche/quiche/hpack_huffman_encoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/huffman/hpack_huffman_encoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_huffman_encoder.cc
+  source_name_part = hpack_huffman_encoder
+build obj/net/third_party/quiche/quiche/huffman_spec_tables.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/huffman/huffman_spec_tables.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = huffman_spec_tables.cc
+  source_name_part = huffman_spec_tables
+build obj/net/third_party/quiche/quiche/hpack_varint_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/varint/hpack_varint_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_varint_decoder.cc
+  source_name_part = hpack_varint_decoder
+build obj/net/third_party/quiche/quiche/hpack_varint_encoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/hpack/varint/hpack_varint_encoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_varint_encoder.cc
+  source_name_part = hpack_varint_encoder
+build obj/net/third_party/quiche/quiche/http2_constants.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/http2_constants.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_constants.cc
+  source_name_part = http2_constants
+build obj/net/third_party/quiche/quiche/http2_structures.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/http2/http2_structures.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_structures.cc
+  source_name_part = http2_structures
+build obj/net/third_party/quiche/quiche/chlo_extractor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/chlo_extractor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = chlo_extractor.cc
+  source_name_part = chlo_extractor
+build obj/net/third_party/quiche/quiche/bandwidth_sampler.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/bandwidth_sampler.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = bandwidth_sampler.cc
+  source_name_part = bandwidth_sampler
+build obj/net/third_party/quiche/quiche/bbr2_drain.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/bbr2_drain.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = bbr2_drain.cc
+  source_name_part = bbr2_drain
+build obj/net/third_party/quiche/quiche/bbr2_misc.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/bbr2_misc.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = bbr2_misc.cc
+  source_name_part = bbr2_misc
+build obj/net/third_party/quiche/quiche/bbr2_probe_bw.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/bbr2_probe_bw.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = bbr2_probe_bw.cc
+  source_name_part = bbr2_probe_bw
+build obj/net/third_party/quiche/quiche/bbr2_probe_rtt.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/bbr2_probe_rtt.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = bbr2_probe_rtt.cc
+  source_name_part = bbr2_probe_rtt
+build obj/net/third_party/quiche/quiche/bbr2_sender.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/bbr2_sender.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = bbr2_sender.cc
+  source_name_part = bbr2_sender
+build obj/net/third_party/quiche/quiche/bbr2_startup.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/bbr2_startup.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = bbr2_startup.cc
+  source_name_part = bbr2_startup
+build obj/net/third_party/quiche/quiche/bbr_sender.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/bbr_sender.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = bbr_sender.cc
+  source_name_part = bbr_sender
+build obj/net/third_party/quiche/quiche/cubic_bytes.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/cubic_bytes.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = cubic_bytes.cc
+  source_name_part = cubic_bytes
+build obj/net/third_party/quiche/quiche/general_loss_algorithm.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/general_loss_algorithm.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = general_loss_algorithm.cc
+  source_name_part = general_loss_algorithm
+build obj/net/third_party/quiche/quiche/hybrid_slow_start.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/hybrid_slow_start.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hybrid_slow_start.cc
+  source_name_part = hybrid_slow_start
+build obj/net/third_party/quiche/quiche/pacing_sender.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/pacing_sender.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = pacing_sender.cc
+  source_name_part = pacing_sender
+build obj/net/third_party/quiche/quiche/prr_sender.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/prr_sender.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = prr_sender.cc
+  source_name_part = prr_sender
+build obj/net/third_party/quiche/quiche/rtt_stats.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/rtt_stats.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = rtt_stats.cc
+  source_name_part = rtt_stats
+build obj/net/third_party/quiche/quiche/send_algorithm_interface.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/send_algorithm_interface.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = send_algorithm_interface.cc
+  source_name_part = send_algorithm_interface
+build obj/net/third_party/quiche/quiche/tcp_cubic_sender_bytes.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/tcp_cubic_sender_bytes.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = tcp_cubic_sender_bytes.cc
+  source_name_part = tcp_cubic_sender_bytes
+build obj/net/third_party/quiche/quiche/uber_loss_algorithm.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/congestion_control/uber_loss_algorithm.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = uber_loss_algorithm.cc
+  source_name_part = uber_loss_algorithm
+build obj/net/third_party/quiche/quiche/aead_base_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aead_base_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aead_base_decrypter.cc
+  source_name_part = aead_base_decrypter
+build obj/net/third_party/quiche/quiche/aead_base_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aead_base_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aead_base_encrypter.cc
+  source_name_part = aead_base_encrypter
+build obj/net/third_party/quiche/quiche/aes_128_gcm_12_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aes_128_gcm_12_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aes_128_gcm_12_decrypter.cc
+  source_name_part = aes_128_gcm_12_decrypter
+build obj/net/third_party/quiche/quiche/aes_128_gcm_12_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aes_128_gcm_12_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aes_128_gcm_12_encrypter.cc
+  source_name_part = aes_128_gcm_12_encrypter
+build obj/net/third_party/quiche/quiche/aes_128_gcm_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aes_128_gcm_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aes_128_gcm_decrypter.cc
+  source_name_part = aes_128_gcm_decrypter
+build obj/net/third_party/quiche/quiche/aes_128_gcm_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aes_128_gcm_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aes_128_gcm_encrypter.cc
+  source_name_part = aes_128_gcm_encrypter
+build obj/net/third_party/quiche/quiche/aes_256_gcm_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aes_256_gcm_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aes_256_gcm_decrypter.cc
+  source_name_part = aes_256_gcm_decrypter
+build obj/net/third_party/quiche/quiche/aes_256_gcm_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aes_256_gcm_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aes_256_gcm_encrypter.cc
+  source_name_part = aes_256_gcm_encrypter
+build obj/net/third_party/quiche/quiche/aes_base_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aes_base_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aes_base_decrypter.cc
+  source_name_part = aes_base_decrypter
+build obj/net/third_party/quiche/quiche/aes_base_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/aes_base_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = aes_base_encrypter.cc
+  source_name_part = aes_base_encrypter
+build obj/net/third_party/quiche/quiche/cert_compressor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/cert_compressor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = cert_compressor.cc
+  source_name_part = cert_compressor
+build obj/net/third_party/quiche/quiche/certificate_util.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/certificate_util.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = certificate_util.cc
+  source_name_part = certificate_util
+build obj/net/third_party/quiche/quiche/certificate_view.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/certificate_view.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = certificate_view.cc
+  source_name_part = certificate_view
+build obj/net/third_party/quiche/quiche/chacha20_poly1305_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/chacha20_poly1305_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = chacha20_poly1305_decrypter.cc
+  source_name_part = chacha20_poly1305_decrypter
+build obj/net/third_party/quiche/quiche/chacha20_poly1305_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/chacha20_poly1305_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = chacha20_poly1305_encrypter.cc
+  source_name_part = chacha20_poly1305_encrypter
+build obj/net/third_party/quiche/quiche/chacha20_poly1305_tls_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/chacha20_poly1305_tls_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = chacha20_poly1305_tls_decrypter.cc
+  source_name_part = chacha20_poly1305_tls_decrypter
+build obj/net/third_party/quiche/quiche/chacha20_poly1305_tls_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/chacha20_poly1305_tls_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = chacha20_poly1305_tls_encrypter.cc
+  source_name_part = chacha20_poly1305_tls_encrypter
+build obj/net/third_party/quiche/quiche/chacha_base_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/chacha_base_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = chacha_base_decrypter.cc
+  source_name_part = chacha_base_decrypter
+build obj/net/third_party/quiche/quiche/chacha_base_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/chacha_base_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = chacha_base_encrypter.cc
+  source_name_part = chacha_base_encrypter
+build obj/net/third_party/quiche/quiche/channel_id.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/channel_id.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = channel_id.cc
+  source_name_part = channel_id
+build obj/net/third_party/quiche/quiche/client_proof_source.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/client_proof_source.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = client_proof_source.cc
+  source_name_part = client_proof_source
+build obj/net/third_party/quiche/quiche/crypto_framer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/crypto_framer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = crypto_framer.cc
+  source_name_part = crypto_framer
+build obj/net/third_party/quiche/quiche/crypto_handshake.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/crypto_handshake.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = crypto_handshake.cc
+  source_name_part = crypto_handshake
+build obj/net/third_party/quiche/quiche/crypto_handshake_message.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/crypto_handshake_message.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = crypto_handshake_message.cc
+  source_name_part = crypto_handshake_message
+build obj/net/third_party/quiche/quiche/crypto_secret_boxer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/crypto_secret_boxer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = crypto_secret_boxer.cc
+  source_name_part = crypto_secret_boxer
+build obj/net/third_party/quiche/quiche/crypto_utils.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/crypto_utils.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = crypto_utils.cc
+  source_name_part = crypto_utils
+build obj/net/third_party/quiche/quiche/curve25519_key_exchange.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/curve25519_key_exchange.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = curve25519_key_exchange.cc
+  source_name_part = curve25519_key_exchange
+build obj/net/third_party/quiche/quiche/key_exchange.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/key_exchange.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = key_exchange.cc
+  source_name_part = key_exchange
+build obj/net/third_party/quiche/quiche/null_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/null_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = null_decrypter.cc
+  source_name_part = null_decrypter
+build obj/net/third_party/quiche/quiche/null_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/null_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = null_encrypter.cc
+  source_name_part = null_encrypter
+build obj/net/third_party/quiche/quiche/p256_key_exchange.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/p256_key_exchange.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = p256_key_exchange.cc
+  source_name_part = p256_key_exchange
+build obj/net/third_party/quiche/quiche/proof_source.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/proof_source.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = proof_source.cc
+  source_name_part = proof_source
+build obj/net/third_party/quiche/quiche/proof_source_x509.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/proof_source_x509.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = proof_source_x509.cc
+  source_name_part = proof_source_x509
+build obj/net/third_party/quiche/quiche/quic_client_session_cache.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_client_session_cache.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_client_session_cache.cc
+  source_name_part = quic_client_session_cache
+build obj/net/third_party/quiche/quiche/quic_compressed_certs_cache.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_compressed_certs_cache.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_compressed_certs_cache.cc
+  source_name_part = quic_compressed_certs_cache
+build obj/net/third_party/quiche/quiche/quic_crypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_crypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypter.cc
+  source_name_part = quic_crypter
+build obj/net/third_party/quiche/quiche/quic_crypto_client_config.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_crypto_client_config.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_client_config.cc
+  source_name_part = quic_crypto_client_config
+build obj/net/third_party/quiche/quiche/quic_crypto_proof.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_crypto_proof.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_proof.cc
+  source_name_part = quic_crypto_proof
+build obj/net/third_party/quiche/quiche/quic_crypto_server_config.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_crypto_server_config.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_server_config.cc
+  source_name_part = quic_crypto_server_config
+build obj/net/third_party/quiche/quiche/quic_decrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_decrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_decrypter.cc
+  source_name_part = quic_decrypter
+build obj/net/third_party/quiche/quiche/quic_encrypter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_encrypter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_encrypter.cc
+  source_name_part = quic_encrypter
+build obj/net/third_party/quiche/quiche/quic_hkdf.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/quic_hkdf.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_hkdf.cc
+  source_name_part = quic_hkdf
+build obj/net/third_party/quiche/quiche/tls_client_connection.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/tls_client_connection.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = tls_client_connection.cc
+  source_name_part = tls_client_connection
+build obj/net/third_party/quiche/quiche/tls_connection.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/tls_connection.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = tls_connection.cc
+  source_name_part = tls_connection
+build obj/net/third_party/quiche/quiche/tls_server_connection.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/tls_server_connection.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = tls_server_connection.cc
+  source_name_part = tls_server_connection
+build obj/net/third_party/quiche/quiche/transport_parameters.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/transport_parameters.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = transport_parameters.cc
+  source_name_part = transport_parameters
+build obj/net/third_party/quiche/quiche/web_transport_fingerprint_proof_verifier.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/crypto/web_transport_fingerprint_proof_verifier.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = web_transport_fingerprint_proof_verifier.cc
+  source_name_part = web_transport_fingerprint_proof_verifier
+build obj/net/third_party/quiche/quiche/deterministic_connection_id_generator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/deterministic_connection_id_generator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = deterministic_connection_id_generator.cc
+  source_name_part = deterministic_connection_id_generator
+build obj/net/third_party/quiche/quiche/quic_ack_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_ack_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_ack_frame.cc
+  source_name_part = quic_ack_frame
+build obj/net/third_party/quiche/quiche/quic_ack_frequency_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_ack_frequency_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_ack_frequency_frame.cc
+  source_name_part = quic_ack_frequency_frame
+build obj/net/third_party/quiche/quiche/quic_blocked_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_blocked_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_blocked_frame.cc
+  source_name_part = quic_blocked_frame
+build obj/net/third_party/quiche/quiche/quic_connection_close_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_connection_close_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_connection_close_frame.cc
+  source_name_part = quic_connection_close_frame
+build obj/net/third_party/quiche/quiche/quic_crypto_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_crypto_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_frame.cc
+  source_name_part = quic_crypto_frame
+build obj/net/third_party/quiche/quiche/quic_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_frame.cc
+  source_name_part = quic_frame
+build obj/net/third_party/quiche/quiche/quic_goaway_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_goaway_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_goaway_frame.cc
+  source_name_part = quic_goaway_frame
+build obj/net/third_party/quiche/quiche/quic_handshake_done_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_handshake_done_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_handshake_done_frame.cc
+  source_name_part = quic_handshake_done_frame
+build obj/net/third_party/quiche/quiche/quic_max_streams_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_max_streams_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_max_streams_frame.cc
+  source_name_part = quic_max_streams_frame
+build obj/net/third_party/quiche/quiche/quic_message_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_message_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_message_frame.cc
+  source_name_part = quic_message_frame
+build obj/net/third_party/quiche/quiche/quic_new_connection_id_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_new_connection_id_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_new_connection_id_frame.cc
+  source_name_part = quic_new_connection_id_frame
+build obj/net/third_party/quiche/quiche/quic_new_token_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_new_token_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_new_token_frame.cc
+  source_name_part = quic_new_token_frame
+build obj/net/third_party/quiche/quiche/quic_padding_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_padding_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_padding_frame.cc
+  source_name_part = quic_padding_frame
+build obj/net/third_party/quiche/quiche/quic_path_challenge_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_path_challenge_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_path_challenge_frame.cc
+  source_name_part = quic_path_challenge_frame
+build obj/net/third_party/quiche/quiche/quic_path_response_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_path_response_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_path_response_frame.cc
+  source_name_part = quic_path_response_frame
+build obj/net/third_party/quiche/quiche/quic_ping_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_ping_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_ping_frame.cc
+  source_name_part = quic_ping_frame
+build obj/net/third_party/quiche/quiche/quic_retire_connection_id_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_retire_connection_id_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_retire_connection_id_frame.cc
+  source_name_part = quic_retire_connection_id_frame
+build obj/net/third_party/quiche/quiche/quic_rst_stream_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_rst_stream_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_rst_stream_frame.cc
+  source_name_part = quic_rst_stream_frame
+build obj/net/third_party/quiche/quiche/quic_stop_sending_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_stop_sending_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stop_sending_frame.cc
+  source_name_part = quic_stop_sending_frame
+build obj/net/third_party/quiche/quiche/quic_stop_waiting_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_stop_waiting_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stop_waiting_frame.cc
+  source_name_part = quic_stop_waiting_frame
+build obj/net/third_party/quiche/quiche/quic_stream_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_stream_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stream_frame.cc
+  source_name_part = quic_stream_frame
+build obj/net/third_party/quiche/quiche/quic_streams_blocked_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_streams_blocked_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_streams_blocked_frame.cc
+  source_name_part = quic_streams_blocked_frame
+build obj/net/third_party/quiche/quiche/quic_window_update_frame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/frames/quic_window_update_frame.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_window_update_frame.cc
+  source_name_part = quic_window_update_frame
+build obj/net/third_party/quiche/quiche/http_constants.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/http_constants.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http_constants.cc
+  source_name_part = http_constants
+build obj/net/third_party/quiche/quiche/http_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/http_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http_decoder.cc
+  source_name_part = http_decoder
+build obj/net/third_party/quiche/quiche/http_encoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/http_encoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http_encoder.cc
+  source_name_part = http_encoder
+build obj/net/third_party/quiche/quiche/quic_header_list.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_header_list.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_header_list.cc
+  source_name_part = quic_header_list
+build obj/net/third_party/quiche/quiche/quic_headers_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_headers_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_headers_stream.cc
+  source_name_part = quic_headers_stream
+build obj/net/third_party/quiche/quiche/quic_receive_control_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_receive_control_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_receive_control_stream.cc
+  source_name_part = quic_receive_control_stream
+build obj/net/third_party/quiche/quiche/quic_send_control_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_send_control_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_send_control_stream.cc
+  source_name_part = quic_send_control_stream
+build obj/net/third_party/quiche/quiche/quic_server_initiated_spdy_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_server_initiated_spdy_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_server_initiated_spdy_stream.cc
+  source_name_part = quic_server_initiated_spdy_stream
+build obj/net/third_party/quiche/quiche/quic_server_session_base.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_server_session_base.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_server_session_base.cc
+  source_name_part = quic_server_session_base
+build obj/net/third_party/quiche/quiche/quic_spdy_client_session.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_spdy_client_session.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_spdy_client_session.cc
+  source_name_part = quic_spdy_client_session
+build obj/net/third_party/quiche/quiche/quic_spdy_client_session_base.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_spdy_client_session_base.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_spdy_client_session_base.cc
+  source_name_part = quic_spdy_client_session_base
+build obj/net/third_party/quiche/quiche/quic_spdy_client_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_spdy_client_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_spdy_client_stream.cc
+  source_name_part = quic_spdy_client_stream
+build obj/net/third_party/quiche/quiche/quic_spdy_server_stream_base.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_spdy_server_stream_base.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_spdy_server_stream_base.cc
+  source_name_part = quic_spdy_server_stream_base
+build obj/net/third_party/quiche/quiche/quic_spdy_session.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_spdy_session.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_spdy_session.cc
+  source_name_part = quic_spdy_session
+build obj/net/third_party/quiche/quiche/quic_spdy_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_spdy_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_spdy_stream.cc
+  source_name_part = quic_spdy_stream
+build obj/net/third_party/quiche/quiche/quic_spdy_stream_body_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/quic_spdy_stream_body_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_spdy_stream_body_manager.cc
+  source_name_part = quic_spdy_stream_body_manager
+build obj/net/third_party/quiche/quiche/spdy_utils.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/spdy_utils.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = spdy_utils.cc
+  source_name_part = spdy_utils
+build obj/net/third_party/quiche/quiche/web_transport_http3.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/web_transport_http3.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = web_transport_http3.cc
+  source_name_part = web_transport_http3
+build obj/net/third_party/quiche/quiche/web_transport_stream_adapter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/http/web_transport_stream_adapter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = web_transport_stream_adapter.cc
+  source_name_part = web_transport_stream_adapter
+build obj/net/third_party/quiche/quiche/legacy_quic_stream_id_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/legacy_quic_stream_id_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = legacy_quic_stream_id_manager.cc
+  source_name_part = legacy_quic_stream_id_manager
+build obj/net/third_party/quiche/quiche/qpack_blocking_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_blocking_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_blocking_manager.cc
+  source_name_part = qpack_blocking_manager
+build obj/net/third_party/quiche/quiche/qpack_decoded_headers_accumulator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_decoded_headers_accumulator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_decoded_headers_accumulator.cc
+  source_name_part = qpack_decoded_headers_accumulator
+build obj/net/third_party/quiche/quiche/qpack_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_decoder.cc
+  source_name_part = qpack_decoder
+build obj/net/third_party/quiche/quiche/qpack_decoder_stream_receiver.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_decoder_stream_receiver.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_decoder_stream_receiver.cc
+  source_name_part = qpack_decoder_stream_receiver
+build obj/net/third_party/quiche/quiche/qpack_decoder_stream_sender.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_decoder_stream_sender.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_decoder_stream_sender.cc
+  source_name_part = qpack_decoder_stream_sender
+build obj/net/third_party/quiche/quiche/qpack_encoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_encoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_encoder.cc
+  source_name_part = qpack_encoder
+build obj/net/third_party/quiche/quiche/qpack_encoder_stream_receiver.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_encoder_stream_receiver.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_encoder_stream_receiver.cc
+  source_name_part = qpack_encoder_stream_receiver
+build obj/net/third_party/quiche/quiche/qpack_encoder_stream_sender.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_encoder_stream_sender.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_encoder_stream_sender.cc
+  source_name_part = qpack_encoder_stream_sender
+build obj/net/third_party/quiche/quiche/qpack_header_table.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_header_table.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_header_table.cc
+  source_name_part = qpack_header_table
+build obj/net/third_party/quiche/quiche/qpack_index_conversions.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_index_conversions.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_index_conversions.cc
+  source_name_part = qpack_index_conversions
+build obj/net/third_party/quiche/quiche/qpack_instruction_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_instruction_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_instruction_decoder.cc
+  source_name_part = qpack_instruction_decoder
+build obj/net/third_party/quiche/quiche/qpack_instruction_encoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_instruction_encoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_instruction_encoder.cc
+  source_name_part = qpack_instruction_encoder
+build obj/net/third_party/quiche/quiche/qpack_instructions.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_instructions.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_instructions.cc
+  source_name_part = qpack_instructions
+build obj/net/third_party/quiche/quiche/qpack_progressive_decoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_progressive_decoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_progressive_decoder.cc
+  source_name_part = qpack_progressive_decoder
+build obj/net/third_party/quiche/quiche/qpack_receive_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_receive_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_receive_stream.cc
+  source_name_part = qpack_receive_stream
+build obj/net/third_party/quiche/quiche/qpack_required_insert_count.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_required_insert_count.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_required_insert_count.cc
+  source_name_part = qpack_required_insert_count
+build obj/net/third_party/quiche/quiche/qpack_send_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_send_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_send_stream.cc
+  source_name_part = qpack_send_stream
+build obj/net/third_party/quiche/quiche/qpack_static_table.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/qpack_static_table.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = qpack_static_table.cc
+  source_name_part = qpack_static_table
+build obj/net/third_party/quiche/quiche/value_splitting_header_list.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/qpack/value_splitting_header_list.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = value_splitting_header_list.cc
+  source_name_part = value_splitting_header_list
+build obj/net/third_party/quiche/quiche/quic_ack_listener_interface.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_ack_listener_interface.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_ack_listener_interface.cc
+  source_name_part = quic_ack_listener_interface
+build obj/net/third_party/quiche/quiche/quic_alarm.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_alarm.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_alarm.cc
+  source_name_part = quic_alarm
+build obj/net/third_party/quiche/quiche/quic_bandwidth.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_bandwidth.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_bandwidth.cc
+  source_name_part = quic_bandwidth
+build obj/net/third_party/quiche/quiche/quic_buffered_packet_store.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_buffered_packet_store.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_buffered_packet_store.cc
+  source_name_part = quic_buffered_packet_store
+build obj/net/third_party/quiche/quiche/quic_chaos_protector.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_chaos_protector.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_chaos_protector.cc
+  source_name_part = quic_chaos_protector
+build obj/net/third_party/quiche/quiche/quic_coalesced_packet.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_coalesced_packet.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_coalesced_packet.cc
+  source_name_part = quic_coalesced_packet
+build obj/net/third_party/quiche/quiche/quic_config.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_config.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_config.cc
+  source_name_part = quic_config
+build obj/net/third_party/quiche/quiche/quic_connection.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_connection.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_connection.cc
+  source_name_part = quic_connection
+build obj/net/third_party/quiche/quiche/quic_connection_context.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_connection_context.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_connection_context.cc
+  source_name_part = quic_connection_context
+build obj/net/third_party/quiche/quiche/quic_connection_id.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_connection_id.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_connection_id.cc
+  source_name_part = quic_connection_id
+build obj/net/third_party/quiche/quiche/quic_connection_id_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_connection_id_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_connection_id_manager.cc
+  source_name_part = quic_connection_id_manager
+build obj/net/third_party/quiche/quiche/quic_connection_stats.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_connection_stats.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_connection_stats.cc
+  source_name_part = quic_connection_stats
+build obj/net/third_party/quiche/quiche/quic_constants.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_constants.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_constants.cc
+  source_name_part = quic_constants
+build obj/net/third_party/quiche/quiche/quic_control_frame_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_control_frame_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_control_frame_manager.cc
+  source_name_part = quic_control_frame_manager
+build obj/net/third_party/quiche/quiche/quic_crypto_client_handshaker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_crypto_client_handshaker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_client_handshaker.cc
+  source_name_part = quic_crypto_client_handshaker
+build obj/net/third_party/quiche/quiche/quic_crypto_client_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_crypto_client_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_client_stream.cc
+  source_name_part = quic_crypto_client_stream
+build obj/net/third_party/quiche/quiche/quic_crypto_handshaker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_crypto_handshaker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_handshaker.cc
+  source_name_part = quic_crypto_handshaker
+build obj/net/third_party/quiche/quiche/quic_crypto_server_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_crypto_server_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_server_stream.cc
+  source_name_part = quic_crypto_server_stream
+build obj/net/third_party/quiche/quiche/quic_crypto_server_stream_base.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_crypto_server_stream_base.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_server_stream_base.cc
+  source_name_part = quic_crypto_server_stream_base
+build obj/net/third_party/quiche/quiche/quic_crypto_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_crypto_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_crypto_stream.cc
+  source_name_part = quic_crypto_stream
+build obj/net/third_party/quiche/quiche/quic_data_reader.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_data_reader.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_data_reader.cc
+  source_name_part = quic_data_reader
+build obj/net/third_party/quiche/quiche/quic_data_writer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_data_writer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_data_writer.cc
+  source_name_part = quic_data_writer
+build obj/net/third_party/quiche/quiche/quic_datagram_queue.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_datagram_queue.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_datagram_queue.cc
+  source_name_part = quic_datagram_queue
+build obj/net/third_party/quiche/quiche/quic_default_clock.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_default_clock.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_default_clock.cc
+  source_name_part = quic_default_clock
+build obj/net/third_party/quiche/quiche/quic_dispatcher.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_dispatcher.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_dispatcher.cc
+  source_name_part = quic_dispatcher
+build obj/net/third_party/quiche/quiche/quic_error_codes.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_error_codes.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_error_codes.cc
+  source_name_part = quic_error_codes
+build obj/net/third_party/quiche/quiche/quic_flow_controller.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_flow_controller.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_flow_controller.cc
+  source_name_part = quic_flow_controller
+build obj/net/third_party/quiche/quiche/quic_framer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_framer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_framer.cc
+  source_name_part = quic_framer
+build obj/net/third_party/quiche/quiche/quic_generic_session.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_generic_session.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_generic_session.cc
+  source_name_part = quic_generic_session
+build obj/net/third_party/quiche/quiche/quic_idle_network_detector.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_idle_network_detector.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_idle_network_detector.cc
+  source_name_part = quic_idle_network_detector
+build obj/net/third_party/quiche/quiche/quic_mtu_discovery.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_mtu_discovery.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_mtu_discovery.cc
+  source_name_part = quic_mtu_discovery
+build obj/net/third_party/quiche/quiche/quic_network_blackhole_detector.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_network_blackhole_detector.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_network_blackhole_detector.cc
+  source_name_part = quic_network_blackhole_detector
+build obj/net/third_party/quiche/quiche/quic_packet_creator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_packet_creator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_packet_creator.cc
+  source_name_part = quic_packet_creator
+build obj/net/third_party/quiche/quiche/quic_packet_number.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_packet_number.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_packet_number.cc
+  source_name_part = quic_packet_number
+build obj/net/third_party/quiche/quiche/quic_packet_writer_wrapper.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_packet_writer_wrapper.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_packet_writer_wrapper.cc
+  source_name_part = quic_packet_writer_wrapper
+build obj/net/third_party/quiche/quiche/quic_packets.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_packets.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_packets.cc
+  source_name_part = quic_packets
+build obj/net/third_party/quiche/quiche/quic_path_validator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_path_validator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_path_validator.cc
+  source_name_part = quic_path_validator
+build obj/net/third_party/quiche/quiche/quic_ping_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_ping_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_ping_manager.cc
+  source_name_part = quic_ping_manager
+build obj/net/third_party/quiche/quiche/quic_received_packet_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_received_packet_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_received_packet_manager.cc
+  source_name_part = quic_received_packet_manager
+build obj/net/third_party/quiche/quiche/quic_sent_packet_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_sent_packet_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_sent_packet_manager.cc
+  source_name_part = quic_sent_packet_manager
+build obj/net/third_party/quiche/quiche/quic_server_id.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_server_id.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_server_id.cc
+  source_name_part = quic_server_id
+build obj/net/third_party/quiche/quiche/quic_session.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_session.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_session.cc
+  source_name_part = quic_session
+build obj/net/third_party/quiche/quiche/quic_socket_address_coder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_socket_address_coder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_socket_address_coder.cc
+  source_name_part = quic_socket_address_coder
+build obj/net/third_party/quiche/quiche/quic_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stream.cc
+  source_name_part = quic_stream
+build obj/net/third_party/quiche/quiche/quic_stream_id_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_stream_id_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stream_id_manager.cc
+  source_name_part = quic_stream_id_manager
+build obj/net/third_party/quiche/quiche/quic_stream_priority.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_stream_priority.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stream_priority.cc
+  source_name_part = quic_stream_priority
+build obj/net/third_party/quiche/quiche/quic_stream_send_buffer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_stream_send_buffer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stream_send_buffer.cc
+  source_name_part = quic_stream_send_buffer
+build obj/net/third_party/quiche/quiche/quic_stream_sequencer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_stream_sequencer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stream_sequencer.cc
+  source_name_part = quic_stream_sequencer
+build obj/net/third_party/quiche/quiche/quic_stream_sequencer_buffer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_stream_sequencer_buffer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_stream_sequencer_buffer.cc
+  source_name_part = quic_stream_sequencer_buffer
+build obj/net/third_party/quiche/quiche/quic_sustained_bandwidth_recorder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_sustained_bandwidth_recorder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_sustained_bandwidth_recorder.cc
+  source_name_part = quic_sustained_bandwidth_recorder
+build obj/net/third_party/quiche/quiche/quic_tag.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_tag.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_tag.cc
+  source_name_part = quic_tag
+build obj/net/third_party/quiche/quiche/quic_time.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_time.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_time.cc
+  source_name_part = quic_time
+build obj/net/third_party/quiche/quiche/quic_time_wait_list_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_time_wait_list_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_time_wait_list_manager.cc
+  source_name_part = quic_time_wait_list_manager
+build obj/net/third_party/quiche/quiche/quic_transmission_info.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_transmission_info.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_transmission_info.cc
+  source_name_part = quic_transmission_info
+build obj/net/third_party/quiche/quiche/quic_types.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_types.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_types.cc
+  source_name_part = quic_types
+build obj/net/third_party/quiche/quiche/quic_unacked_packet_map.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_unacked_packet_map.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_unacked_packet_map.cc
+  source_name_part = quic_unacked_packet_map
+build obj/net/third_party/quiche/quiche/quic_utils.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_utils.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_utils.cc
+  source_name_part = quic_utils
+build obj/net/third_party/quiche/quiche/quic_version_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_version_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_version_manager.cc
+  source_name_part = quic_version_manager
+build obj/net/third_party/quiche/quiche/quic_versions.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_versions.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_versions.cc
+  source_name_part = quic_versions
+build obj/net/third_party/quiche/quiche/quic_write_blocked_list.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/quic_write_blocked_list.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_write_blocked_list.cc
+  source_name_part = quic_write_blocked_list
+build obj/net/third_party/quiche/quiche/tls_chlo_extractor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/tls_chlo_extractor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = tls_chlo_extractor.cc
+  source_name_part = tls_chlo_extractor
+build obj/net/third_party/quiche/quiche/tls_client_handshaker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/tls_client_handshaker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = tls_client_handshaker.cc
+  source_name_part = tls_client_handshaker
+build obj/net/third_party/quiche/quiche/tls_handshaker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/tls_handshaker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = tls_handshaker.cc
+  source_name_part = tls_handshaker
+build obj/net/third_party/quiche/quiche/tls_server_handshaker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/tls_server_handshaker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = tls_server_handshaker.cc
+  source_name_part = tls_server_handshaker
+build obj/net/third_party/quiche/quiche/uber_quic_stream_id_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/uber_quic_stream_id_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = uber_quic_stream_id_manager.cc
+  source_name_part = uber_quic_stream_id_manager
+build obj/net/third_party/quiche/quiche/uber_received_packet_manager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/uber_received_packet_manager.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = uber_received_packet_manager.cc
+  source_name_part = uber_received_packet_manager
+build obj/net/third_party/quiche/quiche/web_transport_stats.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/core/web_transport_stats.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = web_transport_stats.cc
+  source_name_part = web_transport_stats
+build obj/net/third_party/quiche/quiche/quic_socket_address.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/quic/platform/api/quic_socket_address.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = quic_socket_address.cc
+  source_name_part = quic_socket_address
+build obj/net/third_party/quiche/quiche/array_output_buffer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/array_output_buffer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = array_output_buffer.cc
+  source_name_part = array_output_buffer
+build obj/net/third_party/quiche/quiche/hpack_constants.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/hpack/hpack_constants.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_constants.cc
+  source_name_part = hpack_constants
+build obj/net/third_party/quiche/quiche/hpack_decoder_adapter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/hpack/hpack_decoder_adapter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_decoder_adapter.cc
+  source_name_part = hpack_decoder_adapter
+build obj/net/third_party/quiche/quiche/hpack_encoder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/hpack/hpack_encoder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_encoder.cc
+  source_name_part = hpack_encoder
+build obj/net/third_party/quiche/quiche/hpack_entry.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/hpack/hpack_entry.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_entry.cc
+  source_name_part = hpack_entry
+build obj/net/third_party/quiche/quiche/hpack_header_table.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/hpack/hpack_header_table.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_header_table.cc
+  source_name_part = hpack_header_table
+build obj/net/third_party/quiche/quiche/hpack_output_stream.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/hpack/hpack_output_stream.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_output_stream.cc
+  source_name_part = hpack_output_stream
+build obj/net/third_party/quiche/quiche/hpack_static_table.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/hpack/hpack_static_table.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = hpack_static_table.cc
+  source_name_part = hpack_static_table
+build obj/net/third_party/quiche/quiche/http2_frame_decoder_adapter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/http2_frame_decoder_adapter.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = http2_frame_decoder_adapter.cc
+  source_name_part = http2_frame_decoder_adapter
+build obj/net/third_party/quiche/quiche/metadata_extension.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/metadata_extension.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = metadata_extension.cc
+  source_name_part = metadata_extension
+build obj/net/third_party/quiche/quiche/recording_headers_handler.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/recording_headers_handler.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = recording_headers_handler.cc
+  source_name_part = recording_headers_handler
+build obj/net/third_party/quiche/quiche/spdy_alt_svc_wire_format.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/spdy_alt_svc_wire_format.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = spdy_alt_svc_wire_format.cc
+  source_name_part = spdy_alt_svc_wire_format
+build obj/net/third_party/quiche/quiche/spdy_frame_builder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/spdy_frame_builder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = spdy_frame_builder.cc
+  source_name_part = spdy_frame_builder
+build obj/net/third_party/quiche/quiche/spdy_framer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/spdy_framer.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = spdy_framer.cc
+  source_name_part = spdy_framer
+build obj/net/third_party/quiche/quiche/spdy_no_op_visitor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/spdy_no_op_visitor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = spdy_no_op_visitor.cc
+  source_name_part = spdy_no_op_visitor
+build obj/net/third_party/quiche/quiche/spdy_pinnable_buffer_piece.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/spdy_pinnable_buffer_piece.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = spdy_pinnable_buffer_piece.cc
+  source_name_part = spdy_pinnable_buffer_piece
+build obj/net/third_party/quiche/quiche/spdy_prefixed_buffer_reader.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/spdy_prefixed_buffer_reader.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = spdy_prefixed_buffer_reader.cc
+  source_name_part = spdy_prefixed_buffer_reader
+build obj/net/third_party/quiche/quiche/spdy_protocol.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/spdy/core/spdy_protocol.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = spdy_protocol.cc
+  source_name_part = spdy_protocol
+build obj/net/third_party/quiche/quiche/complete_buffer_visitor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/web_transport/complete_buffer_visitor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = complete_buffer_visitor.cc
+  source_name_part = complete_buffer_visitor
+build obj/net/third_party/quiche/quiche/binary_http_message.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/binary_http/binary_http_message.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = binary_http_message.cc
+  source_name_part = binary_http_message
+build obj/net/third_party/quiche/quiche/oblivious_http_request.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/oblivious_http/buffers/oblivious_http_request.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = oblivious_http_request.cc
+  source_name_part = oblivious_http_request
+build obj/net/third_party/quiche/quiche/oblivious_http_response.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/oblivious_http/buffers/oblivious_http_response.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = oblivious_http_response.cc
+  source_name_part = oblivious_http_response
+build obj/net/third_party/quiche/quiche/oblivious_http_header_key_config.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/oblivious_http/common/oblivious_http_header_key_config.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = oblivious_http_header_key_config.cc
+  source_name_part = oblivious_http_header_key_config
+build obj/net/third_party/quiche/quiche/oblivious_http_client.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/oblivious_http/oblivious_http_client.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = oblivious_http_client.cc
+  source_name_part = oblivious_http_client
+build obj/net/third_party/quiche/quiche/oblivious_http_gateway.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/net/third_party/quiche/src/quiche/oblivious_http/oblivious_http_gateway.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/quiche.inputdeps.stamp
+  source_file_part = oblivious_http_gateway.cc
+  source_name_part = oblivious_http_gateway
+
+build obj/net/third_party/quiche/libquiche.a: alink obj/net/third_party/quiche/quiche/quiche_mutex_impl.o obj/net/third_party/quiche/quiche/quiche_time_utils_impl.o obj/net/third_party/quiche/quiche/quiche_url_utils_impl.o obj/net/third_party/quiche/quiche/quiche_flags_impl.o obj/net/third_party/quiche/quiche/capsule.o obj/net/third_party/quiche/quiche/http_header_block.o obj/net/third_party/quiche/quiche/http_header_storage.o obj/net/third_party/quiche/quiche/connect_udp_datagram_payload.o obj/net/third_party/quiche/quiche/quiche_hostname_utils.o obj/net/third_party/quiche/quiche/quiche_mutex.o obj/net/third_party/quiche/quiche/quiche_buffer_allocator.o obj/net/third_party/quiche/quiche/quiche_crypto_logging.o obj/net/third_party/quiche/quiche/quiche_data_reader.o obj/net/third_party/quiche/quiche/quiche_data_writer.o obj/net/third_party/quiche/quiche/quiche_ip_address.o obj/net/third_party/quiche/quiche/quiche_ip_address_family.o obj/net/third_party/quiche/quiche/quiche_mem_slice_storage.o obj/net/third_party/quiche/quiche/quiche_random.o obj/net/third_party/quiche/quiche/quiche_simple_arena.o obj/net/third_party/quiche/quiche/quiche_text_utils.o obj/net/third_party/quiche/quiche/simple_buffer_allocator.o obj/net/third_party/quiche/quiche/structured_headers.o obj/net/third_party/quiche/quiche/event_forwarder.o obj/net/third_party/quiche/quiche/header_validator.o obj/net/third_party/quiche/quiche/http2_protocol.o obj/net/third_party/quiche/quiche/http2_util.o obj/net/third_party/quiche/quiche/noop_header_validator.o obj/net/third_party/quiche/quiche/oghttp2_adapter.o obj/net/third_party/quiche/quiche/oghttp2_session.o obj/net/third_party/quiche/quiche/oghttp2_util.o obj/net/third_party/quiche/quiche/window_manager.o obj/net/third_party/quiche/quiche/http2_trace_logging.o obj/net/third_party/quiche/quiche/decode_buffer.o obj/net/third_party/quiche/quiche/decode_http2_structures.o obj/net/third_party/quiche/quiche/decode_status.o obj/net/third_party/quiche/quiche/frame_decoder_state.o obj/net/third_party/quiche/quiche/http2_frame_decoder.o obj/net/third_party/quiche/quiche/http2_frame_decoder_listener.o obj/net/third_party/quiche/quiche/http2_structure_decoder.o obj/net/third_party/quiche/quiche/altsvc_payload_decoder.o obj/net/third_party/quiche/quiche/continuation_payload_decoder.o obj/net/third_party/quiche/quiche/data_payload_decoder.o obj/net/third_party/quiche/quiche/goaway_payload_decoder.o obj/net/third_party/quiche/quiche/headers_payload_decoder.o obj/net/third_party/quiche/quiche/ping_payload_decoder.o obj/net/third_party/quiche/quiche/priority_payload_decoder.o obj/net/third_party/quiche/quiche/priority_update_payload_decoder.o obj/net/third_party/quiche/quiche/push_promise_payload_decoder.o obj/net/third_party/quiche/quiche/rst_stream_payload_decoder.o obj/net/third_party/quiche/quiche/settings_payload_decoder.o obj/net/third_party/quiche/quiche/unknown_payload_decoder.o obj/net/third_party/quiche/quiche/window_update_payload_decoder.o obj/net/third_party/quiche/quiche/hpack_block_decoder.o obj/net/third_party/quiche/quiche/hpack_decoder.o obj/net/third_party/quiche/quiche/hpack_decoder_listener.o obj/net/third_party/quiche/quiche/hpack_decoder_state.o obj/net/third_party/quiche/quiche/hpack_decoder_string_buffer.o obj/net/third_party/quiche/quiche/hpack_decoder_tables.o obj/net/third_party/quiche/quiche/hpack_decoding_error.o obj/net/third_party/quiche/quiche/hpack_entry_decoder.o obj/net/third_party/quiche/quiche/hpack_entry_decoder_listener.o obj/net/third_party/quiche/quiche/hpack_entry_type_decoder.o obj/net/third_party/quiche/quiche/hpack_string_decoder.o obj/net/third_party/quiche/quiche/hpack_string_decoder_listener.o obj/net/third_party/quiche/quiche/hpack_whole_entry_buffer.o obj/net/third_party/quiche/quiche/hpack_whole_entry_listener.o obj/net/third_party/quiche/quiche/http2_hpack_constants.o obj/net/third_party/quiche/quiche/hpack_huffman_decoder.o obj/net/third_party/quiche/quiche/hpack_huffman_encoder.o obj/net/third_party/quiche/quiche/huffman_spec_tables.o obj/net/third_party/quiche/quiche/hpack_varint_decoder.o obj/net/third_party/quiche/quiche/hpack_varint_encoder.o obj/net/third_party/quiche/quiche/http2_constants.o obj/net/third_party/quiche/quiche/http2_structures.o obj/net/third_party/quiche/quiche/chlo_extractor.o obj/net/third_party/quiche/quiche/bandwidth_sampler.o obj/net/third_party/quiche/quiche/bbr2_drain.o obj/net/third_party/quiche/quiche/bbr2_misc.o obj/net/third_party/quiche/quiche/bbr2_probe_bw.o obj/net/third_party/quiche/quiche/bbr2_probe_rtt.o obj/net/third_party/quiche/quiche/bbr2_sender.o obj/net/third_party/quiche/quiche/bbr2_startup.o obj/net/third_party/quiche/quiche/bbr_sender.o obj/net/third_party/quiche/quiche/cubic_bytes.o obj/net/third_party/quiche/quiche/general_loss_algorithm.o obj/net/third_party/quiche/quiche/hybrid_slow_start.o obj/net/third_party/quiche/quiche/pacing_sender.o obj/net/third_party/quiche/quiche/prr_sender.o obj/net/third_party/quiche/quiche/rtt_stats.o obj/net/third_party/quiche/quiche/send_algorithm_interface.o obj/net/third_party/quiche/quiche/tcp_cubic_sender_bytes.o obj/net/third_party/quiche/quiche/uber_loss_algorithm.o obj/net/third_party/quiche/quiche/aead_base_decrypter.o obj/net/third_party/quiche/quiche/aead_base_encrypter.o obj/net/third_party/quiche/quiche/aes_128_gcm_12_decrypter.o obj/net/third_party/quiche/quiche/aes_128_gcm_12_encrypter.o obj/net/third_party/quiche/quiche/aes_128_gcm_decrypter.o obj/net/third_party/quiche/quiche/aes_128_gcm_encrypter.o obj/net/third_party/quiche/quiche/aes_256_gcm_decrypter.o obj/net/third_party/quiche/quiche/aes_256_gcm_encrypter.o obj/net/third_party/quiche/quiche/aes_base_decrypter.o obj/net/third_party/quiche/quiche/aes_base_encrypter.o obj/net/third_party/quiche/quiche/cert_compressor.o obj/net/third_party/quiche/quiche/certificate_util.o obj/net/third_party/quiche/quiche/certificate_view.o obj/net/third_party/quiche/quiche/chacha20_poly1305_decrypter.o obj/net/third_party/quiche/quiche/chacha20_poly1305_encrypter.o obj/net/third_party/quiche/quiche/chacha20_poly1305_tls_decrypter.o obj/net/third_party/quiche/quiche/chacha20_poly1305_tls_encrypter.o obj/net/third_party/quiche/quiche/chacha_base_decrypter.o obj/net/third_party/quiche/quiche/chacha_base_encrypter.o obj/net/third_party/quiche/quiche/channel_id.o obj/net/third_party/quiche/quiche/client_proof_source.o obj/net/third_party/quiche/quiche/crypto_framer.o obj/net/third_party/quiche/quiche/crypto_handshake.o obj/net/third_party/quiche/quiche/crypto_handshake_message.o obj/net/third_party/quiche/quiche/crypto_secret_boxer.o obj/net/third_party/quiche/quiche/crypto_utils.o obj/net/third_party/quiche/quiche/curve25519_key_exchange.o obj/net/third_party/quiche/quiche/key_exchange.o obj/net/third_party/quiche/quiche/null_decrypter.o obj/net/third_party/quiche/quiche/null_encrypter.o obj/net/third_party/quiche/quiche/p256_key_exchange.o obj/net/third_party/quiche/quiche/proof_source.o obj/net/third_party/quiche/quiche/proof_source_x509.o obj/net/third_party/quiche/quiche/quic_client_session_cache.o obj/net/third_party/quiche/quiche/quic_compressed_certs_cache.o obj/net/third_party/quiche/quiche/quic_crypter.o obj/net/third_party/quiche/quiche/quic_crypto_client_config.o obj/net/third_party/quiche/quiche/quic_crypto_proof.o obj/net/third_party/quiche/quiche/quic_crypto_server_config.o obj/net/third_party/quiche/quiche/quic_decrypter.o obj/net/third_party/quiche/quiche/quic_encrypter.o obj/net/third_party/quiche/quiche/quic_hkdf.o obj/net/third_party/quiche/quiche/tls_client_connection.o obj/net/third_party/quiche/quiche/tls_connection.o obj/net/third_party/quiche/quiche/tls_server_connection.o obj/net/third_party/quiche/quiche/transport_parameters.o obj/net/third_party/quiche/quiche/web_transport_fingerprint_proof_verifier.o obj/net/third_party/quiche/quiche/deterministic_connection_id_generator.o obj/net/third_party/quiche/quiche/quic_ack_frame.o obj/net/third_party/quiche/quiche/quic_ack_frequency_frame.o obj/net/third_party/quiche/quiche/quic_blocked_frame.o obj/net/third_party/quiche/quiche/quic_connection_close_frame.o obj/net/third_party/quiche/quiche/quic_crypto_frame.o obj/net/third_party/quiche/quiche/quic_frame.o obj/net/third_party/quiche/quiche/quic_goaway_frame.o obj/net/third_party/quiche/quiche/quic_handshake_done_frame.o obj/net/third_party/quiche/quiche/quic_max_streams_frame.o obj/net/third_party/quiche/quiche/quic_message_frame.o obj/net/third_party/quiche/quiche/quic_new_connection_id_frame.o obj/net/third_party/quiche/quiche/quic_new_token_frame.o obj/net/third_party/quiche/quiche/quic_padding_frame.o obj/net/third_party/quiche/quiche/quic_path_challenge_frame.o obj/net/third_party/quiche/quiche/quic_path_response_frame.o obj/net/third_party/quiche/quiche/quic_ping_frame.o obj/net/third_party/quiche/quiche/quic_retire_connection_id_frame.o obj/net/third_party/quiche/quiche/quic_rst_stream_frame.o obj/net/third_party/quiche/quiche/quic_stop_sending_frame.o obj/net/third_party/quiche/quiche/quic_stop_waiting_frame.o obj/net/third_party/quiche/quiche/quic_stream_frame.o obj/net/third_party/quiche/quiche/quic_streams_blocked_frame.o obj/net/third_party/quiche/quiche/quic_window_update_frame.o obj/net/third_party/quiche/quiche/http_constants.o obj/net/third_party/quiche/quiche/http_decoder.o obj/net/third_party/quiche/quiche/http_encoder.o obj/net/third_party/quiche/quiche/quic_header_list.o obj/net/third_party/quiche/quiche/quic_headers_stream.o obj/net/third_party/quiche/quiche/quic_receive_control_stream.o obj/net/third_party/quiche/quiche/quic_send_control_stream.o obj/net/third_party/quiche/quiche/quic_server_initiated_spdy_stream.o obj/net/third_party/quiche/quiche/quic_server_session_base.o obj/net/third_party/quiche/quiche/quic_spdy_client_session.o obj/net/third_party/quiche/quiche/quic_spdy_client_session_base.o obj/net/third_party/quiche/quiche/quic_spdy_client_stream.o obj/net/third_party/quiche/quiche/quic_spdy_server_stream_base.o obj/net/third_party/quiche/quiche/quic_spdy_session.o obj/net/third_party/quiche/quiche/quic_spdy_stream.o obj/net/third_party/quiche/quiche/quic_spdy_stream_body_manager.o obj/net/third_party/quiche/quiche/spdy_utils.o obj/net/third_party/quiche/quiche/web_transport_http3.o obj/net/third_party/quiche/quiche/web_transport_stream_adapter.o obj/net/third_party/quiche/quiche/legacy_quic_stream_id_manager.o obj/net/third_party/quiche/quiche/qpack_blocking_manager.o obj/net/third_party/quiche/quiche/qpack_decoded_headers_accumulator.o obj/net/third_party/quiche/quiche/qpack_decoder.o obj/net/third_party/quiche/quiche/qpack_decoder_stream_receiver.o obj/net/third_party/quiche/quiche/qpack_decoder_stream_sender.o obj/net/third_party/quiche/quiche/qpack_encoder.o obj/net/third_party/quiche/quiche/qpack_encoder_stream_receiver.o obj/net/third_party/quiche/quiche/qpack_encoder_stream_sender.o obj/net/third_party/quiche/quiche/qpack_header_table.o obj/net/third_party/quiche/quiche/qpack_index_conversions.o obj/net/third_party/quiche/quiche/qpack_instruction_decoder.o obj/net/third_party/quiche/quiche/qpack_instruction_encoder.o obj/net/third_party/quiche/quiche/qpack_instructions.o obj/net/third_party/quiche/quiche/qpack_progressive_decoder.o obj/net/third_party/quiche/quiche/qpack_receive_stream.o obj/net/third_party/quiche/quiche/qpack_required_insert_count.o obj/net/third_party/quiche/quiche/qpack_send_stream.o obj/net/third_party/quiche/quiche/qpack_static_table.o obj/net/third_party/quiche/quiche/value_splitting_header_list.o obj/net/third_party/quiche/quiche/quic_ack_listener_interface.o obj/net/third_party/quiche/quiche/quic_alarm.o obj/net/third_party/quiche/quiche/quic_bandwidth.o obj/net/third_party/quiche/quiche/quic_buffered_packet_store.o obj/net/third_party/quiche/quiche/quic_chaos_protector.o obj/net/third_party/quiche/quiche/quic_coalesced_packet.o obj/net/third_party/quiche/quiche/quic_config.o obj/net/third_party/quiche/quiche/quic_connection.o obj/net/third_party/quiche/quiche/quic_connection_context.o obj/net/third_party/quiche/quiche/quic_connection_id.o obj/net/third_party/quiche/quiche/quic_connection_id_manager.o obj/net/third_party/quiche/quiche/quic_connection_stats.o obj/net/third_party/quiche/quiche/quic_constants.o obj/net/third_party/quiche/quiche/quic_control_frame_manager.o obj/net/third_party/quiche/quiche/quic_crypto_client_handshaker.o obj/net/third_party/quiche/quiche/quic_crypto_client_stream.o obj/net/third_party/quiche/quiche/quic_crypto_handshaker.o obj/net/third_party/quiche/quiche/quic_crypto_server_stream.o obj/net/third_party/quiche/quiche/quic_crypto_server_stream_base.o obj/net/third_party/quiche/quiche/quic_crypto_stream.o obj/net/third_party/quiche/quiche/quic_data_reader.o obj/net/third_party/quiche/quiche/quic_data_writer.o obj/net/third_party/quiche/quiche/quic_datagram_queue.o obj/net/third_party/quiche/quiche/quic_default_clock.o obj/net/third_party/quiche/quiche/quic_dispatcher.o obj/net/third_party/quiche/quiche/quic_error_codes.o obj/net/third_party/quiche/quiche/quic_flow_controller.o obj/net/third_party/quiche/quiche/quic_framer.o obj/net/third_party/quiche/quiche/quic_generic_session.o obj/net/third_party/quiche/quiche/quic_idle_network_detector.o obj/net/third_party/quiche/quiche/quic_mtu_discovery.o obj/net/third_party/quiche/quiche/quic_network_blackhole_detector.o obj/net/third_party/quiche/quiche/quic_packet_creator.o obj/net/third_party/quiche/quiche/quic_packet_number.o obj/net/third_party/quiche/quiche/quic_packet_writer_wrapper.o obj/net/third_party/quiche/quiche/quic_packets.o obj/net/third_party/quiche/quiche/quic_path_validator.o obj/net/third_party/quiche/quiche/quic_ping_manager.o obj/net/third_party/quiche/quiche/quic_received_packet_manager.o obj/net/third_party/quiche/quiche/quic_sent_packet_manager.o obj/net/third_party/quiche/quiche/quic_server_id.o obj/net/third_party/quiche/quiche/quic_session.o obj/net/third_party/quiche/quiche/quic_socket_address_coder.o obj/net/third_party/quiche/quiche/quic_stream.o obj/net/third_party/quiche/quiche/quic_stream_id_manager.o obj/net/third_party/quiche/quiche/quic_stream_priority.o obj/net/third_party/quiche/quiche/quic_stream_send_buffer.o obj/net/third_party/quiche/quiche/quic_stream_sequencer.o obj/net/third_party/quiche/quiche/quic_stream_sequencer_buffer.o obj/net/third_party/quiche/quiche/quic_sustained_bandwidth_recorder.o obj/net/third_party/quiche/quiche/quic_tag.o obj/net/third_party/quiche/quiche/quic_time.o obj/net/third_party/quiche/quiche/quic_time_wait_list_manager.o obj/net/third_party/quiche/quiche/quic_transmission_info.o obj/net/third_party/quiche/quiche/quic_types.o obj/net/third_party/quiche/quiche/quic_unacked_packet_map.o obj/net/third_party/quiche/quiche/quic_utils.o obj/net/third_party/quiche/quiche/quic_version_manager.o obj/net/third_party/quiche/quiche/quic_versions.o obj/net/third_party/quiche/quiche/quic_write_blocked_list.o obj/net/third_party/quiche/quiche/tls_chlo_extractor.o obj/net/third_party/quiche/quiche/tls_client_handshaker.o obj/net/third_party/quiche/quiche/tls_handshaker.o obj/net/third_party/quiche/quiche/tls_server_handshaker.o obj/net/third_party/quiche/quiche/uber_quic_stream_id_manager.o obj/net/third_party/quiche/quiche/uber_received_packet_manager.o obj/net/third_party/quiche/quiche/web_transport_stats.o obj/net/third_party/quiche/quiche/quic_socket_address.o obj/net/third_party/quiche/quiche/array_output_buffer.o obj/net/third_party/quiche/quiche/hpack_constants.o obj/net/third_party/quiche/quiche/hpack_decoder_adapter.o obj/net/third_party/quiche/quiche/hpack_encoder.o obj/net/third_party/quiche/quiche/hpack_entry.o obj/net/third_party/quiche/quiche/hpack_header_table.o obj/net/third_party/quiche/quiche/hpack_output_stream.o obj/net/third_party/quiche/quiche/hpack_static_table.o obj/net/third_party/quiche/quiche/http2_frame_decoder_adapter.o obj/net/third_party/quiche/quiche/metadata_extension.o obj/net/third_party/quiche/quiche/recording_headers_handler.o obj/net/third_party/quiche/quiche/spdy_alt_svc_wire_format.o obj/net/third_party/quiche/quiche/spdy_frame_builder.o obj/net/third_party/quiche/quiche/spdy_framer.o obj/net/third_party/quiche/quiche/spdy_no_op_visitor.o obj/net/third_party/quiche/quiche/spdy_pinnable_buffer_piece.o obj/net/third_party/quiche/quiche/spdy_prefixed_buffer_reader.o obj/net/third_party/quiche/quiche/spdy_protocol.o obj/net/third_party/quiche/quiche/complete_buffer_visitor.o obj/net/third_party/quiche/quiche/binary_http_message.o obj/net/third_party/quiche/quiche/oblivious_http_request.o obj/net/third_party/quiche/quiche/oblivious_http_response.o obj/net/third_party/quiche/quiche/oblivious_http_header_key_config.o obj/net/third_party/quiche/quiche/oblivious_http_client.o obj/net/third_party/quiche/quiche/oblivious_http_gateway.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/net/third_party/quiche/libnet_quic_proto.a obj/base/libbase.a obj/third_party/abseil-cpp/absl.stamp obj/third_party/boringssl/libboringssl.a obj/url/liburl.a obj/net/liburi_template.a obj/third_party/protobuf/libprotobuf_lite.a obj/third_party/zlib/libchrome_zlib.a obj/base/libbase_static.a obj/base/allocator/partition_allocator/src/partition_alloc/raw_ptr.stamp obj/base/allocator/partition_allocator/src/partition_alloc/partition_alloc.stamp obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base.stamp obj/base/allocator/partition_allocator/src/partition_alloc/allocator_core.stamp obj/base/allocator/partition_allocator/src/partition_alloc/allocator_shim.stamp obj/base/numerics/base_numerics.stamp obj/third_party/abseil-cpp/absl/algorithm/container.stamp obj/third_party/abseil-cpp/absl/algorithm/algorithm.stamp obj/third_party/abseil-cpp/absl/base/config.stamp obj/third_party/abseil-cpp/absl/base/core_headers.stamp obj/third_party/abseil-cpp/absl/meta/type_traits.stamp obj/third_party/abseil-cpp/absl/base/base.stamp obj/third_party/abseil-cpp/absl/base/atomic_hook.stamp obj/third_party/abseil-cpp/absl/base/base_internal.stamp obj/third_party/abseil-cpp/absl/base/cycleclock_internal.stamp obj/third_party/abseil-cpp/absl/base/dynamic_annotations.stamp obj/third_party/abseil-cpp/absl/base/log_severity.stamp obj/third_party/abseil-cpp/absl/base/raw_logging_internal.stamp obj/third_party/abseil-cpp/absl/base/errno_saver.stamp obj/third_party/abseil-cpp/absl/base/spinlock_wait.stamp obj/third_party/abseil-cpp/absl/base/nullability.stamp obj/third_party/abseil-cpp/absl/base/prefetch.stamp obj/third_party/abseil-cpp/absl/cleanup/cleanup.stamp obj/third_party/abseil-cpp/absl/cleanup/cleanup_internal.stamp obj/third_party/abseil-cpp/absl/utility/utility.stamp obj/third_party/abseil-cpp/absl/container/btree.stamp obj/third_party/abseil-cpp/absl/container/common.stamp obj/third_party/abseil-cpp/absl/types/optional.stamp obj/third_party/abseil-cpp/absl/types/bad_optional_access.stamp obj/third_party/abseil-cpp/absl/memory/memory.stamp obj/third_party/abseil-cpp/absl/container/common_policy_traits.stamp obj/third_party/abseil-cpp/absl/container/compressed_tuple.stamp obj/third_party/abseil-cpp/absl/container/container_memory.stamp obj/third_party/abseil-cpp/absl/container/layout.stamp obj/third_party/abseil-cpp/absl/debugging/demangle_internal.stamp obj/third_party/abseil-cpp/absl/strings/strings.stamp obj/third_party/abseil-cpp/absl/strings/string_view.stamp obj/third_party/abseil-cpp/absl/base/throw_delegate.stamp obj/third_party/abseil-cpp/absl/strings/charset.stamp obj/third_party/abseil-cpp/absl/strings/internal.stamp obj/third_party/abseil-cpp/absl/base/endian.stamp obj/third_party/abseil-cpp/absl/numeric/bits.stamp obj/third_party/abseil-cpp/absl/numeric/int128.stamp obj/third_party/abseil-cpp/absl/types/span.stamp obj/third_party/abseil-cpp/absl/strings/cord.stamp obj/third_party/abseil-cpp/absl/strings/cord_internal.stamp obj/third_party/abseil-cpp/absl/container/inlined_vector.stamp obj/third_party/abseil-cpp/absl/container/inlined_vector_internal.stamp obj/third_party/abseil-cpp/absl/crc/crc_cord_state.stamp obj/third_party/abseil-cpp/absl/crc/crc32c.stamp obj/third_party/abseil-cpp/absl/crc/cpu_detect.stamp obj/third_party/abseil-cpp/absl/crc/crc_internal.stamp obj/third_party/abseil-cpp/absl/crc/non_temporal_memcpy.stamp obj/third_party/abseil-cpp/absl/crc/non_temporal_arm_intrinsics.stamp obj/third_party/abseil-cpp/absl/strings/str_format.stamp obj/third_party/abseil-cpp/absl/strings/str_format_internal.stamp obj/third_party/abseil-cpp/absl/functional/function_ref.stamp obj/third_party/abseil-cpp/absl/functional/any_invocable.stamp obj/third_party/abseil-cpp/absl/numeric/representation.stamp obj/third_party/abseil-cpp/absl/strings/cordz_functions.stamp obj/third_party/abseil-cpp/absl/profiling/exponential_biased.stamp obj/third_party/abseil-cpp/absl/strings/cordz_info.stamp obj/third_party/abseil-cpp/absl/strings/cordz_handle.stamp obj/third_party/abseil-cpp/absl/synchronization/synchronization.stamp obj/third_party/abseil-cpp/absl/synchronization/graphcycles_internal.stamp obj/third_party/abseil-cpp/absl/base/malloc_internal.stamp obj/third_party/abseil-cpp/absl/synchronization/kernel_timeout_internal.stamp obj/third_party/abseil-cpp/absl/time/time.stamp obj/third_party/abseil-cpp/absl/time/internal/cctz/civil_time.stamp obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone.stamp obj/third_party/abseil-cpp/absl/debugging/stacktrace.stamp obj/third_party/abseil-cpp/absl/debugging/debugging_internal.stamp obj/third_party/abseil-cpp/absl/debugging/symbolize.stamp obj/third_party/abseil-cpp/absl/strings/cordz_statistics.stamp obj/third_party/abseil-cpp/absl/strings/cordz_update_tracker.stamp obj/third_party/abseil-cpp/absl/strings/cordz_update_scope.stamp obj/third_party/abseil-cpp/absl/types/compare.stamp obj/third_party/abseil-cpp/absl/container/fixed_array.stamp obj/third_party/abseil-cpp/absl/container/flat_hash_map.stamp obj/third_party/abseil-cpp/absl/container/hash_function_defaults.stamp obj/third_party/abseil-cpp/absl/hash/hash.stamp obj/third_party/abseil-cpp/absl/hash/city.stamp obj/third_party/abseil-cpp/absl/hash/low_level_hash.stamp obj/third_party/abseil-cpp/absl/types/variant.stamp obj/third_party/abseil-cpp/absl/types/bad_variant_access.stamp obj/third_party/abseil-cpp/absl/container/raw_hash_map.stamp obj/third_party/abseil-cpp/absl/container/raw_hash_set.stamp obj/third_party/abseil-cpp/absl/container/hash_policy_traits.stamp obj/third_party/abseil-cpp/absl/container/hashtable_debug_hooks.stamp obj/third_party/abseil-cpp/absl/container/hashtablez_sampler.stamp obj/third_party/abseil-cpp/absl/profiling/sample_recorder.stamp obj/third_party/abseil-cpp/absl/container/flat_hash_set.stamp obj/third_party/abseil-cpp/absl/container/node_hash_map.stamp obj/third_party/abseil-cpp/absl/container/node_slot_policy.stamp obj/third_party/abseil-cpp/absl/container/node_hash_set.stamp obj/third_party/abseil-cpp/absl/debugging/failure_signal_handler.stamp obj/third_party/abseil-cpp/absl/debugging/examine_stack.stamp obj/third_party/abseil-cpp/absl/functional/bind_front.stamp obj/third_party/abseil-cpp/absl/functional/overload.stamp obj/third_party/abseil-cpp/absl/log/absl_check.stamp obj/third_party/abseil-cpp/absl/log/internal/check_impl.stamp obj/third_party/abseil-cpp/absl/log/internal/check_op.stamp obj/third_party/abseil-cpp/absl/log/internal/nullguard.stamp obj/third_party/abseil-cpp/absl/log/internal/nullstream.stamp obj/third_party/abseil-cpp/absl/log/internal/strip.stamp obj/third_party/abseil-cpp/absl/log/internal/log_message.stamp obj/third_party/abseil-cpp/absl/log/internal/append_truncated.stamp obj/third_party/abseil-cpp/absl/log/internal/format.stamp obj/third_party/abseil-cpp/absl/log/internal/config.stamp obj/third_party/abseil-cpp/absl/log/internal/globals.stamp obj/third_party/abseil-cpp/absl/log/internal/log_sink_set.stamp obj/third_party/abseil-cpp/absl/log/globals.stamp obj/third_party/abseil-cpp/absl/log/log_entry.stamp obj/third_party/abseil-cpp/absl/log/log_sink.stamp obj/third_party/abseil-cpp/absl/log/internal/proto.stamp obj/third_party/abseil-cpp/absl/base/strerror.stamp obj/third_party/abseil-cpp/absl/log/log_sink_registry.stamp obj/third_party/abseil-cpp/absl/log/internal/conditions.stamp obj/third_party/abseil-cpp/absl/log/internal/voidify.stamp obj/third_party/abseil-cpp/absl/log/absl_log.stamp obj/third_party/abseil-cpp/absl/log/internal/log_impl.stamp obj/third_party/abseil-cpp/absl/log/die_if_null.stamp obj/third_party/abseil-cpp/absl/log/log.stamp obj/third_party/abseil-cpp/absl/random/random.stamp obj/third_party/abseil-cpp/absl/random/distributions.stamp obj/third_party/abseil-cpp/absl/random/internal/distribution_caller.stamp obj/third_party/abseil-cpp/absl/base/fast_type_id.stamp obj/third_party/abseil-cpp/absl/random/internal/fast_uniform_bits.stamp obj/third_party/abseil-cpp/absl/random/internal/traits.stamp obj/third_party/abseil-cpp/absl/random/internal/fastmath.stamp obj/third_party/abseil-cpp/absl/random/internal/generate_real.stamp obj/third_party/abseil-cpp/absl/random/internal/iostream_state_saver.stamp obj/third_party/abseil-cpp/absl/random/internal/uniform_helper.stamp obj/third_party/abseil-cpp/absl/random/internal/wide_multiply.stamp obj/third_party/abseil-cpp/absl/random/seed_sequences.stamp obj/third_party/abseil-cpp/absl/random/seed_gen_exception.stamp obj/third_party/abseil-cpp/absl/random/internal/pool_urbg.stamp obj/third_party/abseil-cpp/absl/random/internal/randen.stamp obj/third_party/abseil-cpp/absl/random/internal/platform.stamp obj/third_party/abseil-cpp/absl/random/internal/randen_hwaes.stamp obj/third_party/abseil-cpp/absl/random/internal/randen_hwaes_impl.stamp obj/third_party/abseil-cpp/absl/random/internal/randen_slow.stamp obj/third_party/abseil-cpp/absl/random/internal/seed_material.stamp obj/third_party/abseil-cpp/absl/random/internal/salted_seed_seq.stamp obj/third_party/abseil-cpp/absl/random/internal/nonsecure_base.stamp obj/third_party/abseil-cpp/absl/random/internal/pcg_engine.stamp obj/third_party/abseil-cpp/absl/random/internal/randen_engine.stamp obj/third_party/abseil-cpp/absl/status/status.stamp obj/third_party/abseil-cpp/absl/status/statusor.stamp obj/build/rust/libcxx_cppdeps.a obj/third_party/rust/cxx/v1/lib/libcxx-cxx-1.rlib obj/third_party/rust/link_cplusplus/v1/lib/liblink_cplusplus-link_cplusplus-1.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libstd.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/liballoc.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libcompiler_builtins.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/librustc_std_workspace_core.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libcore.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libprofiler_builtins.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libcfg_if.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libhashbrown.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/librustc_std_workspace_alloc.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/liblibc.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libpanic_abort.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libpanic_unwind.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libunwind.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/librustc_demangle.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libstd_detect.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libaddr2line.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libgimli.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libminiz_oxide.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libadler.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libobject.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libmemchr.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libgetopts.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/librustc_std_workspace_std.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libunicode_width.rlib local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libtest.rlib obj/build/rust/std/remap_alloc.stamp obj/base/nodebug_assertion.stamp obj/third_party/boringssl/boringssl_asm.stamp obj/third_party/boringssl/src/third_party/fiat/fiat_license.stamp obj/base/tracing/protos/libchrome_track_event_zero.a obj/third_party/perfetto/libperfetto.stamp obj/third_party/perfetto/include/perfetto/ext/trace_processor/importers/memory_tracker/memory_tracker.stamp obj/third_party/perfetto/include/perfetto/base/base.stamp obj/third_party/perfetto/include/perfetto/public/base.stamp obj/third_party/perfetto/include/perfetto/public/abi/base.stamp obj/third_party/perfetto/include/perfetto/ext/base/base.stamp obj/third_party/perfetto/include/perfetto/ext/tracing/core/core.stamp obj/third_party/perfetto/protos/perfetto/common/libcpp.a obj/third_party/perfetto/src/protozero/protozero.stamp obj/third_party/perfetto/include/perfetto/protozero/protozero.stamp obj/third_party/perfetto/include/perfetto/public/protozero.stamp obj/third_party/perfetto/src/base/base.stamp obj/third_party/perfetto/src/base/perfetto_base_default_platform.stamp obj/third_party/perfetto/include/perfetto/tracing/core/core.stamp obj/third_party/perfetto/include/perfetto/tracing/core/forward_decls.stamp obj/third_party/perfetto/protos/perfetto/config/libcpp.a obj/third_party/perfetto/protos/perfetto/config/android/libcpp.a obj/third_party/perfetto/protos/perfetto/config/ftrace/libcpp.a obj/third_party/perfetto/protos/perfetto/config/gpu/libcpp.a obj/third_party/perfetto/protos/perfetto/config/inode_file/libcpp.a obj/third_party/perfetto/protos/perfetto/config/interceptors/libcpp.a obj/third_party/perfetto/protos/perfetto/config/power/libcpp.a obj/third_party/perfetto/protos/perfetto/config/process_stats/libcpp.a obj/third_party/perfetto/protos/perfetto/config/profiling/libcpp.a obj/third_party/perfetto/protos/perfetto/config/statsd/libcpp.a obj/third_party/perfetto/protos/perfetto/config/sys_stats/libcpp.a obj/third_party/perfetto/protos/perfetto/config/system_info/libcpp.a obj/third_party/perfetto/protos/perfetto/config/track_event/libcpp.a obj/third_party/perfetto/include/perfetto/tracing/tracing.stamp obj/third_party/perfetto/protos/perfetto/common/libzero.a obj/third_party/perfetto/protos/perfetto/trace/libminimal_zero.a obj/third_party/perfetto/protos/perfetto/config/libzero.a obj/third_party/perfetto/protos/perfetto/config/android/libzero.a obj/third_party/perfetto/protos/perfetto/config/ftrace/libzero.a obj/third_party/perfetto/protos/perfetto/config/gpu/libzero.a obj/third_party/perfetto/protos/perfetto/config/inode_file/libzero.a obj/third_party/perfetto/protos/perfetto/config/interceptors/libzero.a obj/third_party/perfetto/protos/perfetto/config/power/libzero.a obj/third_party/perfetto/protos/perfetto/config/process_stats/libzero.a obj/third_party/perfetto/protos/perfetto/config/profiling/libzero.a obj/third_party/perfetto/protos/perfetto/config/statsd/libzero.a obj/third_party/perfetto/protos/perfetto/config/sys_stats/libzero.a obj/third_party/perfetto/protos/perfetto/config/system_info/libzero.a obj/third_party/perfetto/protos/perfetto/config/track_event/libzero.a obj/third_party/perfetto/protos/perfetto/trace/libnon_minimal_zero.a obj/third_party/perfetto/protos/perfetto/trace/android/libzero.a obj/third_party/perfetto/protos/perfetto/trace/chrome/libzero.a obj/third_party/perfetto/protos/perfetto/trace/etw/libzero.a obj/third_party/perfetto/protos/perfetto/trace/filesystem/libzero.a obj/third_party/perfetto/protos/perfetto/trace/ftrace/libzero.a obj/third_party/perfetto/protos/perfetto/trace/gpu/libzero.a obj/third_party/perfetto/protos/perfetto/trace/interned_data/libzero.a obj/third_party/perfetto/protos/perfetto/trace/profiling/libzero.a obj/third_party/perfetto/protos/perfetto/trace/track_event/libzero.a obj/third_party/perfetto/protos/perfetto/trace/perfetto/libzero.a obj/third_party/perfetto/protos/perfetto/trace/power/libzero.a obj/third_party/perfetto/protos/perfetto/trace/ps/libzero.a obj/third_party/perfetto/protos/perfetto/trace/statsd/libzero.a obj/third_party/perfetto/protos/perfetto/trace/sys_stats/libzero.a obj/third_party/perfetto/protos/perfetto/trace/system_info/libzero.a obj/third_party/perfetto/protos/perfetto/trace/translation/libzero.a obj/third_party/perfetto/protos/perfetto/trace/track_event/libcpp.a obj/third_party/perfetto/include/perfetto/ext/tracing/ipc/ipc.stamp obj/third_party/perfetto/include/perfetto/ext/trace_processor/export_json.stamp obj/third_party/perfetto/include/perfetto/trace_processor/storage.stamp obj/third_party/perfetto/include/perfetto/trace_processor/basic_types.stamp obj/third_party/perfetto/src/trace_processor/importers/memory_tracker/graph_processor.stamp obj/third_party/perfetto/src/tracing/client_api_without_backends.stamp obj/third_party/perfetto/src/tracing/core/core.stamp obj/third_party/perfetto/src/tracing/common.stamp obj/third_party/perfetto/src/tracing/in_process_backend.stamp obj/third_party/perfetto/src/tracing/core/service.stamp obj/third_party/perfetto/src/android_stats/android_stats.stamp obj/third_party/perfetto/src/android_stats/perfetto_atoms.stamp obj/third_party/perfetto/src/base/version.stamp obj/third_party/perfetto/include/perfetto/ext/base/version.stamp obj/third_party/perfetto/src/protozero/filtering/message_filter.stamp obj/third_party/perfetto/src/protozero/filtering/bytecode_parser.stamp obj/third_party/perfetto/src/protozero/filtering/bytecode_common.stamp obj/third_party/perfetto/src/protozero/filtering/string_filter.stamp obj/third_party/perfetto/src/tracing/system_backend.stamp obj/third_party/perfetto/src/tracing/ipc/common.stamp obj/third_party/perfetto/src/tracing/ipc/default_socket.stamp obj/third_party/perfetto/include/perfetto/ext/ipc/ipc.stamp obj/third_party/perfetto/src/tracing/ipc/producer/producer.stamp obj/third_party/perfetto/protos/perfetto/ipc/libipc.a obj/third_party/perfetto/src/ipc/common.stamp obj/third_party/perfetto/protos/perfetto/ipc/libwire_protocol_cpp.a obj/third_party/perfetto/protos/perfetto/ipc/libcpp.a obj/third_party/perfetto/src/ipc/client.stamp obj/third_party/perfetto/src/base/unix_socket.stamp obj/third_party/perfetto/src/tracing/ipc/service/service.stamp obj/third_party/perfetto/src/ipc/host.stamp obj/third_party/perfetto/src/tracing/ipc/consumer/consumer.stamp obj/third_party/perfetto/src/tracing/platform_impl.stamp obj/third_party/perfetto/src/trace_processor/export_json.stamp obj/third_party/perfetto/src/trace_processor/storage_minimal.stamp obj/third_party/perfetto/src/trace_processor/containers/containers.stamp obj/third_party/perfetto/src/trace_processor/importers/common/common.stamp obj/third_party/perfetto/src/trace_processor/importers/common/trace_parser_hdr.stamp obj/third_party/perfetto/src/trace_processor/util/proto_to_args_parser.stamp obj/third_party/perfetto/src/trace_processor/util/descriptors.stamp obj/third_party/perfetto/src/trace_processor/util/util.stamp obj/third_party/perfetto/protos/perfetto/trace_processor/libzero.a obj/third_party/perfetto/src/trace_processor/util/interned_message_view.stamp obj/third_party/perfetto/include/perfetto/trace_processor/trace_processor.stamp obj/third_party/perfetto/src/trace_processor/util/protozero_to_text.stamp obj/third_party/perfetto/src/trace_processor/importers/common/parser_types.stamp obj/third_party/perfetto/src/trace_processor/importers/proto/packet_sequence_state_generation_hdr.stamp obj/third_party/perfetto/src/trace_processor/storage/storage.stamp obj/third_party/perfetto/src/trace_processor/tables/tables.stamp obj/third_party/perfetto/src/trace_processor/db/db.stamp obj/third_party/perfetto/src/trace_processor/util/glob.stamp obj/third_party/perfetto/src/trace_processor/util/regex.stamp obj/third_party/perfetto/src/trace_processor/db/overlays/overlays.stamp obj/third_party/perfetto/src/trace_processor/db/storage/storage.stamp obj/third_party/perfetto/src/trace_processor/metatrace.stamp obj/third_party/perfetto/src/trace_processor/types/types.stamp obj/third_party/perfetto/src/trace_processor/views/views.stamp obj/third_party/perfetto/src/trace_processor/importers/fuchsia/fuchsia_record.stamp obj/third_party/perfetto/src/trace_processor/importers/systrace/systrace_line.stamp obj/third_party/perfetto/src/trace_processor/importers/ftrace/minimal.stamp obj/third_party/perfetto/src/trace_processor/importers/proto/proto_importer_module.stamp obj/third_party/perfetto/src/trace_processor/importers/proto/minimal.stamp obj/third_party/perfetto/src/trace_processor/sorter/sorter.stamp obj/third_party/perfetto/src/trace_processor/util/bump_allocator.stamp obj/third_party/perfetto/src/trace_processor/util/gzip.stamp obj/third_party/zlib/zlib_adler32_simd.stamp obj/third_party/zlib/zlib_common_headers.stamp obj/third_party/zlib/zlib_inflate_chunk_simd.stamp obj/third_party/zlib/zlib_slide_hash_simd.stamp obj/third_party/zlib/zlib_arm_crc32.stamp obj/third_party/perfetto/src/trace_processor/util/stack_traces_util.stamp obj/third_party/perfetto/src/trace_processor/importers/json/minimal.stamp obj/third_party/jsoncpp/jsoncpp.stamp obj/base/third_party/double_conversion/libdouble_conversion.a obj/base/third_party/dynamic_annotations/libdynamic_annotations.a obj/third_party/modp_b64/libmodp_b64.a obj/base/third_party/symbolize/libsymbolize.a obj/base/third_party/xdg_mime/libxdg_mime.a obj/base/third_party/xdg_user_dirs/libxdg_user_dirs.a obj/third_party/libevent/libevent.a obj/third_party/icu/libicui18n.a obj/third_party/icu/libicuuc.a obj/third_party/icu/icuuc_public.stamp obj/base/libbase_i18n.a obj/third_party/ced/libced.a
+  arflags = -T
+  output_extension = .a
+  output_dir = obj/net/third_party/quiche

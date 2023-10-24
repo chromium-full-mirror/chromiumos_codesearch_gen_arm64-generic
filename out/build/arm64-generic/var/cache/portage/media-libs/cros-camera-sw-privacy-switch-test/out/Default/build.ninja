@@ -1,0 +1,296 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _cros_camera_algo-install_config: phony obj/camera/common/_cros_camera_algo-install_config.stamp
+build _iioservice_ipc-install_config: phony obj/iioservice/libiioservice_ipc/_iioservice_ipc-install_config.stamp
+build _install_cros_camera_algo_policy-check_seccomp: phony obj/camera/common/_install_cros_camera_algo_policy-check_seccomp.stamp
+build _libcros_camera-install_config: phony obj/camera/common/_libcros_camera-install_config.stamp
+build _libcros_camera_device_config-install_config: phony obj/camera/common/_libcros_camera_device_config-install_config.stamp
+build _libcros_camera_device_config_pkg_config-install_config: phony obj/camera/common/_libcros_camera_device_config_pkg_config-install_config.stamp
+build _libcros_camera_mojom-install_config: phony obj/camera/common/_libcros_camera_mojom-install_config.stamp
+build _libcros_camera_mojom_gen-camera3.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera3.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-camera_algorithm.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_algorithm.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-camera_common.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_common.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-camera_diagnostics.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_diagnostics.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-camera_features.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_features.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-camera_metadata.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_metadata.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-camera_metadata_tags.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_metadata_tags.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-cros_camera_enum.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-cros_camera_enum.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-cros_camera_service.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-cros_camera_service.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-dmabuf.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-dmabuf.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-effects_pipeline.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-effects_pipeline.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-file_path.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-file_path.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-jpeg_accelerator.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-jpeg_accelerator.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-jpeg_encode_accelerator.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-jpeg_encode_accelerator.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-mjpeg_decode_accelerator.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-mjpeg_decode_accelerator.mojom-install_config.stamp
+build _libcros_camera_mojom_gen-unguessable_token.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-unguessable_token.mojom-install_config.stamp
+build _libcros_camera_pkg_config-install_config: phony obj/camera/common/_libcros_camera_pkg_config-install_config.stamp
+build _libiioservice_ipc_mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom-install_config.stamp
+build _libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config.stamp
+build _libiioservice_ipc_mojom_gen-sensor.mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-sensor.mojom-install_config.stamp
+build _sw_privacy_switch_test-install_config: phony obj/camera/common/sw_privacy_switch_test/_sw_privacy_switch_test-install_config.stamp
+build base: phony obj/camera/common/base.stamp
+build camera_algo_bridge: phony obj/camera/common/camera_algo_bridge.stamp
+build camera_connector: phony obj/camera/common/camera_connector.stamp
+build camera_gpu_algorithm: phony obj/camera/common/camera_gpu_algorithm.stamp
+build defect_detector: phony obj/camera/common/defect_detector.stamp
+build egl: phony obj/camera/gpu/egl/egl.stamp
+build embed_file_toc_test_files: phony ./libembed_file_toc_test_files.a
+build embed_file_toc_test_files_gen: phony obj/camera/common/embed_file_toc_test_files_gen.stamp
+build embedded_gpu_shaders: phony ./libembedded_gpu_shaders.a
+build embedded_gpu_shaders_gen: phony obj/camera/gpu/embedded_gpu_shaders_gen.stamp
+build face_detection: phony obj/camera/common/face_detection.stamp
+build features: phony obj/camera/features/features.stamp
+build gles: phony obj/camera/gpu/gles/gles.stamp
+build gpu: phony obj/camera/gpu/gpu.stamp
+build gpu_resources: phony obj/camera/gpu/gpu_resources.stamp
+build gpu_test_support: phony obj/camera/gpu/gpu_test_support.stamp
+build iioservice_ipc: phony obj/iioservice/libiioservice_ipc/iioservice_ipc.stamp
+build image_processor: phony obj/camera/gpu/image_processor.stamp
+build install_camera_hal_dispatcher_mojo: phony obj/camera/common/install_camera_hal_dispatcher_mojo.stamp
+build install_cros_camera_algo_conf: phony obj/camera/common/install_cros_camera_algo_conf.stamp
+build install_cros_camera_algo_policy: phony obj/camera/common/install_cros_camera_algo_policy.stamp
+build install_dbus_cros_camera_algo_conf: phony obj/camera/common/install_dbus_cros_camera_algo_conf.stamp
+build install_gen_include_iioservice_mojo: phony obj/camera/common/install_gen_include_iioservice_mojo.stamp
+build install_include_cros_camera: phony obj/camera/common/install_include_cros_camera.stamp
+build install_jpeg_accelerator_mojo: phony obj/camera/common/install_jpeg_accelerator_mojo.stamp
+build install_libcamera_connector_so: phony obj/camera/common/install_libcamera_connector_so.stamp
+build install_minijail_algo_conf: phony obj/camera/common/install_minijail_algo_conf.stamp
+build install_minijail_gpu_algo_conf: phony obj/camera/common/install_minijail_gpu_algo_conf.stamp
+build jpeg: phony obj/camera/common/jpeg.stamp
+build libcros_camera: phony ./lib/libcros_camera.so
+build libcros_camera_device_config: phony ./lib/libcros_camera_device_config.so
+build libcros_camera_device_config_pkg_config: phony obj/camera/common/libcros_camera_device_config_pkg_config.stamp
+build libcros_camera_mojom: phony ./libcros_camera_mojom.a
+build libcros_camera_mojom_gen: phony obj/camera/common/libcros_camera_mojom_gen.stamp
+build libcros_camera_mojom_gen_mojo_templates: phony obj/camera/common/libcros_camera_mojom_gen_mojo_templates.stamp
+build libcros_camera_mojom_gen_mojo_templates_dir: phony obj/camera/common/libcros_camera_mojom_gen_mojo_templates_dir.stamp
+build libcros_camera_mojom_gen_parse: phony obj/camera/common/libcros_camera_mojom_gen_parse.stamp
+build libcros_camera_pkg_config: phony obj/camera/common/libcros_camera_pkg_config.stamp
+build libiioservice_ipc_mojom: phony ./libiioservice_ipc_mojom.a
+build libiioservice_ipc_mojom_gen: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen.stamp
+build libiioservice_ipc_mojom_gen_mojo_templates: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates.stamp
+build libiioservice_ipc_mojom_gen_mojo_templates_dir: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates_dir.stamp
+build libiioservice_ipc_mojom_gen_parse: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_parse.stamp
+build mojo_base: phony obj/camera/common/mojo_base.stamp
+build privacy_shutter: phony obj/camera/common/privacy_shutter.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build rotate_and_crop: phony obj/camera/features/rotate_and_crop/rotate_and_crop.stamp
+build stream_manipulator: phony obj/camera/common/stream_manipulator.stamp
+build tracing: phony obj/camera/common/tracing.stamp
+build v4l2_device: phony obj/camera/common/v4l2_device.stamp
+build zsl: phony obj/camera/features/zsl/zsl.stamp
+build camera/common$:_cros_camera_algo-install_config: phony obj/camera/common/_cros_camera_algo-install_config.stamp
+build camera/common$:_install_cros_camera_algo_policy-check_seccomp: phony obj/camera/common/_install_cros_camera_algo_policy-check_seccomp.stamp
+build camera/common$:_libcros_camera-install_config: phony obj/camera/common/_libcros_camera-install_config.stamp
+build camera/common$:_libcros_camera_device_config-install_config: phony obj/camera/common/_libcros_camera_device_config-install_config.stamp
+build camera/common$:_libcros_camera_device_config_pkg_config-install_config: phony obj/camera/common/_libcros_camera_device_config_pkg_config-install_config.stamp
+build camera/common$:_libcros_camera_mojom-install_config: phony obj/camera/common/_libcros_camera_mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-camera3.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera3.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-camera_algorithm.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_algorithm.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-camera_common.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_common.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-camera_diagnostics.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_diagnostics.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-camera_features.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_features.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-camera_metadata.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_metadata.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-camera_metadata_tags.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-camera_metadata_tags.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-cros_camera_enum.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-cros_camera_enum.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-cros_camera_service.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-cros_camera_service.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-dmabuf.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-dmabuf.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-effects_pipeline.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-effects_pipeline.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-file_path.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-file_path.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-jpeg_accelerator.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-jpeg_accelerator.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-jpeg_encode_accelerator.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-jpeg_encode_accelerator.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-mjpeg_decode_accelerator.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-mjpeg_decode_accelerator.mojom-install_config.stamp
+build camera/common$:_libcros_camera_mojom_gen-unguessable_token.mojom-install_config: phony obj/camera/common/_libcros_camera_mojom_gen-unguessable_token.mojom-install_config.stamp
+build camera/common$:_libcros_camera_pkg_config-install_config: phony obj/camera/common/_libcros_camera_pkg_config-install_config.stamp
+build camera/common$:all: phony obj/camera/common/all.stamp
+build camera/common$:base: phony obj/camera/common/base.stamp
+build camera/common$:camera_algo_bridge: phony obj/camera/common/camera_algo_bridge.stamp
+build camera/common$:camera_buffer_pool_test: phony ./camera_buffer_pool_test
+build camera/common$:camera_connector: phony obj/camera/common/camera_connector.stamp
+build camera/common$:camera_face_detection_test: phony ./camera_face_detection_test
+build camera/common$:camera_gpu_algorithm: phony obj/camera/common/camera_gpu_algorithm.stamp
+build camera/common$:camera_hal3_helpers_test: phony ./camera_hal3_helpers_test
+build camera/common$:cbm_test: phony ./cbm_test
+build camera/common$:cros_camera_algo: phony ./cros_camera_algo
+build camera/common$:defect_detector: phony obj/camera/common/defect_detector.stamp
+build camera/common$:embed_file_toc_test: phony ./embed_file_toc_test
+build camera/common$:embed_file_toc_test_files: phony ./libembed_file_toc_test_files.a
+build camera/common$:embed_file_toc_test_files_gen: phony obj/camera/common/embed_file_toc_test_files_gen.stamp
+build camera/common$:face_detection: phony obj/camera/common/face_detection.stamp
+build camera/common$:feature_profile_test: phony ./feature_profile_test
+build camera/common$:future_test: phony ./future_test
+build camera/common$:install_camera_hal_dispatcher_mojo: phony obj/camera/common/install_camera_hal_dispatcher_mojo.stamp
+build camera/common$:install_cros_camera_algo_conf: phony obj/camera/common/install_cros_camera_algo_conf.stamp
+build camera/common$:install_cros_camera_algo_policy: phony obj/camera/common/install_cros_camera_algo_policy.stamp
+build camera/common$:install_dbus_cros_camera_algo_conf: phony obj/camera/common/install_dbus_cros_camera_algo_conf.stamp
+build camera/common$:install_gen_include_iioservice_mojo: phony obj/camera/common/install_gen_include_iioservice_mojo.stamp
+build camera/common$:install_include_cros_camera: phony obj/camera/common/install_include_cros_camera.stamp
+build camera/common$:install_jpeg_accelerator_mojo: phony obj/camera/common/install_jpeg_accelerator_mojo.stamp
+build camera/common$:install_libcamera_connector_so: phony obj/camera/common/install_libcamera_connector_so.stamp
+build camera/common$:install_minijail_algo_conf: phony obj/camera/common/install_minijail_algo_conf.stamp
+build camera/common$:install_minijail_gpu_algo_conf: phony obj/camera/common/install_minijail_gpu_algo_conf.stamp
+build camera/common$:jpeg: phony obj/camera/common/jpeg.stamp
+build camera/common$:libcros_camera: phony ./lib/libcros_camera.so
+build camera/common$:libcros_camera_device_config: phony ./lib/libcros_camera_device_config.so
+build camera/common$:libcros_camera_device_config_pkg_config: phony obj/camera/common/libcros_camera_device_config_pkg_config.stamp
+build camera/common$:libcros_camera_mojom: phony ./libcros_camera_mojom.a
+build camera/common$:libcros_camera_mojom_gen: phony obj/camera/common/libcros_camera_mojom_gen.stamp
+build camera/common$:libcros_camera_mojom_gen_mojo_templates: phony obj/camera/common/libcros_camera_mojom_gen_mojo_templates.stamp
+build camera/common$:libcros_camera_mojom_gen_mojo_templates_dir: phony obj/camera/common/libcros_camera_mojom_gen_mojo_templates_dir.stamp
+build camera/common$:libcros_camera_mojom_gen_parse: phony obj/camera/common/libcros_camera_mojom_gen_parse.stamp
+build camera/common$:libcros_camera_pkg_config: phony obj/camera/common/libcros_camera_pkg_config.stamp
+build camera/common$:mojo_base: phony obj/camera/common/mojo_base.stamp
+build camera/common$:privacy_shutter: phony obj/camera/common/privacy_shutter.stamp
+build camera/common$:stream_manipulator: phony obj/camera/common/stream_manipulator.stamp
+build camera/common$:stream_manipulator_manager_test: phony ./stream_manipulator_manager_test
+build camera/common$:tracing: phony obj/camera/common/tracing.stamp
+build camera/common$:v4l2_device: phony obj/camera/common/v4l2_device.stamp
+build camera/common$:zsl_helper_test: phony ./zsl_helper_test
+build camera/common/sw_privacy_switch_test$:_sw_privacy_switch_test-install_config: phony obj/camera/common/sw_privacy_switch_test/_sw_privacy_switch_test-install_config.stamp
+build camera/common/sw_privacy_switch_test$:all: phony obj/camera/common/sw_privacy_switch_test/all.stamp
+build camera/common/sw_privacy_switch_test$:sw_privacy_switch_test: phony ./sw_privacy_switch_test
+build camera/common/sw_privacy_switch_test: phony ./sw_privacy_switch_test
+build camera/features$:features: phony obj/camera/features/features.stamp
+build camera/features: phony obj/camera/features/features.stamp
+build camera/features/rotate_and_crop$:rotate_and_crop: phony obj/camera/features/rotate_and_crop/rotate_and_crop.stamp
+build camera/features/rotate_and_crop: phony obj/camera/features/rotate_and_crop/rotate_and_crop.stamp
+build camera/features/zsl$:zsl: phony obj/camera/features/zsl/zsl.stamp
+build camera/features/zsl: phony obj/camera/features/zsl/zsl.stamp
+build camera/gpu$:embedded_gpu_shaders: phony ./libembedded_gpu_shaders.a
+build camera/gpu$:embedded_gpu_shaders_gen: phony obj/camera/gpu/embedded_gpu_shaders_gen.stamp
+build camera/gpu$:gpu: phony obj/camera/gpu/gpu.stamp
+build camera/gpu: phony obj/camera/gpu/gpu.stamp
+build camera/gpu$:gpu_resources: phony obj/camera/gpu/gpu_resources.stamp
+build camera/gpu$:gpu_test_support: phony obj/camera/gpu/gpu_test_support.stamp
+build camera/gpu$:image_processor: phony obj/camera/gpu/image_processor.stamp
+build camera/gpu/egl$:egl: phony obj/camera/gpu/egl/egl.stamp
+build camera/gpu/egl: phony obj/camera/gpu/egl/egl.stamp
+build camera/gpu/gles$:gles: phony obj/camera/gpu/gles/gles.stamp
+build camera/gpu/gles: phony obj/camera/gpu/gles/gles.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build iioservice/libiioservice_ipc$:_iioservice_ipc-install_config: phony obj/iioservice/libiioservice_ipc/_iioservice_ipc-install_config.stamp
+build iioservice/libiioservice_ipc$:_libiioservice_ipc_mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom-install_config.stamp
+build iioservice/libiioservice_ipc$:_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config.stamp
+build iioservice/libiioservice_ipc$:_libiioservice_ipc_mojom_gen-sensor.mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-sensor.mojom-install_config.stamp
+build iioservice/libiioservice_ipc$:all: phony obj/iioservice/libiioservice_ipc/all.stamp
+build iioservice/libiioservice_ipc$:iioservice_ipc: phony obj/iioservice/libiioservice_ipc/iioservice_ipc.stamp
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom: phony ./libiioservice_ipc_mojom.a
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom_gen: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen.stamp
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom_gen_mojo_templates: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates.stamp
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom_gen_mojo_templates_dir: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates_dir.stamp
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom_gen_parse: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_parse.stamp
+
+build all: phony $
+    obj/camera/common/_cros_camera_algo-install_config.stamp $
+    obj/camera/common/_install_cros_camera_algo_policy-check_seccomp.stamp $
+    obj/camera/common/_libcros_camera-install_config.stamp $
+    obj/camera/common/_libcros_camera_device_config-install_config.stamp $
+    obj/camera/common/_libcros_camera_device_config_pkg_config-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-camera3.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-camera_algorithm.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-camera_common.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-camera_diagnostics.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-camera_features.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-camera_metadata.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-camera_metadata_tags.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-cros_camera_enum.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-cros_camera_service.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-dmabuf.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-effects_pipeline.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-file_path.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-jpeg_accelerator.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-jpeg_encode_accelerator.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-mjpeg_decode_accelerator.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_mojom_gen-unguessable_token.mojom-install_config.stamp $
+    obj/camera/common/_libcros_camera_pkg_config-install_config.stamp $
+    obj/camera/common/all.stamp $
+    obj/camera/common/base.stamp $
+    obj/camera/common/camera_algo_bridge.stamp $
+    ./camera_buffer_pool_test $
+    obj/camera/common/camera_connector.stamp $
+    ./camera_face_detection_test $
+    obj/camera/common/camera_gpu_algorithm.stamp $
+    ./camera_hal3_helpers_test $
+    ./cbm_test $
+    ./cros_camera_algo $
+    obj/camera/common/defect_detector.stamp $
+    ./embed_file_toc_test $
+    ./libembed_file_toc_test_files.a $
+    obj/camera/common/embed_file_toc_test_files_gen.stamp $
+    obj/camera/common/face_detection.stamp $
+    ./feature_profile_test $
+    ./future_test $
+    obj/camera/common/install_camera_hal_dispatcher_mojo.stamp $
+    obj/camera/common/install_cros_camera_algo_conf.stamp $
+    obj/camera/common/install_cros_camera_algo_policy.stamp $
+    obj/camera/common/install_dbus_cros_camera_algo_conf.stamp $
+    obj/camera/common/install_gen_include_iioservice_mojo.stamp $
+    obj/camera/common/install_include_cros_camera.stamp $
+    obj/camera/common/install_jpeg_accelerator_mojo.stamp $
+    obj/camera/common/install_libcamera_connector_so.stamp $
+    obj/camera/common/install_minijail_algo_conf.stamp $
+    obj/camera/common/install_minijail_gpu_algo_conf.stamp $
+    obj/camera/common/jpeg.stamp $
+    ./lib/libcros_camera.so $
+    ./lib/libcros_camera_device_config.so $
+    obj/camera/common/libcros_camera_device_config_pkg_config.stamp $
+    ./libcros_camera_mojom.a $
+    obj/camera/common/libcros_camera_mojom_gen.stamp $
+    obj/camera/common/libcros_camera_mojom_gen_mojo_templates.stamp $
+    obj/camera/common/libcros_camera_mojom_gen_mojo_templates_dir.stamp $
+    obj/camera/common/libcros_camera_mojom_gen_parse.stamp $
+    obj/camera/common/libcros_camera_pkg_config.stamp $
+    obj/camera/common/mojo_base.stamp $
+    obj/camera/common/privacy_shutter.stamp $
+    obj/camera/common/stream_manipulator.stamp $
+    ./stream_manipulator_manager_test $
+    obj/camera/common/tracing.stamp $
+    obj/camera/common/v4l2_device.stamp $
+    ./zsl_helper_test $
+    obj/camera/common/sw_privacy_switch_test/_sw_privacy_switch_test-install_config.stamp $
+    obj/camera/common/sw_privacy_switch_test/all.stamp $
+    ./sw_privacy_switch_test $
+    obj/camera/features/features.stamp $
+    obj/camera/features/rotate_and_crop/rotate_and_crop.stamp $
+    obj/camera/features/zsl/zsl.stamp $
+    ./libembedded_gpu_shaders.a $
+    obj/camera/gpu/embedded_gpu_shaders_gen.stamp $
+    obj/camera/gpu/gpu.stamp $
+    obj/camera/gpu/gpu_resources.stamp $
+    obj/camera/gpu/gpu_test_support.stamp $
+    obj/camera/gpu/image_processor.stamp $
+    obj/camera/gpu/egl/egl.stamp $
+    obj/camera/gpu/gles/gles.stamp $
+    obj/common-mk/gn_root/root.stamp $
+    obj/iioservice/libiioservice_ipc/_iioservice_ipc-install_config.stamp $
+    obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom-install_config.stamp $
+    obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config.stamp $
+    obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-sensor.mojom-install_config.stamp $
+    obj/iioservice/libiioservice_ipc/all.stamp $
+    obj/iioservice/libiioservice_ipc/iioservice_ipc.stamp $
+    ./libiioservice_ipc_mojom.a $
+    obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen.stamp $
+    obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates.stamp $
+    obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates_dir.stamp $
+    obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_parse.stamp
+
+default all

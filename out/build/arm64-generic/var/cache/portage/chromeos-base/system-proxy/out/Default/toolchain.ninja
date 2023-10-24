@@ -1,0 +1,68 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/system-proxy/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/system-proxy/_system_proxy-install_config.stamp: stamp
+build obj/system-proxy/_system_proxy_worker-install_config.stamp: stamp
+build obj/system-proxy/all.stamp: stamp obj/system-proxy/dbus_code_generator.stamp obj/system-proxy/install_dbus_config.stamp obj/system-proxy/install_init.stamp obj/system-proxy/install_minijail_conf.stamp obj/system-proxy/install_policy.stamp obj/system-proxy/install_services.stamp ./libsystemproxy.a ./system_proxy ./system_proxy_worker ./libworker-protos.a ./system-proxy_test
+rule __system-proxy_dbus_code_generator___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/system-proxy/out/Default/gen/include/system_proxy/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/system-proxy/dbus_bindings/dbus-service-config.json ${in}
+  description = ACTION //system-proxy:dbus_code_generator(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/system_proxy/org.chromium.SystemProxy.h: __system-proxy_dbus_code_generator___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/system-proxy/dbus_bindings/org.chromium.SystemProxy.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.SystemProxy
+
+build obj/system-proxy/dbus_code_generator.stamp: stamp gen/include/system_proxy/org.chromium.SystemProxy.h
+build obj/system-proxy/install_dbus_config.stamp: stamp
+build obj/system-proxy/install_init.stamp: stamp
+build obj/system-proxy/install_minijail_conf.stamp: stamp
+build obj/system-proxy/install_policy.stamp: stamp
+build obj/system-proxy/install_services.stamp: stamp
+subninja obj/system-proxy/libsystemproxy.ninja
+subninja obj/system-proxy/libsystemproxyworker.ninja
+subninja obj/system-proxy/system-proxy_test.ninja
+subninja obj/system-proxy/system_proxy.ninja
+subninja obj/system-proxy/system_proxy_worker.ninja
+subninja obj/system-proxy/worker-protos.ninja
+rule __system-proxy_worker-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc worker_common.proto --proto_path /mnt/host/source/src/platform2/system-proxy/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/system-proxy/out/Default/gen/include/bindings
+  description = ACTION //system-proxy:worker-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/bindings/worker_common.pb.cc gen/include/bindings/worker_common.pb.h: __system-proxy_worker-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/system-proxy/proto/worker_common.proto
+
+build obj/system-proxy/worker-protos_gen.stamp: stamp gen/include/bindings/worker_common.pb.cc gen/include/bindings/worker_common.pb.h

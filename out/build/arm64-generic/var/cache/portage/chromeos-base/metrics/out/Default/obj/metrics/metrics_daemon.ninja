@@ -1,0 +1,13 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/metrics-9999/work/metrics-9999/platform2 -I/build/arm64-generic/usr/include -Igen
+root_out_dir = .
+target_output_name = metrics_daemon
+
+
+build ./metrics_daemon: link ./libmetrics_daemon.a ./lib/libmetrics.so ./libupload_service.a ./libmetrics_proto.a
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -L/build/arm64-generic/usr/lib64
+  libs = -ldbus-1 -lbrillo -lbase -lpthread -lre2 -lvboot_host -lprotobuf-lite -lrootdev -lsystem_api-power_manager-protos
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

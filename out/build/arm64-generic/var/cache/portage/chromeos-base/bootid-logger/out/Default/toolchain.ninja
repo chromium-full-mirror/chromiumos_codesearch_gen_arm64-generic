@@ -1,0 +1,52 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/bootid-logger/_bootid-logger-install_config.stamp: stamp
+build obj/bootid-logger/all.stamp: stamp ./bootid-logger obj/bootid-logger/install_init_config.stamp
+subninja obj/bootid-logger/bootid-logger.ninja
+subninja obj/bootid-logger/bootid_logger_lib.ninja
+build obj/bootid-logger/install_init_config.stamp: stamp
+build obj/common-mk/gn_root/root.stamp: stamp obj/bootid-logger/all.stamp
+build obj/croslog/_croslog-install_config.stamp: stamp
+build obj/croslog/_log-metrics-collector-install_config.stamp: stamp
+build obj/croslog/all.stamp: stamp ./croslog ./log-metrics-collector ./log_rotator
+subninja obj/croslog/croslog.ninja
+subninja obj/croslog/libcroslog_static.ninja
+subninja obj/croslog/log-metrics-collector.ninja
+subninja obj/croslog/log_constants.ninja
+build obj/croslog/log_rotator/_log_rotator-install_config.stamp: stamp
+build obj/croslog/log_rotator/all.stamp: stamp ./log_rotator
+subninja obj/croslog/log_rotator/log_rotator.ninja
+subninja obj/croslog/log_rotator/log_rotator_static.ninja

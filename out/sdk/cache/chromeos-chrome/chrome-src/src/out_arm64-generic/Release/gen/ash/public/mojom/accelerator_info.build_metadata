@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../ui/base/accelerators/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/public/mojom/accelerator_info.mojom"
+  ]
+}

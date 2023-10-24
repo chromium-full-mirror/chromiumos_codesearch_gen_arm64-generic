@@ -1,0 +1,26 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DNDEBUG -DNVALGRIND -D_POSIX_C_SOURCE=199506 -D_XOPEN_SOURCE=600 -D_GNU_SOURCE=1 -D__STDC_LIMIT_MACROS=1 -DNACL_BUILD_ARCH=pnacl -DDYNAMIC_ANNOTATIONS_ENABLED=1 -DDYNAMIC_ANNOTATIONS_PREFIX=NACL_
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Inewlib_pnacl/gen
+cflags = -fPIC -gline-tables-only -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wno-missing-field-initializers -Wno-unused-parameter -Wloop-analysis -Wno-unneeded-internal-declaration -Werror -fno-ident -fno-strict-aliasing -fcolor-diagnostics -fmerge-all-constants -U__STRICT_ANSI__ -Xclang -fdebug-compilation-dir -Xclang . -O2 -fdata-sections -ffunction-sections -fno-math-errno -fomit-frame-pointer -gsplit-dwarf -fvisibility=default
+cflags_c = -std=c11
+label_name = ppapi_stub_lib
+root_out_dir = newlib_pnacl
+target_out_dir = newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub
+target_output_name = libppapi_stub
+
+build newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/ppapi_stub_lib/plugin_main_irt.o: newlib_pnacl_cc ../../../../../../../home/chrome-bot/chrome_root/src/ppapi/native_client/src/untrusted/irt_stub/plugin_main_irt.c
+  source_file_part = plugin_main_irt.c
+  source_name_part = plugin_main_irt
+build newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/ppapi_stub_lib/ppapi_plugin_main.o: newlib_pnacl_cc ../../../../../../../home/chrome-bot/chrome_root/src/ppapi/native_client/src/untrusted/irt_stub/ppapi_plugin_main.c
+  source_file_part = ppapi_plugin_main.c
+  source_name_part = ppapi_plugin_main
+build newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/ppapi_stub_lib/ppapi_plugin_start.o: newlib_pnacl_cc ../../../../../../../home/chrome-bot/chrome_root/src/ppapi/native_client/src/untrusted/irt_stub/ppapi_plugin_start.c
+  source_file_part = ppapi_plugin_start.c
+  source_name_part = ppapi_plugin_start
+build newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/ppapi_stub_lib/thread_creator.o: newlib_pnacl_cc ../../../../../../../home/chrome-bot/chrome_root/src/ppapi/native_client/src/untrusted/irt_stub/thread_creator.c
+  source_file_part = thread_creator.c
+  source_name_part = thread_creator
+
+build newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/libppapi_stub.a: newlib_pnacl_alink newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/ppapi_stub_lib/plugin_main_irt.o newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/ppapi_stub_lib/ppapi_plugin_main.o newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/ppapi_stub_lib/ppapi_plugin_start.o newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub/ppapi_stub_lib/thread_creator.o || newlib_pnacl/obj/build/config/nacl/nacl_base.stamp
+  arflags =
+  output_extension = .a
+  output_dir = newlib_pnacl/obj/ppapi/native_client/src/untrusted/irt_stub

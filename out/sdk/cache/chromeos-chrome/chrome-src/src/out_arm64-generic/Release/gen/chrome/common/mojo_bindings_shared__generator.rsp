@@ -1,0 +1,13 @@
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/chrome_render_frame.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/draggable_regions.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/google_accounts_private_api_extension.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/media/webrtc_logging.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/metrics.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/net/net_error_page_support.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/net_benchmarking.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/network_diagnostics.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/network_easter_egg.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/open_search_description_document_handler.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/plugin.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/renderer_configuration.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chrome/common/trusted_vault_encryption_keys_extension.mojom

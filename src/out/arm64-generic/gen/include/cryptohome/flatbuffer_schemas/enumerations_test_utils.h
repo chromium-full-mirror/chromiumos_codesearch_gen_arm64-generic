@@ -16,7 +16,6 @@
 // cryptohome/flatbuffer_schemas/enumerations_flatbuffer.h
 // --test_utils_header_include_path cryptohome/flatbuffer_schemas/enumerations.h
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/bfbs/enumerations.bfbs
-// --filter_by_namespace cryptohome::enumeration
 
 #ifndef CRYPTOHOME_FLATBUFFER_SCHEMAS_ENUMERATIONS_ENUMERATIONS_TEST_UTILS_H_
 #define CRYPTOHOME_FLATBUFFER_SCHEMAS_ENUMERATIONS_ENUMERATIONS_TEST_UTILS_H_

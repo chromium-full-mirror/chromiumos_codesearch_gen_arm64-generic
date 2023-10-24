@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="10" failures="0" disabled="0" errors="0" time="0.018" timestamp="2023-10-23T22:49:06.495" name="AllTests">
-  <testsuite name="BufferShareTestSuite" tests="10" failures="0" disabled="0" skipped="0" errors="0" time="0.01" timestamp="2023-10-23T22:49:06.503">
-    <testcase name="Create" file="cras/src/tests/buffer_share_unittest.cc" line="20" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:49:06.503" classname="BufferShareTestSuite" />
-    <testcase name="AddRmDev" file="cras/src/tests/buffer_share_unittest.cc" line="26" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.506" classname="BufferShareTestSuite" />
-    <testcase name="AddManyDevs" file="cras/src/tests/buffer_share_unittest.cc" line="43" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.507" classname="BufferShareTestSuite" />
-    <testcase name="OneDev" file="cras/src/tests/buffer_share_unittest.cc" line="60" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.509" classname="BufferShareTestSuite" />
-    <testcase name="TwoDevs" file="cras/src/tests/buffer_share_unittest.cc" line="82" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.510" classname="BufferShareTestSuite" />
-    <testcase name="IgnoreRemovedDev" file="cras/src/tests/buffer_share_unittest.cc" line="109" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.510" classname="BufferShareTestSuite" />
-    <testcase name="AllRemovedDev" file="cras/src/tests/buffer_share_unittest.cc" line="133" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.511" classname="BufferShareTestSuite" />
-    <testcase name="GetMinimumOffset" file="cras/src/tests/buffer_share_unittest.cc" line="159" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.512" classname="BufferShareTestSuite" />
-    <testcase name="UpdateWritePoint" file="cras/src/tests/buffer_share_unittest.cc" line="175" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.513" classname="BufferShareTestSuite" />
-    <testcase name="UpdateWritePointInvalid" file="cras/src/tests/buffer_share_unittest.cc" line="191" status="run" result="completed" time="0." timestamp="2023-10-23T22:49:06.513" classname="BufferShareTestSuite" />
+<testsuites tests="10" failures="0" disabled="0" errors="0" time="0.019" timestamp="2023-10-24T11:10:35.915" name="AllTests">
+  <testsuite name="BufferShareTestSuite" tests="10" failures="0" disabled="0" skipped="0" errors="0" time="0.01" timestamp="2023-10-24T11:10:35.923">
+    <testcase name="Create" file="cras/src/tests/buffer_share_unittest.cc" line="20" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:10:35.924" classname="BufferShareTestSuite" />
+    <testcase name="AddRmDev" file="cras/src/tests/buffer_share_unittest.cc" line="26" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.927" classname="BufferShareTestSuite" />
+    <testcase name="AddManyDevs" file="cras/src/tests/buffer_share_unittest.cc" line="43" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.928" classname="BufferShareTestSuite" />
+    <testcase name="OneDev" file="cras/src/tests/buffer_share_unittest.cc" line="60" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.929" classname="BufferShareTestSuite" />
+    <testcase name="TwoDevs" file="cras/src/tests/buffer_share_unittest.cc" line="82" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.930" classname="BufferShareTestSuite" />
+    <testcase name="IgnoreRemovedDev" file="cras/src/tests/buffer_share_unittest.cc" line="109" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.930" classname="BufferShareTestSuite" />
+    <testcase name="AllRemovedDev" file="cras/src/tests/buffer_share_unittest.cc" line="133" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.931" classname="BufferShareTestSuite" />
+    <testcase name="GetMinimumOffset" file="cras/src/tests/buffer_share_unittest.cc" line="159" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.932" classname="BufferShareTestSuite" />
+    <testcase name="UpdateWritePoint" file="cras/src/tests/buffer_share_unittest.cc" line="175" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.933" classname="BufferShareTestSuite" />
+    <testcase name="UpdateWritePointInvalid" file="cras/src/tests/buffer_share_unittest.cc" line="191" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:35.933" classname="BufferShareTestSuite" />
   </testsuite>
 </testsuites>

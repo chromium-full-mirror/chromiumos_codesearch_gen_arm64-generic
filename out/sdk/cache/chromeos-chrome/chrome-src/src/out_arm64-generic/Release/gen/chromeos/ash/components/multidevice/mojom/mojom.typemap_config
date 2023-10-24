@@ -1,0 +1,33 @@
+[
+  {
+    "traits_deps": [
+      "//chromeos/ash/components/multidevice/logging",
+      "//chromeos/ash/services/device_sync/proto",
+      "//device/bluetooth/public/cpp"
+    ],
+    "traits_headers": [
+      "chromeos/ash/components/multidevice/mojom/multidevice_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//base",
+      "//chromeos/ash/components/multidevice"
+    ],
+    "traits_sources": [
+      "multidevice_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::ash::multidevice::BeaconSeed",
+        "mojom": "ash.multidevice.mojom.BeaconSeed"
+      },
+      {
+        "cpp": "::ash::multidevice::RemoteDevice",
+        "mojom": "ash.multidevice.mojom.RemoteDevice"
+      },
+      {
+        "cpp": "::ash::multidevice::SoftwareFeature",
+        "mojom": "ash.multidevice.mojom.SoftwareFeature"
+      }
+    ]
+  }
+]

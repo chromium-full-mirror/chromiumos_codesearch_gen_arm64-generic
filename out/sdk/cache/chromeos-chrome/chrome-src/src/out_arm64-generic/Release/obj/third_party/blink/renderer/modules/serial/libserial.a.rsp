@@ -1,0 +1,1 @@
+obj/third_party/blink/renderer/modules/serial/serial/serial.o obj/third_party/blink/renderer/modules/serial/serial/serial_port.o obj/third_party/blink/renderer/modules/serial/serial/serial_port_underlying_sink.o obj/third_party/blink/renderer/modules/serial/serial/serial_port_underlying_source.o

@@ -1,0 +1,18 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../tast-local-helpers-cros-9999/platform2 -I/build/arm64-generic/usr/include
+cflags = -std=gnu99 -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE
+cflags_c = -std=gnu17 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = hardware.VerifyRemoteSleep.timersignal
+
+build obj/tast-tests/helpers/local/hardware.VerifyRemoteSleep.timersignal.hardware.VerifyRemoteSleep.timersignal.o: cc ../../../tast-local-helpers-cros-9999/platform2/tast-tests/helpers/local/hardware.VerifyRemoteSleep.timersignal.c
+  source_file_part = hardware.VerifyRemoteSleep.timersignal.c
+  source_name_part = hardware.VerifyRemoteSleep.timersignal
+
+build ./hardware.VerifyRemoteSleep.timersignal: link obj/tast-tests/helpers/local/hardware.VerifyRemoteSleep.timersignal.hardware.VerifyRemoteSleep.timersignal.o
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie
+  libs = -lrt
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

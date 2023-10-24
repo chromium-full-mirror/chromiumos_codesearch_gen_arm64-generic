@@ -1,0 +1,1 @@
+obj/third_party/perfetto/protos/perfetto/config/profiling/zero/heapprofd_config.pbzero.o obj/third_party/perfetto/protos/perfetto/config/profiling/zero/java_hprof_config.pbzero.o obj/third_party/perfetto/protos/perfetto/config/profiling/zero/perf_event_config.pbzero.o

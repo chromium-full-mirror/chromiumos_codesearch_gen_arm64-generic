@@ -1,0 +1,73 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D_7ZIP_ST -D_7Z_NO_METHODS_FILTERS -D_LZMA_PROB32
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wno-self-assign
+cflags_c = -std=c11 --sysroot=../../../../../../../build/arm64-generic
+label_name = lzma_sdk
+target_out_dir = obj/third_party/lzma_sdk
+target_output_name = liblzma_sdk
+
+build obj/third_party/lzma_sdk/lzma_sdk/7zAlloc.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/7zAlloc.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = 7zAlloc.c
+  source_name_part = 7zAlloc
+build obj/third_party/lzma_sdk/lzma_sdk/7zArcIn.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/7zArcIn.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = 7zArcIn.c
+  source_name_part = 7zArcIn
+build obj/third_party/lzma_sdk/lzma_sdk/7zBuf.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/7zBuf.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = 7zBuf.c
+  source_name_part = 7zBuf
+build obj/third_party/lzma_sdk/lzma_sdk/7zCrc.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/7zCrc.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = 7zCrc.c
+  source_name_part = 7zCrc
+build obj/third_party/lzma_sdk/lzma_sdk/7zCrcOpt.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/7zCrcOpt.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = 7zCrcOpt.c
+  source_name_part = 7zCrcOpt
+build obj/third_party/lzma_sdk/lzma_sdk/7zDec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/7zDec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = 7zDec.c
+  source_name_part = 7zDec
+build obj/third_party/lzma_sdk/lzma_sdk/7zFile.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/7zFile.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = 7zFile.c
+  source_name_part = 7zFile
+build obj/third_party/lzma_sdk/lzma_sdk/7zStream.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/7zStream.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = 7zStream.c
+  source_name_part = 7zStream
+build obj/third_party/lzma_sdk/lzma_sdk/Alloc.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/Alloc.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Alloc.c
+  source_name_part = Alloc
+build obj/third_party/lzma_sdk/lzma_sdk/Bcj2.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/Bcj2.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Bcj2.c
+  source_name_part = Bcj2
+build obj/third_party/lzma_sdk/lzma_sdk/Bra.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/Bra.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Bra.c
+  source_name_part = Bra
+build obj/third_party/lzma_sdk/lzma_sdk/Bra86.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/Bra86.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Bra86.c
+  source_name_part = Bra86
+build obj/third_party/lzma_sdk/lzma_sdk/CpuArch.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/CpuArch.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = CpuArch.c
+  source_name_part = CpuArch
+build obj/third_party/lzma_sdk/lzma_sdk/Delta.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/Delta.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Delta.c
+  source_name_part = Delta
+build obj/third_party/lzma_sdk/lzma_sdk/DllSecur.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/DllSecur.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DllSecur.c
+  source_name_part = DllSecur
+build obj/third_party/lzma_sdk/lzma_sdk/LzFind.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/LzFind.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LzFind.c
+  source_name_part = LzFind
+build obj/third_party/lzma_sdk/lzma_sdk/Lzma2Dec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/Lzma2Dec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Lzma2Dec.c
+  source_name_part = Lzma2Dec
+build obj/third_party/lzma_sdk/lzma_sdk/LzmaDec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/LzmaDec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LzmaDec.c
+  source_name_part = LzmaDec
+build obj/third_party/lzma_sdk/lzma_sdk/LzmaEnc.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/LzmaEnc.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LzmaEnc.c
+  source_name_part = LzmaEnc
+build obj/third_party/lzma_sdk/lzma_sdk/LzmaLib.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/lzma_sdk/C/LzmaLib.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LzmaLib.c
+  source_name_part = LzmaLib
+
+build obj/third_party/lzma_sdk/liblzma_sdk.a: alink obj/third_party/lzma_sdk/lzma_sdk/7zAlloc.o obj/third_party/lzma_sdk/lzma_sdk/7zArcIn.o obj/third_party/lzma_sdk/lzma_sdk/7zBuf.o obj/third_party/lzma_sdk/lzma_sdk/7zCrc.o obj/third_party/lzma_sdk/lzma_sdk/7zCrcOpt.o obj/third_party/lzma_sdk/lzma_sdk/7zDec.o obj/third_party/lzma_sdk/lzma_sdk/7zFile.o obj/third_party/lzma_sdk/lzma_sdk/7zStream.o obj/third_party/lzma_sdk/lzma_sdk/Alloc.o obj/third_party/lzma_sdk/lzma_sdk/Bcj2.o obj/third_party/lzma_sdk/lzma_sdk/Bra.o obj/third_party/lzma_sdk/lzma_sdk/Bra86.o obj/third_party/lzma_sdk/lzma_sdk/CpuArch.o obj/third_party/lzma_sdk/lzma_sdk/Delta.o obj/third_party/lzma_sdk/lzma_sdk/DllSecur.o obj/third_party/lzma_sdk/lzma_sdk/LzFind.o obj/third_party/lzma_sdk/lzma_sdk/Lzma2Dec.o obj/third_party/lzma_sdk/lzma_sdk/LzmaDec.o obj/third_party/lzma_sdk/lzma_sdk/LzmaEnc.o obj/third_party/lzma_sdk/lzma_sdk/LzmaLib.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  arflags = -T
+  output_extension = .a
+  output_dir = obj/third_party/lzma_sdk

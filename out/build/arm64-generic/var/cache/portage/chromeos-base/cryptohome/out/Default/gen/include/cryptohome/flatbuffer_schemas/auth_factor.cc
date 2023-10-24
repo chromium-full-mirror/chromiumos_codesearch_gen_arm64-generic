@@ -23,7 +23,6 @@
 // --test_utils_header_include_path
 // cryptohome/flatbuffer_schemas/auth_block_state_test_utils.h
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/bfbs/auth_factor.bfbs
-// --filter_by_namespace cryptohome::auth_factor
 
 #include <stdint.h>
 #include <optional>

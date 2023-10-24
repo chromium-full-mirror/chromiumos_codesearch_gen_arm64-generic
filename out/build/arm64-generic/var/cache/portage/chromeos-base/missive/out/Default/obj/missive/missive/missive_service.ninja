@@ -1,0 +1,10 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2 -I/build/arm64-generic/usr/include -Igen
+root_out_dir = .
+target_output_name = libmissive_service
+
+
+build ./libmissive_service.a: alink || ./libmissiveprotorecord.a ./libmissiveprotorecordconstants.a ./libresource_manager.a ./libstatus.a ./libmissiveprotohealth.a ./libmissiveprotostatus.a ./libtime.a
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

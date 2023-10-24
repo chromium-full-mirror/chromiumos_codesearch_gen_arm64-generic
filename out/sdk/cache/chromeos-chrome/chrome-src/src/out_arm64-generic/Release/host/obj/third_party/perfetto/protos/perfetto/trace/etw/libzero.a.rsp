@@ -1,0 +1,1 @@
+host/obj/third_party/perfetto/protos/perfetto/trace/etw/zero/etw.pbzero.o host/obj/third_party/perfetto/protos/perfetto/trace/etw/zero/etw_event.pbzero.o host/obj/third_party/perfetto/protos/perfetto/trace/etw/zero/etw_event_bundle.pbzero.o

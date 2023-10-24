@@ -1,0 +1,146 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../ml-9999/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _libmlbenchmark_proto-install_config: phony obj/ml_benchmark/_libmlbenchmark_proto-install_config.stamp
+build _ml_benchmark-install_config: phony obj/ml_benchmark/_ml_benchmark-install_config.stamp
+build benchmark_proto: phony ./libbenchmark_proto.a
+build benchmark_proto_gen: phony obj/ml/benchmark_proto_gen.stamp
+build core: phony ./libcore.a
+build dbus-adaptors: phony obj/ml/dbus_service/dbus-adaptors.stamp
+build dlc_client: phony ./libdlc_client.a
+build example_preprocessor: phony obj/ml/example_preprocessor.stamp
+build libml_for_benchmark: phony ./lib/libml_for_benchmark.so
+build libmlbenchmark: phony ./libmlbenchmark.a
+build libmlbenchmark_driver_common: phony ./libmlbenchmark_driver_common.a
+build libmlbenchmark_proto: phony ./lib/libmlbenchmark_proto.so
+build ml_assist_ranker_proto: phony ./libml_assist_ranker_proto.a
+build ml_assist_ranker_proto_gen: phony obj/ml/ml_assist_ranker_proto_gen.stamp
+build ml_benchmark_config_proto: phony ./libml_benchmark_config_proto.a
+build ml_benchmark_config_proto_gen: phony obj/ml_benchmark/ml_benchmark_config_proto_gen.stamp
+build ml_common: phony ./libml_common.a
+build ml_grammar_proto: phony ./libml_grammar_proto.a
+build ml_grammar_proto_gen: phony obj/ml/ml_grammar_proto_gen.stamp
+build ml_handwriting_proto: phony ./libml_handwriting_proto.a
+build ml_handwriting_proto_gen: phony obj/ml/ml_handwriting_proto_gen.stamp
+build ml_ica_proto: phony ./libml_ica_proto.a
+build ml_ica_proto_gen: phony obj/ml/ml_ica_proto_gen.stamp
+build ml_mojo_bindings: phony ./libml_mojo_bindings.a
+build ml_mojo_bindings_gen: phony obj/ml/ml_mojo_bindings_gen.stamp
+build ml_mojo_bindings_gen_mojo_templates: phony obj/ml/ml_mojo_bindings_gen_mojo_templates.stamp
+build ml_mojo_bindings_gen_mojo_templates_dir: phony obj/ml/ml_mojo_bindings_gen_mojo_templates_dir.stamp
+build ml_mojo_bindings_gen_parse: phony obj/ml/ml_mojo_bindings_gen_parse.stamp
+build ml_mojo_bindings_lib: phony obj/ml/ml_mojo_bindings_lib.stamp
+build ml_soda_proto: phony ./libml_soda_proto.a
+build ml_soda_proto_gen: phony obj/ml/ml_soda_proto_gen.stamp
+build ml_text_suggester_proto: phony ./libml_text_suggester_proto.a
+build ml_text_suggester_proto_gen: phony obj/ml/ml_text_suggester_proto_gen.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build ml$:all: phony obj/ml/all.stamp
+build ml$:benchmark_proto: phony ./libbenchmark_proto.a
+build ml$:benchmark_proto_gen: phony obj/ml/benchmark_proto_gen.stamp
+build ml$:example_preprocessor: phony obj/ml/example_preprocessor.stamp
+build ml$:libml_for_benchmark: phony ./lib/libml_for_benchmark.so
+build ml$:ml_assist_ranker_proto: phony ./libml_assist_ranker_proto.a
+build ml$:ml_assist_ranker_proto_gen: phony obj/ml/ml_assist_ranker_proto_gen.stamp
+build ml$:ml_common: phony ./libml_common.a
+build ml$:ml_grammar_proto: phony ./libml_grammar_proto.a
+build ml$:ml_grammar_proto_gen: phony obj/ml/ml_grammar_proto_gen.stamp
+build ml$:ml_handwriting_proto: phony ./libml_handwriting_proto.a
+build ml$:ml_handwriting_proto_gen: phony obj/ml/ml_handwriting_proto_gen.stamp
+build ml$:ml_ica_proto: phony ./libml_ica_proto.a
+build ml$:ml_ica_proto_gen: phony obj/ml/ml_ica_proto_gen.stamp
+build ml$:ml_mojo_bindings: phony ./libml_mojo_bindings.a
+build ml$:ml_mojo_bindings_gen: phony obj/ml/ml_mojo_bindings_gen.stamp
+build ml$:ml_mojo_bindings_gen_mojo_templates: phony obj/ml/ml_mojo_bindings_gen_mojo_templates.stamp
+build ml$:ml_mojo_bindings_gen_mojo_templates_dir: phony obj/ml/ml_mojo_bindings_gen_mojo_templates_dir.stamp
+build ml$:ml_mojo_bindings_gen_parse: phony obj/ml/ml_mojo_bindings_gen_parse.stamp
+build ml$:ml_mojo_bindings_lib: phony obj/ml/ml_mojo_bindings_lib.stamp
+build ml$:ml_service: phony ./ml_service
+build ml$:ml_service_test: phony ./ml_service_test
+build ml$:ml_soda_proto: phony ./libml_soda_proto.a
+build ml$:ml_soda_proto_gen: phony obj/ml/ml_soda_proto_gen.stamp
+build ml$:ml_text_suggester_proto: phony ./libml_text_suggester_proto.a
+build ml$:ml_text_suggester_proto_gen: phony obj/ml/ml_text_suggester_proto_gen.stamp
+build ml/dbus_service$:core: phony ./libcore.a
+build ml/dbus_service$:dbus-adaptors: phony obj/ml/dbus_service/dbus-adaptors.stamp
+build ml_benchmark$:_libmlbenchmark_proto-install_config: phony obj/ml_benchmark/_libmlbenchmark_proto-install_config.stamp
+build ml_benchmark$:_ml_benchmark-install_config: phony obj/ml_benchmark/_ml_benchmark-install_config.stamp
+build ml_benchmark$:all: phony obj/ml_benchmark/all.stamp
+build ml_benchmark$:libmlbenchmark: phony ./libmlbenchmark.a
+build ml_benchmark$:libmlbenchmark_proto: phony ./lib/libmlbenchmark_proto.so
+build ml_benchmark$:ml_benchmark: phony ./ml_benchmark
+build ml_benchmark$:ml_benchmark_config_proto: phony ./libml_benchmark_config_proto.a
+build ml_benchmark$:ml_benchmark_config_proto_gen: phony obj/ml_benchmark/ml_benchmark_config_proto_gen.stamp
+build ml_benchmark$:ml_benchmark_test: phony ./ml_benchmark_test
+build ml_benchmark/driver_common$:driver_common_test: phony ./driver_common_test
+build ml_benchmark/driver_common$:libmlbenchmark_driver_common: phony ./libmlbenchmark_driver_common.a
+build ml_core/dlc$:all: phony obj/ml_core/dlc/all.stamp
+build ml_core/dlc$:dlc_client: phony ./libdlc_client.a
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/ml/all.stamp $
+    ./libbenchmark_proto.a $
+    obj/ml/benchmark_proto_gen.stamp $
+    obj/ml/example_preprocessor.stamp $
+    ./lib/libml_for_benchmark.so $
+    ./libml_assist_ranker_proto.a $
+    obj/ml/ml_assist_ranker_proto_gen.stamp $
+    ./libml_common.a $
+    ./libml_grammar_proto.a $
+    obj/ml/ml_grammar_proto_gen.stamp $
+    ./libml_handwriting_proto.a $
+    obj/ml/ml_handwriting_proto_gen.stamp $
+    ./libml_ica_proto.a $
+    obj/ml/ml_ica_proto_gen.stamp $
+    ./libml_mojo_bindings.a $
+    obj/ml/ml_mojo_bindings_gen.stamp $
+    obj/ml/ml_mojo_bindings_gen_mojo_templates.stamp $
+    obj/ml/ml_mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/ml/ml_mojo_bindings_gen_parse.stamp $
+    obj/ml/ml_mojo_bindings_lib.stamp $
+    ./ml_service $
+    ./ml_service_test $
+    ./libml_soda_proto.a $
+    obj/ml/ml_soda_proto_gen.stamp $
+    ./libml_text_suggester_proto.a $
+    obj/ml/ml_text_suggester_proto_gen.stamp $
+    ./libcore.a $
+    obj/ml/dbus_service/dbus-adaptors.stamp $
+    obj/ml_benchmark/_libmlbenchmark_proto-install_config.stamp $
+    obj/ml_benchmark/_ml_benchmark-install_config.stamp $
+    obj/ml_benchmark/all.stamp $
+    ./libmlbenchmark.a $
+    ./lib/libmlbenchmark_proto.so $
+    ./ml_benchmark $
+    ./libml_benchmark_config_proto.a $
+    obj/ml_benchmark/ml_benchmark_config_proto_gen.stamp $
+    ./ml_benchmark_test $
+    ./driver_common_test $
+    ./libmlbenchmark_driver_common.a $
+    obj/ml_core/dlc/all.stamp $
+    ./libdlc_client.a
+
+default all

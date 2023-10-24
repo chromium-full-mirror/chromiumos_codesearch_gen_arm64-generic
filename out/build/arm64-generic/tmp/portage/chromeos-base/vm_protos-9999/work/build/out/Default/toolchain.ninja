@@ -1,0 +1,132 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/vm_tools/proto/all.stamp
+build obj/vm_tools/proto/all.stamp: stamp obj/vm_tools/proto/common-goprotos.stamp ./libcommon-protos.a ./libcontainer-rpcs.a ./libfuzzer-protos.a obj/vm_tools/proto/tremplin-gorpcs.stamp ./libtremplin-rpcs.a obj/vm_tools/proto/vm-crash-gorpcs.stamp ./libvm-crash-rpcs.a obj/vm_tools/proto/vm-gorpcs.stamp ./libvm-rpcs.a ./libvsh-protos.a
+rule __vm_tools_proto_common-goprotos___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --go_out $:/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/go/src/ /mnt/host/source/src/platform2/vm_tools/proto/common.proto
+  description = ACTION //vm_tools/proto:common-goprotos(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/common.pb.go: __vm_tools_proto_common-goprotos___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/common.proto
+
+build obj/vm_tools/proto/common-goprotos.stamp: stamp gen/go/src/common.pb.go
+subninja obj/vm_tools/proto/common-protos.ninja
+rule __vm_tools_proto_common-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc common.proto --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --grpc_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings
+  description = ACTION //vm_tools/proto:common-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/vm_protos/proto_bindings/common.grpc.pb.cc gen/include/vm_protos/proto_bindings/common.grpc.pb.h gen/include/vm_protos/proto_bindings/common.pb.cc gen/include/vm_protos/proto_bindings/common.pb.h: __vm_tools_proto_common-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/common.proto
+
+build obj/vm_tools/proto/common-protos_gen.stamp: stamp gen/include/vm_protos/proto_bindings/common.grpc.pb.cc gen/include/vm_protos/proto_bindings/common.grpc.pb.h gen/include/vm_protos/proto_bindings/common.pb.cc gen/include/vm_protos/proto_bindings/common.pb.h
+subninja obj/vm_tools/proto/container-rpcs.ninja
+rule __vm_tools_proto_container-rpcs_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc container_guest.proto container_host.proto --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --grpc_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings
+  description = ACTION //vm_tools/proto:container-rpcs_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/vm_protos/proto_bindings/container_guest.grpc.pb.cc gen/include/vm_protos/proto_bindings/container_guest.grpc.pb.h gen/include/vm_protos/proto_bindings/container_guest.pb.cc gen/include/vm_protos/proto_bindings/container_guest.pb.h gen/include/vm_protos/proto_bindings/container_host.grpc.pb.cc gen/include/vm_protos/proto_bindings/container_host.grpc.pb.h gen/include/vm_protos/proto_bindings/container_host.pb.cc gen/include/vm_protos/proto_bindings/container_host.pb.h: __vm_tools_proto_container-rpcs_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/container_guest.proto ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/container_host.proto ./libcommon-protos.a
+
+build obj/vm_tools/proto/container-rpcs_gen.stamp: stamp gen/include/vm_protos/proto_bindings/container_guest.grpc.pb.cc gen/include/vm_protos/proto_bindings/container_guest.grpc.pb.h gen/include/vm_protos/proto_bindings/container_guest.pb.cc gen/include/vm_protos/proto_bindings/container_guest.pb.h gen/include/vm_protos/proto_bindings/container_host.grpc.pb.cc gen/include/vm_protos/proto_bindings/container_host.grpc.pb.h gen/include/vm_protos/proto_bindings/container_host.pb.cc gen/include/vm_protos/proto_bindings/container_host.pb.h
+subninja obj/vm_tools/proto/fuzzer-protos.ninja
+rule __vm_tools_proto_fuzzer-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc fuzzer.proto --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --grpc_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings
+  description = ACTION //vm_tools/proto:fuzzer-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/vm_protos/proto_bindings/fuzzer.grpc.pb.cc gen/include/vm_protos/proto_bindings/fuzzer.grpc.pb.h gen/include/vm_protos/proto_bindings/fuzzer.pb.cc gen/include/vm_protos/proto_bindings/fuzzer.pb.h: __vm_tools_proto_fuzzer-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/fuzzer.proto ./libcommon-protos.a ./libcontainer-rpcs.a ./libtremplin-rpcs.a ./libvm-crash-rpcs.a
+
+build obj/vm_tools/proto/fuzzer-protos_gen.stamp: stamp gen/include/vm_protos/proto_bindings/fuzzer.grpc.pb.cc gen/include/vm_protos/proto_bindings/fuzzer.grpc.pb.h gen/include/vm_protos/proto_bindings/fuzzer.pb.cc gen/include/vm_protos/proto_bindings/fuzzer.pb.h
+rule __vm_tools_proto_tremplin-gorpcs___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --go_out plugins=grpc$:/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/go/src/ /mnt/host/source/src/platform2/vm_tools/proto/tremplin.proto
+  description = ACTION //vm_tools/proto:tremplin-gorpcs(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/tremplin.pb.go: __vm_tools_proto_tremplin-gorpcs___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/tremplin.proto
+
+build obj/vm_tools/proto/tremplin-gorpcs.stamp: stamp gen/go/src/tremplin.pb.go
+subninja obj/vm_tools/proto/tremplin-rpcs.ninja
+rule __vm_tools_proto_tremplin-rpcs_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc tremplin.proto --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --grpc_out=generate_mock_code=true$:/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings
+  description = ACTION //vm_tools/proto:tremplin-rpcs_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/vm_protos/proto_bindings/tremplin_mock.grpc.pb.h gen/include/vm_protos/proto_bindings/tremplin.grpc.pb.cc gen/include/vm_protos/proto_bindings/tremplin.grpc.pb.h gen/include/vm_protos/proto_bindings/tremplin.pb.cc gen/include/vm_protos/proto_bindings/tremplin.pb.h: __vm_tools_proto_tremplin-rpcs_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/tremplin.proto
+
+build obj/vm_tools/proto/tremplin-rpcs_gen.stamp: stamp gen/include/vm_protos/proto_bindings/tremplin_mock.grpc.pb.h gen/include/vm_protos/proto_bindings/tremplin.grpc.pb.cc gen/include/vm_protos/proto_bindings/tremplin.grpc.pb.h gen/include/vm_protos/proto_bindings/tremplin.pb.cc gen/include/vm_protos/proto_bindings/tremplin.pb.h
+rule __vm_tools_proto_vm-crash-gorpcs___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --go_out plugins=grpc$:/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/go/src/ /mnt/host/source/src/platform2/vm_tools/proto/vm_crash.proto
+  description = ACTION //vm_tools/proto:vm-crash-gorpcs(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/vm_crash.pb.go: __vm_tools_proto_vm-crash-gorpcs___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/vm_crash.proto
+
+build obj/vm_tools/proto/vm-crash-gorpcs.stamp: stamp gen/go/src/vm_crash.pb.go
+subninja obj/vm_tools/proto/vm-crash-rpcs.ninja
+rule __vm_tools_proto_vm-crash-rpcs_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc vm_crash.proto --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --grpc_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings
+  description = ACTION //vm_tools/proto:vm-crash-rpcs_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/vm_protos/proto_bindings/vm_crash.grpc.pb.cc gen/include/vm_protos/proto_bindings/vm_crash.grpc.pb.h gen/include/vm_protos/proto_bindings/vm_crash.pb.cc gen/include/vm_protos/proto_bindings/vm_crash.pb.h: __vm_tools_proto_vm-crash-rpcs_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/vm_crash.proto ./libcommon-protos.a
+
+build obj/vm_tools/proto/vm-crash-rpcs_gen.stamp: stamp gen/include/vm_protos/proto_bindings/vm_crash.grpc.pb.cc gen/include/vm_protos/proto_bindings/vm_crash.grpc.pb.h gen/include/vm_protos/proto_bindings/vm_crash.pb.cc gen/include/vm_protos/proto_bindings/vm_crash.pb.h
+rule __vm_tools_proto_vm-gorpcs___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --go_out plugins=grpc$:/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/go/src/ /mnt/host/source/src/platform2/vm_tools/proto/vm_guest.proto /mnt/host/source/src/platform2/vm_tools/proto/vm_host.proto
+  description = ACTION //vm_tools/proto:vm-gorpcs(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/vm_guest.pb.go gen/go/src/vm_host.pb.go: __vm_tools_proto_vm-gorpcs___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/vm_guest.proto ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/vm_host.proto
+
+build obj/vm_tools/proto/vm-gorpcs.stamp: stamp gen/go/src/vm_guest.pb.go gen/go/src/vm_host.pb.go
+subninja obj/vm_tools/proto/vm-rpcs.ninja
+rule __vm_tools_proto_vm-rpcs_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc vm_guest.proto vm_host.proto --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --grpc_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings
+  description = ACTION //vm_tools/proto:vm-rpcs_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/vm_protos/proto_bindings/vm_guest.grpc.pb.cc gen/include/vm_protos/proto_bindings/vm_guest.grpc.pb.h gen/include/vm_protos/proto_bindings/vm_guest.pb.cc gen/include/vm_protos/proto_bindings/vm_guest.pb.h gen/include/vm_protos/proto_bindings/vm_host.grpc.pb.cc gen/include/vm_protos/proto_bindings/vm_host.grpc.pb.h gen/include/vm_protos/proto_bindings/vm_host.pb.cc gen/include/vm_protos/proto_bindings/vm_host.pb.h: __vm_tools_proto_vm-rpcs_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/vm_guest.proto ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/vm_host.proto ./libcommon-protos.a
+
+build obj/vm_tools/proto/vm-rpcs_gen.stamp: stamp gen/include/vm_protos/proto_bindings/vm_guest.grpc.pb.cc gen/include/vm_protos/proto_bindings/vm_guest.grpc.pb.h gen/include/vm_protos/proto_bindings/vm_guest.pb.cc gen/include/vm_protos/proto_bindings/vm_guest.pb.h gen/include/vm_protos/proto_bindings/vm_host.grpc.pb.cc gen/include/vm_protos/proto_bindings/vm_host.grpc.pb.h gen/include/vm_protos/proto_bindings/vm_host.pb.cc gen/include/vm_protos/proto_bindings/vm_host.pb.h
+subninja obj/vm_tools/proto/vsh-protos.ninja
+rule __vm_tools_proto_vsh-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc vsh.proto --proto_path /mnt/host/source/src/platform2/vm_tools/proto/ --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/vm_protos-9999/work/build/out/Default/gen/include/vm_protos/proto_bindings
+  description = ACTION //vm_tools/proto:vsh-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/vm_protos/proto_bindings/vsh.pb.cc gen/include/vm_protos/proto_bindings/vsh.pb.h: __vm_tools_proto_vsh-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/vm_tools/proto/vsh.proto
+
+build obj/vm_tools/proto/vsh-protos_gen.stamp: stamp gen/include/vm_protos/proto_bindings/vsh.pb.cc gen/include/vm_protos/proto_bindings/vsh.pb.h

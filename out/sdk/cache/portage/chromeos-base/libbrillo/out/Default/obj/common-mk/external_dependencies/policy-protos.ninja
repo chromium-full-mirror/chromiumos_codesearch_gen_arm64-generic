@@ -1,0 +1,31 @@
+defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include/bindings -Igen/include -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2339/work/libbrillo-0.0.1 -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIE -fPIC
+cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libpolicy-protos
+
+build obj/common-mk/external_dependencies/policy-protos.inputdeps.stamp: stamp obj/common-mk/external_dependencies/policy-protos_gen.stamp obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp
+build obj/gen/include/bindings/libpolicy-protos.chrome_device_policy.pb.o: cxx gen/include/bindings/chrome_device_policy.pb.cc || obj/common-mk/external_dependencies/policy-protos.inputdeps.stamp
+  source_file_part = chrome_device_policy.pb.cc
+  source_name_part = chrome_device_policy.pb
+build obj/gen/include/bindings/libpolicy-protos.chrome_extension_policy.pb.o: cxx gen/include/bindings/chrome_extension_policy.pb.cc || obj/common-mk/external_dependencies/policy-protos.inputdeps.stamp
+  source_file_part = chrome_extension_policy.pb.cc
+  source_name_part = chrome_extension_policy.pb
+build obj/gen/include/bindings/libpolicy-protos.device_management_backend.pb.o: cxx gen/include/bindings/device_management_backend.pb.cc || obj/common-mk/external_dependencies/policy-protos.inputdeps.stamp
+  source_file_part = device_management_backend.pb.cc
+  source_name_part = device_management_backend.pb
+build obj/gen/include/bindings/libpolicy-protos.private_membership.pb.o: cxx gen/include/bindings/private_membership.pb.cc || obj/common-mk/external_dependencies/policy-protos.inputdeps.stamp
+  source_file_part = private_membership.pb.cc
+  source_name_part = private_membership.pb
+build obj/gen/include/bindings/libpolicy-protos.private_membership_rlwe.pb.o: cxx gen/include/bindings/private_membership_rlwe.pb.cc || obj/common-mk/external_dependencies/policy-protos.inputdeps.stamp
+  source_file_part = private_membership_rlwe.pb.cc
+  source_name_part = private_membership_rlwe.pb
+build obj/gen/include/bindings/libpolicy-protos.serialization.pb.o: cxx gen/include/bindings/serialization.pb.cc || obj/common-mk/external_dependencies/policy-protos.inputdeps.stamp
+  source_file_part = serialization.pb.cc
+  source_name_part = serialization.pb
+
+build ./libpolicy-protos.a: alink obj/gen/include/bindings/libpolicy-protos.chrome_device_policy.pb.o obj/gen/include/bindings/libpolicy-protos.chrome_extension_policy.pb.o obj/gen/include/bindings/libpolicy-protos.device_management_backend.pb.o obj/gen/include/bindings/libpolicy-protos.private_membership.pb.o obj/gen/include/bindings/libpolicy-protos.private_membership_rlwe.pb.o obj/gen/include/bindings/libpolicy-protos.serialization.pb.o || ./libpolicy_common_definitions-protos.a obj/common-mk/external_dependencies/policy-protos_gen.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

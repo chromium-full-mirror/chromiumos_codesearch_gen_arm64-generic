@@ -1,0 +1,94 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/patchpanel/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/net-base/_libnet-base-install_config.stamp: stamp
+build obj/net-base/_libnet-base_pc-install_config.stamp: stamp
+build obj/net-base/all.stamp: stamp ./lib/libnet-base.so obj/net-base/libnet-base_pc.stamp ./libnet-base-testrunner
+subninja obj/net-base/libnet-base.ninja
+subninja obj/net-base/libnet-base-testrunner.ninja
+rule __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/obj/net-base/libnet-base.pc --name=libnet-base --description=Network\$ primitive\$ library --version=9999 --requires=libchrome --libs=-lnet-base
+  description = ACTION //net-base:libnet-base_pc(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build obj/net-base/libnet-base.pc: __net-base_libnet-base_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/net-base/_libnet-base_pc-install_config.stamp
+
+build obj/net-base/libnet-base_pc.stamp: stamp obj/net-base/libnet-base.pc
+subninja obj/net-base/net_base_test_support.ninja
+build obj/patchpanel/_libpatchpanel-util-install_config.stamp: stamp
+build obj/patchpanel/_patchpaneld-install_config.stamp: stamp
+build obj/patchpanel/all.stamp: stamp obj/patchpanel/install_dbus_config.stamp obj/patchpanel/install_init_config.stamp obj/patchpanel/install_seccomp_policy.stamp ./libpatchpanel.a ./lib/libpatchpanel-util.so ./patchpaneld ./patchpanel_testrunner
+build obj/patchpanel/install_dbus_config.stamp: stamp
+build obj/patchpanel/install_init_config.stamp: stamp
+build obj/patchpanel/install_seccomp_policy.stamp: stamp
+subninja obj/patchpanel/libpatchpanel.ninja
+subninja obj/patchpanel/libpatchpanel-util.ninja
+rule __patchpanel_patchpanel_dbus_adaptors___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/patchpanel/dbus_bindings/dbus-service-config.json ${in}
+  description = ACTION //patchpanel:patchpanel_dbus_adaptors(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/patchpanel/dbus_adaptors/org.chromium.patchpanel.h: __patchpanel_patchpanel_dbus_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/patchpanel/dbus_bindings/org.chromium.patchpanel.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.patchpanel
+
+build obj/patchpanel/patchpanel_dbus_adaptors.stamp: stamp gen/include/patchpanel/dbus_adaptors/org.chromium.patchpanel.h
+subninja obj/patchpanel/patchpanel_ipc_protos.ninja
+rule __patchpanel_patchpanel_ipc_protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc ipc.proto --proto_path /mnt/host/source/src/platform2/patchpanel --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel
+  description = ACTION //patchpanel:patchpanel_ipc_protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/patchpanel/ipc.pb.cc gen/include/patchpanel/ipc.pb.h: __patchpanel_patchpanel_ipc_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/patchpanel/ipc.proto
+
+build obj/patchpanel/patchpanel_ipc_protos_gen.stamp: stamp gen/include/patchpanel/ipc.pb.cc gen/include/patchpanel/ipc.pb.h
+subninja obj/patchpanel/patchpanel_testrunner.ninja
+subninja obj/patchpanel/patchpaneld.ninja
+subninja obj/patchpanel/util_sources.ninja
+build obj/shill/net/_libshill-net-install_config.stamp: stamp
+build obj/shill/net/all.stamp: stamp obj/shill/net/install_headers.stamp ./lib/libshill-net.so ./shill_net_test
+build obj/shill/net/install_headers.stamp: stamp
+subninja obj/shill/net/libshill-net.ninja
+rule __shill_net_libshill-net_deps___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py --output /build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/libshill-net-deps.txt --
+  description = ACTION //shill/net:libshill-net_deps(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/libshill-net-deps.txt: __shill_net_libshill-net_deps___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py
+
+build obj/shill/net/libshill-net_deps.stamp: stamp gen/libshill-net-deps.txt
+subninja obj/shill/net/net_test_support.ninja
+subninja obj/shill/net/shill_net_test.ninja

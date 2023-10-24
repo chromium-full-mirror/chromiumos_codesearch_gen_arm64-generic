@@ -1,0 +1,154 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DTINT_BUILD_SPV_READER=0 -DTINT_BUILD_SPV_WRITER=1 -DTINT_BUILD_WGSL_READER=1 -DTINT_BUILD_WGSL_WRITER=1 -DTINT_BUILD_MSL_WRITER=1 -DTINT_BUILD_HLSL_WRITER=1 -DTINT_BUILD_GLSL_WRITER=1 -DTINT_BUILD_GLSL_VALIDATOR=1 -DTINT_BUILD_SYNTAX_TREE_WRITER=0
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -Igen/third_party/dawn/src/tint -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-headers/src/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/spirv-tools/src/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/include
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = ir
+target_out_dir = obj/third_party/dawn/src/tint/lang/core/ir
+target_output_name = ir
+
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/access.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/access.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = access.cc
+  source_name_part = access
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/binary.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/binary.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = binary.cc
+  source_name_part = binary
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/bitcast.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/bitcast.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = bitcast.cc
+  source_name_part = bitcast
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/block.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/block.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = block.cc
+  source_name_part = block
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/block_param.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/block_param.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = block_param.cc
+  source_name_part = block_param
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/break_if.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/break_if.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = break_if.cc
+  source_name_part = break_if
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/builder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/builder.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = builder.cc
+  source_name_part = builder
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/builtin_call.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/builtin_call.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = builtin_call.cc
+  source_name_part = builtin_call
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/call.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/call.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = call.cc
+  source_name_part = call
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/clone_context.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/clone_context.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = clone_context.cc
+  source_name_part = clone_context
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/constant.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/constant.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = constant.cc
+  source_name_part = constant
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/construct.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/construct.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = construct.cc
+  source_name_part = construct
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/continue.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/continue.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = continue.cc
+  source_name_part = continue
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/control_instruction.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/control_instruction.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = control_instruction.cc
+  source_name_part = control_instruction
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/convert.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/convert.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = convert.cc
+  source_name_part = convert
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/core_builtin_call.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/core_builtin_call.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = core_builtin_call.cc
+  source_name_part = core_builtin_call
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/disassembler.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/disassembler.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = disassembler.cc
+  source_name_part = disassembler
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/discard.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/discard.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = discard.cc
+  source_name_part = discard
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/exit.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/exit.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = exit.cc
+  source_name_part = exit
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/exit_if.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/exit_if.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = exit_if.cc
+  source_name_part = exit_if
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/exit_loop.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/exit_loop.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = exit_loop.cc
+  source_name_part = exit_loop
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/exit_switch.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/exit_switch.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = exit_switch.cc
+  source_name_part = exit_switch
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/function.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/function.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = function.cc
+  source_name_part = function
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/function_param.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/function_param.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = function_param.cc
+  source_name_part = function_param
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/if.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/if.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = if.cc
+  source_name_part = if
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/instruction.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/instruction.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = instruction.cc
+  source_name_part = instruction
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/instruction_result.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/instruction_result.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = instruction_result.cc
+  source_name_part = instruction_result
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/let.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/let.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = let.cc
+  source_name_part = let
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/load.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/load.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = load.cc
+  source_name_part = load
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/load_vector_element.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/load_vector_element.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = load_vector_element.cc
+  source_name_part = load_vector_element
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/loop.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/loop.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = loop.cc
+  source_name_part = loop
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/module.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/module.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = module.cc
+  source_name_part = module
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/multi_in_block.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/multi_in_block.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = multi_in_block.cc
+  source_name_part = multi_in_block
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/next_iteration.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/next_iteration.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = next_iteration.cc
+  source_name_part = next_iteration
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/operand_instruction.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/operand_instruction.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = operand_instruction.cc
+  source_name_part = operand_instruction
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/return.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/return.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = return.cc
+  source_name_part = return
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/store.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/store.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = store.cc
+  source_name_part = store
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/store_vector_element.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/store_vector_element.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = store_vector_element.cc
+  source_name_part = store_vector_element
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/switch.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/switch.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = switch.cc
+  source_name_part = switch
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/swizzle.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/swizzle.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = swizzle.cc
+  source_name_part = swizzle
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/terminate_invocation.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/terminate_invocation.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = terminate_invocation.cc
+  source_name_part = terminate_invocation
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/terminator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/terminator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = terminator.cc
+  source_name_part = terminator
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/unary.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/unary.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = unary.cc
+  source_name_part = unary
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/unreachable.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/unreachable.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = unreachable.cc
+  source_name_part = unreachable
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/user_call.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/user_call.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = user_call.cc
+  source_name_part = user_call
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/validator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/validator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = validator.cc
+  source_name_part = validator
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/value.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/value.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = value.cc
+  source_name_part = value
+build obj/third_party/dawn/src/tint/lang/core/ir/ir/var.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/dawn/src/tint/lang/core/ir/var.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = var.cc
+  source_name_part = var
+
+build obj/third_party/dawn/src/tint/lang/core/ir/ir.stamp: stamp obj/third_party/dawn/src/tint/lang/core/ir/ir/access.o obj/third_party/dawn/src/tint/lang/core/ir/ir/binary.o obj/third_party/dawn/src/tint/lang/core/ir/ir/bitcast.o obj/third_party/dawn/src/tint/lang/core/ir/ir/block.o obj/third_party/dawn/src/tint/lang/core/ir/ir/block_param.o obj/third_party/dawn/src/tint/lang/core/ir/ir/break_if.o obj/third_party/dawn/src/tint/lang/core/ir/ir/builder.o obj/third_party/dawn/src/tint/lang/core/ir/ir/builtin_call.o obj/third_party/dawn/src/tint/lang/core/ir/ir/call.o obj/third_party/dawn/src/tint/lang/core/ir/ir/clone_context.o obj/third_party/dawn/src/tint/lang/core/ir/ir/constant.o obj/third_party/dawn/src/tint/lang/core/ir/ir/construct.o obj/third_party/dawn/src/tint/lang/core/ir/ir/continue.o obj/third_party/dawn/src/tint/lang/core/ir/ir/control_instruction.o obj/third_party/dawn/src/tint/lang/core/ir/ir/convert.o obj/third_party/dawn/src/tint/lang/core/ir/ir/core_builtin_call.o obj/third_party/dawn/src/tint/lang/core/ir/ir/disassembler.o obj/third_party/dawn/src/tint/lang/core/ir/ir/discard.o obj/third_party/dawn/src/tint/lang/core/ir/ir/exit.o obj/third_party/dawn/src/tint/lang/core/ir/ir/exit_if.o obj/third_party/dawn/src/tint/lang/core/ir/ir/exit_loop.o obj/third_party/dawn/src/tint/lang/core/ir/ir/exit_switch.o obj/third_party/dawn/src/tint/lang/core/ir/ir/function.o obj/third_party/dawn/src/tint/lang/core/ir/ir/function_param.o obj/third_party/dawn/src/tint/lang/core/ir/ir/if.o obj/third_party/dawn/src/tint/lang/core/ir/ir/instruction.o obj/third_party/dawn/src/tint/lang/core/ir/ir/instruction_result.o obj/third_party/dawn/src/tint/lang/core/ir/ir/let.o obj/third_party/dawn/src/tint/lang/core/ir/ir/load.o obj/third_party/dawn/src/tint/lang/core/ir/ir/load_vector_element.o obj/third_party/dawn/src/tint/lang/core/ir/ir/loop.o obj/third_party/dawn/src/tint/lang/core/ir/ir/module.o obj/third_party/dawn/src/tint/lang/core/ir/ir/multi_in_block.o obj/third_party/dawn/src/tint/lang/core/ir/ir/next_iteration.o obj/third_party/dawn/src/tint/lang/core/ir/ir/operand_instruction.o obj/third_party/dawn/src/tint/lang/core/ir/ir/return.o obj/third_party/dawn/src/tint/lang/core/ir/ir/store.o obj/third_party/dawn/src/tint/lang/core/ir/ir/store_vector_element.o obj/third_party/dawn/src/tint/lang/core/ir/ir/switch.o obj/third_party/dawn/src/tint/lang/core/ir/ir/swizzle.o obj/third_party/dawn/src/tint/lang/core/ir/ir/terminate_invocation.o obj/third_party/dawn/src/tint/lang/core/ir/ir/terminator.o obj/third_party/dawn/src/tint/lang/core/ir/ir/unary.o obj/third_party/dawn/src/tint/lang/core/ir/ir/unreachable.o obj/third_party/dawn/src/tint/lang/core/ir/ir/user_call.o obj/third_party/dawn/src/tint/lang/core/ir/ir/validator.o obj/third_party/dawn/src/tint/lang/core/ir/ir/value.o obj/third_party/dawn/src/tint/lang/core/ir/ir/var.o || obj/third_party/dawn/src/tint/api/common/common.stamp obj/third_party/dawn/src/tint/lang/core/core.stamp obj/third_party/dawn/src/tint/lang/core/constant/constant.stamp obj/third_party/dawn/src/tint/lang/core/intrinsic/intrinsic.stamp obj/third_party/dawn/src/tint/lang/core/type/type.stamp obj/third_party/dawn/src/tint/utils/containers/containers.stamp obj/third_party/dawn/src/tint/utils/diagnostic/diagnostic.stamp obj/third_party/dawn/src/tint/utils/ice/ice.stamp obj/third_party/dawn/src/tint/utils/id/id.stamp obj/third_party/dawn/src/tint/utils/macros/macros.stamp obj/third_party/dawn/src/tint/utils/math/math.stamp obj/third_party/dawn/src/tint/utils/memory/memory.stamp obj/third_party/dawn/src/tint/utils/reflection/reflection.stamp obj/third_party/dawn/src/tint/utils/result/result.stamp obj/third_party/dawn/src/tint/utils/rtti/rtti.stamp obj/third_party/dawn/src/tint/utils/symbol/symbol.stamp obj/third_party/dawn/src/tint/utils/text/text.stamp obj/third_party/dawn/src/tint/utils/traits/traits.stamp obj/third_party/dawn/src/tint/utils/debug/debug.stamp

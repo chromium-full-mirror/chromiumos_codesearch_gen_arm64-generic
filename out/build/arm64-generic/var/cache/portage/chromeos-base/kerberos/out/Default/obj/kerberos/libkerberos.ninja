@@ -1,0 +1,46 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/session_manager-client -Wshadow -Wextra -Wno-unused-parameter
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libkerberos
+
+build obj/kerberos/libkerberos.inputdeps.stamp: stamp obj/kerberos/container-protos_gen.stamp obj/kerberos/dbus_code_generator.stamp
+build obj/kerberos/libkerberos.account_manager.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/account_manager.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = account_manager.cc
+  source_name_part = account_manager
+build obj/kerberos/libkerberos.config_parser.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/config_parser.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = config_parser.cc
+  source_name_part = config_parser
+build obj/kerberos/libkerberos.error_strings.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/error_strings.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = error_strings.cc
+  source_name_part = error_strings
+build obj/kerberos/libkerberos.fake_krb5_interface.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/fake_krb5_interface.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = fake_krb5_interface.cc
+  source_name_part = fake_krb5_interface
+build obj/kerberos/libkerberos.kerberos_adaptor.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/kerberos_adaptor.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = kerberos_adaptor.cc
+  source_name_part = kerberos_adaptor
+build obj/kerberos/libkerberos.kerberos_daemon.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/kerberos_daemon.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = kerberos_daemon.cc
+  source_name_part = kerberos_daemon
+build obj/kerberos/libkerberos.kerberos_metrics.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/kerberos_metrics.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = kerberos_metrics.cc
+  source_name_part = kerberos_metrics
+build obj/kerberos/libkerberos.krb5_interface_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/krb5_interface_impl.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = krb5_interface_impl.cc
+  source_name_part = krb5_interface_impl
+build obj/kerberos/libkerberos.krb5_jail_wrapper.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/krb5_jail_wrapper.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = krb5_jail_wrapper.cc
+  source_name_part = krb5_jail_wrapper
+build obj/kerberos/libkerberos.platform_helper.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/platform_helper.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = platform_helper.cc
+  source_name_part = platform_helper
+build obj/kerberos/libkerberos.tgt_renewal_scheduler.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/kerberos/tgt_renewal_scheduler.cc || obj/kerberos/libkerberos.inputdeps.stamp
+  source_file_part = tgt_renewal_scheduler.cc
+  source_name_part = tgt_renewal_scheduler
+
+build ./libkerberos.a: alink obj/kerberos/libkerberos.account_manager.o obj/kerberos/libkerberos.config_parser.o obj/kerberos/libkerberos.error_strings.o obj/kerberos/libkerberos.fake_krb5_interface.o obj/kerberos/libkerberos.kerberos_adaptor.o obj/kerberos/libkerberos.kerberos_daemon.o obj/kerberos/libkerberos.kerberos_metrics.o obj/kerberos/libkerberos.krb5_interface_impl.o obj/kerberos/libkerberos.krb5_jail_wrapper.o obj/kerberos/libkerberos.platform_helper.o obj/kerberos/libkerberos.tgt_renewal_scheduler.o || ./libcontainer-protos.a obj/kerberos/dbus_code_generator.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

@@ -1,0 +1,1 @@
+obj/ui/webui/webui/mojo_bubble_web_ui_controller.o obj/ui/webui/webui/mojo_web_ui_controller.o obj/ui/webui/webui/untrusted_bubble_web_ui_controller.o obj/ui/webui/webui/untrusted_web_ui_controller.o obj/ui/webui/webui/untrusted_web_ui_controller_factory.o obj/ui/webui/webui/webui_allowlist.o obj/ui/webui/webui/webui_allowlist_provider.o obj/ui/webui/webui/color_change_handler.o

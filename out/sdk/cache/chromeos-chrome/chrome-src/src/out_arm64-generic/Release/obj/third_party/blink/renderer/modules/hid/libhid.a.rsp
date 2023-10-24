@@ -1,0 +1,1 @@
+obj/third_party/blink/renderer/modules/hid/hid/hid.o obj/third_party/blink/renderer/modules/hid/hid/hid_connection_event.o obj/third_party/blink/renderer/modules/hid/hid/hid_device.o obj/third_party/blink/renderer/modules/hid/hid/hid_input_report_event.o

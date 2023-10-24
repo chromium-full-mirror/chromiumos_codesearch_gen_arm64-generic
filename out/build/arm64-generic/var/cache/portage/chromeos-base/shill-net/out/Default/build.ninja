@@ -1,0 +1,69 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _libnet-base-install_config: phony obj/net-base/_libnet-base-install_config.stamp
+build _libnet-base_pc-install_config: phony obj/net-base/_libnet-base_pc-install_config.stamp
+build _libshill-net-install_config: phony obj/shill/net/_libshill-net-install_config.stamp
+build install_headers: phony obj/shill/net/install_headers.stamp
+build libnet-base: phony ./lib/libnet-base.so
+build libnet-base_pc: phony obj/net-base/libnet-base_pc.stamp
+build libshill-net: phony ./lib/libshill-net.so
+build libshill-net_deps: phony obj/shill/net/libshill-net_deps.stamp
+build net_base_test_support: phony obj/net-base/net_base_test_support.stamp
+build net_test_support: phony obj/shill/net/net_test_support.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build net-base$:_libnet-base-install_config: phony obj/net-base/_libnet-base-install_config.stamp
+build net-base$:_libnet-base_pc-install_config: phony obj/net-base/_libnet-base_pc-install_config.stamp
+build net-base$:all: phony obj/net-base/all.stamp
+build net-base$:libnet-base: phony ./lib/libnet-base.so
+build net-base$:libnet-base-testrunner: phony ./libnet-base-testrunner
+build net-base$:libnet-base_pc: phony obj/net-base/libnet-base_pc.stamp
+build net-base$:net_base_test_support: phony obj/net-base/net_base_test_support.stamp
+build shill/net$:_libshill-net-install_config: phony obj/shill/net/_libshill-net-install_config.stamp
+build shill/net$:all: phony obj/shill/net/all.stamp
+build shill/net$:install_headers: phony obj/shill/net/install_headers.stamp
+build shill/net$:libshill-net: phony ./lib/libshill-net.so
+build shill/net$:libshill-net_deps: phony obj/shill/net/libshill-net_deps.stamp
+build shill/net$:net_test_support: phony obj/shill/net/net_test_support.stamp
+build shill/net$:shill_net_test: phony ./shill_net_test
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/net-base/_libnet-base-install_config.stamp $
+    obj/net-base/_libnet-base_pc-install_config.stamp $
+    obj/net-base/all.stamp $
+    ./lib/libnet-base.so $
+    ./libnet-base-testrunner $
+    obj/net-base/libnet-base_pc.stamp $
+    obj/net-base/net_base_test_support.stamp $
+    obj/shill/net/_libshill-net-install_config.stamp $
+    obj/shill/net/all.stamp $
+    obj/shill/net/install_headers.stamp $
+    ./lib/libshill-net.so $
+    obj/shill/net/libshill-net_deps.stamp $
+    obj/shill/net/net_test_support.stamp $
+    ./shill_net_test
+
+default all

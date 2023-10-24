@@ -1,0 +1,40 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _cros_camera_test-install_config: phony obj/camera/camera3_test/_cros_camera_test-install_config.stamp
+build _libfake_date_time-install_config: phony obj/camera/camera3_test/_libfake_date_time-install_config.stamp
+build libfake_date_time: phony ./lib/libfake_date_time.so
+build root: phony obj/common-mk/gn_root/root.stamp
+build camera/camera3_test$:_cros_camera_test-install_config: phony obj/camera/camera3_test/_cros_camera_test-install_config.stamp
+build camera/camera3_test$:_libfake_date_time-install_config: phony obj/camera/camera3_test/_libfake_date_time-install_config.stamp
+build camera/camera3_test$:all: phony obj/camera/camera3_test/all.stamp
+build camera/camera3_test$:cros_camera_test: phony ./cros_camera_test
+build camera/camera3_test$:libfake_date_time: phony ./lib/libfake_date_time.so
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+
+build all: phony $
+    obj/camera/camera3_test/_cros_camera_test-install_config.stamp $
+    obj/camera/camera3_test/_libfake_date_time-install_config.stamp $
+    obj/camera/camera3_test/all.stamp $
+    ./cros_camera_test $
+    ./lib/libfake_date_time.so $
+    obj/common-mk/gn_root/root.stamp
+
+default all

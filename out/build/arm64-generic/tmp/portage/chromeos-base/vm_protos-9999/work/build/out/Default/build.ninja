@@ -1,0 +1,83 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build common-goprotos: phony obj/vm_tools/proto/common-goprotos.stamp
+build common-protos: phony ./libcommon-protos.a
+build common-protos_gen: phony obj/vm_tools/proto/common-protos_gen.stamp
+build container-rpcs: phony ./libcontainer-rpcs.a
+build container-rpcs_gen: phony obj/vm_tools/proto/container-rpcs_gen.stamp
+build fuzzer-protos: phony ./libfuzzer-protos.a
+build fuzzer-protos_gen: phony obj/vm_tools/proto/fuzzer-protos_gen.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build tremplin-gorpcs: phony obj/vm_tools/proto/tremplin-gorpcs.stamp
+build tremplin-rpcs: phony ./libtremplin-rpcs.a
+build tremplin-rpcs_gen: phony obj/vm_tools/proto/tremplin-rpcs_gen.stamp
+build vm-crash-gorpcs: phony obj/vm_tools/proto/vm-crash-gorpcs.stamp
+build vm-crash-rpcs: phony ./libvm-crash-rpcs.a
+build vm-crash-rpcs_gen: phony obj/vm_tools/proto/vm-crash-rpcs_gen.stamp
+build vm-gorpcs: phony obj/vm_tools/proto/vm-gorpcs.stamp
+build vm-rpcs: phony ./libvm-rpcs.a
+build vm-rpcs_gen: phony obj/vm_tools/proto/vm-rpcs_gen.stamp
+build vsh-protos: phony ./libvsh-protos.a
+build vsh-protos_gen: phony obj/vm_tools/proto/vsh-protos_gen.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build vm_tools/proto$:all: phony obj/vm_tools/proto/all.stamp
+build vm_tools/proto$:common-goprotos: phony obj/vm_tools/proto/common-goprotos.stamp
+build vm_tools/proto$:common-protos: phony ./libcommon-protos.a
+build vm_tools/proto$:common-protos_gen: phony obj/vm_tools/proto/common-protos_gen.stamp
+build vm_tools/proto$:container-rpcs: phony ./libcontainer-rpcs.a
+build vm_tools/proto$:container-rpcs_gen: phony obj/vm_tools/proto/container-rpcs_gen.stamp
+build vm_tools/proto$:fuzzer-protos: phony ./libfuzzer-protos.a
+build vm_tools/proto$:fuzzer-protos_gen: phony obj/vm_tools/proto/fuzzer-protos_gen.stamp
+build vm_tools/proto$:tremplin-gorpcs: phony obj/vm_tools/proto/tremplin-gorpcs.stamp
+build vm_tools/proto$:tremplin-rpcs: phony ./libtremplin-rpcs.a
+build vm_tools/proto$:tremplin-rpcs_gen: phony obj/vm_tools/proto/tremplin-rpcs_gen.stamp
+build vm_tools/proto$:vm-crash-gorpcs: phony obj/vm_tools/proto/vm-crash-gorpcs.stamp
+build vm_tools/proto$:vm-crash-rpcs: phony ./libvm-crash-rpcs.a
+build vm_tools/proto$:vm-crash-rpcs_gen: phony obj/vm_tools/proto/vm-crash-rpcs_gen.stamp
+build vm_tools/proto$:vm-gorpcs: phony obj/vm_tools/proto/vm-gorpcs.stamp
+build vm_tools/proto$:vm-rpcs: phony ./libvm-rpcs.a
+build vm_tools/proto$:vm-rpcs_gen: phony obj/vm_tools/proto/vm-rpcs_gen.stamp
+build vm_tools/proto$:vsh-protos: phony ./libvsh-protos.a
+build vm_tools/proto$:vsh-protos_gen: phony obj/vm_tools/proto/vsh-protos_gen.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/vm_tools/proto/all.stamp $
+    obj/vm_tools/proto/common-goprotos.stamp $
+    ./libcommon-protos.a $
+    obj/vm_tools/proto/common-protos_gen.stamp $
+    ./libcontainer-rpcs.a $
+    obj/vm_tools/proto/container-rpcs_gen.stamp $
+    ./libfuzzer-protos.a $
+    obj/vm_tools/proto/fuzzer-protos_gen.stamp $
+    obj/vm_tools/proto/tremplin-gorpcs.stamp $
+    ./libtremplin-rpcs.a $
+    obj/vm_tools/proto/tremplin-rpcs_gen.stamp $
+    obj/vm_tools/proto/vm-crash-gorpcs.stamp $
+    ./libvm-crash-rpcs.a $
+    obj/vm_tools/proto/vm-crash-rpcs_gen.stamp $
+    obj/vm_tools/proto/vm-gorpcs.stamp $
+    ./libvm-rpcs.a $
+    obj/vm_tools/proto/vm-rpcs_gen.stamp $
+    ./libvsh-protos.a $
+    obj/vm_tools/proto/vsh-protos_gen.stamp
+
+default all

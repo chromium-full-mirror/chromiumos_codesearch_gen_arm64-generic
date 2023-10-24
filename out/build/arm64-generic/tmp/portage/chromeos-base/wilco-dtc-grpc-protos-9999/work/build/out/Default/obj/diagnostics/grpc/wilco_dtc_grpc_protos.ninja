@@ -1,0 +1,24 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fvisibility=default
+cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libwilco_dtc_grpc_protos
+
+build obj/gen/include/libwilco_dtc_grpc_protos.wilco_dtc.grpc.pb.o: cxx gen/include/wilco_dtc.grpc.pb.cc || obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
+  source_file_part = wilco_dtc.grpc.pb.cc
+  source_name_part = wilco_dtc.grpc.pb
+build obj/gen/include/libwilco_dtc_grpc_protos.wilco_dtc.pb.o: cxx gen/include/wilco_dtc.pb.cc || obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
+  source_file_part = wilco_dtc.pb.cc
+  source_name_part = wilco_dtc.pb
+build obj/gen/include/libwilco_dtc_grpc_protos.wilco_dtc_supportd.grpc.pb.o: cxx gen/include/wilco_dtc_supportd.grpc.pb.cc || obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
+  source_file_part = wilco_dtc_supportd.grpc.pb.cc
+  source_name_part = wilco_dtc_supportd.grpc.pb
+build obj/gen/include/libwilco_dtc_grpc_protos.wilco_dtc_supportd.pb.o: cxx gen/include/wilco_dtc_supportd.pb.cc || obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
+  source_file_part = wilco_dtc_supportd.pb.cc
+  source_name_part = wilco_dtc_supportd.pb
+
+build ./libwilco_dtc_grpc_protos.a: alink obj/gen/include/libwilco_dtc_grpc_protos.wilco_dtc.grpc.pb.o obj/gen/include/libwilco_dtc_grpc_protos.wilco_dtc.pb.o obj/gen/include/libwilco_dtc_grpc_protos.wilco_dtc_supportd.grpc.pb.o obj/gen/include/libwilco_dtc_grpc_protos.wilco_dtc_supportd.pb.o || obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

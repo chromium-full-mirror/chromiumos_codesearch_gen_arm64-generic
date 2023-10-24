@@ -1,0 +1,165 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_CELLULAR=true -DUSE_IIOSERVICE=true -DUSE_IIOSERVICE_PROXIMITY=false -DUSE_KEY_EVICTION=false
+include_dirs = -Igen/include -I../../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/iioservice_ipc -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -Wno-unused-local-typedefs -DBASE_VER=1211970 -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -I/build/arm64-generic/usr/include/shill-client -DUSE_RTTI_FOR_TYPE_TAGS=1 -Wno-unused-local-typedefs -DBASE_VER=1211970 -Wno-unused-local-typedefs -DBASE_VER=1211970 -I/build/arm64-generic/usr/include/power_manager-client -I/build/arm64-generic/usr/include/ml-client -I/build/arm64-generic/usr/include/mojo_service_manager -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -Wno-cast-qual -Wno-cast-align -pthread
+cflags_cc = -std=gnu++20 -DVCSID=\"9999-b636250ec43a7e4f9d72e7250932494d1b93c077\" -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libsystem
+
+build obj/power_manager/powerd/system/libsystem.acpi_wakeup_helper.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/acpi_wakeup_helper.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = acpi_wakeup_helper.cc
+  source_name_part = acpi_wakeup_helper
+build obj/power_manager/powerd/system/libsystem.ambient_light_sensor.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/ambient_light_sensor.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = ambient_light_sensor.cc
+  source_name_part = ambient_light_sensor
+build obj/power_manager/powerd/system/libsystem.ambient_light_sensor_delegate.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/ambient_light_sensor_delegate.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = ambient_light_sensor_delegate.cc
+  source_name_part = ambient_light_sensor_delegate
+build obj/power_manager/powerd/system/libsystem.ambient_light_sensor_delegate_mojo.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/ambient_light_sensor_delegate_mojo.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = ambient_light_sensor_delegate_mojo.cc
+  source_name_part = ambient_light_sensor_delegate_mojo
+build obj/power_manager/powerd/system/libsystem.ambient_light_sensor_info.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/ambient_light_sensor_info.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = ambient_light_sensor_info.cc
+  source_name_part = ambient_light_sensor_info
+build obj/power_manager/powerd/system/libsystem.ambient_light_sensor_manager_mojo.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/ambient_light_sensor_manager_mojo.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = ambient_light_sensor_manager_mojo.cc
+  source_name_part = ambient_light_sensor_manager_mojo
+build obj/power_manager/powerd/system/libsystem.ambient_light_sensor_watcher_interface.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/ambient_light_sensor_watcher_interface.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = ambient_light_sensor_watcher_interface.cc
+  source_name_part = ambient_light_sensor_watcher_interface
+build obj/power_manager/powerd/system/libsystem.ambient_light_sensor_watcher_mojo.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/ambient_light_sensor_watcher_mojo.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = ambient_light_sensor_watcher_mojo.cc
+  source_name_part = ambient_light_sensor_watcher_mojo
+build obj/power_manager/powerd/system/libsystem.arc_timer_manager.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/arc_timer_manager.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = arc_timer_manager.cc
+  source_name_part = arc_timer_manager
+build obj/power_manager/powerd/system/libsystem.async_file_reader.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/async_file_reader.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = async_file_reader.cc
+  source_name_part = async_file_reader
+build obj/power_manager/powerd/system/libsystem.audio_client.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/audio_client.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = audio_client.cc
+  source_name_part = audio_client
+build obj/power_manager/powerd/system/libsystem.bluez_battery_provider.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/bluez_battery_provider.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = bluez_battery_provider.cc
+  source_name_part = bluez_battery_provider
+build obj/power_manager/powerd/system/libsystem.cros_ec_device_event.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/cros_ec_device_event.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = cros_ec_device_event.cc
+  source_name_part = cros_ec_device_event
+build obj/power_manager/powerd/system/libsystem.cros_ec_helper.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/cros_ec_helper.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = cros_ec_helper.cc
+  source_name_part = cros_ec_helper
+build obj/power_manager/powerd/system/libsystem.dark_resume.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/dark_resume.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = dark_resume.cc
+  source_name_part = dark_resume
+build obj/power_manager/powerd/system/libsystem.dbus_wrapper.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/dbus_wrapper.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = dbus_wrapper.cc
+  source_name_part = dbus_wrapper
+build obj/power_manager/powerd/system/display/libsystem.display_info.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/display/display_info.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = display_info.cc
+  source_name_part = display_info
+build obj/power_manager/powerd/system/display/libsystem.display_power_setter.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/display/display_power_setter.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = display_power_setter.cc
+  source_name_part = display_power_setter
+build obj/power_manager/powerd/system/display/libsystem.display_watcher.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/display/display_watcher.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = display_watcher.cc
+  source_name_part = display_watcher
+build obj/power_manager/powerd/system/display/libsystem.external_display.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/display/external_display.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = external_display.cc
+  source_name_part = external_display
+build obj/power_manager/powerd/system/libsystem.event_device.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/event_device.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = event_device.cc
+  source_name_part = event_device
+build obj/power_manager/powerd/system/libsystem.external_ambient_light_sensor_factory_mojo.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/external_ambient_light_sensor_factory_mojo.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = external_ambient_light_sensor_factory_mojo.cc
+  source_name_part = external_ambient_light_sensor_factory_mojo
+build obj/power_manager/powerd/system/libsystem.input_watcher.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/input_watcher.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = input_watcher.cc
+  source_name_part = input_watcher
+build obj/power_manager/powerd/system/libsystem.internal_backlight.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/internal_backlight.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = internal_backlight.cc
+  source_name_part = internal_backlight
+build obj/power_manager/powerd/system/libsystem.lockfile_checker.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/lockfile_checker.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = lockfile_checker.cc
+  source_name_part = lockfile_checker
+build obj/power_manager/powerd/system/libsystem.machine_quirks.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/machine_quirks.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = machine_quirks.cc
+  source_name_part = machine_quirks
+build obj/power_manager/powerd/system/libsystem.peripheral_battery_watcher.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/peripheral_battery_watcher.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = peripheral_battery_watcher.cc
+  source_name_part = peripheral_battery_watcher
+build obj/power_manager/powerd/system/libsystem.pluggable_internal_backlight.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/pluggable_internal_backlight.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = pluggable_internal_backlight.cc
+  source_name_part = pluggable_internal_backlight
+build obj/power_manager/powerd/system/libsystem.power_supply.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/power_supply.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = power_supply.cc
+  source_name_part = power_supply
+build obj/power_manager/powerd/system/libsystem.proximity_events_observer.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/proximity_events_observer.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = proximity_events_observer.cc
+  source_name_part = proximity_events_observer
+build obj/power_manager/powerd/system/libsystem.rolling_average.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/rolling_average.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = rolling_average.cc
+  source_name_part = rolling_average
+build obj/power_manager/powerd/system/libsystem.sensor_service_handler.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/sensor_service_handler.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = sensor_service_handler.cc
+  source_name_part = sensor_service_handler
+build obj/power_manager/powerd/system/libsystem.sensor_service_handler_observer.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/sensor_service_handler_observer.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = sensor_service_handler_observer.cc
+  source_name_part = sensor_service_handler_observer
+build obj/power_manager/powerd/system/libsystem.smart_discharge_configurator.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/smart_discharge_configurator.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = smart_discharge_configurator.cc
+  source_name_part = smart_discharge_configurator
+build obj/power_manager/powerd/system/libsystem.suspend_configurator.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/suspend_configurator.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = suspend_configurator.cc
+  source_name_part = suspend_configurator
+build obj/power_manager/powerd/system/libsystem.suspend_freezer.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/suspend_freezer.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = suspend_freezer.cc
+  source_name_part = suspend_freezer
+build obj/power_manager/powerd/system/libsystem.tagged_device.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/tagged_device.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = tagged_device.cc
+  source_name_part = tagged_device
+build obj/power_manager/powerd/system/thermal/libsystem.cooling_device.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/thermal/cooling_device.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = cooling_device.cc
+  source_name_part = cooling_device
+build obj/power_manager/powerd/system/thermal/libsystem.device_thermal_state.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/thermal/device_thermal_state.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = device_thermal_state.cc
+  source_name_part = device_thermal_state
+build obj/power_manager/powerd/system/thermal/libsystem.thermal_device.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/thermal/thermal_device.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = thermal_device.cc
+  source_name_part = thermal_device
+build obj/power_manager/powerd/system/thermal/libsystem.thermal_device_factory.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/thermal/thermal_device_factory.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = thermal_device_factory.cc
+  source_name_part = thermal_device_factory
+build obj/power_manager/powerd/system/libsystem.udev.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/udev.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = udev.cc
+  source_name_part = udev
+build obj/power_manager/powerd/system/libsystem.usb_backlight.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/usb_backlight.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = usb_backlight.cc
+  source_name_part = usb_backlight
+build obj/power_manager/powerd/system/libsystem.user_proximity_watcher_mojo.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/user_proximity_watcher_mojo.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = user_proximity_watcher_mojo.cc
+  source_name_part = user_proximity_watcher_mojo
+build obj/power_manager/powerd/system/libsystem.user_proximity_watcher_udev.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/user_proximity_watcher_udev.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = user_proximity_watcher_udev.cc
+  source_name_part = user_proximity_watcher_udev
+build obj/power_manager/powerd/system/libsystem.wake_on_dp_configurator.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/wake_on_dp_configurator.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = wake_on_dp_configurator.cc
+  source_name_part = wake_on_dp_configurator
+build obj/power_manager/powerd/system/libsystem.wakeup_device.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/wakeup_device.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = wakeup_device.cc
+  source_name_part = wakeup_device
+build obj/power_manager/powerd/system/libsystem.wakeup_source_identifier.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/wakeup_source_identifier.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = wakeup_source_identifier.cc
+  source_name_part = wakeup_source_identifier
+build obj/power_manager/powerd/system/libsystem.wakeup_timer.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/wakeup_timer.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = wakeup_timer.cc
+  source_name_part = wakeup_timer
+build obj/power_manager/powerd/system/libsystem.wilco_charge_controller_helper.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/wilco_charge_controller_helper.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = wilco_charge_controller_helper.cc
+  source_name_part = wilco_charge_controller_helper
+build obj/power_manager/powerd/system/libsystem.dbus_objectmanager_wrapper.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/system/dbus_objectmanager_wrapper.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = dbus_objectmanager_wrapper.cc
+  source_name_part = dbus_objectmanager_wrapper
+
+build ./libsystem.a: alink obj/power_manager/powerd/system/libsystem.acpi_wakeup_helper.o obj/power_manager/powerd/system/libsystem.ambient_light_sensor.o obj/power_manager/powerd/system/libsystem.ambient_light_sensor_delegate.o obj/power_manager/powerd/system/libsystem.ambient_light_sensor_delegate_mojo.o obj/power_manager/powerd/system/libsystem.ambient_light_sensor_info.o obj/power_manager/powerd/system/libsystem.ambient_light_sensor_manager_mojo.o obj/power_manager/powerd/system/libsystem.ambient_light_sensor_watcher_interface.o obj/power_manager/powerd/system/libsystem.ambient_light_sensor_watcher_mojo.o obj/power_manager/powerd/system/libsystem.arc_timer_manager.o obj/power_manager/powerd/system/libsystem.async_file_reader.o obj/power_manager/powerd/system/libsystem.audio_client.o obj/power_manager/powerd/system/libsystem.bluez_battery_provider.o obj/power_manager/powerd/system/libsystem.cros_ec_device_event.o obj/power_manager/powerd/system/libsystem.cros_ec_helper.o obj/power_manager/powerd/system/libsystem.dark_resume.o obj/power_manager/powerd/system/libsystem.dbus_wrapper.o obj/power_manager/powerd/system/display/libsystem.display_info.o obj/power_manager/powerd/system/display/libsystem.display_power_setter.o obj/power_manager/powerd/system/display/libsystem.display_watcher.o obj/power_manager/powerd/system/display/libsystem.external_display.o obj/power_manager/powerd/system/libsystem.event_device.o obj/power_manager/powerd/system/libsystem.external_ambient_light_sensor_factory_mojo.o obj/power_manager/powerd/system/libsystem.input_watcher.o obj/power_manager/powerd/system/libsystem.internal_backlight.o obj/power_manager/powerd/system/libsystem.lockfile_checker.o obj/power_manager/powerd/system/libsystem.machine_quirks.o obj/power_manager/powerd/system/libsystem.peripheral_battery_watcher.o obj/power_manager/powerd/system/libsystem.pluggable_internal_backlight.o obj/power_manager/powerd/system/libsystem.power_supply.o obj/power_manager/powerd/system/libsystem.proximity_events_observer.o obj/power_manager/powerd/system/libsystem.rolling_average.o obj/power_manager/powerd/system/libsystem.sensor_service_handler.o obj/power_manager/powerd/system/libsystem.sensor_service_handler_observer.o obj/power_manager/powerd/system/libsystem.smart_discharge_configurator.o obj/power_manager/powerd/system/libsystem.suspend_configurator.o obj/power_manager/powerd/system/libsystem.suspend_freezer.o obj/power_manager/powerd/system/libsystem.tagged_device.o obj/power_manager/powerd/system/thermal/libsystem.cooling_device.o obj/power_manager/powerd/system/thermal/libsystem.device_thermal_state.o obj/power_manager/powerd/system/thermal/libsystem.thermal_device.o obj/power_manager/powerd/system/thermal/libsystem.thermal_device_factory.o obj/power_manager/powerd/system/libsystem.udev.o obj/power_manager/powerd/system/libsystem.usb_backlight.o obj/power_manager/powerd/system/libsystem.user_proximity_watcher_mojo.o obj/power_manager/powerd/system/libsystem.user_proximity_watcher_udev.o obj/power_manager/powerd/system/libsystem.wake_on_dp_configurator.o obj/power_manager/powerd/system/libsystem.wakeup_device.o obj/power_manager/powerd/system/libsystem.wakeup_source_identifier.o obj/power_manager/powerd/system/libsystem.wakeup_timer.o obj/power_manager/powerd/system/libsystem.wilco_charge_controller_helper.o obj/power_manager/powerd/system/libsystem.dbus_objectmanager_wrapper.o || obj/power_manager/generate_modemmanager_proxies.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

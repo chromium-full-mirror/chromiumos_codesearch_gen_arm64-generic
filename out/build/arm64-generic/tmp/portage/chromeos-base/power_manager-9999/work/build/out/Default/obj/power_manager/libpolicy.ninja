@@ -1,0 +1,78 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_CELLULAR=true -DUSE_IIOSERVICE=true -DUSE_IIOSERVICE_PROXIMITY=false -DUSE_KEY_EVICTION=false
+include_dirs = -Igen/include -I../../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/iioservice_ipc -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -Wno-unused-local-typedefs -DBASE_VER=1211970 -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -I/build/arm64-generic/usr/include/shill-client -DUSE_RTTI_FOR_TYPE_TAGS=1 -Wno-unused-local-typedefs -DBASE_VER=1211970 -Wno-unused-local-typedefs -DBASE_VER=1211970 -I/build/arm64-generic/usr/include/power_manager-client -I/build/arm64-generic/usr/include/ml-client -I/build/arm64-generic/usr/include/mojo_service_manager -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -Wno-cast-qual -Wno-cast-align -pthread
+cflags_cc = -std=gnu++20 -DVCSID=\"9999-b636250ec43a7e4f9d72e7250932494d1b93c077\" -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libpolicy
+
+build obj/power_manager/powerd/policy/libpolicy.adaptive_charging_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/adaptive_charging_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = adaptive_charging_controller.cc
+  source_name_part = adaptive_charging_controller
+build obj/power_manager/powerd/policy/libpolicy.ambient_light_handler.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/ambient_light_handler.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = ambient_light_handler.cc
+  source_name_part = ambient_light_handler
+build obj/power_manager/powerd/policy/libpolicy.backlight_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/backlight_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = backlight_controller.cc
+  source_name_part = backlight_controller
+build obj/power_manager/powerd/policy/libpolicy.battery_saver_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/battery_saver_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = battery_saver_controller.cc
+  source_name_part = battery_saver_controller
+build obj/power_manager/powerd/policy/libpolicy.bluetooth_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/bluetooth_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = bluetooth_controller.cc
+  source_name_part = bluetooth_controller
+build obj/power_manager/powerd/policy/libpolicy.cellular_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/cellular_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = cellular_controller.cc
+  source_name_part = cellular_controller
+build obj/power_manager/powerd/policy/libpolicy.charge_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/charge_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = charge_controller.cc
+  source_name_part = charge_controller
+build obj/power_manager/powerd/policy/libpolicy.dim_advisor.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/dim_advisor.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = dim_advisor.cc
+  source_name_part = dim_advisor
+build obj/power_manager/powerd/policy/libpolicy.external_ambient_light_handler.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/external_ambient_light_handler.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = external_ambient_light_handler.cc
+  source_name_part = external_ambient_light_handler
+build obj/power_manager/powerd/policy/libpolicy.external_backlight_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/external_backlight_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = external_backlight_controller.cc
+  source_name_part = external_backlight_controller
+build obj/power_manager/powerd/policy/libpolicy.input_device_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/input_device_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = input_device_controller.cc
+  source_name_part = input_device_controller
+build obj/power_manager/powerd/policy/libpolicy.input_event_handler.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/input_event_handler.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = input_event_handler.cc
+  source_name_part = input_event_handler
+build obj/power_manager/powerd/policy/libpolicy.internal_backlight_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/internal_backlight_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = internal_backlight_controller.cc
+  source_name_part = internal_backlight_controller
+build obj/power_manager/powerd/policy/libpolicy.keyboard_backlight_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/keyboard_backlight_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = keyboard_backlight_controller.cc
+  source_name_part = keyboard_backlight_controller
+build obj/power_manager/powerd/policy/libpolicy.shutdown_from_suspend.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/shutdown_from_suspend.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = shutdown_from_suspend.cc
+  source_name_part = shutdown_from_suspend
+build obj/power_manager/powerd/policy/libpolicy.state_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/state_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = state_controller.cc
+  source_name_part = state_controller
+build obj/power_manager/powerd/policy/libpolicy.suspend_delay_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/suspend_delay_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = suspend_delay_controller.cc
+  source_name_part = suspend_delay_controller
+build obj/power_manager/powerd/policy/libpolicy.suspender.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/suspender.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = suspender.cc
+  source_name_part = suspender
+build obj/power_manager/powerd/policy/libpolicy.thermal_event_handler.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/thermal_event_handler.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = thermal_event_handler.cc
+  source_name_part = thermal_event_handler
+build obj/power_manager/powerd/policy/libpolicy.user_proximity_handler.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/user_proximity_handler.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = user_proximity_handler.cc
+  source_name_part = user_proximity_handler
+build obj/power_manager/powerd/policy/libpolicy.user_proximity_voting.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/user_proximity_voting.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = user_proximity_voting.cc
+  source_name_part = user_proximity_voting
+build obj/power_manager/powerd/policy/libpolicy.wifi_controller.o: cxx ../../../../../../../../../../mnt/host/source/src/platform2/power_manager/powerd/policy/wifi_controller.cc || obj/power_manager/generate_modemmanager_proxies.stamp
+  source_file_part = wifi_controller.cc
+  source_name_part = wifi_controller
+
+build ./libpolicy.a: alink obj/power_manager/powerd/policy/libpolicy.adaptive_charging_controller.o obj/power_manager/powerd/policy/libpolicy.ambient_light_handler.o obj/power_manager/powerd/policy/libpolicy.backlight_controller.o obj/power_manager/powerd/policy/libpolicy.battery_saver_controller.o obj/power_manager/powerd/policy/libpolicy.bluetooth_controller.o obj/power_manager/powerd/policy/libpolicy.cellular_controller.o obj/power_manager/powerd/policy/libpolicy.charge_controller.o obj/power_manager/powerd/policy/libpolicy.dim_advisor.o obj/power_manager/powerd/policy/libpolicy.external_ambient_light_handler.o obj/power_manager/powerd/policy/libpolicy.external_backlight_controller.o obj/power_manager/powerd/policy/libpolicy.input_device_controller.o obj/power_manager/powerd/policy/libpolicy.input_event_handler.o obj/power_manager/powerd/policy/libpolicy.internal_backlight_controller.o obj/power_manager/powerd/policy/libpolicy.keyboard_backlight_controller.o obj/power_manager/powerd/policy/libpolicy.shutdown_from_suspend.o obj/power_manager/powerd/policy/libpolicy.state_controller.o obj/power_manager/powerd/policy/libpolicy.suspend_delay_controller.o obj/power_manager/powerd/policy/libpolicy.suspender.o obj/power_manager/powerd/policy/libpolicy.thermal_event_handler.o obj/power_manager/powerd/policy/libpolicy.user_proximity_handler.o obj/power_manager/powerd/policy/libpolicy.user_proximity_voting.o obj/power_manager/powerd/policy/libpolicy.wifi_controller.o || obj/power_manager/generate_modemmanager_proxies.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

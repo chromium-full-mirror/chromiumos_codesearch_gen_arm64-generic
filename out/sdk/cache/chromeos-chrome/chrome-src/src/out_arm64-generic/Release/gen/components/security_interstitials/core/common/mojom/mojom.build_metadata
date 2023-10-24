@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/components/security_interstitials/core/common/mojom/interstitial_commands.mojom"
+  ]
+}

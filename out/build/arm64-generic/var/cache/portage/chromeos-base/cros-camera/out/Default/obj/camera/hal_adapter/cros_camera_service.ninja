@@ -1,0 +1,63 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DCHROME_OS_CAMERA_BUILD_ENV -DUSE_ARCVM=false -DUSE_CAMERA_FEATURE_AUTO_FRAMING=false -DUSE_CAMERA_FEATURE_DIAGNOSTICS=false -DUSE_CAMERA_FEATURE_EFFECTS=false -DUSE_CAMERA_FEATURE_FACE_DETECTION=false -DUSE_CAMERA_FEATURE_FRAME_ANNOTATOR=false -DUSE_CAMERA_FEATURE_HDRNET=false -DUSE_CAMERA_FEATURE_PORTRAIT_MODE=false -DUSE_IPU6=false -DUSE_IPU6EP=false -DUSE_IPU6EPMTL=false
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../../../mnt/host/source/src/platform2/camera -I../../../../../../../../../mnt/host/source/src/platform2/camera/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -I/build/arm64-generic/usr/include/cros-camera/mojo -I/build/arm64-generic/usr/include/android -I/build/arm64-generic/usr/include/android/hardware/libhardware/include -I/build/arm64-generic/usr/include/android/system/core/include -I/build/arm64-generic/usr/include/libdrm -I/build/arm64-generic/usr/include/sync -DHAVE_JPEG -I/build/arm64-generic/usr/include/mojo_service_manager -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -Wno-cast-qual -Wno-cast-align -pthread -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -O2 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = cros_camera_service
+
+build obj/camera/common/cros_camera_service.ipc_util.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/common/ipc_util.cc
+  source_file_part = ipc_util.cc
+  source_name_part = ipc_util
+build obj/camera/common/utils/cros_camera_service.camera_config_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/common/utils/camera_config_impl.cc
+  source_file_part = camera_config_impl.cc
+  source_name_part = camera_config_impl
+build obj/camera/common/utils/cros_camera_service.camera_hal_enumerator.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/common/utils/camera_hal_enumerator.cc
+  source_file_part = camera_hal_enumerator.cc
+  source_name_part = camera_hal_enumerator
+build obj/camera/common/utils/cros_camera_service.cros_camera_mojo_utils.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/common/utils/cros_camera_mojo_utils.cc
+  source_file_part = cros_camera_mojo_utils.cc
+  source_name_part = cros_camera_mojo_utils
+build obj/camera/mojo/cros_camera_service.CameraMetadataTagsVerifier.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/mojo/CameraMetadataTagsVerifier.cc
+  source_file_part = CameraMetadataTagsVerifier.cc
+  source_name_part = CameraMetadataTagsVerifier
+build obj/camera/hal_adapter/cros_camera_service.camera3_callback_ops_delegate.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera3_callback_ops_delegate.cc
+  source_file_part = camera3_callback_ops_delegate.cc
+  source_name_part = camera3_callback_ops_delegate
+build obj/camera/hal_adapter/cros_camera_service.camera3_device_ops_delegate.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera3_device_ops_delegate.cc
+  source_file_part = camera3_device_ops_delegate.cc
+  source_name_part = camera3_device_ops_delegate
+build obj/camera/hal_adapter/cros_camera_service.camera_device_adapter.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera_device_adapter.cc
+  source_file_part = camera_device_adapter.cc
+  source_name_part = camera_device_adapter
+build obj/camera/hal_adapter/cros_camera_service.camera_hal_adapter.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera_hal_adapter.cc
+  source_file_part = camera_hal_adapter.cc
+  source_name_part = camera_hal_adapter
+build obj/camera/hal_adapter/cros_camera_service.camera_hal_server_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera_hal_server_impl.cc
+  source_file_part = camera_hal_server_impl.cc
+  source_name_part = camera_hal_server_impl
+build obj/camera/hal_adapter/cros_camera_service.camera_hal_test_adapter.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera_hal_test_adapter.cc
+  source_file_part = camera_hal_test_adapter.cc
+  source_name_part = camera_hal_test_adapter
+build obj/camera/hal_adapter/cros_camera_service.camera_module_callbacks_associated_delegate.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera_module_callbacks_associated_delegate.cc
+  source_file_part = camera_module_callbacks_associated_delegate.cc
+  source_name_part = camera_module_callbacks_associated_delegate
+build obj/camera/hal_adapter/cros_camera_service.camera_module_delegate.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera_module_delegate.cc
+  source_file_part = camera_module_delegate.cc
+  source_name_part = camera_module_delegate
+build obj/camera/hal_adapter/cros_camera_service.camera_trace_event.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/camera_trace_event.cc
+  source_file_part = camera_trace_event.cc
+  source_name_part = camera_trace_event
+build obj/camera/hal_adapter/cros_camera_service.cros_camera_main.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/cros_camera_main.cc
+  source_file_part = cros_camera_main.cc
+  source_name_part = cros_camera_main
+build obj/camera/hal_adapter/cros_camera_service.vendor_tag_ops_delegate.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal_adapter/vendor_tag_ops_delegate.cc
+  source_file_part = vendor_tag_ops_delegate.cc
+  source_name_part = vendor_tag_ops_delegate
+
+build ./cros_camera_service: link obj/camera/common/cros_camera_service.ipc_util.o obj/camera/common/utils/cros_camera_service.camera_config_impl.o obj/camera/common/utils/cros_camera_service.camera_hal_enumerator.o obj/camera/common/utils/cros_camera_service.cros_camera_mojo_utils.o obj/camera/mojo/cros_camera_service.CameraMetadataTagsVerifier.o obj/camera/hal_adapter/cros_camera_service.camera3_callback_ops_delegate.o obj/camera/hal_adapter/cros_camera_service.camera3_device_ops_delegate.o obj/camera/hal_adapter/cros_camera_service.camera_device_adapter.o obj/camera/hal_adapter/cros_camera_service.camera_hal_adapter.o obj/camera/hal_adapter/cros_camera_service.camera_hal_server_impl.o obj/camera/hal_adapter/cros_camera_service.camera_hal_test_adapter.o obj/camera/hal_adapter/cros_camera_service.camera_module_callbacks_associated_delegate.o obj/camera/hal_adapter/cros_camera_service.camera_module_delegate.o obj/camera/hal_adapter/cros_camera_service.camera_trace_event.o obj/camera/hal_adapter/cros_camera_service.cros_camera_main.o obj/camera/hal_adapter/cros_camera_service.vendor_tag_ops_delegate.o ./libdlc_client.a || obj/camera/hal_adapter/_cros_camera_service-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -Wl,-rpath=/usr/share/cros-camera/libfs/ -Wl,-rpath=/build/share/cros_camera/ -L/build/arm64-generic/usr/lib64 -L/build/arm64-generic/build/share/cros_camera
+  libs = -ldl -lrt -lbrillo -lcros_camera -lcros_camera_mojom -lcros_camera_android_deps -ldrm -lmojo -lsync -lyuv.pic -ljpeg -lmojo_service_manager -lmojo_service_manager-mojom -lre2 -lbase -lpthread -lprotobuf -lsystem_api-device_management-protos -lsystem_api-hps-protos -lsystem_api-power_manager-protos -lsystem_api-authpolicy-protos -lsystem_api-protos -lsystem_api-kerberos-protos -lsystem_api-login_manager-protos -lsystem_api-lorgnette-protos -lsystem_api-smbprovider-protos -lsystem_api-vm_concierge-protos -lsystem_api-vm_applications-protos -lsystem_api-vm_launch-protos -lsystem_api-vm_sk_forwarding-protos -lsystem_api-vm_cicerone-protos -lsystem_api-seneschal-protos -lsystem_api-oobe_config-protos -lsystem_api-runtime_probe-protos -lsystem_api-dlcservice-protos -lsystem_api-update_engine-protos -lsystem_api-vm_plugin_dispatcher-protos -lsystem_api-u2f-protos -lsystem_api-chunneld-protos -lsystem_api-system_proxy-protos -lsystem_api-vm_permission_service-protos -lsystem_api-anomaly_detector-protos -lsystem_api-minios-protos -lsystem_api-dlp-protos -lsystem_api-rmad-protos -lsystem_api-fusebox-protos -lsystem_api-privacy_screen-protos -lsystem_api-cdm_oemcrypto-protos -lsystem_api-ml-protos -lsystem_api-lvmd-protos -lsystem_api-shadercached-protos -lsystem_api-spaced-protos -lsystem_api-imageloader-protos -lsystem_api -lsystem_api-arc-protos -lsystem_api-private_computing-protos -lsystem_api-arcvm_data_migrator-protos -lsystem_api-featured-protos -lsystem_api-vm_wl-protos -lsystem_api-printscanmgr-protos -lsystem_api-vm_memory_management-protos
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

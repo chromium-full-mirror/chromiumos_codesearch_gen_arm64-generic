@@ -1,0 +1,742 @@
+defines = -DU_I18N_IMPLEMENTATION -DUSE_UDEV -DUSE_AURA=1 -DUSE_GLIB=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DHAVE_DLOPEN=0 -DUCONFIG_ONLY_HTML_CONVERSION=1 -DUCONFIG_USE_ML_PHRASE_BREAKING=1 -DUCONFIG_USE_WINDOWS_LCID_MAPPING_API=0 -DU_CHARSET_IS_UTF8=1 -DU_USING_ICU_NAMESPACE=0 -DU_ENABLE_DYLOAD=0 -DUSE_CHROMIUM_ICU=1 -DU_ENABLE_TRACING=1 -DU_ENABLE_RESOURCE_TRACING=0 -DU_STATIC_IMPLEMENTATION -DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iv8_snapshot/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/common -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n
+cflags = -gline-tables-only -fdebug-info-for-profiling -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fstack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -m64 -msse3 -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=pattern -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wno-unused-function -Wno-parentheses -Wno-unused-function -Wno-unused-variable -Wno-ambiguous-reversed-operator -Wno-deprecated-declarations
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -frtti
+label_name = icui18n
+target_out_dir = v8_snapshot/obj/third_party/icu
+target_output_name = libicui18n
+
+build v8_snapshot/obj/third_party/icu/icui18n/alphaindex.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/alphaindex.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = alphaindex.cpp
+  source_name_part = alphaindex
+build v8_snapshot/obj/third_party/icu/icui18n/anytrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/anytrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = anytrans.cpp
+  source_name_part = anytrans
+build v8_snapshot/obj/third_party/icu/icui18n/astro.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/astro.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = astro.cpp
+  source_name_part = astro
+build v8_snapshot/obj/third_party/icu/icui18n/basictz.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/basictz.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = basictz.cpp
+  source_name_part = basictz
+build v8_snapshot/obj/third_party/icu/icui18n/bocsu.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/bocsu.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = bocsu.cpp
+  source_name_part = bocsu
+build v8_snapshot/obj/third_party/icu/icui18n/brktrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/brktrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = brktrans.cpp
+  source_name_part = brktrans
+build v8_snapshot/obj/third_party/icu/icui18n/buddhcal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/buddhcal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = buddhcal.cpp
+  source_name_part = buddhcal
+build v8_snapshot/obj/third_party/icu/icui18n/calendar.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/calendar.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = calendar.cpp
+  source_name_part = calendar
+build v8_snapshot/obj/third_party/icu/icui18n/casetrn.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/casetrn.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = casetrn.cpp
+  source_name_part = casetrn
+build v8_snapshot/obj/third_party/icu/icui18n/cecal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/cecal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = cecal.cpp
+  source_name_part = cecal
+build v8_snapshot/obj/third_party/icu/icui18n/chnsecal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/chnsecal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = chnsecal.cpp
+  source_name_part = chnsecal
+build v8_snapshot/obj/third_party/icu/icui18n/choicfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/choicfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = choicfmt.cpp
+  source_name_part = choicfmt
+build v8_snapshot/obj/third_party/icu/icui18n/coleitr.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/coleitr.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = coleitr.cpp
+  source_name_part = coleitr
+build v8_snapshot/obj/third_party/icu/icui18n/collationbuilder.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationbuilder.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationbuilder.cpp
+  source_name_part = collationbuilder
+build v8_snapshot/obj/third_party/icu/icui18n/collationcompare.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationcompare.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationcompare.cpp
+  source_name_part = collationcompare
+build v8_snapshot/obj/third_party/icu/icui18n/collation.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collation.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collation.cpp
+  source_name_part = collation
+build v8_snapshot/obj/third_party/icu/icui18n/collationdatabuilder.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationdatabuilder.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationdatabuilder.cpp
+  source_name_part = collationdatabuilder
+build v8_snapshot/obj/third_party/icu/icui18n/collationdata.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationdata.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationdata.cpp
+  source_name_part = collationdata
+build v8_snapshot/obj/third_party/icu/icui18n/collationdatareader.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationdatareader.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationdatareader.cpp
+  source_name_part = collationdatareader
+build v8_snapshot/obj/third_party/icu/icui18n/collationdatawriter.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationdatawriter.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationdatawriter.cpp
+  source_name_part = collationdatawriter
+build v8_snapshot/obj/third_party/icu/icui18n/collationfastlatinbuilder.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationfastlatinbuilder.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationfastlatinbuilder.cpp
+  source_name_part = collationfastlatinbuilder
+build v8_snapshot/obj/third_party/icu/icui18n/collationfastlatin.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationfastlatin.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationfastlatin.cpp
+  source_name_part = collationfastlatin
+build v8_snapshot/obj/third_party/icu/icui18n/collationfcd.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationfcd.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationfcd.cpp
+  source_name_part = collationfcd
+build v8_snapshot/obj/third_party/icu/icui18n/collationiterator.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationiterator.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationiterator.cpp
+  source_name_part = collationiterator
+build v8_snapshot/obj/third_party/icu/icui18n/collationkeys.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationkeys.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationkeys.cpp
+  source_name_part = collationkeys
+build v8_snapshot/obj/third_party/icu/icui18n/collationroot.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationroot.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationroot.cpp
+  source_name_part = collationroot
+build v8_snapshot/obj/third_party/icu/icui18n/collationrootelements.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationrootelements.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationrootelements.cpp
+  source_name_part = collationrootelements
+build v8_snapshot/obj/third_party/icu/icui18n/collationruleparser.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationruleparser.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationruleparser.cpp
+  source_name_part = collationruleparser
+build v8_snapshot/obj/third_party/icu/icui18n/collationsets.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationsets.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationsets.cpp
+  source_name_part = collationsets
+build v8_snapshot/obj/third_party/icu/icui18n/collationsettings.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationsettings.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationsettings.cpp
+  source_name_part = collationsettings
+build v8_snapshot/obj/third_party/icu/icui18n/collationtailoring.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationtailoring.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationtailoring.cpp
+  source_name_part = collationtailoring
+build v8_snapshot/obj/third_party/icu/icui18n/collationweights.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationweights.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationweights.cpp
+  source_name_part = collationweights
+build v8_snapshot/obj/third_party/icu/icui18n/coll.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/coll.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = coll.cpp
+  source_name_part = coll
+build v8_snapshot/obj/third_party/icu/icui18n/compactdecimalformat.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/compactdecimalformat.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = compactdecimalformat.cpp
+  source_name_part = compactdecimalformat
+build v8_snapshot/obj/third_party/icu/icui18n/coptccal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/coptccal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = coptccal.cpp
+  source_name_part = coptccal
+build v8_snapshot/obj/third_party/icu/icui18n/cpdtrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/cpdtrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = cpdtrans.cpp
+  source_name_part = cpdtrans
+build v8_snapshot/obj/third_party/icu/icui18n/csdetect.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csdetect.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csdetect.cpp
+  source_name_part = csdetect
+build v8_snapshot/obj/third_party/icu/icui18n/csmatch.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csmatch.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csmatch.cpp
+  source_name_part = csmatch
+build v8_snapshot/obj/third_party/icu/icui18n/csr2022.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csr2022.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csr2022.cpp
+  source_name_part = csr2022
+build v8_snapshot/obj/third_party/icu/icui18n/csrecog.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrecog.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrecog.cpp
+  source_name_part = csrecog
+build v8_snapshot/obj/third_party/icu/icui18n/csrmbcs.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrmbcs.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrmbcs.cpp
+  source_name_part = csrmbcs
+build v8_snapshot/obj/third_party/icu/icui18n/csrsbcs.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrsbcs.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrsbcs.cpp
+  source_name_part = csrsbcs
+build v8_snapshot/obj/third_party/icu/icui18n/csrucode.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrucode.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrucode.cpp
+  source_name_part = csrucode
+build v8_snapshot/obj/third_party/icu/icui18n/csrutf8.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrutf8.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrutf8.cpp
+  source_name_part = csrutf8
+build v8_snapshot/obj/third_party/icu/icui18n/curramt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/curramt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = curramt.cpp
+  source_name_part = curramt
+build v8_snapshot/obj/third_party/icu/icui18n/currfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/currfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = currfmt.cpp
+  source_name_part = currfmt
+build v8_snapshot/obj/third_party/icu/icui18n/currpinf.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/currpinf.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = currpinf.cpp
+  source_name_part = currpinf
+build v8_snapshot/obj/third_party/icu/icui18n/currunit.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/currunit.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = currunit.cpp
+  source_name_part = currunit
+build v8_snapshot/obj/third_party/icu/icui18n/dangical.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dangical.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dangical.cpp
+  source_name_part = dangical
+build v8_snapshot/obj/third_party/icu/icui18n/datefmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/datefmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = datefmt.cpp
+  source_name_part = datefmt
+build v8_snapshot/obj/third_party/icu/icui18n/dayperiodrules.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dayperiodrules.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dayperiodrules.cpp
+  source_name_part = dayperiodrules
+build v8_snapshot/obj/third_party/icu/icui18n/dcfmtsym.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dcfmtsym.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dcfmtsym.cpp
+  source_name_part = dcfmtsym
+build v8_snapshot/obj/third_party/icu/icui18n/decContext.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/decContext.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = decContext.cpp
+  source_name_part = decContext
+build v8_snapshot/obj/third_party/icu/icui18n/decimfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/decimfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = decimfmt.cpp
+  source_name_part = decimfmt
+build v8_snapshot/obj/third_party/icu/icui18n/decNumber.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/decNumber.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = decNumber.cpp
+  source_name_part = decNumber
+build v8_snapshot/obj/third_party/icu/icui18n/displayoptions.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/displayoptions.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = displayoptions.cpp
+  source_name_part = displayoptions
+build v8_snapshot/obj/third_party/icu/icui18n/double-conversion-bignum.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-bignum.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-bignum.cpp
+  source_name_part = double-conversion-bignum
+build v8_snapshot/obj/third_party/icu/icui18n/double-conversion-bignum-dtoa.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-bignum-dtoa.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-bignum-dtoa.cpp
+  source_name_part = double-conversion-bignum-dtoa
+build v8_snapshot/obj/third_party/icu/icui18n/double-conversion-cached-powers.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-cached-powers.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-cached-powers.cpp
+  source_name_part = double-conversion-cached-powers
+build v8_snapshot/obj/third_party/icu/icui18n/double-conversion-double-to-string.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-double-to-string.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-double-to-string.cpp
+  source_name_part = double-conversion-double-to-string
+build v8_snapshot/obj/third_party/icu/icui18n/double-conversion-fast-dtoa.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-fast-dtoa.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-fast-dtoa.cpp
+  source_name_part = double-conversion-fast-dtoa
+build v8_snapshot/obj/third_party/icu/icui18n/double-conversion-string-to-double.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-string-to-double.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-string-to-double.cpp
+  source_name_part = double-conversion-string-to-double
+build v8_snapshot/obj/third_party/icu/icui18n/double-conversion-strtod.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-strtod.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-strtod.cpp
+  source_name_part = double-conversion-strtod
+build v8_snapshot/obj/third_party/icu/icui18n/dtfmtsym.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtfmtsym.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtfmtsym.cpp
+  source_name_part = dtfmtsym
+build v8_snapshot/obj/third_party/icu/icui18n/dtitvfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtitvfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtitvfmt.cpp
+  source_name_part = dtitvfmt
+build v8_snapshot/obj/third_party/icu/icui18n/dtitvinf.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtitvinf.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtitvinf.cpp
+  source_name_part = dtitvinf
+build v8_snapshot/obj/third_party/icu/icui18n/dtptngen.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtptngen.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtptngen.cpp
+  source_name_part = dtptngen
+build v8_snapshot/obj/third_party/icu/icui18n/dtrule.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtrule.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtrule.cpp
+  source_name_part = dtrule
+build v8_snapshot/obj/third_party/icu/icui18n/erarules.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/erarules.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = erarules.cpp
+  source_name_part = erarules
+build v8_snapshot/obj/third_party/icu/icui18n/esctrn.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/esctrn.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = esctrn.cpp
+  source_name_part = esctrn
+build v8_snapshot/obj/third_party/icu/icui18n/ethpccal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ethpccal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ethpccal.cpp
+  source_name_part = ethpccal
+build v8_snapshot/obj/third_party/icu/icui18n/fmtable_cnv.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/fmtable_cnv.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = fmtable_cnv.cpp
+  source_name_part = fmtable_cnv
+build v8_snapshot/obj/third_party/icu/icui18n/fmtable.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/fmtable.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = fmtable.cpp
+  source_name_part = fmtable
+build v8_snapshot/obj/third_party/icu/icui18n/format.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/format.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = format.cpp
+  source_name_part = format
+build v8_snapshot/obj/third_party/icu/icui18n/formatted_string_builder.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/formatted_string_builder.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = formatted_string_builder.cpp
+  source_name_part = formatted_string_builder
+build v8_snapshot/obj/third_party/icu/icui18n/formattedval_iterimpl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/formattedval_iterimpl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = formattedval_iterimpl.cpp
+  source_name_part = formattedval_iterimpl
+build v8_snapshot/obj/third_party/icu/icui18n/formattedval_sbimpl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/formattedval_sbimpl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = formattedval_sbimpl.cpp
+  source_name_part = formattedval_sbimpl
+build v8_snapshot/obj/third_party/icu/icui18n/formattedvalue.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/formattedvalue.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = formattedvalue.cpp
+  source_name_part = formattedvalue
+build v8_snapshot/obj/third_party/icu/icui18n/fphdlimp.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/fphdlimp.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = fphdlimp.cpp
+  source_name_part = fphdlimp
+build v8_snapshot/obj/third_party/icu/icui18n/fpositer.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/fpositer.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = fpositer.cpp
+  source_name_part = fpositer
+build v8_snapshot/obj/third_party/icu/icui18n/funcrepl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/funcrepl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = funcrepl.cpp
+  source_name_part = funcrepl
+build v8_snapshot/obj/third_party/icu/icui18n/gender.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/gender.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = gender.cpp
+  source_name_part = gender
+build v8_snapshot/obj/third_party/icu/icui18n/gregocal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/gregocal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = gregocal.cpp
+  source_name_part = gregocal
+build v8_snapshot/obj/third_party/icu/icui18n/gregoimp.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/gregoimp.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = gregoimp.cpp
+  source_name_part = gregoimp
+build v8_snapshot/obj/third_party/icu/icui18n/hebrwcal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/hebrwcal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = hebrwcal.cpp
+  source_name_part = hebrwcal
+build v8_snapshot/obj/third_party/icu/icui18n/indiancal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/indiancal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = indiancal.cpp
+  source_name_part = indiancal
+build v8_snapshot/obj/third_party/icu/icui18n/inputext.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/inputext.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = inputext.cpp
+  source_name_part = inputext
+build v8_snapshot/obj/third_party/icu/icui18n/islamcal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/islamcal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = islamcal.cpp
+  source_name_part = islamcal
+build v8_snapshot/obj/third_party/icu/icui18n/iso8601cal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/iso8601cal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = iso8601cal.cpp
+  source_name_part = iso8601cal
+build v8_snapshot/obj/third_party/icu/icui18n/japancal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/japancal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = japancal.cpp
+  source_name_part = japancal
+build v8_snapshot/obj/third_party/icu/icui18n/listformatter.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/listformatter.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = listformatter.cpp
+  source_name_part = listformatter
+build v8_snapshot/obj/third_party/icu/icui18n/measfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/measfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = measfmt.cpp
+  source_name_part = measfmt
+build v8_snapshot/obj/third_party/icu/icui18n/measunit.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/measunit.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = measunit.cpp
+  source_name_part = measunit
+build v8_snapshot/obj/third_party/icu/icui18n/measunit_extra.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/measunit_extra.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = measunit_extra.cpp
+  source_name_part = measunit_extra
+build v8_snapshot/obj/third_party/icu/icui18n/measure.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/measure.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = measure.cpp
+  source_name_part = measure
+build v8_snapshot/obj/third_party/icu/icui18n/msgfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/msgfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = msgfmt.cpp
+  source_name_part = msgfmt
+build v8_snapshot/obj/third_party/icu/icui18n/name2uni.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/name2uni.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = name2uni.cpp
+  source_name_part = name2uni
+build v8_snapshot/obj/third_party/icu/icui18n/nfrs.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nfrs.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nfrs.cpp
+  source_name_part = nfrs
+build v8_snapshot/obj/third_party/icu/icui18n/nfrule.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nfrule.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nfrule.cpp
+  source_name_part = nfrule
+build v8_snapshot/obj/third_party/icu/icui18n/nfsubs.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nfsubs.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nfsubs.cpp
+  source_name_part = nfsubs
+build v8_snapshot/obj/third_party/icu/icui18n/nortrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nortrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nortrans.cpp
+  source_name_part = nortrans
+build v8_snapshot/obj/third_party/icu/icui18n/nultrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nultrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nultrans.cpp
+  source_name_part = nultrans
+build v8_snapshot/obj/third_party/icu/icui18n/number_affixutils.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_affixutils.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_affixutils.cpp
+  source_name_part = number_affixutils
+build v8_snapshot/obj/third_party/icu/icui18n/number_asformat.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_asformat.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_asformat.cpp
+  source_name_part = number_asformat
+build v8_snapshot/obj/third_party/icu/icui18n/number_capi.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_capi.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_capi.cpp
+  source_name_part = number_capi
+build v8_snapshot/obj/third_party/icu/icui18n/number_compact.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_compact.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_compact.cpp
+  source_name_part = number_compact
+build v8_snapshot/obj/third_party/icu/icui18n/number_currencysymbols.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_currencysymbols.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_currencysymbols.cpp
+  source_name_part = number_currencysymbols
+build v8_snapshot/obj/third_party/icu/icui18n/number_decimalquantity.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_decimalquantity.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_decimalquantity.cpp
+  source_name_part = number_decimalquantity
+build v8_snapshot/obj/third_party/icu/icui18n/number_decimfmtprops.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_decimfmtprops.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_decimfmtprops.cpp
+  source_name_part = number_decimfmtprops
+build v8_snapshot/obj/third_party/icu/icui18n/number_fluent.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_fluent.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_fluent.cpp
+  source_name_part = number_fluent
+build v8_snapshot/obj/third_party/icu/icui18n/number_formatimpl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_formatimpl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_formatimpl.cpp
+  source_name_part = number_formatimpl
+build v8_snapshot/obj/third_party/icu/icui18n/number_grouping.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_grouping.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_grouping.cpp
+  source_name_part = number_grouping
+build v8_snapshot/obj/third_party/icu/icui18n/number_integerwidth.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_integerwidth.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_integerwidth.cpp
+  source_name_part = number_integerwidth
+build v8_snapshot/obj/third_party/icu/icui18n/number_longnames.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_longnames.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_longnames.cpp
+  source_name_part = number_longnames
+build v8_snapshot/obj/third_party/icu/icui18n/number_mapper.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_mapper.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_mapper.cpp
+  source_name_part = number_mapper
+build v8_snapshot/obj/third_party/icu/icui18n/number_modifiers.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_modifiers.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_modifiers.cpp
+  source_name_part = number_modifiers
+build v8_snapshot/obj/third_party/icu/icui18n/number_multiplier.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_multiplier.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_multiplier.cpp
+  source_name_part = number_multiplier
+build v8_snapshot/obj/third_party/icu/icui18n/number_notation.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_notation.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_notation.cpp
+  source_name_part = number_notation
+build v8_snapshot/obj/third_party/icu/icui18n/number_output.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_output.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_output.cpp
+  source_name_part = number_output
+build v8_snapshot/obj/third_party/icu/icui18n/number_padding.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_padding.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_padding.cpp
+  source_name_part = number_padding
+build v8_snapshot/obj/third_party/icu/icui18n/number_patternmodifier.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_patternmodifier.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_patternmodifier.cpp
+  source_name_part = number_patternmodifier
+build v8_snapshot/obj/third_party/icu/icui18n/number_patternstring.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_patternstring.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_patternstring.cpp
+  source_name_part = number_patternstring
+build v8_snapshot/obj/third_party/icu/icui18n/number_rounding.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_rounding.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_rounding.cpp
+  source_name_part = number_rounding
+build v8_snapshot/obj/third_party/icu/icui18n/number_scientific.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_scientific.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_scientific.cpp
+  source_name_part = number_scientific
+build v8_snapshot/obj/third_party/icu/icui18n/number_simple.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_simple.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_simple.cpp
+  source_name_part = number_simple
+build v8_snapshot/obj/third_party/icu/icui18n/number_skeletons.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_skeletons.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_skeletons.cpp
+  source_name_part = number_skeletons
+build v8_snapshot/obj/third_party/icu/icui18n/number_symbolswrapper.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_symbolswrapper.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_symbolswrapper.cpp
+  source_name_part = number_symbolswrapper
+build v8_snapshot/obj/third_party/icu/icui18n/number_usageprefs.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_usageprefs.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_usageprefs.cpp
+  source_name_part = number_usageprefs
+build v8_snapshot/obj/third_party/icu/icui18n/number_utils.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_utils.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_utils.cpp
+  source_name_part = number_utils
+build v8_snapshot/obj/third_party/icu/icui18n/numfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numfmt.cpp
+  source_name_part = numfmt
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_affixes.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_affixes.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_affixes.cpp
+  source_name_part = numparse_affixes
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_compositions.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_compositions.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_compositions.cpp
+  source_name_part = numparse_compositions
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_currency.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_currency.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_currency.cpp
+  source_name_part = numparse_currency
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_decimal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_decimal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_decimal.cpp
+  source_name_part = numparse_decimal
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_impl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_impl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_impl.cpp
+  source_name_part = numparse_impl
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_parsednumber.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_parsednumber.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_parsednumber.cpp
+  source_name_part = numparse_parsednumber
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_scientific.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_scientific.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_scientific.cpp
+  source_name_part = numparse_scientific
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_symbols.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_symbols.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_symbols.cpp
+  source_name_part = numparse_symbols
+build v8_snapshot/obj/third_party/icu/icui18n/numparse_validators.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_validators.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_validators.cpp
+  source_name_part = numparse_validators
+build v8_snapshot/obj/third_party/icu/icui18n/numrange_capi.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numrange_capi.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numrange_capi.cpp
+  source_name_part = numrange_capi
+build v8_snapshot/obj/third_party/icu/icui18n/numrange_fluent.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numrange_fluent.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numrange_fluent.cpp
+  source_name_part = numrange_fluent
+build v8_snapshot/obj/third_party/icu/icui18n/numrange_impl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numrange_impl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numrange_impl.cpp
+  source_name_part = numrange_impl
+build v8_snapshot/obj/third_party/icu/icui18n/numsys.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numsys.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numsys.cpp
+  source_name_part = numsys
+build v8_snapshot/obj/third_party/icu/icui18n/olsontz.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/olsontz.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = olsontz.cpp
+  source_name_part = olsontz
+build v8_snapshot/obj/third_party/icu/icui18n/persncal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/persncal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = persncal.cpp
+  source_name_part = persncal
+build v8_snapshot/obj/third_party/icu/icui18n/pluralranges.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/pluralranges.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = pluralranges.cpp
+  source_name_part = pluralranges
+build v8_snapshot/obj/third_party/icu/icui18n/plurfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/plurfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = plurfmt.cpp
+  source_name_part = plurfmt
+build v8_snapshot/obj/third_party/icu/icui18n/plurrule.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/plurrule.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = plurrule.cpp
+  source_name_part = plurrule
+build v8_snapshot/obj/third_party/icu/icui18n/quant.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/quant.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = quant.cpp
+  source_name_part = quant
+build v8_snapshot/obj/third_party/icu/icui18n/quantityformatter.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/quantityformatter.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = quantityformatter.cpp
+  source_name_part = quantityformatter
+build v8_snapshot/obj/third_party/icu/icui18n/rbnf.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbnf.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbnf.cpp
+  source_name_part = rbnf
+build v8_snapshot/obj/third_party/icu/icui18n/rbt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt.cpp
+  source_name_part = rbt
+build v8_snapshot/obj/third_party/icu/icui18n/rbt_data.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt_data.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt_data.cpp
+  source_name_part = rbt_data
+build v8_snapshot/obj/third_party/icu/icui18n/rbt_pars.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt_pars.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt_pars.cpp
+  source_name_part = rbt_pars
+build v8_snapshot/obj/third_party/icu/icui18n/rbt_rule.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt_rule.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt_rule.cpp
+  source_name_part = rbt_rule
+build v8_snapshot/obj/third_party/icu/icui18n/rbt_set.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt_set.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt_set.cpp
+  source_name_part = rbt_set
+build v8_snapshot/obj/third_party/icu/icui18n/rbtz.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbtz.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbtz.cpp
+  source_name_part = rbtz
+build v8_snapshot/obj/third_party/icu/icui18n/regexcmp.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/regexcmp.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = regexcmp.cpp
+  source_name_part = regexcmp
+build v8_snapshot/obj/third_party/icu/icui18n/regeximp.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/regeximp.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = regeximp.cpp
+  source_name_part = regeximp
+build v8_snapshot/obj/third_party/icu/icui18n/regexst.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/regexst.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = regexst.cpp
+  source_name_part = regexst
+build v8_snapshot/obj/third_party/icu/icui18n/regextxt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/regextxt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = regextxt.cpp
+  source_name_part = regextxt
+build v8_snapshot/obj/third_party/icu/icui18n/region.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/region.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = region.cpp
+  source_name_part = region
+build v8_snapshot/obj/third_party/icu/icui18n/reldatefmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/reldatefmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = reldatefmt.cpp
+  source_name_part = reldatefmt
+build v8_snapshot/obj/third_party/icu/icui18n/reldtfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/reldtfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = reldtfmt.cpp
+  source_name_part = reldtfmt
+build v8_snapshot/obj/third_party/icu/icui18n/rematch.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rematch.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rematch.cpp
+  source_name_part = rematch
+build v8_snapshot/obj/third_party/icu/icui18n/remtrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/remtrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = remtrans.cpp
+  source_name_part = remtrans
+build v8_snapshot/obj/third_party/icu/icui18n/repattrn.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/repattrn.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = repattrn.cpp
+  source_name_part = repattrn
+build v8_snapshot/obj/third_party/icu/icui18n/rulebasedcollator.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rulebasedcollator.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rulebasedcollator.cpp
+  source_name_part = rulebasedcollator
+build v8_snapshot/obj/third_party/icu/icui18n/scientificnumberformatter.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/scientificnumberformatter.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = scientificnumberformatter.cpp
+  source_name_part = scientificnumberformatter
+build v8_snapshot/obj/third_party/icu/icui18n/scriptset.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/scriptset.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = scriptset.cpp
+  source_name_part = scriptset
+build v8_snapshot/obj/third_party/icu/icui18n/search.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/search.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = search.cpp
+  source_name_part = search
+build v8_snapshot/obj/third_party/icu/icui18n/selfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/selfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = selfmt.cpp
+  source_name_part = selfmt
+build v8_snapshot/obj/third_party/icu/icui18n/sharedbreakiterator.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/sharedbreakiterator.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = sharedbreakiterator.cpp
+  source_name_part = sharedbreakiterator
+build v8_snapshot/obj/third_party/icu/icui18n/simpletz.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/simpletz.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = simpletz.cpp
+  source_name_part = simpletz
+build v8_snapshot/obj/third_party/icu/icui18n/smpdtfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/smpdtfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = smpdtfmt.cpp
+  source_name_part = smpdtfmt
+build v8_snapshot/obj/third_party/icu/icui18n/smpdtfst.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/smpdtfst.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = smpdtfst.cpp
+  source_name_part = smpdtfst
+build v8_snapshot/obj/third_party/icu/icui18n/sortkey.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/sortkey.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = sortkey.cpp
+  source_name_part = sortkey
+build v8_snapshot/obj/third_party/icu/icui18n/standardplural.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/standardplural.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = standardplural.cpp
+  source_name_part = standardplural
+build v8_snapshot/obj/third_party/icu/icui18n/string_segment.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/string_segment.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = string_segment.cpp
+  source_name_part = string_segment
+build v8_snapshot/obj/third_party/icu/icui18n/strmatch.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/strmatch.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = strmatch.cpp
+  source_name_part = strmatch
+build v8_snapshot/obj/third_party/icu/icui18n/strrepl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/strrepl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = strrepl.cpp
+  source_name_part = strrepl
+build v8_snapshot/obj/third_party/icu/icui18n/stsearch.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/stsearch.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = stsearch.cpp
+  source_name_part = stsearch
+build v8_snapshot/obj/third_party/icu/icui18n/taiwncal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/taiwncal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = taiwncal.cpp
+  source_name_part = taiwncal
+build v8_snapshot/obj/third_party/icu/icui18n/timezone.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/timezone.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = timezone.cpp
+  source_name_part = timezone
+build v8_snapshot/obj/third_party/icu/icui18n/titletrn.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/titletrn.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = titletrn.cpp
+  source_name_part = titletrn
+build v8_snapshot/obj/third_party/icu/icui18n/tmunit.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tmunit.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tmunit.cpp
+  source_name_part = tmunit
+build v8_snapshot/obj/third_party/icu/icui18n/tmutamt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tmutamt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tmutamt.cpp
+  source_name_part = tmutamt
+build v8_snapshot/obj/third_party/icu/icui18n/tmutfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tmutfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tmutfmt.cpp
+  source_name_part = tmutfmt
+build v8_snapshot/obj/third_party/icu/icui18n/tolowtrn.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tolowtrn.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tolowtrn.cpp
+  source_name_part = tolowtrn
+build v8_snapshot/obj/third_party/icu/icui18n/toupptrn.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/toupptrn.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = toupptrn.cpp
+  source_name_part = toupptrn
+build v8_snapshot/obj/third_party/icu/icui18n/translit.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/translit.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = translit.cpp
+  source_name_part = translit
+build v8_snapshot/obj/third_party/icu/icui18n/transreg.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/transreg.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = transreg.cpp
+  source_name_part = transreg
+build v8_snapshot/obj/third_party/icu/icui18n/tridpars.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tridpars.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tridpars.cpp
+  source_name_part = tridpars
+build v8_snapshot/obj/third_party/icu/icui18n/tzfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tzfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tzfmt.cpp
+  source_name_part = tzfmt
+build v8_snapshot/obj/third_party/icu/icui18n/tzgnames.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tzgnames.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tzgnames.cpp
+  source_name_part = tzgnames
+build v8_snapshot/obj/third_party/icu/icui18n/tznames.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tznames.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tznames.cpp
+  source_name_part = tznames
+build v8_snapshot/obj/third_party/icu/icui18n/tznames_impl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tznames_impl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tznames_impl.cpp
+  source_name_part = tznames_impl
+build v8_snapshot/obj/third_party/icu/icui18n/tzrule.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tzrule.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tzrule.cpp
+  source_name_part = tzrule
+build v8_snapshot/obj/third_party/icu/icui18n/tztrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tztrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tztrans.cpp
+  source_name_part = tztrans
+build v8_snapshot/obj/third_party/icu/icui18n/ucal.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucal.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucal.cpp
+  source_name_part = ucal
+build v8_snapshot/obj/third_party/icu/icui18n/ucln_in.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucln_in.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucln_in.cpp
+  source_name_part = ucln_in
+build v8_snapshot/obj/third_party/icu/icui18n/ucol.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucol.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucol.cpp
+  source_name_part = ucol
+build v8_snapshot/obj/third_party/icu/icui18n/ucoleitr.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucoleitr.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucoleitr.cpp
+  source_name_part = ucoleitr
+build v8_snapshot/obj/third_party/icu/icui18n/ucol_res.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucol_res.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucol_res.cpp
+  source_name_part = ucol_res
+build v8_snapshot/obj/third_party/icu/icui18n/ucol_sit.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucol_sit.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucol_sit.cpp
+  source_name_part = ucol_sit
+build v8_snapshot/obj/third_party/icu/icui18n/ucsdet.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucsdet.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucsdet.cpp
+  source_name_part = ucsdet
+build v8_snapshot/obj/third_party/icu/icui18n/udat.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/udat.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = udat.cpp
+  source_name_part = udat
+build v8_snapshot/obj/third_party/icu/icui18n/udateintervalformat.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/udateintervalformat.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = udateintervalformat.cpp
+  source_name_part = udateintervalformat
+build v8_snapshot/obj/third_party/icu/icui18n/udatpg.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/udatpg.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = udatpg.cpp
+  source_name_part = udatpg
+build v8_snapshot/obj/third_party/icu/icui18n/ufieldpositer.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ufieldpositer.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ufieldpositer.cpp
+  source_name_part = ufieldpositer
+build v8_snapshot/obj/third_party/icu/icui18n/uitercollationiterator.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uitercollationiterator.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uitercollationiterator.cpp
+  source_name_part = uitercollationiterator
+build v8_snapshot/obj/third_party/icu/icui18n/ulistformatter.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ulistformatter.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ulistformatter.cpp
+  source_name_part = ulistformatter
+build v8_snapshot/obj/third_party/icu/icui18n/ulocdata.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ulocdata.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ulocdata.cpp
+  source_name_part = ulocdata
+build v8_snapshot/obj/third_party/icu/icui18n/umsg.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/umsg.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = umsg.cpp
+  source_name_part = umsg
+build v8_snapshot/obj/third_party/icu/icui18n/unesctrn.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/unesctrn.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = unesctrn.cpp
+  source_name_part = unesctrn
+build v8_snapshot/obj/third_party/icu/icui18n/uni2name.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uni2name.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uni2name.cpp
+  source_name_part = uni2name
+build v8_snapshot/obj/third_party/icu/icui18n/units_complexconverter.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/units_complexconverter.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = units_complexconverter.cpp
+  source_name_part = units_complexconverter
+build v8_snapshot/obj/third_party/icu/icui18n/units_converter.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/units_converter.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = units_converter.cpp
+  source_name_part = units_converter
+build v8_snapshot/obj/third_party/icu/icui18n/units_data.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/units_data.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = units_data.cpp
+  source_name_part = units_data
+build v8_snapshot/obj/third_party/icu/icui18n/units_router.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/units_router.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = units_router.cpp
+  source_name_part = units_router
+build v8_snapshot/obj/third_party/icu/icui18n/unum.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/unum.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = unum.cpp
+  source_name_part = unum
+build v8_snapshot/obj/third_party/icu/icui18n/unumsys.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/unumsys.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = unumsys.cpp
+  source_name_part = unumsys
+build v8_snapshot/obj/third_party/icu/icui18n/upluralrules.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/upluralrules.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = upluralrules.cpp
+  source_name_part = upluralrules
+build v8_snapshot/obj/third_party/icu/icui18n/uregexc.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uregexc.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uregexc.cpp
+  source_name_part = uregexc
+build v8_snapshot/obj/third_party/icu/icui18n/uregex.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uregex.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uregex.cpp
+  source_name_part = uregex
+build v8_snapshot/obj/third_party/icu/icui18n/uregion.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uregion.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uregion.cpp
+  source_name_part = uregion
+build v8_snapshot/obj/third_party/icu/icui18n/usearch.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/usearch.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = usearch.cpp
+  source_name_part = usearch
+build v8_snapshot/obj/third_party/icu/icui18n/uspoof_build.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uspoof_build.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uspoof_build.cpp
+  source_name_part = uspoof_build
+build v8_snapshot/obj/third_party/icu/icui18n/uspoof_conf.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uspoof_conf.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uspoof_conf.cpp
+  source_name_part = uspoof_conf
+build v8_snapshot/obj/third_party/icu/icui18n/uspoof.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uspoof.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uspoof.cpp
+  source_name_part = uspoof
+build v8_snapshot/obj/third_party/icu/icui18n/uspoof_impl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uspoof_impl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uspoof_impl.cpp
+  source_name_part = uspoof_impl
+build v8_snapshot/obj/third_party/icu/icui18n/utf16collationiterator.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/utf16collationiterator.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = utf16collationiterator.cpp
+  source_name_part = utf16collationiterator
+build v8_snapshot/obj/third_party/icu/icui18n/utf8collationiterator.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/utf8collationiterator.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = utf8collationiterator.cpp
+  source_name_part = utf8collationiterator
+build v8_snapshot/obj/third_party/icu/icui18n/utmscale.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/utmscale.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = utmscale.cpp
+  source_name_part = utmscale
+build v8_snapshot/obj/third_party/icu/icui18n/utrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/utrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = utrans.cpp
+  source_name_part = utrans
+build v8_snapshot/obj/third_party/icu/icui18n/vtzone.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/vtzone.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = vtzone.cpp
+  source_name_part = vtzone
+build v8_snapshot/obj/third_party/icu/icui18n/vzone.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/vzone.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = vzone.cpp
+  source_name_part = vzone
+build v8_snapshot/obj/third_party/icu/icui18n/windtfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/windtfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = windtfmt.cpp
+  source_name_part = windtfmt
+build v8_snapshot/obj/third_party/icu/icui18n/winnmfmt.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/winnmfmt.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = winnmfmt.cpp
+  source_name_part = winnmfmt
+build v8_snapshot/obj/third_party/icu/icui18n/wintzimpl.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/wintzimpl.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = wintzimpl.cpp
+  source_name_part = wintzimpl
+build v8_snapshot/obj/third_party/icu/icui18n/zonemeta.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/zonemeta.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = zonemeta.cpp
+  source_name_part = zonemeta
+build v8_snapshot/obj/third_party/icu/icui18n/zrule.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/zrule.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = zrule.cpp
+  source_name_part = zrule
+build v8_snapshot/obj/third_party/icu/icui18n/ztrans.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ztrans.cpp || v8_snapshot/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ztrans.cpp
+  source_name_part = ztrans
+
+build v8_snapshot/obj/third_party/icu/libicui18n.a: v8_snapshot_alink v8_snapshot/obj/third_party/icu/icui18n/alphaindex.o v8_snapshot/obj/third_party/icu/icui18n/anytrans.o v8_snapshot/obj/third_party/icu/icui18n/astro.o v8_snapshot/obj/third_party/icu/icui18n/basictz.o v8_snapshot/obj/third_party/icu/icui18n/bocsu.o v8_snapshot/obj/third_party/icu/icui18n/brktrans.o v8_snapshot/obj/third_party/icu/icui18n/buddhcal.o v8_snapshot/obj/third_party/icu/icui18n/calendar.o v8_snapshot/obj/third_party/icu/icui18n/casetrn.o v8_snapshot/obj/third_party/icu/icui18n/cecal.o v8_snapshot/obj/third_party/icu/icui18n/chnsecal.o v8_snapshot/obj/third_party/icu/icui18n/choicfmt.o v8_snapshot/obj/third_party/icu/icui18n/coleitr.o v8_snapshot/obj/third_party/icu/icui18n/collationbuilder.o v8_snapshot/obj/third_party/icu/icui18n/collationcompare.o v8_snapshot/obj/third_party/icu/icui18n/collation.o v8_snapshot/obj/third_party/icu/icui18n/collationdatabuilder.o v8_snapshot/obj/third_party/icu/icui18n/collationdata.o v8_snapshot/obj/third_party/icu/icui18n/collationdatareader.o v8_snapshot/obj/third_party/icu/icui18n/collationdatawriter.o v8_snapshot/obj/third_party/icu/icui18n/collationfastlatinbuilder.o v8_snapshot/obj/third_party/icu/icui18n/collationfastlatin.o v8_snapshot/obj/third_party/icu/icui18n/collationfcd.o v8_snapshot/obj/third_party/icu/icui18n/collationiterator.o v8_snapshot/obj/third_party/icu/icui18n/collationkeys.o v8_snapshot/obj/third_party/icu/icui18n/collationroot.o v8_snapshot/obj/third_party/icu/icui18n/collationrootelements.o v8_snapshot/obj/third_party/icu/icui18n/collationruleparser.o v8_snapshot/obj/third_party/icu/icui18n/collationsets.o v8_snapshot/obj/third_party/icu/icui18n/collationsettings.o v8_snapshot/obj/third_party/icu/icui18n/collationtailoring.o v8_snapshot/obj/third_party/icu/icui18n/collationweights.o v8_snapshot/obj/third_party/icu/icui18n/coll.o v8_snapshot/obj/third_party/icu/icui18n/compactdecimalformat.o v8_snapshot/obj/third_party/icu/icui18n/coptccal.o v8_snapshot/obj/third_party/icu/icui18n/cpdtrans.o v8_snapshot/obj/third_party/icu/icui18n/csdetect.o v8_snapshot/obj/third_party/icu/icui18n/csmatch.o v8_snapshot/obj/third_party/icu/icui18n/csr2022.o v8_snapshot/obj/third_party/icu/icui18n/csrecog.o v8_snapshot/obj/third_party/icu/icui18n/csrmbcs.o v8_snapshot/obj/third_party/icu/icui18n/csrsbcs.o v8_snapshot/obj/third_party/icu/icui18n/csrucode.o v8_snapshot/obj/third_party/icu/icui18n/csrutf8.o v8_snapshot/obj/third_party/icu/icui18n/curramt.o v8_snapshot/obj/third_party/icu/icui18n/currfmt.o v8_snapshot/obj/third_party/icu/icui18n/currpinf.o v8_snapshot/obj/third_party/icu/icui18n/currunit.o v8_snapshot/obj/third_party/icu/icui18n/dangical.o v8_snapshot/obj/third_party/icu/icui18n/datefmt.o v8_snapshot/obj/third_party/icu/icui18n/dayperiodrules.o v8_snapshot/obj/third_party/icu/icui18n/dcfmtsym.o v8_snapshot/obj/third_party/icu/icui18n/decContext.o v8_snapshot/obj/third_party/icu/icui18n/decimfmt.o v8_snapshot/obj/third_party/icu/icui18n/decNumber.o v8_snapshot/obj/third_party/icu/icui18n/displayoptions.o v8_snapshot/obj/third_party/icu/icui18n/double-conversion-bignum.o v8_snapshot/obj/third_party/icu/icui18n/double-conversion-bignum-dtoa.o v8_snapshot/obj/third_party/icu/icui18n/double-conversion-cached-powers.o v8_snapshot/obj/third_party/icu/icui18n/double-conversion-double-to-string.o v8_snapshot/obj/third_party/icu/icui18n/double-conversion-fast-dtoa.o v8_snapshot/obj/third_party/icu/icui18n/double-conversion-string-to-double.o v8_snapshot/obj/third_party/icu/icui18n/double-conversion-strtod.o v8_snapshot/obj/third_party/icu/icui18n/dtfmtsym.o v8_snapshot/obj/third_party/icu/icui18n/dtitvfmt.o v8_snapshot/obj/third_party/icu/icui18n/dtitvinf.o v8_snapshot/obj/third_party/icu/icui18n/dtptngen.o v8_snapshot/obj/third_party/icu/icui18n/dtrule.o v8_snapshot/obj/third_party/icu/icui18n/erarules.o v8_snapshot/obj/third_party/icu/icui18n/esctrn.o v8_snapshot/obj/third_party/icu/icui18n/ethpccal.o v8_snapshot/obj/third_party/icu/icui18n/fmtable_cnv.o v8_snapshot/obj/third_party/icu/icui18n/fmtable.o v8_snapshot/obj/third_party/icu/icui18n/format.o v8_snapshot/obj/third_party/icu/icui18n/formatted_string_builder.o v8_snapshot/obj/third_party/icu/icui18n/formattedval_iterimpl.o v8_snapshot/obj/third_party/icu/icui18n/formattedval_sbimpl.o v8_snapshot/obj/third_party/icu/icui18n/formattedvalue.o v8_snapshot/obj/third_party/icu/icui18n/fphdlimp.o v8_snapshot/obj/third_party/icu/icui18n/fpositer.o v8_snapshot/obj/third_party/icu/icui18n/funcrepl.o v8_snapshot/obj/third_party/icu/icui18n/gender.o v8_snapshot/obj/third_party/icu/icui18n/gregocal.o v8_snapshot/obj/third_party/icu/icui18n/gregoimp.o v8_snapshot/obj/third_party/icu/icui18n/hebrwcal.o v8_snapshot/obj/third_party/icu/icui18n/indiancal.o v8_snapshot/obj/third_party/icu/icui18n/inputext.o v8_snapshot/obj/third_party/icu/icui18n/islamcal.o v8_snapshot/obj/third_party/icu/icui18n/iso8601cal.o v8_snapshot/obj/third_party/icu/icui18n/japancal.o v8_snapshot/obj/third_party/icu/icui18n/listformatter.o v8_snapshot/obj/third_party/icu/icui18n/measfmt.o v8_snapshot/obj/third_party/icu/icui18n/measunit.o v8_snapshot/obj/third_party/icu/icui18n/measunit_extra.o v8_snapshot/obj/third_party/icu/icui18n/measure.o v8_snapshot/obj/third_party/icu/icui18n/msgfmt.o v8_snapshot/obj/third_party/icu/icui18n/name2uni.o v8_snapshot/obj/third_party/icu/icui18n/nfrs.o v8_snapshot/obj/third_party/icu/icui18n/nfrule.o v8_snapshot/obj/third_party/icu/icui18n/nfsubs.o v8_snapshot/obj/third_party/icu/icui18n/nortrans.o v8_snapshot/obj/third_party/icu/icui18n/nultrans.o v8_snapshot/obj/third_party/icu/icui18n/number_affixutils.o v8_snapshot/obj/third_party/icu/icui18n/number_asformat.o v8_snapshot/obj/third_party/icu/icui18n/number_capi.o v8_snapshot/obj/third_party/icu/icui18n/number_compact.o v8_snapshot/obj/third_party/icu/icui18n/number_currencysymbols.o v8_snapshot/obj/third_party/icu/icui18n/number_decimalquantity.o v8_snapshot/obj/third_party/icu/icui18n/number_decimfmtprops.o v8_snapshot/obj/third_party/icu/icui18n/number_fluent.o v8_snapshot/obj/third_party/icu/icui18n/number_formatimpl.o v8_snapshot/obj/third_party/icu/icui18n/number_grouping.o v8_snapshot/obj/third_party/icu/icui18n/number_integerwidth.o v8_snapshot/obj/third_party/icu/icui18n/number_longnames.o v8_snapshot/obj/third_party/icu/icui18n/number_mapper.o v8_snapshot/obj/third_party/icu/icui18n/number_modifiers.o v8_snapshot/obj/third_party/icu/icui18n/number_multiplier.o v8_snapshot/obj/third_party/icu/icui18n/number_notation.o v8_snapshot/obj/third_party/icu/icui18n/number_output.o v8_snapshot/obj/third_party/icu/icui18n/number_padding.o v8_snapshot/obj/third_party/icu/icui18n/number_patternmodifier.o v8_snapshot/obj/third_party/icu/icui18n/number_patternstring.o v8_snapshot/obj/third_party/icu/icui18n/number_rounding.o v8_snapshot/obj/third_party/icu/icui18n/number_scientific.o v8_snapshot/obj/third_party/icu/icui18n/number_simple.o v8_snapshot/obj/third_party/icu/icui18n/number_skeletons.o v8_snapshot/obj/third_party/icu/icui18n/number_symbolswrapper.o v8_snapshot/obj/third_party/icu/icui18n/number_usageprefs.o v8_snapshot/obj/third_party/icu/icui18n/number_utils.o v8_snapshot/obj/third_party/icu/icui18n/numfmt.o v8_snapshot/obj/third_party/icu/icui18n/numparse_affixes.o v8_snapshot/obj/third_party/icu/icui18n/numparse_compositions.o v8_snapshot/obj/third_party/icu/icui18n/numparse_currency.o v8_snapshot/obj/third_party/icu/icui18n/numparse_decimal.o v8_snapshot/obj/third_party/icu/icui18n/numparse_impl.o v8_snapshot/obj/third_party/icu/icui18n/numparse_parsednumber.o v8_snapshot/obj/third_party/icu/icui18n/numparse_scientific.o v8_snapshot/obj/third_party/icu/icui18n/numparse_symbols.o v8_snapshot/obj/third_party/icu/icui18n/numparse_validators.o v8_snapshot/obj/third_party/icu/icui18n/numrange_capi.o v8_snapshot/obj/third_party/icu/icui18n/numrange_fluent.o v8_snapshot/obj/third_party/icu/icui18n/numrange_impl.o v8_snapshot/obj/third_party/icu/icui18n/numsys.o v8_snapshot/obj/third_party/icu/icui18n/olsontz.o v8_snapshot/obj/third_party/icu/icui18n/persncal.o v8_snapshot/obj/third_party/icu/icui18n/pluralranges.o v8_snapshot/obj/third_party/icu/icui18n/plurfmt.o v8_snapshot/obj/third_party/icu/icui18n/plurrule.o v8_snapshot/obj/third_party/icu/icui18n/quant.o v8_snapshot/obj/third_party/icu/icui18n/quantityformatter.o v8_snapshot/obj/third_party/icu/icui18n/rbnf.o v8_snapshot/obj/third_party/icu/icui18n/rbt.o v8_snapshot/obj/third_party/icu/icui18n/rbt_data.o v8_snapshot/obj/third_party/icu/icui18n/rbt_pars.o v8_snapshot/obj/third_party/icu/icui18n/rbt_rule.o v8_snapshot/obj/third_party/icu/icui18n/rbt_set.o v8_snapshot/obj/third_party/icu/icui18n/rbtz.o v8_snapshot/obj/third_party/icu/icui18n/regexcmp.o v8_snapshot/obj/third_party/icu/icui18n/regeximp.o v8_snapshot/obj/third_party/icu/icui18n/regexst.o v8_snapshot/obj/third_party/icu/icui18n/regextxt.o v8_snapshot/obj/third_party/icu/icui18n/region.o v8_snapshot/obj/third_party/icu/icui18n/reldatefmt.o v8_snapshot/obj/third_party/icu/icui18n/reldtfmt.o v8_snapshot/obj/third_party/icu/icui18n/rematch.o v8_snapshot/obj/third_party/icu/icui18n/remtrans.o v8_snapshot/obj/third_party/icu/icui18n/repattrn.o v8_snapshot/obj/third_party/icu/icui18n/rulebasedcollator.o v8_snapshot/obj/third_party/icu/icui18n/scientificnumberformatter.o v8_snapshot/obj/third_party/icu/icui18n/scriptset.o v8_snapshot/obj/third_party/icu/icui18n/search.o v8_snapshot/obj/third_party/icu/icui18n/selfmt.o v8_snapshot/obj/third_party/icu/icui18n/sharedbreakiterator.o v8_snapshot/obj/third_party/icu/icui18n/simpletz.o v8_snapshot/obj/third_party/icu/icui18n/smpdtfmt.o v8_snapshot/obj/third_party/icu/icui18n/smpdtfst.o v8_snapshot/obj/third_party/icu/icui18n/sortkey.o v8_snapshot/obj/third_party/icu/icui18n/standardplural.o v8_snapshot/obj/third_party/icu/icui18n/string_segment.o v8_snapshot/obj/third_party/icu/icui18n/strmatch.o v8_snapshot/obj/third_party/icu/icui18n/strrepl.o v8_snapshot/obj/third_party/icu/icui18n/stsearch.o v8_snapshot/obj/third_party/icu/icui18n/taiwncal.o v8_snapshot/obj/third_party/icu/icui18n/timezone.o v8_snapshot/obj/third_party/icu/icui18n/titletrn.o v8_snapshot/obj/third_party/icu/icui18n/tmunit.o v8_snapshot/obj/third_party/icu/icui18n/tmutamt.o v8_snapshot/obj/third_party/icu/icui18n/tmutfmt.o v8_snapshot/obj/third_party/icu/icui18n/tolowtrn.o v8_snapshot/obj/third_party/icu/icui18n/toupptrn.o v8_snapshot/obj/third_party/icu/icui18n/translit.o v8_snapshot/obj/third_party/icu/icui18n/transreg.o v8_snapshot/obj/third_party/icu/icui18n/tridpars.o v8_snapshot/obj/third_party/icu/icui18n/tzfmt.o v8_snapshot/obj/third_party/icu/icui18n/tzgnames.o v8_snapshot/obj/third_party/icu/icui18n/tznames.o v8_snapshot/obj/third_party/icu/icui18n/tznames_impl.o v8_snapshot/obj/third_party/icu/icui18n/tzrule.o v8_snapshot/obj/third_party/icu/icui18n/tztrans.o v8_snapshot/obj/third_party/icu/icui18n/ucal.o v8_snapshot/obj/third_party/icu/icui18n/ucln_in.o v8_snapshot/obj/third_party/icu/icui18n/ucol.o v8_snapshot/obj/third_party/icu/icui18n/ucoleitr.o v8_snapshot/obj/third_party/icu/icui18n/ucol_res.o v8_snapshot/obj/third_party/icu/icui18n/ucol_sit.o v8_snapshot/obj/third_party/icu/icui18n/ucsdet.o v8_snapshot/obj/third_party/icu/icui18n/udat.o v8_snapshot/obj/third_party/icu/icui18n/udateintervalformat.o v8_snapshot/obj/third_party/icu/icui18n/udatpg.o v8_snapshot/obj/third_party/icu/icui18n/ufieldpositer.o v8_snapshot/obj/third_party/icu/icui18n/uitercollationiterator.o v8_snapshot/obj/third_party/icu/icui18n/ulistformatter.o v8_snapshot/obj/third_party/icu/icui18n/ulocdata.o v8_snapshot/obj/third_party/icu/icui18n/umsg.o v8_snapshot/obj/third_party/icu/icui18n/unesctrn.o v8_snapshot/obj/third_party/icu/icui18n/uni2name.o v8_snapshot/obj/third_party/icu/icui18n/units_complexconverter.o v8_snapshot/obj/third_party/icu/icui18n/units_converter.o v8_snapshot/obj/third_party/icu/icui18n/units_data.o v8_snapshot/obj/third_party/icu/icui18n/units_router.o v8_snapshot/obj/third_party/icu/icui18n/unum.o v8_snapshot/obj/third_party/icu/icui18n/unumsys.o v8_snapshot/obj/third_party/icu/icui18n/upluralrules.o v8_snapshot/obj/third_party/icu/icui18n/uregexc.o v8_snapshot/obj/third_party/icu/icui18n/uregex.o v8_snapshot/obj/third_party/icu/icui18n/uregion.o v8_snapshot/obj/third_party/icu/icui18n/usearch.o v8_snapshot/obj/third_party/icu/icui18n/uspoof_build.o v8_snapshot/obj/third_party/icu/icui18n/uspoof_conf.o v8_snapshot/obj/third_party/icu/icui18n/uspoof.o v8_snapshot/obj/third_party/icu/icui18n/uspoof_impl.o v8_snapshot/obj/third_party/icu/icui18n/utf16collationiterator.o v8_snapshot/obj/third_party/icu/icui18n/utf8collationiterator.o v8_snapshot/obj/third_party/icu/icui18n/utmscale.o v8_snapshot/obj/third_party/icu/icui18n/utrans.o v8_snapshot/obj/third_party/icu/icui18n/vtzone.o v8_snapshot/obj/third_party/icu/icui18n/vzone.o v8_snapshot/obj/third_party/icu/icui18n/windtfmt.o v8_snapshot/obj/third_party/icu/icui18n/winnmfmt.o v8_snapshot/obj/third_party/icu/icui18n/wintzimpl.o v8_snapshot/obj/third_party/icu/icui18n/zonemeta.o v8_snapshot/obj/third_party/icu/icui18n/zrule.o v8_snapshot/obj/third_party/icu/icui18n/ztrans.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/x86_64-unknown-linux-gnu/libclang_rt.builtins.a || v8_snapshot/obj/third_party/icu/libicuuc.a v8_snapshot/obj/third_party/icu/icuuc_public.stamp
+  arflags = -T
+  output_extension = .a
+  output_dir = v8_snapshot/obj/third_party/icu

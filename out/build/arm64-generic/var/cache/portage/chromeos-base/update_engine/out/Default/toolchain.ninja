@@ -1,0 +1,73 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/update_engine/all.stamp
+build obj/update_engine/_delta_generator-install_config.stamp: stamp
+build obj/update_engine/_update_engine-install_config.stamp: stamp
+build obj/update_engine/_update_engine_client-install_config.stamp: stamp
+build obj/update_engine/all.stamp: stamp ./delta_generator ./update_engine ./update_engine_client
+subninja obj/update_engine/delta_generator.ninja
+subninja obj/update_engine/libpayload_consumer.ninja
+subninja obj/update_engine/libpayload_generator.ninja
+subninja obj/update_engine/libupdate_engine.ninja
+subninja obj/update_engine/libupdate_engine_client.ninja
+subninja obj/update_engine/update_engine.ninja
+rule __update_engine_update_engine-dbus-adaptor___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/dbus_bindings/${source_name_part}.h -service-config= ${in}
+  description = ACTION //update_engine:update_engine-dbus-adaptor(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/dbus_bindings/org.chromium.UpdateEngineInterface.h: __update_engine_update_engine-dbus-adaptor___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/update_engine/dbus_bindings/org.chromium.UpdateEngineInterface.dbus-xml | ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.UpdateEngineInterface
+
+build obj/update_engine/update_engine-dbus-adaptor.stamp: stamp gen/include/dbus_bindings/org.chromium.UpdateEngineInterface.h
+rule __update_engine_update_engine-dbus-kiosk-app-client___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/kiosk-app/dbus-proxies.h -mock=/build/arm64-generic/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/kiosk-app/dbus-proxy-mocks.h ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/update_engine/dbus_bindings/org.chromium.KioskAppService.dbus-xml
+  description = ACTION //update_engine:update_engine-dbus-kiosk-app-client(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/kiosk-app/dbus-proxies.h gen/include/kiosk-app/dbus-proxy-mocks.h: __update_engine_update_engine-dbus-kiosk-app-client___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/update_engine/dbus_bindings/org.chromium.KioskAppService.dbus-xml
+
+build obj/update_engine/update_engine-dbus-kiosk-app-client.stamp: stamp gen/include/kiosk-app/dbus-proxies.h gen/include/kiosk-app/dbus-proxy-mocks.h
+subninja obj/update_engine/update_engine_client.ninja
+subninja obj/update_engine/update_metadata-protos.ninja
+rule __update_engine_update_metadata-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/common-mk/file_generator_wrapper.py protoc update_metadata.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/update_engine --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/update_engine/out/Default/gen/include/update_engine
+  description = ACTION //update_engine:update_metadata-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/update_engine/update_metadata.pb.cc gen/include/update_engine/update_metadata.pb.h: __update_engine_update_metadata-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2/update_engine/update_metadata.proto
+
+build obj/update_engine/update_metadata-protos_gen.stamp: stamp gen/include/update_engine/update_metadata.pb.cc gen/include/update_engine/update_metadata.pb.h

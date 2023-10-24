@@ -1,0 +1,9 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../home/chrome-bot/chrome_root/src/content/test/echo.test-mojom",
+    "../../../../../../../../../../home/chrome-bot/chrome_root/src/content/test/sandbox_status.test-mojom"
+  ]
+}

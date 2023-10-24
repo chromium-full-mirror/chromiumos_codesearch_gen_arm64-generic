@@ -1,0 +1,72 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../libutf-9999/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE
+cflags_c = -std=gnu17 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libutf
+
+build obj/libutf/libutf.rune.o: cc ../../../libutf-9999/platform2/libutf/rune.c
+  source_file_part = rune.c
+  source_name_part = rune
+build obj/libutf/libutf.runestrcat.o: cc ../../../libutf-9999/platform2/libutf/runestrcat.c
+  source_file_part = runestrcat.c
+  source_name_part = runestrcat
+build obj/libutf/libutf.runestrchr.o: cc ../../../libutf-9999/platform2/libutf/runestrchr.c
+  source_file_part = runestrchr.c
+  source_name_part = runestrchr
+build obj/libutf/libutf.runestrcmp.o: cc ../../../libutf-9999/platform2/libutf/runestrcmp.c
+  source_file_part = runestrcmp.c
+  source_name_part = runestrcmp
+build obj/libutf/libutf.runestrcpy.o: cc ../../../libutf-9999/platform2/libutf/runestrcpy.c
+  source_file_part = runestrcpy.c
+  source_name_part = runestrcpy
+build obj/libutf/libutf.runestrdup.o: cc ../../../libutf-9999/platform2/libutf/runestrdup.c
+  source_file_part = runestrdup.c
+  source_name_part = runestrdup
+build obj/libutf/libutf.runestrecpy.o: cc ../../../libutf-9999/platform2/libutf/runestrecpy.c
+  source_file_part = runestrecpy.c
+  source_name_part = runestrecpy
+build obj/libutf/libutf.runestrlen.o: cc ../../../libutf-9999/platform2/libutf/runestrlen.c
+  source_file_part = runestrlen.c
+  source_name_part = runestrlen
+build obj/libutf/libutf.runestrncat.o: cc ../../../libutf-9999/platform2/libutf/runestrncat.c
+  source_file_part = runestrncat.c
+  source_name_part = runestrncat
+build obj/libutf/libutf.runestrncmp.o: cc ../../../libutf-9999/platform2/libutf/runestrncmp.c
+  source_file_part = runestrncmp.c
+  source_name_part = runestrncmp
+build obj/libutf/libutf.runestrncpy.o: cc ../../../libutf-9999/platform2/libutf/runestrncpy.c
+  source_file_part = runestrncpy.c
+  source_name_part = runestrncpy
+build obj/libutf/libutf.runestrrchr.o: cc ../../../libutf-9999/platform2/libutf/runestrrchr.c
+  source_file_part = runestrrchr.c
+  source_name_part = runestrrchr
+build obj/libutf/libutf.runestrstr.o: cc ../../../libutf-9999/platform2/libutf/runestrstr.c
+  source_file_part = runestrstr.c
+  source_name_part = runestrstr
+build obj/libutf/libutf.runetype.o: cc ../../../libutf-9999/platform2/libutf/runetype.c
+  source_file_part = runetype.c
+  source_name_part = runetype
+build obj/libutf/libutf.utfecpy.o: cc ../../../libutf-9999/platform2/libutf/utfecpy.c
+  source_file_part = utfecpy.c
+  source_name_part = utfecpy
+build obj/libutf/libutf.utflen.o: cc ../../../libutf-9999/platform2/libutf/utflen.c
+  source_file_part = utflen.c
+  source_name_part = utflen
+build obj/libutf/libutf.utfnlen.o: cc ../../../libutf-9999/platform2/libutf/utfnlen.c
+  source_file_part = utfnlen.c
+  source_name_part = utfnlen
+build obj/libutf/libutf.utfrrune.o: cc ../../../libutf-9999/platform2/libutf/utfrrune.c
+  source_file_part = utfrrune.c
+  source_name_part = utfrrune
+build obj/libutf/libutf.utfrune.o: cc ../../../libutf-9999/platform2/libutf/utfrune.c
+  source_file_part = utfrune.c
+  source_name_part = utfrune
+build obj/libutf/libutf.utfutf.o: cc ../../../libutf-9999/platform2/libutf/utfutf.c
+  source_file_part = utfutf.c
+  source_name_part = utfutf
+
+build ./libutf.a: alink obj/libutf/libutf.rune.o obj/libutf/libutf.runestrcat.o obj/libutf/libutf.runestrchr.o obj/libutf/libutf.runestrcmp.o obj/libutf/libutf.runestrcpy.o obj/libutf/libutf.runestrdup.o obj/libutf/libutf.runestrecpy.o obj/libutf/libutf.runestrlen.o obj/libutf/libutf.runestrncat.o obj/libutf/libutf.runestrncmp.o obj/libutf/libutf.runestrncpy.o obj/libutf/libutf.runestrrchr.o obj/libutf/libutf.runestrstr.o obj/libutf/libutf.runetype.o obj/libutf/libutf.utfecpy.o obj/libutf/libutf.utflen.o obj/libutf/libutf.utfnlen.o obj/libutf/libutf.utfrrune.o obj/libutf/libutf.utfrune.o obj/libutf/libutf.utfutf.o
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

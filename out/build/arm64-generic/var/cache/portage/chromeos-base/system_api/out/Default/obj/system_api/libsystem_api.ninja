@@ -1,0 +1,14 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include -Igen
+root_out_dir = .
+target_output_name = libsystem_api
+
+build obj/system_api/libsystem_api.inputdeps.stamp: stamp obj/system_api/system_api-attestation-protos_gen.stamp obj/system_api/system_api-biod-protos_gen.stamp obj/system_api/system_api-bootlockbox-protos_gen.stamp obj/system_api/system_api-chaps-protos_gen.stamp obj/system_api/system_api-cryptohome-protos_gen.stamp obj/system_api/system_api-libarc_attestation-protos_gen.stamp obj/system_api/system_api-patchpanel-protos_gen.stamp obj/system_api/system_api-tpm_manager-protos_gen.stamp
+
+build ./lib/libsystem_api.so: solink ./libsystem_api-attestation-protos.a ./libsystem_api-biod-protos.a ./libsystem_api-bootlockbox-protos.a ./libsystem_api-chaps-protos.a ./libsystem_api-cryptohome-protos.a ./libsystem_api-libarc_attestation-protos.a ./libsystem_api-patchpanel-protos.a ./libsystem_api-tpm_manager-protos.a || obj/system_api/_libsystem_api-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -L/build/arm64-generic/usr/lib64
+  libs = -lprotobuf-lite
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

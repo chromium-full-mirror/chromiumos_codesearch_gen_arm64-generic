@@ -1,0 +1,1 @@
+--flags ENABLE_EXTRACTORS=true ENABLE_MALDOCA=false

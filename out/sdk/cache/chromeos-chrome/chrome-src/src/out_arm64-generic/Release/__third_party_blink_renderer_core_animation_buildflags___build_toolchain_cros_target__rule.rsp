@@ -1,0 +1,1 @@
+--flags BLINK_ANIMATION_USE_TIME_DELTA=false

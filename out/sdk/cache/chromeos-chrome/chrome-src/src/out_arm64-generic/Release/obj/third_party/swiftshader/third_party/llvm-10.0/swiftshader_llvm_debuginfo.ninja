@@ -1,0 +1,139 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/ARM -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/Mips -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/RISCV -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/IR -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/AArch64 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/ARM -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/Mips -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/PowerPC -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/RISCV -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/X86 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Transforms/InstCombine -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/linux/include -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wno-shadow -Os -Wno-attributes -Wno-bitwise-instead-of-logical -Wno-deprecated-declarations -Wno-enum-compare -Wno-header-hygiene -Wno-unused-function -Wno-unused-local-typedef -Wno-unused-private-field -Wno-unused-result -Wno-unused-variable
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = swiftshader_llvm_debuginfo
+target_out_dir = obj/third_party/swiftshader/third_party/llvm-10.0
+target_output_name = swiftshader_llvm_debuginfo
+
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CVTypeVisitor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/CVTypeVisitor.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = CVTypeVisitor.cpp
+  source_name_part = CVTypeVisitor
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CodeViewError.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/CodeViewError.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = CodeViewError.cpp
+  source_name_part = CodeViewError
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CodeViewRecordIO.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/CodeViewRecordIO.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = CodeViewRecordIO.cpp
+  source_name_part = CodeViewRecordIO
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/ContinuationRecordBuilder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/ContinuationRecordBuilder.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = ContinuationRecordBuilder.cpp
+  source_name_part = ContinuationRecordBuilder
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/EnumTables.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/EnumTables.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = EnumTables.cpp
+  source_name_part = EnumTables
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/GlobalTypeTableBuilder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/GlobalTypeTableBuilder.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = GlobalTypeTableBuilder.cpp
+  source_name_part = GlobalTypeTableBuilder
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/Line.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/Line.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Line.cpp
+  source_name_part = Line
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/RecordName.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/RecordName.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = RecordName.cpp
+  source_name_part = RecordName
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/RecordSerialization.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/RecordSerialization.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = RecordSerialization.cpp
+  source_name_part = RecordSerialization
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/SimpleTypeSerializer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/SimpleTypeSerializer.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = SimpleTypeSerializer.cpp
+  source_name_part = SimpleTypeSerializer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/SymbolRecordMapping.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/SymbolRecordMapping.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = SymbolRecordMapping.cpp
+  source_name_part = SymbolRecordMapping
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeHashing.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeHashing.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = TypeHashing.cpp
+  source_name_part = TypeHashing
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeIndex.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeIndex.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = TypeIndex.cpp
+  source_name_part = TypeIndex
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeIndexDiscovery.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeIndexDiscovery.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = TypeIndexDiscovery.cpp
+  source_name_part = TypeIndexDiscovery
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeRecordMapping.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeRecordMapping.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = TypeRecordMapping.cpp
+  source_name_part = TypeRecordMapping
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeTableCollection.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeTableCollection.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = TypeTableCollection.cpp
+  source_name_part = TypeTableCollection
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAbbreviationDeclaration.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFAbbreviationDeclaration.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFAbbreviationDeclaration.cpp
+  source_name_part = DWARFAbbreviationDeclaration
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAcceleratorTable.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFAcceleratorTable.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFAcceleratorTable.cpp
+  source_name_part = DWARFAcceleratorTable
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAddressRange.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFAddressRange.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFAddressRange.cpp
+  source_name_part = DWARFAddressRange
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFCompileUnit.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFCompileUnit.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFCompileUnit.cpp
+  source_name_part = DWARFCompileUnit
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFContext.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFContext.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFContext.cpp
+  source_name_part = DWARFContext
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDataExtractor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDataExtractor.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDataExtractor.cpp
+  source_name_part = DWARFDataExtractor
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAbbrev.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugAbbrev.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugAbbrev.cpp
+  source_name_part = DWARFDebugAbbrev
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAddr.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugAddr.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugAddr.cpp
+  source_name_part = DWARFDebugAddr
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugArangeSet.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugArangeSet.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugArangeSet.cpp
+  source_name_part = DWARFDebugArangeSet
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAranges.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugAranges.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugAranges.cpp
+  source_name_part = DWARFDebugAranges
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugFrame.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugFrame.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugFrame.cpp
+  source_name_part = DWARFDebugFrame
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugInfoEntry.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugInfoEntry.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugInfoEntry.cpp
+  source_name_part = DWARFDebugInfoEntry
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugLine.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugLine.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugLine.cpp
+  source_name_part = DWARFDebugLine
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugLoc.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugLoc.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugLoc.cpp
+  source_name_part = DWARFDebugLoc
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugMacro.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugMacro.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugMacro.cpp
+  source_name_part = DWARFDebugMacro
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugPubTable.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugPubTable.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugPubTable.cpp
+  source_name_part = DWARFDebugPubTable
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugRangeList.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugRangeList.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugRangeList.cpp
+  source_name_part = DWARFDebugRangeList
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugRnglists.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugRnglists.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDebugRnglists.cpp
+  source_name_part = DWARFDebugRnglists
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDie.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDie.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFDie.cpp
+  source_name_part = DWARFDie
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFExpression.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFExpression.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFExpression.cpp
+  source_name_part = DWARFExpression
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFFormValue.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFFormValue.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFFormValue.cpp
+  source_name_part = DWARFFormValue
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFGdbIndex.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFGdbIndex.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFGdbIndex.cpp
+  source_name_part = DWARFGdbIndex
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFListTable.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFListTable.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFListTable.cpp
+  source_name_part = DWARFListTable
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFTypeUnit.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFTypeUnit.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFTypeUnit.cpp
+  source_name_part = DWARFTypeUnit
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFUnit.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFUnit.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFUnit.cpp
+  source_name_part = DWARFUnit
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFUnitIndex.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFUnitIndex.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFUnitIndex.cpp
+  source_name_part = DWARFUnitIndex
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFVerifier.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFVerifier.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DWARFVerifier.cpp
+  source_name_part = DWARFVerifier
+
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo.stamp: stamp obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CVTypeVisitor.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CodeViewError.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CodeViewRecordIO.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/ContinuationRecordBuilder.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/EnumTables.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/GlobalTypeTableBuilder.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/Line.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/RecordName.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/RecordSerialization.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/SimpleTypeSerializer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/SymbolRecordMapping.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeHashing.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeIndex.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeIndexDiscovery.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeRecordMapping.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeTableCollection.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAbbreviationDeclaration.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAcceleratorTable.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAddressRange.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFCompileUnit.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFContext.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDataExtractor.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAbbrev.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAddr.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugArangeSet.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAranges.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugFrame.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugInfoEntry.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugLine.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugLoc.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugMacro.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugPubTable.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugRangeList.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugRnglists.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDie.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFExpression.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFFormValue.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFGdbIndex.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFListTable.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFTypeUnit.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFUnit.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFUnitIndex.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFVerifier.o

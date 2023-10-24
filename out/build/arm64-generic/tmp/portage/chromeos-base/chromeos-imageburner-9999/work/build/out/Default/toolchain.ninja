@@ -1,0 +1,54 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/image-burner/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/image-burner/_image_burner-install_config.stamp: stamp
+build obj/image-burner/all.stamp: stamp obj/image-burner/image-burner-adaptors.stamp ./image_burner obj/image-burner/install_init.stamp obj/image-burner/install_system_services.stamp obj/image-burner/install_systemd.stamp ./libimage-burner.a ./unittest_runner
+rule __image-burner_image-burner-adaptors___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/tmp/portage/chromeos-base/chromeos-imageburner-9999/work/build/out/Default/gen/include/image-burner/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/image-burner/dbus_bindings/dbus-service-config.json ${in}
+  description = ACTION //image-burner:image-burner-adaptors(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/image-burner/dbus_adaptors/org.chromium.ImageBurnerInterface.h: __image-burner_image-burner-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../../mnt/host/source/src/platform2/image-burner/dbus_bindings/org.chromium.ImageBurnerInterface.xml | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.ImageBurnerInterface
+
+build obj/image-burner/image-burner-adaptors.stamp: stamp gen/include/image-burner/dbus_adaptors/org.chromium.ImageBurnerInterface.h
+subninja obj/image-burner/image_burner.ninja
+build obj/image-burner/install_init.stamp: stamp
+build obj/image-burner/install_system_services.stamp: stamp
+build obj/image-burner/install_systemd.stamp: stamp
+subninja obj/image-burner/libimage-burner.ninja
+subninja obj/image-burner/unittest_runner.ninja

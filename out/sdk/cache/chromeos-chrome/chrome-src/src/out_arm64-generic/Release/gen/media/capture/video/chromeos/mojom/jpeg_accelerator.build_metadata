@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../../../components/chromeos_camera/common/common.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/media/capture/video/chromeos/mojom/jpeg_accelerator.mojom"
+  ]
+}

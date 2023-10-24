@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/features/mojo/test/test_api.test-mojom"
+  ]
+}

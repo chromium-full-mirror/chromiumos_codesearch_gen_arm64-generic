@@ -158,7 +158,8 @@ struct GetDevicesResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetDevicesResponseDefaultTypeInternal _GetDevicesResponse_default_instance_;
 PROTOBUF_CONSTEXPR ArcVmStartupResponse::ArcVmStartupResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.devices_)*/{}
+    /*decltype(_impl_.tap_device_ifnames_)*/{}
+  , /*decltype(_impl_.arc0_ipv4_address_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ArcVmStartupResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ArcVmStartupResponseDefaultTypeInternal()
@@ -4229,10 +4230,19 @@ ArcVmStartupResponse::ArcVmStartupResponse(const ArcVmStartupResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   ArcVmStartupResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.devices_){from._impl_.devices_}
+      decltype(_impl_.tap_device_ifnames_){from._impl_.tap_device_ifnames_}
+    , decltype(_impl_.arc0_ipv4_address_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.arc0_ipv4_address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.arc0_ipv4_address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_arc0_ipv4_address().empty()) {
+    _this->_impl_.arc0_ipv4_address_.Set(from._internal_arc0_ipv4_address(), 
+      _this->GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:patchpanel.ArcVmStartupResponse)
 }
 
@@ -4241,9 +4251,14 @@ inline void ArcVmStartupResponse::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.devices_){arena}
+      decltype(_impl_.tap_device_ifnames_){arena}
+    , decltype(_impl_.arc0_ipv4_address_){}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.arc0_ipv4_address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.arc0_ipv4_address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ArcVmStartupResponse::~ArcVmStartupResponse() {
@@ -4257,7 +4272,8 @@ ArcVmStartupResponse::~ArcVmStartupResponse() {
 
 inline void ArcVmStartupResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.devices_.~RepeatedPtrField();
+  _impl_.tap_device_ifnames_.~RepeatedPtrField();
+  _impl_.arc0_ipv4_address_.Destroy();
 }
 
 void ArcVmStartupResponse::SetCachedSize(int size) const {
@@ -4270,7 +4286,8 @@ void ArcVmStartupResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.devices_.Clear();
+  _impl_.tap_device_ifnames_.Clear();
+  _impl_.arc0_ipv4_address_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4280,16 +4297,27 @@ const char* ArcVmStartupResponse::_InternalParse(const char* ptr, ::_pbi::ParseC
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated .patchpanel.NetworkDevice devices = 1;
+      // bytes arc0_ipv4_address = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_arc0_ipv4_address();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string tap_device_ifnames = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_devices(), ptr);
+            auto str = _internal_add_tap_device_ifnames();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -4322,12 +4350,20 @@ uint8_t* ArcVmStartupResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .patchpanel.NetworkDevice devices = 1;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_devices_size()); i < n; i++) {
-    const auto& repfield = this->_internal_devices(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  // bytes arc0_ipv4_address = 1;
+  if (!this->_internal_arc0_ipv4_address().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_arc0_ipv4_address(), target);
+  }
+
+  // repeated string tap_device_ifnames = 2;
+  for (int i = 0, n = this->_internal_tap_device_ifnames_size(); i < n; i++) {
+    const auto& s = this->_internal_tap_device_ifnames(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.ArcVmStartupResponse.tap_device_ifnames");
+    target = stream->WriteString(2, s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4346,11 +4382,19 @@ size_t ArcVmStartupResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .patchpanel.NetworkDevice devices = 1;
-  total_size += 1UL * this->_internal_devices_size();
-  for (const auto& msg : this->_impl_.devices_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // repeated string tap_device_ifnames = 2;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.tap_device_ifnames_.size());
+  for (int i = 0, n = _impl_.tap_device_ifnames_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      _impl_.tap_device_ifnames_.Get(i));
+  }
+
+  // bytes arc0_ipv4_address = 1;
+  if (!this->_internal_arc0_ipv4_address().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_arc0_ipv4_address());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4374,7 +4418,10 @@ void ArcVmStartupResponse::MergeFrom(const ArcVmStartupResponse& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.devices_.MergeFrom(from._impl_.devices_);
+  _this->_impl_.tap_device_ifnames_.MergeFrom(from._impl_.tap_device_ifnames_);
+  if (!from._internal_arc0_ipv4_address().empty()) {
+    _this->_internal_set_arc0_ipv4_address(from._internal_arc0_ipv4_address());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -4391,8 +4438,14 @@ bool ArcVmStartupResponse::IsInitialized() const {
 
 void ArcVmStartupResponse::InternalSwap(ArcVmStartupResponse* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.devices_.InternalSwap(&other->_impl_.devices_);
+  _impl_.tap_device_ifnames_.InternalSwap(&other->_impl_.tap_device_ifnames_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.arc0_ipv4_address_, lhs_arena,
+      &other->_impl_.arc0_ipv4_address_, rhs_arena
+  );
 }
 
 std::string ArcVmStartupResponse::GetTypeName() const {

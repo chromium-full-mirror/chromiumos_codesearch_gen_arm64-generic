@@ -1,0 +1,82 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_GLIB=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DWEBP_NEAR_LOSSLESS=0 -DWEBP_DISABLE_STATS -DWEBP_REDUCE_SIZE -DWEBP_REDUCE_CSP -DWEBP_EXTERN=extern
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Ihost/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src
+cflags = -gline-tables-only -fdebug-info-for-profiling -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fstack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -m64 -msse3 -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=pattern -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror
+cflags_c = -std=c11
+label_name = libwebp_enc
+target_out_dir = host/obj/third_party/libwebp
+target_output_name = libwebp_enc
+
+build host/obj/third_party/libwebp/libwebp_enc/alpha_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/alpha_enc.c
+  source_file_part = alpha_enc.c
+  source_name_part = alpha_enc
+build host/obj/third_party/libwebp/libwebp_enc/analysis_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/analysis_enc.c
+  source_file_part = analysis_enc.c
+  source_name_part = analysis_enc
+build host/obj/third_party/libwebp/libwebp_enc/backward_references_cost_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/backward_references_cost_enc.c
+  source_file_part = backward_references_cost_enc.c
+  source_name_part = backward_references_cost_enc
+build host/obj/third_party/libwebp/libwebp_enc/backward_references_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/backward_references_enc.c
+  source_file_part = backward_references_enc.c
+  source_name_part = backward_references_enc
+build host/obj/third_party/libwebp/libwebp_enc/config_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/config_enc.c
+  source_file_part = config_enc.c
+  source_name_part = config_enc
+build host/obj/third_party/libwebp/libwebp_enc/cost_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/cost_enc.c
+  source_file_part = cost_enc.c
+  source_name_part = cost_enc
+build host/obj/third_party/libwebp/libwebp_enc/filter_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/filter_enc.c
+  source_file_part = filter_enc.c
+  source_name_part = filter_enc
+build host/obj/third_party/libwebp/libwebp_enc/frame_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/frame_enc.c
+  source_file_part = frame_enc.c
+  source_name_part = frame_enc
+build host/obj/third_party/libwebp/libwebp_enc/histogram_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/histogram_enc.c
+  source_file_part = histogram_enc.c
+  source_name_part = histogram_enc
+build host/obj/third_party/libwebp/libwebp_enc/iterator_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/iterator_enc.c
+  source_file_part = iterator_enc.c
+  source_name_part = iterator_enc
+build host/obj/third_party/libwebp/libwebp_enc/near_lossless_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/near_lossless_enc.c
+  source_file_part = near_lossless_enc.c
+  source_name_part = near_lossless_enc
+build host/obj/third_party/libwebp/libwebp_enc/picture_csp_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/picture_csp_enc.c
+  source_file_part = picture_csp_enc.c
+  source_name_part = picture_csp_enc
+build host/obj/third_party/libwebp/libwebp_enc/picture_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/picture_enc.c
+  source_file_part = picture_enc.c
+  source_name_part = picture_enc
+build host/obj/third_party/libwebp/libwebp_enc/picture_psnr_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/picture_psnr_enc.c
+  source_file_part = picture_psnr_enc.c
+  source_name_part = picture_psnr_enc
+build host/obj/third_party/libwebp/libwebp_enc/picture_rescale_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/picture_rescale_enc.c
+  source_file_part = picture_rescale_enc.c
+  source_name_part = picture_rescale_enc
+build host/obj/third_party/libwebp/libwebp_enc/picture_tools_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/picture_tools_enc.c
+  source_file_part = picture_tools_enc.c
+  source_name_part = picture_tools_enc
+build host/obj/third_party/libwebp/libwebp_enc/predictor_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/predictor_enc.c
+  source_file_part = predictor_enc.c
+  source_name_part = predictor_enc
+build host/obj/third_party/libwebp/libwebp_enc/quant_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/quant_enc.c
+  source_file_part = quant_enc.c
+  source_name_part = quant_enc
+build host/obj/third_party/libwebp/libwebp_enc/syntax_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/syntax_enc.c
+  source_file_part = syntax_enc.c
+  source_name_part = syntax_enc
+build host/obj/third_party/libwebp/libwebp_enc/token_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/token_enc.c
+  source_file_part = token_enc.c
+  source_name_part = token_enc
+build host/obj/third_party/libwebp/libwebp_enc/tree_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/tree_enc.c
+  source_file_part = tree_enc.c
+  source_name_part = tree_enc
+build host/obj/third_party/libwebp/libwebp_enc/vp8l_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/vp8l_enc.c
+  source_file_part = vp8l_enc.c
+  source_name_part = vp8l_enc
+build host/obj/third_party/libwebp/libwebp_enc/webp_enc.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libwebp/src/src/enc/webp_enc.c
+  source_file_part = webp_enc.c
+  source_name_part = webp_enc
+
+build host/obj/third_party/libwebp/libwebp_enc.a: host_alink host/obj/third_party/libwebp/libwebp_enc/alpha_enc.o host/obj/third_party/libwebp/libwebp_enc/analysis_enc.o host/obj/third_party/libwebp/libwebp_enc/backward_references_cost_enc.o host/obj/third_party/libwebp/libwebp_enc/backward_references_enc.o host/obj/third_party/libwebp/libwebp_enc/config_enc.o host/obj/third_party/libwebp/libwebp_enc/cost_enc.o host/obj/third_party/libwebp/libwebp_enc/filter_enc.o host/obj/third_party/libwebp/libwebp_enc/frame_enc.o host/obj/third_party/libwebp/libwebp_enc/histogram_enc.o host/obj/third_party/libwebp/libwebp_enc/iterator_enc.o host/obj/third_party/libwebp/libwebp_enc/near_lossless_enc.o host/obj/third_party/libwebp/libwebp_enc/picture_csp_enc.o host/obj/third_party/libwebp/libwebp_enc/picture_enc.o host/obj/third_party/libwebp/libwebp_enc/picture_psnr_enc.o host/obj/third_party/libwebp/libwebp_enc/picture_rescale_enc.o host/obj/third_party/libwebp/libwebp_enc/picture_tools_enc.o host/obj/third_party/libwebp/libwebp_enc/predictor_enc.o host/obj/third_party/libwebp/libwebp_enc/quant_enc.o host/obj/third_party/libwebp/libwebp_enc/syntax_enc.o host/obj/third_party/libwebp/libwebp_enc/token_enc.o host/obj/third_party/libwebp/libwebp_enc/tree_enc.o host/obj/third_party/libwebp/libwebp_enc/vp8l_enc.o host/obj/third_party/libwebp/libwebp_enc/webp_enc.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/x86_64-unknown-linux-gnu/libclang_rt.builtins.a || host/obj/third_party/libwebp/libwebp_dec.a host/obj/third_party/libwebp/libwebp_dsp_headers.stamp host/obj/third_party/libwebp/libwebp_sharpyuv.a host/obj/third_party/libwebp/libwebp_utils.a host/obj/third_party/libwebp/libwebp_webp.stamp host/obj/third_party/libwebp/libwebp_dsp_cpu_c.stamp host/obj/third_party/libwebp/libwebp_sharpyuv_dsp.a host/obj/third_party/libwebp/libwebp_sharpyuv_sse2.a host/obj/third_party/libwebp/libwebp_sharpyuv_dsp_headers.stamp
+  arflags = -T
+  output_extension = .a
+  output_dir = host/obj/third_party/libwebp

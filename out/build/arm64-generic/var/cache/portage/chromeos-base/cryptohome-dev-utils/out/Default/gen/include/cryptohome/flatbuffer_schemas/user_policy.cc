@@ -22,7 +22,6 @@
 // --test_utils_header_include_path
 // cryptohome/flatbuffer_schemas/enumerations_test_utils.h
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome-dev-utils/out/Default/gen/bfbs/user_policy.bfbs
-// --filter_by_namespace cryptohome
 
 #include <stdint.h>
 #include <optional>

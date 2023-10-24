@@ -1,0 +1,26 @@
+defines = -DCOMPILER_GCC -DHTML5_MODE -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -D_LIBCPP_ENABLE_ASSERTIONS=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DNDEBUG -DNVALGRIND
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iirt_arm/gen -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/ced/src
+cflags = -gline-tables-only -fno-ident -fno-strict-aliasing -fcolor-diagnostics -fmerge-all-constants -U__STRICT_ANSI__ -integrated-as -fasynchronous-unwind-tables -fomit-frame-pointer -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -Os -ffunction-sections -fdata-sections -fomit-frame-pointer -g2 -gsplit-dwarf -Xclang -fuse-ctor-homing -fvisibility=hidden -Wno-unused-variable -Wno-c++11-narrowing -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Werror -Wno-unused-function
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -fvisibility-inlines-hidden
+label_name = ced
+root_out_dir = irt_arm
+target_out_dir = irt_arm/obj/third_party/ced
+target_output_name = libced
+
+build irt_arm/obj/third_party/ced/ced/compact_enc_det.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ced/src/compact_enc_det/compact_enc_det.cc || host/tls_edit
+  source_file_part = compact_enc_det.cc
+  source_name_part = compact_enc_det
+build irt_arm/obj/third_party/ced/ced/compact_enc_det_hint_code.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ced/src/compact_enc_det/compact_enc_det_hint_code.cc || host/tls_edit
+  source_file_part = compact_enc_det_hint_code.cc
+  source_name_part = compact_enc_det_hint_code
+build irt_arm/obj/third_party/ced/ced/encodings.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ced/src/util/encodings/encodings.cc || host/tls_edit
+  source_file_part = encodings.cc
+  source_name_part = encodings
+build irt_arm/obj/third_party/ced/ced/languages.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ced/src/util/languages/languages.cc || host/tls_edit
+  source_file_part = languages.cc
+  source_name_part = languages
+
+build irt_arm/obj/third_party/ced/libced.a: irt_arm_alink irt_arm/obj/third_party/ced/ced/compact_enc_det.o irt_arm/obj/third_party/ced/ced/compact_enc_det_hint_code.o irt_arm/obj/third_party/ced/ced/encodings.o irt_arm/obj/third_party/ced/ced/languages.o
+  arflags =
+  output_extension = .a
+  output_dir = irt_arm/obj/third_party/ced

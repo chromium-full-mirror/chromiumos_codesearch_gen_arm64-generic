@@ -1,0 +1,20 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -D_LIBCPP_ENABLE_ASSERTIONS=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DNDEBUG -DNVALGRIND -D_POSIX_C_SOURCE=199506 -D_XOPEN_SOURCE=600 -D_GNU_SOURCE=1 -D__STDC_LIMIT_MACROS=1 -DDYNAMIC_ANNOTATIONS_ENABLED=1 -DDYNAMIC_ANNOTATIONS_PREFIX=NACL_
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Itest_irt_arm/gen
+cflags = -gline-tables-only -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wshadow -Werror -fno-ident -fno-strict-aliasing -fcolor-diagnostics -fmerge-all-constants -U__STRICT_ANSI__ -integrated-as -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fomit-frame-pointer -g2 -gsplit-dwarf -Xclang -fuse-ctor-homing -fvisibility=hidden
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -fvisibility-inlines-hidden
+label_name = ppapi_crash_via_libcxx_assert_failure_nexe
+root_out_dir = test_irt_arm
+target_out_dir = test_irt_arm/obj/chrome/test/data/nacl
+target_output_name = ppapi_crash_via_libcxx_assert_failure_newlib_arm
+
+build test_irt_arm/obj/chrome/test/data/nacl/ppapi_crash_via_libcxx_assert_failure_nexe/ppapi_crash_via_libcxx_assert_failure.o: test_irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/nacl/crash/ppapi_crash_via_libcxx_assert_failure.cc
+  source_file_part = ppapi_crash_via_libcxx_assert_failure.cc
+  source_name_part = ppapi_crash_via_libcxx_assert_failure
+
+build test_irt_arm/ppapi_crash_via_libcxx_assert_failure_newlib_arm.nexe test_irt_arm/exe.unstripped/ppapi_crash_via_libcxx_assert_failure_newlib_arm.nexe: test_irt_arm_link test_irt_arm/obj/chrome/test/data/nacl/ppapi_crash_via_libcxx_assert_failure_nexe/ppapi_crash_via_libcxx_assert_failure.o test_irt_arm/obj/chrome/test/data/nacl/libppapi_test_lib.a test_irt_arm/obj/ppapi/native_client/src/untrusted/irt_stub/libppapi_stub.a test_irt_arm/obj/native_client/src/shared/gio/libgio.a test_irt_arm/obj/native_client/src/shared/platform/libplatform.a || test_irt_arm/obj/build/config/nacl/nacl_base.stamp test_irt_arm/obj/ppapi/c/c.stamp test_irt_arm/obj/ppapi/native_client/ppapi_lib.stamp test_irt_arm/obj/build/config/executable_deps.stamp
+  ldflags = -pthread -Werror -Wl,--fatal-warnings -Wl,--build-id=sha1 -no-canonical-prefixes -Wl,-O2 -Wl,--gc-sections
+  libs =
+  frameworks =
+  swiftmodules =
+  output_extension = .nexe
+  output_dir = test_irt_arm

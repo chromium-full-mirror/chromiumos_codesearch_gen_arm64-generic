@@ -1,0 +1,140 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2339/work/libbrillo-0.0.1 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build libbrillo: phony obj/libbrillo/libbrillo.stamp
+build cloud_policy_proto_generator: phony obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
+build dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
+build enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
+build install_attributes-proto: phony ./libinstall_attributes-proto.a
+build install_attributes-proto_gen: phony obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp
+build install_attributes_proto: phony ./libinstall_attributes_proto.a
+build install_attributes_proto_gen: phony obj/libbrillo/install_attributes_proto_gen.stamp
+build libbrillo-core: phony ./lib/libbrillo-core.so
+build libbrillo-cryptohome: phony ./lib/libbrillo-cryptohome.so
+build libbrillo-grpc: phony ./lib/libbrillo-grpc.so
+build libbrillo-http: phony ./lib/libbrillo-http.so
+build libbrillo-minijail: phony ./lib/libbrillo-minijail.so
+build libbrillo-namespaces: phony ./lib/libbrillo-namespaces.so
+build libbrillo-protobuf: phony ./lib/libbrillo-protobuf.so
+build libbrillo-storage: phony ./lib/libbrillo-storage.so
+build libbrillo-streams: phony ./lib/libbrillo-streams.so
+build libbrillo-test: phony ./libbrillo-test.a
+build libbrillo-test_pc: phony obj/libbrillo/libbrillo-test_pc.stamp
+build libbrillo-udev: phony ./lib/libbrillo-udev.so
+build libbrillo-vboot: phony ./lib/libbrillo-vboot.so
+build libbrillo_pc: phony obj/libbrillo/libbrillo_pc.stamp
+build libinstallattributes: phony ./lib/libinstallattributes.so
+build libinstallattributes-includes: phony obj/libbrillo/libinstallattributes-includes.stamp
+build libpolicy: phony ./lib/libpolicy.so
+build libpolicy-includes: phony obj/libbrillo/libpolicy-includes.stamp
+build modemmanager-dbus-adaptors: phony obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp
+build policy-goprotos: phony obj/common-mk/external_dependencies/policy-goprotos.stamp
+build policy-protos: phony ./libpolicy-protos.a
+build policy-protos_gen: phony obj/common-mk/external_dependencies/policy-protos_gen.stamp
+build policy_common_definitions-protos: phony ./libpolicy_common_definitions-protos.a
+build policy_common_definitions-protos_gen: phony obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp
+build private_membership_goprotos: phony obj/common-mk/external_dependencies/private_membership_goprotos.stamp
+build private_membership_rlwe_goprotos: phony obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp
+build rlwe_goprotos: phony obj/common-mk/external_dependencies/rlwe_goprotos.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build user_policy-protos: phony ./libuser_policy-protos.a
+build user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
+build common-mk/external_dependencies$:cloud_policy_proto_generator: phony obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp
+build common-mk/external_dependencies$:dbus-proxies: phony obj/common-mk/external_dependencies/dbus-proxies.stamp
+build common-mk/external_dependencies$:enterprise_management_goprotos: phony obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp
+build common-mk/external_dependencies$:install_attributes-proto: phony ./libinstall_attributes-proto.a
+build common-mk/external_dependencies$:install_attributes-proto_gen: phony obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp
+build common-mk/external_dependencies$:modemmanager-dbus-adaptors: phony obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp
+build common-mk/external_dependencies$:policy-goprotos: phony obj/common-mk/external_dependencies/policy-goprotos.stamp
+build common-mk/external_dependencies$:policy-protos: phony ./libpolicy-protos.a
+build common-mk/external_dependencies$:policy-protos_gen: phony obj/common-mk/external_dependencies/policy-protos_gen.stamp
+build common-mk/external_dependencies$:policy_common_definitions-protos: phony ./libpolicy_common_definitions-protos.a
+build common-mk/external_dependencies$:policy_common_definitions-protos_gen: phony obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp
+build common-mk/external_dependencies$:private_membership_goprotos: phony obj/common-mk/external_dependencies/private_membership_goprotos.stamp
+build common-mk/external_dependencies$:private_membership_rlwe_goprotos: phony obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp
+build common-mk/external_dependencies$:rlwe_goprotos: phony obj/common-mk/external_dependencies/rlwe_goprotos.stamp
+build common-mk/external_dependencies$:user_policy-protos: phony ./libuser_policy-protos.a
+build common-mk/external_dependencies$:user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build libbrillo$:all: phony obj/libbrillo/all.stamp
+build libbrillo$:install_attributes_proto: phony ./libinstall_attributes_proto.a
+build libbrillo$:install_attributes_proto_gen: phony obj/libbrillo/install_attributes_proto_gen.stamp
+build libbrillo$:libbrillo: phony obj/libbrillo/libbrillo.stamp
+build libbrillo$:libbrillo-core: phony ./lib/libbrillo-core.so
+build libbrillo$:libbrillo-cryptohome: phony ./lib/libbrillo-cryptohome.so
+build libbrillo$:libbrillo-grpc: phony ./lib/libbrillo-grpc.so
+build libbrillo$:libbrillo-http: phony ./lib/libbrillo-http.so
+build libbrillo$:libbrillo-minijail: phony ./lib/libbrillo-minijail.so
+build libbrillo$:libbrillo-namespaces: phony ./lib/libbrillo-namespaces.so
+build libbrillo$:libbrillo-protobuf: phony ./lib/libbrillo-protobuf.so
+build libbrillo$:libbrillo-storage: phony ./lib/libbrillo-storage.so
+build libbrillo$:libbrillo-streams: phony ./lib/libbrillo-streams.so
+build libbrillo$:libbrillo-test: phony ./libbrillo-test.a
+build libbrillo$:libbrillo-test_pc: phony obj/libbrillo/libbrillo-test_pc.stamp
+build libbrillo$:libbrillo-udev: phony ./lib/libbrillo-udev.so
+build libbrillo$:libbrillo-vboot: phony ./lib/libbrillo-vboot.so
+build libbrillo$:libbrillo_pc: phony obj/libbrillo/libbrillo_pc.stamp
+build libbrillo$:libinstallattributes: phony ./lib/libinstallattributes.so
+build libbrillo$:libinstallattributes-includes: phony obj/libbrillo/libinstallattributes-includes.stamp
+build libbrillo$:libpolicy: phony ./lib/libpolicy.so
+build libbrillo$:libpolicy-includes: phony obj/libbrillo/libpolicy-includes.stamp
+
+build all: phony $
+    obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp $
+    obj/common-mk/external_dependencies/dbus-proxies.stamp $
+    obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp $
+    ./libinstall_attributes-proto.a $
+    obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp $
+    obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp $
+    obj/common-mk/external_dependencies/policy-goprotos.stamp $
+    ./libpolicy-protos.a $
+    obj/common-mk/external_dependencies/policy-protos_gen.stamp $
+    ./libpolicy_common_definitions-protos.a $
+    obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp $
+    obj/common-mk/external_dependencies/private_membership_goprotos.stamp $
+    obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp $
+    obj/common-mk/external_dependencies/rlwe_goprotos.stamp $
+    ./libuser_policy-protos.a $
+    obj/common-mk/external_dependencies/user_policy-protos_gen.stamp $
+    obj/common-mk/gn_root/root.stamp $
+    obj/libbrillo/all.stamp $
+    ./libinstall_attributes_proto.a $
+    obj/libbrillo/install_attributes_proto_gen.stamp $
+    obj/libbrillo/libbrillo.stamp $
+    ./lib/libbrillo-core.so $
+    ./lib/libbrillo-cryptohome.so $
+    ./lib/libbrillo-grpc.so $
+    ./lib/libbrillo-http.so $
+    ./lib/libbrillo-minijail.so $
+    ./lib/libbrillo-namespaces.so $
+    ./lib/libbrillo-protobuf.so $
+    ./lib/libbrillo-storage.so $
+    ./lib/libbrillo-streams.so $
+    ./libbrillo-test.a $
+    obj/libbrillo/libbrillo-test_pc.stamp $
+    ./lib/libbrillo-udev.so $
+    ./lib/libbrillo-vboot.so $
+    obj/libbrillo/libbrillo_pc.stamp $
+    ./lib/libinstallattributes.so $
+    obj/libbrillo/libinstallattributes-includes.stamp $
+    ./lib/libpolicy.so $
+    obj/libbrillo/libpolicy-includes.stamp
+
+default all

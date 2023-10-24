@@ -1,0 +1,55 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _mist-install_config: phony obj/mist/_mist-install_config.stamp
+build install_conf: phony obj/mist/install_conf.stamp
+build install_udev: phony obj/mist/install_udev.stamp
+build libmist: phony ./libmist.a
+build mist-protos: phony ./libmist-protos.a
+build mist-protos_gen: phony obj/mist/mist-protos_gen.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build mist$:_mist-install_config: phony obj/mist/_mist-install_config.stamp
+build mist$:all: phony obj/mist/all.stamp
+build mist$:install_conf: phony obj/mist/install_conf.stamp
+build mist$:install_udev: phony obj/mist/install_udev.stamp
+build mist$:libmist: phony ./libmist.a
+build mist$:mist: phony ./mist
+build mist$:mist-protos: phony ./libmist-protos.a
+build mist$:mist-protos_gen: phony obj/mist/mist-protos_gen.stamp
+build mist$:mist_testrunner: phony ./mist_testrunner
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/mist/_mist-install_config.stamp $
+    obj/mist/all.stamp $
+    obj/mist/install_conf.stamp $
+    obj/mist/install_udev.stamp $
+    ./libmist.a $
+    ./mist $
+    ./libmist-protos.a $
+    obj/mist/mist-protos_gen.stamp $
+    ./mist_testrunner
+
+default all

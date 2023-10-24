@@ -12,4 +12,4 @@
 #define DATE "2023-10-23 03:08:58"
 #define CROS_FWID_MISSING_STR "CROS_FWID_MISSING"
 /* CrOS FWID of this build */
-#define CROS_FWID32 "host_15655.0.23_10_23"
+#define CROS_FWID32 "host_15655.0.23_10_24"

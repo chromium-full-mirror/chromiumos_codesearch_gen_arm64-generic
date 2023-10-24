@@ -1,0 +1,20 @@
+[
+  {
+    "traits_headers": [
+      "chromeos/ash/components/drivefs/drivefs_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//base",
+      "//components/drive"
+    ],
+    "traits_sources": [
+      "//chromeos/ash/components/drivefs/drivefs_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::drive::FileError",
+        "mojom": "drivefs.mojom.FileError"
+      }
+    ]
+  }
+]

@@ -1,0 +1,75 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _system_proxy-install_config: phony obj/system-proxy/_system_proxy-install_config.stamp
+build _system_proxy_worker-install_config: phony obj/system-proxy/_system_proxy_worker-install_config.stamp
+build dbus_code_generator: phony obj/system-proxy/dbus_code_generator.stamp
+build install_dbus_config: phony obj/system-proxy/install_dbus_config.stamp
+build install_init: phony obj/system-proxy/install_init.stamp
+build install_minijail_conf: phony obj/system-proxy/install_minijail_conf.stamp
+build install_policy: phony obj/system-proxy/install_policy.stamp
+build install_services: phony obj/system-proxy/install_services.stamp
+build libsystemproxy: phony ./libsystemproxy.a
+build libsystemproxyworker: phony ./libsystemproxyworker.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build worker-protos: phony ./libworker-protos.a
+build worker-protos_gen: phony obj/system-proxy/worker-protos_gen.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build system-proxy$:_system_proxy-install_config: phony obj/system-proxy/_system_proxy-install_config.stamp
+build system-proxy$:_system_proxy_worker-install_config: phony obj/system-proxy/_system_proxy_worker-install_config.stamp
+build system-proxy$:all: phony obj/system-proxy/all.stamp
+build system-proxy$:dbus_code_generator: phony obj/system-proxy/dbus_code_generator.stamp
+build system-proxy$:install_dbus_config: phony obj/system-proxy/install_dbus_config.stamp
+build system-proxy$:install_init: phony obj/system-proxy/install_init.stamp
+build system-proxy$:install_minijail_conf: phony obj/system-proxy/install_minijail_conf.stamp
+build system-proxy$:install_policy: phony obj/system-proxy/install_policy.stamp
+build system-proxy$:install_services: phony obj/system-proxy/install_services.stamp
+build system-proxy$:libsystemproxy: phony ./libsystemproxy.a
+build system-proxy$:libsystemproxyworker: phony ./libsystemproxyworker.a
+build system-proxy$:system-proxy_test: phony ./system-proxy_test
+build system-proxy$:system_proxy: phony ./system_proxy
+build system-proxy$:system_proxy_worker: phony ./system_proxy_worker
+build system-proxy$:worker-protos: phony ./libworker-protos.a
+build system-proxy$:worker-protos_gen: phony obj/system-proxy/worker-protos_gen.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/system-proxy/_system_proxy-install_config.stamp $
+    obj/system-proxy/_system_proxy_worker-install_config.stamp $
+    obj/system-proxy/all.stamp $
+    obj/system-proxy/dbus_code_generator.stamp $
+    obj/system-proxy/install_dbus_config.stamp $
+    obj/system-proxy/install_init.stamp $
+    obj/system-proxy/install_minijail_conf.stamp $
+    obj/system-proxy/install_policy.stamp $
+    obj/system-proxy/install_services.stamp $
+    ./libsystemproxy.a $
+    ./libsystemproxyworker.a $
+    ./system-proxy_test $
+    ./system_proxy $
+    ./system_proxy_worker $
+    ./libworker-protos.a $
+    obj/system-proxy/worker-protos_gen.stamp
+
+default all

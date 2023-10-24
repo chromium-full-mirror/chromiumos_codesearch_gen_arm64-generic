@@ -1,0 +1,74 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/chaps/_chaps_client-install_config.stamp: stamp
+build obj/chaps/_chapsd-install_config.stamp: stamp
+build obj/chaps/_chapsd_test-install_config.stamp: stamp
+build obj/chaps/_libchaps-install_config.stamp: stamp
+build obj/chaps/_p11_replay-install_config.stamp: stamp
+build obj/chaps/all.stamp: stamp ./libchaps-protos.a ./chaps_client ./chapsd obj/chaps/dbus_conf.stamp obj/chaps/install_client_headers.stamp obj/chaps/install_pkcs11_header.stamp obj/chaps/install_tmpfiles_config.stamp ./lib/libchaps.so ./p11_replay ./chaps_service_test ./chaps_test ./chapsd_test ./object_policy_test ./object_pool_test ./object_store_test ./object_test ./session_test ./slot_manager_test ./slot_policy_test obj/chaps/install_chapsd_conf.stamp
+subninja obj/chaps/chaps-protos.ninja
+rule __chaps_chaps-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc attributes.proto --proto_path /mnt/host/source/src/platform2/chaps --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/chaps/out/Default/gen/include/chaps/proto_bindings
+  description = ACTION //chaps:chaps-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/chaps/proto_bindings/attributes.pb.cc gen/include/chaps/proto_bindings/attributes.pb.h: __chaps_chaps-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/chaps/attributes.proto
+
+build obj/chaps/chaps-protos_gen.stamp: stamp gen/include/chaps/proto_bindings/attributes.pb.cc gen/include/chaps/proto_bindings/attributes.pb.h
+subninja obj/chaps/chaps_client.ninja
+subninja obj/chaps/chaps_common.ninja
+subninja obj/chaps/chaps_service_test.ninja
+subninja obj/chaps/chaps_test.ninja
+subninja obj/chaps/chapsd.ninja
+subninja obj/chaps/chapsd_test.ninja
+build obj/chaps/dbus_conf.stamp: stamp
+build obj/chaps/install_chapsd_conf.stamp: stamp
+build obj/chaps/install_client_headers.stamp: stamp
+build obj/chaps/install_pkcs11_header.stamp: stamp
+build obj/chaps/install_tmpfiles_config.stamp: stamp
+subninja obj/chaps/libchaps.ninja
+subninja obj/chaps/libchaps_source_set.ninja
+subninja obj/chaps/libchaps_test.ninja
+subninja obj/chaps/object_policy_test.ninja
+subninja obj/chaps/object_pool_test.ninja
+subninja obj/chaps/object_store_test.ninja
+subninja obj/chaps/object_test.ninja
+subninja obj/chaps/p11_replay.ninja
+subninja obj/chaps/session_test.ninja
+subninja obj/chaps/slot_manager_test.ninja
+subninja obj/chaps/slot_policy_test.ninja
+build obj/common-mk/gn_root/root.stamp: stamp obj/chaps/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja

@@ -1,0 +1,53 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/mist/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/mist/_mist-install_config.stamp: stamp
+build obj/mist/all.stamp: stamp obj/mist/install_conf.stamp obj/mist/install_udev.stamp ./mist ./mist_testrunner
+build obj/mist/install_conf.stamp: stamp
+build obj/mist/install_udev.stamp: stamp
+subninja obj/mist/libmist.ninja
+subninja obj/mist/mist.ninja
+subninja obj/mist/mist-protos.ninja
+rule __mist_mist-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc config.proto usb_modem_info.proto --proto_path /mnt/host/source/src/platform2/mist/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/mist/out/Default/gen/include/mist/proto_bindings
+  description = ACTION //mist:mist-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/mist/proto_bindings/config.pb.cc gen/include/mist/proto_bindings/config.pb.h gen/include/mist/proto_bindings/usb_modem_info.pb.cc gen/include/mist/proto_bindings/usb_modem_info.pb.h: __mist_mist-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/mist/proto/config.proto ../../../../../../../../../mnt/host/source/src/platform2/mist/proto/usb_modem_info.proto
+
+build obj/mist/mist-protos_gen.stamp: stamp gen/include/mist/proto_bindings/config.pb.cc gen/include/mist/proto_bindings/config.pb.h gen/include/mist/proto_bindings/usb_modem_info.pb.cc gen/include/mist/proto_bindings/usb_modem_info.pb.h
+subninja obj/mist/mist_testrunner.ninja

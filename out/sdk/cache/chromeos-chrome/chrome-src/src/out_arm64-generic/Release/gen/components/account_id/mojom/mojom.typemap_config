@@ -1,0 +1,20 @@
+[
+  {
+    "traits_headers": [
+      "components/account_id/mojom/account_id_traits.h"
+    ],
+    "traits_public_deps": [
+      "//components/account_id"
+    ],
+    "types": [
+      {
+        "cpp": "::AccountType",
+        "mojom": "signin.mojom.AccountType"
+      },
+      {
+        "cpp": "::AccountId",
+        "mojom": "signin.mojom.AccountId"
+      }
+    ]
+  }
+]

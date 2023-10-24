@@ -1,0 +1,13 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include -Igen
+root_out_dir = .
+target_output_name = libenterprise_rollback_metrics
+
+
+build ./lib/libenterprise_rollback_metrics.so: solink obj/oobe_config/metrics/enterprise_rollback_metrics_library_common_sources.enterprise_rollback_metrics_handler.o obj/oobe_config/metrics/enterprise_rollback_metrics_library_common_sources.enterprise_rollback_metrics_recorder.o obj/oobe_config/metrics/enterprise_rollback_metrics_library_common_sources.enterprise_rollback_metrics_tracking.o obj/oobe_config/filesystem/filesystem.file_handler.o ./libenterprise_rollback_metrics_proto.a || obj/oobe_config/metrics/enterprise_rollback_metrics_library_common_sources.stamp obj/oobe_config/filesystem/filesystem.stamp obj/oobe_config/metrics/_libenterprise_rollback_metrics-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -L/build/arm64-generic/usr/lib64
+  libs = -lmetrics -lstructuredmetrics -lprotobuf-lite -lbrillo
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

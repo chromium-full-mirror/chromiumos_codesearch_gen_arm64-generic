@@ -1,0 +1,38 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/chromeos-config-tools-9999/work/chromeos-config-tools-9999/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build libcros_config: phony ./lib/libcros_config.so
+build root: phony obj/common-mk/gn_root/root.stamp
+build chromeos-config$:all: phony obj/chromeos-config/all.stamp
+build chromeos-config$:cros_config: phony ./cros_config
+build chromeos-config$:cros_config_functional_test: phony ./cros_config_functional_test
+build chromeos-config$:fake_cros_config_test: phony ./fake_cros_config_test
+build chromeos-config$:libcros_config: phony ./lib/libcros_config.so
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+
+build all: phony $
+    obj/chromeos-config/all.stamp $
+    ./cros_config $
+    ./cros_config_functional_test $
+    ./fake_cros_config_test $
+    ./lib/libcros_config.so $
+    obj/common-mk/gn_root/root.stamp
+
+default all

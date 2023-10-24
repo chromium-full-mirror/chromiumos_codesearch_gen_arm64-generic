@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform/dev",
+      "build_dest_path": "/var/tmp/portage/chromeos-base/devserver-0.0.3-r2108/work/devserver-0.0.3"
+    }
+  ]
+}

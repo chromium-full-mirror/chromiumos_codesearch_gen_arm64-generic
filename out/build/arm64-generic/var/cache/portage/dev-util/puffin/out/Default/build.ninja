@@ -1,0 +1,43 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/dev-util/puffin-1.0.0-r448/work/puffin-1.0.0/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build libpuffdiff: phony ./libpuffdiff.a
+build libpuffin-proto: phony ./libpuffin-proto.a
+build libpuffin-proto_gen: phony obj/puffin/libpuffin-proto_gen.stamp
+build libpuffpatch: phony ./libpuffpatch.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build puffin$:all: phony obj/puffin/all.stamp
+build puffin$:libpuffdiff: phony ./libpuffdiff.a
+build puffin$:libpuffin-proto: phony ./libpuffin-proto.a
+build puffin$:libpuffin-proto_gen: phony obj/puffin/libpuffin-proto_gen.stamp
+build puffin$:libpuffpatch: phony ./libpuffpatch.a
+build puffin$:puffin: phony ./puffin
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/puffin/all.stamp $
+    ./libpuffdiff.a $
+    ./libpuffin-proto.a $
+    obj/puffin/libpuffin-proto_gen.stamp $
+    ./libpuffpatch.a $
+    ./puffin
+
+default all

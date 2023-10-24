@@ -1,0 +1,37 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build install_usb_so: phony obj/camera/hal/usb/install_usb_so.stamp
+build libcamera_hal: phony ./lib/libcamera_hal.so
+build root: phony obj/common-mk/gn_root/root.stamp
+build camera/hal/usb$:all: phony obj/camera/hal/usb/all.stamp
+build camera/hal/usb$:image_processor_test: phony ./image_processor_test
+build camera/hal/usb$:install_usb_so: phony obj/camera/hal/usb/install_usb_so.stamp
+build camera/hal/usb$:libcamera_hal: phony ./lib/libcamera_hal.so
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+
+build all: phony $
+    obj/camera/hal/usb/all.stamp $
+    ./image_processor_test $
+    obj/camera/hal/usb/install_usb_so.stamp $
+    ./lib/libcamera_hal.so $
+    obj/common-mk/gn_root/root.stamp
+
+default all

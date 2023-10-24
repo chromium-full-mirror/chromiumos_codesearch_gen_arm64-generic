@@ -1,0 +1,1 @@
+obj/components/desks_storage/test_support/desk_test_util.o obj/components/desks_storage/test_support/fake_desk_sync_bridge.o obj/components/desks_storage/test_support/fake_desk_sync_service.o obj/components/desks_storage/test_support/saved_desk_builder.o

@@ -1,0 +1,73 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DOS_CHROMEOS -DUSE_NSS_CERTS -DUSE_SYSTEM_LIBEVENT -DNO_TCMALLOC -DMOJO_BACKWARDS_COMPAT -DMOJO_CORE_LEGACY_PROTOCOL -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS
+include_dirs = -Igen/include -I../../../libchrome-9999/platform2 -I/build/arm64-generic/usr/include -I../../../libchrome-9999/platform2/libchrome -Igen/libchrome -I../../../libchrome-9999/platform2/libchrome/third_party/perfetto/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -Wno-deprecated-register -Wno-narrowing -Wno-unreachable-code-return -Wno-unused-local-typedefs -Xclang-only=-Wno-char-subscripts
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -O2 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libbase-base_test_support
+
+build obj/libchrome/base-base_test_support.inputdeps.stamp: stamp obj/libchrome/allocator_buildflags.stamp obj/libchrome/allocator_debugging_buildflags.stamp obj/libchrome/allocator_logging_buildflags.stamp obj/libchrome/blink_buildflags.stamp obj/libchrome/branding_buildflags.stamp obj/libchrome/cfi_buildflags.stamp obj/libchrome/chromecast_buildflags.stamp obj/libchrome/chromeos_buildflags.stamp obj/libchrome/clang_profiling_buildflags.stamp obj/libchrome/compiler_buildflags.stamp obj/libchrome/debugging_buildflags.stamp obj/libchrome/feature_list_buildflags.stamp obj/libchrome/ios_cronet_buildflags.stamp obj/libchrome/ipc_buildflags.stamp obj/libchrome/message_pump_buildflags.stamp obj/libchrome/mojo_buildflags.stamp obj/libchrome/mojo_cpp_bindings_buildflags.stamp obj/libchrome/partition_allocator_buildflags.stamp obj/libchrome/partition_allocator_chromecast_buildflags.stamp obj/libchrome/partition_allocator_chromeos_buildflags.stamp obj/libchrome/partition_allocator_raw_ptr_buildflags.stamp obj/libchrome/profiler_buildflags.stamp obj/libchrome/rust_buildflags.stamp obj/libchrome/synchronization_buildflags.stamp obj/libchrome/tracing_buildflags.stamp obj/libchrome/tracing_protozero.stamp
+build obj/libchrome/base/test/metrics/libbase-base_test_support.histogram_tester.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/metrics/histogram_tester.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = histogram_tester.cc
+  source_name_part = histogram_tester
+build obj/libchrome/base/test/libbase-base_test_support.mock_entropy_provider.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/mock_entropy_provider.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = mock_entropy_provider.cc
+  source_name_part = mock_entropy_provider
+build obj/libchrome/base/test/libbase-base_test_support.mock_log.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/mock_log.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = mock_log.cc
+  source_name_part = mock_log
+build obj/libchrome/base/test/libbase-base_test_support.power_monitor_test.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/power_monitor_test.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = power_monitor_test.cc
+  source_name_part = power_monitor_test
+build obj/libchrome/base/test/libbase-base_test_support.scoped_chromeos_version_info.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/scoped_chromeos_version_info.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = scoped_chromeos_version_info.cc
+  source_name_part = scoped_chromeos_version_info
+build obj/libchrome/base/test/libbase-base_test_support.scoped_command_line.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/scoped_command_line.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = scoped_command_line.cc
+  source_name_part = scoped_command_line
+build obj/libchrome/base/test/libbase-base_test_support.scoped_feature_list.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/scoped_feature_list.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = scoped_feature_list.cc
+  source_name_part = scoped_feature_list
+build obj/libchrome/base/test/libbase-base_test_support.scoped_run_loop_timeout.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/scoped_run_loop_timeout.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = scoped_run_loop_timeout.cc
+  source_name_part = scoped_run_loop_timeout
+build obj/libchrome/base/test/libbase-base_test_support.simple_test_clock.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/simple_test_clock.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = simple_test_clock.cc
+  source_name_part = simple_test_clock
+build obj/libchrome/base/test/libbase-base_test_support.simple_test_tick_clock.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/simple_test_tick_clock.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = simple_test_tick_clock.cc
+  source_name_part = simple_test_tick_clock
+build obj/libchrome/base/test/libbase-base_test_support.task_environment.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/task_environment.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = task_environment.cc
+  source_name_part = task_environment
+build obj/libchrome/base/test/libbase-base_test_support.test_file_util.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/test_file_util.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = test_file_util.cc
+  source_name_part = test_file_util
+build obj/libchrome/base/test/libbase-base_test_support.test_file_util_linux.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/test_file_util_linux.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = test_file_util_linux.cc
+  source_name_part = test_file_util_linux
+build obj/libchrome/base/test/libbase-base_test_support.test_file_util_posix.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/test_file_util_posix.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = test_file_util_posix.cc
+  source_name_part = test_file_util_posix
+build obj/libchrome/base/test/libbase-base_test_support.test_mock_time_task_runner.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/test_mock_time_task_runner.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = test_mock_time_task_runner.cc
+  source_name_part = test_mock_time_task_runner
+build obj/libchrome/base/test/libbase-base_test_support.test_pending_task.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/test_pending_task.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = test_pending_task.cc
+  source_name_part = test_pending_task
+build obj/libchrome/base/test/libbase-base_test_support.test_simple_task_runner.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/test_simple_task_runner.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = test_simple_task_runner.cc
+  source_name_part = test_simple_task_runner
+build obj/libchrome/base/test/libbase-base_test_support.test_switches.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/test_switches.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = test_switches.cc
+  source_name_part = test_switches
+build obj/libchrome/base/test/libbase-base_test_support.test_timeouts.o: cxx ../../../libchrome-9999/platform2/libchrome/base/test/test_timeouts.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = test_timeouts.cc
+  source_name_part = test_timeouts
+build obj/libchrome/base/timer/libbase-base_test_support.mock_timer.o: cxx ../../../libchrome-9999/platform2/libchrome/base/timer/mock_timer.cc || obj/libchrome/base-base_test_support.inputdeps.stamp
+  source_file_part = mock_timer.cc
+  source_name_part = mock_timer
+
+build ./libbase-base_test_support.a: alink obj/libchrome/base/test/metrics/libbase-base_test_support.histogram_tester.o obj/libchrome/base/test/libbase-base_test_support.mock_entropy_provider.o obj/libchrome/base/test/libbase-base_test_support.mock_log.o obj/libchrome/base/test/libbase-base_test_support.power_monitor_test.o obj/libchrome/base/test/libbase-base_test_support.scoped_chromeos_version_info.o obj/libchrome/base/test/libbase-base_test_support.scoped_command_line.o obj/libchrome/base/test/libbase-base_test_support.scoped_feature_list.o obj/libchrome/base/test/libbase-base_test_support.scoped_run_loop_timeout.o obj/libchrome/base/test/libbase-base_test_support.simple_test_clock.o obj/libchrome/base/test/libbase-base_test_support.simple_test_tick_clock.o obj/libchrome/base/test/libbase-base_test_support.task_environment.o obj/libchrome/base/test/libbase-base_test_support.test_file_util.o obj/libchrome/base/test/libbase-base_test_support.test_file_util_linux.o obj/libchrome/base/test/libbase-base_test_support.test_file_util_posix.o obj/libchrome/base/test/libbase-base_test_support.test_mock_time_task_runner.o obj/libchrome/base/test/libbase-base_test_support.test_pending_task.o obj/libchrome/base/test/libbase-base_test_support.test_simple_task_runner.o obj/libchrome/base/test/libbase-base_test_support.test_switches.o obj/libchrome/base/test/libbase-base_test_support.test_timeouts.o obj/libchrome/base/timer/libbase-base_test_support.mock_timer.o || obj/libchrome/all_buildflags.stamp obj/libchrome/tracing_protozero.stamp
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

@@ -1,0 +1,98 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -D_LIBCPP_ENABLE_ASSERTIONS=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DNDEBUG -DNVALGRIND -D_POSIX_C_SOURCE=199506 -D_XOPEN_SOURCE=600 -D_GNU_SOURCE=1 -D__STDC_LIMIT_MACROS=1 -DDYNAMIC_ANNOTATIONS_ENABLED=1 -DDYNAMIC_ANNOTATIONS_PREFIX=NACL_
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iirt_arm/gen
+cflags = -gline-tables-only -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wshadow -Werror -fno-ident -fno-strict-aliasing -fcolor-diagnostics -fmerge-all-constants -U__STRICT_ANSI__ -integrated-as -fasynchronous-unwind-tables -fomit-frame-pointer -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -Os -ffunction-sections -fdata-sections -fomit-frame-pointer -g2 -gsplit-dwarf -Xclang -fuse-ctor-homing -fvisibility=hidden
+cflags_c = -std=c99 -std=c11
+label_name = irt_core_lib
+root_out_dir = irt_arm
+target_out_dir = irt_arm/obj/native_client/src/untrusted/irt
+target_output_name = libirt_core_lib
+
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/nc_condvar.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/pthread/nc_condvar.c || host/tls_edit
+  source_file_part = nc_condvar.c
+  source_name_part = nc_condvar
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/nc_mutex.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/pthread/nc_mutex.c || host/tls_edit
+  source_file_part = nc_mutex.c
+  source_name_part = nc_mutex
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/sys_private.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/nacl/sys_private.c || host/tls_edit
+  source_file_part = sys_private.c
+  source_name_part = sys_private
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/dynamic_annotations.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/valgrind/dynamic_annotations.c || host/tls_edit
+  source_file_part = dynamic_annotations.c
+  source_name_part = dynamic_annotations
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_basic.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_basic.c || host/tls_edit
+  source_file_part = irt_basic.c
+  source_name_part = irt_basic
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_blockhook.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_blockhook.c || host/tls_edit
+  source_file_part = irt_blockhook.c
+  source_name_part = irt_blockhook
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_clock.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_clock.c || host/tls_edit
+  source_file_part = irt_clock.c
+  source_name_part = irt_clock
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_code_data_alloc.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_code_data_alloc.c || host/tls_edit
+  source_file_part = irt_code_data_alloc.c
+  source_name_part = irt_code_data_alloc
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_cond.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_cond.c || host/tls_edit
+  source_file_part = irt_cond.c
+  source_name_part = irt_cond
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_dev_getpid.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_dev_getpid.c || host/tls_edit
+  source_file_part = irt_dev_getpid.c
+  source_name_part = irt_dev_getpid
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_dev_list_mappings.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_dev_list_mappings.c || host/tls_edit
+  source_file_part = irt_dev_list_mappings.c
+  source_name_part = irt_dev_list_mappings
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_dyncode.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_dyncode.c || host/tls_edit
+  source_file_part = irt_dyncode.c
+  source_name_part = irt_dyncode
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_entry.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_entry.c || host/tls_edit
+  source_file_part = irt_entry.c
+  source_name_part = irt_entry
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_exception_handling.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_exception_handling.c || host/tls_edit
+  source_file_part = irt_exception_handling.c
+  source_name_part = irt_exception_handling
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_fdio.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_fdio.c || host/tls_edit
+  source_file_part = irt_fdio.c
+  source_name_part = irt_fdio
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_filename.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_filename.c || host/tls_edit
+  source_file_part = irt_filename.c
+  source_name_part = irt_filename
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_futex.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_futex.c || host/tls_edit
+  source_file_part = irt_futex.c
+  source_name_part = irt_futex
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_interfaces.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_interfaces.c || host/tls_edit
+  source_file_part = irt_interfaces.c
+  source_name_part = irt_interfaces
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_malloc.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_malloc.c || host/tls_edit
+  source_file_part = irt_malloc.c
+  source_name_part = irt_malloc
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_memory.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_memory.c || host/tls_edit
+  source_file_part = irt_memory.c
+  source_name_part = irt_memory
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_mutex.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_mutex.c || host/tls_edit
+  source_file_part = irt_mutex.c
+  source_name_part = irt_mutex
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_private_pthread.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_private_pthread.c || host/tls_edit
+  source_file_part = irt_private_pthread.c
+  source_name_part = irt_private_pthread
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_private_tls.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_private_tls.c || host/tls_edit
+  source_file_part = irt_private_tls.c
+  source_name_part = irt_private_tls
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_query_list.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_query_list.c || host/tls_edit
+  source_file_part = irt_query_list.c
+  source_name_part = irt_query_list
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_random.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_random.c || host/tls_edit
+  source_file_part = irt_random.c
+  source_name_part = irt_random
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_sem.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_sem.c || host/tls_edit
+  source_file_part = irt_sem.c
+  source_name_part = irt_sem
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_thread.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_thread.c || host/tls_edit
+  source_file_part = irt_thread.c
+  source_name_part = irt_thread
+build irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_tls.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/irt/irt_tls.c || host/tls_edit
+  source_file_part = irt_tls.c
+  source_name_part = irt_tls
+
+build irt_arm/obj/native_client/src/untrusted/irt/libirt_core_lib.a: irt_arm_alink irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/nc_condvar.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/nc_mutex.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/sys_private.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/dynamic_annotations.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_basic.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_blockhook.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_clock.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_code_data_alloc.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_cond.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_dev_getpid.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_dev_list_mappings.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_dyncode.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_entry.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_exception_handling.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_fdio.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_filename.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_futex.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_interfaces.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_malloc.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_memory.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_mutex.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_private_pthread.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_private_tls.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_query_list.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_random.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_sem.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_thread.o irt_arm/obj/native_client/src/untrusted/irt/irt_core_lib/irt_tls.o || irt_arm/obj/build/config/nacl/nacl_base.stamp irt_arm/obj/native_client/src/shared/gio/libgio.a irt_arm/obj/native_client/src/shared/platform/libplatform.a irt_arm/obj/native_client/src/untrusted/nacl/libimc_syscalls.a
+  arflags =
+  output_extension = .a
+  output_dir = irt_arm/obj/native_client/src/untrusted/irt

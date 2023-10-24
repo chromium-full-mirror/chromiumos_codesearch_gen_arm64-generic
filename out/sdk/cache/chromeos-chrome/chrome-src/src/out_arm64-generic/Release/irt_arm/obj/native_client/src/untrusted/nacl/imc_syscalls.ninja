@@ -1,0 +1,35 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -D_LIBCPP_ENABLE_ASSERTIONS=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DNDEBUG -DNVALGRIND -D_POSIX_C_SOURCE=199506 -D_XOPEN_SOURCE=600 -D_GNU_SOURCE=1 -D__STDC_LIMIT_MACROS=1 -DDYNAMIC_ANNOTATIONS_ENABLED=1 -DDYNAMIC_ANNOTATIONS_PREFIX=NACL_
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iirt_arm/gen
+cflags = -gline-tables-only -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wshadow -Werror -fno-ident -fno-strict-aliasing -fcolor-diagnostics -fmerge-all-constants -U__STRICT_ANSI__ -integrated-as -fasynchronous-unwind-tables -fomit-frame-pointer -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -Os -ffunction-sections -fdata-sections -fomit-frame-pointer -g2 -gsplit-dwarf -Xclang -fuse-ctor-homing -fvisibility=hidden
+cflags_c = -std=c11
+label_name = imc_syscalls
+root_out_dir = irt_arm
+target_out_dir = irt_arm/obj/native_client/src/untrusted/nacl
+target_output_name = libimc_syscalls
+
+build irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_accept.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/nacl/imc_accept.c || host/tls_edit
+  source_file_part = imc_accept.c
+  source_name_part = imc_accept
+build irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_connect.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/nacl/imc_connect.c || host/tls_edit
+  source_file_part = imc_connect.c
+  source_name_part = imc_connect
+build irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_makeboundsock.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/nacl/imc_makeboundsock.c || host/tls_edit
+  source_file_part = imc_makeboundsock.c
+  source_name_part = imc_makeboundsock
+build irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_mem_obj_create.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/nacl/imc_mem_obj_create.c || host/tls_edit
+  source_file_part = imc_mem_obj_create.c
+  source_name_part = imc_mem_obj_create
+build irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_recvmsg.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/nacl/imc_recvmsg.c || host/tls_edit
+  source_file_part = imc_recvmsg.c
+  source_name_part = imc_recvmsg
+build irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_sendmsg.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/nacl/imc_sendmsg.c || host/tls_edit
+  source_file_part = imc_sendmsg.c
+  source_name_part = imc_sendmsg
+build irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_socketpair.o: irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/untrusted/nacl/imc_socketpair.c || host/tls_edit
+  source_file_part = imc_socketpair.c
+  source_name_part = imc_socketpair
+
+build irt_arm/obj/native_client/src/untrusted/nacl/libimc_syscalls.a: irt_arm_alink irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_accept.o irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_connect.o irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_makeboundsock.o irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_mem_obj_create.o irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_recvmsg.o irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_sendmsg.o irt_arm/obj/native_client/src/untrusted/nacl/imc_syscalls/imc_socketpair.o || irt_arm/obj/build/config/nacl/nacl_base.stamp
+  arflags =
+  output_extension = .a
+  output_dir = irt_arm/obj/native_client/src/untrusted/nacl

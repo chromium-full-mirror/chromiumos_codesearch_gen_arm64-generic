@@ -1,0 +1,3 @@
+../../../../../../../home/chrome-bot/chrome_root/src/components/chromeos_camera/common/dmabuf.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/components/chromeos_camera/common/jpeg_encode_accelerator.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/components/chromeos_camera/common/mjpeg_decode_accelerator.mojom

@@ -1,0 +1,15 @@
+{
+  "deps": [
+    "constants.build_metadata",
+    "../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/service_manager/public/mojom/connector.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/service_manager/public/mojom/interface_provider.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/service_manager/public/mojom/interface_provider_spec.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/service_manager/public/mojom/service.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/service_manager/public/mojom/service_control.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/service_manager/public/mojom/service_filter.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/service_manager/public/mojom/service_manager.mojom"
+  ]
+}

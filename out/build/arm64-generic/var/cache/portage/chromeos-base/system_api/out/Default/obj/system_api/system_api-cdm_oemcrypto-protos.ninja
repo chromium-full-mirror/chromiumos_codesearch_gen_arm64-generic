@@ -1,0 +1,18 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include/cdm_oemcrypto/proto_bindings -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -fvisibility=default
+cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libsystem_api-cdm_oemcrypto-protos
+
+build obj/gen/include/cdm_oemcrypto/proto_bindings/libsystem_api-cdm_oemcrypto-protos.client_information.pb.o: cxx gen/include/cdm_oemcrypto/proto_bindings/client_information.pb.cc || obj/system_api/system_api-cdm_oemcrypto-protos_gen.stamp
+  source_file_part = client_information.pb.cc
+  source_name_part = client_information.pb
+build obj/gen/include/cdm_oemcrypto/proto_bindings/libsystem_api-cdm_oemcrypto-protos.secure_buffer.pb.o: cxx gen/include/cdm_oemcrypto/proto_bindings/secure_buffer.pb.cc || obj/system_api/system_api-cdm_oemcrypto-protos_gen.stamp
+  source_file_part = secure_buffer.pb.cc
+  source_name_part = secure_buffer.pb
+
+build ./libsystem_api-cdm_oemcrypto-protos.a: alink obj/gen/include/cdm_oemcrypto/proto_bindings/libsystem_api-cdm_oemcrypto-protos.client_information.pb.o obj/gen/include/cdm_oemcrypto/proto_bindings/libsystem_api-cdm_oemcrypto-protos.secure_buffer.pb.o || obj/system_api/system_api-cdm_oemcrypto-protos_gen.stamp
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

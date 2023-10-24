@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/kernel/v5.15",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/sys-kernel/chromeos-kernel-5_15-5.15.136-r2414/work/chromeos-kernel-5_15-5.15.136"
+    }
+  ]
+}

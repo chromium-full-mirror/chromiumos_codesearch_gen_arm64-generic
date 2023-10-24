@@ -1,0 +1,1 @@
+host/obj/native_client/src/trusted/validator_ragel/rdfa_validator/validator_x86_32.o host/obj/native_client/src/trusted/validator_ragel/rdfa_validator/validator_x86_64.o host/obj/native_client/src/trusted/validator_ragel/rdfa_validator/validator_features_all.o host/obj/native_client/src/trusted/validator_ragel/rdfa_validator/validator_features_validator.o

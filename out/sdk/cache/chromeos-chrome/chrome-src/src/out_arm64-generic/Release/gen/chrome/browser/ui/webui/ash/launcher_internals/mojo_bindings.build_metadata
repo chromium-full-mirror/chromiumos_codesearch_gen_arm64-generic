@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/ash/launcher_internals/launcher_internals.mojom"
+  ]
+}

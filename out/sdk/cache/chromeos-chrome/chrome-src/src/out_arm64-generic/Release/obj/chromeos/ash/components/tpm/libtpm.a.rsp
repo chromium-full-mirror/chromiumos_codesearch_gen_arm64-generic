@@ -1,0 +1,1 @@
+obj/chromeos/ash/components/tpm/tpm/prepare_tpm.o obj/chromeos/ash/components/tpm/tpm/tpm_token_info_getter.o obj/chromeos/ash/components/tpm/tpm/tpm_token_loader.o

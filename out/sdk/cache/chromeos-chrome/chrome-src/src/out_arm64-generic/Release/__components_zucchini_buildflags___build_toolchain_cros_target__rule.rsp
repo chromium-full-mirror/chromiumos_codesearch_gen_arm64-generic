@@ -1,0 +1,1 @@
+--flags ENABLE_DEX=true ENABLE_ELF=true ENABLE_WIN=true ENABLE_ZTF=false

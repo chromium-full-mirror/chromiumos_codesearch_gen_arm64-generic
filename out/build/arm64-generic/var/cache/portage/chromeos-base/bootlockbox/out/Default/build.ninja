@@ -1,0 +1,66 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _bootlockboxd-install_config: phony obj/bootlockbox/_bootlockboxd-install_config.stamp
+build _bootlockboxtool-install_config: phony obj/bootlockbox/_bootlockboxtool-install_config.stamp
+build bootlockbox-adaptors: phony obj/bootlockbox/bootlockbox-adaptors.stamp
+build install_init: phony obj/bootlockbox/install_init.stamp
+build install_minijail_conf: phony obj/bootlockbox/install_minijail_conf.stamp
+build install_policy: phony obj/bootlockbox/install_policy.stamp
+build install_systemd: phony obj/bootlockbox/install_systemd.stamp
+build install_tmpfiles_config: phony obj/bootlockbox/install_tmpfiles_config.stamp
+build libnvram-boot-lockbox: phony ./libnvram-boot-lockbox.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build bootlockbox$:_bootlockboxd-install_config: phony obj/bootlockbox/_bootlockboxd-install_config.stamp
+build bootlockbox$:_bootlockboxtool-install_config: phony obj/bootlockbox/_bootlockboxtool-install_config.stamp
+build bootlockbox$:all: phony obj/bootlockbox/all.stamp
+build bootlockbox$:boot_lockbox_test: phony ./boot_lockbox_test
+build bootlockbox$:bootlockbox-adaptors: phony obj/bootlockbox/bootlockbox-adaptors.stamp
+build bootlockbox$:bootlockboxd: phony ./bootlockboxd
+build bootlockbox$:bootlockboxtool: phony ./bootlockboxtool
+build bootlockbox$:install_init: phony obj/bootlockbox/install_init.stamp
+build bootlockbox$:install_minijail_conf: phony obj/bootlockbox/install_minijail_conf.stamp
+build bootlockbox$:install_policy: phony obj/bootlockbox/install_policy.stamp
+build bootlockbox$:install_systemd: phony obj/bootlockbox/install_systemd.stamp
+build bootlockbox$:install_tmpfiles_config: phony obj/bootlockbox/install_tmpfiles_config.stamp
+build bootlockbox$:libnvram-boot-lockbox: phony ./libnvram-boot-lockbox.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+
+build all: phony $
+    obj/bootlockbox/_bootlockboxd-install_config.stamp $
+    obj/bootlockbox/_bootlockboxtool-install_config.stamp $
+    obj/bootlockbox/all.stamp $
+    ./boot_lockbox_test $
+    obj/bootlockbox/bootlockbox-adaptors.stamp $
+    ./bootlockboxd $
+    ./bootlockboxtool $
+    obj/bootlockbox/install_init.stamp $
+    obj/bootlockbox/install_minijail_conf.stamp $
+    obj/bootlockbox/install_policy.stamp $
+    obj/bootlockbox/install_systemd.stamp $
+    obj/bootlockbox/install_tmpfiles_config.stamp $
+    ./libnvram-boot-lockbox.a $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a
+
+default all

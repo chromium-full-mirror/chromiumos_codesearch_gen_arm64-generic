@@ -1,0 +1,346 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DPLATFORM_FWMP_INDEX=false -DUSE_FUZZER=false -DUSE_PINWEAVER=true -DUSE_SELINUX=true -DUSE_TPM_DYNAMIC=false -DUSE_TPM_INSECURE_FALLBACK=false -DUSE_TPM1=false -DUSE_TPM2=true -DUSE_TPM2_SIMULATOR=false -DUSE_VTPM_PROXY=false -DUSE_DOUBLE_EXTEND_PCR_ISSUE=false -DUSE_MOUNT_OOP=false -DUSE_USER_SESSION_ISOLATION=false -DUSE_USS_MIGRATION=false -DUSE_SLOW_MOUNT=false
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2 -I/build/arm64-generic/usr/include -Igen -I/build/arm64-generic/usr/include/cryptohome/proto_bindings
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/user_data_auth-client -I/build/arm64-generic/usr/include/user_data_auth-client-test -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/bootlockbox-client
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = cryptohome_testrunner
+
+build obj/cryptohome/cryptohome_testrunner.inputdeps.stamp: stamp obj/cryptohome/print_proto_library.stamp obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp obj/cryptohome/libs/auth-factor-flatbuffers-binding-generate.stamp obj/cryptohome/libs/cryptohome-flatbuffers_gen.stamp obj/cryptohome/libs/cryptohome-key-delegate-proxies.stamp obj/cryptohome/libs/cryptohome-proto_gen.stamp obj/cryptohome/libs/enumerations-flatbuffers-binding-generate.stamp obj/cryptohome/libs/namespace-mounter-ipc-proto_gen.stamp obj/cryptohome/libs/structures-flatbuffers-binding-generate.stamp obj/cryptohome/libs/user-policy-flatbuffers-binding-generate.stamp obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-generate.stamp obj/cryptohome/libs/userdataauth_adaptors.stamp
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.auth_block_state_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/auth_block_state_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_block_state_unittest.cc
+  source_name_part = auth_block_state_unittest
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.auth_block_utility_impl_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/auth_block_utility_impl_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_block_utility_impl_unittest.cc
+  source_name_part = auth_block_utility_impl_unittest
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.biometrics_auth_block_service_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/biometrics_auth_block_service_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = biometrics_auth_block_service_test.cc
+  source_name_part = biometrics_auth_block_service_test
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.biometrics_command_processor_impl_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/biometrics_command_processor_impl_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = biometrics_command_processor_impl_test.cc
+  source_name_part = biometrics_command_processor_impl_test
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.challenge_credential_auth_block_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/challenge_credential_auth_block_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = challenge_credential_auth_block_test.cc
+  source_name_part = challenge_credential_auth_block_test
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.cryptohome_recovery_auth_block_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/cryptohome_recovery_auth_block_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_recovery_auth_block_unittest.cc
+  source_name_part = cryptohome_recovery_auth_block_unittest
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.double_wrapped_compat_auth_block_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/double_wrapped_compat_auth_block_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = double_wrapped_compat_auth_block_test.cc
+  source_name_part = double_wrapped_compat_auth_block_test
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.fingerprint_auth_block_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/fingerprint_auth_block_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = fingerprint_auth_block_test.cc
+  source_name_part = fingerprint_auth_block_test
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.fp_service_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/fp_service_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = fp_service_unittest.cc
+  source_name_part = fp_service_unittest
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.mock_auth_block_utility.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/mock_auth_block_utility.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = mock_auth_block_utility.cc
+  source_name_part = mock_auth_block_utility
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.pin_weaver_auth_block_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/pin_weaver_auth_block_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = pin_weaver_auth_block_unittest.cc
+  source_name_part = pin_weaver_auth_block_unittest
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.revocation_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/revocation_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = revocation_unittest.cc
+  source_name_part = revocation_unittest
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.scrypt_auth_block_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/scrypt_auth_block_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = scrypt_auth_block_test.cc
+  source_name_part = scrypt_auth_block_test
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.tpm_bound_to_pcr_auth_block_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/tpm_bound_to_pcr_auth_block_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = tpm_bound_to_pcr_auth_block_test.cc
+  source_name_part = tpm_bound_to_pcr_auth_block_test
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.tpm_ecc_auth_block_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/tpm_ecc_auth_block_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = tpm_ecc_auth_block_test.cc
+  source_name_part = tpm_ecc_auth_block_test
+build obj/cryptohome/auth_blocks/cryptohome_testrunner.tpm_not_bound_to_pcr_auth_block_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_blocks/tpm_not_bound_to_pcr_auth_block_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = tpm_not_bound_to_pcr_auth_block_test.cc
+  source_name_part = tpm_not_bound_to_pcr_auth_block_test
+build obj/cryptohome/auth_factor/cryptohome_testrunner.auth_factor_label_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/auth_factor_label_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_factor_label_unittest.cc
+  source_name_part = auth_factor_label_unittest
+build obj/cryptohome/auth_factor/cryptohome_testrunner.auth_factor_manager_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/auth_factor_manager_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_factor_manager_unittest.cc
+  source_name_part = auth_factor_manager_unittest
+build obj/cryptohome/auth_factor/cryptohome_testrunner.auth_factor_map_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/auth_factor_map_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_factor_map_unittest.cc
+  source_name_part = auth_factor_map_unittest
+build obj/cryptohome/auth_factor/cryptohome_testrunner.auth_factor_metadata_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/auth_factor_metadata_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_factor_metadata_unittest.cc
+  source_name_part = auth_factor_metadata_unittest
+build obj/cryptohome/auth_factor/cryptohome_testrunner.flatbuffer_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/flatbuffer_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = flatbuffer_unittest.cc
+  source_name_part = flatbuffer_unittest
+build obj/cryptohome/auth_factor/cryptohome_testrunner.protobuf_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/protobuf_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = protobuf_unittest.cc
+  source_name_part = protobuf_unittest
+build obj/cryptohome/auth_factor/types/cryptohome_testrunner.cryptohome_recovery_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/types/cryptohome_recovery_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_recovery_unittest.cc
+  source_name_part = cryptohome_recovery_unittest
+build obj/cryptohome/auth_factor/types/cryptohome_testrunner.fingerprint_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/types/fingerprint_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = fingerprint_unittest.cc
+  source_name_part = fingerprint_unittest
+build obj/cryptohome/auth_factor/types/cryptohome_testrunner.kiosk_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/types/kiosk_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = kiosk_unittest.cc
+  source_name_part = kiosk_unittest
+build obj/cryptohome/auth_factor/types/cryptohome_testrunner.legacy_fingerprint_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/types/legacy_fingerprint_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = legacy_fingerprint_unittest.cc
+  source_name_part = legacy_fingerprint_unittest
+build obj/cryptohome/auth_factor/types/cryptohome_testrunner.manager_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/types/manager_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = manager_unittest.cc
+  source_name_part = manager_unittest
+build obj/cryptohome/auth_factor/types/cryptohome_testrunner.password_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/types/password_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = password_unittest.cc
+  source_name_part = password_unittest
+build obj/cryptohome/auth_factor/types/cryptohome_testrunner.pin_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/types/pin_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = pin_unittest.cc
+  source_name_part = pin_unittest
+build obj/cryptohome/auth_factor/types/cryptohome_testrunner.smart_card_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/types/smart_card_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = smart_card_unittest.cc
+  source_name_part = smart_card_unittest
+build obj/cryptohome/auth_factor/verifiers/cryptohome_testrunner.scrypt_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/verifiers/scrypt_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = scrypt_unittest.cc
+  source_name_part = scrypt_unittest
+build obj/cryptohome/auth_factor/cryptohome_testrunner.with_driver_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor/with_driver_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = with_driver_unittest.cc
+  source_name_part = with_driver_unittest
+build obj/cryptohome/cryptohome_testrunner.auth_factor_vault_keyset_converter_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_factor_vault_keyset_converter_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_factor_vault_keyset_converter_unittest.cc
+  source_name_part = auth_factor_vault_keyset_converter_unittest
+build obj/cryptohome/cryptohome_testrunner.auth_input_utils_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_input_utils_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_input_utils_unittest.cc
+  source_name_part = auth_input_utils_unittest
+build obj/cryptohome/cryptohome_testrunner.auth_session_flatbuffer_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_session_flatbuffer_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_session_flatbuffer_unittest.cc
+  source_name_part = auth_session_flatbuffer_unittest
+build obj/cryptohome/cryptohome_testrunner.auth_session_keyset_management_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_session_keyset_management_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_session_keyset_management_unittest.cc
+  source_name_part = auth_session_keyset_management_unittest
+build obj/cryptohome/cryptohome_testrunner.auth_session_manager_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_session_manager_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_session_manager_unittest.cc
+  source_name_part = auth_session_manager_unittest
+build obj/cryptohome/cryptohome_testrunner.auth_session_protobuf_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_session_protobuf_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_session_protobuf_unittest.cc
+  source_name_part = auth_session_protobuf_unittest
+build obj/cryptohome/cryptohome_testrunner.auth_session_tpm_simulator_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_session_tpm_simulator_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_session_tpm_simulator_unittest.cc
+  source_name_part = auth_session_tpm_simulator_unittest
+build obj/cryptohome/cryptohome_testrunner.auth_session_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/auth_session_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = auth_session_unittest.cc
+  source_name_part = auth_session_unittest
+build obj/cryptohome/challenge_credentials/cryptohome_testrunner.challenge_credentials_helper_impl_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/challenge_credentials/challenge_credentials_helper_impl_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = challenge_credentials_helper_impl_unittest.cc
+  source_name_part = challenge_credentials_helper_impl_unittest
+build obj/cryptohome/challenge_credentials/cryptohome_testrunner.fido_utils_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/challenge_credentials/fido_utils_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = fido_utils_unittest.cc
+  source_name_part = fido_utils_unittest
+build obj/cryptohome/cleanup/cryptohome_testrunner.disk_cleanup_routines_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cleanup/disk_cleanup_routines_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = disk_cleanup_routines_unittest.cc
+  source_name_part = disk_cleanup_routines_unittest
+build obj/cryptohome/cleanup/cryptohome_testrunner.disk_cleanup_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cleanup/disk_cleanup_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = disk_cleanup_unittest.cc
+  source_name_part = disk_cleanup_unittest
+build obj/cryptohome/cleanup/cryptohome_testrunner.low_disk_space_handler_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cleanup/low_disk_space_handler_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = low_disk_space_handler_unittest.cc
+  source_name_part = low_disk_space_handler_unittest
+build obj/cryptohome/cleanup/cryptohome_testrunner.user_oldest_activity_timestamp_manager_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cleanup/user_oldest_activity_timestamp_manager_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = user_oldest_activity_timestamp_manager_unittest.cc
+  source_name_part = user_oldest_activity_timestamp_manager_unittest
+build obj/cryptohome/cryptohome_testrunner.crc_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/crc_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = crc_unittest.cc
+  source_name_part = crc_unittest
+build obj/cryptohome/cryptohome_testrunner.credential_verifier_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/credential_verifier_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = credential_verifier_unittest.cc
+  source_name_part = credential_verifier_unittest
+build obj/cryptohome/cryptohome_testrunner.crypto_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/crypto_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = crypto_unittest.cc
+  source_name_part = crypto_unittest
+build obj/cryptohome/cryptohome_testrunner.cryptohome_key_loader_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cryptohome_key_loader_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_key_loader_unittest.cc
+  source_name_part = cryptohome_key_loader_unittest
+build obj/cryptohome/cryptohome_testrunner.cryptohome_keys_manager_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cryptohome_keys_manager_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_keys_manager_unittest.cc
+  source_name_part = cryptohome_keys_manager_unittest
+build obj/cryptohome/cryptorecovery/cryptohome_testrunner.inclusion_proof_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cryptorecovery/inclusion_proof_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = inclusion_proof_unittest.cc
+  source_name_part = inclusion_proof_unittest
+build obj/cryptohome/cryptorecovery/cryptohome_testrunner.recovery_crypto_hsm_cbor_serialization_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cryptorecovery/recovery_crypto_hsm_cbor_serialization_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = recovery_crypto_hsm_cbor_serialization_unittest.cc
+  source_name_part = recovery_crypto_hsm_cbor_serialization_unittest
+build obj/cryptohome/cryptorecovery/cryptohome_testrunner.recovery_crypto_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/cryptorecovery/recovery_crypto_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = recovery_crypto_unittest.cc
+  source_name_part = recovery_crypto_unittest
+build obj/cryptohome/data_migrator/cryptohome_testrunner.migration_helper_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/data_migrator/migration_helper_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = migration_helper_unittest.cc
+  source_name_part = migration_helper_unittest
+build obj/cryptohome/error/cryptohome_testrunner.converter_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/converter_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = converter_test.cc
+  source_name_part = converter_test
+build obj/cryptohome/error/cryptohome_testrunner.cryptohome_crypto_error_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/cryptohome_crypto_error_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_crypto_error_test.cc
+  source_name_part = cryptohome_crypto_error_test
+build obj/cryptohome/error/cryptohome_testrunner.cryptohome_error_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/cryptohome_error_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_error_test.cc
+  source_name_part = cryptohome_error_test
+build obj/cryptohome/error/cryptohome_testrunner.cryptohome_le_cred_error_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/cryptohome_le_cred_error_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_le_cred_error_test.cc
+  source_name_part = cryptohome_le_cred_error_test
+build obj/cryptohome/error/cryptohome_testrunner.cryptohome_mount_error_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/cryptohome_mount_error_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_mount_error_test.cc
+  source_name_part = cryptohome_mount_error_test
+build obj/cryptohome/error/cryptohome_testrunner.cryptohome_tpm_error_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/cryptohome_tpm_error_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_tpm_error_test.cc
+  source_name_part = cryptohome_tpm_error_test
+build obj/cryptohome/error/cryptohome_testrunner.reporting_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/reporting_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = reporting_test.cc
+  source_name_part = reporting_test
+build obj/cryptohome/error/cryptohome_testrunner.reporting_tpm1_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/reporting_tpm1_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = reporting_tpm1_test.cc
+  source_name_part = reporting_tpm1_test
+build obj/cryptohome/error/cryptohome_testrunner.reporting_tpm2_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/error/reporting_tpm2_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = reporting_tpm2_test.cc
+  source_name_part = reporting_tpm2_test
+build obj/cryptohome/fido/cryptohome_testrunner.make_credential_response_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/fido/make_credential_response_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = make_credential_response_test.cc
+  source_name_part = make_credential_response_test
+build obj/cryptohome/cryptohome_testrunner.filesystem_layout_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/filesystem_layout_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = filesystem_layout_unittest.cc
+  source_name_part = filesystem_layout_unittest
+build obj/cryptohome/cryptohome_testrunner.fingerprint_manager_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/fingerprint_manager_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = fingerprint_manager_unittest.cc
+  source_name_part = fingerprint_manager_unittest
+build obj/cryptohome/cryptohome_testrunner.firmware_management_parameters_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/firmware_management_parameters_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = firmware_management_parameters_unittest.cc
+  source_name_part = firmware_management_parameters_unittest
+build obj/cryptohome/cryptohome_testrunner.flatbuffer_file_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/flatbuffer_file_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = flatbuffer_file_unittest.cc
+  source_name_part = flatbuffer_file_unittest
+build obj/cryptohome/cryptohome_testrunner.install_attributes_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/install_attributes_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = install_attributes_unittest.cc
+  source_name_part = install_attributes_unittest
+build obj/cryptohome/cryptohome_testrunner.key_objects_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/key_objects_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = key_objects_unittest.cc
+  source_name_part = key_objects_unittest
+build obj/cryptohome/cryptohome_testrunner.keyset_management_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/keyset_management_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = keyset_management_unittest.cc
+  source_name_part = keyset_management_unittest
+build obj/cryptohome/cryptohome_testrunner.lockbox-cache-unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/lockbox-cache-unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = lockbox-cache-unittest.cc
+  source_name_part = lockbox-cache-unittest
+build obj/cryptohome/cryptohome_testrunner.lockbox_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/lockbox_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = lockbox_unittest.cc
+  source_name_part = lockbox_unittest
+build obj/cryptohome/namespace_mounter/cryptohome_testrunner.mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/namespace_mounter/mounter.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = mounter.cc
+  source_name_part = mounter
+build obj/cryptohome/namespace_mounter/cryptohome_testrunner.mounter_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/namespace_mounter/mounter_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = mounter_unittest.cc
+  source_name_part = mounter_unittest
+build obj/cryptohome/pinweaver_manager/cryptohome_testrunner.le_credential_manager_impl_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/pinweaver_manager/le_credential_manager_impl_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = le_credential_manager_impl_unittest.cc
+  source_name_part = le_credential_manager_impl_unittest
+build obj/cryptohome/pinweaver_manager/cryptohome_testrunner.persistent_lookup_table_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/pinweaver_manager/persistent_lookup_table_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = persistent_lookup_table_unittest.cc
+  source_name_part = persistent_lookup_table_unittest
+build obj/cryptohome/pinweaver_manager/cryptohome_testrunner.sign_in_hash_tree_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/pinweaver_manager/sign_in_hash_tree_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = sign_in_hash_tree_unittest.cc
+  source_name_part = sign_in_hash_tree_unittest
+build obj/cryptohome/cryptohome_testrunner.platform_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/platform_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = platform_unittest.cc
+  source_name_part = platform_unittest
+build obj/cryptohome/signature_sealing/cryptohome_testrunner.structures_proto_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/signature_sealing/structures_proto_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = structures_proto_test.cc
+  source_name_part = structures_proto_test
+build obj/cryptohome/storage/cryptohome_testrunner.cryptohome_vault_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/cryptohome_vault_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = cryptohome_vault_test.cc
+  source_name_part = cryptohome_vault_test
+build obj/cryptohome/storage/cryptohome_testrunner.dircrypto_migration_helper_delegate_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/dircrypto_migration_helper_delegate_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = dircrypto_migration_helper_delegate_test.cc
+  source_name_part = dircrypto_migration_helper_delegate_test
+build obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.dmcrypt_container_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/encrypted_container/dmcrypt_container_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = dmcrypt_container_test.cc
+  source_name_part = dmcrypt_container_test
+build obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.ecryptfs_container_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/encrypted_container/ecryptfs_container_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = ecryptfs_container_test.cc
+  source_name_part = ecryptfs_container_test
+build obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.ephemeral_container_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/encrypted_container/ephemeral_container_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = ephemeral_container_test.cc
+  source_name_part = ephemeral_container_test
+build obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.fscrypt_container_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/encrypted_container/fscrypt_container_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = fscrypt_container_test.cc
+  source_name_part = fscrypt_container_test
+build obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.logical_volume_backing_device_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/encrypted_container/logical_volume_backing_device_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = logical_volume_backing_device_test.cc
+  source_name_part = logical_volume_backing_device_test
+build obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.loopback_device_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/encrypted_container/loopback_device_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = loopback_device_test.cc
+  source_name_part = loopback_device_test
+build obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.ramdisk_device_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/encrypted_container/ramdisk_device_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = ramdisk_device_test.cc
+  source_name_part = ramdisk_device_test
+build obj/cryptohome/storage/cryptohome_testrunner.ephemeral_policy_util_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/ephemeral_policy_util_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = ephemeral_policy_util_unittest.cc
+  source_name_part = ephemeral_policy_util_unittest
+build obj/cryptohome/storage/cryptohome_testrunner.homedirs_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/homedirs_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = homedirs_unittest.cc
+  source_name_part = homedirs_unittest
+build obj/cryptohome/storage/cryptohome_testrunner.mount_stack_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/mount_stack_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = mount_stack_unittest.cc
+  source_name_part = mount_stack_unittest
+build obj/cryptohome/storage/cryptohome_testrunner.mount_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/mount_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = mount_unittest.cc
+  source_name_part = mount_unittest
+build obj/cryptohome/storage/cryptohome_testrunner.out_of_process_mount_helper_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/storage/out_of_process_mount_helper_test.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = out_of_process_mount_helper_test.cc
+  source_name_part = out_of_process_mount_helper_test
+build obj/cryptohome/cryptohome_testrunner.user_policy_file_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/user_policy_file_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = user_policy_file_unittest.cc
+  source_name_part = user_policy_file_unittest
+build obj/cryptohome/user_secret_stash/cryptohome_testrunner.decrypted_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/user_secret_stash/decrypted_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = decrypted_unittest.cc
+  source_name_part = decrypted_unittest
+build obj/cryptohome/user_secret_stash/cryptohome_testrunner.encrypted_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/user_secret_stash/encrypted_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = encrypted_unittest.cc
+  source_name_part = encrypted_unittest
+build obj/cryptohome/user_secret_stash/cryptohome_testrunner.migrator_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/user_secret_stash/migrator_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = migrator_unittest.cc
+  source_name_part = migrator_unittest
+build obj/cryptohome/user_secret_stash/cryptohome_testrunner.storage_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/user_secret_stash/storage_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = storage_unittest.cc
+  source_name_part = storage_unittest
+build obj/cryptohome/user_session/cryptohome_testrunner.real_user_session_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/user_session/real_user_session_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = real_user_session_unittest.cc
+  source_name_part = real_user_session_unittest
+build obj/cryptohome/user_session/cryptohome_testrunner.user_session_map_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/user_session/user_session_map_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = user_session_map_unittest.cc
+  source_name_part = user_session_map_unittest
+build obj/cryptohome/cryptohome_testrunner.userdataauth_auth_session_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/userdataauth_auth_session_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = userdataauth_auth_session_unittest.cc
+  source_name_part = userdataauth_auth_session_unittest
+build obj/cryptohome/cryptohome_testrunner.userdataauth_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/userdataauth_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = userdataauth_unittest.cc
+  source_name_part = userdataauth_unittest
+build obj/cryptohome/cryptohome_testrunner.vault_keyset_unittest.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/vault_keyset_unittest.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = vault_keyset_unittest.cc
+  source_name_part = vault_keyset_unittest
+build obj/gen/cryptohome/common/cryptohome_testrunner.print_auth_factor_proto.o: cxx gen/cryptohome/common/print_auth_factor_proto.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = print_auth_factor_proto.cc
+  source_name_part = print_auth_factor_proto
+build obj/gen/cryptohome/common/cryptohome_testrunner.print_fido_proto.o: cxx gen/cryptohome/common/print_fido_proto.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = print_fido_proto.cc
+  source_name_part = print_fido_proto
+build obj/gen/cryptohome/common/cryptohome_testrunner.print_key_proto.o: cxx gen/cryptohome/common/print_key_proto.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = print_key_proto.cc
+  source_name_part = print_key_proto
+build obj/gen/cryptohome/common/cryptohome_testrunner.print_rpc_proto.o: cxx gen/cryptohome/common/print_rpc_proto.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = print_rpc_proto.cc
+  source_name_part = print_rpc_proto
+build obj/gen/cryptohome/common/cryptohome_testrunner.print_UserDataAuth_proto.o: cxx gen/cryptohome/common/print_UserDataAuth_proto.cc || obj/cryptohome/cryptohome_testrunner.inputdeps.stamp
+  source_file_part = print_UserDataAuth_proto.cc
+  source_name_part = print_UserDataAuth_proto
+
+build ./cryptohome_testrunner: link obj/cryptohome/auth_blocks/cryptohome_testrunner.auth_block_state_unittest.o obj/cryptohome/auth_blocks/cryptohome_testrunner.auth_block_utility_impl_unittest.o obj/cryptohome/auth_blocks/cryptohome_testrunner.biometrics_auth_block_service_test.o obj/cryptohome/auth_blocks/cryptohome_testrunner.biometrics_command_processor_impl_test.o obj/cryptohome/auth_blocks/cryptohome_testrunner.challenge_credential_auth_block_test.o obj/cryptohome/auth_blocks/cryptohome_testrunner.cryptohome_recovery_auth_block_unittest.o obj/cryptohome/auth_blocks/cryptohome_testrunner.double_wrapped_compat_auth_block_test.o obj/cryptohome/auth_blocks/cryptohome_testrunner.fingerprint_auth_block_test.o obj/cryptohome/auth_blocks/cryptohome_testrunner.fp_service_unittest.o obj/cryptohome/auth_blocks/cryptohome_testrunner.mock_auth_block_utility.o obj/cryptohome/auth_blocks/cryptohome_testrunner.pin_weaver_auth_block_unittest.o obj/cryptohome/auth_blocks/cryptohome_testrunner.revocation_unittest.o obj/cryptohome/auth_blocks/cryptohome_testrunner.scrypt_auth_block_test.o obj/cryptohome/auth_blocks/cryptohome_testrunner.tpm_bound_to_pcr_auth_block_test.o obj/cryptohome/auth_blocks/cryptohome_testrunner.tpm_ecc_auth_block_test.o obj/cryptohome/auth_blocks/cryptohome_testrunner.tpm_not_bound_to_pcr_auth_block_test.o obj/cryptohome/auth_factor/cryptohome_testrunner.auth_factor_label_unittest.o obj/cryptohome/auth_factor/cryptohome_testrunner.auth_factor_manager_unittest.o obj/cryptohome/auth_factor/cryptohome_testrunner.auth_factor_map_unittest.o obj/cryptohome/auth_factor/cryptohome_testrunner.auth_factor_metadata_unittest.o obj/cryptohome/auth_factor/cryptohome_testrunner.flatbuffer_unittest.o obj/cryptohome/auth_factor/cryptohome_testrunner.protobuf_unittest.o obj/cryptohome/auth_factor/types/cryptohome_testrunner.cryptohome_recovery_unittest.o obj/cryptohome/auth_factor/types/cryptohome_testrunner.fingerprint_unittest.o obj/cryptohome/auth_factor/types/cryptohome_testrunner.kiosk_unittest.o obj/cryptohome/auth_factor/types/cryptohome_testrunner.legacy_fingerprint_unittest.o obj/cryptohome/auth_factor/types/cryptohome_testrunner.manager_unittest.o obj/cryptohome/auth_factor/types/cryptohome_testrunner.password_unittest.o obj/cryptohome/auth_factor/types/cryptohome_testrunner.pin_unittest.o obj/cryptohome/auth_factor/types/cryptohome_testrunner.smart_card_unittest.o obj/cryptohome/auth_factor/verifiers/cryptohome_testrunner.scrypt_unittest.o obj/cryptohome/auth_factor/cryptohome_testrunner.with_driver_unittest.o obj/cryptohome/cryptohome_testrunner.auth_factor_vault_keyset_converter_unittest.o obj/cryptohome/cryptohome_testrunner.auth_input_utils_unittest.o obj/cryptohome/cryptohome_testrunner.auth_session_flatbuffer_unittest.o obj/cryptohome/cryptohome_testrunner.auth_session_keyset_management_unittest.o obj/cryptohome/cryptohome_testrunner.auth_session_manager_unittest.o obj/cryptohome/cryptohome_testrunner.auth_session_protobuf_unittest.o obj/cryptohome/cryptohome_testrunner.auth_session_tpm_simulator_unittest.o obj/cryptohome/cryptohome_testrunner.auth_session_unittest.o obj/cryptohome/challenge_credentials/cryptohome_testrunner.challenge_credentials_helper_impl_unittest.o obj/cryptohome/challenge_credentials/cryptohome_testrunner.fido_utils_unittest.o obj/cryptohome/cleanup/cryptohome_testrunner.disk_cleanup_routines_unittest.o obj/cryptohome/cleanup/cryptohome_testrunner.disk_cleanup_unittest.o obj/cryptohome/cleanup/cryptohome_testrunner.low_disk_space_handler_unittest.o obj/cryptohome/cleanup/cryptohome_testrunner.user_oldest_activity_timestamp_manager_unittest.o obj/cryptohome/cryptohome_testrunner.crc_unittest.o obj/cryptohome/cryptohome_testrunner.credential_verifier_unittest.o obj/cryptohome/cryptohome_testrunner.crypto_unittest.o obj/cryptohome/cryptohome_testrunner.cryptohome_key_loader_unittest.o obj/cryptohome/cryptohome_testrunner.cryptohome_keys_manager_unittest.o obj/cryptohome/cryptorecovery/cryptohome_testrunner.inclusion_proof_unittest.o obj/cryptohome/cryptorecovery/cryptohome_testrunner.recovery_crypto_hsm_cbor_serialization_unittest.o obj/cryptohome/cryptorecovery/cryptohome_testrunner.recovery_crypto_unittest.o obj/cryptohome/data_migrator/cryptohome_testrunner.migration_helper_unittest.o obj/cryptohome/error/cryptohome_testrunner.converter_test.o obj/cryptohome/error/cryptohome_testrunner.cryptohome_crypto_error_test.o obj/cryptohome/error/cryptohome_testrunner.cryptohome_error_test.o obj/cryptohome/error/cryptohome_testrunner.cryptohome_le_cred_error_test.o obj/cryptohome/error/cryptohome_testrunner.cryptohome_mount_error_test.o obj/cryptohome/error/cryptohome_testrunner.cryptohome_tpm_error_test.o obj/cryptohome/error/cryptohome_testrunner.reporting_test.o obj/cryptohome/error/cryptohome_testrunner.reporting_tpm1_test.o obj/cryptohome/error/cryptohome_testrunner.reporting_tpm2_test.o obj/cryptohome/fido/cryptohome_testrunner.make_credential_response_test.o obj/cryptohome/cryptohome_testrunner.filesystem_layout_unittest.o obj/cryptohome/cryptohome_testrunner.fingerprint_manager_unittest.o obj/cryptohome/cryptohome_testrunner.firmware_management_parameters_unittest.o obj/cryptohome/cryptohome_testrunner.flatbuffer_file_unittest.o obj/cryptohome/cryptohome_testrunner.install_attributes_unittest.o obj/cryptohome/cryptohome_testrunner.key_objects_unittest.o obj/cryptohome/cryptohome_testrunner.keyset_management_unittest.o obj/cryptohome/cryptohome_testrunner.lockbox-cache-unittest.o obj/cryptohome/cryptohome_testrunner.lockbox_unittest.o obj/cryptohome/namespace_mounter/cryptohome_testrunner.mounter.o obj/cryptohome/namespace_mounter/cryptohome_testrunner.mounter_unittest.o obj/cryptohome/pinweaver_manager/cryptohome_testrunner.le_credential_manager_impl_unittest.o obj/cryptohome/pinweaver_manager/cryptohome_testrunner.persistent_lookup_table_unittest.o obj/cryptohome/pinweaver_manager/cryptohome_testrunner.sign_in_hash_tree_unittest.o obj/cryptohome/cryptohome_testrunner.platform_unittest.o obj/cryptohome/signature_sealing/cryptohome_testrunner.structures_proto_test.o obj/cryptohome/storage/cryptohome_testrunner.cryptohome_vault_test.o obj/cryptohome/storage/cryptohome_testrunner.dircrypto_migration_helper_delegate_test.o obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.dmcrypt_container_test.o obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.ecryptfs_container_test.o obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.ephemeral_container_test.o obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.fscrypt_container_test.o obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.logical_volume_backing_device_test.o obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.loopback_device_test.o obj/cryptohome/storage/encrypted_container/cryptohome_testrunner.ramdisk_device_test.o obj/cryptohome/storage/cryptohome_testrunner.ephemeral_policy_util_unittest.o obj/cryptohome/storage/cryptohome_testrunner.homedirs_unittest.o obj/cryptohome/storage/cryptohome_testrunner.mount_stack_unittest.o obj/cryptohome/storage/cryptohome_testrunner.mount_unittest.o obj/cryptohome/storage/cryptohome_testrunner.out_of_process_mount_helper_test.o obj/cryptohome/cryptohome_testrunner.user_policy_file_unittest.o obj/cryptohome/user_secret_stash/cryptohome_testrunner.decrypted_unittest.o obj/cryptohome/user_secret_stash/cryptohome_testrunner.encrypted_unittest.o obj/cryptohome/user_secret_stash/cryptohome_testrunner.migrator_unittest.o obj/cryptohome/user_secret_stash/cryptohome_testrunner.storage_unittest.o obj/cryptohome/user_session/cryptohome_testrunner.real_user_session_unittest.o obj/cryptohome/user_session/cryptohome_testrunner.user_session_map_unittest.o obj/cryptohome/cryptohome_testrunner.userdataauth_auth_session_unittest.o obj/cryptohome/cryptohome_testrunner.userdataauth_unittest.o obj/cryptohome/cryptohome_testrunner.vault_keyset_unittest.o obj/gen/cryptohome/common/cryptohome_testrunner.print_auth_factor_proto.o obj/gen/cryptohome/common/cryptohome_testrunner.print_fido_proto.o obj/gen/cryptohome/common/cryptohome_testrunner.print_key_proto.o obj/gen/cryptohome/common/cryptohome_testrunner.print_rpc_proto.o obj/gen/cryptohome/common/cryptohome_testrunner.print_UserDataAuth_proto.o obj/gen/include/cryptohome/flatbuffer_schemas/cryptohome-flatbuffers-binding.auth_block_state.o obj/gen/include/cryptohome/flatbuffer_schemas/cryptohome-flatbuffers-binding.auth_factor.o obj/gen/include/cryptohome/flatbuffer_schemas/cryptohome-flatbuffers-binding.enumerations.o obj/gen/include/cryptohome/flatbuffer_schemas/cryptohome-flatbuffers-binding.structures.o obj/gen/include/cryptohome/flatbuffer_schemas/cryptohome-flatbuffers-binding.user_policy.o obj/gen/include/cryptohome/flatbuffer_schemas/cryptohome-flatbuffers-binding.user_secret_stash_container.o obj/gen/include/cryptohome/flatbuffer_schemas/cryptohome-flatbuffers-binding.user_secret_stash_payload.o ./libfake_platform-static.a ./libtest_utils-static.a ./libcryptohome-proto.a ./libcrostpm.a ./libcryptohome.a ./libfido.a ./libtestrunner.a ./lib/libcryptohome_platform.so ./libcrosplatform.a ./libnamespace-mounter-ipc-proto.a || obj/cryptohome/print_proto_library.stamp obj/cryptohome/libs/cryptohome-flatbuffers.stamp obj/cryptohome/libs/cryptohome-flatbuffers-binding.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -Wl,-rpath=\$$ORIGIN/lib/ -Wl,-rpath-link=lib/ -L/build/arm64-generic/usr/lib64
+  libs = -lchaps -lhwsec_test -lkeyutils -lpolicy -lpthread -lgmock -lgtest -labsl_base -labsl_log_severity -labsl_malloc_internal -labsl_raw_logging_internal -labsl_scoped_set_env -labsl_spinlock_wait -labsl_strerror -labsl_throw_delegate -labsl_hashtablez_sampler -labsl_raw_hash_set -labsl_crc32c -labsl_crc_cord_state -labsl_crc_cpu_detect -labsl_crc_internal -labsl_debugging_internal -labsl_demangle_internal -labsl_examine_stack -labsl_failure_signal_handler -labsl_leak_check -labsl_stacktrace -labsl_symbolize -labsl_flags -labsl_flags_commandlineflag -labsl_flags_commandlineflag_internal -labsl_flags_config -labsl_flags_internal -labsl_flags_marshalling -labsl_flags_parse -labsl_flags_private_handle_accessor -labsl_flags_program_name -labsl_flags_reflection -labsl_flags_usage -labsl_flags_usage_internal -labsl_city -labsl_hash -labsl_low_level_hash -labsl_die_if_null -labsl_log_entry -labsl_log_flags -labsl_log_globals -labsl_log_initialize -labsl_log_internal_check_op -labsl_log_internal_conditions -labsl_log_internal_format -labsl_log_internal_globals -labsl_log_internal_log_sink_set -labsl_log_internal_message -labsl_log_internal_nullguard -labsl_log_internal_proto -labsl_log_sink -labsl_int128 -labsl_exponential_biased -labsl_periodic_sampler -labsl_random_distributions -labsl_random_internal_distribution_test_util -labsl_random_internal_platform -labsl_random_internal_pool_urbg -labsl_random_internal_randen -labsl_random_internal_randen_hwaes -labsl_random_internal_randen_hwaes_impl -labsl_random_internal_randen_slow -labsl_random_internal_seed_material -labsl_random_seed_gen_exception -labsl_random_seed_sequences -labsl_status -labsl_statusor -labsl_cord -labsl_cord_internal -labsl_cordz_functions -labsl_cordz_handle -labsl_cordz_info -labsl_cordz_sample_token -labsl_str_format_internal -labsl_strings -labsl_strings_internal -labsl_graphcycles_internal -labsl_synchronization -labsl_civil_time -labsl_time -labsl_time_zone -labsl_bad_any_cast_impl -labsl_bad_optional_access -labsl_bad_variant_access -lbrillo -lbase -lssl -lcrypto -lsystem_api-device_management-protos -lsystem_api-hps-protos -lsystem_api-power_manager-protos -lsystem_api-authpolicy-protos -lsystem_api-protos -lsystem_api-kerberos-protos -lsystem_api-login_manager-protos -lsystem_api-lorgnette-protos -lsystem_api-smbprovider-protos -lsystem_api-vm_concierge-protos -lsystem_api-vm_applications-protos -lsystem_api-vm_launch-protos -lsystem_api-vm_sk_forwarding-protos -lsystem_api-vm_cicerone-protos -lsystem_api-seneschal-protos -lsystem_api-oobe_config-protos -lsystem_api-runtime_probe-protos -lsystem_api-dlcservice-protos -lsystem_api-update_engine-protos -lsystem_api-vm_plugin_dispatcher-protos -lsystem_api-u2f-protos -lsystem_api-chunneld-protos -lsystem_api-system_proxy-protos -lsystem_api-vm_permission_service-protos -lsystem_api-anomaly_detector-protos -lsystem_api-minios-protos -lsystem_api-dlp-protos -lsystem_api-rmad-protos -lsystem_api-fusebox-protos -lsystem_api-privacy_screen-protos -lsystem_api-cdm_oemcrypto-protos -lsystem_api-ml-protos -lsystem_api-lvmd-protos -lsystem_api-shadercached-protos -lsystem_api-spaced-protos -lsystem_api-imageloader-protos -lsystem_api -lsystem_api-arc-protos -lsystem_api-private_computing-protos -lsystem_api-arcvm_data_migrator-protos -lsystem_api-featured-protos -lsystem_api-vm_wl-protos -lsystem_api-printscanmgr-protos -lsystem_api-vm_memory_management-protos -lprotobuf-lite -ldbus-1 -lbrillo-test -lcurl -lbase-test -lecryptfs -lmetrics -lcros_config -lbootlockbox-client -lhwsec-foundation -lhwsec -linstallattributes -lcbor -lrootdev -lsecure_erase_file -lselinux -lbiod_proxy -lfake_platform_features -lfeatures
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

@@ -1,0 +1,57 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -Wconversion -Wextra -Werror -Wno-unused-parameter -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -O2 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libnet-base
+
+build obj/net-base/libnet-base.ares_interface.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/ares_interface.cc
+  source_file_part = ares_interface.cc
+  source_name_part = ares_interface
+build obj/net-base/libnet-base.byte_utils.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/byte_utils.cc
+  source_file_part = byte_utils.cc
+  source_name_part = byte_utils
+build obj/net-base/libnet-base.dns_client.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/dns_client.cc
+  source_file_part = dns_client.cc
+  source_name_part = dns_client
+build obj/net-base/libnet-base.ip_address.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/ip_address.cc
+  source_file_part = ip_address.cc
+  source_name_part = ip_address
+build obj/net-base/libnet-base.ip_address_utils.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/ip_address_utils.cc
+  source_file_part = ip_address_utils.cc
+  source_name_part = ip_address_utils
+build obj/net-base/libnet-base.ipv4_address.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/ipv4_address.cc
+  source_file_part = ipv4_address.cc
+  source_name_part = ipv4_address
+build obj/net-base/libnet-base.ipv6_address.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/ipv6_address.cc
+  source_file_part = ipv6_address.cc
+  source_name_part = ipv6_address
+build obj/net-base/libnet-base.mac_address.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/mac_address.cc
+  source_file_part = mac_address.cc
+  source_name_part = mac_address
+build obj/net-base/libnet-base.netlink_sock_diag.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/netlink_sock_diag.cc
+  source_file_part = netlink_sock_diag.cc
+  source_name_part = netlink_sock_diag
+build obj/net-base/libnet-base.netlink_socket.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/netlink_socket.cc
+  source_file_part = netlink_socket.cc
+  source_name_part = netlink_socket
+build obj/net-base/libnet-base.rtnl_handler.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/rtnl_handler.cc
+  source_file_part = rtnl_handler.cc
+  source_name_part = rtnl_handler
+build obj/net-base/libnet-base.rtnl_listener.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/rtnl_listener.cc
+  source_file_part = rtnl_listener.cc
+  source_name_part = rtnl_listener
+build obj/net-base/libnet-base.rtnl_message.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/rtnl_message.cc
+  source_file_part = rtnl_message.cc
+  source_name_part = rtnl_message
+build obj/net-base/libnet-base.socket.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/net-base/socket.cc
+  source_file_part = socket.cc
+  source_name_part = socket
+
+build ./lib/libnet-base.so: solink obj/net-base/libnet-base.ares_interface.o obj/net-base/libnet-base.byte_utils.o obj/net-base/libnet-base.dns_client.o obj/net-base/libnet-base.ip_address.o obj/net-base/libnet-base.ip_address_utils.o obj/net-base/libnet-base.ipv4_address.o obj/net-base/libnet-base.ipv6_address.o obj/net-base/libnet-base.mac_address.o obj/net-base/libnet-base.netlink_sock_diag.o obj/net-base/libnet-base.netlink_socket.o obj/net-base/libnet-base.rtnl_handler.o obj/net-base/libnet-base.rtnl_listener.o obj/net-base/libnet-base.rtnl_message.o obj/net-base/libnet-base.socket.o || obj/net-base/_libnet-base-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -L/build/arm64-generic/usr/lib64
+  libs = -lcares -lbase -lpthread
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

@@ -1,0 +1,58 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DZLIB_IMPLEMENTATION -DADLER32_SIMD_NEON -DINFLATE_CHUNK_SIMD_NEON -DDEFLATE_SLIDE_HASH_NEON -DCRC32_ARMV8_CRC32 -DARMV8_OS_LINUX
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Inacl_helper_arm32/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=arm-linux-gnueabihf -march=armv8-a -mfloat-abi=hard -ffile-compilation-dir=. -no-canonical-prefixes -mfpu=neon -mthumb -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fomit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -ggnu-pubnames -Xclang -fuse-ctor-homing -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -O3 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -Wno-deprecated-non-prototype -Wno-incompatible-pointer-types -Wunused-variable
+cflags_c = -std=c11 --sysroot=../../../../../../../usr/armv7a-cros-linux-gnueabihf
+label_name = zlib
+target_out_dir = nacl_helper_arm32/obj/third_party/zlib
+target_output_name = libchrome_zlib
+
+build nacl_helper_arm32/obj/third_party/zlib/zlib/adler32.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/adler32.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = adler32.c
+  source_name_part = adler32
+build nacl_helper_arm32/obj/third_party/zlib/zlib/compress.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/compress.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = compress.c
+  source_name_part = compress
+build nacl_helper_arm32/obj/third_party/zlib/zlib/cpu_features.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/cpu_features.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = cpu_features.c
+  source_name_part = cpu_features
+build nacl_helper_arm32/obj/third_party/zlib/zlib/crc32.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/crc32.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = crc32.c
+  source_name_part = crc32
+build nacl_helper_arm32/obj/third_party/zlib/zlib/deflate.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/deflate.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = deflate.c
+  source_name_part = deflate
+build nacl_helper_arm32/obj/third_party/zlib/zlib/gzclose.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/gzclose.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = gzclose.c
+  source_name_part = gzclose
+build nacl_helper_arm32/obj/third_party/zlib/zlib/gzlib.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/gzlib.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = gzlib.c
+  source_name_part = gzlib
+build nacl_helper_arm32/obj/third_party/zlib/zlib/gzread.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/gzread.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = gzread.c
+  source_name_part = gzread
+build nacl_helper_arm32/obj/third_party/zlib/zlib/gzwrite.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/gzwrite.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = gzwrite.c
+  source_name_part = gzwrite
+build nacl_helper_arm32/obj/third_party/zlib/zlib/infback.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/infback.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = infback.c
+  source_name_part = infback
+build nacl_helper_arm32/obj/third_party/zlib/zlib/inffast.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/inffast.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = inffast.c
+  source_name_part = inffast
+build nacl_helper_arm32/obj/third_party/zlib/zlib/inftrees.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/inftrees.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = inftrees.c
+  source_name_part = inftrees
+build nacl_helper_arm32/obj/third_party/zlib/zlib/trees.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/trees.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = trees.c
+  source_name_part = trees
+build nacl_helper_arm32/obj/third_party/zlib/zlib/uncompr.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/uncompr.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = uncompr.c
+  source_name_part = uncompr
+build nacl_helper_arm32/obj/third_party/zlib/zlib/zutil.o: nacl_helper_arm32_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/zutil.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = zutil.c
+  source_name_part = zutil
+
+build nacl_helper_arm32/obj/third_party/zlib/libchrome_zlib.a: nacl_helper_arm32_alink nacl_helper_arm32/obj/third_party/zlib/zlib/adler32.o nacl_helper_arm32/obj/third_party/zlib/zlib/compress.o nacl_helper_arm32/obj/third_party/zlib/zlib/cpu_features.o nacl_helper_arm32/obj/third_party/zlib/zlib/crc32.o nacl_helper_arm32/obj/third_party/zlib/zlib/deflate.o nacl_helper_arm32/obj/third_party/zlib/zlib/gzclose.o nacl_helper_arm32/obj/third_party/zlib/zlib/gzlib.o nacl_helper_arm32/obj/third_party/zlib/zlib/gzread.o nacl_helper_arm32/obj/third_party/zlib/zlib/gzwrite.o nacl_helper_arm32/obj/third_party/zlib/zlib/infback.o nacl_helper_arm32/obj/third_party/zlib/zlib/inffast.o nacl_helper_arm32/obj/third_party/zlib/zlib/inftrees.o nacl_helper_arm32/obj/third_party/zlib/zlib/trees.o nacl_helper_arm32/obj/third_party/zlib/zlib/uncompr.o nacl_helper_arm32/obj/third_party/zlib/zlib/zutil.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/armv7-unknown-linux-gnueabihf/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || nacl_helper_arm32/obj/third_party/zlib/zlib_adler32_simd.stamp nacl_helper_arm32/obj/third_party/zlib/zlib_inflate_chunk_simd.stamp nacl_helper_arm32/obj/third_party/zlib/zlib_slide_hash_simd.stamp nacl_helper_arm32/obj/third_party/zlib/zlib_arm_crc32.stamp nacl_helper_arm32/obj/third_party/zlib/zlib_common_headers.stamp
+  arflags = -T
+  output_extension = .a
+  output_dir = nacl_helper_arm32/obj/third_party/zlib

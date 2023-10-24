@@ -18,7 +18,7 @@
     <testcase name="TestCrasServerMetricsHfpMicSrStatus/1" value_param="12-byte object &lt;0A-00 00-00 12-00 00-00 02-00 00-00&gt;" file="cras/src/tests/server_metrics_unittest.cc" line="415" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsHfpSrStatusTest" />
   </testsuite>
   <testsuite name="ServerMetricsCrasDlcManagerTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="1970-01-01T00:16:40.000">
-    <testcase name="TestCrasServerMetricsDlcManagerStatus/0" value_param="40-byte object &lt;01-00 00-00 55-00 00-00 08-4E 63-41 70-00 00-00 50-BB 04-00 55-00 00-00 00-58 5A-F2 0B-E2 44-43 00-00 00-00 00-00 00-00&gt;" file="cras/src/tests/server_metrics_unittest.cc" line="461" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsCrasDlcManagerTest" />
+    <testcase name="TestCrasServerMetricsDlcManagerStatus/0" value_param="40-byte object &lt;01-00 00-00 55-00 00-00 08-4E 63-41 70-00 00-00 50-BB 04-00 55-00 00-00 00-2E AB-C2 61-A4 47-C1 00-00 00-00 00-00 00-00&gt;" file="cras/src/tests/server_metrics_unittest.cc" line="461" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsCrasDlcManagerTest" />
     <testcase name="TestCrasServerMetricsDlcManagerStatus/1" value_param="40-byte object &lt;00-00 00-00 00-00 00-00 08-53 72-42 74-00 00-00 74-DB F6-01 55-00 00-00 E0-06 05-00 55-00 00-00 0A-00 00-00 00-00 00-00&gt;" file="cras/src/tests/server_metrics_unittest.cc" line="461" status="run" result="completed" time="0." timestamp="1970-01-01T00:16:40.000" classname="ServerMetricsCrasDlcManagerTest" />
   </testsuite>
 </testsuites>

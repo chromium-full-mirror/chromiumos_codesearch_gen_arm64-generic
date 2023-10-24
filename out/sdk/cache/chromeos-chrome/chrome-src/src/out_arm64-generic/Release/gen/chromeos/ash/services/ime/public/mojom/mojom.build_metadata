@@ -1,0 +1,15 @@
+{
+  "deps": [
+    "../../../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../../../sandbox/policy/mojom/mojom.build_metadata",
+    "../../../../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/ime/public/mojom/connection_factory.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/ime/public/mojom/ime_service.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/ime/public/mojom/input_engine.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/ime/public/mojom/input_method.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/ime/public/mojom/input_method_host.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/ime/public/mojom/japanese_settings.mojom"
+  ]
+}

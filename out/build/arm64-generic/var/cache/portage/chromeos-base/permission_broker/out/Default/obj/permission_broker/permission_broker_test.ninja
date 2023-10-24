@@ -1,0 +1,63 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = permission_broker_test
+
+build obj/permission_broker/permission_broker_test.allow_external_tagged_usb_device_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/allow_external_tagged_usb_device_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = allow_external_tagged_usb_device_rule_test.cc
+  source_name_part = allow_external_tagged_usb_device_rule_test
+build obj/permission_broker/permission_broker_test.allow_tty_device_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/allow_tty_device_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = allow_tty_device_rule_test.cc
+  source_name_part = allow_tty_device_rule_test
+build obj/permission_broker/permission_broker_test.allow_usb_device_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/allow_usb_device_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = allow_usb_device_rule_test.cc
+  source_name_part = allow_usb_device_rule_test
+build obj/permission_broker/permission_broker_test.deny_claimed_hidraw_device_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/deny_claimed_hidraw_device_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = deny_claimed_hidraw_device_rule_test.cc
+  source_name_part = deny_claimed_hidraw_device_rule_test
+build obj/permission_broker/permission_broker_test.deny_claimed_usb_device_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/deny_claimed_usb_device_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = deny_claimed_usb_device_rule_test.cc
+  source_name_part = deny_claimed_usb_device_rule_test
+build obj/permission_broker/permission_broker_test.deny_fwupdate_hidraw_device_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/deny_fwupdate_hidraw_device_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = deny_fwupdate_hidraw_device_rule_test.cc
+  source_name_part = deny_fwupdate_hidraw_device_rule_test
+build obj/permission_broker/permission_broker_test.deny_unsafe_hidraw_device_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/deny_unsafe_hidraw_device_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = deny_unsafe_hidraw_device_rule_test.cc
+  source_name_part = deny_unsafe_hidraw_device_rule_test
+build obj/permission_broker/permission_broker_test.deny_usb_device_class_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/deny_usb_device_class_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = deny_usb_device_class_rule_test.cc
+  source_name_part = deny_usb_device_class_rule_test
+build obj/permission_broker/permission_broker_test.deny_usb_vendor_id_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/deny_usb_vendor_id_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = deny_usb_vendor_id_rule_test.cc
+  source_name_part = deny_usb_vendor_id_rule_test
+build obj/permission_broker/permission_broker_test.fake_libusb_wrapper.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/fake_libusb_wrapper.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = fake_libusb_wrapper.cc
+  source_name_part = fake_libusb_wrapper
+build obj/permission_broker/permission_broker_test.group_tty_device_rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/group_tty_device_rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = group_tty_device_rule_test.cc
+  source_name_part = group_tty_device_rule_test
+build obj/permission_broker/permission_broker_test.port_tracker_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/port_tracker_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = port_tracker_test.cc
+  source_name_part = port_tracker_test
+build obj/permission_broker/permission_broker_test.rule_engine_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/rule_engine_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = rule_engine_test.cc
+  source_name_part = rule_engine_test
+build obj/permission_broker/permission_broker_test.rule_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/rule_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = rule_test.cc
+  source_name_part = rule_test
+build obj/permission_broker/permission_broker_test.usb_control_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/usb_control_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = usb_control_test.cc
+  source_name_part = usb_control_test
+build obj/permission_broker/permission_broker_test.usb_driver_tracker_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/usb_driver_tracker_test.cc || obj/permission_broker/permission_broker_adaptors.stamp
+  source_file_part = usb_driver_tracker_test.cc
+  source_name_part = usb_driver_tracker_test
+
+build ./permission_broker_test: link obj/permission_broker/permission_broker_test.allow_external_tagged_usb_device_rule_test.o obj/permission_broker/permission_broker_test.allow_tty_device_rule_test.o obj/permission_broker/permission_broker_test.allow_usb_device_rule_test.o obj/permission_broker/permission_broker_test.deny_claimed_hidraw_device_rule_test.o obj/permission_broker/permission_broker_test.deny_claimed_usb_device_rule_test.o obj/permission_broker/permission_broker_test.deny_fwupdate_hidraw_device_rule_test.o obj/permission_broker/permission_broker_test.deny_unsafe_hidraw_device_rule_test.o obj/permission_broker/permission_broker_test.deny_usb_device_class_rule_test.o obj/permission_broker/permission_broker_test.deny_usb_vendor_id_rule_test.o obj/permission_broker/permission_broker_test.fake_libusb_wrapper.o obj/permission_broker/permission_broker_test.group_tty_device_rule_test.o obj/permission_broker/permission_broker_test.port_tracker_test.o obj/permission_broker/permission_broker_test.rule_engine_test.o obj/permission_broker/permission_broker_test.rule_test.o obj/permission_broker/permission_broker_test.usb_control_test.o obj/permission_broker/permission_broker_test.usb_driver_tracker_test.o ./libpermission_broker.a ./libtestrunner.a ./lib/libfake_platform_features.so ./lib/libfeatures.so
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -Wl,-rpath=\$$ORIGIN/lib/ -Wl,-rpath-link=lib/ -L/build/arm64-generic/usr/lib64
+  libs = -lgmock -lgtest -lpthread -lbrillo-test -lbrillo -lbase -lcurl -lbase-test -lsystem_api -ldbus-1 -lnet-base -lpatchpanel-client -ludev -lusb-1.0 -lprotobuf-lite -lpolicy
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

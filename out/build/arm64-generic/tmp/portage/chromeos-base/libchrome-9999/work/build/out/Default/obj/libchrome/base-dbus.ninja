@@ -1,0 +1,55 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DOS_CHROMEOS -DUSE_NSS_CERTS -DUSE_SYSTEM_LIBEVENT -DNO_TCMALLOC -DMOJO_BACKWARDS_COMPAT -DMOJO_CORE_LEGACY_PROTOCOL -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS -DCOMPONENT_BUILD -DDBUS_IMPLEMENTATION
+include_dirs = -Igen/include -I../../../libchrome-9999/platform2 -I/build/arm64-generic/usr/include -I../../../libchrome-9999/platform2/libchrome -Igen/libchrome -I../../../libchrome-9999/platform2/libchrome/third_party/perfetto/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -Wno-deprecated-register -Wno-narrowing -Wno-unreachable-code-return -Wno-unused-local-typedefs -Xclang-only=-Wno-char-subscripts
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -O2 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libbase-dbus
+
+build obj/libchrome/base-dbus.inputdeps.stamp: stamp obj/libchrome/allocator_buildflags.stamp obj/libchrome/allocator_debugging_buildflags.stamp obj/libchrome/allocator_logging_buildflags.stamp obj/libchrome/blink_buildflags.stamp obj/libchrome/branding_buildflags.stamp obj/libchrome/cfi_buildflags.stamp obj/libchrome/chromecast_buildflags.stamp obj/libchrome/chromeos_buildflags.stamp obj/libchrome/clang_profiling_buildflags.stamp obj/libchrome/compiler_buildflags.stamp obj/libchrome/debugging_buildflags.stamp obj/libchrome/feature_list_buildflags.stamp obj/libchrome/ios_cronet_buildflags.stamp obj/libchrome/ipc_buildflags.stamp obj/libchrome/message_pump_buildflags.stamp obj/libchrome/mojo_buildflags.stamp obj/libchrome/mojo_cpp_bindings_buildflags.stamp obj/libchrome/partition_allocator_buildflags.stamp obj/libchrome/partition_allocator_chromecast_buildflags.stamp obj/libchrome/partition_allocator_chromeos_buildflags.stamp obj/libchrome/partition_allocator_raw_ptr_buildflags.stamp obj/libchrome/profiler_buildflags.stamp obj/libchrome/rust_buildflags.stamp obj/libchrome/synchronization_buildflags.stamp obj/libchrome/tracing_buildflags.stamp obj/libchrome/tracing_protozero.stamp
+build obj/libchrome/dbus/libbase-dbus.bus.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/bus.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = bus.cc
+  source_name_part = bus
+build obj/libchrome/dbus/libbase-dbus.dbus_statistics.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/dbus_statistics.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = dbus_statistics.cc
+  source_name_part = dbus_statistics
+build obj/libchrome/dbus/libbase-dbus.error.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/error.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = error.cc
+  source_name_part = error
+build obj/libchrome/dbus/libbase-dbus.exported_object.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/exported_object.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = exported_object.cc
+  source_name_part = exported_object
+build obj/libchrome/dbus/libbase-dbus.message.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/message.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = message.cc
+  source_name_part = message
+build obj/libchrome/dbus/libbase-dbus.object_manager.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/object_manager.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = object_manager.cc
+  source_name_part = object_manager
+build obj/libchrome/dbus/libbase-dbus.object_path.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/object_path.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = object_path.cc
+  source_name_part = object_path
+build obj/libchrome/dbus/libbase-dbus.object_proxy.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/object_proxy.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = object_proxy.cc
+  source_name_part = object_proxy
+build obj/libchrome/dbus/libbase-dbus.property.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/property.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = property.cc
+  source_name_part = property
+build obj/libchrome/dbus/libbase-dbus.scoped_dbus_error.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/scoped_dbus_error.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = scoped_dbus_error.cc
+  source_name_part = scoped_dbus_error
+build obj/libchrome/dbus/libbase-dbus.string_util.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/string_util.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = string_util.cc
+  source_name_part = string_util
+build obj/libchrome/dbus/libbase-dbus.util.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/util.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = util.cc
+  source_name_part = util
+build obj/libchrome/dbus/libbase-dbus.values_util.o: cxx ../../../libchrome-9999/platform2/libchrome/dbus/values_util.cc || obj/libchrome/base-dbus.inputdeps.stamp
+  source_file_part = values_util.cc
+  source_name_part = values_util
+
+build ./lib/libbase-dbus.so: solink obj/libchrome/dbus/libbase-dbus.bus.o obj/libchrome/dbus/libbase-dbus.dbus_statistics.o obj/libchrome/dbus/libbase-dbus.error.o obj/libchrome/dbus/libbase-dbus.exported_object.o obj/libchrome/dbus/libbase-dbus.message.o obj/libchrome/dbus/libbase-dbus.object_manager.o obj/libchrome/dbus/libbase-dbus.object_path.o obj/libchrome/dbus/libbase-dbus.object_proxy.o obj/libchrome/dbus/libbase-dbus.property.o obj/libchrome/dbus/libbase-dbus.scoped_dbus_error.o obj/libchrome/dbus/libbase-dbus.string_util.o obj/libchrome/dbus/libbase-dbus.util.o obj/libchrome/dbus/libbase-dbus.values_util.o ./lib/libbase-core.so || obj/libchrome/all_buildflags.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -Wl,--undefined-glob=\*perfetto\*SystemProducer\* -Wl,-z,defs -L/build/arm64-generic/usr/lib64
+  libs = -labsl_base -labsl_log_severity -labsl_malloc_internal -labsl_raw_logging_internal -labsl_scoped_set_env -labsl_spinlock_wait -labsl_strerror -labsl_throw_delegate -labsl_hashtablez_sampler -labsl_raw_hash_set -labsl_crc32c -labsl_crc_cord_state -labsl_crc_cpu_detect -labsl_crc_internal -labsl_debugging_internal -labsl_demangle_internal -labsl_examine_stack -labsl_failure_signal_handler -labsl_leak_check -labsl_stacktrace -labsl_symbolize -labsl_flags -labsl_flags_commandlineflag -labsl_flags_commandlineflag_internal -labsl_flags_config -labsl_flags_internal -labsl_flags_marshalling -labsl_flags_parse -labsl_flags_private_handle_accessor -labsl_flags_program_name -labsl_flags_reflection -labsl_flags_usage -labsl_flags_usage_internal -labsl_city -labsl_hash -labsl_low_level_hash -labsl_die_if_null -labsl_log_entry -labsl_log_flags -labsl_log_globals -labsl_log_initialize -labsl_log_internal_check_op -labsl_log_internal_conditions -labsl_log_internal_format -labsl_log_internal_globals -labsl_log_internal_log_sink_set -labsl_log_internal_message -labsl_log_internal_nullguard -labsl_log_internal_proto -labsl_log_sink -labsl_int128 -labsl_exponential_biased -labsl_periodic_sampler -labsl_random_distributions -labsl_random_internal_distribution_test_util -labsl_random_internal_platform -labsl_random_internal_pool_urbg -labsl_random_internal_randen -labsl_random_internal_randen_hwaes -labsl_random_internal_randen_hwaes_impl -labsl_random_internal_randen_slow -labsl_random_internal_seed_material -labsl_random_seed_gen_exception -labsl_random_seed_sequences -labsl_status -labsl_statusor -labsl_cord -labsl_cord_internal -labsl_cordz_functions -labsl_cordz_handle -labsl_cordz_info -labsl_cordz_sample_token -labsl_str_format_internal -labsl_strings -labsl_strings_internal -labsl_graphcycles_internal -labsl_synchronization -labsl_civil_time -labsl_time -labsl_time_zone -labsl_bad_any_cast_impl -labsl_bad_optional_access -labsl_bad_variant_access -ldbus-1 -lprotobuf-lite
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

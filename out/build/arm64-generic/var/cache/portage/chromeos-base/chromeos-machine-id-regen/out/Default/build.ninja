@@ -1,0 +1,52 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _machine-id-regen-install_config: phony obj/machine-id-regen/_machine-id-regen-install_config.stamp
+build init_confs: phony obj/machine-id-regen/init_confs.stamp
+build lib-machine-id-regen: phony ./lib-machine-id-regen.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build tmpfile_confs: phony obj/machine-id-regen/tmpfile_confs.stamp
+build upstart_proxies: phony obj/machine-id-regen/upstart_proxies.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build machine-id-regen$:_machine-id-regen-install_config: phony obj/machine-id-regen/_machine-id-regen-install_config.stamp
+build machine-id-regen$:all: phony obj/machine-id-regen/all.stamp
+build machine-id-regen$:init_confs: phony obj/machine-id-regen/init_confs.stamp
+build machine-id-regen$:lib-machine-id-regen: phony ./lib-machine-id-regen.a
+build machine-id-regen$:machine-id-regen: phony ./machine-id-regen
+build machine-id-regen$:machine-id-regen-test: phony ./machine-id-regen-test
+build machine-id-regen$:tmpfile_confs: phony obj/machine-id-regen/tmpfile_confs.stamp
+build machine-id-regen$:upstart_proxies: phony obj/machine-id-regen/upstart_proxies.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/machine-id-regen/_machine-id-regen-install_config.stamp $
+    obj/machine-id-regen/all.stamp $
+    obj/machine-id-regen/init_confs.stamp $
+    ./lib-machine-id-regen.a $
+    ./machine-id-regen $
+    ./machine-id-regen-test $
+    obj/machine-id-regen/tmpfile_confs.stamp $
+    obj/machine-id-regen/upstart_proxies.stamp
+
+default all

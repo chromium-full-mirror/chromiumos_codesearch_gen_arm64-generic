@@ -1,0 +1,100 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_GLIB=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DPERFETTO_IMPLEMENTATION
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iv8_snapshot/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/profiling/memory/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/include -Iv8_snapshot/gen/third_party/perfetto/build_config -Iv8_snapshot/gen/third_party/perfetto
+cflags = -gline-tables-only -fdebug-info-for-profiling -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Wshadow -Werror -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fstack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -m64 -msse3 -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=pattern -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = base
+target_out_dir = v8_snapshot/obj/third_party/perfetto/src/base
+target_output_name = base
+
+build v8_snapshot/obj/third_party/perfetto/src/base/base/android_utils.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/android_utils.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = android_utils.cc
+  source_name_part = android_utils
+build v8_snapshot/obj/third_party/perfetto/src/base/base/base64.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/base64.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = base64.cc
+  source_name_part = base64
+build v8_snapshot/obj/third_party/perfetto/src/base/base/crash_keys.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/crash_keys.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = crash_keys.cc
+  source_name_part = crash_keys
+build v8_snapshot/obj/third_party/perfetto/src/base/base/ctrl_c_handler.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/ctrl_c_handler.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = ctrl_c_handler.cc
+  source_name_part = ctrl_c_handler
+build v8_snapshot/obj/third_party/perfetto/src/base/base/event_fd.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/event_fd.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = event_fd.cc
+  source_name_part = event_fd
+build v8_snapshot/obj/third_party/perfetto/src/base/base/file_utils.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/file_utils.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = file_utils.cc
+  source_name_part = file_utils
+build v8_snapshot/obj/third_party/perfetto/src/base/base/getopt_compat.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/getopt_compat.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = getopt_compat.cc
+  source_name_part = getopt_compat
+build v8_snapshot/obj/third_party/perfetto/src/base/base/logging.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/logging.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = logging.cc
+  source_name_part = logging
+build v8_snapshot/obj/third_party/perfetto/src/base/base/metatrace.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/metatrace.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = metatrace.cc
+  source_name_part = metatrace
+build v8_snapshot/obj/third_party/perfetto/src/base/base/paged_memory.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/paged_memory.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = paged_memory.cc
+  source_name_part = paged_memory
+build v8_snapshot/obj/third_party/perfetto/src/base/base/periodic_task.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/periodic_task.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = periodic_task.cc
+  source_name_part = periodic_task
+build v8_snapshot/obj/third_party/perfetto/src/base/base/pipe.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/pipe.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = pipe.cc
+  source_name_part = pipe
+build v8_snapshot/obj/third_party/perfetto/src/base/base/status.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/status.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = status.cc
+  source_name_part = status
+build v8_snapshot/obj/third_party/perfetto/src/base/base/string_splitter.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/string_splitter.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = string_splitter.cc
+  source_name_part = string_splitter
+build v8_snapshot/obj/third_party/perfetto/src/base/base/string_utils.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/string_utils.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = string_utils.cc
+  source_name_part = string_utils
+build v8_snapshot/obj/third_party/perfetto/src/base/base/string_view.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/string_view.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = string_view.cc
+  source_name_part = string_view
+build v8_snapshot/obj/third_party/perfetto/src/base/base/temp_file.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/temp_file.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = temp_file.cc
+  source_name_part = temp_file
+build v8_snapshot/obj/third_party/perfetto/src/base/base/thread_checker.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/thread_checker.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = thread_checker.cc
+  source_name_part = thread_checker
+build v8_snapshot/obj/third_party/perfetto/src/base/base/thread_utils.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/thread_utils.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = thread_utils.cc
+  source_name_part = thread_utils
+build v8_snapshot/obj/third_party/perfetto/src/base/base/time.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/time.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = time.cc
+  source_name_part = time
+build v8_snapshot/obj/third_party/perfetto/src/base/base/utils.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/utils.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = utils.cc
+  source_name_part = utils
+build v8_snapshot/obj/third_party/perfetto/src/base/base/uuid.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/uuid.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = uuid.cc
+  source_name_part = uuid
+build v8_snapshot/obj/third_party/perfetto/src/base/base/virtual_destructors.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/virtual_destructors.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = virtual_destructors.cc
+  source_name_part = virtual_destructors
+build v8_snapshot/obj/third_party/perfetto/src/base/base/waitable_event.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/waitable_event.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = waitable_event.cc
+  source_name_part = waitable_event
+build v8_snapshot/obj/third_party/perfetto/src/base/base/watchdog_posix.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/watchdog_posix.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = watchdog_posix.cc
+  source_name_part = watchdog_posix
+build v8_snapshot/obj/third_party/perfetto/src/base/base/thread_task_runner.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/thread_task_runner.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = thread_task_runner.cc
+  source_name_part = thread_task_runner
+build v8_snapshot/obj/third_party/perfetto/src/base/base/unix_task_runner.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/unix_task_runner.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = unix_task_runner.cc
+  source_name_part = unix_task_runner
+build v8_snapshot/obj/third_party/perfetto/src/base/base/subprocess.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/subprocess.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = subprocess.cc
+  source_name_part = subprocess
+build v8_snapshot/obj/third_party/perfetto/src/base/base/subprocess_posix.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/subprocess_posix.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = subprocess_posix.cc
+  source_name_part = subprocess_posix
+build v8_snapshot/obj/third_party/perfetto/src/base/base/subprocess_windows.o: v8_snapshot_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/base/subprocess_windows.cc || v8_snapshot/obj/third_party/perfetto/gn/gen_buildflags.stamp
+  source_file_part = subprocess_windows.cc
+  source_name_part = subprocess_windows
+
+build v8_snapshot/obj/third_party/perfetto/src/base/base.stamp: v8_snapshot_stamp v8_snapshot/obj/third_party/perfetto/src/base/base/android_utils.o v8_snapshot/obj/third_party/perfetto/src/base/base/base64.o v8_snapshot/obj/third_party/perfetto/src/base/base/crash_keys.o v8_snapshot/obj/third_party/perfetto/src/base/base/ctrl_c_handler.o v8_snapshot/obj/third_party/perfetto/src/base/base/event_fd.o v8_snapshot/obj/third_party/perfetto/src/base/base/file_utils.o v8_snapshot/obj/third_party/perfetto/src/base/base/getopt_compat.o v8_snapshot/obj/third_party/perfetto/src/base/base/logging.o v8_snapshot/obj/third_party/perfetto/src/base/base/metatrace.o v8_snapshot/obj/third_party/perfetto/src/base/base/paged_memory.o v8_snapshot/obj/third_party/perfetto/src/base/base/periodic_task.o v8_snapshot/obj/third_party/perfetto/src/base/base/pipe.o v8_snapshot/obj/third_party/perfetto/src/base/base/status.o v8_snapshot/obj/third_party/perfetto/src/base/base/string_splitter.o v8_snapshot/obj/third_party/perfetto/src/base/base/string_utils.o v8_snapshot/obj/third_party/perfetto/src/base/base/string_view.o v8_snapshot/obj/third_party/perfetto/src/base/base/temp_file.o v8_snapshot/obj/third_party/perfetto/src/base/base/thread_checker.o v8_snapshot/obj/third_party/perfetto/src/base/base/thread_utils.o v8_snapshot/obj/third_party/perfetto/src/base/base/time.o v8_snapshot/obj/third_party/perfetto/src/base/base/utils.o v8_snapshot/obj/third_party/perfetto/src/base/base/uuid.o v8_snapshot/obj/third_party/perfetto/src/base/base/virtual_destructors.o v8_snapshot/obj/third_party/perfetto/src/base/base/waitable_event.o v8_snapshot/obj/third_party/perfetto/src/base/base/watchdog_posix.o v8_snapshot/obj/third_party/perfetto/src/base/base/thread_task_runner.o v8_snapshot/obj/third_party/perfetto/src/base/base/unix_task_runner.o v8_snapshot/obj/third_party/perfetto/src/base/base/subprocess.o v8_snapshot/obj/third_party/perfetto/src/base/base/subprocess_posix.o v8_snapshot/obj/third_party/perfetto/src/base/base/subprocess_windows.o || v8_snapshot/obj/third_party/perfetto/include/perfetto/base/base.stamp v8_snapshot/obj/third_party/perfetto/include/perfetto/ext/base/base.stamp v8_snapshot/obj/third_party/perfetto/gn/base_platform.stamp v8_snapshot/obj/third_party/perfetto/gn/default_deps.stamp v8_snapshot/obj/third_party/perfetto/include/perfetto/public/base.stamp v8_snapshot/obj/third_party/perfetto/include/perfetto/public/abi/base.stamp v8_snapshot/obj/third_party/perfetto/src/base/perfetto_base_default_platform.stamp

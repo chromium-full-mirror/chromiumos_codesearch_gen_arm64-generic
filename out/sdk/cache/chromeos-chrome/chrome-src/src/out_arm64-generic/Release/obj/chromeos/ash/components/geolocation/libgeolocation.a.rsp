@@ -1,0 +1,1 @@
+obj/chromeos/ash/components/geolocation/geolocation/geoposition.o obj/chromeos/ash/components/geolocation/geolocation/simple_geolocation_provider.o obj/chromeos/ash/components/geolocation/geolocation/simple_geolocation_request.o obj/chromeos/ash/components/geolocation/geolocation/simple_geolocation_request_test_monitor.o

@@ -1,0 +1,14 @@
+defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5501/work/system_api-0.0.1 -Igen
+root_out_dir = .
+target_output_name = libsystem_api
+
+build obj/system_api/libsystem_api.inputdeps.stamp: stamp obj/system_api/system_api-attestation-protos_gen.stamp obj/system_api/system_api-biod-protos_gen.stamp obj/system_api/system_api-bootlockbox-protos_gen.stamp obj/system_api/system_api-chaps-protos_gen.stamp obj/system_api/system_api-cryptohome-protos_gen.stamp obj/system_api/system_api-libarc_attestation-protos_gen.stamp obj/system_api/system_api-patchpanel-protos_gen.stamp obj/system_api/system_api-tpm_manager-protos_gen.stamp
+
+build ./lib/libsystem_api.so: solink ./libsystem_api-attestation-protos.a ./libsystem_api-biod-protos.a ./libsystem_api-bootlockbox-protos.a ./libsystem_api-chaps-protos.a ./libsystem_api-cryptohome-protos.a ./libsystem_api-libarc_attestation-protos.a ./libsystem_api-patchpanel-protos.a ./libsystem_api-tpm_manager-protos.a || obj/system_api/_libsystem_api-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,-O2 -Wl,--as-needed -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed
+  libs = -lprotobuf-lite
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

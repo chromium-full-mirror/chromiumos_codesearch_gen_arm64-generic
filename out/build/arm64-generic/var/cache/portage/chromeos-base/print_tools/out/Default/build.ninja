@@ -1,0 +1,40 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _printer_diag-install_config: phony obj/print_tools/_printer_diag-install_config.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build print_tools$:_printer_diag-install_config: phony obj/print_tools/_printer_diag-install_config.stamp
+build print_tools$:all: phony obj/print_tools/all.stamp
+build print_tools$:printer_diag: phony ./printer_diag
+build print_tools$:printer_diag_test: phony ./printer_diag_test
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/print_tools/_printer_diag-install_config.stamp $
+    obj/print_tools/all.stamp $
+    ./printer_diag $
+    ./printer_diag_test
+
+default all

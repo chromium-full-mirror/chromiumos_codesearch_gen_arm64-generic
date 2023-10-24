@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="23" failures="0" disabled="0" errors="0" time="0.042" timestamp="2023-10-23T22:47:42.963" name="AllTests">
-  <testsuite name="RClientSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.003" timestamp="2023-10-23T22:47:42.971">
-    <testcase name="CreateSendMessage" file="cras/src/tests/control_rclient_unittest.cc" line="104" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:47:42.971" classname="RClientSuite" />
+<testsuites tests="23" failures="0" disabled="0" errors="0" time="0.125" timestamp="2023-10-24T11:11:25.651" name="AllTests">
+  <testsuite name="RClientSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.006" timestamp="2023-10-24T11:11:25.677">
+    <testcase name="CreateSendMessage" file="cras/src/tests/control_rclient_unittest.cc" line="104" status="run" result="completed" time="0.004" timestamp="2023-10-24T11:11:25.679" classname="RClientSuite" />
   </testsuite>
-  <testsuite name="RClientMessagesSuite" tests="22" failures="0" disabled="0" skipped="0" errors="0" time="0.029" timestamp="2023-10-23T22:47:42.976">
-    <testcase name="AudThreadAttachFail" file="cras/src/tests/control_rclient_unittest.cc" line="186" status="run" result="completed" time="0.011" timestamp="2023-10-23T22:47:42.976" classname="RClientMessagesSuite" />
-    <testcase name="ConnectMsgWithBadFd" file="cras/src/tests/control_rclient_unittest.cc" line="207" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:47:42.988" classname="RClientMessagesSuite" />
-    <testcase name="StreamConnectMessageValidDirection" file="cras/src/tests/control_rclient_unittest.cc" line="223" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:47:42.989" classname="RClientMessagesSuite" />
-    <testcase name="StreamConnectMessageInvalidDirection" file="cras/src/tests/control_rclient_unittest.cc" line="252" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.990" classname="RClientMessagesSuite" />
-    <testcase name="StreamConnectMessageInvalidClientId" file="cras/src/tests/control_rclient_unittest.cc" line="274" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.992" classname="RClientMessagesSuite" />
-    <testcase name="SuccessReply" file="cras/src/tests/control_rclient_unittest.cc" line="294" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.992" classname="RClientMessagesSuite" />
-    <testcase name="SuccessCreateThreadReply" file="cras/src/tests/control_rclient_unittest.cc" line="315" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.993" classname="RClientMessagesSuite" />
-    <testcase name="SetVolume" file="cras/src/tests/control_rclient_unittest.cc" line="336" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.995" classname="RClientMessagesSuite" />
-    <testcase name="SetMute" file="cras/src/tests/control_rclient_unittest.cc" line="351" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.995" classname="RClientMessagesSuite" />
-    <testcase name="SetUserMute" file="cras/src/tests/control_rclient_unittest.cc" line="373" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.996" classname="RClientMessagesSuite" />
-    <testcase name="SetCaptureMute" file="cras/src/tests/control_rclient_unittest.cc" line="388" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.996" classname="RClientMessagesSuite" />
-    <testcase name="DumpSnapshots" file="cras/src/tests/control_rclient_unittest.cc" line="410" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:42.997" classname="RClientMessagesSuite" />
-    <testcase name="RegisterStatusNotification" file="cras/src/tests/control_rclient_unittest.cc" line="466" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:47:42.997" classname="RClientMessagesSuite" />
-    <testcase name="SendOutputVolumeChanged" file="cras/src/tests/control_rclient_unittest.cc" line="542" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.000" classname="RClientMessagesSuite" />
-    <testcase name="SendOutputMuteChanged" file="cras/src/tests/control_rclient_unittest.cc" line="557" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.000" classname="RClientMessagesSuite" />
-    <testcase name="SendCaptureMuteChanged" file="cras/src/tests/control_rclient_unittest.cc" line="575" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.001" classname="RClientMessagesSuite" />
-    <testcase name="SendNodesChanged" file="cras/src/tests/control_rclient_unittest.cc" line="591" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.002" classname="RClientMessagesSuite" />
-    <testcase name="SendActiveNodeChanged" file="cras/src/tests/control_rclient_unittest.cc" line="604" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.002" classname="RClientMessagesSuite" />
-    <testcase name="SendOutputNodeVolumeChanged" file="cras/src/tests/control_rclient_unittest.cc" line="621" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.003" classname="RClientMessagesSuite" />
-    <testcase name="SendNodeLeftRightSwappedChanged" file="cras/src/tests/control_rclient_unittest.cc" line="638" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.003" classname="RClientMessagesSuite" />
-    <testcase name="SendNodeInputNodeGainChanged" file="cras/src/tests/control_rclient_unittest.cc" line="655" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.004" classname="RClientMessagesSuite" />
-    <testcase name="SendNumActiveStreamsChanged" file="cras/src/tests/control_rclient_unittest.cc" line="672" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:43.004" classname="RClientMessagesSuite" />
+  <testsuite name="RClientMessagesSuite" tests="22" failures="0" disabled="0" skipped="0" errors="0" time="0.09" timestamp="2023-10-24T11:11:25.686">
+    <testcase name="AudThreadAttachFail" file="cras/src/tests/control_rclient_unittest.cc" line="186" status="run" result="completed" time="0.032" timestamp="2023-10-24T11:11:25.686" classname="RClientMessagesSuite" />
+    <testcase name="ConnectMsgWithBadFd" file="cras/src/tests/control_rclient_unittest.cc" line="207" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:11:25.720" classname="RClientMessagesSuite" />
+    <testcase name="StreamConnectMessageValidDirection" file="cras/src/tests/control_rclient_unittest.cc" line="223" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:11:25.737" classname="RClientMessagesSuite" />
+    <testcase name="StreamConnectMessageInvalidDirection" file="cras/src/tests/control_rclient_unittest.cc" line="252" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:11:25.740" classname="RClientMessagesSuite" />
+    <testcase name="StreamConnectMessageInvalidClientId" file="cras/src/tests/control_rclient_unittest.cc" line="274" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:11:25.742" classname="RClientMessagesSuite" />
+    <testcase name="SuccessReply" file="cras/src/tests/control_rclient_unittest.cc" line="294" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:11:25.744" classname="RClientMessagesSuite" />
+    <testcase name="SuccessCreateThreadReply" file="cras/src/tests/control_rclient_unittest.cc" line="315" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:11:25.745" classname="RClientMessagesSuite" />
+    <testcase name="SetVolume" file="cras/src/tests/control_rclient_unittest.cc" line="336" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.747" classname="RClientMessagesSuite" />
+    <testcase name="SetMute" file="cras/src/tests/control_rclient_unittest.cc" line="351" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:11:25.748" classname="RClientMessagesSuite" />
+    <testcase name="SetUserMute" file="cras/src/tests/control_rclient_unittest.cc" line="373" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.749" classname="RClientMessagesSuite" />
+    <testcase name="SetCaptureMute" file="cras/src/tests/control_rclient_unittest.cc" line="388" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.750" classname="RClientMessagesSuite" />
+    <testcase name="DumpSnapshots" file="cras/src/tests/control_rclient_unittest.cc" line="410" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.752" classname="RClientMessagesSuite" />
+    <testcase name="RegisterStatusNotification" file="cras/src/tests/control_rclient_unittest.cc" line="466" status="run" result="completed" time="0.003" timestamp="2023-10-24T11:11:25.753" classname="RClientMessagesSuite" />
+    <testcase name="SendOutputVolumeChanged" file="cras/src/tests/control_rclient_unittest.cc" line="542" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.769" classname="RClientMessagesSuite" />
+    <testcase name="SendOutputMuteChanged" file="cras/src/tests/control_rclient_unittest.cc" line="557" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.770" classname="RClientMessagesSuite" />
+    <testcase name="SendCaptureMuteChanged" file="cras/src/tests/control_rclient_unittest.cc" line="575" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.771" classname="RClientMessagesSuite" />
+    <testcase name="SendNodesChanged" file="cras/src/tests/control_rclient_unittest.cc" line="591" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.772" classname="RClientMessagesSuite" />
+    <testcase name="SendActiveNodeChanged" file="cras/src/tests/control_rclient_unittest.cc" line="604" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.773" classname="RClientMessagesSuite" />
+    <testcase name="SendOutputNodeVolumeChanged" file="cras/src/tests/control_rclient_unittest.cc" line="621" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.774" classname="RClientMessagesSuite" />
+    <testcase name="SendNodeLeftRightSwappedChanged" file="cras/src/tests/control_rclient_unittest.cc" line="638" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.774" classname="RClientMessagesSuite" />
+    <testcase name="SendNodeInputNodeGainChanged" file="cras/src/tests/control_rclient_unittest.cc" line="655" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.775" classname="RClientMessagesSuite" />
+    <testcase name="SendNumActiveStreamsChanged" file="cras/src/tests/control_rclient_unittest.cc" line="672" status="run" result="completed" time="0." timestamp="2023-10-24T11:11:25.776" classname="RClientMessagesSuite" />
   </testsuite>
 </testsuites>

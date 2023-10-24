@@ -1,0 +1,40 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -I../../../vpd-9999/platform2/vpd/include -I../../../vpd-9999/platform2/vpd/include/lib -Igen/include -I../../../vpd-9999/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/uuid -Wno-implicit-fallthrough -DVPD_VERSION=\"\$ $:\$ version\$ $:\$ 9999\"
+cflags_c = -std=gnu17 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = vpd
+
+build obj/vpd/vpd.vpd.o: cxx ../../../vpd-9999/platform2/vpd/vpd.cc
+  source_file_part = vpd.cc
+  source_name_part = vpd
+build obj/vpd/lib/vpd.checksum.o: cc ../../../vpd-9999/platform2/vpd/lib/checksum.c
+  source_file_part = checksum.c
+  source_name_part = checksum
+build obj/vpd/lib/vpd.flashrom.o: cc ../../../vpd-9999/platform2/vpd/lib/flashrom.c
+  source_file_part = flashrom.c
+  source_name_part = flashrom
+build obj/vpd/lib/vpd.lib_smbios.o: cc ../../../vpd-9999/platform2/vpd/lib/lib_smbios.c
+  source_file_part = lib_smbios.c
+  source_name_part = lib_smbios
+build obj/vpd/lib/vpd.lib_vpd.o: cc ../../../vpd-9999/platform2/vpd/lib/lib_vpd.c
+  source_file_part = lib_vpd.c
+  source_name_part = lib_vpd
+build obj/vpd/lib/vpd.vpd_container.o: cc ../../../vpd-9999/platform2/vpd/lib/vpd_container.c
+  source_file_part = vpd_container.c
+  source_name_part = vpd_container
+build obj/vpd/lib/vpd.vpd_decode.o: cc ../../../vpd-9999/platform2/vpd/lib/vpd_decode.c
+  source_file_part = vpd_decode.c
+  source_name_part = vpd_decode
+build obj/vpd/lib/vpd.vpd_encode.o: cc ../../../vpd-9999/platform2/vpd/lib/vpd_encode.c
+  source_file_part = vpd_encode.c
+  source_name_part = vpd_encode
+
+build ./vpd: link obj/vpd/vpd.vpd.o obj/vpd/lib/vpd.checksum.o obj/vpd/lib/vpd.flashrom.o obj/vpd/lib/vpd.lib_smbios.o obj/vpd/lib/vpd.lib_vpd.o obj/vpd/lib/vpd.vpd_container.o obj/vpd/lib/vpd.vpd_decode.o obj/vpd/lib/vpd.vpd_encode.o || obj/vpd/_vpd-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -L/build/arm64-generic/usr/lib64
+  libs = -lfmap -lbase -lpthread -luuid
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

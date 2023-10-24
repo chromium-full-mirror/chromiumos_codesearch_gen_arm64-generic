@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="11" failures="0" disabled="0" errors="0" time="0.019" timestamp="2023-10-23T22:47:37.183" name="AllTests">
-  <testsuite name="AudioThreadMonitorTestSuite" tests="11" failures="0" disabled="0" skipped="0" errors="0" time="0.01" timestamp="2023-10-23T22:47:37.191">
-    <testcase name="Init" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="43" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:47:37.192" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="Busyloop" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="48" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.195" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="Debug" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="53" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.195" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="Underrun" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="58" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.196" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="SevereUnderrun" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="63" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.196" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="DropSamples" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="68" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.196" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="TakeSnapshot" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="73" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.197" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="EventHandlerDoubleCall" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="79" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:47:37.197" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="EventHandlerIgnoreInvalidEvent" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="92" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.200" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="EventHandlerSevereUnderrun" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="100" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.201" classname="AudioThreadMonitorTestSuite" />
-    <testcase name="EventHandlerUnderrun" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="113" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:37.201" classname="AudioThreadMonitorTestSuite" />
+<testsuites tests="11" failures="0" disabled="0" errors="0" time="0.013" timestamp="2023-10-24T11:10:23.887" name="AllTests">
+  <testsuite name="AudioThreadMonitorTestSuite" tests="11" failures="0" disabled="0" skipped="0" errors="0" time="0.007" timestamp="2023-10-24T11:10:23.892">
+    <testcase name="Init" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="43" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:10:23.892" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="Busyloop" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="48" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.894" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="Debug" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="53" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.895" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="Underrun" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="58" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.895" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="SevereUnderrun" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="63" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.895" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="DropSamples" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="68" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.895" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="TakeSnapshot" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="73" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.895" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="EventHandlerDoubleCall" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="79" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:10:23.896" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="EventHandlerIgnoreInvalidEvent" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="92" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.898" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="EventHandlerSevereUnderrun" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="100" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.898" classname="AudioThreadMonitorTestSuite" />
+    <testcase name="EventHandlerUnderrun" file="cras/src/tests/audio_thread_monitor_unittest.cc" line="113" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:23.899" classname="AudioThreadMonitorTestSuite" />
   </testsuite>
 </testsuites>

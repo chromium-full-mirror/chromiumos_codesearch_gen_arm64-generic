@@ -1,0 +1,24 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include/metrics/uploader/proto -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE
+cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libmetrics_proto
+
+build obj/gen/include/metrics/uploader/proto/libmetrics_proto.chrome_user_metrics_extension.pb.o: cxx gen/include/metrics/uploader/proto/chrome_user_metrics_extension.pb.cc || obj/metrics/metrics_proto_gen.stamp
+  source_file_part = chrome_user_metrics_extension.pb.cc
+  source_name_part = chrome_user_metrics_extension.pb
+build obj/gen/include/metrics/uploader/proto/libmetrics_proto.histogram_event.pb.o: cxx gen/include/metrics/uploader/proto/histogram_event.pb.cc || obj/metrics/metrics_proto_gen.stamp
+  source_file_part = histogram_event.pb.cc
+  source_name_part = histogram_event.pb
+build obj/gen/include/metrics/uploader/proto/libmetrics_proto.system_profile.pb.o: cxx gen/include/metrics/uploader/proto/system_profile.pb.cc || obj/metrics/metrics_proto_gen.stamp
+  source_file_part = system_profile.pb.cc
+  source_name_part = system_profile.pb
+build obj/gen/include/metrics/uploader/proto/libmetrics_proto.user_action_event.pb.o: cxx gen/include/metrics/uploader/proto/user_action_event.pb.cc || obj/metrics/metrics_proto_gen.stamp
+  source_file_part = user_action_event.pb.cc
+  source_name_part = user_action_event.pb
+
+build ./libmetrics_proto.a: alink obj/gen/include/metrics/uploader/proto/libmetrics_proto.chrome_user_metrics_extension.pb.o obj/gen/include/metrics/uploader/proto/libmetrics_proto.histogram_event.pb.o obj/gen/include/metrics/uploader/proto/libmetrics_proto.system_profile.pb.o obj/gen/include/metrics/uploader/proto/libmetrics_proto.user_action_event.pb.o || obj/metrics/metrics_proto_gen.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

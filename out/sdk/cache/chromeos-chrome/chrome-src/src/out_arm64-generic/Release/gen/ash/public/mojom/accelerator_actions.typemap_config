@@ -1,0 +1,19 @@
+[
+  {
+    "traits_headers": [
+      "ash/public/mojom/accelerator_actions_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//ash/public/cpp:accelerator_actions"
+    ],
+    "traits_sources": [
+      "accelerator_actions_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::ash::AcceleratorAction",
+        "mojom": "ash.mojom.AcceleratorAction"
+      }
+    ]
+  }
+]

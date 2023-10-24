@@ -1,0 +1,61 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _swap_management-install_config: phony obj/swap_management/_swap_management-install_config.stamp
+build install_dbus_config: phony obj/swap_management/install_dbus_config.stamp
+build install_init: phony obj/swap_management/install_init.stamp
+build install_minijail_conf: phony obj/swap_management/install_minijail_conf.stamp
+build install_tmpfiles_config: phony obj/swap_management/install_tmpfiles_config.stamp
+build install_udev_rule: phony obj/swap_management/install_udev_rule.stamp
+build libswapmanagement: phony ./libswapmanagement.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build swap-management-adaptors: phony obj/swap_management/swap-management-adaptors.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build swap_management$:_swap_management-install_config: phony obj/swap_management/_swap_management-install_config.stamp
+build swap_management$:all: phony obj/swap_management/all.stamp
+build swap_management$:install_dbus_config: phony obj/swap_management/install_dbus_config.stamp
+build swap_management$:install_init: phony obj/swap_management/install_init.stamp
+build swap_management$:install_minijail_conf: phony obj/swap_management/install_minijail_conf.stamp
+build swap_management$:install_tmpfiles_config: phony obj/swap_management/install_tmpfiles_config.stamp
+build swap_management$:install_udev_rule: phony obj/swap_management/install_udev_rule.stamp
+build swap_management$:libswapmanagement: phony ./libswapmanagement.a
+build swap_management$:swap-management-adaptors: phony obj/swap_management/swap-management-adaptors.stamp
+build swap_management$:swap_management: phony ./swap_management
+build swap_management$:swap_tool_test: phony ./swap_tool_test
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/swap_management/_swap_management-install_config.stamp $
+    obj/swap_management/all.stamp $
+    obj/swap_management/install_dbus_config.stamp $
+    obj/swap_management/install_init.stamp $
+    obj/swap_management/install_minijail_conf.stamp $
+    obj/swap_management/install_tmpfiles_config.stamp $
+    obj/swap_management/install_udev_rule.stamp $
+    ./libswapmanagement.a $
+    obj/swap_management/swap-management-adaptors.stamp $
+    ./swap_management $
+    ./swap_tool_test
+
+default all

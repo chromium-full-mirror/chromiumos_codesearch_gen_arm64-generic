@@ -1,0 +1,333 @@
+defines = -DSAFTM_COMPACT_LOGGING -DTC3_CALENDAR_ICU -DTC3_DISABLE_LUA -DTC3_UNILIB_ICU -DTC3_VOCAB_ANNOTATOR_IMPL -DZLIB_CONST -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/libtextclassifier -I/build/arm64-generic/usr/include/icu-chrome/common -I/build/arm64-generic/usr/include/icu-chrome/i18n -I/build/arm64-generic/usr/include/marisa-aosp -I/build/arm64-generic/usr/include/tensorflow -I../../../libtextclassifier-9999/platform2/libtextclassifier -Igen/include -I../../../libtextclassifier-9999/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libtextclassifier
+
+build obj/libtextclassifier/annotator/libtextclassifier.annotator.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/annotator.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = annotator.cc
+  source_name_part = annotator
+build obj/libtextclassifier/annotator/libtextclassifier.cached-features.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/cached-features.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = cached-features.cc
+  source_name_part = cached-features
+build obj/libtextclassifier/annotator/datetime/libtextclassifier.extractor.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/datetime/extractor.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = extractor.cc
+  source_name_part = extractor
+build obj/libtextclassifier/annotator/datetime/libtextclassifier.regex-parser.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/datetime/regex-parser.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = regex-parser.cc
+  source_name_part = regex-parser
+build obj/libtextclassifier/annotator/datetime/libtextclassifier.utils.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/datetime/utils.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = utils.cc
+  source_name_part = utils
+build obj/libtextclassifier/annotator/duration/libtextclassifier.duration.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/duration/duration.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = duration.cc
+  source_name_part = duration
+build obj/libtextclassifier/annotator/libtextclassifier.feature-processor.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/feature-processor.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = feature-processor.cc
+  source_name_part = feature-processor
+build obj/libtextclassifier/annotator/libtextclassifier.flatbuffer-utils.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/flatbuffer-utils.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = flatbuffer-utils.cc
+  source_name_part = flatbuffer-utils
+build obj/libtextclassifier/annotator/grammar/libtextclassifier.grammar-annotator.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/grammar/grammar-annotator.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = grammar-annotator.cc
+  source_name_part = grammar-annotator
+build obj/libtextclassifier/annotator/grammar/libtextclassifier.utils.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/grammar/utils.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = utils.cc
+  source_name_part = utils
+build obj/libtextclassifier/annotator/libtextclassifier.model-executor.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/model-executor.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = model-executor.cc
+  source_name_part = model-executor
+build obj/libtextclassifier/annotator/number/libtextclassifier.number.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/number/number.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = number.cc
+  source_name_part = number
+build obj/libtextclassifier/annotator/libtextclassifier.quantization.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/quantization.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = quantization.cc
+  source_name_part = quantization
+build obj/libtextclassifier/annotator/libtextclassifier.strip-unpaired-brackets.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/strip-unpaired-brackets.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = strip-unpaired-brackets.cc
+  source_name_part = strip-unpaired-brackets
+build obj/libtextclassifier/annotator/translate/libtextclassifier.translate.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/translate/translate.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = translate.cc
+  source_name_part = translate
+build obj/libtextclassifier/annotator/libtextclassifier.types.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/types.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = types.cc
+  source_name_part = types
+build obj/libtextclassifier/annotator/vocab/libtextclassifier.vocab-annotator-impl.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/vocab/vocab-annotator-impl.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = vocab-annotator-impl.cc
+  source_name_part = vocab-annotator-impl
+build obj/libtextclassifier/annotator/vocab/libtextclassifier.vocab-level-table.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/vocab/vocab-level-table.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = vocab-level-table.cc
+  source_name_part = vocab-level-table
+build obj/libtextclassifier/annotator/libtextclassifier.zlib-utils.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/annotator/zlib-utils.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = zlib-utils.cc
+  source_name_part = zlib-utils
+build obj/libtextclassifier/lang_id/common/libtextclassifier.embedding-feature-extractor.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/embedding-feature-extractor.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = embedding-feature-extractor.cc
+  source_name_part = embedding-feature-extractor
+build obj/libtextclassifier/lang_id/common/libtextclassifier.embedding-network-params.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/embedding-network-params.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = embedding-network-params.cc
+  source_name_part = embedding-network-params
+build obj/libtextclassifier/lang_id/common/libtextclassifier.embedding-network.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/embedding-network.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = embedding-network.cc
+  source_name_part = embedding-network
+build obj/libtextclassifier/lang_id/common/fel/libtextclassifier.feature-descriptors.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/fel/feature-descriptors.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = feature-descriptors.cc
+  source_name_part = feature-descriptors
+build obj/libtextclassifier/lang_id/common/fel/libtextclassifier.feature-extractor.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/fel/feature-extractor.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = feature-extractor.cc
+  source_name_part = feature-extractor
+build obj/libtextclassifier/lang_id/common/fel/libtextclassifier.fel-parser.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/fel/fel-parser.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = fel-parser.cc
+  source_name_part = fel-parser
+build obj/libtextclassifier/lang_id/common/fel/libtextclassifier.task-context.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/fel/task-context.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = task-context.cc
+  source_name_part = task-context
+build obj/libtextclassifier/lang_id/common/fel/libtextclassifier.workspace.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/fel/workspace.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = workspace.cc
+  source_name_part = workspace
+build obj/libtextclassifier/lang_id/common/file/libtextclassifier.file-utils.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/file/file-utils.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = file-utils.cc
+  source_name_part = file-utils
+build obj/libtextclassifier/lang_id/common/file/libtextclassifier.mmap.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/file/mmap.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = mmap.cc
+  source_name_part = mmap
+build obj/libtextclassifier/lang_id/common/flatbuffers/libtextclassifier.embedding-network-params-from-flatbuffer.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/flatbuffers/embedding-network-params-from-flatbuffer.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = embedding-network-params-from-flatbuffer.cc
+  source_name_part = embedding-network-params-from-flatbuffer
+build obj/libtextclassifier/lang_id/common/flatbuffers/libtextclassifier.model-utils.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/flatbuffers/model-utils.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = model-utils.cc
+  source_name_part = model-utils
+build obj/libtextclassifier/lang_id/common/lite_base/libtextclassifier.compact-logging-raw.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/lite_base/compact-logging-raw.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = compact-logging-raw.cc
+  source_name_part = compact-logging-raw
+build obj/libtextclassifier/lang_id/common/lite_base/libtextclassifier.compact-logging.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/lite_base/compact-logging.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = compact-logging.cc
+  source_name_part = compact-logging
+build obj/libtextclassifier/lang_id/common/lite_strings/libtextclassifier.numbers.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/lite_strings/numbers.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = numbers.cc
+  source_name_part = numbers
+build obj/libtextclassifier/lang_id/common/lite_strings/libtextclassifier.str-split.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/lite_strings/str-split.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = str-split.cc
+  source_name_part = str-split
+build obj/libtextclassifier/lang_id/common/math/libtextclassifier.checksum.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/math/checksum.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = checksum.cc
+  source_name_part = checksum
+build obj/libtextclassifier/lang_id/common/math/libtextclassifier.fastexp.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/math/fastexp.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = fastexp.cc
+  source_name_part = fastexp
+build obj/libtextclassifier/lang_id/common/math/libtextclassifier.hash.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/math/hash.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = hash.cc
+  source_name_part = hash
+build obj/libtextclassifier/lang_id/common/math/libtextclassifier.softmax.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/math/softmax.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = softmax.cc
+  source_name_part = softmax
+build obj/libtextclassifier/lang_id/common/libtextclassifier.utf8.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/common/utf8.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = utf8.cc
+  source_name_part = utf8
+build obj/libtextclassifier/lang_id/libtextclassifier.custom-tokenizer.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/custom-tokenizer.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = custom-tokenizer.cc
+  source_name_part = custom-tokenizer
+build obj/libtextclassifier/lang_id/fb_model/libtextclassifier.lang-id-from-fb.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/fb_model/lang-id-from-fb.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = lang-id-from-fb.cc
+  source_name_part = lang-id-from-fb
+build obj/libtextclassifier/lang_id/fb_model/libtextclassifier.model-provider-from-fb.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/fb_model/model-provider-from-fb.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = model-provider-from-fb.cc
+  source_name_part = model-provider-from-fb
+build obj/libtextclassifier/lang_id/features/libtextclassifier.char-ngram-feature.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/features/char-ngram-feature.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = char-ngram-feature.cc
+  source_name_part = char-ngram-feature
+build obj/libtextclassifier/lang_id/features/libtextclassifier.light-sentence-features.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/features/light-sentence-features.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = light-sentence-features.cc
+  source_name_part = light-sentence-features
+build obj/libtextclassifier/lang_id/features/libtextclassifier.relevant-script-feature.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/features/relevant-script-feature.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = relevant-script-feature.cc
+  source_name_part = relevant-script-feature
+build obj/libtextclassifier/lang_id/libtextclassifier.lang-id-wrapper.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/lang-id-wrapper.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = lang-id-wrapper.cc
+  source_name_part = lang-id-wrapper
+build obj/libtextclassifier/lang_id/libtextclassifier.lang-id.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/lang-id.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = lang-id.cc
+  source_name_part = lang-id
+build obj/libtextclassifier/lang_id/script/libtextclassifier.approx-script-data.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/script/approx-script-data.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = approx-script-data.cc
+  source_name_part = approx-script-data
+build obj/libtextclassifier/lang_id/script/libtextclassifier.approx-script.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/script/approx-script.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = approx-script.cc
+  source_name_part = approx-script
+build obj/libtextclassifier/lang_id/script/libtextclassifier.script-detector.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/script/script-detector.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = script-detector.cc
+  source_name_part = script-detector
+build obj/libtextclassifier/lang_id/script/libtextclassifier.tiny-script-detector.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/lang_id/script/tiny-script-detector.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = tiny-script-detector.cc
+  source_name_part = tiny-script-detector
+build obj/libtextclassifier/utils/base/libtextclassifier.arena.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/base/arena.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = arena.cc
+  source_name_part = arena
+build obj/libtextclassifier/utils/base/libtextclassifier.logging.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/base/logging.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = logging.cc
+  source_name_part = logging
+build obj/libtextclassifier/utils/base/libtextclassifier.logging_raw.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/base/logging_raw.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = logging_raw.cc
+  source_name_part = logging_raw
+build obj/libtextclassifier/utils/base/libtextclassifier.status.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/base/status.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = status.cc
+  source_name_part = status
+build obj/libtextclassifier/utils/calendar/libtextclassifier.calendar-icu.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/calendar/calendar-icu.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = calendar-icu.cc
+  source_name_part = calendar-icu
+build obj/libtextclassifier/utils/libtextclassifier.checksum.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/checksum.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = checksum.cc
+  source_name_part = checksum
+build obj/libtextclassifier/utils/libtextclassifier.codepoint-range.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/codepoint-range.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = codepoint-range.cc
+  source_name_part = codepoint-range
+build obj/libtextclassifier/utils/container/libtextclassifier.bit-vector.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/container/bit-vector.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = bit-vector.cc
+  source_name_part = bit-vector
+build obj/libtextclassifier/utils/container/libtextclassifier.double-array-trie.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/container/double-array-trie.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = double-array-trie.cc
+  source_name_part = double-array-trie
+build obj/libtextclassifier/utils/container/libtextclassifier.sorted-strings-table.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/container/sorted-strings-table.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = sorted-strings-table.cc
+  source_name_part = sorted-strings-table
+build obj/libtextclassifier/utils/flatbuffers/libtextclassifier.mutable.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/flatbuffers/mutable.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = mutable.cc
+  source_name_part = mutable
+build obj/libtextclassifier/utils/flatbuffers/libtextclassifier.reflection.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/flatbuffers/reflection.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = reflection.cc
+  source_name_part = reflection
+build obj/libtextclassifier/utils/grammar/libtextclassifier.analyzer.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/analyzer.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = analyzer.cc
+  source_name_part = analyzer
+build obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.derivation.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/parsing/derivation.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = derivation.cc
+  source_name_part = derivation
+build obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.lexer.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/parsing/lexer.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = lexer.cc
+  source_name_part = lexer
+build obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.matcher.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/parsing/matcher.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = matcher.cc
+  source_name_part = matcher
+build obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.parser.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/parsing/parser.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = parser.cc
+  source_name_part = parser
+build obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.parse-tree.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/parsing/parse-tree.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = parse-tree.cc
+  source_name_part = parse-tree
+build obj/libtextclassifier/utils/grammar/libtextclassifier.rules-utils.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/rules-utils.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = rules-utils.cc
+  source_name_part = rules-utils
+build obj/libtextclassifier/utils/grammar/semantics/libtextclassifier.composer.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/semantics/composer.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = composer.cc
+  source_name_part = composer
+build obj/libtextclassifier/utils/grammar/semantics/evaluators/libtextclassifier.arithmetic-eval.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/semantics/evaluators/arithmetic-eval.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = arithmetic-eval.cc
+  source_name_part = arithmetic-eval
+build obj/libtextclassifier/utils/grammar/semantics/evaluators/libtextclassifier.compose-eval.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/semantics/evaluators/compose-eval.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = compose-eval.cc
+  source_name_part = compose-eval
+build obj/libtextclassifier/utils/grammar/semantics/evaluators/libtextclassifier.merge-values-eval.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/semantics/evaluators/merge-values-eval.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = merge-values-eval.cc
+  source_name_part = merge-values-eval
+build obj/libtextclassifier/utils/grammar/utils/libtextclassifier.ir.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/utils/ir.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = ir.cc
+  source_name_part = ir
+build obj/libtextclassifier/utils/grammar/utils/libtextclassifier.rules.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/grammar/utils/rules.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = rules.cc
+  source_name_part = rules
+build obj/libtextclassifier/utils/hash/libtextclassifier.farmhash.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/hash/farmhash.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = farmhash.cc
+  source_name_part = farmhash
+build obj/libtextclassifier/utils/i18n/libtextclassifier.locale.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/i18n/locale.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = locale.cc
+  source_name_part = locale
+build obj/libtextclassifier/utils/i18n/libtextclassifier.locale-list.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/i18n/locale-list.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = locale-list.cc
+  source_name_part = locale-list
+build obj/libtextclassifier/utils/math/libtextclassifier.fastexp.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/math/fastexp.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = fastexp.cc
+  source_name_part = fastexp
+build obj/libtextclassifier/utils/math/libtextclassifier.softmax.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/math/softmax.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = softmax.cc
+  source_name_part = softmax
+build obj/libtextclassifier/utils/memory/libtextclassifier.mmap.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/memory/mmap.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = mmap.cc
+  source_name_part = mmap
+build obj/libtextclassifier/utils/libtextclassifier.normalization.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/normalization.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = normalization.cc
+  source_name_part = normalization
+build obj/libtextclassifier/utils/libtextclassifier.regex-match.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/regex-match.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = regex-match.cc
+  source_name_part = regex-match
+build obj/libtextclassifier/utils/libtextclassifier.resources.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/resources.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = resources.cc
+  source_name_part = resources
+build obj/libtextclassifier/utils/sentencepiece/libtextclassifier.encoder.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/sentencepiece/encoder.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = encoder.cc
+  source_name_part = encoder
+build obj/libtextclassifier/utils/sentencepiece/libtextclassifier.normalizer.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/sentencepiece/normalizer.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = normalizer.cc
+  source_name_part = normalizer
+build obj/libtextclassifier/utils/strings/libtextclassifier.append.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/strings/append.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = append.cc
+  source_name_part = append
+build obj/libtextclassifier/utils/strings/libtextclassifier.numbers.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/strings/numbers.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = numbers.cc
+  source_name_part = numbers
+build obj/libtextclassifier/utils/strings/libtextclassifier.split.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/strings/split.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = split.cc
+  source_name_part = split
+build obj/libtextclassifier/utils/strings/libtextclassifier.substitute.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/strings/substitute.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = substitute.cc
+  source_name_part = substitute
+build obj/libtextclassifier/utils/strings/libtextclassifier.utf8.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/strings/utf8.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = utf8.cc
+  source_name_part = utf8
+build obj/libtextclassifier/utils/libtextclassifier.tensor-view.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/tensor-view.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = tensor-view.cc
+  source_name_part = tensor-view
+build obj/libtextclassifier/utils/libtextclassifier.tflite-model-executor.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/tflite-model-executor.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = tflite-model-executor.cc
+  source_name_part = tflite-model-executor
+build obj/libtextclassifier/utils/tflite/libtextclassifier.dist_diversification.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/tflite/dist_diversification.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = dist_diversification.cc
+  source_name_part = dist_diversification
+build obj/libtextclassifier/utils/tflite/libtextclassifier.encoder_common.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/tflite/encoder_common.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = encoder_common.cc
+  source_name_part = encoder_common
+build obj/libtextclassifier/utils/tflite/libtextclassifier.text_encoder.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/tflite/text_encoder.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = text_encoder.cc
+  source_name_part = text_encoder
+build obj/libtextclassifier/utils/tflite/libtextclassifier.token_encoder.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/tflite/token_encoder.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = token_encoder.cc
+  source_name_part = token_encoder
+build obj/libtextclassifier/utils/libtextclassifier.token-feature-extractor.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/token-feature-extractor.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = token-feature-extractor.cc
+  source_name_part = token-feature-extractor
+build obj/libtextclassifier/utils/libtextclassifier.tokenizer.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/tokenizer.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = tokenizer.cc
+  source_name_part = tokenizer
+build obj/libtextclassifier/utils/utf8/libtextclassifier.unicodetext.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/utf8/unicodetext.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = unicodetext.cc
+  source_name_part = unicodetext
+build obj/libtextclassifier/utils/utf8/libtextclassifier.unilib-common.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/utf8/unilib-common.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = unilib-common.cc
+  source_name_part = unilib-common
+build obj/libtextclassifier/utils/utf8/libtextclassifier.unilib-icu.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/utf8/unilib-icu.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = unilib-icu.cc
+  source_name_part = unilib-icu
+build obj/libtextclassifier/utils/libtextclassifier.variant.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/variant.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = variant.cc
+  source_name_part = variant
+build obj/libtextclassifier/utils/zlib/libtextclassifier.zlib.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/zlib/zlib.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = zlib.cc
+  source_name_part = zlib
+build obj/libtextclassifier/utils/zlib/libtextclassifier.zlib_regex.o: cxx ../../../libtextclassifier-9999/platform2/libtextclassifier/utils/zlib/zlib_regex.cc || obj/libtextclassifier/flatbuffers_gen.stamp
+  source_file_part = zlib_regex.cc
+  source_name_part = zlib_regex
+
+build ./libtextclassifier.a: alink obj/libtextclassifier/annotator/libtextclassifier.annotator.o obj/libtextclassifier/annotator/libtextclassifier.cached-features.o obj/libtextclassifier/annotator/datetime/libtextclassifier.extractor.o obj/libtextclassifier/annotator/datetime/libtextclassifier.regex-parser.o obj/libtextclassifier/annotator/datetime/libtextclassifier.utils.o obj/libtextclassifier/annotator/duration/libtextclassifier.duration.o obj/libtextclassifier/annotator/libtextclassifier.feature-processor.o obj/libtextclassifier/annotator/libtextclassifier.flatbuffer-utils.o obj/libtextclassifier/annotator/grammar/libtextclassifier.grammar-annotator.o obj/libtextclassifier/annotator/grammar/libtextclassifier.utils.o obj/libtextclassifier/annotator/libtextclassifier.model-executor.o obj/libtextclassifier/annotator/number/libtextclassifier.number.o obj/libtextclassifier/annotator/libtextclassifier.quantization.o obj/libtextclassifier/annotator/libtextclassifier.strip-unpaired-brackets.o obj/libtextclassifier/annotator/translate/libtextclassifier.translate.o obj/libtextclassifier/annotator/libtextclassifier.types.o obj/libtextclassifier/annotator/vocab/libtextclassifier.vocab-annotator-impl.o obj/libtextclassifier/annotator/vocab/libtextclassifier.vocab-level-table.o obj/libtextclassifier/annotator/libtextclassifier.zlib-utils.o obj/libtextclassifier/lang_id/common/libtextclassifier.embedding-feature-extractor.o obj/libtextclassifier/lang_id/common/libtextclassifier.embedding-network-params.o obj/libtextclassifier/lang_id/common/libtextclassifier.embedding-network.o obj/libtextclassifier/lang_id/common/fel/libtextclassifier.feature-descriptors.o obj/libtextclassifier/lang_id/common/fel/libtextclassifier.feature-extractor.o obj/libtextclassifier/lang_id/common/fel/libtextclassifier.fel-parser.o obj/libtextclassifier/lang_id/common/fel/libtextclassifier.task-context.o obj/libtextclassifier/lang_id/common/fel/libtextclassifier.workspace.o obj/libtextclassifier/lang_id/common/file/libtextclassifier.file-utils.o obj/libtextclassifier/lang_id/common/file/libtextclassifier.mmap.o obj/libtextclassifier/lang_id/common/flatbuffers/libtextclassifier.embedding-network-params-from-flatbuffer.o obj/libtextclassifier/lang_id/common/flatbuffers/libtextclassifier.model-utils.o obj/libtextclassifier/lang_id/common/lite_base/libtextclassifier.compact-logging-raw.o obj/libtextclassifier/lang_id/common/lite_base/libtextclassifier.compact-logging.o obj/libtextclassifier/lang_id/common/lite_strings/libtextclassifier.numbers.o obj/libtextclassifier/lang_id/common/lite_strings/libtextclassifier.str-split.o obj/libtextclassifier/lang_id/common/math/libtextclassifier.checksum.o obj/libtextclassifier/lang_id/common/math/libtextclassifier.fastexp.o obj/libtextclassifier/lang_id/common/math/libtextclassifier.hash.o obj/libtextclassifier/lang_id/common/math/libtextclassifier.softmax.o obj/libtextclassifier/lang_id/common/libtextclassifier.utf8.o obj/libtextclassifier/lang_id/libtextclassifier.custom-tokenizer.o obj/libtextclassifier/lang_id/fb_model/libtextclassifier.lang-id-from-fb.o obj/libtextclassifier/lang_id/fb_model/libtextclassifier.model-provider-from-fb.o obj/libtextclassifier/lang_id/features/libtextclassifier.char-ngram-feature.o obj/libtextclassifier/lang_id/features/libtextclassifier.light-sentence-features.o obj/libtextclassifier/lang_id/features/libtextclassifier.relevant-script-feature.o obj/libtextclassifier/lang_id/libtextclassifier.lang-id-wrapper.o obj/libtextclassifier/lang_id/libtextclassifier.lang-id.o obj/libtextclassifier/lang_id/script/libtextclassifier.approx-script-data.o obj/libtextclassifier/lang_id/script/libtextclassifier.approx-script.o obj/libtextclassifier/lang_id/script/libtextclassifier.script-detector.o obj/libtextclassifier/lang_id/script/libtextclassifier.tiny-script-detector.o obj/libtextclassifier/utils/base/libtextclassifier.arena.o obj/libtextclassifier/utils/base/libtextclassifier.logging.o obj/libtextclassifier/utils/base/libtextclassifier.logging_raw.o obj/libtextclassifier/utils/base/libtextclassifier.status.o obj/libtextclassifier/utils/calendar/libtextclassifier.calendar-icu.o obj/libtextclassifier/utils/libtextclassifier.checksum.o obj/libtextclassifier/utils/libtextclassifier.codepoint-range.o obj/libtextclassifier/utils/container/libtextclassifier.bit-vector.o obj/libtextclassifier/utils/container/libtextclassifier.double-array-trie.o obj/libtextclassifier/utils/container/libtextclassifier.sorted-strings-table.o obj/libtextclassifier/utils/flatbuffers/libtextclassifier.mutable.o obj/libtextclassifier/utils/flatbuffers/libtextclassifier.reflection.o obj/libtextclassifier/utils/grammar/libtextclassifier.analyzer.o obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.derivation.o obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.lexer.o obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.matcher.o obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.parser.o obj/libtextclassifier/utils/grammar/parsing/libtextclassifier.parse-tree.o obj/libtextclassifier/utils/grammar/libtextclassifier.rules-utils.o obj/libtextclassifier/utils/grammar/semantics/libtextclassifier.composer.o obj/libtextclassifier/utils/grammar/semantics/evaluators/libtextclassifier.arithmetic-eval.o obj/libtextclassifier/utils/grammar/semantics/evaluators/libtextclassifier.compose-eval.o obj/libtextclassifier/utils/grammar/semantics/evaluators/libtextclassifier.merge-values-eval.o obj/libtextclassifier/utils/grammar/utils/libtextclassifier.ir.o obj/libtextclassifier/utils/grammar/utils/libtextclassifier.rules.o obj/libtextclassifier/utils/hash/libtextclassifier.farmhash.o obj/libtextclassifier/utils/i18n/libtextclassifier.locale.o obj/libtextclassifier/utils/i18n/libtextclassifier.locale-list.o obj/libtextclassifier/utils/math/libtextclassifier.fastexp.o obj/libtextclassifier/utils/math/libtextclassifier.softmax.o obj/libtextclassifier/utils/memory/libtextclassifier.mmap.o obj/libtextclassifier/utils/libtextclassifier.normalization.o obj/libtextclassifier/utils/libtextclassifier.regex-match.o obj/libtextclassifier/utils/libtextclassifier.resources.o obj/libtextclassifier/utils/sentencepiece/libtextclassifier.encoder.o obj/libtextclassifier/utils/sentencepiece/libtextclassifier.normalizer.o obj/libtextclassifier/utils/strings/libtextclassifier.append.o obj/libtextclassifier/utils/strings/libtextclassifier.numbers.o obj/libtextclassifier/utils/strings/libtextclassifier.split.o obj/libtextclassifier/utils/strings/libtextclassifier.substitute.o obj/libtextclassifier/utils/strings/libtextclassifier.utf8.o obj/libtextclassifier/utils/libtextclassifier.tensor-view.o obj/libtextclassifier/utils/libtextclassifier.tflite-model-executor.o obj/libtextclassifier/utils/tflite/libtextclassifier.dist_diversification.o obj/libtextclassifier/utils/tflite/libtextclassifier.encoder_common.o obj/libtextclassifier/utils/tflite/libtextclassifier.text_encoder.o obj/libtextclassifier/utils/tflite/libtextclassifier.token_encoder.o obj/libtextclassifier/utils/libtextclassifier.token-feature-extractor.o obj/libtextclassifier/utils/libtextclassifier.tokenizer.o obj/libtextclassifier/utils/utf8/libtextclassifier.unicodetext.o obj/libtextclassifier/utils/utf8/libtextclassifier.unilib-common.o obj/libtextclassifier/utils/utf8/libtextclassifier.unilib-icu.o obj/libtextclassifier/utils/libtextclassifier.variant.o obj/libtextclassifier/utils/zlib/libtextclassifier.zlib.o obj/libtextclassifier/utils/zlib/libtextclassifier.zlib_regex.o || obj/libtextclassifier/flatbuffers.stamp
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

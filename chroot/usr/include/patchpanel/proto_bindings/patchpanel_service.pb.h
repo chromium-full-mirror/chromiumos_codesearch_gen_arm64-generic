@@ -2255,25 +2255,46 @@ class ArcVmStartupResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDevicesFieldNumber = 1,
+    kTapDeviceIfnamesFieldNumber = 2,
+    kArc0Ipv4AddressFieldNumber = 1,
   };
-  // repeated .patchpanel.NetworkDevice devices = 1;
-  int devices_size() const;
+  // repeated string tap_device_ifnames = 2;
+  int tap_device_ifnames_size() const;
   private:
-  int _internal_devices_size() const;
+  int _internal_tap_device_ifnames_size() const;
   public:
-  void clear_devices();
-  ::patchpanel::NetworkDevice* mutable_devices(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::NetworkDevice >*
-      mutable_devices();
+  void clear_tap_device_ifnames();
+  const std::string& tap_device_ifnames(int index) const;
+  std::string* mutable_tap_device_ifnames(int index);
+  void set_tap_device_ifnames(int index, const std::string& value);
+  void set_tap_device_ifnames(int index, std::string&& value);
+  void set_tap_device_ifnames(int index, const char* value);
+  void set_tap_device_ifnames(int index, const char* value, size_t size);
+  std::string* add_tap_device_ifnames();
+  void add_tap_device_ifnames(const std::string& value);
+  void add_tap_device_ifnames(std::string&& value);
+  void add_tap_device_ifnames(const char* value);
+  void add_tap_device_ifnames(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& tap_device_ifnames() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_tap_device_ifnames();
   private:
-  const ::patchpanel::NetworkDevice& _internal_devices(int index) const;
-  ::patchpanel::NetworkDevice* _internal_add_devices();
+  const std::string& _internal_tap_device_ifnames(int index) const;
+  std::string* _internal_add_tap_device_ifnames();
   public:
-  const ::patchpanel::NetworkDevice& devices(int index) const;
-  ::patchpanel::NetworkDevice* add_devices();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::NetworkDevice >&
-      devices() const;
+
+  // bytes arc0_ipv4_address = 1;
+  void clear_arc0_ipv4_address();
+  const std::string& arc0_ipv4_address() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_arc0_ipv4_address(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_arc0_ipv4_address();
+  PROTOBUF_NODISCARD std::string* release_arc0_ipv4_address();
+  void set_allocated_arc0_ipv4_address(std::string* arc0_ipv4_address);
+  private:
+  const std::string& _internal_arc0_ipv4_address() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_arc0_ipv4_address(const std::string& value);
+  std::string* _internal_mutable_arc0_ipv4_address();
+  public:
 
   // @@protoc_insertion_point(class_scope:patchpanel.ArcVmStartupResponse)
  private:
@@ -2283,7 +2304,8 @@ class ArcVmStartupResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::NetworkDevice > devices_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> tap_device_ifnames_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr arc0_ipv4_address_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -11075,44 +11097,129 @@ GetDevicesResponse::devices() const {
 
 // ArcVmStartupResponse
 
-// repeated .patchpanel.NetworkDevice devices = 1;
-inline int ArcVmStartupResponse::_internal_devices_size() const {
-  return _impl_.devices_.size();
+// bytes arc0_ipv4_address = 1;
+inline void ArcVmStartupResponse::clear_arc0_ipv4_address() {
+  _impl_.arc0_ipv4_address_.ClearToEmpty();
 }
-inline int ArcVmStartupResponse::devices_size() const {
-  return _internal_devices_size();
+inline const std::string& ArcVmStartupResponse::arc0_ipv4_address() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ArcVmStartupResponse.arc0_ipv4_address)
+  return _internal_arc0_ipv4_address();
 }
-inline void ArcVmStartupResponse::clear_devices() {
-  _impl_.devices_.Clear();
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ArcVmStartupResponse::set_arc0_ipv4_address(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.arc0_ipv4_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.ArcVmStartupResponse.arc0_ipv4_address)
 }
-inline ::patchpanel::NetworkDevice* ArcVmStartupResponse::mutable_devices(int index) {
-  // @@protoc_insertion_point(field_mutable:patchpanel.ArcVmStartupResponse.devices)
-  return _impl_.devices_.Mutable(index);
+inline std::string* ArcVmStartupResponse::mutable_arc0_ipv4_address() {
+  std::string* _s = _internal_mutable_arc0_ipv4_address();
+  // @@protoc_insertion_point(field_mutable:patchpanel.ArcVmStartupResponse.arc0_ipv4_address)
+  return _s;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::NetworkDevice >*
-ArcVmStartupResponse::mutable_devices() {
-  // @@protoc_insertion_point(field_mutable_list:patchpanel.ArcVmStartupResponse.devices)
-  return &_impl_.devices_;
+inline const std::string& ArcVmStartupResponse::_internal_arc0_ipv4_address() const {
+  return _impl_.arc0_ipv4_address_.Get();
 }
-inline const ::patchpanel::NetworkDevice& ArcVmStartupResponse::_internal_devices(int index) const {
-  return _impl_.devices_.Get(index);
+inline void ArcVmStartupResponse::_internal_set_arc0_ipv4_address(const std::string& value) {
+  
+  _impl_.arc0_ipv4_address_.Set(value, GetArenaForAllocation());
 }
-inline const ::patchpanel::NetworkDevice& ArcVmStartupResponse::devices(int index) const {
-  // @@protoc_insertion_point(field_get:patchpanel.ArcVmStartupResponse.devices)
-  return _internal_devices(index);
+inline std::string* ArcVmStartupResponse::_internal_mutable_arc0_ipv4_address() {
+  
+  return _impl_.arc0_ipv4_address_.Mutable(GetArenaForAllocation());
 }
-inline ::patchpanel::NetworkDevice* ArcVmStartupResponse::_internal_add_devices() {
-  return _impl_.devices_.Add();
+inline std::string* ArcVmStartupResponse::release_arc0_ipv4_address() {
+  // @@protoc_insertion_point(field_release:patchpanel.ArcVmStartupResponse.arc0_ipv4_address)
+  return _impl_.arc0_ipv4_address_.Release();
 }
-inline ::patchpanel::NetworkDevice* ArcVmStartupResponse::add_devices() {
-  ::patchpanel::NetworkDevice* _add = _internal_add_devices();
-  // @@protoc_insertion_point(field_add:patchpanel.ArcVmStartupResponse.devices)
-  return _add;
+inline void ArcVmStartupResponse::set_allocated_arc0_ipv4_address(std::string* arc0_ipv4_address) {
+  if (arc0_ipv4_address != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.arc0_ipv4_address_.SetAllocated(arc0_ipv4_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.arc0_ipv4_address_.IsDefault()) {
+    _impl_.arc0_ipv4_address_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.ArcVmStartupResponse.arc0_ipv4_address)
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::NetworkDevice >&
-ArcVmStartupResponse::devices() const {
-  // @@protoc_insertion_point(field_list:patchpanel.ArcVmStartupResponse.devices)
-  return _impl_.devices_;
+
+// repeated string tap_device_ifnames = 2;
+inline int ArcVmStartupResponse::_internal_tap_device_ifnames_size() const {
+  return _impl_.tap_device_ifnames_.size();
+}
+inline int ArcVmStartupResponse::tap_device_ifnames_size() const {
+  return _internal_tap_device_ifnames_size();
+}
+inline void ArcVmStartupResponse::clear_tap_device_ifnames() {
+  _impl_.tap_device_ifnames_.Clear();
+}
+inline std::string* ArcVmStartupResponse::add_tap_device_ifnames() {
+  std::string* _s = _internal_add_tap_device_ifnames();
+  // @@protoc_insertion_point(field_add_mutable:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+  return _s;
+}
+inline const std::string& ArcVmStartupResponse::_internal_tap_device_ifnames(int index) const {
+  return _impl_.tap_device_ifnames_.Get(index);
+}
+inline const std::string& ArcVmStartupResponse::tap_device_ifnames(int index) const {
+  // @@protoc_insertion_point(field_get:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+  return _internal_tap_device_ifnames(index);
+}
+inline std::string* ArcVmStartupResponse::mutable_tap_device_ifnames(int index) {
+  // @@protoc_insertion_point(field_mutable:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+  return _impl_.tap_device_ifnames_.Mutable(index);
+}
+inline void ArcVmStartupResponse::set_tap_device_ifnames(int index, const std::string& value) {
+  _impl_.tap_device_ifnames_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+}
+inline void ArcVmStartupResponse::set_tap_device_ifnames(int index, std::string&& value) {
+  _impl_.tap_device_ifnames_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+}
+inline void ArcVmStartupResponse::set_tap_device_ifnames(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.tap_device_ifnames_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+}
+inline void ArcVmStartupResponse::set_tap_device_ifnames(int index, const char* value, size_t size) {
+  _impl_.tap_device_ifnames_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+}
+inline std::string* ArcVmStartupResponse::_internal_add_tap_device_ifnames() {
+  return _impl_.tap_device_ifnames_.Add();
+}
+inline void ArcVmStartupResponse::add_tap_device_ifnames(const std::string& value) {
+  _impl_.tap_device_ifnames_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+}
+inline void ArcVmStartupResponse::add_tap_device_ifnames(std::string&& value) {
+  _impl_.tap_device_ifnames_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+}
+inline void ArcVmStartupResponse::add_tap_device_ifnames(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.tap_device_ifnames_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+}
+inline void ArcVmStartupResponse::add_tap_device_ifnames(const char* value, size_t size) {
+  _impl_.tap_device_ifnames_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+ArcVmStartupResponse::tap_device_ifnames() const {
+  // @@protoc_insertion_point(field_list:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+  return _impl_.tap_device_ifnames_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+ArcVmStartupResponse::mutable_tap_device_ifnames() {
+  // @@protoc_insertion_point(field_mutable_list:patchpanel.ArcVmStartupResponse.tap_device_ifnames)
+  return &_impl_.tap_device_ifnames_;
 }
 
 // -------------------------------------------------------------------

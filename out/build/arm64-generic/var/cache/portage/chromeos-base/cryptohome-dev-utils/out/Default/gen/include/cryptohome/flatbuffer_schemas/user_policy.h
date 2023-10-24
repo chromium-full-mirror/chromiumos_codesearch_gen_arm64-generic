@@ -22,7 +22,6 @@
 // --test_utils_header_include_path
 // cryptohome/flatbuffer_schemas/enumerations_test_utils.h
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome-dev-utils/out/Default/gen/bfbs/user_policy.bfbs
-// --filter_by_namespace cryptohome
 
 #ifndef CRYPTOHOME_FLATBUFFER_SCHEMAS_USER_POLICY_USER_POLICY_H_
 #define CRYPTOHOME_FLATBUFFER_SCHEMAS_USER_POLICY_USER_POLICY_H_
@@ -40,9 +39,9 @@
 namespace cryptohome {
 
 struct SerializedUserAuthFactorTypePolicy {
-  std::optional<::cryptohome::enumeration::SerializedAuthFactorType> type;
-  std::vector<::cryptohome::enumeration::SerializedAuthIntent> enabled_intents;
-  std::vector<::cryptohome::enumeration::SerializedAuthIntent> disabled_intents;
+  std::optional<::cryptohome::SerializedAuthFactorType> type;
+  std::vector<::cryptohome::SerializedAuthIntent> enabled_intents;
+  std::vector<::cryptohome::SerializedAuthIntent> disabled_intents;
 };
 
 }  // namespace cryptohome

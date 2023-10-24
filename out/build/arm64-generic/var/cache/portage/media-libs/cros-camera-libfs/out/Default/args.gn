@@ -1,0 +1,229 @@
+platform_subdir = "camera/libfs"
+cc = "aarch64-cros-linux-gnu-clang"
+cxx = "aarch64-cros-linux-gnu-clang++"
+ar = "llvm-ar"
+pkg_config = "/build/arm64-generic/build/bin/pkg-config"
+target_cpu = "arm64"
+target_os = "linux"
+clang_cc = true
+clang_cxx = true
+OS = "linux"
+sysroot = "/build/arm64-generic"
+libdir = "/usr/lib64"
+build_root =
+    "/build/arm64-generic/var/cache/portage/media-libs/cros-camera-libfs"
+platform2_root = "/mnt/host/source/src/platform2"
+libbase_ver = "1211970"
+enable_exceptions = false
+external_cflags = [
+  "-Os",
+  "-pipe",
+  "-march=armv8-a",
+  "-g",
+  "-fno-exceptions",
+  "-fno-unwind-tables",
+  "-fno-asynchronous-unwind-tables",
+  "-ffunction-sections",
+  "-fdata-sections",
+]
+external_cxxflags = [
+  "-Os",
+  "-pipe",
+  "-march=armv8-a",
+  "-g",
+  "-fno-exceptions",
+  "-fno-unwind-tables",
+  "-fno-asynchronous-unwind-tables",
+  "-ffunction-sections",
+  "-fdata-sections",
+]
+external_cppflags = [
+  "-D_FILE_OFFSET_BITS=64",
+  "-D_LARGEFILE_SOURCE",
+  "-D_LARGEFILE64_SOURCE",
+]
+external_ldflags = [
+  "-Wl,-O2",
+  "-Wl,--as-needed",
+  "-Wl,--fix-cortex-a53-843419",
+  "-Wl,--gc-sections",
+  "-Wl,--icf=all",
+]
+use = {
+  amd_oemcrypto = false
+  amd64 = false
+  android_container_pi = false
+  android_container_rvc = false
+  android_vm_rvc = false
+  android_vm_tm = false
+  apply_landlock_policy = false
+  arc_adb_sideloading = false
+  arc_erofs = false
+  arc_hw_oemcrypto = false
+  arcpp = false
+  arcvm = false
+  arcvm_gki = false
+  arm = false
+  asan = false
+  attestation = false
+  bluetooth_suspend_management = false
+  camera_feature_auto_framing = false
+  camera_feature_diagnostics = false
+  camera_feature_effects = false
+  camera_feature_face_detection = false
+  camera_feature_frame_annotator = false
+  camera_feature_hdrnet = false
+  camera_feature_portrait_mode = false
+  cdm_factory_daemon = false
+  cellular = false
+  cert_provision = false
+  cfm = false
+  cfm_enabled_device = false
+  cheets = false
+  chromeless_tty = false
+  compdb_only = false
+  compilation_database = false
+  containers = false
+  coverage = false
+  cpp20 = false
+  cr50_onboard = false
+  cros_arm64 = false
+  cros_debug = true
+  cros_host = false
+  cros_i686 = false
+  cross_domain_context = false
+  crosvm_virtio_video = false
+  crosvm_wl_dmabuf = false
+  crypto = false
+  csme_emulator = false
+  dbus = false
+  device_mapper = false
+  dhcpv6 = false
+  direncryption = false
+  dlc = false
+  double_extend_pcr_issue = false
+  enable_slow_boot_notify = false
+  encrypted_reboot_vault = false
+  encrypted_stateful = false
+  enterprise_rollback_reven = false
+  factory_runtime_probe = false
+  fake_drivefs_launcher = false
+  feature_management = false
+  feedback = false
+  flex_internal = false
+  floss = false
+  floss_rootcanal = false
+  force_breakpad = false
+  fp_on_power_button = false
+  fsverity = false
+  ftdi_tpm = false
+  function_elimination_experiment = false
+  fuzzer = false
+  generic_tpm2 = false
+  hammerd_api = false
+  hevc_codec = false
+  hibernate = false
+  houdini = false
+  houdini64 = false
+  hw_details = false
+  hwid_override = false
+  iioservice = false
+  iioservice_proximity = false
+  inference_accuracy_eval = false
+  intel_oemcrypto = false
+  internal = false
+  ipu6 = false
+  ipu6ep = false
+  ipu6epmtl = false
+  ipu6epadln = false
+  ipu6se = false
+  iwlwifi_dump = false
+  jetstream_routing = false
+  keymint = false
+  key_eviction = false
+  kvm_guest = false
+  kvm_host = false
+  libglvnd = false
+  local_federated_server = false
+  local_ml_core_internal = false
+  login_apply_no_new_privs = false
+  login_enable_crosh_sudo = false
+  lto_experiment = false
+  lvm_migration = false
+  lvm_stateful_partition = false
+  manage_efi_boot_entries = false
+  metrics_uploader = false
+  ml_benchmark_drivers = false
+  mojo = false
+  mount_oop = false
+  msan = false
+  mtd = false
+  ndk_translation = false
+  oemcrypto_v16 = false
+  oemcrypto_v17 = false
+  ondevice_document_scanner = true
+  ondevice_document_scanner_dlc = false
+  ondevice_grammar = false
+  ondevice_handwriting = false
+  ondevice_handwriting_dlc = false
+  ondevice_image_content_annotation = false
+  ondevice_speech = false
+  ondevice_text_suggestions = false
+  opengles = false
+  optee_oemcrypto = false
+  os_install_service = false
+  passive_metrics = false
+  pavp_4_3 = false
+  pinweaver = false
+  pinweaver_csme = false
+  postinst_metrics = false
+  postinstall_cgpt_repair = false
+  postinstall_config_efi_and_legacy = false
+  power_management = false
+  prjquota = false
+  profiling = false
+  protected_av1 = false
+  proto_force_optimize_speed = false
+  qualcomm_camx = false
+  qrtr = false
+  report_requisition = false
+  reven_partition_migration = false
+  secagentd_min_core_btf = false
+  selinux = false
+  slow_mount = false
+  systemd = false
+  tcmalloc = false
+  test = true
+  ti50_onboard = false
+  timers = false
+  tpm = false
+  tpm_dynamic = false
+  tpm_insecure_fallback = false
+  tpm2 = false
+  tpm2_simulator = false
+  ubsan = false
+  udev = false
+  usb = false
+  user_session_isolation = false
+  uss_migration = false
+  v4l2_codec = false
+  vaapi = false
+  video_cards_msm = false
+  virtgpu_native_context = false
+  vm_borealis = false
+  vm_sludge = false
+  vmt_tracing = false
+  vpn = false
+  vtpm_proxy = false
+  vulkan = false
+  wake_on_wifi = false
+  wilco = false
+  wpa3_sae = false
+  x86 = false
+  chrome_kiosk_app = true
+  chrome_network_proxy = true
+  arm64 = true
+  elibc_glibc = true
+  kernel_linux = true
+  userland_GNU = true
+}

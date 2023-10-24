@@ -1,0 +1,1 @@
+obj/apps/apps/app_lifetime_monitor.o obj/apps/apps/app_lifetime_monitor_factory.o obj/apps/apps/app_restore_service.o obj/apps/apps/app_restore_service_factory.o obj/apps/apps/browser_context_keyed_service_factories.o obj/apps/apps/launcher.o obj/apps/apps/saved_files_service.o obj/apps/apps/saved_files_service_factory.o obj/apps/apps/switches.o

@@ -1,0 +1,70 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/tast-tests/helpers/local/all.stamp
+build obj/tast-tests/helpers/local/all.stamp: stamp ./crash.Seccomp.brk ./cryptohome.SequentialConsistency.filewriter ./graphics.GBM.gbmtest ./hardware.VerifyRemoteSleep.timersignal ./kernel.PerfCallgraph.graph ./featured.FeatureLibraryLateBoot.check ./platform.UserCrash.crasher obj/tast-tests/helpers/local/platform.UserCrash.crasher.sym.stamp ./security.AltSyscall.adjtimex ./security.AltSyscall.alt_syscall ./security.AltSyscall.clock_adjtime ./security.AltSyscall.mmap ./security.AltSyscall.read ./security.MemoryFileExecTelemetry.test_bin ./security.MemoryFileExecTelemetry.memfd_fexecve ./security.Minijail.bpfdeny ./security.Minijail.landlock_refer ./security.Minijail.landlock_walk ./security.MinijailSeccomp.fail ./security.MinijailSeccomp.ok ./security.MinijailSeccomp.open ./security.PtraceProcess.sleeper ./security.PtraceThread.thread-prctl ./arc.Suspend.readclocks ./multivm.Lifecycle.allocate ./security.Minijail.staticbashexec
+subninja obj/tast-tests/helpers/local/arc.Suspend.readclocks.ninja
+subninja obj/tast-tests/helpers/local/crash.Seccomp.brk.ninja
+subninja obj/tast-tests/helpers/local/cryptohome.SequentialConsistency.filewriter.ninja
+subninja obj/tast-tests/helpers/local/featured.FeatureLibraryLateBoot.check.ninja
+subninja obj/tast-tests/helpers/local/graphics.GBM.gbmtest.ninja
+subninja obj/tast-tests/helpers/local/hardware.VerifyRemoteSleep.timersignal.ninja
+subninja obj/tast-tests/helpers/local/kernel.PerfCallgraph.graph.ninja
+subninja obj/tast-tests/helpers/local/multivm.Lifecycle.allocate.ninja
+subninja obj/tast-tests/helpers/local/platform.UserCrash.crasher.ninja
+rule __tast-tests_helpers_local_platform.UserCrash.crasher.sym___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../tast-local-helpers-cros-9999/platform2/tast-tests/helpers/local/dump_syms.py /build/arm64-generic/tmp/portage/chromeos-base/tast-local-helpers-cros-9999/work/build/out/Default/platform.UserCrash.crasher /build/arm64-generic/tmp/portage/chromeos-base/tast-local-helpers-cros-9999/work/build/out/Default/platform.UserCrash.crasher.sym
+  description = ACTION //tast-tests/helpers/local:platform.UserCrash.crasher.sym(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build platform.UserCrash.crasher.sym: __tast-tests_helpers_local_platform.UserCrash.crasher.sym___common-mk_toolchain_toolchain__rule | ../../../tast-local-helpers-cros-9999/platform2/tast-tests/helpers/local/dump_syms.py platform.UserCrash.crasher ./platform.UserCrash.crasher
+
+build obj/tast-tests/helpers/local/platform.UserCrash.crasher.sym.stamp: stamp platform.UserCrash.crasher.sym
+subninja obj/tast-tests/helpers/local/security.AltSyscall.adjtimex.ninja
+subninja obj/tast-tests/helpers/local/security.AltSyscall.alt_syscall.ninja
+subninja obj/tast-tests/helpers/local/security.AltSyscall.clock_adjtime.ninja
+subninja obj/tast-tests/helpers/local/security.AltSyscall.mmap.ninja
+subninja obj/tast-tests/helpers/local/security.AltSyscall.read.ninja
+subninja obj/tast-tests/helpers/local/security.MemoryFileExecTelemetry.memfd_fexecve.ninja
+subninja obj/tast-tests/helpers/local/security.MemoryFileExecTelemetry.test_bin.ninja
+subninja obj/tast-tests/helpers/local/security.Minijail.bpfdeny.ninja
+subninja obj/tast-tests/helpers/local/security.Minijail.landlock_refer.ninja
+subninja obj/tast-tests/helpers/local/security.Minijail.landlock_walk.ninja
+subninja obj/tast-tests/helpers/local/security.Minijail.staticbashexec.ninja
+subninja obj/tast-tests/helpers/local/security.MinijailSeccomp.fail.ninja
+subninja obj/tast-tests/helpers/local/security.MinijailSeccomp.ok.ninja
+subninja obj/tast-tests/helpers/local/security.MinijailSeccomp.open.ninja
+subninja obj/tast-tests/helpers/local/security.PtraceProcess.sleeper.ninja
+subninja obj/tast-tests/helpers/local/security.PtraceThread.thread-prctl.ninja

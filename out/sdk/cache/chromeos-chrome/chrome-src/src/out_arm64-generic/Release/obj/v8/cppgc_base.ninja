@@ -1,0 +1,154 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DV8_TYPED_ARRAY_MAX_SIZE_IN_HEAP=64 -DV8_INTL_SUPPORT -DV8_USE_EXTERNAL_STARTUP_DATA -DV8_ATOMIC_OBJECT_FIELD_WRITES -DV8_ENABLE_LAZY_SOURCE_POSITIONS -DV8_SHARED_RO_HEAP -DV8_WIN64_UNWINDING_INFO -DV8_ENABLE_REGEXP_INTERPRETER_THREADED_DISPATCH -DV8_SNAPSHOT_COMPRESSION -DV8_SHORT_BUILTIN_CALLS -DV8_EXTERNAL_CODE_SPACE -DV8_ENABLE_SPARKPLUG -DV8_ENABLE_MAGLEV -DV8_ENABLE_TURBOFAN -DV8_ENABLE_WEBASSEMBLY -DV8_ALLOCATION_FOLDING -DV8_ALLOCATION_SITE_TRACKING -DV8_ADVANCED_BIGINT_ALGORITHMS -DV8_STATIC_ROOTS -DV8_USE_ZLIB -DV8_USE_LIBM_TRIG_FUNCTIONS -DV8_ENABLE_EXTENSIBLE_RO_SNAPSHOT -DV8_COMPRESS_POINTERS -DV8_COMPRESS_POINTERS_IN_SHARED_CAGE -DV8_31BIT_SMIS_ON_64BIT_ARCH -DV8_ENABLE_SANDBOX -DV8_DEPRECATION_WARNINGS -DCPPGC_CAGED_HEAP -DCPPGC_YOUNG_GENERATION -DCPPGC_POINTER_COMPRESSION -DCPPGC_SLIM_WRITE_BARRIER -DV8_TARGET_ARCH_ARM64 -DV8_HAVE_TARGET_OS -DV8_TARGET_OS_CHROMEOS -DV8_RUNTIME_CALL_STATS
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/v8 -I../../../../../../../home/chrome-bot/chrome_root/src/v8/include -Igen/v8 -Igen/v8/include
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Wshadow -Werror -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wmissing-field-initializers -Wunreachable-code -Wno-shadow -Wctad-maybe-unsupported -Wshorten-64-to-32 -Wno-invalid-offsetof -O3 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -Wexit-time-destructors
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = cppgc_base
+target_out_dir = obj/v8
+target_output_name = cppgc_base
+
+build obj/v8/cppgc_base/allocation.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/allocation.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = allocation.cc
+  source_name_part = allocation
+build obj/v8/cppgc_base/compaction-worklists.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/compaction-worklists.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = compaction-worklists.cc
+  source_name_part = compaction-worklists
+build obj/v8/cppgc_base/compactor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/compactor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = compactor.cc
+  source_name_part = compactor
+build obj/v8/cppgc_base/concurrent-marker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/concurrent-marker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = concurrent-marker.cc
+  source_name_part = concurrent-marker
+build obj/v8/cppgc_base/explicit-management.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/explicit-management.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = explicit-management.cc
+  source_name_part = explicit-management
+build obj/v8/cppgc_base/free-list.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/free-list.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = free-list.cc
+  source_name_part = free-list
+build obj/v8/cppgc_base/gc-info-table.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/gc-info-table.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = gc-info-table.cc
+  source_name_part = gc-info-table
+build obj/v8/cppgc_base/gc-info.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/gc-info.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = gc-info.cc
+  source_name_part = gc-info
+build obj/v8/cppgc_base/gc-invoker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/gc-invoker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = gc-invoker.cc
+  source_name_part = gc-invoker
+build obj/v8/cppgc_base/heap-base.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap-base.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap-base.cc
+  source_name_part = heap-base
+build obj/v8/cppgc_base/heap-consistency.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap-consistency.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap-consistency.cc
+  source_name_part = heap-consistency
+build obj/v8/cppgc_base/heap-growing.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap-growing.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap-growing.cc
+  source_name_part = heap-growing
+build obj/v8/cppgc_base/heap-object-header.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap-object-header.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap-object-header.cc
+  source_name_part = heap-object-header
+build obj/v8/cppgc_base/heap-page.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap-page.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap-page.cc
+  source_name_part = heap-page
+build obj/v8/cppgc_base/heap-space.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap-space.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap-space.cc
+  source_name_part = heap-space
+build obj/v8/cppgc_base/heap-state.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap-state.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap-state.cc
+  source_name_part = heap-state
+build obj/v8/cppgc_base/heap-statistics-collector.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap-statistics-collector.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap-statistics-collector.cc
+  source_name_part = heap-statistics-collector
+build obj/v8/cppgc_base/heap.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/heap.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = heap.cc
+  source_name_part = heap
+build obj/v8/cppgc_base/liveness-broker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/liveness-broker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = liveness-broker.cc
+  source_name_part = liveness-broker
+build obj/v8/cppgc_base/logging.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/logging.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = logging.cc
+  source_name_part = logging
+build obj/v8/cppgc_base/marker.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/marker.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = marker.cc
+  source_name_part = marker
+build obj/v8/cppgc_base/marking-state.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/marking-state.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = marking-state.cc
+  source_name_part = marking-state
+build obj/v8/cppgc_base/marking-verifier.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/marking-verifier.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = marking-verifier.cc
+  source_name_part = marking-verifier
+build obj/v8/cppgc_base/marking-visitor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/marking-visitor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = marking-visitor.cc
+  source_name_part = marking-visitor
+build obj/v8/cppgc_base/marking-worklists.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/marking-worklists.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = marking-worklists.cc
+  source_name_part = marking-worklists
+build obj/v8/cppgc_base/member-storage.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/member-storage.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = member-storage.cc
+  source_name_part = member-storage
+build obj/v8/cppgc_base/memory.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/memory.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = memory.cc
+  source_name_part = memory
+build obj/v8/cppgc_base/name-trait.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/name-trait.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = name-trait.cc
+  source_name_part = name-trait
+build obj/v8/cppgc_base/object-allocator.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/object-allocator.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = object-allocator.cc
+  source_name_part = object-allocator
+build obj/v8/cppgc_base/object-size-trait.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/object-size-trait.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = object-size-trait.cc
+  source_name_part = object-size-trait
+build obj/v8/cppgc_base/page-memory.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/page-memory.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = page-memory.cc
+  source_name_part = page-memory
+build obj/v8/cppgc_base/persistent-node.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/persistent-node.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = persistent-node.cc
+  source_name_part = persistent-node
+build obj/v8/cppgc_base/platform.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/platform.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = platform.cc
+  source_name_part = platform
+build obj/v8/cppgc_base/pointer-policies.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/pointer-policies.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = pointer-policies.cc
+  source_name_part = pointer-policies
+build obj/v8/cppgc_base/prefinalizer-handler.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/prefinalizer-handler.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = prefinalizer-handler.cc
+  source_name_part = prefinalizer-handler
+build obj/v8/cppgc_base/process-heap-statistics.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/process-heap-statistics.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = process-heap-statistics.cc
+  source_name_part = process-heap-statistics
+build obj/v8/cppgc_base/process-heap.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/process-heap.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = process-heap.cc
+  source_name_part = process-heap
+build obj/v8/cppgc_base/raw-heap.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/raw-heap.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = raw-heap.cc
+  source_name_part = raw-heap
+build obj/v8/cppgc_base/remembered-set.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/remembered-set.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = remembered-set.cc
+  source_name_part = remembered-set
+build obj/v8/cppgc_base/stats-collector.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/stats-collector.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = stats-collector.cc
+  source_name_part = stats-collector
+build obj/v8/cppgc_base/sweeper.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/sweeper.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = sweeper.cc
+  source_name_part = sweeper
+build obj/v8/cppgc_base/testing.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/testing.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = testing.cc
+  source_name_part = testing
+build obj/v8/cppgc_base/trace-trait.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/trace-trait.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = trace-trait.cc
+  source_name_part = trace-trait
+build obj/v8/cppgc_base/virtual-memory.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/virtual-memory.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = virtual-memory.cc
+  source_name_part = virtual-memory
+build obj/v8/cppgc_base/visitor.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/visitor.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = visitor.cc
+  source_name_part = visitor
+build obj/v8/cppgc_base/write-barrier.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/write-barrier.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = write-barrier.cc
+  source_name_part = write-barrier
+build obj/v8/cppgc_base/caged-heap-local-data.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/caged-heap-local-data.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = caged-heap-local-data.cc
+  source_name_part = caged-heap-local-data
+build obj/v8/cppgc_base/caged-heap.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/v8/src/heap/cppgc/caged-heap.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = caged-heap.cc
+  source_name_part = caged-heap
+
+build obj/v8/cppgc_base.stamp: stamp obj/v8/cppgc_base/allocation.o obj/v8/cppgc_base/compaction-worklists.o obj/v8/cppgc_base/compactor.o obj/v8/cppgc_base/concurrent-marker.o obj/v8/cppgc_base/explicit-management.o obj/v8/cppgc_base/free-list.o obj/v8/cppgc_base/gc-info-table.o obj/v8/cppgc_base/gc-info.o obj/v8/cppgc_base/gc-invoker.o obj/v8/cppgc_base/heap-base.o obj/v8/cppgc_base/heap-consistency.o obj/v8/cppgc_base/heap-growing.o obj/v8/cppgc_base/heap-object-header.o obj/v8/cppgc_base/heap-page.o obj/v8/cppgc_base/heap-space.o obj/v8/cppgc_base/heap-state.o obj/v8/cppgc_base/heap-statistics-collector.o obj/v8/cppgc_base/heap.o obj/v8/cppgc_base/liveness-broker.o obj/v8/cppgc_base/logging.o obj/v8/cppgc_base/marker.o obj/v8/cppgc_base/marking-state.o obj/v8/cppgc_base/marking-verifier.o obj/v8/cppgc_base/marking-visitor.o obj/v8/cppgc_base/marking-worklists.o obj/v8/cppgc_base/member-storage.o obj/v8/cppgc_base/memory.o obj/v8/cppgc_base/name-trait.o obj/v8/cppgc_base/object-allocator.o obj/v8/cppgc_base/object-size-trait.o obj/v8/cppgc_base/page-memory.o obj/v8/cppgc_base/persistent-node.o obj/v8/cppgc_base/platform.o obj/v8/cppgc_base/pointer-policies.o obj/v8/cppgc_base/prefinalizer-handler.o obj/v8/cppgc_base/process-heap-statistics.o obj/v8/cppgc_base/process-heap.o obj/v8/cppgc_base/raw-heap.o obj/v8/cppgc_base/remembered-set.o obj/v8/cppgc_base/stats-collector.o obj/v8/cppgc_base/sweeper.o obj/v8/cppgc_base/testing.o obj/v8/cppgc_base/trace-trait.o obj/v8/cppgc_base/virtual-memory.o obj/v8/cppgc_base/visitor.o obj/v8/cppgc_base/write-barrier.o obj/v8/cppgc_base/caged-heap-local-data.o obj/v8/cppgc_base/caged-heap.o || obj/v8/cppgc_headers.stamp obj/v8/v8_heap_base.stamp obj/v8/libv8_libbase.a obj/v8/libv8_libplatform.a obj/v8/v8_tracing.stamp obj/v8/v8_config_headers.stamp obj/v8/libm.stamp obj/v8/v8_heap_base_headers.stamp

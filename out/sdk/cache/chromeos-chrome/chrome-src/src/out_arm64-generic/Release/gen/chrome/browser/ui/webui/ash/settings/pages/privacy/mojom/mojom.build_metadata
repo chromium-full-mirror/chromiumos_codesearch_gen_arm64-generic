@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../../../../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../../../../../../ui/webui/resources/cr_components/app_management/mojo_bindings.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/ash/settings/pages/privacy/mojom/app_permission_handler.mojom"
+  ]
+}

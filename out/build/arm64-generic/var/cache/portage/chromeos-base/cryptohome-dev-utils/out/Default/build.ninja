@@ -1,0 +1,171 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-dev-utils-0.0.1-r2943/work/cryptohome-dev-utils-0.0.1/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _cryptohome-test-tool-install_config: phony obj/cryptohome/dev-utils/_cryptohome-test-tool-install_config.stamp
+build _cryptohome-tpm-live-test-install_config: phony obj/cryptohome/dev-utils/_cryptohome-tpm-live-test-install_config.stamp
+build _libcryptohome_data_migrator-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp
+build _libcryptohome_data_migrator_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp
+build _libcryptohome_platform-install_config: phony obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp
+build _libcryptohome_platform_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_platform_pc-install_config.stamp
+build auth-block-state-flatbuffers-binding-binary: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary.stamp
+build auth-block-state-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary_gen.stamp
+build auth-block-state-flatbuffers-binding-generate: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp
+build auth-factor-flatbuffers-binding-binary: phony obj/cryptohome/libs/auth-factor-flatbuffers-binding-binary.stamp
+build auth-factor-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/auth-factor-flatbuffers-binding-binary_gen.stamp
+build auth-factor-flatbuffers-binding-generate: phony obj/cryptohome/libs/auth-factor-flatbuffers-binding-generate.stamp
+build cryptohome-flatbuffers: phony obj/cryptohome/libs/cryptohome-flatbuffers.stamp
+build cryptohome-flatbuffers-binding: phony obj/cryptohome/libs/cryptohome-flatbuffers-binding.stamp
+build cryptohome-flatbuffers_gen: phony obj/cryptohome/libs/cryptohome-flatbuffers_gen.stamp
+build cryptohome-key-delegate-proxies: phony obj/cryptohome/libs/cryptohome-key-delegate-proxies.stamp
+build cryptohome-proto: phony ./libcryptohome-proto.a
+build cryptohome-proto_gen: phony obj/cryptohome/libs/cryptohome-proto_gen.stamp
+build enumerations-flatbuffers-binding-binary: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-binary.stamp
+build enumerations-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-binary_gen.stamp
+build enumerations-flatbuffers-binding-generate: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-generate.stamp
+build flatbuffers-binding-generator: phony obj/cryptohome/libs/flatbuffers-binding-generator.stamp
+build install_data_migrator_headers: phony obj/cryptohome/libs/install_data_migrator_headers.stamp
+build install_platform_headers: phony obj/cryptohome/libs/install_platform_headers.stamp
+build libcrosplatform: phony ./libcrosplatform.a
+build libcrostpm: phony ./libcrostpm.a
+build libcryptohome: phony ./libcryptohome.a
+build libcryptohome_data_migrator: phony ./lib/libcryptohome_data_migrator.so
+build libcryptohome_data_migrator_pc: phony obj/cryptohome/libs/libcryptohome_data_migrator_pc.stamp
+build libcryptohome_platform: phony ./lib/libcryptohome_platform.so
+build libcryptohome_platform_pc: phony obj/cryptohome/libs/libcryptohome_platform_pc.stamp
+build libfido: phony ./libfido.a
+build namespace-mounter-ipc-proto: phony ./libnamespace-mounter-ipc-proto.a
+build namespace-mounter-ipc-proto_gen: phony obj/cryptohome/libs/namespace-mounter-ipc-proto_gen.stamp
+build python-flatbuffers-reflection: phony obj/cryptohome/libs/python-flatbuffers-reflection.stamp
+build python-flatbuffers-reflection_gen: phony obj/cryptohome/libs/python-flatbuffers-reflection_gen.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build structures-flatbuffers-binding-binary: phony obj/cryptohome/libs/structures-flatbuffers-binding-binary.stamp
+build structures-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/structures-flatbuffers-binding-binary_gen.stamp
+build structures-flatbuffers-binding-generate: phony obj/cryptohome/libs/structures-flatbuffers-binding-generate.stamp
+build user-policy-flatbuffers-binding-binary: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-binary.stamp
+build user-policy-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-binary_gen.stamp
+build user-policy-flatbuffers-binding-generate: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-generate.stamp
+build user-secret-stash-flatbuffers-binding-binary: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-binary.stamp
+build user-secret-stash-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-binary_gen.stamp
+build user-secret-stash-flatbuffers-binding-generate: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-generate.stamp
+build userdataauth_adaptors: phony obj/cryptohome/libs/userdataauth_adaptors.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build cryptohome/dev-utils$:_cryptohome-test-tool-install_config: phony obj/cryptohome/dev-utils/_cryptohome-test-tool-install_config.stamp
+build cryptohome/dev-utils$:_cryptohome-tpm-live-test-install_config: phony obj/cryptohome/dev-utils/_cryptohome-tpm-live-test-install_config.stamp
+build cryptohome/dev-utils$:all: phony obj/cryptohome/dev-utils/all.stamp
+build cryptohome/dev-utils$:cryptohome-test-tool: phony ./cryptohome-test-tool
+build cryptohome/dev-utils$:cryptohome-tpm-live-test: phony ./cryptohome-tpm-live-test
+build cryptohome/libs$:_libcryptohome_data_migrator-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp
+build cryptohome/libs$:_libcryptohome_data_migrator_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp
+build cryptohome/libs$:_libcryptohome_platform-install_config: phony obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp
+build cryptohome/libs$:_libcryptohome_platform_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_platform_pc-install_config.stamp
+build cryptohome/libs$:auth-block-state-flatbuffers-binding-binary: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary.stamp
+build cryptohome/libs$:auth-block-state-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary_gen.stamp
+build cryptohome/libs$:auth-block-state-flatbuffers-binding-generate: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp
+build cryptohome/libs$:auth-factor-flatbuffers-binding-binary: phony obj/cryptohome/libs/auth-factor-flatbuffers-binding-binary.stamp
+build cryptohome/libs$:auth-factor-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/auth-factor-flatbuffers-binding-binary_gen.stamp
+build cryptohome/libs$:auth-factor-flatbuffers-binding-generate: phony obj/cryptohome/libs/auth-factor-flatbuffers-binding-generate.stamp
+build cryptohome/libs$:cryptohome-flatbuffers: phony obj/cryptohome/libs/cryptohome-flatbuffers.stamp
+build cryptohome/libs$:cryptohome-flatbuffers-binding: phony obj/cryptohome/libs/cryptohome-flatbuffers-binding.stamp
+build cryptohome/libs$:cryptohome-flatbuffers_gen: phony obj/cryptohome/libs/cryptohome-flatbuffers_gen.stamp
+build cryptohome/libs$:cryptohome-key-delegate-proxies: phony obj/cryptohome/libs/cryptohome-key-delegate-proxies.stamp
+build cryptohome/libs$:cryptohome-proto: phony ./libcryptohome-proto.a
+build cryptohome/libs$:cryptohome-proto_gen: phony obj/cryptohome/libs/cryptohome-proto_gen.stamp
+build cryptohome/libs$:enumerations-flatbuffers-binding-binary: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-binary.stamp
+build cryptohome/libs$:enumerations-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-binary_gen.stamp
+build cryptohome/libs$:enumerations-flatbuffers-binding-generate: phony obj/cryptohome/libs/enumerations-flatbuffers-binding-generate.stamp
+build cryptohome/libs$:flatbuffers-binding-generator: phony obj/cryptohome/libs/flatbuffers-binding-generator.stamp
+build cryptohome/libs$:install_data_migrator_headers: phony obj/cryptohome/libs/install_data_migrator_headers.stamp
+build cryptohome/libs$:install_platform_headers: phony obj/cryptohome/libs/install_platform_headers.stamp
+build cryptohome/libs$:libcrosplatform: phony ./libcrosplatform.a
+build cryptohome/libs$:libcrostpm: phony ./libcrostpm.a
+build cryptohome/libs$:libcryptohome: phony ./libcryptohome.a
+build cryptohome/libs$:libcryptohome_data_migrator: phony ./lib/libcryptohome_data_migrator.so
+build cryptohome/libs$:libcryptohome_data_migrator_pc: phony obj/cryptohome/libs/libcryptohome_data_migrator_pc.stamp
+build cryptohome/libs$:libcryptohome_platform: phony ./lib/libcryptohome_platform.so
+build cryptohome/libs$:libcryptohome_platform_pc: phony obj/cryptohome/libs/libcryptohome_platform_pc.stamp
+build cryptohome/libs$:libfido: phony ./libfido.a
+build cryptohome/libs$:namespace-mounter-ipc-proto: phony ./libnamespace-mounter-ipc-proto.a
+build cryptohome/libs$:namespace-mounter-ipc-proto_gen: phony obj/cryptohome/libs/namespace-mounter-ipc-proto_gen.stamp
+build cryptohome/libs$:python-flatbuffers-reflection: phony obj/cryptohome/libs/python-flatbuffers-reflection.stamp
+build cryptohome/libs$:python-flatbuffers-reflection_gen: phony obj/cryptohome/libs/python-flatbuffers-reflection_gen.stamp
+build cryptohome/libs$:structures-flatbuffers-binding-binary: phony obj/cryptohome/libs/structures-flatbuffers-binding-binary.stamp
+build cryptohome/libs$:structures-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/structures-flatbuffers-binding-binary_gen.stamp
+build cryptohome/libs$:structures-flatbuffers-binding-generate: phony obj/cryptohome/libs/structures-flatbuffers-binding-generate.stamp
+build cryptohome/libs$:user-policy-flatbuffers-binding-binary: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-binary.stamp
+build cryptohome/libs$:user-policy-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-binary_gen.stamp
+build cryptohome/libs$:user-policy-flatbuffers-binding-generate: phony obj/cryptohome/libs/user-policy-flatbuffers-binding-generate.stamp
+build cryptohome/libs$:user-secret-stash-flatbuffers-binding-binary: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-binary.stamp
+build cryptohome/libs$:user-secret-stash-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-binary_gen.stamp
+build cryptohome/libs$:user-secret-stash-flatbuffers-binding-generate: phony obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-generate.stamp
+build cryptohome/libs$:userdataauth_adaptors: phony obj/cryptohome/libs/userdataauth_adaptors.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/cryptohome/dev-utils/_cryptohome-test-tool-install_config.stamp $
+    obj/cryptohome/dev-utils/_cryptohome-tpm-live-test-install_config.stamp $
+    obj/cryptohome/dev-utils/all.stamp $
+    ./cryptohome-test-tool $
+    ./cryptohome-tpm-live-test $
+    obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp $
+    obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp $
+    obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp $
+    obj/cryptohome/libs/_libcryptohome_platform_pc-install_config.stamp $
+    obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary.stamp $
+    obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary_gen.stamp $
+    obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp $
+    obj/cryptohome/libs/auth-factor-flatbuffers-binding-binary.stamp $
+    obj/cryptohome/libs/auth-factor-flatbuffers-binding-binary_gen.stamp $
+    obj/cryptohome/libs/auth-factor-flatbuffers-binding-generate.stamp $
+    obj/cryptohome/libs/cryptohome-flatbuffers.stamp $
+    obj/cryptohome/libs/cryptohome-flatbuffers-binding.stamp $
+    obj/cryptohome/libs/cryptohome-flatbuffers_gen.stamp $
+    obj/cryptohome/libs/cryptohome-key-delegate-proxies.stamp $
+    ./libcryptohome-proto.a $
+    obj/cryptohome/libs/cryptohome-proto_gen.stamp $
+    obj/cryptohome/libs/enumerations-flatbuffers-binding-binary.stamp $
+    obj/cryptohome/libs/enumerations-flatbuffers-binding-binary_gen.stamp $
+    obj/cryptohome/libs/enumerations-flatbuffers-binding-generate.stamp $
+    obj/cryptohome/libs/flatbuffers-binding-generator.stamp $
+    obj/cryptohome/libs/install_data_migrator_headers.stamp $
+    obj/cryptohome/libs/install_platform_headers.stamp $
+    ./libcrosplatform.a $
+    ./libcrostpm.a $
+    ./libcryptohome.a $
+    ./lib/libcryptohome_data_migrator.so $
+    obj/cryptohome/libs/libcryptohome_data_migrator_pc.stamp $
+    ./lib/libcryptohome_platform.so $
+    obj/cryptohome/libs/libcryptohome_platform_pc.stamp $
+    ./libfido.a $
+    ./libnamespace-mounter-ipc-proto.a $
+    obj/cryptohome/libs/namespace-mounter-ipc-proto_gen.stamp $
+    obj/cryptohome/libs/python-flatbuffers-reflection.stamp $
+    obj/cryptohome/libs/python-flatbuffers-reflection_gen.stamp $
+    obj/cryptohome/libs/structures-flatbuffers-binding-binary.stamp $
+    obj/cryptohome/libs/structures-flatbuffers-binding-binary_gen.stamp $
+    obj/cryptohome/libs/structures-flatbuffers-binding-generate.stamp $
+    obj/cryptohome/libs/user-policy-flatbuffers-binding-binary.stamp $
+    obj/cryptohome/libs/user-policy-flatbuffers-binding-binary_gen.stamp $
+    obj/cryptohome/libs/user-policy-flatbuffers-binding-generate.stamp $
+    obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-binary.stamp $
+    obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-binary_gen.stamp $
+    obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-generate.stamp $
+    obj/cryptohome/libs/userdataauth_adaptors.stamp
+
+default all

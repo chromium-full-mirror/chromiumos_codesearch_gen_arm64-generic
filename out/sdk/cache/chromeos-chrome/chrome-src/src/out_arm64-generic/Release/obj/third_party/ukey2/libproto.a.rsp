@@ -1,0 +1,1 @@
+obj/third_party/ukey2/proto/device_to_device_messages.pb.o obj/third_party/ukey2/proto/passwordless_auth_payloads.pb.o obj/third_party/ukey2/proto/proximity_payloads.pb.o obj/third_party/ukey2/proto/securegcm.pb.o obj/third_party/ukey2/proto/ukey.pb.o

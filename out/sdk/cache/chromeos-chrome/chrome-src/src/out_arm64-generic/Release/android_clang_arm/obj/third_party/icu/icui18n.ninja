@@ -1,0 +1,743 @@
+defines = -DU_I18N_IMPLEMENTATION -DOFFICIAL_BUILD -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DANDROID -DHAVE_SYS_UIO_H -DANDROID_NDK_VERSION_ROLL=r25c_1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DHAVE_DLOPEN=0 -DUCONFIG_ONLY_HTML_CONVERSION=1 -DUCONFIG_USE_ML_PHRASE_BREAKING=1 -DUCONFIG_USE_WINDOWS_LCID_MAPPING_API=0 -DU_CHARSET_IS_UTF8=1 -DU_USING_ICU_NAMESPACE=0 -DU_ENABLE_DYLOAD=0 -DUSE_CHROMIUM_ICU=1 -DU_ENABLE_TRACING=1 -DU_ENABLE_RESOURCE_TRACING=0 -DU_STATIC_IMPLEMENTATION -DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iandroid_clang_arm/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/common -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n
+cflags = -gline-tables-only -fdebug-info-for-profiling -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fstack-protector -funwind-tables -fPIC -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -ffunction-sections -fno-short-enums --target=arm-linux-androideabi24 -march=armv8-a -mfloat-abi=softfp -ffile-compilation-dir=. -no-canonical-prefixes -mfpu=neon -mthumb -Oz -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fomit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -Xclang -fuse-ctor-homing -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wno-unused-function -Wno-parentheses -Wno-unused-function -Wno-unused-variable -Wno-ambiguous-reversed-operator -Wno-deprecated-declarations
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../home/chrome-bot/chrome_root/src/third_party/android_toolchain/ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot -fvisibility-inlines-hidden -frtti
+label_name = icui18n
+root_out_dir = android_clang_arm
+target_out_dir = android_clang_arm/obj/third_party/icu
+target_output_name = libicui18n
+
+build android_clang_arm/obj/third_party/icu/icui18n/alphaindex.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/alphaindex.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = alphaindex.cpp
+  source_name_part = alphaindex
+build android_clang_arm/obj/third_party/icu/icui18n/anytrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/anytrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = anytrans.cpp
+  source_name_part = anytrans
+build android_clang_arm/obj/third_party/icu/icui18n/astro.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/astro.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = astro.cpp
+  source_name_part = astro
+build android_clang_arm/obj/third_party/icu/icui18n/basictz.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/basictz.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = basictz.cpp
+  source_name_part = basictz
+build android_clang_arm/obj/third_party/icu/icui18n/bocsu.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/bocsu.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = bocsu.cpp
+  source_name_part = bocsu
+build android_clang_arm/obj/third_party/icu/icui18n/brktrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/brktrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = brktrans.cpp
+  source_name_part = brktrans
+build android_clang_arm/obj/third_party/icu/icui18n/buddhcal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/buddhcal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = buddhcal.cpp
+  source_name_part = buddhcal
+build android_clang_arm/obj/third_party/icu/icui18n/calendar.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/calendar.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = calendar.cpp
+  source_name_part = calendar
+build android_clang_arm/obj/third_party/icu/icui18n/casetrn.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/casetrn.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = casetrn.cpp
+  source_name_part = casetrn
+build android_clang_arm/obj/third_party/icu/icui18n/cecal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/cecal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = cecal.cpp
+  source_name_part = cecal
+build android_clang_arm/obj/third_party/icu/icui18n/chnsecal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/chnsecal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = chnsecal.cpp
+  source_name_part = chnsecal
+build android_clang_arm/obj/third_party/icu/icui18n/choicfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/choicfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = choicfmt.cpp
+  source_name_part = choicfmt
+build android_clang_arm/obj/third_party/icu/icui18n/coleitr.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/coleitr.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = coleitr.cpp
+  source_name_part = coleitr
+build android_clang_arm/obj/third_party/icu/icui18n/collationbuilder.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationbuilder.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationbuilder.cpp
+  source_name_part = collationbuilder
+build android_clang_arm/obj/third_party/icu/icui18n/collationcompare.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationcompare.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationcompare.cpp
+  source_name_part = collationcompare
+build android_clang_arm/obj/third_party/icu/icui18n/collation.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collation.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collation.cpp
+  source_name_part = collation
+build android_clang_arm/obj/third_party/icu/icui18n/collationdatabuilder.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationdatabuilder.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationdatabuilder.cpp
+  source_name_part = collationdatabuilder
+build android_clang_arm/obj/third_party/icu/icui18n/collationdata.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationdata.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationdata.cpp
+  source_name_part = collationdata
+build android_clang_arm/obj/third_party/icu/icui18n/collationdatareader.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationdatareader.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationdatareader.cpp
+  source_name_part = collationdatareader
+build android_clang_arm/obj/third_party/icu/icui18n/collationdatawriter.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationdatawriter.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationdatawriter.cpp
+  source_name_part = collationdatawriter
+build android_clang_arm/obj/third_party/icu/icui18n/collationfastlatinbuilder.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationfastlatinbuilder.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationfastlatinbuilder.cpp
+  source_name_part = collationfastlatinbuilder
+build android_clang_arm/obj/third_party/icu/icui18n/collationfastlatin.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationfastlatin.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationfastlatin.cpp
+  source_name_part = collationfastlatin
+build android_clang_arm/obj/third_party/icu/icui18n/collationfcd.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationfcd.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationfcd.cpp
+  source_name_part = collationfcd
+build android_clang_arm/obj/third_party/icu/icui18n/collationiterator.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationiterator.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationiterator.cpp
+  source_name_part = collationiterator
+build android_clang_arm/obj/third_party/icu/icui18n/collationkeys.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationkeys.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationkeys.cpp
+  source_name_part = collationkeys
+build android_clang_arm/obj/third_party/icu/icui18n/collationroot.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationroot.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationroot.cpp
+  source_name_part = collationroot
+build android_clang_arm/obj/third_party/icu/icui18n/collationrootelements.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationrootelements.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationrootelements.cpp
+  source_name_part = collationrootelements
+build android_clang_arm/obj/third_party/icu/icui18n/collationruleparser.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationruleparser.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationruleparser.cpp
+  source_name_part = collationruleparser
+build android_clang_arm/obj/third_party/icu/icui18n/collationsets.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationsets.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationsets.cpp
+  source_name_part = collationsets
+build android_clang_arm/obj/third_party/icu/icui18n/collationsettings.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationsettings.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationsettings.cpp
+  source_name_part = collationsettings
+build android_clang_arm/obj/third_party/icu/icui18n/collationtailoring.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationtailoring.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationtailoring.cpp
+  source_name_part = collationtailoring
+build android_clang_arm/obj/third_party/icu/icui18n/collationweights.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/collationweights.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = collationweights.cpp
+  source_name_part = collationweights
+build android_clang_arm/obj/third_party/icu/icui18n/coll.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/coll.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = coll.cpp
+  source_name_part = coll
+build android_clang_arm/obj/third_party/icu/icui18n/compactdecimalformat.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/compactdecimalformat.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = compactdecimalformat.cpp
+  source_name_part = compactdecimalformat
+build android_clang_arm/obj/third_party/icu/icui18n/coptccal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/coptccal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = coptccal.cpp
+  source_name_part = coptccal
+build android_clang_arm/obj/third_party/icu/icui18n/cpdtrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/cpdtrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = cpdtrans.cpp
+  source_name_part = cpdtrans
+build android_clang_arm/obj/third_party/icu/icui18n/csdetect.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csdetect.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csdetect.cpp
+  source_name_part = csdetect
+build android_clang_arm/obj/third_party/icu/icui18n/csmatch.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csmatch.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csmatch.cpp
+  source_name_part = csmatch
+build android_clang_arm/obj/third_party/icu/icui18n/csr2022.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csr2022.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csr2022.cpp
+  source_name_part = csr2022
+build android_clang_arm/obj/third_party/icu/icui18n/csrecog.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrecog.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrecog.cpp
+  source_name_part = csrecog
+build android_clang_arm/obj/third_party/icu/icui18n/csrmbcs.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrmbcs.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrmbcs.cpp
+  source_name_part = csrmbcs
+build android_clang_arm/obj/third_party/icu/icui18n/csrsbcs.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrsbcs.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrsbcs.cpp
+  source_name_part = csrsbcs
+build android_clang_arm/obj/third_party/icu/icui18n/csrucode.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrucode.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrucode.cpp
+  source_name_part = csrucode
+build android_clang_arm/obj/third_party/icu/icui18n/csrutf8.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/csrutf8.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = csrutf8.cpp
+  source_name_part = csrutf8
+build android_clang_arm/obj/third_party/icu/icui18n/curramt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/curramt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = curramt.cpp
+  source_name_part = curramt
+build android_clang_arm/obj/third_party/icu/icui18n/currfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/currfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = currfmt.cpp
+  source_name_part = currfmt
+build android_clang_arm/obj/third_party/icu/icui18n/currpinf.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/currpinf.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = currpinf.cpp
+  source_name_part = currpinf
+build android_clang_arm/obj/third_party/icu/icui18n/currunit.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/currunit.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = currunit.cpp
+  source_name_part = currunit
+build android_clang_arm/obj/third_party/icu/icui18n/dangical.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dangical.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dangical.cpp
+  source_name_part = dangical
+build android_clang_arm/obj/third_party/icu/icui18n/datefmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/datefmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = datefmt.cpp
+  source_name_part = datefmt
+build android_clang_arm/obj/third_party/icu/icui18n/dayperiodrules.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dayperiodrules.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dayperiodrules.cpp
+  source_name_part = dayperiodrules
+build android_clang_arm/obj/third_party/icu/icui18n/dcfmtsym.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dcfmtsym.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dcfmtsym.cpp
+  source_name_part = dcfmtsym
+build android_clang_arm/obj/third_party/icu/icui18n/decContext.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/decContext.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = decContext.cpp
+  source_name_part = decContext
+build android_clang_arm/obj/third_party/icu/icui18n/decimfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/decimfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = decimfmt.cpp
+  source_name_part = decimfmt
+build android_clang_arm/obj/third_party/icu/icui18n/decNumber.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/decNumber.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = decNumber.cpp
+  source_name_part = decNumber
+build android_clang_arm/obj/third_party/icu/icui18n/displayoptions.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/displayoptions.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = displayoptions.cpp
+  source_name_part = displayoptions
+build android_clang_arm/obj/third_party/icu/icui18n/double-conversion-bignum.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-bignum.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-bignum.cpp
+  source_name_part = double-conversion-bignum
+build android_clang_arm/obj/third_party/icu/icui18n/double-conversion-bignum-dtoa.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-bignum-dtoa.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-bignum-dtoa.cpp
+  source_name_part = double-conversion-bignum-dtoa
+build android_clang_arm/obj/third_party/icu/icui18n/double-conversion-cached-powers.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-cached-powers.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-cached-powers.cpp
+  source_name_part = double-conversion-cached-powers
+build android_clang_arm/obj/third_party/icu/icui18n/double-conversion-double-to-string.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-double-to-string.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-double-to-string.cpp
+  source_name_part = double-conversion-double-to-string
+build android_clang_arm/obj/third_party/icu/icui18n/double-conversion-fast-dtoa.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-fast-dtoa.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-fast-dtoa.cpp
+  source_name_part = double-conversion-fast-dtoa
+build android_clang_arm/obj/third_party/icu/icui18n/double-conversion-string-to-double.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-string-to-double.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-string-to-double.cpp
+  source_name_part = double-conversion-string-to-double
+build android_clang_arm/obj/third_party/icu/icui18n/double-conversion-strtod.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/double-conversion-strtod.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = double-conversion-strtod.cpp
+  source_name_part = double-conversion-strtod
+build android_clang_arm/obj/third_party/icu/icui18n/dtfmtsym.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtfmtsym.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtfmtsym.cpp
+  source_name_part = dtfmtsym
+build android_clang_arm/obj/third_party/icu/icui18n/dtitvfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtitvfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtitvfmt.cpp
+  source_name_part = dtitvfmt
+build android_clang_arm/obj/third_party/icu/icui18n/dtitvinf.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtitvinf.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtitvinf.cpp
+  source_name_part = dtitvinf
+build android_clang_arm/obj/third_party/icu/icui18n/dtptngen.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtptngen.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtptngen.cpp
+  source_name_part = dtptngen
+build android_clang_arm/obj/third_party/icu/icui18n/dtrule.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/dtrule.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = dtrule.cpp
+  source_name_part = dtrule
+build android_clang_arm/obj/third_party/icu/icui18n/erarules.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/erarules.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = erarules.cpp
+  source_name_part = erarules
+build android_clang_arm/obj/third_party/icu/icui18n/esctrn.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/esctrn.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = esctrn.cpp
+  source_name_part = esctrn
+build android_clang_arm/obj/third_party/icu/icui18n/ethpccal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ethpccal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ethpccal.cpp
+  source_name_part = ethpccal
+build android_clang_arm/obj/third_party/icu/icui18n/fmtable_cnv.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/fmtable_cnv.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = fmtable_cnv.cpp
+  source_name_part = fmtable_cnv
+build android_clang_arm/obj/third_party/icu/icui18n/fmtable.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/fmtable.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = fmtable.cpp
+  source_name_part = fmtable
+build android_clang_arm/obj/third_party/icu/icui18n/format.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/format.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = format.cpp
+  source_name_part = format
+build android_clang_arm/obj/third_party/icu/icui18n/formatted_string_builder.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/formatted_string_builder.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = formatted_string_builder.cpp
+  source_name_part = formatted_string_builder
+build android_clang_arm/obj/third_party/icu/icui18n/formattedval_iterimpl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/formattedval_iterimpl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = formattedval_iterimpl.cpp
+  source_name_part = formattedval_iterimpl
+build android_clang_arm/obj/third_party/icu/icui18n/formattedval_sbimpl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/formattedval_sbimpl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = formattedval_sbimpl.cpp
+  source_name_part = formattedval_sbimpl
+build android_clang_arm/obj/third_party/icu/icui18n/formattedvalue.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/formattedvalue.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = formattedvalue.cpp
+  source_name_part = formattedvalue
+build android_clang_arm/obj/third_party/icu/icui18n/fphdlimp.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/fphdlimp.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = fphdlimp.cpp
+  source_name_part = fphdlimp
+build android_clang_arm/obj/third_party/icu/icui18n/fpositer.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/fpositer.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = fpositer.cpp
+  source_name_part = fpositer
+build android_clang_arm/obj/third_party/icu/icui18n/funcrepl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/funcrepl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = funcrepl.cpp
+  source_name_part = funcrepl
+build android_clang_arm/obj/third_party/icu/icui18n/gender.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/gender.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = gender.cpp
+  source_name_part = gender
+build android_clang_arm/obj/third_party/icu/icui18n/gregocal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/gregocal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = gregocal.cpp
+  source_name_part = gregocal
+build android_clang_arm/obj/third_party/icu/icui18n/gregoimp.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/gregoimp.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = gregoimp.cpp
+  source_name_part = gregoimp
+build android_clang_arm/obj/third_party/icu/icui18n/hebrwcal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/hebrwcal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = hebrwcal.cpp
+  source_name_part = hebrwcal
+build android_clang_arm/obj/third_party/icu/icui18n/indiancal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/indiancal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = indiancal.cpp
+  source_name_part = indiancal
+build android_clang_arm/obj/third_party/icu/icui18n/inputext.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/inputext.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = inputext.cpp
+  source_name_part = inputext
+build android_clang_arm/obj/third_party/icu/icui18n/islamcal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/islamcal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = islamcal.cpp
+  source_name_part = islamcal
+build android_clang_arm/obj/third_party/icu/icui18n/iso8601cal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/iso8601cal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = iso8601cal.cpp
+  source_name_part = iso8601cal
+build android_clang_arm/obj/third_party/icu/icui18n/japancal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/japancal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = japancal.cpp
+  source_name_part = japancal
+build android_clang_arm/obj/third_party/icu/icui18n/listformatter.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/listformatter.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = listformatter.cpp
+  source_name_part = listformatter
+build android_clang_arm/obj/third_party/icu/icui18n/measfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/measfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = measfmt.cpp
+  source_name_part = measfmt
+build android_clang_arm/obj/third_party/icu/icui18n/measunit.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/measunit.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = measunit.cpp
+  source_name_part = measunit
+build android_clang_arm/obj/third_party/icu/icui18n/measunit_extra.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/measunit_extra.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = measunit_extra.cpp
+  source_name_part = measunit_extra
+build android_clang_arm/obj/third_party/icu/icui18n/measure.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/measure.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = measure.cpp
+  source_name_part = measure
+build android_clang_arm/obj/third_party/icu/icui18n/msgfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/msgfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = msgfmt.cpp
+  source_name_part = msgfmt
+build android_clang_arm/obj/third_party/icu/icui18n/name2uni.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/name2uni.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = name2uni.cpp
+  source_name_part = name2uni
+build android_clang_arm/obj/third_party/icu/icui18n/nfrs.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nfrs.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nfrs.cpp
+  source_name_part = nfrs
+build android_clang_arm/obj/third_party/icu/icui18n/nfrule.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nfrule.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nfrule.cpp
+  source_name_part = nfrule
+build android_clang_arm/obj/third_party/icu/icui18n/nfsubs.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nfsubs.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nfsubs.cpp
+  source_name_part = nfsubs
+build android_clang_arm/obj/third_party/icu/icui18n/nortrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nortrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nortrans.cpp
+  source_name_part = nortrans
+build android_clang_arm/obj/third_party/icu/icui18n/nultrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/nultrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = nultrans.cpp
+  source_name_part = nultrans
+build android_clang_arm/obj/third_party/icu/icui18n/number_affixutils.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_affixutils.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_affixutils.cpp
+  source_name_part = number_affixutils
+build android_clang_arm/obj/third_party/icu/icui18n/number_asformat.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_asformat.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_asformat.cpp
+  source_name_part = number_asformat
+build android_clang_arm/obj/third_party/icu/icui18n/number_capi.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_capi.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_capi.cpp
+  source_name_part = number_capi
+build android_clang_arm/obj/third_party/icu/icui18n/number_compact.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_compact.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_compact.cpp
+  source_name_part = number_compact
+build android_clang_arm/obj/third_party/icu/icui18n/number_currencysymbols.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_currencysymbols.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_currencysymbols.cpp
+  source_name_part = number_currencysymbols
+build android_clang_arm/obj/third_party/icu/icui18n/number_decimalquantity.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_decimalquantity.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_decimalquantity.cpp
+  source_name_part = number_decimalquantity
+build android_clang_arm/obj/third_party/icu/icui18n/number_decimfmtprops.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_decimfmtprops.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_decimfmtprops.cpp
+  source_name_part = number_decimfmtprops
+build android_clang_arm/obj/third_party/icu/icui18n/number_fluent.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_fluent.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_fluent.cpp
+  source_name_part = number_fluent
+build android_clang_arm/obj/third_party/icu/icui18n/number_formatimpl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_formatimpl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_formatimpl.cpp
+  source_name_part = number_formatimpl
+build android_clang_arm/obj/third_party/icu/icui18n/number_grouping.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_grouping.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_grouping.cpp
+  source_name_part = number_grouping
+build android_clang_arm/obj/third_party/icu/icui18n/number_integerwidth.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_integerwidth.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_integerwidth.cpp
+  source_name_part = number_integerwidth
+build android_clang_arm/obj/third_party/icu/icui18n/number_longnames.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_longnames.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_longnames.cpp
+  source_name_part = number_longnames
+build android_clang_arm/obj/third_party/icu/icui18n/number_mapper.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_mapper.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_mapper.cpp
+  source_name_part = number_mapper
+build android_clang_arm/obj/third_party/icu/icui18n/number_modifiers.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_modifiers.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_modifiers.cpp
+  source_name_part = number_modifiers
+build android_clang_arm/obj/third_party/icu/icui18n/number_multiplier.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_multiplier.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_multiplier.cpp
+  source_name_part = number_multiplier
+build android_clang_arm/obj/third_party/icu/icui18n/number_notation.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_notation.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_notation.cpp
+  source_name_part = number_notation
+build android_clang_arm/obj/third_party/icu/icui18n/number_output.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_output.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_output.cpp
+  source_name_part = number_output
+build android_clang_arm/obj/third_party/icu/icui18n/number_padding.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_padding.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_padding.cpp
+  source_name_part = number_padding
+build android_clang_arm/obj/third_party/icu/icui18n/number_patternmodifier.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_patternmodifier.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_patternmodifier.cpp
+  source_name_part = number_patternmodifier
+build android_clang_arm/obj/third_party/icu/icui18n/number_patternstring.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_patternstring.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_patternstring.cpp
+  source_name_part = number_patternstring
+build android_clang_arm/obj/third_party/icu/icui18n/number_rounding.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_rounding.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_rounding.cpp
+  source_name_part = number_rounding
+build android_clang_arm/obj/third_party/icu/icui18n/number_scientific.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_scientific.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_scientific.cpp
+  source_name_part = number_scientific
+build android_clang_arm/obj/third_party/icu/icui18n/number_simple.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_simple.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_simple.cpp
+  source_name_part = number_simple
+build android_clang_arm/obj/third_party/icu/icui18n/number_skeletons.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_skeletons.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_skeletons.cpp
+  source_name_part = number_skeletons
+build android_clang_arm/obj/third_party/icu/icui18n/number_symbolswrapper.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_symbolswrapper.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_symbolswrapper.cpp
+  source_name_part = number_symbolswrapper
+build android_clang_arm/obj/third_party/icu/icui18n/number_usageprefs.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_usageprefs.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_usageprefs.cpp
+  source_name_part = number_usageprefs
+build android_clang_arm/obj/third_party/icu/icui18n/number_utils.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/number_utils.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = number_utils.cpp
+  source_name_part = number_utils
+build android_clang_arm/obj/third_party/icu/icui18n/numfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numfmt.cpp
+  source_name_part = numfmt
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_affixes.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_affixes.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_affixes.cpp
+  source_name_part = numparse_affixes
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_compositions.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_compositions.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_compositions.cpp
+  source_name_part = numparse_compositions
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_currency.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_currency.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_currency.cpp
+  source_name_part = numparse_currency
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_decimal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_decimal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_decimal.cpp
+  source_name_part = numparse_decimal
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_impl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_impl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_impl.cpp
+  source_name_part = numparse_impl
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_parsednumber.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_parsednumber.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_parsednumber.cpp
+  source_name_part = numparse_parsednumber
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_scientific.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_scientific.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_scientific.cpp
+  source_name_part = numparse_scientific
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_symbols.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_symbols.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_symbols.cpp
+  source_name_part = numparse_symbols
+build android_clang_arm/obj/third_party/icu/icui18n/numparse_validators.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numparse_validators.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numparse_validators.cpp
+  source_name_part = numparse_validators
+build android_clang_arm/obj/third_party/icu/icui18n/numrange_capi.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numrange_capi.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numrange_capi.cpp
+  source_name_part = numrange_capi
+build android_clang_arm/obj/third_party/icu/icui18n/numrange_fluent.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numrange_fluent.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numrange_fluent.cpp
+  source_name_part = numrange_fluent
+build android_clang_arm/obj/third_party/icu/icui18n/numrange_impl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numrange_impl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numrange_impl.cpp
+  source_name_part = numrange_impl
+build android_clang_arm/obj/third_party/icu/icui18n/numsys.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/numsys.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = numsys.cpp
+  source_name_part = numsys
+build android_clang_arm/obj/third_party/icu/icui18n/olsontz.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/olsontz.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = olsontz.cpp
+  source_name_part = olsontz
+build android_clang_arm/obj/third_party/icu/icui18n/persncal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/persncal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = persncal.cpp
+  source_name_part = persncal
+build android_clang_arm/obj/third_party/icu/icui18n/pluralranges.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/pluralranges.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = pluralranges.cpp
+  source_name_part = pluralranges
+build android_clang_arm/obj/third_party/icu/icui18n/plurfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/plurfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = plurfmt.cpp
+  source_name_part = plurfmt
+build android_clang_arm/obj/third_party/icu/icui18n/plurrule.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/plurrule.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = plurrule.cpp
+  source_name_part = plurrule
+build android_clang_arm/obj/third_party/icu/icui18n/quant.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/quant.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = quant.cpp
+  source_name_part = quant
+build android_clang_arm/obj/third_party/icu/icui18n/quantityformatter.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/quantityformatter.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = quantityformatter.cpp
+  source_name_part = quantityformatter
+build android_clang_arm/obj/third_party/icu/icui18n/rbnf.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbnf.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbnf.cpp
+  source_name_part = rbnf
+build android_clang_arm/obj/third_party/icu/icui18n/rbt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt.cpp
+  source_name_part = rbt
+build android_clang_arm/obj/third_party/icu/icui18n/rbt_data.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt_data.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt_data.cpp
+  source_name_part = rbt_data
+build android_clang_arm/obj/third_party/icu/icui18n/rbt_pars.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt_pars.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt_pars.cpp
+  source_name_part = rbt_pars
+build android_clang_arm/obj/third_party/icu/icui18n/rbt_rule.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt_rule.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt_rule.cpp
+  source_name_part = rbt_rule
+build android_clang_arm/obj/third_party/icu/icui18n/rbt_set.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbt_set.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbt_set.cpp
+  source_name_part = rbt_set
+build android_clang_arm/obj/third_party/icu/icui18n/rbtz.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rbtz.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rbtz.cpp
+  source_name_part = rbtz
+build android_clang_arm/obj/third_party/icu/icui18n/regexcmp.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/regexcmp.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = regexcmp.cpp
+  source_name_part = regexcmp
+build android_clang_arm/obj/third_party/icu/icui18n/regeximp.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/regeximp.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = regeximp.cpp
+  source_name_part = regeximp
+build android_clang_arm/obj/third_party/icu/icui18n/regexst.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/regexst.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = regexst.cpp
+  source_name_part = regexst
+build android_clang_arm/obj/third_party/icu/icui18n/regextxt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/regextxt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = regextxt.cpp
+  source_name_part = regextxt
+build android_clang_arm/obj/third_party/icu/icui18n/region.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/region.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = region.cpp
+  source_name_part = region
+build android_clang_arm/obj/third_party/icu/icui18n/reldatefmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/reldatefmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = reldatefmt.cpp
+  source_name_part = reldatefmt
+build android_clang_arm/obj/third_party/icu/icui18n/reldtfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/reldtfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = reldtfmt.cpp
+  source_name_part = reldtfmt
+build android_clang_arm/obj/third_party/icu/icui18n/rematch.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rematch.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rematch.cpp
+  source_name_part = rematch
+build android_clang_arm/obj/third_party/icu/icui18n/remtrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/remtrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = remtrans.cpp
+  source_name_part = remtrans
+build android_clang_arm/obj/third_party/icu/icui18n/repattrn.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/repattrn.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = repattrn.cpp
+  source_name_part = repattrn
+build android_clang_arm/obj/third_party/icu/icui18n/rulebasedcollator.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/rulebasedcollator.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = rulebasedcollator.cpp
+  source_name_part = rulebasedcollator
+build android_clang_arm/obj/third_party/icu/icui18n/scientificnumberformatter.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/scientificnumberformatter.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = scientificnumberformatter.cpp
+  source_name_part = scientificnumberformatter
+build android_clang_arm/obj/third_party/icu/icui18n/scriptset.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/scriptset.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = scriptset.cpp
+  source_name_part = scriptset
+build android_clang_arm/obj/third_party/icu/icui18n/search.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/search.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = search.cpp
+  source_name_part = search
+build android_clang_arm/obj/third_party/icu/icui18n/selfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/selfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = selfmt.cpp
+  source_name_part = selfmt
+build android_clang_arm/obj/third_party/icu/icui18n/sharedbreakiterator.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/sharedbreakiterator.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = sharedbreakiterator.cpp
+  source_name_part = sharedbreakiterator
+build android_clang_arm/obj/third_party/icu/icui18n/simpletz.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/simpletz.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = simpletz.cpp
+  source_name_part = simpletz
+build android_clang_arm/obj/third_party/icu/icui18n/smpdtfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/smpdtfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = smpdtfmt.cpp
+  source_name_part = smpdtfmt
+build android_clang_arm/obj/third_party/icu/icui18n/smpdtfst.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/smpdtfst.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = smpdtfst.cpp
+  source_name_part = smpdtfst
+build android_clang_arm/obj/third_party/icu/icui18n/sortkey.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/sortkey.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = sortkey.cpp
+  source_name_part = sortkey
+build android_clang_arm/obj/third_party/icu/icui18n/standardplural.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/standardplural.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = standardplural.cpp
+  source_name_part = standardplural
+build android_clang_arm/obj/third_party/icu/icui18n/string_segment.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/string_segment.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = string_segment.cpp
+  source_name_part = string_segment
+build android_clang_arm/obj/third_party/icu/icui18n/strmatch.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/strmatch.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = strmatch.cpp
+  source_name_part = strmatch
+build android_clang_arm/obj/third_party/icu/icui18n/strrepl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/strrepl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = strrepl.cpp
+  source_name_part = strrepl
+build android_clang_arm/obj/third_party/icu/icui18n/stsearch.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/stsearch.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = stsearch.cpp
+  source_name_part = stsearch
+build android_clang_arm/obj/third_party/icu/icui18n/taiwncal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/taiwncal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = taiwncal.cpp
+  source_name_part = taiwncal
+build android_clang_arm/obj/third_party/icu/icui18n/timezone.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/timezone.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = timezone.cpp
+  source_name_part = timezone
+build android_clang_arm/obj/third_party/icu/icui18n/titletrn.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/titletrn.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = titletrn.cpp
+  source_name_part = titletrn
+build android_clang_arm/obj/third_party/icu/icui18n/tmunit.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tmunit.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tmunit.cpp
+  source_name_part = tmunit
+build android_clang_arm/obj/third_party/icu/icui18n/tmutamt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tmutamt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tmutamt.cpp
+  source_name_part = tmutamt
+build android_clang_arm/obj/third_party/icu/icui18n/tmutfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tmutfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tmutfmt.cpp
+  source_name_part = tmutfmt
+build android_clang_arm/obj/third_party/icu/icui18n/tolowtrn.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tolowtrn.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tolowtrn.cpp
+  source_name_part = tolowtrn
+build android_clang_arm/obj/third_party/icu/icui18n/toupptrn.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/toupptrn.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = toupptrn.cpp
+  source_name_part = toupptrn
+build android_clang_arm/obj/third_party/icu/icui18n/translit.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/translit.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = translit.cpp
+  source_name_part = translit
+build android_clang_arm/obj/third_party/icu/icui18n/transreg.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/transreg.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = transreg.cpp
+  source_name_part = transreg
+build android_clang_arm/obj/third_party/icu/icui18n/tridpars.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tridpars.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tridpars.cpp
+  source_name_part = tridpars
+build android_clang_arm/obj/third_party/icu/icui18n/tzfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tzfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tzfmt.cpp
+  source_name_part = tzfmt
+build android_clang_arm/obj/third_party/icu/icui18n/tzgnames.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tzgnames.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tzgnames.cpp
+  source_name_part = tzgnames
+build android_clang_arm/obj/third_party/icu/icui18n/tznames.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tznames.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tznames.cpp
+  source_name_part = tznames
+build android_clang_arm/obj/third_party/icu/icui18n/tznames_impl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tznames_impl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tznames_impl.cpp
+  source_name_part = tznames_impl
+build android_clang_arm/obj/third_party/icu/icui18n/tzrule.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tzrule.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tzrule.cpp
+  source_name_part = tzrule
+build android_clang_arm/obj/third_party/icu/icui18n/tztrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/tztrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = tztrans.cpp
+  source_name_part = tztrans
+build android_clang_arm/obj/third_party/icu/icui18n/ucal.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucal.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucal.cpp
+  source_name_part = ucal
+build android_clang_arm/obj/third_party/icu/icui18n/ucln_in.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucln_in.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucln_in.cpp
+  source_name_part = ucln_in
+build android_clang_arm/obj/third_party/icu/icui18n/ucol.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucol.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucol.cpp
+  source_name_part = ucol
+build android_clang_arm/obj/third_party/icu/icui18n/ucoleitr.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucoleitr.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucoleitr.cpp
+  source_name_part = ucoleitr
+build android_clang_arm/obj/third_party/icu/icui18n/ucol_res.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucol_res.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucol_res.cpp
+  source_name_part = ucol_res
+build android_clang_arm/obj/third_party/icu/icui18n/ucol_sit.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucol_sit.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucol_sit.cpp
+  source_name_part = ucol_sit
+build android_clang_arm/obj/third_party/icu/icui18n/ucsdet.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ucsdet.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ucsdet.cpp
+  source_name_part = ucsdet
+build android_clang_arm/obj/third_party/icu/icui18n/udat.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/udat.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = udat.cpp
+  source_name_part = udat
+build android_clang_arm/obj/third_party/icu/icui18n/udateintervalformat.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/udateintervalformat.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = udateintervalformat.cpp
+  source_name_part = udateintervalformat
+build android_clang_arm/obj/third_party/icu/icui18n/udatpg.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/udatpg.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = udatpg.cpp
+  source_name_part = udatpg
+build android_clang_arm/obj/third_party/icu/icui18n/ufieldpositer.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ufieldpositer.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ufieldpositer.cpp
+  source_name_part = ufieldpositer
+build android_clang_arm/obj/third_party/icu/icui18n/uitercollationiterator.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uitercollationiterator.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uitercollationiterator.cpp
+  source_name_part = uitercollationiterator
+build android_clang_arm/obj/third_party/icu/icui18n/ulistformatter.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ulistformatter.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ulistformatter.cpp
+  source_name_part = ulistformatter
+build android_clang_arm/obj/third_party/icu/icui18n/ulocdata.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ulocdata.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ulocdata.cpp
+  source_name_part = ulocdata
+build android_clang_arm/obj/third_party/icu/icui18n/umsg.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/umsg.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = umsg.cpp
+  source_name_part = umsg
+build android_clang_arm/obj/third_party/icu/icui18n/unesctrn.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/unesctrn.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = unesctrn.cpp
+  source_name_part = unesctrn
+build android_clang_arm/obj/third_party/icu/icui18n/uni2name.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uni2name.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uni2name.cpp
+  source_name_part = uni2name
+build android_clang_arm/obj/third_party/icu/icui18n/units_complexconverter.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/units_complexconverter.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = units_complexconverter.cpp
+  source_name_part = units_complexconverter
+build android_clang_arm/obj/third_party/icu/icui18n/units_converter.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/units_converter.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = units_converter.cpp
+  source_name_part = units_converter
+build android_clang_arm/obj/third_party/icu/icui18n/units_data.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/units_data.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = units_data.cpp
+  source_name_part = units_data
+build android_clang_arm/obj/third_party/icu/icui18n/units_router.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/units_router.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = units_router.cpp
+  source_name_part = units_router
+build android_clang_arm/obj/third_party/icu/icui18n/unum.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/unum.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = unum.cpp
+  source_name_part = unum
+build android_clang_arm/obj/third_party/icu/icui18n/unumsys.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/unumsys.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = unumsys.cpp
+  source_name_part = unumsys
+build android_clang_arm/obj/third_party/icu/icui18n/upluralrules.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/upluralrules.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = upluralrules.cpp
+  source_name_part = upluralrules
+build android_clang_arm/obj/third_party/icu/icui18n/uregexc.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uregexc.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uregexc.cpp
+  source_name_part = uregexc
+build android_clang_arm/obj/third_party/icu/icui18n/uregex.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uregex.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uregex.cpp
+  source_name_part = uregex
+build android_clang_arm/obj/third_party/icu/icui18n/uregion.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uregion.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uregion.cpp
+  source_name_part = uregion
+build android_clang_arm/obj/third_party/icu/icui18n/usearch.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/usearch.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = usearch.cpp
+  source_name_part = usearch
+build android_clang_arm/obj/third_party/icu/icui18n/uspoof_build.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uspoof_build.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uspoof_build.cpp
+  source_name_part = uspoof_build
+build android_clang_arm/obj/third_party/icu/icui18n/uspoof_conf.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uspoof_conf.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uspoof_conf.cpp
+  source_name_part = uspoof_conf
+build android_clang_arm/obj/third_party/icu/icui18n/uspoof.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uspoof.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uspoof.cpp
+  source_name_part = uspoof
+build android_clang_arm/obj/third_party/icu/icui18n/uspoof_impl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/uspoof_impl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = uspoof_impl.cpp
+  source_name_part = uspoof_impl
+build android_clang_arm/obj/third_party/icu/icui18n/utf16collationiterator.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/utf16collationiterator.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = utf16collationiterator.cpp
+  source_name_part = utf16collationiterator
+build android_clang_arm/obj/third_party/icu/icui18n/utf8collationiterator.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/utf8collationiterator.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = utf8collationiterator.cpp
+  source_name_part = utf8collationiterator
+build android_clang_arm/obj/third_party/icu/icui18n/utmscale.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/utmscale.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = utmscale.cpp
+  source_name_part = utmscale
+build android_clang_arm/obj/third_party/icu/icui18n/utrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/utrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = utrans.cpp
+  source_name_part = utrans
+build android_clang_arm/obj/third_party/icu/icui18n/vtzone.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/vtzone.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = vtzone.cpp
+  source_name_part = vtzone
+build android_clang_arm/obj/third_party/icu/icui18n/vzone.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/vzone.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = vzone.cpp
+  source_name_part = vzone
+build android_clang_arm/obj/third_party/icu/icui18n/windtfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/windtfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = windtfmt.cpp
+  source_name_part = windtfmt
+build android_clang_arm/obj/third_party/icu/icui18n/winnmfmt.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/winnmfmt.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = winnmfmt.cpp
+  source_name_part = winnmfmt
+build android_clang_arm/obj/third_party/icu/icui18n/wintzimpl.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/wintzimpl.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = wintzimpl.cpp
+  source_name_part = wintzimpl
+build android_clang_arm/obj/third_party/icu/icui18n/zonemeta.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/zonemeta.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = zonemeta.cpp
+  source_name_part = zonemeta
+build android_clang_arm/obj/third_party/icu/icui18n/zrule.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/zrule.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = zrule.cpp
+  source_name_part = zrule
+build android_clang_arm/obj/third_party/icu/icui18n/ztrans.o: android_clang_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/icu/source/i18n/ztrans.cpp || android_clang_arm/obj/third_party/icu/copy_icudata.stamp
+  source_file_part = ztrans.cpp
+  source_name_part = ztrans
+
+build android_clang_arm/obj/third_party/icu/libicui18n.a: android_clang_arm_alink android_clang_arm/obj/third_party/icu/icui18n/alphaindex.o android_clang_arm/obj/third_party/icu/icui18n/anytrans.o android_clang_arm/obj/third_party/icu/icui18n/astro.o android_clang_arm/obj/third_party/icu/icui18n/basictz.o android_clang_arm/obj/third_party/icu/icui18n/bocsu.o android_clang_arm/obj/third_party/icu/icui18n/brktrans.o android_clang_arm/obj/third_party/icu/icui18n/buddhcal.o android_clang_arm/obj/third_party/icu/icui18n/calendar.o android_clang_arm/obj/third_party/icu/icui18n/casetrn.o android_clang_arm/obj/third_party/icu/icui18n/cecal.o android_clang_arm/obj/third_party/icu/icui18n/chnsecal.o android_clang_arm/obj/third_party/icu/icui18n/choicfmt.o android_clang_arm/obj/third_party/icu/icui18n/coleitr.o android_clang_arm/obj/third_party/icu/icui18n/collationbuilder.o android_clang_arm/obj/third_party/icu/icui18n/collationcompare.o android_clang_arm/obj/third_party/icu/icui18n/collation.o android_clang_arm/obj/third_party/icu/icui18n/collationdatabuilder.o android_clang_arm/obj/third_party/icu/icui18n/collationdata.o android_clang_arm/obj/third_party/icu/icui18n/collationdatareader.o android_clang_arm/obj/third_party/icu/icui18n/collationdatawriter.o android_clang_arm/obj/third_party/icu/icui18n/collationfastlatinbuilder.o android_clang_arm/obj/third_party/icu/icui18n/collationfastlatin.o android_clang_arm/obj/third_party/icu/icui18n/collationfcd.o android_clang_arm/obj/third_party/icu/icui18n/collationiterator.o android_clang_arm/obj/third_party/icu/icui18n/collationkeys.o android_clang_arm/obj/third_party/icu/icui18n/collationroot.o android_clang_arm/obj/third_party/icu/icui18n/collationrootelements.o android_clang_arm/obj/third_party/icu/icui18n/collationruleparser.o android_clang_arm/obj/third_party/icu/icui18n/collationsets.o android_clang_arm/obj/third_party/icu/icui18n/collationsettings.o android_clang_arm/obj/third_party/icu/icui18n/collationtailoring.o android_clang_arm/obj/third_party/icu/icui18n/collationweights.o android_clang_arm/obj/third_party/icu/icui18n/coll.o android_clang_arm/obj/third_party/icu/icui18n/compactdecimalformat.o android_clang_arm/obj/third_party/icu/icui18n/coptccal.o android_clang_arm/obj/third_party/icu/icui18n/cpdtrans.o android_clang_arm/obj/third_party/icu/icui18n/csdetect.o android_clang_arm/obj/third_party/icu/icui18n/csmatch.o android_clang_arm/obj/third_party/icu/icui18n/csr2022.o android_clang_arm/obj/third_party/icu/icui18n/csrecog.o android_clang_arm/obj/third_party/icu/icui18n/csrmbcs.o android_clang_arm/obj/third_party/icu/icui18n/csrsbcs.o android_clang_arm/obj/third_party/icu/icui18n/csrucode.o android_clang_arm/obj/third_party/icu/icui18n/csrutf8.o android_clang_arm/obj/third_party/icu/icui18n/curramt.o android_clang_arm/obj/third_party/icu/icui18n/currfmt.o android_clang_arm/obj/third_party/icu/icui18n/currpinf.o android_clang_arm/obj/third_party/icu/icui18n/currunit.o android_clang_arm/obj/third_party/icu/icui18n/dangical.o android_clang_arm/obj/third_party/icu/icui18n/datefmt.o android_clang_arm/obj/third_party/icu/icui18n/dayperiodrules.o android_clang_arm/obj/third_party/icu/icui18n/dcfmtsym.o android_clang_arm/obj/third_party/icu/icui18n/decContext.o android_clang_arm/obj/third_party/icu/icui18n/decimfmt.o android_clang_arm/obj/third_party/icu/icui18n/decNumber.o android_clang_arm/obj/third_party/icu/icui18n/displayoptions.o android_clang_arm/obj/third_party/icu/icui18n/double-conversion-bignum.o android_clang_arm/obj/third_party/icu/icui18n/double-conversion-bignum-dtoa.o android_clang_arm/obj/third_party/icu/icui18n/double-conversion-cached-powers.o android_clang_arm/obj/third_party/icu/icui18n/double-conversion-double-to-string.o android_clang_arm/obj/third_party/icu/icui18n/double-conversion-fast-dtoa.o android_clang_arm/obj/third_party/icu/icui18n/double-conversion-string-to-double.o android_clang_arm/obj/third_party/icu/icui18n/double-conversion-strtod.o android_clang_arm/obj/third_party/icu/icui18n/dtfmtsym.o android_clang_arm/obj/third_party/icu/icui18n/dtitvfmt.o android_clang_arm/obj/third_party/icu/icui18n/dtitvinf.o android_clang_arm/obj/third_party/icu/icui18n/dtptngen.o android_clang_arm/obj/third_party/icu/icui18n/dtrule.o android_clang_arm/obj/third_party/icu/icui18n/erarules.o android_clang_arm/obj/third_party/icu/icui18n/esctrn.o android_clang_arm/obj/third_party/icu/icui18n/ethpccal.o android_clang_arm/obj/third_party/icu/icui18n/fmtable_cnv.o android_clang_arm/obj/third_party/icu/icui18n/fmtable.o android_clang_arm/obj/third_party/icu/icui18n/format.o android_clang_arm/obj/third_party/icu/icui18n/formatted_string_builder.o android_clang_arm/obj/third_party/icu/icui18n/formattedval_iterimpl.o android_clang_arm/obj/third_party/icu/icui18n/formattedval_sbimpl.o android_clang_arm/obj/third_party/icu/icui18n/formattedvalue.o android_clang_arm/obj/third_party/icu/icui18n/fphdlimp.o android_clang_arm/obj/third_party/icu/icui18n/fpositer.o android_clang_arm/obj/third_party/icu/icui18n/funcrepl.o android_clang_arm/obj/third_party/icu/icui18n/gender.o android_clang_arm/obj/third_party/icu/icui18n/gregocal.o android_clang_arm/obj/third_party/icu/icui18n/gregoimp.o android_clang_arm/obj/third_party/icu/icui18n/hebrwcal.o android_clang_arm/obj/third_party/icu/icui18n/indiancal.o android_clang_arm/obj/third_party/icu/icui18n/inputext.o android_clang_arm/obj/third_party/icu/icui18n/islamcal.o android_clang_arm/obj/third_party/icu/icui18n/iso8601cal.o android_clang_arm/obj/third_party/icu/icui18n/japancal.o android_clang_arm/obj/third_party/icu/icui18n/listformatter.o android_clang_arm/obj/third_party/icu/icui18n/measfmt.o android_clang_arm/obj/third_party/icu/icui18n/measunit.o android_clang_arm/obj/third_party/icu/icui18n/measunit_extra.o android_clang_arm/obj/third_party/icu/icui18n/measure.o android_clang_arm/obj/third_party/icu/icui18n/msgfmt.o android_clang_arm/obj/third_party/icu/icui18n/name2uni.o android_clang_arm/obj/third_party/icu/icui18n/nfrs.o android_clang_arm/obj/third_party/icu/icui18n/nfrule.o android_clang_arm/obj/third_party/icu/icui18n/nfsubs.o android_clang_arm/obj/third_party/icu/icui18n/nortrans.o android_clang_arm/obj/third_party/icu/icui18n/nultrans.o android_clang_arm/obj/third_party/icu/icui18n/number_affixutils.o android_clang_arm/obj/third_party/icu/icui18n/number_asformat.o android_clang_arm/obj/third_party/icu/icui18n/number_capi.o android_clang_arm/obj/third_party/icu/icui18n/number_compact.o android_clang_arm/obj/third_party/icu/icui18n/number_currencysymbols.o android_clang_arm/obj/third_party/icu/icui18n/number_decimalquantity.o android_clang_arm/obj/third_party/icu/icui18n/number_decimfmtprops.o android_clang_arm/obj/third_party/icu/icui18n/number_fluent.o android_clang_arm/obj/third_party/icu/icui18n/number_formatimpl.o android_clang_arm/obj/third_party/icu/icui18n/number_grouping.o android_clang_arm/obj/third_party/icu/icui18n/number_integerwidth.o android_clang_arm/obj/third_party/icu/icui18n/number_longnames.o android_clang_arm/obj/third_party/icu/icui18n/number_mapper.o android_clang_arm/obj/third_party/icu/icui18n/number_modifiers.o android_clang_arm/obj/third_party/icu/icui18n/number_multiplier.o android_clang_arm/obj/third_party/icu/icui18n/number_notation.o android_clang_arm/obj/third_party/icu/icui18n/number_output.o android_clang_arm/obj/third_party/icu/icui18n/number_padding.o android_clang_arm/obj/third_party/icu/icui18n/number_patternmodifier.o android_clang_arm/obj/third_party/icu/icui18n/number_patternstring.o android_clang_arm/obj/third_party/icu/icui18n/number_rounding.o android_clang_arm/obj/third_party/icu/icui18n/number_scientific.o android_clang_arm/obj/third_party/icu/icui18n/number_simple.o android_clang_arm/obj/third_party/icu/icui18n/number_skeletons.o android_clang_arm/obj/third_party/icu/icui18n/number_symbolswrapper.o android_clang_arm/obj/third_party/icu/icui18n/number_usageprefs.o android_clang_arm/obj/third_party/icu/icui18n/number_utils.o android_clang_arm/obj/third_party/icu/icui18n/numfmt.o android_clang_arm/obj/third_party/icu/icui18n/numparse_affixes.o android_clang_arm/obj/third_party/icu/icui18n/numparse_compositions.o android_clang_arm/obj/third_party/icu/icui18n/numparse_currency.o android_clang_arm/obj/third_party/icu/icui18n/numparse_decimal.o android_clang_arm/obj/third_party/icu/icui18n/numparse_impl.o android_clang_arm/obj/third_party/icu/icui18n/numparse_parsednumber.o android_clang_arm/obj/third_party/icu/icui18n/numparse_scientific.o android_clang_arm/obj/third_party/icu/icui18n/numparse_symbols.o android_clang_arm/obj/third_party/icu/icui18n/numparse_validators.o android_clang_arm/obj/third_party/icu/icui18n/numrange_capi.o android_clang_arm/obj/third_party/icu/icui18n/numrange_fluent.o android_clang_arm/obj/third_party/icu/icui18n/numrange_impl.o android_clang_arm/obj/third_party/icu/icui18n/numsys.o android_clang_arm/obj/third_party/icu/icui18n/olsontz.o android_clang_arm/obj/third_party/icu/icui18n/persncal.o android_clang_arm/obj/third_party/icu/icui18n/pluralranges.o android_clang_arm/obj/third_party/icu/icui18n/plurfmt.o android_clang_arm/obj/third_party/icu/icui18n/plurrule.o android_clang_arm/obj/third_party/icu/icui18n/quant.o android_clang_arm/obj/third_party/icu/icui18n/quantityformatter.o android_clang_arm/obj/third_party/icu/icui18n/rbnf.o android_clang_arm/obj/third_party/icu/icui18n/rbt.o android_clang_arm/obj/third_party/icu/icui18n/rbt_data.o android_clang_arm/obj/third_party/icu/icui18n/rbt_pars.o android_clang_arm/obj/third_party/icu/icui18n/rbt_rule.o android_clang_arm/obj/third_party/icu/icui18n/rbt_set.o android_clang_arm/obj/third_party/icu/icui18n/rbtz.o android_clang_arm/obj/third_party/icu/icui18n/regexcmp.o android_clang_arm/obj/third_party/icu/icui18n/regeximp.o android_clang_arm/obj/third_party/icu/icui18n/regexst.o android_clang_arm/obj/third_party/icu/icui18n/regextxt.o android_clang_arm/obj/third_party/icu/icui18n/region.o android_clang_arm/obj/third_party/icu/icui18n/reldatefmt.o android_clang_arm/obj/third_party/icu/icui18n/reldtfmt.o android_clang_arm/obj/third_party/icu/icui18n/rematch.o android_clang_arm/obj/third_party/icu/icui18n/remtrans.o android_clang_arm/obj/third_party/icu/icui18n/repattrn.o android_clang_arm/obj/third_party/icu/icui18n/rulebasedcollator.o android_clang_arm/obj/third_party/icu/icui18n/scientificnumberformatter.o android_clang_arm/obj/third_party/icu/icui18n/scriptset.o android_clang_arm/obj/third_party/icu/icui18n/search.o android_clang_arm/obj/third_party/icu/icui18n/selfmt.o android_clang_arm/obj/third_party/icu/icui18n/sharedbreakiterator.o android_clang_arm/obj/third_party/icu/icui18n/simpletz.o android_clang_arm/obj/third_party/icu/icui18n/smpdtfmt.o android_clang_arm/obj/third_party/icu/icui18n/smpdtfst.o android_clang_arm/obj/third_party/icu/icui18n/sortkey.o android_clang_arm/obj/third_party/icu/icui18n/standardplural.o android_clang_arm/obj/third_party/icu/icui18n/string_segment.o android_clang_arm/obj/third_party/icu/icui18n/strmatch.o android_clang_arm/obj/third_party/icu/icui18n/strrepl.o android_clang_arm/obj/third_party/icu/icui18n/stsearch.o android_clang_arm/obj/third_party/icu/icui18n/taiwncal.o android_clang_arm/obj/third_party/icu/icui18n/timezone.o android_clang_arm/obj/third_party/icu/icui18n/titletrn.o android_clang_arm/obj/third_party/icu/icui18n/tmunit.o android_clang_arm/obj/third_party/icu/icui18n/tmutamt.o android_clang_arm/obj/third_party/icu/icui18n/tmutfmt.o android_clang_arm/obj/third_party/icu/icui18n/tolowtrn.o android_clang_arm/obj/third_party/icu/icui18n/toupptrn.o android_clang_arm/obj/third_party/icu/icui18n/translit.o android_clang_arm/obj/third_party/icu/icui18n/transreg.o android_clang_arm/obj/third_party/icu/icui18n/tridpars.o android_clang_arm/obj/third_party/icu/icui18n/tzfmt.o android_clang_arm/obj/third_party/icu/icui18n/tzgnames.o android_clang_arm/obj/third_party/icu/icui18n/tznames.o android_clang_arm/obj/third_party/icu/icui18n/tznames_impl.o android_clang_arm/obj/third_party/icu/icui18n/tzrule.o android_clang_arm/obj/third_party/icu/icui18n/tztrans.o android_clang_arm/obj/third_party/icu/icui18n/ucal.o android_clang_arm/obj/third_party/icu/icui18n/ucln_in.o android_clang_arm/obj/third_party/icu/icui18n/ucol.o android_clang_arm/obj/third_party/icu/icui18n/ucoleitr.o android_clang_arm/obj/third_party/icu/icui18n/ucol_res.o android_clang_arm/obj/third_party/icu/icui18n/ucol_sit.o android_clang_arm/obj/third_party/icu/icui18n/ucsdet.o android_clang_arm/obj/third_party/icu/icui18n/udat.o android_clang_arm/obj/third_party/icu/icui18n/udateintervalformat.o android_clang_arm/obj/third_party/icu/icui18n/udatpg.o android_clang_arm/obj/third_party/icu/icui18n/ufieldpositer.o android_clang_arm/obj/third_party/icu/icui18n/uitercollationiterator.o android_clang_arm/obj/third_party/icu/icui18n/ulistformatter.o android_clang_arm/obj/third_party/icu/icui18n/ulocdata.o android_clang_arm/obj/third_party/icu/icui18n/umsg.o android_clang_arm/obj/third_party/icu/icui18n/unesctrn.o android_clang_arm/obj/third_party/icu/icui18n/uni2name.o android_clang_arm/obj/third_party/icu/icui18n/units_complexconverter.o android_clang_arm/obj/third_party/icu/icui18n/units_converter.o android_clang_arm/obj/third_party/icu/icui18n/units_data.o android_clang_arm/obj/third_party/icu/icui18n/units_router.o android_clang_arm/obj/third_party/icu/icui18n/unum.o android_clang_arm/obj/third_party/icu/icui18n/unumsys.o android_clang_arm/obj/third_party/icu/icui18n/upluralrules.o android_clang_arm/obj/third_party/icu/icui18n/uregexc.o android_clang_arm/obj/third_party/icu/icui18n/uregex.o android_clang_arm/obj/third_party/icu/icui18n/uregion.o android_clang_arm/obj/third_party/icu/icui18n/usearch.o android_clang_arm/obj/third_party/icu/icui18n/uspoof_build.o android_clang_arm/obj/third_party/icu/icui18n/uspoof_conf.o android_clang_arm/obj/third_party/icu/icui18n/uspoof.o android_clang_arm/obj/third_party/icu/icui18n/uspoof_impl.o android_clang_arm/obj/third_party/icu/icui18n/utf16collationiterator.o android_clang_arm/obj/third_party/icu/icui18n/utf8collationiterator.o android_clang_arm/obj/third_party/icu/icui18n/utmscale.o android_clang_arm/obj/third_party/icu/icui18n/utrans.o android_clang_arm/obj/third_party/icu/icui18n/vtzone.o android_clang_arm/obj/third_party/icu/icui18n/vzone.o android_clang_arm/obj/third_party/icu/icui18n/windtfmt.o android_clang_arm/obj/third_party/icu/icui18n/winnmfmt.o android_clang_arm/obj/third_party/icu/icui18n/wintzimpl.o android_clang_arm/obj/third_party/icu/icui18n/zonemeta.o android_clang_arm/obj/third_party/icu/icui18n/zrule.o android_clang_arm/obj/third_party/icu/icui18n/ztrans.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/linux/libclang_rt.builtins-arm-android.a || android_clang_arm/obj/third_party/icu/libicuuc.a android_clang_arm/obj/third_party/icu/icuuc_public.stamp
+  arflags = -T
+  output_extension = .a
+  output_dir = android_clang_arm/obj/third_party/icu

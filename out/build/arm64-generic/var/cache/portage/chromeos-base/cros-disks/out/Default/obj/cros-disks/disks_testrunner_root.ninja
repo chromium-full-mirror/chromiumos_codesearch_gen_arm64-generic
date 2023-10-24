@@ -1,0 +1,13 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+root_out_dir = .
+target_output_name = disks_testrunner_root
+
+
+build ./disks_testrunner_root: link obj/cros-disks/common_test_sources.archive_manager_test.o obj/cros-disks/common_test_sources.archive_mounter_test.o obj/cros-disks/common_test_sources.device_event_moderator_test.o obj/cros-disks/common_test_sources.device_event_queue_test.o obj/cros-disks/common_test_sources.disk_manager_test.o obj/cros-disks/common_test_sources.disk_monitor_test.o obj/cros-disks/common_test_sources.disk_test.o obj/cros-disks/common_test_sources.drivefs_helper_test.o obj/cros-disks/common_test_sources.error_logger_test.o obj/cros-disks/common_test_sources.file_reader_test.o obj/cros-disks/common_test_sources.filesystem_label_test.o obj/cros-disks/common_test_sources.format_manager_test.o obj/cros-disks/common_test_sources.fuse_mount_manager_test.o obj/cros-disks/common_test_sources.fuse_mounter_test.o obj/cros-disks/common_test_sources.fusebox_helper_test.o obj/cros-disks/common_test_sources.metrics_test.o obj/cros-disks/common_test_sources.mount_info_test.o obj/cros-disks/common_test_sources.mount_manager_test.o obj/cros-disks/common_test_sources.mount_options_test.o obj/cros-disks/common_test_sources.mount_point_test.o obj/cros-disks/common_test_sources.platform_test.o obj/cros-disks/common_test_sources.process_test.o obj/cros-disks/common_test_sources.quote_test.o obj/cros-disks/common_test_sources.rar_mounter_test.o obj/cros-disks/common_test_sources.rename_manager_test.o obj/cros-disks/common_test_sources.sandboxed_init_test.o obj/cros-disks/common_test_sources.smbfs_helper_test.o obj/cros-disks/common_test_sources.sshfs_helper_test.o obj/cros-disks/common_test_sources.system_mounter_test.o obj/cros-disks/common_test_sources.udev_device_test.o obj/cros-disks/common_test_sources.uri_test.o obj/cros-disks/common_test_sources.usb_device_info_test.o ./libdisks.a ./libtestrunner.a || obj/cros-disks/common_test_sources.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -L/build/arm64-generic/usr/lib64
+  libs = -lgmock -lgtest -lpthread -lbase-test -lrootdev -lblkid -lbrillo -lbase -lmetrics -lminijail
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

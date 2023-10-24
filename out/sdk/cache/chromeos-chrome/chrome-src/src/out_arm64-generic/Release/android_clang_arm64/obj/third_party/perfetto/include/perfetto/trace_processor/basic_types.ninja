@@ -1,0 +1,9 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DANDROID -DHAVE_SYS_UIO_H -DANDROID_NDK_VERSION_ROLL=r25c_1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iandroid_clang_arm64/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++
+label_name = basic_types
+root_out_dir = android_clang_arm64
+target_out_dir = android_clang_arm64/obj/third_party/perfetto/include/perfetto/trace_processor
+target_output_name = basic_types
+
+
+build android_clang_arm64/obj/third_party/perfetto/include/perfetto/trace_processor/basic_types.stamp: android_clang_arm64_stamp || android_clang_arm64/obj/third_party/perfetto/include/perfetto/base/base.stamp android_clang_arm64/obj/third_party/perfetto/include/perfetto/public/base.stamp android_clang_arm64/obj/third_party/perfetto/include/perfetto/public/abi/base.stamp

@@ -1,0 +1,33 @@
+{
+  "deps": [
+    "../../../../../../ash/public/mojom/mojom.build_metadata",
+    "../../../assistant/public/mojom/mojom.build_metadata",
+    "../../../../../services/network_config/public/mojom/mojom.build_metadata",
+    "../../../../../../media/mojo/mojom/mojom.build_metadata",
+    "../../../../../../services/device/public/mojom/mojom.build_metadata",
+    "../../../../../../services/media_session/public/mojom/mojom.build_metadata",
+    "../../../../../../services/network/public/mojom/mojom.build_metadata",
+    "../../../../../../ui/accessibility/mojom/ax_assistant_mojom.build_metadata",
+    "../../../../../../sandbox/policy/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/android_app_info.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/assistant_notification.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/audio_input_controller.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/audio_output_delegate.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/authentication_state_observer.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/conversation_controller.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/conversation_observer.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/device_settings_delegate.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/display_controller.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/media_controller.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/notification_delegate.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/platform_delegate.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/service.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/service_controller.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/settings_controller.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/speaker_id_enrollment_controller.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/speech_recognition_observer.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/libassistant/public/mojom/timer_controller.mojom"
+  ]
+}

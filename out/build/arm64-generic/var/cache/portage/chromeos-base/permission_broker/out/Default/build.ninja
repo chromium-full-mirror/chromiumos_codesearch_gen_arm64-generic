@@ -1,0 +1,86 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build featured-adaptors: phony obj/featured/featured-adaptors.stamp
+build install_minijail_conf: phony obj/permission_broker/install_minijail_conf.stamp
+build libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
+build libfake_platform_features: phony ./lib/libfake_platform_features.so
+build libfeatured: phony ./libfeatured.a
+build libfeatures: phony ./lib/libfeatures.so
+build libfeatures_c: phony ./lib/libfeatures_c.so
+build libpermission_broker: phony ./libpermission_broker.a
+build libstore_impl: phony ./libstore_impl.a
+build libtmp_storage_impl: phony ./libtmp_storage_impl.a
+build permission_broker_adaptors: phony obj/permission_broker/permission_broker_adaptors.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build featured$:all: phony obj/featured/all.stamp
+build featured$:c_fake_feature_check_example: phony ./c_fake_feature_check_example
+build featured$:c_feature_check_example: phony ./c_feature_check_example
+build featured$:cpp_feature_check_example: phony ./cpp_feature_check_example
+build featured$:feature_library_test: phony ./feature_library_test
+build featured$:featured: phony ./featured
+build featured$:featured-adaptors: phony obj/featured/featured-adaptors.stamp
+build featured$:libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
+build featured$:libfake_platform_features: phony ./lib/libfake_platform_features.so
+build featured$:libfeatured: phony ./libfeatured.a
+build featured$:libfeatures: phony ./lib/libfeatures.so
+build featured$:libfeatures_c: phony ./lib/libfeatures_c.so
+build featured$:libstore_impl: phony ./libstore_impl.a
+build featured$:libtmp_storage_impl: phony ./libtmp_storage_impl.a
+build featured$:service_test: phony ./service_test
+build featured$:store_impl_test: phony ./store_impl_test
+build permission_broker$:all: phony obj/permission_broker/all.stamp
+build permission_broker$:install_minijail_conf: phony obj/permission_broker/install_minijail_conf.stamp
+build permission_broker$:libpermission_broker: phony ./libpermission_broker.a
+build permission_broker$:permission_broker: phony ./permission_broker
+build permission_broker$:permission_broker_adaptors: phony obj/permission_broker/permission_broker_adaptors.stamp
+build permission_broker$:permission_broker_test: phony ./permission_broker_test
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/featured/all.stamp $
+    ./c_fake_feature_check_example $
+    ./c_feature_check_example $
+    ./cpp_feature_check_example $
+    ./feature_library_test $
+    ./featured $
+    obj/featured/featured-adaptors.stamp $
+    ./lib/libc_fake_feature_library.so $
+    ./lib/libfake_platform_features.so $
+    ./libfeatured.a $
+    ./lib/libfeatures.so $
+    ./lib/libfeatures_c.so $
+    ./libstore_impl.a $
+    ./libtmp_storage_impl.a $
+    ./service_test $
+    ./store_impl_test $
+    obj/permission_broker/all.stamp $
+    obj/permission_broker/install_minijail_conf.stamp $
+    ./libpermission_broker.a $
+    ./permission_broker $
+    obj/permission_broker/permission_broker_adaptors.stamp $
+    ./permission_broker_test
+
+default all

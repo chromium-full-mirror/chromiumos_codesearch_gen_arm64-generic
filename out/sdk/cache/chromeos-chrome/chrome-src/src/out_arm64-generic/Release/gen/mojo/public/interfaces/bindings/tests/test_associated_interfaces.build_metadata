@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "test_interfaces.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/mojo/public/interfaces/bindings/tests/test_associated_interfaces.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/mojo/public/interfaces/bindings/tests/validation_test_associated_interfaces.mojom"
+  ]
+}

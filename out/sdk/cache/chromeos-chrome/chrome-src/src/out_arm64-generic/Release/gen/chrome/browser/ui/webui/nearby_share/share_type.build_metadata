@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/nearby_share/nearby_share_share_type.mojom"
+  ]
+}

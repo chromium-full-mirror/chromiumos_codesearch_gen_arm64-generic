@@ -1,0 +1,78 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DENABLE_PROFILING=false -DCHROMEOS_ENVIRONMENT=1 -DUSE_TPM1=false -DUSE_TPM2=true -DUSE_TPM_DYNAMIC=false -DTPM2_MODE=1
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -Wconsumed -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -pthread -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/tpm_manager-client -I/build/arm64-generic/usr/include/tpm_manager-client-test
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Wno-error=deprecated-declarations
+root_out_dir = .
+target_output_name = hwsec-foundation_testrunner
+
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.aes_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/aes_test.cc
+  source_file_part = aes_test.cc
+  source_name_part = aes_test
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.big_num_util_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/big_num_util_test.cc
+  source_file_part = big_num_util_test.cc
+  source_name_part = big_num_util_test
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.ecdh_hkdf_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/ecdh_hkdf_test.cc
+  source_file_part = ecdh_hkdf_test.cc
+  source_name_part = ecdh_hkdf_test
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.elliptic_curve_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/elliptic_curve_test.cc
+  source_file_part = elliptic_curve_test.cc
+  source_name_part = elliptic_curve_test
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.error_util_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/error_util_test.cc
+  source_file_part = error_util_test.cc
+  source_name_part = error_util_test
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.hkdf_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/hkdf_test.cc
+  source_file_part = hkdf_test.cc
+  source_name_part = hkdf_test
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.openssl_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/openssl_test.cc
+  source_file_part = openssl_test.cc
+  source_name_part = openssl_test
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.rsa_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/rsa_test.cc
+  source_file_part = rsa_test.cc
+  source_name_part = rsa_test
+build obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.scrypt_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/crypto/scrypt_test.cc
+  source_file_part = scrypt_test.cc
+  source_name_part = scrypt_test
+build obj/libhwsec-foundation/da_reset/hwsec-foundation_testrunner.da_resetter_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/da_reset/da_resetter_test.cc
+  source_file_part = da_resetter_test.cc
+  source_name_part = da_resetter_test
+build obj/libhwsec-foundation/error/hwsec-foundation_testrunner.testing_helper_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/error/testing_helper_test.cc
+  source_file_part = testing_helper_test.cc
+  source_name_part = testing_helper_test
+build obj/libhwsec-foundation/status/hwsec-foundation_testrunner.status_chain_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/status/status_chain_test.cc
+  source_file_part = status_chain_test.cc
+  source_name_part = status_chain_test
+build obj/libhwsec-foundation/tpm_error/hwsec-foundation_testrunner.auth_failure_analysis_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/tpm_error/auth_failure_analysis_test.cc
+  source_file_part = auth_failure_analysis_test.cc
+  source_name_part = auth_failure_analysis_test
+build obj/libhwsec-foundation/tpm_error/hwsec-foundation_testrunner.handle_auth_failure_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/tpm_error/handle_auth_failure_test.cc
+  source_file_part = handle_auth_failure_test.cc
+  source_name_part = handle_auth_failure_test
+build obj/libhwsec-foundation/tpm_error/hwsec-foundation_testrunner.tpm_error_uma_reporter_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/tpm_error/tpm_error_uma_reporter_test.cc
+  source_file_part = tpm_error_uma_reporter_test.cc
+  source_name_part = tpm_error_uma_reporter_test
+build obj/libhwsec-foundation/utility/hwsec-foundation_testrunner.crypto_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/crypto_test.cc
+  source_file_part = crypto_test.cc
+  source_name_part = crypto_test
+build obj/libhwsec-foundation/utility/hwsec-foundation_testrunner.no_default_init_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/no_default_init_test.cc
+  source_file_part = no_default_init_test.cc
+  source_name_part = no_default_init_test
+build obj/libhwsec-foundation/utility/hwsec-foundation_testrunner.synchronized_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/synchronized_test.cc
+  source_file_part = synchronized_test.cc
+  source_name_part = synchronized_test
+build obj/libhwsec-foundation/utility/hwsec-foundation_testrunner.task_dispatching_framework_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/task_dispatching_framework_test.cc
+  source_file_part = task_dispatching_framework_test.cc
+  source_name_part = task_dispatching_framework_test
+build obj/libhwsec-foundation/vpd_reader/hwsec-foundation_testrunner.vpd_reader_impl_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/vpd_reader/vpd_reader_impl_test.cc
+  source_file_part = vpd_reader_impl_test.cc
+  source_name_part = vpd_reader_impl_test
+build obj/libhwsec-foundation/tpm_error/hwsec-foundation_testrunner.tpm_error_data.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/tpm_error/tpm_error_data.cc
+  source_file_part = tpm_error_data.cc
+  source_name_part = tpm_error_data
+
+build ./hwsec-foundation_testrunner: link obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.aes_test.o obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.big_num_util_test.o obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.ecdh_hkdf_test.o obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.elliptic_curve_test.o obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.error_util_test.o obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.hkdf_test.o obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.openssl_test.o obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.rsa_test.o obj/libhwsec-foundation/crypto/hwsec-foundation_testrunner.scrypt_test.o obj/libhwsec-foundation/da_reset/hwsec-foundation_testrunner.da_resetter_test.o obj/libhwsec-foundation/error/hwsec-foundation_testrunner.testing_helper_test.o obj/libhwsec-foundation/status/hwsec-foundation_testrunner.status_chain_test.o obj/libhwsec-foundation/tpm_error/hwsec-foundation_testrunner.auth_failure_analysis_test.o obj/libhwsec-foundation/tpm_error/hwsec-foundation_testrunner.handle_auth_failure_test.o obj/libhwsec-foundation/tpm_error/hwsec-foundation_testrunner.tpm_error_uma_reporter_test.o obj/libhwsec-foundation/utility/hwsec-foundation_testrunner.crypto_test.o obj/libhwsec-foundation/utility/hwsec-foundation_testrunner.no_default_init_test.o obj/libhwsec-foundation/utility/hwsec-foundation_testrunner.synchronized_test.o obj/libhwsec-foundation/utility/hwsec-foundation_testrunner.task_dispatching_framework_test.o obj/libhwsec-foundation/vpd_reader/hwsec-foundation_testrunner.vpd_reader_impl_test.o obj/libhwsec-foundation/tpm_error/hwsec-foundation_testrunner.tpm_error_data.o ./lib/libhwsec-foundation.so ./libtestrunner.a
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -Wl,-rpath=\$$ORIGIN/lib/ -Wl,-rpath-link=lib/ -pthread -L/build/arm64-generic/usr/lib64
+  libs = -lgmock -lgtest -lpthread -lbrillo -lbase -lssl -lcrypto -lre2 -lbase-test -lmetrics -lsystem_api-device_management-protos -lsystem_api-hps-protos -lsystem_api-power_manager-protos -lsystem_api-authpolicy-protos -lsystem_api-protos -lsystem_api-kerberos-protos -lsystem_api-login_manager-protos -lsystem_api-lorgnette-protos -lsystem_api-smbprovider-protos -lsystem_api-vm_concierge-protos -lsystem_api-vm_applications-protos -lsystem_api-vm_launch-protos -lsystem_api-vm_sk_forwarding-protos -lsystem_api-vm_cicerone-protos -lsystem_api-seneschal-protos -lsystem_api-oobe_config-protos -lsystem_api-runtime_probe-protos -lsystem_api-dlcservice-protos -lsystem_api-update_engine-protos -lsystem_api-vm_plugin_dispatcher-protos -lsystem_api-u2f-protos -lsystem_api-chunneld-protos -lsystem_api-system_proxy-protos -lsystem_api-vm_permission_service-protos -lsystem_api-anomaly_detector-protos -lsystem_api-minios-protos -lsystem_api-dlp-protos -lsystem_api-rmad-protos -lsystem_api-fusebox-protos -lsystem_api-privacy_screen-protos -lsystem_api-cdm_oemcrypto-protos -lsystem_api-ml-protos -lsystem_api-lvmd-protos -lsystem_api-shadercached-protos -lsystem_api-spaced-protos -lsystem_api-imageloader-protos -lsystem_api -lsystem_api-arc-protos -lsystem_api-private_computing-protos -lsystem_api-arcvm_data_migrator-protos -lsystem_api-featured-protos -lsystem_api-vm_wl-protos -lsystem_api-printscanmgr-protos -lsystem_api-vm_memory_management-protos -lprotobuf-lite
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

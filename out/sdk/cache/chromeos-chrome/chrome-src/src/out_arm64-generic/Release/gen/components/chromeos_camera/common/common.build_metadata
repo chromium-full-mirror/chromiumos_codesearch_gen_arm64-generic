@@ -1,0 +1,12 @@
+{
+  "deps": [
+    "../../../media/mojo/mojom/mojom.build_metadata",
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../ui/gfx/geometry/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/components/chromeos_camera/common/dmabuf.mojom",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/components/chromeos_camera/common/jpeg_encode_accelerator.mojom",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/components/chromeos_camera/common/mjpeg_decode_accelerator.mojom"
+  ]
+}

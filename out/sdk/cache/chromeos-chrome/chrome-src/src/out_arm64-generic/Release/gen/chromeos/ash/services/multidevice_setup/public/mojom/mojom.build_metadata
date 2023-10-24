@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../device_sync/public/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/multidevice_setup/public/mojom/multidevice_setup.mojom"
+  ]
+}

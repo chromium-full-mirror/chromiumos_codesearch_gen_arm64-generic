@@ -1,0 +1,251 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+rule __common-mk_external_dependencies_cloud_policy_proto_generator___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env /build/arm64-generic/usr/share/policy_tools/generate_policy_source.py --cloud-policy-protobuf=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/common-mk/external_dependencies/proto/cloud_policy.proto --chrome-version-file=/build/arm64-generic/usr/share/policy_resources/VERSION --target-platform=chromeos --policy-templates-file=/build/arm64-generic/usr/share/policy_resources/generated_policy_templates.json
+  description = ACTION //common-mk/external_dependencies:cloud_policy_proto_generator(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/common-mk/external_dependencies/proto/cloud_policy.proto: __common-mk_external_dependencies_cloud_policy_proto_generator___common-mk_toolchain_toolchain__rule | ../../../../../../../usr/share/policy_tools/generate_policy_source.py ../../../../../../../usr/share/policy_resources/VERSION ../../../../../../../usr/share/policy_resources/generated_policy_templates.json
+
+build obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp: stamp gen/common-mk/external_dependencies/proto/cloud_policy.proto
+rule __common-mk_external_dependencies_dbus-proxies___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py dbusxx-xml2cpp ${in} --proxy=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/dbus_proxies/${source_name_part}.h --sync --async
+  description = ACTION //common-mk/external_dependencies:dbus-proxies(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/dbus_proxies/org.freedesktop.DBus.Properties.h: __common-mk_external_dependencies_dbus-proxies___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.DBus.Properties.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.DBus.Properties
+
+build obj/common-mk/external_dependencies/dbus-proxies.stamp: stamp gen/include/dbus_proxies/org.freedesktop.DBus.Properties.h
+rule __common-mk_external_dependencies_enterprise_management_goprotos___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /build/arm64-generic/usr/share/protofiles --proto_path /build/arm64-generic/usr/share/proto --go_out plugins=grpc,Mprivate_membership.proto=chromiumos/policy/github.com/google/private-membership,Mprivate_membership_rlwe.proto=chromiumos/policy/github.com/google/private-membership,Mserialization.proto=chromiumos/policy/github.com/google/shell-encryption$:/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/go/src/chromiumos/policy/ /build/arm64-generic/usr/share/protofiles/chrome_device_policy.proto /build/arm64-generic/usr/share/protofiles/chrome_extension_policy.proto /build/arm64-generic/usr/share/protofiles/cloud_policy.proto /build/arm64-generic/usr/share/protofiles/device_management_backend.proto /build/arm64-generic/usr/share/protofiles/policy_common_definitions.proto /build/arm64-generic/usr/share/protofiles/remote_commands_service.proto
+  description = ACTION //common-mk/external_dependencies:enterprise_management_goprotos(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/chromiumos/policy/chrome_device_policy.pb.go gen/go/src/chromiumos/policy/chrome_extension_policy.pb.go gen/go/src/chromiumos/policy/cloud_policy.pb.go gen/go/src/chromiumos/policy/device_management_backend.pb.go gen/go/src/chromiumos/policy/policy_common_definitions.pb.go gen/go/src/chromiumos/policy/remote_commands_service.pb.go: __common-mk_external_dependencies_enterprise_management_goprotos___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/protofiles/chrome_device_policy.proto ../../../../../../../usr/share/protofiles/chrome_extension_policy.proto ../../../../../../../usr/share/protofiles/cloud_policy.proto ../../../../../../../usr/share/protofiles/device_management_backend.proto ../../../../../../../usr/share/protofiles/policy_common_definitions.proto ../../../../../../../usr/share/protofiles/remote_commands_service.proto
+
+build obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp: stamp gen/go/src/chromiumos/policy/chrome_device_policy.pb.go gen/go/src/chromiumos/policy/chrome_extension_policy.pb.go gen/go/src/chromiumos/policy/cloud_policy.pb.go gen/go/src/chromiumos/policy/device_management_backend.pb.go gen/go/src/chromiumos/policy/policy_common_definitions.pb.go gen/go/src/chromiumos/policy/remote_commands_service.pb.go
+subninja obj/common-mk/external_dependencies/install_attributes-proto.ninja
+rule __common-mk_external_dependencies_install_attributes-proto_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc install_attributes.proto --proto_path /build/arm64-generic/usr/include/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/bindings
+  description = ACTION //common-mk/external_dependencies:install_attributes-proto_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/bindings/install_attributes.pb.cc gen/include/bindings/install_attributes.pb.h: __common-mk_external_dependencies_install_attributes-proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/include/proto/install_attributes.proto
+
+build obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp: stamp gen/include/bindings/install_attributes.pb.cc gen/include/bindings/install_attributes.pb.h
+rule __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py dbusxx-xml2cpp ${in} --adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/dbus_adaptors/${source_name_part}.h --sync --async
+  description = ACTION //common-mk/external_dependencies:modemmanager-dbus-adaptors(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/dbus_adaptors/mm-mobile-error.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/mm-mobile-error.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = mm-mobile-error
+build gen/include/dbus_adaptors/mm-serial-error.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/mm-serial-error.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = mm-serial-error
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Cdma.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Cdma.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Cdma
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Firmware.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Firmware.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Firmware
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.Card.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Gsm.Card.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Gsm.Card
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.Contacts.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Gsm.Contacts.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Gsm.Contacts
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.Network.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Gsm.Network.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Gsm.Network
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.SMS.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Gsm.SMS.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Gsm.SMS
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.Ussd.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Gsm.Ussd.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Gsm.Ussd
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Gsm.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Gsm
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Simple.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.Simple.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem.Simple
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.Modem.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager.Modem
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Bearer.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.Bearer.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1.Bearer
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.Location.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.Modem.Location.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1.Modem.Location
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.Modem3gpp.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.Modem.Modem3gpp.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1.Modem.Modem3gpp
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.ModemCdma.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.Modem.ModemCdma.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1.Modem.ModemCdma
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.Simple.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.Modem.Simple.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1.Modem.Simple
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.Time.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.Modem.Time.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1.Modem.Time
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.Modem.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1.Modem
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Sim.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.Sim.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1.Sim
+build gen/include/dbus_adaptors/org.freedesktop.ModemManager1.h: __common-mk_external_dependencies_modemmanager-dbus-adaptors___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/share/dbus-1/interfaces/org.freedesktop.ModemManager1.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.freedesktop.ModemManager1
+
+build obj/common-mk/external_dependencies/modemmanager-dbus-adaptors.stamp: stamp gen/include/dbus_adaptors/mm-mobile-error.h gen/include/dbus_adaptors/mm-serial-error.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Cdma.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Firmware.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.Card.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.Contacts.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.Network.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.SMS.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.Ussd.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Gsm.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.Simple.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.Modem.h gen/include/dbus_adaptors/org.freedesktop.ModemManager.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Bearer.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.Location.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.Modem3gpp.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.ModemCdma.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.Simple.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.Time.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Modem.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.Sim.h gen/include/dbus_adaptors/org.freedesktop.ModemManager1.h
+build obj/common-mk/external_dependencies/policy-goprotos.stamp: stamp obj/common-mk/external_dependencies/enterprise_management_goprotos.stamp obj/common-mk/external_dependencies/private_membership_goprotos.stamp obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp obj/common-mk/external_dependencies/rlwe_goprotos.stamp
+subninja obj/common-mk/external_dependencies/policy-protos.ninja
+rule __common-mk_external_dependencies_policy-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc chrome_device_policy.proto chrome_extension_policy.proto device_management_backend.proto private_membership.proto private_membership_rlwe.proto serialization.proto --proto_path /build/arm64-generic/usr/share/protofiles --proto_path /build/arm64-generic/usr/share/proto --proto_path /build/arm64-generic/usr/share/protofiles --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/bindings
+  description = ACTION //common-mk/external_dependencies:policy-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/bindings/chrome_device_policy.pb.cc gen/include/bindings/chrome_device_policy.pb.h gen/include/bindings/chrome_extension_policy.pb.cc gen/include/bindings/chrome_extension_policy.pb.h gen/include/bindings/device_management_backend.pb.cc gen/include/bindings/device_management_backend.pb.h gen/include/bindings/private_membership.pb.cc gen/include/bindings/private_membership.pb.h gen/include/bindings/private_membership_rlwe.pb.cc gen/include/bindings/private_membership_rlwe.pb.h gen/include/bindings/serialization.pb.cc gen/include/bindings/serialization.pb.h: __common-mk_external_dependencies_policy-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/protofiles/chrome_device_policy.proto ../../../../../../../usr/share/protofiles/chrome_extension_policy.proto ../../../../../../../usr/share/protofiles/device_management_backend.proto ../../../../../../../usr/share/protofiles/private_membership.proto ../../../../../../../usr/share/protofiles/private_membership_rlwe.proto ../../../../../../../usr/share/protofiles/serialization.proto ./libpolicy_common_definitions-protos.a
+
+build obj/common-mk/external_dependencies/policy-protos_gen.stamp: stamp gen/include/bindings/chrome_device_policy.pb.cc gen/include/bindings/chrome_device_policy.pb.h gen/include/bindings/chrome_extension_policy.pb.cc gen/include/bindings/chrome_extension_policy.pb.h gen/include/bindings/device_management_backend.pb.cc gen/include/bindings/device_management_backend.pb.h gen/include/bindings/private_membership.pb.cc gen/include/bindings/private_membership.pb.h gen/include/bindings/private_membership_rlwe.pb.cc gen/include/bindings/private_membership_rlwe.pb.h gen/include/bindings/serialization.pb.cc gen/include/bindings/serialization.pb.h
+subninja obj/common-mk/external_dependencies/policy_common_definitions-protos.ninja
+rule __common-mk_external_dependencies_policy_common_definitions-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc policy_common_definitions.proto --proto_path /build/arm64-generic/usr/share/protofiles --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/bindings
+  description = ACTION //common-mk/external_dependencies:policy_common_definitions-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/bindings/policy_common_definitions.pb.cc gen/include/bindings/policy_common_definitions.pb.h: __common-mk_external_dependencies_policy_common_definitions-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/protofiles/policy_common_definitions.proto
+
+build obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp: stamp gen/include/bindings/policy_common_definitions.pb.cc gen/include/bindings/policy_common_definitions.pb.h
+rule __common-mk_external_dependencies_private_membership_goprotos___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /build/arm64-generic/usr/share/protofiles --proto_path /build/arm64-generic/usr/share/proto --go_out $:/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/go/src/chromiumos/policy/ /build/arm64-generic/usr/share/protofiles/private_membership.proto
+  description = ACTION //common-mk/external_dependencies:private_membership_goprotos(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/chromiumos/policy/private_membership.pb.go: __common-mk_external_dependencies_private_membership_goprotos___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/protofiles/private_membership.proto
+
+build obj/common-mk/external_dependencies/private_membership_goprotos.stamp: stamp gen/go/src/chromiumos/policy/private_membership.pb.go
+rule __common-mk_external_dependencies_private_membership_rlwe_goprotos___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /build/arm64-generic/usr/share/protofiles --proto_path /build/arm64-generic/usr/share/proto --go_out Mserialization.proto=chromiumos/policy/github.com/google/shell-encryption$:/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/go/src/chromiumos/policy/ /build/arm64-generic/usr/share/protofiles/private_membership_rlwe.proto
+  description = ACTION //common-mk/external_dependencies:private_membership_rlwe_goprotos(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/chromiumos/policy/private_membership_rlwe.pb.go: __common-mk_external_dependencies_private_membership_rlwe_goprotos___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/protofiles/private_membership_rlwe.proto
+
+build obj/common-mk/external_dependencies/private_membership_rlwe_goprotos.stamp: stamp gen/go/src/chromiumos/policy/private_membership_rlwe.pb.go
+rule __common-mk_external_dependencies_rlwe_goprotos___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /build/arm64-generic/usr/share/protofiles --proto_path /build/arm64-generic/usr/share/proto --go_out $:/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/go/src/chromiumos/policy/ /build/arm64-generic/usr/share/protofiles/serialization.proto
+  description = ACTION //common-mk/external_dependencies:rlwe_goprotos(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/chromiumos/policy/serialization.pb.go: __common-mk_external_dependencies_rlwe_goprotos___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../usr/share/protofiles/serialization.proto
+
+build obj/common-mk/external_dependencies/rlwe_goprotos.stamp: stamp gen/go/src/chromiumos/policy/serialization.pb.go
+subninja obj/common-mk/external_dependencies/user_policy-protos.ninja
+rule __common-mk_external_dependencies_user_policy-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc cloud_policy.proto --proto_path /build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/common-mk/external_dependencies/proto --proto_path /build/arm64-generic/usr/share/proto --proto_path /build/arm64-generic/usr/share/protofiles --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/bindings
+  description = ACTION //common-mk/external_dependencies:user_policy-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/bindings/cloud_policy.pb.cc gen/include/bindings/cloud_policy.pb.h: __common-mk_external_dependencies_user_policy-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py gen/common-mk/external_dependencies/proto/cloud_policy.proto obj/common-mk/external_dependencies/cloud_policy_proto_generator.stamp ./libpolicy_common_definitions-protos.a
+
+build obj/common-mk/external_dependencies/user_policy-protos_gen.stamp: stamp gen/include/bindings/cloud_policy.pb.cc gen/include/bindings/cloud_policy.pb.h
+build obj/common-mk/gn_root/root.stamp: stamp obj/secagentd/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/featured/all.stamp: stamp ./featured ./lib/libc_fake_feature_library.so ./lib/libfake_platform_features.so ./lib/libfeatures.so ./lib/libfeatures_c.so ./libstore_impl.a ./c_fake_feature_check_example ./c_feature_check_example ./cpp_feature_check_example ./feature_library_test ./service_test ./store_impl_test
+subninja obj/featured/c_fake_feature_check_example.ninja
+subninja obj/featured/c_feature_check_example.ninja
+subninja obj/featured/cpp_feature_check_example.ninja
+subninja obj/featured/feature_library_test.ninja
+subninja obj/featured/featured.ninja
+rule __featured_featured-adaptors___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/featured/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/featured/dbus_bindings/dbus-service-config.json ${in}
+  description = ACTION //featured:featured-adaptors(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/featured/dbus_adaptors/org.chromium.featured.h: __featured_featured-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/featured/dbus_bindings/org.chromium.featured.xml | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.featured
+
+build obj/featured/featured-adaptors.stamp: stamp gen/include/featured/dbus_adaptors/org.chromium.featured.h
+subninja obj/featured/libc_fake_feature_library.ninja
+subninja obj/featured/libfake_platform_features.ninja
+subninja obj/featured/libfeatured.ninja
+subninja obj/featured/libfeatures.ninja
+subninja obj/featured/libfeatures_c.ninja
+subninja obj/featured/libstore_impl.ninja
+subninja obj/featured/libtmp_storage_impl.ninja
+subninja obj/featured/service_test.ninja
+subninja obj/featured/store_impl_test.ninja
+build obj/secagentd/all.stamp: stamp obj/secagentd/install_freezer_tmpfilesd.stamp obj/secagentd/install_minijail_conf.stamp obj/secagentd/install_rsyslog_conf.stamp obj/secagentd/install_tmpfiles_conf.stamp obj/secagentd/install_upstart_conf.stamp ./secagentd ./secagentd_testrunner
+rule __secagentd_bpf_network___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/tools/generate-ebpf.py gen_skel --out_header=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/secagentd/bpf_skeletons/skeleton_${source_name_part}.h --source=${in} --arch=arm64 --sysroot=/build/arm64-generic --include /build/arm64-generic/tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2 /build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen --defines USE_MIN_CORE_BTF=1 --out_min_btf=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/btf/${source_name_part}.min.btf --vmlinux_btf=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/btf/vmlinux.full.btf
+  description = ACTION //secagentd:bpf_network(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/secagentd/bpf_skeletons/skeleton_network_bpf.h gen/btf/network_bpf.min.btf: __secagentd_bpf_network___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/bpf/network_bpf.c | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/tools/generate-ebpf.py obj/secagentd/vmlinux_h.stamp
+  source_name_part = network_bpf
+
+build obj/secagentd/bpf_network.stamp: stamp gen/include/secagentd/bpf_skeletons/skeleton_network_bpf.h gen/btf/network_bpf.min.btf
+rule __secagentd_bpf_process___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/tools/generate-ebpf.py gen_skel --out_header=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/secagentd/bpf_skeletons/skeleton_${source_name_part}.h --source=${in} --arch=arm64 --sysroot=/build/arm64-generic --include /build/arm64-generic/tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2 /build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen --defines USE_MIN_CORE_BTF=1 --out_min_btf=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/btf/${source_name_part}.min.btf --vmlinux_btf=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/btf/vmlinux.full.btf
+  description = ACTION //secagentd:bpf_process(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/secagentd/bpf_skeletons/skeleton_process_bpf.h gen/btf/process_bpf.min.btf: __secagentd_bpf_process___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/bpf/process_bpf.c | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/tools/generate-ebpf.py obj/secagentd/vmlinux_h.stamp
+  source_name_part = process_bpf
+
+build obj/secagentd/bpf_process.stamp: stamp gen/include/secagentd/bpf_skeletons/skeleton_process_bpf.h gen/btf/process_bpf.min.btf
+build obj/secagentd/install_freezer_tmpfilesd.stamp: stamp
+build obj/secagentd/install_minijail_conf.stamp: stamp
+build obj/secagentd/install_rsyslog_conf.stamp: stamp
+build obj/secagentd/install_tmpfiles_conf.stamp: stamp
+build obj/secagentd/install_upstart_conf.stamp: stamp
+subninja obj/secagentd/libsecagent.ninja
+subninja obj/secagentd/secagentd.ninja
+subninja obj/secagentd/secagentd_testrunner.ninja
+rule __secagentd_vmlinux_h___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/tools/generate-ebpf.py gen_vmlinux --sysroot=/build/arm64-generic --out_header=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/secagentd/vmlinux/vmlinux.h --out_btf=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/btf/vmlinux.full.btf
+  description = ACTION //secagentd:vmlinux_h(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/secagentd/vmlinux/vmlinux.h: __secagentd_vmlinux_h___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/tools/generate-ebpf.py
+
+build obj/secagentd/vmlinux_h.stamp: stamp gen/include/secagentd/vmlinux/vmlinux.h
+build obj/secagentd/proto/all.stamp: stamp obj/secagentd/proto/libsecagentd-goprotos.stamp
+rule __secagentd_proto_libsecagentd-goprotos___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /build/arm64-generic/tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/proto --proto_path /build/arm64-generic/usr/share/proto --go_out Msecurity_xdr_events.proto=chromiumos/xdr/secagentd$:/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/go/src/ /build/arm64-generic/tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/proto/security_xdr_events.proto
+  description = ACTION //secagentd/proto:libsecagentd-goprotos(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/security_xdr_events.pb.go: __secagentd_proto_libsecagentd-goprotos___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/proto/security_xdr_events.proto
+
+build obj/secagentd/proto/libsecagentd-goprotos.stamp: stamp gen/go/src/security_xdr_events.pb.go
+subninja obj/secagentd/proto/security_xdr_events_proto.ninja
+rule __secagentd_proto_security_xdr_events_proto_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py protoc security_xdr_events.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/secagentd/out/Default/gen/include/secagentd/proto
+  description = ACTION //secagentd/proto:security_xdr_events_proto_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/secagentd/proto/security_xdr_events.pb.cc gen/include/secagentd/proto/security_xdr_events.pb.h: __secagentd_proto_security_xdr_events_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/secagentd-9999/work/secagentd-9999/platform2/secagentd/proto/security_xdr_events.proto
+
+build obj/secagentd/proto/security_xdr_events_proto_gen.stamp: stamp gen/include/secagentd/proto/security_xdr_events.pb.cc gen/include/secagentd/proto/security_xdr_events.pb.h

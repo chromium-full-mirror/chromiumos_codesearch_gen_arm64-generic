@@ -1,0 +1,1 @@
+obj/third_party/perfetto/protos/perfetto/trace/minimal_cpp/clock_snapshot.gen.o obj/third_party/perfetto/protos/perfetto/trace/minimal_cpp/trace_uuid.gen.o obj/third_party/perfetto/protos/perfetto/trace/minimal_cpp/trigger.gen.o obj/third_party/perfetto/protos/perfetto/trace/minimal_cpp/system_info.gen.o

@@ -1,0 +1,12 @@
+{
+  "deps": [
+    "network_types.build_metadata",
+    "../../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../../services/network/public/mojom/mojom_ip_address.build_metadata",
+    "../../../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/services/network_config/public/mojom/constants.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/services/network_config/public/mojom/cros_network_config.mojom"
+  ]
+}

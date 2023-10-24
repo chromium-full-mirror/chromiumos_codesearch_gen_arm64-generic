@@ -1,0 +1,69 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/chromiumos-wide-profiling/all.stamp: stamp ./perf_converter ./quipper
+subninja obj/chromiumos-wide-profiling/common.ninja
+subninja obj/chromiumos-wide-profiling/common_test.ninja
+subninja obj/chromiumos-wide-profiling/conversion_utils.ninja
+subninja obj/chromiumos-wide-profiling/perf_converter.ninja
+subninja obj/chromiumos-wide-profiling/perf_data_proto.ninja
+rule __chromiumos-wide-profiling_perf_data_proto_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
+  description = ACTION //chromiumos-wide-profiling:perf_data_proto_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/perf_data.pb.cc gen/include/perf_data.pb.h: __chromiumos-wide-profiling_perf_data_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_data.proto
+
+build obj/chromiumos-wide-profiling/perf_data_proto_gen.stamp: stamp gen/include/perf_data.pb.cc gen/include/perf_data.pb.h
+subninja obj/chromiumos-wide-profiling/perf_parser_options_proto.ninja
+rule __chromiumos-wide-profiling_perf_parser_options_proto_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_parser_options.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
+  description = ACTION //chromiumos-wide-profiling:perf_parser_options_proto_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/perf_parser_options.pb.cc gen/include/perf_parser_options.pb.h: __chromiumos-wide-profiling_perf_parser_options_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_parser_options.proto
+
+build obj/chromiumos-wide-profiling/perf_parser_options_proto_gen.stamp: stamp gen/include/perf_parser_options.pb.cc gen/include/perf_parser_options.pb.h
+subninja obj/chromiumos-wide-profiling/perf_stat_proto.ninja
+rule __chromiumos-wide-profiling_perf_stat_proto_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_stat.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
+  description = ACTION //chromiumos-wide-profiling:perf_stat_proto_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/perf_stat.pb.cc gen/include/perf_stat.pb.h: __chromiumos-wide-profiling_perf_stat_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2963/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_stat.proto
+
+build obj/chromiumos-wide-profiling/perf_stat_proto_gen.stamp: stamp gen/include/perf_stat.pb.cc gen/include/perf_stat.pb.h
+subninja obj/chromiumos-wide-profiling/quipper.ninja
+build obj/common-mk/gn_root/root.stamp: stamp obj/chromiumos-wide-profiling/all.stamp

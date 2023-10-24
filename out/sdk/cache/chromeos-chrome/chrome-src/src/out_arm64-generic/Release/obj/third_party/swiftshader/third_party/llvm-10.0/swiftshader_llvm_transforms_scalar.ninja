@@ -1,0 +1,160 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/ARM -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/Mips -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/RISCV -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/IR -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/AArch64 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/ARM -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/Mips -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/PowerPC -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/RISCV -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/X86 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Transforms/InstCombine -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/configs/linux/include -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wno-shadow -Os -Wno-attributes -Wno-bitwise-instead-of-logical -Wno-deprecated-declarations -Wno-enum-compare -Wno-header-hygiene -Wno-unused-function -Wno-unused-local-typedef -Wno-unused-private-field -Wno-unused-result -Wno-unused-variable
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = swiftshader_llvm_transforms_scalar
+target_out_dir = obj/third_party/swiftshader/third_party/llvm-10.0
+target_output_name = swiftshader_llvm_transforms_scalar
+
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/ADCE.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/ADCE.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = ADCE.cpp
+  source_name_part = ADCE
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/AlignmentFromAssumptions.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/AlignmentFromAssumptions.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = AlignmentFromAssumptions.cpp
+  source_name_part = AlignmentFromAssumptions
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/BDCE.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/BDCE.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = BDCE.cpp
+  source_name_part = BDCE
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/CallSiteSplitting.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/CallSiteSplitting.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = CallSiteSplitting.cpp
+  source_name_part = CallSiteSplitting
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/ConstantHoisting.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/ConstantHoisting.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = ConstantHoisting.cpp
+  source_name_part = ConstantHoisting
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/CorrelatedValuePropagation.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/CorrelatedValuePropagation.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = CorrelatedValuePropagation.cpp
+  source_name_part = CorrelatedValuePropagation
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/DeadStoreElimination.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/DeadStoreElimination.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DeadStoreElimination.cpp
+  source_name_part = DeadStoreElimination
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/DivRemPairs.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/DivRemPairs.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = DivRemPairs.cpp
+  source_name_part = DivRemPairs
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/EarlyCSE.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/EarlyCSE.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = EarlyCSE.cpp
+  source_name_part = EarlyCSE
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/Float2Int.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/Float2Int.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Float2Int.cpp
+  source_name_part = Float2Int
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/GVN.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/GVN.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = GVN.cpp
+  source_name_part = GVN
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/GVNHoist.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/GVNHoist.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = GVNHoist.cpp
+  source_name_part = GVNHoist
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/GVNSink.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/GVNSink.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = GVNSink.cpp
+  source_name_part = GVNSink
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/IndVarSimplify.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/IndVarSimplify.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = IndVarSimplify.cpp
+  source_name_part = IndVarSimplify
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/InstSimplifyPass.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/InstSimplifyPass.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = InstSimplifyPass.cpp
+  source_name_part = InstSimplifyPass
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/JumpThreading.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/JumpThreading.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = JumpThreading.cpp
+  source_name_part = JumpThreading
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LICM.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LICM.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LICM.cpp
+  source_name_part = LICM
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopDataPrefetch.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopDataPrefetch.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopDataPrefetch.cpp
+  source_name_part = LoopDataPrefetch
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopDeletion.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopDeletion.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopDeletion.cpp
+  source_name_part = LoopDeletion
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopDistribute.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopDistribute.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopDistribute.cpp
+  source_name_part = LoopDistribute
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopIdiomRecognize.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopIdiomRecognize.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopIdiomRecognize.cpp
+  source_name_part = LoopIdiomRecognize
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopInstSimplify.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopInstSimplify.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopInstSimplify.cpp
+  source_name_part = LoopInstSimplify
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopInterchange.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopInterchange.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopInterchange.cpp
+  source_name_part = LoopInterchange
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopLoadElimination.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopLoadElimination.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopLoadElimination.cpp
+  source_name_part = LoopLoadElimination
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopRerollPass.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopRerollPass.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopRerollPass.cpp
+  source_name_part = LoopRerollPass
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopRotation.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopRotation.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopRotation.cpp
+  source_name_part = LoopRotation
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopSimplifyCFG.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopSimplifyCFG.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopSimplifyCFG.cpp
+  source_name_part = LoopSimplifyCFG
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopSink.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopSink.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopSink.cpp
+  source_name_part = LoopSink
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopStrengthReduce.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopStrengthReduce.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopStrengthReduce.cpp
+  source_name_part = LoopStrengthReduce
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopUnrollAndJamPass.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopUnrollAndJamPass.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopUnrollAndJamPass.cpp
+  source_name_part = LoopUnrollAndJamPass
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopUnrollPass.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopUnrollPass.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopUnrollPass.cpp
+  source_name_part = LoopUnrollPass
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopUnswitch.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopUnswitch.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopUnswitch.cpp
+  source_name_part = LoopUnswitch
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopVersioningLICM.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LoopVersioningLICM.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LoopVersioningLICM.cpp
+  source_name_part = LoopVersioningLICM
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LowerConstantIntrinsics.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LowerConstantIntrinsics.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LowerConstantIntrinsics.cpp
+  source_name_part = LowerConstantIntrinsics
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LowerExpectIntrinsic.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LowerExpectIntrinsic.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LowerExpectIntrinsic.cpp
+  source_name_part = LowerExpectIntrinsic
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LowerMatrixIntrinsics.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/LowerMatrixIntrinsics.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = LowerMatrixIntrinsics.cpp
+  source_name_part = LowerMatrixIntrinsics
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/MemCpyOptimizer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/MemCpyOptimizer.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = MemCpyOptimizer.cpp
+  source_name_part = MemCpyOptimizer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/MergedLoadStoreMotion.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/MergedLoadStoreMotion.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = MergedLoadStoreMotion.cpp
+  source_name_part = MergedLoadStoreMotion
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/MergeICmps.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/MergeICmps.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = MergeICmps.cpp
+  source_name_part = MergeICmps
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/NewGVN.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/NewGVN.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = NewGVN.cpp
+  source_name_part = NewGVN
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/PartiallyInlineLibCalls.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/PartiallyInlineLibCalls.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = PartiallyInlineLibCalls.cpp
+  source_name_part = PartiallyInlineLibCalls
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/Reassociate.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/Reassociate.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = Reassociate.cpp
+  source_name_part = Reassociate
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SCCP.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/SCCP.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = SCCP.cpp
+  source_name_part = SCCP
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SeparateConstOffsetFromGEP.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/SeparateConstOffsetFromGEP.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = SeparateConstOffsetFromGEP.cpp
+  source_name_part = SeparateConstOffsetFromGEP
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SimpleLoopUnswitch.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/SimpleLoopUnswitch.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = SimpleLoopUnswitch.cpp
+  source_name_part = SimpleLoopUnswitch
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SimplifyCFGPass.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/SimplifyCFGPass.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = SimplifyCFGPass.cpp
+  source_name_part = SimplifyCFGPass
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SpeculativeExecution.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/SpeculativeExecution.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = SpeculativeExecution.cpp
+  source_name_part = SpeculativeExecution
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SROA.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/SROA.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = SROA.cpp
+  source_name_part = SROA
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/TailRecursionElimination.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/TailRecursionElimination.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = TailRecursionElimination.cpp
+  source_name_part = TailRecursionElimination
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/WarnMissedTransforms.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Transforms/Scalar/WarnMissedTransforms.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = WarnMissedTransforms.cpp
+  source_name_part = WarnMissedTransforms
+
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar.stamp: stamp obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/ADCE.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/AlignmentFromAssumptions.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/BDCE.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/CallSiteSplitting.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/ConstantHoisting.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/CorrelatedValuePropagation.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/DeadStoreElimination.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/DivRemPairs.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/EarlyCSE.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/Float2Int.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/GVN.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/GVNHoist.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/GVNSink.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/IndVarSimplify.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/InstSimplifyPass.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/JumpThreading.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LICM.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopDataPrefetch.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopDeletion.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopDistribute.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopIdiomRecognize.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopInstSimplify.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopInterchange.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopLoadElimination.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopRerollPass.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopRotation.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopSimplifyCFG.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopSink.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopStrengthReduce.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopUnrollAndJamPass.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopUnrollPass.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopUnswitch.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LoopVersioningLICM.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LowerConstantIntrinsics.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LowerExpectIntrinsic.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/LowerMatrixIntrinsics.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/MemCpyOptimizer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/MergedLoadStoreMotion.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/MergeICmps.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/NewGVN.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/PartiallyInlineLibCalls.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/Reassociate.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SCCP.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SeparateConstOffsetFromGEP.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SimpleLoopUnswitch.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SimplifyCFGPass.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SpeculativeExecution.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/SROA.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/TailRecursionElimination.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_transforms_scalar/WarnMissedTransforms.o

@@ -1,0 +1,1 @@
+obj/media/midi/midi/message_util.o obj/media/midi/midi/midi_manager.o obj/media/midi/midi/midi_message_queue.o obj/media/midi/midi/midi_service.o obj/media/midi/midi/midi_switches.o obj/media/midi/midi/task_service.o obj/media/midi/midi/midi_manager_alsa.o

@@ -1,0 +1,48 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -Wextra -Werror -Wno-unused-parameter -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -O2 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-strict-aliasing -Woverloaded-virtual -Wno-missing-field-initializers
+root_out_dir = .
+target_output_name = libshill-net
+
+build obj/shill/net/libshill-net.attribute_list.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/attribute_list.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = attribute_list.cc
+  source_name_part = attribute_list
+build obj/shill/net/libshill-net.control_netlink_attribute.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/control_netlink_attribute.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = control_netlink_attribute.cc
+  source_name_part = control_netlink_attribute
+build obj/shill/net/libshill-net.generic_netlink_message.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/generic_netlink_message.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = generic_netlink_message.cc
+  source_name_part = generic_netlink_message
+build obj/shill/net/libshill-net.ieee80211.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/ieee80211.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = ieee80211.cc
+  source_name_part = ieee80211
+build obj/shill/net/libshill-net.netlink_attribute.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/netlink_attribute.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = netlink_attribute.cc
+  source_name_part = netlink_attribute
+build obj/shill/net/libshill-net.netlink_manager.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/netlink_manager.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = netlink_manager.cc
+  source_name_part = netlink_manager
+build obj/shill/net/libshill-net.netlink_message.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/netlink_message.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = netlink_message.cc
+  source_name_part = netlink_message
+build obj/shill/net/libshill-net.netlink_packet.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/netlink_packet.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = netlink_packet.cc
+  source_name_part = netlink_packet
+build obj/shill/net/libshill-net.nl80211_attribute.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/nl80211_attribute.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = nl80211_attribute.cc
+  source_name_part = nl80211_attribute
+build obj/shill/net/libshill-net.nl80211_message.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/nl80211_message.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = nl80211_message.cc
+  source_name_part = nl80211_message
+build obj/shill/net/libshill-net.process_manager.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/shill/net/process_manager.cc || obj/shill/net/libshill-net_deps.stamp
+  source_file_part = process_manager.cc
+  source_name_part = process_manager
+
+build ./lib/libshill-net.so: solink obj/shill/net/libshill-net.attribute_list.o obj/shill/net/libshill-net.control_netlink_attribute.o obj/shill/net/libshill-net.generic_netlink_message.o obj/shill/net/libshill-net.ieee80211.o obj/shill/net/libshill-net.netlink_attribute.o obj/shill/net/libshill-net.netlink_manager.o obj/shill/net/libshill-net.netlink_message.o obj/shill/net/libshill-net.netlink_packet.o obj/shill/net/libshill-net.nl80211_attribute.o obj/shill/net/libshill-net.nl80211_message.o obj/shill/net/libshill-net.process_manager.o || obj/shill/net/libshill-net_deps.stamp obj/shill/net/_libshill-net-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic
+  libs = -lbrillo -lminijail -lnet-base -lbase -lpthread
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

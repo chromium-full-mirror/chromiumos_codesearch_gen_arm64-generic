@@ -1,0 +1,57 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/libxml2
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = virtual-usb-printer
+
+build obj/virtual-usb-printer/virtual-usb-printer.cups_constants.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/cups_constants.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = cups_constants.cc
+  source_name_part = cups_constants
+build obj/virtual-usb-printer/virtual-usb-printer.device_descriptors.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/device_descriptors.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = device_descriptors.cc
+  source_name_part = device_descriptors
+build obj/virtual-usb-printer/virtual-usb-printer.escl_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/escl_manager.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = escl_manager.cc
+  source_name_part = escl_manager
+build obj/virtual-usb-printer/virtual-usb-printer.ipp_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/ipp_manager.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = ipp_manager.cc
+  source_name_part = ipp_manager
+build obj/virtual-usb-printer/virtual-usb-printer.ipp_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/ipp_util.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = ipp_util.cc
+  source_name_part = ipp_util
+build obj/virtual-usb-printer/virtual-usb-printer.jpeg_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/jpeg_util.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = jpeg_util.cc
+  source_name_part = jpeg_util
+build obj/virtual-usb-printer/virtual-usb-printer.load_config.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/load_config.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = load_config.cc
+  source_name_part = load_config
+build obj/virtual-usb-printer/virtual-usb-printer.op_commands.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/op_commands.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = op_commands.cc
+  source_name_part = op_commands
+build obj/virtual-usb-printer/virtual-usb-printer.server.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/server.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = server.cc
+  source_name_part = server
+build obj/virtual-usb-printer/virtual-usb-printer.usb_printer.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/usb_printer.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = usb_printer.cc
+  source_name_part = usb_printer
+build obj/virtual-usb-printer/virtual-usb-printer.usbip.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/usbip.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = usbip.cc
+  source_name_part = usbip
+build obj/virtual-usb-printer/virtual-usb-printer.value_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/value_util.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = value_util.cc
+  source_name_part = value_util
+build obj/virtual-usb-printer/virtual-usb-printer.virtual_usb_printer.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/virtual_usb_printer.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = virtual_usb_printer.cc
+  source_name_part = virtual_usb_printer
+build obj/virtual-usb-printer/virtual-usb-printer.xml_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/xml_util.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = xml_util.cc
+  source_name_part = xml_util
+
+build ./virtual-usb-printer: link obj/virtual-usb-printer/virtual-usb-printer.cups_constants.o obj/virtual-usb-printer/virtual-usb-printer.device_descriptors.o obj/virtual-usb-printer/virtual-usb-printer.escl_manager.o obj/virtual-usb-printer/virtual-usb-printer.ipp_manager.o obj/virtual-usb-printer/virtual-usb-printer.ipp_util.o obj/virtual-usb-printer/virtual-usb-printer.jpeg_util.o obj/virtual-usb-printer/virtual-usb-printer.load_config.o obj/virtual-usb-printer/virtual-usb-printer.op_commands.o obj/virtual-usb-printer/virtual-usb-printer.server.o obj/virtual-usb-printer/virtual-usb-printer.usb_printer.o obj/virtual-usb-printer/virtual-usb-printer.usbip.o obj/virtual-usb-printer/virtual-usb-printer.value_util.o obj/virtual-usb-printer/virtual-usb-printer.virtual_usb_printer.o obj/virtual-usb-printer/virtual-usb-printer.xml_util.o obj/virtual-usb-printer/http_util.http_util.o obj/virtual-usb-printer/smart_buffer.smart_buffer.o obj/virtual-usb-printer/mock_printer/implementation.mock_printer.o obj/virtual-usb-printer/mock_printer/parse_textproto.parse_textproto.o obj/virtual-usb-printer/mock_printer/libipp_helper.libipp_helper.o obj/virtual-usb-printer/mock_printer/proto_to_http.proto_to_http.o obj/virtual-usb-printer/mock_printer/proto_to_libipp.proto_to_libipp.o obj/virtual-usb-printer/mock_printer/ipp_matching_validation.ipp_matching_validation.o obj/virtual-usb-printer/mock_printer/test_case_holder.test_case_holder.o obj/virtual-usb-printer/mock_printer/argument_variants.argument_variants.o obj/virtual-usb-printer/mock_printer/wrapped_matcher.wrapped_matcher.o obj/virtual-usb-printer/mock_printer/ipp_matching.ipp_matching.o obj/virtual-usb-printer/mock_printer/wrapped_test_case_step.wrapped_test_case_step.o obj/virtual-usb-printer/mock_printer/cardinality_helper.cardinality_helper.o ./libmocking_protos.a || obj/virtual-usb-printer/http_util.stamp obj/virtual-usb-printer/smart_buffer.stamp obj/virtual-usb-printer/mock_printer/implementation.stamp obj/virtual-usb-printer/mock_printer/parse_textproto.stamp obj/virtual-usb-printer/mock_printer/libipp_helper.stamp obj/virtual-usb-printer/mock_printer/proto_to_http.stamp obj/virtual-usb-printer/mock_printer/proto_to_libipp.stamp obj/virtual-usb-printer/mock_printer/ipp_matching_validation.stamp obj/virtual-usb-printer/mock_printer/test_case_holder.stamp obj/virtual-usb-printer/mock_printer/argument_variants.stamp obj/virtual-usb-printer/mock_printer/wrapped_matcher.stamp obj/virtual-usb-printer/mock_printer/ipp_matching.stamp obj/virtual-usb-printer/mock_printer/wrapped_test_case_step.stamp obj/virtual-usb-printer/mock_printer/cardinality_helper.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -L/build/arm64-generic/usr/lib64
+  libs = -lbrillo -lbase -lpthread -lipp -ljpeg -lxml2 -lprotobuf
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

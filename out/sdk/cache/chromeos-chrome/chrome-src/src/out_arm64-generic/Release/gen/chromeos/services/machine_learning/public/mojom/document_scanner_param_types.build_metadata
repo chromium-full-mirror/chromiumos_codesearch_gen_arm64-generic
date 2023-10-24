@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/services/machine_learning/public/mojom/document_scanner_param_types.mojom"
+  ]
+}

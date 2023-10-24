@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../public/mojom/annotator_mojo_bindings.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/projector_app/mojom/untrusted_annotator.mojom"
+  ]
+}

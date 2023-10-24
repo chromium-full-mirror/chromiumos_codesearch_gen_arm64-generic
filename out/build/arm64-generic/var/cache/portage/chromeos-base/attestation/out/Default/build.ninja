@@ -1,0 +1,90 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _attestation_client-install_config: phony obj/attestation/_attestation_client-install_config.stamp
+build _attestationd-install_config: phony obj/attestation/_attestationd-install_config.stamp
+build _libattestation-install_config: phony obj/attestation/_libattestation-install_config.stamp
+build _pca_agent_client-install_config: phony obj/attestation/_pca_agent_client-install_config.stamp
+build _pca_agentd-install_config: phony obj/attestation/_pca_agentd-install_config.stamp
+build common_library: phony obj/attestation/common_library.stamp
+build install_init: phony obj/attestation/install_init.stamp
+build install_minijail_conf: phony obj/attestation/install_minijail_conf.stamp
+build install_policy: phony obj/attestation/install_policy.stamp
+build install_systemd: phony obj/attestation/install_systemd.stamp
+build libattestation: phony ./lib/libattestation.so
+build pca-agent-adaptors: phony obj/attestation/pca-agent-adaptors.stamp
+build pca-agent-proxies: phony obj/attestation/pca-agent-proxies.stamp
+build pca_agent_server_library: phony obj/attestation/pca_agent_server_library.stamp
+build print_proto_library: phony obj/attestation/print_proto_library.stamp
+build proto_library: phony obj/attestation/proto_library.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build server_library: phony obj/attestation/server_library.stamp
+build attestation$:_attestation_client-install_config: phony obj/attestation/_attestation_client-install_config.stamp
+build attestation$:_attestationd-install_config: phony obj/attestation/_attestationd-install_config.stamp
+build attestation$:_libattestation-install_config: phony obj/attestation/_libattestation-install_config.stamp
+build attestation$:_pca_agent_client-install_config: phony obj/attestation/_pca_agent_client-install_config.stamp
+build attestation$:_pca_agentd-install_config: phony obj/attestation/_pca_agentd-install_config.stamp
+build attestation$:all: phony obj/attestation/all.stamp
+build attestation$:attestation_client: phony ./attestation_client
+build attestation$:attestation_testrunner: phony ./attestation_testrunner
+build attestation$:attestationd: phony ./attestationd
+build attestation$:common_library: phony obj/attestation/common_library.stamp
+build attestation$:install_init: phony obj/attestation/install_init.stamp
+build attestation$:install_minijail_conf: phony obj/attestation/install_minijail_conf.stamp
+build attestation$:install_policy: phony obj/attestation/install_policy.stamp
+build attestation$:install_systemd: phony obj/attestation/install_systemd.stamp
+build attestation$:libattestation: phony ./lib/libattestation.so
+build attestation$:pca-agent-adaptors: phony obj/attestation/pca-agent-adaptors.stamp
+build attestation$:pca-agent-proxies: phony obj/attestation/pca-agent-proxies.stamp
+build attestation$:pca_agent_client: phony ./pca_agent_client
+build attestation$:pca_agent_server_library: phony obj/attestation/pca_agent_server_library.stamp
+build attestation$:pca_agentd: phony ./pca_agentd
+build attestation$:print_proto_library: phony obj/attestation/print_proto_library.stamp
+build attestation$:proto_library: phony obj/attestation/proto_library.stamp
+build attestation$:server_library: phony obj/attestation/server_library.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+
+build all: phony $
+    obj/attestation/_attestation_client-install_config.stamp $
+    obj/attestation/_attestationd-install_config.stamp $
+    obj/attestation/_libattestation-install_config.stamp $
+    obj/attestation/_pca_agent_client-install_config.stamp $
+    obj/attestation/_pca_agentd-install_config.stamp $
+    obj/attestation/all.stamp $
+    ./attestation_client $
+    ./attestation_testrunner $
+    ./attestationd $
+    obj/attestation/common_library.stamp $
+    obj/attestation/install_init.stamp $
+    obj/attestation/install_minijail_conf.stamp $
+    obj/attestation/install_policy.stamp $
+    obj/attestation/install_systemd.stamp $
+    ./lib/libattestation.so $
+    obj/attestation/pca-agent-adaptors.stamp $
+    obj/attestation/pca-agent-proxies.stamp $
+    ./pca_agent_client $
+    obj/attestation/pca_agent_server_library.stamp $
+    ./pca_agentd $
+    obj/attestation/print_proto_library.stamp $
+    obj/attestation/proto_library.stamp $
+    obj/attestation/server_library.stamp $
+    obj/common-mk/gn_root/root.stamp
+
+default all

@@ -1,0 +1,102 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build unit_tests: phony ./mock-printer-testrunner
+build argument_variants: phony obj/virtual-usb-printer/mock_printer/argument_variants.stamp
+build cardinality_helper: phony obj/virtual-usb-printer/mock_printer/cardinality_helper.stamp
+build http_util: phony obj/virtual-usb-printer/http_util.stamp
+build implementation: phony obj/virtual-usb-printer/mock_printer/implementation.stamp
+build ipp_matching: phony obj/virtual-usb-printer/mock_printer/ipp_matching.stamp
+build ipp_matching_validation: phony obj/virtual-usb-printer/mock_printer/ipp_matching_validation.stamp
+build libipp_helper: phony obj/virtual-usb-printer/mock_printer/libipp_helper.stamp
+build mocking_protos: phony ./libmocking_protos.a
+build mocking_protos_gen: phony obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+build parse_textproto: phony obj/virtual-usb-printer/mock_printer/parse_textproto.stamp
+build proto_to_http: phony obj/virtual-usb-printer/mock_printer/proto_to_http.stamp
+build proto_to_libipp: phony obj/virtual-usb-printer/mock_printer/proto_to_libipp.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build smart_buffer: phony obj/virtual-usb-printer/smart_buffer.stamp
+build test_case_holder: phony obj/virtual-usb-printer/mock_printer/test_case_holder.stamp
+build testrunner: phony ./libtestrunner.a
+build wrapped_matcher: phony obj/virtual-usb-printer/mock_printer/wrapped_matcher.stamp
+build wrapped_test_case_step: phony obj/virtual-usb-printer/mock_printer/wrapped_test_case_step.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build virtual-usb-printer$:all: phony obj/virtual-usb-printer/all.stamp
+build virtual-usb-printer$:escl-manager-testrunner: phony ./escl-manager-testrunner
+build virtual-usb-printer$:http-util-testrunner: phony ./http-util-testrunner
+build virtual-usb-printer$:http_util: phony obj/virtual-usb-printer/http_util.stamp
+build virtual-usb-printer$:ipp-manager-testrunner: phony ./ipp-manager-testrunner
+build virtual-usb-printer$:ipp-util-testrunner: phony ./ipp-util-testrunner
+build virtual-usb-printer$:jpeg-util-testrunner: phony ./jpeg-util-testrunner
+build virtual-usb-printer$:load-config-testrunner: phony ./load-config-testrunner
+build virtual-usb-printer$:smart-buffer-testrunner: phony ./smart-buffer-testrunner
+build virtual-usb-printer$:smart_buffer: phony obj/virtual-usb-printer/smart_buffer.stamp
+build virtual-usb-printer$:usb-printer-testrunner: phony ./usb-printer-testrunner
+build virtual-usb-printer$:virtual-usb-printer: phony ./virtual-usb-printer
+build virtual-usb-printer/mock_printer$:argument_variants: phony obj/virtual-usb-printer/mock_printer/argument_variants.stamp
+build virtual-usb-printer/mock_printer$:cardinality_helper: phony obj/virtual-usb-printer/mock_printer/cardinality_helper.stamp
+build virtual-usb-printer/mock_printer$:implementation: phony obj/virtual-usb-printer/mock_printer/implementation.stamp
+build virtual-usb-printer/mock_printer$:ipp_matching: phony obj/virtual-usb-printer/mock_printer/ipp_matching.stamp
+build virtual-usb-printer/mock_printer$:ipp_matching_validation: phony obj/virtual-usb-printer/mock_printer/ipp_matching_validation.stamp
+build virtual-usb-printer/mock_printer$:libipp_helper: phony obj/virtual-usb-printer/mock_printer/libipp_helper.stamp
+build virtual-usb-printer/mock_printer$:mocking_protos: phony ./libmocking_protos.a
+build virtual-usb-printer/mock_printer$:mocking_protos_gen: phony obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+build virtual-usb-printer/mock_printer$:parse_textproto: phony obj/virtual-usb-printer/mock_printer/parse_textproto.stamp
+build virtual-usb-printer/mock_printer$:proto_to_http: phony obj/virtual-usb-printer/mock_printer/proto_to_http.stamp
+build virtual-usb-printer/mock_printer$:proto_to_libipp: phony obj/virtual-usb-printer/mock_printer/proto_to_libipp.stamp
+build virtual-usb-printer/mock_printer$:test_case_holder: phony obj/virtual-usb-printer/mock_printer/test_case_holder.stamp
+build virtual-usb-printer/mock_printer$:unit_tests: phony ./mock-printer-testrunner
+build virtual-usb-printer/mock_printer$:wrapped_matcher: phony obj/virtual-usb-printer/mock_printer/wrapped_matcher.stamp
+build virtual-usb-printer/mock_printer$:wrapped_test_case_step: phony obj/virtual-usb-printer/mock_printer/wrapped_test_case_step.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/virtual-usb-printer/all.stamp $
+    ./escl-manager-testrunner $
+    ./http-util-testrunner $
+    obj/virtual-usb-printer/http_util.stamp $
+    ./ipp-manager-testrunner $
+    ./ipp-util-testrunner $
+    ./jpeg-util-testrunner $
+    ./load-config-testrunner $
+    ./smart-buffer-testrunner $
+    obj/virtual-usb-printer/smart_buffer.stamp $
+    ./usb-printer-testrunner $
+    ./virtual-usb-printer $
+    obj/virtual-usb-printer/mock_printer/argument_variants.stamp $
+    obj/virtual-usb-printer/mock_printer/cardinality_helper.stamp $
+    obj/virtual-usb-printer/mock_printer/implementation.stamp $
+    obj/virtual-usb-printer/mock_printer/ipp_matching.stamp $
+    obj/virtual-usb-printer/mock_printer/ipp_matching_validation.stamp $
+    obj/virtual-usb-printer/mock_printer/libipp_helper.stamp $
+    ./libmocking_protos.a $
+    obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp $
+    obj/virtual-usb-printer/mock_printer/parse_textproto.stamp $
+    obj/virtual-usb-printer/mock_printer/proto_to_http.stamp $
+    obj/virtual-usb-printer/mock_printer/proto_to_libipp.stamp $
+    obj/virtual-usb-printer/mock_printer/test_case_holder.stamp $
+    ./mock-printer-testrunner $
+    obj/virtual-usb-printer/mock_printer/wrapped_matcher.stamp $
+    obj/virtual-usb-printer/mock_printer/wrapped_test_case_step.stamp
+
+default all

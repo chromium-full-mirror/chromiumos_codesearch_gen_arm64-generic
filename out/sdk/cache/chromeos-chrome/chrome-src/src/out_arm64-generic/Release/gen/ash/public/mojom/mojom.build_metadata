@@ -1,0 +1,23 @@
+{
+  "deps": [
+    "accelerator_actions.build_metadata",
+    "accelerator_configuration.build_metadata",
+    "accelerator_info.build_metadata",
+    "accelerator_keys.build_metadata",
+    "input_device_settings.build_metadata",
+    "../../../chromeos/ash/components/proximity_auth/public/mojom/mojom.build_metadata",
+    "../../../components/account_id/mojom/mojom.build_metadata",
+    "../../../components/sync/mojom/mojom.build_metadata",
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../services/preferences/public/mojom/mojom.build_metadata",
+    "../../../skia/public/mojom/mojom.build_metadata",
+    "../../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../../ui/gfx/image/mojom/mojom.build_metadata",
+    "../../../ui/gfx/range/mojom/mojom.build_metadata",
+    "../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/public/mojom/assistant_volume_control.mojom",
+    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/public/mojom/tray_action.mojom"
+  ]
+}

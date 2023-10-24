@@ -1,0 +1,52 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_GLIB=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DABSL_ALLOCATOR_NOTHROW=1
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Ihost/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp
+cflags = -gline-tables-only -fdebug-info-for-profiling -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fstack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -m64 -msse3 -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=pattern -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wshorten-64-to-32 -Wimplicit-int-conversion -Wsign-compare -Wsign-conversion -Wtautological-unsigned-zero-compare
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wbool-conversion -Wconstant-conversion -Wenum-conversion -Wint-conversion -Wliteral-conversion -Wnon-literal-null-conversion -Wnull-conversion -Wobjc-literal-conversion -Wstring-conversion -Wbitfield-enum-conversion
+label_name = strings
+target_out_dir = host/obj/third_party/abseil-cpp/absl/strings
+target_output_name = strings
+
+build host/obj/third_party/abseil-cpp/absl/strings/strings/ascii.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/ascii.cc
+  source_file_part = ascii.cc
+  source_name_part = ascii
+build host/obj/third_party/abseil-cpp/absl/strings/strings/charconv.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/charconv.cc
+  source_file_part = charconv.cc
+  source_name_part = charconv
+build host/obj/third_party/abseil-cpp/absl/strings/strings/escaping.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/escaping.cc
+  source_file_part = escaping.cc
+  source_name_part = escaping
+build host/obj/third_party/abseil-cpp/absl/strings/strings/charconv_bigint.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/internal/charconv_bigint.cc
+  source_file_part = charconv_bigint.cc
+  source_name_part = charconv_bigint
+build host/obj/third_party/abseil-cpp/absl/strings/strings/charconv_parse.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/internal/charconv_parse.cc
+  source_file_part = charconv_parse.cc
+  source_name_part = charconv_parse
+build host/obj/third_party/abseil-cpp/absl/strings/strings/damerau_levenshtein_distance.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/internal/damerau_levenshtein_distance.cc
+  source_file_part = damerau_levenshtein_distance.cc
+  source_name_part = damerau_levenshtein_distance
+build host/obj/third_party/abseil-cpp/absl/strings/strings/memutil.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/internal/memutil.cc
+  source_file_part = memutil.cc
+  source_name_part = memutil
+build host/obj/third_party/abseil-cpp/absl/strings/strings/stringify_sink.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/internal/stringify_sink.cc
+  source_file_part = stringify_sink.cc
+  source_name_part = stringify_sink
+build host/obj/third_party/abseil-cpp/absl/strings/strings/match.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/match.cc
+  source_file_part = match.cc
+  source_name_part = match
+build host/obj/third_party/abseil-cpp/absl/strings/strings/numbers.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/numbers.cc
+  source_file_part = numbers.cc
+  source_name_part = numbers
+build host/obj/third_party/abseil-cpp/absl/strings/strings/str_cat.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/str_cat.cc
+  source_file_part = str_cat.cc
+  source_name_part = str_cat
+build host/obj/third_party/abseil-cpp/absl/strings/strings/str_replace.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/str_replace.cc
+  source_file_part = str_replace.cc
+  source_name_part = str_replace
+build host/obj/third_party/abseil-cpp/absl/strings/strings/str_split.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/str_split.cc
+  source_file_part = str_split.cc
+  source_name_part = str_split
+build host/obj/third_party/abseil-cpp/absl/strings/strings/substitute.o: host_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/strings/substitute.cc
+  source_file_part = substitute.cc
+  source_name_part = substitute
+
+build host/obj/third_party/abseil-cpp/absl/strings/strings.stamp: host_stamp host/obj/third_party/abseil-cpp/absl/strings/strings/ascii.o host/obj/third_party/abseil-cpp/absl/strings/strings/charconv.o host/obj/third_party/abseil-cpp/absl/strings/strings/escaping.o host/obj/third_party/abseil-cpp/absl/strings/strings/charconv_bigint.o host/obj/third_party/abseil-cpp/absl/strings/strings/charconv_parse.o host/obj/third_party/abseil-cpp/absl/strings/strings/damerau_levenshtein_distance.o host/obj/third_party/abseil-cpp/absl/strings/strings/memutil.o host/obj/third_party/abseil-cpp/absl/strings/strings/stringify_sink.o host/obj/third_party/abseil-cpp/absl/strings/strings/match.o host/obj/third_party/abseil-cpp/absl/strings/strings/numbers.o host/obj/third_party/abseil-cpp/absl/strings/strings/str_cat.o host/obj/third_party/abseil-cpp/absl/strings/strings/str_replace.o host/obj/third_party/abseil-cpp/absl/strings/strings/str_split.o host/obj/third_party/abseil-cpp/absl/strings/strings/substitute.o || host/obj/third_party/abseil-cpp/absl/strings/string_view.stamp host/obj/third_party/abseil-cpp/absl/strings/charset.stamp host/obj/third_party/abseil-cpp/absl/strings/internal.stamp host/obj/third_party/abseil-cpp/absl/base/base.stamp host/obj/third_party/abseil-cpp/absl/base/config.stamp host/obj/third_party/abseil-cpp/absl/base/core_headers.stamp host/obj/third_party/abseil-cpp/absl/base/endian.stamp host/obj/third_party/abseil-cpp/absl/base/raw_logging_internal.stamp host/obj/third_party/abseil-cpp/absl/base/throw_delegate.stamp host/obj/third_party/abseil-cpp/absl/memory/memory.stamp host/obj/third_party/abseil-cpp/absl/meta/type_traits.stamp host/obj/third_party/abseil-cpp/absl/numeric/bits.stamp host/obj/third_party/abseil-cpp/absl/numeric/int128.stamp host/obj/third_party/abseil-cpp/absl/base/atomic_hook.stamp host/obj/third_party/abseil-cpp/absl/base/base_internal.stamp host/obj/third_party/abseil-cpp/absl/base/cycleclock_internal.stamp host/obj/third_party/abseil-cpp/absl/base/dynamic_annotations.stamp host/obj/third_party/abseil-cpp/absl/base/log_severity.stamp host/obj/third_party/abseil-cpp/absl/base/errno_saver.stamp host/obj/third_party/abseil-cpp/absl/base/spinlock_wait.stamp

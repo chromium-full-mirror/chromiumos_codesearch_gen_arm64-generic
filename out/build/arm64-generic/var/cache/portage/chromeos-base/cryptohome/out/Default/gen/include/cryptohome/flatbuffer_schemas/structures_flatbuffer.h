@@ -21,7 +21,6 @@
 // --test_utils_header_include_path
 // libhwsec/structures/signature_sealed_data_test_utils.h
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/bfbs/structures.bfbs
-// --filter_by_namespace cryptohome::structure
 
 #ifndef CRYPTOHOME_FLATBUFFER_SCHEMAS_STRUCTURES_STRUCTURES_FLATBUFFER_H_
 #define CRYPTOHOME_FLATBUFFER_SCHEMAS_STRUCTURES_STRUCTURES_FLATBUFFER_H_

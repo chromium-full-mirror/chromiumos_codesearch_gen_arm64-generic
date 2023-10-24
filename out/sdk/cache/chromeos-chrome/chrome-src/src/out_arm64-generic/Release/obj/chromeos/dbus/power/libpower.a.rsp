@@ -1,0 +1,1 @@
+obj/chromeos/dbus/power/power/fake_power_manager_client.o obj/chromeos/dbus/power/power/native_timer.o obj/chromeos/dbus/power/power/power_manager_client.o obj/chromeos/dbus/power/power/power_policy_controller.o

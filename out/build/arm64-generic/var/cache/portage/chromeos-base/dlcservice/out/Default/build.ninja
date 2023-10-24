@@ -1,0 +1,70 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _libdlcservice-utils-install_config: phony obj/dlcservice/_libdlcservice-utils-install_config.stamp
+build dlcservice_adaptors: phony obj/dlcservice/dlcservice_adaptors.stamp
+build install_minijail_conf: phony obj/dlcservice/install_minijail_conf.stamp
+build install_utils_header: phony obj/dlcservice/install_utils_header.stamp
+build install_utils_pkgconfig: phony obj/dlcservice/install_utils_pkgconfig.stamp
+build libdlcservice: phony ./libdlcservice.a
+build libdlcservice-utils: phony ./lib/libdlcservice-utils.so
+build libdlcservice_utils: phony ./libdlcservice_utils.a
+build libdlcverify: phony ./libdlcverify.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build dlcservice$:_libdlcservice-utils-install_config: phony obj/dlcservice/_libdlcservice-utils-install_config.stamp
+build dlcservice$:all: phony obj/dlcservice/all.stamp
+build dlcservice$:dlc_metadata_util: phony ./dlc_metadata_util
+build dlcservice$:dlcservice: phony ./dlcservice
+build dlcservice$:dlcservice_adaptors: phony obj/dlcservice/dlcservice_adaptors.stamp
+build dlcservice$:dlcservice_tests: phony ./dlcservice_tests
+build dlcservice$:dlcservice_util: phony ./dlcservice_util
+build dlcservice$:dlcverify: phony ./dlcverify
+build dlcservice$:install_minijail_conf: phony obj/dlcservice/install_minijail_conf.stamp
+build dlcservice$:install_utils_header: phony obj/dlcservice/install_utils_header.stamp
+build dlcservice$:install_utils_pkgconfig: phony obj/dlcservice/install_utils_pkgconfig.stamp
+build dlcservice$:libdlcservice: phony ./libdlcservice.a
+build dlcservice$:libdlcservice-utils: phony ./lib/libdlcservice-utils.so
+build dlcservice$:libdlcservice_utils: phony ./libdlcservice_utils.a
+build dlcservice$:libdlcverify: phony ./libdlcverify.a
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/dlcservice/_libdlcservice-utils-install_config.stamp $
+    obj/dlcservice/all.stamp $
+    ./dlc_metadata_util $
+    ./dlcservice $
+    obj/dlcservice/dlcservice_adaptors.stamp $
+    ./dlcservice_tests $
+    ./dlcservice_util $
+    ./dlcverify $
+    obj/dlcservice/install_minijail_conf.stamp $
+    obj/dlcservice/install_utils_header.stamp $
+    obj/dlcservice/install_utils_pkgconfig.stamp $
+    ./libdlcservice.a $
+    ./lib/libdlcservice-utils.so $
+    ./libdlcservice_utils.a $
+    ./libdlcverify.a
+
+default all

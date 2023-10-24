@@ -1,0 +1,109 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -Wno-cast-qual -Wno-cast-align -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -Wno-cast-qual -Wno-cast-align
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -O2 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libcros_camera_mojom
+
+build obj/camera/common/libcros_camera_mojom.inputdeps.stamp: stamp obj/camera/common/libcros_camera_mojom_gen.stamp obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen.stamp
+build obj/gen/include/camera/mojo/algorithm/libcros_camera_mojom.camera_algorithm.mojom-shared.o: cxx gen/include/camera/mojo/algorithm/camera_algorithm.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_algorithm.mojom-shared.cc
+  source_name_part = camera_algorithm.mojom-shared
+build obj/gen/include/camera/mojo/algorithm/libcros_camera_mojom.camera_algorithm.mojom.o: cxx gen/include/camera/mojo/algorithm/camera_algorithm.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_algorithm.mojom.cc
+  source_name_part = camera_algorithm.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera3.mojom-shared.o: cxx gen/include/camera/mojo/camera3.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera3.mojom-shared.cc
+  source_name_part = camera3.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera3.mojom.o: cxx gen/include/camera/mojo/camera3.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera3.mojom.cc
+  source_name_part = camera3.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_common.mojom-shared.o: cxx gen/include/camera/mojo/camera_common.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_common.mojom-shared.cc
+  source_name_part = camera_common.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_common.mojom.o: cxx gen/include/camera/mojo/camera_common.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_common.mojom.cc
+  source_name_part = camera_common.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_diagnostics.mojom-shared.o: cxx gen/include/camera/mojo/camera_diagnostics.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_diagnostics.mojom-shared.cc
+  source_name_part = camera_diagnostics.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_diagnostics.mojom.o: cxx gen/include/camera/mojo/camera_diagnostics.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_diagnostics.mojom.cc
+  source_name_part = camera_diagnostics.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_features.mojom-shared.o: cxx gen/include/camera/mojo/camera_features.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_features.mojom-shared.cc
+  source_name_part = camera_features.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_features.mojom.o: cxx gen/include/camera/mojo/camera_features.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_features.mojom.cc
+  source_name_part = camera_features.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_metadata.mojom-shared.o: cxx gen/include/camera/mojo/camera_metadata.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_metadata.mojom-shared.cc
+  source_name_part = camera_metadata.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_metadata.mojom.o: cxx gen/include/camera/mojo/camera_metadata.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_metadata.mojom.cc
+  source_name_part = camera_metadata.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_metadata_tags.mojom-shared.o: cxx gen/include/camera/mojo/camera_metadata_tags.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_metadata_tags.mojom-shared.cc
+  source_name_part = camera_metadata_tags.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.camera_metadata_tags.mojom.o: cxx gen/include/camera/mojo/camera_metadata_tags.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = camera_metadata_tags.mojom.cc
+  source_name_part = camera_metadata_tags.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.cros_camera_enum.mojom-shared.o: cxx gen/include/camera/mojo/cros_camera_enum.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = cros_camera_enum.mojom-shared.cc
+  source_name_part = cros_camera_enum.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.cros_camera_enum.mojom.o: cxx gen/include/camera/mojo/cros_camera_enum.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = cros_camera_enum.mojom.cc
+  source_name_part = cros_camera_enum.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.cros_camera_service.mojom-shared.o: cxx gen/include/camera/mojo/cros_camera_service.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = cros_camera_service.mojom-shared.cc
+  source_name_part = cros_camera_service.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.cros_camera_service.mojom.o: cxx gen/include/camera/mojo/cros_camera_service.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = cros_camera_service.mojom.cc
+  source_name_part = cros_camera_service.mojom
+build obj/gen/include/camera/mojo/effects/libcros_camera_mojom.effects_pipeline.mojom-shared.o: cxx gen/include/camera/mojo/effects/effects_pipeline.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = effects_pipeline.mojom-shared.cc
+  source_name_part = effects_pipeline.mojom-shared
+build obj/gen/include/camera/mojo/effects/libcros_camera_mojom.effects_pipeline.mojom.o: cxx gen/include/camera/mojo/effects/effects_pipeline.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = effects_pipeline.mojom.cc
+  source_name_part = effects_pipeline.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.file_path.mojom-shared.o: cxx gen/include/camera/mojo/file_path.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = file_path.mojom-shared.cc
+  source_name_part = file_path.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.file_path.mojom.o: cxx gen/include/camera/mojo/file_path.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = file_path.mojom.cc
+  source_name_part = file_path.mojom
+build obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.dmabuf.mojom-shared.o: cxx gen/include/camera/mojo/gpu/dmabuf.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = dmabuf.mojom-shared.cc
+  source_name_part = dmabuf.mojom-shared
+build obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.dmabuf.mojom.o: cxx gen/include/camera/mojo/gpu/dmabuf.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = dmabuf.mojom.cc
+  source_name_part = dmabuf.mojom
+build obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.jpeg_accelerator.mojom-shared.o: cxx gen/include/camera/mojo/gpu/jpeg_accelerator.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = jpeg_accelerator.mojom-shared.cc
+  source_name_part = jpeg_accelerator.mojom-shared
+build obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.jpeg_accelerator.mojom.o: cxx gen/include/camera/mojo/gpu/jpeg_accelerator.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = jpeg_accelerator.mojom.cc
+  source_name_part = jpeg_accelerator.mojom
+build obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.jpeg_encode_accelerator.mojom-shared.o: cxx gen/include/camera/mojo/gpu/jpeg_encode_accelerator.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = jpeg_encode_accelerator.mojom-shared.cc
+  source_name_part = jpeg_encode_accelerator.mojom-shared
+build obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.jpeg_encode_accelerator.mojom.o: cxx gen/include/camera/mojo/gpu/jpeg_encode_accelerator.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = jpeg_encode_accelerator.mojom.cc
+  source_name_part = jpeg_encode_accelerator.mojom
+build obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.mjpeg_decode_accelerator.mojom-shared.o: cxx gen/include/camera/mojo/gpu/mjpeg_decode_accelerator.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = mjpeg_decode_accelerator.mojom-shared.cc
+  source_name_part = mjpeg_decode_accelerator.mojom-shared
+build obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.mjpeg_decode_accelerator.mojom.o: cxx gen/include/camera/mojo/gpu/mjpeg_decode_accelerator.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = mjpeg_decode_accelerator.mojom.cc
+  source_name_part = mjpeg_decode_accelerator.mojom
+build obj/gen/include/camera/mojo/libcros_camera_mojom.unguessable_token.mojom-shared.o: cxx gen/include/camera/mojo/unguessable_token.mojom-shared.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = unguessable_token.mojom-shared.cc
+  source_name_part = unguessable_token.mojom-shared
+build obj/gen/include/camera/mojo/libcros_camera_mojom.unguessable_token.mojom.o: cxx gen/include/camera/mojo/unguessable_token.mojom.cc || obj/camera/common/libcros_camera_mojom.inputdeps.stamp
+  source_file_part = unguessable_token.mojom.cc
+  source_name_part = unguessable_token.mojom
+
+build ./libcros_camera_mojom.a: alink obj/gen/include/camera/mojo/algorithm/libcros_camera_mojom.camera_algorithm.mojom-shared.o obj/gen/include/camera/mojo/algorithm/libcros_camera_mojom.camera_algorithm.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera3.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera3.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_common.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_common.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_diagnostics.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_diagnostics.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_features.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_features.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_metadata.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_metadata.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_metadata_tags.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.camera_metadata_tags.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.cros_camera_enum.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.cros_camera_enum.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.cros_camera_service.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.cros_camera_service.mojom.o obj/gen/include/camera/mojo/effects/libcros_camera_mojom.effects_pipeline.mojom-shared.o obj/gen/include/camera/mojo/effects/libcros_camera_mojom.effects_pipeline.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.file_path.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.file_path.mojom.o obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.dmabuf.mojom-shared.o obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.dmabuf.mojom.o obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.jpeg_accelerator.mojom-shared.o obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.jpeg_accelerator.mojom.o obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.jpeg_encode_accelerator.mojom-shared.o obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.jpeg_encode_accelerator.mojom.o obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.mjpeg_decode_accelerator.mojom-shared.o obj/gen/include/camera/mojo/gpu/libcros_camera_mojom.mjpeg_decode_accelerator.mojom.o obj/gen/include/camera/mojo/libcros_camera_mojom.unguessable_token.mojom-shared.o obj/gen/include/camera/mojo/libcros_camera_mojom.unguessable_token.mojom.o || obj/camera/common/libcros_camera_mojom_gen.stamp ./libiioservice_ipc_mojom.a obj/camera/common/_libcros_camera_mojom-install_config.stamp
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

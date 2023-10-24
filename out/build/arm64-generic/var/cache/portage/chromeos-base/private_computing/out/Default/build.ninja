@@ -1,0 +1,58 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _private_computingd-install_config: phony obj/private_computing/_private_computingd-install_config.stamp
+build dbus_adaptors_generator: phony obj/private_computing/dbus_adaptors_generator.stamp
+build install_init: phony obj/private_computing/install_init.stamp
+build install_minijail_conf: phony obj/private_computing/install_minijail_conf.stamp
+build install_service: phony obj/private_computing/install_service.stamp
+build install_systemd: phony obj/private_computing/install_systemd.stamp
+build private_computing_lib: phony ./libprivate_computing_lib.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build private_computing$:_private_computingd-install_config: phony obj/private_computing/_private_computingd-install_config.stamp
+build private_computing$:all: phony obj/private_computing/all.stamp
+build private_computing$:dbus_adaptors_generator: phony obj/private_computing/dbus_adaptors_generator.stamp
+build private_computing$:install_init: phony obj/private_computing/install_init.stamp
+build private_computing$:install_minijail_conf: phony obj/private_computing/install_minijail_conf.stamp
+build private_computing$:install_service: phony obj/private_computing/install_service.stamp
+build private_computing$:install_systemd: phony obj/private_computing/install_systemd.stamp
+build private_computing$:private_computing_lib: phony ./libprivate_computing_lib.a
+build private_computing$:private_computing_test: phony ./private_computing_test
+build private_computing$:private_computingd: phony ./private_computingd
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/private_computing/_private_computingd-install_config.stamp $
+    obj/private_computing/all.stamp $
+    obj/private_computing/dbus_adaptors_generator.stamp $
+    obj/private_computing/install_init.stamp $
+    obj/private_computing/install_minijail_conf.stamp $
+    obj/private_computing/install_service.stamp $
+    obj/private_computing/install_systemd.stamp $
+    ./libprivate_computing_lib.a $
+    ./private_computing_test $
+    ./private_computingd
+
+default all

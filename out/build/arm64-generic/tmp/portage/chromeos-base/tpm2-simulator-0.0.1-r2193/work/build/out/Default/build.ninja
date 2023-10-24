@@ -1,0 +1,62 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../tpm2-simulator-0.0.1 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _libtpm2_simulator_executor-install_config: phony obj/tpm2-simulator/_libtpm2_simulator_executor-install_config.stamp
+build _tpm2-simulator-init-install_config: phony obj/tpm2-simulator/_tpm2-simulator-init-install_config.stamp
+build _tpm2-simulator-install_config: phony obj/tpm2-simulator/_tpm2-simulator-install_config.stamp
+build _tpm2-simulator-stop-install_config: phony obj/tpm2-simulator/_tpm2-simulator-stop-install_config.stamp
+build install_init_scripts: phony obj/tpm2-simulator/install_init_scripts.stamp
+build install_seccomp_policy: phony obj/tpm2-simulator/install_seccomp_policy.stamp
+build install_tmpfiles_config: phony obj/tpm2-simulator/install_tmpfiles_config.stamp
+build libtpm2_simulator_executor: phony ./libtpm2_simulator_executor.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build tpm_executor_version_library: phony obj/tpm2-simulator/tpm_executor_version_library.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build tpm2-simulator$:_libtpm2_simulator_executor-install_config: phony obj/tpm2-simulator/_libtpm2_simulator_executor-install_config.stamp
+build tpm2-simulator$:_tpm2-simulator-init-install_config: phony obj/tpm2-simulator/_tpm2-simulator-init-install_config.stamp
+build tpm2-simulator$:_tpm2-simulator-install_config: phony obj/tpm2-simulator/_tpm2-simulator-install_config.stamp
+build tpm2-simulator$:_tpm2-simulator-stop-install_config: phony obj/tpm2-simulator/_tpm2-simulator-stop-install_config.stamp
+build tpm2-simulator$:all: phony obj/tpm2-simulator/all.stamp
+build tpm2-simulator$:install_init_scripts: phony obj/tpm2-simulator/install_init_scripts.stamp
+build tpm2-simulator$:install_seccomp_policy: phony obj/tpm2-simulator/install_seccomp_policy.stamp
+build tpm2-simulator$:install_tmpfiles_config: phony obj/tpm2-simulator/install_tmpfiles_config.stamp
+build tpm2-simulator$:libtpm2_simulator_executor: phony ./libtpm2_simulator_executor.a
+build tpm2-simulator$:tpm2-simulator: phony ./tpm2-simulator
+build tpm2-simulator$:tpm2-simulator-init: phony ./tpm2-simulator-init
+build tpm2-simulator$:tpm2-simulator-stop: phony ./tpm2-simulator-stop
+build tpm2-simulator$:tpm_executor_version_library: phony obj/tpm2-simulator/tpm_executor_version_library.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/tpm2-simulator/_libtpm2_simulator_executor-install_config.stamp $
+    obj/tpm2-simulator/_tpm2-simulator-init-install_config.stamp $
+    obj/tpm2-simulator/_tpm2-simulator-install_config.stamp $
+    obj/tpm2-simulator/_tpm2-simulator-stop-install_config.stamp $
+    obj/tpm2-simulator/all.stamp $
+    obj/tpm2-simulator/install_init_scripts.stamp $
+    obj/tpm2-simulator/install_seccomp_policy.stamp $
+    obj/tpm2-simulator/install_tmpfiles_config.stamp $
+    ./libtpm2_simulator_executor.a $
+    ./tpm2-simulator $
+    ./tpm2-simulator-init $
+    ./tpm2-simulator-stop $
+    obj/tpm2-simulator/tpm_executor_version_library.stamp
+
+default all

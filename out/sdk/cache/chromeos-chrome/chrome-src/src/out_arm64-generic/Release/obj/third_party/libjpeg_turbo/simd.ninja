@@ -1,0 +1,58 @@
+defines = -DMANGLE_JPEG_NAMES -DNEON_INTRINSICS -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Wshadow -Werror -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -O3 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno
+cflags_c = -std=c11 --sysroot=../../../../../../../build/arm64-generic
+label_name = simd
+target_out_dir = obj/third_party/libjpeg_turbo
+target_output_name = libsimd
+
+build obj/third_party/libjpeg_turbo/simd/jccolor-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jccolor-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jccolor-neon.c
+  source_name_part = jccolor-neon
+build obj/third_party/libjpeg_turbo/simd/jcgray-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jcgray-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jcgray-neon.c
+  source_name_part = jcgray-neon
+build obj/third_party/libjpeg_turbo/simd/jcphuff-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jcphuff-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jcphuff-neon.c
+  source_name_part = jcphuff-neon
+build obj/third_party/libjpeg_turbo/simd/jcsample-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jcsample-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jcsample-neon.c
+  source_name_part = jcsample-neon
+build obj/third_party/libjpeg_turbo/simd/jdcolor-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jdcolor-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jdcolor-neon.c
+  source_name_part = jdcolor-neon
+build obj/third_party/libjpeg_turbo/simd/jdmerge-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jdmerge-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jdmerge-neon.c
+  source_name_part = jdmerge-neon
+build obj/third_party/libjpeg_turbo/simd/jdsample-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jdsample-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jdsample-neon.c
+  source_name_part = jdsample-neon
+build obj/third_party/libjpeg_turbo/simd/jfdctfst-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jfdctfst-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jfdctfst-neon.c
+  source_name_part = jfdctfst-neon
+build obj/third_party/libjpeg_turbo/simd/jfdctint-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jfdctint-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jfdctint-neon.c
+  source_name_part = jfdctint-neon
+build obj/third_party/libjpeg_turbo/simd/jidctfst-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jidctfst-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jidctfst-neon.c
+  source_name_part = jidctfst-neon
+build obj/third_party/libjpeg_turbo/simd/jidctint-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jidctint-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jidctint-neon.c
+  source_name_part = jidctint-neon
+build obj/third_party/libjpeg_turbo/simd/jidctred-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jidctred-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jidctred-neon.c
+  source_name_part = jidctred-neon
+build obj/third_party/libjpeg_turbo/simd/jquanti-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/jquanti-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jquanti-neon.c
+  source_name_part = jquanti-neon
+build obj/third_party/libjpeg_turbo/simd/jchuff-neon.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/aarch64/jchuff-neon.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jchuff-neon.c
+  source_name_part = jchuff-neon
+build obj/third_party/libjpeg_turbo/simd/jsimd.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/libjpeg_turbo/simd/arm/aarch64/jsimd.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof
+  source_file_part = jsimd.c
+  source_name_part = jsimd
+
+build obj/third_party/libjpeg_turbo/libsimd.a: alink obj/third_party/libjpeg_turbo/simd/jccolor-neon.o obj/third_party/libjpeg_turbo/simd/jcgray-neon.o obj/third_party/libjpeg_turbo/simd/jcphuff-neon.o obj/third_party/libjpeg_turbo/simd/jcsample-neon.o obj/third_party/libjpeg_turbo/simd/jdcolor-neon.o obj/third_party/libjpeg_turbo/simd/jdmerge-neon.o obj/third_party/libjpeg_turbo/simd/jdsample-neon.o obj/third_party/libjpeg_turbo/simd/jfdctfst-neon.o obj/third_party/libjpeg_turbo/simd/jfdctint-neon.o obj/third_party/libjpeg_turbo/simd/jidctfst-neon.o obj/third_party/libjpeg_turbo/simd/jidctint-neon.o obj/third_party/libjpeg_turbo/simd/jidctred-neon.o obj/third_party/libjpeg_turbo/simd/jquanti-neon.o obj/third_party/libjpeg_turbo/simd/jchuff-neon.o obj/third_party/libjpeg_turbo/simd/jsimd.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/libjpeg_turbo/libjpeg_headers.stamp
+  arflags = -T
+  output_extension = .a
+  output_dir = obj/third_party/libjpeg_turbo

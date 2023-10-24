@@ -1,0 +1,85 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/libsegmentation/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/libsegmentation/_feature_check-install_config.stamp: stamp
+build obj/libsegmentation/_libsegmentation-install_config.stamp: stamp
+build obj/libsegmentation/_libsegmentation-test-install_config.stamp: stamp
+build obj/libsegmentation/_libsegmentation-test_pc-install_config.stamp: stamp
+build obj/libsegmentation/_libsegmentation_pc-install_config.stamp: stamp
+build obj/libsegmentation/all.stamp: stamp ./libfeature-protos.a ./feature_check obj/libsegmentation/install_libsegmentation_headers.stamp obj/libsegmentation/install_tmpfiles_config.stamp ./libinternal_protos.a ./lib/libsegmentation.so obj/libsegmentation/libsegmentation_pc.stamp ./libsegmentation_static.a ./lib/libsegmentation-test.so obj/libsegmentation/libsegmentation-test_pc.stamp ./libsegmentation_tests
+subninja obj/libsegmentation/feature-protos.ninja
+rule __libsegmentation_feature-protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc device_selection.proto feature_management.proto hwid_feature_requirement.proto --proto_path /build/arm64-generic/build/share/libsegmentation/proto/ --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/libsegmentation-9999/work/build/out/Default/gen/include/proto
+  description = ACTION //libsegmentation:feature-protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/proto/device_selection.pb.cc gen/include/proto/device_selection.pb.h gen/include/proto/feature_management.pb.cc gen/include/proto/feature_management.pb.h gen/include/proto/hwid_feature_requirement.pb.cc gen/include/proto/hwid_feature_requirement.pb.h: __libsegmentation_feature-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../build/share/libsegmentation/proto/device_selection.proto ../../../../../../../../build/share/libsegmentation/proto/feature_management.proto ../../../../../../../../build/share/libsegmentation/proto/hwid_feature_requirement.proto
+
+build obj/libsegmentation/feature-protos_gen.stamp: stamp gen/include/proto/device_selection.pb.cc gen/include/proto/device_selection.pb.h gen/include/proto/feature_management.pb.cc gen/include/proto/feature_management.pb.h gen/include/proto/hwid_feature_requirement.pb.cc gen/include/proto/hwid_feature_requirement.pb.h
+subninja obj/libsegmentation/feature_check.ninja
+build obj/libsegmentation/install_libsegmentation_headers.stamp: stamp
+build obj/libsegmentation/install_tmpfiles_config.stamp: stamp
+subninja obj/libsegmentation/internal_protos.ninja
+rule __libsegmentation_internal_protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc device_info.proto --proto_path /mnt/host/source/src/platform2/libsegmentation/protos/ --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/libsegmentation-9999/work/build/out/Default/gen/include/libsegmentation
+  description = ACTION //libsegmentation:internal_protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/libsegmentation/device_info.pb.cc gen/include/libsegmentation/device_info.pb.h: __libsegmentation_internal_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/libsegmentation/protos/device_info.proto
+
+build obj/libsegmentation/internal_protos_gen.stamp: stamp gen/include/libsegmentation/device_info.pb.cc gen/include/libsegmentation/device_info.pb.h
+subninja obj/libsegmentation/libsegmentation.ninja
+subninja obj/libsegmentation/libsegmentation-test.ninja
+rule __libsegmentation_libsegmentation-test_pc___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/tmp/portage/chromeos-base/libsegmentation-9999/work/build/out/Default/obj/libsegmentation/libsegmentation-test.pc --name=libsegmentation-test --description=libsegmentation\$ test\$ library --version=0.1 --requires-private=libsegmentation --requires-private=libbrillo --requires-private=libchrome --requires-private=libcrossystem --requires-private=protobuf --libs=-lsegmentation-test
+  description = ACTION //libsegmentation:libsegmentation-test_pc(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build obj/libsegmentation/libsegmentation-test.pc: __libsegmentation_libsegmentation-test_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libsegmentation/_libsegmentation-test_pc-install_config.stamp
+
+build obj/libsegmentation/libsegmentation-test_pc.stamp: stamp obj/libsegmentation/libsegmentation-test.pc
+rule __libsegmentation_libsegmentation_pc___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/tmp/portage/chromeos-base/libsegmentation-9999/work/build/out/Default/obj/libsegmentation/libsegmentation.pc --name=libsegmentation --description=Library\$ to\$ get\$ Chromium\$ OS\$ system\$ properties --version=0.1 --requires-private=libbrillo --requires-private=libchrome --requires-private=libcrossystem --requires-private=protobuf --libs=-lsegmentation
+  description = ACTION //libsegmentation:libsegmentation_pc(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build obj/libsegmentation/libsegmentation.pc: __libsegmentation_libsegmentation_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/libsegmentation/_libsegmentation_pc-install_config.stamp
+
+build obj/libsegmentation/libsegmentation_pc.stamp: stamp obj/libsegmentation/libsegmentation.pc
+subninja obj/libsegmentation/libsegmentation_sources.ninja
+subninja obj/libsegmentation/libsegmentation_static.ninja
+subninja obj/libsegmentation/libsegmentation_tests.ninja

@@ -1,0 +1,115 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -pthread -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = missived_testrunner
+
+build obj/missive/missived_testrunner.inputdeps.stamp: stamp obj/missive/dbus/missive_dbus_adaptors.stamp obj/missive/dbus/missive_dbus_proxies.stamp obj/missive/proto/libmissiveprotohealth_gen.stamp obj/missive/proto/libmissiveprotointerface_gen.stamp obj/missive/proto/libmissiveprotorecord_gen.stamp obj/missive/proto/libmissiveprotorecordconstants_gen.stamp obj/missive/proto/libmissiveprotostatus_gen.stamp obj/missive/proto/test_proto_gen.stamp
+build obj/missive/client/missived_testrunner.empty_dm_token_retriever_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/client/empty_dm_token_retriever_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = empty_dm_token_retriever_test.cc
+  source_name_part = empty_dm_token_retriever_test
+build obj/missive/client/missived_testrunner.report_queue_configuration_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/client/report_queue_configuration_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = report_queue_configuration_test.cc
+  source_name_part = report_queue_configuration_test
+build obj/missive/client/missived_testrunner.report_queue_factory_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/client/report_queue_factory_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = report_queue_factory_test.cc
+  source_name_part = report_queue_factory_test
+build obj/missive/client/missived_testrunner.report_queue_impl_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/client/report_queue_impl_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = report_queue_impl_test.cc
+  source_name_part = report_queue_impl_test
+build obj/missive/client/missived_testrunner.report_queue_provider_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/client/report_queue_provider_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = report_queue_provider_test.cc
+  source_name_part = report_queue_provider_test
+build obj/missive/client/missived_testrunner.report_queue_provider_test_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/client/report_queue_provider_test_helper.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = report_queue_provider_test_helper.cc
+  source_name_part = report_queue_provider_test_helper
+build obj/missive/client/missived_testrunner.report_queue_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/client/report_queue_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = report_queue_test.cc
+  source_name_part = report_queue_test
+build obj/missive/compression/missived_testrunner.compression_module_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/compression/compression_module_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = compression_module_test.cc
+  source_name_part = compression_module_test
+build obj/missive/dbus/missived_testrunner.upload_client_impl_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/dbus/upload_client_impl_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = upload_client_impl_test.cc
+  source_name_part = upload_client_impl_test
+build obj/missive/proto/missived_testrunner.priority_name_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/proto/priority_name_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = priority_name_test.cc
+  source_name_part = priority_name_test
+build obj/missive/resources/missived_testrunner.enqueuing_record_tallier_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/resources/enqueuing_record_tallier_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = enqueuing_record_tallier_test.cc
+  source_name_part = enqueuing_record_tallier_test
+build obj/missive/resources/missived_testrunner.resource_managed_buffer_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/resources/resource_managed_buffer_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = resource_managed_buffer_test.cc
+  source_name_part = resource_managed_buffer_test
+build obj/missive/resources/missived_testrunner.resource_manager_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/resources/resource_manager_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = resource_manager_test.cc
+  source_name_part = resource_manager_test
+build obj/missive/scheduler/missived_testrunner.enqueue_job_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/scheduler/enqueue_job_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = enqueue_job_test.cc
+  source_name_part = enqueue_job_test
+build obj/missive/scheduler/missived_testrunner.scheduler_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/scheduler/scheduler_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = scheduler_test.cc
+  source_name_part = scheduler_test
+build obj/missive/scheduler/missived_testrunner.upload_job_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/scheduler/upload_job_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = upload_job_test.cc
+  source_name_part = upload_job_test
+build obj/missive/storage/missived_testrunner.legacy_storage_degradation_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/storage/legacy_storage_degradation_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = legacy_storage_degradation_test.cc
+  source_name_part = legacy_storage_degradation_test
+build obj/missive/storage/missived_testrunner.legacy_storage_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/storage/legacy_storage_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = legacy_storage_test.cc
+  source_name_part = legacy_storage_test
+build obj/missive/storage/missived_testrunner.storage_degradation_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/storage/storage_degradation_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = storage_degradation_test.cc
+  source_name_part = storage_degradation_test
+build obj/missive/storage/missived_testrunner.storage_module_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/storage/storage_module_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = storage_module_test.cc
+  source_name_part = storage_module_test
+build obj/missive/storage/missived_testrunner.storage_queue_stress_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/storage/storage_queue_stress_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = storage_queue_stress_test.cc
+  source_name_part = storage_queue_stress_test
+build obj/missive/storage/missived_testrunner.storage_queue_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/storage/storage_queue_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = storage_queue_test.cc
+  source_name_part = storage_queue_test
+build obj/missive/storage/missived_testrunner.storage_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/storage/storage_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = storage_test.cc
+  source_name_part = storage_test
+build obj/missive/storage/missived_testrunner.storage_util_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/storage/storage_util_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = storage_util_test.cc
+  source_name_part = storage_util_test
+build obj/missive/util/missived_testrunner.disconnectable_client_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/disconnectable_client_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = disconnectable_client_test.cc
+  source_name_part = disconnectable_client_test
+build obj/missive/util/missived_testrunner.dynamic_flag_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/dynamic_flag_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = dynamic_flag_test.cc
+  source_name_part = dynamic_flag_test
+build obj/missive/util/missived_testrunner.file_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/file_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = file_test.cc
+  source_name_part = file_test
+build obj/missive/util/missived_testrunner.refcounted_closure_list_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/refcounted_closure_list_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = refcounted_closure_list_test.cc
+  source_name_part = refcounted_closure_list_test
+build obj/missive/util/missived_testrunner.status_macros_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/status_macros_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = status_macros_test.cc
+  source_name_part = status_macros_test
+build obj/missive/util/missived_testrunner.status_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/status_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = status_test.cc
+  source_name_part = status_test
+build obj/missive/util/missived_testrunner.statusor_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/statusor_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = statusor_test.cc
+  source_name_part = statusor_test
+build obj/missive/util/missived_testrunner.task_runner_context_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/task_runner_context_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = task_runner_context_test.cc
+  source_name_part = task_runner_context_test
+build obj/missive/util/missived_testrunner.time_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/missive-9999/work/missive-9999/platform2/missive/util/time_test.cc || obj/missive/missived_testrunner.inputdeps.stamp
+  source_file_part = time_test.cc
+  source_name_part = time_test
+
+build ./missived_testrunner: link obj/missive/client/missived_testrunner.empty_dm_token_retriever_test.o obj/missive/client/missived_testrunner.report_queue_configuration_test.o obj/missive/client/missived_testrunner.report_queue_factory_test.o obj/missive/client/missived_testrunner.report_queue_impl_test.o obj/missive/client/missived_testrunner.report_queue_provider_test.o obj/missive/client/missived_testrunner.report_queue_provider_test_helper.o obj/missive/client/missived_testrunner.report_queue_test.o obj/missive/compression/missived_testrunner.compression_module_test.o obj/missive/dbus/missived_testrunner.upload_client_impl_test.o obj/missive/proto/missived_testrunner.priority_name_test.o obj/missive/resources/missived_testrunner.enqueuing_record_tallier_test.o obj/missive/resources/missived_testrunner.resource_managed_buffer_test.o obj/missive/resources/missived_testrunner.resource_manager_test.o obj/missive/scheduler/missived_testrunner.enqueue_job_test.o obj/missive/scheduler/missived_testrunner.scheduler_test.o obj/missive/scheduler/missived_testrunner.upload_job_test.o obj/missive/storage/missived_testrunner.legacy_storage_degradation_test.o obj/missive/storage/missived_testrunner.legacy_storage_test.o obj/missive/storage/missived_testrunner.storage_degradation_test.o obj/missive/storage/missived_testrunner.storage_module_test.o obj/missive/storage/missived_testrunner.storage_queue_stress_test.o obj/missive/storage/missived_testrunner.storage_queue_test.o obj/missive/storage/missived_testrunner.storage_test.o obj/missive/storage/missived_testrunner.storage_util_test.o obj/missive/util/missived_testrunner.disconnectable_client_test.o obj/missive/util/missived_testrunner.dynamic_flag_test.o obj/missive/util/missived_testrunner.file_test.o obj/missive/util/missived_testrunner.refcounted_closure_list_test.o obj/missive/util/missived_testrunner.status_macros_test.o obj/missive/util/missived_testrunner.status_test.o obj/missive/util/missived_testrunner.statusor_test.o obj/missive/util/missived_testrunner.task_runner_context_test.o obj/missive/util/missived_testrunner.time_test.o obj/missive/analytics/unit_tests.metrics_test.o obj/missive/analytics/unit_tests.registry_test.o obj/missive/analytics/unit_tests.resource_collector_cpu_test.o obj/missive/analytics/unit_tests.resource_collector_memory_test.o obj/missive/analytics/unit_tests.resource_collector_mock.o obj/missive/analytics/unit_tests.resource_collector_storage_test.o obj/missive/analytics/unit_tests.resource_collector_test.o obj/missive/daemon/unit_tests.missive_daemon_test.o obj/missive/encryption/unit_tests.encryption_module_test.o obj/missive/encryption/unit_tests.encryption_test.o obj/missive/encryption/unit_tests.verification_test.o obj/missive/health/unit_tests.health_module_delegate_impl_test.o obj/missive/health/unit_tests.health_module_files_test.o obj/missive/health/unit_tests.health_module_test.o obj/missive/missive/unit_tests.migration_test.o obj/missive/missive/unit_tests.missive_args_test.o obj/missive/missive/unit_tests.missive_impl_test.o obj/missive/proto/priority_name.priority_name.o obj/missive/util/refcounted_closure_list.refcounted_closure_list.o obj/missive/util/test_callbacks_support.test_support_callbacks.o obj/missive/util/disconnectable_client.disconnectable_client.o obj/missive/health/health_module.health_module.o obj/missive/health/health_module.health_module_delegate.o ./libtestrunner.a ./libclient_test_support.a ./libcompression_module.a ./libcompression_test_support.a ./libtest_support.a ./libencryption_test_support.a ./libmissive_args.a ./libresource_manager.a ./libscheduler.a ./libenqueue_job.a ./libupload_job.a ./libstorage_test_support.a ./libstorage_uploader_interface.a ./libdynamic_flag.a ./libfile.a ./libstatus.a ./libtime.a ./libanalytics.a ./libmissiveprotostatus.a ./libmissiveprotorecord.a ./libmissiveprotohealth.a ./libmissiveprotorecordconstants.a ./libreport_queue.a ./libreport_queue_configuration.a ./libstorage_module_interface.a ./libreport_queue_factory.a ./libreport_queue_provider.a ./libmissive_client.a ./libmissiveprotointerface.a ./libmissive_storage_module.a ./libbackoff_settings.a ./libtest_proto.a ./libstorage_configuration.a ./libmissive_daemon.a ./lib/libfeatures.so ./libdbus_adaptor.a ./libmissive_service.a ./lib/libfake_platform_features.so ./libupload_client.a ./libtest_environment.a ./libdecryption.a ./libencryption.a ./libprimitives.a ./libtesting_primitives.a ./libencryption_module.a ./libencryption_module_interface.a ./libverification.a ./libhealth_module_test_support.a ./libmigration.a ./libmissive_impl.a ./libupload_client_impl.a ./libstorage_module.a ./libstorage.a ./libstorage_base.a ./libstorage_queue.a ./libresource_managed_buffer.a ./libstorage_util.a ./libhealth_module_impl.a || obj/missive/analytics/unit_tests.stamp obj/missive/daemon/unit_tests.stamp obj/missive/encryption/unit_tests.stamp obj/missive/health/unit_tests.stamp obj/missive/missive/unit_tests.stamp obj/missive/proto/priority_name.stamp obj/missive/util/refcounted_closure_list.stamp obj/missive/util/test_callbacks_support.stamp obj/missive/util/status_macros.stamp obj/missive/util/disconnectable_client.stamp obj/missive/health/health_module.stamp obj/missive/util/task_runner_context.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -pthread -Wl,-rpath=\$$ORIGIN/lib/ -Wl,-rpath-link=lib/ -L/build/arm64-generic/usr/lib64
+  libs = -ldbus-1 -lbrillo -lbase -lpthread -lre2 -lsystem_api-device_management-protos -lsystem_api-hps-protos -lsystem_api-power_manager-protos -lsystem_api-authpolicy-protos -lsystem_api-protos -lsystem_api-kerberos-protos -lsystem_api-login_manager-protos -lsystem_api-lorgnette-protos -lsystem_api-smbprovider-protos -lsystem_api-vm_concierge-protos -lsystem_api-vm_applications-protos -lsystem_api-vm_launch-protos -lsystem_api-vm_sk_forwarding-protos -lsystem_api-vm_cicerone-protos -lsystem_api-seneschal-protos -lsystem_api-oobe_config-protos -lsystem_api-runtime_probe-protos -lsystem_api-dlcservice-protos -lsystem_api-update_engine-protos -lsystem_api-vm_plugin_dispatcher-protos -lsystem_api-u2f-protos -lsystem_api-chunneld-protos -lsystem_api-system_proxy-protos -lsystem_api-vm_permission_service-protos -lsystem_api-anomaly_detector-protos -lsystem_api-minios-protos -lsystem_api-dlp-protos -lsystem_api-rmad-protos -lsystem_api-fusebox-protos -lsystem_api-privacy_screen-protos -lsystem_api-cdm_oemcrypto-protos -lsystem_api-ml-protos -lsystem_api-lvmd-protos -lsystem_api-shadercached-protos -lsystem_api-spaced-protos -lsystem_api-imageloader-protos -lsystem_api -lsystem_api-arc-protos -lsystem_api-private_computing-protos -lsystem_api-arcvm_data_migrator-protos -lsystem_api-featured-protos -lsystem_api-vm_wl-protos -lsystem_api-printscanmgr-protos -lsystem_api-vm_memory_management-protos -lprotobuf-lite -lbrillo-test -lcurl -lbase-test -lssl -lcrypto -lgmock -lgtest -lmetrics -lsnappy
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

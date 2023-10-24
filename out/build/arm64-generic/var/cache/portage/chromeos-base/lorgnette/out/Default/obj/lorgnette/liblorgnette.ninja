@@ -1,0 +1,96 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/libpng16 -pthread -I/build/arm64-generic/usr/include/uuid -I/build/arm64-generic/usr/include/permission_broker-client
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Woverloaded-virtual -Wconditional-uninitialized
+root_out_dir = .
+target_output_name = liblorgnette
+
+build obj/lorgnette/liblorgnette.constants.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/constants.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = constants.cc
+  source_name_part = constants
+build obj/lorgnette/liblorgnette.daemon.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/daemon.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = daemon.cc
+  source_name_part = daemon
+build obj/lorgnette/liblorgnette.dbus_service_adaptor.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/dbus_service_adaptor.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = dbus_service_adaptor.cc
+  source_name_part = dbus_service_adaptor
+build obj/lorgnette/liblorgnette.debug_log.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/debug_log.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = debug_log.cc
+  source_name_part = debug_log
+build obj/lorgnette/liblorgnette.device_tracker.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/device_tracker.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = device_tracker.cc
+  source_name_part = device_tracker
+build obj/lorgnette/liblorgnette.enums.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/enums.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = enums.cc
+  source_name_part = enums
+build obj/lorgnette/liblorgnette.epson_probe.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/epson_probe.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = epson_probe.cc
+  source_name_part = epson_probe
+build obj/lorgnette/liblorgnette.firewall_manager.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/firewall_manager.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = firewall_manager.cc
+  source_name_part = firewall_manager
+build obj/lorgnette/liblorgnette.guess_source.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/guess_source.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = guess_source.cc
+  source_name_part = guess_source
+build obj/lorgnette/image_readers/liblorgnette.image_reader.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/image_readers/image_reader.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = image_reader.cc
+  source_name_part = image_reader
+build obj/lorgnette/image_readers/liblorgnette.jpeg_reader.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/image_readers/jpeg_reader.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = jpeg_reader.cc
+  source_name_part = jpeg_reader
+build obj/lorgnette/image_readers/liblorgnette.png_reader.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/image_readers/png_reader.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = png_reader.cc
+  source_name_part = png_reader
+build obj/lorgnette/liblorgnette.ippusb_device.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/ippusb_device.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = ippusb_device.cc
+  source_name_part = ippusb_device
+build obj/lorgnette/liblorgnette.libsane_wrapper_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/libsane_wrapper_impl.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = libsane_wrapper_impl.cc
+  source_name_part = libsane_wrapper_impl
+build obj/lorgnette/liblorgnette.manager.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/manager.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = manager.cc
+  source_name_part = manager
+build obj/lorgnette/liblorgnette.sane_client.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/sane_client.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = sane_client.cc
+  source_name_part = sane_client
+build obj/lorgnette/liblorgnette.sane_client_fake.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/sane_client_fake.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = sane_client_fake.cc
+  source_name_part = sane_client_fake
+build obj/lorgnette/liblorgnette.sane_client_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/sane_client_impl.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = sane_client_impl.cc
+  source_name_part = sane_client_impl
+build obj/lorgnette/liblorgnette.sane_constraint.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/sane_constraint.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = sane_constraint.cc
+  source_name_part = sane_constraint
+build obj/lorgnette/liblorgnette.sane_device.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/sane_device.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = sane_device.cc
+  source_name_part = sane_device
+build obj/lorgnette/liblorgnette.sane_device_fake.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/sane_device_fake.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = sane_device_fake.cc
+  source_name_part = sane_device_fake
+build obj/lorgnette/liblorgnette.sane_device_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/sane_device_impl.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = sane_device_impl.cc
+  source_name_part = sane_device_impl
+build obj/lorgnette/liblorgnette.sane_option.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/sane_option.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = sane_option.cc
+  source_name_part = sane_option
+build obj/lorgnette/liblorgnette.scanner_match.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/scanner_match.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = scanner_match.cc
+  source_name_part = scanner_match
+build obj/lorgnette/usb/liblorgnette.libusb_wrapper_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/usb/libusb_wrapper_impl.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = libusb_wrapper_impl.cc
+  source_name_part = libusb_wrapper_impl
+build obj/lorgnette/usb/liblorgnette.usb_device.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/usb/usb_device.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = usb_device.cc
+  source_name_part = usb_device
+build obj/lorgnette/usb/liblorgnette.usb_device_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/usb/usb_device_impl.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = usb_device_impl.cc
+  source_name_part = usb_device_impl
+build obj/lorgnette/liblorgnette.uuid_util.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/lorgnette/uuid_util.cc || obj/lorgnette/lorgnette-adaptors.stamp
+  source_file_part = uuid_util.cc
+  source_name_part = uuid_util
+
+build ./liblorgnette.a: alink obj/lorgnette/liblorgnette.constants.o obj/lorgnette/liblorgnette.daemon.o obj/lorgnette/liblorgnette.dbus_service_adaptor.o obj/lorgnette/liblorgnette.debug_log.o obj/lorgnette/liblorgnette.device_tracker.o obj/lorgnette/liblorgnette.enums.o obj/lorgnette/liblorgnette.epson_probe.o obj/lorgnette/liblorgnette.firewall_manager.o obj/lorgnette/liblorgnette.guess_source.o obj/lorgnette/image_readers/liblorgnette.image_reader.o obj/lorgnette/image_readers/liblorgnette.jpeg_reader.o obj/lorgnette/image_readers/liblorgnette.png_reader.o obj/lorgnette/liblorgnette.ippusb_device.o obj/lorgnette/liblorgnette.libsane_wrapper_impl.o obj/lorgnette/liblorgnette.manager.o obj/lorgnette/liblorgnette.sane_client.o obj/lorgnette/liblorgnette.sane_client_fake.o obj/lorgnette/liblorgnette.sane_client_impl.o obj/lorgnette/liblorgnette.sane_constraint.o obj/lorgnette/liblorgnette.sane_device.o obj/lorgnette/liblorgnette.sane_device_fake.o obj/lorgnette/liblorgnette.sane_device_impl.o obj/lorgnette/liblorgnette.sane_option.o obj/lorgnette/liblorgnette.scanner_match.o obj/lorgnette/usb/liblorgnette.libusb_wrapper_impl.o obj/lorgnette/usb/liblorgnette.usb_device.o obj/lorgnette/usb/liblorgnette.usb_device_impl.o obj/lorgnette/liblorgnette.uuid_util.o || obj/lorgnette/lorgnette-adaptors.stamp
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

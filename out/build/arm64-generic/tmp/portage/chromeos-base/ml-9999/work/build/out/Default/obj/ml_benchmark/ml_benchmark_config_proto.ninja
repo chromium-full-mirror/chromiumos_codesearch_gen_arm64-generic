@@ -1,0 +1,15 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include/proto -Igen/include -I../../../ml-9999/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -fvisibility=default
+cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libml_benchmark_config_proto
+
+build obj/gen/include/proto/libml_benchmark_config_proto.benchmark_config.pb.o: cxx gen/include/proto/benchmark_config.pb.cc || obj/ml_benchmark/ml_benchmark_config_proto_gen.stamp
+  source_file_part = benchmark_config.pb.cc
+  source_name_part = benchmark_config.pb
+
+build ./libml_benchmark_config_proto.a: alink obj/gen/include/proto/libml_benchmark_config_proto.benchmark_config.pb.o || obj/ml_benchmark/ml_benchmark_config_proto_gen.stamp
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

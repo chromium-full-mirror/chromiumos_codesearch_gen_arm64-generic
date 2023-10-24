@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/federated/public/mojom/example.mojom",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/federated/public/mojom/federated_service.mojom"
+  ]
+}

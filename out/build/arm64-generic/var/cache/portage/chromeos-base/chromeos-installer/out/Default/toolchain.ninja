@@ -1,0 +1,59 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/installer/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/installer/_cros_installer-install_config.stamp: stamp
+build obj/installer/_evwaitkey-install_config.stamp: stamp
+build obj/installer/_postinst_script_symlink-0-install_config.stamp: stamp
+build obj/installer/all.stamp: stamp ./cros_installer obj/installer/crx_import_script.stamp obj/installer/postinst_script_symlink.stamp obj/installer/sbin_scripts.stamp ./evwaitkey ./cros_installer_test obj/installer/init_confs.stamp
+build gen/chromeos-install: copy ../../../../../../../../../mnt/host/source/src/platform2/installer/chromeos-install
+
+build obj/installer/chromeos_install_script.stamp: stamp gen/chromeos-install
+subninja obj/installer/cros_installer.ninja
+subninja obj/installer/cros_installer_test.ninja
+build obj/installer/crx_import_script.stamp: stamp
+subninja obj/installer/evwaitkey.ninja
+build obj/installer/init_confs.stamp: stamp
+subninja obj/installer/libcros_installer.ninja
+rule __installer_postinst_script_symlink___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env /bin/ln -sf usr/sbin/chromeos-postinst /build/arm64-generic/var/cache/portage/chromeos-base/chromeos-installer/out/Default/gen/postinst
+  description = ACTION //installer:postinst_script_symlink(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/postinst: __installer_postinst_script_symlink___common-mk_toolchain_toolchain__rule | ../../../../../../../../../bin/ln obj/installer/_postinst_script_symlink-0-install_config.stamp obj/installer/sbin_scripts.stamp
+
+build obj/installer/postinst_script_symlink.stamp: stamp gen/postinst
+build obj/installer/sbin_scripts.stamp: stamp obj/installer/chromeos_install_script.stamp

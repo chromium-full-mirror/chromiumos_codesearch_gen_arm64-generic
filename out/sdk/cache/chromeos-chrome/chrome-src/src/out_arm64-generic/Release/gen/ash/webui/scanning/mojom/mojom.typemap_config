@@ -1,0 +1,20 @@
+[
+  {
+    "traits_headers": [
+      "ash/webui/scanning/mojom/scanning_type_converters.h",
+      "chromeos/ash/components/dbus/lorgnette/lorgnette_service.pb.h"
+    ],
+    "traits_public_deps": [
+      "//chromeos/ash/components/dbus/lorgnette_manager:lorgnette_proto"
+    ],
+    "traits_sources": [
+      "scanning_type_converters.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::lorgnette::ScanFailureMode",
+        "mojom": "ash.scanning.mojom.ScanResult"
+      }
+    ]
+  }
+]

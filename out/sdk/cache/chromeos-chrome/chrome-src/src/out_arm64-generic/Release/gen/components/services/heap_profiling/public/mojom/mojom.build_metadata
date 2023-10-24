@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/components/services/heap_profiling/public/mojom/heap_profiling_client.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/components/services/heap_profiling/public/mojom/heap_profiling_service.mojom"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/auth_factor_config/public/mojom/auth_factor_config.mojom"
+  ]
+}

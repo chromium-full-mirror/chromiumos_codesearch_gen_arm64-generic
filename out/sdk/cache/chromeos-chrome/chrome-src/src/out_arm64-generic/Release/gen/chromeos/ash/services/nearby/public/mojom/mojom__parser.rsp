@@ -1,0 +1,14 @@
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/firewall_hole.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/nearby_connections.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/nearby_decoder.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/nearby_decoder_types.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/quick_start_decoder.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/quick_start_decoder_types.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/sharing.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/tcp_server_socket_port.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/tcp_socket_factory.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/webrtc.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/nearby/public/mojom/webrtc_signaling_messenger.mojom

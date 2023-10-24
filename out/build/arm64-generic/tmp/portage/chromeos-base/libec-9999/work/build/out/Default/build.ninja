@@ -1,0 +1,68 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build libec: phony ./lib/libec.so
+build _libec-install_config: phony obj/libec/_libec-install_config.stamp
+build _libec_pc-install_config: phony obj/libec/_libec_pc-install_config.stamp
+build _libec_static-install_config: phony obj/libec/_libec_static-install_config.stamp
+build install_fingerprint_headers: phony obj/libec/install_fingerprint_headers.stamp
+build install_libec_headers: phony obj/libec/install_libec_headers.stamp
+build install_pwm_headers: phony obj/libec/install_pwm_headers.stamp
+build install_thermal_headers: phony obj/libec/install_thermal_headers.stamp
+build libec_common: phony obj/libec/libec_common.stamp
+build libec_pc: phony obj/libec/libec_pc.stamp
+build libec_static: phony ./libec_static.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build libec$:_libec-install_config: phony obj/libec/_libec-install_config.stamp
+build libec$:_libec_pc-install_config: phony obj/libec/_libec_pc-install_config.stamp
+build libec$:_libec_static-install_config: phony obj/libec/_libec_static-install_config.stamp
+build libec$:all: phony obj/libec/all.stamp
+build libec$:install_fingerprint_headers: phony obj/libec/install_fingerprint_headers.stamp
+build libec$:install_libec_headers: phony obj/libec/install_libec_headers.stamp
+build libec$:install_pwm_headers: phony obj/libec/install_pwm_headers.stamp
+build libec$:install_thermal_headers: phony obj/libec/install_thermal_headers.stamp
+build libec$:libec: phony ./lib/libec.so
+build libec$:libec_common: phony obj/libec/libec_common.stamp
+build libec$:libec_pc: phony obj/libec/libec_pc.stamp
+build libec$:libec_static: phony ./libec_static.a
+build libec$:libec_tests: phony ./libec_tests
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/libec/_libec-install_config.stamp $
+    obj/libec/_libec_pc-install_config.stamp $
+    obj/libec/_libec_static-install_config.stamp $
+    obj/libec/all.stamp $
+    obj/libec/install_fingerprint_headers.stamp $
+    obj/libec/install_libec_headers.stamp $
+    obj/libec/install_pwm_headers.stamp $
+    obj/libec/install_thermal_headers.stamp $
+    ./lib/libec.so $
+    obj/libec/libec_common.stamp $
+    obj/libec/libec_pc.stamp $
+    ./libec_static.a $
+    ./libec_tests
+
+default all

@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../../../../../../../ash/public/mojom/mojom.build_metadata",
+    "../../../../../../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/ash/settings/pages/device/display_settings/display_settings_provider.mojom"
+  ]
+}

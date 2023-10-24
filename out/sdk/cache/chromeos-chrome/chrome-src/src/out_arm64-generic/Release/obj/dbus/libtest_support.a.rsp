@@ -1,0 +1,1 @@
+obj/dbus/test_support/mock_bus.o obj/dbus/test_support/mock_exported_object.o obj/dbus/test_support/mock_object_proxy.o

@@ -1,0 +1,656 @@
+defines = -DHAVE_AV_CONFIG_H -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -DPIC -DFFMPEG_CONFIGURATION=NULL -DCHROMIUM_NO_LOGGING -D_ISOC99_SOURCE -D_LARGEFILE_SOURCE -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/chromium/config/Chromium/linux/arm64 -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/opus/src/include
+asmflags = -DHAVE_VFP_ARGS=1 -fPIC -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables -std=c11 --target=aarch64-linux-gnu -mno-outline -Wa,-fdebug-compilation-dir,. -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf --sysroot=../../../../../../../build/arm64-generic
+cflags = -fPIC -Wno-deprecated-declarations -fomit-frame-pointer -std=c99 -pthread -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -Wno-incompatible-pointer-types -Wno-absolute-value -Wno-deprecated-declarations -Wno-incompatible-pointer-types -Wno-logical-op-parentheses -Wno-parentheses -Wno-pointer-sign -Wno-switch -Wno-unused-label -Wno-unused-variable -Wno-string-conversion -Wno-sometimes-uninitialized -Wno-unguarded-availability -Wno-unused-function -Wno-constant-conversion -Wno-string-plus-int -Wno-tautological-constant-out-of-range-compare -Wno-implicit-int-float-conversion -Wno-inline-asm -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno
+cflags_c = -std=c11 --sysroot=../../../../../../../build/arm64-generic
+label_name = ffmpeg_internal
+target_out_dir = obj/third_party/ffmpeg
+target_output_name = libffmpeg_internal
+
+build obj/third_party/ffmpeg/ffmpeg_internal/ac3_channel_layout_tab.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/ac3_channel_layout_tab.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = ac3_channel_layout_tab.c
+  source_name_part = ac3_channel_layout_tab
+build obj/third_party/ffmpeg/ffmpeg_internal/ac3_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/ac3_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = ac3_parser.c
+  source_name_part = ac3_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/adts_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/adts_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = adts_parser.c
+  source_name_part = adts_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/allcodecs.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/allcodecs.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = allcodecs.c
+  source_name_part = allcodecs
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_flacdsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/autorename_libavcodec_flacdsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavcodec_flacdsp.c
+  source_name_part = autorename_libavcodec_flacdsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_mpegaudiodsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/autorename_libavcodec_mpegaudiodsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavcodec_mpegaudiodsp.c
+  source_name_part = autorename_libavcodec_mpegaudiodsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_vorbisdsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/autorename_libavcodec_vorbisdsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavcodec_vorbisdsp.c
+  source_name_part = autorename_libavcodec_vorbisdsp
+build obj/third_party/ffmpeg/ffmpeg_internal/avcodec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/avcodec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = avcodec.c
+  source_name_part = avcodec
+build obj/third_party/ffmpeg/ffmpeg_internal/avdct.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/avdct.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = avdct.c
+  source_name_part = avdct
+build obj/third_party/ffmpeg/ffmpeg_internal/avfft.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/avfft.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = avfft.c
+  source_name_part = avfft
+build obj/third_party/ffmpeg/ffmpeg_internal/avpacket.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/avpacket.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = avpacket.c
+  source_name_part = avpacket
+build obj/third_party/ffmpeg/ffmpeg_internal/bitstream.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/bitstream.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = bitstream.c
+  source_name_part = bitstream
+build obj/third_party/ffmpeg/ffmpeg_internal/bitstream_filters.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/bitstream_filters.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = bitstream_filters.c
+  source_name_part = bitstream_filters
+build obj/third_party/ffmpeg/ffmpeg_internal/bsf.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/bsf.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = bsf.c
+  source_name_part = bsf
+build obj/third_party/ffmpeg/ffmpeg_internal/codec_desc.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/codec_desc.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = codec_desc.c
+  source_name_part = codec_desc
+build obj/third_party/ffmpeg/ffmpeg_internal/codec_par.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/codec_par.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = codec_par.c
+  source_name_part = codec_par
+build obj/third_party/ffmpeg/ffmpeg_internal/d3d11va.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/d3d11va.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = d3d11va.c
+  source_name_part = d3d11va
+build obj/third_party/ffmpeg/ffmpeg_internal/dct32_fixed.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/dct32_fixed.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dct32_fixed.c
+  source_name_part = dct32_fixed
+build obj/third_party/ffmpeg/ffmpeg_internal/dct32_float.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/dct32_float.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dct32_float.c
+  source_name_part = dct32_float
+build obj/third_party/ffmpeg/ffmpeg_internal/decode.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/decode.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = decode.c
+  source_name_part = decode
+build obj/third_party/ffmpeg/ffmpeg_internal/dirac.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/dirac.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dirac.c
+  source_name_part = dirac
+build obj/third_party/ffmpeg/ffmpeg_internal/dv_profile.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/dv_profile.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dv_profile.c
+  source_name_part = dv_profile
+build obj/third_party/ffmpeg/ffmpeg_internal/encode.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/encode.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = encode.c
+  source_name_part = encode
+build obj/third_party/ffmpeg/ffmpeg_internal/flac.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/flac.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = flac.c
+  source_name_part = flac
+build obj/third_party/ffmpeg/ffmpeg_internal/flac_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/flac_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = flac_parser.c
+  source_name_part = flac_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/flacdata.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/flacdata.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = flacdata.c
+  source_name_part = flacdata
+build obj/third_party/ffmpeg/ffmpeg_internal/flacdec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/flacdec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = flacdec.c
+  source_name_part = flacdec
+build obj/third_party/ffmpeg/ffmpeg_internal/get_buffer.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/get_buffer.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = get_buffer.c
+  source_name_part = get_buffer
+build obj/third_party/ffmpeg/ffmpeg_internal/golomb.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/golomb.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = golomb.c
+  source_name_part = golomb
+build obj/third_party/ffmpeg/ffmpeg_internal/imgconvert.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/imgconvert.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = imgconvert.c
+  source_name_part = imgconvert
+build obj/third_party/ffmpeg/ffmpeg_internal/jni.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/jni.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = jni.c
+  source_name_part = jni
+build obj/third_party/ffmpeg/ffmpeg_internal/libopus.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/libopus.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = libopus.c
+  source_name_part = libopus
+build obj/third_party/ffmpeg/ffmpeg_internal/libopusdec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/libopusdec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = libopusdec.c
+  source_name_part = libopusdec
+build obj/third_party/ffmpeg/ffmpeg_internal/mathtables.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mathtables.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mathtables.c
+  source_name_part = mathtables
+build obj/third_party/ffmpeg/ffmpeg_internal/mediacodec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mediacodec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mediacodec.c
+  source_name_part = mediacodec
+build obj/third_party/ffmpeg/ffmpeg_internal/mpeg12framerate.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpeg12framerate.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpeg12framerate.c
+  source_name_part = mpeg12framerate
+build obj/third_party/ffmpeg/ffmpeg_internal/mpeg4audio.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpeg4audio.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpeg4audio.c
+  source_name_part = mpeg4audio
+build obj/third_party/ffmpeg/ffmpeg_internal/mpeg4audio_sample_rates.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpeg4audio_sample_rates.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpeg4audio_sample_rates.c
+  source_name_part = mpeg4audio_sample_rates
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudio.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudio.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudio.c
+  source_name_part = mpegaudio
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudio_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudio_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudio_parser.c
+  source_name_part = mpegaudio_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodata.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudiodata.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodata.c
+  source_name_part = mpegaudiodata
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodec_common.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudiodec_common.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodec_common.c
+  source_name_part = mpegaudiodec_common
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodec_fixed.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudiodec_fixed.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodec_fixed.c
+  source_name_part = mpegaudiodec_fixed
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodecheader.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudiodecheader.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodecheader.c
+  source_name_part = mpegaudiodecheader
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_data.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudiodsp_data.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodsp_data.c
+  source_name_part = mpegaudiodsp_data
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_fixed.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudiodsp_fixed.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodsp_fixed.c
+  source_name_part = mpegaudiodsp_fixed
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_float.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudiodsp_float.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodsp_float.c
+  source_name_part = mpegaudiodsp_float
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiotabs.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/mpegaudiotabs.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiotabs.c
+  source_name_part = mpegaudiotabs
+build obj/third_party/ffmpeg/ffmpeg_internal/options.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/options.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = options.c
+  source_name_part = options
+build obj/third_party/ffmpeg/ffmpeg_internal/opus_parse.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/opus_parse.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = opus_parse.c
+  source_name_part = opus_parse
+build obj/third_party/ffmpeg/ffmpeg_internal/opus_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/opus_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = opus_parser.c
+  source_name_part = opus_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = parser.c
+  source_name_part = parser
+build obj/third_party/ffmpeg/ffmpeg_internal/parsers.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/parsers.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = parsers.c
+  source_name_part = parsers
+build obj/third_party/ffmpeg/ffmpeg_internal/pcm.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/pcm.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = pcm.c
+  source_name_part = pcm
+build obj/third_party/ffmpeg/ffmpeg_internal/profiles.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/profiles.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = profiles.c
+  source_name_part = profiles
+build obj/third_party/ffmpeg/ffmpeg_internal/pthread.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/pthread.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = pthread.c
+  source_name_part = pthread
+build obj/third_party/ffmpeg/ffmpeg_internal/pthread_frame.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/pthread_frame.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = pthread_frame.c
+  source_name_part = pthread_frame
+build obj/third_party/ffmpeg/ffmpeg_internal/pthread_slice.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/pthread_slice.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = pthread_slice.c
+  source_name_part = pthread_slice
+build obj/third_party/ffmpeg/ffmpeg_internal/qsv_api.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/qsv_api.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = qsv_api.c
+  source_name_part = qsv_api
+build obj/third_party/ffmpeg/ffmpeg_internal/raw.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/raw.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = raw.c
+  source_name_part = raw
+build obj/third_party/ffmpeg/ffmpeg_internal/to_upper4.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/to_upper4.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = to_upper4.c
+  source_name_part = to_upper4
+build obj/third_party/ffmpeg/ffmpeg_internal/utils.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/utils.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = utils.c
+  source_name_part = utils
+build obj/third_party/ffmpeg/ffmpeg_internal/version.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/version.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = version.c
+  source_name_part = version
+build obj/third_party/ffmpeg/ffmpeg_internal/vlc.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vlc.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vlc.c
+  source_name_part = vlc
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbis.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vorbis.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vorbis.c
+  source_name_part = vorbis
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbis_data.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vorbis_data.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vorbis_data.c
+  source_name_part = vorbis_data
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbis_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vorbis_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vorbis_parser.c
+  source_name_part = vorbis_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbisdec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vorbisdec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vorbisdec.c
+  source_name_part = vorbisdec
+build obj/third_party/ffmpeg/ffmpeg_internal/vp9_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vp9_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp9_parser.c
+  source_name_part = vp9_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/xiph.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/xiph.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = xiph.c
+  source_name_part = xiph
+build obj/third_party/ffmpeg/ffmpeg_internal/allformats.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/allformats.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = allformats.c
+  source_name_part = allformats
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_flacdec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/autorename_libavformat_flacdec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavformat_flacdec.c
+  source_name_part = autorename_libavformat_flacdec
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_options.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/autorename_libavformat_options.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavformat_options.c
+  source_name_part = autorename_libavformat_options
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_pcm.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/autorename_libavformat_pcm.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavformat_pcm.c
+  source_name_part = autorename_libavformat_pcm
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_utils.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/autorename_libavformat_utils.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavformat_utils.c
+  source_name_part = autorename_libavformat_utils
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_version.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/autorename_libavformat_version.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavformat_version.c
+  source_name_part = autorename_libavformat_version
+build obj/third_party/ffmpeg/ffmpeg_internal/avformat.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/avformat.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = avformat.c
+  source_name_part = avformat
+build obj/third_party/ffmpeg/ffmpeg_internal/avio.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/avio.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = avio.c
+  source_name_part = avio
+build obj/third_party/ffmpeg/ffmpeg_internal/aviobuf.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/aviobuf.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = aviobuf.c
+  source_name_part = aviobuf
+build obj/third_party/ffmpeg/ffmpeg_internal/demux.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/demux.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = demux.c
+  source_name_part = demux
+build obj/third_party/ffmpeg/ffmpeg_internal/demux_utils.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/demux_utils.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = demux_utils.c
+  source_name_part = demux_utils
+build obj/third_party/ffmpeg/ffmpeg_internal/dovi_isom.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/dovi_isom.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dovi_isom.c
+  source_name_part = dovi_isom
+build obj/third_party/ffmpeg/ffmpeg_internal/dump.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/dump.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dump.c
+  source_name_part = dump
+build obj/third_party/ffmpeg/ffmpeg_internal/dv.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/dv.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dv.c
+  source_name_part = dv
+build obj/third_party/ffmpeg/ffmpeg_internal/flac_picture.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/flac_picture.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = flac_picture.c
+  source_name_part = flac_picture
+build obj/third_party/ffmpeg/ffmpeg_internal/format.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/format.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = format.c
+  source_name_part = format
+build obj/third_party/ffmpeg/ffmpeg_internal/id3v1.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/id3v1.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = id3v1.c
+  source_name_part = id3v1
+build obj/third_party/ffmpeg/ffmpeg_internal/id3v2.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/id3v2.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = id3v2.c
+  source_name_part = id3v2
+build obj/third_party/ffmpeg/ffmpeg_internal/isom.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/isom.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = isom.c
+  source_name_part = isom
+build obj/third_party/ffmpeg/ffmpeg_internal/isom_tags.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/isom_tags.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = isom_tags.c
+  source_name_part = isom_tags
+build obj/third_party/ffmpeg/ffmpeg_internal/matroska.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/matroska.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = matroska.c
+  source_name_part = matroska
+build obj/third_party/ffmpeg/ffmpeg_internal/matroskadec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/matroskadec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = matroskadec.c
+  source_name_part = matroskadec
+build obj/third_party/ffmpeg/ffmpeg_internal/metadata.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/metadata.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = metadata.c
+  source_name_part = metadata
+build obj/third_party/ffmpeg/ffmpeg_internal/mov.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/mov.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mov.c
+  source_name_part = mov
+build obj/third_party/ffmpeg/ffmpeg_internal/mov_chan.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/mov_chan.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mov_chan.c
+  source_name_part = mov_chan
+build obj/third_party/ffmpeg/ffmpeg_internal/mov_esds.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/mov_esds.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mov_esds.c
+  source_name_part = mov_esds
+build obj/third_party/ffmpeg/ffmpeg_internal/mp3dec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/mp3dec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mp3dec.c
+  source_name_part = mp3dec
+build obj/third_party/ffmpeg/ffmpeg_internal/mux.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/mux.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mux.c
+  source_name_part = mux
+build obj/third_party/ffmpeg/ffmpeg_internal/mux_utils.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/mux_utils.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mux_utils.c
+  source_name_part = mux_utils
+build obj/third_party/ffmpeg/ffmpeg_internal/oggdec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/oggdec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = oggdec.c
+  source_name_part = oggdec
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparseflac.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/oggparseflac.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = oggparseflac.c
+  source_name_part = oggparseflac
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparseogm.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/oggparseogm.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = oggparseogm.c
+  source_name_part = oggparseogm
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparseopus.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/oggparseopus.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = oggparseopus.c
+  source_name_part = oggparseopus
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparseskeleton.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/oggparseskeleton.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = oggparseskeleton.c
+  source_name_part = oggparseskeleton
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparsetheora.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/oggparsetheora.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = oggparsetheora.c
+  source_name_part = oggparsetheora
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparsevorbis.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/oggparsevorbis.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = oggparsevorbis.c
+  source_name_part = oggparsevorbis
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparsevp8.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/oggparsevp8.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = oggparsevp8.c
+  source_name_part = oggparsevp8
+build obj/third_party/ffmpeg/ffmpeg_internal/os_support.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/os_support.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = os_support.c
+  source_name_part = os_support
+build obj/third_party/ffmpeg/ffmpeg_internal/protocols.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/protocols.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = protocols.c
+  source_name_part = protocols
+build obj/third_party/ffmpeg/ffmpeg_internal/qtpalette.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/qtpalette.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = qtpalette.c
+  source_name_part = qtpalette
+build obj/third_party/ffmpeg/ffmpeg_internal/rawdec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/rawdec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = rawdec.c
+  source_name_part = rawdec
+build obj/third_party/ffmpeg/ffmpeg_internal/replaygain.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/replaygain.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = replaygain.c
+  source_name_part = replaygain
+build obj/third_party/ffmpeg/ffmpeg_internal/riff.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/riff.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = riff.c
+  source_name_part = riff
+build obj/third_party/ffmpeg/ffmpeg_internal/riffdec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/riffdec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = riffdec.c
+  source_name_part = riffdec
+build obj/third_party/ffmpeg/ffmpeg_internal/rmsipr.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/rmsipr.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = rmsipr.c
+  source_name_part = rmsipr
+build obj/third_party/ffmpeg/ffmpeg_internal/seek.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/seek.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = seek.c
+  source_name_part = seek
+build obj/third_party/ffmpeg/ffmpeg_internal/url.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/url.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = url.c
+  source_name_part = url
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbiscomment.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/vorbiscomment.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vorbiscomment.c
+  source_name_part = vorbiscomment
+build obj/third_party/ffmpeg/ffmpeg_internal/wavdec.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavformat/wavdec.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = wavdec.c
+  source_name_part = wavdec
+build obj/third_party/ffmpeg/ffmpeg_internal/aes.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/aes.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = aes.c
+  source_name_part = aes
+build obj/third_party/ffmpeg/ffmpeg_internal/aes_ctr.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/aes_ctr.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = aes_ctr.c
+  source_name_part = aes_ctr
+build obj/third_party/ffmpeg/ffmpeg_internal/ambient_viewing_environment.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/ambient_viewing_environment.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = ambient_viewing_environment.c
+  source_name_part = ambient_viewing_environment
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_cpu.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/autorename_libavutil_cpu.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_cpu.c
+  source_name_part = autorename_libavutil_cpu
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_fixed_dsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/autorename_libavutil_fixed_dsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_fixed_dsp.c
+  source_name_part = autorename_libavutil_fixed_dsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_float_dsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/autorename_libavutil_float_dsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_float_dsp.c
+  source_name_part = autorename_libavutil_float_dsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_imgutils.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/autorename_libavutil_imgutils.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_imgutils.c
+  source_name_part = autorename_libavutil_imgutils
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_tx_float.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/autorename_libavutil_tx_float.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_tx_float.c
+  source_name_part = autorename_libavutil_tx_float
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_utils.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/autorename_libavutil_utils.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_utils.c
+  source_name_part = autorename_libavutil_utils
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_version.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/autorename_libavutil_version.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_version.c
+  source_name_part = autorename_libavutil_version
+build obj/third_party/ffmpeg/ffmpeg_internal/avstring.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/avstring.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = avstring.c
+  source_name_part = avstring
+build obj/third_party/ffmpeg/ffmpeg_internal/base64.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/base64.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = base64.c
+  source_name_part = base64
+build obj/third_party/ffmpeg/ffmpeg_internal/bprint.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/bprint.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = bprint.c
+  source_name_part = bprint
+build obj/third_party/ffmpeg/ffmpeg_internal/buffer.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/buffer.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = buffer.c
+  source_name_part = buffer
+build obj/third_party/ffmpeg/ffmpeg_internal/camellia.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/camellia.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = camellia.c
+  source_name_part = camellia
+build obj/third_party/ffmpeg/ffmpeg_internal/channel_layout.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/channel_layout.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = channel_layout.c
+  source_name_part = channel_layout
+build obj/third_party/ffmpeg/ffmpeg_internal/crc.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/crc.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = crc.c
+  source_name_part = crc
+build obj/third_party/ffmpeg/ffmpeg_internal/csp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/csp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = csp.c
+  source_name_part = csp
+build obj/third_party/ffmpeg/ffmpeg_internal/detection_bbox.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/detection_bbox.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = detection_bbox.c
+  source_name_part = detection_bbox
+build obj/third_party/ffmpeg/ffmpeg_internal/dict.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/dict.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dict.c
+  source_name_part = dict
+build obj/third_party/ffmpeg/ffmpeg_internal/display.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/display.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = display.c
+  source_name_part = display
+build obj/third_party/ffmpeg/ffmpeg_internal/dovi_meta.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/dovi_meta.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = dovi_meta.c
+  source_name_part = dovi_meta
+build obj/third_party/ffmpeg/ffmpeg_internal/downmix_info.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/downmix_info.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = downmix_info.c
+  source_name_part = downmix_info
+build obj/third_party/ffmpeg/ffmpeg_internal/encryption_info.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/encryption_info.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = encryption_info.c
+  source_name_part = encryption_info
+build obj/third_party/ffmpeg/ffmpeg_internal/error.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/error.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = error.c
+  source_name_part = error
+build obj/third_party/ffmpeg/ffmpeg_internal/eval.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/eval.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = eval.c
+  source_name_part = eval
+build obj/third_party/ffmpeg/ffmpeg_internal/executor.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/executor.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = executor.c
+  source_name_part = executor
+build obj/third_party/ffmpeg/ffmpeg_internal/fifo.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/fifo.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = fifo.c
+  source_name_part = fifo
+build obj/third_party/ffmpeg/ffmpeg_internal/file_open.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/file_open.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = file_open.c
+  source_name_part = file_open
+build obj/third_party/ffmpeg/ffmpeg_internal/film_grain_params.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/film_grain_params.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = film_grain_params.c
+  source_name_part = film_grain_params
+build obj/third_party/ffmpeg/ffmpeg_internal/frame.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/frame.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = frame.c
+  source_name_part = frame
+build obj/third_party/ffmpeg/ffmpeg_internal/hdr_dynamic_metadata.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/hdr_dynamic_metadata.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = hdr_dynamic_metadata.c
+  source_name_part = hdr_dynamic_metadata
+build obj/third_party/ffmpeg/ffmpeg_internal/hdr_dynamic_vivid_metadata.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/hdr_dynamic_vivid_metadata.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = hdr_dynamic_vivid_metadata.c
+  source_name_part = hdr_dynamic_vivid_metadata
+build obj/third_party/ffmpeg/ffmpeg_internal/hwcontext.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/hwcontext.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = hwcontext.c
+  source_name_part = hwcontext
+build obj/third_party/ffmpeg/ffmpeg_internal/hwcontext_stub.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/hwcontext_stub.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = hwcontext_stub.c
+  source_name_part = hwcontext_stub
+build obj/third_party/ffmpeg/ffmpeg_internal/integer.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/integer.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = integer.c
+  source_name_part = integer
+build obj/third_party/ffmpeg/ffmpeg_internal/intmath.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/intmath.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = intmath.c
+  source_name_part = intmath
+build obj/third_party/ffmpeg/ffmpeg_internal/lfg.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/lfg.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = lfg.c
+  source_name_part = lfg
+build obj/third_party/ffmpeg/ffmpeg_internal/log.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/log.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = log.c
+  source_name_part = log
+build obj/third_party/ffmpeg/ffmpeg_internal/log2_tab.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/log2_tab.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = log2_tab.c
+  source_name_part = log2_tab
+build obj/third_party/ffmpeg/ffmpeg_internal/lzo.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/lzo.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = lzo.c
+  source_name_part = lzo
+build obj/third_party/ffmpeg/ffmpeg_internal/mastering_display_metadata.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/mastering_display_metadata.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mastering_display_metadata.c
+  source_name_part = mastering_display_metadata
+build obj/third_party/ffmpeg/ffmpeg_internal/mathematics.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/mathematics.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mathematics.c
+  source_name_part = mathematics
+build obj/third_party/ffmpeg/ffmpeg_internal/md5.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/md5.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = md5.c
+  source_name_part = md5
+build obj/third_party/ffmpeg/ffmpeg_internal/mem.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/mem.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mem.c
+  source_name_part = mem
+build obj/third_party/ffmpeg/ffmpeg_internal/opt.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/opt.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = opt.c
+  source_name_part = opt
+build obj/third_party/ffmpeg/ffmpeg_internal/parseutils.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/parseutils.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = parseutils.c
+  source_name_part = parseutils
+build obj/third_party/ffmpeg/ffmpeg_internal/pixdesc.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/pixdesc.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = pixdesc.c
+  source_name_part = pixdesc
+build obj/third_party/ffmpeg/ffmpeg_internal/pixelutils.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/pixelutils.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = pixelutils.c
+  source_name_part = pixelutils
+build obj/third_party/ffmpeg/ffmpeg_internal/random_seed.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/random_seed.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = random_seed.c
+  source_name_part = random_seed
+build obj/third_party/ffmpeg/ffmpeg_internal/rational.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/rational.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = rational.c
+  source_name_part = rational
+build obj/third_party/ffmpeg/ffmpeg_internal/reverse.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/reverse.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = reverse.c
+  source_name_part = reverse
+build obj/third_party/ffmpeg/ffmpeg_internal/samplefmt.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/samplefmt.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = samplefmt.c
+  source_name_part = samplefmt
+build obj/third_party/ffmpeg/ffmpeg_internal/sha.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/sha.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = sha.c
+  source_name_part = sha
+build obj/third_party/ffmpeg/ffmpeg_internal/slicethread.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/slicethread.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = slicethread.c
+  source_name_part = slicethread
+build obj/third_party/ffmpeg/ffmpeg_internal/spherical.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/spherical.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = spherical.c
+  source_name_part = spherical
+build obj/third_party/ffmpeg/ffmpeg_internal/stereo3d.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/stereo3d.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = stereo3d.c
+  source_name_part = stereo3d
+build obj/third_party/ffmpeg/ffmpeg_internal/tea.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/tea.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = tea.c
+  source_name_part = tea
+build obj/third_party/ffmpeg/ffmpeg_internal/threadmessage.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/threadmessage.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = threadmessage.c
+  source_name_part = threadmessage
+build obj/third_party/ffmpeg/ffmpeg_internal/time.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/time.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = time.c
+  source_name_part = time
+build obj/third_party/ffmpeg/ffmpeg_internal/timecode.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/timecode.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = timecode.c
+  source_name_part = timecode
+build obj/third_party/ffmpeg/ffmpeg_internal/twofish.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/twofish.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = twofish.c
+  source_name_part = twofish
+build obj/third_party/ffmpeg/ffmpeg_internal/tx.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/tx.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = tx.c
+  source_name_part = tx
+build obj/third_party/ffmpeg/ffmpeg_internal/uuid.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/uuid.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = uuid.c
+  source_name_part = uuid
+build obj/third_party/ffmpeg/ffmpeg_internal/video_enc_params.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/video_enc_params.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = video_enc_params.c
+  source_name_part = video_enc_params
+build obj/third_party/ffmpeg/ffmpeg_internal/video_hint.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/video_hint.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = video_hint.c
+  source_name_part = video_hint
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_videodsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/autorename_libavcodec_videodsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavcodec_videodsp.c
+  source_name_part = autorename_libavcodec_videodsp
+build obj/third_party/ffmpeg/ffmpeg_internal/h264pred.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/h264pred.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = h264pred.c
+  source_name_part = h264pred
+build obj/third_party/ffmpeg/ffmpeg_internal/hpeldsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/hpeldsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = hpeldsp.c
+  source_name_part = hpeldsp
+build obj/third_party/ffmpeg/ffmpeg_internal/jpegquanttables.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/jpegquanttables.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = jpegquanttables.c
+  source_name_part = jpegquanttables
+build obj/third_party/ffmpeg/ffmpeg_internal/vp3.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vp3.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp3.c
+  source_name_part = vp3
+build obj/third_party/ffmpeg/ffmpeg_internal/vp3_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vp3_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp3_parser.c
+  source_name_part = vp3_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/vp3dsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vp3dsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp3dsp.c
+  source_name_part = vp3dsp
+build obj/third_party/ffmpeg/ffmpeg_internal/vp8.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vp8.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp8.c
+  source_name_part = vp8
+build obj/third_party/ffmpeg/ffmpeg_internal/vp8_parser.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vp8_parser.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp8_parser.c
+  source_name_part = vp8_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/vp8data.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vp8data.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp8data.c
+  source_name_part = vp8data
+build obj/third_party/ffmpeg/ffmpeg_internal/vp8dsp.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vp8dsp.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp8dsp.c
+  source_name_part = vp8dsp
+build obj/third_party/ffmpeg/ffmpeg_internal/vpx_rac.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/vpx_rac.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vpx_rac.c
+  source_name_part = vpx_rac
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_init.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/mpegaudiodsp_init.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodsp_init.c
+  source_name_part = mpegaudiodsp_init
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbisdsp_init.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/vorbisdsp_init.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vorbisdsp_init.c
+  source_name_part = vorbisdsp_init
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_cpu.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/aarch64/autorename_libavutil_aarch64_cpu.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_aarch64_cpu.c
+  source_name_part = autorename_libavutil_aarch64_cpu
+build obj/third_party/ffmpeg/ffmpeg_internal/float_dsp_init.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/aarch64/float_dsp_init.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = float_dsp_init.c
+  source_name_part = float_dsp_init
+build obj/third_party/ffmpeg/ffmpeg_internal/tx_float_init.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/aarch64/tx_float_init.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = tx_float_init.c
+  source_name_part = tx_float_init
+build obj/third_party/ffmpeg/ffmpeg_internal/h264pred_init.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/h264pred_init.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = h264pred_init.c
+  source_name_part = h264pred_init
+build obj/third_party/ffmpeg/ffmpeg_internal/hpeldsp_init_aarch64.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/hpeldsp_init_aarch64.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = hpeldsp_init_aarch64.c
+  source_name_part = hpeldsp_init_aarch64
+build obj/third_party/ffmpeg/ffmpeg_internal/videodsp_init.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/videodsp_init.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = videodsp_init.c
+  source_name_part = videodsp_init
+build obj/third_party/ffmpeg/ffmpeg_internal/vp8dsp_init_aarch64.o: cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/vp8dsp_init_aarch64.c | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = vp8dsp_init_aarch64.c
+  source_name_part = vp8dsp_init_aarch64
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_vorbisdsp_neon.o: asm ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_vorbisdsp_neon.S | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavcodec_aarch64_vorbisdsp_neon.S
+  source_name_part = autorename_libavcodec_aarch64_vorbisdsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_neon.o: asm ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/mpegaudiodsp_neon.S | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = mpegaudiodsp_neon.S
+  source_name_part = mpegaudiodsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_float_dsp_neon.o: asm ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/aarch64/autorename_libavutil_aarch64_float_dsp_neon.S | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavutil_aarch64_float_dsp_neon.S
+  source_name_part = autorename_libavutil_aarch64_float_dsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/tx_float_neon.o: asm ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavutil/aarch64/tx_float_neon.S | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = tx_float_neon.S
+  source_name_part = tx_float_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264pred_neon.o: asm ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_h264pred_neon.S | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavcodec_aarch64_h264pred_neon.S
+  source_name_part = autorename_libavcodec_aarch64_h264pred_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_hpeldsp_neon.o: asm ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_hpeldsp_neon.S | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavcodec_aarch64_hpeldsp_neon.S
+  source_name_part = autorename_libavcodec_aarch64_hpeldsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_vp8dsp_neon.o: asm ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_vp8dsp_neon.S | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = autorename_libavcodec_aarch64_vp8dsp_neon.S
+  source_name_part = autorename_libavcodec_aarch64_vp8dsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/videodsp.o: asm ../../../../../../../home/chrome-bot/chrome_root/src/third_party/ffmpeg/libavcodec/aarch64/videodsp.S | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp
+  source_file_part = videodsp.S
+  source_name_part = videodsp
+
+build obj/third_party/ffmpeg/libffmpeg_internal.a: alink obj/third_party/ffmpeg/ffmpeg_internal/ac3_channel_layout_tab.o obj/third_party/ffmpeg/ffmpeg_internal/ac3_parser.o obj/third_party/ffmpeg/ffmpeg_internal/adts_parser.o obj/third_party/ffmpeg/ffmpeg_internal/allcodecs.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_flacdsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_mpegaudiodsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_vorbisdsp.o obj/third_party/ffmpeg/ffmpeg_internal/avcodec.o obj/third_party/ffmpeg/ffmpeg_internal/avdct.o obj/third_party/ffmpeg/ffmpeg_internal/avfft.o obj/third_party/ffmpeg/ffmpeg_internal/avpacket.o obj/third_party/ffmpeg/ffmpeg_internal/bitstream.o obj/third_party/ffmpeg/ffmpeg_internal/bitstream_filters.o obj/third_party/ffmpeg/ffmpeg_internal/bsf.o obj/third_party/ffmpeg/ffmpeg_internal/codec_desc.o obj/third_party/ffmpeg/ffmpeg_internal/codec_par.o obj/third_party/ffmpeg/ffmpeg_internal/d3d11va.o obj/third_party/ffmpeg/ffmpeg_internal/dct32_fixed.o obj/third_party/ffmpeg/ffmpeg_internal/dct32_float.o obj/third_party/ffmpeg/ffmpeg_internal/decode.o obj/third_party/ffmpeg/ffmpeg_internal/dirac.o obj/third_party/ffmpeg/ffmpeg_internal/dv_profile.o obj/third_party/ffmpeg/ffmpeg_internal/encode.o obj/third_party/ffmpeg/ffmpeg_internal/flac.o obj/third_party/ffmpeg/ffmpeg_internal/flac_parser.o obj/third_party/ffmpeg/ffmpeg_internal/flacdata.o obj/third_party/ffmpeg/ffmpeg_internal/flacdec.o obj/third_party/ffmpeg/ffmpeg_internal/get_buffer.o obj/third_party/ffmpeg/ffmpeg_internal/golomb.o obj/third_party/ffmpeg/ffmpeg_internal/imgconvert.o obj/third_party/ffmpeg/ffmpeg_internal/jni.o obj/third_party/ffmpeg/ffmpeg_internal/libopus.o obj/third_party/ffmpeg/ffmpeg_internal/libopusdec.o obj/third_party/ffmpeg/ffmpeg_internal/mathtables.o obj/third_party/ffmpeg/ffmpeg_internal/mediacodec.o obj/third_party/ffmpeg/ffmpeg_internal/mpeg12framerate.o obj/third_party/ffmpeg/ffmpeg_internal/mpeg4audio.o obj/third_party/ffmpeg/ffmpeg_internal/mpeg4audio_sample_rates.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudio.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudio_parser.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodata.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodec_common.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodec_fixed.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodecheader.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_data.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_fixed.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_float.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiotabs.o obj/third_party/ffmpeg/ffmpeg_internal/options.o obj/third_party/ffmpeg/ffmpeg_internal/opus_parse.o obj/third_party/ffmpeg/ffmpeg_internal/opus_parser.o obj/third_party/ffmpeg/ffmpeg_internal/parser.o obj/third_party/ffmpeg/ffmpeg_internal/parsers.o obj/third_party/ffmpeg/ffmpeg_internal/pcm.o obj/third_party/ffmpeg/ffmpeg_internal/profiles.o obj/third_party/ffmpeg/ffmpeg_internal/pthread.o obj/third_party/ffmpeg/ffmpeg_internal/pthread_frame.o obj/third_party/ffmpeg/ffmpeg_internal/pthread_slice.o obj/third_party/ffmpeg/ffmpeg_internal/qsv_api.o obj/third_party/ffmpeg/ffmpeg_internal/raw.o obj/third_party/ffmpeg/ffmpeg_internal/to_upper4.o obj/third_party/ffmpeg/ffmpeg_internal/utils.o obj/third_party/ffmpeg/ffmpeg_internal/version.o obj/third_party/ffmpeg/ffmpeg_internal/vlc.o obj/third_party/ffmpeg/ffmpeg_internal/vorbis.o obj/third_party/ffmpeg/ffmpeg_internal/vorbis_data.o obj/third_party/ffmpeg/ffmpeg_internal/vorbis_parser.o obj/third_party/ffmpeg/ffmpeg_internal/vorbisdec.o obj/third_party/ffmpeg/ffmpeg_internal/vp9_parser.o obj/third_party/ffmpeg/ffmpeg_internal/xiph.o obj/third_party/ffmpeg/ffmpeg_internal/allformats.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_flacdec.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_options.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_pcm.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_utils.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_version.o obj/third_party/ffmpeg/ffmpeg_internal/avformat.o obj/third_party/ffmpeg/ffmpeg_internal/avio.o obj/third_party/ffmpeg/ffmpeg_internal/aviobuf.o obj/third_party/ffmpeg/ffmpeg_internal/demux.o obj/third_party/ffmpeg/ffmpeg_internal/demux_utils.o obj/third_party/ffmpeg/ffmpeg_internal/dovi_isom.o obj/third_party/ffmpeg/ffmpeg_internal/dump.o obj/third_party/ffmpeg/ffmpeg_internal/dv.o obj/third_party/ffmpeg/ffmpeg_internal/flac_picture.o obj/third_party/ffmpeg/ffmpeg_internal/format.o obj/third_party/ffmpeg/ffmpeg_internal/id3v1.o obj/third_party/ffmpeg/ffmpeg_internal/id3v2.o obj/third_party/ffmpeg/ffmpeg_internal/isom.o obj/third_party/ffmpeg/ffmpeg_internal/isom_tags.o obj/third_party/ffmpeg/ffmpeg_internal/matroska.o obj/third_party/ffmpeg/ffmpeg_internal/matroskadec.o obj/third_party/ffmpeg/ffmpeg_internal/metadata.o obj/third_party/ffmpeg/ffmpeg_internal/mov.o obj/third_party/ffmpeg/ffmpeg_internal/mov_chan.o obj/third_party/ffmpeg/ffmpeg_internal/mov_esds.o obj/third_party/ffmpeg/ffmpeg_internal/mp3dec.o obj/third_party/ffmpeg/ffmpeg_internal/mux.o obj/third_party/ffmpeg/ffmpeg_internal/mux_utils.o obj/third_party/ffmpeg/ffmpeg_internal/oggdec.o obj/third_party/ffmpeg/ffmpeg_internal/oggparseflac.o obj/third_party/ffmpeg/ffmpeg_internal/oggparseogm.o obj/third_party/ffmpeg/ffmpeg_internal/oggparseopus.o obj/third_party/ffmpeg/ffmpeg_internal/oggparseskeleton.o obj/third_party/ffmpeg/ffmpeg_internal/oggparsetheora.o obj/third_party/ffmpeg/ffmpeg_internal/oggparsevorbis.o obj/third_party/ffmpeg/ffmpeg_internal/oggparsevp8.o obj/third_party/ffmpeg/ffmpeg_internal/os_support.o obj/third_party/ffmpeg/ffmpeg_internal/protocols.o obj/third_party/ffmpeg/ffmpeg_internal/qtpalette.o obj/third_party/ffmpeg/ffmpeg_internal/rawdec.o obj/third_party/ffmpeg/ffmpeg_internal/replaygain.o obj/third_party/ffmpeg/ffmpeg_internal/riff.o obj/third_party/ffmpeg/ffmpeg_internal/riffdec.o obj/third_party/ffmpeg/ffmpeg_internal/rmsipr.o obj/third_party/ffmpeg/ffmpeg_internal/seek.o obj/third_party/ffmpeg/ffmpeg_internal/url.o obj/third_party/ffmpeg/ffmpeg_internal/vorbiscomment.o obj/third_party/ffmpeg/ffmpeg_internal/wavdec.o obj/third_party/ffmpeg/ffmpeg_internal/aes.o obj/third_party/ffmpeg/ffmpeg_internal/aes_ctr.o obj/third_party/ffmpeg/ffmpeg_internal/ambient_viewing_environment.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_cpu.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_fixed_dsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_float_dsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_imgutils.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_tx_float.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_utils.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_version.o obj/third_party/ffmpeg/ffmpeg_internal/avstring.o obj/third_party/ffmpeg/ffmpeg_internal/base64.o obj/third_party/ffmpeg/ffmpeg_internal/bprint.o obj/third_party/ffmpeg/ffmpeg_internal/buffer.o obj/third_party/ffmpeg/ffmpeg_internal/camellia.o obj/third_party/ffmpeg/ffmpeg_internal/channel_layout.o obj/third_party/ffmpeg/ffmpeg_internal/crc.o obj/third_party/ffmpeg/ffmpeg_internal/csp.o obj/third_party/ffmpeg/ffmpeg_internal/detection_bbox.o obj/third_party/ffmpeg/ffmpeg_internal/dict.o obj/third_party/ffmpeg/ffmpeg_internal/display.o obj/third_party/ffmpeg/ffmpeg_internal/dovi_meta.o obj/third_party/ffmpeg/ffmpeg_internal/downmix_info.o obj/third_party/ffmpeg/ffmpeg_internal/encryption_info.o obj/third_party/ffmpeg/ffmpeg_internal/error.o obj/third_party/ffmpeg/ffmpeg_internal/eval.o obj/third_party/ffmpeg/ffmpeg_internal/executor.o obj/third_party/ffmpeg/ffmpeg_internal/fifo.o obj/third_party/ffmpeg/ffmpeg_internal/file_open.o obj/third_party/ffmpeg/ffmpeg_internal/film_grain_params.o obj/third_party/ffmpeg/ffmpeg_internal/frame.o obj/third_party/ffmpeg/ffmpeg_internal/hdr_dynamic_metadata.o obj/third_party/ffmpeg/ffmpeg_internal/hdr_dynamic_vivid_metadata.o obj/third_party/ffmpeg/ffmpeg_internal/hwcontext.o obj/third_party/ffmpeg/ffmpeg_internal/hwcontext_stub.o obj/third_party/ffmpeg/ffmpeg_internal/integer.o obj/third_party/ffmpeg/ffmpeg_internal/intmath.o obj/third_party/ffmpeg/ffmpeg_internal/lfg.o obj/third_party/ffmpeg/ffmpeg_internal/log.o obj/third_party/ffmpeg/ffmpeg_internal/log2_tab.o obj/third_party/ffmpeg/ffmpeg_internal/lzo.o obj/third_party/ffmpeg/ffmpeg_internal/mastering_display_metadata.o obj/third_party/ffmpeg/ffmpeg_internal/mathematics.o obj/third_party/ffmpeg/ffmpeg_internal/md5.o obj/third_party/ffmpeg/ffmpeg_internal/mem.o obj/third_party/ffmpeg/ffmpeg_internal/opt.o obj/third_party/ffmpeg/ffmpeg_internal/parseutils.o obj/third_party/ffmpeg/ffmpeg_internal/pixdesc.o obj/third_party/ffmpeg/ffmpeg_internal/pixelutils.o obj/third_party/ffmpeg/ffmpeg_internal/random_seed.o obj/third_party/ffmpeg/ffmpeg_internal/rational.o obj/third_party/ffmpeg/ffmpeg_internal/reverse.o obj/third_party/ffmpeg/ffmpeg_internal/samplefmt.o obj/third_party/ffmpeg/ffmpeg_internal/sha.o obj/third_party/ffmpeg/ffmpeg_internal/slicethread.o obj/third_party/ffmpeg/ffmpeg_internal/spherical.o obj/third_party/ffmpeg/ffmpeg_internal/stereo3d.o obj/third_party/ffmpeg/ffmpeg_internal/tea.o obj/third_party/ffmpeg/ffmpeg_internal/threadmessage.o obj/third_party/ffmpeg/ffmpeg_internal/time.o obj/third_party/ffmpeg/ffmpeg_internal/timecode.o obj/third_party/ffmpeg/ffmpeg_internal/twofish.o obj/third_party/ffmpeg/ffmpeg_internal/tx.o obj/third_party/ffmpeg/ffmpeg_internal/uuid.o obj/third_party/ffmpeg/ffmpeg_internal/video_enc_params.o obj/third_party/ffmpeg/ffmpeg_internal/video_hint.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_videodsp.o obj/third_party/ffmpeg/ffmpeg_internal/h264pred.o obj/third_party/ffmpeg/ffmpeg_internal/hpeldsp.o obj/third_party/ffmpeg/ffmpeg_internal/jpegquanttables.o obj/third_party/ffmpeg/ffmpeg_internal/vp3.o obj/third_party/ffmpeg/ffmpeg_internal/vp3_parser.o obj/third_party/ffmpeg/ffmpeg_internal/vp3dsp.o obj/third_party/ffmpeg/ffmpeg_internal/vp8.o obj/third_party/ffmpeg/ffmpeg_internal/vp8_parser.o obj/third_party/ffmpeg/ffmpeg_internal/vp8data.o obj/third_party/ffmpeg/ffmpeg_internal/vp8dsp.o obj/third_party/ffmpeg/ffmpeg_internal/vpx_rac.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_init.o obj/third_party/ffmpeg/ffmpeg_internal/vorbisdsp_init.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_cpu.o obj/third_party/ffmpeg/ffmpeg_internal/float_dsp_init.o obj/third_party/ffmpeg/ffmpeg_internal/tx_float_init.o obj/third_party/ffmpeg/ffmpeg_internal/h264pred_init.o obj/third_party/ffmpeg/ffmpeg_internal/hpeldsp_init_aarch64.o obj/third_party/ffmpeg/ffmpeg_internal/videodsp_init.o obj/third_party/ffmpeg/ffmpeg_internal/vp8dsp_init_aarch64.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_vorbisdsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_float_dsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/tx_float_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264pred_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_hpeldsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_vp8dsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/videodsp.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/ffmpeg/ffmpeg_features.stamp obj/third_party/opus/libopus.a
+  arflags = -T
+  output_extension = .a
+  output_dir = obj/third_party/ffmpeg

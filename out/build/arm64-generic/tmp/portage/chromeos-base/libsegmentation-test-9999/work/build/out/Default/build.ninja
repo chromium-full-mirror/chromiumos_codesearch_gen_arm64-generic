@@ -1,0 +1,95 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build libsegmentation: phony ./lib/libsegmentation.so
+build _feature_check-install_config: phony obj/libsegmentation/_feature_check-install_config.stamp
+build _feature_explorer-install_config: phony obj/libsegmentation/tools/_feature_explorer-install_config.stamp
+build _libsegmentation-install_config: phony obj/libsegmentation/_libsegmentation-install_config.stamp
+build _libsegmentation-test-install_config: phony obj/libsegmentation/_libsegmentation-test-install_config.stamp
+build _libsegmentation-test_pc-install_config: phony obj/libsegmentation/_libsegmentation-test_pc-install_config.stamp
+build _libsegmentation_pc-install_config: phony obj/libsegmentation/_libsegmentation_pc-install_config.stamp
+build feature-protos: phony ./libfeature-protos.a
+build feature-protos_gen: phony obj/libsegmentation/feature-protos_gen.stamp
+build install_libsegmentation_headers: phony obj/libsegmentation/install_libsegmentation_headers.stamp
+build install_tmpfiles_config: phony obj/libsegmentation/install_tmpfiles_config.stamp
+build internal_protos: phony ./libinternal_protos.a
+build internal_protos_gen: phony obj/libsegmentation/internal_protos_gen.stamp
+build libsegmentation-test: phony ./lib/libsegmentation-test.so
+build libsegmentation-test_pc: phony obj/libsegmentation/libsegmentation-test_pc.stamp
+build libsegmentation_pc: phony obj/libsegmentation/libsegmentation_pc.stamp
+build libsegmentation_sources: phony obj/libsegmentation/libsegmentation_sources.stamp
+build libsegmentation_static: phony ./libsegmentation_static.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build libsegmentation$:_feature_check-install_config: phony obj/libsegmentation/_feature_check-install_config.stamp
+build libsegmentation$:_libsegmentation-install_config: phony obj/libsegmentation/_libsegmentation-install_config.stamp
+build libsegmentation$:_libsegmentation-test-install_config: phony obj/libsegmentation/_libsegmentation-test-install_config.stamp
+build libsegmentation$:_libsegmentation-test_pc-install_config: phony obj/libsegmentation/_libsegmentation-test_pc-install_config.stamp
+build libsegmentation$:_libsegmentation_pc-install_config: phony obj/libsegmentation/_libsegmentation_pc-install_config.stamp
+build libsegmentation$:all: phony obj/libsegmentation/all.stamp
+build libsegmentation$:feature-protos: phony ./libfeature-protos.a
+build libsegmentation$:feature-protos_gen: phony obj/libsegmentation/feature-protos_gen.stamp
+build libsegmentation$:feature_check: phony ./feature_check
+build libsegmentation$:install_libsegmentation_headers: phony obj/libsegmentation/install_libsegmentation_headers.stamp
+build libsegmentation$:install_tmpfiles_config: phony obj/libsegmentation/install_tmpfiles_config.stamp
+build libsegmentation$:internal_protos: phony ./libinternal_protos.a
+build libsegmentation$:internal_protos_gen: phony obj/libsegmentation/internal_protos_gen.stamp
+build libsegmentation$:libsegmentation: phony ./lib/libsegmentation.so
+build libsegmentation$:libsegmentation-test: phony ./lib/libsegmentation-test.so
+build libsegmentation$:libsegmentation-test_pc: phony obj/libsegmentation/libsegmentation-test_pc.stamp
+build libsegmentation$:libsegmentation_pc: phony obj/libsegmentation/libsegmentation_pc.stamp
+build libsegmentation$:libsegmentation_sources: phony obj/libsegmentation/libsegmentation_sources.stamp
+build libsegmentation$:libsegmentation_static: phony ./libsegmentation_static.a
+build libsegmentation$:libsegmentation_tests: phony ./libsegmentation_tests
+build libsegmentation/tools$:_feature_explorer-install_config: phony obj/libsegmentation/tools/_feature_explorer-install_config.stamp
+build libsegmentation/tools$:all: phony obj/libsegmentation/tools/all.stamp
+build libsegmentation/tools$:feature_explorer: phony ./feature_explorer
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/libsegmentation/_feature_check-install_config.stamp $
+    obj/libsegmentation/_libsegmentation-install_config.stamp $
+    obj/libsegmentation/_libsegmentation-test-install_config.stamp $
+    obj/libsegmentation/_libsegmentation-test_pc-install_config.stamp $
+    obj/libsegmentation/_libsegmentation_pc-install_config.stamp $
+    obj/libsegmentation/all.stamp $
+    ./libfeature-protos.a $
+    obj/libsegmentation/feature-protos_gen.stamp $
+    ./feature_check $
+    obj/libsegmentation/install_libsegmentation_headers.stamp $
+    obj/libsegmentation/install_tmpfiles_config.stamp $
+    ./libinternal_protos.a $
+    obj/libsegmentation/internal_protos_gen.stamp $
+    ./lib/libsegmentation.so $
+    ./lib/libsegmentation-test.so $
+    obj/libsegmentation/libsegmentation-test_pc.stamp $
+    obj/libsegmentation/libsegmentation_pc.stamp $
+    obj/libsegmentation/libsegmentation_sources.stamp $
+    ./libsegmentation_static.a $
+    ./libsegmentation_tests $
+    obj/libsegmentation/tools/_feature_explorer-install_config.stamp $
+    obj/libsegmentation/tools/all.stamp $
+    ./feature_explorer
+
+default all

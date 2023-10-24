@@ -1,0 +1,19 @@
+[
+  {
+    "traits_headers": [
+      "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//components/policy/proto"
+    ],
+    "traits_sources": [
+      "cros_healthd_probe_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::em::CpuInfo::Architecture",
+        "mojom": "ash.cros_healthd_probe.mojom.CpuArchitectureEnum"
+      }
+    ]
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "traits_headers": [
+      "chromeos/ash/services/secure_channel/public/mojom/secure_channel_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//chromeos/ash/services/secure_channel/public/cpp/shared"
+    ],
+    "traits_sources": [
+      "secure_channel_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::ash::secure_channel::ConnectionMedium",
+        "mojom": "ash.secure_channel.mojom.ConnectionMedium"
+      },
+      {
+        "cpp": "::ash::secure_channel::ConnectionPriority",
+        "mojom": "ash.secure_channel.mojom.ConnectionPriority"
+      }
+    ]
+  }
+]

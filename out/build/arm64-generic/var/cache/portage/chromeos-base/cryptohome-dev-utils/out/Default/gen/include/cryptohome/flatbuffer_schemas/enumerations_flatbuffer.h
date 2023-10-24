@@ -16,7 +16,6 @@
 // cryptohome/flatbuffer_schemas/enumerations_flatbuffer.h
 // --test_utils_header_include_path cryptohome/flatbuffer_schemas/enumerations.h
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome-dev-utils/out/Default/gen/bfbs/enumerations.bfbs
-// --filter_by_namespace cryptohome::enumeration
 
 #ifndef CRYPTOHOME_FLATBUFFER_SCHEMAS_ENUMERATIONS_ENUMERATIONS_FLATBUFFER_H_
 #define CRYPTOHOME_FLATBUFFER_SCHEMAS_ENUMERATIONS_ENUMERATIONS_FLATBUFFER_H_
@@ -38,13 +37,11 @@
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::enumeration::SerializedAuthFactorType> {
-  using ResultType =
-      ::cryptohome::enumeration::_serialized_::SerializedAuthFactorType;
+struct ToFlatBuffer<::cryptohome::SerializedAuthFactorType> {
+  using ResultType = ::cryptohome::_serialized_::SerializedAuthFactorType;
 
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      ::cryptohome::enumeration::SerializedAuthFactorType object) const {
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        ::cryptohome::SerializedAuthFactorType object) const {
     return static_cast<ResultType>(object);
   }
 };
@@ -54,12 +51,10 @@ struct ToFlatBuffer<::cryptohome::enumeration::SerializedAuthFactorType> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::enumeration::SerializedAuthFactorType> {
-  ::cryptohome::enumeration::SerializedAuthFactorType operator()(
-      ::cryptohome::enumeration::_serialized_::SerializedAuthFactorType object)
-      const {
-    return static_cast<::cryptohome::enumeration::SerializedAuthFactorType>(
-        object);
+struct FromFlatBuffer<::cryptohome::SerializedAuthFactorType> {
+  ::cryptohome::SerializedAuthFactorType operator()(
+      ::cryptohome::_serialized_::SerializedAuthFactorType object) const {
+    return static_cast<::cryptohome::SerializedAuthFactorType>(object);
   }
 };
 
@@ -68,13 +63,11 @@ struct FromFlatBuffer<::cryptohome::enumeration::SerializedAuthFactorType> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::enumeration::SerializedAuthIntent> {
-  using ResultType =
-      ::cryptohome::enumeration::_serialized_::SerializedAuthIntent;
+struct ToFlatBuffer<::cryptohome::SerializedAuthIntent> {
+  using ResultType = ::cryptohome::_serialized_::SerializedAuthIntent;
 
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      ::cryptohome::enumeration::SerializedAuthIntent object) const {
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        ::cryptohome::SerializedAuthIntent object) const {
     return static_cast<ResultType>(object);
   }
 };
@@ -84,11 +77,10 @@ struct ToFlatBuffer<::cryptohome::enumeration::SerializedAuthIntent> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::enumeration::SerializedAuthIntent> {
-  ::cryptohome::enumeration::SerializedAuthIntent operator()(
-      ::cryptohome::enumeration::_serialized_::SerializedAuthIntent object)
-      const {
-    return static_cast<::cryptohome::enumeration::SerializedAuthIntent>(object);
+struct FromFlatBuffer<::cryptohome::SerializedAuthIntent> {
+  ::cryptohome::SerializedAuthIntent operator()(
+      ::cryptohome::_serialized_::SerializedAuthIntent object) const {
+    return static_cast<::cryptohome::SerializedAuthIntent>(object);
   }
 };
 

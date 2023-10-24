@@ -1,0 +1,43 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/syslog-cat-0.0.1-r331/work/syslog-cat-0.0.1 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _syslog-cat-install_config: phony obj/syslog-cat/_syslog-cat-install_config.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build syslogcat_lib: phony ./libsyslogcat_lib.a
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build syslog-cat$:_syslog-cat-install_config: phony obj/syslog-cat/_syslog-cat-install_config.stamp
+build syslog-cat$:all: phony obj/syslog-cat/all.stamp
+build syslog-cat$:syslog-cat: phony ./syslog-cat
+build syslog-cat$:syslogcat_lib: phony ./libsyslogcat_lib.a
+build syslog-cat$:syslogcat_testrunner: phony ./syslogcat_testrunner
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/syslog-cat/_syslog-cat-install_config.stamp $
+    obj/syslog-cat/all.stamp $
+    ./syslog-cat $
+    ./libsyslogcat_lib.a $
+    ./syslogcat_testrunner
+
+default all

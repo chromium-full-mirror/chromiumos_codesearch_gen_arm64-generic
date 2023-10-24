@@ -31,14 +31,14 @@ struct SerializedUserAuthFactorTypePolicy FLATBUFFERS_FINAL_CLASS : private ::fl
     VT_ENABLED_INTENTS = 6,
     VT_DISABLED_INTENTS = 8
   };
-  ::flatbuffers::Optional<cryptohome::enumeration::_serialized_::SerializedAuthFactorType> type() const {
-    return GetOptional<int32_t, cryptohome::enumeration::_serialized_::SerializedAuthFactorType>(VT_TYPE);
+  ::flatbuffers::Optional<cryptohome::_serialized_::SerializedAuthFactorType> type() const {
+    return GetOptional<int32_t, cryptohome::_serialized_::SerializedAuthFactorType>(VT_TYPE);
   }
-  const ::flatbuffers::Vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent> *enabled_intents() const {
-    return GetPointer<const ::flatbuffers::Vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent> *>(VT_ENABLED_INTENTS);
+  const ::flatbuffers::Vector<cryptohome::_serialized_::SerializedAuthIntent> *enabled_intents() const {
+    return GetPointer<const ::flatbuffers::Vector<cryptohome::_serialized_::SerializedAuthIntent> *>(VT_ENABLED_INTENTS);
   }
-  const ::flatbuffers::Vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent> *disabled_intents() const {
-    return GetPointer<const ::flatbuffers::Vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent> *>(VT_DISABLED_INTENTS);
+  const ::flatbuffers::Vector<cryptohome::_serialized_::SerializedAuthIntent> *disabled_intents() const {
+    return GetPointer<const ::flatbuffers::Vector<cryptohome::_serialized_::SerializedAuthIntent> *>(VT_DISABLED_INTENTS);
   }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -55,13 +55,13 @@ struct SerializedUserAuthFactorTypePolicyBuilder {
   typedef SerializedUserAuthFactorTypePolicy Table;
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
-  void add_type(cryptohome::enumeration::_serialized_::SerializedAuthFactorType type) {
+  void add_type(cryptohome::_serialized_::SerializedAuthFactorType type) {
     fbb_.AddElement<int32_t>(SerializedUserAuthFactorTypePolicy::VT_TYPE, static_cast<int32_t>(type));
   }
-  void add_enabled_intents(::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent>> enabled_intents) {
+  void add_enabled_intents(::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::_serialized_::SerializedAuthIntent>> enabled_intents) {
     fbb_.AddOffset(SerializedUserAuthFactorTypePolicy::VT_ENABLED_INTENTS, enabled_intents);
   }
-  void add_disabled_intents(::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent>> disabled_intents) {
+  void add_disabled_intents(::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::_serialized_::SerializedAuthIntent>> disabled_intents) {
     fbb_.AddOffset(SerializedUserAuthFactorTypePolicy::VT_DISABLED_INTENTS, disabled_intents);
   }
   explicit SerializedUserAuthFactorTypePolicyBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
@@ -77,9 +77,9 @@ struct SerializedUserAuthFactorTypePolicyBuilder {
 
 inline ::flatbuffers::Offset<SerializedUserAuthFactorTypePolicy> CreateSerializedUserAuthFactorTypePolicy(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    ::flatbuffers::Optional<cryptohome::enumeration::_serialized_::SerializedAuthFactorType> type = ::flatbuffers::nullopt,
-    ::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent>> enabled_intents = 0,
-    ::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent>> disabled_intents = 0) {
+    ::flatbuffers::Optional<cryptohome::_serialized_::SerializedAuthFactorType> type = ::flatbuffers::nullopt,
+    ::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::_serialized_::SerializedAuthIntent>> enabled_intents = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<cryptohome::_serialized_::SerializedAuthIntent>> disabled_intents = 0) {
   SerializedUserAuthFactorTypePolicyBuilder builder_(_fbb);
   builder_.add_disabled_intents(disabled_intents);
   builder_.add_enabled_intents(enabled_intents);
@@ -89,11 +89,11 @@ inline ::flatbuffers::Offset<SerializedUserAuthFactorTypePolicy> CreateSerialize
 
 inline ::flatbuffers::Offset<SerializedUserAuthFactorTypePolicy> CreateSerializedUserAuthFactorTypePolicyDirect(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    ::flatbuffers::Optional<cryptohome::enumeration::_serialized_::SerializedAuthFactorType> type = ::flatbuffers::nullopt,
-    const std::vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent> *enabled_intents = nullptr,
-    const std::vector<cryptohome::enumeration::_serialized_::SerializedAuthIntent> *disabled_intents = nullptr) {
-  auto enabled_intents__ = enabled_intents ? _fbb.CreateVector<cryptohome::enumeration::_serialized_::SerializedAuthIntent>(*enabled_intents) : 0;
-  auto disabled_intents__ = disabled_intents ? _fbb.CreateVector<cryptohome::enumeration::_serialized_::SerializedAuthIntent>(*disabled_intents) : 0;
+    ::flatbuffers::Optional<cryptohome::_serialized_::SerializedAuthFactorType> type = ::flatbuffers::nullopt,
+    const std::vector<cryptohome::_serialized_::SerializedAuthIntent> *enabled_intents = nullptr,
+    const std::vector<cryptohome::_serialized_::SerializedAuthIntent> *disabled_intents = nullptr) {
+  auto enabled_intents__ = enabled_intents ? _fbb.CreateVector<cryptohome::_serialized_::SerializedAuthIntent>(*enabled_intents) : 0;
+  auto disabled_intents__ = disabled_intents ? _fbb.CreateVector<cryptohome::_serialized_::SerializedAuthIntent>(*disabled_intents) : 0;
   return cryptohome::_serialized_::CreateSerializedUserAuthFactorTypePolicy(
       _fbb,
       type,

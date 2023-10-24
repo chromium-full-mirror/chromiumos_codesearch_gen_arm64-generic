@@ -1,0 +1,509 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/diagnostics-9999/work/diagnostics-9999/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _cros-health-tool-install_config: phony obj/diagnostics/cros_health_tool/_cros-health-tool-install_config.stamp
+build _cros_healthd-client-install_config: phony obj/diagnostics/mojom/_cros_healthd-client-install_config.stamp
+build _cros_healthd-install_config: phony obj/diagnostics/cros_healthd/_cros_healthd-install_config.stamp
+build _diagnostics_seccomp_delegate_install-check_seccomp: phony obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_delegate_install-check_seccomp.stamp
+build _diagnostics_seccomp_healthd_install-check_seccomp: phony obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_healthd_install-check_seccomp.stamp
+build _diagnostics_seccomp_install-check_seccomp: phony obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_install-check_seccomp.stamp
+build _diagnostics_seccomp_wilco-check_seccomp: phony obj/diagnostics/wilco_dtc_supportd/seccomp/_diagnostics_seccomp_wilco-check_seccomp.stamp
+build _executor-delegate-install_config: phony obj/diagnostics/cros_healthd/delegate/_executor-delegate-install_config.stamp
+build _libcros_healthd_internal-install_config: phony obj/diagnostics/mojom/external/_libcros_healthd_internal-install_config.stamp
+build _libcros_healthd_internal_gen-cros_healthd_internal.mojom-install_config: phony obj/diagnostics/mojom/external/_libcros_healthd_internal_gen-cros_healthd_internal.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-cros_healthd.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-cros_healthd_diagnostics.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_diagnostics.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-cros_healthd_event_reporters.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_event_reporters.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-cros_healthd_events.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_events.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-cros_healthd_exception.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_exception.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config.stamp
+build _libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config.stamp
+build _libdiagnostics_base-install_config: phony obj/diagnostics/base/_libdiagnostics_base-install_config.stamp
+build _libnetwork_diagnostics_mojo_bindings-install_config: phony obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings-install_config.stamp
+build _libnetwork_diagnostics_mojo_bindings_gen-network_diagnostics.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings_gen-network_diagnostics.mojom-install_config.stamp
+build _libnetwork_diagnostics_mojo_bindings_gen-time.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings_gen-time.mojom-install_config.stamp
+build _libnetwork_health_mojo_bindings-install_config: phony obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings-install_config.stamp
+build _libnetwork_health_mojo_bindings_gen-network_health.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_health.mojom-install_config.stamp
+build _libnetwork_health_mojo_bindings_gen-network_health_types.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_health_types.mojom-install_config.stamp
+build _libnetwork_health_mojo_bindings_gen-network_types.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_types.mojom-install_config.stamp
+build _libpublic_dependencies-install_config: phony obj/diagnostics/mojom/external/_libpublic_dependencies-install_config.stamp
+build _libpublic_dependencies_gen-input.mojom-install_config: phony obj/diagnostics/mojom/external/_libpublic_dependencies_gen-input.mojom-install_config.stamp
+build _urandom-install_config: phony obj/diagnostics/cros_healthd/routines/_urandom-install_config.stamp
+build base: phony obj/diagnostics/base/base.stamp
+build bluetooth-manager-proxies: phony obj/diagnostics/dbus_bindings/bluetooth-manager-proxies.stamp
+build bluez-proxies: phony obj/diagnostics/dbus_bindings/bluez-proxies.stamp
+build cras-proxies: phony obj/diagnostics/dbus_bindings/cras-proxies.stamp
+build cros_healthd-client: phony obj/diagnostics/mojom/cros_healthd-client.stamp
+build cros_healthd_executor_mojo_bindings: phony ./libcros_healthd_executor_mojo_bindings.a
+build cros_healthd_executor_mojo_bindings_gen: phony obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen.stamp
+build cros_healthd_executor_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_mojo_templates.stamp
+build cros_healthd_executor_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_mojo_templates_dir.stamp
+build cros_healthd_executor_mojo_bindings_gen_parse: phony obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_parse.stamp
+build dbus-adaptors: phony obj/diagnostics/dbus_bindings/dbus-adaptors.stamp
+build dbus-proxies: phony obj/diagnostics/dbus_bindings/dbus-proxies.stamp
+build dbus_bindings: phony obj/diagnostics/dbus_bindings/dbus_bindings.stamp
+build diagnostics_seccomp: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp.stamp
+build diagnostics_seccomp_delegate: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate.stamp
+build diagnostics_seccomp_delegate_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate_install.stamp
+build diagnostics_seccomp_healthd: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_healthd.stamp
+build diagnostics_seccomp_healthd_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_healthd_install.stamp
+build diagnostics_seccomp_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_install.stamp
+build diagnostics_seccomp_wilco: phony obj/diagnostics/wilco_dtc_supportd/seccomp/diagnostics_seccomp_wilco.stamp
+build fetchers: phony obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp
+build floss-callback-adaptors: phony obj/diagnostics/dbus_bindings/floss-callback-adaptors.stamp
+build floss-proxies: phony obj/diagnostics/dbus_bindings/floss-proxies.stamp
+build fwupd-proxies: phony obj/diagnostics/dbus_bindings/fwupd-proxies.stamp
+build healthd_testrunner: phony obj/diagnostics/base/healthd_testrunner.stamp
+build install_dbus_config: phony obj/diagnostics/install_dbus_config.stamp
+build install_init_config: phony obj/diagnostics/install_init_config.stamp
+build install_service_manager_policy_config: phony obj/diagnostics/install_service_manager_policy_config.stamp
+build install_tmpfiles_config: phony obj/diagnostics/install_tmpfiles_config.stamp
+build libconstants: phony ./libconstants.a
+build libcros_healthd: phony obj/diagnostics/cros_healthd/libcros_healthd.stamp
+build libcros_healthd_events: phony obj/diagnostics/cros_healthd/events/libcros_healthd_events.stamp
+build libcros_healthd_events_test: phony obj/diagnostics/cros_healthd/events/libcros_healthd_events_test.stamp
+build libcros_healthd_executor: phony obj/diagnostics/cros_healthd/executor/libcros_healthd_executor.stamp
+build libcros_healthd_fetchers: phony obj/diagnostics/cros_healthd/fetchers/libcros_healthd_fetchers.stamp
+build libcros_healthd_fetchers_test: phony obj/diagnostics/cros_healthd/fetchers/libcros_healthd_fetchers_test.stamp
+build libcros_healthd_internal: phony ./libcros_healthd_internal.a
+build libcros_healthd_internal_gen: phony obj/diagnostics/mojom/external/libcros_healthd_internal_gen.stamp
+build libcros_healthd_internal_gen_mojo_templates: phony obj/diagnostics/mojom/external/libcros_healthd_internal_gen_mojo_templates.stamp
+build libcros_healthd_internal_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libcros_healthd_internal_gen_mojo_templates_dir.stamp
+build libcros_healthd_internal_gen_parse: phony obj/diagnostics/mojom/external/libcros_healthd_internal_gen_parse.stamp
+build libcros_healthd_minijail: phony obj/diagnostics/cros_healthd/minijail/libcros_healthd_minijail.stamp
+build libcros_healthd_mojo_bindings: phony ./libcros_healthd_mojo_bindings.a
+build libcros_healthd_mojo_bindings_gen: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen.stamp
+build libcros_healthd_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates.stamp
+build libcros_healthd_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates_dir.stamp
+build libcros_healthd_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_parse.stamp
+build libcros_healthd_system: phony obj/diagnostics/cros_healthd/system/libcros_healthd_system.stamp
+build libcros_healthd_system_pci_util: phony obj/diagnostics/cros_healthd/system/libcros_healthd_system_pci_util.stamp
+build libcros_healthd_system_test: phony obj/diagnostics/cros_healthd/system/libcros_healthd_system_test.stamp
+build libcros_healthd_system_test_utils: phony obj/diagnostics/cros_healthd/system/libcros_healthd_system_test_utils.stamp
+build libcros_healthd_utils: phony obj/diagnostics/cros_healthd/utils/libcros_healthd_utils.stamp
+build libcros_healthd_utils_test: phony obj/diagnostics/cros_healthd/utils/libcros_healthd_utils_test.stamp
+build libcros_healthd_utils_test_utils: phony obj/diagnostics/cros_healthd/utils/libcros_healthd_utils_test_utils.stamp
+build libcros_healthd_wilco_ec: phony obj/diagnostics/cros_healthd/wilco_ec/libcros_healthd_wilco_ec.stamp
+build libcros_healthd_wilco_ec_test: phony obj/diagnostics/cros_healthd/wilco_ec/libcros_healthd_wilco_ec_test.stamp
+build libdiag: phony obj/diagnostics/cros_health_tool/diag/libdiag.stamp
+build libdiag_routine: phony obj/diagnostics/cros_healthd/routines/libdiag_routine.stamp
+build libdiagnostics_base: phony ./lib/libdiagnostics_base.so
+build libevent: phony obj/diagnostics/cros_health_tool/event/libevent.stamp
+build libexecutor_delegate: phony obj/diagnostics/cros_healthd/delegate/libexecutor_delegate.stamp
+build libfake_cros_healthd: phony obj/diagnostics/cros_healthd/fake/libfake_cros_healthd.stamp
+build libmojom_utils: phony obj/diagnostics/mojom/libmojom_utils.stamp
+build libmojom_utils_test: phony obj/diagnostics/mojom/libmojom_utils_test.stamp
+build libnetwork_diagnostics_adapter: phony obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_adapter.stamp
+build libnetwork_diagnostics_adapter_test_utils: phony obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_adapter_test_utils.stamp
+build libnetwork_diagnostics_mojo_bindings: phony ./libnetwork_diagnostics_mojo_bindings.a
+build libnetwork_diagnostics_mojo_bindings_gen: phony obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen.stamp
+build libnetwork_diagnostics_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_mojo_templates.stamp
+build libnetwork_diagnostics_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_mojo_templates_dir.stamp
+build libnetwork_diagnostics_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_parse.stamp
+build libnetwork_diagnostics_utils: phony obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_utils.stamp
+build libnetwork_health_adapter: phony obj/diagnostics/cros_healthd/network/libnetwork_health_adapter.stamp
+build libnetwork_health_adapter_test_utils: phony obj/diagnostics/cros_healthd/network/libnetwork_health_adapter_test_utils.stamp
+build libnetwork_health_mojo_bindings: phony ./libnetwork_health_mojo_bindings.a
+build libnetwork_health_mojo_bindings_gen: phony obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen.stamp
+build libnetwork_health_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_mojo_templates.stamp
+build libnetwork_health_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_mojo_templates_dir.stamp
+build libnetwork_health_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_parse.stamp
+build libpublic_dependencies: phony ./libpublic_dependencies.a
+build libpublic_dependencies_gen: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen.stamp
+build libpublic_dependencies_gen_mojo_templates: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_mojo_templates.stamp
+build libpublic_dependencies_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_mojo_templates_dir.stamp
+build libpublic_dependencies_gen_parse: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_parse.stamp
+build libroutine_test_utils: phony obj/diagnostics/cros_healthd/routines/libroutine_test_utils.stamp
+build libsystem: phony obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem.stamp
+build libsystem_test: phony obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem_test.stamp
+build libsystem_test_utils: phony obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem_test_utils.stamp
+build libtelem: phony obj/diagnostics/cros_health_tool/telem/libtelem.stamp
+build libtelemetry: phony obj/diagnostics/wilco_dtc_supportd/telemetry/libtelemetry.stamp
+build libutils: phony obj/diagnostics/wilco_dtc_supportd/utils/libutils.stamp
+build libutils_test: phony obj/diagnostics/wilco_dtc_supportd/utils/libutils_test.stamp
+build libutils_test_utils: phony obj/diagnostics/wilco_dtc_supportd/utils/libutils_test_utils.stamp
+build libwilco_dtc_supportd: phony obj/diagnostics/wilco_dtc_supportd/libwilco_dtc_supportd.stamp
+build mojo_testrunner: phony obj/diagnostics/wilco_dtc_supportd/utils/mojo_testrunner.stamp
+build mojom: phony obj/diagnostics/mojom/mojom.stamp
+build network_diagnostics_test: phony obj/diagnostics/cros_healthd/network_diagnostics/network_diagnostics_test.stamp
+build network_test: phony obj/diagnostics/cros_healthd/network/network_test.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build routine_test: phony obj/diagnostics/cros_healthd/routines/routine_test.stamp
+build routines: phony obj/diagnostics/cros_healthd/delegate/routines/routines.stamp
+build storage_data_source: phony obj/diagnostics/cros_healthd/fetchers/storage/storage_data_source.stamp
+build storage_data_source_test: phony obj/diagnostics/cros_healthd/fetchers/storage/storage_data_source_test.stamp
+build telemetry_test: phony obj/diagnostics/wilco_dtc_supportd/telemetry/telemetry_test.stamp
+build test_util: phony obj/diagnostics/base/test_util.stamp
+build testrunner: phony ./libtestrunner.a
+build wilco_dtc_go_grpc_protos: phony obj/diagnostics/grpc/wilco_dtc_go_grpc_protos.stamp
+build wilco_dtc_grpc_protos: phony ./libwilco_dtc_grpc_protos.a
+build wilco_dtc_grpc_protos_gen: phony obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
+build wilco_dtc_supportd_mojo_bindings: phony ./libwilco_dtc_supportd_mojo_bindings.a
+build wilco_dtc_supportd_mojo_bindings_gen: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen.stamp
+build wilco_dtc_supportd_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates.stamp
+build wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir.stamp
+build wilco_dtc_supportd_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_parse.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build diagnostics$:all: phony obj/diagnostics/all.stamp
+build diagnostics$:install_dbus_config: phony obj/diagnostics/install_dbus_config.stamp
+build diagnostics$:install_init_config: phony obj/diagnostics/install_init_config.stamp
+build diagnostics$:install_service_manager_policy_config: phony obj/diagnostics/install_service_manager_policy_config.stamp
+build diagnostics$:install_tmpfiles_config: phony obj/diagnostics/install_tmpfiles_config.stamp
+build diagnostics/base$:_libdiagnostics_base-install_config: phony obj/diagnostics/base/_libdiagnostics_base-install_config.stamp
+build diagnostics/base$:base: phony obj/diagnostics/base/base.stamp
+build diagnostics/base: phony obj/diagnostics/base/base.stamp
+build diagnostics/base$:healthd_testrunner: phony obj/diagnostics/base/healthd_testrunner.stamp
+build diagnostics/base$:libdiagnostics_base: phony ./lib/libdiagnostics_base.so
+build diagnostics/base$:test: phony obj/diagnostics/base/test.stamp
+build diagnostics/base$:test_util: phony obj/diagnostics/base/test_util.stamp
+build diagnostics/constants$:libconstants: phony ./libconstants.a
+build diagnostics/cros_health_tool$:_cros-health-tool-install_config: phony obj/diagnostics/cros_health_tool/_cros-health-tool-install_config.stamp
+build diagnostics/cros_health_tool$:cros-health-tool: phony ./cros-health-tool
+build diagnostics/cros_health_tool/diag$:libdiag: phony obj/diagnostics/cros_health_tool/diag/libdiag.stamp
+build diagnostics/cros_health_tool/event$:libevent: phony obj/diagnostics/cros_health_tool/event/libevent.stamp
+build diagnostics/cros_health_tool/telem$:libtelem: phony obj/diagnostics/cros_health_tool/telem/libtelem.stamp
+build diagnostics/cros_healthd$:_cros_healthd-install_config: phony obj/diagnostics/cros_healthd/_cros_healthd-install_config.stamp
+build diagnostics/cros_healthd$:cros_healthd: phony ./cros_healthd
+build diagnostics/cros_healthd: phony ./cros_healthd
+build diagnostics/cros_healthd$:cros_healthd_test: phony ./cros_healthd_test
+build diagnostics/cros_healthd$:libcros_healthd: phony obj/diagnostics/cros_healthd/libcros_healthd.stamp
+build diagnostics/cros_healthd/delegate$:_executor-delegate-install_config: phony obj/diagnostics/cros_healthd/delegate/_executor-delegate-install_config.stamp
+build diagnostics/cros_healthd/delegate$:executor-delegate: phony ./executor-delegate
+build diagnostics/cros_healthd/delegate$:libexecutor_delegate: phony obj/diagnostics/cros_healthd/delegate/libexecutor_delegate.stamp
+build diagnostics/cros_healthd/delegate$:test: phony obj/diagnostics/cros_healthd/delegate/test.stamp
+build diagnostics/cros_healthd/delegate/fetchers$:fetchers: phony obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp
+build diagnostics/cros_healthd/delegate/fetchers: phony obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp
+build diagnostics/cros_healthd/delegate/fetchers$:test: phony obj/diagnostics/cros_healthd/delegate/fetchers/test.stamp
+build diagnostics/cros_healthd/delegate/routines$:routines: phony obj/diagnostics/cros_healthd/delegate/routines/routines.stamp
+build diagnostics/cros_healthd/delegate/routines: phony obj/diagnostics/cros_healthd/delegate/routines/routines.stamp
+build diagnostics/cros_healthd/delegate/routines$:test: phony obj/diagnostics/cros_healthd/delegate/routines/test.stamp
+build diagnostics/cros_healthd/delegate/utils$:test: phony obj/diagnostics/cros_healthd/delegate/utils/test.stamp
+build diagnostics/cros_healthd/delegate/utils$:utils: phony obj/diagnostics/cros_healthd/delegate/utils/utils.stamp
+build diagnostics/cros_healthd/delegate/utils: phony obj/diagnostics/cros_healthd/delegate/utils/utils.stamp
+build diagnostics/cros_healthd/events$:libcros_healthd_events: phony obj/diagnostics/cros_healthd/events/libcros_healthd_events.stamp
+build diagnostics/cros_healthd/events$:libcros_healthd_events_test: phony obj/diagnostics/cros_healthd/events/libcros_healthd_events_test.stamp
+build diagnostics/cros_healthd/executor$:libcros_healthd_executor: phony obj/diagnostics/cros_healthd/executor/libcros_healthd_executor.stamp
+build diagnostics/cros_healthd/executor/utils$:test: phony obj/diagnostics/cros_healthd/executor/utils/test.stamp
+build diagnostics/cros_healthd/executor/utils$:utils: phony obj/diagnostics/cros_healthd/executor/utils/utils.stamp
+build diagnostics/cros_healthd/executor/utils: phony obj/diagnostics/cros_healthd/executor/utils/utils.stamp
+build diagnostics/cros_healthd/fake$:libfake_cros_healthd: phony obj/diagnostics/cros_healthd/fake/libfake_cros_healthd.stamp
+build diagnostics/cros_healthd/fetchers$:libcros_healthd_fetchers: phony obj/diagnostics/cros_healthd/fetchers/libcros_healthd_fetchers.stamp
+build diagnostics/cros_healthd/fetchers$:libcros_healthd_fetchers_test: phony obj/diagnostics/cros_healthd/fetchers/libcros_healthd_fetchers_test.stamp
+build diagnostics/cros_healthd/fetchers/storage$:storage_data_source: phony obj/diagnostics/cros_healthd/fetchers/storage/storage_data_source.stamp
+build diagnostics/cros_healthd/fetchers/storage$:storage_data_source_test: phony obj/diagnostics/cros_healthd/fetchers/storage/storage_data_source_test.stamp
+build diagnostics/cros_healthd/minijail$:libcros_healthd_minijail: phony obj/diagnostics/cros_healthd/minijail/libcros_healthd_minijail.stamp
+build diagnostics/cros_healthd/mojom$:cros_healthd_executor_mojo_bindings: phony ./libcros_healthd_executor_mojo_bindings.a
+build diagnostics/cros_healthd/mojom$:cros_healthd_executor_mojo_bindings_gen: phony obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen.stamp
+build diagnostics/cros_healthd/mojom$:cros_healthd_executor_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_mojo_templates.stamp
+build diagnostics/cros_healthd/mojom$:cros_healthd_executor_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_mojo_templates_dir.stamp
+build diagnostics/cros_healthd/mojom$:cros_healthd_executor_mojo_bindings_gen_parse: phony obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_parse.stamp
+build diagnostics/cros_healthd/network$:libnetwork_health_adapter: phony obj/diagnostics/cros_healthd/network/libnetwork_health_adapter.stamp
+build diagnostics/cros_healthd/network$:libnetwork_health_adapter_test_utils: phony obj/diagnostics/cros_healthd/network/libnetwork_health_adapter_test_utils.stamp
+build diagnostics/cros_healthd/network$:network_test: phony obj/diagnostics/cros_healthd/network/network_test.stamp
+build diagnostics/cros_healthd/network_diagnostics$:libnetwork_diagnostics_adapter: phony obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_adapter.stamp
+build diagnostics/cros_healthd/network_diagnostics$:libnetwork_diagnostics_adapter_test_utils: phony obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_adapter_test_utils.stamp
+build diagnostics/cros_healthd/network_diagnostics$:libnetwork_diagnostics_utils: phony obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_utils.stamp
+build diagnostics/cros_healthd/network_diagnostics$:network_diagnostics_test: phony obj/diagnostics/cros_healthd/network_diagnostics/network_diagnostics_test.stamp
+build diagnostics/cros_healthd/routines$:_urandom-install_config: phony obj/diagnostics/cros_healthd/routines/_urandom-install_config.stamp
+build diagnostics/cros_healthd/routines$:libdiag_routine: phony obj/diagnostics/cros_healthd/routines/libdiag_routine.stamp
+build diagnostics/cros_healthd/routines$:libroutine_test_utils: phony obj/diagnostics/cros_healthd/routines/libroutine_test_utils.stamp
+build diagnostics/cros_healthd/routines$:routine_test: phony obj/diagnostics/cros_healthd/routines/routine_test.stamp
+build diagnostics/cros_healthd/routines$:urandom: phony ./urandom
+build diagnostics/cros_healthd/seccomp$:_diagnostics_seccomp_delegate_install-check_seccomp: phony obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_delegate_install-check_seccomp.stamp
+build diagnostics/cros_healthd/seccomp$:_diagnostics_seccomp_healthd_install-check_seccomp: phony obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_healthd_install-check_seccomp.stamp
+build diagnostics/cros_healthd/seccomp$:_diagnostics_seccomp_install-check_seccomp: phony obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_install-check_seccomp.stamp
+build diagnostics/cros_healthd/seccomp$:diagnostics_seccomp: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp.stamp
+build diagnostics/cros_healthd/seccomp$:diagnostics_seccomp_delegate: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate.stamp
+build diagnostics/cros_healthd/seccomp$:diagnostics_seccomp_delegate_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate_install.stamp
+build diagnostics/cros_healthd/seccomp$:diagnostics_seccomp_healthd: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_healthd.stamp
+build diagnostics/cros_healthd/seccomp$:diagnostics_seccomp_healthd_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_healthd_install.stamp
+build diagnostics/cros_healthd/seccomp$:diagnostics_seccomp_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_install.stamp
+build diagnostics/cros_healthd/seccomp$:seccomp: phony obj/diagnostics/cros_healthd/seccomp/seccomp.stamp
+build diagnostics/cros_healthd/seccomp: phony obj/diagnostics/cros_healthd/seccomp/seccomp.stamp
+build diagnostics/cros_healthd/system$:libcros_healthd_system: phony obj/diagnostics/cros_healthd/system/libcros_healthd_system.stamp
+build diagnostics/cros_healthd/system$:libcros_healthd_system_pci_util: phony obj/diagnostics/cros_healthd/system/libcros_healthd_system_pci_util.stamp
+build diagnostics/cros_healthd/system$:libcros_healthd_system_test: phony obj/diagnostics/cros_healthd/system/libcros_healthd_system_test.stamp
+build diagnostics/cros_healthd/system$:libcros_healthd_system_test_utils: phony obj/diagnostics/cros_healthd/system/libcros_healthd_system_test_utils.stamp
+build diagnostics/cros_healthd/utils$:libcros_healthd_utils: phony obj/diagnostics/cros_healthd/utils/libcros_healthd_utils.stamp
+build diagnostics/cros_healthd/utils$:libcros_healthd_utils_test: phony obj/diagnostics/cros_healthd/utils/libcros_healthd_utils_test.stamp
+build diagnostics/cros_healthd/utils$:libcros_healthd_utils_test_utils: phony obj/diagnostics/cros_healthd/utils/libcros_healthd_utils_test_utils.stamp
+build diagnostics/cros_healthd/wilco_ec$:libcros_healthd_wilco_ec: phony obj/diagnostics/cros_healthd/wilco_ec/libcros_healthd_wilco_ec.stamp
+build diagnostics/cros_healthd/wilco_ec$:libcros_healthd_wilco_ec_test: phony obj/diagnostics/cros_healthd/wilco_ec/libcros_healthd_wilco_ec_test.stamp
+build diagnostics/dbus_bindings$:bluetooth-manager-proxies: phony obj/diagnostics/dbus_bindings/bluetooth-manager-proxies.stamp
+build diagnostics/dbus_bindings$:bluez-proxies: phony obj/diagnostics/dbus_bindings/bluez-proxies.stamp
+build diagnostics/dbus_bindings$:cras-proxies: phony obj/diagnostics/dbus_bindings/cras-proxies.stamp
+build diagnostics/dbus_bindings$:dbus-adaptors: phony obj/diagnostics/dbus_bindings/dbus-adaptors.stamp
+build diagnostics/dbus_bindings$:dbus-proxies: phony obj/diagnostics/dbus_bindings/dbus-proxies.stamp
+build diagnostics/dbus_bindings$:dbus_bindings: phony obj/diagnostics/dbus_bindings/dbus_bindings.stamp
+build diagnostics/dbus_bindings: phony obj/diagnostics/dbus_bindings/dbus_bindings.stamp
+build diagnostics/dbus_bindings$:floss-callback-adaptors: phony obj/diagnostics/dbus_bindings/floss-callback-adaptors.stamp
+build diagnostics/dbus_bindings$:floss-proxies: phony obj/diagnostics/dbus_bindings/floss-proxies.stamp
+build diagnostics/dbus_bindings$:fwupd-proxies: phony obj/diagnostics/dbus_bindings/fwupd-proxies.stamp
+build diagnostics/grpc$:all: phony obj/diagnostics/grpc/all.stamp
+build diagnostics/grpc$:wilco_dtc_go_grpc_protos: phony obj/diagnostics/grpc/wilco_dtc_go_grpc_protos.stamp
+build diagnostics/grpc$:wilco_dtc_grpc_protos: phony ./libwilco_dtc_grpc_protos.a
+build diagnostics/grpc$:wilco_dtc_grpc_protos_gen: phony obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
+build diagnostics/mojom$:_cros_healthd-client-install_config: phony obj/diagnostics/mojom/_cros_healthd-client-install_config.stamp
+build diagnostics/mojom$:cros_healthd-client: phony obj/diagnostics/mojom/cros_healthd-client.stamp
+build diagnostics/mojom$:libmojom_utils: phony obj/diagnostics/mojom/libmojom_utils.stamp
+build diagnostics/mojom$:libmojom_utils_test: phony obj/diagnostics/mojom/libmojom_utils_test.stamp
+build diagnostics/mojom$:mojom: phony obj/diagnostics/mojom/mojom.stamp
+build diagnostics/mojom: phony obj/diagnostics/mojom/mojom.stamp
+build diagnostics/mojom/external$:_libcros_healthd_internal-install_config: phony obj/diagnostics/mojom/external/_libcros_healthd_internal-install_config.stamp
+build diagnostics/mojom/external$:_libcros_healthd_internal_gen-cros_healthd_internal.mojom-install_config: phony obj/diagnostics/mojom/external/_libcros_healthd_internal_gen-cros_healthd_internal.mojom-install_config.stamp
+build diagnostics/mojom/external$:_libnetwork_diagnostics_mojo_bindings-install_config: phony obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings-install_config.stamp
+build diagnostics/mojom/external$:_libnetwork_diagnostics_mojo_bindings_gen-network_diagnostics.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings_gen-network_diagnostics.mojom-install_config.stamp
+build diagnostics/mojom/external$:_libnetwork_diagnostics_mojo_bindings_gen-time.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings_gen-time.mojom-install_config.stamp
+build diagnostics/mojom/external$:_libnetwork_health_mojo_bindings-install_config: phony obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings-install_config.stamp
+build diagnostics/mojom/external$:_libnetwork_health_mojo_bindings_gen-network_health.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_health.mojom-install_config.stamp
+build diagnostics/mojom/external$:_libnetwork_health_mojo_bindings_gen-network_health_types.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_health_types.mojom-install_config.stamp
+build diagnostics/mojom/external$:_libnetwork_health_mojo_bindings_gen-network_types.mojom-install_config: phony obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_types.mojom-install_config.stamp
+build diagnostics/mojom/external$:_libpublic_dependencies-install_config: phony obj/diagnostics/mojom/external/_libpublic_dependencies-install_config.stamp
+build diagnostics/mojom/external$:_libpublic_dependencies_gen-input.mojom-install_config: phony obj/diagnostics/mojom/external/_libpublic_dependencies_gen-input.mojom-install_config.stamp
+build diagnostics/mojom/external$:libcros_healthd_internal: phony ./libcros_healthd_internal.a
+build diagnostics/mojom/external$:libcros_healthd_internal_gen: phony obj/diagnostics/mojom/external/libcros_healthd_internal_gen.stamp
+build diagnostics/mojom/external$:libcros_healthd_internal_gen_mojo_templates: phony obj/diagnostics/mojom/external/libcros_healthd_internal_gen_mojo_templates.stamp
+build diagnostics/mojom/external$:libcros_healthd_internal_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libcros_healthd_internal_gen_mojo_templates_dir.stamp
+build diagnostics/mojom/external$:libcros_healthd_internal_gen_parse: phony obj/diagnostics/mojom/external/libcros_healthd_internal_gen_parse.stamp
+build diagnostics/mojom/external$:libnetwork_diagnostics_mojo_bindings: phony ./libnetwork_diagnostics_mojo_bindings.a
+build diagnostics/mojom/external$:libnetwork_diagnostics_mojo_bindings_gen: phony obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen.stamp
+build diagnostics/mojom/external$:libnetwork_diagnostics_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_mojo_templates.stamp
+build diagnostics/mojom/external$:libnetwork_diagnostics_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_mojo_templates_dir.stamp
+build diagnostics/mojom/external$:libnetwork_diagnostics_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_parse.stamp
+build diagnostics/mojom/external$:libnetwork_health_mojo_bindings: phony ./libnetwork_health_mojo_bindings.a
+build diagnostics/mojom/external$:libnetwork_health_mojo_bindings_gen: phony obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen.stamp
+build diagnostics/mojom/external$:libnetwork_health_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_mojo_templates.stamp
+build diagnostics/mojom/external$:libnetwork_health_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_mojo_templates_dir.stamp
+build diagnostics/mojom/external$:libnetwork_health_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_parse.stamp
+build diagnostics/mojom/external$:libpublic_dependencies: phony ./libpublic_dependencies.a
+build diagnostics/mojom/external$:libpublic_dependencies_gen: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen.stamp
+build diagnostics/mojom/external$:libpublic_dependencies_gen_mojo_templates: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_mojo_templates.stamp
+build diagnostics/mojom/external$:libpublic_dependencies_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_mojo_templates_dir.stamp
+build diagnostics/mojom/external$:libpublic_dependencies_gen_parse: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_parse.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd.mojom-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_diagnostics.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_diagnostics.mojom-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_event_reporters.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_event_reporters.mojom-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_events.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_events.mojom-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_exception.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_exception.mojom-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config.stamp
+build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config.stamp
+build diagnostics/mojom/public$:libcros_healthd_mojo_bindings: phony ./libcros_healthd_mojo_bindings.a
+build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen.stamp
+build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates.stamp
+build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates_dir.stamp
+build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_parse.stamp
+build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings: phony ./libwilco_dtc_supportd_mojo_bindings.a
+build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings_gen: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen.stamp
+build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates.stamp
+build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir.stamp
+build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_parse.stamp
+build diagnostics/wilco_dtc_supportd$:libwilco_dtc_supportd: phony obj/diagnostics/wilco_dtc_supportd/libwilco_dtc_supportd.stamp
+build diagnostics/wilco_dtc_supportd$:wilco_dtc_supportd: phony ./wilco_dtc_supportd
+build diagnostics/wilco_dtc_supportd: phony ./wilco_dtc_supportd
+build diagnostics/wilco_dtc_supportd$:wilco_dtc_supportd_test: phony ./wilco_dtc_supportd_test
+build diagnostics/wilco_dtc_supportd/seccomp$:_diagnostics_seccomp_wilco-check_seccomp: phony obj/diagnostics/wilco_dtc_supportd/seccomp/_diagnostics_seccomp_wilco-check_seccomp.stamp
+build diagnostics/wilco_dtc_supportd/seccomp$:diagnostics_seccomp_wilco: phony obj/diagnostics/wilco_dtc_supportd/seccomp/diagnostics_seccomp_wilco.stamp
+build diagnostics/wilco_dtc_supportd/seccomp$:seccomp: phony obj/diagnostics/wilco_dtc_supportd/seccomp/seccomp.stamp
+build diagnostics/wilco_dtc_supportd/seccomp: phony obj/diagnostics/wilco_dtc_supportd/seccomp/seccomp.stamp
+build diagnostics/wilco_dtc_supportd/telemetry$:libtelemetry: phony obj/diagnostics/wilco_dtc_supportd/telemetry/libtelemetry.stamp
+build diagnostics/wilco_dtc_supportd/telemetry$:telemetry_test: phony obj/diagnostics/wilco_dtc_supportd/telemetry/telemetry_test.stamp
+build diagnostics/wilco_dtc_supportd/utils$:libutils: phony obj/diagnostics/wilco_dtc_supportd/utils/libutils.stamp
+build diagnostics/wilco_dtc_supportd/utils$:libutils_test: phony obj/diagnostics/wilco_dtc_supportd/utils/libutils_test.stamp
+build diagnostics/wilco_dtc_supportd/utils$:libutils_test_utils: phony obj/diagnostics/wilco_dtc_supportd/utils/libutils_test_utils.stamp
+build diagnostics/wilco_dtc_supportd/utils$:mojo_testrunner: phony obj/diagnostics/wilco_dtc_supportd/utils/mojo_testrunner.stamp
+build diagnostics/wilco_dtc_supportd/utils/system$:libsystem: phony obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem.stamp
+build diagnostics/wilco_dtc_supportd/utils/system$:libsystem_test: phony obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem_test.stamp
+build diagnostics/wilco_dtc_supportd/utils/system$:libsystem_test_utils: phony obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem_test_utils.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/diagnostics/all.stamp $
+    obj/diagnostics/install_dbus_config.stamp $
+    obj/diagnostics/install_init_config.stamp $
+    obj/diagnostics/install_service_manager_policy_config.stamp $
+    obj/diagnostics/install_tmpfiles_config.stamp $
+    obj/diagnostics/base/_libdiagnostics_base-install_config.stamp $
+    obj/diagnostics/base/base.stamp $
+    obj/diagnostics/base/healthd_testrunner.stamp $
+    ./lib/libdiagnostics_base.so $
+    obj/diagnostics/base/test.stamp $
+    obj/diagnostics/base/test_util.stamp $
+    ./libconstants.a $
+    obj/diagnostics/cros_health_tool/_cros-health-tool-install_config.stamp $
+    ./cros-health-tool $
+    obj/diagnostics/cros_health_tool/diag/libdiag.stamp $
+    obj/diagnostics/cros_health_tool/event/libevent.stamp $
+    obj/diagnostics/cros_health_tool/telem/libtelem.stamp $
+    obj/diagnostics/cros_healthd/_cros_healthd-install_config.stamp $
+    ./cros_healthd $
+    ./cros_healthd_test $
+    obj/diagnostics/cros_healthd/libcros_healthd.stamp $
+    obj/diagnostics/cros_healthd/delegate/_executor-delegate-install_config.stamp $
+    ./executor-delegate $
+    obj/diagnostics/cros_healthd/delegate/libexecutor_delegate.stamp $
+    obj/diagnostics/cros_healthd/delegate/test.stamp $
+    obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp $
+    obj/diagnostics/cros_healthd/delegate/fetchers/test.stamp $
+    obj/diagnostics/cros_healthd/delegate/routines/routines.stamp $
+    obj/diagnostics/cros_healthd/delegate/routines/test.stamp $
+    obj/diagnostics/cros_healthd/delegate/utils/test.stamp $
+    obj/diagnostics/cros_healthd/delegate/utils/utils.stamp $
+    obj/diagnostics/cros_healthd/events/libcros_healthd_events.stamp $
+    obj/diagnostics/cros_healthd/events/libcros_healthd_events_test.stamp $
+    obj/diagnostics/cros_healthd/executor/libcros_healthd_executor.stamp $
+    obj/diagnostics/cros_healthd/executor/utils/test.stamp $
+    obj/diagnostics/cros_healthd/executor/utils/utils.stamp $
+    obj/diagnostics/cros_healthd/fake/libfake_cros_healthd.stamp $
+    obj/diagnostics/cros_healthd/fetchers/libcros_healthd_fetchers.stamp $
+    obj/diagnostics/cros_healthd/fetchers/libcros_healthd_fetchers_test.stamp $
+    obj/diagnostics/cros_healthd/fetchers/storage/storage_data_source.stamp $
+    obj/diagnostics/cros_healthd/fetchers/storage/storage_data_source_test.stamp $
+    obj/diagnostics/cros_healthd/minijail/libcros_healthd_minijail.stamp $
+    ./libcros_healthd_executor_mojo_bindings.a $
+    obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen.stamp $
+    obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_mojo_templates.stamp $
+    obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/diagnostics/cros_healthd/mojom/cros_healthd_executor_mojo_bindings_gen_parse.stamp $
+    obj/diagnostics/cros_healthd/network/libnetwork_health_adapter.stamp $
+    obj/diagnostics/cros_healthd/network/libnetwork_health_adapter_test_utils.stamp $
+    obj/diagnostics/cros_healthd/network/network_test.stamp $
+    obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_adapter.stamp $
+    obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_adapter_test_utils.stamp $
+    obj/diagnostics/cros_healthd/network_diagnostics/libnetwork_diagnostics_utils.stamp $
+    obj/diagnostics/cros_healthd/network_diagnostics/network_diagnostics_test.stamp $
+    obj/diagnostics/cros_healthd/routines/_urandom-install_config.stamp $
+    obj/diagnostics/cros_healthd/routines/libdiag_routine.stamp $
+    obj/diagnostics/cros_healthd/routines/libroutine_test_utils.stamp $
+    obj/diagnostics/cros_healthd/routines/routine_test.stamp $
+    ./urandom $
+    obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_delegate_install-check_seccomp.stamp $
+    obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_healthd_install-check_seccomp.stamp $
+    obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_install-check_seccomp.stamp $
+    obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp.stamp $
+    obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate.stamp $
+    obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate_install.stamp $
+    obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_healthd.stamp $
+    obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_healthd_install.stamp $
+    obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_install.stamp $
+    obj/diagnostics/cros_healthd/seccomp/seccomp.stamp $
+    obj/diagnostics/cros_healthd/system/libcros_healthd_system.stamp $
+    obj/diagnostics/cros_healthd/system/libcros_healthd_system_pci_util.stamp $
+    obj/diagnostics/cros_healthd/system/libcros_healthd_system_test.stamp $
+    obj/diagnostics/cros_healthd/system/libcros_healthd_system_test_utils.stamp $
+    obj/diagnostics/cros_healthd/utils/libcros_healthd_utils.stamp $
+    obj/diagnostics/cros_healthd/utils/libcros_healthd_utils_test.stamp $
+    obj/diagnostics/cros_healthd/utils/libcros_healthd_utils_test_utils.stamp $
+    obj/diagnostics/cros_healthd/wilco_ec/libcros_healthd_wilco_ec.stamp $
+    obj/diagnostics/cros_healthd/wilco_ec/libcros_healthd_wilco_ec_test.stamp $
+    obj/diagnostics/dbus_bindings/bluetooth-manager-proxies.stamp $
+    obj/diagnostics/dbus_bindings/bluez-proxies.stamp $
+    obj/diagnostics/dbus_bindings/cras-proxies.stamp $
+    obj/diagnostics/dbus_bindings/dbus-adaptors.stamp $
+    obj/diagnostics/dbus_bindings/dbus-proxies.stamp $
+    obj/diagnostics/dbus_bindings/dbus_bindings.stamp $
+    obj/diagnostics/dbus_bindings/floss-callback-adaptors.stamp $
+    obj/diagnostics/dbus_bindings/floss-proxies.stamp $
+    obj/diagnostics/dbus_bindings/fwupd-proxies.stamp $
+    obj/diagnostics/grpc/all.stamp $
+    obj/diagnostics/grpc/wilco_dtc_go_grpc_protos.stamp $
+    ./libwilco_dtc_grpc_protos.a $
+    obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp $
+    obj/diagnostics/mojom/_cros_healthd-client-install_config.stamp $
+    obj/diagnostics/mojom/cros_healthd-client.stamp $
+    obj/diagnostics/mojom/libmojom_utils.stamp $
+    obj/diagnostics/mojom/libmojom_utils_test.stamp $
+    obj/diagnostics/mojom/mojom.stamp $
+    obj/diagnostics/mojom/external/_libcros_healthd_internal-install_config.stamp $
+    obj/diagnostics/mojom/external/_libcros_healthd_internal_gen-cros_healthd_internal.mojom-install_config.stamp $
+    obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings-install_config.stamp $
+    obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings_gen-network_diagnostics.mojom-install_config.stamp $
+    obj/diagnostics/mojom/external/_libnetwork_diagnostics_mojo_bindings_gen-time.mojom-install_config.stamp $
+    obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings-install_config.stamp $
+    obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_health.mojom-install_config.stamp $
+    obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_health_types.mojom-install_config.stamp $
+    obj/diagnostics/mojom/external/_libnetwork_health_mojo_bindings_gen-network_types.mojom-install_config.stamp $
+    obj/diagnostics/mojom/external/_libpublic_dependencies-install_config.stamp $
+    obj/diagnostics/mojom/external/_libpublic_dependencies_gen-input.mojom-install_config.stamp $
+    ./libcros_healthd_internal.a $
+    obj/diagnostics/mojom/external/libcros_healthd_internal_gen.stamp $
+    obj/diagnostics/mojom/external/libcros_healthd_internal_gen_mojo_templates.stamp $
+    obj/diagnostics/mojom/external/libcros_healthd_internal_gen_mojo_templates_dir.stamp $
+    obj/diagnostics/mojom/external/libcros_healthd_internal_gen_parse.stamp $
+    ./libnetwork_diagnostics_mojo_bindings.a $
+    obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen.stamp $
+    obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_mojo_templates.stamp $
+    obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/diagnostics/mojom/external/libnetwork_diagnostics_mojo_bindings_gen_parse.stamp $
+    ./libnetwork_health_mojo_bindings.a $
+    obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen.stamp $
+    obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_mojo_templates.stamp $
+    obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/diagnostics/mojom/external/libnetwork_health_mojo_bindings_gen_parse.stamp $
+    ./libpublic_dependencies.a $
+    obj/diagnostics/mojom/external/libpublic_dependencies_gen.stamp $
+    obj/diagnostics/mojom/external/libpublic_dependencies_gen_mojo_templates.stamp $
+    obj/diagnostics/mojom/external/libpublic_dependencies_gen_mojo_templates_dir.stamp $
+    obj/diagnostics/mojom/external/libpublic_dependencies_gen_parse.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd.mojom-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_diagnostics.mojom-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_event_reporters.mojom-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_events.mojom-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_exception.mojom-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config.stamp $
+    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config.stamp $
+    ./libcros_healthd_mojo_bindings.a $
+    obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen.stamp $
+    obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates.stamp $
+    obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_parse.stamp $
+    ./libwilco_dtc_supportd_mojo_bindings.a $
+    obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen.stamp $
+    obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates.stamp $
+    obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_parse.stamp $
+    obj/diagnostics/wilco_dtc_supportd/libwilco_dtc_supportd.stamp $
+    ./wilco_dtc_supportd $
+    ./wilco_dtc_supportd_test $
+    obj/diagnostics/wilco_dtc_supportd/seccomp/_diagnostics_seccomp_wilco-check_seccomp.stamp $
+    obj/diagnostics/wilco_dtc_supportd/seccomp/diagnostics_seccomp_wilco.stamp $
+    obj/diagnostics/wilco_dtc_supportd/seccomp/seccomp.stamp $
+    obj/diagnostics/wilco_dtc_supportd/telemetry/libtelemetry.stamp $
+    obj/diagnostics/wilco_dtc_supportd/telemetry/telemetry_test.stamp $
+    obj/diagnostics/wilco_dtc_supportd/utils/libutils.stamp $
+    obj/diagnostics/wilco_dtc_supportd/utils/libutils_test.stamp $
+    obj/diagnostics/wilco_dtc_supportd/utils/libutils_test_utils.stamp $
+    obj/diagnostics/wilco_dtc_supportd/utils/mojo_testrunner.stamp $
+    obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem.stamp $
+    obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem_test.stamp $
+    obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem_test_utils.stamp
+
+default all

@@ -1,0 +1,4 @@
+../../../../../../../home/chrome-bot/chrome_root/src/content/public/test/test_service.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/content/test/frame_host_test_interface.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/content/test/test_browser_associated_interfaces.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/content/test/test_mojo_binder_policy_applier_unittest.mojom

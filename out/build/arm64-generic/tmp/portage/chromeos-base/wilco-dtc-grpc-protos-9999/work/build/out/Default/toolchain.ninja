@@ -1,0 +1,54 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/diagnostics/grpc/all.stamp
+build obj/diagnostics/grpc/all.stamp: stamp obj/diagnostics/grpc/wilco_dtc_go_grpc_protos.stamp ./libwilco_dtc_grpc_protos.a
+rule __diagnostics_grpc_wilco_dtc_go_grpc_protos___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /mnt/host/source/src/platform2/diagnostics/grpc --proto_path /build/arm64-generic/usr/share/proto --go_out plugins=grpc$:/build/arm64-generic/tmp/portage/chromeos-base/wilco-dtc-grpc-protos-9999/work/build/out/Default/gen/go/src/ /mnt/host/source/src/platform2/diagnostics/grpc/wilco_dtc.proto /mnt/host/source/src/platform2/diagnostics/grpc/wilco_dtc_supportd.proto
+  description = ACTION //diagnostics/grpc:wilco_dtc_go_grpc_protos(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/wilco_dtc.pb.go gen/go/src/wilco_dtc_supportd.pb.go: __diagnostics_grpc_wilco_dtc_go_grpc_protos___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/diagnostics/grpc/wilco_dtc.proto ../../../../../../../../../../mnt/host/source/src/platform2/diagnostics/grpc/wilco_dtc_supportd.proto
+
+build obj/diagnostics/grpc/wilco_dtc_go_grpc_protos.stamp: stamp gen/go/src/wilco_dtc.pb.go gen/go/src/wilco_dtc_supportd.pb.go
+subninja obj/diagnostics/grpc/wilco_dtc_grpc_protos.ninja
+rule __diagnostics_grpc_wilco_dtc_grpc_protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc wilco_dtc.proto wilco_dtc_supportd.proto --proto_path /mnt/host/source/src/platform2/diagnostics/grpc --proto_path /build/arm64-generic/usr/share/proto --grpc_out=/build/arm64-generic/tmp/portage/chromeos-base/wilco-dtc-grpc-protos-9999/work/build/out/Default/gen/include --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/wilco-dtc-grpc-protos-9999/work/build/out/Default/gen/include
+  description = ACTION //diagnostics/grpc:wilco_dtc_grpc_protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/wilco_dtc.grpc.pb.cc gen/include/wilco_dtc.grpc.pb.h gen/include/wilco_dtc.pb.cc gen/include/wilco_dtc.pb.h gen/include/wilco_dtc_supportd.grpc.pb.cc gen/include/wilco_dtc_supportd.grpc.pb.h gen/include/wilco_dtc_supportd.pb.cc gen/include/wilco_dtc_supportd.pb.h: __diagnostics_grpc_wilco_dtc_grpc_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/diagnostics/grpc/wilco_dtc.proto ../../../../../../../../../../mnt/host/source/src/platform2/diagnostics/grpc/wilco_dtc_supportd.proto
+
+build obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp: stamp gen/include/wilco_dtc.grpc.pb.cc gen/include/wilco_dtc.grpc.pb.h gen/include/wilco_dtc.pb.cc gen/include/wilco_dtc.pb.h gen/include/wilco_dtc_supportd.grpc.pb.cc gen/include/wilco_dtc_supportd.grpc.pb.h gen/include/wilco_dtc_supportd.pb.cc gen/include/wilco_dtc_supportd.pb.h

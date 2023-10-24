@@ -1,0 +1,58 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_GLIB=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DZLIB_IMPLEMENTATION -DADLER32_SIMD_SSSE3 -DX86_NOT_WINDOWS -DINFLATE_CHUNK_SIMD_SSE2 -DINFLATE_CHUNK_READ_64LE -DDEFLATE_SLIDE_HASH_SSE2 -DCRC32_SIMD_SSE42_PCLMUL
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Ihost/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib
+cflags = -gline-tables-only -fdebug-info-for-profiling -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fstack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -m64 -msse3 -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=pattern -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror -O3 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -Wno-deprecated-non-prototype -Wno-incompatible-pointer-types -Wunused-variable
+cflags_c = -std=c11
+label_name = zlib
+target_out_dir = host/obj/third_party/zlib
+target_output_name = libchrome_zlib
+
+build host/obj/third_party/zlib/zlib/adler32.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/adler32.c
+  source_file_part = adler32.c
+  source_name_part = adler32
+build host/obj/third_party/zlib/zlib/compress.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/compress.c
+  source_file_part = compress.c
+  source_name_part = compress
+build host/obj/third_party/zlib/zlib/cpu_features.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/cpu_features.c
+  source_file_part = cpu_features.c
+  source_name_part = cpu_features
+build host/obj/third_party/zlib/zlib/crc32.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/crc32.c
+  source_file_part = crc32.c
+  source_name_part = crc32
+build host/obj/third_party/zlib/zlib/deflate.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/deflate.c
+  source_file_part = deflate.c
+  source_name_part = deflate
+build host/obj/third_party/zlib/zlib/gzclose.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/gzclose.c
+  source_file_part = gzclose.c
+  source_name_part = gzclose
+build host/obj/third_party/zlib/zlib/gzlib.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/gzlib.c
+  source_file_part = gzlib.c
+  source_name_part = gzlib
+build host/obj/third_party/zlib/zlib/gzread.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/gzread.c
+  source_file_part = gzread.c
+  source_name_part = gzread
+build host/obj/third_party/zlib/zlib/gzwrite.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/gzwrite.c
+  source_file_part = gzwrite.c
+  source_name_part = gzwrite
+build host/obj/third_party/zlib/zlib/infback.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/infback.c
+  source_file_part = infback.c
+  source_name_part = infback
+build host/obj/third_party/zlib/zlib/inffast.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/inffast.c
+  source_file_part = inffast.c
+  source_name_part = inffast
+build host/obj/third_party/zlib/zlib/inftrees.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/inftrees.c
+  source_file_part = inftrees.c
+  source_name_part = inftrees
+build host/obj/third_party/zlib/zlib/trees.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/trees.c
+  source_file_part = trees.c
+  source_name_part = trees
+build host/obj/third_party/zlib/zlib/uncompr.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/uncompr.c
+  source_file_part = uncompr.c
+  source_name_part = uncompr
+build host/obj/third_party/zlib/zlib/zutil.o: host_cc ../../../../../../../home/chrome-bot/chrome_root/src/third_party/zlib/zutil.c
+  source_file_part = zutil.c
+  source_name_part = zutil
+
+build host/obj/third_party/zlib/libchrome_zlib.a: host_alink host/obj/third_party/zlib/zlib/adler32.o host/obj/third_party/zlib/zlib/compress.o host/obj/third_party/zlib/zlib/cpu_features.o host/obj/third_party/zlib/zlib/crc32.o host/obj/third_party/zlib/zlib/deflate.o host/obj/third_party/zlib/zlib/gzclose.o host/obj/third_party/zlib/zlib/gzlib.o host/obj/third_party/zlib/zlib/gzread.o host/obj/third_party/zlib/zlib/gzwrite.o host/obj/third_party/zlib/zlib/infback.o host/obj/third_party/zlib/zlib/inffast.o host/obj/third_party/zlib/zlib/inftrees.o host/obj/third_party/zlib/zlib/trees.o host/obj/third_party/zlib/zlib/uncompr.o host/obj/third_party/zlib/zlib/zutil.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/x86_64-unknown-linux-gnu/libclang_rt.builtins.a || host/obj/third_party/zlib/zlib_adler32_simd.stamp host/obj/third_party/zlib/zlib_inflate_chunk_simd.stamp host/obj/third_party/zlib/zlib_slide_hash_simd.stamp host/obj/third_party/zlib/zlib_crc32_simd.stamp host/obj/third_party/zlib/zlib_common_headers.stamp
+  arflags = -T
+  output_extension = .a
+  output_dir = host/obj/third_party/zlib

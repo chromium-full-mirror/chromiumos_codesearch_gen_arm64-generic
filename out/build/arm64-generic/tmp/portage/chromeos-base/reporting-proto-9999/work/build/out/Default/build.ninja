@@ -1,0 +1,71 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build libmissive-interface-goprotos: phony obj/missive/proto/libmissive-interface-goprotos.stamp
+build libmissiveprotohealth: phony ./libmissiveprotohealth.a
+build libmissiveprotohealth_gen: phony obj/missive/proto/libmissiveprotohealth_gen.stamp
+build libmissiveprotointerface: phony ./libmissiveprotointerface.a
+build libmissiveprotointerface_gen: phony obj/missive/proto/libmissiveprotointerface_gen.stamp
+build libmissiveprotorecord: phony ./libmissiveprotorecord.a
+build libmissiveprotorecord_gen: phony obj/missive/proto/libmissiveprotorecord_gen.stamp
+build libmissiveprotorecordconstants: phony ./libmissiveprotorecordconstants.a
+build libmissiveprotorecordconstants_gen: phony obj/missive/proto/libmissiveprotorecordconstants_gen.stamp
+build libmissiveprotostatus: phony ./libmissiveprotostatus.a
+build libmissiveprotostatus_gen: phony obj/missive/proto/libmissiveprotostatus_gen.stamp
+build priority_name: phony obj/missive/proto/priority_name.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build test_proto: phony ./libtest_proto.a
+build test_proto_gen: phony obj/missive/proto/test_proto_gen.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build missive/proto$:all: phony obj/missive/proto/all.stamp
+build missive/proto$:libmissive-interface-goprotos: phony obj/missive/proto/libmissive-interface-goprotos.stamp
+build missive/proto$:libmissiveprotohealth: phony ./libmissiveprotohealth.a
+build missive/proto$:libmissiveprotohealth_gen: phony obj/missive/proto/libmissiveprotohealth_gen.stamp
+build missive/proto$:libmissiveprotointerface: phony ./libmissiveprotointerface.a
+build missive/proto$:libmissiveprotointerface_gen: phony obj/missive/proto/libmissiveprotointerface_gen.stamp
+build missive/proto$:libmissiveprotorecord: phony ./libmissiveprotorecord.a
+build missive/proto$:libmissiveprotorecord_gen: phony obj/missive/proto/libmissiveprotorecord_gen.stamp
+build missive/proto$:libmissiveprotorecordconstants: phony ./libmissiveprotorecordconstants.a
+build missive/proto$:libmissiveprotorecordconstants_gen: phony obj/missive/proto/libmissiveprotorecordconstants_gen.stamp
+build missive/proto$:libmissiveprotostatus: phony ./libmissiveprotostatus.a
+build missive/proto$:libmissiveprotostatus_gen: phony obj/missive/proto/libmissiveprotostatus_gen.stamp
+build missive/proto$:priority_name: phony obj/missive/proto/priority_name.stamp
+build missive/proto$:test_proto: phony ./libtest_proto.a
+build missive/proto$:test_proto_gen: phony obj/missive/proto/test_proto_gen.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/missive/proto/all.stamp $
+    obj/missive/proto/libmissive-interface-goprotos.stamp $
+    ./libmissiveprotohealth.a $
+    obj/missive/proto/libmissiveprotohealth_gen.stamp $
+    ./libmissiveprotointerface.a $
+    obj/missive/proto/libmissiveprotointerface_gen.stamp $
+    ./libmissiveprotorecord.a $
+    obj/missive/proto/libmissiveprotorecord_gen.stamp $
+    ./libmissiveprotorecordconstants.a $
+    obj/missive/proto/libmissiveprotorecordconstants_gen.stamp $
+    ./libmissiveprotostatus.a $
+    obj/missive/proto/libmissiveprotostatus_gen.stamp $
+    obj/missive/proto/priority_name.stamp $
+    ./libtest_proto.a $
+    obj/missive/proto/test_proto_gen.stamp
+
+default all

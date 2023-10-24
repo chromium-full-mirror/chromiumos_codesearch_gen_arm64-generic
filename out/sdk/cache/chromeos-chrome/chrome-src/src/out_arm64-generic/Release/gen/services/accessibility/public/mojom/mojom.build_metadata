@@ -1,0 +1,14 @@
+{
+  "deps": [
+    "automation.build_metadata",
+    "../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../sandbox/policy/mojom/mojom.build_metadata",
+    "assistive_technology_type.build_metadata",
+    "os_service_mojom.build_metadata",
+    "../../../../third_party/blink/public/mojom/mojom_platform.build_metadata",
+    "../../../../ui/accessibility/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/accessibility_service.mojom"
+  ]
+}

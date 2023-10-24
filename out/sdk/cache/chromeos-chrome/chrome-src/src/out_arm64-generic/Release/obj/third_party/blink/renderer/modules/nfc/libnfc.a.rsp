@@ -1,0 +1,1 @@
+obj/third_party/blink/renderer/modules/nfc/nfc/ndef_message.o obj/third_party/blink/renderer/modules/nfc/nfc/ndef_reader.o obj/third_party/blink/renderer/modules/nfc/nfc/ndef_reading_event.o obj/third_party/blink/renderer/modules/nfc/nfc/ndef_record.o obj/third_party/blink/renderer/modules/nfc/nfc/nfc_proxy.o obj/third_party/blink/renderer/modules/nfc/nfc/nfc_type_converters.o

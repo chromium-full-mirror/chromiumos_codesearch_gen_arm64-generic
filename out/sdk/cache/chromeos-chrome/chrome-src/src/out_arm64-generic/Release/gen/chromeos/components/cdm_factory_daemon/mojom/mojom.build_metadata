@@ -1,0 +1,16 @@
+{
+  "deps": [
+    "../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../sandbox/policy/mojom/mojom.build_metadata",
+    "../../../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../../../ash/components/arc/mojom/oemcrypto.build_metadata",
+    "../../../../ash/components/arc/mojom/protected_buffer_manager.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/components/cdm_factory_daemon/mojom/browser_cdm_factory.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/components/cdm_factory_daemon/mojom/cdm_factory_daemon.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/components/cdm_factory_daemon/mojom/cdm_storage.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/components/cdm_factory_daemon/mojom/content_decryption_module.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chromeos/components/cdm_factory_daemon/mojom/output_protection.mojom"
+  ]
+}

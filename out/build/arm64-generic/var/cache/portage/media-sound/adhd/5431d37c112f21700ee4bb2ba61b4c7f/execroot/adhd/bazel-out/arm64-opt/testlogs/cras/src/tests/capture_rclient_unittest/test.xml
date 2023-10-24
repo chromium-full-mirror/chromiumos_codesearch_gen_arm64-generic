@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="6" failures="0" disabled="0" errors="0" time="0.018" timestamp="2023-10-23T22:47:23.548" name="AllTests">
-  <testsuite name="RClientSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2023-10-23T22:47:23.554">
-    <testcase name="CreateSendMessage" file="cras/src/tests/capture_rclient_unittest.cc" line="40" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:47:23.554" classname="RClientSuite" />
+<testsuites tests="6" failures="0" disabled="0" errors="0" time="0.026" timestamp="2023-10-24T11:10:13.640" name="AllTests">
+  <testsuite name="RClientSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.003" timestamp="2023-10-24T11:10:13.647">
+    <testcase name="CreateSendMessage" file="cras/src/tests/capture_rclient_unittest.cc" line="40" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:10:13.648" classname="RClientSuite" />
   </testsuite>
-  <testsuite name="CCRMessageSuite" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0.01" timestamp="2023-10-23T22:47:23.557">
-    <testcase name="StreamConnectMessage" file="cras/src/tests/capture_rclient_unittest.cc" line="103" status="run" result="completed" time="0.007" timestamp="2023-10-23T22:47:23.557" classname="CCRMessageSuite" />
-    <testcase name="StreamConnectMessageInvalidDirection" file="cras/src/tests/capture_rclient_unittest.cc" line="126" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:47:23.565" classname="CCRMessageSuite" />
-    <testcase name="StreamConnectMessageInvalidClientId" file="cras/src/tests/capture_rclient_unittest.cc" line="158" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:23.566" classname="CCRMessageSuite" />
-    <testcase name="StreamDisconnectMessage" file="cras/src/tests/capture_rclient_unittest.cc" line="184" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:23.566" classname="CCRMessageSuite" />
-    <testcase name="StreamDisconnectMessageInvalidClientId" file="cras/src/tests/capture_rclient_unittest.cc" line="194" status="run" result="completed" time="0." timestamp="2023-10-23T22:47:23.567" classname="CCRMessageSuite" />
+  <testsuite name="CCRMessageSuite" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0.014" timestamp="2023-10-24T11:10:13.651">
+    <testcase name="StreamConnectMessage" file="cras/src/tests/capture_rclient_unittest.cc" line="103" status="run" result="completed" time="0.01" timestamp="2023-10-24T11:10:13.651" classname="CCRMessageSuite" />
+    <testcase name="StreamConnectMessageInvalidDirection" file="cras/src/tests/capture_rclient_unittest.cc" line="126" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:10:13.662" classname="CCRMessageSuite" />
+    <testcase name="StreamConnectMessageInvalidClientId" file="cras/src/tests/capture_rclient_unittest.cc" line="158" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:13.664" classname="CCRMessageSuite" />
+    <testcase name="StreamDisconnectMessage" file="cras/src/tests/capture_rclient_unittest.cc" line="184" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:13.665" classname="CCRMessageSuite" />
+    <testcase name="StreamDisconnectMessageInvalidClientId" file="cras/src/tests/capture_rclient_unittest.cc" line="194" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:13.666" classname="CCRMessageSuite" />
   </testsuite>
 </testsuites>

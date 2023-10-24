@@ -1,0 +1,9 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mojo/foobar.mojom",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/mojo/mojo_file_system_access_test.mojom"
+  ]
+}

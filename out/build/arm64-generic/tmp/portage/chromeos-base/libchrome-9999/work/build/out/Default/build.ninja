@@ -1,0 +1,185 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../libchrome-9999/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build libchrome: phony obj/libchrome/libchrome.stamp
+build all_buildflags: phony obj/libchrome/all_buildflags.stamp
+build allocator_buildflags: phony obj/libchrome/allocator_buildflags.stamp
+build allocator_debugging_buildflags: phony obj/libchrome/allocator_debugging_buildflags.stamp
+build allocator_logging_buildflags: phony obj/libchrome/allocator_logging_buildflags.stamp
+build base: phony obj/libchrome/base.stamp
+build base-base_test_support: phony ./libbase-base_test_support.a
+build base-core: phony ./lib/libbase-core.so
+build base-crypto: phony ./lib/libbase-crypto.so
+build base-dbus: phony ./lib/libbase-dbus.so
+build base-dbus_test_support: phony ./libbase-dbus_test_support.a
+build base-policy: phony ./lib/libbase-policy.so
+build base-test: phony obj/libchrome/base-test.stamp
+build blink_buildflags: phony obj/libchrome/blink_buildflags.stamp
+build branding_buildflags: phony obj/libchrome/branding_buildflags.stamp
+build buildflag_header_h: phony obj/libchrome/buildflag_header_h.stamp
+build cfi_buildflags: phony obj/libchrome/cfi_buildflags.stamp
+build chromecast_buildflags: phony obj/libchrome/chromecast_buildflags.stamp
+build chromeos_buildflags: phony obj/libchrome/chromeos_buildflags.stamp
+build clang_profiling_buildflags: phony obj/libchrome/clang_profiling_buildflags.stamp
+build compiler_buildflags: phony obj/libchrome/compiler_buildflags.stamp
+build debugging_buildflags: phony obj/libchrome/debugging_buildflags.stamp
+build feature_list_buildflags: phony obj/libchrome/feature_list_buildflags.stamp
+build install_basever: phony obj/libchrome/install_basever.stamp
+build install_buildflag_header: phony obj/libchrome/install_buildflag_header.stamp
+build install_header: phony obj/libchrome/install_header.stamp
+build install_mojom_generated: phony obj/libchrome/install_mojom_generated.stamp
+build install_protozero_generated: phony obj/libchrome/install_protozero_generated.stamp
+build ios_cronet_buildflags: phony obj/libchrome/ios_cronet_buildflags.stamp
+build ipc_buildflags: phony obj/libchrome/ipc_buildflags.stamp
+build libchrome-test: phony obj/libchrome/libchrome-test.stamp
+build libmojo: phony obj/libchrome/libmojo.stamp
+build message_pump_buildflags: phony obj/libchrome/message_pump_buildflags.stamp
+build mojo: phony ./lib/libmojo.so
+build mojo_buildflags: phony obj/libchrome/mojo_buildflags.stamp
+build mojo_cpp_bindings_buildflags: phony obj/libchrome/mojo_cpp_bindings_buildflags.stamp
+build mojom_bindings_gen: phony obj/libchrome/mojom_bindings_gen.stamp
+build mojom_bindings_gen_mojo_templates: phony obj/libchrome/mojom_bindings_gen_mojo_templates.stamp
+build mojom_bindings_gen_mojo_templates_dir: phony obj/libchrome/mojom_bindings_gen_mojo_templates_dir.stamp
+build mojom_bindings_gen_parse: phony obj/libchrome/mojom_bindings_gen_parse.stamp
+build mojom_type_mappings: phony obj/libchrome/mojom_type_mappings.stamp
+build partition_allocator_buildflags: phony obj/libchrome/partition_allocator_buildflags.stamp
+build partition_allocator_chromecast_buildflags: phony obj/libchrome/partition_allocator_chromecast_buildflags.stamp
+build partition_allocator_chromeos_buildflags: phony obj/libchrome/partition_allocator_chromeos_buildflags.stamp
+build partition_allocator_raw_ptr_buildflags: phony obj/libchrome/partition_allocator_raw_ptr_buildflags.stamp
+build profiler_buildflags: phony obj/libchrome/profiler_buildflags.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build rust_buildflags: phony obj/libchrome/rust_buildflags.stamp
+build synchronization_buildflags: phony obj/libchrome/synchronization_buildflags.stamp
+build testrunner: phony ./libtestrunner.a
+build tracing_buildflags: phony obj/libchrome/tracing_buildflags.stamp
+build tracing_protozero: phony obj/libchrome/tracing_protozero.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build libchrome$:all: phony obj/libchrome/all.stamp
+build libchrome$:all_buildflags: phony obj/libchrome/all_buildflags.stamp
+build libchrome$:allocator_buildflags: phony obj/libchrome/allocator_buildflags.stamp
+build libchrome$:allocator_debugging_buildflags: phony obj/libchrome/allocator_debugging_buildflags.stamp
+build libchrome$:allocator_logging_buildflags: phony obj/libchrome/allocator_logging_buildflags.stamp
+build libchrome$:base: phony obj/libchrome/base.stamp
+build libchrome$:base-base_test_support: phony ./libbase-base_test_support.a
+build libchrome$:base-core: phony ./lib/libbase-core.so
+build libchrome$:base-crypto: phony ./lib/libbase-crypto.so
+build libchrome$:base-dbus: phony ./lib/libbase-dbus.so
+build libchrome$:base-dbus_test_support: phony ./libbase-dbus_test_support.a
+build libchrome$:base-policy: phony ./lib/libbase-policy.so
+build libchrome$:base-test: phony obj/libchrome/base-test.stamp
+build libchrome$:blink_buildflags: phony obj/libchrome/blink_buildflags.stamp
+build libchrome$:branding_buildflags: phony obj/libchrome/branding_buildflags.stamp
+build libchrome$:buildflag_header_h: phony obj/libchrome/buildflag_header_h.stamp
+build libchrome$:cfi_buildflags: phony obj/libchrome/cfi_buildflags.stamp
+build libchrome$:chromecast_buildflags: phony obj/libchrome/chromecast_buildflags.stamp
+build libchrome$:chromeos_buildflags: phony obj/libchrome/chromeos_buildflags.stamp
+build libchrome$:clang_profiling_buildflags: phony obj/libchrome/clang_profiling_buildflags.stamp
+build libchrome$:compiler_buildflags: phony obj/libchrome/compiler_buildflags.stamp
+build libchrome$:debugging_buildflags: phony obj/libchrome/debugging_buildflags.stamp
+build libchrome$:feature_list_buildflags: phony obj/libchrome/feature_list_buildflags.stamp
+build libchrome$:install_basever: phony obj/libchrome/install_basever.stamp
+build libchrome$:install_buildflag_header: phony obj/libchrome/install_buildflag_header.stamp
+build libchrome$:install_header: phony obj/libchrome/install_header.stamp
+build libchrome$:install_mojom_generated: phony obj/libchrome/install_mojom_generated.stamp
+build libchrome$:install_protozero_generated: phony obj/libchrome/install_protozero_generated.stamp
+build libchrome$:ios_cronet_buildflags: phony obj/libchrome/ios_cronet_buildflags.stamp
+build libchrome$:ipc_buildflags: phony obj/libchrome/ipc_buildflags.stamp
+build libchrome$:libchrome: phony obj/libchrome/libchrome.stamp
+build libchrome$:libchrome-test: phony obj/libchrome/libchrome-test.stamp
+build libchrome$:libmojo: phony obj/libchrome/libmojo.stamp
+build libchrome$:message_pump_buildflags: phony obj/libchrome/message_pump_buildflags.stamp
+build libchrome$:mojo: phony ./lib/libmojo.so
+build libchrome$:mojo_buildflags: phony obj/libchrome/mojo_buildflags.stamp
+build libchrome$:mojo_cpp_bindings_buildflags: phony obj/libchrome/mojo_cpp_bindings_buildflags.stamp
+build libchrome$:mojom_bindings_gen: phony obj/libchrome/mojom_bindings_gen.stamp
+build libchrome$:mojom_bindings_gen_mojo_templates: phony obj/libchrome/mojom_bindings_gen_mojo_templates.stamp
+build libchrome$:mojom_bindings_gen_mojo_templates_dir: phony obj/libchrome/mojom_bindings_gen_mojo_templates_dir.stamp
+build libchrome$:mojom_bindings_gen_parse: phony obj/libchrome/mojom_bindings_gen_parse.stamp
+build libchrome$:mojom_type_mappings: phony obj/libchrome/mojom_type_mappings.stamp
+build libchrome$:optional_unittests: phony ./optional_unittests
+build libchrome$:partition_allocator_buildflags: phony obj/libchrome/partition_allocator_buildflags.stamp
+build libchrome$:partition_allocator_chromecast_buildflags: phony obj/libchrome/partition_allocator_chromecast_buildflags.stamp
+build libchrome$:partition_allocator_chromeos_buildflags: phony obj/libchrome/partition_allocator_chromeos_buildflags.stamp
+build libchrome$:partition_allocator_raw_ptr_buildflags: phony obj/libchrome/partition_allocator_raw_ptr_buildflags.stamp
+build libchrome$:profiler_buildflags: phony obj/libchrome/profiler_buildflags.stamp
+build libchrome$:rust_buildflags: phony obj/libchrome/rust_buildflags.stamp
+build libchrome$:synchronization_buildflags: phony obj/libchrome/synchronization_buildflags.stamp
+build libchrome$:tracing_buildflags: phony obj/libchrome/tracing_buildflags.stamp
+build libchrome$:tracing_protozero: phony obj/libchrome/tracing_protozero.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/libchrome/all.stamp $
+    obj/libchrome/all_buildflags.stamp $
+    obj/libchrome/allocator_buildflags.stamp $
+    obj/libchrome/allocator_debugging_buildflags.stamp $
+    obj/libchrome/allocator_logging_buildflags.stamp $
+    obj/libchrome/base.stamp $
+    ./libbase-base_test_support.a $
+    ./lib/libbase-core.so $
+    ./lib/libbase-crypto.so $
+    ./lib/libbase-dbus.so $
+    ./libbase-dbus_test_support.a $
+    ./lib/libbase-policy.so $
+    obj/libchrome/base-test.stamp $
+    obj/libchrome/blink_buildflags.stamp $
+    obj/libchrome/branding_buildflags.stamp $
+    obj/libchrome/buildflag_header_h.stamp $
+    obj/libchrome/cfi_buildflags.stamp $
+    obj/libchrome/chromecast_buildflags.stamp $
+    obj/libchrome/chromeos_buildflags.stamp $
+    obj/libchrome/clang_profiling_buildflags.stamp $
+    obj/libchrome/compiler_buildflags.stamp $
+    obj/libchrome/debugging_buildflags.stamp $
+    obj/libchrome/feature_list_buildflags.stamp $
+    obj/libchrome/install_basever.stamp $
+    obj/libchrome/install_buildflag_header.stamp $
+    obj/libchrome/install_header.stamp $
+    obj/libchrome/install_mojom_generated.stamp $
+    obj/libchrome/install_protozero_generated.stamp $
+    obj/libchrome/ios_cronet_buildflags.stamp $
+    obj/libchrome/ipc_buildflags.stamp $
+    obj/libchrome/libchrome.stamp $
+    obj/libchrome/libchrome-test.stamp $
+    obj/libchrome/libmojo.stamp $
+    obj/libchrome/message_pump_buildflags.stamp $
+    ./lib/libmojo.so $
+    obj/libchrome/mojo_buildflags.stamp $
+    obj/libchrome/mojo_cpp_bindings_buildflags.stamp $
+    obj/libchrome/mojom_bindings_gen.stamp $
+    obj/libchrome/mojom_bindings_gen_mojo_templates.stamp $
+    obj/libchrome/mojom_bindings_gen_mojo_templates_dir.stamp $
+    obj/libchrome/mojom_bindings_gen_parse.stamp $
+    obj/libchrome/mojom_type_mappings.stamp $
+    ./optional_unittests $
+    obj/libchrome/partition_allocator_buildflags.stamp $
+    obj/libchrome/partition_allocator_chromecast_buildflags.stamp $
+    obj/libchrome/partition_allocator_chromeos_buildflags.stamp $
+    obj/libchrome/partition_allocator_raw_ptr_buildflags.stamp $
+    obj/libchrome/profiler_buildflags.stamp $
+    obj/libchrome/rust_buildflags.stamp $
+    obj/libchrome/synchronization_buildflags.stamp $
+    obj/libchrome/tracing_buildflags.stamp $
+    obj/libchrome/tracing_protozero.stamp
+
+default all

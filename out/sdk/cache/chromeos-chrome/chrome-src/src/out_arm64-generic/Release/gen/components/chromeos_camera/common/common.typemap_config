@@ -1,0 +1,47 @@
+[
+  {
+    "traits_deps": [
+      "//base"
+    ],
+    "traits_headers": [
+      "components/chromeos_camera/common/jpeg_encode_accelerator_mojom_traits.h"
+    ],
+    "traits_sources": [
+      "jpeg_encode_accelerator_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::chromeos_camera::JpegEncodeAccelerator::Status",
+        "mojom": "chromeos_camera.mojom.EncodeStatus"
+      }
+    ]
+  },
+  {
+    "traits_deps": [
+      "//media/base/ipc",
+      "//mojo/public/cpp/base:typemap_traits",
+      "//mojo/public/cpp/system"
+    ],
+    "traits_headers": [
+      "components/chromeos_camera/common/mjpeg_decode_accelerator_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//base",
+      "//media"
+    ],
+    "traits_sources": [
+      "mjpeg_decode_accelerator_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::media::BitstreamBuffer",
+        "mojom": "chromeos_camera.mojom.BitstreamBuffer",
+        "move_only": true
+      },
+      {
+        "cpp": "::chromeos_camera::MjpegDecodeAccelerator::Error",
+        "mojom": "chromeos_camera.mojom.DecodeError"
+      }
+    ]
+  }
+]

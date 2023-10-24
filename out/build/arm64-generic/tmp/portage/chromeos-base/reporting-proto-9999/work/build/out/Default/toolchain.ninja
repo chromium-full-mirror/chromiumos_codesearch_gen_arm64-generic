@@ -1,0 +1,100 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/missive/proto/all.stamp
+build obj/missive/proto/all.stamp: stamp obj/missive/proto/libmissive-interface-goprotos.stamp
+rule __missive_proto_libmissive-interface-goprotos___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc --proto_path /mnt/host/source/src/platform2/missive/proto/synced/pipeline --proto_path /build/arm64-generic/usr/share/proto --proto_path /mnt/host/source/src/platform2/missive/proto/ --go_out Mapp_types.proto=chromiumos/reporting,Mhealth.proto=chromiumos/reporting,Mmetric_data.proto=chromiumos/reporting,Mpipeline_interface_sym_for_tast.proto=chromiumos/reporting,Mrecord.proto=chromiumos/reporting,Mrecord_constants.proto=chromiumos/reporting,Mstatus.proto=chromiumos/reporting,Msession_affiliated_user.proto=chromiumos/reporting,Mupload_tracker.proto=chromiumos/reporting$:/build/arm64-generic/tmp/portage/chromeos-base/reporting-proto-9999/work/build/out/Default/gen/go/src/ /mnt/host/source/src/platform2/missive/proto/pipeline_interface_sym_for_tast.proto /mnt/host/source/src/platform2/missive/proto/synced/pipeline/app_types.proto /mnt/host/source/src/platform2/missive/proto/synced/pipeline/health.proto /mnt/host/source/src/platform2/missive/proto/synced/pipeline/metric_data.proto /mnt/host/source/src/platform2/missive/proto/synced/pipeline/record.proto /mnt/host/source/src/platform2/missive/proto/synced/pipeline/record_constants.proto /mnt/host/source/src/platform2/missive/proto/synced/pipeline/session_affiliated_user.proto /mnt/host/source/src/platform2/missive/proto/synced/pipeline/status.proto /mnt/host/source/src/platform2/missive/proto/synced/pipeline/upload_tracker.proto
+  description = ACTION //missive/proto:libmissive-interface-goprotos(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/go/src/pipeline_interface_sym_for_tast.pb.go gen/go/src/app_types.pb.go gen/go/src/health.pb.go gen/go/src/metric_data.pb.go gen/go/src/record.pb.go gen/go/src/record_constants.pb.go gen/go/src/session_affiliated_user.pb.go gen/go/src/status.pb.go gen/go/src/upload_tracker.pb.go: __missive_proto_libmissive-interface-goprotos___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/pipeline_interface_sym_for_tast.proto ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/app_types.proto ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/health.proto ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/metric_data.proto ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/record.proto ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/record_constants.proto ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/session_affiliated_user.proto ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/status.proto ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/upload_tracker.proto
+
+build obj/missive/proto/libmissive-interface-goprotos.stamp: stamp gen/go/src/pipeline_interface_sym_for_tast.pb.go gen/go/src/app_types.pb.go gen/go/src/health.pb.go gen/go/src/metric_data.pb.go gen/go/src/record.pb.go gen/go/src/record_constants.pb.go gen/go/src/session_affiliated_user.pb.go gen/go/src/status.pb.go gen/go/src/upload_tracker.pb.go
+subninja obj/missive/proto/libmissiveprotohealth.ninja
+rule __missive_proto_libmissiveprotohealth_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc health.proto --proto_path /mnt/host/source/src/platform2/missive/proto/synced/pipeline --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/reporting-proto-9999/work/build/out/Default/gen/include/missive/proto
+  description = ACTION //missive/proto:libmissiveprotohealth_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/missive/proto/health.pb.cc gen/include/missive/proto/health.pb.h: __missive_proto_libmissiveprotohealth_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/health.proto ./libmissiveprotorecordconstants.a ./libmissiveprotostatus.a
+
+build obj/missive/proto/libmissiveprotohealth_gen.stamp: stamp gen/include/missive/proto/health.pb.cc gen/include/missive/proto/health.pb.h
+subninja obj/missive/proto/libmissiveprotointerface.ninja
+rule __missive_proto_libmissiveprotointerface_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc interface.proto --proto_path /mnt/host/source/src/platform2/missive/proto/synced/pipeline --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/reporting-proto-9999/work/build/out/Default/gen/include/missive/proto/
+  description = ACTION //missive/proto:libmissiveprotointerface_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/missive/proto/interface.pb.cc gen/include/missive/proto/interface.pb.h: __missive_proto_libmissiveprotointerface_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/interface.proto ./libmissiveprotorecord.a ./libmissiveprotorecordconstants.a ./libmissiveprotostatus.a
+
+build obj/missive/proto/libmissiveprotointerface_gen.stamp: stamp gen/include/missive/proto/interface.pb.cc gen/include/missive/proto/interface.pb.h
+subninja obj/missive/proto/libmissiveprotorecord.ninja
+rule __missive_proto_libmissiveprotorecord_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc record.proto --proto_path /mnt/host/source/src/platform2/missive/proto/synced/pipeline --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/reporting-proto-9999/work/build/out/Default/gen/include/missive/proto
+  description = ACTION //missive/proto:libmissiveprotorecord_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/missive/proto/record.pb.cc gen/include/missive/proto/record.pb.h: __missive_proto_libmissiveprotorecord_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/record.proto ./libmissiveprotohealth.a ./libmissiveprotorecordconstants.a
+
+build obj/missive/proto/libmissiveprotorecord_gen.stamp: stamp gen/include/missive/proto/record.pb.cc gen/include/missive/proto/record.pb.h
+subninja obj/missive/proto/libmissiveprotorecordconstants.ninja
+rule __missive_proto_libmissiveprotorecordconstants_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc record_constants.proto --proto_path /mnt/host/source/src/platform2/missive/proto/synced/pipeline --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/reporting-proto-9999/work/build/out/Default/gen/include/missive/proto
+  description = ACTION //missive/proto:libmissiveprotorecordconstants_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/missive/proto/record_constants.pb.cc gen/include/missive/proto/record_constants.pb.h: __missive_proto_libmissiveprotorecordconstants_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/record_constants.proto
+
+build obj/missive/proto/libmissiveprotorecordconstants_gen.stamp: stamp gen/include/missive/proto/record_constants.pb.cc gen/include/missive/proto/record_constants.pb.h
+subninja obj/missive/proto/libmissiveprotostatus.ninja
+rule __missive_proto_libmissiveprotostatus_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc status.proto --proto_path /mnt/host/source/src/platform2/missive/proto/synced/pipeline --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/reporting-proto-9999/work/build/out/Default/gen/include/missive/proto
+  description = ACTION //missive/proto:libmissiveprotostatus_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/missive/proto/status.pb.cc gen/include/missive/proto/status.pb.h: __missive_proto_libmissiveprotostatus_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/synced/pipeline/status.proto
+
+build obj/missive/proto/libmissiveprotostatus_gen.stamp: stamp gen/include/missive/proto/status.pb.cc gen/include/missive/proto/status.pb.h
+subninja obj/missive/proto/priority_name.ninja
+subninja obj/missive/proto/test_proto.ninja
+rule __missive_proto_test_proto_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc test.proto --proto_path /mnt/host/source/src/platform2/missive/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/tmp/portage/chromeos-base/reporting-proto-9999/work/build/out/Default/gen/include/missive/proto
+  description = ACTION //missive/proto:test_proto_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/missive/proto/test.pb.cc gen/include/missive/proto/test.pb.h: __missive_proto_test_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../../mnt/host/source/src/platform2/missive/proto/test.proto
+
+build obj/missive/proto/test_proto_gen.stamp: stamp gen/include/missive/proto/test.pb.cc gen/include/missive/proto/test.pb.h

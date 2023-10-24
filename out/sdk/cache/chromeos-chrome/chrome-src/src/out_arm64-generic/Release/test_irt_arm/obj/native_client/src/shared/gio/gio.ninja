@@ -1,0 +1,20 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -D_LIBCPP_ENABLE_ASSERTIONS=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DNDEBUG -DNVALGRIND -D_POSIX_C_SOURCE=199506 -D_XOPEN_SOURCE=600 -D_GNU_SOURCE=1 -D__STDC_LIMIT_MACROS=1 -DDYNAMIC_ANNOTATIONS_ENABLED=1 -DDYNAMIC_ANNOTATIONS_PREFIX=NACL_
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Itest_irt_arm/gen
+cflags = -gline-tables-only -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wshadow -Werror -fno-ident -fno-strict-aliasing -fcolor-diagnostics -fmerge-all-constants -U__STRICT_ANSI__ -integrated-as -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fomit-frame-pointer -g2 -gsplit-dwarf -Xclang -fuse-ctor-homing -fvisibility=hidden
+cflags_c = -std=c11
+label_name = gio
+root_out_dir = test_irt_arm
+target_out_dir = test_irt_arm/obj/native_client/src/shared/gio
+target_output_name = libgio
+
+build test_irt_arm/obj/native_client/src/shared/gio/gio/gio.o: test_irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/shared/gio/gio.c
+  source_file_part = gio.c
+  source_name_part = gio
+build test_irt_arm/obj/native_client/src/shared/gio/gio/gprintf.o: test_irt_arm_cc ../../../../../../../home/chrome-bot/chrome_root/src/native_client/src/shared/gio/gprintf.c
+  source_file_part = gprintf.c
+  source_name_part = gprintf
+
+build test_irt_arm/obj/native_client/src/shared/gio/libgio.a: test_irt_arm_alink test_irt_arm/obj/native_client/src/shared/gio/gio/gio.o test_irt_arm/obj/native_client/src/shared/gio/gio/gprintf.o || test_irt_arm/obj/build/config/nacl/nacl_base.stamp
+  arflags =
+  output_extension = .a
+  output_dir = test_irt_arm/obj/native_client/src/shared/gio

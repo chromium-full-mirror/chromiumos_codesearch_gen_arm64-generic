@@ -1,0 +1,75 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/permission_broker/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja
+build obj/featured/all.stamp: stamp ./featured ./lib/libc_fake_feature_library.so ./lib/libfake_platform_features.so ./lib/libfeatures.so ./lib/libfeatures_c.so ./libstore_impl.a ./c_fake_feature_check_example ./c_feature_check_example ./cpp_feature_check_example ./feature_library_test ./service_test ./store_impl_test
+subninja obj/featured/c_fake_feature_check_example.ninja
+subninja obj/featured/c_feature_check_example.ninja
+subninja obj/featured/cpp_feature_check_example.ninja
+subninja obj/featured/feature_library_test.ninja
+subninja obj/featured/featured.ninja
+rule __featured_featured-adaptors___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/permission_broker/out/Default/gen/include/featured/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/featured/dbus_bindings/dbus-service-config.json ${in}
+  description = ACTION //featured:featured-adaptors(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/featured/dbus_adaptors/org.chromium.featured.h: __featured_featured-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/featured/dbus_bindings/org.chromium.featured.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.featured
+
+build obj/featured/featured-adaptors.stamp: stamp gen/include/featured/dbus_adaptors/org.chromium.featured.h
+subninja obj/featured/libc_fake_feature_library.ninja
+subninja obj/featured/libfake_platform_features.ninja
+subninja obj/featured/libfeatured.ninja
+subninja obj/featured/libfeatures.ninja
+subninja obj/featured/libfeatures_c.ninja
+subninja obj/featured/libstore_impl.ninja
+subninja obj/featured/libtmp_storage_impl.ninja
+subninja obj/featured/service_test.ninja
+subninja obj/featured/store_impl_test.ninja
+build obj/permission_broker/all.stamp: stamp obj/permission_broker/install_minijail_conf.stamp ./permission_broker ./permission_broker_test
+build obj/permission_broker/install_minijail_conf.stamp: stamp
+subninja obj/permission_broker/libpermission_broker.ninja
+subninja obj/permission_broker/permission_broker.ninja
+rule __permission_broker_permission_broker_adaptors___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/permission_broker/out/Default/gen/include/permission_broker/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/permission_broker/dbus_bindings/dbus-service-config.json ${in}
+  description = ACTION //permission_broker:permission_broker_adaptors(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/permission_broker/dbus_adaptors/org.chromium.PermissionBroker.h: __permission_broker_permission_broker_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/permission_broker/dbus_bindings/org.chromium.PermissionBroker.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.PermissionBroker
+
+build obj/permission_broker/permission_broker_adaptors.stamp: stamp gen/include/permission_broker/dbus_adaptors/org.chromium.PermissionBroker.h
+subninja obj/permission_broker/permission_broker_test.ninja

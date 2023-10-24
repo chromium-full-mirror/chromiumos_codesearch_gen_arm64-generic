@@ -1,0 +1,159 @@
+[
+  {
+    "traits_headers": [
+      "chromeos/crosapi/mojom/app_service_types_mojom_traits.h",
+      "chromeos/crosapi/mojom/browser_app_instance_registry_mojom_traits.h",
+      "chromeos/crosapi/mojom/cert_database_mojom_traits.h",
+      "chromeos/crosapi/mojom/desk_mojom_traits.h",
+      "chromeos/crosapi/mojom/desk_template_mojom_traits.h",
+      "chromeos/crosapi/mojom/policy_domain_mojom_traits.h",
+      "chromeos/crosapi/mojom/policy_namespace_mojom_traits.h",
+      "chromeos/crosapi/mojom/sharesheet_mojom_traits.h",
+      "chromeos/crosapi/mojom/ui_constants_mojom_traits.h",
+      "chromeos/crosapi/mojom/web_app_types_mojom_traits.h",
+      "components/services/app_service/public/cpp/app_launch_util.h",
+      "components/services/app_service/public/cpp/app_types.h",
+      "components/services/app_service/public/cpp/capability_access.h",
+      "components/services/app_service/public/cpp/icon_types.h",
+      "components/services/app_service/public/cpp/preferred_app.h"
+    ],
+    "traits_public_deps": [
+      "//base",
+      "//chromeos/components/certificate_provider:certificate_provider",
+      "//components/policy/core/common:policy_namespace",
+      "//components/services/app_service/public/cpp:app_types",
+      "//components/tab_groups",
+      "//components/webapps/browser:constants",
+      "//ui/base:ui_data_pack",
+      "//ui/gfx/range"
+    ],
+    "traits_sources": [
+      "//chromeos/crosapi/mojom/app_service_types_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/browser_app_instance_registry_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/cert_database_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/desk_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/desk_template_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/policy_domain_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/policy_namespace_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/sharesheet_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/ui_constants_mojom_traits.cc",
+      "//chromeos/crosapi/mojom/web_app_types_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::apps::AppPtr",
+        "mojom": "crosapi.mojom.App",
+        "move_only": true,
+        "nullable_is_same_type": true
+      },
+      {
+        "cpp": "::policy::PolicyDomain",
+        "mojom": "crosapi.mojom.PolicyDomain",
+        "move_only": true,
+        "nullable_is_same_type": true
+      },
+      {
+        "cpp": "::policy::PolicyNamespace",
+        "mojom": "crosapi.mojom.PolicyNamespace",
+        "move_only": true,
+        "nullable_is_same_type": true
+      },
+      {
+        "cpp": "::apps::UninstallSource",
+        "mojom": "crosapi.mojom.UninstallSource"
+      },
+      {
+        "cpp": "::apps::CapabilityAccessPtr",
+        "mojom": "crosapi.mojom.CapabilityAccess",
+        "move_only": true
+      },
+      {
+        "cpp": "::apps::IconType",
+        "mojom": "crosapi.mojom.IconType"
+      },
+      {
+        "cpp": "::apps::IconValuePtr",
+        "mojom": "crosapi.mojom.IconValue",
+        "move_only": true
+      },
+      {
+        "cpp": "::apps::IconKeyPtr",
+        "mojom": "crosapi.mojom.IconKey",
+        "move_only": true
+      },
+      {
+        "cpp": "::apps::WindowMode",
+        "mojom": "crosapi.mojom.WindowMode"
+      },
+      {
+        "cpp": "::apps::AppType",
+        "mojom": "crosapi.mojom.AppType"
+      },
+      {
+        "cpp": "::apps::LaunchSource",
+        "mojom": "crosapi.mojom.LaunchSource"
+      },
+      {
+        "cpp": "::sharesheet::LaunchSource",
+        "mojom": "crosapi.mojom.SharesheetLaunchSource"
+      },
+      {
+        "cpp": "::sharesheet::SharesheetResult",
+        "mojom": "crosapi.mojom.SharesheetResult"
+      },
+      {
+        "cpp": "::apps::BrowserWindowInstanceUpdate",
+        "mojom": "crosapi.mojom.BrowserWindowInstanceUpdate",
+        "move_only": true
+      },
+      {
+        "cpp": "::apps::BrowserAppInstanceUpdate",
+        "mojom": "crosapi.mojom.BrowserAppInstanceUpdate",
+        "move_only": true
+      },
+      {
+        "cpp": "::apps::BrowserAppInstanceUpdate::Type",
+        "mojom": "crosapi.mojom.BrowserAppInstanceType"
+      },
+      {
+        "cpp": "::apps::PermissionPtr",
+        "mojom": "crosapi.mojom.Permission",
+        "move_only": true
+      },
+      {
+        "cpp": "::apps::PreferredAppPtr",
+        "mojom": "crosapi.mojom.PreferredApp",
+        "move_only": true
+      },
+      {
+        "cpp": "::apps::PreferredAppChangesPtr",
+        "mojom": "crosapi.mojom.PreferredAppChanges",
+        "move_only": true
+      },
+      {
+        "cpp": "::webapps::InstallResultCode",
+        "mojom": "crosapi.mojom.WebAppInstallResultCode"
+      },
+      {
+        "cpp": "::webapps::UninstallResultCode",
+        "mojom": "crosapi.mojom.WebAppUninstallResultCode"
+      },
+      {
+        "cpp": "::chromeos::certificate_provider::CertificateInfo",
+        "mojom": "crosapi.mojom.CertInfo"
+      },
+      {
+        "cpp": "::base::Uuid",
+        "mojom": "crosapi.mojom.GUID"
+      },
+      {
+        "cpp": "::tab_groups::TabGroupInfo",
+        "mojom": "crosapi.mojom.TabGroup"
+      },
+      {
+        "cpp": "::ui::ResourceScaleFactor",
+        "mojom": "crosapi.mojom.ResourceScaleFactor"
+      }
+    ]
+  }
+]

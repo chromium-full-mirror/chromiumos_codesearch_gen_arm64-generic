@@ -1,0 +1,38 @@
+defines = -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -D_LIBCPP_ENABLE_ASSERTIONS=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DNDEBUG -DNVALGRIND -DABSL_ALLOCATOR_NOTHROW=1
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iirt_arm/gen -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp
+cflags = -gline-tables-only -fno-ident -fno-strict-aliasing -fcolor-diagnostics -fmerge-all-constants -U__STRICT_ANSI__ -integrated-as -fasynchronous-unwind-tables -fomit-frame-pointer -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -Os -ffunction-sections -fdata-sections -fomit-frame-pointer -g2 -gsplit-dwarf -Xclang -fuse-ctor-homing -fvisibility=hidden -Wno-unused-variable -Wno-c++11-narrowing -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Werror -Wshorten-64-to-32 -Wimplicit-int-conversion -Wsign-compare -Wsign-conversion
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -fvisibility-inlines-hidden -Wbool-conversion -Wconstant-conversion -Wenum-conversion -Wint-conversion -Wliteral-conversion -Wnon-literal-null-conversion -Wnull-conversion -Wobjc-literal-conversion -Wstring-conversion
+label_name = time_zone
+root_out_dir = irt_arm
+target_out_dir = irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz
+target_output_name = time_zone
+
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_fixed.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_fixed.cc || host/tls_edit
+  source_file_part = time_zone_fixed.cc
+  source_name_part = time_zone_fixed
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_format.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc || host/tls_edit
+  source_file_part = time_zone_format.cc
+  source_name_part = time_zone_format
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_if.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_if.cc || host/tls_edit
+  source_file_part = time_zone_if.cc
+  source_name_part = time_zone_if
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_impl.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_impl.cc || host/tls_edit
+  source_file_part = time_zone_impl.cc
+  source_name_part = time_zone_impl
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_info.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_info.cc || host/tls_edit
+  source_file_part = time_zone_info.cc
+  source_name_part = time_zone_info
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_libc.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_libc.cc || host/tls_edit
+  source_file_part = time_zone_libc.cc
+  source_name_part = time_zone_libc
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_lookup.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_lookup.cc || host/tls_edit
+  source_file_part = time_zone_lookup.cc
+  source_name_part = time_zone_lookup
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_posix.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_posix.cc || host/tls_edit
+  source_file_part = time_zone_posix.cc
+  source_name_part = time_zone_posix
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/zone_info_source.o: irt_arm_cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/abseil-cpp/absl/time/internal/cctz/src/zone_info_source.cc || host/tls_edit
+  source_file_part = zone_info_source.cc
+  source_name_part = zone_info_source
+
+build irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone.stamp: irt_arm_stamp irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_fixed.o irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_format.o irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_if.o irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_impl.o irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_info.o irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_libc.o irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_lookup.o irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/time_zone_posix.o irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/time_zone/zone_info_source.o || irt_arm/obj/third_party/abseil-cpp/absl/time/internal/cctz/civil_time.stamp irt_arm/obj/third_party/abseil-cpp/absl/base/config.stamp

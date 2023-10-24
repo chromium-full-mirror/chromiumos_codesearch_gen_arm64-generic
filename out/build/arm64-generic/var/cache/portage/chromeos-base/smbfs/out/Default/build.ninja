@@ -1,0 +1,57 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/smbfs-9999/work/smbfs-9999/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build dbus_bindings: phony obj/smbfs/dbus_bindings.stamp
+build libsmbfs: phony ./libsmbfs.a
+build mojo_bindings: phony ./libmojo_bindings.a
+build mojo_bindings_gen: phony obj/smbfs/mojo_bindings_gen.stamp
+build mojo_bindings_gen_mojo_templates: phony obj/smbfs/mojo_bindings_gen_mojo_templates.stamp
+build mojo_bindings_gen_mojo_templates_dir: phony obj/smbfs/mojo_bindings_gen_mojo_templates_dir.stamp
+build mojo_bindings_gen_parse: phony obj/smbfs/mojo_bindings_gen_parse.stamp
+build mojo_bindings_lib: phony obj/smbfs/mojo_bindings_lib.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build smbfs$:all: phony obj/smbfs/all.stamp
+build smbfs$:dbus_bindings: phony obj/smbfs/dbus_bindings.stamp
+build smbfs$:libsmbfs: phony ./libsmbfs.a
+build smbfs$:mojo_bindings: phony ./libmojo_bindings.a
+build smbfs$:mojo_bindings_gen: phony obj/smbfs/mojo_bindings_gen.stamp
+build smbfs$:mojo_bindings_gen_mojo_templates: phony obj/smbfs/mojo_bindings_gen_mojo_templates.stamp
+build smbfs$:mojo_bindings_gen_mojo_templates_dir: phony obj/smbfs/mojo_bindings_gen_mojo_templates_dir.stamp
+build smbfs$:mojo_bindings_gen_parse: phony obj/smbfs/mojo_bindings_gen_parse.stamp
+build smbfs$:mojo_bindings_lib: phony obj/smbfs/mojo_bindings_lib.stamp
+build smbfs$:smbfs: phony ./smbfs
+build smbfs$:smbfs_test: phony ./smbfs_test
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/smbfs/all.stamp $
+    obj/smbfs/dbus_bindings.stamp $
+    ./libsmbfs.a $
+    ./libmojo_bindings.a $
+    obj/smbfs/mojo_bindings_gen.stamp $
+    obj/smbfs/mojo_bindings_gen_mojo_templates.stamp $
+    obj/smbfs/mojo_bindings_gen_mojo_templates_dir.stamp $
+    obj/smbfs/mojo_bindings_gen_parse.stamp $
+    obj/smbfs/mojo_bindings_lib.stamp $
+    ./smbfs $
+    ./smbfs_test
+
+default all

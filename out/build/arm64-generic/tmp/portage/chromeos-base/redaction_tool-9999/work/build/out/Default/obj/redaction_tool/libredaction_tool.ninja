@@ -1,0 +1,33 @@
+defines = -DIS_REDACTION_TOOL_IMPL -DUSE_SYSTEM_RE2 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../redaction_tool-9999/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -pthread
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libredaction_tool
+
+build obj/redaction_tool/libredaction_tool.ip_address.o: cxx ../../../redaction_tool-9999/platform2/redaction_tool/ip_address.cc
+  source_file_part = ip_address.cc
+  source_name_part = ip_address
+build obj/redaction_tool/libredaction_tool.libmetrics_metrics_recorder.o: cxx ../../../redaction_tool-9999/platform2/redaction_tool/libmetrics_metrics_recorder.cc
+  source_file_part = libmetrics_metrics_recorder.cc
+  source_name_part = libmetrics_metrics_recorder
+build obj/redaction_tool/libredaction_tool.redaction_tool.o: cxx ../../../redaction_tool-9999/platform2/redaction_tool/redaction_tool.cc
+  source_file_part = redaction_tool.cc
+  source_name_part = redaction_tool
+build obj/redaction_tool/libredaction_tool.url_canon_internal.o: cxx ../../../redaction_tool-9999/platform2/redaction_tool/url_canon_internal.cc
+  source_file_part = url_canon_internal.cc
+  source_name_part = url_canon_internal
+build obj/redaction_tool/libredaction_tool.url_canon_ip.o: cxx ../../../redaction_tool-9999/platform2/redaction_tool/url_canon_ip.cc
+  source_file_part = url_canon_ip.cc
+  source_name_part = url_canon_ip
+build obj/redaction_tool/libredaction_tool.url_canon_stdstring.o: cxx ../../../redaction_tool-9999/platform2/redaction_tool/url_canon_stdstring.cc
+  source_file_part = url_canon_stdstring.cc
+  source_name_part = url_canon_stdstring
+build obj/redaction_tool/libredaction_tool.validation.o: cxx ../../../redaction_tool-9999/platform2/redaction_tool/validation.cc
+  source_file_part = validation.cc
+  source_name_part = validation
+
+build ./libredaction_tool.a: alink obj/redaction_tool/libredaction_tool.ip_address.o obj/redaction_tool/libredaction_tool.libmetrics_metrics_recorder.o obj/redaction_tool/libredaction_tool.redaction_tool.o obj/redaction_tool/libredaction_tool.url_canon_internal.o obj/redaction_tool/libredaction_tool.url_canon_ip.o obj/redaction_tool/libredaction_tool.url_canon_stdstring.o obj/redaction_tool/libredaction_tool.validation.o || obj/redaction_tool/_libredaction_tool-install_config.stamp
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

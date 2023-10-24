@@ -1,0 +1,17 @@
+[
+  {
+    "traits_headers": [
+      "ui/events/keycodes/keyboard_codes_posix.h",
+      "ash/public/mojom/accelerator_keys_mojom_traits.h"
+    ],
+    "traits_sources": [
+      "accelerator_keys_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::ui::KeyboardCode",
+        "mojom": "ash.mojom.VKey"
+      }
+    ]
+  }
+]

@@ -1,0 +1,36 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2 -I/build/arm64-generic/usr/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = mock-printer-testrunner
+
+build obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.cardinality_helper_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/mock_printer/cardinality_helper_test.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = cardinality_helper_test.cc
+  source_name_part = cardinality_helper_test
+build obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.ipp_matching_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/mock_printer/ipp_matching_test.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = ipp_matching_test.cc
+  source_name_part = ipp_matching_test
+build obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.ipp_matching_validation_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/mock_printer/ipp_matching_validation_test.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = ipp_matching_validation_test.cc
+  source_name_part = ipp_matching_validation_test
+build obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.libipp_helper_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/mock_printer/libipp_helper_test.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = libipp_helper_test.cc
+  source_name_part = libipp_helper_test
+build obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.proto_to_http_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/mock_printer/proto_to_http_test.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = proto_to_http_test.cc
+  source_name_part = proto_to_http_test
+build obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.proto_to_libipp_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/mock_printer/proto_to_libipp_test.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = proto_to_libipp_test.cc
+  source_name_part = proto_to_libipp_test
+build obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.wrapped_test_case_step_test.o: cxx ../../../../../../../tmp/portage/chromeos-base/virtual-usb-printer-9999/work/virtual-usb-printer-9999/platform2/virtual-usb-printer/mock_printer/wrapped_test_case_step_test.cc || obj/virtual-usb-printer/mock_printer/mocking_protos_gen.stamp
+  source_file_part = wrapped_test_case_step_test.cc
+  source_name_part = wrapped_test_case_step_test
+
+build ./mock-printer-testrunner: link obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.cardinality_helper_test.o obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.ipp_matching_test.o obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.ipp_matching_validation_test.o obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.libipp_helper_test.o obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.proto_to_http_test.o obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.proto_to_libipp_test.o obj/virtual-usb-printer/mock_printer/mock-printer-testrunner.wrapped_test_case_step_test.o obj/virtual-usb-printer/mock_printer/cardinality_helper.cardinality_helper.o obj/virtual-usb-printer/mock_printer/ipp_matching.ipp_matching.o obj/virtual-usb-printer/mock_printer/ipp_matching_validation.ipp_matching_validation.o obj/virtual-usb-printer/mock_printer/libipp_helper.libipp_helper.o obj/virtual-usb-printer/mock_printer/parse_textproto.parse_textproto.o obj/virtual-usb-printer/mock_printer/proto_to_http.proto_to_http.o obj/virtual-usb-printer/mock_printer/proto_to_libipp.proto_to_libipp.o obj/virtual-usb-printer/mock_printer/wrapped_test_case_step.wrapped_test_case_step.o obj/virtual-usb-printer/mock_printer/argument_variants.argument_variants.o obj/virtual-usb-printer/mock_printer/wrapped_matcher.wrapped_matcher.o ./libtestrunner.a ./libmocking_protos.a || obj/virtual-usb-printer/mock_printer/cardinality_helper.stamp obj/virtual-usb-printer/mock_printer/ipp_matching.stamp obj/virtual-usb-printer/mock_printer/ipp_matching_validation.stamp obj/virtual-usb-printer/mock_printer/libipp_helper.stamp obj/virtual-usb-printer/mock_printer/parse_textproto.stamp obj/virtual-usb-printer/mock_printer/proto_to_http.stamp obj/virtual-usb-printer/mock_printer/proto_to_libipp.stamp obj/virtual-usb-printer/mock_printer/wrapped_test_case_step.stamp obj/virtual-usb-printer/mock_printer/argument_variants.stamp obj/virtual-usb-printer/mock_printer/wrapped_matcher.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -Wl,-rpath=\$$ORIGIN/lib/ -Wl,-rpath-link=lib/ -L/build/arm64-generic/usr/lib64
+  libs = -lgmock -lgtest -lpthread -lbase -lipp -lprotobuf -lbase-test -lbrillo
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

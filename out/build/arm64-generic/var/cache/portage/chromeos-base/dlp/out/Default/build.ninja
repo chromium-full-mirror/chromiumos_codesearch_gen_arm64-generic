@@ -1,0 +1,167 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _dlp-install_config: phony obj/dlp/_dlp-install_config.stamp
+build _dlp_init-install_config: phony obj/dlp/_dlp_init-install_config.stamp
+build _update_reset_counter-install_config: phony obj/metrics/structured/_update_reset_counter-install_config.stamp
+build dbus_adaptors_generator: phony obj/dlp/dbus_adaptors_generator.stamp
+build dbus_proxies_generator: phony obj/dlp/dbus_proxies_generator.stamp
+build featured-adaptors: phony obj/featured/featured-adaptors.stamp
+build gen_structured_events: phony obj/metrics/structured/gen_structured_events.stamp
+build install_init: phony obj/dlp/install_init.stamp
+build install_minijail_conf: phony obj/metrics/install_minijail_conf.stamp
+build install_seccomp_policy: phony obj/dlp/install_seccomp_policy.stamp
+build install_system-services: phony obj/dlp/install_system-services.stamp
+build install_systemd: phony obj/dlp/install_systemd.stamp
+build libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
+build libdlp_static: phony ./libdlp_static.a
+build libfake_platform_features: phony ./lib/libfake_platform_features.so
+build libfeatured: phony ./libfeatured.a
+build libfeatures: phony ./lib/libfeatures.so
+build libfeatures_c: phony ./lib/libfeatures_c.so
+build libmetrics: phony ./lib/libmetrics.so
+build libmetrics_daemon: phony ./libmetrics_daemon.a
+build libstore_impl: phony ./libstore_impl.a
+build libstructuredmetrics: phony ./lib/libstructuredmetrics.so
+build libstructuredmetrics_pkg_config: phony obj/metrics/structured/libstructuredmetrics_pkg_config.stamp
+build libtmp_storage_impl: phony ./libtmp_storage_impl.a
+build libupload_service: phony ./libupload_service.a
+build metrics_proto: phony ./libmetrics_proto.a
+build metrics_proto_gen: phony obj/metrics/metrics_proto_gen.stamp
+build metrics_test_support: phony obj/metrics/metrics_test_support.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build storage: phony ./libstorage.a
+build storage_gen: phony obj/metrics/structured/storage_gen.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build dlp$:_dlp-install_config: phony obj/dlp/_dlp-install_config.stamp
+build dlp$:_dlp_init-install_config: phony obj/dlp/_dlp_init-install_config.stamp
+build dlp$:all: phony obj/dlp/all.stamp
+build dlp$:dbus_adaptors_generator: phony obj/dlp/dbus_adaptors_generator.stamp
+build dlp$:dbus_proxies_generator: phony obj/dlp/dbus_proxies_generator.stamp
+build dlp$:dlp: phony ./dlp
+build dlp$:dlp_init: phony ./dlp_init
+build dlp$:dlp_test: phony ./dlp_test
+build dlp$:install_init: phony obj/dlp/install_init.stamp
+build dlp$:install_seccomp_policy: phony obj/dlp/install_seccomp_policy.stamp
+build dlp$:install_system-services: phony obj/dlp/install_system-services.stamp
+build dlp$:install_systemd: phony obj/dlp/install_systemd.stamp
+build dlp$:libdlp_static: phony ./libdlp_static.a
+build featured$:all: phony obj/featured/all.stamp
+build featured$:c_fake_feature_check_example: phony ./c_fake_feature_check_example
+build featured$:c_feature_check_example: phony ./c_feature_check_example
+build featured$:cpp_feature_check_example: phony ./cpp_feature_check_example
+build featured$:feature_library_test: phony ./feature_library_test
+build featured$:featured: phony ./featured
+build featured$:featured-adaptors: phony obj/featured/featured-adaptors.stamp
+build featured$:libc_fake_feature_library: phony ./lib/libc_fake_feature_library.so
+build featured$:libfake_platform_features: phony ./lib/libfake_platform_features.so
+build featured$:libfeatured: phony ./libfeatured.a
+build featured$:libfeatures: phony ./lib/libfeatures.so
+build featured$:libfeatures_c: phony ./lib/libfeatures_c.so
+build featured$:libstore_impl: phony ./libstore_impl.a
+build featured$:libtmp_storage_impl: phony ./libtmp_storage_impl.a
+build featured$:service_test: phony ./service_test
+build featured$:store_impl_test: phony ./store_impl_test
+build metrics$:all: phony obj/metrics/all.stamp
+build metrics$:chromeos-pgmem: phony ./chromeos-pgmem
+build metrics$:cumulative_metrics_test: phony ./cumulative_metrics_test
+build metrics$:hold_lock_file: phony ./hold_lock_file
+build metrics$:install_minijail_conf: phony obj/metrics/install_minijail_conf.stamp
+build metrics$:libmetrics: phony ./lib/libmetrics.so
+build metrics$:libmetrics_daemon: phony ./libmetrics_daemon.a
+build metrics$:libupload_service: phony ./libupload_service.a
+build metrics$:metrics_client: phony ./metrics_client
+build metrics$:metrics_library_test: phony ./metrics_library_test
+build metrics$:metrics_proto: phony ./libmetrics_proto.a
+build metrics$:metrics_proto_gen: phony obj/metrics/metrics_proto_gen.stamp
+build metrics$:metrics_test_support: phony obj/metrics/metrics_test_support.stamp
+build metrics$:persistent_integer_test: phony ./persistent_integer_test
+build metrics$:process_meter_test: phony ./process_meter_test
+build metrics$:timer_test: phony ./timer_test
+build metrics$:upload_service_test: phony ./upload_service_test
+build metrics/structured$:_update_reset_counter-install_config: phony obj/metrics/structured/_update_reset_counter-install_config.stamp
+build metrics/structured$:gen_structured_events: phony obj/metrics/structured/gen_structured_events.stamp
+build metrics/structured$:libstructuredmetrics: phony ./lib/libstructuredmetrics.so
+build metrics/structured$:libstructuredmetrics_pkg_config: phony obj/metrics/structured/libstructuredmetrics_pkg_config.stamp
+build metrics/structured$:storage: phony ./libstorage.a
+build metrics/structured$:storage_gen: phony obj/metrics/structured/storage_gen.stamp
+build metrics/structured$:update_reset_counter: phony ./update_reset_counter
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/dlp/_dlp-install_config.stamp $
+    obj/dlp/_dlp_init-install_config.stamp $
+    obj/dlp/all.stamp $
+    obj/dlp/dbus_adaptors_generator.stamp $
+    obj/dlp/dbus_proxies_generator.stamp $
+    ./dlp $
+    ./dlp_init $
+    ./dlp_test $
+    obj/dlp/install_init.stamp $
+    obj/dlp/install_seccomp_policy.stamp $
+    obj/dlp/install_system-services.stamp $
+    obj/dlp/install_systemd.stamp $
+    ./libdlp_static.a $
+    obj/featured/all.stamp $
+    ./c_fake_feature_check_example $
+    ./c_feature_check_example $
+    ./cpp_feature_check_example $
+    ./feature_library_test $
+    ./featured $
+    obj/featured/featured-adaptors.stamp $
+    ./lib/libc_fake_feature_library.so $
+    ./lib/libfake_platform_features.so $
+    ./libfeatured.a $
+    ./lib/libfeatures.so $
+    ./lib/libfeatures_c.so $
+    ./libstore_impl.a $
+    ./libtmp_storage_impl.a $
+    ./service_test $
+    ./store_impl_test $
+    obj/metrics/all.stamp $
+    ./chromeos-pgmem $
+    ./cumulative_metrics_test $
+    ./hold_lock_file $
+    obj/metrics/install_minijail_conf.stamp $
+    ./lib/libmetrics.so $
+    ./libmetrics_daemon.a $
+    ./libupload_service.a $
+    ./metrics_client $
+    ./metrics_library_test $
+    ./libmetrics_proto.a $
+    obj/metrics/metrics_proto_gen.stamp $
+    obj/metrics/metrics_test_support.stamp $
+    ./persistent_integer_test $
+    ./process_meter_test $
+    ./timer_test $
+    ./upload_service_test $
+    obj/metrics/structured/_update_reset_counter-install_config.stamp $
+    obj/metrics/structured/gen_structured_events.stamp $
+    ./lib/libstructuredmetrics.so $
+    obj/metrics/structured/libstructuredmetrics_pkg_config.stamp $
+    ./libstorage.a $
+    obj/metrics/structured/storage_gen.stamp $
+    ./update_reset_counter
+
+default all

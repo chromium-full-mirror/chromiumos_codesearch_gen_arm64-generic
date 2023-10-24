@@ -1,0 +1,86 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/iioservice/libiioservice_ipc/all.stamp
+build obj/iioservice/libiioservice_ipc/_iioservice_ipc-install_config.stamp: stamp
+build obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom-install_config.stamp: stamp
+build obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config.stamp: stamp
+build obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-sensor.mojom-install_config.stamp: stamp
+build obj/iioservice/libiioservice_ipc/all.stamp: stamp obj/iioservice/libiioservice_ipc/iioservice_ipc.stamp ./libiioservice_ipc_mojom.a
+rule __iioservice_libiioservice_ipc_iioservice_ipc___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libiioservice_ipc/out/Default/obj/iioservice/libiioservice_ipc/iioservice_ipc.pc --name=iioservice_ipc --description=Iioservice\$ library --version=1.0 --requires-private=libchrome --requires-private=libmojo --libs=-liioservice_ipc_mojom --cflags=-I/usr/include/iioservice_ipc
+  description = ACTION //iioservice/libiioservice_ipc:iioservice_ipc(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build obj/iioservice/libiioservice_ipc/iioservice_ipc.pc: __iioservice_libiioservice_ipc_iioservice_ipc___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/iioservice/libiioservice_ipc/_iioservice_ipc-install_config.stamp
+
+build obj/iioservice/libiioservice_ipc/iioservice_ipc.stamp: stamp obj/iioservice/libiioservice_ipc/iioservice_ipc.pc
+subninja obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom.ninja
+rule __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen___common-mk_toolchain_toolchain__rule
+  rspfile = __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen___common-mk_toolchain_toolchain__rule.$unique_name.rsp
+  rspfile_content = /mnt/host/source/src/platform2/iioservice/mojo/cros_sensor_service.mojom /mnt/host/source/src/platform2/iioservice/mojo/sensor.mojom
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/mojom_bindings_generator_wrapper.py 1211970 /build/arm64-generic/usr/src/libmojo/mojo/mojom_bindings_generator.py --use_bundled_pylibs --output_dir /build/arm64-generic/var/cache/portage/chromeos-base/libiioservice_ipc/out/Default/gen/include generate --filelist=${rspfile} --bytecode_path /build/arm64-generic/var/cache/portage/chromeos-base/libiioservice_ipc/out/Default/gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates -I /mnt/host/source/src/platform2 -d /mnt/host/source/src/platform2 --generators c++
+  description = ACTION //iioservice/libiioservice_ipc:libiioservice_ipc_mojom_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/iioservice/mojo/cros_sensor_service.mojom-shared.cc gen/include/iioservice/mojo/cros_sensor_service.mojom.cc gen/include/iioservice/mojo/cros_sensor_service.mojom-forward.h gen/include/iioservice/mojo/cros_sensor_service.mojom-import-headers.h gen/include/iioservice/mojo/cros_sensor_service.mojom-params-data.h gen/include/iioservice/mojo/cros_sensor_service.mojom-shared-internal.h gen/include/iioservice/mojo/cros_sensor_service.mojom-shared-message-ids.h gen/include/iioservice/mojo/cros_sensor_service.mojom-shared.h gen/include/iioservice/mojo/cros_sensor_service.mojom-test-utils.h gen/include/iioservice/mojo/cros_sensor_service.mojom.h gen/include/iioservice/mojo/sensor.mojom-shared.cc gen/include/iioservice/mojo/sensor.mojom.cc gen/include/iioservice/mojo/sensor.mojom-forward.h gen/include/iioservice/mojo/sensor.mojom-import-headers.h gen/include/iioservice/mojo/sensor.mojom-params-data.h gen/include/iioservice/mojo/sensor.mojom-shared-internal.h gen/include/iioservice/mojo/sensor.mojom-shared-message-ids.h gen/include/iioservice/mojo/sensor.mojom-shared.h gen/include/iioservice/mojo/sensor.mojom-test-utils.h gen/include/iioservice/mojo/sensor.mojom.h: __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/mojom_bindings_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/common-mk/mojom_bindings_generator_wrapper.py ../../../../../../../usr/src/libmojo/mojo/mojom_bindings_generator.py gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates/cpp_templates.zip ../../../../../../../../../mnt/host/source/src/platform2/iioservice/mojo/cros_sensor_service.mojom ../../../../../../../../../mnt/host/source/src/platform2/iioservice/mojo/sensor.mojom obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config.stamp obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-sensor.mojom-install_config.stamp obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates.stamp obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_parse.stamp
+
+build obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen.stamp: stamp gen/include/iioservice/mojo/cros_sensor_service.mojom-shared.cc gen/include/iioservice/mojo/cros_sensor_service.mojom.cc gen/include/iioservice/mojo/cros_sensor_service.mojom-forward.h gen/include/iioservice/mojo/cros_sensor_service.mojom-import-headers.h gen/include/iioservice/mojo/cros_sensor_service.mojom-params-data.h gen/include/iioservice/mojo/cros_sensor_service.mojom-shared-internal.h gen/include/iioservice/mojo/cros_sensor_service.mojom-shared-message-ids.h gen/include/iioservice/mojo/cros_sensor_service.mojom-shared.h gen/include/iioservice/mojo/cros_sensor_service.mojom-test-utils.h gen/include/iioservice/mojo/cros_sensor_service.mojom.h gen/include/iioservice/mojo/sensor.mojom-shared.cc gen/include/iioservice/mojo/sensor.mojom.cc gen/include/iioservice/mojo/sensor.mojom-forward.h gen/include/iioservice/mojo/sensor.mojom-import-headers.h gen/include/iioservice/mojo/sensor.mojom-params-data.h gen/include/iioservice/mojo/sensor.mojom-shared-internal.h gen/include/iioservice/mojo/sensor.mojom-shared-message-ids.h gen/include/iioservice/mojo/sensor.mojom-shared.h gen/include/iioservice/mojo/sensor.mojom-test-utils.h gen/include/iioservice/mojo/sensor.mojom.h
+rule __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen_mojo_templates___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env /build/arm64-generic/usr/src/libmojo/mojo/mojom_bindings_generator.py --use_bundled_pylibs -o /build/arm64-generic/var/cache/portage/chromeos-base/libiioservice_ipc/out/Default/gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates precompile
+  description = ACTION //iioservice/libiioservice_ipc:libiioservice_ipc_mojom_gen_mojo_templates(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates/cpp_templates.zip: __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen_mojo_templates___common-mk_toolchain_toolchain__rule | ../../../../../../../usr/src/libmojo/mojo/mojom_bindings_generator.py ../../../../../../../usr/src/libmojo/mojo/mojom_bindings_generator.py gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates_dir.stamp
+
+build obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates.stamp: stamp gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates/cpp_templates.zip
+rule __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen_mojo_templates_dir___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py mkdir -p /build/arm64-generic/var/cache/portage/chromeos-base/libiioservice_ipc/out/Default/gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates
+  description = ACTION //iioservice/libiioservice_ipc:libiioservice_ipc_mojom_gen_mojo_templates_dir(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates: __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen_mojo_templates_dir___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+
+build obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates_dir.stamp: stamp gen/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_templates
+rule __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen_parse___common-mk_toolchain_toolchain__rule
+  rspfile = __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen_parse___common-mk_toolchain_toolchain__rule.$unique_name.rsp
+  rspfile_content = /mnt/host/source/src/platform2/iioservice/mojo/cros_sensor_service.mojom /mnt/host/source/src/platform2/iioservice/mojo/sensor.mojom
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/runtime_wrapper.py --set-env PYTHONDONTWRITEBYTECODE=1 -- /build/arm64-generic/usr/src/libmojo/mojo/mojom_parser.py --mojom-file-list=${rspfile} --output-root /build/arm64-generic/var/cache/portage/chromeos-base/libiioservice_ipc/out/Default/gen/include --input-root /mnt/host/source/src/platform2 --input-root .
+  description = ACTION //iioservice/libiioservice_ipc:libiioservice_ipc_mojom_gen_parse(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/iioservice/mojo/cros_sensor_service.mojom-module gen/include/iioservice/mojo/sensor.mojom-module: __iioservice_libiioservice_ipc_libiioservice_ipc_mojom_gen_parse___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/runtime_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/common-mk/runtime_wrapper.py ../../../../../../../usr/src/libmojo/mojo/mojom_parser.py ../../../../../../../../../mnt/host/source/src/platform2/iioservice/mojo/cros_sensor_service.mojom ../../../../../../../../../mnt/host/source/src/platform2/iioservice/mojo/sensor.mojom
+
+build obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_parse.stamp: stamp gen/include/iioservice/mojo/cros_sensor_service.mojom-module gen/include/iioservice/mojo/sensor.mojom-module

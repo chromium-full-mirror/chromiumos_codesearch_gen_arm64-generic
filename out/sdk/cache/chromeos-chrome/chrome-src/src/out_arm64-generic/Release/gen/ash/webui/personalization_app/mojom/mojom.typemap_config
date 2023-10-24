@@ -1,0 +1,68 @@
+[
+  {
+    "traits_headers": [
+      "ash/webui/personalization_app/mojom/personalization_app_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//ash/public/cpp",
+      "//ash/webui/personalization_app/proto",
+      "//skia"
+    ],
+    "traits_sources": [
+      "personalization_app_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::ash::WallpaperLayout",
+        "mojom": "ash.personalization_app.mojom.WallpaperLayout"
+      },
+      {
+        "cpp": "::ash::WallpaperType",
+        "mojom": "ash.personalization_app.mojom.WallpaperType"
+      },
+      {
+        "cpp": "::backdrop::Collection",
+        "mojom": "ash.personalization_app.mojom.WallpaperCollection"
+      },
+      {
+        "cpp": "::backdrop::Image::Description",
+        "mojom": "ash.personalization_app.mojom.CurrentWallpaperDescription"
+      },
+      {
+        "cpp": "::backdrop::Image",
+        "mojom": "ash.personalization_app.mojom.WallpaperImage"
+      },
+      {
+        "cpp": "::backdrop::Image::ImageType",
+        "mojom": "ash.personalization_app.mojom.OnlineImageType"
+      },
+      {
+        "cpp": "::ash::personalization_app::UserDisplayInfo",
+        "mojom": "ash.personalization_app.mojom.UserInfo",
+        "move_only": true
+      },
+      {
+        "cpp": "::ash::default_user_image::DeprecatedSourceInfo",
+        "mojom": "ash.personalization_app.mojom.DeprecatedSourceInfo",
+        "move_only": true
+      },
+      {
+        "cpp": "::ash::default_user_image::DefaultUserImage",
+        "mojom": "ash.personalization_app.mojom.DefaultUserImage",
+        "move_only": true
+      },
+      {
+        "cpp": "::ash::AmbientModeTemperatureUnit",
+        "mojom": "ash.personalization_app.mojom.TemperatureUnit"
+      },
+      {
+        "cpp": "::ash::AmbientUiVisibility",
+        "mojom": "ash.personalization_app.mojom.AmbientUiVisibility"
+      },
+      {
+        "cpp": "::ash::SampleColorScheme",
+        "mojom": "ash.personalization_app.mojom.SampleColorScheme"
+      }
+    ]
+  }
+]

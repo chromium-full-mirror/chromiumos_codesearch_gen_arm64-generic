@@ -1,0 +1,50 @@
+rule link
+  command = aarch64-cros-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = aarch64-cros-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = aarch64-cros-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = aarch64-cros-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/cbor/all.stamp: stamp ./libcbor.a ./lib/libcbor.so obj/cbor/libcbor_pc.stamp ./cbor_unittests
+subninja obj/cbor/cbor_unittests.ninja
+rule __cbor_libcbor_pc___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../cbor-9999/platform2/common-mk/generate-pc.py --output /build/arm64-generic/tmp/portage/chromeos-base/cbor-9999/work/build/out/Default/obj/cbor/cbor.pc --name=libcbor_pc --description=Concise\$ Binary\$ Object\$ Representation\$ library --version=0.1
+  description = ACTION //cbor:libcbor_pc(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build obj/cbor/cbor.pc: __cbor_libcbor_pc___common-mk_toolchain_toolchain__rule | ../../../cbor-9999/platform2/common-mk/generate-pc.py ./libcbor.a
+
+build obj/cbor/libcbor_pc.stamp: stamp obj/cbor/cbor.pc
+subninja obj/cbor/libcbor_shared.ninja
+subninja obj/cbor/libcbor_source_set.ninja
+subninja obj/cbor/libcbor_static.ninja
+build obj/common-mk/gn_root/root.stamp: stamp obj/cbor/all.stamp
+subninja obj/common-mk/testrunner/testrunner.ninja

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="13" failures="0" disabled="0" errors="0" time="0.108" timestamp="2023-10-23T22:48:09.846" name="AllTests">
-  <testsuite name="CrasSco" tests="11" failures="0" disabled="0" skipped="0" errors="0" time="0.093" timestamp="2023-10-23T22:48:09.854">
-    <testcase name="AddRmDev" file="cras/src/tests/cras_sco_unittest.cc" line="51" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:09.855" classname="CrasSco" />
-    <testcase name="AddRmDevInvalid" file="cras/src/tests/cras_sco_unittest.cc" line="69" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:09.872" classname="CrasSco" />
-    <testcase name="AcquirePlaybackBuffer" file="cras/src/tests/cras_sco_unittest.cc" line="87" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:09.873" classname="CrasSco" />
-    <testcase name="AcquireCaptureBuffer" file="cras/src/tests/cras_sco_unittest.cc" line="141" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:09.875" classname="CrasSco" />
-    <testcase name="HfpReadWriteFD" file="cras/src/tests/cras_sco_unittest.cc" line="189" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:09.876" classname="CrasSco" />
-    <testcase name="StartCrasSco" file="cras/src/tests/cras_sco_unittest.cc" line="248" status="run" result="completed" time="0." timestamp="2023-10-23T22:48:09.879" classname="CrasSco" />
-    <testcase name="StartCrasScoAndRead" file="cras/src/tests/cras_sco_unittest.cc" line="269" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:09.879" classname="CrasSco" />
-    <testcase name="StartCrasScoAndWrite" file="cras/src/tests/cras_sco_unittest.cc" line="316" status="run" result="completed" time="0.001" timestamp="2023-10-23T22:48:09.881" classname="CrasSco" />
-    <testcase name="StartCrasScoAndReadMsbc" file="cras/src/tests/cras_sco_unittest.cc" line="402" status="run" result="completed" time="0.015" timestamp="2023-10-23T22:48:09.896" classname="CrasSco" />
-    <testcase name="StartCrasScoAndWriteMsbc" file="cras/src/tests/cras_sco_unittest.cc" line="660" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:09.912" classname="CrasSco" />
-    <testcase name="WBSLoggerPacketStatusDumpBinary" file="cras/src/tests/cras_sco_unittest.cc" line="701" status="run" result="completed" time="0.032" timestamp="2023-10-23T22:48:09.915" classname="CrasSco" />
+<testsuites tests="13" failures="0" disabled="0" errors="0" time="0.153" timestamp="2023-10-24T11:12:32.919" name="AllTests">
+  <testsuite name="CrasSco" tests="11" failures="0" disabled="0" skipped="0" errors="0" time="0.124" timestamp="2023-10-24T11:12:32.936">
+    <testcase name="AddRmDev" file="cras/src/tests/cras_sco_unittest.cc" line="51" status="run" result="completed" time="0.005" timestamp="2023-10-24T11:12:32.937" classname="CrasSco" />
+    <testcase name="AddRmDevInvalid" file="cras/src/tests/cras_sco_unittest.cc" line="69" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:12:32.945" classname="CrasSco" />
+    <testcase name="AcquirePlaybackBuffer" file="cras/src/tests/cras_sco_unittest.cc" line="87" status="run" result="completed" time="0.004" timestamp="2023-10-24T11:12:32.946" classname="CrasSco" />
+    <testcase name="AcquireCaptureBuffer" file="cras/src/tests/cras_sco_unittest.cc" line="141" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:12:32.951" classname="CrasSco" />
+    <testcase name="HfpReadWriteFD" file="cras/src/tests/cras_sco_unittest.cc" line="189" status="run" result="completed" time="0.003" timestamp="2023-10-24T11:12:32.954" classname="CrasSco" />
+    <testcase name="StartCrasSco" file="cras/src/tests/cras_sco_unittest.cc" line="248" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:12:32.958" classname="CrasSco" />
+    <testcase name="StartCrasScoAndRead" file="cras/src/tests/cras_sco_unittest.cc" line="269" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:12:32.960" classname="CrasSco" />
+    <testcase name="StartCrasScoAndWrite" file="cras/src/tests/cras_sco_unittest.cc" line="316" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:12:32.963" classname="CrasSco" />
+    <testcase name="StartCrasScoAndReadMsbc" file="cras/src/tests/cras_sco_unittest.cc" line="402" status="run" result="completed" time="0.03" timestamp="2023-10-24T11:12:32.966" classname="CrasSco" />
+    <testcase name="StartCrasScoAndWriteMsbc" file="cras/src/tests/cras_sco_unittest.cc" line="660" status="run" result="completed" time="0.004" timestamp="2023-10-24T11:12:32.997" classname="CrasSco" />
+    <testcase name="WBSLoggerPacketStatusDumpBinary" file="cras/src/tests/cras_sco_unittest.cc" line="701" status="run" result="completed" time="0.058" timestamp="2023-10-24T11:12:33.002" classname="CrasSco" />
   </testsuite>
-  <testsuite name="CrasScoWithSrBtTestSuite" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.005" timestamp="2023-10-23T22:48:09.949">
-    <testcase name="StartCrasScoAndRead" file="cras/src/tests/cras_sco_unittest.cc" line="510" status="run" result="completed" time="0.002" timestamp="2023-10-23T22:48:09.949" classname="CrasScoWithSrBtTestSuite" />
-    <testcase name="StartCrasScoAndReadMsbc" file="cras/src/tests/cras_sco_unittest.cc" line="558" status="run" result="completed" time="0.003" timestamp="2023-10-23T22:48:09.951" classname="CrasScoWithSrBtTestSuite" />
+  <testsuite name="CrasScoWithSrBtTestSuite" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.01" timestamp="2023-10-24T11:12:33.062">
+    <testcase name="StartCrasScoAndRead" file="cras/src/tests/cras_sco_unittest.cc" line="510" status="run" result="completed" time="0.003" timestamp="2023-10-24T11:12:33.062" classname="CrasScoWithSrBtTestSuite" />
+    <testcase name="StartCrasScoAndReadMsbc" file="cras/src/tests/cras_sco_unittest.cc" line="558" status="run" result="completed" time="0.005" timestamp="2023-10-24T11:12:33.067" classname="CrasScoWithSrBtTestSuite" />
   </testsuite>
 </testsuites>

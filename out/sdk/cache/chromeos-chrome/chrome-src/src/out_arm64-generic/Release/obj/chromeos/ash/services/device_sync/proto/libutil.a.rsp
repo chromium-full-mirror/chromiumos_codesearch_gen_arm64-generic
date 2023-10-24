@@ -1,0 +1,1 @@
+obj/chromeos/ash/services/device_sync/proto/util/cryptauth_logging.o obj/chromeos/ash/services/device_sync/proto/util/cryptauth_proto_to_query_parameters_util.o obj/chromeos/ash/services/device_sync/proto/util/device_classifier_util.o obj/chromeos/ash/services/device_sync/proto/util/enum_util.o

@@ -1,0 +1,59 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _iioservice_ipc-install_config: phony obj/iioservice/libiioservice_ipc/_iioservice_ipc-install_config.stamp
+build _libiioservice_ipc_mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom-install_config.stamp
+build _libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config.stamp
+build _libiioservice_ipc_mojom_gen-sensor.mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-sensor.mojom-install_config.stamp
+build iioservice_ipc: phony obj/iioservice/libiioservice_ipc/iioservice_ipc.stamp
+build libiioservice_ipc_mojom: phony ./libiioservice_ipc_mojom.a
+build libiioservice_ipc_mojom_gen: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen.stamp
+build libiioservice_ipc_mojom_gen_mojo_templates: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates.stamp
+build libiioservice_ipc_mojom_gen_mojo_templates_dir: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates_dir.stamp
+build libiioservice_ipc_mojom_gen_parse: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_parse.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build iioservice/libiioservice_ipc$:_iioservice_ipc-install_config: phony obj/iioservice/libiioservice_ipc/_iioservice_ipc-install_config.stamp
+build iioservice/libiioservice_ipc$:_libiioservice_ipc_mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom-install_config.stamp
+build iioservice/libiioservice_ipc$:_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config.stamp
+build iioservice/libiioservice_ipc$:_libiioservice_ipc_mojom_gen-sensor.mojom-install_config: phony obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-sensor.mojom-install_config.stamp
+build iioservice/libiioservice_ipc$:all: phony obj/iioservice/libiioservice_ipc/all.stamp
+build iioservice/libiioservice_ipc$:iioservice_ipc: phony obj/iioservice/libiioservice_ipc/iioservice_ipc.stamp
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom: phony ./libiioservice_ipc_mojom.a
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom_gen: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen.stamp
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom_gen_mojo_templates: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates.stamp
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom_gen_mojo_templates_dir: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates_dir.stamp
+build iioservice/libiioservice_ipc$:libiioservice_ipc_mojom_gen_parse: phony obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_parse.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/iioservice/libiioservice_ipc/_iioservice_ipc-install_config.stamp $
+    obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom-install_config.stamp $
+    obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-cros_sensor_service.mojom-install_config.stamp $
+    obj/iioservice/libiioservice_ipc/_libiioservice_ipc_mojom_gen-sensor.mojom-install_config.stamp $
+    obj/iioservice/libiioservice_ipc/all.stamp $
+    obj/iioservice/libiioservice_ipc/iioservice_ipc.stamp $
+    ./libiioservice_ipc_mojom.a $
+    obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen.stamp $
+    obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates.stamp $
+    obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_mojo_templates_dir.stamp $
+    obj/iioservice/libiioservice_ipc/libiioservice_ipc_mojom_gen_parse.stamp
+
+default all

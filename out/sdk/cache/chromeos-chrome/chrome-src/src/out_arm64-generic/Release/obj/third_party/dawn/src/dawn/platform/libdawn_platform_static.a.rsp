@@ -1,0 +1,1 @@
+obj/third_party/dawn/src/dawn/platform/static/DawnPlatform.o obj/third_party/dawn/src/dawn/platform/static/WorkerThread.o obj/third_party/dawn/src/dawn/platform/static/HistogramMacros.o obj/third_party/dawn/src/dawn/platform/static/EventTracer.o

@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/projector_app/public/mojom/annotator_structs.mojom"
+  ]
+}

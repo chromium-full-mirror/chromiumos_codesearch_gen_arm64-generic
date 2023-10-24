@@ -1,0 +1,30 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -DUSE_RTTI_FOR_TYPE_TAGS=1 -Wno-unused-local-typedefs -DBASE_VER=1211970 -Wno-unused-local-typedefs -DBASE_VER=1211970 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libfake_platform-static
+
+build obj/cryptohome/libfake_platform-static.fake_platform.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/fake_platform.cc
+  source_file_part = fake_platform.cc
+  source_name_part = fake_platform
+build obj/cryptohome/fake_platform/libfake_platform-static.fake_fake_mount_mapping_redirect_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/fake_platform/fake_fake_mount_mapping_redirect_factory.cc
+  source_file_part = fake_fake_mount_mapping_redirect_factory.cc
+  source_name_part = fake_fake_mount_mapping_redirect_factory
+build obj/cryptohome/fake_platform/libfake_platform-static.fake_mount_mapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/fake_platform/fake_mount_mapper.cc
+  source_file_part = fake_mount_mapper.cc
+  source_name_part = fake_mount_mapper
+build obj/cryptohome/fake_platform/libfake_platform-static.real_fake_mount_mapping_redirect_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/fake_platform/real_fake_mount_mapping_redirect_factory.cc
+  source_file_part = real_fake_mount_mapping_redirect_factory.cc
+  source_name_part = real_fake_mount_mapping_redirect_factory
+build obj/cryptohome/fake_platform/libfake_platform-static.test_file_path.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/fake_platform/test_file_path.cc
+  source_file_part = test_file_path.cc
+  source_name_part = test_file_path
+build obj/cryptohome/libfake_platform-static.mock_platform.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/cryptohome/mock_platform.cc
+  source_file_part = mock_platform.cc
+  source_name_part = mock_platform
+
+build ./libfake_platform-static.a: alink obj/cryptohome/libfake_platform-static.fake_platform.o obj/cryptohome/fake_platform/libfake_platform-static.fake_fake_mount_mapping_redirect_factory.o obj/cryptohome/fake_platform/libfake_platform-static.fake_mount_mapper.o obj/cryptohome/fake_platform/libfake_platform-static.real_fake_mount_mapping_redirect_factory.o obj/cryptohome/fake_platform/libfake_platform-static.test_file_path.o obj/cryptohome/libfake_platform-static.mock_platform.o || ./lib/libcryptohome_platform.so
+  arflags = rcsT
+  output_extension = .a
+  output_dir = 

@@ -1,0 +1,166 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../home/chrome-bot/chrome_root/src/buildtools/linux64/gn --root=../../../../../../../home/chrome-bot/chrome_root/src -q --root-target=//third_party/icu --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+pool build_toolchain_action_pool
+  depth = 32
+
+pool build_toolchain_link_pool
+  depth = 15
+
+subninja toolchain.ninja
+
+build blink_buildflags: phony obj/build/blink_buildflags.stamp
+build branding_buildflags: phony obj/build/branding_buildflags.stamp
+build buildflag_header_h: phony obj/build/buildflag_header_h.stamp
+build buildflags: phony obj/build/config/coverage/buildflags.stamp
+build chromecast_buildflags: phony obj/build/chromecast_buildflags.stamp
+build chromeos_buildflags: phony obj/build/chromeos_buildflags.stamp
+build chromium_git_revision: phony obj/build/util/chromium_git_revision.stamp
+build common_deps: phony obj/build/config/common_deps.stamp
+build compiler_buildflags: phony obj/build/config/compiler/compiler_buildflags.stamp
+build convert_chart_json: phony obj/third_party/catapult/tracing/convert_chart_json.stamp
+build copy_icudata: phony obj/third_party/icu/copy_icudata.stamp
+build deps: phony obj/build/config/sanitizers/deps.stamp
+build executable_deps: phony obj/build/config/executable_deps.stamp
+build fuchsia_pytype: phony obj/testing/fuchsia_pytype.stamp
+build generate_about_tracing: phony obj/third_party/catapult/tracing/generate_about_tracing.stamp
+build gold_common_pytype: phony obj/build/gold_common_pytype.stamp
+build icu: phony obj/third_party/icu/icu.stamp
+build icudata: phony obj/third_party/icu/icudata.stamp
+build icudata_hash: phony obj/third_party/icu/icudata_hash.stamp
+build icui18n: phony obj/third_party/icu/libicui18n.a
+build icui18n_hidden_visibility: phony obj/third_party/icu/libicui18n_hidden_visibility.a
+build icuuc: phony obj/third_party/icu/icuuc.stamp
+build icuuc_hidden_visibility: phony obj/third_party/icu/icuuc_hidden_visibility.stamp
+build icuuc_private: phony obj/third_party/icu/libicuuc.a
+build icuuc_private_hidden_visibility: phony obj/third_party/icu/libicuuc_hidden_visibility.a
+build icuuc_public: phony obj/third_party/icu/icuuc_public.stamp
+build linux: phony obj/build/config/linux/linux.stamp
+build llvm-symbolizer_data: phony obj/build/config/clang/llvm-symbolizer_data.stamp
+build loadable_module_deps: phony obj/build/config/loadable_module_deps.stamp
+build options_sources: phony obj/build/config/sanitizers/liboptions_sources.a
+build posix: phony obj/build/config/posix/posix.stamp
+build pytype_dependencies: phony obj/testing/pytype_dependencies.stamp
+build robolectric_buildflags: phony obj/build/robolectric_buildflags.stamp
+build run_isolated_script_test: phony obj/testing/run_isolated_script_test.stamp
+build run_perf_test: phony obj/testing/run_perf_test.stamp
+build shared_library_deps: phony obj/build/config/shared_library_deps.stamp
+build test_env_py_unittests: phony obj/testing/test_env_py_unittests.stamp
+build test_results: phony obj/build/util/test_results.stamp
+build test_scripts_shared: phony obj/testing/test_scripts_shared.stamp
+build testing_pytype: phony obj/testing/testing_pytype.stamp
+build tracing_common: phony obj/third_party/catapult/tracing/tracing_common.stamp
+build version_metadata: phony obj/build/version_metadata.stamp
+build vinn: phony obj/third_party/catapult/third_party/vinn/vinn.stamp
+build xvfb_py_unittests: phony obj/testing/xvfb_py_unittests.stamp
+build build$:blink_buildflags: phony obj/build/blink_buildflags.stamp
+build build$:branding_buildflags: phony obj/build/branding_buildflags.stamp
+build build$:buildflag_header_h: phony obj/build/buildflag_header_h.stamp
+build build$:chromecast_buildflags: phony obj/build/chromecast_buildflags.stamp
+build build$:chromeos_buildflags: phony obj/build/chromeos_buildflags.stamp
+build build$:gold_common_pytype: phony obj/build/gold_common_pytype.stamp
+build build$:robolectric_buildflags: phony obj/build/robolectric_buildflags.stamp
+build build$:version_metadata: phony obj/build/version_metadata.stamp
+build build/config$:common_deps: phony obj/build/config/common_deps.stamp
+build build/config$:executable_deps: phony obj/build/config/executable_deps.stamp
+build build/config$:loadable_module_deps: phony obj/build/config/loadable_module_deps.stamp
+build build/config$:shared_library_deps: phony obj/build/config/shared_library_deps.stamp
+build build/config/clang$:llvm-symbolizer_data: phony obj/build/config/clang/llvm-symbolizer_data.stamp
+build build/config/compiler$:compiler_buildflags: phony obj/build/config/compiler/compiler_buildflags.stamp
+build build/config/coverage$:buildflags: phony obj/build/config/coverage/buildflags.stamp
+build build/config/linux$:linux: phony obj/build/config/linux/linux.stamp
+build build/config/linux: phony obj/build/config/linux/linux.stamp
+build build/config/posix$:posix: phony obj/build/config/posix/posix.stamp
+build build/config/posix: phony obj/build/config/posix/posix.stamp
+build build/config/sanitizers$:deps: phony obj/build/config/sanitizers/deps.stamp
+build build/config/sanitizers$:options_sources: phony obj/build/config/sanitizers/liboptions_sources.a
+build build/util$:chromium_git_revision: phony obj/build/util/chromium_git_revision.stamp
+build build/util$:test_results: phony obj/build/util/test_results.stamp
+build testing$:fuchsia_pytype: phony obj/testing/fuchsia_pytype.stamp
+build testing$:pytype_dependencies: phony obj/testing/pytype_dependencies.stamp
+build testing$:run_isolated_script_test: phony obj/testing/run_isolated_script_test.stamp
+build testing$:run_perf_test: phony obj/testing/run_perf_test.stamp
+build testing$:test_env_py_unittests: phony obj/testing/test_env_py_unittests.stamp
+build testing$:test_scripts_shared: phony obj/testing/test_scripts_shared.stamp
+build testing$:testing_pytype: phony obj/testing/testing_pytype.stamp
+build testing$:xvfb_py_unittests: phony obj/testing/xvfb_py_unittests.stamp
+build third_party/catapult/third_party/vinn$:vinn: phony obj/third_party/catapult/third_party/vinn/vinn.stamp
+build third_party/catapult/third_party/vinn: phony obj/third_party/catapult/third_party/vinn/vinn.stamp
+build third_party/catapult/tracing$:convert_chart_json: phony obj/third_party/catapult/tracing/convert_chart_json.stamp
+build third_party/catapult/tracing$:generate_about_tracing: phony obj/third_party/catapult/tracing/generate_about_tracing.stamp
+build third_party/catapult/tracing$:tracing_common: phony obj/third_party/catapult/tracing/tracing_common.stamp
+build third_party/icu$:copy_icudata: phony obj/third_party/icu/copy_icudata.stamp
+build third_party/icu$:icu: phony obj/third_party/icu/icu.stamp
+build third_party/icu: phony obj/third_party/icu/icu.stamp
+build third_party/icu$:icudata: phony obj/third_party/icu/icudata.stamp
+build third_party/icu$:icudata_hash: phony obj/third_party/icu/icudata_hash.stamp
+build third_party/icu$:icui18n: phony obj/third_party/icu/libicui18n.a
+build third_party/icu$:icui18n_hidden_visibility: phony obj/third_party/icu/libicui18n_hidden_visibility.a
+build third_party/icu$:icuuc: phony obj/third_party/icu/icuuc.stamp
+build third_party/icu$:icuuc_hidden_visibility: phony obj/third_party/icu/icuuc_hidden_visibility.stamp
+build third_party/icu$:icuuc_private: phony obj/third_party/icu/libicuuc.a
+build third_party/icu$:icuuc_private_hidden_visibility: phony obj/third_party/icu/libicuuc_hidden_visibility.a
+build third_party/icu$:icuuc_public: phony obj/third_party/icu/icuuc_public.stamp
+
+build all: phony $
+    obj/build/blink_buildflags.stamp $
+    obj/build/branding_buildflags.stamp $
+    obj/build/buildflag_header_h.stamp $
+    obj/build/chromecast_buildflags.stamp $
+    obj/build/chromeos_buildflags.stamp $
+    obj/build/gold_common_pytype.stamp $
+    obj/build/robolectric_buildflags.stamp $
+    obj/build/version_metadata.stamp $
+    obj/build/config/common_deps.stamp $
+    obj/build/config/executable_deps.stamp $
+    obj/build/config/loadable_module_deps.stamp $
+    obj/build/config/shared_library_deps.stamp $
+    obj/build/config/clang/llvm-symbolizer_data.stamp $
+    obj/build/config/compiler/compiler_buildflags.stamp $
+    obj/build/config/coverage/buildflags.stamp $
+    obj/build/config/linux/linux.stamp $
+    obj/build/config/posix/posix.stamp $
+    obj/build/config/sanitizers/deps.stamp $
+    obj/build/config/sanitizers/liboptions_sources.a $
+    obj/build/util/chromium_git_revision.stamp $
+    obj/build/util/test_results.stamp $
+    obj/testing/fuchsia_pytype.stamp $
+    obj/testing/pytype_dependencies.stamp $
+    obj/testing/run_isolated_script_test.stamp $
+    obj/testing/run_perf_test.stamp $
+    obj/testing/test_env_py_unittests.stamp $
+    obj/testing/test_scripts_shared.stamp $
+    obj/testing/testing_pytype.stamp $
+    obj/testing/xvfb_py_unittests.stamp $
+    obj/third_party/catapult/third_party/vinn/vinn.stamp $
+    obj/third_party/catapult/tracing/convert_chart_json.stamp $
+    obj/third_party/catapult/tracing/generate_about_tracing.stamp $
+    obj/third_party/catapult/tracing/tracing_common.stamp $
+    obj/third_party/icu/copy_icudata.stamp $
+    obj/third_party/icu/icu.stamp $
+    obj/third_party/icu/icudata.stamp $
+    obj/third_party/icu/icudata_hash.stamp $
+    obj/third_party/icu/libicui18n.a $
+    obj/third_party/icu/libicui18n_hidden_visibility.a $
+    obj/third_party/icu/icuuc.stamp $
+    obj/third_party/icu/icuuc_hidden_visibility.stamp $
+    obj/third_party/icu/libicuuc.a $
+    obj/third_party/icu/libicuuc_hidden_visibility.a $
+    obj/third_party/icu/icuuc_public.stamp
+
+default all

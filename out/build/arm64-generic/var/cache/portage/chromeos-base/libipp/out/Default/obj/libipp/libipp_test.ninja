@@ -1,0 +1,51 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libipp_test
+
+build obj/libipp/libipp_test.attribute_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/attribute_test.cc
+  source_file_part = attribute_test.cc
+  source_name_part = attribute_test
+build obj/libipp/libipp_test.binary_content.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/binary_content.cc
+  source_file_part = binary_content.cc
+  source_name_part = binary_content
+build obj/libipp/libipp_test.builder_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/builder_test.cc
+  source_file_part = builder_test.cc
+  source_name_part = builder_test
+build obj/libipp/libipp_test.colls_view_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/colls_view_test.cc
+  source_file_part = colls_view_test.cc
+  source_name_part = colls_view_test
+build obj/libipp/libipp_test.errors_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/errors_test.cc
+  source_file_part = errors_test.cc
+  source_name_part = errors_test
+build obj/libipp/libipp_test.frame_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/frame_test.cc
+  source_file_part = frame_test.cc
+  source_name_part = frame_test
+build obj/libipp/libipp_test.ipp_attribute_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/ipp_attribute_test.cc
+  source_file_part = ipp_attribute_test.cc
+  source_name_part = ipp_attribute_test
+build obj/libipp/libipp_test.ipp_encoding_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/ipp_encoding_test.cc
+  source_file_part = ipp_encoding_test.cc
+  source_name_part = ipp_encoding_test
+build obj/libipp/libipp_test.ipp_enums_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/ipp_enums_test.cc
+  source_file_part = ipp_enums_test.cc
+  source_name_part = ipp_enums_test
+build obj/libipp/libipp_test.ipp_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/ipp_test.cc
+  source_file_part = ipp_test.cc
+  source_name_part = ipp_test
+build obj/libipp/libipp_test.parser_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/parser_test.cc
+  source_file_part = parser_test.cc
+  source_name_part = parser_test
+build obj/libipp/libipp_test.validator_test.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libipp/validator_test.cc
+  source_file_part = validator_test.cc
+  source_name_part = validator_test
+
+build ./libipp_test: link obj/libipp/libipp_test.attribute_test.o obj/libipp/libipp_test.binary_content.o obj/libipp/libipp_test.builder_test.o obj/libipp/libipp_test.colls_view_test.o obj/libipp/libipp_test.errors_test.o obj/libipp/libipp_test.frame_test.o obj/libipp/libipp_test.ipp_attribute_test.o obj/libipp/libipp_test.ipp_encoding_test.o obj/libipp/libipp_test.ipp_enums_test.o obj/libipp/libipp_test.ipp_test.o obj/libipp/libipp_test.parser_test.o obj/libipp/libipp_test.validator_test.o ./lib/libipp.so ./libtestrunner.a
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -Wl,-rpath=\$$ORIGIN/lib/ -Wl,-rpath-link=lib/
+  libs = -lgmock -lgtest -lpthread -lbrillo -lbase -lbase-test
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

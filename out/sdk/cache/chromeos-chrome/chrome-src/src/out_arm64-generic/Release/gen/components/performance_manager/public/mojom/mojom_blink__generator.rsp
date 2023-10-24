@@ -1,0 +1,4 @@
+../../../../../../../home/chrome-bot/chrome_root/src/components/performance_manager/public/mojom/coordination_unit.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/components/performance_manager/public/mojom/lifecycle.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/components/performance_manager/public/mojom/v8_contexts.mojom
+../../../../../../../home/chrome-bot/chrome_root/src/components/performance_manager/public/mojom/web_memory.mojom

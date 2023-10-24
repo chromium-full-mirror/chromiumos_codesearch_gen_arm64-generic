@@ -1,0 +1,55 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../../../../usr/bin/gn --root=../../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _image_burner-install_config: phony obj/image-burner/_image_burner-install_config.stamp
+build image-burner-adaptors: phony obj/image-burner/image-burner-adaptors.stamp
+build install_init: phony obj/image-burner/install_init.stamp
+build install_system_services: phony obj/image-burner/install_system_services.stamp
+build install_systemd: phony obj/image-burner/install_systemd.stamp
+build libimage-burner: phony ./libimage-burner.a
+build root: phony obj/common-mk/gn_root/root.stamp
+build testrunner: phony ./libtestrunner.a
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
+build common-mk/testrunner: phony ./libtestrunner.a
+build image-burner$:_image_burner-install_config: phony obj/image-burner/_image_burner-install_config.stamp
+build image-burner$:all: phony obj/image-burner/all.stamp
+build image-burner$:image-burner-adaptors: phony obj/image-burner/image-burner-adaptors.stamp
+build image-burner$:image_burner: phony ./image_burner
+build image-burner$:install_init: phony obj/image-burner/install_init.stamp
+build image-burner$:install_system_services: phony obj/image-burner/install_system_services.stamp
+build image-burner$:install_systemd: phony obj/image-burner/install_systemd.stamp
+build image-burner$:libimage-burner: phony ./libimage-burner.a
+build image-burner$:unittest_runner: phony ./unittest_runner
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    ./libtestrunner.a $
+    obj/image-burner/_image_burner-install_config.stamp $
+    obj/image-burner/all.stamp $
+    obj/image-burner/image-burner-adaptors.stamp $
+    ./image_burner $
+    obj/image-burner/install_init.stamp $
+    obj/image-burner/install_system_services.stamp $
+    obj/image-burner/install_systemd.stamp $
+    ./libimage-burner.a $
+    ./unittest_runner
+
+default all

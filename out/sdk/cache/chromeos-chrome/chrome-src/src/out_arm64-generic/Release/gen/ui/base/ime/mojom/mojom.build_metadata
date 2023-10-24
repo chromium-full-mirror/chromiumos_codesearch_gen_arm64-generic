@@ -1,0 +1,12 @@
+{
+  "deps": [
+    "../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../gfx/geometry/mojom/mojom.build_metadata",
+    "../../../gfx/range/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ui/base/ime/mojom/ime_types.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ui/base/ime/mojom/text_input_state.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ui/base/ime/mojom/virtual_keyboard_types.mojom"
+  ]
+}

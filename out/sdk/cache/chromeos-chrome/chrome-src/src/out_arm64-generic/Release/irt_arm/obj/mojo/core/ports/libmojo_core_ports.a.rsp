@@ -1,0 +1,1 @@
+irt_arm/obj/mojo/core/ports/ports/event.o irt_arm/obj/mojo/core/ports/ports/message_queue.o irt_arm/obj/mojo/core/ports/ports/name.o irt_arm/obj/mojo/core/ports/ports/node.o irt_arm/obj/mojo/core/ports/ports/port.o irt_arm/obj/mojo/core/ports/ports/port_locker.o irt_arm/obj/mojo/core/ports/ports/port_ref.o irt_arm/obj/mojo/core/ports/ports/user_message.o

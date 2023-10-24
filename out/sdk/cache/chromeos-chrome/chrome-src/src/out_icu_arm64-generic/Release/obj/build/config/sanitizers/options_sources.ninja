@@ -1,0 +1,16 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen
+cflags = -gline-tables-only -fdebug-info-for-profiling -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Wshadow -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=../../../../../../../home/chrome-bot/chrome_root/src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -Os -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -fno-omit-frame-pointer -gdwarf-4 -g1 -gdwarf-aranges -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = options_sources
+target_out_dir = obj/build/config/sanitizers
+target_output_name = liboptions_sources
+
+build obj/build/config/sanitizers/options_sources/sanitizer_options.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/build/sanitizers/sanitizer_options.cc
+  source_file_part = sanitizer_options.cc
+  source_name_part = sanitizer_options
+
+build obj/build/config/sanitizers/liboptions_sources.a: alink obj/build/config/sanitizers/options_sources/sanitizer_options.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a
+  arflags = -T
+  output_extension = .a
+  output_dir = obj/build/config/sanitizers

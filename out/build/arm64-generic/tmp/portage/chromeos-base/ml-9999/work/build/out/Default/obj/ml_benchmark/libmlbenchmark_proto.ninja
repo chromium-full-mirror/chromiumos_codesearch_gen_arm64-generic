@@ -1,0 +1,13 @@
+defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include -I../../../ml-9999/platform2 -I/build/arm64-generic/usr/include -Igen
+root_out_dir = .
+target_output_name = libmlbenchmark_proto
+
+
+build ./lib/libmlbenchmark_proto.so: solink ./libml_benchmark_config_proto.a || obj/ml_benchmark/_libmlbenchmark_proto-install_config.stamp
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pthread -L/build/arm64-generic/usr/lib64
+  libs = -lbrillo -lbase -lpthread -lre2
+  frameworks =
+  swiftmodules =
+  output_extension = .so
+  output_dir = .

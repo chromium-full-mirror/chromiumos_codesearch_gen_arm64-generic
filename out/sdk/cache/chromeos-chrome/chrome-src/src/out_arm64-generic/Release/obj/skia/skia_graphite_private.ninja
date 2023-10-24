@@ -1,0 +1,256 @@
+defines = -DUSE_UDEV -DUSE_AURA=1 -DUSE_OZONE=1 -DOFFICIAL_BUILD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -DNO_UNWIND_TABLES -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=e1129faa9f6f292e1216291489f3b4ca882fc611 -DCR_SYSROOT_KEY=20230611T210420Z-2 -DOS_CHROMEOS -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DSK_ENABLE_SKSL -DSK_UNTIL_CRBUG_1187654_IS_FIXED -DSK_USER_CONFIG_HEADER=\"../../skia/config/SkUserConfig.h\" -DSK_WIN_FONTMGR_NO_SIMULATIONS -DSK_DISABLE_LEGACY_SKSURFACE_METHODS -DSK_DISABLE_LEGACY_GRAPHITE_IMAGE_FACTORIES -DSK_DISABLE_LEGACY_GRAPHITE_IMAGE_METHODS -DSK_DISABLE_LEGACY_SKSURFACE_FACTORIES -DSK_DISABLE_LEGACY_SKSURFACE_FLUSH -DSK_DISABLE_LEGACY_SKSURFACE_AS_IMAGE -DSK_DISABLE_LEGACY_SKSURFACE_DISPLAYLIST -DSK_DISABLE_LEGACY_IMAGE_SUBSET_METHODS -DSK_DISABLE_LEGACY_IMAGE_COLORSPACE_METHODS -DSK_DISABLE_LEGACY_IMAGE_RELEASE_PROCS -DSK_DISABLE_LEGACY_GL_BACKEND_SURFACE -DSK_DISABLE_LEGACY_INIT_DECODERS -DSK_DISABLE_LEGACY_GRDIRECTCONTEXT_FLUSH -DSK_DISABLE_LEGACY_GRDIRECTCONTEXT_BOOLS -DSK_DISABLE_LEGACY_GL_GRDIRECTCONTEXT_FACTORIES -DSK_DISABLE_LEGACY_PNG_WRITEBUFFER -DSK_SLUG_DISABLE_LEGACY_DESERIALIZE -DSK_DISABLE_LEGACY_VK_GRDIRECTCONTEXT_FACTORIES -DSK_CODEC_DECODES_JPEG -DSK_ENCODE_JPEG -DSK_ENCODE_PNG -DSK_ENCODE_WEBP -DSK_GANESH -DSK_GPU_WORKAROUNDS_HEADER=\"gpu/config/gpu_driver_bug_workaround_autogen.h\" -DSK_GL -DSK_VULKAN=1 -DSK_GRAPHITE -DIS_SKIA_IMPL=1 -DSKIA_IMPLEMENTATION=1 -DSK_FREETYPE_MINIMUM_RUNTIME_VERSION=\(\(\(FREETYPE_MAJOR\)\$ \*\$ 0x01000000\)\$ \|\$ \(\(FREETYPE_MINOR\)\$ \*\$ 0x00010000\)\$ \|\$ \(\(FREETYPE_PATCH\)\$ \*\$ 0x00000100\)\) -DSK_TYPEFACE_FACTORY_FREETYPE -DSK_GAMMA_EXPONENT=1.2 -DSK_GAMMA_CONTRAST=0.2 -DSK_DEFAULT_FONT_CACHE_LIMIT=20971520
+include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Igen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++ -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia -Igen/third_party/skia -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/wuffs/src/release/c -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan/include -I../../../../../../../home/chrome-bot/chrome_root/src/third_party/vulkan-deps/vulkan-headers/src/include
+cflags = -gline-tables-only -fdebug-info-for-profiling -fprofile-sample-use=../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof -fsample-profile-use-profi -Wno-backend-plugin -fno-delete-null-pointer-checks -fno-ident -fno-strict-aliasing -fno-unwind-tables -fno-asynchronous-unwind-tables -fPIC -pthread -fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=/tmp/clang_crash_diagnostics -mllvm -instcombine-lower-dbg-declare=0 -ffp-contract=off -flto=thin -fsplit-lto-unit -fwhole-program-vtables --target=aarch64-linux-gnu -mno-outline -ffile-compilation-dir=. -no-canonical-prefixes -ftrivial-auto-var-init=zero -fno-omit-frame-pointer -gdwarf-5 -g2 -gdwarf-aranges -gsplit-dwarf -ggnu-pubnames -Xclang -fuse-ctor-homing -fsanitize=cfi-vcall -fsanitize-ignorelist=../../../../../../../home/chrome-bot/chrome_root/src/tools/cfi/ignores.txt -fsanitize=cfi-derived-cast -fsanitize=cfi-unrelated-cast -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -O2 -fdata-sections -ffunction-sections -fno-unique-section-names -fno-math-errno -Wno-redundant-parens -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wenum-compare-conditional -Wno-ignored-pragma-optimize -Wno-deprecated-builtins -Wno-bitfield-constant-conversion -Wno-deprecated-this-capture -Wno-invalid-offsetof -Werror
+cflags_cc = -std=c++20 -Wno-trigraphs -gsimple-template-names -fno-exceptions -fno-rtti -nostdinc++ -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++/src/include -isystem../../../../../../../home/chrome-bot/chrome_root/src/third_party/libc++abi/src/include --sysroot=../../../../../../../build/arm64-generic -fvisibility-inlines-hidden
+label_name = skia_graphite_private
+target_out_dir = obj/skia
+target_output_name = skia_graphite_private
+
+build obj/skia/skia_graphite_private/AtlasProvider.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/AtlasProvider.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = AtlasProvider.cpp
+  source_name_part = AtlasProvider
+build obj/skia/skia_graphite_private/BackendSemaphore.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/BackendSemaphore.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = BackendSemaphore.cpp
+  source_name_part = BackendSemaphore
+build obj/skia/skia_graphite_private/BackendTexture.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/BackendTexture.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = BackendTexture.cpp
+  source_name_part = BackendTexture
+build obj/skia/skia_graphite_private/Buffer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Buffer.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Buffer.cpp
+  source_name_part = Buffer
+build obj/skia/skia_graphite_private/BufferManager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/BufferManager.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = BufferManager.cpp
+  source_name_part = BufferManager
+build obj/skia/skia_graphite_private/Caps.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Caps.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Caps.cpp
+  source_name_part = Caps
+build obj/skia/skia_graphite_private/ClearBuffersTask.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ClearBuffersTask.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ClearBuffersTask.cpp
+  source_name_part = ClearBuffersTask
+build obj/skia/skia_graphite_private/ClientMappedBufferManager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ClientMappedBufferManager.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ClientMappedBufferManager.cpp
+  source_name_part = ClientMappedBufferManager
+build obj/skia/skia_graphite_private/ClipStack_graphite.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ClipStack_graphite.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ClipStack_graphite.cpp
+  source_name_part = ClipStack_graphite
+build obj/skia/skia_graphite_private/CommandBuffer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/CommandBuffer.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = CommandBuffer.cpp
+  source_name_part = CommandBuffer
+build obj/skia/skia_graphite_private/ComputePipeline.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ComputePipeline.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ComputePipeline.cpp
+  source_name_part = ComputePipeline
+build obj/skia/skia_graphite_private/ComputeTask.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ComputeTask.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ComputeTask.cpp
+  source_name_part = ComputeTask
+build obj/skia/skia_graphite_private/Context.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Context.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Context.cpp
+  source_name_part = Context
+build obj/skia/skia_graphite_private/ContextUtils.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ContextUtils.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ContextUtils.cpp
+  source_name_part = ContextUtils
+build obj/skia/skia_graphite_private/CopyTask.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/CopyTask.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = CopyTask.cpp
+  source_name_part = CopyTask
+build obj/skia/skia_graphite_private/Device.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Device.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Device.cpp
+  source_name_part = Device
+build obj/skia/skia_graphite_private/DrawAtlas.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/DrawAtlas.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = DrawAtlas.cpp
+  source_name_part = DrawAtlas
+build obj/skia/skia_graphite_private/DrawContext.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/DrawContext.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = DrawContext.cpp
+  source_name_part = DrawContext
+build obj/skia/skia_graphite_private/DrawList.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/DrawList.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = DrawList.cpp
+  source_name_part = DrawList
+build obj/skia/skia_graphite_private/DrawPass.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/DrawPass.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = DrawPass.cpp
+  source_name_part = DrawPass
+build obj/skia/skia_graphite_private/DrawWriter.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/DrawWriter.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = DrawWriter.cpp
+  source_name_part = DrawWriter
+build obj/skia/skia_graphite_private/GlobalCache.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/GlobalCache.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = GlobalCache.cpp
+  source_name_part = GlobalCache
+build obj/skia/skia_graphite_private/GpuWorkSubmission.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/GpuWorkSubmission.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = GpuWorkSubmission.cpp
+  source_name_part = GpuWorkSubmission
+build obj/skia/skia_graphite_private/GraphicsPipeline.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/GraphicsPipeline.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = GraphicsPipeline.cpp
+  source_name_part = GraphicsPipeline
+build obj/skia/skia_graphite_private/GraphiteResourceKey.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/GraphiteResourceKey.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = GraphiteResourceKey.cpp
+  source_name_part = GraphiteResourceKey
+build obj/skia/skia_graphite_private/ImageFactories.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ImageFactories.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ImageFactories.cpp
+  source_name_part = ImageFactories
+build obj/skia/skia_graphite_private/Image_Base_Graphite.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Image_Base_Graphite.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Image_Base_Graphite.cpp
+  source_name_part = Image_Base_Graphite
+build obj/skia/skia_graphite_private/Image_Graphite.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Image_Graphite.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Image_Graphite.cpp
+  source_name_part = Image_Graphite
+build obj/skia/skia_graphite_private/Image_YUVA_Graphite.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Image_YUVA_Graphite.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Image_YUVA_Graphite.cpp
+  source_name_part = Image_YUVA_Graphite
+build obj/skia/skia_graphite_private/KeyContext.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/KeyContext.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = KeyContext.cpp
+  source_name_part = KeyContext
+build obj/skia/skia_graphite_private/KeyHelpers.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/KeyHelpers.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = KeyHelpers.cpp
+  source_name_part = KeyHelpers
+build obj/skia/skia_graphite_private/PaintParams.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/PaintParams.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = PaintParams.cpp
+  source_name_part = PaintParams
+build obj/skia/skia_graphite_private/PaintParamsKey.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/PaintParamsKey.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = PaintParamsKey.cpp
+  source_name_part = PaintParamsKey
+build obj/skia/skia_graphite_private/PathAtlas.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/PathAtlas.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = PathAtlas.cpp
+  source_name_part = PathAtlas
+build obj/skia/skia_graphite_private/PipelineData.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/PipelineData.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = PipelineData.cpp
+  source_name_part = PipelineData
+build obj/skia/skia_graphite_private/ProxyCache.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ProxyCache.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ProxyCache.cpp
+  source_name_part = ProxyCache
+build obj/skia/skia_graphite_private/QueueManager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/QueueManager.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = QueueManager.cpp
+  source_name_part = QueueManager
+build obj/skia/skia_graphite_private/RasterPathAtlas.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/RasterPathAtlas.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = RasterPathAtlas.cpp
+  source_name_part = RasterPathAtlas
+build obj/skia/skia_graphite_private/Recorder.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Recorder.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Recorder.cpp
+  source_name_part = Recorder
+build obj/skia/skia_graphite_private/Recording.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Recording.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Recording.cpp
+  source_name_part = Recording
+build obj/skia/skia_graphite_private/RenderPassTask.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/RenderPassTask.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = RenderPassTask.cpp
+  source_name_part = RenderPassTask
+build obj/skia/skia_graphite_private/Renderer.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Renderer.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Renderer.cpp
+  source_name_part = Renderer
+build obj/skia/skia_graphite_private/RendererProvider.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/RendererProvider.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = RendererProvider.cpp
+  source_name_part = RendererProvider
+build obj/skia/skia_graphite_private/Resource.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Resource.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Resource.cpp
+  source_name_part = Resource
+build obj/skia/skia_graphite_private/ResourceCache.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ResourceCache.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ResourceCache.cpp
+  source_name_part = ResourceCache
+build obj/skia/skia_graphite_private/ResourceProvider.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ResourceProvider.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ResourceProvider.cpp
+  source_name_part = ResourceProvider
+build obj/skia/skia_graphite_private/RuntimeEffectDictionary.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/RuntimeEffectDictionary.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = RuntimeEffectDictionary.cpp
+  source_name_part = RuntimeEffectDictionary
+build obj/skia/skia_graphite_private/Sampler.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Sampler.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Sampler.cpp
+  source_name_part = Sampler
+build obj/skia/skia_graphite_private/ShaderCodeDictionary.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/ShaderCodeDictionary.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ShaderCodeDictionary.cpp
+  source_name_part = ShaderCodeDictionary
+build obj/skia/skia_graphite_private/SharedContext.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/SharedContext.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = SharedContext.cpp
+  source_name_part = SharedContext
+build obj/skia/skia_graphite_private/SpecialImage_Graphite.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/SpecialImage_Graphite.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = SpecialImage_Graphite.cpp
+  source_name_part = SpecialImage_Graphite
+build obj/skia/skia_graphite_private/Surface_Graphite.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Surface_Graphite.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Surface_Graphite.cpp
+  source_name_part = Surface_Graphite
+build obj/skia/skia_graphite_private/SynchronizeToCpuTask.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/SynchronizeToCpuTask.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = SynchronizeToCpuTask.cpp
+  source_name_part = SynchronizeToCpuTask
+build obj/skia/skia_graphite_private/Task.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Task.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Task.cpp
+  source_name_part = Task
+build obj/skia/skia_graphite_private/TaskGraph.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/TaskGraph.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = TaskGraph.cpp
+  source_name_part = TaskGraph
+build obj/skia/skia_graphite_private/Texture.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/Texture.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Texture.cpp
+  source_name_part = Texture
+build obj/skia/skia_graphite_private/TextureInfo.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/TextureInfo.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = TextureInfo.cpp
+  source_name_part = TextureInfo
+build obj/skia/skia_graphite_private/TextureProxy.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/TextureProxy.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = TextureProxy.cpp
+  source_name_part = TextureProxy
+build obj/skia/skia_graphite_private/TextureUtils.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/TextureUtils.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = TextureUtils.cpp
+  source_name_part = TextureUtils
+build obj/skia/skia_graphite_private/UniformManager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/UniformManager.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = UniformManager.cpp
+  source_name_part = UniformManager
+build obj/skia/skia_graphite_private/UploadBufferManager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/UploadBufferManager.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = UploadBufferManager.cpp
+  source_name_part = UploadBufferManager
+build obj/skia/skia_graphite_private/UploadTask.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/UploadTask.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = UploadTask.cpp
+  source_name_part = UploadTask
+build obj/skia/skia_graphite_private/YUVABackendTextures.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/YUVABackendTextures.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = YUVABackendTextures.cpp
+  source_name_part = YUVABackendTextures
+build obj/skia/skia_graphite_private/YUVATextureProxies.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/YUVATextureProxies.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = YUVATextureProxies.cpp
+  source_name_part = YUVATextureProxies
+build obj/skia/skia_graphite_private/ComputeStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/compute/ComputeStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = ComputeStep.cpp
+  source_name_part = ComputeStep
+build obj/skia/skia_graphite_private/DispatchGroup.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/compute/DispatchGroup.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = DispatchGroup.cpp
+  source_name_part = DispatchGroup
+build obj/skia/skia_graphite_private/IntersectionTree.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/geom/IntersectionTree.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = IntersectionTree.cpp
+  source_name_part = IntersectionTree
+build obj/skia/skia_graphite_private/Shape.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/geom/Shape.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Shape.cpp
+  source_name_part = Shape
+build obj/skia/skia_graphite_private/Transform.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/geom/Transform.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = Transform.cpp
+  source_name_part = Transform
+build obj/skia/skia_graphite_private/AnalyticRRectRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/AnalyticRRectRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = AnalyticRRectRenderStep.cpp
+  source_name_part = AnalyticRRectRenderStep
+build obj/skia/skia_graphite_private/BitmapTextRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/BitmapTextRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = BitmapTextRenderStep.cpp
+  source_name_part = BitmapTextRenderStep
+build obj/skia/skia_graphite_private/CoverBoundsRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/CoverBoundsRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = CoverBoundsRenderStep.cpp
+  source_name_part = CoverBoundsRenderStep
+build obj/skia/skia_graphite_private/CoverageMaskRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/CoverageMaskRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = CoverageMaskRenderStep.cpp
+  source_name_part = CoverageMaskRenderStep
+build obj/skia/skia_graphite_private/GraphiteVertexFiller.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/GraphiteVertexFiller.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = GraphiteVertexFiller.cpp
+  source_name_part = GraphiteVertexFiller
+build obj/skia/skia_graphite_private/MiddleOutFanRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/MiddleOutFanRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = MiddleOutFanRenderStep.cpp
+  source_name_part = MiddleOutFanRenderStep
+build obj/skia/skia_graphite_private/PerEdgeAAQuadRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/PerEdgeAAQuadRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = PerEdgeAAQuadRenderStep.cpp
+  source_name_part = PerEdgeAAQuadRenderStep
+build obj/skia/skia_graphite_private/SDFTextRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/SDFTextRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = SDFTextRenderStep.cpp
+  source_name_part = SDFTextRenderStep
+build obj/skia/skia_graphite_private/TessellateCurvesRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/TessellateCurvesRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = TessellateCurvesRenderStep.cpp
+  source_name_part = TessellateCurvesRenderStep
+build obj/skia/skia_graphite_private/TessellateStrokesRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/TessellateStrokesRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = TessellateStrokesRenderStep.cpp
+  source_name_part = TessellateStrokesRenderStep
+build obj/skia/skia_graphite_private/TessellateWedgesRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/TessellateWedgesRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = TessellateWedgesRenderStep.cpp
+  source_name_part = TessellateWedgesRenderStep
+build obj/skia/skia_graphite_private/VerticesRenderStep.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/render/VerticesRenderStep.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = VerticesRenderStep.cpp
+  source_name_part = VerticesRenderStep
+build obj/skia/skia_graphite_private/TextAtlasManager.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/gpu/graphite/text/TextAtlasManager.cpp | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/gpu/config/workaround_list.stamp
+  source_file_part = TextAtlasManager.cpp
+  source_name_part = TextAtlasManager
+
+build obj/skia/skia_graphite_private.stamp: stamp obj/skia/skia_graphite_private/AtlasProvider.o obj/skia/skia_graphite_private/BackendSemaphore.o obj/skia/skia_graphite_private/BackendTexture.o obj/skia/skia_graphite_private/Buffer.o obj/skia/skia_graphite_private/BufferManager.o obj/skia/skia_graphite_private/Caps.o obj/skia/skia_graphite_private/ClearBuffersTask.o obj/skia/skia_graphite_private/ClientMappedBufferManager.o obj/skia/skia_graphite_private/ClipStack_graphite.o obj/skia/skia_graphite_private/CommandBuffer.o obj/skia/skia_graphite_private/ComputePipeline.o obj/skia/skia_graphite_private/ComputeTask.o obj/skia/skia_graphite_private/Context.o obj/skia/skia_graphite_private/ContextUtils.o obj/skia/skia_graphite_private/CopyTask.o obj/skia/skia_graphite_private/Device.o obj/skia/skia_graphite_private/DrawAtlas.o obj/skia/skia_graphite_private/DrawContext.o obj/skia/skia_graphite_private/DrawList.o obj/skia/skia_graphite_private/DrawPass.o obj/skia/skia_graphite_private/DrawWriter.o obj/skia/skia_graphite_private/GlobalCache.o obj/skia/skia_graphite_private/GpuWorkSubmission.o obj/skia/skia_graphite_private/GraphicsPipeline.o obj/skia/skia_graphite_private/GraphiteResourceKey.o obj/skia/skia_graphite_private/ImageFactories.o obj/skia/skia_graphite_private/Image_Base_Graphite.o obj/skia/skia_graphite_private/Image_Graphite.o obj/skia/skia_graphite_private/Image_YUVA_Graphite.o obj/skia/skia_graphite_private/KeyContext.o obj/skia/skia_graphite_private/KeyHelpers.o obj/skia/skia_graphite_private/PaintParams.o obj/skia/skia_graphite_private/PaintParamsKey.o obj/skia/skia_graphite_private/PathAtlas.o obj/skia/skia_graphite_private/PipelineData.o obj/skia/skia_graphite_private/ProxyCache.o obj/skia/skia_graphite_private/QueueManager.o obj/skia/skia_graphite_private/RasterPathAtlas.o obj/skia/skia_graphite_private/Recorder.o obj/skia/skia_graphite_private/Recording.o obj/skia/skia_graphite_private/RenderPassTask.o obj/skia/skia_graphite_private/Renderer.o obj/skia/skia_graphite_private/RendererProvider.o obj/skia/skia_graphite_private/Resource.o obj/skia/skia_graphite_private/ResourceCache.o obj/skia/skia_graphite_private/ResourceProvider.o obj/skia/skia_graphite_private/RuntimeEffectDictionary.o obj/skia/skia_graphite_private/Sampler.o obj/skia/skia_graphite_private/ShaderCodeDictionary.o obj/skia/skia_graphite_private/SharedContext.o obj/skia/skia_graphite_private/SpecialImage_Graphite.o obj/skia/skia_graphite_private/Surface_Graphite.o obj/skia/skia_graphite_private/SynchronizeToCpuTask.o obj/skia/skia_graphite_private/Task.o obj/skia/skia_graphite_private/TaskGraph.o obj/skia/skia_graphite_private/Texture.o obj/skia/skia_graphite_private/TextureInfo.o obj/skia/skia_graphite_private/TextureProxy.o obj/skia/skia_graphite_private/TextureUtils.o obj/skia/skia_graphite_private/UniformManager.o obj/skia/skia_graphite_private/UploadBufferManager.o obj/skia/skia_graphite_private/UploadTask.o obj/skia/skia_graphite_private/YUVABackendTextures.o obj/skia/skia_graphite_private/YUVATextureProxies.o obj/skia/skia_graphite_private/ComputeStep.o obj/skia/skia_graphite_private/DispatchGroup.o obj/skia/skia_graphite_private/IntersectionTree.o obj/skia/skia_graphite_private/Shape.o obj/skia/skia_graphite_private/Transform.o obj/skia/skia_graphite_private/AnalyticRRectRenderStep.o obj/skia/skia_graphite_private/BitmapTextRenderStep.o obj/skia/skia_graphite_private/CoverBoundsRenderStep.o obj/skia/skia_graphite_private/CoverageMaskRenderStep.o obj/skia/skia_graphite_private/GraphiteVertexFiller.o obj/skia/skia_graphite_private/MiddleOutFanRenderStep.o obj/skia/skia_graphite_private/PerEdgeAAQuadRenderStep.o obj/skia/skia_graphite_private/SDFTextRenderStep.o obj/skia/skia_graphite_private/TessellateCurvesRenderStep.o obj/skia/skia_graphite_private/TessellateStrokesRenderStep.o obj/skia/skia_graphite_private/TessellateWedgesRenderStep.o obj/skia/skia_graphite_private/VerticesRenderStep.o obj/skia/skia_graphite_private/TextAtlasManager.o || obj/gpu/config/workaround_list.stamp

@@ -1,7 +1,7 @@
 #ifndef __VMLINUX_H__
 #define __VMLINUX_H__
 
-#define LINUX_VERSION_CODE 331655
+#define LINUX_VERSION_CODE 331656
 
 #ifndef BPF_NO_PRESERVE_ACCESS_INDEX
 #pragma clang attribute push (__attribute__((preserve_access_index)), apply_to = record)
@@ -10804,6 +10804,7 @@ struct ipv6_devconf {
 	__s32 accept_ra_defrtr;
 	__u32 ra_defrtr_metric;
 	__s32 accept_ra_min_hop_limit;
+	__s32 accept_ra_min_lft;
 	__s32 accept_ra_pinfo;
 	__s32 ignore_routes_with_linkdown;
 	__s32 accept_ra_rtr_pref;
@@ -12813,15 +12814,6 @@ enum bug_trap_type {
 	BUG_TRAP_TYPE_BUG = 2,
 };
 
-struct undef_hook {
-	struct list_head node;
-	u32 instr_mask;
-	u32 instr_val;
-	u64 pstate_mask;
-	u64 pstate_val;
-	int (*fn)(struct pt_regs *, u32);
-};
-
 struct arm64_ftr_override;
 
 struct arm64_ftr_bits;
@@ -13023,6 +13015,32 @@ struct device_attribute {
 	ssize_t (*store)(struct device *, struct device_attribute *, const char *, size_t);
 };
 
+enum aarch64_insn_imm_type {
+	AARCH64_INSN_IMM_ADR = 0,
+	AARCH64_INSN_IMM_26 = 1,
+	AARCH64_INSN_IMM_19 = 2,
+	AARCH64_INSN_IMM_16 = 3,
+	AARCH64_INSN_IMM_14 = 4,
+	AARCH64_INSN_IMM_12 = 5,
+	AARCH64_INSN_IMM_9 = 6,
+	AARCH64_INSN_IMM_7 = 7,
+	AARCH64_INSN_IMM_6 = 8,
+	AARCH64_INSN_IMM_S = 9,
+	AARCH64_INSN_IMM_R = 10,
+	AARCH64_INSN_IMM_N = 11,
+	AARCH64_INSN_IMM_MAX = 12,
+};
+
+enum aarch64_insn_register_type {
+	AARCH64_INSN_REGTYPE_RT = 0,
+	AARCH64_INSN_REGTYPE_RN = 1,
+	AARCH64_INSN_REGTYPE_RT2 = 2,
+	AARCH64_INSN_REGTYPE_RM = 3,
+	AARCH64_INSN_REGTYPE_RD = 4,
+	AARCH64_INSN_REGTYPE_RA = 5,
+	AARCH64_INSN_REGTYPE_RS = 6,
+};
+
 enum mitigation_state {
 	SPECTRE_UNAFFECTED = 0,
 	SPECTRE_MITIGATED = 1,
@@ -13098,32 +13116,6 @@ enum {
 	CAP_HWCAP = 1,
 	CAP_COMPAT_HWCAP = 2,
 	CAP_COMPAT_HWCAP2 = 3,
-};
-
-enum aarch64_insn_imm_type {
-	AARCH64_INSN_IMM_ADR = 0,
-	AARCH64_INSN_IMM_26 = 1,
-	AARCH64_INSN_IMM_19 = 2,
-	AARCH64_INSN_IMM_16 = 3,
-	AARCH64_INSN_IMM_14 = 4,
-	AARCH64_INSN_IMM_12 = 5,
-	AARCH64_INSN_IMM_9 = 6,
-	AARCH64_INSN_IMM_7 = 7,
-	AARCH64_INSN_IMM_6 = 8,
-	AARCH64_INSN_IMM_S = 9,
-	AARCH64_INSN_IMM_R = 10,
-	AARCH64_INSN_IMM_N = 11,
-	AARCH64_INSN_IMM_MAX = 12,
-};
-
-enum aarch64_insn_register_type {
-	AARCH64_INSN_REGTYPE_RT = 0,
-	AARCH64_INSN_REGTYPE_RN = 1,
-	AARCH64_INSN_REGTYPE_RT2 = 2,
-	AARCH64_INSN_REGTYPE_RM = 3,
-	AARCH64_INSN_REGTYPE_RD = 4,
-	AARCH64_INSN_REGTYPE_RA = 5,
-	AARCH64_INSN_REGTYPE_RS = 6,
 };
 
 typedef int (*cmp_func_t)(const void *, const void *);
@@ -14371,13 +14363,18 @@ typedef void (*btf_trace_instruction_emulation)(void *, const char *, u64);
 enum legacy_insn_status {
 	INSN_DEPRECATED = 0,
 	INSN_OBSOLETE = 1,
+	INSN_UNAVAILABLE = 2,
 };
 
-struct insn_emulation_ops {
+struct insn_emulation {
 	const char *name;
 	enum legacy_insn_status status;
-	struct undef_hook *hooks;
+	bool (*try_emulate)(struct pt_regs *, u32);
 	int (*set_hw_mode)(bool);
+	int current_mode;
+	int min;
+	int max;
+	struct ctl_table sysctl[2];
 };
 
 enum insn_emulation_mode {
@@ -14407,14 +14404,6 @@ struct trace_event_raw_instruction_emulation {
 	u32 __data_loc_instr;
 	u64 addr;
 	char __data[0];
-};
-
-struct insn_emulation {
-	struct list_head node;
-	struct insn_emulation_ops *ops;
-	int current_mode;
-	int min;
-	int max;
 };
 
 struct trace_event_data_offsets_instruction_emulation {
@@ -76417,6 +76406,8 @@ struct mtk_hdmi_ddc {
 	void *regs;
 };
 
+struct panel_init_cmd;
+
 struct panel_desc {
 	const struct drm_display_mode *modes;
 	unsigned int bpc;
@@ -76426,10 +76417,21 @@ struct panel_desc {
 	} size;
 	unsigned long mode_flags;
 	enum mipi_dsi_pixel_format format;
-	int (*init)(struct mipi_dsi_device *);
+	const struct panel_init_cmd *init_cmds;
 	unsigned int lanes;
 	bool discharge_on_disable;
 	bool lp11_before_reset;
+};
+
+enum dsi_cmd_type {
+	INIT_DCS_CMD = 0,
+	DELAY_CMD = 1,
+};
+
+struct panel_init_cmd {
+	enum dsi_cmd_type type;
+	size_t len;
+	const char *data;
 };
 
 struct boe_panel {
@@ -76442,6 +76444,7 @@ struct boe_panel {
 	struct regulator *avee;
 	struct regulator *avdd;
 	struct gpio_desc *enable_gpio;
+	bool prepared;
 };
 
 struct panel_desc___2 {
@@ -76536,7 +76539,7 @@ struct panel_edp {
 	enum drm_panel_orientation orientation;
 };
 
-struct panel_init_cmd;
+struct panel_init_cmd___2;
 
 struct panel_desc___4 {
 	const struct drm_display_mode *mode;
@@ -76547,7 +76550,7 @@ struct panel_desc___4 {
 	} size;
 	unsigned long flags;
 	enum mipi_dsi_pixel_format format;
-	const struct panel_init_cmd *init_cmds;
+	const struct panel_init_cmd___2 *init_cmds;
 	unsigned int lanes;
 	const char * const *supply_names;
 	unsigned int num_supplies;
@@ -76555,7 +76558,7 @@ struct panel_desc___4 {
 	unsigned int power_down_delay;
 };
 
-struct panel_init_cmd {
+struct panel_init_cmd___2 {
 	size_t len;
 	const char *data;
 };
@@ -79259,6 +79262,12 @@ struct scsi_request {
 	void *sense;
 };
 
+enum scsi_cmnd_submitter {
+	SUBMITTED_BY_BLOCK_LAYER = 0,
+	SUBMITTED_BY_SCSI_ERROR_HANDLER = 1,
+	SUBMITTED_BY_SCSI_RESET_IOCTL = 2,
+} __attribute__((mode(byte)));
+
 struct scsi_data_buffer {
 	struct sg_table table;
 	unsigned int length;
@@ -79293,6 +79302,7 @@ struct scsi_cmnd {
 	unsigned char prot_op;
 	unsigned char prot_type;
 	unsigned char prot_flags;
+	enum scsi_cmnd_submitter submitter;
 	unsigned short cmd_len;
 	enum dma_data_direction sc_data_direction;
 	unsigned char *cmnd;
@@ -128084,7 +128094,10 @@ enum {
 	DEVCONF_IOAM6_ENABLED = 53,
 	DEVCONF_IOAM6_ID = 54,
 	DEVCONF_IOAM6_ID_WIDE = 55,
-	DEVCONF_MAX = 56,
+	DEVCONF_NDISC_EVICT_NOCARRIER = 56,
+	DEVCONF_ACCEPT_UNTRACKED_NA = 57,
+	DEVCONF_ACCEPT_RA_MIN_LFT = 58,
+	DEVCONF_MAX = 59,
 };
 
 enum {
