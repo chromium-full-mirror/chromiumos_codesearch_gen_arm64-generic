@@ -1218,47 +1218,6 @@ const {
       return absl::nullopt;
    return it->second;
 }
-class OpenCameraEventValidator final :
-    public ::metrics::structured::EventValidator {
-  public:
-    OpenCameraEventValidator();
-    ~OpenCameraEventValidator() override;
-
-    void Initialize();
-
-    static constexpr uint64_t kEventNameHash = UINT64_C(17981280207682394848);
-
-    absl::optional<MetricMetadata>
-      GetMetricMetadata(const std::string& metric_name) const override;
-
-  private:
-    std::unordered_map<base::StringPiece, EventValidator::MetricMetadata>
-        metric_metadata_;
-};
-
-OpenCameraEventValidator::OpenCameraEventValidator() :
-  ::metrics::structured::EventValidator(OpenCameraEventValidator::kEventNameHash)
-  {
-  Initialize();
-}
-
-OpenCameraEventValidator::~OpenCameraEventValidator() = default;
-
-void OpenCameraEventValidator::Initialize() {
-  metric_metadata_ = {
-    {"VendorId", { Event::MetricType::kLong, UINT64_C(7982341394845147735)}},
-  {"ProductId", { Event::MetricType::kLong, UINT64_C(3765840483194334735)}}
-   };
-}
-
-absl::optional<EventValidator::MetricMetadata>
-OpenCameraEventValidator::GetMetricMetadata(const std::string& metric_name)
-const {
-   const auto it = metric_metadata_.find(metric_name);
-   if (it == metric_metadata_.end())
-      return absl::nullopt;
-   return it->second;
-}
 class TestEventOneEventValidator final :
     public ::metrics::structured::EventValidator {
   public:
@@ -1811,55 +1770,6 @@ absl::optional<const EventValidator*> CrOSEventsProjectValidator::GetEventValida
       return absl::nullopt;
    return it->second.get();
 }
-class CameraPeripheralInfoProjectValidator final :
-    public ::metrics::structured::ProjectValidator {
-  public:
-    CameraPeripheralInfoProjectValidator();
-    ~CameraPeripheralInfoProjectValidator();
-
-    absl::optional<const EventValidator*> GetEventValidator(
-      const std::string& event_name) const override;
-
-    void Initialize();
-
-    static constexpr uint64_t kProjectNameHash = UINT64_C(18159070025417866323);
-    static constexpr IdType kIdType = IdType::kUnidentified;
-    static constexpr IdScope kIdScope = IdScope::kPerDevice;
-    static constexpr EventType kEventType =
-        StructuredEventProto_EventType_REGULAR;
-    static constexpr int kKeyRotationPeriod =
-        90;
-
-  private:
-    std::unordered_map<base::StringPiece,
-        std::unique_ptr<EventValidator>> event_validators_;
-};
-
-CameraPeripheralInfoProjectValidator::CameraPeripheralInfoProjectValidator() :
-  ::metrics::structured::ProjectValidator(
-  CameraPeripheralInfoProjectValidator::kProjectNameHash,
-  CameraPeripheralInfoProjectValidator::kIdType,
-  CameraPeripheralInfoProjectValidator::kIdScope,
-  CameraPeripheralInfoProjectValidator::kEventType,
-  CameraPeripheralInfoProjectValidator::kKeyRotationPeriod
-)
-  {
-  Initialize();
-}
-
-void CameraPeripheralInfoProjectValidator::Initialize() {
-  event_validators_.emplace("OpenCamera", std::make_unique<OpenCameraEventValidator>());
-}
-
-CameraPeripheralInfoProjectValidator::~CameraPeripheralInfoProjectValidator() = default;
-
-absl::optional<const EventValidator*> CameraPeripheralInfoProjectValidator::GetEventValidator(
-                                        const std::string& event_name) const {
-   const auto it = event_validators_.find(event_name);
-   if (it == event_validators_.end())
-      return absl::nullopt;
-   return it->second.get();
-}
 class TestProjectOneProjectValidator final :
     public ::metrics::structured::ProjectValidator {
   public:
@@ -2171,7 +2081,6 @@ void Validators::Initialize() {
   validators_.emplace("LauncherUsage", std::make_unique<LauncherUsageProjectValidator>());
   validators_.emplace("StructuredMetrics", std::make_unique<StructuredMetricsProjectValidator>());
   validators_.emplace("CrOSEvents", std::make_unique<CrOSEventsProjectValidator>());
-  validators_.emplace("CameraPeripheralInfo", std::make_unique<CameraPeripheralInfoProjectValidator>());
   validators_.emplace("TestProjectOne", std::make_unique<TestProjectOneProjectValidator>());
   validators_.emplace("TestProjectTwo", std::make_unique<TestProjectTwoProjectValidator>());
   validators_.emplace("TestProjectThree", std::make_unique<TestProjectThreeProjectValidator>());

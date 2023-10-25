@@ -533,8 +533,8 @@ struct ChallengeCredentialAuthBlockState FLATBUFFERS_FINAL_CLASS : private ::fla
   const cryptohome::_serialized_::ScryptAuthBlockState *scrypt_state() const {
     return GetPointer<const cryptohome::_serialized_::ScryptAuthBlockState *>(VT_SCRYPT_STATE);
   }
-  const cryptohome::structure::_serialized_::SignatureChallengeInfo *keyset_challenge_info() const {
-    return GetPointer<const cryptohome::structure::_serialized_::SignatureChallengeInfo *>(VT_KEYSET_CHALLENGE_INFO);
+  const cryptohome::_serialized_::SerializedSignatureChallengeInfo *keyset_challenge_info() const {
+    return GetPointer<const cryptohome::_serialized_::SerializedSignatureChallengeInfo *>(VT_KEYSET_CHALLENGE_INFO);
   }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -553,7 +553,7 @@ struct ChallengeCredentialAuthBlockStateBuilder {
   void add_scrypt_state(::flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state) {
     fbb_.AddOffset(ChallengeCredentialAuthBlockState::VT_SCRYPT_STATE, scrypt_state);
   }
-  void add_keyset_challenge_info(::flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> keyset_challenge_info) {
+  void add_keyset_challenge_info(::flatbuffers::Offset<cryptohome::_serialized_::SerializedSignatureChallengeInfo> keyset_challenge_info) {
     fbb_.AddOffset(ChallengeCredentialAuthBlockState::VT_KEYSET_CHALLENGE_INFO, keyset_challenge_info);
   }
   explicit ChallengeCredentialAuthBlockStateBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
@@ -570,7 +570,7 @@ struct ChallengeCredentialAuthBlockStateBuilder {
 inline ::flatbuffers::Offset<ChallengeCredentialAuthBlockState> CreateChallengeCredentialAuthBlockState(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     ::flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state = 0,
-    ::flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> keyset_challenge_info = 0) {
+    ::flatbuffers::Offset<cryptohome::_serialized_::SerializedSignatureChallengeInfo> keyset_challenge_info = 0) {
   ChallengeCredentialAuthBlockStateBuilder builder_(_fbb);
   builder_.add_keyset_challenge_info(keyset_challenge_info);
   builder_.add_scrypt_state(scrypt_state);

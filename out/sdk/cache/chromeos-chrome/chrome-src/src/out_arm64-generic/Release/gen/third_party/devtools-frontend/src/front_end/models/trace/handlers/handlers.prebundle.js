@@ -3,5 +3,6 @@
 // found in the LICENSE file.
 export * as Migration from './Migration.js';
 export * as ModelHandlers from './ModelHandlers.js';
+export * as Threads from './Threads.js';
 export * as Types from './types.js';
 //# sourceMappingURL=handlers.prebundle.js.map

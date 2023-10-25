@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "perfetto", "version": "38.0", "revision": 11, "fullname": "chromeos-base/perfetto", "fullnamerev": "chromeos-base/perfetto-38.0-r11", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["https://perfetto.dev/"], "skip": false, "tainted": false, "ebuild_path": null}

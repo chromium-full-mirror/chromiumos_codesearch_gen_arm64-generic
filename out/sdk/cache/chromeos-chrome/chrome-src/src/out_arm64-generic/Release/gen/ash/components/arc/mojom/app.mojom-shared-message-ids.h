@@ -55,6 +55,7 @@ constexpr uint32_t kAppInstance_SetNotificationsEnabled_Name = 10;
 constexpr uint32_t kAppInstance_StartPaiFlow_Name = 32;
 constexpr uint32_t kAppInstance_StartFastAppReinstallFlow_Name = 25;
 constexpr uint32_t kAppInstance_UninstallPackage_Name = 5;
+constexpr uint32_t kAppInstance_UpdateAppDetails_Name = 42;
 constexpr uint32_t kAppInstance_GetAndroidId_Name = 33;
 constexpr uint32_t kAppInstance_GetAppShortcutGlobalQueryItems_Name = 26;
 constexpr uint32_t kAppInstance_GetAppShortcutItems_Name = 23;

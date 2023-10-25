@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`button.link{color:var(--sys-color-primary);text-decoration:underline;padding:0;border:none;background:none;font-family:inherit;font-size:inherit;height:16px}button.link devtools-icon{vertical-align:sub}.link{color:var(--color-link);text-decoration:underline;cursor:pointer}
+`button.link{color:var(--sys-color-primary);text-decoration:underline;padding:0;border:none;background:none;font-family:inherit;font-size:inherit;height:16px}button.link devtools-icon{vertical-align:sub}.link{color:var(--sys-color-primary);text-decoration:underline;cursor:pointer}
 /*# sourceURL=preloadingDetailsReportView.css */
 `);
 

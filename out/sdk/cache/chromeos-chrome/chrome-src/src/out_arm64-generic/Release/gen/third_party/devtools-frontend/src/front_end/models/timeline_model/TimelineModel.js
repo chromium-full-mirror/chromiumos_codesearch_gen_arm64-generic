@@ -861,12 +861,19 @@ export class TimelineModelImpl {
         switch (event.name) {
             case RecordType.ResourceSendRequest:
             case RecordType.WebSocketCreate: {
-                timelineData.setInitiator(eventStack[eventStack.length - 1] || null);
+                const lastEvent = eventStack[eventStack.length - 1];
+                if (!(lastEvent instanceof TraceEngine.Legacy.PayloadEvent)) {
+                    break;
+                }
+                timelineData.setInitiator(lastEvent.rawPayload() || null);
                 timelineData.url = eventData['url'];
                 break;
             }
             case RecordType.ScheduleStyleRecalculation: {
-                this.lastScheduleStyleRecalculation[eventData['frame']] = event;
+                if (!(event instanceof TraceEngine.Legacy.PayloadEvent)) {
+                    break;
+                }
+                this.lastScheduleStyleRecalculation[eventData['frame']] = event.rawPayload();
                 break;
             }
             case RecordType.UpdateLayoutTree:
@@ -891,7 +898,10 @@ export class TimelineModelImpl {
             case RecordType.InvalidateLayout: {
                 // Consider style recalculation as a reason for layout invalidation,
                 // but only if we had no earlier layout invalidation records.
-                let layoutInitator = event;
+                if (!(event instanceof TraceEngine.Legacy.PayloadEvent)) {
+                    break;
+                }
+                let layoutInitator = event.rawPayload();
                 const frameId = eventData['frame'];
                 if (!this.layoutInvalidate[frameId] && this.lastRecalculateStylesEvent &&
                     this.lastRecalculateStylesEvent.endTime !== undefined &&
@@ -1954,7 +1964,10 @@ export class TimelineAsyncEventTracker {
             }
             const initiator = initiatorMap.get(id);
             const timelineData = EventOnTimelineData.forEvent(event);
-            timelineData.setInitiator(initiator ? initiator : null);
+            if (!(initiator instanceof TraceEngine.Legacy.PayloadEvent)) {
+                return;
+            }
+            timelineData.setInitiator(initiator.rawPayload());
             if (!timelineData.frameId && initiator) {
                 timelineData.frameId = TimelineModelImpl.eventFrameId(initiator);
             }

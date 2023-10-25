@@ -7,7 +7,7 @@ import { AggregatableResultSpec as attributionReporting_mojom_AggregatableResult
 import { AttributionSupportSpec as network_mojom_AttributionSupportSpec, TriggerVerificationSpec as network_mojom_TriggerVerificationSpec } from './attribution.mojom-webui.js';
 import { OsRegistrationResultSpec as attributionReporting_mojom_OsRegistrationResultSpec, RegistrationTypeSpec as attributionReporting_mojom_RegistrationTypeSpec } from './attribution_reporting.mojom-webui.js';
 import { EventLevelResultSpec as attributionReporting_mojom_EventLevelResultSpec } from './event_level_result.mojom-webui.js';
-import { DebugKeySpec as attributionReporting_mojom_DebugKeySpec, DestinationSetSpec as attributionReporting_mojom_DestinationSetSpec, EventReportWindowsSpec as attributionReporting_mojom_EventReportWindowsSpec } from './registration.mojom-webui.js';
+import { DebugKeySpec as attributionReporting_mojom_DebugKeySpec, DestinationSetSpec as attributionReporting_mojom_DestinationSetSpec, EventReportWindowsSpec as attributionReporting_mojom_EventReportWindowsSpec, TriggerConfigSpec as attributionReporting_mojom_TriggerConfigSpec } from './registration.mojom-webui.js';
 import { SourceTypeSpec as attributionReporting_mojom_SourceTypeSpec } from './source_type.mojom-webui.js';
 import { StoreSourceResultSpec as attributionReporting_mojom_StoreSourceResultSpec } from './store_source_result.mojom-webui.js';
 import { OriginSpec as url_mojom_OriginSpec } from '//resources/mojo/url/mojom/origin.mojom-webui.js';
@@ -417,8 +417,9 @@ mojo.internal.Struct(WebUISourceSpec.$, 'WebUISource', [
     mojo.internal.StructField('aggregationKeys', 104, 0, mojo.internal.Map(mojo.internal.String, mojo.internal.String, false), null, false /* nullable */, 0),
     mojo.internal.StructField('aggregatableBudgetConsumed', 112, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
     mojo.internal.StructField('aggregatableDedupKeys', 120, 0, mojo.internal.Array(mojo.internal.Uint64, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('attributability', 128, 0, WebUISource_AttributabilitySpec.$, 0, false /* nullable */, 0),
-], [[0, 144],]);
+    mojo.internal.StructField('triggerConfig', 128, 0, attributionReporting_mojom_TriggerConfigSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('attributability', 136, 0, WebUISource_AttributabilitySpec.$, 0, false /* nullable */, 0),
+], [[0, 152],]);
 mojo.internal.Struct(WebUIRegistrationSpec.$, 'WebUIRegistration', [
     mojo.internal.StructField('time', 0, 0, mojo.internal.Double, 0, false /* nullable */, 0),
     mojo.internal.StructField('contextOrigin', 8, 0, url_mojom_OriginSpec.$, null, false /* nullable */, 0),

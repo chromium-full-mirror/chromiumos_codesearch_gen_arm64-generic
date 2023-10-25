@@ -1070,7 +1070,7 @@ MediaStreamDispatcherHost_OnStreamStarted_Params_Data::MediaStreamDispatcherHost
 
 
 // static
-bool MediaStreamDispatcherHost_Crop_Params_Data::Validate(
+bool MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1082,8 +1082,8 @@ bool MediaStreamDispatcherHost_Crop_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const MediaStreamDispatcherHost_Crop_Params_Data* object =
-      static_cast<const MediaStreamDispatcherHost_Crop_Params_Data*>(data);
+  [[maybe_unused]] const MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data* object =
+      static_cast<const MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->device_id, 1, validation_context)) {
@@ -1092,22 +1092,27 @@ bool MediaStreamDispatcherHost_Crop_Params_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->device_id, validation_context))
     return false;
 
+
+  if (!::blink::mojom::internal::SubCaptureTargetType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->crop_id, 2, validation_context)) {
+          object->sub_capture_target, 3, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->crop_id, validation_context))
+  if (!mojo::internal::ValidateStruct(object->sub_capture_target, validation_context))
     return false;
 
   return true;
 }
 
-MediaStreamDispatcherHost_Crop_Params_Data::MediaStreamDispatcherHost_Crop_Params_Data()
+MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool MediaStreamDispatcherHost_Crop_ResponseParams_Data::Validate(
+bool MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1119,8 +1124,8 @@ bool MediaStreamDispatcherHost_Crop_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const MediaStreamDispatcherHost_Crop_ResponseParams_Data* object =
-      static_cast<const MediaStreamDispatcherHost_Crop_ResponseParams_Data*>(data);
+  [[maybe_unused]] const MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data* object =
+      static_cast<const MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data*>(data);
 
 
   if (!::media::mojom::internal::ApplySubCaptureTargetResult_Data
@@ -1130,7 +1135,7 @@ bool MediaStreamDispatcherHost_Crop_ResponseParams_Data::Validate(
   return true;
 }
 
-MediaStreamDispatcherHost_Crop_ResponseParams_Data::MediaStreamDispatcherHost_Crop_ResponseParams_Data()
+MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

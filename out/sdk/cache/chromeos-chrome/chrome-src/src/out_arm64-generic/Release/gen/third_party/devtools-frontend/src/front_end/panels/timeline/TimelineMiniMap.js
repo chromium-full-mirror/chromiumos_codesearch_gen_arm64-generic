@@ -11,6 +11,7 @@ import * as UI from '../../ui/legacy/legacy.js';
 import * as TimelineComponents from './components/components.js';
 import { TimelineEventOverviewCPUActivity, TimelineEventOverviewMemory, TimelineEventOverviewNetwork, TimelineEventOverviewResponsiveness, TimelineFilmStripOverview, } from './TimelineEventOverview.js';
 import miniMapStyles from './timelineMiniMap.css.js';
+import { ThreadTracksSource } from './TimelinePanel.js';
 import { TimelineUIUtils } from './TimelineUIUtils.js';
 /**
  * This component wraps the generic PerfUI Overview component and configures it
@@ -24,8 +25,11 @@ export class TimelineMiniMap extends Common.ObjectWrapper.eventMixin(UI.Widget.V
     breadcrumbs = null;
     #breadcrumbsUI;
     #minTime = TimingTypes.Timing.MilliSeconds(0);
-    constructor() {
+    // Once the sync tracks migration is completely shipped, this can be removed.
+    #threadTracksSource;
+    constructor(threadTracksSource) {
         super();
+        this.#threadTracksSource = threadTracksSource;
         this.element.classList.add('timeline-minimap');
         this.#breadcrumbsUI = new TimelineComponents.BreadcrumbsUI.BreadcrumbsUI();
         this.#overviewComponent.show(this.element);
@@ -144,13 +148,16 @@ export class TimelineMiniMap extends Common.ObjectWrapper.eventMixin(UI.Widget.V
             this.#setMarkers(data.traceParsedData);
             this.#setNavigationStartEvents(data.traceParsedData);
             this.#controls.push(new TimelineEventOverviewResponsiveness(data.traceParsedData));
+            // TODO(crbug.com/1428024) we only use the new engine if we are not in
+            // CPU Profile mode right now. We need to do the work to teach the
+            // MiniMap how to parse CPU Profile data to build the activity graph.
+            if (this.#threadTracksSource === ThreadTracksSource.NEW_ENGINE && !Boolean(data.isCpuProfile)) {
+                this.#controls.push(new TimelineEventOverviewCPUActivity(null, data.traceParsedData, false));
+            }
         }
-        // CPU Activity is the only component that relies on the old model and will
-        // do so until we have finished migrating the Main Thread track to the new
-        // trace engine
-        // TODO(crbug.com/1428024) Migrate CPU track to the new model once the Main thread is migrated to the trace engine
-        if (data.performanceModel) {
-            this.#controls.push(new TimelineEventOverviewCPUActivity(data.performanceModel));
+        const useOldEngineForCpu = this.#threadTracksSource !== ThreadTracksSource.NEW_ENGINE || data.isCpuProfile === true;
+        if (data.performanceModel && useOldEngineForCpu) {
+            this.#controls.push(new TimelineEventOverviewCPUActivity(data.performanceModel, null, Boolean(data.isCpuProfile)));
         }
         if (data.traceParsedData) {
             this.#controls.push(new TimelineEventOverviewNetwork(data.traceParsedData));

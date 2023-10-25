@@ -37,5 +37,10 @@ const shared_js_1 = require("../../../helpers/shared.js");
         const pane = await (0, helper_js_1.waitFor)('.container-with-memory #timeline-overview-pane');
         await (0, screenshots_js_1.assertElementScreenshotUnchanged)(pane, 'performance/timeline-overview-memory.png', 3);
     });
+    (0, mocha_extensions_js_1.itScreenshot)('supports being drawn from the new engine trace data', async () => {
+        await (0, shared_js_1.loadComponentDocExample)('performance_panel/overview.html?trace=web-dev');
+        const pane = await (0, helper_js_1.waitFor)('.container-new-engine #timeline-overview-pane');
+        await (0, screenshots_js_1.assertElementScreenshotUnchanged)(pane, 'performance/timeline-overview-new-engine.png', 3);
+    });
 });
 //# sourceMappingURL=overview_test.js.map

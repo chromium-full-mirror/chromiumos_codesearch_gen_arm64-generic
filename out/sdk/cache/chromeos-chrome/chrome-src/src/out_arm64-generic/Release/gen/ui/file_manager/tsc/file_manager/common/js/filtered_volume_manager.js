@@ -9,7 +9,7 @@ import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
 import { VolumeInfoList } from '../../externs/volume_info_list.js';
 import { ExternallyUnmountedEvent, VolumeManager } from '../../externs/volume_manager.js';
 import { ArrayDataModel } from './array_data_model.js';
-import { util } from './util.js';
+import { isFuseBoxDebugEnabled } from './flags.js';
 import { AllowedPaths, isNative, VolumeManagerCommon } from './volume_manager_types.js';
 /**
  * Implementation of VolumeInfoList for FilteredVolumeManager.
@@ -127,7 +127,7 @@ export class FilteredVolumeManager extends EventTarget {
          * UI elements, for manual fusebox testing.
          * @private @const @type {boolean}
          */
-        this.isFuseBoxDebugEnabled_ = util.isFuseBoxDebugEnabled();
+        this.isFuseBoxDebugEnabled_ = isFuseBoxDebugEnabled();
         /**
          * List of disabled volumes.
          * @private @const @type {!Array<!VolumeManagerCommon.VolumeType>}

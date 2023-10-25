@@ -8914,6 +8914,82 @@ void MaskClip::ApplyValue(StyleResolverState& state, const CSSValue& value, Valu
   }
 }
 
+ // mask-composite
+
+
+CSSExposure MaskComposite::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* MaskComposite::GetPropertyName() const {
+  return "mask-composite";
+}
+
+const WTF::AtomicString& MaskComposite::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("mask-composite"));
+  return name;
+}
+
+const char* MaskComposite::GetJSPropertyName() const {
+  return "maskComposite";
+}
+
+
+
+void MaskComposite::ApplyInitial(StyleResolverState& state) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  curr_child->SetCompositingOperator(FillLayer::InitialFillCompositingOperator(EFillLayerType::kMask));
+  for (curr_child = curr_child->Next(); curr_child; curr_child = curr_child->Next())
+    curr_child->ClearCompositingOperator();
+}
+
+void MaskComposite::ApplyInherit(StyleResolverState& state) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  FillLayer* prev_child = 0;
+  const FillLayer* curr_parent = &state.ParentStyle()->MaskLayers();
+  while (curr_parent && curr_parent->IsCompositingOperatorSet()) {
+    if (!curr_child)
+      curr_child = prev_child->EnsureNext();
+    curr_child->SetCompositingOperator(curr_parent->CompositingOperator());
+    prev_child = curr_child;
+    curr_child = prev_child->Next();
+    curr_parent = curr_parent->Next();
+  }
+
+  while (curr_child) {
+    // Reset any remaining layers to not have the property set.
+    curr_child->ClearCompositingOperator();
+    curr_child = curr_child->Next();
+  }
+}
+
+void MaskComposite::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  FillLayer* prev_child = 0;
+  const auto* value_list = DynamicTo<CSSValueList>(value);
+  if (value_list && !value.IsImageSetValue()) {
+    // Walk each value and put it into a layer, creating new layers as needed.
+    for (unsigned int i = 0; i < value_list->length(); i++) {
+      if (!curr_child)
+        curr_child = prev_child->EnsureNext();
+      CSSToStyleMap::MapFillCompositingOperator(state, curr_child, value_list->Item(i));
+      prev_child = curr_child;
+      curr_child = curr_child->Next();
+    }
+  } else {
+    CSSToStyleMap::MapFillCompositingOperator(state, curr_child, value);
+    curr_child = curr_child->Next();
+  }
+  while (curr_child) {
+    // Reset all remaining layers to not have the property set.
+    curr_child->ClearCompositingOperator();
+    curr_child = curr_child->Next();
+  }
+}
+
  // mask-image
 
 
@@ -9062,6 +9138,82 @@ void MaskOrigin::ApplyValue(StyleResolverState& state, const CSSValue& value, Va
   while (curr_child) {
     // Reset all remaining layers to not have the property set.
     curr_child->ClearOrigin();
+    curr_child = curr_child->Next();
+  }
+}
+
+ // mask-repeat
+
+
+CSSExposure MaskRepeat::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* MaskRepeat::GetPropertyName() const {
+  return "mask-repeat";
+}
+
+const WTF::AtomicString& MaskRepeat::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("mask-repeat"));
+  return name;
+}
+
+const char* MaskRepeat::GetJSPropertyName() const {
+  return "maskRepeat";
+}
+
+
+
+void MaskRepeat::ApplyInitial(StyleResolverState& state) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  curr_child->SetRepeat(FillLayer::InitialFillRepeat(EFillLayerType::kMask));
+  for (curr_child = curr_child->Next(); curr_child; curr_child = curr_child->Next())
+    curr_child->ClearRepeat();
+}
+
+void MaskRepeat::ApplyInherit(StyleResolverState& state) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  FillLayer* prev_child = 0;
+  const FillLayer* curr_parent = &state.ParentStyle()->MaskLayers();
+  while (curr_parent && curr_parent->IsRepeatSet()) {
+    if (!curr_child)
+      curr_child = prev_child->EnsureNext();
+    curr_child->SetRepeat(curr_parent->Repeat());
+    prev_child = curr_child;
+    curr_child = prev_child->Next();
+    curr_parent = curr_parent->Next();
+  }
+
+  while (curr_child) {
+    // Reset any remaining layers to not have the property set.
+    curr_child->ClearRepeat();
+    curr_child = curr_child->Next();
+  }
+}
+
+void MaskRepeat::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  FillLayer* prev_child = 0;
+  const auto* value_list = DynamicTo<CSSValueList>(value);
+  if (value_list && !value.IsImageSetValue()) {
+    // Walk each value and put it into a layer, creating new layers as needed.
+    for (unsigned int i = 0; i < value_list->length(); i++) {
+      if (!curr_child)
+        curr_child = prev_child->EnsureNext();
+      CSSToStyleMap::MapFillRepeat(state, curr_child, value_list->Item(i));
+      prev_child = curr_child;
+      curr_child = curr_child->Next();
+    }
+  } else {
+    CSSToStyleMap::MapFillRepeat(state, curr_child, value);
+    curr_child = curr_child->Next();
+  }
+  while (curr_child) {
+    // Reset all remaining layers to not have the property set.
+    curr_child->ClearRepeat();
     curr_child = curr_child->Next();
   }
 }
@@ -15963,6 +16115,13 @@ void WebkitMaskClip::ApplyValue(StyleResolverState& state, const CSSValue& value
  // -webkit-mask-composite
 
 
+CSSExposure WebkitMaskComposite::Exposure(const ExecutionContext* execution_context) const {
+  if (RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    // -webkit-alternative-mask-composite
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
 
 const char* WebkitMaskComposite::GetPropertyName() const {
   return "-webkit-mask-composite";
@@ -15981,19 +16140,19 @@ const char* WebkitMaskComposite::GetJSPropertyName() const {
 
 void WebkitMaskComposite::ApplyInitial(StyleResolverState& state) const {
   FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
-  curr_child->SetComposite(FillLayer::InitialFillComposite(EFillLayerType::kMask));
+  curr_child->SetCompositingOperator(FillLayer::InitialFillCompositingOperator(EFillLayerType::kMask));
   for (curr_child = curr_child->Next(); curr_child; curr_child = curr_child->Next())
-    curr_child->ClearComposite();
+    curr_child->ClearCompositingOperator();
 }
 
 void WebkitMaskComposite::ApplyInherit(StyleResolverState& state) const {
   FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
   FillLayer* prev_child = 0;
   const FillLayer* curr_parent = &state.ParentStyle()->MaskLayers();
-  while (curr_parent && curr_parent->IsCompositeSet()) {
+  while (curr_parent && curr_parent->IsCompositingOperatorSet()) {
     if (!curr_child)
       curr_child = prev_child->EnsureNext();
-    curr_child->SetComposite(curr_parent->Composite());
+    curr_child->SetCompositingOperator(curr_parent->CompositingOperator());
     prev_child = curr_child;
     curr_child = prev_child->Next();
     curr_parent = curr_parent->Next();
@@ -16001,7 +16160,7 @@ void WebkitMaskComposite::ApplyInherit(StyleResolverState& state) const {
 
   while (curr_child) {
     // Reset any remaining layers to not have the property set.
-    curr_child->ClearComposite();
+    curr_child->ClearCompositingOperator();
     curr_child = curr_child->Next();
   }
 }
@@ -16015,17 +16174,17 @@ void WebkitMaskComposite::ApplyValue(StyleResolverState& state, const CSSValue& 
     for (unsigned int i = 0; i < value_list->length(); i++) {
       if (!curr_child)
         curr_child = prev_child->EnsureNext();
-      CSSToStyleMap::MapFillComposite(state, curr_child, value_list->Item(i));
+      CSSToStyleMap::MapFillCompositingOperator(state, curr_child, value_list->Item(i));
       prev_child = curr_child;
       curr_child = curr_child->Next();
     }
   } else {
-    CSSToStyleMap::MapFillComposite(state, curr_child, value);
+    CSSToStyleMap::MapFillCompositingOperator(state, curr_child, value);
     curr_child = curr_child->Next();
   }
   while (curr_child) {
     // Reset all remaining layers to not have the property set.
-    curr_child->ClearComposite();
+    curr_child->ClearCompositingOperator();
     curr_child = curr_child->Next();
   }
 }
@@ -16331,6 +16490,13 @@ void WebkitMaskPositionY::ApplyValue(StyleResolverState& state, const CSSValue& 
  // -webkit-mask-repeat
 
 
+CSSExposure WebkitMaskRepeat::Exposure(const ExecutionContext* execution_context) const {
+  if (RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    // -webkit-alternative-mask-repeat
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
 
 const char* WebkitMaskRepeat::GetPropertyName() const {
   return "-webkit-mask-repeat";
@@ -17341,6 +17507,29 @@ const char* WebkitAlternativeMaskClip::GetJSPropertyName() const {
   return "webkitMaskClip";
 }
 
+ // -webkit-alternative-mask-composite
+
+
+CSSExposure WebkitAlternativeMaskComposite::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* WebkitAlternativeMaskComposite::GetPropertyName() const {
+  return "-webkit-mask-composite";
+}
+
+const WTF::AtomicString& WebkitAlternativeMaskComposite::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("-webkit-mask-composite"));
+  return name;
+}
+
+const char* WebkitAlternativeMaskComposite::GetJSPropertyName() const {
+  return "webkitMaskComposite";
+}
+
  // -webkit-alternative-mask-image
 
 
@@ -17385,6 +17574,29 @@ const WTF::AtomicString& WebkitAlternativeMaskOrigin::GetPropertyNameAtomicStrin
 
 const char* WebkitAlternativeMaskOrigin::GetJSPropertyName() const {
   return "webkitMaskOrigin";
+}
+
+ // -webkit-alternative-mask-repeat
+
+
+CSSExposure WebkitAlternativeMaskRepeat::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* WebkitAlternativeMaskRepeat::GetPropertyName() const {
+  return "-webkit-mask-repeat";
+}
+
+const WTF::AtomicString& WebkitAlternativeMaskRepeat::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("-webkit-mask-repeat"));
+  return name;
+}
+
+const char* WebkitAlternativeMaskRepeat::GetJSPropertyName() const {
+  return "webkitMaskRepeat";
 }
 
  // -webkit-alternative-mask-size

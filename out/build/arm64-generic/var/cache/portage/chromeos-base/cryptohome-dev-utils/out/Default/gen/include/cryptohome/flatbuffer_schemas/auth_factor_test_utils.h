@@ -30,7 +30,7 @@
 #include "cryptohome/flatbuffer_schemas/auth_block_state_test_utils.h"
 #include "cryptohome/flatbuffer_schemas/auth_factor.h"
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 inline bool operator==(const PasswordMetadata& lhs,
                        const PasswordMetadata& rhs) {
@@ -41,9 +41,9 @@ inline bool operator!=(const PasswordMetadata& lhs,
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 inline bool operator==(const PinMetadata& lhs, const PinMetadata& rhs) {
   return true;
@@ -52,9 +52,9 @@ inline bool operator!=(const PinMetadata& lhs, const PinMetadata& rhs) {
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 inline bool operator==(const CryptohomeRecoveryMetadata& lhs,
                        const CryptohomeRecoveryMetadata& rhs) {
@@ -65,9 +65,9 @@ inline bool operator!=(const CryptohomeRecoveryMetadata& lhs,
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 inline bool operator==(const KioskMetadata& lhs, const KioskMetadata& rhs) {
   return true;
@@ -76,9 +76,9 @@ inline bool operator!=(const KioskMetadata& lhs, const KioskMetadata& rhs) {
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 inline bool operator==(const SmartCardMetadata& lhs,
                        const SmartCardMetadata& rhs) {
@@ -89,9 +89,9 @@ inline bool operator!=(const SmartCardMetadata& lhs,
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 inline bool operator==(const FingerprintMetadata& lhs,
                        const FingerprintMetadata& rhs) {
@@ -102,9 +102,9 @@ inline bool operator!=(const FingerprintMetadata& lhs,
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 inline bool operator==(const CommonMetadata& lhs, const CommonMetadata& rhs) {
   return true &&
@@ -118,19 +118,21 @@ inline bool operator!=(const CommonMetadata& lhs, const CommonMetadata& rhs) {
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
-inline bool operator==(const AuthFactor& lhs, const AuthFactor& rhs) {
+inline bool operator==(const SerializedAuthFactor& lhs,
+                       const SerializedAuthFactor& rhs) {
   return true && lhs.auth_block_state == rhs.auth_block_state &&
          lhs.metadata == rhs.metadata &&
          lhs.common_metadata == rhs.common_metadata;
 }
-inline bool operator!=(const AuthFactor& lhs, const AuthFactor& rhs) {
+inline bool operator!=(const SerializedAuthFactor& lhs,
+                       const SerializedAuthFactor& rhs) {
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
 #endif  // CRYPTOHOME_FLATBUFFER_SCHEMAS_AUTH_FACTOR_TEST_UTILS_H_

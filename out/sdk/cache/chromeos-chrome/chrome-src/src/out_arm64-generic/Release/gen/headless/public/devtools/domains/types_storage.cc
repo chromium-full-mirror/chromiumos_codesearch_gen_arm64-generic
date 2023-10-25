@@ -967,6 +967,13 @@ std::unique_ptr<AttributionReportingSourceRegistration> AttributionReportingSour
     errors->SetName("debugKey");
     result->debug_key_ = internal::FromValue<std::string>::Parse(*debug_key_value, errors);
   }
+  const base::Value* trigger_data_matching_value = dict.Find("triggerDataMatching");
+  if (trigger_data_matching_value) {
+    errors->SetName("triggerDataMatching");
+    result->trigger_data_matching_ = internal::FromValue<::headless::storage::AttributionReportingTriggerDataMatching>::Parse(*trigger_data_matching_value, errors);
+  } else {
+    errors->AddError("required property missing: triggerDataMatching");
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -990,6 +997,7 @@ base::Value AttributionReportingSourceRegistration::Serialize() const {
   result.Set("aggregationKeys", internal::ToValue(aggregation_keys_));
   if (debug_key_)
     result.Set("debugKey", internal::ToValue(debug_key_.value()));
+  result.Set("triggerDataMatching", internal::ToValue(trigger_data_matching_));
   return base::Value(std::move(result));
 }
 

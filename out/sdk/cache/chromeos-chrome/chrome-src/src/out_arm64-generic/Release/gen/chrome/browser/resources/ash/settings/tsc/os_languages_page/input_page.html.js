@@ -155,7 +155,7 @@ export function getTemplate() {
 </template>
 
 <template is="dom-if" if="[[showAddSpellcheckLanguagesDialog_]]" restamp>
-  <os-settings-add-spellcheck-languages-dialog languages="[[languages]]" language-helper="[[languageHelper]]" prefs="{{prefs}}" on-close="onAddSpellcheckLanguagesDialogClose_">
+  <os-settings-add-spellcheck-languages-dialog languages="[[languages]]" language-helper="[[languageHelper]]" on-close="onAddSpellcheckLanguagesDialogClose_">
   </os-settings-add-spellcheck-languages-dialog>
 </template>
 <!--_html_template_end_-->`;

@@ -10,6 +10,7 @@ import { ImageLoaderClient } from 'chrome-extension://pmfjbimdmchhbnneeidfognade
 import { LoadImageRequest, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { isModal } from '../../common/js/dialog_type.js';
+import { isSameEntry } from '../../common/js/entry_utils.js';
 import { parseActionId } from '../../common/js/file_tasks.js';
 import { FileType } from '../../common/js/file_type.js';
 import { str, util } from '../../common/js/util.js';
@@ -312,7 +313,7 @@ export class QuickViewController {
         if (this.quickView_ && this.quickView_.isOpened() &&
             this.entries_[this.currentSelection_]) {
             const entry = this.entries_[this.currentSelection_];
-            if (!util.isSameEntry(entry, this.quickViewModel_.getSelectedEntry())) {
+            if (!isSameEntry(entry, this.quickViewModel_.getSelectedEntry())) {
                 this.updateQuickView_();
             }
         }

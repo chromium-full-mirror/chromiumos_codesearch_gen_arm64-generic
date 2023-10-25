@@ -1587,52 +1587,6 @@ function isInvalidationError(error) {
     return false;
 }
 
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Helpers for APIs used within Files app.
- */
-/**
- * Calls the `fn` function which should expect the callback as last argument.
- *
- * Resolves with the result of the `fn`.
- *
- * Rejects if there is `chrome.runtime.lastError`.
- */
-async function promisify(fn, ...args) {
-    return new Promise((resolve, reject) => {
-        const callback = (result) => {
-            if (chrome.runtime.lastError) {
-                reject(chrome.runtime.lastError.message);
-            }
-            else {
-                resolve(result);
-            }
-        };
-        fn(...args, callback);
-    });
-}
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * List of dialog types.
- *
- * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
- * FULL_PAGE which is specific to this code.
- */
-var DialogType;
-(function (DialogType) {
-    DialogType["SELECT_FOLDER"] = "folder";
-    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
-    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
-    DialogType["SELECT_OPEN_FILE"] = "open-file";
-    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
-    DialogType["FULL_PAGE"] = "full-page";
-})(DialogType || (DialogType = {}));
-
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -2342,6 +2296,26 @@ class VolumeEntry {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
+ * Returns true if GuestOsFiles flag is enabled.
+ */
+function isGuestOsEnabled() {
+    return loadTimeData.getBoolean('GUEST_OS');
+}
+/**
+ * Returns whether the DriveFsBulkPinning feature flag is enabled.
+ */
+function isDriveFsBulkPinningEnabled() {
+    return loadTimeData.getBoolean('DRIVE_FS_BULK_PINNING');
+}
+function isArcVmEnabled() {
+    return loadTimeData.valueExists('ARC_VM_ENABLED') &&
+        loadTimeData.getBoolean('ARC_VM_ENABLED');
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
  * @fileoverview Device slice of the store.
  * @suppress {checkTypes}
  */
@@ -2381,7 +2355,7 @@ function getVolumeTypesNestedInMyFiles() {
         VolumeType$1.ANDROID_FILES,
         VolumeType$1.CROSTINI,
     ]);
-    if (util.isGuestOsEnabled()) {
+    if (isGuestOsEnabled()) {
         myFilesNestedVolumeTypes.add(VolumeType$1.GUEST_OS);
     }
     return myFilesNestedVolumeTypes;
@@ -2519,8 +2493,7 @@ function removeVolumeReducer(currentState, payload) {
     if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
         const { myFilesEntry } = getMyFiles(currentState);
         const children = myFilesEntry.getUIChildren();
-        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) &&
-            util.isSameEntry(childEntry, volumeEntry));
+        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && isSameEntry(childEntry, volumeEntry));
         if (volumeEntryExistsInMyFiles) {
             // Remove it from the MyFiles UI children.
             myFilesEntry.removeChildEntry(volumeEntry);
@@ -2611,6 +2584,12 @@ function updateDeviceConnectionStateReducer(currentState, payload) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
+ * Type guard used to identify if a generic Entry is actually a DirectoryEntry.
+ */
+function isFileSystemDirectoryEntry(entry) {
+    return entry.isDirectory;
+}
+/**
  * Type guard used to identify if a given entry is actually a
  * VolumeEntry.
  */
@@ -2651,16 +2630,160 @@ function sortEntries(parentEntry, entries) {
         // TODO(b/271485133): Do not use getLocationInfo() for sorting.
         const locationInfo = volumeManager.getLocationInfo(entries[0]);
         if (locationInfo) {
-            const compareFunction = util.compareLabelAndGroupBottomEntries(locationInfo, 
+            const compareFunction = compareLabelAndGroupBottomEntries(locationInfo, 
             // Only Linux/Play/GuestOS files are in the UI children.
             parentEntry.getUIChildren());
             return entries.filter(entry => fileFilter.filter(entry))
                 .sort(compareFunction);
         }
     }
-    return entries.filter(entry => fileFilter.filter(entry))
-        .sort(util.compareName);
+    return entries.filter(entry => fileFilter.filter(entry)).sort(compareName);
 }
+/**
+ * Obtains whether an entry is fake or not.
+ */
+function isFakeEntry(entry) {
+    if (entry.getParent === undefined) {
+        return true;
+    }
+    return 'isNativeType' in entry ? !entry.isNativeType : false;
+}
+/**
+ * Compares two entries.
+ * @return {boolean} True if the both entry represents a same file or
+ *     directory. Returns true if both entries are null.
+ */
+function isSameEntry(entry1, entry2) {
+    if (!entry1 && !entry2) {
+        return true;
+    }
+    if (!entry1 || !entry2) {
+        return false;
+    }
+    return entry1.toURL() === entry2.toURL();
+}
+/**
+ * Compare by name. The 2 entries must be in same directory.
+ */
+function compareName(entry1, entry2) {
+    return util.collator.compare(entry1.name, entry2.name);
+}
+/**
+ * Compare by label (i18n name). The 2 entries must be in same directory.
+ */
+function compareLabel(locationInfo, entry1, entry2) {
+    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
+}
+/**
+ * Compare by path.
+ */
+function comparePath(entry1, entry2) {
+    return util.collator.compare(entry1.fullPath, entry2.fullPath);
+}
+/**
+ * @param bottomEntries entries that should be grouped in the bottom, used for
+ *     sorting Linux and Play files entries after
+ * other folders in MyFiles.
+ */
+function compareLabelAndGroupBottomEntries(locationInfo, bottomEntries) {
+    const childrenMap = new Map();
+    bottomEntries.forEach((entry) => {
+        childrenMap.set(entry.toURL(), entry);
+    });
+    /**
+     * Compare entries putting entries from |bottomEntries| in the bottom and
+     * sort by name within entries that are the same type in regards to
+     * |bottomEntries|.
+     */
+    function compare(entry1, entry2) {
+        // Bottom entry here means Linux or Play files, which should appear after
+        // all native entries.
+        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
+        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
+        // When there are the same type, just compare by label.
+        if (isBottomlEntry1 === isBottomlEntry2) {
+            return compareLabel(locationInfo, entry1, entry2);
+        }
+        return isBottomlEntry1 - isBottomlEntry2;
+    }
+    return compare;
+}
+/**
+ * Converts array of entries to an array of corresponding URLs.
+ */
+function entriesToURLs(entries) {
+    return entries.map(entry => {
+        // When building file_manager_base.js, cachedUrl is not referred other than
+        // here. Thus closure compiler raises an error if we refer the property like
+        // entry.cachedUrl.
+        if ('cachedUrl' in entry) {
+            return entry['cachedUrl'] || entry.toURL();
+        }
+        return entry.toURL();
+    });
+}
+function unwrapEntry(entry) {
+    if (!entry) {
+        return entry;
+    }
+    const nativeEntry = 'getNativeEntry' in entry && entry.getNativeEntry();
+    if (nativeEntry) {
+        if (isFileSystemDirectoryEntry(nativeEntry)) {
+            return nativeEntry;
+        }
+        return nativeEntry;
+    }
+    if (isFileSystemDirectoryEntry(entry)) {
+        return entry;
+    }
+    return entry;
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Helpers for APIs used within Files app.
+ */
+/**
+ * Calls the `fn` function which should expect the callback as last argument.
+ *
+ * Resolves with the result of the `fn`.
+ *
+ * Rejects if there is `chrome.runtime.lastError`.
+ */
+async function promisify(fn, ...args) {
+    return new Promise((resolve, reject) => {
+        const callback = (result) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError.message);
+            }
+            else {
+                resolve(result);
+            }
+        };
+        fn(...args, callback);
+    });
+}
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * List of dialog types.
+ *
+ * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
+ * FULL_PAGE which is specific to this code.
+ */
+var DialogType;
+(function (DialogType) {
+    DialogType["SELECT_FOLDER"] = "folder";
+    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
+    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
+    DialogType["SELECT_OPEN_FILE"] = "open-file";
+    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
+    DialogType["FULL_PAGE"] = "full-page";
+})(DialogType || (DialogType = {}));
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -4634,7 +4757,7 @@ FileType.getType = (entry, opt_mimeType) => {
 /**
  * Gets the media type for a given file.
  *
- * @param {Entry} entry Reference to the file.
+ * @param {Entry|FilesAppEntry} entry Reference to the file.
  * @param {string=} opt_mimeType Optional mime type for the file.
  * @return {string} The value of 'type' property from one of the elements in
  *     the knows file types (file_types.json5) or undefined.
@@ -4696,7 +4819,7 @@ FileType.isPDF = (entry, opt_mimeType) => {
 /**
  * Files with more pixels won't have preview.
  * @param {!Array<string>} types
- * @param {Entry} entry Reference to the file.
+ * @param {Entry|FilesAppEntry} entry Reference to the file.
  * @param {string=} opt_mimeType Optional mime type for the file.
  * @return {boolean} True if type is in specified set
  */
@@ -5338,7 +5461,7 @@ class PathComponent {
             // 'any[]' type.
             return components;
         }
-        if (util.isFakeEntry(entry)) {
+        if (isFakeEntry(entry)) {
             components.push(new PathComponent(util.getEntryLabel(locationInfo, entry), entry.toURL(), 
             /** @type {!FakeEntry} */ (entry)));
             return components;
@@ -5851,7 +5974,7 @@ function getEntryIcon(entry, locationInfo, volumeType) {
     return FileType.getIcon(entry, undefined, locationInfo?.rootType);
 }
 function appendChildIfNotExisted(parentEntry, childEntry) {
-    if (!parentEntry.getUIChildren().find((entry) => util.isSameEntry(entry, childEntry))) {
+    if (!parentEntry.getUIChildren().find((entry) => isSameEntry(entry, childEntry))) {
         parentEntry.addEntry(childEntry);
         return true;
     }
@@ -6386,7 +6509,7 @@ function addFolderShortcutReducer(currentState, payload) {
         const shortcutEntry = getEntry(currentState, folderShortcuts[i]);
         // The folder shortcut array is sorted, the new item will be added just
         // before the first larger item.
-        if (util.comparePath(shortcutEntry, entry) > 0) {
+        if (comparePath(shortcutEntry, entry) > 0) {
             return {
                 ...currentState,
                 folderShortcuts: [
@@ -6824,7 +6947,7 @@ function addUiEntryReducer(currentState, payload) {
         const children = myFilesEntry.getUIChildren();
         // Check if the the ui entry already has a corresponding volume entry.
         isVolumeEntryExistedInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && childEntry.name === entry.name);
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => util.isSameEntry(childEntry, entry));
+        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
         // We only add the UI entry here if:
         // 1. it is not existed in MyFiles entry
         // 2. its corresponding volume (which ui entry is a placeholder for) is not
@@ -6870,7 +6993,7 @@ function removeUiEntryReducer(currentState, payload) {
     if (entry && uiEntryRootTypesInMyFiles.has(entry.rootType)) {
         const { myFilesEntry } = getMyFiles(currentState);
         const children = myFilesEntry.getUIChildren();
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => util.isSameEntry(childEntry, entry));
+        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
         if (isUiEntryExistedInMyFiles) {
             myFilesEntry.removeChildEntry(entry);
             const fileData = getFileData(currentState, myFilesEntry.toURL());
@@ -6967,45 +7090,6 @@ function getEntry(state, key) {
     return fileData?.entry ?? null;
 }
 
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Creates an instance of UserDomError subtype of DOMError because DOMError is
- * deprecated and its Closure extern is wrong, doesn't have the constructor
- * with 2 arguments. This DOMError looks like a FileError except that it does
- * not have the deprecated FileError.code member.
- *
- * @param  name Error name for the file error.
- * @param {string=} message optional message.
- */
-function createDOMError(name, message) {
-    return new UserDomError(name, message);
-}
-/**
- * Creates a DOMError-like object to be used in place of returning file errors.
- */
-class UserDomError extends DOMError {
-    /**
-     * @param name Error name for the file error.
-     * @param {string=} message Optional message for this error.
-     * @suppress {checkTypes} Closure externs for DOMError doesn't have
-     * constructor with 1 arg.
-     */
-    constructor(name, message) {
-        super(name);
-        this.name_ = name;
-        this.message_ = message || '';
-        Object.freeze(this);
-    }
-    get name() {
-        return this.name_;
-    }
-    get message() {
-        return this.message_;
-    }
-}
-
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -7087,20 +7171,6 @@ util.FileError = {
     ENCODING_ERR: 'EncodingError',
 };
 Object.freeze(util.FileError);
-/**
- * Remove a file or a directory.
- * @param {Entry} entry The entry to remove.
- * @param {function():void} onSuccess The success callback.
- * @param {function(DOMError):void} onError The error callback.
- */
-util.removeFileOrDirectory = (entry, onSuccess, onError) => {
-    if (entry.isDirectory) {
-        /** @type {!DirectoryEntry} */ (entry).removeRecursively(onSuccess, onError);
-    }
-    else {
-        entry.remove(onSuccess, onError);
-    }
-};
 /**
  * Convert a number of bytes into a human friendly format, using the correct
  * number separators.
@@ -7256,383 +7326,11 @@ util.FileOperationErrorType = {
 };
 Object.freeze(util.FileOperationErrorType);
 /**
- * The kind of an entry changed event.
- * @enum {number}
- * @const
- */
-util.EntryChangedKind = {
-    CREATED: 0,
-    DELETED: 1,
-};
-Object.freeze(util.EntryChangedKind);
-/**
- * Obtains whether an entry is fake or not.
- * @param {(!Entry|!FilesAppEntry)} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is fake.
- * @suppress {missingProperties} Closure compiler doesn't allow to call isNative
- * on Entry which is native and thus doesn't define this property, however we
- * handle undefined accordingly.
- * TODO(lucmult): Remove @suppress once all entries are sub-type of
- * FilesAppEntry.
- */
-util.isFakeEntry = entry => {
-    return (entry.getParent === undefined ||
-        // @ts-ignore: error TS2339: Property 'isNativeType' does not exist on
-        // type 'FileSystemEntry | FilesAppEntry'.
-        (entry.isNativeType !== undefined && !entry.isNativeType));
-};
-/**
- * Obtains whether an entry is the root directory of a Shared Drive.
- * @param {Entry|FilesAppEntry} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is root of a Shared Drive.
- */
-util.isTeamDriveRoot = entry => {
-    if (entry === null) {
-        return false;
-    }
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree.length == 3 && util.isSharedDriveEntry(entry);
-};
-/**
- * Obtains whether an entry is the grand root directory of Shared Drives.
- * @param {(!Entry|!FakeEntry)} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is the grand root of Shared Drives.
- */
-util.isTeamDrivesGrandRoot = entry => {
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree.length == 2 && util.isSharedDriveEntry(entry);
-};
-/**
- * Obtains whether an entry is descendant of the Shared Drives directory.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is under Shared Drives.
- */
-util.isSharedDriveEntry = entry => {
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree[0] == '' &&
-        tree[1] == VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME;
-};
-/**
- * Extracts Shared Drive name from entry path.
- * @param {(!Entry|!FakeEntry|!FilesAppEntry)} entry Entry or a fake entry.
- * @return {string} The name of Shared Drive. Empty string if |entry| is not
- *     under Shared Drives.
- */
-util.getTeamDriveName = entry => {
-    if (!entry.fullPath || !util.isSharedDriveEntry(entry)) {
-        return '';
-    }
-    const tree = entry.fullPath.split('/');
-    if (tree.length < 3) {
-        return '';
-    }
-    return tree[2] || '';
-};
-/**
- * Returns true if the given root type is for a container of recent files.
- * @param {VolumeManagerCommon.RootType|null} rootType
- * @return {boolean}
- */
-util.isRecentRootType = rootType => {
-    return rootType == VolumeManagerCommon.RootType.RECENT;
-};
-/**
- * Returns true if the given entry is the root folder of recent files.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @returns {boolean}
- */
-util.isRecentRoot = entry => {
-    // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
-    // 'FileSystemEntry | FilesAppEntry'.
-    return util.isFakeEntry(entry) && util.isRecentRootType(entry.rootType);
-};
-/**
- * Obtains whether an entry is the root directory of a Computer.
- * @param {Entry|FilesAppEntry} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is root of a Computer.
- */
-util.isComputersRoot = entry => {
-    if (entry === null) {
-        return false;
-    }
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree.length == 3 && util.isComputersEntry(entry);
-};
-/**
- * Obtains whether an entry is descendant of the My Computers directory.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is under My Computers.
- */
-util.isComputersEntry = entry => {
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree[0] == '' &&
-        tree[1] == VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME;
-};
-/**
- * Returns true if the given root type is Trash.
- * @param {VolumeManagerCommon.RootType|null} rootType
- * @returns {boolean}
- */
-util.isTrashRootType = rootType => {
-    return rootType == VolumeManagerCommon.RootType.TRASH;
-};
-/**
- * Returns true if the given entry is the root folder of Trash.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @returns {boolean}
- */
-util.isTrashRoot = entry => {
-    // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
-    // 'FileSystemEntry | FilesAppEntry'.
-    return entry.fullPath === '/' && util.isTrashRootType(entry.rootType);
-};
-/**
- * Returns true if the given entry is a descendent of Trash.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @returns {boolean}
- */
-util.isTrashEntry = entry => {
-    // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
-    // 'FileSystemEntry | FilesAppEntry'.
-    return entry.fullPath !== '/' && util.isTrashRootType(entry.rootType);
-};
-/**
- * Compares two entries.
- * @param {Entry|FilesAppEntry|undefined} entry1 The entry to be compared. Can
- * be a fake.
- * @param {Entry|FilesAppEntry|undefined} entry2 The entry to be compared. Can
- * be a fake.
- * @return {boolean} True if the both entry represents a same file or
- *     directory. Returns true if both entries are null.
- */
-util.isSameEntry = (entry1, entry2) => {
-    if (!entry1 && !entry2) {
-        return true;
-    }
-    if (!entry1 || !entry2) {
-        return false;
-    }
-    return entry1.toURL() === entry2.toURL();
-};
-/**
- * Compares two entry arrays.
- * @param {Array<!Entry>} entries1 The entry array to be compared.
- * @param {Array<!Entry>} entries2 The entry array to be compared.
- * @return {boolean} True if the both arrays contain same files or directories
- *     in the same order. Returns true if both arrays are null.
- */
-util.isSameEntries = (entries1, entries2) => {
-    if (!entries1 && !entries2) {
-        return true;
-    }
-    if (!entries1 || !entries2) {
-        return false;
-    }
-    if (entries1.length !== entries2.length) {
-        return false;
-    }
-    for (let i = 0; i < entries1.length; i++) {
-        if (!util.isSameEntry(entries1[i], entries2[i])) {
-            return false;
-        }
-    }
-    return true;
-};
-/**
- * Compares two file systems.
- * @param {FileSystem} fileSystem1 The file system to be compared.
- * @param {FileSystem} fileSystem2 The file system to be compared.
- * @return {boolean} True if the both file systems are equal. Also, returns true
- *     if both file systems are null.
- */
-util.isSameFileSystem = (fileSystem1, fileSystem2) => {
-    if (!fileSystem1 && !fileSystem2) {
-        return true;
-    }
-    if (!fileSystem1 || !fileSystem2) {
-        return false;
-    }
-    return util.isSameEntry(fileSystem1.root, fileSystem2.root);
-};
-/**
- * Checks if given two entries are in the same directory.
- * @param {!Entry} entry1
- * @param {!Entry} entry2
- * @return {boolean} True if given entries are in the same directory.
- */
-util.isSiblingEntry = (entry1, entry2) => {
-    const path1 = entry1.fullPath.split('/');
-    const path2 = entry2.fullPath.split('/');
-    if (path1.length != path2.length) {
-        return false;
-    }
-    for (let i = 0; i < path1.length - 1; i++) {
-        if (path1[i] != path2[i]) {
-            return false;
-        }
-    }
-    return true;
-};
-/**
  * Collator for sorting.
  * @type {Intl.Collator}
  */
 util.collator =
     new Intl.Collator([], { usage: 'sort', numeric: true, sensitivity: 'base' });
-/**
- * Compare by name. The 2 entries must be in same directory.
- * @param {Entry|FilesAppEntry} entry1 First entry.
- * @param {Entry|FilesAppEntry} entry2 Second entry.
- * @return {number} Compare result.
- */
-util.compareName = (entry1, entry2) => {
-    return util.collator.compare(entry1.name, entry2.name);
-};
-/**
- * Compare by label (i18n name). The 2 entries must be in same directory.
- * @param {EntryLocation} locationInfo
- * @param {!Entry|!FilesAppEntry} entry1 First entry.
- * @param {!Entry|!FilesAppEntry} entry2 Second entry.
- * @return {number} Compare result.
- */
-util.compareLabel = (locationInfo, entry1, entry2) => {
-    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
-};
-/**
- * Compare by path.
- * @param {Entry|FilesAppEntry} entry1 First entry.
- * @param {Entry|FilesAppEntry} entry2 Second entry.
- * @return {number} Compare result.
- */
-util.comparePath = (entry1, entry2) => {
-    return util.collator.compare(entry1.fullPath, entry2.fullPath);
-};
-/**
- * @param {EntryLocation} locationInfo
- * @param {!Array<Entry|FilesAppEntry>} bottomEntries entries that should be
- * grouped in the bottom, used for sorting Linux and Play files entries after
- * other folders in MyFiles.
- * return {function(Entry|FilesAppEntry, Entry|FilesAppEntry) to compare entries
- * by name.
- */
-util.compareLabelAndGroupBottomEntries = (locationInfo, bottomEntries) => {
-    const childrenMap = new Map();
-    bottomEntries.forEach((entry) => {
-        childrenMap.set(entry.toURL(), entry);
-    });
-    /**
-     * Compare entries putting entries from |bottomEntries| in the bottom and
-     * sort by name within entries that are the same type in regards to
-     * |bottomEntries|.
-     * @param {Entry|FilesAppEntry} entry1 First entry.
-     * @param {Entry|FilesAppEntry} entry2 First entry.
-     */
-    function compare_(entry1, entry2) {
-        // Bottom entry here means Linux or Play files, which should appear after
-        // all native entries.
-        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
-        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
-        // When there are the same type, just compare by label.
-        if (isBottomlEntry1 === isBottomlEntry2) {
-            return util.compareLabel(locationInfo, entry1, entry2);
-        }
-        return isBottomlEntry1 - isBottomlEntry2;
-    }
-    return compare_;
-};
-/**
- * Checks if {@code entry} is an immediate child of {@code directory}.
- *
- * @param {Entry} entry The presumptive child.
- * @param {DirectoryEntry|FilesAppEntry} directory The presumptive
- *     parent.
- * @return {!Promise<boolean>} Resolves with true if {@code directory} is
- *     parent of {@code entry}.
- */
-util.isChildEntry = (entry, directory) => {
-    return new Promise((resolve, reject) => {
-        if (!entry || !directory) {
-            resolve(false);
-        }
-        entry.getParent(parent => {
-            resolve(util.isSameEntry(parent, directory));
-        }, reject);
-    });
-};
-/**
- * Checks if the child entry is a descendant of another entry. If the entries
- * point to the same file or directory, then returns false.
- *
- * @param {!DirectoryEntry|!FilesAppEntry} ancestorEntry The ancestor
- *     directory entry. Can be a fake.
- * @param {!Entry|!FilesAppEntry} childEntry The child entry. Can be a fake.
- * @return {boolean} True if the child entry is contained in the ancestor path.
- */
-util.isDescendantEntry = (ancestorEntry, childEntry) => {
-    if (!ancestorEntry.isDirectory) {
-        return false;
-    }
-    // For EntryList and VolumeEntry they can contain entries from different
-    // files systems, so we should check its getUIChildren.
-    const entryList = util.toEntryList(ancestorEntry);
-    if (entryList.getUIChildren) {
-        // VolumeEntry has to check to root entry descendant entry.
-        const nativeEntry = entryList.getNativeEntry();
-        if (nativeEntry &&
-            // @ts-ignore: error TS2345: Argument of type 'FileSystem | null' is not
-            // assignable to parameter of type 'FileSystem'.
-            util.isSameFileSystem(nativeEntry.filesystem, childEntry.filesystem)) {
-            return util.isDescendantEntry(
-            /** @type {!DirectoryEntry} */ (nativeEntry), childEntry);
-        }
-        return entryList.getUIChildren().some(ancestorChild => {
-            if (util.isSameEntry(ancestorChild, childEntry)) {
-                return true;
-            }
-            // root entry might not be resolved yet.
-            const volumeEntry = 
-            // @ts-ignore: error TS2339: Property 'getNativeEntry' does not exist
-            // on type 'FileSystemEntry | FilesAppEntry'.
-            /** @type {DirectoryEntry} */ (ancestorChild.getNativeEntry());
-            return volumeEntry &&
-                (util.isSameEntry(volumeEntry, childEntry) ||
-                    util.isDescendantEntry(volumeEntry, childEntry));
-        });
-    }
-    // @ts-ignore: error TS2345: Argument of type 'FileSystem | null' is not
-    // assignable to parameter of type 'FileSystem'.
-    if (!util.isSameFileSystem(ancestorEntry.filesystem, childEntry.filesystem)) {
-        return false;
-    }
-    if (util.isSameEntry(ancestorEntry, childEntry)) {
-        return false;
-    }
-    if (util.isFakeEntry(ancestorEntry) || util.isFakeEntry(childEntry)) {
-        return false;
-    }
-    // Check if the ancestor's path with trailing slash is a prefix of child's
-    // path.
-    let ancestorPath = ancestorEntry.fullPath;
-    if (ancestorPath.slice(-1) !== '/') {
-        ancestorPath += '/';
-    }
-    return childEntry.fullPath.indexOf(ancestorPath) === 0;
-};
 /**
  * The last URL with visitURL().
  * @private @type {string}
@@ -7671,95 +7369,6 @@ util.getLastVisitedURL = () => {
 util.getCurrentLocaleOrDefault = () => {
     const locale = str('UI_LOCALE') || 'en';
     return locale.replace(/_/g, '-');
-};
-/**
- * Converts array of entries to an array of corresponding URLs.
- * @param {Array<Entry>} entries Input array of entries.
- * @return {!Array<string>} Output array of URLs.
- */
-util.entriesToURLs = entries => {
-    return entries.map(entry => {
-        // When building file_manager_base.js, cachedUrl is not referred other than
-        // here. Thus closure compiler raises an error if we refer the property like
-        // entry.cachedUrl.
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type '"cachedUrl"' can't be used to index type
-        // 'FileSystemEntry'.
-        return entry['cachedUrl'] || entry.toURL();
-    });
-};
-/**
- * Converts array of URLs to an array of corresponding Entries.
- *
- * @param {Array<string>} urls Input array of URLs.
- * @param {function(!Array<!Entry>, !Array<!URL>)=} opt_callback Completion
- *     callback with array of success Entries and failure URLs.
- * TODO: Add interface for the return object type.
- * @return {Promise<*>} Promise fulfilled with the object that has entries
-property
-// @ts-ignore: error TS2314: Generic type 'Promise<T>' requires 1 type
-argument(s).
- *     and failureUrls property. The promise is never rejected.
- */
-util.URLsToEntries = (urls, opt_callback) => {
-    const promises = urls.map(url => {
-        return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, url))
-            .then(entry => {
-            return { entry: entry };
-        }, 
-        // @ts-ignore: error TS6133: 'failureUrl' is declared but its value
-        // is never read.
-        failureUrl => {
-            // Not an error. Possibly, the file is not accessible anymore.
-            console.warn('Failed to resolve the file with url: ' + url + '.');
-            return { failureUrl: url };
-        });
-    });
-    const resultPromise = Promise.all(promises).then(results => {
-        const entries = [];
-        const failureUrls = [];
-        for (let i = 0; i < results.length; i++) {
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            if ('entry' in results[i]) {
-                // @ts-ignore: error TS2339: Property 'entry' does not exist on type '{
-                // entry: FileSystemEntry; } | { failureUrl: string; }'.
-                entries.push(results[i].entry);
-            }
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            if ('failureUrl' in results[i]) {
-                // @ts-ignore: error TS2339: Property 'failureUrl' does not exist on
-                // type '{ entry: FileSystemEntry; } | { failureUrl: string; }'.
-                failureUrls.push(results[i].failureUrl);
-            }
-        }
-        return {
-            entries: entries,
-            failureUrls: failureUrls,
-        };
-    });
-    // Invoke the callback. If opt_callback is specified, resultPromise is still
-    // returned and fulfilled with a result.
-    if (opt_callback) {
-        resultPromise
-            .then(result => {
-            opt_callback(result.entries, result.failureUrls);
-        })
-            .catch(error => {
-            console.warn('util.URLsToEntries is failed.', error.stack ? error.stack : error);
-        });
-    }
-    return resultPromise;
-};
-/**
- * Converts a url into an {!Entry}, if possible.
- *
- * @param {string} url
- *
- * @return {!Promise<!Entry>} Promise Resolves with the corresponding
- *     {!Entry} if possible, else rejects.
- */
-util.urlToEntry = url => {
-    return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, url));
 };
 /**
  * Returns whether the window is teleported or not.
@@ -7916,76 +7525,6 @@ util.getEntryLabel = (locationInfo, entry) => {
     return entry.name;
 };
 /**
- * Returns true if the given |entry| matches any of the special entries:
- *
- *  - "My Files"/{Downloads,PvmDefault,Camera} directories, or
- *  - "Play Files"/{<any-directory>,DCIM/Camera} directories, or
- *  - "Linux Files" root "/" directory
- *  - "Guest OS" root "/" directory
- *
- * which cannot be modified such as deleted/cut or renamed.
- *
- * @param {!VolumeManager} volumeManager
- * @param {(Entry|FakeEntry)} entry Entry or a fake entry.
- * @return {boolean}
- */
-util.isNonModifiable = (volumeManager, entry) => {
-    if (!entry) {
-        return false;
-    }
-    if (util.isFakeEntry(entry)) {
-        return true;
-    }
-    if (!volumeManager) {
-        return false;
-    }
-    const volumeInfo = volumeManager.getVolumeInfo(entry);
-    if (!volumeInfo) {
-        return false;
-    }
-    const volumeType = volumeInfo.volumeType;
-    if (volumeType === VolumeManagerCommon.RootType.DOWNLOADS) {
-        if (!entry.isDirectory) {
-            return false;
-        }
-        const fullPath = entry.fullPath;
-        if (fullPath === '/Downloads') {
-            return true;
-        }
-        if (fullPath === '/PvmDefault' && util.isPluginVmEnabled()) {
-            return true;
-        }
-        if (fullPath === '/Camera') {
-            return true;
-        }
-        return false;
-    }
-    if (volumeType === VolumeManagerCommon.RootType.ANDROID_FILES) {
-        if (!entry.isDirectory) {
-            return false;
-        }
-        const fullPath = entry.fullPath;
-        if (fullPath === '/') {
-            return true;
-        }
-        const isRootDirectory = fullPath === ('/' + entry.name);
-        if (isRootDirectory) {
-            return true;
-        }
-        if (fullPath === '/DCIM/Camera') {
-            return true;
-        }
-        return false;
-    }
-    if (volumeType === VolumeManagerCommon.RootType.CROSTINI) {
-        return entry.fullPath === '/';
-    }
-    if (volumeType === VolumeManagerCommon.RootType.GUEST_OS) {
-        return entry.fullPath === '/';
-    }
-    return false;
-};
-/**
  * Checks if an API call returned an error, and if yes then prints it.
  */
 util.checkAPIError = () => {
@@ -8026,224 +7565,6 @@ util.timeoutPromise = (promise, ms, opt_message) => {
     ]);
 };
 /**
- * Returns true when copy image to clipboard is enabled.
- * @return {boolean}
- */
-util.isCopyImageEnabled = () => {
-    return loadTimeData.getBoolean('COPY_IMAGE_ENABLED');
-};
-/**
- * Whether the Files app integration with DLP (Data Loss Prevention) is enabled.
- * @returns {boolean}
- */
-util.isDlpEnabled = () => {
-    return loadTimeData.valueExists('DLP_ENABLED') &&
-        loadTimeData.getBoolean('DLP_ENABLED');
-};
-/**
- * Whether the Files app Experimental flag is enabled.
- * @returns {boolean}
- */
-util.isFilesAppExperimental = () => {
-    return loadTimeData.valueExists('FILES_APP_EXPERIMENTAL') &&
-        loadTimeData.getBoolean('FILES_APP_EXPERIMENTAL');
-};
-/**
- * Returns true if the conflict dialog is enabled.
- * @return {boolean}
- */
-util.isFilesConflictDialogEnabled = () => {
-    return loadTimeData.getBoolean('FILES_CONFLICT_DIALOG');
-};
-/**
- * Returns true if FuseBoxDebug flag is enabled.
- * @return {boolean}
- */
-util.isFuseBoxDebugEnabled = () => {
-    return loadTimeData.isInitialized() &&
-        loadTimeData.valueExists('FUSEBOX_DEBUG') &&
-        loadTimeData.getBoolean('FUSEBOX_DEBUG');
-};
-/**
- * Returns true if GuestOsFiles flag is enabled.
- * @return {boolean}
- */
-util.isGuestOsEnabled = () => {
-    return loadTimeData.getBoolean('GUEST_OS');
-};
-/**
- * Returns true if Jelly flag is enabled.
- * @return {boolean}
- */
-util.isJellyEnabled = () => {
-    return loadTimeData.getBoolean('JELLY');
-};
-/**
- * Returns true if the cros-components flag is enabled.
- * @return {boolean}
- */
-util.isCrosComponentsEnabled = () => {
-    return loadTimeData.getBoolean('CROS_COMPONENTS');
-};
-/**
- * Returns true if DriveFsMirroring flag is enabled.
- * @return {boolean}
- */
-util.isMirrorSyncEnabled = () => {
-    return loadTimeData.isInitialized() &&
-        loadTimeData.valueExists('DRIVEFS_MIRRORING') &&
-        loadTimeData.getBoolean('DRIVEFS_MIRRORING');
-};
-util.isGoogleOneOfferFilesBannerEligibleAndEnabled = () => {
-    return loadTimeData.getBoolean('ELIGIBLE_AND_ENABLED_GOOGLE_ONE_OFFER_FILES_BANNER');
-};
-/**
- * Returns true if FilesSinglePartitionFormat flag is enabled.
- * @return {boolean}
- */
-util.isSinglePartitionFormatEnabled = () => {
-    return loadTimeData.getBoolean('FILES_SINGLE_PARTITION_FORMAT_ENABLED');
-};
-/**
- * Returns true if InlineSyncStatus feature flag is enabled.
- * @returns {boolean}
- */
-util.isInlineSyncStatusEnabled = () => {
-    return loadTimeData.valueExists('INLINE_SYNC_STATUS') &&
-        loadTimeData.getBoolean('INLINE_SYNC_STATUS');
-};
-/**
- * Returns true if FilesDriveShortcuts flag is enabled.
- * @return {boolean}
- */
-util.isDriveShortcutsEnabled = () => {
-    return loadTimeData.isInitialized() &&
-        loadTimeData.valueExists('DRIVE_SHORTCUTS') &&
-        loadTimeData.getBoolean('DRIVE_SHORTCUTS');
-};
-/**
- * Returns whether the DriveFsBulkPinning feature flag is enabled.
- * @returns {boolean}
- */
-util.isDriveFsBulkPinningEnabled = () => {
-    return loadTimeData.getBoolean('DRIVE_FS_BULK_PINNING');
-};
-/**
- * Whether the new directory tree flag is enabled.
- * @returns {boolean}
- */
-util.isNewDirectoryTreeEnabled = () => {
-    return loadTimeData.valueExists('NEW_DIRECTORY_TREE') &&
-        loadTimeData.getBoolean('NEW_DIRECTORY_TREE');
-};
-/**
- * Retrieves all entries inside the given |rootEntry|.
- * @param {!DirectoryEntry} rootEntry
- * @param {function(!Array<!Entry>):void} entriesCallback Called when some chunk
- *     of entries are read. This can be called a couple of times until the
- *     completion.
- * @param {function():void} successCallback Called when the read is completed.
- * @param {function(DOMError):void} errorCallback Called when an error occurs.
- * @param {function():boolean} shouldStop Callback to check if the read process
- *     should stop or not. When this callback is called and it returns true,
- *     the remaining recursive reads will be aborted.
- * @param {number=} opt_maxDepth Max depth to delve directories recursively.
- *     If 0 is specified, only the rootEntry will be read. If -1 is specified
- *     or opt_maxDepth is unspecified, the depth of recursion is unlimited.
- */
-util.readEntriesRecursively =
-    (rootEntry, entriesCallback, successCallback, errorCallback, shouldStop, opt_maxDepth) => {
-        let numRunningTasks = 0;
-        // @ts-ignore: error TS7034: Variable 'error' implicitly has type 'any' in
-        // some locations where its type cannot be determined.
-        let error = null;
-        const maxDepth = opt_maxDepth === undefined ? -1 : opt_maxDepth;
-        const maybeRunCallback = () => {
-            if (numRunningTasks === 0) {
-                if (shouldStop()) {
-                    errorCallback(createDOMError(util.FileError.ABORT_ERR));
-                    // @ts-ignore: error TS7005: Variable 'error' implicitly has an
-                    // 'any' type.
-                }
-                else if (error) {
-                    errorCallback(error);
-                }
-                else {
-                    successCallback();
-                }
-            }
-        };
-        // @ts-ignore: error TS7006: Parameter 'depth' implicitly has an 'any'
-        // type.
-        const processEntry = (entry, depth) => {
-            // @ts-ignore: error TS7006: Parameter 'fileError' implicitly has an
-            // 'any' type.
-            const onError = fileError => {
-                // @ts-ignore: error TS7005: Variable 'error' implicitly has an 'any'
-                // type.
-                if (!error) {
-                    error = fileError;
-                }
-                numRunningTasks--;
-                maybeRunCallback();
-            };
-            // @ts-ignore: error TS7006: Parameter 'entries' implicitly has an 'any'
-            // type.
-            const onSuccess = entries => {
-                // @ts-ignore: error TS7005: Variable 'error' implicitly has an 'any'
-                // type.
-                if (shouldStop() || error || entries.length === 0) {
-                    numRunningTasks--;
-                    maybeRunCallback();
-                    return;
-                }
-                entriesCallback(entries);
-                for (let i = 0; i < entries.length; i++) {
-                    if (entries[i].isDirectory &&
-                        (maxDepth === -1 || depth < maxDepth)) {
-                        processEntry(entries[i], depth + 1);
-                    }
-                }
-                // Read remaining entries.
-                reader.readEntries(onSuccess, onError);
-            };
-            numRunningTasks++;
-            const reader = entry.createReader();
-            reader.readEntries(onSuccess, onError);
-        };
-        processEntry(rootEntry, 0);
-    };
-/**
- * Do not remove or modify.  Used in vm.CrostiniFiles tast tests at:
- * https://chromium.googlesource.com/chromiumos/platform/tast-tests
- *
- * Get all entries for the given volume.
- * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo
- * @return {!Promise<Record<string, Entry>>} all entries keyed by fullPath.
- */
-util.getEntries = volumeInfo => {
-    const root = volumeInfo.fileSystem.root;
-    return new Promise((resolve, reject) => {
-        const allEntries = { '/': root };
-        // @ts-ignore: error TS7006: Parameter 'someEntries' implicitly has an 'any'
-        // type.
-        function entriesCallback(someEntries) {
-            // @ts-ignore: error TS7006: Parameter 'entry' implicitly has an 'any'
-            // type.
-            someEntries.forEach(entry => {
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'any' can't be used to index type '{ '/':
-                // FileSystemDirectoryEntry; }'.
-                allEntries[entry.fullPath] = entry;
-            });
-        }
-        function successCallback() {
-            resolve(allEntries);
-        }
-        util.readEntriesRecursively(root, entriesCallback, successCallback, reject, () => false);
-    });
-};
-/**
  * Executes a functions only when the context is not the incognito one in a
  * regular session. Returns a promise that when fulfilled informs us whether or
  * not the callback was invoked.
@@ -8257,135 +7578,6 @@ util.doIfPrimaryContext = async (callback) => {
         return true;
     }
     return false;
-};
-/**
- * Casts an Entry to a FilesAppEntry, to access a FilesAppEntry-specific
- * property without Closure compiler complaining.
- * TODO(lucmult): Wrap Entry in a FilesAppEntry derived class and remove
- * this function. https://crbug.com/835203.
- * @param {Entry|FilesAppEntry} entry
- * @return {FilesAppEntry}
- */
-util.toFilesAppEntry = entry => {
-    return /** @type {FilesAppEntry} */ (entry);
-};
-/**
- * Casts an Entry to a EntryList, to access a FilesAppEntry-specific
- * property without Closure compiler complaining.
- * @param {Entry|FilesAppEntry} entry
- * @return {EntryList}
- */
-util.toEntryList = entry => {
-    return /** @type {EntryList} */ (entry);
-};
-/**
- * Returns true if entry is FileSystemEntry or FileSystemDirectoryEntry, it
- * returns false if it's FakeEntry or any one of the FilesAppEntry types.
- * TODO(lucmult): Wrap Entry in a FilesAppEntry derived class and remove
- * this function. https://crbug.com/835203.
- * @param {Entry|FilesAppEntry} entry
- * @return {boolean}
- */
-util.isNativeEntry = entry => {
-    entry = util.toFilesAppEntry(entry);
-    // Only FilesAppEntry types has |type_name| attribute.
-    return entry.type_name === undefined;
-};
-/**
- * For FilesAppEntry types that wraps a native entry, returns the native entry
- * to be able to send to fileManagerPrivate API.
- * @param {Entry|FilesAppEntry} entry
- * @return {Entry|FilesAppEntry}
- */
-util.unwrapEntry = entry => {
-    if (!entry) {
-        return entry;
-    }
-    // @ts-ignore: error TS2339: Property 'getNativeEntry' does not exist on type
-    // 'FileSystemEntry | FilesAppEntry'.
-    const nativeEntry = entry.getNativeEntry && entry.getNativeEntry();
-    if (nativeEntry) {
-        return nativeEntry;
-    }
-    return entry;
-};
-/** @return {boolean} */
-util.isArcUsbStorageUIEnabled = () => {
-    return loadTimeData.valueExists('ARC_USB_STORAGE_UI_ENABLED') &&
-        loadTimeData.getBoolean('ARC_USB_STORAGE_UI_ENABLED');
-};
-/** @return {boolean} */
-util.isArcVmEnabled = () => {
-    return loadTimeData.valueExists('ARC_VM_ENABLED') &&
-        loadTimeData.getBoolean('ARC_VM_ENABLED');
-};
-/** @return {boolean} */
-util.isPluginVmEnabled = () => {
-    return loadTimeData.valueExists('PLUGIN_VM_ENABLED') &&
-        loadTimeData.getBoolean('PLUGIN_VM_ENABLED');
-};
-/**
- * Used for logs and debugging. It tries to tell what type is the entry, its
- * path and URL.
- *
- * @param {Entry|FilesAppEntry} entry
- * @return {string}
- */
-util.entryDebugString = (entry) => {
-    if (entry === null) {
-        return 'entry is null';
-    }
-    if (entry === undefined) {
-        return 'entry is undefined';
-    }
-    let typeName = '';
-    if (entry.constructor && entry.constructor.name) {
-        typeName = entry.constructor.name;
-    }
-    else {
-        typeName = Object.prototype.toString.call(entry);
-    }
-    let entryDescription = '(' + typeName + ') ';
-    if (entry.fullPath) {
-        entryDescription = entryDescription + entry.fullPath + ' ';
-    }
-    if (entry.toURL) {
-        entryDescription = entryDescription + entry.toURL();
-    }
-    return entryDescription;
-};
-/**
- * Returns true if all entries belong to the same volume. If there are no
- * entries it also returns false.
- *
- * @param {!Array<Entry|FilesAppEntry>} entries
- * @param {!VolumeManager} volumeManager
- * @return boolean
- */
-util.isSameVolume = (entries, volumeManager) => {
-    if (!entries.length) {
-        return false;
-    }
-    const firstEntry = entries[0];
-    if (!firstEntry) {
-        return false;
-    }
-    const volumeInfo = volumeManager.getVolumeInfo(firstEntry);
-    for (let i = 1; i < entries.length; i++) {
-        if (!entries[i]) {
-            return false;
-        }
-        // @ts-ignore: error TS2345: Argument of type 'FileSystemEntry |
-        // FilesAppEntry | undefined' is not assignable to parameter of type
-        // 'FileSystemEntry | FilesAppEntry'.
-        const volumeInfoToCompare = volumeManager.getVolumeInfo(assert(entries[i]));
-        if (!volumeInfoToCompare ||
-            // @ts-ignore: error TS18047: 'volumeInfo' is possibly 'null'.
-            volumeInfoToCompare.volumeId !== volumeInfo.volumeId) {
-            return false;
-        }
-    }
-    return true;
 };
 /**
  * Returns the Files app modal dialog used to embed any files app dialog
@@ -8452,7 +7644,7 @@ util.getLocaleBasedWeekStart = () => {
 util.isGuestOs = type => {
     return type === VolumeManagerCommon.VolumeType.GUEST_OS ||
         (type === VolumeManagerCommon.VolumeType.ANDROID_FILES &&
-            util.isArcVmEnabled());
+            isArcVmEnabled());
 };
 /**
  * Returns whether the given value is null or undefined.
@@ -8479,7 +7671,7 @@ util.isOneDrive = (volumeInfo) => {
  * @return {Entry|FilesAppEntry}
  */
 util.getODFSMetadataQueryEntry = (odfsVolumeInfo) => {
-    return util.unwrapEntry(odfsVolumeInfo.displayRoot);
+    return unwrapEntry(odfsVolumeInfo.displayRoot);
 };
 /**
  * Return true if the volume with |volumeInfo| is an
@@ -8509,7 +7701,7 @@ util.isInteractiveVolume = (volumeInfo) => {
  * @returns {boolean}
  */
 util.canBulkPinningCloudPanelShow = (stage, pref) => {
-    if (!util.isDriveFsBulkPinningEnabled()) {
+    if (!isDriveFsBulkPinningEnabled()) {
         return false;
     }
     const BulkPinStage = chrome.fileManagerPrivate.BulkPinStage;
@@ -10567,7 +9759,7 @@ test.util.async.getFilesUnderVolume = async (volumeType, names, callback) => {
     });
     try {
         const urls = await Promise.all(filesPromise);
-        const result = util.entriesToURLs(urls);
+        const result = entriesToURLs(urls);
         callback(result);
     }
     catch (error) {

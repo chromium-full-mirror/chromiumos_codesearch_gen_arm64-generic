@@ -5,7 +5,7 @@ import { assert } from 'chrome://resources/ash/common/assert.js';
 import { dispatchSimpleEvent } from 'chrome://resources/ash/common/cr_deprecated.js';
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
 import { promisify } from '../../common/js/api.js';
-import { util } from '../../common/js/util.js';
+import { isComputersRoot, isFakeEntry, isSameEntry, isSameFileSystem, isTeamDriveRoot } from '../../common/js/entry_utils.js';
 import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
 import { VolumeManager } from '../../externs/volume_manager.js';
 import { removeVolume } from '../../state/ducks/volumes.js';
@@ -354,13 +354,13 @@ export class VolumeManagerImpl extends EventTarget {
         for (let i = 0; i < this.volumeInfoList.length; i++) {
             const volumeInfo = this.volumeInfoList.item(i);
             if (volumeInfo.fileSystem &&
-                util.isSameFileSystem(volumeInfo.fileSystem, entry.filesystem)) {
+                isSameFileSystem(volumeInfo.fileSystem, entry.filesystem)) {
                 return volumeInfo;
             }
             // Additionally, check fake entries.
             for (const key in volumeInfo.fakeEntries) {
                 const fakeEntry = volumeInfo.fakeEntries[key];
-                if (util.isSameEntry(fakeEntry, entry)) {
+                if (isSameEntry(fakeEntry, entry)) {
                     return volumeInfo;
                 }
             }
@@ -388,7 +388,7 @@ export class VolumeManagerImpl extends EventTarget {
             return null;
         }
         const volumeInfo = this.getVolumeInfo(entry);
-        if (util.isFakeEntry(entry)) {
+        if (isFakeEntry(entry)) {
             // Aggregated views like RECENTS and TRASH exist as fake entries but may
             // actually defer their logic to some underlying implementation or
             // delegate to the location filesystem.
@@ -426,7 +426,7 @@ export class VolumeManagerImpl extends EventTarget {
                 }
                 else {
                     rootType = VolumeManagerCommon.RootType.SHARED_DRIVE;
-                    if (util.isTeamDriveRoot(entry)) {
+                    if (isTeamDriveRoot(entry)) {
                         isReadOnly = false;
                         isRootEntry = true;
                     }
@@ -446,7 +446,7 @@ export class VolumeManagerImpl extends EventTarget {
                 }
                 else {
                     rootType = VolumeManagerCommon.RootType.COMPUTER;
-                    if (util.isComputersRoot(entry)) {
+                    if (isComputersRoot(entry)) {
                         isReadOnly = true;
                         isRootEntry = true;
                     }
@@ -489,7 +489,7 @@ export class VolumeManagerImpl extends EventTarget {
         }
         else {
             rootType = VolumeManagerCommon.getRootTypeFromVolumeType(assert(volumeInfo.volumeType));
-            isRootEntry = util.isSameEntry(entry, volumeInfo.fileSystem.root);
+            isRootEntry = isSameEntry(entry, volumeInfo.fileSystem.root);
             // Although "Play files" root directory is writable in file system level,
             // we prohibit write operations on it in the UI level to avoid confusion.
             // Users can still have write access in sub directories like

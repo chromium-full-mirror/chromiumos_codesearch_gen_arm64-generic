@@ -865,7 +865,7 @@ VideoFrameMetadata::VideoFrameMetadata()
       capture_update_rect(),
       source_size(),
       region_capture_rect(),
-      crop_version(),
+      sub_capture_target_version(),
       copy_required(),
       end_of_stream(),
       frame_duration(),
@@ -910,7 +910,7 @@ VideoFrameMetadata::VideoFrameMetadata(
     const absl::optional<::gfx::Rect>& capture_update_rect_in,
     const absl::optional<::gfx::Size>& source_size_in,
     const absl::optional<::gfx::Rect>& region_capture_rect_in,
-    uint32_t crop_version_in,
+    uint32_t sub_capture_target_version_in,
     bool copy_required_in,
     bool end_of_stream_in,
     absl::optional<::base::TimeDelta> frame_duration_in,
@@ -953,7 +953,7 @@ VideoFrameMetadata::VideoFrameMetadata(
       capture_update_rect(std::move(capture_update_rect_in)),
       source_size(std::move(source_size_in)),
       region_capture_rect(std::move(region_capture_rect_in)),
-      crop_version(std::move(crop_version_in)),
+      sub_capture_target_version(std::move(sub_capture_target_version_in)),
       copy_required(std::move(copy_required_in)),
       end_of_stream(std::move(end_of_stream_in)),
       frame_duration(std::move(frame_duration_in)),
@@ -1068,7 +1068,7 @@ void VideoFrameMetadata::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "crop_version"), this->crop_version,
+      "sub_capture_target_version"), this->sub_capture_target_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint32_t>"
 #else
@@ -2551,7 +2551,7 @@ bool StructTraits<::media::mojom::blink::VideoFrameMetadata::DataView, ::media::
       if (success && !input.ReadRegionCaptureRect(&result->region_capture_rect))
         success = false;
       if (success)
-        result->crop_version = input.crop_version();
+        result->sub_capture_target_version = input.sub_capture_target_version();
       if (success)
         result->copy_required = input.copy_required();
       if (success)

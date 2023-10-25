@@ -1,42 +1,42 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -Wconsumed -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/session_manager-client -I/build/arm64-generic/usr/include/attestation-client -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/power_manager-client -I/build/arm64-generic/usr/include/u2f/client -I/build/arm64-generic/usr/include/user_data_auth-client
-cflags_cc = -std=gnu++20 -DVCSID=\"0.0.1-r2050-206cfe734e1cb4fc1174401c22f16126983e1a67\" -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+cflags_cc = -std=gnu++20 -DVCSID=\"0.0.1-r2053-e4f2d2d9f956253fdb97105f75c511ebcc56910f\" -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libu2fd
 
 build obj/u2fd/libu2fd.inputdeps.stamp: stamp obj/common-mk/external_dependencies/policy-protos_gen.stamp obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp
-build obj/u2fd/libu2fd.allowlisting_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/allowlisting_util.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.allowlisting_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/allowlisting_util.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = allowlisting_util.cc
   source_name_part = allowlisting_util
-build obj/u2fd/libu2fd.u2f_command_processor_generic.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/u2f_command_processor_generic.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.u2f_command_processor_generic.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/u2f_command_processor_generic.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = u2f_command_processor_generic.cc
   source_name_part = u2f_command_processor_generic
-build obj/u2fd/libu2fd.u2f_command_processor_vendor.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/u2f_command_processor_vendor.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.u2f_command_processor_vendor.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/u2f_command_processor_vendor.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = u2f_command_processor_vendor.cc
   source_name_part = u2f_command_processor_vendor
-build obj/u2fd/libu2fd.u2f_corp_processor_interface.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/u2f_corp_processor_interface.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.u2f_corp_processor_interface.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/u2f_corp_processor_interface.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = u2f_corp_processor_interface.cc
   source_name_part = u2f_corp_processor_interface
-build obj/u2fd/libu2fd.u2f_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/u2f_daemon.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.u2f_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/u2f_daemon.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = u2f_daemon.cc
   source_name_part = u2f_daemon
-build obj/u2fd/libu2fd.u2f_msg_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/u2f_msg_handler.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.u2f_msg_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/u2f_msg_handler.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = u2f_msg_handler.cc
   source_name_part = u2f_msg_handler
-build obj/u2fd/libu2fd.u2fhid.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/u2fhid.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.u2fhid.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/u2fhid.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = u2fhid.cc
   source_name_part = u2fhid
-build obj/u2fd/libu2fd.u2fhid_service_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/u2fhid_service_impl.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.u2fhid_service_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/u2fhid_service_impl.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = u2fhid_service_impl.cc
   source_name_part = u2fhid_service_impl
-build obj/u2fd/libu2fd.uhid_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/uhid_device.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.uhid_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/uhid_device.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = uhid_device.cc
   source_name_part = uhid_device
-build obj/u2fd/libu2fd.webauthn_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/webauthn_handler.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.webauthn_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/webauthn_handler.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = webauthn_handler.cc
   source_name_part = webauthn_handler
-build obj/u2fd/libu2fd.webauthn_storage.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2050/work/u2fd-0.0.1/u2fd/webauthn_storage.cc || obj/u2fd/libu2fd.inputdeps.stamp
+build obj/u2fd/libu2fd.webauthn_storage.o: cxx ../../../../../../../tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1/u2fd/webauthn_storage.cc || obj/u2fd/libu2fd.inputdeps.stamp
   source_file_part = webauthn_storage.cc
   source_name_part = webauthn_storage
 

@@ -2373,6 +2373,8 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
 #include <stdint.h>
 #include <string.h>
 
+#include <algorithm>
+
 // gen_amalgamated expanded: #include "perfetto/base/compiler.h"
 // gen_amalgamated expanded: #include "perfetto/base/export.h"
 // gen_amalgamated expanded: #include "perfetto/base/logging.h"
@@ -2427,13 +2429,13 @@ class PERFETTO_EXPORT_COMPONENT ScatteredStreamWriter {
 
   // Assumes that the caller checked that there is enough headroom.
   // TODO(primiano): perf optimization, this is a tracing hot path. The
-  // compiler can make strong optimization on memcpy if the size arg is a
+  // compiler can make strong optimization on std::copy if the size arg is a
   // constexpr. Make a templated variant of this for fixed-size writes.
   // TODO(primiano): restrict / noalias might also help.
   inline void WriteBytesUnsafe(const uint8_t* src, size_t size) {
     uint8_t* const end = write_ptr_ + size;
     assert(end <= cur_range_.end);
-    memcpy(write_ptr_, src, size);
+    std::copy(src, src + size, write_ptr_);
     write_ptr_ = end;
   }
 

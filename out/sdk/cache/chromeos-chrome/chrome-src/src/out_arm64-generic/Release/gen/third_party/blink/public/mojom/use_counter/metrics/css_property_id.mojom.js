@@ -735,8 +735,10 @@
   CSSSampleId.kMaskSize = 774;
   CSSSampleId.kMaskOrigin = 775;
   CSSSampleId.kTextSpacing = 776;
+  CSSSampleId.kMaskRepeat = 777;
+  CSSSampleId.kMaskComposite = 778;
   CSSSampleId.MIN_VALUE = 0;
-  CSSSampleId.MAX_VALUE = 776;
+  CSSSampleId.MAX_VALUE = 778;
 
   CSSSampleId.isKnownEnumValue = function(value) {
     switch (value) {
@@ -1423,6 +1425,8 @@
     case 774:
     case 775:
     case 776:
+    case 777:
+    case 778:
       return true;
     }
     return false;

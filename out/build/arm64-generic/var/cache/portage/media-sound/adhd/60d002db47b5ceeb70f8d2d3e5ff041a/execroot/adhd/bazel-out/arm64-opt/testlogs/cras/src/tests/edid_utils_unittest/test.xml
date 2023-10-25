@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="6" failures="0" disabled="0" errors="0" time="0.014" timestamp="2023-10-25T11:33:20.028" name="AllTests">
+  <testsuite name="EDIDTestSuite" tests="6" failures="0" disabled="0" skipped="0" errors="0" time="0.008" timestamp="2023-10-25T11:33:20.033">
+    <testcase name="EDIDValid" file="cras/src/tests/edid_utils_unittest.cc" line="39" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:33:20.034" classname="EDIDTestSuite" />
+    <testcase name="EDIDBadHeader" file="cras/src/tests/edid_utils_unittest.cc" line="43" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:20.036" classname="EDIDTestSuite" />
+    <testcase name="NoAudEDID" file="cras/src/tests/edid_utils_unittest.cc" line="237" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:20.037" classname="EDIDTestSuite" />
+    <testcase name="AudEDID" file="cras/src/tests/edid_utils_unittest.cc" line="246" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:20.038" classname="EDIDTestSuite" />
+    <testcase name="EDIDMonitorName" file="cras/src/tests/edid_utils_unittest.cc" line="255" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:33:20.039" classname="EDIDTestSuite" />
+    <testcase name="EDIDDeviceID" file="cras/src/tests/edid_utils_unittest.cc" line="279" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:33:20.040" classname="EDIDTestSuite" />
+  </testsuite>
+</testsuites>

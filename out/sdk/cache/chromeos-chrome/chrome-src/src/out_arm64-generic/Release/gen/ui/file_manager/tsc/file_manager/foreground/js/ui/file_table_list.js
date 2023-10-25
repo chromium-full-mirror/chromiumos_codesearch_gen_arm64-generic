@@ -3,7 +3,9 @@
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { ArrayDataModel } from '../../../common/js/array_data_model.js';
+import { isTeamDriveRoot } from '../../../common/js/entry_utils.js';
 import { FileType } from '../../../common/js/file_type.js';
+import { isDlpEnabled, isDriveFsBulkPinningEnabled, isInlineSyncStatusEnabled } from '../../../common/js/flags.js';
 import { str, strf, util } from '../../../common/js/util.js';
 import { EntryLocation } from '../../../externs/entry_location.js';
 import { FilesAppEntry } from '../../../externs/files_app_entry_interfaces.js';
@@ -380,7 +382,7 @@ filelist.decorateListItem = (li, entry, metadataModel, volumeManager) => {
     filelist.updateListItemExternalProps(
     // @ts-ignore: error TS2345: Argument of type 'MetadataItem | undefined'
     // is not assignable to parameter of type 'MetadataItem'.
-    li, entry, externalProps, util.isTeamDriveRoot(entry));
+    li, entry, externalProps, isTeamDriveRoot(entry));
     // Overriding the default role 'list' to 'listbox' for better
     // accessibility on ChromeOS.
     li.setAttribute('role', 'option');
@@ -427,7 +429,7 @@ filelist.decorateListItem = (li, entry, metadataModel, volumeManager) => {
  * @return {boolean} If `entry` is DLP blocked.
  */
 filelist.isDlpBlocked = (entry, metadataModel, volumeManager) => {
-    if (!util.isDlpEnabled()) {
+    if (!isDlpEnabled()) {
         return false;
     }
     // TODO(b/259184588): Properly handle case when VolumeInfo is not
@@ -495,10 +497,9 @@ filelist.renderFileNameLabel = (doc, entry, locationInfo) => {
  * @param {ListItem} li List item.
  * @param {Entry|FilesAppEntry} entry The entry.
  * @param {MetadataItem} externalProps Metadata.
+ * @param {boolean} isTeamDriveRoot Whether the entry is a team drive root.
  */
 filelist.updateListItemExternalProps =
-    // @ts-ignore: error TS7006: Parameter 'isTeamDriveRoot' implicitly has an
-    // 'any' type.
     (li, entry, externalProps, isTeamDriveRoot) => {
         if (li.classList.contains('file')) {
             li.classList.toggle('dim-hosted', !!externalProps.hosted);
@@ -1054,7 +1055,7 @@ filelist.updateInlineStatus = (li, metadata) => {
     // @ts-ignore: error TS2339: Property 'canPin' does not exist on type
     // 'MetadataItem'.
     canPin, progress, syncStatus, syncCompletedTime, } = metadata;
-    if (util.isDriveFsBulkPinningEnabled()) {
+    if (isDriveFsBulkPinningEnabled()) {
         const cantPin = canPin === false;
         li.classList.toggle('cant-pin', cantPin);
         inlineStatus.toggleAttribute('cant-pin', cantPin);
@@ -1064,7 +1065,7 @@ filelist.updateInlineStatus = (li, metadata) => {
     li.classList.toggle('dim-offline', dimOffline);
     li.classList.toggle('pinned', pinned);
     inlineStatus.toggleAttribute('available-offline', pinned && !dimOffline);
-    if (util.isInlineSyncStatusEnabled()) {
+    if (isInlineSyncStatusEnabled()) {
         let actualSyncStatus = syncStatus;
         let actualProgress = progress;
         // Force sync status as completed if it has been less than 300ms since the

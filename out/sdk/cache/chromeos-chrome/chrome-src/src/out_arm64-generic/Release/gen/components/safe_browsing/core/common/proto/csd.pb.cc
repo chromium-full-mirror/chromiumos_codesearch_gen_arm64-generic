@@ -1386,7 +1386,8 @@ PROTOBUF_CONSTEXPR ClientSafeBrowsingReportRequest::ClientSafeBrowsingReportRequ
   , download_verdict_(0)
 
   , url_request_destination_(0)
-{}
+
+  , warning_shown_timestamp_msec_(int64_t{0}){}
 struct ClientSafeBrowsingReportRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ClientSafeBrowsingReportRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -33318,6 +33319,9 @@ class ClientSafeBrowsingReportRequest::_Internal {
   static void set_has_url_request_destination(HasBits* has_bits) {
     (*has_bits)[0] |= 65536u;
   }
+  static void set_has_warning_shown_timestamp_msec(HasBits* has_bits) {
+    (*has_bits)[0] |= 131072u;
+  }
 };
 
 const ::safe_browsing::ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties&
@@ -33429,8 +33433,8 @@ ClientSafeBrowsingReportRequest::ClientSafeBrowsingReportRequest(const ClientSaf
     hash_real_time_experiment_details_ = nullptr;
   }
   ::memcpy(&type_, &from.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&url_request_destination_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(url_request_destination_));
+    static_cast<size_t>(reinterpret_cast<char*>(&warning_shown_timestamp_msec_) -
+    reinterpret_cast<char*>(&type_)) + sizeof(warning_shown_timestamp_msec_));
   // @@protoc_insertion_point(copy_constructor:safe_browsing.ClientSafeBrowsingReportRequest)
 }
 
@@ -33461,8 +33465,8 @@ safety_net_id_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&client_properties_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&url_request_destination_) -
-    reinterpret_cast<char*>(&client_properties_)) + sizeof(url_request_destination_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&warning_shown_timestamp_msec_) -
+    reinterpret_cast<char*>(&client_properties_)) + sizeof(warning_shown_timestamp_msec_));
 }
 
 ClientSafeBrowsingReportRequest::~ClientSafeBrowsingReportRequest() {
@@ -33549,7 +33553,11 @@ void ClientSafeBrowsingReportRequest::Clear() {
         reinterpret_cast<char*>(&download_verdict_) -
         reinterpret_cast<char*>(&type_)) + sizeof(download_verdict_));
   }
-  url_request_destination_ = 0;
+  if (cached_has_bits & 0x00030000u) {
+    ::memset(&url_request_destination_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&warning_shown_timestamp_msec_) -
+        reinterpret_cast<char*>(&url_request_destination_)) + sizeof(warning_shown_timestamp_msec_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -33814,6 +33822,15 @@ const char* ClientSafeBrowsingReportRequest::_InternalParse(const char* ptr, ::_
         } else
           goto handle_unusual;
         continue;
+      // optional int64 warning_shown_timestamp_msec = 32;
+      case 32:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
+          _Internal::set_has_warning_shown_timestamp_msec(&has_bits);
+          warning_shown_timestamp_msec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -34008,6 +34025,12 @@ uint8_t* ClientSafeBrowsingReportRequest::_InternalSerialize(
         InternalWriteMessage(31, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // optional int64 warning_shown_timestamp_msec = 32;
+  if (cached_has_bits & 0x00020000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(32, this->_internal_warning_shown_timestamp_msec(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -34181,12 +34204,21 @@ size_t ClientSafeBrowsingReportRequest::ByteSizeLong() const {
     }
 
   }
-  // optional .safe_browsing.ClientSafeBrowsingReportRequest.UrlRequestDestination url_request_destination = 29;
-  if (cached_has_bits & 0x00010000u) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_url_request_destination());
-  }
+  if (cached_has_bits & 0x00030000u) {
+    // optional .safe_browsing.ClientSafeBrowsingReportRequest.UrlRequestDestination url_request_destination = 29;
+    if (cached_has_bits & 0x00010000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_url_request_destination());
+    }
 
+    // optional int64 warning_shown_timestamp_msec = 32;
+    if (cached_has_bits & 0x00020000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int64Size(
+          this->_internal_warning_shown_timestamp_msec());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -34268,8 +34300,14 @@ void ClientSafeBrowsingReportRequest::MergeFrom(const ClientSafeBrowsingReportRe
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00010000u) {
-    _internal_set_url_request_destination(from._internal_url_request_destination());
+  if (cached_has_bits & 0x00030000u) {
+    if (cached_has_bits & 0x00010000u) {
+      url_request_destination_ = from.url_request_destination_;
+    }
+    if (cached_has_bits & 0x00020000u) {
+      warning_shown_timestamp_msec_ = from.warning_shown_timestamp_msec_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -34325,8 +34363,8 @@ void ClientSafeBrowsingReportRequest::InternalSwap(ClientSafeBrowsingReportReque
       &other->safety_net_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ClientSafeBrowsingReportRequest, url_request_destination_)
-      + sizeof(ClientSafeBrowsingReportRequest::url_request_destination_)
+      PROTOBUF_FIELD_OFFSET(ClientSafeBrowsingReportRequest, warning_shown_timestamp_msec_)
+      + sizeof(ClientSafeBrowsingReportRequest::warning_shown_timestamp_msec_)
       - PROTOBUF_FIELD_OFFSET(ClientSafeBrowsingReportRequest, client_properties_)>(
           reinterpret_cast<char*>(&client_properties_),
           reinterpret_cast<char*>(&other->client_properties_));

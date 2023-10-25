@@ -49,6 +49,40 @@ namespace internal {
 
 
 // static
+bool SpeechRecognitionResultEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SpeechRecognitionResultEvent_Data* object =
+      static_cast<const SpeechRecognitionResultEvent_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->transcript, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& transcript_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->transcript, validation_context,
+                                         &transcript_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+SpeechRecognitionResultEvent_Data::SpeechRecognitionResultEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool StartOptions_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -158,6 +192,36 @@ bool SpeechRecognitionEventObserver_OnStop_Params_Data::Validate(
 }
 
 SpeechRecognitionEventObserver_OnStop_Params_Data::SpeechRecognitionEventObserver_OnStop_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SpeechRecognitionEventObserver_OnResult_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SpeechRecognitionEventObserver_OnResult_Params_Data* object =
+      static_cast<const SpeechRecognitionEventObserver_OnResult_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->event, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->event, validation_context))
+    return false;
+
+  return true;
+}
+
+SpeechRecognitionEventObserver_OnResult_Params_Data::SpeechRecognitionEventObserver_OnResult_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

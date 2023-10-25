@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="sp-shared-style">sp-heading{margin:0 0 8px}.content{margin:16px 16px 8px}#descriptorMenuD cr-button{background-color:var(--sys-color-neutral-container);height:40px;min-width:40px;padding:0}.descriptor-d{border-radius:50%;height:28px;width:28px}#btnContainer{display:flex;justify-content:flex-end;margin-top:16px}.sp-hr{margin:16px 0}cr-grid{--cr-column-width:1fr;--cr-grid-gap:10px;--cr-grid-width:100%;display:block}.tile{background-color:var(--color-sys-surface2);border-radius:12px;outline-width:0;overflow:hidden;place-self:stretch}:host-context(.focus-outline-visible) .tile:focus{box-shadow:0 0 0 2px var(--cr-focus-outline-color)}.result{cursor:pointer}.result img{height:100%;left:50%;top:0;transform:translateX(-50%)}.image-container{padding-top:100%;position:relative;width:100%}.image-container img{position:absolute}@media (forced-colors:active){:host-context(.focus-outline-visible) .tile:focus{outline:var(--cr-focus-outline-hcm)}}[selected]{background:green}[highlighted]{background:#ff0}</style>
+    return html `<!--_html_template_start_--><style include="sp-shared-style">sp-heading{margin:0 0 8px}.content{margin:16px 16px 8px}#descriptorMenuD{display:flex;height:48px;justify-content:space-between;margin-top:16px;width:272px}#descriptorMenuD cr-button{background-color:var(--color-sys-neutral-container);border-radius:8px;border-color:var(--color-sys-neutral-container);height:40px;min-width:40px;padding:0}.descriptor-d{border-radius:50%;display:block;height:28px;width:28px}#colorPickerIcon{-webkit-mask-image:url(chrome://resources/cr_components/customize_themes/colorize.svg);-webkit-mask-repeat:no-repeat;-webkit-mask-size:100%;background-color:var(--color-theme-color-picker-custom-color-icon-background,var(--cr-fallback-color-on-surface-subtle));height:16px;left:calc(50% - 8px);pointer-events:none;position:absolute;top:calc(50% - 8px);width:16px}#btnContainer{display:flex;justify-content:flex-end;margin-top:16px}.sp-hr{margin:16px 0}cr-grid{--cr-column-width:1fr;--cr-grid-gap:10px;--cr-grid-width:100%;display:block}.tile{background-color:var(--color-sys-surface2);border-radius:12px;outline-width:0;overflow:hidden;place-self:stretch}:host-context(.focus-outline-visible) .tile:focus{box-shadow:0 0 0 2px var(--cr-focus-outline-color)}.result{cursor:pointer}.result img{height:100%;left:50%;top:0;transform:translateX(-50%)}.image-container{padding-top:100%;position:relative;width:100%}.image-container img{position:absolute}@media (forced-colors:active){:host-context(.focus-outline-visible) .tile:focus{outline:var(--cr-focus-outline-hcm)}}[selected]{background:green}[highlighted]{background:#ff0}</style>
 <div class="sp-card">
   <sp-heading id="heading" on-back-button-click="onBackClick_" back-button-aria-label="$i18n{backButton}" back-button-title="$i18n{backButton}">
     <h2 slot="heading">Wallpaper Search</h2>
@@ -47,6 +47,9 @@ export function getTemplate() {
           </span>
         </cr-button>
       </template>
+      <cr-button id="customColorContainer">
+        <div id="colorPickerIcon"></div>
+      </cr-button>
     </div>
     <div id="btnContainer">
       <cr-button id="submitButton" on-click="onSearchClick_" class="action-button">

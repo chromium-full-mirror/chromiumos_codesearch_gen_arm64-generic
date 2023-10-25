@@ -18,6 +18,7 @@ const webui::ResourcePath kAttributionInternalsResources[] = {
   {"registration.mojom-webui.js", IDR_ATTRIBUTION_INTERNALS_REGISTRATION_MOJOM_WEBUI_JS},
   {"source_registration_time_config.mojom-webui.js", IDR_ATTRIBUTION_INTERNALS_SOURCE_REGISTRATION_TIME_CONFIG_MOJOM_WEBUI_JS},
   {"source_type.mojom-webui.js", IDR_ATTRIBUTION_INTERNALS_SOURCE_TYPE_MOJOM_WEBUI_JS},
+  {"trigger_data_matching.mojom-webui.js", IDR_ATTRIBUTION_INTERNALS_TRIGGER_DATA_MATCHING_MOJOM_WEBUI_JS},
   {"aggregatable_result.mojom-webui.js", IDR_ATTRIBUTION_INTERNALS_AGGREGATABLE_RESULT_MOJOM_WEBUI_JS},
   {"attribution_internals.mojom-webui.js", IDR_ATTRIBUTION_INTERNALS_ATTRIBUTION_INTERNALS_MOJOM_WEBUI_JS},
   {"attribution_reporting.mojom-webui.js", IDR_ATTRIBUTION_INTERNALS_ATTRIBUTION_REPORTING_MOJOM_WEBUI_JS},

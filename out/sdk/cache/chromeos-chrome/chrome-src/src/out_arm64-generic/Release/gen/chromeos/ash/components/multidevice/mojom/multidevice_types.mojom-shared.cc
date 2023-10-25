@@ -37,6 +37,10 @@ NOINLINE static const char* SoftwareFeatureToStringHelper(SoftwareFeature value)
       return "MAGIC_TETHER_HOST";
     case SoftwareFeature::MAGIC_TETHER_CLIENT:
       return "MAGIC_TETHER_CLIENT";
+    case SoftwareFeature::SMS_CONNECT_HOST:
+      return "SMS_CONNECT_HOST";
+    case SoftwareFeature::SMS_CONNECT_CLIENT:
+      return "SMS_CONNECT_CLIENT";
     case SoftwareFeature::PHONE_HUB_HOST:
       return "PHONE_HUB_HOST";
     case SoftwareFeature::PHONE_HUB_CLIENT:

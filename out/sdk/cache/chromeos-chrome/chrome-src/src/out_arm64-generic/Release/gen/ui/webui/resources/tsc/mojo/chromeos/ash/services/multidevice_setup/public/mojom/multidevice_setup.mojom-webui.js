@@ -59,6 +59,7 @@ export const FeatureSpec = { $: mojo.internal.Enum() };
 export const Feature = {
     kBetterTogetherSuite: 0,
     kInstantTethering: 1,
+    kMessages: 2,
     kSmartLock: 3,
     kPhoneHub: 4,
     kPhoneHubNotifications: 5,

@@ -658,10 +658,11 @@
   VideoCaptureFrameDropReason.kResolutionAdapterHasNoCallbacks = 23;
   VideoCaptureFrameDropReason.kVideoTrackFrameDelivererNotEnabledReplacingWithBlackFrame = 24;
   VideoCaptureFrameDropReason.kRendererSinkFrameDelivererIsNotStarted = 25;
-  VideoCaptureFrameDropReason.kCropVersionNotCurrent = 26;
+  VideoCaptureFrameDropReason.kCropVersionNotCurrent_DEPRECATED = 26;
   VideoCaptureFrameDropReason.kGpuMemoryBufferMapFailed = 27;
+  VideoCaptureFrameDropReason.kSubCaptureTargetVersionNotCurrent = 28;
   VideoCaptureFrameDropReason.MIN_VALUE = 0;
-  VideoCaptureFrameDropReason.MAX_VALUE = 27;
+  VideoCaptureFrameDropReason.MAX_VALUE = 28;
 
   VideoCaptureFrameDropReason.isKnownEnumValue = function(value) {
     switch (value) {
@@ -693,6 +694,7 @@
     case 25:
     case 26:
     case 27:
+    case 28:
       return true;
     }
     return false;

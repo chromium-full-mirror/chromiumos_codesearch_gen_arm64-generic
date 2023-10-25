@@ -1894,6 +1894,9 @@ export class ElementsTreeElement extends UI.TreeOutline.TreeElement {
             adorner.toggle(enabled);
         });
         context.styleAdorners.push(adorner);
+        if (node.domModel().overlayModel().isHighlightedGridInPersistentOverlay(nodeId)) {
+            adorner.toggle(true);
+        }
     }
     pushScrollSnapAdorner(context) {
         const node = this.node();
@@ -1928,6 +1931,9 @@ export class ElementsTreeElement extends UI.TreeOutline.TreeElement {
             adorner.toggle(enabled);
         });
         context.styleAdorners.push(adorner);
+        if (node.domModel().overlayModel().isHighlightedScrollSnapInPersistentOverlay(nodeId)) {
+            adorner.toggle(true);
+        }
     }
     pushFlexAdorner(context) {
         const node = this.node();
@@ -1962,6 +1968,9 @@ export class ElementsTreeElement extends UI.TreeOutline.TreeElement {
             adorner.toggle(enabled);
         });
         context.styleAdorners.push(adorner);
+        if (node.domModel().overlayModel().isHighlightedFlexContainerInPersistentOverlay(nodeId)) {
+            adorner.toggle(true);
+        }
     }
     pushContainerAdorner(context) {
         const node = this.node();
@@ -1996,6 +2005,9 @@ export class ElementsTreeElement extends UI.TreeOutline.TreeElement {
             adorner.toggle(enabled);
         });
         context.styleAdorners.push(adorner);
+        if (node.domModel().overlayModel().isHighlightedContainerQueryInPersistentOverlay(nodeId)) {
+            adorner.toggle(true);
+        }
     }
     pushMediaAdorner(context) {
         const node = this.node();

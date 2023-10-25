@@ -50,7 +50,6 @@
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/components/arc/mojom/keymaster.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/components/arc/mojom/keymint.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/components/arc/mojom/kiosk.mojom",
-    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/components/arc/mojom/lock_screen.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/components/arc/mojom/media_session.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/components/arc/mojom/memory.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/components/arc/mojom/metrics.mojom",

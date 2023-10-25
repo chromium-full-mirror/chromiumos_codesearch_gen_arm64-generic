@@ -2631,6 +2631,40 @@ AppInstance_UninstallPackage_Params_Data::AppInstance_UninstallPackage_Params_Da
 
 
 // static
+bool AppInstance_UpdateAppDetails_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppInstance_UpdateAppDetails_Params_Data* object =
+      static_cast<const AppInstance_UpdateAppDetails_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->package_name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& package_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->package_name, validation_context,
+                                         &package_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AppInstance_UpdateAppDetails_Params_Data::AppInstance_UpdateAppDetails_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AppInstance_GetAndroidId_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

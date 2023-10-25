@@ -91,7 +91,7 @@ class BLINK_PLATFORM_EXPORT VideoCaptureObserver
     kOnBufferReadyMinVersion = 0,
     kOnBufferDestroyedMinVersion = 0,
     kOnFrameDroppedMinVersion = 0,
-    kOnNewCropVersionMinVersion = 0,
+    kOnNewSubCaptureTargetVersionMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -112,7 +112,7 @@ class BLINK_PLATFORM_EXPORT VideoCaptureObserver
   struct OnFrameDropped_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct OnNewCropVersion_Sym {
+  struct OnNewSubCaptureTargetVersion_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -134,7 +134,7 @@ class BLINK_PLATFORM_EXPORT VideoCaptureObserver
   virtual void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) = 0;
 
   
-  virtual void OnNewCropVersion(uint32_t crop_version) = 0;
+  virtual void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) = 0;
 };
 
 class VideoCaptureHostProxy;
@@ -262,7 +262,7 @@ class BLINK_PLATFORM_EXPORT VideoCaptureObserverProxy
   
   void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) final;
   
-  void OnNewCropVersion(uint32_t crop_version) final;
+  void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

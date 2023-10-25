@@ -388,8 +388,8 @@ FrameSinkVideoConsumer::IPCStableHashFunction FrameSinkVideoConsumer::MessageToM
     case internal::kFrameSinkVideoConsumer_OnFrameCaptured_Name: {
       return &FrameSinkVideoConsumer::OnFrameCaptured_Sym::IPCStableHash;
     }
-    case internal::kFrameSinkVideoConsumer_OnNewCropVersion_Name: {
-      return &FrameSinkVideoConsumer::OnNewCropVersion_Sym::IPCStableHash;
+    case internal::kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name: {
+      return &FrameSinkVideoConsumer::OnNewSubCaptureTargetVersion_Sym::IPCStableHash;
     }
     case internal::kFrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Name: {
       return &FrameSinkVideoConsumer::OnFrameWithEmptyRegionCapture_Sym::IPCStableHash;
@@ -413,8 +413,8 @@ const char* FrameSinkVideoConsumer::MessageToMethodName_(mojo::Message& message)
     switch (message.name()) {
       case internal::kFrameSinkVideoConsumer_OnFrameCaptured_Name:
             return "Receive viz::mojom::FrameSinkVideoConsumer::OnFrameCaptured";
-      case internal::kFrameSinkVideoConsumer_OnNewCropVersion_Name:
-            return "Receive viz::mojom::FrameSinkVideoConsumer::OnNewCropVersion";
+      case internal::kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name:
+            return "Receive viz::mojom::FrameSinkVideoConsumer::OnNewSubCaptureTargetVersion";
       case internal::kFrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Name:
             return "Receive viz::mojom::FrameSinkVideoConsumer::OnFrameWithEmptyRegionCapture";
       case internal::kFrameSinkVideoConsumer_OnStopped_Name:
@@ -426,8 +426,8 @@ const char* FrameSinkVideoConsumer::MessageToMethodName_(mojo::Message& message)
     switch (message.name()) {
       case internal::kFrameSinkVideoConsumer_OnFrameCaptured_Name:
             return "Receive reply viz::mojom::FrameSinkVideoConsumer::OnFrameCaptured";
-      case internal::kFrameSinkVideoConsumer_OnNewCropVersion_Name:
-            return "Receive reply viz::mojom::FrameSinkVideoConsumer::OnNewCropVersion";
+      case internal::kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name:
+            return "Receive reply viz::mojom::FrameSinkVideoConsumer::OnNewSubCaptureTargetVersion";
       case internal::kFrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Name:
             return "Receive reply viz::mojom::FrameSinkVideoConsumer::OnFrameWithEmptyRegionCapture";
       case internal::kFrameSinkVideoConsumer_OnStopped_Name:
@@ -461,7 +461,7 @@ uint32_t FrameSinkVideoConsumer::OnFrameCaptured_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t FrameSinkVideoConsumer::OnNewCropVersion_Sym::IPCStableHash() {
+uint32_t FrameSinkVideoConsumer::OnNewSubCaptureTargetVersion_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -469,7 +469,7 @@ uint32_t FrameSinkVideoConsumer::OnNewCropVersion_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)viz::mojom::FrameSinkVideoConsumer::OnNewCropVersion");
+          "(Impl)viz::mojom::FrameSinkVideoConsumer::OnNewSubCaptureTargetVersion");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -602,15 +602,15 @@ void FrameSinkVideoConsumerProxy::OnFrameCaptured(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void FrameSinkVideoConsumerProxy::OnNewCropVersion(
-    uint32_t in_crop_version) {
+void FrameSinkVideoConsumerProxy::OnNewSubCaptureTargetVersion(
+    uint32_t in_sub_capture_target_version) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send viz::mojom::FrameSinkVideoConsumer::OnNewCropVersion", "input_parameters",
+    "mojom", "Send viz::mojom::FrameSinkVideoConsumer::OnNewSubCaptureTargetVersion", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("crop_version"), in_crop_version,
+           dict.AddItem("sub_capture_target_version"), in_sub_capture_target_version,
                         "<value of type uint32_t>");
    });
 #endif
@@ -624,16 +624,16 @@ void FrameSinkVideoConsumerProxy::OnNewCropVersion(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kFrameSinkVideoConsumer_OnNewCropVersion_Name, kFlags, 0, 0, nullptr);
+      internal::kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::viz::mojom::internal::FrameSinkVideoConsumer_OnNewCropVersion_Params_Data> params(
+      ::viz::mojom::internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data> params(
           message);
   params.Allocate();
-  params->crop_version = in_crop_version;
+  params->sub_capture_target_version = in_sub_capture_target_version;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(FrameSinkVideoConsumer::Name_);
-  message.set_method_name("OnNewCropVersion");
+  message.set_method_name("OnNewSubCaptureTargetVersion");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -793,19 +793,19 @@ std::move(p_content_rect),
 std::move(p_callbacks));
       return true;
     }
-    case internal::kFrameSinkVideoConsumer_OnNewCropVersion_Name: {
+    case internal::kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name: {
 
       DCHECK(message->is_serialized());
-      internal::FrameSinkVideoConsumer_OnNewCropVersion_Params_Data* params =
-          reinterpret_cast<internal::FrameSinkVideoConsumer_OnNewCropVersion_Params_Data*>(
+      internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data* params =
+          reinterpret_cast<internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_crop_version{};
-      FrameSinkVideoConsumer_OnNewCropVersion_ParamsDataView input_data_view(params, message);
+      uint32_t p_sub_capture_target_version{};
+      FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_ParamsDataView input_data_view(params, message);
       
       if (success)
-        p_crop_version = input_data_view.crop_version();
+        p_sub_capture_target_version = input_data_view.sub_capture_target_version();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -815,8 +815,8 @@ std::move(p_callbacks));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewCropVersion(
-std::move(p_crop_version));
+      impl->OnNewSubCaptureTargetVersion(
+std::move(p_sub_capture_target_version));
       return true;
     }
     case internal::kFrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Name: {
@@ -905,7 +905,7 @@ bool FrameSinkVideoConsumerStubDispatch::AcceptWithResponder(
     case internal::kFrameSinkVideoConsumer_OnFrameCaptured_Name: {
       break;
     }
-    case internal::kFrameSinkVideoConsumer_OnNewCropVersion_Name: {
+    case internal::kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name: {
       break;
     }
     case internal::kFrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Name: {
@@ -925,7 +925,7 @@ bool FrameSinkVideoConsumerStubDispatch::AcceptWithResponder(
 static const mojo::internal::GenericValidationInfo kFrameSinkVideoConsumerValidationInfo[] = {
     {&internal::FrameSinkVideoConsumer_OnFrameCaptured_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkVideoConsumer_OnNewCropVersion_Params_Data::Validate,
+    {&internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::FrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Params_Data::Validate,
      nullptr /* no response */},
@@ -1419,7 +1419,7 @@ void FrameSinkVideoCapturerProxy::SetAutoThrottlingEnabled(
 }
 
 void FrameSinkVideoCapturerProxy::ChangeTarget(
-    const absl::optional<::viz::VideoCaptureTarget>& in_target, uint32_t in_crop_version) {
+    const absl::optional<::viz::VideoCaptureTarget>& in_target, uint32_t in_sub_capture_target_version) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send viz::mojom::FrameSinkVideoCapturer::ChangeTarget", "input_parameters",
@@ -1429,7 +1429,7 @@ void FrameSinkVideoCapturerProxy::ChangeTarget(
            dict.AddItem("target"), in_target,
                         "<value of type const absl::optional<::viz::VideoCaptureTarget>&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("crop_version"), in_crop_version,
+           dict.AddItem("sub_capture_target_version"), in_sub_capture_target_version,
                         "<value of type uint32_t>");
    });
 #endif
@@ -1455,7 +1455,7 @@ void FrameSinkVideoCapturerProxy::ChangeTarget(
       in_target, target_fragment);
   params->target.Set(
       target_fragment.is_null() ? nullptr : target_fragment.data());
-  params->crop_version = in_crop_version;
+  params->sub_capture_target_version = in_sub_capture_target_version;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(FrameSinkVideoCapturer::Name_);
@@ -1773,13 +1773,13 @@ std::move(p_enabled));
       
       bool success = true;
       absl::optional<::viz::VideoCaptureTarget> p_target{};
-      uint32_t p_crop_version{};
+      uint32_t p_sub_capture_target_version{};
       FrameSinkVideoCapturer_ChangeTarget_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadTarget(&p_target))
         success = false;
       if (success)
-        p_crop_version = input_data_view.crop_version();
+        p_sub_capture_target_version = input_data_view.sub_capture_target_version();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1791,7 +1791,7 @@ std::move(p_enabled));
       DCHECK(impl);
       impl->ChangeTarget(
 std::move(p_target), 
-std::move(p_crop_version));
+std::move(p_sub_capture_target_version));
       return true;
     }
     case internal::kFrameSinkVideoCapturer_Start_Name: {
@@ -2347,8 +2347,8 @@ FrameSinkVideoConsumerFrameCallbacksAsyncWaiter::~FrameSinkVideoConsumerFrameCal
 void FrameSinkVideoConsumerInterceptorForTesting::OnFrameCaptured(::media::mojom::VideoBufferHandlePtr data, ::media::mojom::VideoFrameInfoPtr info, const ::gfx::Rect& content_rect, ::mojo::PendingRemote<FrameSinkVideoConsumerFrameCallbacks> callbacks) {
   GetForwardingInterface()->OnFrameCaptured(std::move(data), std::move(info), std::move(content_rect), std::move(callbacks));
 }
-void FrameSinkVideoConsumerInterceptorForTesting::OnNewCropVersion(uint32_t crop_version) {
-  GetForwardingInterface()->OnNewCropVersion(std::move(crop_version));
+void FrameSinkVideoConsumerInterceptorForTesting::OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) {
+  GetForwardingInterface()->OnNewSubCaptureTargetVersion(std::move(sub_capture_target_version));
 }
 void FrameSinkVideoConsumerInterceptorForTesting::OnFrameWithEmptyRegionCapture() {
   GetForwardingInterface()->OnFrameWithEmptyRegionCapture();
@@ -2382,8 +2382,8 @@ void FrameSinkVideoCapturerInterceptorForTesting::SetResolutionConstraints(const
 void FrameSinkVideoCapturerInterceptorForTesting::SetAutoThrottlingEnabled(bool enabled) {
   GetForwardingInterface()->SetAutoThrottlingEnabled(std::move(enabled));
 }
-void FrameSinkVideoCapturerInterceptorForTesting::ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t crop_version) {
-  GetForwardingInterface()->ChangeTarget(std::move(target), std::move(crop_version));
+void FrameSinkVideoCapturerInterceptorForTesting::ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) {
+  GetForwardingInterface()->ChangeTarget(std::move(target), std::move(sub_capture_target_version));
 }
 void FrameSinkVideoCapturerInterceptorForTesting::Start(::mojo::PendingRemote<FrameSinkVideoConsumer> consumer, BufferFormatPreference buffer_format_preference) {
   GetForwardingInterface()->Start(std::move(consumer), std::move(buffer_format_preference));

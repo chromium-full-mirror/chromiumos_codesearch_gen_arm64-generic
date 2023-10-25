@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { getDriveQuotaMetadata, getSizeStats } from '../../common/js/api.js';
-import { strf, util } from '../../common/js/util.js';
+import { isRecentRoot } from '../../common/js/entry_utils.js';
+import { strf } from '../../common/js/util.js';
 import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
 import { DirectoryChangeEvent } from '../../externs/directory_change_event.js';
 import { DirectoryModel } from './directory_model.js';
@@ -80,7 +81,7 @@ export class GearMenuController {
     // never read.
     refreshRemainingSpace_(showLoadingCaption) {
         const currentDirectory = this.directoryModel_.getCurrentDirEntry();
-        if (!currentDirectory || util.isRecentRoot(currentDirectory)) {
+        if (!currentDirectory || isRecentRoot(currentDirectory)) {
             // @ts-ignore: error TS2345: Argument of type 'null' is not assignable to
             // parameter of type 'Promise<SpaceInfo | undefined>'.
             this.gearMenu_.setSpaceInfo(null, false);

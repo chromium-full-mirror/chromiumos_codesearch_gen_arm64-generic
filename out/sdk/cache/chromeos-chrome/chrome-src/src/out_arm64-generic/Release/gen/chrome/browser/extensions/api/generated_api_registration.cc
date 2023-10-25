@@ -285,9 +285,9 @@ void ChromeGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* reg
       AutofillPrivateAuthenticateUserAndFlipMandatoryAuthToggleFunction::static_histogram_value(),
     },
     {
-      &NewExtensionFunction<AutofillPrivateAuthenticateUserToEditLocalCardFunction>,
-      AutofillPrivateAuthenticateUserToEditLocalCardFunction::static_function_name(),
-      AutofillPrivateAuthenticateUserToEditLocalCardFunction::static_histogram_value(),
+      &NewExtensionFunction<AutofillPrivateGetLocalCardFunction>,
+      AutofillPrivateGetLocalCardFunction::static_function_name(),
+      AutofillPrivateGetLocalCardFunction::static_histogram_value(),
     },
     {
       &NewExtensionFunction<AutofillPrivateCheckIfDeviceAuthAvailableFunction>,

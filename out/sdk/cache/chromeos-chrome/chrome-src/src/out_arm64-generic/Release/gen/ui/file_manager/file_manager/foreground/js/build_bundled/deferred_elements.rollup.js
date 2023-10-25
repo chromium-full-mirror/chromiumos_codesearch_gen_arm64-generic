@@ -1,4 +1,4 @@
-import { bN as PaperRippleBehavior, c as assert, bO as validateExternalDriveName, u as util, j as str, h as strf, X as XfBase } from './shared.rollup.js';
+import { cp as PaperRippleBehavior, e as assert, cq as validateExternalDriveName, bk as isSinglePartitionFormatEnabled, n as str, l as strf, u as util, X as XfBase } from './shared.rollup.js';
 import { html, mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { property, customElement, svg, html as html$1, css } from 'chrome://resources/mwc/lit/index.js';
 import 'chrome://resources/ash/common/load_time_data.m.js';
@@ -600,13 +600,13 @@ class FilesFormatDialog extends PolymerElement {
      * It is used to check flag status in the tests.
      */
     getSinglePartitionFormat() {
-        if (util.isSinglePartitionFormatEnabled()) {
+        if (isSinglePartitionFormatEnabled()) {
             return 'single-partition-format';
         }
         return '';
     }
     getConfirmLabel(isErase) {
-        if (util.isSinglePartitionFormatEnabled()) {
+        if (isSinglePartitionFormatEnabled()) {
             if (isErase) {
                 return str('REPARTITION_DIALOG_CONFIRM_LABEL');
             }
@@ -619,7 +619,7 @@ class FilesFormatDialog extends PolymerElement {
         }
     }
     getDialogMessage(isErase) {
-        if (util.isSinglePartitionFormatEnabled()) {
+        if (isSinglePartitionFormatEnabled()) {
             if (isErase) {
                 return str('REPARTITION_DIALOG_MESSAGE');
             }

@@ -16,5 +16,7 @@
 #include "mojo/public/mojom/base/token.mojom-import-headers.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-import-headers.h"
+#include "third_party/blink/public/mojom/mediastream/media_devices.mojom.h"
+#include "third_party/blink/public/mojom/mediastream/media_devices.mojom-import-headers.h"
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_MEDIASTREAM_MEDIA_STREAM_MOJOM_IMPORT_HEADERS_H_

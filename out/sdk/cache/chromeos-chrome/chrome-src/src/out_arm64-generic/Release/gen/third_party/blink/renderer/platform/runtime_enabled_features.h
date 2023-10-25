@@ -307,9 +307,9 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_fast_position_iterator_enabled_;
     bool is_fed_cm_enabled_;
     bool is_fed_cm_authz_enabled_;
+    bool is_fed_cm_auto_selected_flag_enabled_;
     bool is_fed_cm_error_enabled_;
     bool is_fed_cm_hosted_domain_enabled_;
-    bool is_fed_cm_identity_credential_auto_selected_flag_enabled_;
     bool is_fed_cm_id_p_registration_enabled_;
     bool is_fed_cm_idp_signin_status_enabled_;
     bool is_fed_cm_idp_signout_enabled_;
@@ -402,6 +402,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_installed_app_enabled_;
     bool is_interoperable_private_attribution_enabled_;
     bool is_interrupt_composed_scrollbar_disappearance_enabled_;
+    bool is_intersection_observer_ignore_filters_enabled_;
     bool is_intersection_observer_scroll_margin_enabled_;
     bool is_intersection_optimization_enabled_;
     bool is_inverted_colors_enabled_;
@@ -2239,6 +2240,14 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
 
   static bool FedCmAuthzEnabled(const FeatureContext*) { return FedCmAuthzEnabled(); }
 
+  static bool FedCmAutoSelectedFlagEnabled() {
+    if (!FedCmEnabled())
+      return false;
+    return is_fed_cm_auto_selected_flag_enabled_;
+  }
+
+  static bool FedCmAutoSelectedFlagEnabled(const FeatureContext*) { return FedCmAutoSelectedFlagEnabled(); }
+
   static bool FedCmErrorEnabled() {
     if (!FedCmEnabled())
       return false;
@@ -2254,14 +2263,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool FedCmHostedDomainEnabled(const FeatureContext*) { return FedCmHostedDomainEnabled(); }
-
-  static bool FedCmIdentityCredentialAutoSelectedFlagEnabled() {
-    if (!FedCmEnabled())
-      return false;
-    return is_fed_cm_identity_credential_auto_selected_flag_enabled_;
-  }
-
-  static bool FedCmIdentityCredentialAutoSelectedFlagEnabled(const FeatureContext*) { return FedCmIdentityCredentialAutoSelectedFlagEnabled(); }
 
   static bool FedCmIdPRegistrationEnabled() {
     if (!FedCmEnabled())
@@ -2780,6 +2781,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool InterruptComposedScrollbarDisappearanceEnabled(const FeatureContext*) { return InterruptComposedScrollbarDisappearanceEnabled(); }
+
+  static bool IntersectionObserverIgnoreFiltersEnabled() {
+    return is_intersection_observer_ignore_filters_enabled_;
+  }
+
+  static bool IntersectionObserverIgnoreFiltersEnabled(const FeatureContext*) { return IntersectionObserverIgnoreFiltersEnabled(); }
 
   static bool IntersectionObserverScrollMarginEnabled() {
     return is_intersection_observer_scroll_margin_enabled_;
@@ -5304,9 +5311,9 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetFastPositionIteratorEnabled(bool enabled) { is_fast_position_iterator_enabled_ = enabled; }
   static void SetFedCmEnabled(bool enabled) { is_fed_cm_enabled_ = enabled; }
   static void SetFedCmAuthzEnabled(bool enabled) { is_fed_cm_authz_enabled_ = enabled; }
+  static void SetFedCmAutoSelectedFlagEnabled(bool enabled) { is_fed_cm_auto_selected_flag_enabled_ = enabled; }
   static void SetFedCmErrorEnabled(bool enabled) { is_fed_cm_error_enabled_ = enabled; }
   static void SetFedCmHostedDomainEnabled(bool enabled) { is_fed_cm_hosted_domain_enabled_ = enabled; }
-  static void SetFedCmIdentityCredentialAutoSelectedFlagEnabled(bool enabled) { is_fed_cm_identity_credential_auto_selected_flag_enabled_ = enabled; }
   static void SetFedCmIdPRegistrationEnabled(bool enabled) { is_fed_cm_id_p_registration_enabled_ = enabled; }
   static void SetFedCmIdpSigninStatusEnabled(bool enabled) { is_fed_cm_idp_signin_status_enabled_ = enabled; }
   static void SetFedCmIdpSignoutEnabled(bool enabled) { is_fed_cm_idp_signout_enabled_ = enabled; }
@@ -5399,6 +5406,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetInstalledAppEnabled(bool enabled) { is_installed_app_enabled_ = enabled; }
   static void SetInteroperablePrivateAttributionEnabled(bool enabled) { is_interoperable_private_attribution_enabled_ = enabled; }
   static void SetInterruptComposedScrollbarDisappearanceEnabled(bool enabled) { is_interrupt_composed_scrollbar_disappearance_enabled_ = enabled; }
+  static void SetIntersectionObserverIgnoreFiltersEnabled(bool enabled) { is_intersection_observer_ignore_filters_enabled_ = enabled; }
   static void SetIntersectionObserverScrollMarginEnabled(bool enabled) { is_intersection_observer_scroll_margin_enabled_ = enabled; }
   static void SetIntersectionOptimizationEnabled(bool enabled) { is_intersection_optimization_enabled_ = enabled; }
   static void SetInvertedColorsEnabled(bool enabled) { is_inverted_colors_enabled_ = enabled; }
@@ -6048,9 +6056,9 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_fast_position_iterator_enabled_;
   static bool is_fed_cm_enabled_;
   static bool is_fed_cm_authz_enabled_;
+  static bool is_fed_cm_auto_selected_flag_enabled_;
   static bool is_fed_cm_error_enabled_;
   static bool is_fed_cm_hosted_domain_enabled_;
-  static bool is_fed_cm_identity_credential_auto_selected_flag_enabled_;
   static bool is_fed_cm_id_p_registration_enabled_;
   static bool is_fed_cm_idp_signin_status_enabled_;
   static bool is_fed_cm_idp_signout_enabled_;
@@ -6143,6 +6151,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_installed_app_enabled_;
   static bool is_interoperable_private_attribution_enabled_;
   static bool is_interrupt_composed_scrollbar_disappearance_enabled_;
+  static bool is_intersection_observer_ignore_filters_enabled_;
   static bool is_intersection_observer_scroll_margin_enabled_;
   static bool is_intersection_optimization_enabled_;
   static bool is_inverted_colors_enabled_;

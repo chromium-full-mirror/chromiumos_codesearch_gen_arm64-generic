@@ -841,14 +841,14 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool fedCmAuthzEnabled() {
     return RuntimeEnabledFeatures::FedCmAuthzEnabled();
   }
+  bool fedCmAutoSelectedFlagEnabled() {
+    return RuntimeEnabledFeatures::FedCmAutoSelectedFlagEnabled();
+  }
   bool fedCmErrorEnabled() {
     return RuntimeEnabledFeatures::FedCmErrorEnabled();
   }
   bool fedCmHostedDomainEnabled() {
     return RuntimeEnabledFeatures::FedCmHostedDomainEnabled();
-  }
-  bool fedCmIdentityCredentialAutoSelectedFlagEnabled() {
-    return RuntimeEnabledFeatures::FedCmIdentityCredentialAutoSelectedFlagEnabled();
   }
   bool fedCmIdPRegistrationEnabled() {
     return RuntimeEnabledFeatures::FedCmIdPRegistrationEnabled();
@@ -1125,6 +1125,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool interruptComposedScrollbarDisappearanceEnabled() {
     return RuntimeEnabledFeatures::InterruptComposedScrollbarDisappearanceEnabled();
+  }
+  bool intersectionObserverIgnoreFiltersEnabled() {
+    return RuntimeEnabledFeatures::IntersectionObserverIgnoreFiltersEnabled();
   }
   bool intersectionObserverScrollMarginEnabled() {
     return RuntimeEnabledFeatures::IntersectionObserverScrollMarginEnabled();

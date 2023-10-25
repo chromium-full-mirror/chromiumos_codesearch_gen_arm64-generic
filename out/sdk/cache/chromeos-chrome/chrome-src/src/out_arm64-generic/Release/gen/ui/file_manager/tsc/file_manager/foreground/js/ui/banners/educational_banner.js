@@ -7,6 +7,7 @@
  * @suppress {checkTypes}
  */
 import 'chrome://resources/cros_components/button/button.js';
+import { isCrosComponentsEnabled } from '../../../../common/js/flags.js';
 import { util } from '../../../../common/js/util.js';
 import { getTemplate } from './educational_banner.html.js';
 import { Banner, BannerEvent, DismissedForeverEventSource } from './types.js';
@@ -91,8 +92,7 @@ export class EducationalBanner extends Banner {
         // the overridden dismiss button first and fall back to the default button
         // if no overridden button.
         const overridenDismissButton = this.querySelector('[slot="dismiss-button"]');
-        const defaultDismissButton = this.shadowRoot.querySelector(util.isCrosComponentsEnabled() ? '#dismiss-button' :
-            '#dismiss-button-old');
+        const defaultDismissButton = this.shadowRoot.querySelector(isCrosComponentsEnabled() ? '#dismiss-button' : '#dismiss-button-old');
         if (overridenDismissButton) {
             overridenDismissButton.addEventListener('click', (event) => this.onDismissClickHandler_(event, DismissedForeverEventSource.OVERRIDEN_DISMISS_BUTTON));
         }

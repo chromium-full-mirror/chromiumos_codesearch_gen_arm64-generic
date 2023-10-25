@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform2",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/crosh-0.24.52-r3158/work/crosh-0.24.52"
-    }
-  ]
-}

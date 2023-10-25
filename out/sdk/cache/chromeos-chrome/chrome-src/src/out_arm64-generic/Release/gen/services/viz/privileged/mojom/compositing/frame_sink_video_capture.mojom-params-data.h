@@ -72,23 +72,23 @@ class  FrameSinkVideoConsumer_OnFrameCaptured_Params_Data {
 };
 static_assert(sizeof(FrameSinkVideoConsumer_OnFrameCaptured_Params_Data) == 48,
               "Bad sizeof(FrameSinkVideoConsumer_OnFrameCaptured_Params_Data)");
-class  FrameSinkVideoConsumer_OnNewCropVersion_Params_Data {
+class  FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint32_t crop_version;
+  uint32_t sub_capture_target_version;
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<FrameSinkVideoConsumer_OnNewCropVersion_Params_Data>;
+  friend class mojo::internal::MessageFragment<FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data>;
 
-  FrameSinkVideoConsumer_OnNewCropVersion_Params_Data();
-  ~FrameSinkVideoConsumer_OnNewCropVersion_Params_Data() = delete;
+  FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data();
+  ~FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data() = delete;
 };
-static_assert(sizeof(FrameSinkVideoConsumer_OnNewCropVersion_Params_Data) == 16,
-              "Bad sizeof(FrameSinkVideoConsumer_OnNewCropVersion_Params_Data)");
+static_assert(sizeof(FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data) == 16,
+              "Bad sizeof(FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data)");
 class  FrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -227,7 +227,7 @@ class  FrameSinkVideoCapturer_ChangeTarget_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::VideoCaptureTarget_Data> target;
-  uint32_t crop_version;
+  uint32_t sub_capture_target_version;
   uint8_t padfinal_[4];
 
  private:
@@ -436,21 +436,21 @@ class FrameSinkVideoConsumer_OnFrameCaptured_ParamsDataView {
 };
 
 
-class FrameSinkVideoConsumer_OnNewCropVersion_ParamsDataView {
+class FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_ParamsDataView {
  public:
-  FrameSinkVideoConsumer_OnNewCropVersion_ParamsDataView() = default;
+  FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_ParamsDataView() = default;
 
-  FrameSinkVideoConsumer_OnNewCropVersion_ParamsDataView(
-      internal::FrameSinkVideoConsumer_OnNewCropVersion_Params_Data* data,
+  FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_ParamsDataView(
+      internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  uint32_t crop_version() const {
-    return data_->crop_version;
+  uint32_t sub_capture_target_version() const {
+    return data_->sub_capture_target_version;
   }
  private:
-  internal::FrameSinkVideoConsumer_OnNewCropVersion_Params_Data* data_ = nullptr;
+  internal::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data* data_ = nullptr;
 };
 
 
@@ -674,8 +674,8 @@ static_assert(
     return mojo::internal::Deserialize<::viz::mojom::VideoCaptureTargetDataView>(
         pointer, output, message_);
   }
-  uint32_t crop_version() const {
-    return data_->crop_version;
+  uint32_t sub_capture_target_version() const {
+    return data_->sub_capture_target_version;
   }
  private:
   internal::FrameSinkVideoCapturer_ChangeTarget_Params_Data* data_ = nullptr;

@@ -2294,6 +2294,18 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(13054846304569977294),
+      {
+        Cookies_FirstPartyPartitionedInCrossSiteContext::kEntryName,
+        {
+          
+    {Cookies_FirstPartyPartitionedInCrossSiteContext::kCookiePresentNameHash, Cookies_FirstPartyPartitionedInCrossSiteContext::kCookiePresentName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(988984496812825435),
       {
         CPUUsageMeasurement::kEntryName,

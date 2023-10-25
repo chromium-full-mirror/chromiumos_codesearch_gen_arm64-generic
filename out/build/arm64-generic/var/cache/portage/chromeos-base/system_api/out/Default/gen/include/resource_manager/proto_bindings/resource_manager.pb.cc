@@ -38,6 +38,7 @@ PROTOBUF_CONSTEXPR ReportBrowserProcesses_Process::ReportBrowserProcesses_Proces
     /*decltype(_impl_.pid_)*/0
   , /*decltype(_impl_.protected__)*/false
   , /*decltype(_impl_.visible_)*/false
+  , /*decltype(_impl_.focused_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ReportBrowserProcesses_ProcessDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ReportBrowserProcesses_ProcessDefaultTypeInternal()
@@ -418,12 +419,13 @@ ReportBrowserProcesses_Process::ReportBrowserProcesses_Process(const ReportBrows
       decltype(_impl_.pid_){}
     , decltype(_impl_.protected__){}
     , decltype(_impl_.visible_){}
+    , decltype(_impl_.focused_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&_impl_.pid_, &from._impl_.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.visible_) -
-    reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.visible_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.focused_) -
+    reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.focused_));
   // @@protoc_insertion_point(copy_constructor:resource_manager.ReportBrowserProcesses.Process)
 }
 
@@ -435,6 +437,7 @@ inline void ReportBrowserProcesses_Process::SharedCtor(
       decltype(_impl_.pid_){0}
     , decltype(_impl_.protected__){false}
     , decltype(_impl_.visible_){false}
+    , decltype(_impl_.focused_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -463,8 +466,8 @@ void ReportBrowserProcesses_Process::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.pid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.visible_) -
-      reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.visible_));
+      reinterpret_cast<char*>(&_impl_.focused_) -
+      reinterpret_cast<char*>(&_impl_.pid_)) + sizeof(_impl_.focused_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -494,6 +497,14 @@ const char* ReportBrowserProcesses_Process::_InternalParse(const char* ptr, ::_p
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _impl_.visible_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool focused = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.focused_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -545,6 +556,12 @@ uint8_t* ReportBrowserProcesses_Process::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_visible(), target);
   }
 
+  // bool focused = 4;
+  if (this->_internal_focused() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_focused(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -573,6 +590,11 @@ size_t ReportBrowserProcesses_Process::ByteSizeLong() const {
 
   // bool visible = 3;
   if (this->_internal_visible() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool focused = 4;
+  if (this->_internal_focused() != 0) {
     total_size += 1 + 1;
   }
 
@@ -606,6 +628,9 @@ void ReportBrowserProcesses_Process::MergeFrom(const ReportBrowserProcesses_Proc
   if (from._internal_visible() != 0) {
     _this->_internal_set_visible(from._internal_visible());
   }
+  if (from._internal_focused() != 0) {
+    _this->_internal_set_focused(from._internal_focused());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -624,8 +649,8 @@ void ReportBrowserProcesses_Process::InternalSwap(ReportBrowserProcesses_Process
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ReportBrowserProcesses_Process, _impl_.visible_)
-      + sizeof(ReportBrowserProcesses_Process::_impl_.visible_)
+      PROTOBUF_FIELD_OFFSET(ReportBrowserProcesses_Process, _impl_.focused_)
+      + sizeof(ReportBrowserProcesses_Process::_impl_.focused_)
       - PROTOBUF_FIELD_OFFSET(ReportBrowserProcesses_Process, _impl_.pid_)>(
           reinterpret_cast<char*>(&_impl_.pid_),
           reinterpret_cast<char*>(&other->_impl_.pid_));

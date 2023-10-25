@@ -12,38 +12,49 @@ const shared_js_1 = require("../../../helpers/shared.js");
     // prevent timeout bump.
     this.timeout(20_000);
     (0, shared_js_1.preloadForCodeCoverage)('performance_panel/basic.html');
-    async function getCoordinatesForEntry(entryIndex) {
+    async function getCoordinatesForEntryWithTitleAndTs(title, tsMicroSecs) {
         const perfPanel = await (0, helper_js_1.waitFor)('.vbox.panel.timeline');
-        return await perfPanel.evaluate((element, entryIndex) => {
+        return await perfPanel.evaluate((element, title, ts) => {
             const panelWidget = element;
             const panel = panelWidget.__widget;
             const mainFlameChart = panel.getFlameChart().getMainFlameChart();
-            const eventCoordinates = mainFlameChart.entryIndexToCoordinates(entryIndex);
+            const data = mainFlameChart.timelineData();
+            if (!data) {
+                throw new Error('Timeline data was not found');
+            }
+            const entryIndices = data?.entryStartTimes.map((_time, i) => i).filter(index => data.entryStartTimes[index] === (ts / 1000));
+            const matchedIndex = entryIndices.find(index => mainFlameChart.entryTitle(index) === title);
+            if (!matchedIndex) {
+                throw new Error('Match was not found');
+            }
+            const eventCoordinates = mainFlameChart.entryIndexToCoordinates(matchedIndex);
             if (!eventCoordinates) {
                 throw new Error('Coordinates were not found');
             }
             const { x, y } = eventCoordinates;
             return { x, y };
-        }, entryIndex);
+        }, title, tsMicroSecs);
     }
     it('shows the details of an entry when selected on the timeline', async () => {
-        await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=simple-js-program');
+        await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=simple-js-program&threadTracksSource=new');
         await (0, helper_js_1.waitFor)('.timeline-flamechart');
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         // Add some margin to the coordinates so that we don't click right
         // in the entry's border.
         const margin = 3;
         // Click on an entry on the timings track first.
-        const indexForTimingEntry = 10;
-        const { x: timingEntryX, y: timingEntryY } = await getCoordinatesForEntry(indexForTimingEntry);
+        const titleForTimingEntry = 'label1';
+        const timeStampForTimingEntry = 251126671072;
+        const { x: timingEntryX, y: timingEntryY } = await getCoordinatesForEntryWithTitleAndTs(titleForTimingEntry, timeStampForTimingEntry);
         await frontend.mouse.click(timingEntryX + margin, timingEntryY + margin);
         const timingTitleHandle = await (0, helper_js_1.waitFor)('.timeline-details-chip-title');
         const timingTitle = await timingTitleHandle.evaluate(element => element.innerHTML);
         chai_1.assert.isTrue(timingTitle.includes('label1'));
         // Now click on an entry on the main thread track and ensure details
         // are visible.
-        const indexForMainEntry = 19285;
-        const { x: mainEntryX, y: mainEntryY } = await getCoordinatesForEntry(indexForMainEntry);
+        const titleForMainEntry = 'Task';
+        const timeStampForMainEntry = 251126679497;
+        const { x: mainEntryX, y: mainEntryY } = await getCoordinatesForEntryWithTitleAndTs(titleForMainEntry, timeStampForMainEntry);
         await frontend.mouse.click(mainEntryX + margin, mainEntryY + margin);
         const mainEntryTitles1 = await (0, helper_js_1.waitForMany)('.timeline-details-chip-title', 2);
         let mainEntryNameHandle = mainEntryTitles1[0];
@@ -58,6 +69,40 @@ const shared_js_1 = require("../../../helpers/shared.js");
         mainEntryNameHandle = mainEntryTitles2[0];
         mainEntryName = await mainEntryNameHandle.evaluate(element => element.innerHTML);
         chai_1.assert.isTrue(mainEntryName.includes('Task'));
+    });
+    it('reveals an event\'s initiator in the flamechart', async () => {
+        await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=web-dev&threadTracksSource=new');
+        await (0, helper_js_1.waitFor)('.timeline-flamechart');
+        const { frontend } = (0, helper_js_1.getBrowserAndPages)();
+        // Add some margin to the coordinates so that we don't click right
+        // in the entry's border.
+        const margin = 3;
+        // Click on an entry that has an initiator and click the initiator link.
+        const titleForTimerFire = 'Timer Fired';
+        const timeStampForTimerFire = 1020035170393;
+        const { x: timerFireEntryX, y: timerFireEntryY } = await getCoordinatesForEntryWithTitleAndTs(titleForTimerFire, timeStampForTimerFire);
+        await frontend.mouse.click(timerFireEntryX + margin, timerFireEntryY + margin);
+        const timerFireHandle = await (0, helper_js_1.waitFor)('.timeline-details-chip-title');
+        const timerFireTitle = await timerFireHandle.evaluate(element => element.innerHTML);
+        chai_1.assert.isTrue(timerFireTitle.includes('Timer Fired'));
+        const initiatorLink = await (0, helper_js_1.waitFor)('[data-row-title="Initiator"] .timeline-details-view-row-value');
+        await initiatorLink.click();
+        // Make sure the highlighting element is on the initiator, with some
+        // margin error.
+        const titleForTimerInstall = 'Install Timer';
+        const timeStampForTimerInstall = 1020035169385;
+        const { x: timerInstallEntryX, y: timerInstallEntryY } = await getCoordinatesForEntryWithTitleAndTs(titleForTimerInstall, timeStampForTimerInstall);
+        const highlightElement = await (0, helper_js_1.waitFor)('.flame-chart-selected-element');
+        const { x: highlightX, y: highlightY } = await highlightElement.evaluate(element => {
+            const { x, y } = element.getBoundingClientRect();
+            return { x, y };
+        });
+        chai_1.assert.isTrue(highlightX <= timerInstallEntryX + margin && highlightX >= timerInstallEntryX - margin);
+        chai_1.assert.isTrue(highlightY <= timerInstallEntryY + margin && highlightY >= timerInstallEntryY - margin);
+        // Make sure the initiator details are visible.
+        const installTimerHandle = await (0, helper_js_1.waitFor)('.timeline-details-chip-title');
+        const installTimerTitle = await installTimerHandle.evaluate(element => element.innerHTML);
+        chai_1.assert.isTrue(installTimerTitle.includes('Install Timer'));
     });
 });
 //# sourceMappingURL=timeline_selection_test.js.map

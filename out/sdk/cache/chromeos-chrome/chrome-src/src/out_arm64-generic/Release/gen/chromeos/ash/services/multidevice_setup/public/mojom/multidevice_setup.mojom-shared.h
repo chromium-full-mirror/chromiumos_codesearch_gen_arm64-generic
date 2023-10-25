@@ -122,6 +122,8 @@ enum class Feature : int32_t {
   
   kInstantTethering = 1,
   
+  kMessages = 2,
+  
   kSmartLock = 3,
   
   kPhoneHub = 4,

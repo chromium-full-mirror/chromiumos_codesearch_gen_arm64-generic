@@ -35,40 +35,41 @@
 
 #include "libhwsec/structures/signature_sealed_data.h"
 
-namespace cryptohome::structure {
+namespace cryptohome {
 
-enum class ChallengeSignatureAlgorithm : int32_t {
+enum class SerializedChallengeSignatureAlgorithm : int32_t {
   kRsassaPkcs1V15Sha1 = 1,
   kRsassaPkcs1V15Sha256 = 2,
   kRsassaPkcs1V15Sha384 = 3,
   kRsassaPkcs1V15Sha512 = 4,
 };
 
-}  // namespace cryptohome::structure
+}  // namespace cryptohome
 
-namespace cryptohome::structure {
+namespace cryptohome {
 
-struct ChallengePublicKeyInfo {
+struct SerializedChallengePublicKeyInfo {
   brillo::Blob public_key_spki_der;
-  std::vector<::cryptohome::structure::ChallengeSignatureAlgorithm>
+  std::vector<::cryptohome::SerializedChallengeSignatureAlgorithm>
       signature_algorithm;
 };
 
-}  // namespace cryptohome::structure
+}  // namespace cryptohome
 
-namespace cryptohome::structure {
+namespace cryptohome {
 
-struct SignatureChallengeInfo {
+struct SerializedSignatureChallengeInfo {
   std::optional<brillo::Blob> Serialize() const;
-  static std::optional<SignatureChallengeInfo> Deserialize(const brillo::Blob&);
+  static std::optional<SerializedSignatureChallengeInfo> Deserialize(
+      const brillo::Blob&);
 
   brillo::Blob public_key_spki_der;
   ::hwsec::SignatureSealedData sealed_secret;
   brillo::Blob salt;
-  std::optional<::cryptohome::structure::ChallengeSignatureAlgorithm>
+  std::optional<::cryptohome::SerializedChallengeSignatureAlgorithm>
       salt_signature_algorithm;
 };
 
-}  // namespace cryptohome::structure
+}  // namespace cryptohome
 
 #endif  // CRYPTOHOME_FLATBUFFER_SCHEMAS_STRUCTURES_STRUCTURES_H_

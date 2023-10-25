@@ -311,19 +311,6 @@ class NoMetricsEvent final : public ::metrics::structured::Event {
 
 }  // namespace cr_os_events
 
-namespace camera_peripheral_info {
-
-class OpenCamera final : public ::metrics::structured::Event {
- public:
-  OpenCamera();
-  ~OpenCamera() override;
-
-    OpenCamera& SetVendorId(const int64_t value);
-  OpenCamera& SetProductId(const int64_t value);
-};
-
-}  // namespace camera_peripheral_info
-
 namespace test_project_one {
 
 class TestEventOne final : public ::metrics::structured::Event {

@@ -270,8 +270,10 @@ namespace css_longhand { class MarkerMid; }
 namespace css_longhand { class MarkerStart; }
 namespace css_longhand { class Mask; }
 namespace css_longhand { class MaskClip; }
+namespace css_longhand { class MaskComposite; }
 namespace css_longhand { class MaskImage; }
 namespace css_longhand { class MaskOrigin; }
+namespace css_longhand { class MaskRepeat; }
 namespace css_longhand { class MaskSize; }
 namespace css_longhand { class MaskType; }
 namespace css_longhand { class MathDepth; }
@@ -606,8 +608,10 @@ namespace css_shorthand { class WhiteSpace; }
 namespace css_longhand { class WebkitAppearance; }
 namespace css_longhand { class WebkitAppRegion; }
 namespace css_longhand { class WebkitAlternativeMaskClip; }
+namespace css_longhand { class WebkitAlternativeMaskComposite; }
 namespace css_longhand { class WebkitAlternativeMaskImage; }
 namespace css_longhand { class WebkitAlternativeMaskOrigin; }
+namespace css_longhand { class WebkitAlternativeMaskRepeat; }
 namespace css_longhand { class WebkitAlternativeMaskSize; }
 namespace css_longhand { class WebkitBorderEndColor; }
 namespace css_longhand { class WebkitBorderEndStyle; }
@@ -2003,6 +2007,11 @@ GetCSSPropertyMaskClip() {
   return *reinterpret_cast<const css_longhand::MaskClip *>(
       GetPropertyInternal(CSSPropertyID::kMaskClip));
 }
+inline const css_longhand::MaskComposite&
+GetCSSPropertyMaskComposite() {
+  return *reinterpret_cast<const css_longhand::MaskComposite *>(
+      GetPropertyInternal(CSSPropertyID::kMaskComposite));
+}
 inline const css_longhand::MaskImage&
 GetCSSPropertyMaskImage() {
   return *reinterpret_cast<const css_longhand::MaskImage *>(
@@ -2012,6 +2021,11 @@ inline const css_longhand::MaskOrigin&
 GetCSSPropertyMaskOrigin() {
   return *reinterpret_cast<const css_longhand::MaskOrigin *>(
       GetPropertyInternal(CSSPropertyID::kMaskOrigin));
+}
+inline const css_longhand::MaskRepeat&
+GetCSSPropertyMaskRepeat() {
+  return *reinterpret_cast<const css_longhand::MaskRepeat *>(
+      GetPropertyInternal(CSSPropertyID::kMaskRepeat));
 }
 inline const css_longhand::MaskSize&
 GetCSSPropertyMaskSize() {

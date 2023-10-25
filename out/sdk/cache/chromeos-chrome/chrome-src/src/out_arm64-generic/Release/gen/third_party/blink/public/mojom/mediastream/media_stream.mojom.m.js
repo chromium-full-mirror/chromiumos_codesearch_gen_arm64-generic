@@ -33,6 +33,11 @@ import {
   UnguessableTokenSpec as mojoBase_mojom_UnguessableTokenSpec
 } from '../../../../../mojo/public/mojom/base/unguessable_token.mojom.m.js';
 
+import {
+  SubCaptureTargetType as blink_mojom_SubCaptureTargetType,
+  SubCaptureTargetTypeSpec as blink_mojom_SubCaptureTargetTypeSpec
+} from './media_devices.mojom.m.js';
+
 
 /**
  * @const { {$: !mojo.internal.MojomType} }
@@ -587,14 +592,15 @@ export class MediaStreamDispatcherHostInterface {
   
   /**
    * @param { !mojoBase_mojom_UnguessableToken } deviceId
-   * @param { !mojoBase_mojom_Token } cropId
-   * @param { !number } cropVersion
+   * @param { !blink_mojom_SubCaptureTargetType } type
+   * @param { !mojoBase_mojom_Token } subCaptureTarget
+   * @param { !number } subCaptureTargetVersion
    * @return {!Promise<{
         result: !media_mojom_ApplySubCaptureTargetResult,
    *  }>}
    */
 
-  crop(deviceId, cropId, cropVersion) {}
+  applySubCaptureTarget(deviceId, type, subCaptureTarget, subCaptureTargetVersion) {}
   
   /**
    * @param { !number } requestId
@@ -811,25 +817,28 @@ export class MediaStreamDispatcherHostRemote {
   
   /**
    * @param { !mojoBase_mojom_UnguessableToken } deviceId
-   * @param { !mojoBase_mojom_Token } cropId
-   * @param { !number } cropVersion
+   * @param { !blink_mojom_SubCaptureTargetType } type
+   * @param { !mojoBase_mojom_Token } subCaptureTarget
+   * @param { !number } subCaptureTargetVersion
    * @return {!Promise<{
         result: !media_mojom_ApplySubCaptureTargetResult,
    *  }>}
    */
 
-  crop(
+  applySubCaptureTarget(
       deviceId,
-      cropId,
-      cropVersion) {
+      type,
+      subCaptureTarget,
+      subCaptureTargetVersion) {
     return this.proxy.sendMessage(
         8,
-        MediaStreamDispatcherHost_Crop_ParamsSpec.$,
-        MediaStreamDispatcherHost_Crop_ResponseParamsSpec.$,
+        MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec.$,
+        MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec.$,
         [
           deviceId,
-          cropId,
-          cropVersion
+          type,
+          subCaptureTarget,
+          subCaptureTargetVersion
         ]);
   }
 
@@ -944,9 +953,9 @@ export class MediaStreamDispatcherHostReceiver {
         impl.onStreamStarted.bind(impl));
     this.helper_internal_.registerHandler(
         8,
-        MediaStreamDispatcherHost_Crop_ParamsSpec.$,
-        MediaStreamDispatcherHost_Crop_ResponseParamsSpec.$,
-        impl.crop.bind(impl));
+        MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec.$,
+        MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec.$,
+        impl.applySubCaptureTarget.bind(impl));
     this.helper_internal_.registerHandler(
         9,
         MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
@@ -1102,15 +1111,15 @@ export class MediaStreamDispatcherHostCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.crop =
+    this.applySubCaptureTarget =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         8,
-        MediaStreamDispatcherHost_Crop_ParamsSpec.$,
-        MediaStreamDispatcherHost_Crop_ResponseParamsSpec.$,
-        this.crop.createReceiverHandler(true /* expectsResponse */));
+        MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec.$,
+        MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec.$,
+        this.applySubCaptureTarget.createReceiverHandler(true /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -1496,13 +1505,13 @@ export const MediaStreamDispatcherHost_OnStreamStarted_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const MediaStreamDispatcherHost_Crop_ParamsSpec =
+export const MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const MediaStreamDispatcherHost_Crop_ResponseParamsSpec =
+export const MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -2643,8 +2652,8 @@ export class MediaStreamDispatcherHost_OnStreamStarted_Params {
 
 
 mojo.internal.Struct(
-    MediaStreamDispatcherHost_Crop_ParamsSpec.$,
-    'MediaStreamDispatcherHost_Crop_Params',
+    MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec.$,
+    'MediaStreamDispatcherHost_ApplySubCaptureTarget_Params',
     [
       mojo.internal.StructField(
         'deviceId', 0,
@@ -2655,7 +2664,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'cropId', 8,
+        'type', 8,
+        0,
+        blink_mojom_SubCaptureTargetTypeSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'subCaptureTarget', 16,
         0,
         mojoBase_mojom_TokenSpec.$,
         null,
@@ -2663,7 +2680,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'cropVersion', 16,
+        'subCaptureTargetVersion', 12,
         0,
         mojo.internal.Uint32,
         0,
@@ -2678,22 +2695,24 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class MediaStreamDispatcherHost_Crop_Params {
+export class MediaStreamDispatcherHost_ApplySubCaptureTarget_Params {
   constructor() {
     /** @type { !mojoBase_mojom_UnguessableToken } */
     this.deviceId;
+    /** @type { !blink_mojom_SubCaptureTargetType } */
+    this.type;
     /** @type { !mojoBase_mojom_Token } */
-    this.cropId;
+    this.subCaptureTarget;
     /** @type { !number } */
-    this.cropVersion;
+    this.subCaptureTargetVersion;
   }
 }
 
 
 
 mojo.internal.Struct(
-    MediaStreamDispatcherHost_Crop_ResponseParamsSpec.$,
-    'MediaStreamDispatcherHost_Crop_ResponseParams',
+    MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec.$,
+    'MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams',
     [
       mojo.internal.StructField(
         'result', 0,
@@ -2711,7 +2730,7 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class MediaStreamDispatcherHost_Crop_ResponseParams {
+export class MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams {
   constructor() {
     /** @type { !media_mojom_ApplySubCaptureTargetResult } */
     this.result;

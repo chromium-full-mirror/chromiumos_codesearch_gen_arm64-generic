@@ -98,6 +98,10 @@ NOINLINE static const char* SourceRegistrationErrorToStringHelper(SourceRegistra
       return "kEventReportWindowsEndTimeDurationLTEStart";
     case SourceRegistrationError::kBothEventReportWindowFieldsFound:
       return "kBothEventReportWindowFieldsFound";
+    case SourceRegistrationError::kTriggerDataMatchingWrongType:
+      return "kTriggerDataMatchingWrongType";
+    case SourceRegistrationError::kTriggerDataMatchingUnknownValue:
+      return "kTriggerDataMatchingUnknownValue";
     default:
       return nullptr;
   }

@@ -30,7 +30,8 @@
     669,
     822,
     872,
-    1040
+    1040,
+    1156
   ],
   "device_policy_proto_map": {
     "AllowKioskAppControlChromeVersion": "allow_kiosk_app_control_chrome_version.allow_kiosk_app_control_chrome_version",
@@ -81,6 +82,7 @@
     "DeviceExternalPrintServers": "external_print_servers.external_policy",
     "DeviceExternalPrintServersAllowlist": "external_print_servers_allowlist.allowlist",
     "DeviceFamilyLinkAccountsAllowed": "family_link_accounts_allowed.family_link_accounts_allowed",
+    "DeviceFlexHwDataForProductImprovementEnabled": "device_flex_hw_data_for_product_improvement_enabled.enabled",
     "DeviceGpoCacheLifetime": "device_gpo_cache_lifetime.lifetime_hours",
     "DeviceGuestModeEnabled": "guest_mode_enabled.guest_mode_enabled",
     "DeviceHindiInscriptLayoutEnabled": "device_hindi_inscript_layout_enabled.enabled",
@@ -259,7 +261,7 @@
     "VirtualMachinesAllowed": "virtual_machines_allowed.virtual_machines_allowed"
   },
   "highest_atomic_group_id_currently_used": 49,
-  "highest_id_currently_used": 1170,
+  "highest_id_currently_used": 1176,
   "legacy_device_policy_proto_map": [
     [
       "",
@@ -6342,6 +6344,45 @@
       "type": "main"
     },
     {
+      "caption": "Enable <ph name=\"ZSTANDARD_SHORTNAME\">zstd</ph> content-encoding support",
+      "default": true,
+      "desc": "This feature enables the use of \"zstd\" in the Accept-Encoding request header,\nand support for decompressing\n<ph name=\"ZSTANDARD_SHORTNAME\">zstd</ph>-compressed web content.\n\nSetting the policy to Enabled or leaving it unset means\n<ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> will accept web contents\ncompressed with <ph name=\"ZSTANDARD_SHORTNAME\">zstd</ph>.\nSetting the policy to Disabled turns off the\n<ph name=\"ZSTANDARD_SHORTNAME\">zstd</ph> content-encoding feature.\n\nThis policy is intended to be temporary and will be removed in the future.",
+      "example_value": true,
+      "features": {
+        "dynamic_refresh": false,
+        "per_profile": false
+      },
+      "future_on": [
+        "fuchsia"
+      ],
+      "id": 1171,
+      "items": [
+        {
+          "caption": "Enable advertising <ph name=\"ZSTANDARD_SHORTNAME\">zstd</ph> content-encoding in the Accept-Encoding header",
+          "value": true
+        },
+        {
+          "caption": "Do not allow using the <ph name=\"ZSTANDARD_SHORTNAME\">zstd</ph> content-encoding feature",
+          "value": false
+        }
+      ],
+      "name": "ZstdContentEncodingEnabled",
+      "owners": [
+        "nidhijaju@chromium.org",
+        "file://net/OWNERS"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "supported_on": [
+        "android:119-",
+        "chrome.*:119-",
+        "chrome_os:119-"
+      ],
+      "tags": [],
+      "type": "main"
+    },
+    {
       "caption": "Enable throttling network bandwidth",
       "desc": "Setting the policy turns network throttling on or off. This means that the system is throttled to achieve the provided upload and download rates (in kbits/s). It applies to all users and interfaces on the device.",
       "device_only": true,
@@ -6390,6 +6431,43 @@
       ],
       "tags": [],
       "type": "dict"
+    },
+    {
+      "caption": "Enable IPv6 reachability check override",
+      "default": false,
+      "desc": "Setting the policy to true overrides the IPv6 reachability check. This means that the\nsystem will always query AAAA records when resolving host names. It applies to\nall users and interfaces on the device.\n\nSetting the policy to false or leaving it unset does not overrides the IPv6 reachability check.\nThe system only queries AAAA records when it is reachable to a global IPv6 host.",
+      "example_value": true,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "id": 1172,
+      "items": [
+        {
+          "caption": "Override the IPv6 reachability check. Always query AAAA record for host name resolution.",
+          "value": true
+        },
+        {
+          "caption": "Do not override the IPv6 reachability check. Only query AAAA record for host name resolution when the device is reachable to a global IPv6 host.",
+          "value": false
+        }
+      ],
+      "name": "IPv6ReachabilityOverrideEnabled",
+      "owners": [
+        "bashi@chromium.org",
+        "file://net/OWNERS"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "supported_on": [
+        "android:120-",
+        "chrome.*:120-",
+        "chrome_os:120-",
+        "fuchsia:120-"
+      ],
+      "tags": [],
+      "type": "main"
     },
     {
       "caption": "Block truncated cookies",
@@ -20939,6 +21017,43 @@
       "type": "main"
     },
     {
+      "caption": "Send hardware data to Google to support improvements to ChromeOS Flex",
+      "default": true,
+      "desc": "Allows some services on <ph name=\"PRODUCT_OS_FLEX_NAME\">Google ChromeOS Flex</ph> to send additional hardware data.\n\nThis hardware data is used for overall improvements to <ph name=\"PRODUCT_OS_FLEX_NAME\">Google ChromeOS Flex</ph>.\nFor example, we might analyze the impact of a crash based on CPU,\nor prioritize a bugfix based on how many devices share a component.\n\nIf the policy is Enabled or left unset, additional hardware details\nwill be sent from <ph name=\"PRODUCT_OS_FLEX_NAME\">Google ChromeOS Flex</ph>\ndevices.\nIf Disabled, only standard hardware data will be sent.",
+      "device_only": true,
+      "example_value": true,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "id": 1175,
+      "items": [
+        {
+          "caption": "Send additional hardware data on ChromeOS Flex",
+          "value": true
+        },
+        {
+          "caption": "Do not send additional hardware data on ChromeOS Flex",
+          "value": false
+        }
+      ],
+      "name": "DeviceFlexHwDataForProductImprovementEnabled",
+      "owners": [
+        "tbrandston@google.com",
+        "chromeos-flex-eng@google.com"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "supported_on": [
+        "chrome_os:120-"
+      ],
+      "tags": [
+        "google-sharing"
+      ],
+      "type": "main"
+    },
+    {
       "arc_support": "This policy has no effect on the logging done by Android.",
       "caption": "Report extended detection and response (XDR) events",
       "default": false,
@@ -24581,8 +24696,10 @@
     {
       "caption": "Restricts accounts that can use the <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> integration",
       "default": null,
-      "desc": "This policy allows admins to restrict which accounts are allowed to sign-in for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> when the <ph name=\"MICROSOFT_ONE_DRIVE_MOUNT_POLICY_NAME\">MicrosoftOneDriveMount</ph> is enabled.\n\nIf this policy is unset or set to an empty value, any account can be used to sign-in.\n\nIf this policy is set to a domain name or tenant ID (see https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-protocols#endpoints), only accounts from that domain name or tenant ID can be used to sign-in.\n\nChanging the restriction might lead to users being signed out of their <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> account if it does not adhere to the new restriction.",
-      "example_value": "domain.com",
+      "desc": "This policy allows admins to restrict which accounts are allowed to sign-in for <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> when the <ph name=\"MICROSOFT_ONE_DRIVE_MOUNT_POLICY_NAME\">MicrosoftOneDriveMount</ph> is enabled.\n\nIf this policy contains a value of '<ph name=\"COMMON_NAME\">common</ph>', any account can be used to sign-in.\n\nIf this policy contains a value of '<ph name=\"ORGANIZATIONS_NAME\">organizations</ph>', work or school accounts can be used to sign-in.\n\nIf this policy contains a value of '<ph name=\"CONSUMER_NAME\">consumer</ph>', personal <ph name=\"MICROSOFT_NAME\">Microsoft</ph> accounts can be used to sign-in.\n\nIf this policy contains domain names or tenant IDs, accounts from these domain names or tenant IDs (see https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-protocols#endpoints) can be used to sign-in.\n\nIf this policy is unset or only contains an empty value, it behaves as if '<ph name=\"ORGANIZATIONS_NAME\">organizations</ph>' was specified.\n\nChanging the restriction might lead to users being signed out of their <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph> account if it does not adhere to the new restriction.",
+      "example_value": [
+        "domain.com"
+      ],
       "features": {
         "dynamic_refresh": true,
         "per_profile": false
@@ -24590,18 +24707,21 @@
       "future_on": [
         "chrome_os"
       ],
-      "id": 1156,
-      "name": "MicrosoftOneDriveAccountRestriction",
+      "id": 1174,
+      "name": "MicrosoftOneDriveAccountRestrictions",
       "owners": [
-        "hendrich@chromium.org",
+        "lmasopust@chromium.org",
         "file://chrome/browser/chromeos/enterprise/cloud_storage/OWNERS",
         "cros-commercial-clippy-eng@google.com"
       ],
       "schema": {
-        "type": "string"
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
       },
       "tags": [],
-      "type": "string"
+      "type": "list"
     },
     {
       "caption": "Configures the mounting of <ph name=\"MICROSOFT_ONE_DRIVE_NAME\">Microsoft OneDrive</ph>",
@@ -25534,6 +25654,50 @@
       ],
       "tags": [],
       "type": "main"
+    },
+    {
+      "caption": "Allow low level debug data in user feedback",
+      "desc": "Setting this policy to a list of device types allows low level debug data from the mentioned device types to be included in user feedback.\n\n      The special entry \"all\" includes all device types, including device types to be added in the future.\n\n      If the policy is unset or set to an empty list, no low level debug data is attached to the user feedback.\n      See the description of each device type for the specific type of low level debug data.",
+      "example_value": [
+        "wifi"
+      ],
+      "features": {
+        "dynamic_refresh": true,
+        "internal_only": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1173,
+      "items": [
+        {
+          "caption": "Allow users to include low level debug data from all device types available below in user feedback",
+          "name": "all",
+          "value": "all"
+        },
+        {
+          "caption": "Allow users to include WiFi firmware dump in user feedback",
+          "name": "wifi",
+          "value": "wifi"
+        }
+      ],
+      "name": "UserFeedbackWithLowLevelDebugDataAllowed",
+      "owners": [
+        "chromeos-wifi-champs@google.com",
+        "file://components/policy/OWNERS"
+      ],
+      "schema": {
+        "items": {
+          "enum": [
+            "wifi"
+          ],
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "tags": [],
+      "type": "string-enum-list"
     },
     {
       "caption": "Specify VM CLI permission",
@@ -28486,6 +28650,64 @@
       "type": "main"
     },
     {
+      "caption": "Site search settings",
+      "desc": "This policy provides a list of site searches where the user can search on a specific site. Users can initiate the search by typing the shortcut or @shortcut (e.g. @work) in the address bar.\n\nThe following fields are required for each entry: name, shortcut, url. Shortcuts in the list must be unique and must not contain spaces. Prepending @ to a shortcut is optional, so the resulting shortcut is considered the same as the shortcut without the @; for example \"work\" and \"@work\" are considered the same shortcut.\n\nFor each entry, the url field specifies the URL of the search engine used during a search with the corresponding keyword. The URL must include the string <ph name=\"SEARCH_TERM_MARKER\">\u2018{searchTerms}\u2019</ph>, replaced in the query by the user's search terms. Invalid entries and entries with duplicate shortcuts are ignored.\n\nSite search entries configured as featured are displayed in the address bar when the user types \"@\". Up to three entries can be selected as featured.\n\nUsers cannot edit or disable site search entries set by policy, but they can add new shortcuts for the same URL. In addition, users cannot create new site search entries with a shortcut previously created via policy.\n\nIn case of conflict with a shortcut previously created by the user, the user setting is respected. However, users can still trigger the option created by policy by typing \"@\" in the search bar. For example, if the user already defined \"work\" as a shortcut to URL1 and the policy defines \"work\" as a shortcut to URL2, then typing \"work\" in the search bar will trigger a search to URL1, but typing \"@work\" in the search bar will trigger a search to URL2.",
+      "example_value": [
+        {
+          "featured": true,
+          "name": "Google Wikipedia",
+          "shortcut": "wikipedia",
+          "url": "https://www.google.com/search?q=site%3Awikipedia.com+%s"
+        },
+        {
+          "name": "YouTube",
+          "shortcut": "youtube",
+          "url": "https://www.youtube.com/results?search_query=%s"
+        }
+      ],
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "future_on": [
+        "chrome.*",
+        "chrome_os"
+      ],
+      "id": 1176,
+      "name": "SiteSearchSettings",
+      "owners": [
+        "ftirelo@chromium.org",
+        "pastarmovj@chromium.org"
+      ],
+      "schema": {
+        "items": {
+          "properties": {
+            "featured": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "shortcut": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "shortcut",
+            "name",
+            "url"
+          ],
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "tags": [],
+      "type": "dict"
+    },
+    {
       "caption": "Configure list of force-installed Web Apps",
       "desc": "Setting the policy specifies a list of web apps that install silently, without user interaction, and which users can't uninstall or turn off.\n\n      Each list item of the policy is an object with a mandatory member:\n      <ph name=\"URL_LABEL\">url</ph> (the URL of the web app to install)\n\n      and 6 optional members:\n      - <ph name=\"DEFAULT_LAUNCH_CONTAINER_LABEL\">default_launch_container</ph>\n      (for how the web app opens\u2014a new tab is the default)\n\n      - <ph name=\"CREATE_DESKTOP_SHORTCUT_LABEL\">create_desktop_shortcut</ph>\n      (True if you want to create <ph name=\"LINUX_OS_NAME\">Linux</ph> and\n      <ph name=\"MS_WIN_NAME\">Microsoft\u00ae Windows\u00ae</ph> desktop shortcuts).\n\n      - <ph name=\"FALLBACK_APP_NAME_LABEL\">fallback_app_name</ph>\n      (Starting with <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> version 90,\n      allows you to override the app name if it is not a\n      Progressive Web App (PWA), or the app name that is temporarily\n      installed if it is a PWA but authentication is required before the\n      installation can be completed. If both\n      <ph name=\"CUSTOM_NAME_LABEL\">custom_name</ph> and\n      <ph name=\"FALLBACK_APP_NAME_LABEL\">fallback_app_name</ph> are provided,\n      the latter will be ignored.)\n\n      - <ph name=\"OVERRIDE_APP_NAME_LABEL\">custom_name</ph>\n      (Starting with <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph>\n      version 99, and version 112 on all other desktop operating systems, allows you to\n      permanently override the app name for all web apps and PWAs.)\n\n      - <ph name=\"CUSTOM_ICON_LABEL\">custom_icon</ph>\n      (Starting with <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph>\n      version 99, and version 112 on all other desktop operating systems, allows you to\n      override the app icon of installed apps. The icons have to be square,\n      maximal 1 MB in size, and in one of the following formats: jpeg, png, gif, webp, ico.\n      The hash value has to be the SHA256 hash of the icon file.)\n\n      - <ph name=\"INSTALL_AS_SHORTCUT_LABEL\">install_as_shortcut</ph>\n      (Starting with <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph>\n      version 107). If enabled the given <ph name=\"URL_LABEL\">url</ph>\n      will be installed as a shortcut, as if done via the \"Create Shortcut...\"\n      option in the desktop browser GUI.\n      Note that when installed as a shortcut it won't be updated if the\n      manifest in <ph name=\"URL_LABEL\">url</ph> changes.\n      If disabled or unset, the web app at the given\n      <ph name=\"URL_LABEL\">url</ph> will be installed normally.\n\n      See <ph name=\"PINNED_LAUNCHER_APPS_POLICY_NAME\">PinnedLauncherApps</ph> for pinning apps to the <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> shelf.",
       "example_value": [
@@ -29130,7 +29352,8 @@
     },
     {
       "caption": "Enable the <ph name=\"CHROME_ENTERPRISE_DEVICE_TRUST_CONNECTOR\">Chrome Enterprise Device Trust Connector</ph> attestation flow for a list of URLs",
-      "desc": "Enable <ph name=\"CHROME_ENTERPRISE_DEVICE_TRUST_CONNECTOR\">Chrome Enterprise Device Trust Connector</ph> for a list of URLs.\n\nSetting this policy specifies for which URLs <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> will offer to start the attestation flow. The latter allows those websites to get an attested set of context-aware signals from the device.\n\nLeaving this policy unset or empty means that no website will be able to start the attestation flow nor get signals from the device.\n\nFor <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph>, this policy is related to remote attestation where a certificate is automatically generated and uploaded to the server. For usage of the attestation flow on the device's login screen, please use the <ph name=\"DEVICE_LOGIN_SCREEN_CONTEXT_AWARE_ACCESS_SIGNALS_ALLOWLIST_POLICY_NAME\">DeviceLoginScreenContextAwareAccessSignalsAllowlist</ph> policy.\n\nFor detailed information on valid <ph name=\"URL_LABEL\">URL</ph> patterns, please see https://support.google.com/chrome/a?p=url_blocklist_filter_format.",
+      "deprecated": true,
+      "desc": "This policy is deprecated and has been split into <ph name=\"BROWSER_CONTEXT_AWARE_ACCESS_SIGNALS_ALLOWLIST_POLICY_NAME\">BrowserContextAwareAccessSignalsAllowlist</ph>, <ph name=\"USER_CONTEXT_AWARE_ACCESS_SIGNALS_ALLOWLIST_POLICY_NAME\">UserContextAwareAccessSignalsAllowlist</ph> and <ph name=\"DEVICE_LOGIN_SCREEN_CONTEXT_AWARE_ACCESS_SIGNALS_ALLOWLIST_POLICY_NAME\">DeviceLoginScreenContextAwareAccessSignalsAllowlist</ph>.\n\nEnable <ph name=\"CHROME_ENTERPRISE_DEVICE_TRUST_CONNECTOR\">Chrome Enterprise Device Trust Connector</ph> for a list of URLs.\n\nSetting this policy specifies for which URLs <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> will offer to start the attestation flow. The latter allows those websites to get an attested set of context-aware signals from the device.\n\nLeaving this policy unset or empty means that no website will be able to start the attestation flow nor get signals from the device.\n\nFor <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph>, this policy is related to remote attestation where a certificate is automatically generated and uploaded to the server. For usage of the attestation flow on the device's login screen, please use the <ph name=\"DEVICE_LOGIN_SCREEN_CONTEXT_AWARE_ACCESS_SIGNALS_ALLOWLIST_POLICY_NAME\">DeviceLoginScreenContextAwareAccessSignalsAllowlist</ph> policy.\n\nFor detailed information on valid <ph name=\"URL_LABEL\">URL</ph> patterns, please see https://support.google.com/chrome/a?p=url_blocklist_filter_format.",
       "example_value": [
         "https://example1.com",
         "example2.com",
@@ -29160,10 +29383,10 @@
         "type": "array"
       },
       "supported_on": [
-        "chrome.win:108-",
-        "chrome.linux:108-",
-        "chrome.mac:109-",
-        "chrome_os:108-"
+        "chrome.win:108-120",
+        "chrome.linux:108-120",
+        "chrome.mac:109-120",
+        "chrome_os:108-120"
       ],
       "tags": [],
       "type": "list"
@@ -47852,7 +48075,9 @@
         "DeviceWiFiAllowed",
         "AccessControlAllowMethodsInCORSPreflightSpecConformant",
         "CompressionDictionaryTransportEnabled",
+        "ZstdContentEncodingEnabled",
         "NetworkThrottlingEnabled",
+        "IPv6ReachabilityOverrideEnabled",
         "BlockTruncatedCookies",
         "DeviceWiFiFastTransitionEnabled",
         "DeviceOpenNetworkConfiguration",
@@ -48488,6 +48713,7 @@
         "ReportDeviceLoginLogout",
         "ReportDeviceActivityTimes",
         "ReportDeviceBoardStatus",
+        "DeviceFlexHwDataForProductImprovementEnabled",
         "DeviceReportXDREvents",
         "ReportDeviceBluetoothInfo",
         "ReportDeviceTimezoneInfo",
@@ -48645,7 +48871,7 @@
       "policies": [
         "DriveFileSyncAvailable",
         "DriveDisabled",
-        "MicrosoftOneDriveAccountRestriction",
+        "MicrosoftOneDriveAccountRestrictions",
         "MicrosoftOneDriveMount",
         "DriveDisabledOverCellular"
       ],
@@ -48678,6 +48904,7 @@
         "AllowChromeDataInBackups",
         "GoogleSearchSidePanelEnabled",
         "DesktopSharingHubEnabled",
+        "UserFeedbackWithLowLevelDebugDataAllowed",
         "VmManagementCliAllowed",
         "DeviceSwitchFunctionKeysBehaviorEnabled",
         "GloballyScopeHTTPAuthCacheEnabled",
@@ -48756,6 +48983,7 @@
         "IncognitoEnabled",
         "EnableOnlineRevocationChecks",
         "ExtensionInstallEventLoggingEnabled",
+        "SiteSearchSettings",
         "WebAppInstallForceList",
         "BatterySaverModeAvailability",
         "ForceSafeSearch",

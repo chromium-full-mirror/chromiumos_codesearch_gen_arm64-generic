@@ -7,7 +7,7 @@ export const EventLevelResultSpec = { $: mojo.internal.Enum() };
 export var EventLevelResult;
 (function (EventLevelResult) {
     EventLevelResult[EventLevelResult["MIN_VALUE"] = 0] = "MIN_VALUE";
-    EventLevelResult[EventLevelResult["MAX_VALUE"] = 17] = "MAX_VALUE";
+    EventLevelResult[EventLevelResult["MAX_VALUE"] = 18] = "MAX_VALUE";
     EventLevelResult[EventLevelResult["kSuccess"] = 0] = "kSuccess";
     EventLevelResult[EventLevelResult["kSuccessDroppedLowerPriority"] = 1] = "kSuccessDroppedLowerPriority";
     EventLevelResult[EventLevelResult["kInternalError"] = 2] = "kInternalError";
@@ -26,4 +26,5 @@ export var EventLevelResult;
     EventLevelResult[EventLevelResult["kReportWindowPassed"] = 15] = "kReportWindowPassed";
     EventLevelResult[EventLevelResult["kNotRegistered"] = 16] = "kNotRegistered";
     EventLevelResult[EventLevelResult["kReportWindowNotStarted"] = 17] = "kReportWindowNotStarted";
+    EventLevelResult[EventLevelResult["kNoMatchingTriggerData"] = 18] = "kNoMatchingTriggerData";
 })(EventLevelResult || (EventLevelResult = {}));

@@ -711,6 +711,8 @@ struct CSSSampleId_Data {
       case 774:
       case 775:
       case 776:
+      case 777:
+      case 778:
         return true;
     }
     return false;

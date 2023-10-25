@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/screen-capture-utils"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/screen-capture-utils-0.0.1-r426/work/screen-capture-utils-0.0.1"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/screen-capture-utils-0.0.1-r428/work/screen-capture-utils-0.0.1"
 libbase_ver = "1211970"
 enable_exceptions = false
 external_cflags = [

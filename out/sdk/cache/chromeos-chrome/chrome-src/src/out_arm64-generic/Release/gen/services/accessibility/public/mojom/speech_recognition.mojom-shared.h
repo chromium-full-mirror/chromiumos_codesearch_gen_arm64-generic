@@ -33,6 +33,8 @@
 
 
 namespace ax::mojom {
+class SpeechRecognitionResultEventDataView;
+
 class StartOptionsDataView;
 
 class StopOptionsDataView;
@@ -45,6 +47,13 @@ class SpeechRecognitionStartInfoDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::ax::mojom::SpeechRecognitionResultEventDataView> {
+  using Data = ::ax::mojom::internal::SpeechRecognitionResultEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::ax::mojom::StartOptionsDataView> {
@@ -109,6 +118,35 @@ using SpeechRecognitionAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<SpeechRecognitionInterfaceBase>;
 using SpeechRecognitionAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<SpeechRecognitionInterfaceBase>;
+
+
+class SpeechRecognitionResultEventDataView {
+ public:
+  SpeechRecognitionResultEventDataView() = default;
+
+  SpeechRecognitionResultEventDataView(
+      internal::SpeechRecognitionResultEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTranscriptDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTranscript(UserType* output) {
+    
+    auto* pointer = data_->transcript.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  bool is_final() const {
+    return data_->is_final;
+  }
+ private:
+  internal::SpeechRecognitionResultEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class StartOptionsDataView {
@@ -251,6 +289,48 @@ struct Serializer<::ax::mojom::SpeechRecognitionType, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ax::mojom::SpeechRecognitionResultEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ax::mojom::SpeechRecognitionResultEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ax::mojom::internal::SpeechRecognitionResultEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::transcript(input)) in_transcript = Traits::transcript(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->transcript)::BaseType> transcript_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_transcript, transcript_fragment);
+    fragment->transcript.Set(
+        transcript_fragment.is_null() ? nullptr : transcript_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->transcript.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null transcript in SpeechRecognitionResultEvent struct");
+    fragment->is_final = Traits::is_final(input);
+  }
+
+  static bool Deserialize(::ax::mojom::internal::SpeechRecognitionResultEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ax::mojom::SpeechRecognitionResultEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ax::mojom::StartOptionsDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ax::mojom::StartOptionsDataView, UserType>;
@@ -367,6 +447,13 @@ struct Serializer<::ax::mojom::SpeechRecognitionStartInfoDataView, MaybeConstUse
 
 
 namespace ax::mojom {
+
+inline void SpeechRecognitionResultEventDataView::GetTranscriptDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->transcript.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
 
 inline void StartOptionsDataView::GetLocaleDataView(
     mojo::StringDataView* output) {

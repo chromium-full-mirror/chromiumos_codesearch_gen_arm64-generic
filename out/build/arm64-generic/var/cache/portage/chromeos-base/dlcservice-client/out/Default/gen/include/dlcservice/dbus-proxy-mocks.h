@@ -25,36 +25,6 @@ class DlcServiceInterfaceProxyMock : public DlcServiceInterfaceProxyInterface {
   DlcServiceInterfaceProxyMock& operator=(const DlcServiceInterfaceProxyMock&) = delete;
 
   MOCK_METHOD(bool,
-              InstallDlc,
-              (const std::string& /*in_id*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              InstallDlcAsync,
-              (const std::string& /*in_id*/,
-               base::OnceCallback<void()> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
-              InstallWithOmahaUrl,
-              (const std::string& /*in_id*/,
-               const std::string& /*in_omaha_url*/,
-               brillo::ErrorPtr* /*error*/,
-               int /*timeout_ms*/),
-              (override));
-  MOCK_METHOD(void,
-              InstallWithOmahaUrlAsync,
-              (const std::string& /*in_id*/,
-               const std::string& /*in_omaha_url*/,
-               base::OnceCallback<void()> /*success_callback*/,
-               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-               int /*timeout_ms*/),
-              (override));
-
-  MOCK_METHOD(bool,
               Install,
               (const dlcservice::InstallRequest& /*in_install_request*/,
                brillo::ErrorPtr* /*error*/,

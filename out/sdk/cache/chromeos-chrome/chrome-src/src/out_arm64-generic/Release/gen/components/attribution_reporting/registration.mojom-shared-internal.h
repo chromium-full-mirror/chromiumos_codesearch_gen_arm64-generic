@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "components/attribution_reporting/source_registration_time_config.mojom-shared-internal.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/int128.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "services/network/public/mojom/schemeful_site.mojom-shared-internal.h"
@@ -39,6 +40,7 @@ class AggregationKeys_Data;
 class AggregatableTriggerData_Data;
 class DestinationSet_Data;
 class EventReportWindows_Data;
+class TriggerConfig_Data;
 class SourceRegistration_Data;
 class TriggerDedupKey_Data;
 class EventTriggerData_Data;
@@ -485,6 +487,55 @@ struct EventReportWindows_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     EventReportWindows_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TriggerConfig_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t trigger_data_matching;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<TriggerConfig_Data>;
+
+  TriggerConfig_Data();
+  ~TriggerConfig_Data() = delete;
+};
+static_assert(sizeof(TriggerConfig_Data) == 16,
+              "Bad sizeof(TriggerConfig_Data)");
+// Used by TriggerConfig::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TriggerConfig_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TriggerConfig_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TriggerConfig_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TriggerConfig_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TriggerConfig_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  SourceRegistration_Data {
  public:
   static bool Validate(const void* data,
@@ -503,6 +554,7 @@ class  SourceRegistration_Data {
   mojo::internal::Pointer<internal::DebugKey_Data> debug_key;
   mojo::internal::Pointer<internal::FilterData_Data> filter_data;
   mojo::internal::Pointer<internal::AggregationKeys_Data> aggregation_keys;
+  mojo::internal::Pointer<internal::TriggerConfig_Data> trigger_config;
 
  private:
   friend class mojo::internal::MessageFragment<SourceRegistration_Data>;
@@ -510,7 +562,7 @@ class  SourceRegistration_Data {
   SourceRegistration_Data();
   ~SourceRegistration_Data() = delete;
 };
-static_assert(sizeof(SourceRegistration_Data) == 88,
+static_assert(sizeof(SourceRegistration_Data) == 96,
               "Bad sizeof(SourceRegistration_Data)");
 // Used by SourceRegistration::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

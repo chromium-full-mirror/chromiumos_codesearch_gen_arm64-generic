@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="3" failures="0" disabled="0" errors="0" time="0.009" timestamp="2023-10-25T11:33:32.232" name="AllTests">
+  <testsuite name="Features" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.003" timestamp="2023-10-25T11:33:32.237">
+    <testcase name="GetId" file="cras/platform/features/features_test.cc" line="9" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:33:32.237" classname="Features" />
+    <testcase name="Name" file="cras/platform/features/features_test.cc" line="15" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:32.239" classname="Features" />
+    <testcase name="GetByName" file="cras/platform/features/features_test.cc" line="23" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:32.240" classname="Features" />
+  </testsuite>
+</testsuites>

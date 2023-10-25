@@ -233,6 +233,9 @@ export class Destination {
     get printerStatusReason() {
         return this.printerStatusReason_;
     }
+    set printerStatusReason(printerStatusReason) {
+        this.printerStatusReason_ = printerStatusReason;
+    }
     setPrinterStatusRetryTimeoutForTesting(timeoutMs) {
         this.printerStatusRetryTimerMs_ = timeoutMs;
     }

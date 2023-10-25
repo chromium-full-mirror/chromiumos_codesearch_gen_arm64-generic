@@ -206,7 +206,7 @@ export class TextFilterUI extends Common.ObjectWrapper.ObjectWrapper {
         return this.filterElement;
     }
     value() {
-        return this.prompt.textWithCurrentSuggestion();
+        return this.prompt.text();
     }
     setValue(value) {
         this.prompt.setText(value);

@@ -351,13 +351,41 @@ EventReportWindows_Data::EventReportWindows_Data()
 
 
 // static
+bool TriggerConfig_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TriggerConfig_Data* object =
+      static_cast<const TriggerConfig_Data*>(data);
+
+
+  if (!::attribution_reporting::mojom::internal::TriggerDataMatching_Data
+        ::Validate(object->trigger_data_matching, validation_context))
+    return false;
+
+  return true;
+}
+
+TriggerConfig_Data::TriggerConfig_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool SourceRegistration_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 88, validation_context)) {
+          data, 96, validation_context)) {
     return false;
   }
 
@@ -409,6 +437,13 @@ bool SourceRegistration_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->aggregation_keys, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->trigger_config, 12, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->trigger_config, validation_context))
     return false;
 
   return true;

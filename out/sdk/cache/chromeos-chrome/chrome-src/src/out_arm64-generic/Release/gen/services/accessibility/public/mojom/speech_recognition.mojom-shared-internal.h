@@ -24,6 +24,7 @@ class ValidationContext;
 
 namespace ax::mojom {
 namespace internal {
+class SpeechRecognitionResultEvent_Data;
 class StartOptions_Data;
 class StopOptions_Data;
 class SpeechRecognitionStartInfo_Data;
@@ -53,6 +54,56 @@ struct SpeechRecognitionType_Data {
 };
 
 #pragma pack(push, 1)
+class  SpeechRecognitionResultEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> transcript;
+  uint8_t is_final : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<SpeechRecognitionResultEvent_Data>;
+
+  SpeechRecognitionResultEvent_Data();
+  ~SpeechRecognitionResultEvent_Data() = delete;
+};
+static_assert(sizeof(SpeechRecognitionResultEvent_Data) == 24,
+              "Bad sizeof(SpeechRecognitionResultEvent_Data)");
+// Used by SpeechRecognitionResultEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SpeechRecognitionResultEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SpeechRecognitionResultEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SpeechRecognitionResultEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SpeechRecognitionResultEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SpeechRecognitionResultEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  StartOptions_Data {
  public:
   static bool Validate(const void* data,

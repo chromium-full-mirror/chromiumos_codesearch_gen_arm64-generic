@@ -500,6 +500,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
                     path: `/${SYSTEM_PREFERENCES_SECTION_PATH}`,
                     icon: 'os-settings:system-preferences',
                     label: this.i18n('systemPreferencesTitle'),
+                    sublabel: this.i18n('systemPreferencesMenuItemDescription'),
                 },
                 {
                     section: Section.kAboutChromeOs,
@@ -14334,6 +14335,9 @@ class HotspotConfigDialogElement extends HotspotConfigDialogElementBase {
         }
         else if (response.result === SetHotspotConfigResult.kFailedNotLogin) {
             this.error_ = this.i18n('hotspotConfigNotLoginErrorMessage');
+        }
+        else {
+            this.error_ = this.i18n('hotspotConfigGeneralErrorMessage');
         }
     }
 }

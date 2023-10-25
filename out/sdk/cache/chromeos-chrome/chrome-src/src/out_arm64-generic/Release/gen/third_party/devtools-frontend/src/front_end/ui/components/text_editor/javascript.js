@@ -215,6 +215,7 @@ async function evaluateExpression(context, expression, group) {
         generatePreview: false,
         throwOnSideEffect: true,
         timeout: 500,
+        replMode: true,
     }, false, false);
     if ('error' in result || result.exceptionDetails || !result.object) {
         return null;

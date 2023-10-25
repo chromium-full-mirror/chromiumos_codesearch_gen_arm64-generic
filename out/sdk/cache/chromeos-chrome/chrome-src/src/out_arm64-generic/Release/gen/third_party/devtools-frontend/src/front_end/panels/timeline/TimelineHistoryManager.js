@@ -77,7 +77,15 @@ export class TimelineHistoryManager {
                 height: 3,
             },
             {
-                constructor: (_traceParsedData, performanceModel) => new TimelineEventOverviewCPUActivity(performanceModel),
+                constructor: (_traceParsedData, performanceModel) => 
+                // TODO(crbug.com/1464206)
+                // We purposefully do not pass in the traceParsedData here yet so
+                // that the CPU Activity canvas is drawn using the old engine. To
+                // enable us to use the new engine here we need to also thread
+                // through the isCpuProfile flag, because in the new engine we need
+                // to distinguish this case to use the right data source when
+                // generating CPU Activity.
+                new TimelineEventOverviewCPUActivity(performanceModel, null, false),
                 height: 20,
             },
             {

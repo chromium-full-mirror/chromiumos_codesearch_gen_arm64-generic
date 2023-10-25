@@ -8,6 +8,8 @@
  */
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
 import { AsyncQueue, RateLimiter } from '../../common/js/async_util.js';
+import { unwrapEntry, urlToEntry } from '../../common/js/entry_utils.js';
+import { isInlineSyncStatusEnabled } from '../../common/js/flags.js';
 import { ProgressCenterItem, ProgressItemState, ProgressItemType } from '../../common/js/progress_center_common.js';
 import { toFilesAppURL } from '../../common/js/url_constants.js';
 import { str, strf, util } from '../../common/js/util.js';
@@ -125,7 +127,7 @@ export class DriveSyncHandlerImpl extends EventTarget {
         };
         Object.freeze(this.statusMessages_);
         // Register events.
-        if (util.isInlineSyncStatusEnabled()) {
+        if (isInlineSyncStatusEnabled()) {
             chrome.fileManagerPrivate.onIndividualFileTransfersUpdated.addListener(this.updateSyncStateMetadata_.bind(this));
         }
         else {
@@ -190,7 +192,7 @@ export class DriveSyncHandlerImpl extends EventTarget {
         }
         const metadata = this.metadataModel_?.getCache([entry], [SYNC_COMPLETED_TIME])[0];
         return [
-            util.unwrapEntry(entry),
+            unwrapEntry(entry),
             metadata?.syncCompletedTime || 0,
         ];
     }
@@ -234,7 +236,7 @@ export class DriveSyncHandlerImpl extends EventTarget {
             }
             else {
                 try {
-                    const entry = await util.urlToEntry(status.fileUrl);
+                    const entry = await urlToEntry(status.fileUrl);
                     item.message =
                         strf(this.statusMessages_[item.id].single, entry.name);
                 }
@@ -347,7 +349,7 @@ export class DriveSyncHandlerImpl extends EventTarget {
             return;
         }
         try {
-            if (util.isInlineSyncStatusEnabled()) {
+            if (isInlineSyncStatusEnabled()) {
                 this.updateSyncStateMetadata_([
                     {
                         fileUrl: event.fileUrl,
@@ -356,7 +358,7 @@ export class DriveSyncHandlerImpl extends EventTarget {
                     },
                 ]);
             }
-            const entry = await util.urlToEntry(event.fileUrl);
+            const entry = await urlToEntry(event.fileUrl);
             postError(entry.name);
         }
         catch (error) {

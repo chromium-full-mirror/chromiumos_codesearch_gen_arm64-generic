@@ -286,7 +286,7 @@ struct ToFlatBuffer<::cryptohome::ChallengeCredentialAuthBlockState> {
     auto scrypt_state = ToFlatBuffer<::cryptohome::ScryptAuthBlockState>()(
         builder, object.scrypt_state);
     auto keyset_challenge_info = ToFlatBuffer<
-        std::optional<::cryptohome::structure::SignatureChallengeInfo>>()(
+        std::optional<::cryptohome::SerializedSignatureChallengeInfo>>()(
         builder, object.keyset_challenge_info);
 
     return ::cryptohome::_serialized_::CreateChallengeCredentialAuthBlockState(
@@ -310,7 +310,7 @@ struct FromFlatBuffer<::cryptohome::ChallengeCredentialAuthBlockState> {
         .scrypt_state = FromFlatBuffer<::cryptohome::ScryptAuthBlockState>()(
             object->scrypt_state()),
         .keyset_challenge_info = FromFlatBuffer<
-            std::optional<::cryptohome::structure::SignatureChallengeInfo>>()(
+            std::optional<::cryptohome::SerializedSignatureChallengeInfo>>()(
             object->keyset_challenge_info()),
     };
   }

@@ -29,6 +29,7 @@
 #include "media/mojo/mojom/display_media_information.mojom-shared.h"
 #include "mojo/public/mojom/base/token.mojom-shared.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-shared.h"
+#include "third_party/blink/public/mojom/mediastream/media_devices.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

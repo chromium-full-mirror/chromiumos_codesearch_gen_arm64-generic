@@ -2275,16 +2275,47 @@ namespace AuthenticateUserAndFlipMandatoryAuthToggle {
 
 }  // namespace AuthenticateUserAndFlipMandatoryAuthToggle
 
-namespace AuthenticateUserToEditLocalCard {
+namespace GetLocalCard {
 
-base::Value::List Results::Create(bool is_user_auth_successful) {
+Params::Params() = default;
+Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
+
+// static
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  Params params;
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& guid_value = args[0];
+    {
+      auto* temp = guid_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params.guid = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create(const CreditCardEntry& card) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(is_user_auth_successful);
+  create_results.Append((card).ToValue());
 
   return create_results;
 }
-}  // namespace AuthenticateUserToEditLocalCard
+}  // namespace GetLocalCard
 
 namespace CheckIfDeviceAuthAvailable {
 

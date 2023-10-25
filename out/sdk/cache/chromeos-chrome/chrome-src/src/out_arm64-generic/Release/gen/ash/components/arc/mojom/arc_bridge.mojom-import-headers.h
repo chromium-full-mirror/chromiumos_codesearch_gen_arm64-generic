@@ -60,8 +60,6 @@
 #include "ash/components/arc/mojom/keymint.mojom-import-headers.h"
 #include "ash/components/arc/mojom/kiosk.mojom.h"
 #include "ash/components/arc/mojom/kiosk.mojom-import-headers.h"
-#include "ash/components/arc/mojom/lock_screen.mojom.h"
-#include "ash/components/arc/mojom/lock_screen.mojom-import-headers.h"
 #include "ash/components/arc/mojom/media_session.mojom.h"
 #include "ash/components/arc/mojom/media_session.mojom-import-headers.h"
 #include "ash/components/arc/mojom/memory.mojom.h"

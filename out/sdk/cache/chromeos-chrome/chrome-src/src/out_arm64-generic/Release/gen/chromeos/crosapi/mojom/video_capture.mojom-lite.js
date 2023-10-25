@@ -352,14 +352,30 @@ crosapi.mojom.VideoFrameHandlerRemote = class {
    * @param { !number } cropVersion
    */
 
-  onNewCropVersion(
+  dEPRECATEDOnNewCropVersion(
       cropVersion) {
     this.proxy.sendMessage(
         10,
-        crosapi.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        crosapi.mojom.VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec.$,
         null,
         [
           cropVersion
+        ]);
+  }
+
+  
+  /**
+   * @param { !number } subCaptureTargetVersion
+   */
+
+  onNewSubCaptureTargetVersion(
+      subCaptureTargetVersion) {
+    this.proxy.sendMessage(
+        12,
+        crosapi.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+        null,
+        [
+          subCaptureTargetVersion
         ]);
   }
 
@@ -486,9 +502,14 @@ crosapi.mojom.VideoFrameHandlerReceiver = class {
         impl.onFrameDropped.bind(impl));
     this.helper_internal_.registerHandler(
         10,
-        crosapi.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        crosapi.mojom.VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec.$,
         null,
-        impl.onNewCropVersion.bind(impl));
+        impl.dEPRECATEDOnNewCropVersion.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
+        crosapi.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+        null,
+        impl.onNewSubCaptureTargetVersion.bind(impl));
     this.helper_internal_.registerHandler(
         9,
         crosapi.mojom.VideoFrameHandler_OnFrameWithEmptyRegionCapture_ParamsSpec.$,
@@ -641,15 +662,27 @@ crosapi.mojom.VideoFrameHandlerCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onNewCropVersion =
+    this.dEPRECATEDOnNewCropVersion =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         10,
-        crosapi.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        crosapi.mojom.VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec.$,
         null,
-        this.onNewCropVersion.createReceiverHandler(false /* expectsResponse */));
+        this.dEPRECATEDOnNewCropVersion.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onNewSubCaptureTargetVersion =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
+        crosapi.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+        null,
+        this.onNewSubCaptureTargetVersion.createReceiverHandler(false /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -1423,7 +1456,15 @@ crosapi.mojom.VideoFrameHandler_OnFrameDropped_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-crosapi.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec =
+crosapi.mojom.VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+crosapi.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -2026,8 +2067,8 @@ crosapi.mojom.VideoFrameHandler_OnFrameDropped_Params = class {
 
 
 mojo.internal.Struct(
-    crosapi.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
-    'VideoFrameHandler_OnNewCropVersion_Params',
+    crosapi.mojom.VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec.$,
+    'VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params',
     [
       mojo.internal.StructField(
         'cropVersion', 0,
@@ -2045,10 +2086,39 @@ mojo.internal.Struct(
 
 
 /** @record */
-crosapi.mojom.VideoFrameHandler_OnNewCropVersion_Params = class {
+crosapi.mojom.VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params = class {
   constructor() {
     /** @export { !number } */
     this.cropVersion;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    crosapi.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+    'VideoFrameHandler_OnNewSubCaptureTargetVersion_Params',
+    [
+      mojo.internal.StructField(
+        'subCaptureTargetVersion', 0,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+crosapi.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_Params = class {
+  constructor() {
+    /** @export { !number } */
+    this.subCaptureTargetVersion;
   }
 };
 

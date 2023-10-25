@@ -11,11 +11,8 @@ build obj/gen/include/libhwsec/structures/hardware_abstraction_external_library.
 build obj/libhwsec/factory/hardware_abstraction_external_library.factory_impl.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec/factory/factory_impl.cc || obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp
   source_file_part = factory_impl.cc
   source_name_part = factory_impl
-build obj/libhwsec/middleware/hardware_abstraction_external_library.middleware_owner.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec/middleware/middleware_owner.cc || obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp
-  source_file_part = middleware_owner.cc
-  source_name_part = middleware_owner
 build obj/libhwsec/structures/hardware_abstraction_external_library.key.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/libhwsec/structures/key.cc || obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp
   source_file_part = key.cc
   source_name_part = key
 
-build obj/libhwsec/hardware_abstraction_external_library.stamp: stamp obj/gen/include/libhwsec/structures/hardware_abstraction_external_library.signature_sealed_data.o obj/libhwsec/factory/hardware_abstraction_external_library.factory_impl.o obj/libhwsec/middleware/hardware_abstraction_external_library.middleware_owner.o obj/libhwsec/structures/hardware_abstraction_external_library.key.o || obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp
+build obj/libhwsec/hardware_abstraction_external_library.stamp: stamp obj/gen/include/libhwsec/structures/hardware_abstraction_external_library.signature_sealed_data.o obj/libhwsec/factory/hardware_abstraction_external_library.factory_impl.o obj/libhwsec/structures/hardware_abstraction_external_library.key.o || obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp

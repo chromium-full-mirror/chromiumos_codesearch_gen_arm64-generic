@@ -240,8 +240,8 @@ struct OpenOptions {
   // The window in which to open the side panel. This is only applicable if the
   // extension has a global (non-tab-specific) side panel or <code>tabId</code> is
   // also specified. This will override any currently-active global side panel the
-  // user has open in the given window. At least one of this and
-  // <code>tabId</code> must be provided.
+  // user has open in the given window. At least one of this or <code>tabId</code>
+  // must be provided.
   absl::optional<int> window_id;
 
   // The tab in which to open the side panel. If the corresponding tab has a
@@ -249,7 +249,7 @@ struct OpenOptions {
   // is not a tab-specific panel, the global panel will be open in the specified
   // tab and any other tabs without a currently-open tab- specific panel. This
   // will override any currently-active side panel (global or tab-specific) in the
-  // corresponding tab. At least one of this and <code>windowId</code> must be
+  // corresponding tab. At least one of this or <code>windowId</code> must be
   // provided.
   absl::optional<int> tab_id;
 

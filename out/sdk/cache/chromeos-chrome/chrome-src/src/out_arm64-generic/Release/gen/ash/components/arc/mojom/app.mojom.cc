@@ -3733,6 +3733,9 @@ AppInstance::IPCStableHashFunction AppInstance::MessageToMethodInfo_(mojo::Messa
     case internal::kAppInstance_UninstallPackage_Name: {
       return &AppInstance::UninstallPackage_Sym::IPCStableHash;
     }
+    case internal::kAppInstance_UpdateAppDetails_Name: {
+      return &AppInstance::UpdateAppDetails_Sym::IPCStableHash;
+    }
     case internal::kAppInstance_GetAndroidId_Name: {
       return &AppInstance::GetAndroidId_Sym::IPCStableHash;
     }
@@ -3809,6 +3812,8 @@ const char* AppInstance::MessageToMethodName_(mojo::Message& message) {
             return "Receive arc::mojom::AppInstance::StartFastAppReinstallFlow";
       case internal::kAppInstance_UninstallPackage_Name:
             return "Receive arc::mojom::AppInstance::UninstallPackage";
+      case internal::kAppInstance_UpdateAppDetails_Name:
+            return "Receive arc::mojom::AppInstance::UpdateAppDetails";
       case internal::kAppInstance_GetAndroidId_Name:
             return "Receive arc::mojom::AppInstance::GetAndroidId";
       case internal::kAppInstance_GetAppShortcutGlobalQueryItems_Name:
@@ -3870,6 +3875,8 @@ const char* AppInstance::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply arc::mojom::AppInstance::StartFastAppReinstallFlow";
       case internal::kAppInstance_UninstallPackage_Name:
             return "Receive reply arc::mojom::AppInstance::UninstallPackage";
+      case internal::kAppInstance_UpdateAppDetails_Name:
+            return "Receive reply arc::mojom::AppInstance::UpdateAppDetails";
       case internal::kAppInstance_GetAndroidId_Name:
             return "Receive reply arc::mojom::AppInstance::GetAndroidId";
       case internal::kAppInstance_GetAppShortcutGlobalQueryItems_Name:
@@ -4180,6 +4187,19 @@ uint32_t AppInstance::UninstallPackage_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)arc::mojom::AppInstance::UninstallPackage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppInstance::UpdateAppDetails_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::AppInstance::UpdateAppDetails");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -5704,6 +5724,54 @@ void AppInstanceProxy::UninstallPackage(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AppInstance::Name_);
   message.set_method_name("UninstallPackage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void AppInstanceProxy::UpdateAppDetails(
+    const std::string& in_package_name) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send arc::mojom::AppInstance::UpdateAppDetails", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("package_name"), in_package_name,
+                        "<value of type const std::string&>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kAppInstance_UpdateAppDetails_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::arc::mojom::internal::AppInstance_UpdateAppDetails_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->package_name)::BaseType> package_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_package_name, package_name_fragment);
+  params->package_name.Set(
+      package_name_fragment.is_null() ? nullptr : package_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->package_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null package_name in AppInstance.UpdateAppDetails request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppInstance::Name_);
+  message.set_method_name("UpdateAppDetails");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -8353,6 +8421,32 @@ std::move(p_arc_package_names));
 std::move(p_package_name));
       return true;
     }
+    case internal::kAppInstance_UpdateAppDetails_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AppInstance_UpdateAppDetails_Params_Data* params =
+          reinterpret_cast<internal::AppInstance_UpdateAppDetails_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_package_name{};
+      AppInstance_UpdateAppDetails_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPackageName(&p_package_name))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppInstance::Name_, 42, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->UpdateAppDetails(
+std::move(p_package_name));
+      return true;
+    }
     case internal::kAppInstance_GetAndroidId_Name: {
       break;
     }
@@ -8699,6 +8793,9 @@ std::move(p_normalize), std::move(callback));
     case internal::kAppInstance_UninstallPackage_Name: {
       break;
     }
+    case internal::kAppInstance_UpdateAppDetails_Name: {
+      break;
+    }
     case internal::kAppInstance_GetAndroidId_Name: {
 
       internal::AppInstance_GetAndroidId_Params_Data* params =
@@ -8979,6 +9076,8 @@ static const mojo::internal::GenericValidationInfo kAppInstanceValidationInfo[] 
      nullptr /* no response */},
     {&internal::AppInstance_GetAppCategory_Params_Data::Validate,
      &internal::AppInstance_GetAppCategory_ResponseParams_Data::Validate},
+    {&internal::AppInstance_UpdateAppDetails_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool AppInstanceRequestValidator::Accept(mojo::Message* message) {
@@ -9405,6 +9504,9 @@ void AppInstanceInterceptorForTesting::StartFastAppReinstallFlow(const std::vect
 }
 void AppInstanceInterceptorForTesting::UninstallPackage(const std::string& package_name) {
   GetForwardingInterface()->UninstallPackage(std::move(package_name));
+}
+void AppInstanceInterceptorForTesting::UpdateAppDetails(const std::string& package_name) {
+  GetForwardingInterface()->UpdateAppDetails(std::move(package_name));
 }
 void AppInstanceInterceptorForTesting::GetAndroidId(GetAndroidIdCallback callback) {
   GetForwardingInterface()->GetAndroidId(std::move(callback));

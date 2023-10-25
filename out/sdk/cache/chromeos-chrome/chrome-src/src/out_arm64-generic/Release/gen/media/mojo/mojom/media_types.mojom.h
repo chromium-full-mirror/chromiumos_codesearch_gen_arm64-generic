@@ -2153,7 +2153,7 @@ class  VideoFrameMetadata {
       const absl::optional<::gfx::Rect>& capture_update_rect,
       const absl::optional<::gfx::Size>& source_size,
       const absl::optional<::gfx::Rect>& region_capture_rect,
-      uint32_t crop_version,
+      uint32_t sub_capture_target_version,
       bool copy_required,
       bool end_of_stream,
       absl::optional<::base::TimeDelta> frame_duration,
@@ -2281,7 +2281,7 @@ class  VideoFrameMetadata {
   
   absl::optional<::gfx::Rect> region_capture_rect;
   
-  uint32_t crop_version;
+  uint32_t sub_capture_target_version;
   
   bool copy_required;
   
@@ -4423,7 +4423,7 @@ VideoFrameMetadataPtr VideoFrameMetadata::Clone() const {
       mojo::Clone(capture_update_rect),
       mojo::Clone(source_size),
       mojo::Clone(region_capture_rect),
-      mojo::Clone(crop_version),
+      mojo::Clone(sub_capture_target_version),
       mojo::Clone(copy_required),
       mojo::Clone(end_of_stream),
       mojo::Clone(frame_duration),
@@ -4479,7 +4479,7 @@ bool VideoFrameMetadata::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->region_capture_rect, other_struct.region_capture_rect))
     return false;
-  if (!mojo::Equals(this->crop_version, other_struct.crop_version))
+  if (!mojo::Equals(this->sub_capture_target_version, other_struct.sub_capture_target_version))
     return false;
   if (!mojo::Equals(this->copy_required, other_struct.copy_required))
     return false;
@@ -4586,9 +4586,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.region_capture_rect < lhs.region_capture_rect)
     return false;
-  if (lhs.crop_version < rhs.crop_version)
+  if (lhs.sub_capture_target_version < rhs.sub_capture_target_version)
     return true;
-  if (rhs.crop_version < lhs.crop_version)
+  if (rhs.sub_capture_target_version < lhs.sub_capture_target_version)
     return false;
   if (lhs.copy_required < rhs.copy_required)
     return true;
@@ -5694,9 +5694,9 @@ struct  StructTraits<::media::mojom::VideoFrameMetadata::DataView,
     return input->region_capture_rect;
   }
 
-  static decltype(::media::mojom::VideoFrameMetadata::crop_version) crop_version(
+  static decltype(::media::mojom::VideoFrameMetadata::sub_capture_target_version) sub_capture_target_version(
       const ::media::mojom::VideoFrameMetadataPtr& input) {
-    return input->crop_version;
+    return input->sub_capture_target_version;
   }
 
   static decltype(::media::mojom::VideoFrameMetadata::copy_required) copy_required(

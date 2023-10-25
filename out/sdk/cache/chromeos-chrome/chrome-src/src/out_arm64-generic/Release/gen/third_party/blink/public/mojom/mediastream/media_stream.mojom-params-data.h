@@ -290,26 +290,26 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHo
 };
 static_assert(sizeof(MediaStreamDispatcherHost_OnStreamStarted_Params_Data) == 16,
               "Bad sizeof(MediaStreamDispatcherHost_OnStreamStarted_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_Crop_Params_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> device_id;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::Token_Data> crop_id;
-  uint32_t crop_version;
-  uint8_t padfinal_[4];
+  int32_t type;
+  uint32_t sub_capture_target_version;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Token_Data> sub_capture_target;
 
  private:
-  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_Crop_Params_Data>;
+  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data>;
 
-  MediaStreamDispatcherHost_Crop_Params_Data();
-  ~MediaStreamDispatcherHost_Crop_Params_Data() = delete;
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data();
+  ~MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data() = delete;
 };
-static_assert(sizeof(MediaStreamDispatcherHost_Crop_Params_Data) == 32,
-              "Bad sizeof(MediaStreamDispatcherHost_Crop_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_Crop_ResponseParams_Data {
+static_assert(sizeof(MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data) == 32,
+              "Bad sizeof(MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -319,13 +319,13 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHo
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_Crop_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data>;
 
-  MediaStreamDispatcherHost_Crop_ResponseParams_Data();
-  ~MediaStreamDispatcherHost_Crop_ResponseParams_Data() = delete;
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data();
+  ~MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(MediaStreamDispatcherHost_Crop_ResponseParams_Data) == 16,
-              "Bad sizeof(MediaStreamDispatcherHost_Crop_ResponseParams_Data)");
+static_assert(sizeof(MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data) == 16,
+              "Bad sizeof(MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_GetOpenDevice_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1009,12 +1009,12 @@ class MediaStreamDispatcherHost_OnStreamStarted_ParamsDataView {
 };
 
 
-class MediaStreamDispatcherHost_Crop_ParamsDataView {
+class MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView {
  public:
-  MediaStreamDispatcherHost_Crop_ParamsDataView() = default;
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView() = default;
 
-  MediaStreamDispatcherHost_Crop_ParamsDataView(
-      internal::MediaStreamDispatcherHost_Crop_Params_Data* data,
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView(
+      internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -1029,31 +1029,41 @@ class MediaStreamDispatcherHost_Crop_ParamsDataView {
     return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
         pointer, output, message_);
   }
-  inline void GetCropIdDataView(
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::blink::mojom::SubCaptureTargetType>(
+        data_value, output);
+  }
+  ::blink::mojom::SubCaptureTargetType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::SubCaptureTargetType>(data_->type));
+  }
+  inline void GetSubCaptureTargetDataView(
       ::mojo_base::mojom::TokenDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadCropId(UserType* output) {
+  [[nodiscard]] bool ReadSubCaptureTarget(UserType* output) {
     
-    auto* pointer = data_->crop_id.Get();
+    auto* pointer = data_->sub_capture_target.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TokenDataView>(
         pointer, output, message_);
   }
-  uint32_t crop_version() const {
-    return data_->crop_version;
+  uint32_t sub_capture_target_version() const {
+    return data_->sub_capture_target_version;
   }
  private:
-  internal::MediaStreamDispatcherHost_Crop_Params_Data* data_ = nullptr;
+  internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class MediaStreamDispatcherHost_Crop_ResponseParamsDataView {
+class MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsDataView {
  public:
-  MediaStreamDispatcherHost_Crop_ResponseParamsDataView() = default;
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsDataView() = default;
 
-  MediaStreamDispatcherHost_Crop_ResponseParamsDataView(
-      internal::MediaStreamDispatcherHost_Crop_ResponseParams_Data* data,
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsDataView(
+      internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -1069,7 +1079,7 @@ class MediaStreamDispatcherHost_Crop_ResponseParamsDataView {
           static_cast<::media::mojom::ApplySubCaptureTargetResult>(data_->result));
   }
  private:
-  internal::MediaStreamDispatcherHost_Crop_ResponseParams_Data* data_ = nullptr;
+  internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -1403,14 +1413,14 @@ inline void MediaStreamDispatcherHost_OnStreamStarted_ParamsDataView::GetLabelDa
 }
 
 
-inline void MediaStreamDispatcherHost_Crop_ParamsDataView::GetDeviceIdDataView(
+inline void MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView::GetDeviceIdDataView(
     ::mojo_base::mojom::UnguessableTokenDataView* output) {
   auto pointer = data_->device_id.Get();
   *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
 }
-inline void MediaStreamDispatcherHost_Crop_ParamsDataView::GetCropIdDataView(
+inline void MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView::GetSubCaptureTargetDataView(
     ::mojo_base::mojom::TokenDataView* output) {
-  auto pointer = data_->crop_id.Get();
+  auto pointer = data_->sub_capture_target.Get();
   *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
 }
 

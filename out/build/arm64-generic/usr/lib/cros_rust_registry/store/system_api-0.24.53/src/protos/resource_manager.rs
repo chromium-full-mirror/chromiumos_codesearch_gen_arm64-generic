@@ -288,6 +288,8 @@ pub mod report_browser_processes {
         pub protected: bool,
         // @@protoc_insertion_point(field:resource_manager.ReportBrowserProcesses.Process.visible)
         pub visible: bool,
+        // @@protoc_insertion_point(field:resource_manager.ReportBrowserProcesses.Process.focused)
+        pub focused: bool,
         // special fields
         // @@protoc_insertion_point(special_field:resource_manager.ReportBrowserProcesses.Process.special_fields)
         pub special_fields: ::protobuf::SpecialFields,
@@ -324,6 +326,9 @@ pub mod report_browser_processes {
                     24 => {
                         self.visible = is.read_bool()?;
                     },
+                    32 => {
+                        self.focused = is.read_bool()?;
+                    },
                     tag => {
                         ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                     },
@@ -345,6 +350,9 @@ pub mod report_browser_processes {
             if self.visible != false {
                 my_size += 1 + 1;
             }
+            if self.focused != false {
+                my_size += 1 + 1;
+            }
             my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
             self.special_fields.cached_size().set(my_size as u32);
             my_size
@@ -359,6 +367,9 @@ pub mod report_browser_processes {
             }
             if self.visible != false {
                 os.write_bool(3, self.visible)?;
+            }
+            if self.focused != false {
+                os.write_bool(4, self.focused)?;
             }
             os.write_unknown_fields(self.special_fields.unknown_fields())?;
             ::std::result::Result::Ok(())
@@ -380,6 +391,7 @@ pub mod report_browser_processes {
             self.pid = 0;
             self.protected = false;
             self.visible = false;
+            self.focused = false;
             self.special_fields.clear();
         }
 
@@ -388,6 +400,7 @@ pub mod report_browser_processes {
                 pid: 0,
                 protected: false,
                 visible: false,
+                focused: false,
                 special_fields: ::protobuf::SpecialFields::new(),
             };
             &instance

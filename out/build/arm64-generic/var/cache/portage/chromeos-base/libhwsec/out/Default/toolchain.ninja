@@ -44,6 +44,7 @@ build gen/python/flatbuffer_cpp_binding_generator.py: copy ../../../../../../../
 
 build obj/libhwsec/flatbuffers-binding-generator.stamp: stamp gen/python/flatbuffer_cpp_binding_generator.py
 subninja obj/libhwsec/hardware_abstraction_external_library.ninja
+subninja obj/libhwsec/hardware_abstraction_external_thread_local_library.ninja
 subninja obj/libhwsec/hardware_abstraction_internal_library.ninja
 subninja obj/libhwsec/hwsec_testrunner.ninja
 build obj/libhwsec/install_error_h.stamp: stamp

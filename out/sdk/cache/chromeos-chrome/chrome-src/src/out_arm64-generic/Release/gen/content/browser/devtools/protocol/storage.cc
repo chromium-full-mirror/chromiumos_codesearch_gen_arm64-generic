@@ -286,6 +286,12 @@ CRDTP_BEGIN_SERIALIZER(AttributionReportingEventReportWindows)
 CRDTP_END_SERIALIZER();
 
 
+namespace AttributionReportingTriggerDataMatchingEnum {
+const char Exact[] = "exact";
+const char Modulus[] = "modulus";
+} // namespace AttributionReportingTriggerDataMatchingEnum
+
+
 CRDTP_BEGIN_DESERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_DESERIALIZE_FIELD("aggregatableReportWindow", m_aggregatableReportWindow),
     CRDTP_DESERIALIZE_FIELD("aggregationKeys", m_aggregationKeys),
@@ -299,6 +305,7 @@ CRDTP_BEGIN_DESERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_DESERIALIZE_FIELD("reportingOrigin", m_reportingOrigin),
     CRDTP_DESERIALIZE_FIELD("sourceOrigin", m_sourceOrigin),
     CRDTP_DESERIALIZE_FIELD("time", m_time),
+    CRDTP_DESERIALIZE_FIELD("triggerDataMatching", m_triggerDataMatching),
     CRDTP_DESERIALIZE_FIELD("type", m_type),
 CRDTP_END_DESERIALIZER()
 
@@ -316,6 +323,7 @@ CRDTP_BEGIN_SERIALIZER(AttributionReportingSourceRegistration)
     CRDTP_SERIALIZE_FIELD("filterData", m_filterData);
     CRDTP_SERIALIZE_FIELD("aggregationKeys", m_aggregationKeys);
     CRDTP_SERIALIZE_FIELD("debugKey", m_debugKey);
+    CRDTP_SERIALIZE_FIELD("triggerDataMatching", m_triggerDataMatching);
 CRDTP_END_SERIALIZER();
 
 

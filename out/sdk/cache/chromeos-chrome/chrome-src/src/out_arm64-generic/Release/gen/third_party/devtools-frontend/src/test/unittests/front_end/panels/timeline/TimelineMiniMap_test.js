@@ -13,7 +13,7 @@ describeWithEnvironment('TimelineMiniMap', function () {
         const models = await TraceLoader.allModels(this, 'web-dev.json.gz');
         const container = document.createElement('div');
         renderElementIntoDOM(container);
-        const minimap = new Timeline.TimelineMiniMap.TimelineMiniMap();
+        const minimap = new Timeline.TimelineMiniMap.TimelineMiniMap(Timeline.TimelinePanel.ThreadTracksSource.NEW_ENGINE);
         minimap.markAsRoot();
         minimap.show(container);
         minimap.setData({
@@ -36,7 +36,7 @@ describeWithEnvironment('TimelineMiniMap', function () {
         const models = await TraceLoader.allModels(this, 'web-dev.json.gz');
         const container = document.createElement('div');
         renderElementIntoDOM(container);
-        const minimap = new Timeline.TimelineMiniMap.TimelineMiniMap();
+        const minimap = new Timeline.TimelineMiniMap.TimelineMiniMap(Timeline.TimelinePanel.ThreadTracksSource.NEW_ENGINE);
         minimap.markAsRoot();
         minimap.show(container);
         minimap.setData({
@@ -60,7 +60,7 @@ describeWithEnvironment('TimelineMiniMap', function () {
         const models = await TraceLoader.allModels(this, 'web-dev.json.gz');
         const container = document.createElement('div');
         renderElementIntoDOM(container);
-        const minimap = new Timeline.TimelineMiniMap.TimelineMiniMap();
+        const minimap = new Timeline.TimelineMiniMap.TimelineMiniMap(Timeline.TimelinePanel.ThreadTracksSource.NEW_ENGINE);
         minimap.markAsRoot();
         minimap.show(container);
         minimap.setData({
@@ -88,7 +88,7 @@ describeWithEnvironment('TimelineMiniMap', function () {
         const models = await TraceLoader.allModels(this, 'web-dev.json.gz');
         const container = document.createElement('div');
         renderElementIntoDOM(container);
-        const minimap = new Timeline.TimelineMiniMap.TimelineMiniMap();
+        const minimap = new Timeline.TimelineMiniMap.TimelineMiniMap(Timeline.TimelinePanel.ThreadTracksSource.NEW_ENGINE);
         minimap.markAsRoot();
         minimap.show(container);
         minimap.setData({

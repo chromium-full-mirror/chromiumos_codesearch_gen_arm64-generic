@@ -4,6 +4,7 @@
 import { ImageLoaderClient } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/image_loader_client.js';
 import { LoadImageRequest, LoadImageResponseStatus } from 'chrome-extension://pmfjbimdmchhbnneeidfognadeopoehp/load_image_request.js';
 import { assert, assertNotReached } from 'chrome://resources/ash/common/assert.js';
+import { unwrapEntry } from '../../../common/js/entry_utils.js';
 import { FileType } from '../../../common/js/file_type.js';
 import { getSanitizedScriptUrl } from '../../../common/js/trusted_script_url_policy_util.js';
 import { util } from '../../../common/js/util.js';
@@ -236,7 +237,7 @@ export class ContentMetadataProvider extends MetadataProvider {
                 return;
             }
         }
-        const fileEntry = /** @type {!FileEntry} */ (util.unwrapEntry(entry));
+        const fileEntry = /** @type {!FileEntry} */ (unwrapEntry(entry));
         this.getContentMetadata_(fileEntry, names).then(callback);
     }
     /**

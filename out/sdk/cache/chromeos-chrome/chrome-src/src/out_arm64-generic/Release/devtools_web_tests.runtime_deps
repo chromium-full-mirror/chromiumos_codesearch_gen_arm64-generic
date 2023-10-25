@@ -1447,6 +1447,7 @@ gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/PageLoadMe
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/RendererHandler.js
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/SamplesHandler.js
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/ScreenshotsHandler.js
+gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/Threads.js
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/UserInteractionsHandler.js
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/UserTimingsHandler.js
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/WarningsHandler.js
@@ -1467,6 +1468,7 @@ gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/PageLoadMe
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/RendererHandler.js.map
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/SamplesHandler.js.map
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/ScreenshotsHandler.js.map
+gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/Threads.js.map
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/UserInteractionsHandler.js.map
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/UserTimingsHandler.js.map
 gen/third_party/devtools-frontend/src/front_end/models/trace/handlers/WarningsHandler.js.map
@@ -5846,6 +5848,9 @@ gen/components/attribution_reporting/source_registration_error.mojom-lite.js
 gen/components/attribution_reporting/source_registration_time_config.mojom.js
 gen/components/attribution_reporting/source_registration_time_config.mojom.m.js
 gen/components/attribution_reporting/source_registration_time_config.mojom-lite.js
+gen/components/attribution_reporting/trigger_data_matching.mojom.js
+gen/components/attribution_reporting/trigger_data_matching.mojom.m.js
+gen/components/attribution_reporting/trigger_data_matching.mojom-lite.js
 gen/components/attribution_reporting/trigger_registration_error.mojom.js
 gen/components/attribution_reporting/trigger_registration_error.mojom.m.js
 gen/components/attribution_reporting/trigger_registration_error.mojom-lite.js

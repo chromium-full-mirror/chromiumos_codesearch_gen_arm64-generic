@@ -232,7 +232,7 @@ class AppInstance
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 53;
+  static constexpr uint32_t Version_ = 60;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -267,6 +267,7 @@ class AppInstance
     kStartPaiFlowMinVersion = 40,
     kStartFastAppReinstallFlowMinVersion = 33,
     kUninstallPackageMinVersion = 2,
+    kUpdateAppDetailsMinVersion = 60,
     kGetAndroidIdMinVersion = 42,
     kGetAppShortcutGlobalQueryItemsMinVersion = 34,
     kGetAppShortcutItemsMinVersion = 29,
@@ -343,6 +344,9 @@ class AppInstance
     NOINLINE static uint32_t IPCStableHash();
   };
   struct UninstallPackage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct UpdateAppDetails_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetAndroidId_Sym {
@@ -450,6 +454,9 @@ class AppInstance
 
   
   virtual void UninstallPackage(const std::string& package_name) = 0;
+
+  
+  virtual void UpdateAppDetails(const std::string& package_name) = 0;
 
 
   using GetAndroidIdCallback = base::OnceCallback<void(int64_t)>;
@@ -590,6 +597,8 @@ class  AppInstanceProxy
   void StartFastAppReinstallFlow(const std::vector<std::string>& arc_package_names) final;
   
   void UninstallPackage(const std::string& package_name) final;
+  
+  void UpdateAppDetails(const std::string& package_name) final;
   
   void GetAndroidId(GetAndroidIdCallback callback) final;
   

@@ -245,7 +245,7 @@ bool URLRequest_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 264, validation_context)) {
+          data, 272, validation_context)) {
     return false;
   }
 
@@ -422,6 +422,11 @@ bool URLRequest_Data::Validate(
     return false;
 
 
+  if (!::network::mojom::internal::IPAddressSpace_Data
+        ::Validate(object->required_ip_address_space, validation_context))
+    return false;
+
+
   if (!::network::mojom::internal::AttributionSupport_Data
         ::Validate(object->attribution_reporting_support, validation_context))
     return false;
@@ -432,7 +437,7 @@ bool URLRequest_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->attribution_reporting_runtime_features, 58, validation_context)) {
+          object->attribution_reporting_runtime_features, 59, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->attribution_reporting_runtime_features, validation_context))

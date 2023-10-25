@@ -72,12 +72,27 @@ export class OverlayModel extends SDKModel {
             void this.overlayAgent.invoke_enable();
             void this.wireAgentToSettings();
         }
-        this.#persistentHighlighter = new OverlayPersistentHighlighter(this);
+        this.#persistentHighlighter = new OverlayPersistentHighlighter(this, {
+            onGridOverlayStateChanged: ({ nodeId, enabled }) => this.dispatchEventToListeners(Events.PersistentGridOverlayStateChanged, { nodeId, enabled }),
+            onFlexOverlayStateChanged: ({ nodeId, enabled }) => this.dispatchEventToListeners(Events.PersistentFlexContainerOverlayStateChanged, { nodeId, enabled }),
+            onContainerQueryOverlayStateChanged: ({ nodeId, enabled }) => this.dispatchEventToListeners(Events.PersistentContainerQueryOverlayStateChanged, { nodeId, enabled }),
+            onScrollSnapOverlayStateChanged: ({ nodeId, enabled }) => this.dispatchEventToListeners(Events.PersistentScrollSnapOverlayStateChanged, { nodeId, enabled }),
+        });
         this.#domModel.addEventListener(DOMModelEvents.NodeRemoved, () => {
-            this.#persistentHighlighter && this.#persistentHighlighter.refreshHighlights();
+            if (!this.#persistentHighlighter) {
+                return;
+            }
+            this.#persistentHighlighter.refreshHighlights();
         });
         this.#domModel.addEventListener(DOMModelEvents.DocumentUpdated, () => {
-            this.#persistentHighlighter && this.#persistentHighlighter.hideAllInOverlay();
+            if (!this.#persistentHighlighter) {
+                return;
+            }
+            // Hide all the overlays initially after document update
+            this.#persistentHighlighter.hideAllInOverlayWithoutSave();
+            if (!target.suspended()) {
+                void this.#persistentHighlighter.restoreHighlightsForDocument();
+            }
         });
         this.#sourceOrderHighlighter = new SourceOrderHighlighter(this);
         this.#sourceOrderModeActiveInternal = false;
@@ -221,7 +236,6 @@ export class OverlayModel extends SDKModel {
             return;
         }
         this.#persistentHighlighter.highlightGridInOverlay(nodeId);
-        this.dispatchEventToListeners(Events.PersistentGridOverlayStateChanged, { nodeId, enabled: true });
     }
     isHighlightedGridInPersistentOverlay(nodeId) {
         if (!this.#persistentHighlighter) {
@@ -234,14 +248,12 @@ export class OverlayModel extends SDKModel {
             return;
         }
         this.#persistentHighlighter.hideGridInOverlay(nodeId);
-        this.dispatchEventToListeners(Events.PersistentGridOverlayStateChanged, { nodeId, enabled: false });
     }
     highlightScrollSnapInPersistentOverlay(nodeId) {
         if (!this.#persistentHighlighter) {
             return;
         }
         this.#persistentHighlighter.highlightScrollSnapInOverlay(nodeId);
-        this.dispatchEventToListeners(Events.PersistentScrollSnapOverlayStateChanged, { nodeId, enabled: true });
     }
     isHighlightedScrollSnapInPersistentOverlay(nodeId) {
         if (!this.#persistentHighlighter) {
@@ -254,14 +266,12 @@ export class OverlayModel extends SDKModel {
             return;
         }
         this.#persistentHighlighter.hideScrollSnapInOverlay(nodeId);
-        this.dispatchEventToListeners(Events.PersistentScrollSnapOverlayStateChanged, { nodeId, enabled: false });
     }
     highlightFlexContainerInPersistentOverlay(nodeId) {
         if (!this.#persistentHighlighter) {
             return;
         }
         this.#persistentHighlighter.highlightFlexInOverlay(nodeId);
-        this.dispatchEventToListeners(Events.PersistentFlexContainerOverlayStateChanged, { nodeId, enabled: true });
     }
     isHighlightedFlexContainerInPersistentOverlay(nodeId) {
         if (!this.#persistentHighlighter) {
@@ -274,14 +284,12 @@ export class OverlayModel extends SDKModel {
             return;
         }
         this.#persistentHighlighter.hideFlexInOverlay(nodeId);
-        this.dispatchEventToListeners(Events.PersistentFlexContainerOverlayStateChanged, { nodeId, enabled: false });
     }
     highlightContainerQueryInPersistentOverlay(nodeId) {
         if (!this.#persistentHighlighter) {
             return;
         }
         this.#persistentHighlighter.highlightContainerQueryInOverlay(nodeId);
-        this.dispatchEventToListeners(Events.PersistentContainerQueryOverlayStateChanged, { nodeId, enabled: true });
     }
     isHighlightedContainerQueryInPersistentOverlay(nodeId) {
         if (!this.#persistentHighlighter) {
@@ -294,7 +302,6 @@ export class OverlayModel extends SDKModel {
             return;
         }
         this.#persistentHighlighter.hideContainerQueryInOverlay(nodeId);
-        this.dispatchEventToListeners(Events.PersistentContainerQueryOverlayStateChanged, { nodeId, enabled: false });
     }
     highlightSourceOrderInOverlay(node) {
         const sourceOrderConfig = {

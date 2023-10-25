@@ -741,8 +741,10 @@ blink.mojom.CSSSampleId = {
   kMaskSize: 774,
   kMaskOrigin: 775,
   kTextSpacing: 776,
+  kMaskRepeat: 777,
+  kMaskComposite: 778,
   MIN_VALUE: 0,
-  MAX_VALUE: 776,
+  MAX_VALUE: 778,
 };
 
 

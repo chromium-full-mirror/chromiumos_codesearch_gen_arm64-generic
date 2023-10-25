@@ -30,6 +30,7 @@ using SignedInt64AsBase10 = String;
 class AttributionReportingFilterDataEntry;
 class AttributionReportingAggregationKeysEntry;
 class AttributionReportingEventReportWindows;
+using AttributionReportingTriggerDataMatching = String;
 class AttributionReportingSourceRegistration;
 using AttributionReportingSourceRegistrationResult = String;
 
@@ -75,6 +76,11 @@ namespace AttributionReportingSourceTypeEnum {
  extern const char Navigation[];
  extern const char Event[];
 } // namespace AttributionReportingSourceTypeEnum
+
+namespace AttributionReportingTriggerDataMatchingEnum {
+ extern const char Exact[];
+ extern const char Modulus[];
+} // namespace AttributionReportingTriggerDataMatchingEnum
 
 namespace AttributionReportingSourceRegistrationResultEnum {
  extern const char Success[];
@@ -811,6 +817,9 @@ public:
     }
     void SetDebugKey(const String& value) { m_debugKey = value; }
 
+    String GetTriggerDataMatching() { return m_triggerDataMatching; }
+    void SetTriggerDataMatching(const String& value) { m_triggerDataMatching = value; }
+
     template<int STATE>
     class AttributionReportingSourceRegistrationBuilder {
     public:
@@ -828,7 +837,8 @@ public:
             PrioritySet = 1 << 10,
             FilterDataSet = 1 << 11,
             AggregationKeysSet = 1 << 12,
-            AllFieldsSet = (TimeSet | ExpirySet | EventReportWindowsSet | AggregatableReportWindowSet | TypeSet | SourceOriginSet | ReportingOriginSet | DestinationSitesSet | EventIdSet | PrioritySet | FilterDataSet | AggregationKeysSet | 0)};
+            TriggerDataMatchingSet = 1 << 13,
+            AllFieldsSet = (TimeSet | ExpirySet | EventReportWindowsSet | AggregatableReportWindowSet | TypeSet | SourceOriginSet | ReportingOriginSet | DestinationSitesSet | EventIdSet | PrioritySet | FilterDataSet | AggregationKeysSet | TriggerDataMatchingSet | 0)};
 
 
         AttributionReportingSourceRegistrationBuilder<STATE | TimeSet>& SetTime(double value)
@@ -921,6 +931,13 @@ public:
             return *this;
         }
 
+        AttributionReportingSourceRegistrationBuilder<STATE | TriggerDataMatchingSet>& SetTriggerDataMatching(const String& value)
+        {
+            static_assert(!(STATE & TriggerDataMatchingSet), "property triggerDataMatching should not be set yet");
+            m_result->SetTriggerDataMatching(value);
+            return castState<TriggerDataMatchingSet>();
+        }
+
         std::unique_ptr<AttributionReportingSourceRegistration> Build()
         {
             static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
@@ -967,6 +984,7 @@ private:
     std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterDataEntry>> m_filterData;
     std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregationKeysEntry>> m_aggregationKeys;
     Maybe<String> m_debugKey;
+    String m_triggerDataMatching;
 };
 
 

@@ -4,10 +4,10 @@ import { html, PolymerElement, dedupingMixin, mixinBehaviors, afterNextRender, f
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 export { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import './strings.m.js';
-import { sendWithPromise, addWebUiListener } from 'chrome://resources/js/cr.js';
+import { sendWithPromise } from 'chrome://resources/js/cr.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 
-function getTemplate$I() {
+function getTemplate$J() {
     return html `<!--_html_template_start_-->    <style>:host dialog{--drawer-width:256px;--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;bottom:0;left:calc(-1 * var(--drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
     <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
       <div id="container" on-click="onContainerClick_">
@@ -34,7 +34,7 @@ class CrDrawerElement extends PolymerElement {
         return 'cr-drawer';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -132,7 +132,7 @@ class CrDrawerElement extends PolymerElement {
 }
 customElements.define(CrDrawerElement.is, CrDrawerElement);
 
-function getTemplate$H() {
+function getTemplate$I() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
             var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
@@ -173,7 +173,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
         return 'cr-toolbar-search-field';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -284,7 +284,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
 
-function getTemplate$G() {
+function getTemplate$H() {
     return html `<!--_html_template_start_-->    <style include="cr-icons cr-hidden-style">:host{align-items:center;background-color:var(--cr-toolbar-background-color);color:var(--google-grey-900);display:flex;height:var(--cr-toolbar-height)}@media (prefers-color-scheme:dark){:host{border-bottom:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color)}:host-context([chrome-refresh-2023]):host{background-color:transparent;border-bottom:none}}h1{flex:1;font-size:170%;font-weight:var(--cr-toolbar-header-font-weight,500);letter-spacing:.25px;line-height:normal;margin-inline-start:6px;padding-inline-end:12px;white-space:var(--cr-toolbar-header-white-space,normal)}@media (prefers-color-scheme:dark){h1{color:var(--cr-primary-text-color)}}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:calc(12px + 6px);width:var(--cr-toolbar-left-spacer-width,auto)}cr-icon-button{--cr-icon-button-size:32px;min-width:32px}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-focus-outline-color:var(--cr-focus-outline-color)}}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:12px}:host([narrow]) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #leftContent{opacity:0;position:absolute}:host(:not([narrow])) #leftContent{flex:1 1 var(--cr-toolbar-field-margin,0)}:host(:not([narrow])) #centeredContent{flex-basis:var(--cr-toolbar-center-basis,0)}:host(:not([narrow])[disable-right-content-grow]) #centeredContent{justify-content:start;padding-inline-start:12px}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}:host(:not([narrow])[disable-right-content-grow]) #rightContent{flex:0 1 0}picture{display:none}#menuButton{margin-inline-end:9px}#menuButton~h1{margin-inline-start:0}:host(:not([narrow])) picture,:host([always-show-logo]) picture{display:initial;margin-inline-end:16px}:host(:not([narrow])) #leftSpacer,:host([always-show-logo]) #leftSpacer{padding-inline-start:calc(12px + 9px)}:host(:not([narrow])) :is(picture,#product-logo),:host([always-show-logo]) :is(picture,#product-logo){height:24px;width:24px}</style>
     <div id="leftContent">
       <div id="leftSpacer">
@@ -325,7 +325,7 @@ class CrToolbarElement extends PolymerElement {
         return 'cr-toolbar';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -409,7 +409,7 @@ styleMod$2.appendChild(html `
 `.content);
 styleMod$2.register('cr-page-host-style');
 
-function getTemplate$F() {
+function getTemplate$G() {
     return html `<!--_html_template_start_-->    <style>:host{align-items:center;border-top:1px solid var(--cr-separator-color);color:var(--cr-secondary-text-color);display:none;font-size:.8125rem;justify-content:center;padding:0 24px}:host([is-managed_]){display:flex}a[href]{color:var(--cr-link-color)}iron-icon{align-self:flex-start;flex-shrink:0;height:20px;padding-inline-end:var(--managed-footnote-icon-padding,8px);width:20px}</style>
 
     <template is="dom-if" if="[[isManaged_]]">
@@ -437,7 +437,7 @@ class ManagedFootnoteElement extends ManagedFootnoteElementBase {
         return 'managed-footnote';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -639,7 +639,7 @@ function stripDiacritics(text) {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
-function getTemplate$E() {
+function getTemplate$F() {
     return html `<!--_html_template_start_-->    <style>:host{display:flex;flex-direction:column;outline:0;position:relative}#header{display:flex;justify-content:space-between;padding-inline-end:var(--cr-section-padding)}#header .title{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}#feedback{margin-top:var(--cr-section-vertical-margin)}:host(:not(.expanded)) #card{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow);flex:1;overflow:hidden}@media (forced-colors:active){:host(:not(.expanded)) #card{border:var(--cr-border-hcm)}}:host(.expanded) #header,:host([hidden-by-search]){display:none}</style>
     <div id="header">
       <h2 id="title" class="title" tabindex="-1" aria-hidden$="[[getTitleHiddenStatus_(pageTitle)]]">[[pageTitle]]</h2>
@@ -675,7 +675,7 @@ class SettingsSectionElement extends PolymerElement {
         return 'settings-section';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -741,7 +741,7 @@ styleMod$1.appendChild(html `
 `.content);
 styleMod$1.register('settings-page-styles');
 
-function getTemplate$D() {
+function getTemplate$E() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared settings-page-styles iron-flex">:host{--about-page-image-space:10px}.info-sections{padding:var(--cr-section-vertical-padding) var(--cr-section-padding)}.info-section{margin-bottom:12px}.product-title{font-size:153.85%;font-weight:400;margin-bottom:auto;margin-top:auto}img{margin-inline-end:var(--about-page-image-space)}.icon-container{margin-inline-end:var(--about-page-image-space);min-width:32px;text-align:center}iron-icon[icon='settings:check-circle']{fill:var(--cr-checked-color)}iron-icon[icon='cr:error']{fill:var(--settings-error-color)}cr-button{white-space:nowrap}</style>
     <settings-section page-title="$i18n{aboutPageTitle}" section="about">
       <div class="cr-row two-line first">
@@ -852,7 +852,7 @@ class SettingsAboutPageElement extends SettingsAboutPageElementBase {
         return 'settings-about-page';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -930,7 +930,7 @@ class SettingsAboutPageElement extends SettingsAboutPageElementBase {
 }
 customElements.define(SettingsAboutPageElement.is, SettingsAboutPageElement);
 
-function getTemplate$C() {
+function getTemplate$D() {
     return html `<!--_html_template_start_--><style>iron-icon{--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);padding-inline-end:10px}cr-dialog::part(body-container){padding-inline-start:35px}</style>
 
 <cr-dialog id="dialog" close-text="[[i18n('close')]]" show-on-attach>
@@ -962,7 +962,7 @@ class ManagedDialogElement extends ManagedDialogElementBase {
         return 'managed-dialog';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -1161,7 +1161,7 @@ const FindShortcutMixin = dedupingMixin((superClass) => {
     return FindShortcutMixin;
 });
 
-function getTemplate$B() {
+function getTemplate$C() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block;left:0;min-height:calc(100vh - var(--cr-toolbar-height) - var(--cr-toolbar-padding-top,0px));padding-bottom:60px;position:absolute;right:0;top:0}:host(:not(.multi-card)){background-color:var(--cr-card-background-color);box-shadow:var(--cr-card-shadow)}@media (forced-colors:active){:host(:not(.multi-card)){border-inline-end:var(--cr-border-hcm);border-inline-start:var(--cr-border-hcm)}}#headerLine{min-height:40px;padding-bottom:24px;padding-top:8px}#learnMore{align-items:center;display:flex;height:var(--cr-icon-ripple-size);justify-content:center;margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);position:relative;width:var(--cr-icon-ripple-size)}#title-icon{height:36px;width:36px}#favicon,#title-icon{margin-inline-end:12px;margin-inline-start:2px}#closeButton{margin-inline-end:10px;margin-inline-start:-10px}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}h1{flex:1}cr-search-field{margin-inline-start:16px}</style>
     <div class="cr-row first" id="headerLine">
       <cr-icon-button class="icon-arrow-back" id="closeButton" hidden="[[hideCloseButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
@@ -1410,7 +1410,7 @@ class SettingsSubpageElement extends SettingsSubpageElementBase {
         return field.getSearchInput() === field.shadowRoot.activeElement;
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$C();
     }
 }
 customElements.define(SettingsSubpageElement.is, SettingsSubpageElement);
@@ -1448,7 +1448,7 @@ class AppearanceBrowserProxyImpl {
 }
 let instance$b = null;
 
-function getTemplate$A() {
+function getTemplate$B() {
     return html `<!--_html_template_start_-->    <style>:host{cursor:auto;display:block;width:100%}cr-input{width:100%;--cr-input-width:50%}cr-input::part(row-container){justify-content:normal}</style>
     
     <cr-input id="input" value="{{value}}" error-message="$i18n{notValid}" placeholder="$i18n{enterCustomWebAddress}" maxlength="102400" on-change="onChange_" on-keydown="onKeydown_" on-input="validate_" invalid="{{invalid}}" input-tabindex="[[getTabindex_(canTab)]]" disabled="[[isDisabled_(disabled, pref.*)]]" spellcheck="false" on-keyup="stopKeyEventPropagation_" on-keypress="stopKeyEventPropagation_">
@@ -1474,7 +1474,7 @@ class HomeUrlInputElement extends HomeUrlInputElementBase {
         return 'home-url-input';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -1742,7 +1742,7 @@ class CustomizeColorSchemeModeBrowserProxy {
     }
 }
 
-function getTemplate$z() {
+function getTemplate$A() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared md-select iron-flex">#custom-input{--cr-radio-button-disc-margin-block-start:calc(
             (1.54em + 12px) / 2 - 8px);align-items:start}#themeRow cr-button{margin-inline-end:20px}#themeRow .separator{margin-inline-start:0}</style>
     <settings-animated-pages id="pages" section="appearance" focus-config="[[focusConfig_]]">
@@ -1904,7 +1904,7 @@ class SettingsAppearancePageElement extends SettingsAppearancePageElementBase {
         return 'settings-appearance-page';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -2142,7 +2142,7 @@ class SettingsAppearancePageElement extends SettingsAppearancePageElementBase {
 }
 customElements.define(SettingsAppearancePageElement.is, SettingsAppearancePageElement);
 
-function getTemplate$y() {
+function getTemplate$z() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#wrapper{align-items:center;display:flex;justify-content:space-between;padding:0 20px}#controlsColumn{margin-top:4px}h2{color:var(--cr-primary-text-color);font-size:22px;padding-top:0}#title{font-weight:400}#bodyText{padding-block-end:16px}#startButton{margin-bottom:4px;margin-inline-end:16px}</style>
 <div id="wrapper">
   <div id="controlsColumn">
@@ -2183,7 +2183,7 @@ class PrivacyGuidePromoElement extends PrivacyGuidePromoElementBase {
         return 'settings-privacy-guide-promo';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -2207,7 +2207,7 @@ class PrivacyGuidePromoElement extends PrivacyGuidePromoElementBase {
 }
 customElements.define(PrivacyGuidePromoElement.is, PrivacyGuidePromoElement);
 
-function getTemplate$x() {
+function getTemplate$y() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-hidden-style settings-shared iron-flex">.content-settings-header,.radio-group{padding:0 var(--cr-section-padding)}.radio-group-sub-heading{padding-bottom:10px}.padded-radio-section{padding-inline-start:50px}settings-collapse-radio-button{--settings-collapse-toggle-min-height:var(--cr-section-min-height)}settings-collapse-radio-button.two-line{--settings-collapse-toggle-min-height:var(--cr-section-two-line-min-height)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
     <template is="dom-if" if="[[showClearBrowsingDataDialog_]]" restamp>
       <settings-clear-browsing-data-dialog prefs="{{prefs}}" on-close="onCbdDialogClosed_">
@@ -2947,7 +2947,7 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
         return 'settings-privacy-page';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -3474,7 +3474,7 @@ class SafetyCheckBrowserProxyImpl {
 }
 let instance$9 = null;
 
-function getTemplate$w() {
+function getTemplate$x() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex cr-actionable-row-style">:host{border-top:var(--cr-separator-line);padding:0 var(--cr-section-padding)}:host([row-clickable]) #managedIcon{padding-inline-end:0}iron-icon{display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}.button-icon{padding-inline-end:0}.icon-blue{fill:var(--google-blue-600)}.icon-red{fill:var(--google-red-600)}@media (prefers-color-scheme:dark){.icon-blue{fill:var(--google-blue-300)}.icon-red{fill:var(--google-red-300)}}</style>
 <iron-icon id="statusIcon" icon="[[getStatusIcon_(iconStatus)]]" src="[[getStatusIconSrc_(iconStatus)]]" class$="[[getStatusIconClass_(iconStatus)]]" role="img" aria-label="[[getStatusIconAriaLabel_(iconStatus)]]">
 </iron-icon>
@@ -3531,7 +3531,7 @@ class SettingsSafetyCheckChildElement extends SettingsSafetyCheckChildElementBas
         return 'settings-safety-check-child';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -3668,7 +3668,7 @@ class SettingsSafetyCheckChildElement extends SettingsSafetyCheckChildElementBas
 }
 customElements.define(SettingsSafetyCheckChildElement.is, SettingsSafetyCheckChildElement);
 
-function getTemplate$v() {
+function getTemplate$w() {
     return html `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safetyCheckExtensionsPrimaryLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckExtensionsButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" external managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
 </settings-safety-check-child>
 <!--_html_template_end_-->`;
@@ -3692,7 +3692,7 @@ class SettingsSafetyCheckExtensionsChildElement extends SettingsSafetyCheckExten
         return 'settings-safety-check-extensions-child';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -3788,7 +3788,7 @@ class SettingsSafetyCheckExtensionsChildElement extends SettingsSafetyCheckExten
 }
 customElements.define(SettingsSafetyCheckExtensionsChildElement.is, SettingsSafetyCheckExtensionsChildElement);
 
-function getTemplate$u() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{passwords}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckPasswordsButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" role="presentation">
 </settings-safety-check-child>
 <!--_html_template_end_-->`;
@@ -3812,7 +3812,7 @@ class SettingsSafetyCheckPasswordsChildElement extends SettingsSafetyCheckPasswo
         return 'settings-safety-check-passwords-child';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -3909,7 +3909,7 @@ class SettingsSafetyCheckPasswordsChildElement extends SettingsSafetyCheckPasswo
 }
 customElements.define(SettingsSafetyCheckPasswordsChildElement.is, SettingsSafetyCheckPasswordsChildElement);
 
-function getTemplate$t() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safeBrowsingSectionLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckSafeBrowsingButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" on-click="onRowClick_" row-clickable="[[isRowClickable_(status_)]]" managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
 </settings-safety-check-child>
 <!--_html_template_end_-->`;
@@ -3933,7 +3933,7 @@ class SettingsSafetyCheckSafeBrowsingChildElement extends SettingsSafetyCheckSaf
         return 'settings-safety-check-safe-browsing-child';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -4035,7 +4035,7 @@ class SettingsSafetyCheckSafeBrowsingChildElement extends SettingsSafetyCheckSaf
 }
 customElements.define(SettingsSafetyCheckSafeBrowsingChildElement.is, SettingsSafetyCheckSafeBrowsingChildElement);
 
-function getTemplate$s() {
+function getTemplate$t() {
     return html `<!--_html_template_start_--><settings-safety-check-child id="safetyCheckChild" icon-status="[[getIconStatus_(status_)]]" label="$i18n{safetyCheckUpdatesPrimaryLabel}" sub-label="[[displayString_]]" button-label="[[getButtonLabel_(status_)]]" button-aria-label="$i18n{safetyCheckUpdatesButtonAriaLabel}" button-class="action-button" on-button-click="onButtonClick_" managed-icon="[[getManagedIcon_(status_)]]" role="presentation">
 </settings-safety-check-child>
 
@@ -4061,7 +4061,7 @@ class SettingsSafetyCheckUpdatesChildElement extends SettingsSafetyCheckUpdatesC
         return 'settings-safety-check-updates-child';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -4147,7 +4147,7 @@ class SafetyCheckExtensionsBrowserProxyImpl {
 }
 let instance$8 = null;
 
-function getTemplate$r() {
+function getTemplate$s() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">#safetyCheckCollapse .list-item.selected{min-height:var(--cr-section-two-line-min-height)}iron-icon{display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}</style>
     <div id="safetyCheckParent" class="cr-row first two-line">
       <iron-icon icon="settings20:safety-check" aria-hidden="true">
@@ -4220,7 +4220,7 @@ class SettingsSafetyCheckPageElement extends SettingsSafetyCheckPageElementBase 
         return 'settings-safety-check-page';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -4371,7 +4371,7 @@ class SettingsSafetyCheckPageElement extends SettingsSafetyCheckPageElementBase 
 }
 customElements.define(SettingsSafetyCheckPageElement.is, SettingsSafetyCheckPageElement);
 
-function getTemplate$q() {
+function getTemplate$r() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">cr-link-row{--cr-icon-button-margin-start:20px}cr-link-row:not([hidden])~cr-link-row{border-top:var(--cr-separator-line)}</style>
     <settings-animated-pages id="pages" section="autofill" focus-config="[[focusConfig_]]">
       <div route-path="default">
@@ -4415,7 +4415,7 @@ class SettingsAutofillPageElement extends SettingsAutofillPageElementBase {
         return 'settings-autofill-page';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$r();
     }
     static get properties() {
         return {
@@ -4630,7 +4630,7 @@ class SettingsIdleLoadElement extends PolymerElement {
 }
 customElements.define(SettingsIdleLoadElement.is, SettingsIdleLoadElement);
 
-function getTemplate$p() {
+function getTemplate$q() {
     return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
     <cr-dialog id="dialog" close-text="$i18n{close}">
       <div slot="title">[[dialogTitle_]]</div>
@@ -4701,7 +4701,7 @@ class SettingsStartupUrlDialogElement extends PolymerElement {
         return 'settings-startup-url-dialog';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$q();
     }
     static get properties() {
         return {
@@ -4952,7 +4952,7 @@ const CrScrollableMixin = dedupingMixin((superClass) => {
     return CrScrollableMixin;
 });
 
-function getTemplate$o() {
+function getTemplate$p() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">.hide-overflow{overflow:hidden}</style>
     <div class="list-item" focus-row-container>
       <site-favicon url="[[model.url]]"></site-favicon>
@@ -4999,7 +4999,7 @@ class SettingsStartupUrlEntryElement extends SettingsStartupUrlEntryElementBase 
         return 'settings-startup-url-entry';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -5036,7 +5036,7 @@ class SettingsStartupUrlEntryElement extends SettingsStartupUrlEntryElementBase 
 }
 customElements.define(SettingsStartupUrlEntryElement.is, SettingsStartupUrlEntryElement);
 
-function getTemplate$n() {
+function getTemplate$o() {
     return html `<!--_html_template_start_-->    <style include="settings-shared action-link iron-flex">#editOptions>div{border-top:var(--cr-separator-line)}#outer{max-height:355px}#container settings-startup-url-entry{cursor:default}</style>
     <div id="outer" class="layout vertical flex list-frame">
       <div id="container" class="scroll-container" scrollable>
@@ -5089,7 +5089,7 @@ class SettingsStartupUrlsPageElement extends SettingsStartupUrlsPageElementBase 
         return 'settings-startup-urls-page';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -5177,7 +5177,7 @@ class OnStartupBrowserProxyImpl {
 }
 let instance$6 = null;
 
-function getTemplate$m() {
+function getTemplate$n() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">.block{display:block}</style>
     <div class="cr-row first">
       <settings-radio-group id="onStartupRadioGroup" class="flex" pref="{{prefs.session.restore_on_startup}}" group-aria-label="$i18n{onStartup}">
@@ -5225,7 +5225,7 @@ class SettingsOnStartupPageElement extends SettingsOnStartupPageElementBase {
         return 'settings-on-startup-page';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -5808,7 +5808,7 @@ class AccountManagerBrowserProxyImpl {
 }
 let instance$4 = null;
 
-function getTemplate$l() {
+function getTemplate$m() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">.sync-row{align-items:center;flex:auto}#profile-icon{background:center/cover no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#sync-setup{--cr-secondary-text-color:var(--settings-error-color)}cr-link-row{--cr-link-row-icon-width:40px;border-top:var(--cr-separator-line)}.icon-container{display:flex;flex-shrink:0;justify-content:center;width:40px}#toast{left:0;z-index:1}:host-context([dir=rtl]) #toast{left:auto;right:0}settings-sync-account-control[showing-promo]::part(banner){border-top-left-radius:var(--cr-card-border-radius);border-top-right-radius:var(--cr-card-border-radius)}settings-sync-account-control[showing-promo]::part(title){font-size:1.1rem;line-height:1.625rem}</style>
     <settings-animated-pages id="pages" section="people" focus-config="[[focusConfig_]]">
       <div route-path="default">
@@ -5904,7 +5904,7 @@ class SettingsPeoplePageElement extends SettingsPeoplePageElementBase {
         return 'settings-people-page';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -6119,7 +6119,7 @@ class SettingsPeoplePageElement extends SettingsPeoplePageElementBase {
 }
 customElements.define(SettingsPeoplePageElement.is, SettingsPeoplePageElement);
 
-function getTemplate$k() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.battery-saver-radio-group{padding-block-end:var(--cr-section-vertical-padding)}</style>
 <template is="dom-if" if="[[isBatterySaverModeManagedByOS_]]">
   <cr-link-row id="batterySaverOSSettingsLinkRow" label="$i18n{batterySaverModeLabel}" sub-label="$i18n{batterySaverModeLinkOsDescription}" on-click="openOsPowerSettings_" external>
@@ -6215,7 +6215,7 @@ class SettingsBatteryPageElement extends SettingsBatteryPageElementBase {
         return 'settings-battery-page';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -6245,7 +6245,7 @@ class SettingsBatteryPageElement extends SettingsBatteryPageElementBase {
 }
 customElements.define(SettingsBatteryPageElement.is, SettingsBatteryPageElement);
 
-function getTemplate$j() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><cr-input id="input" label="$i18n{addSite}" aria-label$="$i18n{addSiteTitle}" placeholder="example.com" value="{{rule}}" on-input="validate" error-message="[[errorMessage]]" invalid="[[inputInvalid]]" spellcheck="false" autofocus>
 </cr-input>
 <!--_html_template_end_-->`;
@@ -6341,7 +6341,7 @@ class TabDiscardExceptionAddInputElement extends TabDiscardExceptionAddInputElem
         return 'tab-discard-exception-add-input';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$k();
     }
     submit() {
         assert(!this.submitDisabled);
@@ -6352,7 +6352,7 @@ class TabDiscardExceptionAddInputElement extends TabDiscardExceptionAddInputElem
 }
 customElements.define(TabDiscardExceptionAddInputElement.is, TabDiscardExceptionAddInputElement);
 
-function getTemplate$i() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">$i18n{addSiteTitle}</div>
   <div slot="body">
@@ -6380,7 +6380,7 @@ class TabDiscardExceptionAddDialogElement extends TabDiscardExceptionAddDialogEl
         return 'tab-discard-exception-add-dialog';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$j();
     }
     onCancelClick_() {
         this.$.dialog.cancel();
@@ -6392,7 +6392,7 @@ class TabDiscardExceptionAddDialogElement extends TabDiscardExceptionAddDialogEl
 }
 customElements.define(TabDiscardExceptionAddDialogElement.is, TabDiscardExceptionAddDialogElement);
 
-function getTemplate$h() {
+function getTemplate$i() {
     return html `<!--_html_template_start_--><cr-input id="input" label="$i18n{addSite}" aria-label$="$i18n{editSiteTitle}" placeholder="example.com" value="{{rule}}" on-input="validate" error-message="[[errorMessage]]" invalid="[[inputInvalid]]" spellcheck="false" autofocus>
 </cr-input>
 <!--_html_template_end_-->`;
@@ -6411,7 +6411,7 @@ class TabDiscardExceptionEditInputElement extends TabDiscardExceptionEditInputEl
         return 'tab-discard-exception-edit-input';
     }
     static get template() {
-        return getTemplate$h();
+        return getTemplate$i();
     }
     static get properties() {
         return {
@@ -6447,7 +6447,7 @@ class TabDiscardExceptionEditInputElement extends TabDiscardExceptionEditInputEl
 }
 customElements.define(TabDiscardExceptionEditInputElement.is, TabDiscardExceptionEditInputElement);
 
-function getTemplate$g() {
+function getTemplate$h() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">$i18n{editSiteTitle}</div>
   <div slot="body">
@@ -6475,7 +6475,7 @@ class TabDiscardExceptionEditDialogElement extends TabDiscardExceptionEditDialog
         return 'tab-discard-exception-edit-dialog';
     }
     static get template() {
-        return getTemplate$g();
+        return getTemplate$h();
     }
     static get properties() {
         return {
@@ -6496,7 +6496,7 @@ class TabDiscardExceptionEditDialogElement extends TabDiscardExceptionEditDialog
 }
 customElements.define(TabDiscardExceptionEditDialogElement.is, TabDiscardExceptionEditDialogElement);
 
-function getTemplate$f() {
+function getTemplate$g() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-pref-indicator::part(tooltip){clip:rect(0 0 0 0);height:1px;overflow:hidden;width:1px}cr-policy-pref-indicator{padding-inline-end:8px}</style>
 <div class="list-item">
   <div class="start text-elide">[[entry.site]]</div>
@@ -6520,7 +6520,7 @@ class TabDiscardExceptionEntryElement extends TabDiscardExceptionEntryElementBas
         return 'tab-discard-exception-entry';
     }
     static get template() {
-        return getTemplate$f();
+        return getTemplate$g();
     }
     static get properties() {
         return {
@@ -6539,7 +6539,7 @@ class TabDiscardExceptionEntryElement extends TabDiscardExceptionEntryElementBas
 }
 customElements.define(TabDiscardExceptionEntryElement.is, TabDiscardExceptionEntryElement);
 
-function getTemplate$e() {
+function getTemplate$f() {
     return html `<!--_html_template_start_--><style include="settings-shared">.ripple-padding{padding-inline-start:20px;padding-inline-end:20px}cr-checkbox::part(label-container){min-width:0}</style>
 <cr-checkbox id="checkbox" class="list-item no-outline ripple-padding" tab-index="-1" checked="{{checked}}" part="checkbox">
   <slot></slot>
@@ -6583,7 +6583,7 @@ class SettingsCheckboxListEntryElement extends PolymerElement {
         return 'settings-checkbox-list-entry';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$f();
     }
     static get properties() {
         return {
@@ -6649,7 +6649,7 @@ class SettingsCheckboxListEntryElement extends PolymerElement {
 }
 customElements.define(SettingsCheckboxListEntryElement.is, SettingsCheckboxListEntryElement);
 
-function getTemplate$d() {
+function getTemplate$e() {
     return html `<!--_html_template_start_--><style include="settings-shared">#container{height:calc(5 * var(--cr-section-min-height))}#emptyText{padding-inline-end:20px;padding-inline-start:20px;padding-top:20px}.label-slot{align-items:center;display:flex}.checkbox-label{margin-inline-start:10px}</style>
 <div id="container" scrollable>
   <iron-list id="list" scroll-target="container" role="listbox" items="[[currentSites_]]" hidden$="[[!currentSites_.length]]">
@@ -6684,7 +6684,7 @@ class TabDiscardExceptionCurrentSitesListElement extends TabDiscardExceptionCurr
         return 'tab-discard-exception-current-sites-list';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$e();
     }
     static get properties() {
         return {
@@ -6798,7 +6798,7 @@ class TabDiscardExceptionCurrentSitesListElement extends TabDiscardExceptionCurr
 }
 customElements.define(TabDiscardExceptionCurrentSitesListElement.is, TabDiscardExceptionCurrentSitesListElement);
 
-function getTemplate$c() {
+function getTemplate$d() {
     return html `<!--_html_template_start_--><style>cr-tabs{--cr-tabs-font-size:100%;--cr-tabs-height:40px}#dialog{--border-top-color:var(--google-grey-300);--cr-dialog-body-border-top:1px solid var(--border-top-color)}@media (prefers-color-scheme:dark){#dialog{--border-top-color:var(--cr-separator-color)}}#dialog::part(wrapper){overflow:hidden}#dialog [slot=title]{padding-bottom:8px}#dialog::part(body-container){height:calc(5 * var(--cr-section-min-height) + 2px)}#body{padding-inline-end:0;padding-inline-start:0}#helpText{padding-bottom:20px}#inputPage{padding-inline-end:20px;padding-inline-start:20px;padding-top:20px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{addSitesTitle}</div>
@@ -6846,7 +6846,7 @@ class TabDiscardExceptionTabbedAddDialogElement extends TabDiscardExceptionTabbe
         return 'tab-discard-exception-tabbed-add-dialog';
     }
     static get template() {
-        return getTemplate$c();
+        return getTemplate$d();
     }
     static get properties() {
         return {
@@ -6895,7 +6895,7 @@ class TabDiscardExceptionTabbedAddDialogElement extends TabDiscardExceptionTabbe
 }
 customElements.define(TabDiscardExceptionTabbedAddDialogElement.is, TabDiscardExceptionTabbedAddDialogElement);
 
-function getTemplate$b() {
+function getTemplate$c() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">.cr-padded-text{flex:1}.list-frame{padding-inline-start:var(--cr-section-indent-width)}#outer>tab-discard-exception-entry:not(:first-of-type){border-top:var(--cr-separator-line)}#expandButton{padding-inline-end:0;padding-inline-start:0;--cr-icon-button-margin-end:0}</style>
 <div class="cr-row">
   <div class="cr-padded-text">
@@ -6970,7 +6970,7 @@ class TabDiscardExceptionListElement extends TabDiscardExceptionListElementBase 
         return 'tab-discard-exception-list';
     }
     static get template() {
-        return getTemplate$b();
+        return getTemplate$c();
     }
     static get properties() {
         return {
@@ -7136,7 +7136,7 @@ function getDiscardTimerOptions() {
     ];
 }
 
-function getTemplate$a() {
+function getTemplate$b() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.high-efficiency-radio-group{display:flex;flex-direction:column;padding:0 var(--cr-section-padding)}.badge{align-items:center;background:var(--google-grey-600);border-radius:4px;color:#fff;display:inline-flex;font-size:10px;height:15px;margin-inline-start:15px;padding:0 4px}@media (prefers-color-scheme:dark){.badge{background:var(--google-grey-500);color:var(--google-grey-900)}}#enabledOnTimerButton::part(labelWrapper){align-items:center;display:flex;justify-content:space-between}</style>
 <settings-toggle-button id="toggleButton" on-change="onChange_" pref="{{prefs.performance_tuning.high_efficiency_mode.state}}" label="$i18n{highEfficiencyModeLabel}" sub-label="$i18n{highEfficiencyModeDescription}" learn-more-url="$i18n{highEfficiencyLearnMoreUrl}" numeric-unchecked-value="[[highEfficiencyModeStateEnum_.DISABLED]]" numeric-checked-value="[[toggleButtonCheckedValue_(
         isHighEfficiencyMultistateModeEnabled_)]]">
@@ -7178,7 +7178,7 @@ class SettingsPerformancePageElement extends SettingsPerformancePageElementBase 
         return 'settings-performance-page';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$b();
     }
     static get properties() {
         return {
@@ -7231,7 +7231,7 @@ class SettingsPerformancePageElement extends SettingsPerformancePageElementBase 
 }
 customElements.define(SettingsPerformancePageElement.is, SettingsPerformancePageElement);
 
-function getTemplate$9() {
+function getTemplate$a() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared settings-columned-section">.settings-section-bottom-padding{padding-block-end:var(--cr-section-vertical-padding)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
 <settings-toggle-button id="preloadingToggle" pref="{{prefs.net.network_prediction_options}}" label="$i18n{preloadingPageTitle}" sub-label="$i18n{preloadingToggleSummary}" learn-more-url="$i18n{preloadingLearnMoreUrl}" numeric-unchecked-value="[[networkPredictionOptionsEnum_.DISABLED]]" numeric-checked-value="[[networkPredictionOptionsEnum_.STANDARD]]" on-change="onPreloadingStateChange_">
 </settings-toggle-button>
@@ -7310,7 +7310,7 @@ class SpeedPageElement extends SpeedPageElementBase {
         return 'settings-speed-page';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$a();
     }
     static get properties() {
         return {
@@ -7346,7 +7346,7 @@ class SpeedPageElement extends SpeedPageElementBase {
 }
 customElements.define(SpeedPageElement.is, SpeedPageElement);
 
-function getTemplate$8() {
+function getTemplate$9() {
     return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
     <cr-dialog id="dialog" close-text="$i18n{close}" ignore-popstate on-cancel="onCancel_">
       <div slot="title">$i18n{resetAutomatedDialogTitle}</div>
@@ -7381,7 +7381,7 @@ class SettingsResetProfileBannerElement extends PolymerElement {
         return 'settings-reset-profile-banner';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$9();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -7400,8 +7400,8 @@ class SettingsResetProfileBannerElement extends PolymerElement {
 }
 customElements.define(SettingsResetProfileBannerElement.is, SettingsResetProfileBannerElement);
 
-function getTemplate$7() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.cr-row.search-engine{padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto;margin-inline-start:12px}</style>
+function getTemplate$8() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.cr-row.search-engine{padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto}.search-engine{align-items:center;display:flex;flex-direction:row;gap:12px}</style>
 <settings-animated-pages id="pages" section="search" focus-config="[[focusConfig_]]">
   <div route-path="default">
     
@@ -7425,10 +7425,14 @@ function getTemplate$7() {
             <site-favicon favicon-url="[[defaultSearchEngine_.iconURL]]" url="[[defaultSearchEngine_.url]]">
             </site-favicon>
             <div class="search-engine-name">[[defaultSearchEngine_.name]]</div>
-            <cr-button disabled$="[[isDefaultSearchEngineEnforced_(
-                prefs.default_search_provider_data.template_url_data)]]">
+            <cr-button id="openDialogButton" on-click="onOpenDialogButtonClick_" disabled$="[[isDefaultSearchEngineEnforced_(
+                    prefs.default_search_provider_data.template_url_data)]]">
               $i18n{searchEnginesChange}
             </cr-button>
+            <template is="dom-if" if="[[showSearchEngineListDialog_]]" restamp>
+              <settings-search-engine-list-dialog search-engines="[[searchEngines_]]" on-close="onSearchEngineListDialogClose_">
+              </settings-search-engine-list-dialog>
+            </template>
           </div>
         </div>
       </template>
@@ -7482,7 +7486,7 @@ function getTemplate$7() {
  * @fileoverview
  * 'settings-search-page' is the settings page containing search settings.
  */
-const SettingsSearchPageElementBase = BaseMixin(PolymerElement);
+const SettingsSearchPageElementBase = BaseMixin(WebUiListenerMixin(PolymerElement));
 class SettingsSearchPageElement extends SettingsSearchPageElementBase {
     constructor() {
         super(...arguments);
@@ -7492,13 +7496,13 @@ class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         return 'settings-search-page';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$8();
     }
     static get properties() {
         return {
             prefs: Object,
             /**
-             * List of default search engines available.
+             * List of search engines available.
              */
             searchEngines_: {
                 type: Array,
@@ -7514,35 +7518,37 @@ class SettingsSearchPageElement extends SettingsSearchPageElementBase {
                 },
             },
             // The selected default search engine.
-            // This depends on `prefs.default_search_provider_data.template_url_data`
-            // because we want to update the `defaultSearchEngine_` variable every
-            // time the default search provider is updated in the pref.
+            // This depends on `searchEngines_` because we want to update the
+            // `defaultSearchEngine_` variable every time the search engine list is
+            // updated.
             defaultSearchEngine_: {
                 type: Object,
-                computed: 'computeDefaultSearchEngine_(' +
-                    'prefs.default_search_provider_data.template_url_data, ' +
-                    'searchEngines_)',
+                computed: 'computeDefaultSearchEngine_(searchEngines_)',
             },
             /** Filter applied to search engines. */
             searchEnginesFilter_: String,
             focusConfig_: Object,
+            // Boolean to check whether we need to show the dialog or not.
+            showSearchEngineListDialog_: Boolean,
         };
     }
     ready() {
         super.ready();
         // Omnibox search engine
         const updateSearchEngines = (searchEngines) => {
-            this.set('searchEngines_', searchEngines.defaults);
+            this.searchEngines_ = searchEngines.defaults;
         };
         this.browserProxy_.getSearchEnginesList().then(updateSearchEngines);
-        addWebUiListener('search-engines-changed', updateSearchEngines);
+        this.addWebUiListener('search-engines-changed', updateSearchEngines);
         this.focusConfig_ = new Map();
         if (routes.SEARCH_ENGINES) {
             this.focusConfig_.set(routes.SEARCH_ENGINES.path, '#enginesSubpageTrigger');
         }
     }
     onChange_() {
+        assert(!this.searchEngineChoiceSettingsUi_);
         const select = this.shadowRoot.querySelector('select');
+        assert(select);
         const searchEngine = this.searchEngines_[select.selectedIndex];
         this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex);
     }
@@ -7564,9 +7570,20 @@ class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         return pref.enforcement === chrome.settingsPrivate.Enforcement.ENFORCED;
     }
     computeDefaultSearchEngine_() {
-        return this.searchEngines_.length ?
-            this.searchEngines_.find(searchEngine => searchEngine.default) :
-            null;
+        if (!this.searchEngines_.length || !this.searchEngineChoiceSettingsUi_) {
+            return null;
+        }
+        const defaultSearchEngine = this.searchEngines_.find(searchEngine => searchEngine.default);
+        assert(defaultSearchEngine);
+        return defaultSearchEngine;
+    }
+    onOpenDialogButtonClick_() {
+        assert(this.searchEngineChoiceSettingsUi_);
+        this.showSearchEngineListDialog_ = true;
+    }
+    onSearchEngineListDialogClose_() {
+        assert(this.searchEngineChoiceSettingsUi_);
+        this.showSearchEngineListDialog_ = false;
     }
 }
 customElements.define(SettingsSearchPageElement.is, SettingsSearchPageElement);
@@ -8390,7 +8407,7 @@ const MainPageMixin = dedupingMixin((superClass) => {
     return MainPageMixin;
 });
 
-function getTemplate$6() {
+function getTemplate$7() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-page-styles cr-hidden-style iron-flex">:host([is-subpage-animating]){overflow:hidden}:host(:not([in-search-mode])) settings-section:not([active]){display:none}</style>
     <template is="dom-if" if="[[showBasicPage_(
         currentRoute_, inSearchMode, hasExpandedSection_)]]">
@@ -8535,7 +8552,7 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
         return 'settings-basic-page';
     }
     static get template() {
-        return getTemplate$6();
+        return getTemplate$7();
     }
     static get properties() {
         return {
@@ -8798,7 +8815,7 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
 }
 customElements.define(SettingsBasicPageElement.is, SettingsBasicPageElement);
 
-function getTemplate$5() {
+function getTemplate$6() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-hidden-style settings-shared">#noSearchResults{margin-top:80px;text-align:center}#noSearchResults div:first-child{font-size:123%;margin-bottom:10px}managed-footnote{border-top:none;margin-bottom:calc(-21px - 8px);padding-bottom:16px;padding-top:12px;position:relative;z-index:1}</style>
     <div id="noSearchResults" hidden$="[[!showNoResultsFound_]]">
       <div>$i18n{searchNoResults}</div>
@@ -8832,7 +8849,7 @@ class SettingsMainElement extends SettingsMainElementBase {
         return 'settings-main';
     }
     static get template() {
-        return getTemplate$5();
+        return getTemplate$6();
     }
     static get properties() {
         return {
@@ -9031,7 +9048,7 @@ styleMod.appendChild(html `
 `.content);
 styleMod.register('cr-nav-menu-item-style');
 
-function getTemplate$4() {
+function getTemplate$5() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons cr-nav-menu-item-style">:host{box-sizing:border-box;display:block;padding-bottom:5px;padding-top:8px}:host *{-webkit-tap-highlight-color:transparent}#menu{color:var(--google-grey-700);display:flex;flex-direction:column;min-width:fit-content}#extensionsLink>.cr-icon{height:var(--cr-icon-size);margin-inline-end:14px;width:var(--cr-icon-size)}.menu-separator{border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:8px;margin-top:8px}#aboutIcon{--cr-icon-image:url(//resources/images/chrome_logo_dark.svg);-webkit-mask-size:18px;background-color:var(--iron-icon-fill-color);display:block;height:var(--cr-icon-size);margin-inline-end:20px;margin-inline-start:0;width:var(--cr-icon-size)}@media (forced-colors:active){#aboutIcon{background-color:ButtonText}}@media (prefers-color-scheme:dark){#menu{color:var(--cr-primary-text-color)}.menu-separator{border-bottom:var(--cr-separator-line)}}</style>
 
     <div role="navigation">
@@ -9124,7 +9141,7 @@ class SettingsMenuElement extends SettingsMenuElementBase {
         return 'settings-menu';
     }
     static get template() {
-        return getTemplate$4();
+        return getTemplate$5();
     }
     static get properties() {
         return {
@@ -9186,7 +9203,7 @@ class SettingsMenuElement extends SettingsMenuElementBase {
 }
 customElements.define(SettingsMenuElement.is, SettingsMenuElement);
 
-function getTemplate$3() {
+function getTemplate$4() {
     return html `<!--_html_template_start_-->    <style include="cr-page-host-style settings-shared">:host{display:flex;flex-direction:column;height:100%;--settings-menu-width:250px;--settings-main-basis:calc(var(--cr-centered-card-max-width) /
             var(--cr-centered-card-width-percentage))}cr-toolbar{min-height:56px;--cr-toolbar-center-basis:var(--settings-main-basis)}cr-toolbar:not([narrow]){--cr-toolbar-left-spacer-width:var(--settings-menu-width)}@media (prefers-color-scheme:light){cr-toolbar{--iron-icon-fill-color:white}}#cr-container-shadow-top{z-index:2}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}#left,#main,#right{flex:1 1 0}#left{height:100%;position:sticky;top:0}#left settings-menu{max-height:100%;overflow:auto;overscroll-behavior:contain;width:var(--settings-menu-width)}#main{flex-basis:var(--settings-main-basis)}@media (max-width:980px){#main{min-width:auto;padding:0 3px}}</style>
     <settings-prefs id="prefs" prefs="{{prefs}}"></settings-prefs>
@@ -9230,7 +9247,7 @@ class SettingsUiElement extends SettingsUiElementBase {
         return 'settings-ui';
     }
     static get template() {
-        return getTemplate$3();
+        return getTemplate$4();
     }
     static get properties() {
         return {
@@ -9426,7 +9443,7 @@ class SettingsUiElement extends SettingsUiElementBase {
 }
 customElements.define(SettingsUiElement.is, SettingsUiElement);
 
-function getTemplate$2() {
+function getTemplate$3() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <settings-safety-check-child id="safetyCheckChild" icon-status="[[safetyCheckIconEnum_.EXTENSIONS_REVIEW]]" label="[[displayString_]]" button-label="$i18n{safetyCheckReview}" button-aria-label="$i18n{safetyCheckExtensionsButtonAriaLabel}" on-button-click="onButtonClick_" role="presentation" button-icon="cr:open-in-new" class="two-line">
 </settings-safety-check-child>
@@ -9448,7 +9465,7 @@ class SafetyCheckExtensionsElement extends SafetyCheckExtensionsElementBase {
         return 'safety-check-extensions';
     }
     static get template() {
-        return getTemplate$2();
+        return getTemplate$3();
     }
     static get properties() {
         return {
@@ -9478,7 +9495,7 @@ class SafetyCheckExtensionsElement extends SafetyCheckExtensionsElementBase {
 }
 customElements.define(SafetyCheckExtensionsElement.is, SafetyCheckExtensionsElement);
 
-function getTemplate$1() {
+function getTemplate$2() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
 <settings-safety-check-child id="safetyCheckChild" icon-status="[[iconStatus_]]" label="[[headerString_]]" button-label="$i18n{safetyCheckReview}" button-aria-label="$i18n{safetyCheckNotificationPermissionReviewButtonAriaLabel}" on-button-click="onButtonClick_" role="presentation" class="two-line">
 </settings-safety-check-child><!--_html_template_end_-->`;
@@ -9503,7 +9520,7 @@ class SettingsSafetyCheckNotificationPermissionsElement extends SettingsSafetyCh
         return 'settings-safety-check-notification-permissions';
     }
     static get template() {
-        return getTemplate$1();
+        return getTemplate$2();
     }
     static get properties() {
         return {
@@ -9533,7 +9550,7 @@ class SettingsSafetyCheckNotificationPermissionsElement extends SettingsSafetyCh
 }
 customElements.define(SettingsSafetyCheckNotificationPermissionsElement.is, SettingsSafetyCheckNotificationPermissionsElement);
 
-function getTemplate() {
+function getTemplate$1() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
 <settings-safety-check-child id="safetyCheckChild" icon-status="[[iconStatus_]]" label="[[headerString_]]" button-label="$i18n{safetyCheckReview}" button-aria-label="$i18n{safetyCheckUnusedSitePermissionsHeaderAriaLabel}" on-button-click="onButtonClick_" role="presentation" class="two-line">
 </settings-safety-check-child><!--_html_template_end_-->`;
@@ -9560,7 +9577,7 @@ class SettingsSafetyCheckUnusedSitePermissionsElement extends SettingsSafetyChec
         return 'settings-safety-check-unused-site-permissions';
     }
     static get template() {
-        return getTemplate();
+        return getTemplate$1();
     }
     static get properties() {
         return {
@@ -9595,5 +9612,99 @@ class SettingsSafetyCheckUnusedSitePermissionsElement extends SettingsSafetyChec
 }
 customElements.define(SettingsSafetyCheckUnusedSitePermissionsElement.is, SettingsSafetyCheckUnusedSitePermissionsElement);
 
-export { AboutPageBrowserProxyImpl, AccountManagerBrowserProxyImpl, AppearanceBrowserProxyImpl, BATTERY_SAVER_MODE_PREF, BaseMixin, BatterySaverModeState, ColorSchemeMode, CrDrawerElement, CrSettingsPrefs, CrToolbarElement, CrToolbarSearchFieldElement, CustomizeColorSchemeModeBrowserProxy, CustomizeColorSchemeModeClientCallbackRouter, CustomizeColorSchemeModeClientRemote, CustomizeColorSchemeModeHandlerRemote, EDIT_STARTUP_URL_EVENT, HIGH_EFFICIENCY_MODE_PREF, HatsBrowserProxyImpl, HighEfficiencyModeExceptionListAction, HighEfficiencyModeState, HomeUrlInputElement, MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH, MetricsBrowserProxyImpl, OnStartupBrowserProxyImpl, OpenWindowProxyImpl, PasswordCheckReferrer, PasswordManagerImpl, PasswordManagerPage, PerformanceBrowserProxyImpl, PerformanceMetricsProxyImpl, PrefsMixin, PrivacyGuideBrowserProxyImpl, PrivacyGuideInteractions, PrivacyPageBrowserProxyImpl, ProfileInfoBrowserProxyImpl, RelaunchMixin, ResetBrowserProxyImpl, RestartType, Router, SafetyCheckBrowserProxyImpl, SafetyCheckCallbackConstants, SafetyCheckExtensionsBrowserProxyImpl, SafetyCheckExtensionsElement, SafetyCheckExtensionsStatus, SafetyCheckIconStatus, SafetyCheckInteractions, SafetyCheckParentStatus, SafetyCheckPasswordsStatus, SafetyCheckSafeBrowsingStatus, SafetyCheckUpdatesStatus, SearchEnginesBrowserProxyImpl, SearchRequest, SettingsAboutPageElement, SettingsAppearancePageElement, SettingsAutofillPageElement, SettingsBasicPageElement, SettingsBatteryPageElement, SettingsCheckboxListEntryElement, SettingsIdleLoadElement, SettingsMainElement, SettingsMenuElement, SettingsOnStartupPageElement, SettingsPeoplePageElement, SettingsPerformancePageElement, PluralStringProxyImpl as SettingsPluralStringProxyImpl, SettingsPrivacyPageElement, SettingsResetProfileBannerElement, SettingsSafetyCheckChildElement, SettingsSafetyCheckExtensionsChildElement, SettingsSafetyCheckNotificationPermissionsElement, SettingsSafetyCheckPageElement, SettingsSafetyCheckPasswordsChildElement, SettingsSafetyCheckSafeBrowsingChildElement, SettingsSafetyCheckUnusedSitePermissionsElement, SettingsSafetyCheckUpdatesChildElement, SettingsSearchPageElement, SettingsSectionElement, SettingsStartupUrlDialogElement, SettingsStartupUrlEntryElement, SettingsStartupUrlsPageElement, SettingsUiElement, SpeedPageElement, StartupUrlsPageBrowserProxyImpl, SyncBrowserProxyImpl, SystemTheme, TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE, TAB_DISCARD_EXCEPTIONS_PREF, TabDiscardExceptionAddDialogElement, TabDiscardExceptionAddDialogTabs, TabDiscardExceptionEditDialogElement, TabDiscardExceptionEntryElement, TabDiscardExceptionListElement, TabDiscardExceptionTabbedAddDialogElement, TooltipMixin, TrustSafetyInteraction, UpdateStatus, getSearchManager, getTrustedHTML, pageVisibility, routes, setSearchManagerForTesting };
+function getTemplate() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.subtitle{font-size:.75rem;line-height:22px}.title{margin:0 0 16px}.dialog-body{color:var(--cr-primary-text-color)}.search-engine{align-items:center;display:flex;flex-direction:row;gap:12px}#setAsDefaultButton{margin-inline-start:12px}cr-dialog{--cr-dialog-body-padding-horizontal:16px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:24px;--cr-dialog-button-container-padding-top:24px;--cr-dialog-title-slot-padding-bottom:16px;--cr-dialog-title-slot-padding-end:16px;--cr-dialog-title-slot-padding-start:16px;--cr-dialog-title-slot-padding-top:16px}cr-dialog::part(body-container){max-height:360px}cr-radio-button{--cr-radio-button-size:20px;margin:0 16px}</style>
+
+<cr-dialog id="dialog" on-cancel="onCancelClick_" show-on-attach>
+  <div slot="title">
+    <div class="title">$i18n{searchPageTitle}</div>
+    <div class="subtitle">
+      $i18n{searchEnginesSettingsDialogSubtitle}
+    </div>
+  </div>
+  <div slot="body" class="dialog-body">
+    <cr-radio-group selected="{{selectedEngineId_}}">
+      <template is="dom-repeat" items="[[searchEngines]]">
+        <cr-radio-button class="label-first" name="[[item.id]]">
+          <div class="search-engine">
+            <site-favicon favicon-url="[[item.iconURL]]" url="[[item.url]]">
+            </site-favicon>
+            [[item.name]]
+          </div>
+        </cr-radio-button>
+      </template>
+    </cr-radio-group>
+  </div>
+  <div slot="button-container">
+    <cr-button id="cancelButton" on-click="onCancelClick_">
+      $i18n{searchEnginesCancelButton}
+    </cr-button>
+    <cr-button id="setAsDefaultButton" class="action-button" on-click="onSetAsDefaultClick_" disabled="[[!searchEngines.length]]">
+      $i18n{searchEnginesSetAsDefaultButton}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ *
+ * 'settings-search-engine-list-dialog' is the dialog shown for displaying the
+ * list of search engines from which the user can choose a default.
+ */
+const SettingsSearchEngineListDialogElementBase = WebUiListenerMixin(PolymerElement);
+class SettingsSearchEngineListDialogElement extends SettingsSearchEngineListDialogElementBase {
+    constructor() {
+        super(...arguments);
+        this.browserProxy_ = SearchEnginesBrowserProxyImpl.getInstance();
+    }
+    static get is() {
+        return 'settings-search-engine-list-dialog';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            /**
+             * List of search engines available.
+             */
+            searchEngines: {
+                type: Array,
+                observer: 'searchEnginesChanged_',
+            },
+            /**
+             * The id of the search engine that is selected by the user.
+             */
+            selectedEngineId_: {
+                type: String,
+                value: '',
+            },
+        };
+    }
+    onSetAsDefaultClick_() {
+        const searchEngine = this.searchEngines.find(engine => engine.id === parseInt(this.selectedEngineId_));
+        assert(searchEngine);
+        this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex);
+        this.$.dialog.close();
+    }
+    onCancelClick_() {
+        this.$.dialog.close();
+    }
+    searchEnginesChanged_() {
+        if (!this.searchEngines.length) {
+            return;
+        }
+        const defaultSearchEngine = this.searchEngines.find(searchEngine => searchEngine.default);
+        assert(defaultSearchEngine);
+        this.selectedEngineId_ = defaultSearchEngine.id.toString();
+    }
+}
+customElements.define(SettingsSearchEngineListDialogElement.is, SettingsSearchEngineListDialogElement);
+
+export { AboutPageBrowserProxyImpl, AccountManagerBrowserProxyImpl, AppearanceBrowserProxyImpl, BATTERY_SAVER_MODE_PREF, BaseMixin, BatterySaverModeState, ColorSchemeMode, CrDrawerElement, CrSettingsPrefs, CrToolbarElement, CrToolbarSearchFieldElement, CustomizeColorSchemeModeBrowserProxy, CustomizeColorSchemeModeClientCallbackRouter, CustomizeColorSchemeModeClientRemote, CustomizeColorSchemeModeHandlerRemote, EDIT_STARTUP_URL_EVENT, HIGH_EFFICIENCY_MODE_PREF, HatsBrowserProxyImpl, HighEfficiencyModeExceptionListAction, HighEfficiencyModeState, HomeUrlInputElement, MAX_TAB_DISCARD_EXCEPTION_RULE_LENGTH, MetricsBrowserProxyImpl, OnStartupBrowserProxyImpl, OpenWindowProxyImpl, PasswordCheckReferrer, PasswordManagerImpl, PasswordManagerPage, PerformanceBrowserProxyImpl, PerformanceMetricsProxyImpl, PrefsMixin, PrivacyGuideBrowserProxyImpl, PrivacyGuideInteractions, PrivacyPageBrowserProxyImpl, ProfileInfoBrowserProxyImpl, RelaunchMixin, ResetBrowserProxyImpl, RestartType, Router, SafetyCheckBrowserProxyImpl, SafetyCheckCallbackConstants, SafetyCheckExtensionsBrowserProxyImpl, SafetyCheckExtensionsElement, SafetyCheckExtensionsStatus, SafetyCheckIconStatus, SafetyCheckInteractions, SafetyCheckParentStatus, SafetyCheckPasswordsStatus, SafetyCheckSafeBrowsingStatus, SafetyCheckUpdatesStatus, SearchEnginesBrowserProxyImpl, SearchRequest, SettingsAboutPageElement, SettingsAppearancePageElement, SettingsAutofillPageElement, SettingsBasicPageElement, SettingsBatteryPageElement, SettingsCheckboxListEntryElement, SettingsIdleLoadElement, SettingsMainElement, SettingsMenuElement, SettingsOnStartupPageElement, SettingsPeoplePageElement, SettingsPerformancePageElement, PluralStringProxyImpl as SettingsPluralStringProxyImpl, SettingsPrivacyPageElement, SettingsResetProfileBannerElement, SettingsSafetyCheckChildElement, SettingsSafetyCheckExtensionsChildElement, SettingsSafetyCheckNotificationPermissionsElement, SettingsSafetyCheckPageElement, SettingsSafetyCheckPasswordsChildElement, SettingsSafetyCheckSafeBrowsingChildElement, SettingsSafetyCheckUnusedSitePermissionsElement, SettingsSafetyCheckUpdatesChildElement, SettingsSearchEngineListDialogElement, SettingsSearchPageElement, SettingsSectionElement, SettingsStartupUrlDialogElement, SettingsStartupUrlEntryElement, SettingsStartupUrlsPageElement, SettingsUiElement, SpeedPageElement, StartupUrlsPageBrowserProxyImpl, SyncBrowserProxyImpl, SystemTheme, TAB_DISCARD_EXCEPTIONS_MANAGED_PREF, TAB_DISCARD_EXCEPTIONS_OVERFLOW_SIZE, TAB_DISCARD_EXCEPTIONS_PREF, TabDiscardExceptionAddDialogElement, TabDiscardExceptionAddDialogTabs, TabDiscardExceptionEditDialogElement, TabDiscardExceptionEntryElement, TabDiscardExceptionListElement, TabDiscardExceptionTabbedAddDialogElement, TooltipMixin, TrustSafetyInteraction, UpdateStatus, getSearchManager, getTrustedHTML, pageVisibility, routes, setSearchManagerForTesting };
 //# sourceMappingURL=settings.rollup.js.map

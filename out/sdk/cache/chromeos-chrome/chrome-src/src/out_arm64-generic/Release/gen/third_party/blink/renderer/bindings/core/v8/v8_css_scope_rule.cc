@@ -14,7 +14,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_css_condition_rule.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_css_grouping_rule.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
 #include "third_party/blink/renderer/core/css/css_scope_rule.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
@@ -48,7 +48,7 @@ const WrapperTypeInfo V8CSSScopeRule::wrapper_type_info_{
     V8CSSScopeRule::InstallInterfaceTemplate,
     nullptr,
     "CSSScopeRule",
-    V8CSSConditionRule::GetWrapperTypeInfo(),
+    V8CSSGroupingRule::GetWrapperTypeInfo(),
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
     WrapperTypeInfo::kObjectClassId,
     WrapperTypeInfo::kNotInheritFromActiveScriptWrappable,

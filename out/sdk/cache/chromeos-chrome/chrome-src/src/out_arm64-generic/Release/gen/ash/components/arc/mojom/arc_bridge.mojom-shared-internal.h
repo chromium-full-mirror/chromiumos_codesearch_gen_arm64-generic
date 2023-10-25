@@ -37,7 +37,6 @@
 #include "ash/components/arc/mojom/keymaster.mojom-shared-internal.h"
 #include "ash/components/arc/mojom/keymint.mojom-shared-internal.h"
 #include "ash/components/arc/mojom/kiosk.mojom-shared-internal.h"
-#include "ash/components/arc/mojom/lock_screen.mojom-shared-internal.h"
 #include "ash/components/arc/mojom/media_session.mojom-shared-internal.h"
 #include "ash/components/arc/mojom/memory.mojom-shared-internal.h"
 #include "ash/components/arc/mojom/metrics.mojom-shared-internal.h"

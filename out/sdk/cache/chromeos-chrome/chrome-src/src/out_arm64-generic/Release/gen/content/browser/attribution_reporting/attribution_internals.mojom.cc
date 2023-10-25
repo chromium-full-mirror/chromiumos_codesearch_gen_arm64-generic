@@ -424,6 +424,7 @@ WebUISource::WebUISource()
       aggregation_keys(),
       aggregatable_budget_consumed(),
       aggregatable_dedup_keys(),
+      trigger_config(),
       attributability() {}
 
 WebUISource::WebUISource(
@@ -444,6 +445,7 @@ WebUISource::WebUISource(
     const base::flat_map<std::string, std::string>& aggregation_keys_in,
     uint64_t aggregatable_budget_consumed_in,
     std::vector<uint64_t> aggregatable_dedup_keys_in,
+    const ::attribution_reporting::TriggerConfig& trigger_config_in,
     WebUISource::Attributability attributability_in)
     : source_event_id(std::move(source_event_id_in)),
       source_origin(std::move(source_origin_in)),
@@ -462,6 +464,7 @@ WebUISource::WebUISource(
       aggregation_keys(std::move(aggregation_keys_in)),
       aggregatable_budget_consumed(std::move(aggregatable_budget_consumed_in)),
       aggregatable_dedup_keys(std::move(aggregatable_dedup_keys_in)),
+      trigger_config(std::move(trigger_config_in)),
       attributability(std::move(attributability_in)) {}
 
 WebUISource::~WebUISource() = default;
@@ -618,6 +621,15 @@ void WebUISource::WriteIntoTrace(
       "aggregatable_dedup_keys"), this->aggregatable_dedup_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<uint64_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "trigger_config"), this->trigger_config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::attribution_reporting::TriggerConfig&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3530,6 +3542,8 @@ bool StructTraits<::attribution_internals::mojom::WebUISource::DataView, ::attri
       if (success)
         result->aggregatable_budget_consumed = input.aggregatable_budget_consumed();
       if (success && !input.ReadAggregatableDedupKeys(&result->aggregatable_dedup_keys))
+        success = false;
+      if (success && !input.ReadTriggerConfig(&result->trigger_config))
         success = false;
       if (success && !input.ReadAttributability(&result->attributability))
         success = false;

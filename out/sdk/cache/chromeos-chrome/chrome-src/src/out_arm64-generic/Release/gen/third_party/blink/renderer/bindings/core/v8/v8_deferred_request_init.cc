@@ -56,7 +56,7 @@ return dictionary;
 
 
 void DeferredRequestInit::Trace(Visitor* visitor) const {
-  TraceIfNeeded<double>::Trace(visitor, member_activation_timeout_);
+  TraceIfNeeded<double>::Trace(visitor, member_activate_after_);
 RequestInit::Trace(visitor);
 }
 
@@ -65,9 +65,9 @@ bool DeferredRequestInit::FillV8ObjectWithMembers(ScriptState* script_state, v8:
   return false;
 }
 
-if (hasActivationTimeout()) {
+if (hasActivateAfter()) {
   v8::Local<v8::Value> v8_value;
-if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_activation_timeout_).ToLocal(&v8_value)) {
+if (!ToV8Traits<IDLDouble>::ToV8(script_state, member_activate_after_).ToLocal(&v8_value)) {
   return false;
 }
 v8::Isolate* isolate = script_state->GetIsolate();
@@ -89,19 +89,19 @@ if (UNLIKELY(exception_state.HadException())) {
 
 const char* const class_like_name = "DeferredRequestInit";
 ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionContextType::kDictionaryMemberGet, class_like_name, ""), exception_state);
-exception_context_scope.ChangePropertyNameAsOptimizationHack("activationTimeout");
+exception_context_scope.ChangePropertyNameAsOptimizationHack("activateAfter");
 constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_activation_timeout_, member_activation_timeout_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_activate_after_, member_activate_after_, try_block, exception_state)) {
   return;
 }
 }
 
 const base::span<const v8::Eternal<v8::Name>> DeferredRequestInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
-"activationTimeout",
+"activateAfter",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
 }

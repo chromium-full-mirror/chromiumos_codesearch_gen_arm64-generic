@@ -111,6 +111,8 @@ NOINLINE static const char* FeatureToStringHelper(Feature value) {
       return "kBetterTogetherSuite";
     case Feature::kInstantTethering:
       return "kInstantTethering";
+    case Feature::kMessages:
+      return "kMessages";
     case Feature::kSmartLock:
       return "kSmartLock";
     case Feature::kPhoneHub:

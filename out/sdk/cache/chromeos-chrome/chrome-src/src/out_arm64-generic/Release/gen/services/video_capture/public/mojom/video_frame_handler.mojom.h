@@ -121,7 +121,7 @@ class VideoFrameHandler
     kOnBufferRetiredMinVersion = 0,
     kOnErrorMinVersion = 0,
     kOnFrameDroppedMinVersion = 0,
-    kOnNewCropVersionMinVersion = 0,
+    kOnNewSubCaptureTargetVersionMinVersion = 0,
     kOnFrameWithEmptyRegionCaptureMinVersion = 0,
     kOnLogMinVersion = 0,
     kOnStartedMinVersion = 0,
@@ -153,7 +153,7 @@ class VideoFrameHandler
   struct OnFrameDropped_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct OnNewCropVersion_Sym {
+  struct OnNewSubCaptureTargetVersion_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnFrameWithEmptyRegionCapture_Sym {
@@ -196,7 +196,7 @@ class VideoFrameHandler
   virtual void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) = 0;
 
   
-  virtual void OnNewCropVersion(uint32_t crop_version) = 0;
+  virtual void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) = 0;
 
   
   virtual void OnFrameWithEmptyRegionCapture() = 0;
@@ -252,7 +252,7 @@ class  VideoFrameHandlerProxy
   
   void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) final;
   
-  void OnNewCropVersion(uint32_t crop_version) final;
+  void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) final;
   
   void OnFrameWithEmptyRegionCapture() final;
   

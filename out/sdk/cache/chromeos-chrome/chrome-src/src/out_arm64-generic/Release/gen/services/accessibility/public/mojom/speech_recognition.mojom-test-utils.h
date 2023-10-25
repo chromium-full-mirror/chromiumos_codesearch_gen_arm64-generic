@@ -16,6 +16,7 @@ namespace ax::mojom {
 class  SpeechRecognitionEventObserverInterceptorForTesting : public SpeechRecognitionEventObserver {
   virtual SpeechRecognitionEventObserver* GetForwardingInterface() = 0;
   void OnStop() override;
+  void OnResult(SpeechRecognitionResultEventPtr event) override;
 };
 class  SpeechRecognitionEventObserverAsyncWaiter {
  public:

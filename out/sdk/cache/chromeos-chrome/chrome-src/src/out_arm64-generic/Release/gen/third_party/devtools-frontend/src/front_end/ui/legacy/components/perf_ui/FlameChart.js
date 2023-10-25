@@ -949,6 +949,12 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
         return { x, y };
     }
     /**
+     * Given an entry's index, retrns its title
+     */
+    entryTitle(entryIndex) {
+        return this.dataProvider.entryTitle(entryIndex);
+    }
+    /**
      * Returns the offset of the canvas relative to the viewport.
      */
     getCanvasOffset() {

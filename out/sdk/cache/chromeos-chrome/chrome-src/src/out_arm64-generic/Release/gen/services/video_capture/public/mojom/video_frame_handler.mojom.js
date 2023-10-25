@@ -573,23 +573,23 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function VideoFrameHandler_OnNewCropVersion_Params(values) {
+  function VideoFrameHandler_OnNewSubCaptureTargetVersion_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  VideoFrameHandler_OnNewCropVersion_Params.prototype.initDefaults_ = function() {
-    this.cropVersion = 0;
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params.prototype.initDefaults_ = function() {
+    this.subCaptureTargetVersion = 0;
   };
-  VideoFrameHandler_OnNewCropVersion_Params.prototype.initFields_ = function(fields) {
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  VideoFrameHandler_OnNewCropVersion_Params.validate = function(messageValidator, offset) {
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -606,14 +606,14 @@
     return validator.validationError.NONE;
   };
 
-  VideoFrameHandler_OnNewCropVersion_Params.encodedSize = codec.kStructHeaderSize + 8;
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  VideoFrameHandler_OnNewCropVersion_Params.decode = function(decoder) {
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params.decode = function(decoder) {
     var packed;
-    var val = new VideoFrameHandler_OnNewCropVersion_Params();
+    var val = new VideoFrameHandler_OnNewSubCaptureTargetVersion_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.cropVersion =
+    val.subCaptureTargetVersion =
         decoder.decodeStruct(codec.Uint32);
     decoder.skip(1);
     decoder.skip(1);
@@ -622,11 +622,11 @@
     return val;
   };
 
-  VideoFrameHandler_OnNewCropVersion_Params.encode = function(encoder, val) {
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(VideoFrameHandler_OnNewCropVersion_Params.encodedSize);
+    encoder.writeUint32(VideoFrameHandler_OnNewSubCaptureTargetVersion_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Uint32, val.cropVersion);
+    encoder.encodeStruct(codec.Uint32, val.subCaptureTargetVersion);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -972,7 +972,7 @@
   var kVideoFrameHandler_OnBufferRetired_Name = 4;
   var kVideoFrameHandler_OnError_Name = 5;
   var kVideoFrameHandler_OnFrameDropped_Name = 6;
-  var kVideoFrameHandler_OnNewCropVersion_Name = 7;
+  var kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name = 7;
   var kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name = 8;
   var kVideoFrameHandler_OnLog_Name = 9;
   var kVideoFrameHandler_OnStarted_Name = 10;
@@ -1102,18 +1102,18 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  VideoFrameHandlerPtr.prototype.onNewCropVersion = function() {
-    return VideoFrameHandlerProxy.prototype.onNewCropVersion
+  VideoFrameHandlerPtr.prototype.onNewSubCaptureTargetVersion = function() {
+    return VideoFrameHandlerProxy.prototype.onNewSubCaptureTargetVersion
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  VideoFrameHandlerProxy.prototype.onNewCropVersion = function(cropVersion) {
-    var params_ = new VideoFrameHandler_OnNewCropVersion_Params();
-    params_.cropVersion = cropVersion;
+  VideoFrameHandlerProxy.prototype.onNewSubCaptureTargetVersion = function(subCaptureTargetVersion) {
+    var params_ = new VideoFrameHandler_OnNewSubCaptureTargetVersion_Params();
+    params_.subCaptureTargetVersion = subCaptureTargetVersion;
     var builder = new codec.MessageV0Builder(
-        kVideoFrameHandler_OnNewCropVersion_Name,
-        codec.align(VideoFrameHandler_OnNewCropVersion_Params.encodedSize));
-    builder.encodeStruct(VideoFrameHandler_OnNewCropVersion_Params, params_);
+        kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name,
+        codec.align(VideoFrameHandler_OnNewSubCaptureTargetVersion_Params.encodedSize));
+    builder.encodeStruct(VideoFrameHandler_OnNewSubCaptureTargetVersion_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
@@ -1213,8 +1213,8 @@
   VideoFrameHandlerStub.prototype.onFrameDropped = function(reason) {
     return this.delegate_ && this.delegate_.onFrameDropped && this.delegate_.onFrameDropped(reason);
   }
-  VideoFrameHandlerStub.prototype.onNewCropVersion = function(cropVersion) {
-    return this.delegate_ && this.delegate_.onNewCropVersion && this.delegate_.onNewCropVersion(cropVersion);
+  VideoFrameHandlerStub.prototype.onNewSubCaptureTargetVersion = function(subCaptureTargetVersion) {
+    return this.delegate_ && this.delegate_.onNewSubCaptureTargetVersion && this.delegate_.onNewSubCaptureTargetVersion(subCaptureTargetVersion);
   }
   VideoFrameHandlerStub.prototype.onFrameWithEmptyRegionCapture = function() {
     return this.delegate_ && this.delegate_.onFrameWithEmptyRegionCapture && this.delegate_.onFrameWithEmptyRegionCapture();
@@ -1263,9 +1263,9 @@
       var params = reader.decodeStruct(VideoFrameHandler_OnFrameDropped_Params);
       this.onFrameDropped(params.reason);
       return true;
-    case kVideoFrameHandler_OnNewCropVersion_Name:
-      var params = reader.decodeStruct(VideoFrameHandler_OnNewCropVersion_Params);
-      this.onNewCropVersion(params.cropVersion);
+    case kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name:
+      var params = reader.decodeStruct(VideoFrameHandler_OnNewSubCaptureTargetVersion_Params);
+      this.onNewSubCaptureTargetVersion(params.subCaptureTargetVersion);
       return true;
     case kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name:
       var params = reader.decodeStruct(VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params);
@@ -1333,9 +1333,9 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = VideoFrameHandler_OnFrameDropped_Params;
       break;
-      case kVideoFrameHandler_OnNewCropVersion_Name:
+      case kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = VideoFrameHandler_OnNewCropVersion_Params;
+          paramsClass = VideoFrameHandler_OnNewSubCaptureTargetVersion_Params;
       break;
       case kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name:
         if (!message.expectsResponse() && !message.isResponse())

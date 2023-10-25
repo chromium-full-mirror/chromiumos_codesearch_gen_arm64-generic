@@ -1499,7 +1499,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'cropVersion', 48,
+        'subCaptureTargetVersion', 48,
         0,
         mojo.internal.Uint32,
         0,
@@ -1805,7 +1805,7 @@ export class VideoFrameMetadata {
     /** @type { (gfx_mojom_Rect|undefined) } */
     this.regionCaptureRect;
     /** @type { !number } */
-    this.cropVersion;
+    this.subCaptureTargetVersion;
     /** @type { !boolean } */
     this.copyRequired;
     /** @type { !boolean } */

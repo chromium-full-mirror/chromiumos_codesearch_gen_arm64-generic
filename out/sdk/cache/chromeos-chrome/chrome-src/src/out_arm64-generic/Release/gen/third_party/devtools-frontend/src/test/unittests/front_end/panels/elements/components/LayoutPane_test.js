@@ -74,6 +74,7 @@ describeWithMockConnection('LayoutPane', async () => {
     function makeNode(id) {
         return {
             id,
+            path: () => 'body > div',
             ancestorUserAgentShadowRoot: () => false,
             localName: () => 'div',
             getAttribute: () => '',

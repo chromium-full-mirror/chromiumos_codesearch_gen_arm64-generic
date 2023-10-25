@@ -2967,6 +2967,9 @@ class Destination {
     get printerStatusReason() {
         return this.printerStatusReason_;
     }
+    set printerStatusReason(printerStatusReason) {
+        this.printerStatusReason_ = printerStatusReason;
+    }
     setPrinterStatusRetryTimeoutForTesting(timeoutMs) {
         this.printerStatusRetryTimerMs_ = timeoutMs;
     }
@@ -3602,6 +3605,7 @@ var DestinationStoreEventType;
     DestinationStoreEventType["SELECTED_DESTINATION_CAPABILITIES_READY"] = "DestinationStore.SELECTED_DESTINATION_CAPABILITIES_READY";
     // 
     DestinationStoreEventType["DESTINATION_EULA_READY"] = "DestinationStore.DESTINATION_EULA_READY";
+    DestinationStoreEventType["DESTINATION_PRINTER_STATUS_UPDATE"] = "DestinationStore.DESTINATION_PRINTER_STATUS_UPDATE";
     // 
 })(DestinationStoreEventType || (DestinationStoreEventType = {}));
 class DestinationStore extends EventTarget {
@@ -4277,7 +4281,29 @@ class DestinationStore extends EventTarget {
         if (!printers) {
             return;
         }
+        // The logic in insertDestinations_() ensures only new destinations are
+        // added to the store.
         this.insertDestinations_(printers.map(printer => parseDestination(PrinterType.LOCAL_PRINTER, printer)));
+        // Parse the printer status from the LocalDestinationInfo object.
+        for (const printer of printers) {
+            this.parsePrinterStatus(printer);
+        }
+    }
+    // Updates the printer status for an existing destination then fires an event
+    // for updating printer status icons and text.
+    parsePrinterStatus(destinationInfo) {
+        const printerStatus = destinationInfo.printerStatus;
+        if (!printerStatus || !printerStatus.printerId) {
+            return;
+        }
+        const destinationKey = createDestinationKey(destinationInfo.deviceName, DestinationOrigin.CROS);
+        const existingDestination = this.destinationMap_.get(destinationKey);
+        if (existingDestination === undefined) {
+            return;
+        }
+        existingDestination.printerStatusReason =
+            getStatusReasonFromPrinterStatus(printerStatus);
+        this.dispatchEvent(new CustomEvent(DestinationStoreEventType.DESTINATION_PRINTER_STATUS_UPDATE, { detail: destinationKey }));
     }
 }
 /**
@@ -19315,6 +19341,7 @@ class PrintPreviewDestinationListElement extends PrintPreviewDestinationListElem
     constructor() {
         super(...arguments);
         this.boundUpdateHeight_ = null;
+        // 
     }
     static get is() {
         return 'print-preview-destination-list';
@@ -19426,6 +19453,14 @@ class PrintPreviewDestinationListElement extends PrintPreviewDestinationListElem
      */
     getAriaRowindex_(index) {
         return index + 1;
+    }
+    // 
+    updatePrinterStatusIcon(destinationKey) {
+        const index = this.matchingDestinations_.findIndex(destination => destination.key === destinationKey);
+        if (index === -1) {
+            return;
+        }
+        this.notifyPath(`matchingDestinations_.${index}.printerStatusReason`);
     }
 }
 customElements.define(PrintPreviewDestinationListElement.is, PrintPreviewDestinationListElement);
@@ -19891,6 +19926,7 @@ class PrintPreviewDestinationDialogCrosElement extends PrintPreviewDestinationDi
         assert(this.destinations_.length === 0);
         this.tracker_.add(this.destinationStore, DestinationStoreEventType.DESTINATIONS_INSERTED, this.updateDestinations_.bind(this));
         this.tracker_.add(this.destinationStore, DestinationStoreEventType.DESTINATION_SEARCH_DONE, this.updateDestinations_.bind(this));
+        this.tracker_.add(this.destinationStore, DestinationStoreEventType.DESTINATION_PRINTER_STATUS_UPDATE, this.onPrinterStatusUpdate_.bind(this));
         this.initialized_ = true;
         if (this.printServerStore_) {
             this.printServerStore_.setDestinationStore(this.destinationStore);
@@ -20068,6 +20104,14 @@ class PrintPreviewDestinationDialogCrosElement extends PrintPreviewDestinationDi
         if (!this.minLoadingTimeElapsed_) {
             timeOut.cancel(this.timerDelay_);
         }
+    }
+    // Trigger updates to the printer status icons and text for dialog
+    // destinations.
+    onPrinterStatusUpdate_(e) {
+        const destinationKey = e.detail;
+        const destinationList = this.shadowRoot.querySelector('print-preview-destination-list');
+        assert(destinationList);
+        destinationList.updatePrinterStatusIcon(destinationKey);
     }
 }
 customElements.define(PrintPreviewDestinationDialogCrosElement.is, PrintPreviewDestinationDialogCrosElement);
@@ -20731,6 +20775,7 @@ class PrintPreviewDestinationSettingsElement extends PrintPreviewDestinationSett
         this.tracker_.add(this.destinationStore_, DestinationStoreEventType.DESTINATIONS_INSERTED, this.updateDropdownDestinations_.bind(this));
         // 
         this.tracker_.add(this.destinationStore_, DestinationStoreEventType.DESTINATION_EULA_READY, this.updateDestinationEulaUrl_.bind(this));
+        this.tracker_.add(this.destinationStore_, DestinationStoreEventType.DESTINATION_PRINTER_STATUS_UPDATE, this.onPrinterStatusUpdate_.bind(this));
         // 
     }
     disconnectedCallback() {
@@ -20965,6 +21010,23 @@ class PrintPreviewDestinationSettingsElement extends PrintPreviewDestinationSett
      */
     printerExistsInDisplayedDestinations() {
         return this.displayedDestinations_.some(destination => destination.type !== PrinterType.PDF_PRINTER);
+    }
+    // Trigger updates to the printer status icons and text for the selected
+    // destination and corresponding dropdown.
+    onPrinterStatusUpdate_(e) {
+        const destinationKey = e.detail;
+        // If `destinationKey` matches the currently selected destination, use
+        // notifyPath to trigger the destination to recalculate its status icon and
+        // error status text.
+        if (this.destination && this.destination.key === destinationKey) {
+            this.notifyPath(`destination.printerStatusReason`);
+        }
+        // If this destination is in the dropdown, notify it to recalculate its
+        // status icon.
+        const index = this.displayedDestinations_.findIndex(destination => destination.key === destinationKey);
+        if (index !== -1) {
+            this.notifyPath(`displayedDestinations_.${index}.printerStatusReason`);
+        }
     }
 }
 customElements.define(PrintPreviewDestinationSettingsElement.is, PrintPreviewDestinationSettingsElement);

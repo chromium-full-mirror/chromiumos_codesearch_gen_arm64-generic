@@ -41,7 +41,6 @@ constexpr uint32_t kArcBridgeHost_OnKeyboardShortcutInstanceReady_Name = 165;
 constexpr uint32_t kArcBridgeHost_OnKeymasterInstanceReady_Name = 152;
 constexpr uint32_t kArcBridgeHost_OnKeyMintInstanceReady_Name = 168;
 constexpr uint32_t kArcBridgeHost_OnKioskInstanceReady_Name = 126;
-constexpr uint32_t kArcBridgeHost_OnLockScreenInstanceReady_Name = 134;
 constexpr uint32_t kArcBridgeHost_OnMediaSessionInstanceReady_Name = 148;
 constexpr uint32_t kArcBridgeHost_OnMemoryInstanceReady_Name = 164;
 constexpr uint32_t kArcBridgeHost_OnMetricsInstanceReady_Name = 116;

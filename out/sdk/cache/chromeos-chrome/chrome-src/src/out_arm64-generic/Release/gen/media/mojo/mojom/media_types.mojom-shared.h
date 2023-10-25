@@ -1258,8 +1258,8 @@ static_assert(
     return mojo::internal::Deserialize<::gfx::mojom::RectDataView>(
         pointer, output, message_);
   }
-  uint32_t crop_version() const {
-    return data_->crop_version;
+  uint32_t sub_capture_target_version() const {
+    return data_->sub_capture_target_version;
   }
   bool copy_required() const {
     return data_->copy_required;
@@ -3091,7 +3091,7 @@ struct Serializer<::media::mojom::VideoFrameMetadataDataView, MaybeConstUserType
         in_region_capture_rect, region_capture_rect_fragment);
     fragment->region_capture_rect.Set(
         region_capture_rect_fragment.is_null() ? nullptr : region_capture_rect_fragment.data());
-    fragment->crop_version = Traits::crop_version(input);
+    fragment->sub_capture_target_version = Traits::sub_capture_target_version(input);
     fragment->copy_required = Traits::copy_required(input);
     fragment->end_of_stream = Traits::end_of_stream(input);
     decltype(Traits::frame_duration(input)) in_frame_duration = Traits::frame_duration(input);

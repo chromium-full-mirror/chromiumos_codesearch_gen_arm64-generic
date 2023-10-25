@@ -1467,8 +1467,12 @@ enum class CSSSampleId : int32_t {
   kMaskOrigin = 775,
   
   kTextSpacing = 776,
+  
+  kMaskRepeat = 777,
+  
+  kMaskComposite = 778,
   kMinValue = 0,
-  kMaxValue = 776,
+  kMaxValue = 778,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, CSSSampleId value);

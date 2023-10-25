@@ -2729,11 +2729,12 @@ enum CrdSessionAvailability : int {
   AVAILABLE = 1,
   UNAVAILABLE_UNSUPPORTED_USER_SESSION_TYPE = 2,
   UNAVAILABLE_UNMANAGED_ENVIRONMENT = 3,
-  UNAVAILABLE_UNSUPPORTED_DEVICE_OS_VERSION = 4
+  UNAVAILABLE_UNSUPPORTED_DEVICE_OS_VERSION = 4,
+  UNAVAILABLE_DISABLED_BY_POLICY = 5
 };
 bool CrdSessionAvailability_IsValid(int value);
 constexpr CrdSessionAvailability CrdSessionAvailability_MIN = CRD_SESSION_AVAILABILITY_UNKNOWN;
-constexpr CrdSessionAvailability CrdSessionAvailability_MAX = UNAVAILABLE_UNSUPPORTED_DEVICE_OS_VERSION;
+constexpr CrdSessionAvailability CrdSessionAvailability_MAX = UNAVAILABLE_DISABLED_BY_POLICY;
 constexpr int CrdSessionAvailability_ARRAYSIZE = CrdSessionAvailability_MAX + 1;
 
 const std::string& CrdSessionAvailability_Name(CrdSessionAvailability value);

@@ -196,7 +196,7 @@ blink.mojom.FederatedAuthRequestRemote = class {
         selectedIdentityProviderConfigUrl: ?url.mojom.Url,
         token: ?string,
         error: ?blink.mojom.TokenError,
-        isIdentityCredentialAutoSelected: !boolean,
+        isAutoSelected: !boolean,
    *  }>}
    */
 
@@ -1327,7 +1327,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'isIdentityCredentialAutoSelected', 4,
+        'isAutoSelected', 4,
         0,
         mojo.internal.Bool,
         false,
@@ -1353,7 +1353,7 @@ blink.mojom.FederatedAuthRequest_RequestToken_ResponseParams = class {
     /** @export { (blink.mojom.TokenError|undefined) } */
     this.error;
     /** @export { !boolean } */
-    this.isIdentityCredentialAutoSelected;
+    this.isAutoSelected;
   }
 };
 

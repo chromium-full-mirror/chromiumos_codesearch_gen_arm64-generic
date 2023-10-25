@@ -12,6 +12,7 @@
 goog.require('mojo.internal');
 
 goog.require('attributionReporting.mojom.SourceRegistrationTimeConfig');
+goog.require('attributionReporting.mojom.TriggerDataMatching');
 goog.require('url.mojom.Origin');
 goog.require('network.mojom.SchemefulSite');
 goog.require('mojoBase.mojom.TimeDelta');
@@ -93,6 +94,14 @@ goog.provide('attributionReporting.mojom.EventReportWindowsSpec');
  * @export
  */
 attributionReporting.mojom.EventReportWindowsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('attributionReporting.mojom.TriggerConfigSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+attributionReporting.mojom.TriggerConfigSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('attributionReporting.mojom.SourceRegistrationSpec');
@@ -466,6 +475,35 @@ attributionReporting.mojom.EventReportWindows = class {
 
 
 mojo.internal.Struct(
+    attributionReporting.mojom.TriggerConfigSpec.$,
+    'TriggerConfig',
+    [
+      mojo.internal.StructField(
+        'triggerDataMatching', 0,
+        0,
+        attributionReporting.mojom.TriggerDataMatchingSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('attributionReporting.mojom.TriggerConfig');
+
+/** @record */
+attributionReporting.mojom.TriggerConfig = class {
+  constructor() {
+    /** @export { !attributionReporting.mojom.TriggerDataMatching } */
+    this.triggerDataMatching;
+  }
+};
+
+
+
+mojo.internal.Struct(
     attributionReporting.mojom.SourceRegistrationSpec.$,
     'SourceRegistration',
     [
@@ -557,8 +595,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'triggerConfig', 80,
+        0,
+        attributionReporting.mojom.TriggerConfigSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 88],]);
+    [[0, 96],]);
 
 
 
@@ -589,6 +635,8 @@ attributionReporting.mojom.SourceRegistration = class {
     this.aggregationKeys;
     /** @export { !boolean } */
     this.debugReporting;
+    /** @export { !attributionReporting.mojom.TriggerConfig } */
+    this.triggerConfig;
   }
 };
 

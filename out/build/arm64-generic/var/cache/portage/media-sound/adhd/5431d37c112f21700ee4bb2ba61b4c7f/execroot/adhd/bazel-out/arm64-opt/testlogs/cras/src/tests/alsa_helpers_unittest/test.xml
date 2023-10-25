@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.024" timestamp="2023-10-24T11:09:58.206" name="AllTests">
-  <testsuite name="AlsaHelper" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.015" timestamp="2023-10-24T11:09:58.215">
-    <testcase name="MatchChannelMapCapabilityStereo" file="cras/src/tests/alsa_helpers_unittest.cc" line="39" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:09:58.215" classname="AlsaHelper" />
-    <testcase name="MatchChannelMapCapability51" file="cras/src/tests/alsa_helpers_unittest.cc" line="92" status="run" result="completed" time="0." timestamp="2023-10-24T11:09:58.219" classname="AlsaHelper" />
-    <testcase name="Htimestamp" file="cras/src/tests/alsa_helpers_unittest.cc" line="164" status="run" result="completed" time="0." timestamp="2023-10-24T11:09:58.220" classname="AlsaHelper" />
-    <testcase name="GetAvailFramesSevereUnderrun" file="cras/src/tests/alsa_helpers_unittest.cc" line="185" status="run" result="completed" time="0.009" timestamp="2023-10-24T11:09:58.221" classname="AlsaHelper" />
-  </testsuite>
-</testsuites>

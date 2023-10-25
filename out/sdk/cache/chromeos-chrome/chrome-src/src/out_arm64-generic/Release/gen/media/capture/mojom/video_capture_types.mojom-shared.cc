@@ -664,10 +664,12 @@ NOINLINE static const char* VideoCaptureFrameDropReasonToStringHelper(VideoCaptu
       return "kVideoTrackFrameDelivererNotEnabledReplacingWithBlackFrame";
     case VideoCaptureFrameDropReason::kRendererSinkFrameDelivererIsNotStarted:
       return "kRendererSinkFrameDelivererIsNotStarted";
-    case VideoCaptureFrameDropReason::kCropVersionNotCurrent:
-      return "kCropVersionNotCurrent";
+    case VideoCaptureFrameDropReason::kCropVersionNotCurrent_DEPRECATED:
+      return "kCropVersionNotCurrent_DEPRECATED";
     case VideoCaptureFrameDropReason::kGpuMemoryBufferMapFailed:
       return "kGpuMemoryBufferMapFailed";
+    case VideoCaptureFrameDropReason::kSubCaptureTargetVersionNotCurrent:
+      return "kSubCaptureTargetVersionNotCurrent";
     default:
       return nullptr;
   }

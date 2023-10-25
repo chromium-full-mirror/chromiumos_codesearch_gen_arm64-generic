@@ -9,7 +9,7 @@
  * It is column model responsibility to resize other columns accordingly.
  */
 import { dispatchSimpleEvent, getPropertyDescriptor } from 'chrome://resources/ash/common/cr_deprecated.js';
-import { util } from '../../../../common/js/util.js';
+import { isJellyEnabled } from '../../../../common/js/flags.js';
 import { Splitter } from '../splitter.js';
 import { Table } from './table.js';
 /**
@@ -44,7 +44,7 @@ export class TableSplitter extends Splitter {
     decorate() {
         super.decorate();
         const icon = document.createElement('cr-icon-button');
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             icon.setAttribute('iron-icon', 'files32:bar-dragger');
         }
         else {

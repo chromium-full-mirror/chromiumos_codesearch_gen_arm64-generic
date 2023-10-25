@@ -36,7 +36,7 @@ class PLATFORM_EXPORT FederatedAuthRequestAsyncWaiter {
 
   ~FederatedAuthRequestAsyncWaiter();
   void RequestToken(
-      WTF::Vector<IdentityProviderGetParametersPtr> idp_get_params, ::blink::mojom::blink::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::blink::KURL>* out_selected_identity_provider_config_url, WTF::String* out_token, TokenErrorPtr* out_error, bool* out_is_identity_credential_auto_selected);
+      WTF::Vector<IdentityProviderGetParametersPtr> idp_get_params, ::blink::mojom::blink::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::blink::KURL>* out_selected_identity_provider_config_url, WTF::String* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected);
   
   void RequestUserInfo(
       IdentityProviderConfigPtr provider, RequestUserInfoStatus* out_status, absl::optional<WTF::Vector<IdentityUserInfoPtr>>* out_user_info);

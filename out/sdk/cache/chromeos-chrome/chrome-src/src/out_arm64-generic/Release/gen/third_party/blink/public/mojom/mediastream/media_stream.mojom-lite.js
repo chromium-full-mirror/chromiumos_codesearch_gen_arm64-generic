@@ -686,25 +686,28 @@ blink.mojom.MediaStreamDispatcherHostRemote = class {
   
   /**
    * @param { !mojoBase.mojom.UnguessableToken } deviceId
-   * @param { !mojoBase.mojom.Token } cropId
-   * @param { !number } cropVersion
+   * @param { !blink.mojom.SubCaptureTargetType } type
+   * @param { !mojoBase.mojom.Token } subCaptureTarget
+   * @param { !number } subCaptureTargetVersion
    * @return {!Promise<{
         result: !media.mojom.ApplySubCaptureTargetResult,
    *  }>}
    */
 
-  crop(
+  applySubCaptureTarget(
       deviceId,
-      cropId,
-      cropVersion) {
+      type,
+      subCaptureTarget,
+      subCaptureTargetVersion) {
     return this.proxy.sendMessage(
         8,
-        blink.mojom.MediaStreamDispatcherHost_Crop_ParamsSpec.$,
-        blink.mojom.MediaStreamDispatcherHost_Crop_ResponseParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec.$,
         [
           deviceId,
-          cropId,
-          cropVersion
+          type,
+          subCaptureTarget,
+          subCaptureTargetVersion
         ]);
   }
 
@@ -821,9 +824,9 @@ blink.mojom.MediaStreamDispatcherHostReceiver = class {
         impl.onStreamStarted.bind(impl));
     this.helper_internal_.registerHandler(
         8,
-        blink.mojom.MediaStreamDispatcherHost_Crop_ParamsSpec.$,
-        blink.mojom.MediaStreamDispatcherHost_Crop_ResponseParamsSpec.$,
-        impl.crop.bind(impl));
+        blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec.$,
+        impl.applySubCaptureTarget.bind(impl));
     this.helper_internal_.registerHandler(
         9,
         blink.mojom.MediaStreamDispatcherHost_GetOpenDevice_ParamsSpec.$,
@@ -985,15 +988,15 @@ blink.mojom.MediaStreamDispatcherHostCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.crop =
+    this.applySubCaptureTarget =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         8,
-        blink.mojom.MediaStreamDispatcherHost_Crop_ParamsSpec.$,
-        blink.mojom.MediaStreamDispatcherHost_Crop_ResponseParamsSpec.$,
-        this.crop.createReceiverHandler(true /* expectsResponse */));
+        blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec.$,
+        blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec.$,
+        this.applySubCaptureTarget.createReceiverHandler(true /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -1426,7 +1429,7 @@ blink.mojom.MediaStreamDispatcherHost_OnStreamStarted_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.MediaStreamDispatcherHost_Crop_ParamsSpec =
+blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1434,7 +1437,7 @@ blink.mojom.MediaStreamDispatcherHost_Crop_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.MediaStreamDispatcherHost_Crop_ResponseParamsSpec =
+blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -2587,8 +2590,8 @@ blink.mojom.MediaStreamDispatcherHost_OnStreamStarted_Params = class {
 
 
 mojo.internal.Struct(
-    blink.mojom.MediaStreamDispatcherHost_Crop_ParamsSpec.$,
-    'MediaStreamDispatcherHost_Crop_Params',
+    blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsSpec.$,
+    'MediaStreamDispatcherHost_ApplySubCaptureTarget_Params',
     [
       mojo.internal.StructField(
         'deviceId', 0,
@@ -2599,7 +2602,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'cropId', 8,
+        'type', 8,
+        0,
+        blink.mojom.SubCaptureTargetTypeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'subCaptureTarget', 16,
         0,
         mojoBase.mojom.TokenSpec.$,
         null,
@@ -2607,7 +2618,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'cropVersion', 16,
+        'subCaptureTargetVersion', 12,
         0,
         mojo.internal.Uint32,
         0,
@@ -2622,22 +2633,24 @@ mojo.internal.Struct(
 
 
 /** @record */
-blink.mojom.MediaStreamDispatcherHost_Crop_Params = class {
+blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_Params = class {
   constructor() {
     /** @export { !mojoBase.mojom.UnguessableToken } */
     this.deviceId;
+    /** @export { !blink.mojom.SubCaptureTargetType } */
+    this.type;
     /** @export { !mojoBase.mojom.Token } */
-    this.cropId;
+    this.subCaptureTarget;
     /** @export { !number } */
-    this.cropVersion;
+    this.subCaptureTargetVersion;
   }
 };
 
 
 
 mojo.internal.Struct(
-    blink.mojom.MediaStreamDispatcherHost_Crop_ResponseParamsSpec.$,
-    'MediaStreamDispatcherHost_Crop_ResponseParams',
+    blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsSpec.$,
+    'MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams',
     [
       mojo.internal.StructField(
         'result', 0,
@@ -2655,7 +2668,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-blink.mojom.MediaStreamDispatcherHost_Crop_ResponseParams = class {
+blink.mojom.MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams = class {
   constructor() {
     /** @export { !media.mojom.ApplySubCaptureTargetResult } */
     this.result;

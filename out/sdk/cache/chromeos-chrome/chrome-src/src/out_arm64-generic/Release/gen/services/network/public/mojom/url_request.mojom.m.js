@@ -855,6 +855,14 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
+        'requiredIpAddressSpace', 232,
+        0,
+        network_mojom_IPAddressSpaceSpec.$,
+        0,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
         'hasStorageAccess', 26,
         3,
         mojo.internal.Bool,
@@ -863,7 +871,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'attributionReportingSupport', 232,
+        'attributionReportingSupport', 236,
         0,
         network_mojom_AttributionSupportSpec.$,
         0,
@@ -871,7 +879,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'attributionReportingEligibility', 236,
+        'attributionReportingEligibility', 240,
         0,
         network_mojom_AttributionReportingEligibilitySpec.$,
         network_mojom_AttributionReportingEligibility.kUnset,
@@ -879,7 +887,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'attributionReportingRuntimeFeatures', 240,
+        'attributionReportingRuntimeFeatures', 248,
         0,
         network_mojom_AttributionReportingRuntimeFeaturesSpec.$,
         null,
@@ -887,7 +895,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'attributionReportingSrcToken', 248,
+        'attributionReportingSrcToken', 256,
         0,
         mojoBase_mojom_UnguessableTokenSpec.$,
         null,
@@ -903,7 +911,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 264],]);
+    [[0, 272],]);
 
 
 
@@ -1020,6 +1028,8 @@ export class URLRequest {
     this.netLogReferenceInfo;
     /** @type { !network_mojom_IPAddressSpace } */
     this.targetIpAddressSpace;
+    /** @type { !network_mojom_IPAddressSpace } */
+    this.requiredIpAddressSpace;
     /** @type { !boolean } */
     this.hasStorageAccess;
     /** @type { !network_mojom_AttributionSupport } */

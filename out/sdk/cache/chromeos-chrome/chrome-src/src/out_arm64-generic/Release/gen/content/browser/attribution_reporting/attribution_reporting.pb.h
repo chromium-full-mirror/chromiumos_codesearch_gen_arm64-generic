@@ -102,6 +102,25 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace content {
 namespace proto {
 
+enum AttributionReadOnlySourceData_TriggerDataMatching : int {
+  AttributionReadOnlySourceData_TriggerDataMatching_MODULUS = 0,
+  AttributionReadOnlySourceData_TriggerDataMatching_EXACT = 1
+};
+bool AttributionReadOnlySourceData_TriggerDataMatching_IsValid(int value);
+constexpr AttributionReadOnlySourceData_TriggerDataMatching AttributionReadOnlySourceData_TriggerDataMatching_TriggerDataMatching_MIN = AttributionReadOnlySourceData_TriggerDataMatching_MODULUS;
+constexpr AttributionReadOnlySourceData_TriggerDataMatching AttributionReadOnlySourceData_TriggerDataMatching_TriggerDataMatching_MAX = AttributionReadOnlySourceData_TriggerDataMatching_EXACT;
+constexpr int AttributionReadOnlySourceData_TriggerDataMatching_TriggerDataMatching_ARRAYSIZE = AttributionReadOnlySourceData_TriggerDataMatching_TriggerDataMatching_MAX + 1;
+
+const std::string& AttributionReadOnlySourceData_TriggerDataMatching_Name(AttributionReadOnlySourceData_TriggerDataMatching value);
+template<typename T>
+inline const std::string& AttributionReadOnlySourceData_TriggerDataMatching_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AttributionReadOnlySourceData_TriggerDataMatching>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function AttributionReadOnlySourceData_TriggerDataMatching_Name.");
+  return AttributionReadOnlySourceData_TriggerDataMatching_Name(static_cast<AttributionReadOnlySourceData_TriggerDataMatching>(enum_t_value));
+}
+bool AttributionReadOnlySourceData_TriggerDataMatching_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AttributionReadOnlySourceData_TriggerDataMatching* value);
 enum AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig : int {
   AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig_INCLUDE = 0,
   AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig_EXCLUDE = 1
@@ -871,13 +890,40 @@ class AttributionReadOnlySourceData final :
 
   // nested types ----------------------------------------------------
 
+  typedef AttributionReadOnlySourceData_TriggerDataMatching TriggerDataMatching;
+  static constexpr TriggerDataMatching MODULUS =
+    AttributionReadOnlySourceData_TriggerDataMatching_MODULUS;
+  static constexpr TriggerDataMatching EXACT =
+    AttributionReadOnlySourceData_TriggerDataMatching_EXACT;
+  static inline bool TriggerDataMatching_IsValid(int value) {
+    return AttributionReadOnlySourceData_TriggerDataMatching_IsValid(value);
+  }
+  static constexpr TriggerDataMatching TriggerDataMatching_MIN =
+    AttributionReadOnlySourceData_TriggerDataMatching_TriggerDataMatching_MIN;
+  static constexpr TriggerDataMatching TriggerDataMatching_MAX =
+    AttributionReadOnlySourceData_TriggerDataMatching_TriggerDataMatching_MAX;
+  static constexpr int TriggerDataMatching_ARRAYSIZE =
+    AttributionReadOnlySourceData_TriggerDataMatching_TriggerDataMatching_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& TriggerDataMatching_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, TriggerDataMatching>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function TriggerDataMatching_Name.");
+    return AttributionReadOnlySourceData_TriggerDataMatching_Name(enum_t_value);
+  }
+  static inline bool TriggerDataMatching_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      TriggerDataMatching* value) {
+    return AttributionReadOnlySourceData_TriggerDataMatching_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kEventLevelReportWindowEndTimesFieldNumber = 3,
     kEventLevelReportWindowStartTimeFieldNumber = 2,
-    kRandomizedResponseRateFieldNumber = 4,
     kMaxEventLevelReportsFieldNumber = 1,
+    kTriggerDataMatchingFieldNumber = 5,
+    kRandomizedResponseRateFieldNumber = 4,
   };
   // repeated int64 event_level_report_window_end_times = 3;
   int event_level_report_window_end_times_size() const;
@@ -914,19 +960,6 @@ class AttributionReadOnlySourceData final :
   void _internal_set_event_level_report_window_start_time(int64_t value);
   public:
 
-  // optional double randomized_response_rate = 4;
-  bool has_randomized_response_rate() const;
-  private:
-  bool _internal_has_randomized_response_rate() const;
-  public:
-  void clear_randomized_response_rate();
-  double randomized_response_rate() const;
-  void set_randomized_response_rate(double value);
-  private:
-  double _internal_randomized_response_rate() const;
-  void _internal_set_randomized_response_rate(double value);
-  public:
-
   // optional int32 max_event_level_reports = 1;
   bool has_max_event_level_reports() const;
   private:
@@ -940,6 +973,32 @@ class AttributionReadOnlySourceData final :
   void _internal_set_max_event_level_reports(int32_t value);
   public:
 
+  // optional .content.proto.AttributionReadOnlySourceData.TriggerDataMatching trigger_data_matching = 5;
+  bool has_trigger_data_matching() const;
+  private:
+  bool _internal_has_trigger_data_matching() const;
+  public:
+  void clear_trigger_data_matching();
+  ::content::proto::AttributionReadOnlySourceData_TriggerDataMatching trigger_data_matching() const;
+  void set_trigger_data_matching(::content::proto::AttributionReadOnlySourceData_TriggerDataMatching value);
+  private:
+  ::content::proto::AttributionReadOnlySourceData_TriggerDataMatching _internal_trigger_data_matching() const;
+  void _internal_set_trigger_data_matching(::content::proto::AttributionReadOnlySourceData_TriggerDataMatching value);
+  public:
+
+  // optional double randomized_response_rate = 4;
+  bool has_randomized_response_rate() const;
+  private:
+  bool _internal_has_randomized_response_rate() const;
+  public:
+  void clear_randomized_response_rate();
+  double randomized_response_rate() const;
+  void set_randomized_response_rate(double value);
+  private:
+  double _internal_randomized_response_rate() const;
+  void _internal_set_randomized_response_rate(double value);
+  public:
+
   // @@protoc_insertion_point(class_scope:content.proto.AttributionReadOnlySourceData)
  private:
   class _Internal;
@@ -951,8 +1010,9 @@ class AttributionReadOnlySourceData final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t > event_level_report_window_end_times_;
   int64_t event_level_report_window_start_time_;
-  double randomized_response_rate_;
   int32_t max_event_level_reports_;
+  int trigger_data_matching_;
+  double randomized_response_rate_;
   friend struct ::TableStruct_attribution_5freporting_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2020,7 +2080,7 @@ AttributionFilterData::mutable_filter_values() {
 
 // optional int32 max_event_level_reports = 1;
 inline bool AttributionReadOnlySourceData::_internal_has_max_event_level_reports() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool AttributionReadOnlySourceData::has_max_event_level_reports() const {
@@ -2028,7 +2088,7 @@ inline bool AttributionReadOnlySourceData::has_max_event_level_reports() const {
 }
 inline void AttributionReadOnlySourceData::clear_max_event_level_reports() {
   max_event_level_reports_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline int32_t AttributionReadOnlySourceData::_internal_max_event_level_reports() const {
   return max_event_level_reports_;
@@ -2038,7 +2098,7 @@ inline int32_t AttributionReadOnlySourceData::max_event_level_reports() const {
   return _internal_max_event_level_reports();
 }
 inline void AttributionReadOnlySourceData::_internal_set_max_event_level_reports(int32_t value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000002u;
   max_event_level_reports_ = value;
 }
 inline void AttributionReadOnlySourceData::set_max_event_level_reports(int32_t value) {
@@ -2123,7 +2183,7 @@ AttributionReadOnlySourceData::mutable_event_level_report_window_end_times() {
 
 // optional double randomized_response_rate = 4;
 inline bool AttributionReadOnlySourceData::_internal_has_randomized_response_rate() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool AttributionReadOnlySourceData::has_randomized_response_rate() const {
@@ -2131,7 +2191,7 @@ inline bool AttributionReadOnlySourceData::has_randomized_response_rate() const 
 }
 inline void AttributionReadOnlySourceData::clear_randomized_response_rate() {
   randomized_response_rate_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline double AttributionReadOnlySourceData::_internal_randomized_response_rate() const {
   return randomized_response_rate_;
@@ -2141,12 +2201,41 @@ inline double AttributionReadOnlySourceData::randomized_response_rate() const {
   return _internal_randomized_response_rate();
 }
 inline void AttributionReadOnlySourceData::_internal_set_randomized_response_rate(double value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000008u;
   randomized_response_rate_ = value;
 }
 inline void AttributionReadOnlySourceData::set_randomized_response_rate(double value) {
   _internal_set_randomized_response_rate(value);
   // @@protoc_insertion_point(field_set:content.proto.AttributionReadOnlySourceData.randomized_response_rate)
+}
+
+// optional .content.proto.AttributionReadOnlySourceData.TriggerDataMatching trigger_data_matching = 5;
+inline bool AttributionReadOnlySourceData::_internal_has_trigger_data_matching() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool AttributionReadOnlySourceData::has_trigger_data_matching() const {
+  return _internal_has_trigger_data_matching();
+}
+inline void AttributionReadOnlySourceData::clear_trigger_data_matching() {
+  trigger_data_matching_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::content::proto::AttributionReadOnlySourceData_TriggerDataMatching AttributionReadOnlySourceData::_internal_trigger_data_matching() const {
+  return static_cast< ::content::proto::AttributionReadOnlySourceData_TriggerDataMatching >(trigger_data_matching_);
+}
+inline ::content::proto::AttributionReadOnlySourceData_TriggerDataMatching AttributionReadOnlySourceData::trigger_data_matching() const {
+  // @@protoc_insertion_point(field_get:content.proto.AttributionReadOnlySourceData.trigger_data_matching)
+  return _internal_trigger_data_matching();
+}
+inline void AttributionReadOnlySourceData::_internal_set_trigger_data_matching(::content::proto::AttributionReadOnlySourceData_TriggerDataMatching value) {
+  assert(::content::proto::AttributionReadOnlySourceData_TriggerDataMatching_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  trigger_data_matching_ = value;
+}
+inline void AttributionReadOnlySourceData::set_trigger_data_matching(::content::proto::AttributionReadOnlySourceData_TriggerDataMatching value) {
+  _internal_set_trigger_data_matching(value);
+  // @@protoc_insertion_point(field_set:content.proto.AttributionReadOnlySourceData.trigger_data_matching)
 }
 
 // -------------------------------------------------------------------
@@ -2789,6 +2878,7 @@ inline void AttributionNullAggregatableMetadata::set_fake_source_time(int64_t va
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::content::proto::AttributionReadOnlySourceData_TriggerDataMatching> : ::std::true_type {};
 template <> struct is_proto_enum< ::content::proto::AttributionCommonAggregatableMetadata_SourceRegistrationTimeConfig> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

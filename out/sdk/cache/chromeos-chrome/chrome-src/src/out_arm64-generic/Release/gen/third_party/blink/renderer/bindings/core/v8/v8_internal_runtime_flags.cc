@@ -3753,6 +3753,20 @@ bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::Primitiv
 }
 
 
+void FedCmAutoSelectedFlagEnabledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalRuntimeFlags_fedCmAutoSelectedFlagEnabled_Getter");
+BLINK_BINDINGS_TRACE_EVENT("InternalRuntimeFlags.fedCmAutoSelectedFlagEnabled.get");
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalRuntimeFlags* blink_receiver = V8InternalRuntimeFlags::ToWrappableUnsafe(v8_receiver);
+auto&& return_value = blink_receiver->fedCmAutoSelectedFlagEnabled();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
+
 void FedCmErrorEnabledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalRuntimeFlags_fedCmErrorEnabled_Getter");
@@ -3777,20 +3791,6 @@ BLINK_BINDINGS_TRACE_EVENT("InternalRuntimeFlags.fedCmHostedDomainEnabled.get");
 v8::Local<v8::Object> v8_receiver = info.This();
 InternalRuntimeFlags* blink_receiver = V8InternalRuntimeFlags::ToWrappableUnsafe(v8_receiver);
 auto&& return_value = blink_receiver->fedCmHostedDomainEnabled();
-bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
-}
-
-
-void FedCmIdentityCredentialAutoSelectedFlagEnabledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalRuntimeFlags_fedCmIdentityCredentialAutoSelectedFlagEnabled_Getter");
-BLINK_BINDINGS_TRACE_EVENT("InternalRuntimeFlags.fedCmIdentityCredentialAutoSelectedFlagEnabled.get");
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-InternalRuntimeFlags* blink_receiver = V8InternalRuntimeFlags::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->fedCmIdentityCredentialAutoSelectedFlagEnabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
 
@@ -5123,6 +5123,20 @@ BLINK_BINDINGS_TRACE_EVENT("InternalRuntimeFlags.interruptComposedScrollbarDisap
 v8::Local<v8::Object> v8_receiver = info.This();
 InternalRuntimeFlags* blink_receiver = V8InternalRuntimeFlags::ToWrappableUnsafe(v8_receiver);
 auto&& return_value = blink_receiver->interruptComposedScrollbarDisappearanceEnabled();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
+
+void IntersectionObserverIgnoreFiltersEnabledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalRuntimeFlags_intersectionObserverIgnoreFiltersEnabled_Getter");
+BLINK_BINDINGS_TRACE_EVENT("InternalRuntimeFlags.intersectionObserverIgnoreFiltersEnabled.get");
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalRuntimeFlags* blink_receiver = V8InternalRuntimeFlags::ToWrappableUnsafe(v8_receiver);
+auto&& return_value = blink_receiver->intersectionObserverIgnoreFiltersEnabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
 
@@ -10987,9 +11001,9 @@ void V8InternalRuntimeFlags::InstallUnconditionalProperties(v8::Isolate* isolate
 {"fastPositionIteratorEnabled", FastPositionIteratorEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fedCmEnabled", FedCmEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fedCmAuthzEnabled", FedCmAuthzEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"fedCmAutoSelectedFlagEnabled", FedCmAutoSelectedFlagEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fedCmErrorEnabled", FedCmErrorEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fedCmHostedDomainEnabled", FedCmHostedDomainEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"fedCmIdentityCredentialAutoSelectedFlagEnabled", FedCmIdentityCredentialAutoSelectedFlagEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fedCmIdPRegistrationEnabled", FedCmIdPRegistrationEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fedCmIdpSigninStatusEnabled", FedCmIdpSigninStatusEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"fedCmIdpSignoutEnabled", FedCmIdpSignoutEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -11082,6 +11096,7 @@ void V8InternalRuntimeFlags::InstallUnconditionalProperties(v8::Isolate* isolate
 {"installedAppEnabled", InstalledAppEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"interoperablePrivateAttributionEnabled", InteroperablePrivateAttributionEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"interruptComposedScrollbarDisappearanceEnabled", InterruptComposedScrollbarDisappearanceEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"intersectionObserverIgnoreFiltersEnabled", IntersectionObserverIgnoreFiltersEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"intersectionObserverScrollMarginEnabled", IntersectionObserverScrollMarginEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"intersectionOptimizationEnabled", IntersectionOptimizationEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"invertedColorsEnabled", InvertedColorsEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

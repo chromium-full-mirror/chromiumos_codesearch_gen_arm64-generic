@@ -549,12 +549,12 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_fed_cm_enabled_>;
   using ScopedFedCmAuthz = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_fed_cm_authz_enabled_>;
+  using ScopedFedCmAutoSelectedFlag = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_fed_cm_auto_selected_flag_enabled_>;
   using ScopedFedCmError = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_fed_cm_error_enabled_>;
   using ScopedFedCmHostedDomain = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_fed_cm_hosted_domain_enabled_>;
-  using ScopedFedCmIdentityCredentialAutoSelectedFlag = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_fed_cm_identity_credential_auto_selected_flag_enabled_>;
   using ScopedFedCmIdPRegistration = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_fed_cm_id_p_registration_enabled_>;
   using ScopedFedCmIdpSigninStatus = ScopedRuntimeEnabledFeature<
@@ -739,6 +739,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_interoperable_private_attribution_enabled_>;
   using ScopedInterruptComposedScrollbarDisappearance = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_interrupt_composed_scrollbar_disappearance_enabled_>;
+  using ScopedIntersectionObserverIgnoreFilters = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_intersection_observer_ignore_filters_enabled_>;
   using ScopedIntersectionObserverScrollMargin = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_intersection_observer_scroll_margin_enabled_>;
   using ScopedIntersectionOptimization = ScopedRuntimeEnabledFeature<
@@ -2031,12 +2033,12 @@ using ScopedFedCmForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFedCm;
 using ScopedFedCmAuthzForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFedCmAuthz;
+using ScopedFedCmAutoSelectedFlagForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedFedCmAutoSelectedFlag;
 using ScopedFedCmErrorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFedCmError;
 using ScopedFedCmHostedDomainForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFedCmHostedDomain;
-using ScopedFedCmIdentityCredentialAutoSelectedFlagForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedFedCmIdentityCredentialAutoSelectedFlag;
 using ScopedFedCmIdPRegistrationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedFedCmIdPRegistration;
 using ScopedFedCmIdpSigninStatusForTest =
@@ -2221,6 +2223,8 @@ using ScopedInteroperablePrivateAttributionForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedInteroperablePrivateAttribution;
 using ScopedInterruptComposedScrollbarDisappearanceForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedInterruptComposedScrollbarDisappearance;
+using ScopedIntersectionObserverIgnoreFiltersForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedIntersectionObserverIgnoreFilters;
 using ScopedIntersectionObserverScrollMarginForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedIntersectionObserverScrollMargin;
 using ScopedIntersectionOptimizationForTest =

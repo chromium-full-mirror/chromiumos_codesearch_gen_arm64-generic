@@ -245,7 +245,7 @@ FrameSinkVideoConsumer_OnFrameCaptured_Params_Data::FrameSinkVideoConsumer_OnFra
 
 
 // static
-bool FrameSinkVideoConsumer_OnNewCropVersion_Params_Data::Validate(
+bool FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -257,13 +257,13 @@ bool FrameSinkVideoConsumer_OnNewCropVersion_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const FrameSinkVideoConsumer_OnNewCropVersion_Params_Data* object =
-      static_cast<const FrameSinkVideoConsumer_OnNewCropVersion_Params_Data*>(data);
+  [[maybe_unused]] const FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data* object =
+      static_cast<const FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data*>(data);
 
   return true;
 }
 
-FrameSinkVideoConsumer_OnNewCropVersion_Params_Data::FrameSinkVideoConsumer_OnNewCropVersion_Params_Data()
+FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data::FrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

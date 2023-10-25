@@ -47,7 +47,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequest_Re
 
   mojo::internal::StructHeader header_;
   int32_t status;
-  uint8_t is_identity_credential_auto_selected : 1;
+  uint8_t is_auto_selected : 1;
   uint8_t pad1_[3];
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> selected_identity_provider_config_url;
   mojo::internal::Pointer<mojo::internal::String_Data> token;
@@ -425,8 +425,8 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::TokenErrorDataView>(
         pointer, output, message_);
   }
-  bool is_identity_credential_auto_selected() const {
-    return data_->is_identity_credential_auto_selected;
+  bool is_auto_selected() const {
+    return data_->is_auto_selected;
   }
  private:
   internal::FederatedAuthRequest_RequestToken_ResponseParams_Data* data_ = nullptr;

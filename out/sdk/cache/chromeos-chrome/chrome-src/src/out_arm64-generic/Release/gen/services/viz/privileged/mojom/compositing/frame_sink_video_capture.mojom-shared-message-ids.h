@@ -17,7 +17,7 @@ namespace internal {
 constexpr uint32_t kFrameSinkVideoConsumerFrameCallbacks_Done_Name = 0;
 constexpr uint32_t kFrameSinkVideoConsumerFrameCallbacks_ProvideFeedback_Name = 1;
 constexpr uint32_t kFrameSinkVideoConsumer_OnFrameCaptured_Name = 0;
-constexpr uint32_t kFrameSinkVideoConsumer_OnNewCropVersion_Name = 1;
+constexpr uint32_t kFrameSinkVideoConsumer_OnNewSubCaptureTargetVersion_Name = 1;
 constexpr uint32_t kFrameSinkVideoConsumer_OnFrameWithEmptyRegionCapture_Name = 2;
 constexpr uint32_t kFrameSinkVideoConsumer_OnStopped_Name = 3;
 constexpr uint32_t kFrameSinkVideoConsumer_OnLog_Name = 4;

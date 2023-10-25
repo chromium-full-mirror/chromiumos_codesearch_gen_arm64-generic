@@ -688,11 +688,13 @@ enum class VideoCaptureFrameDropReason : int32_t {
   
   kRendererSinkFrameDelivererIsNotStarted = 25,
   
-  kCropVersionNotCurrent = 26,
+  kCropVersionNotCurrent_DEPRECATED = 26,
   
   kGpuMemoryBufferMapFailed = 27,
+  
+  kSubCaptureTargetVersionNotCurrent = 28,
   kMinValue = 0,
-  kMaxValue = 27,
+  kMaxValue = 28,
 };
 
  std::ostream& operator<<(std::ostream& os, VideoCaptureFrameDropReason value);

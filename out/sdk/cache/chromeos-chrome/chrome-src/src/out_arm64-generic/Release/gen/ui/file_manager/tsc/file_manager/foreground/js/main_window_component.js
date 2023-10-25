@@ -4,6 +4,8 @@
 import { assertInstanceof } from 'chrome://resources/ash/common/assert.js';
 import { DialogType, isFolderDialogType } from '../../common/js/dialog_type.js';
 import { getFocusedTreeItem, getKeyModifiers } from '../../common/js/dom_utils.js';
+import { isRecentRootType, isSameEntry, isTrashEntry } from '../../common/js/entry_utils.js';
+import { isNewDirectoryTreeEnabled } from '../../common/js/flags.js';
 import { recordEnum } from '../../common/js/metrics.js';
 import { TrashEntry } from '../../common/js/trash.js';
 import { str, util } from '../../common/js/util.js';
@@ -222,7 +224,7 @@ export class MainWindowComponent {
         if (!listItem || !listItem.selected || selection.totalCount !== 1) {
             return false;
         }
-        const trashEntries = /** @type {!Array<!TrashEntry>} */ (selection.entries.filter(util.isTrashEntry));
+        const trashEntries = /** @type {!Array<!TrashEntry>} */ (selection.entries.filter(isTrashEntry));
         if (trashEntries.length > 0) {
             this.showFailedToOpenTrashItemDialog_(trashEntries);
             return false;
@@ -256,7 +258,7 @@ export class MainWindowComponent {
                 if (!selection) {
                     return true;
                 }
-                const trashEntries = /** @type {!Array<!TrashEntry>} */ (selection.entries.filter(util.isTrashEntry));
+                const trashEntries = /** @type {!Array<!TrashEntry>} */ (selection.entries.filter(isTrashEntry));
                 this.showFailedToOpenTrashItemDialog_(trashEntries);
                 return true;
             }
@@ -387,7 +389,7 @@ export class MainWindowComponent {
             if (!focusedItem) {
                 return;
             }
-            if (util.isNewDirectoryTreeEnabled()) {
+            if (isNewDirectoryTreeEnabled()) {
                 focusedItem.selected = true;
             }
             else {
@@ -397,7 +399,7 @@ export class MainWindowComponent {
             }
             if (this.dialogType_ !== DialogType.FULL_PAGE &&
                 !focusedItem.hasAttribute('renaming') &&
-                util.isSameEntry(
+                isSameEntry(
                 // @ts-ignore: error TS2339: Property 'entry' does not exist on
                 // type 'XfTreeItem | DirectoryItem'.
                 this.directoryModel_.getCurrentDirEntry(), focusedItem.entry) &&
@@ -437,7 +439,7 @@ export class MainWindowComponent {
                 // @ts-ignore: error TS2532: Object is possibly 'undefined'.
                 if (selection.totalCount === 1 && selection.entries[0].isDirectory &&
                     !isFolderDialogType(this.dialogType_) &&
-                    !selection.entries.some(util.isTrashEntry)) {
+                    !selection.entries.some(isTrashEntry)) {
                     const item = this.ui_.listContainer.currentList.getListItemByIndex(
                     // @ts-ignore: error TS2345: Argument of type 'number | undefined'
                     // is not assignable to parameter of type 'number'.
@@ -522,7 +524,7 @@ export class MainWindowComponent {
     onWindowFocus_() {
         // When the window have got a focus while the current directory is Recent
         // root, refresh the contents.
-        if (util.isRecentRootType(this.directoryModel_.getCurrentRootType())) {
+        if (isRecentRootType(this.directoryModel_.getCurrentRootType())) {
             this.directoryModel_.rescan(true /* refresh */);
             // Do not start the spinner here to silently refresh the contents.
         }

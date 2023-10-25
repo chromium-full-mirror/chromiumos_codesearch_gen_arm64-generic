@@ -314,6 +314,7 @@ URLRequest::URLRequest()
       net_log_create_info(),
       net_log_reference_info(),
       target_ip_address_space(),
+      required_ip_address_space(),
       has_storage_access(),
       attribution_reporting_support(),
       attribution_reporting_eligibility(::network::mojom::blink::AttributionReportingEligibility::kUnset),
@@ -376,6 +377,7 @@ URLRequest::URLRequest(
     const absl::optional<::net::NetLogSource>& net_log_create_info_in,
     const absl::optional<::net::NetLogSource>& net_log_reference_info_in,
     ::network::mojom::blink::IPAddressSpace target_ip_address_space_in,
+    ::network::mojom::blink::IPAddressSpace required_ip_address_space_in,
     bool has_storage_access_in,
     ::network::mojom::blink::AttributionSupport attribution_reporting_support_in,
     ::network::mojom::blink::AttributionReportingEligibility attribution_reporting_eligibility_in,
@@ -436,6 +438,7 @@ URLRequest::URLRequest(
       net_log_create_info(std::move(net_log_create_info_in)),
       net_log_reference_info(std::move(net_log_reference_info_in)),
       target_ip_address_space(std::move(target_ip_address_space_in)),
+      required_ip_address_space(std::move(required_ip_address_space_in)),
       has_storage_access(std::move(has_storage_access_in)),
       attribution_reporting_support(std::move(attribution_reporting_support_in)),
       attribution_reporting_eligibility(std::move(attribution_reporting_eligibility_in)),
@@ -928,6 +931,15 @@ void URLRequest::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "target_ip_address_space"), this->target_ip_address_space,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::network::mojom::blink::IPAddressSpace>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "required_ip_address_space"), this->required_ip_address_space,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::network::mojom::blink::IPAddressSpace>"
 #else
@@ -1490,6 +1502,8 @@ bool StructTraits<::network::mojom::blink::URLRequest::DataView, ::network::mojo
       if (success && !input.ReadNetLogReferenceInfo(&result->net_log_reference_info))
         success = false;
       if (success && !input.ReadTargetIpAddressSpace(&result->target_ip_address_space))
+        success = false;
+      if (success && !input.ReadRequiredIpAddressSpace(&result->required_ip_address_space))
         success = false;
       if (success)
         result->has_storage_access = input.has_storage_access();

@@ -279,9 +279,9 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_fast_position_iterator_enabled_(RuntimeEnabledFeaturesBase::is_fast_position_iterator_enabled_),
     is_fed_cm_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_enabled_),
     is_fed_cm_authz_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_authz_enabled_),
+    is_fed_cm_auto_selected_flag_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_auto_selected_flag_enabled_),
     is_fed_cm_error_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_error_enabled_),
     is_fed_cm_hosted_domain_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_hosted_domain_enabled_),
-    is_fed_cm_identity_credential_auto_selected_flag_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_identity_credential_auto_selected_flag_enabled_),
     is_fed_cm_id_p_registration_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_id_p_registration_enabled_),
     is_fed_cm_idp_signin_status_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_idp_signin_status_enabled_),
     is_fed_cm_idp_signout_enabled_(RuntimeEnabledFeaturesBase::is_fed_cm_idp_signout_enabled_),
@@ -374,6 +374,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_installed_app_enabled_(RuntimeEnabledFeaturesBase::is_installed_app_enabled_),
     is_interoperable_private_attribution_enabled_(RuntimeEnabledFeaturesBase::is_interoperable_private_attribution_enabled_),
     is_interrupt_composed_scrollbar_disappearance_enabled_(RuntimeEnabledFeaturesBase::is_interrupt_composed_scrollbar_disappearance_enabled_),
+    is_intersection_observer_ignore_filters_enabled_(RuntimeEnabledFeaturesBase::is_intersection_observer_ignore_filters_enabled_),
     is_intersection_observer_scroll_margin_enabled_(RuntimeEnabledFeaturesBase::is_intersection_observer_scroll_margin_enabled_),
     is_intersection_optimization_enabled_(RuntimeEnabledFeaturesBase::is_intersection_optimization_enabled_),
     is_inverted_colors_enabled_(RuntimeEnabledFeaturesBase::is_inverted_colors_enabled_),
@@ -1021,9 +1022,9 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_fast_position_iterator_enabled_ = is_fast_position_iterator_enabled_;
   RuntimeEnabledFeaturesBase::is_fed_cm_enabled_ = is_fed_cm_enabled_;
   RuntimeEnabledFeaturesBase::is_fed_cm_authz_enabled_ = is_fed_cm_authz_enabled_;
+  RuntimeEnabledFeaturesBase::is_fed_cm_auto_selected_flag_enabled_ = is_fed_cm_auto_selected_flag_enabled_;
   RuntimeEnabledFeaturesBase::is_fed_cm_error_enabled_ = is_fed_cm_error_enabled_;
   RuntimeEnabledFeaturesBase::is_fed_cm_hosted_domain_enabled_ = is_fed_cm_hosted_domain_enabled_;
-  RuntimeEnabledFeaturesBase::is_fed_cm_identity_credential_auto_selected_flag_enabled_ = is_fed_cm_identity_credential_auto_selected_flag_enabled_;
   RuntimeEnabledFeaturesBase::is_fed_cm_id_p_registration_enabled_ = is_fed_cm_id_p_registration_enabled_;
   RuntimeEnabledFeaturesBase::is_fed_cm_idp_signin_status_enabled_ = is_fed_cm_idp_signin_status_enabled_;
   RuntimeEnabledFeaturesBase::is_fed_cm_idp_signout_enabled_ = is_fed_cm_idp_signout_enabled_;
@@ -1116,6 +1117,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_installed_app_enabled_ = is_installed_app_enabled_;
   RuntimeEnabledFeaturesBase::is_interoperable_private_attribution_enabled_ = is_interoperable_private_attribution_enabled_;
   RuntimeEnabledFeaturesBase::is_interrupt_composed_scrollbar_disappearance_enabled_ = is_interrupt_composed_scrollbar_disappearance_enabled_;
+  RuntimeEnabledFeaturesBase::is_intersection_observer_ignore_filters_enabled_ = is_intersection_observer_ignore_filters_enabled_;
   RuntimeEnabledFeaturesBase::is_intersection_observer_scroll_margin_enabled_ = is_intersection_observer_scroll_margin_enabled_;
   RuntimeEnabledFeaturesBase::is_intersection_optimization_enabled_ = is_intersection_optimization_enabled_;
   RuntimeEnabledFeaturesBase::is_inverted_colors_enabled_ = is_inverted_colors_enabled_;
@@ -1626,9 +1628,9 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetInnerHTMLParserFastpathEnabled(enable);
   SetInstalledAppEnabled(enable);
   SetInterruptComposedScrollbarDisappearanceEnabled(enable);
+  SetIntersectionObserverIgnoreFiltersEnabled(enable);
   SetIntersectionObserverScrollMarginEnabled(enable);
   SetInvisibleSVGAnimationThrottlingEnabled(enable);
-  SetKeyboardFocusableScrollersEnabled(enable);
   SetLayoutNewOverflowLogicEnabled(enable);
   SetLayoutNewSnapLogicEnabled(enable);
   SetLayoutNewStickyLogicEnabled(enable);
@@ -1702,7 +1704,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetSimplifiedClearPropertyTreeChangeEnabled(enable);
   SetSkipShadowHostWhenHoveringForTooltipEnabled(enable);
   SetSkipTouchEventFilterEnabled(enable);
-  SetSmilAutoSuspendOnLagEnabled(enable);
   SetSnapBorderWidthsBeforeLayoutEnabled(enable);
   SetSpeculationRulesEnabled(enable);
   SetSpeculationRulesPrefetchProxyEnabled(enable);
@@ -2239,9 +2240,9 @@ void RuntimeEnabledFeaturesBase::SetTestFeaturesEnabled(bool enable) {
   SetDocumentRenderBlockingEnabled(enable);
   SetFakeNoAllocDirectCallForTestingEnabled(enable);
   SetFedCmAuthzEnabled(enable);
+  SetFedCmAutoSelectedFlagEnabled(enable);
   SetFedCmErrorEnabled(enable);
   SetFedCmHostedDomainEnabled(enable);
-  SetFedCmIdentityCredentialAutoSelectedFlagEnabled(enable);
   SetFedCmIdPRegistrationEnabled(enable);
   SetFedCmIdpSigninStatusEnabled(enable);
   SetFedCmIdpSignoutEnabled(enable);
@@ -2250,6 +2251,7 @@ void RuntimeEnabledFeaturesBase::SetTestFeaturesEnabled(bool enable) {
   SetFledgeNegativeTargetingEnabled(enable);
   SetGetAllScreensMediaEnabled(enable);
   SetGroupEffectEnabled(enable);
+  SetKeyboardFocusableScrollersEnabled(enable);
   SetLayoutFlexNewRowAlgorithmV3Enabled(enable);
   SetLayoutNGShapeCacheEnabled(enable);
   SetLCPAnimatedImagesWebExposedEnabled(enable);
@@ -2731,10 +2733,10 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"FastPositionIterator", &is_fast_position_iterator_enabled_},
     {"FedCm", &is_fed_cm_enabled_},
     {"FedCmAuthz", &is_fed_cm_authz_enabled_},
+    {"FedCmAutoSelectedFlag", &is_fed_cm_auto_selected_flag_enabled_},
     {"FedCmError", &is_fed_cm_error_enabled_},
     {"FedCmHostedDomain", &is_fed_cm_hosted_domain_enabled_},
     {"FedCmIdPRegistration", &is_fed_cm_id_p_registration_enabled_},
-    {"FedCmIdentityCredentialAutoSelectedFlag", &is_fed_cm_identity_credential_auto_selected_flag_enabled_},
     {"FedCmIdpSigninStatus", &is_fed_cm_idp_signin_status_enabled_},
     {"FedCmIdpSignout", &is_fed_cm_idp_signout_enabled_},
     {"FedCmMultipleIdentityProviders", &is_fed_cm_multiple_identity_providers_enabled_},
@@ -2826,6 +2828,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"InstalledApp", &is_installed_app_enabled_},
     {"InteroperablePrivateAttribution", &is_interoperable_private_attribution_enabled_},
     {"InterruptComposedScrollbarDisappearance", &is_interrupt_composed_scrollbar_disappearance_enabled_},
+    {"IntersectionObserverIgnoreFilters", &is_intersection_observer_ignore_filters_enabled_},
     {"IntersectionObserverScrollMargin", &is_intersection_observer_scroll_margin_enabled_},
     {"IntersectionOptimization", &is_intersection_optimization_enabled_},
     {"InvertedColors", &is_inverted_colors_enabled_},
@@ -3559,6 +3562,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kInteroperablePrivateAttribution, SetInteroperablePrivateAttributionEnabled,
      false},
     {blink::features::kInterruptComposedScrollbarDisappearance, SetInterruptComposedScrollbarDisappearanceEnabled,
+     false},
+    {blink::features::kIntersectionObserverIgnoreFilters, SetIntersectionObserverIgnoreFiltersEnabled,
      false},
     {blink::features::kIntersectionObserverScrollMargin, SetIntersectionObserverScrollMarginEnabled,
      false},
@@ -5023,9 +5028,9 @@ bool RuntimeEnabledFeaturesBase::is_fast_compare_positions_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_fast_position_iterator_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_fed_cm_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_fed_cm_authz_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_fed_cm_auto_selected_flag_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_fed_cm_error_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_fed_cm_hosted_domain_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_fed_cm_identity_credential_auto_selected_flag_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_fed_cm_id_p_registration_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_fed_cm_idp_signin_status_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_fed_cm_idp_signout_enabled_ = false;
@@ -5107,13 +5112,14 @@ bool RuntimeEnabledFeaturesBase::is_inner_html_parser_fastpath_log_failure_enabl
 bool RuntimeEnabledFeaturesBase::is_installed_app_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_interoperable_private_attribution_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_interrupt_composed_scrollbar_disappearance_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_intersection_observer_ignore_filters_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_intersection_observer_scroll_margin_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_intersection_optimization_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_inverted_colors_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_invisible_svg_animation_throttling_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_java_script_compile_hints_magic_runtime_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_keyboard_accessible_tooltip_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_keyboard_focusable_scrollers_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_keyboard_focusable_scrollers_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_lang_attribute_aware_form_control_ui_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_layout_flex_new_row_algorithm_v_3_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_layout_ignore_margins_for_sticky_enabled_ = false;
@@ -5319,7 +5325,7 @@ bool RuntimeEnabledFeaturesBase::is_site_initiated_mirroring_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_skip_ad_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_skip_shadow_host_when_hovering_for_tooltip_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_skip_touch_event_filter_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_smil_auto_suspend_on_lag_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_smil_auto_suspend_on_lag_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_snap_border_widths_before_layout_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_soft_navigation_heuristics_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_soft_navigation_heuristics_expose_fp_and_fcp_enabled_ = false;

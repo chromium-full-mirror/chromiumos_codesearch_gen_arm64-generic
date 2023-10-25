@@ -123,7 +123,7 @@ class  VideoFrameHandler_OnFrameDropped_Params_Data {
 };
 static_assert(sizeof(VideoFrameHandler_OnFrameDropped_Params_Data) == 16,
               "Bad sizeof(VideoFrameHandler_OnFrameDropped_Params_Data)");
-class  VideoFrameHandler_OnNewCropVersion_Params_Data {
+class  VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -133,13 +133,30 @@ class  VideoFrameHandler_OnNewCropVersion_Params_Data {
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<VideoFrameHandler_OnNewCropVersion_Params_Data>;
+  friend class mojo::internal::MessageFragment<VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data>;
 
-  VideoFrameHandler_OnNewCropVersion_Params_Data();
-  ~VideoFrameHandler_OnNewCropVersion_Params_Data() = delete;
+  VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data();
+  ~VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data() = delete;
 };
-static_assert(sizeof(VideoFrameHandler_OnNewCropVersion_Params_Data) == 16,
-              "Bad sizeof(VideoFrameHandler_OnNewCropVersion_Params_Data)");
+static_assert(sizeof(VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data) == 16,
+              "Bad sizeof(VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data)");
+class  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t sub_capture_target_version;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data>;
+
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data();
+  ~VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data() = delete;
+};
+static_assert(sizeof(VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data) == 16,
+              "Bad sizeof(VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data)");
 class  VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -607,12 +624,12 @@ class VideoFrameHandler_OnFrameDropped_ParamsDataView {
 };
 
 
-class VideoFrameHandler_OnNewCropVersion_ParamsDataView {
+class VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsDataView {
  public:
-  VideoFrameHandler_OnNewCropVersion_ParamsDataView() = default;
+  VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsDataView() = default;
 
-  VideoFrameHandler_OnNewCropVersion_ParamsDataView(
-      internal::VideoFrameHandler_OnNewCropVersion_Params_Data* data,
+  VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsDataView(
+      internal::VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -621,7 +638,25 @@ class VideoFrameHandler_OnNewCropVersion_ParamsDataView {
     return data_->crop_version;
   }
  private:
-  internal::VideoFrameHandler_OnNewCropVersion_Params_Data* data_ = nullptr;
+  internal::VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params_Data* data_ = nullptr;
+};
+
+
+class VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsDataView {
+ public:
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsDataView() = default;
+
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsDataView(
+      internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t sub_capture_target_version() const {
+    return data_->sub_capture_target_version;
+  }
+ private:
+  internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data* data_ = nullptr;
 };
 
 
@@ -1082,6 +1117,8 @@ inline void VideoFrameHandler_OnFrameReadyInBuffer_ParamsDataView::GetScaledBuff
   auto pointer = data_->scaled_buffers.Get();
   *output = mojo::ArrayDataView<ReadyFrameInBufferDataView>(pointer, message_);
 }
+
+
 
 
 

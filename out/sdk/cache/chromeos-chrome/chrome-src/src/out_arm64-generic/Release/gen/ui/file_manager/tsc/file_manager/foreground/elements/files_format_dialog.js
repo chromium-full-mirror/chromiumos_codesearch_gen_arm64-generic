@@ -18,6 +18,7 @@ import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/cr_elements/cr_input/cr_input.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import '../../common/js/files_app_entry_types.js';
+import { isSinglePartitionFormatEnabled } from '../../common/js/flags.js';
 import { str, strf, util } from '../../common/js/util.js';
 import '../../externs/files_app_entry_interfaces.js';
 import { validateExternalDriveName } from '../js/file_rename.js';
@@ -89,13 +90,13 @@ export class FilesFormatDialog extends PolymerElement {
      * It is used to check flag status in the tests.
      */
     getSinglePartitionFormat() {
-        if (util.isSinglePartitionFormatEnabled()) {
+        if (isSinglePartitionFormatEnabled()) {
             return 'single-partition-format';
         }
         return '';
     }
     getConfirmLabel(isErase) {
-        if (util.isSinglePartitionFormatEnabled()) {
+        if (isSinglePartitionFormatEnabled()) {
             if (isErase) {
                 return str('REPARTITION_DIALOG_CONFIRM_LABEL');
             }
@@ -108,7 +109,7 @@ export class FilesFormatDialog extends PolymerElement {
         }
     }
     getDialogMessage(isErase) {
-        if (util.isSinglePartitionFormatEnabled()) {
+        if (isSinglePartitionFormatEnabled()) {
             if (isErase) {
                 return str('REPARTITION_DIALOG_MESSAGE');
             }

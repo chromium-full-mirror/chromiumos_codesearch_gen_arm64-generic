@@ -103,7 +103,7 @@ class VideoFrameHandler
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 6416137889429736605ULL,
                                       9523168532578706922ULL };
-  static constexpr uint32_t Version_ = 3;
+  static constexpr uint32_t Version_ = 4;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -122,7 +122,8 @@ class VideoFrameHandler
     kOnBufferRetiredMinVersion = 0,
     kOnErrorMinVersion = 0,
     kOnFrameDroppedMinVersion = 0,
-    kOnNewCropVersionMinVersion = 2,
+    kDEPRECATED_OnNewCropVersionMinVersion = 2,
+    kOnNewSubCaptureTargetVersionMinVersion = 4,
     kOnFrameWithEmptyRegionCaptureMinVersion = 1,
     kOnLogMinVersion = 0,
     kOnStartedMinVersion = 0,
@@ -151,7 +152,10 @@ class VideoFrameHandler
   struct OnFrameDropped_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct OnNewCropVersion_Sym {
+  struct DEPRECATED_OnNewCropVersion_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnNewSubCaptureTargetVersion_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnFrameWithEmptyRegionCapture_Sym {
@@ -191,7 +195,10 @@ class VideoFrameHandler
   virtual void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) = 0;
 
   
-  virtual void OnNewCropVersion(uint32_t crop_version) = 0;
+  virtual void DEPRECATED_OnNewCropVersion(uint32_t crop_version) = 0;
+
+  
+  virtual void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) = 0;
 
   
   virtual void OnFrameWithEmptyRegionCapture() = 0;
@@ -405,7 +412,9 @@ class  VideoFrameHandlerProxy
   
   void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) final;
   
-  void OnNewCropVersion(uint32_t crop_version) final;
+  void DEPRECATED_OnNewCropVersion(uint32_t crop_version) final;
+  
+  void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) final;
   
   void OnFrameWithEmptyRegionCapture() final;
   

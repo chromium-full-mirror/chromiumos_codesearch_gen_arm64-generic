@@ -280,8 +280,8 @@ VideoFrameHandler::IPCStableHashFunction VideoFrameHandler::MessageToMethodInfo_
     case internal::kVideoFrameHandler_OnFrameDropped_Name: {
       return &VideoFrameHandler::OnFrameDropped_Sym::IPCStableHash;
     }
-    case internal::kVideoFrameHandler_OnNewCropVersion_Name: {
-      return &VideoFrameHandler::OnNewCropVersion_Sym::IPCStableHash;
+    case internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name: {
+      return &VideoFrameHandler::OnNewSubCaptureTargetVersion_Sym::IPCStableHash;
     }
     case internal::kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name: {
       return &VideoFrameHandler::OnFrameWithEmptyRegionCapture_Sym::IPCStableHash;
@@ -323,8 +323,8 @@ const char* VideoFrameHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive video_capture::mojom::VideoFrameHandler::OnError";
       case internal::kVideoFrameHandler_OnFrameDropped_Name:
             return "Receive video_capture::mojom::VideoFrameHandler::OnFrameDropped";
-      case internal::kVideoFrameHandler_OnNewCropVersion_Name:
-            return "Receive video_capture::mojom::VideoFrameHandler::OnNewCropVersion";
+      case internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name:
+            return "Receive video_capture::mojom::VideoFrameHandler::OnNewSubCaptureTargetVersion";
       case internal::kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name:
             return "Receive video_capture::mojom::VideoFrameHandler::OnFrameWithEmptyRegionCapture";
       case internal::kVideoFrameHandler_OnLog_Name:
@@ -352,8 +352,8 @@ const char* VideoFrameHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply video_capture::mojom::VideoFrameHandler::OnError";
       case internal::kVideoFrameHandler_OnFrameDropped_Name:
             return "Receive reply video_capture::mojom::VideoFrameHandler::OnFrameDropped";
-      case internal::kVideoFrameHandler_OnNewCropVersion_Name:
-            return "Receive reply video_capture::mojom::VideoFrameHandler::OnNewCropVersion";
+      case internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name:
+            return "Receive reply video_capture::mojom::VideoFrameHandler::OnNewSubCaptureTargetVersion";
       case internal::kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name:
             return "Receive reply video_capture::mojom::VideoFrameHandler::OnFrameWithEmptyRegionCapture";
       case internal::kVideoFrameHandler_OnLog_Name:
@@ -469,7 +469,7 @@ uint32_t VideoFrameHandler::OnFrameDropped_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t VideoFrameHandler::OnNewCropVersion_Sym::IPCStableHash() {
+uint32_t VideoFrameHandler::OnNewSubCaptureTargetVersion_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -477,7 +477,7 @@ uint32_t VideoFrameHandler::OnNewCropVersion_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)video_capture::mojom::VideoFrameHandler::OnNewCropVersion");
+          "(Impl)video_capture::mojom::VideoFrameHandler::OnNewSubCaptureTargetVersion");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -840,15 +840,15 @@ void VideoFrameHandlerProxy::OnFrameDropped(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void VideoFrameHandlerProxy::OnNewCropVersion(
-    uint32_t in_crop_version) {
+void VideoFrameHandlerProxy::OnNewSubCaptureTargetVersion(
+    uint32_t in_sub_capture_target_version) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send video_capture::mojom::VideoFrameHandler::OnNewCropVersion", "input_parameters",
+    "mojom", "Send video_capture::mojom::VideoFrameHandler::OnNewSubCaptureTargetVersion", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("crop_version"), in_crop_version,
+           dict.AddItem("sub_capture_target_version"), in_sub_capture_target_version,
                         "<value of type uint32_t>");
    });
 #endif
@@ -862,16 +862,16 @@ void VideoFrameHandlerProxy::OnNewCropVersion(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kVideoFrameHandler_OnNewCropVersion_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::video_capture::mojom::internal::VideoFrameHandler_OnNewCropVersion_Params_Data> params(
+      ::video_capture::mojom::internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data> params(
           message);
   params.Allocate();
-  params->crop_version = in_crop_version;
+  params->sub_capture_target_version = in_sub_capture_target_version;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(VideoFrameHandler::Name_);
-  message.set_method_name("OnNewCropVersion");
+  message.set_method_name("OnNewSubCaptureTargetVersion");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1235,19 +1235,19 @@ std::move(p_error));
 std::move(p_reason));
       return true;
     }
-    case internal::kVideoFrameHandler_OnNewCropVersion_Name: {
+    case internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name: {
 
       DCHECK(message->is_serialized());
-      internal::VideoFrameHandler_OnNewCropVersion_Params_Data* params =
-          reinterpret_cast<internal::VideoFrameHandler_OnNewCropVersion_Params_Data*>(
+      internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data* params =
+          reinterpret_cast<internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_crop_version{};
-      VideoFrameHandler_OnNewCropVersion_ParamsDataView input_data_view(params, message);
+      uint32_t p_sub_capture_target_version{};
+      VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsDataView input_data_view(params, message);
       
       if (success)
-        p_crop_version = input_data_view.crop_version();
+        p_sub_capture_target_version = input_data_view.sub_capture_target_version();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1257,8 +1257,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewCropVersion(
-std::move(p_crop_version));
+      impl->OnNewSubCaptureTargetVersion(
+std::move(p_sub_capture_target_version));
       return true;
     }
     case internal::kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name: {
@@ -1409,7 +1409,7 @@ bool VideoFrameHandlerStubDispatch::AcceptWithResponder(
     case internal::kVideoFrameHandler_OnFrameDropped_Name: {
       break;
     }
-    case internal::kVideoFrameHandler_OnNewCropVersion_Name: {
+    case internal::kVideoFrameHandler_OnNewSubCaptureTargetVersion_Name: {
       break;
     }
     case internal::kVideoFrameHandler_OnFrameWithEmptyRegionCapture_Name: {
@@ -1447,7 +1447,7 @@ static const mojo::internal::GenericValidationInfo kVideoFrameHandlerValidationI
      nullptr /* no response */},
     {&internal::VideoFrameHandler_OnFrameDropped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoFrameHandler_OnNewCropVersion_Params_Data::Validate,
+    {&internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params_Data::Validate,
      nullptr /* no response */},
@@ -1533,8 +1533,8 @@ void VideoFrameHandlerInterceptorForTesting::OnError(::media::VideoCaptureError 
 void VideoFrameHandlerInterceptorForTesting::OnFrameDropped(::media::VideoCaptureFrameDropReason reason) {
   GetForwardingInterface()->OnFrameDropped(std::move(reason));
 }
-void VideoFrameHandlerInterceptorForTesting::OnNewCropVersion(uint32_t crop_version) {
-  GetForwardingInterface()->OnNewCropVersion(std::move(crop_version));
+void VideoFrameHandlerInterceptorForTesting::OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) {
+  GetForwardingInterface()->OnNewSubCaptureTargetVersion(std::move(sub_capture_target_version));
 }
 void VideoFrameHandlerInterceptorForTesting::OnFrameWithEmptyRegionCapture() {
   GetForwardingInterface()->OnFrameWithEmptyRegionCapture();

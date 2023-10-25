@@ -266,7 +266,7 @@ export class TimelinePanel extends UI.Panel.Panel {
     panelToolbar;
     panelRightToolbar;
     timelinePane;
-    #minimapComponent = new TimelineMiniMap();
+    #minimapComponent;
     statusPaneContainer;
     flameChart;
     searchableViewInternal;
@@ -302,6 +302,7 @@ export class TimelinePanel extends UI.Panel.Panel {
     constructor(threadTracksSource) {
         super('timeline');
         this.#threadTracksSource = threadTracksSource;
+        this.#minimapComponent = new TimelineMiniMap(threadTracksSource);
         switch (threadTracksSource) {
             case ThreadTracksSource.BOTH_ENGINES:
             case ThreadTracksSource.NEW_ENGINE:
@@ -663,9 +664,12 @@ export class TimelinePanel extends UI.Panel.Panel {
     }
     updateOverviewControls() {
         const traceParsedData = this.#traceEngineModel.traceParsedData(this.#traceEngineActiveTraceIndex);
+        const isCpuProfile = this.#traceEngineModel.metadata(this.#traceEngineActiveTraceIndex)?.dataOrigin ===
+            "CPUProfile" /* TraceEngine.Types.File.DataOrigin.CPUProfile */;
         this.#minimapComponent.setData({
             performanceModel: this.performanceModel,
             traceParsedData,
+            isCpuProfile,
             settings: {
                 showScreenshots: this.showScreenshotsSetting.get(),
                 showMemory: this.showMemorySetting.get(),

@@ -54,6 +54,9 @@ using DestinationSetPtr = mojo::StructPtr<DestinationSet>;
 class EventReportWindows;
 using EventReportWindowsPtr = mojo::StructPtr<EventReportWindows>;
 
+class TriggerConfig;
+using TriggerConfigPtr = mojo::InlinedStructPtr<TriggerConfig>;
+
 class SourceRegistration;
 using SourceRegistrationPtr = mojo::StructPtr<SourceRegistration>;
 

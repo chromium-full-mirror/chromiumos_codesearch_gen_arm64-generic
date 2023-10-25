@@ -8,6 +8,8 @@
 #define COMPONENTS_ATTRIBUTION_REPORTING_REGISTRATION_MOJOM_BLINK_IMPORT_HEADERS_H_
 #include "components/attribution_reporting/source_registration_time_config.mojom-blink.h"
 #include "components/attribution_reporting/source_registration_time_config.mojom-blink-import-headers.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-blink.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-blink-import-headers.h"
 #include "mojo/public/mojom/base/int128.mojom-blink.h"
 #include "mojo/public/mojom/base/int128.mojom-blink-import-headers.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"

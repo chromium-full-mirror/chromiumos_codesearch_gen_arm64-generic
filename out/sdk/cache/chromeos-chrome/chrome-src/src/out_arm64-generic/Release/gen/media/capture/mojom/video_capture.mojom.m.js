@@ -107,10 +107,10 @@ export class VideoCaptureObserverInterface {
   onFrameDropped(reason) {}
   
   /**
-   * @param { !number } cropVersion
+   * @param { !number } subCaptureTargetVersion
    */
 
-  onNewCropVersion(cropVersion) {}
+  onNewSubCaptureTargetVersion(subCaptureTargetVersion) {}
 }
 
 /**
@@ -221,17 +221,17 @@ export class VideoCaptureObserverRemote {
 
   
   /**
-   * @param { !number } cropVersion
+   * @param { !number } subCaptureTargetVersion
    */
 
-  onNewCropVersion(
-      cropVersion) {
+  onNewSubCaptureTargetVersion(
+      subCaptureTargetVersion) {
     this.proxy.sendMessage(
         5,
-        VideoCaptureObserver_OnNewCropVersion_ParamsSpec.$,
+        VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
         [
-          cropVersion
+          subCaptureTargetVersion
         ]);
   }
 }
@@ -283,9 +283,9 @@ export class VideoCaptureObserverReceiver {
         impl.onFrameDropped.bind(impl));
     this.helper_internal_.registerHandler(
         5,
-        VideoCaptureObserver_OnNewCropVersion_ParamsSpec.$,
+        VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
-        impl.onNewCropVersion.bind(impl));
+        impl.onNewSubCaptureTargetVersion.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -395,15 +395,15 @@ export class VideoCaptureObserverCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onNewCropVersion =
+    this.onNewSubCaptureTargetVersion =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         5,
-        VideoCaptureObserver_OnNewCropVersion_ParamsSpec.$,
+        VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
-        this.onNewCropVersion.createReceiverHandler(false /* expectsResponse */));
+        this.onNewSubCaptureTargetVersion.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -980,7 +980,7 @@ export const VideoCaptureObserver_OnFrameDropped_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const VideoCaptureObserver_OnNewCropVersion_ParamsSpec =
+export const VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -1214,11 +1214,11 @@ export class VideoCaptureObserver_OnFrameDropped_Params {
 
 
 mojo.internal.Struct(
-    VideoCaptureObserver_OnNewCropVersion_ParamsSpec.$,
-    'VideoCaptureObserver_OnNewCropVersion_Params',
+    VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+    'VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params',
     [
       mojo.internal.StructField(
-        'cropVersion', 0,
+        'subCaptureTargetVersion', 0,
         0,
         mojo.internal.Uint32,
         0,
@@ -1233,10 +1233,10 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class VideoCaptureObserver_OnNewCropVersion_Params {
+export class VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params {
   constructor() {
     /** @type { !number } */
-    this.cropVersion;
+    this.subCaptureTargetVersion;
   }
 }
 

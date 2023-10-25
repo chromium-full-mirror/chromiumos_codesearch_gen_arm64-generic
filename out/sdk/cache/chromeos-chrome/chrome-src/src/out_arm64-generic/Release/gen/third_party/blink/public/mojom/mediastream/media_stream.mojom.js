@@ -49,6 +49,12 @@
     mojo.internal.loadMojomIfNecessary(
         'mojo/public/mojom/base/unguessable_token.mojom', '../../../../../mojo/public/mojom/base/unguessable_token.mojom.js');
   }
+  var media_devices$ =
+      mojo.internal.exposeNamespace('blink.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'third_party/blink/public/mojom/mediastream/media_devices.mojom', 'media_devices.mojom.js');
+  }
 
 
   var MediaStreamType = {};
@@ -1942,25 +1948,26 @@
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.label);
   };
-  function MediaStreamDispatcherHost_Crop_Params(values) {
+  function MediaStreamDispatcherHost_ApplySubCaptureTarget_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  MediaStreamDispatcherHost_Crop_Params.prototype.initDefaults_ = function() {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.prototype.initDefaults_ = function() {
     this.deviceId = null;
-    this.cropId = null;
-    this.cropVersion = 0;
+    this.type = 0;
+    this.subCaptureTargetVersion = 0;
+    this.subCaptureTarget = null;
   };
-  MediaStreamDispatcherHost_Crop_Params.prototype.initFields_ = function(fields) {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  MediaStreamDispatcherHost_Crop_Params.validate = function(messageValidator, offset) {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1974,14 +1981,20 @@
         return err;
 
 
-    // validate MediaStreamDispatcherHost_Crop_Params.deviceId
+    // validate MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.deviceId
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, unguessable_token$.UnguessableToken, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate MediaStreamDispatcherHost_Crop_Params.cropId
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, token$.Token, false);
+    // validate MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.type
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 8, media_devices$.SubCaptureTargetType);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.subCaptureTarget
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 16, token$.Token, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -1989,55 +2002,50 @@
     return validator.validationError.NONE;
   };
 
-  MediaStreamDispatcherHost_Crop_Params.encodedSize = codec.kStructHeaderSize + 24;
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.encodedSize = codec.kStructHeaderSize + 24;
 
-  MediaStreamDispatcherHost_Crop_Params.decode = function(decoder) {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.decode = function(decoder) {
     var packed;
-    var val = new MediaStreamDispatcherHost_Crop_Params();
+    var val = new MediaStreamDispatcherHost_ApplySubCaptureTarget_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.deviceId =
         decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
-    val.cropId =
-        decoder.decodeStructPointer(token$.Token);
-    val.cropVersion =
+    val.type =
+        decoder.decodeStruct(new codec.Enum(media_devices$.SubCaptureTargetType));
+    val.subCaptureTargetVersion =
         decoder.decodeStruct(codec.Uint32);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    val.subCaptureTarget =
+        decoder.decodeStructPointer(token$.Token);
     return val;
   };
 
-  MediaStreamDispatcherHost_Crop_Params.encode = function(encoder, val) {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(MediaStreamDispatcherHost_Crop_Params.encodedSize);
+    encoder.writeUint32(MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.deviceId);
-    encoder.encodeStructPointer(token$.Token, val.cropId);
-    encoder.encodeStruct(codec.Uint32, val.cropVersion);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.type);
+    encoder.encodeStruct(codec.Uint32, val.subCaptureTargetVersion);
+    encoder.encodeStructPointer(token$.Token, val.subCaptureTarget);
   };
-  function MediaStreamDispatcherHost_Crop_ResponseParams(values) {
+  function MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  MediaStreamDispatcherHost_Crop_ResponseParams.prototype.initDefaults_ = function() {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.prototype.initDefaults_ = function() {
     this.result = 0;
   };
-  MediaStreamDispatcherHost_Crop_ResponseParams.prototype.initFields_ = function(fields) {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  MediaStreamDispatcherHost_Crop_ResponseParams.validate = function(messageValidator, offset) {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -2051,7 +2059,7 @@
         return err;
 
 
-    // validate MediaStreamDispatcherHost_Crop_ResponseParams.result
+    // validate MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.result
     err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, video_capture_types$.ApplySubCaptureTargetResult);
     if (err !== validator.validationError.NONE)
         return err;
@@ -2059,11 +2067,11 @@
     return validator.validationError.NONE;
   };
 
-  MediaStreamDispatcherHost_Crop_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
 
-  MediaStreamDispatcherHost_Crop_ResponseParams.decode = function(decoder) {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.decode = function(decoder) {
     var packed;
-    var val = new MediaStreamDispatcherHost_Crop_ResponseParams();
+    var val = new MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.result =
@@ -2075,9 +2083,9 @@
     return val;
   };
 
-  MediaStreamDispatcherHost_Crop_ResponseParams.encode = function(encoder, val) {
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(MediaStreamDispatcherHost_Crop_ResponseParams.encodedSize);
+    encoder.writeUint32(MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Int32, val.result);
     encoder.skip(1);
@@ -2714,7 +2722,7 @@
   var kMediaStreamDispatcherHost_CloseDevice_Name = 5;
   var kMediaStreamDispatcherHost_SetCapturingLinkSecured_Name = 6;
   var kMediaStreamDispatcherHost_OnStreamStarted_Name = 7;
-  var kMediaStreamDispatcherHost_Crop_Name = 8;
+  var kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name = 8;
   var kMediaStreamDispatcherHost_GetOpenDevice_Name = 9;
   var kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name = 10;
 
@@ -2885,27 +2893,28 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  MediaStreamDispatcherHostPtr.prototype.crop = function() {
-    return MediaStreamDispatcherHostProxy.prototype.crop
+  MediaStreamDispatcherHostPtr.prototype.applySubCaptureTarget = function() {
+    return MediaStreamDispatcherHostProxy.prototype.applySubCaptureTarget
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  MediaStreamDispatcherHostProxy.prototype.crop = function(deviceId, cropId, cropVersion) {
-    var params_ = new MediaStreamDispatcherHost_Crop_Params();
+  MediaStreamDispatcherHostProxy.prototype.applySubCaptureTarget = function(deviceId, type, subCaptureTarget, subCaptureTargetVersion) {
+    var params_ = new MediaStreamDispatcherHost_ApplySubCaptureTarget_Params();
     params_.deviceId = deviceId;
-    params_.cropId = cropId;
-    params_.cropVersion = cropVersion;
+    params_.type = type;
+    params_.subCaptureTarget = subCaptureTarget;
+    params_.subCaptureTargetVersion = subCaptureTargetVersion;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
-          kMediaStreamDispatcherHost_Crop_Name,
-          codec.align(MediaStreamDispatcherHost_Crop_Params.encodedSize),
+          kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name,
+          codec.align(MediaStreamDispatcherHost_ApplySubCaptureTarget_Params.encodedSize),
           codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(MediaStreamDispatcherHost_Crop_Params, params_);
+      builder.encodeStruct(MediaStreamDispatcherHost_ApplySubCaptureTarget_Params, params_);
       var message = builder.finish();
       this.receiver_.acceptAndExpectResponse(message).then(function(message) {
         var reader = new codec.MessageReader(message);
         var responseParams =
-            reader.decodeStruct(MediaStreamDispatcherHost_Crop_ResponseParams);
+            reader.decodeStruct(MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams);
         resolve(responseParams);
       }).catch(function(result) {
         reject(Error("Connection error: " + result));
@@ -2993,8 +3002,8 @@
   MediaStreamDispatcherHostStub.prototype.onStreamStarted = function(label) {
     return this.delegate_ && this.delegate_.onStreamStarted && this.delegate_.onStreamStarted(label);
   }
-  MediaStreamDispatcherHostStub.prototype.crop = function(deviceId, cropId, cropVersion) {
-    return this.delegate_ && this.delegate_.crop && this.delegate_.crop(deviceId, cropId, cropVersion);
+  MediaStreamDispatcherHostStub.prototype.applySubCaptureTarget = function(deviceId, type, subCaptureTarget, subCaptureTargetVersion) {
+    return this.delegate_ && this.delegate_.applySubCaptureTarget && this.delegate_.applySubCaptureTarget(deviceId, type, subCaptureTarget, subCaptureTargetVersion);
   }
   MediaStreamDispatcherHostStub.prototype.getOpenDevice = function(requestId, sessionId, transferId) {
     return this.delegate_ && this.delegate_.getOpenDevice && this.delegate_.getOpenDevice(requestId, sessionId, transferId);
@@ -3076,17 +3085,17 @@
         responder.accept(message);
       });
       return true;
-    case kMediaStreamDispatcherHost_Crop_Name:
-      var params = reader.decodeStruct(MediaStreamDispatcherHost_Crop_Params);
-      this.crop(params.deviceId, params.cropId, params.cropVersion).then(function(response) {
+    case kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name:
+      var params = reader.decodeStruct(MediaStreamDispatcherHost_ApplySubCaptureTarget_Params);
+      this.applySubCaptureTarget(params.deviceId, params.type, params.subCaptureTarget, params.subCaptureTargetVersion).then(function(response) {
         var responseParams =
-            new MediaStreamDispatcherHost_Crop_ResponseParams();
+            new MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams();
         responseParams.result = response.result;
         var builder = new codec.MessageV1Builder(
-            kMediaStreamDispatcherHost_Crop_Name,
-            codec.align(MediaStreamDispatcherHost_Crop_ResponseParams.encodedSize),
+            kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name,
+            codec.align(MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams.encodedSize),
             codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(MediaStreamDispatcherHost_Crop_ResponseParams,
+        builder.encodeStruct(MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams,
                              responseParams);
         var message = builder.finish();
         responder.accept(message);
@@ -3166,9 +3175,9 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = MediaStreamDispatcherHost_OnStreamStarted_Params;
       break;
-      case kMediaStreamDispatcherHost_Crop_Name:
+      case kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name:
         if (message.expectsResponse())
-          paramsClass = MediaStreamDispatcherHost_Crop_Params;
+          paramsClass = MediaStreamDispatcherHost_ApplySubCaptureTarget_Params;
       break;
       case kMediaStreamDispatcherHost_GetOpenDevice_Name:
         if (message.expectsResponse())
@@ -3196,9 +3205,9 @@
         if (message.isResponse())
           paramsClass = MediaStreamDispatcherHost_OpenDevice_ResponseParams;
         break;
-      case kMediaStreamDispatcherHost_Crop_Name:
+      case kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name:
         if (message.isResponse())
-          paramsClass = MediaStreamDispatcherHost_Crop_ResponseParams;
+          paramsClass = MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams;
         break;
       case kMediaStreamDispatcherHost_GetOpenDevice_Name:
         if (message.isResponse())

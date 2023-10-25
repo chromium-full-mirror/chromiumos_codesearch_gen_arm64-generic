@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 // @ts-nocheck This file is not checked by TypeScript as it has a lot of legacy code.
 import * as Common from '../../core/common/common.js'; // eslint-disable-line no-unused-vars
-import * as Platform from '../../core/platform/platform.js';
 import * as ProtocolClient from '../../core/protocol_client/protocol_client.js';
 import * as Root from '../../core/root/root.js';
 import * as SDK from '../../core/sdk/sdk.js';
@@ -15,15 +14,6 @@ import * as UI from '../../ui/legacy/legacy.js';
  * @fileoverview using private properties isn't a Closure violation in tests.
  */
 /* eslint-disable no-console */
-self.Platform = self.Platform || {};
-self.Platform.StringUtilities = Platform.StringUtilities;
-self.Platform.MapUtilities = Platform.MapUtilities;
-self.Platform.ArrayUtilities = Platform.ArrayUtilities;
-self.Platform.DOMUtilities = Platform.DOMUtilities;
-self.createPlainTextSearchRegex = Platform.StringUtilities.createPlainTextSearchRegex;
-String.sprintf = Platform.StringUtilities.sprintf;
-String.regexSpecialCharacters = Platform.StringUtilities.regexSpecialCharacters;
-String.caseInsensetiveComparator = Platform.StringUtilities.caseInsensetiveComparator;
 /**
  * @return {boolean}
  */

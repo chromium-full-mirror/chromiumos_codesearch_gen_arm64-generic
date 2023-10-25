@@ -5,7 +5,7 @@
  * @fileoverview Helpers for APIs used within Files app.
  */
 import '../../externs/files_app_entry_interfaces.js';
-import { util } from './util.js';
+import { unwrapEntry } from './entry_utils.js';
 /**
  * Calls the `fn` function which should expect the callback as last argument.
  *
@@ -33,13 +33,13 @@ export async function openWindow(params) {
     return promisify(chrome.fileManagerPrivate.openWindow, params);
 }
 export async function resolveIsolatedEntries(isolatedEntries) {
-    return promisify(chrome.fileManagerPrivate.resolveIsolatedEntries, isolatedEntries.map(e => util.unwrapEntry(e)));
+    return promisify(chrome.fileManagerPrivate.resolveIsolatedEntries, isolatedEntries.map(e => unwrapEntry(e)));
 }
 export async function getPreferences() {
     return promisify(chrome.fileManagerPrivate.getPreferences);
 }
 export async function validatePathNameLength(parentEntry, name) {
-    return promisify(chrome.fileManagerPrivate.validatePathNameLength, util.unwrapEntry(parentEntry), name);
+    return promisify(chrome.fileManagerPrivate.validatePathNameLength, unwrapEntry(parentEntry), name);
 }
 /**
  * Wrap the chrome.fileManagerPrivate.getSizeStats function in an async/await
@@ -53,7 +53,7 @@ export async function getSizeStats(volumeId) {
  * async/await compatible style.
  */
 export async function getDriveQuotaMetadata(entry) {
-    return promisify(chrome.fileManagerPrivate.getDriveQuotaMetadata, util.unwrapEntry(entry));
+    return promisify(chrome.fileManagerPrivate.getDriveQuotaMetadata, unwrapEntry(entry));
 }
 /**
  * Retrieves the current holding space state, for example the list of items the
@@ -67,14 +67,14 @@ export async function getHoldingSpaceState() {
  * async/await compatible style.
  */
 export async function getDisallowedTransfers(entries, destinationEntry, isMove) {
-    return promisify(chrome.fileManagerPrivate.getDisallowedTransfers, entries.map(e => util.unwrapEntry(e)), util.unwrapEntry(destinationEntry), isMove);
+    return promisify(chrome.fileManagerPrivate.getDisallowedTransfers, entries.map(e => unwrapEntry(e)), unwrapEntry(destinationEntry), isMove);
 }
 /**
  * Wrap the chrome.fileManagerPrivate.getDlpMetadata function in an async/await
  * compatible style.
  */
 export async function getDlpMetadata(entries) {
-    return promisify(chrome.fileManagerPrivate.getDlpMetadata, entries.map(e => util.unwrapEntry(e)));
+    return promisify(chrome.fileManagerPrivate.getDlpMetadata, entries.map(e => unwrapEntry(e)));
 }
 /**
  * Retrieves the list of components to which the transfer of an Entry is blocked
@@ -141,24 +141,24 @@ export async function getEntry(directory, filename, isFile, options) {
 export async function startIOTask(type, entries, params) {
     if (params.destinationFolder) {
         params.destinationFolder =
-            util.unwrapEntry(params.destinationFolder);
+            unwrapEntry(params.destinationFolder);
     }
-    return promisify(chrome.fileManagerPrivate.startIOTask, type, entries.map(e => util.unwrapEntry(e)), params);
+    return promisify(chrome.fileManagerPrivate.startIOTask, type, entries.map(e => unwrapEntry(e)), params);
 }
 /**
  * Parses .trashinfo files to retrieve the restore path and deletion date.
  */
 export async function parseTrashInfoFiles(entries) {
-    return promisify(chrome.fileManagerPrivate.parseTrashInfoFiles, entries.map(e => util.unwrapEntry(e)));
+    return promisify(chrome.fileManagerPrivate.parseTrashInfoFiles, entries.map(e => unwrapEntry(e)));
 }
 export async function getMimeType(entry) {
-    return promisify(chrome.fileManagerPrivate.getMimeType, util.unwrapEntry(entry));
+    return promisify(chrome.fileManagerPrivate.getMimeType, unwrapEntry(entry));
 }
 export async function getFileTasks(entries, dlpSourceUrls) {
-    return promisify(chrome.fileManagerPrivate.getFileTasks, entries.map(e => util.unwrapEntry(e)), dlpSourceUrls);
+    return promisify(chrome.fileManagerPrivate.getFileTasks, entries.map(e => unwrapEntry(e)), dlpSourceUrls);
 }
 export async function executeTask(taskDescriptor, entries) {
-    return promisify(chrome.fileManagerPrivate.executeTask, taskDescriptor, entries.map(e => util.unwrapEntry(e)));
+    return promisify(chrome.fileManagerPrivate.executeTask, taskDescriptor, entries.map(e => unwrapEntry(e)));
 }
 /**
  * Returns unique parent directories of provided entries. Note: this assumes

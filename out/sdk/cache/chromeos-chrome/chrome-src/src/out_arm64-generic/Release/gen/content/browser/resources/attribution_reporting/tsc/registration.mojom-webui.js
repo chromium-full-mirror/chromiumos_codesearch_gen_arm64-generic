@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { SchemefulSiteSpec as network_mojom_SchemefulSiteSpec } from './schemeful_site.mojom-webui.js';
 import { SourceRegistrationTimeConfigSpec as attributionReporting_mojom_SourceRegistrationTimeConfigSpec } from './source_registration_time_config.mojom-webui.js';
+import { TriggerDataMatchingSpec as attributionReporting_mojom_TriggerDataMatchingSpec } from './trigger_data_matching.mojom-webui.js';
 import { Uint128Spec as mojoBase_mojom_Uint128Spec } from '//resources/mojo/mojo/public/mojom/base/int128.mojom-webui.js';
 import { TimeDeltaSpec as mojoBase_mojom_TimeDeltaSpec } from '//resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import { OriginSpec as url_mojom_OriginSpec } from '//resources/mojo/url/mojom/origin.mojom-webui.js';
@@ -18,6 +19,7 @@ export const AggregationKeysSpec = { $: {} };
 export const AggregatableTriggerDataSpec = { $: {} };
 export const DestinationSetSpec = { $: {} };
 export const EventReportWindowsSpec = { $: {} };
+export const TriggerConfigSpec = { $: {} };
 export const SourceRegistrationSpec = { $: {} };
 export const TriggerDedupKeySpec = { $: {} };
 export const EventTriggerDataSpec = { $: {} };
@@ -57,6 +59,9 @@ mojo.internal.Struct(EventReportWindowsSpec.$, 'EventReportWindows', [
     mojo.internal.StructField('startTime', 0, 0, mojoBase_mojom_TimeDeltaSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('endTimes', 8, 0, mojo.internal.Array(mojoBase_mojom_TimeDeltaSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 24],]);
+mojo.internal.Struct(TriggerConfigSpec.$, 'TriggerConfig', [
+    mojo.internal.StructField('triggerDataMatching', 0, 0, attributionReporting_mojom_TriggerDataMatchingSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(SourceRegistrationSpec.$, 'SourceRegistration', [
     mojo.internal.StructField('destinations', 0, 0, DestinationSetSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('sourceEventId', 8, 0, mojo.internal.Uint64, BigInt('0'), false /* nullable */, 0),
@@ -69,7 +74,8 @@ mojo.internal.Struct(SourceRegistrationSpec.$, 'SourceRegistration', [
     mojo.internal.StructField('filterData', 64, 0, FilterDataSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('aggregationKeys', 72, 0, AggregationKeysSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('debugReporting', 44, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-], [[0, 88],]);
+    mojo.internal.StructField('triggerConfig', 80, 0, TriggerConfigSpec.$, null, false /* nullable */, 0),
+], [[0, 96],]);
 mojo.internal.Struct(TriggerDedupKeySpec.$, 'TriggerDedupKey', [
     mojo.internal.StructField('value', 0, 0, mojo.internal.Uint64, BigInt(0), false /* nullable */, 0),
 ], [[0, 16],]);

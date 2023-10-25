@@ -109,6 +109,8 @@ NOINLINE static const char* SetHotspotConfigResultToStringHelper(SetHotspotConfi
       return "kFailedNotLogin";
     case SetHotspotConfigResult::kFailedInvalidConfiguration:
       return "kFailedInvalidConfiguration";
+    case SetHotspotConfigResult::kFailedShillOperation:
+      return "kFailedShillOperation";
     default:
       return nullptr;
   }

@@ -32,34 +32,6 @@ class DlcServiceInterfaceProxyInterface {
   virtual ~DlcServiceInterfaceProxyInterface() = default;
 
   // Install a Downloadable Content (DLC).
-  virtual bool InstallDlc(
-      const std::string& in_id,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  // Install a Downloadable Content (DLC).
-  virtual void InstallDlcAsync(
-      const std::string& in_id,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  // Install a DLC with a given Omaha URL.
-  virtual bool InstallWithOmahaUrl(
-      const std::string& in_id,
-      const std::string& in_omaha_url,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  // Install a DLC with a given Omaha URL.
-  virtual void InstallWithOmahaUrlAsync(
-      const std::string& in_id,
-      const std::string& in_omaha_url,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  // Install a Downloadable Content (DLC).
   virtual bool Install(
       const dlcservice::InstallRequest& in_install_request,
       brillo::ErrorPtr* error,
@@ -241,74 +213,6 @@ class DlcServiceInterfaceProxy final : public DlcServiceInterfaceProxyInterface 
 
   dbus::ObjectProxy* GetObjectProxy() const override {
     return dbus_object_proxy_;
-  }
-
-  // Install a Downloadable Content (DLC).
-  bool InstallDlc(
-      const std::string& in_id,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.DlcServiceInterface",
-        "InstallDlc",
-        error,
-        in_id);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  // Install a Downloadable Content (DLC).
-  void InstallDlcAsync(
-      const std::string& in_id,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.DlcServiceInterface",
-        "InstallDlc",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_id);
-  }
-
-  // Install a DLC with a given Omaha URL.
-  bool InstallWithOmahaUrl(
-      const std::string& in_id,
-      const std::string& in_omaha_url,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.DlcServiceInterface",
-        "InstallWithOmahaUrl",
-        error,
-        in_id,
-        in_omaha_url);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  // Install a DLC with a given Omaha URL.
-  void InstallWithOmahaUrlAsync(
-      const std::string& in_id,
-      const std::string& in_omaha_url,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.DlcServiceInterface",
-        "InstallWithOmahaUrl",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_id,
-        in_omaha_url);
   }
 
   // Install a Downloadable Content (DLC).

@@ -159,6 +159,11 @@ enum class AttributionReportingSourceType {
   EVENT
 };
 
+enum class AttributionReportingTriggerDataMatching {
+  EXACT,
+  MODULUS
+};
+
 enum class AttributionReportingSourceRegistrationResult {
   SUCCESS,
   INTERNAL_ERROR,

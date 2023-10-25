@@ -543,6 +543,7 @@
     this.devtoolsAcceptedStreamTypes = null;
     this.netLogCreateInfo = null;
     this.netLogReferenceInfo = null;
+    this.requiredIpAddressSpace = 0;
     this.attributionReportingSupport = 0;
     this.attributionReportingEligibility = attribution$.AttributionReportingEligibility.kUnset;
     this.attributionReportingRuntimeFeatures = null;
@@ -562,7 +563,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 264}
+      {version: 0, numBytes: 272}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -778,27 +779,33 @@
         return err;
 
 
+    // validate URLRequest.requiredIpAddressSpace
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 232, ip_address_space$.IPAddressSpace);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
 
     // validate URLRequest.attributionReportingSupport
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 232, attribution$.AttributionSupport);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 236, attribution$.AttributionSupport);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLRequest.attributionReportingEligibility
-    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 236, attribution$.AttributionReportingEligibility);
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 240, attribution$.AttributionReportingEligibility);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLRequest.attributionReportingRuntimeFeatures
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 240, attribution$.AttributionReportingRuntimeFeatures, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 248, attribution$.AttributionReportingRuntimeFeatures, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLRequest.attributionReportingSrcToken
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 248, unguessable_token$.UnguessableToken, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 256, unguessable_token$.UnguessableToken, true);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -806,7 +813,7 @@
     return validator.validationError.NONE;
   };
 
-  URLRequest.encodedSize = codec.kStructHeaderSize + 256;
+  URLRequest.encodedSize = codec.kStructHeaderSize + 264;
 
   URLRequest.decode = function(decoder) {
     var packed;
@@ -908,10 +915,16 @@
         decoder.decodeStructPointer(network_param$.NetLogSource);
     val.netLogReferenceInfo =
         decoder.decodeStructPointer(network_param$.NetLogSource);
+    val.requiredIpAddressSpace =
+        decoder.decodeStruct(new codec.Enum(ip_address_space$.IPAddressSpace));
     val.attributionReportingSupport =
         decoder.decodeStruct(new codec.Enum(attribution$.AttributionSupport));
     val.attributionReportingEligibility =
         decoder.decodeStruct(new codec.Enum(attribution$.AttributionReportingEligibility));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     val.attributionReportingRuntimeFeatures =
         decoder.decodeStructPointer(attribution$.AttributionReportingRuntimeFeatures);
     val.attributionReportingSrcToken =
@@ -986,8 +999,13 @@
     encoder.encodeArrayPointer(new codec.Enum(SourceType), val.devtoolsAcceptedStreamTypes);
     encoder.encodeStructPointer(network_param$.NetLogSource, val.netLogCreateInfo);
     encoder.encodeStructPointer(network_param$.NetLogSource, val.netLogReferenceInfo);
+    encoder.encodeStruct(codec.Int32, val.requiredIpAddressSpace);
     encoder.encodeStruct(codec.Int32, val.attributionReportingSupport);
     encoder.encodeStruct(codec.Int32, val.attributionReportingEligibility);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
     encoder.encodeStructPointer(attribution$.AttributionReportingRuntimeFeatures, val.attributionReportingRuntimeFeatures);
     encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.attributionReportingSrcToken);
   };

@@ -43,6 +43,51 @@
 
 
 namespace ax::mojom {
+SpeechRecognitionResultEvent::SpeechRecognitionResultEvent()
+    : transcript(),
+      is_final() {}
+
+SpeechRecognitionResultEvent::SpeechRecognitionResultEvent(
+    const std::string& transcript_in,
+    bool is_final_in)
+    : transcript(std::move(transcript_in)),
+      is_final(std::move(is_final_in)) {}
+
+SpeechRecognitionResultEvent::~SpeechRecognitionResultEvent() = default;
+size_t SpeechRecognitionResultEvent::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->transcript);
+  seed = mojo::internal::Hash(seed, this->is_final);
+  return seed;
+}
+
+void SpeechRecognitionResultEvent::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "transcript"), this->transcript,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_final"), this->is_final,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SpeechRecognitionResultEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 StartOptions::StartOptions()
     : client_id(),
       locale(),
@@ -171,6 +216,9 @@ SpeechRecognitionEventObserver::IPCStableHashFunction SpeechRecognitionEventObse
     case internal::kSpeechRecognitionEventObserver_OnStop_Name: {
       return &SpeechRecognitionEventObserver::OnStop_Sym::IPCStableHash;
     }
+    case internal::kSpeechRecognitionEventObserver_OnResult_Name: {
+      return &SpeechRecognitionEventObserver::OnResult_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -184,11 +232,15 @@ const char* SpeechRecognitionEventObserver::MessageToMethodName_(mojo::Message& 
     switch (message.name()) {
       case internal::kSpeechRecognitionEventObserver_OnStop_Name:
             return "Receive ax::mojom::SpeechRecognitionEventObserver::OnStop";
+      case internal::kSpeechRecognitionEventObserver_OnResult_Name:
+            return "Receive ax::mojom::SpeechRecognitionEventObserver::OnResult";
     }
   } else {
     switch (message.name()) {
       case internal::kSpeechRecognitionEventObserver_OnStop_Name:
             return "Receive reply ax::mojom::SpeechRecognitionEventObserver::OnStop";
+      case internal::kSpeechRecognitionEventObserver_OnResult_Name:
+            return "Receive reply ax::mojom::SpeechRecognitionEventObserver::OnResult";
     }
   }
   return "Receive unknown mojo message";
@@ -212,6 +264,19 @@ uint32_t SpeechRecognitionEventObserver::OnStop_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ax::mojom::SpeechRecognitionEventObserver::OnStop");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SpeechRecognitionEventObserver::OnResult_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ax::mojom::SpeechRecognitionEventObserver::OnResult");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -252,6 +317,54 @@ void SpeechRecognitionEventObserverProxy::OnStop(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void SpeechRecognitionEventObserverProxy::OnResult(
+    SpeechRecognitionResultEventPtr in_event) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ax::mojom::SpeechRecognitionEventObserver::OnResult", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("event"), in_event,
+                        "<value of type SpeechRecognitionResultEventPtr>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kSpeechRecognitionEventObserver_OnResult_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ax::mojom::internal::SpeechRecognitionEventObserver_OnResult_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->event)::BaseType> event_fragment(
+          params.message());
+  mojo::internal::Serialize<::ax::mojom::SpeechRecognitionResultEventDataView>(
+      in_event, event_fragment);
+  params->event.Set(
+      event_fragment.is_null() ? nullptr : event_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->event.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null event in SpeechRecognitionEventObserver.OnResult request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(SpeechRecognitionEventObserver::Name_);
+  message.set_method_name("OnResult");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool SpeechRecognitionEventObserverStubDispatch::Accept(
     SpeechRecognitionEventObserver* impl,
@@ -279,6 +392,32 @@ bool SpeechRecognitionEventObserverStubDispatch::Accept(
       impl->OnStop();
       return true;
     }
+    case internal::kSpeechRecognitionEventObserver_OnResult_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::SpeechRecognitionEventObserver_OnResult_Params_Data* params =
+          reinterpret_cast<internal::SpeechRecognitionEventObserver_OnResult_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      SpeechRecognitionResultEventPtr p_event{};
+      SpeechRecognitionEventObserver_OnResult_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadEvent(&p_event))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            SpeechRecognitionEventObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnResult(
+std::move(p_event));
+      return true;
+    }
   }
   return false;
 }
@@ -295,6 +434,9 @@ bool SpeechRecognitionEventObserverStubDispatch::AcceptWithResponder(
     case internal::kSpeechRecognitionEventObserver_OnStop_Name: {
       break;
     }
+    case internal::kSpeechRecognitionEventObserver_OnResult_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -302,6 +444,8 @@ bool SpeechRecognitionEventObserverStubDispatch::AcceptWithResponder(
 
 static const mojo::internal::GenericValidationInfo kSpeechRecognitionEventObserverValidationInfo[] = {
     {&internal::SpeechRecognitionEventObserver_OnStop_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::SpeechRecognitionEventObserver_OnResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -865,6 +1009,22 @@ namespace mojo {
 
 
 // static
+bool StructTraits<::ax::mojom::SpeechRecognitionResultEvent::DataView, ::ax::mojom::SpeechRecognitionResultEventPtr>::Read(
+    ::ax::mojom::SpeechRecognitionResultEvent::DataView input,
+    ::ax::mojom::SpeechRecognitionResultEventPtr* output) {
+  bool success = true;
+  ::ax::mojom::SpeechRecognitionResultEventPtr result(::ax::mojom::SpeechRecognitionResultEvent::New());
+  
+      if (success && !input.ReadTranscript(&result->transcript))
+        success = false;
+      if (success)
+        result->is_final = input.is_final();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ax::mojom::StartOptions::DataView, ::ax::mojom::StartOptionsPtr>::Read(
     ::ax::mojom::StartOptions::DataView input,
     ::ax::mojom::StartOptionsPtr* output) {
@@ -928,6 +1088,9 @@ namespace ax::mojom {
 
 void SpeechRecognitionEventObserverInterceptorForTesting::OnStop() {
   GetForwardingInterface()->OnStop();
+}
+void SpeechRecognitionEventObserverInterceptorForTesting::OnResult(SpeechRecognitionResultEventPtr event) {
+  GetForwardingInterface()->OnResult(std::move(event));
 }
 SpeechRecognitionEventObserverAsyncWaiter::SpeechRecognitionEventObserverAsyncWaiter(
     SpeechRecognitionEventObserver* proxy) : proxy_(proxy) {}

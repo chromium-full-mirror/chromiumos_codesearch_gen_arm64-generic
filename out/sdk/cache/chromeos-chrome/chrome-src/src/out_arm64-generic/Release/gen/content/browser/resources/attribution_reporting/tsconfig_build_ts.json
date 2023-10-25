@@ -35,6 +35,7 @@
     "preprocessed/registration.mojom-webui.ts",
     "preprocessed/source_registration_time_config.mojom-webui.ts",
     "preprocessed/source_type.mojom-webui.ts",
+    "preprocessed/trigger_data_matching.mojom-webui.ts",
     "preprocessed/aggregatable_result.mojom-webui.ts",
     "preprocessed/attribution_internals.mojom-webui.ts",
     "preprocessed/attribution_reporting.mojom-webui.ts",

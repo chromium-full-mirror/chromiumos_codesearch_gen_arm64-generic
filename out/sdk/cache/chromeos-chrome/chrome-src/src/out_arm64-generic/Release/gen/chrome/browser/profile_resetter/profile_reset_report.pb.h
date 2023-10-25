@@ -82,7 +82,6 @@ enum ChromeResetReport_ResetRequestOrigin : int {
   ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_UNSPECIFIED = 0,
   ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_UNKNOWN = 1,
   ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_USER_CLICK = 2,
-  ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_CCT = 3,
   ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_TRIGGERED_RESET = 4
 };
 bool ChromeResetReport_ResetRequestOrigin_IsValid(int value);
@@ -414,8 +413,6 @@ class ChromeResetReport final :
     ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_UNKNOWN;
   static constexpr ResetRequestOrigin RESET_REQUEST_ORIGIN_USER_CLICK =
     ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_USER_CLICK;
-  static constexpr ResetRequestOrigin RESET_REQUEST_ORIGIN_CCT =
-    ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_CCT;
   static constexpr ResetRequestOrigin RESET_REQUEST_ORIGIN_TRIGGERED_RESET =
     ChromeResetReport_ResetRequestOrigin_RESET_REQUEST_ORIGIN_TRIGGERED_RESET;
   static inline bool ResetRequestOrigin_IsValid(int value) {

@@ -457,6 +457,7 @@ struct VideoCaptureFrameDropReason_Data {
       case 25:
       case 26:
       case 27:
+      case 28:
         return true;
     }
     return false;

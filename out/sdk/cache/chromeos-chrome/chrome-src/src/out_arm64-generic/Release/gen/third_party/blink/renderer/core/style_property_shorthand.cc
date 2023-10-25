@@ -1520,7 +1520,7 @@ static const StylePropertyShorthand* webkitAlternativeMaskShorthand1() {
     &GetCSSPropertyWebkitMaskPositionX(),
     &GetCSSPropertyWebkitMaskPositionY(),
     &GetCSSPropertyMaskSize(),
-    &GetCSSPropertyWebkitMaskRepeat(),
+    &GetCSSPropertyMaskRepeat(),
     &GetCSSPropertyMaskOrigin(),
     &GetCSSPropertyMaskClip(),
   };
@@ -1539,7 +1539,6 @@ const StylePropertyShorthand& webkitAlternativeMaskShorthand() {
   static const CSSProperty* longhands[] = {
     &GetCSSPropertyWebkitMaskPositionX(),
     &GetCSSPropertyWebkitMaskPositionY(),
-    &GetCSSPropertyWebkitMaskRepeat(),
   };
 
   static const StylePropertyShorthand shorthand(
@@ -3040,11 +3039,9 @@ void getMatchingShorthandsForLonghand(
         result->UncheckedAppend(webkitAlternativeMaskShorthand());
       break;
     }
-    case CSSPropertyID::kWebkitMaskRepeat: {
+    case CSSPropertyID::kMaskRepeat: {
       if (CSSProperty::Get(CSSPropertyID::kWebkitAlternativeMask).IsWebExposed())
         result->UncheckedAppend(webkitAlternativeMaskShorthand());
-      if (CSSProperty::Get(CSSPropertyID::kWebkitMask).IsWebExposed())
-        result->UncheckedAppend(webkitMaskShorthand());
       break;
     }
     case CSSPropertyID::kMaskOrigin: {
@@ -3063,6 +3060,11 @@ void getMatchingShorthandsForLonghand(
       break;
     }
     case CSSPropertyID::kWebkitMaskSize: {
+      if (CSSProperty::Get(CSSPropertyID::kWebkitMask).IsWebExposed())
+        result->UncheckedAppend(webkitMaskShorthand());
+      break;
+    }
+    case CSSPropertyID::kWebkitMaskRepeat: {
       if (CSSProperty::Get(CSSPropertyID::kWebkitMask).IsWebExposed())
         result->UncheckedAppend(webkitMaskShorthand());
       break;

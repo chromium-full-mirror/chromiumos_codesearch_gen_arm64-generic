@@ -889,38 +889,6 @@ ArcBridgeHost_OnKioskInstanceReady_Params_Data::ArcBridgeHost_OnKioskInstanceRea
 
 
 // static
-bool ArcBridgeHost_OnLockScreenInstanceReady_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const ArcBridgeHost_OnLockScreenInstanceReady_Params_Data* object =
-      static_cast<const ArcBridgeHost_OnLockScreenInstanceReady_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->instance_remote, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->instance_remote,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-ArcBridgeHost_OnLockScreenInstanceReady_Params_Data::ArcBridgeHost_OnLockScreenInstanceReady_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool ArcBridgeHost_OnMediaSessionInstanceReady_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

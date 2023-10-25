@@ -76,8 +76,10 @@ enum class EventLevelResult : int32_t {
   kNotRegistered = 16,
   
   kReportWindowNotStarted = 17,
+  
+  kNoMatchingTriggerData = 18,
   kMinValue = 0,
-  kMaxValue = 17,
+  kMaxValue = 18,
 };
 
  std::ostream& operator<<(std::ostream& os, EventLevelResult value);

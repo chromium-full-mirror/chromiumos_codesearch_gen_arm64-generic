@@ -1,7 +1,7 @@
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { util } from '../../common/js/util.js';
+import { isSameEntry } from '../../common/js/entry_utils.js';
 import { FileOperationManager } from '../../externs/background/file_operation_manager.js';
 import { FakeEntry } from '../../externs/files_app_entry_interfaces.js';
 import { VolumeManager } from '../../externs/volume_manager.js';
@@ -45,7 +45,7 @@ export class FileOperationManagerImpl {
                 // @ts-ignore: error TS7006: Parameter 'inParentEntry' implicitly
                 // has an 'any' type.
                 inParentEntry => {
-                    if (!util.isSameEntry(inParentEntry, targetEntry)) {
+                    if (!isSameEntry(inParentEntry, targetEntry)) {
                         resolve(entry);
                     }
                     else {

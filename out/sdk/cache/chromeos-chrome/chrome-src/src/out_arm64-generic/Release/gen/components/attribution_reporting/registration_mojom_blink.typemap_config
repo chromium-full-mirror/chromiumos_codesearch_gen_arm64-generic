@@ -84,6 +84,11 @@
         "cpp": "::attribution_reporting::EventReportWindows",
         "forward_declaration": "namespace attribution_reporting { class EventReportWindows; }",
         "mojom": "attribution_reporting.mojom.EventReportWindows"
+      },
+      {
+        "cpp": "::attribution_reporting::TriggerConfig",
+        "forward_declaration": "namespace attribution_reporting { class TriggerConfig; }",
+        "mojom": "attribution_reporting.mojom.TriggerConfig"
       }
     ]
   }

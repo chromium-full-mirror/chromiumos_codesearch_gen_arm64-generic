@@ -174,17 +174,17 @@ media.mojom.VideoCaptureObserverRemote = class {
 
   
   /**
-   * @param { !number } cropVersion
+   * @param { !number } subCaptureTargetVersion
    */
 
-  onNewCropVersion(
-      cropVersion) {
+  onNewSubCaptureTargetVersion(
+      subCaptureTargetVersion) {
     this.proxy.sendMessage(
         5,
-        media.mojom.VideoCaptureObserver_OnNewCropVersion_ParamsSpec.$,
+        media.mojom.VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
         [
-          cropVersion
+          subCaptureTargetVersion
         ]);
   }
 };
@@ -238,9 +238,9 @@ media.mojom.VideoCaptureObserverReceiver = class {
         impl.onFrameDropped.bind(impl));
     this.helper_internal_.registerHandler(
         5,
-        media.mojom.VideoCaptureObserver_OnNewCropVersion_ParamsSpec.$,
+        media.mojom.VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
-        impl.onNewCropVersion.bind(impl));
+        impl.onNewSubCaptureTargetVersion.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -356,15 +356,15 @@ media.mojom.VideoCaptureObserverCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onNewCropVersion =
+    this.onNewSubCaptureTargetVersion =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         5,
-        media.mojom.VideoCaptureObserver_OnNewCropVersion_ParamsSpec.$,
+        media.mojom.VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
-        this.onNewCropVersion.createReceiverHandler(false /* expectsResponse */));
+        this.onNewSubCaptureTargetVersion.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -898,7 +898,7 @@ media.mojom.VideoCaptureObserver_OnFrameDropped_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-media.mojom.VideoCaptureObserver_OnNewCropVersion_ParamsSpec =
+media.mojom.VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1156,11 +1156,11 @@ media.mojom.VideoCaptureObserver_OnFrameDropped_Params = class {
 
 
 mojo.internal.Struct(
-    media.mojom.VideoCaptureObserver_OnNewCropVersion_ParamsSpec.$,
-    'VideoCaptureObserver_OnNewCropVersion_Params',
+    media.mojom.VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+    'VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params',
     [
       mojo.internal.StructField(
-        'cropVersion', 0,
+        'subCaptureTargetVersion', 0,
         0,
         mojo.internal.Uint32,
         0,
@@ -1175,10 +1175,10 @@ mojo.internal.Struct(
 
 
 /** @record */
-media.mojom.VideoCaptureObserver_OnNewCropVersion_Params = class {
+media.mojom.VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params = class {
   constructor() {
     /** @export { !number } */
-    this.cropVersion;
+    this.subCaptureTargetVersion;
   }
 };
 

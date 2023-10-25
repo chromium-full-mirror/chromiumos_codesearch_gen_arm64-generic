@@ -46,7 +46,7 @@ class PLATFORM_EXPORT MediaStreamDispatcherHostInterceptorForTesting : public Me
   void CloseDevice(const WTF::String& label) override;
   void SetCapturingLinkSecured(const absl::optional<::base::UnguessableToken>& session_id, MediaStreamType type, bool is_secure) override;
   void OnStreamStarted(const WTF::String& label) override;
-  void Crop(const ::base::UnguessableToken& device_id, const ::base::Token& crop_id, uint32_t crop_version, CropCallback callback) override;
+  void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) override;
   void GetOpenDevice(int32_t request_id, const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, GetOpenDeviceCallback callback) override;
   void KeepDeviceAliveForTransfer(const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, KeepDeviceAliveForTransferCallback callback) override;
 };
@@ -64,9 +64,9 @@ class PLATFORM_EXPORT MediaStreamDispatcherHostAsyncWaiter {
   void OpenDevice(
       int32_t request_id, const WTF::String& device_id, MediaStreamType type, bool* out_success, WTF::String* out_label, ::blink::MediaStreamDevice* out_device);
   
-  void Crop(
-      const ::base::UnguessableToken& device_id, const ::base::Token& crop_id, uint32_t crop_version, ::media::mojom::blink::ApplySubCaptureTargetResult* out_result);
-  ::media::mojom::blink::ApplySubCaptureTargetResult Crop(const ::base::UnguessableToken& device_id, const ::base::Token& crop_id, uint32_t crop_version);
+  void ApplySubCaptureTarget(
+      const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ::media::mojom::blink::ApplySubCaptureTargetResult* out_result);
+  ::media::mojom::blink::ApplySubCaptureTargetResult ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version);
   void GetOpenDevice(
       int32_t request_id, const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, MediaStreamRequestResult* out_result, GetOpenDeviceResponsePtr* out_response);
   

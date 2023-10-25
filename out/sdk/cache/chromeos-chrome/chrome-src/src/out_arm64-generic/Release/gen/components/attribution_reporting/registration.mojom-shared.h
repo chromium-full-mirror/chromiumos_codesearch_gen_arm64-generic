@@ -25,6 +25,7 @@
 
 #include "components/attribution_reporting/registration.mojom-shared-internal.h"
 #include "components/attribution_reporting/source_registration_time_config.mojom-shared.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-shared.h"
 #include "mojo/public/mojom/base/int128.mojom-shared.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "services/network/public/mojom/schemeful_site.mojom-shared.h"
@@ -55,6 +56,8 @@ class AggregatableTriggerDataDataView;
 class DestinationSetDataView;
 
 class EventReportWindowsDataView;
+
+class TriggerConfigDataView;
 
 class SourceRegistrationDataView;
 
@@ -136,6 +139,13 @@ struct MojomTypeTraits<::attribution_reporting::mojom::DestinationSetDataView> {
 template <>
 struct MojomTypeTraits<::attribution_reporting::mojom::EventReportWindowsDataView> {
   using Data = ::attribution_reporting::mojom::internal::EventReportWindows_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::attribution_reporting::mojom::TriggerConfigDataView> {
+  using Data = ::attribution_reporting::mojom::internal::TriggerConfig_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -482,6 +492,31 @@ class EventReportWindowsDataView {
 };
 
 
+class TriggerConfigDataView {
+ public:
+  TriggerConfigDataView() = default;
+
+  TriggerConfigDataView(
+      internal::TriggerConfig_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggerDataMatching(UserType* output) const {
+    auto data_value = data_->trigger_data_matching;
+    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerDataMatching>(
+        data_value, output);
+  }
+  ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::attribution_reporting::mojom::TriggerDataMatching>(data_->trigger_data_matching));
+  }
+ private:
+  internal::TriggerConfig_Data* data_ = nullptr;
+};
+
+
 class SourceRegistrationDataView {
  public:
   SourceRegistrationDataView() = default;
@@ -583,6 +618,16 @@ static_assert(
   }
   bool debug_reporting() const {
     return data_->debug_reporting;
+  }
+  inline void GetTriggerConfigDataView(
+      TriggerConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggerConfig(UserType* output) {
+    
+    auto* pointer = data_->trigger_config.Get();
+    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerConfigDataView>(
+        pointer, output, message_);
   }
  private:
   internal::SourceRegistration_Data* data_ = nullptr;
@@ -1322,6 +1367,37 @@ struct Serializer<::attribution_reporting::mojom::EventReportWindowsDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::attribution_reporting::mojom::TriggerConfigDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::attribution_reporting::mojom::TriggerConfigDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::attribution_reporting::mojom::internal::TriggerConfig_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerDataMatching>(
+        Traits::trigger_data_matching(input), &fragment->trigger_data_matching);
+  }
+
+  static bool Deserialize(::attribution_reporting::mojom::internal::TriggerConfig_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::attribution_reporting::mojom::TriggerConfigDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::attribution_reporting::mojom::SourceRegistrationDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::attribution_reporting::mojom::SourceRegistrationDataView, UserType>;
@@ -1416,6 +1492,18 @@ struct Serializer<::attribution_reporting::mojom::SourceRegistrationDataView, Ma
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null aggregation_keys in SourceRegistration struct");
     fragment->debug_reporting = Traits::debug_reporting(input);
+    decltype(Traits::trigger_config(input)) in_trigger_config = Traits::trigger_config(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->trigger_config)::BaseType> trigger_config_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerConfigDataView>(
+        in_trigger_config, trigger_config_fragment);
+    fragment->trigger_config.Set(
+        trigger_config_fragment.is_null() ? nullptr : trigger_config_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->trigger_config.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null trigger_config in SourceRegistration struct");
   }
 
   static bool Deserialize(::attribution_reporting::mojom::internal::SourceRegistration_Data* input,
@@ -1850,6 +1938,8 @@ inline void EventReportWindowsDataView::GetEndTimesDataView(
 }
 
 
+
+
 inline void SourceRegistrationDataView::GetDestinationsDataView(
     DestinationSetDataView* output) {
   auto pointer = data_->destinations.Get();
@@ -1884,6 +1974,11 @@ inline void SourceRegistrationDataView::GetAggregationKeysDataView(
     AggregationKeysDataView* output) {
   auto pointer = data_->aggregation_keys.Get();
   *output = AggregationKeysDataView(pointer, message_);
+}
+inline void SourceRegistrationDataView::GetTriggerConfigDataView(
+    TriggerConfigDataView* output) {
+  auto pointer = data_->trigger_config.Get();
+  *output = TriggerConfigDataView(pointer, message_);
 }
 
 

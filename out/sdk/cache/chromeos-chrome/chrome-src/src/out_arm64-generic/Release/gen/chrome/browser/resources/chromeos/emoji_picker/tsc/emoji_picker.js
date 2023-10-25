@@ -209,6 +209,11 @@ export class EmojiPicker extends PolymerElement {
                 '--emoji-picker-search-side-padding': constants.JELLY_EMOJI_PICKER_SEARCH_SIDE_PADDING_PX,
                 // The keyline should expand all the way with jelly flag on.
                 '--emoji-picker-divider-inline-margin': 0,
+                '--emoji-picker-tabs-vertical-padding': '0px',
+                '--emoji-picker-group-button-padding': '8px',
+                '--emoji-picker-group-button-border-radius': '4px',
+                '--emoji-picker-group-button-icon-size': '24px',
+                '--emoji-picker-group-button-height': '48px',
             });
         }
         // Update UI and relevant features based on the initial data.
@@ -731,9 +736,14 @@ export class EmojiPicker extends PolymerElement {
             // Update the scroll position of the emoji groups so that active group is
             // visible.
             if (!this.textSubcategoryBarEnabled) {
+                // The value here means the width of an emoji tab button + extra right
+                // side spacing. It's different between the versions before GIF support
+                // and after.
+                const totalWidth = this.gifSupport ?
+                    constants.V2_5_EMOJI_PICKER_TOTAL_EMOJI_WIDTH :
+                    constants.EMOJI_PICKER_TOTAL_EMOJI_WIDTH;
                 bar.style.width = constants.EMOJI_HIGHLIGHTER_WIDTH_PX;
-                bar.style.left =
-                    `${index * constants.EMOJI_PICKER_TOTAL_EMOJI_WIDTH}px`;
+                bar.style.left = `${index * totalWidth}px`;
             }
             else {
                 // Cast below should be safe as worst case array is empty.

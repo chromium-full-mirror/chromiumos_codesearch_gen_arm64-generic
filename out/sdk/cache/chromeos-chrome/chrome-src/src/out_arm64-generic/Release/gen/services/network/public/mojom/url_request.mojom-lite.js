@@ -740,6 +740,14 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
+        'requiredIpAddressSpace', 232,
+        0,
+        network.mojom.IPAddressSpaceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
         'hasStorageAccess', 26,
         3,
         mojo.internal.Bool,
@@ -748,7 +756,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'attributionReportingSupport', 232,
+        'attributionReportingSupport', 236,
         0,
         network.mojom.AttributionSupportSpec.$,
         0,
@@ -756,7 +764,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'attributionReportingEligibility', 236,
+        'attributionReportingEligibility', 240,
         0,
         network.mojom.AttributionReportingEligibilitySpec.$,
         network.mojom.AttributionReportingEligibility.kUnset,
@@ -764,7 +772,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'attributionReportingRuntimeFeatures', 240,
+        'attributionReportingRuntimeFeatures', 248,
         0,
         network.mojom.AttributionReportingRuntimeFeaturesSpec.$,
         null,
@@ -772,7 +780,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'attributionReportingSrcToken', 248,
+        'attributionReportingSrcToken', 256,
         0,
         mojoBase.mojom.UnguessableTokenSpec.$,
         null,
@@ -788,7 +796,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 264],]);
+    [[0, 272],]);
 
 
 
@@ -905,6 +913,8 @@ network.mojom.URLRequest = class {
     this.netLogReferenceInfo;
     /** @export { !network.mojom.IPAddressSpace } */
     this.targetIpAddressSpace;
+    /** @export { !network.mojom.IPAddressSpace } */
+    this.requiredIpAddressSpace;
     /** @export { !boolean } */
     this.hasStorageAccess;
     /** @export { !network.mojom.AttributionSupport } */

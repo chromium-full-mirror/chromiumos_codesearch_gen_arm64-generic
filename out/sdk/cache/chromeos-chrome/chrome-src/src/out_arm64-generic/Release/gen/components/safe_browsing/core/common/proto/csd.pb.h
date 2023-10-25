@@ -20283,6 +20283,7 @@ class ClientSafeBrowsingReportRequest final :
     kShowDownloadInFolderFieldNumber = 18,
     kDownloadVerdictFieldNumber = 11,
     kUrlRequestDestinationFieldNumber = 29,
+    kWarningShownTimestampMsecFieldNumber = 32,
   };
   // repeated .safe_browsing.ClientSafeBrowsingReportRequest.Resource resources = 4;
   int resources_size() const;
@@ -20687,6 +20688,19 @@ class ClientSafeBrowsingReportRequest final :
   void _internal_set_url_request_destination(::safe_browsing::ClientSafeBrowsingReportRequest_UrlRequestDestination value);
   public:
 
+  // optional int64 warning_shown_timestamp_msec = 32;
+  bool has_warning_shown_timestamp_msec() const;
+  private:
+  bool _internal_has_warning_shown_timestamp_msec() const;
+  public:
+  void clear_warning_shown_timestamp_msec();
+  int64_t warning_shown_timestamp_msec() const;
+  void set_warning_shown_timestamp_msec(int64_t value);
+  private:
+  int64_t _internal_warning_shown_timestamp_msec() const;
+  void _internal_set_warning_shown_timestamp_msec(int64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:safe_browsing.ClientSafeBrowsingReportRequest)
  private:
   class _Internal;
@@ -20720,6 +20734,7 @@ class ClientSafeBrowsingReportRequest final :
   bool show_download_in_folder_;
   int download_verdict_;
   int url_request_destination_;
+  int64_t warning_shown_timestamp_msec_;
   friend struct ::TableStruct_components_2fsafe_5fbrowsing_2fcore_2fcommon_2fproto_2fcsd_2eproto;
 };
 // -------------------------------------------------------------------
@@ -46867,6 +46882,34 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::safe_browsing::ClientS
 ClientSafeBrowsingReportRequest::phishy_site_interactions() const {
   // @@protoc_insertion_point(field_list:safe_browsing.ClientSafeBrowsingReportRequest.phishy_site_interactions)
   return phishy_site_interactions_;
+}
+
+// optional int64 warning_shown_timestamp_msec = 32;
+inline bool ClientSafeBrowsingReportRequest::_internal_has_warning_shown_timestamp_msec() const {
+  bool value = (_has_bits_[0] & 0x00020000u) != 0;
+  return value;
+}
+inline bool ClientSafeBrowsingReportRequest::has_warning_shown_timestamp_msec() const {
+  return _internal_has_warning_shown_timestamp_msec();
+}
+inline void ClientSafeBrowsingReportRequest::clear_warning_shown_timestamp_msec() {
+  warning_shown_timestamp_msec_ = int64_t{0};
+  _has_bits_[0] &= ~0x00020000u;
+}
+inline int64_t ClientSafeBrowsingReportRequest::_internal_warning_shown_timestamp_msec() const {
+  return warning_shown_timestamp_msec_;
+}
+inline int64_t ClientSafeBrowsingReportRequest::warning_shown_timestamp_msec() const {
+  // @@protoc_insertion_point(field_get:safe_browsing.ClientSafeBrowsingReportRequest.warning_shown_timestamp_msec)
+  return _internal_warning_shown_timestamp_msec();
+}
+inline void ClientSafeBrowsingReportRequest::_internal_set_warning_shown_timestamp_msec(int64_t value) {
+  _has_bits_[0] |= 0x00020000u;
+  warning_shown_timestamp_msec_ = value;
+}
+inline void ClientSafeBrowsingReportRequest::set_warning_shown_timestamp_msec(int64_t value) {
+  _internal_set_warning_shown_timestamp_msec(value);
+  // @@protoc_insertion_point(field_set:safe_browsing.ClientSafeBrowsingReportRequest.warning_shown_timestamp_msec)
 }
 
 // -------------------------------------------------------------------

@@ -23,17 +23,8 @@ class DlcServiceInterfaceInterface {
   virtual ~DlcServiceInterfaceInterface() = default;
 
   // Install a Downloadable Content (DLC).
-  virtual bool InstallDlc(
-      brillo::ErrorPtr* error,
-      const std::string& in_id) = 0;
-  // Install a DLC with a given Omaha URL.
-  virtual bool InstallWithOmahaUrl(
-      brillo::ErrorPtr* error,
-      const std::string& in_id,
-      const std::string& in_omaha_url) = 0;
-  // Install a Downloadable Content (DLC).
-  virtual bool Install(
-      brillo::ErrorPtr* error,
+  virtual void Install(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<>> response,
       const dlcservice::InstallRequest& in_install_request) = 0;
   // Uninstall a Downloadable Content (DLC).
   virtual bool Uninstall(
@@ -87,15 +78,7 @@ class DlcServiceInterfaceAdaptor {
     brillo::dbus_utils::DBusInterface* itf =
         object->AddOrGetInterface("org.chromium.DlcServiceInterface");
 
-    itf->AddSimpleMethodHandlerWithError(
-        "InstallDlc",
-        base::Unretained(interface_),
-        &DlcServiceInterfaceInterface::InstallDlc);
-    itf->AddSimpleMethodHandlerWithError(
-        "InstallWithOmahaUrl",
-        base::Unretained(interface_),
-        &DlcServiceInterfaceInterface::InstallWithOmahaUrl);
-    itf->AddSimpleMethodHandlerWithError(
+    itf->AddMethodHandler(
         "Install",
         base::Unretained(interface_),
         &DlcServiceInterfaceInterface::Install);
@@ -153,13 +136,6 @@ class DlcServiceInterfaceAdaptor {
   static const char* GetIntrospectionXml() {
     return
         "  <interface name=\"org.chromium.DlcServiceInterface\">\n"
-        "    <method name=\"InstallDlc\">\n"
-        "      <arg name=\"id\" type=\"s\" direction=\"in\"/>\n"
-        "    </method>\n"
-        "    <method name=\"InstallWithOmahaUrl\">\n"
-        "      <arg name=\"id\" type=\"s\" direction=\"in\"/>\n"
-        "      <arg name=\"omaha_url\" type=\"s\" direction=\"in\"/>\n"
-        "    </method>\n"
         "    <method name=\"Install\">\n"
         "      <arg name=\"install_request\" type=\"ay\" direction=\"in\"/>\n"
         "    </method>\n"

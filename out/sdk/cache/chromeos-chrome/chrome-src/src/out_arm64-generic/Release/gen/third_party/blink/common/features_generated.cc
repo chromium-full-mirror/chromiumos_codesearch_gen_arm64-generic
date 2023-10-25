@@ -968,6 +968,11 @@ BASE_FEATURE(kInterruptComposedScrollbarDisappearance,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kIntersectionObserverIgnoreFilters,
+    "IntersectionObserverIgnoreFilters",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kIntersectionObserverScrollMargin,
     "IntersectionObserverScrollMargin",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -995,7 +1000,7 @@ BASE_FEATURE(kJavaScriptCompileHintsMagicRuntime,
 
 BASE_FEATURE(kKeyboardFocusableScrollers,
     "KeyboardFocusableScrollers",
-    base::FEATURE_ENABLED_BY_DEFAULT
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kLayoutFlexNewRowAlgorithmV3,
@@ -1505,7 +1510,7 @@ BASE_FEATURE(kSmartCard,
 
 BASE_FEATURE(kSmilAutoSuspendOnLag,
     "SmilAutoSuspendOnLag",
-    base::FEATURE_ENABLED_BY_DEFAULT
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kSnapBorderWidthsBeforeLayout,

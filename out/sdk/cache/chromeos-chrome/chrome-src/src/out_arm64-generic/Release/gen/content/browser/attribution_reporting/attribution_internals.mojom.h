@@ -28,9 +28,9 @@
 #include "components/attribution_reporting/registration.mojom.h"
 #include "components/attribution_reporting/source_type.mojom-forward.h"
 #include "content/browser/attribution_reporting/aggregatable_result.mojom-forward.h"
+#include "content/browser/attribution_reporting/attribution_reporting.mojom-forward.h"
 #include "content/browser/attribution_reporting/event_level_result.mojom-forward.h"
 #include "content/browser/attribution_reporting/store_source_result.mojom-forward.h"
-#include "content/browser/attribution_reporting/attribution_reporting.mojom-forward.h"
 #include "services/network/public/mojom/attribution.mojom.h"
 #include "url/mojom/origin.mojom.h"
 #include "url/mojom/url.mojom.h"
@@ -47,6 +47,7 @@
 
 namespace attribution_reporting { class DestinationSet; }
 namespace attribution_reporting { class EventReportWindows; }
+namespace attribution_reporting { class TriggerConfig; }
 
 
 namespace attribution_internals::mojom {
@@ -2045,6 +2046,7 @@ class  WebUISource {
       const base::flat_map<std::string, std::string>& aggregation_keys,
       uint64_t aggregatable_budget_consumed,
       std::vector<uint64_t> aggregatable_dedup_keys,
+      const ::attribution_reporting::TriggerConfig& trigger_config,
       WebUISource::Attributability attributability);
 
 
@@ -2156,6 +2158,8 @@ class  WebUISource {
   uint64_t aggregatable_budget_consumed;
   
   std::vector<uint64_t> aggregatable_dedup_keys;
+  
+  ::attribution_reporting::TriggerConfig trigger_config;
   
   WebUISource::Attributability attributability;
 
@@ -3169,6 +3173,7 @@ WebUISourcePtr WebUISource::Clone() const {
       mojo::Clone(aggregation_keys),
       mojo::Clone(aggregatable_budget_consumed),
       mojo::Clone(aggregatable_dedup_keys),
+      mojo::Clone(trigger_config),
       mojo::Clone(attributability)
   );
 }
@@ -3208,6 +3213,8 @@ bool WebUISource::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->aggregatable_budget_consumed, other_struct.aggregatable_budget_consumed))
     return false;
   if (!mojo::Equals(this->aggregatable_dedup_keys, other_struct.aggregatable_dedup_keys))
+    return false;
+  if (!mojo::Equals(this->trigger_config, other_struct.trigger_config))
     return false;
   if (!mojo::Equals(this->attributability, other_struct.attributability))
     return false;
@@ -3283,6 +3290,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.aggregatable_dedup_keys < rhs.aggregatable_dedup_keys)
     return true;
   if (rhs.aggregatable_dedup_keys < lhs.aggregatable_dedup_keys)
+    return false;
+  if (lhs.trigger_config < rhs.trigger_config)
+    return true;
+  if (rhs.trigger_config < lhs.trigger_config)
     return false;
   if (lhs.attributability < rhs.attributability)
     return true;
@@ -3749,6 +3760,11 @@ struct  StructTraits<::attribution_internals::mojom::WebUISource::DataView,
   static const decltype(::attribution_internals::mojom::WebUISource::aggregatable_dedup_keys)& aggregatable_dedup_keys(
       const ::attribution_internals::mojom::WebUISourcePtr& input) {
     return input->aggregatable_dedup_keys;
+  }
+
+  static const decltype(::attribution_internals::mojom::WebUISource::trigger_config)& trigger_config(
+      const ::attribution_internals::mojom::WebUISourcePtr& input) {
+    return input->trigger_config;
   }
 
   static decltype(::attribution_internals::mojom::WebUISource::attributability) attributability(

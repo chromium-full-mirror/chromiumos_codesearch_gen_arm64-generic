@@ -376,23 +376,23 @@
     encoder.skip(1);
     encoder.skip(1);
   };
-  function VideoCaptureObserver_OnNewCropVersion_Params(values) {
+  function VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  VideoCaptureObserver_OnNewCropVersion_Params.prototype.initDefaults_ = function() {
-    this.cropVersion = 0;
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params.prototype.initDefaults_ = function() {
+    this.subCaptureTargetVersion = 0;
   };
-  VideoCaptureObserver_OnNewCropVersion_Params.prototype.initFields_ = function(fields) {
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  VideoCaptureObserver_OnNewCropVersion_Params.validate = function(messageValidator, offset) {
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -409,14 +409,14 @@
     return validator.validationError.NONE;
   };
 
-  VideoCaptureObserver_OnNewCropVersion_Params.encodedSize = codec.kStructHeaderSize + 8;
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  VideoCaptureObserver_OnNewCropVersion_Params.decode = function(decoder) {
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params.decode = function(decoder) {
     var packed;
-    var val = new VideoCaptureObserver_OnNewCropVersion_Params();
+    var val = new VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.cropVersion =
+    val.subCaptureTargetVersion =
         decoder.decodeStruct(codec.Uint32);
     decoder.skip(1);
     decoder.skip(1);
@@ -425,11 +425,11 @@
     return val;
   };
 
-  VideoCaptureObserver_OnNewCropVersion_Params.encode = function(encoder, val) {
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(VideoCaptureObserver_OnNewCropVersion_Params.encodedSize);
+    encoder.writeUint32(VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Uint32, val.cropVersion);
+    encoder.encodeStruct(codec.Uint32, val.subCaptureTargetVersion);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -1312,7 +1312,7 @@
   var kVideoCaptureObserver_OnBufferReady_Name = 2;
   var kVideoCaptureObserver_OnBufferDestroyed_Name = 3;
   var kVideoCaptureObserver_OnFrameDropped_Name = 4;
-  var kVideoCaptureObserver_OnNewCropVersion_Name = 5;
+  var kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name = 5;
 
   function VideoCaptureObserverPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(VideoCaptureObserver,
@@ -1408,18 +1408,18 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  VideoCaptureObserverPtr.prototype.onNewCropVersion = function() {
-    return VideoCaptureObserverProxy.prototype.onNewCropVersion
+  VideoCaptureObserverPtr.prototype.onNewSubCaptureTargetVersion = function() {
+    return VideoCaptureObserverProxy.prototype.onNewSubCaptureTargetVersion
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  VideoCaptureObserverProxy.prototype.onNewCropVersion = function(cropVersion) {
-    var params_ = new VideoCaptureObserver_OnNewCropVersion_Params();
-    params_.cropVersion = cropVersion;
+  VideoCaptureObserverProxy.prototype.onNewSubCaptureTargetVersion = function(subCaptureTargetVersion) {
+    var params_ = new VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params();
+    params_.subCaptureTargetVersion = subCaptureTargetVersion;
     var builder = new codec.MessageV0Builder(
-        kVideoCaptureObserver_OnNewCropVersion_Name,
-        codec.align(VideoCaptureObserver_OnNewCropVersion_Params.encodedSize));
-    builder.encodeStruct(VideoCaptureObserver_OnNewCropVersion_Params, params_);
+        kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name,
+        codec.align(VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params.encodedSize));
+    builder.encodeStruct(VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
@@ -1442,8 +1442,8 @@
   VideoCaptureObserverStub.prototype.onFrameDropped = function(reason) {
     return this.delegate_ && this.delegate_.onFrameDropped && this.delegate_.onFrameDropped(reason);
   }
-  VideoCaptureObserverStub.prototype.onNewCropVersion = function(cropVersion) {
-    return this.delegate_ && this.delegate_.onNewCropVersion && this.delegate_.onNewCropVersion(cropVersion);
+  VideoCaptureObserverStub.prototype.onNewSubCaptureTargetVersion = function(subCaptureTargetVersion) {
+    return this.delegate_ && this.delegate_.onNewSubCaptureTargetVersion && this.delegate_.onNewSubCaptureTargetVersion(subCaptureTargetVersion);
   }
 
   VideoCaptureObserverStub.prototype.accept = function(message) {
@@ -1469,9 +1469,9 @@
       var params = reader.decodeStruct(VideoCaptureObserver_OnFrameDropped_Params);
       this.onFrameDropped(params.reason);
       return true;
-    case kVideoCaptureObserver_OnNewCropVersion_Name:
-      var params = reader.decodeStruct(VideoCaptureObserver_OnNewCropVersion_Params);
-      this.onNewCropVersion(params.cropVersion);
+    case kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name:
+      var params = reader.decodeStruct(VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params);
+      this.onNewSubCaptureTargetVersion(params.subCaptureTargetVersion);
       return true;
     default:
       return false;
@@ -1511,9 +1511,9 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = VideoCaptureObserver_OnFrameDropped_Params;
       break;
-      case kVideoCaptureObserver_OnNewCropVersion_Name:
+      case kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = VideoCaptureObserver_OnNewCropVersion_Params;
+          paramsClass = VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params;
       break;
     }
     if (paramsClass === null)

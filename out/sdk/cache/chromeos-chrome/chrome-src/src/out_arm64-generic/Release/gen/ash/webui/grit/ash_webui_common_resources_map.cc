@@ -310,6 +310,7 @@ const webui::ResourcePath kAshWebuiCommonResources[] = {
   {"cros_components/lottie_renderer/lottie_worker.js", IDR_CROS_COMPONENTS_SRC_LOTTIE_RENDERER_LOTTIE_WORKER_JS},
   {"cros_components/async_helpers/async_helpers.js", IDR_CROS_COMPONENTS_ASYNC_HELPERS_ASYNC_HELPERS_JS},
   {"cros_components/button/button.js", IDR_CROS_COMPONENTS_BUTTON_BUTTON_JS},
+  {"cros_components/card/card.js", IDR_CROS_COMPONENTS_CARD_CARD_JS},
   {"cros_components/checkbox/checkbox.js", IDR_CROS_COMPONENTS_CHECKBOX_CHECKBOX_JS},
   {"cros_components/helpers/helpers.js", IDR_CROS_COMPONENTS_HELPERS_HELPERS_JS},
   {"cros_components/lottie_renderer/lottie-renderer.js", IDR_CROS_COMPONENTS_LOTTIE_RENDERER_LOTTIE_RENDERER_JS},

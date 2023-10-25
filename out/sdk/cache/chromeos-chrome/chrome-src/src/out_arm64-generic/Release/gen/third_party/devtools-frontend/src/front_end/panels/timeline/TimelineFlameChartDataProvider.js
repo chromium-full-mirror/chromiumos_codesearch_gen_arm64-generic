@@ -1157,9 +1157,11 @@ export class TimelineFlameChartDataProvider extends Common.ObjectWrapper.ObjectW
             }
             const eventIndex = this.#indexForEvent.get(event);
             const initiatorIndex = this.#indexForEvent.get(initiator);
-            td.flowStartTimes.push(initiator.endTime || initiator.startTime);
+            const { startTime } = TraceEngine.Legacy.timesForEventInMilliseconds(event);
+            const { endTime: initiatorEndTime, startTime: initiatorStartTime } = TraceEngine.Legacy.timesForEventInMilliseconds(initiator);
+            td.flowStartTimes.push(initiatorEndTime || initiatorStartTime);
             td.flowStartLevels.push(td.entryLevels[initiatorIndex]);
-            td.flowEndTimes.push(event.startTime);
+            td.flowEndTimes.push(startTime);
             td.flowEndLevels.push(td.entryLevels[eventIndex]);
             event = initiator;
         }

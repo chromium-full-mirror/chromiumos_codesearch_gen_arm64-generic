@@ -6,7 +6,6 @@ use_arc_protected_media = false
 use_chromeos_protected_av1 = false
 use_chromeos_protected_media = false
 enable_hevc_parser_and_hw_decoder = false
-use_iioservice = true
 use_runtime_vlog = true
 use_v4l2_codec = true
 use_v4lplugin = false

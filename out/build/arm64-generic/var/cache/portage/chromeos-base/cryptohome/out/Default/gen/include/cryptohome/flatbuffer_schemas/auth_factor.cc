@@ -43,18 +43,18 @@ namespace {
 [[maybe_unused]] constexpr int kFlatbufferAllocatorInitialSize = 4096;
 }  // namespace
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 __attribute__((visibility("default"))) std::optional<brillo::SecureBlob>
-AuthFactor::Serialize() const {
+SerializedAuthFactor::Serialize() const {
   hwsec_foundation::FlatbufferSecureAllocatorBridge allocator;
   flatbuffers::FlatBufferBuilder builder(kFlatbufferAllocatorInitialSize,
                                          &allocator);
   auto buffer =
-      hwsec_foundation::ToFlatBuffer<::cryptohome::auth_factor::AuthFactor>()(
+      hwsec_foundation::ToFlatBuffer<::cryptohome::SerializedAuthFactor>()(
           &builder, *this);
   if (buffer.IsNull()) {
-    LOG(ERROR) << "AuthFactor cannot be serialized.";
+    LOG(ERROR) << "SerializedAuthFactor cannot be serialized.";
     return std::nullopt;
   }
   builder.Finish(buffer);
@@ -63,27 +63,26 @@ AuthFactor::Serialize() const {
   return brillo::SecureBlob(buf, buf + size);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
 // static
 __attribute__((visibility("default")))
-std::optional<::cryptohome::auth_factor::AuthFactor>
-AuthFactor::Deserialize(const brillo::SecureBlob& blob) {
+std::optional<::cryptohome::SerializedAuthFactor>
+SerializedAuthFactor::Deserialize(const brillo::SecureBlob& blob) {
   flatbuffers::Verifier verifier(blob.data(), blob.size());
-  if (!::cryptohome::auth_factor::_serialized_::VerifyAuthFactorBuffer(
-          verifier)) {
-    LOG(ERROR) << "AuthFactor cannot be deserialized.";
+  if (!::cryptohome::_serialized_::VerifySerializedAuthFactorBuffer(verifier)) {
+    LOG(ERROR) << "SerializedAuthFactor cannot be deserialized.";
     return std::nullopt;
   }
 
-  const ::cryptohome::auth_factor::_serialized_::AuthFactor* object =
-      flatbuffers::GetRoot<::cryptohome::auth_factor::_serialized_::AuthFactor>(
+  const ::cryptohome::_serialized_::SerializedAuthFactor* object =
+      flatbuffers::GetRoot<::cryptohome::_serialized_::SerializedAuthFactor>(
           blob.data());
 
-  return hwsec_foundation::FromFlatBuffer<
-      ::cryptohome::auth_factor::AuthFactor>()(object);
+  return hwsec_foundation::FromFlatBuffer<::cryptohome::SerializedAuthFactor>()(
+      object);
 }
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome

@@ -107,8 +107,8 @@ VideoCaptureObserver::IPCStableHashFunction VideoCaptureObserver::MessageToMetho
     case internal::kVideoCaptureObserver_OnFrameDropped_Name: {
       return &VideoCaptureObserver::OnFrameDropped_Sym::IPCStableHash;
     }
-    case internal::kVideoCaptureObserver_OnNewCropVersion_Name: {
-      return &VideoCaptureObserver::OnNewCropVersion_Sym::IPCStableHash;
+    case internal::kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name: {
+      return &VideoCaptureObserver::OnNewSubCaptureTargetVersion_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -131,8 +131,8 @@ const char* VideoCaptureObserver::MessageToMethodName_(mojo::Message& message) {
             return "Receive media::mojom::VideoCaptureObserver::OnBufferDestroyed";
       case internal::kVideoCaptureObserver_OnFrameDropped_Name:
             return "Receive media::mojom::VideoCaptureObserver::OnFrameDropped";
-      case internal::kVideoCaptureObserver_OnNewCropVersion_Name:
-            return "Receive media::mojom::VideoCaptureObserver::OnNewCropVersion";
+      case internal::kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name:
+            return "Receive media::mojom::VideoCaptureObserver::OnNewSubCaptureTargetVersion";
     }
   } else {
     switch (message.name()) {
@@ -146,8 +146,8 @@ const char* VideoCaptureObserver::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply media::mojom::VideoCaptureObserver::OnBufferDestroyed";
       case internal::kVideoCaptureObserver_OnFrameDropped_Name:
             return "Receive reply media::mojom::VideoCaptureObserver::OnFrameDropped";
-      case internal::kVideoCaptureObserver_OnNewCropVersion_Name:
-            return "Receive reply media::mojom::VideoCaptureObserver::OnNewCropVersion";
+      case internal::kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name:
+            return "Receive reply media::mojom::VideoCaptureObserver::OnNewSubCaptureTargetVersion";
     }
   }
   return "Receive unknown mojo message";
@@ -227,7 +227,7 @@ uint32_t VideoCaptureObserver::OnFrameDropped_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t VideoCaptureObserver::OnNewCropVersion_Sym::IPCStableHash() {
+uint32_t VideoCaptureObserver::OnNewSubCaptureTargetVersion_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -235,7 +235,7 @@ uint32_t VideoCaptureObserver::OnNewCropVersion_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)media::mojom::VideoCaptureObserver::OnNewCropVersion");
+          "(Impl)media::mojom::VideoCaptureObserver::OnNewSubCaptureTargetVersion");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -467,15 +467,15 @@ void VideoCaptureObserverProxy::OnFrameDropped(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void VideoCaptureObserverProxy::OnNewCropVersion(
-    uint32_t in_crop_version) {
+void VideoCaptureObserverProxy::OnNewSubCaptureTargetVersion(
+    uint32_t in_sub_capture_target_version) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send media::mojom::VideoCaptureObserver::OnNewCropVersion", "input_parameters",
+    "mojom", "Send media::mojom::VideoCaptureObserver::OnNewSubCaptureTargetVersion", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("crop_version"), in_crop_version,
+           dict.AddItem("sub_capture_target_version"), in_sub_capture_target_version,
                         "<value of type uint32_t>");
    });
 #endif
@@ -489,16 +489,16 @@ void VideoCaptureObserverProxy::OnNewCropVersion(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kVideoCaptureObserver_OnNewCropVersion_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::media::mojom::internal::VideoCaptureObserver_OnNewCropVersion_Params_Data> params(
+      ::media::mojom::internal::VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data> params(
           message);
   params.Allocate();
-  params->crop_version = in_crop_version;
+  params->sub_capture_target_version = in_sub_capture_target_version;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(VideoCaptureObserver::Name_);
-  message.set_method_name("OnNewCropVersion");
+  message.set_method_name("OnNewSubCaptureTargetVersion");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -644,19 +644,19 @@ std::move(p_buffer_id));
 std::move(p_reason));
       return true;
     }
-    case internal::kVideoCaptureObserver_OnNewCropVersion_Name: {
+    case internal::kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name: {
 
       DCHECK(message->is_serialized());
-      internal::VideoCaptureObserver_OnNewCropVersion_Params_Data* params =
-          reinterpret_cast<internal::VideoCaptureObserver_OnNewCropVersion_Params_Data*>(
+      internal::VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data* params =
+          reinterpret_cast<internal::VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_crop_version{};
-      VideoCaptureObserver_OnNewCropVersion_ParamsDataView input_data_view(params, message);
+      uint32_t p_sub_capture_target_version{};
+      VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsDataView input_data_view(params, message);
       
       if (success)
-        p_crop_version = input_data_view.crop_version();
+        p_sub_capture_target_version = input_data_view.sub_capture_target_version();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -666,8 +666,8 @@ std::move(p_reason));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnNewCropVersion(
-std::move(p_crop_version));
+      impl->OnNewSubCaptureTargetVersion(
+std::move(p_sub_capture_target_version));
       return true;
     }
   }
@@ -698,7 +698,7 @@ bool VideoCaptureObserverStubDispatch::AcceptWithResponder(
     case internal::kVideoCaptureObserver_OnFrameDropped_Name: {
       break;
     }
-    case internal::kVideoCaptureObserver_OnNewCropVersion_Name: {
+    case internal::kVideoCaptureObserver_OnNewSubCaptureTargetVersion_Name: {
       break;
     }
   }
@@ -717,7 +717,7 @@ static const mojo::internal::GenericValidationInfo kVideoCaptureObserverValidati
      nullptr /* no response */},
     {&internal::VideoCaptureObserver_OnFrameDropped_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoCaptureObserver_OnNewCropVersion_Params_Data::Validate,
+    {&internal::VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2221,8 +2221,8 @@ void VideoCaptureObserverInterceptorForTesting::OnBufferDestroyed(int32_t buffer
 void VideoCaptureObserverInterceptorForTesting::OnFrameDropped(::media::VideoCaptureFrameDropReason reason) {
   GetForwardingInterface()->OnFrameDropped(std::move(reason));
 }
-void VideoCaptureObserverInterceptorForTesting::OnNewCropVersion(uint32_t crop_version) {
-  GetForwardingInterface()->OnNewCropVersion(std::move(crop_version));
+void VideoCaptureObserverInterceptorForTesting::OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) {
+  GetForwardingInterface()->OnNewSubCaptureTargetVersion(std::move(sub_capture_target_version));
 }
 VideoCaptureObserverAsyncWaiter::VideoCaptureObserverAsyncWaiter(
     VideoCaptureObserver* proxy) : proxy_(proxy) {}

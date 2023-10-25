@@ -30,7 +30,9 @@ namespace blink {
 
 
 bool V8FetchLaterResult::IsExposed(ExecutionContext* execution_context) {
-  return false;
+  
+const bool is_in_secure_context = execution_context->IsSecureContext();
+return is_in_secure_context && execution_context->IsWindow() && RuntimeEnabledFeatures::FetchLaterAPIEnabled();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due

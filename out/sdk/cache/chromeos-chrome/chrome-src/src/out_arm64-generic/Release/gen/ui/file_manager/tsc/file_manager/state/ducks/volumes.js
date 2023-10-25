@@ -2,8 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/ash/common/assert.js';
-import { isVolumeEntry, sortEntries } from '../../common/js/entry_utils.js';
+import { isSameEntry, isVolumeEntry, sortEntries } from '../../common/js/entry_utils.js';
 import { VolumeEntry } from '../../common/js/files_app_entry_types.js';
+import { isGuestOsEnabled } from '../../common/js/flags.js';
 import { util } from '../../common/js/util.js';
 import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
 import '../../externs/files_app_entry_interfaces.js';
@@ -32,7 +33,7 @@ export function getVolumeTypesNestedInMyFiles() {
         VolumeType.ANDROID_FILES,
         VolumeType.CROSTINI,
     ]);
-    if (util.isGuestOsEnabled()) {
+    if (isGuestOsEnabled()) {
         myFilesNestedVolumeTypes.add(VolumeType.GUEST_OS);
     }
     return myFilesNestedVolumeTypes;
@@ -170,8 +171,7 @@ function removeVolumeReducer(currentState, payload) {
     if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
         const { myFilesEntry } = getMyFiles(currentState);
         const children = myFilesEntry.getUIChildren();
-        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) &&
-            util.isSameEntry(childEntry, volumeEntry));
+        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && isSameEntry(childEntry, volumeEntry));
         if (volumeEntryExistsInMyFiles) {
             // Remove it from the MyFiles UI children.
             myFilesEntry.removeChildEntry(volumeEntry);

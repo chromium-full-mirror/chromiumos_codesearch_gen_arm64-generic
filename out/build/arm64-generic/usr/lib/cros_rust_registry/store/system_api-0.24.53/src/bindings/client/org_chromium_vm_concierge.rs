@@ -17,7 +17,6 @@ pub trait OrgChromiumVmConcierge {
     fn detach_net_device(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn detach_usb_device(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn disk_image_status(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
-    fn enable_vm_memory_management_service(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
     fn export_disk_image(&self) -> Result<(), dbus::Error>;
     fn get_dns_settings(&self) -> Result<Vec<u8>, dbus::Error>;
     fn get_vm_enterprise_reporting_info(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error>;
@@ -295,11 +294,6 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
 
     fn disk_image_status(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error> {
         self.method_call("org.chromium.VmConcierge", "DiskImageStatus", (request, ))
-            .and_then(|r: (Vec<u8>, )| Ok(r.0, ))
-    }
-
-    fn enable_vm_memory_management_service(&self, request: Vec<u8>) -> Result<Vec<u8>, dbus::Error> {
-        self.method_call("org.chromium.VmConcierge", "EnableVmMemoryManagementService", (request, ))
             .and_then(|r: (Vec<u8>, )| Ok(r.0, ))
     }
 

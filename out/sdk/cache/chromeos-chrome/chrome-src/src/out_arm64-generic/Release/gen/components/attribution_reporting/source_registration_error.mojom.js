@@ -59,8 +59,10 @@
   SourceRegistrationError.kEventReportWindowsEndTimeValueInvalid = 34;
   SourceRegistrationError.kEventReportWindowsEndTimeDurationLTEStart = 35;
   SourceRegistrationError.kBothEventReportWindowFieldsFound = 36;
+  SourceRegistrationError.kTriggerDataMatchingWrongType = 37;
+  SourceRegistrationError.kTriggerDataMatchingUnknownValue = 38;
   SourceRegistrationError.MIN_VALUE = 0;
-  SourceRegistrationError.MAX_VALUE = 36;
+  SourceRegistrationError.MAX_VALUE = 38;
 
   SourceRegistrationError.isKnownEnumValue = function(value) {
     switch (value) {
@@ -101,6 +103,8 @@
     case 34:
     case 35:
     case 36:
+    case 37:
+    case 38:
       return true;
     }
     return false;

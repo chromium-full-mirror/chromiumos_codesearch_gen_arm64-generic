@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
-import { util } from '../../../common/js/util.js';
+import { entriesToURLs } from '../../../common/js/entry_utils.js';
 import { MetadataCacheItem } from './metadata_cache_item.js';
 import { MetadataItem } from './metadata_item.js';
 import { MetadataRequest } from './metadata_request.js';
@@ -33,7 +33,7 @@ export class MetadataCacheSet extends EventTarget {
      * @return {!Array<!MetadataRequest>}
      */
     createRequests(entries, names) {
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         const requests = [];
         for (let i = 0; i < entries.length; i++) {
             const item = this.items_.get(urls[i]);
@@ -77,7 +77,7 @@ export class MetadataCacheSet extends EventTarget {
      */
     storeProperties(requestId, entries, results, names) {
         const changedEntries = [];
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         const entriesMap = new Map();
         for (let i = 0; i < entries.length; i++) {
             const url = urls[i];
@@ -112,7 +112,7 @@ export class MetadataCacheSet extends EventTarget {
      */
     get(entries, names) {
         const results = [];
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         for (let i = 0; i < entries.length; i++) {
             const item = this.items_.get(urls[i]);
             results.push(item ? item.get(names) : {});
@@ -144,7 +144,7 @@ export class MetadataCacheSet extends EventTarget {
      * @param {!Array<string>} [names]
      */
     invalidate(requestId, entries, names) {
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         for (let i = 0; i < entries.length; i++) {
             const item = this.items_.get(urls[i]);
             if (item) {
@@ -175,7 +175,7 @@ export class MetadataCacheSet extends EventTarget {
     createSnapshot(entries) {
         const snapshot = new MetadataCacheSet();
         const items = snapshot.items_;
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         for (let i = 0; i < entries.length; i++) {
             const url = urls[i];
             const item = this.items_.get(url);
@@ -195,7 +195,7 @@ export class MetadataCacheSet extends EventTarget {
         if (!names.length) {
             return true;
         }
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         for (let i = 0; i < entries.length; i++) {
             const item = this.items_.get(urls[i]);
             if (!(item && item.hasFreshCache(names))) {

@@ -26,6 +26,7 @@
 #include "components/attribution_reporting/registration.mojom-shared.h"
 #include "components/attribution_reporting/registration.mojom-blink-forward.h"
 #include "components/attribution_reporting/source_registration_time_config.mojom-blink-forward.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/int128.mojom-blink.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
 #include "services/network/public/mojom/schemeful_site.mojom-blink.h"
@@ -195,6 +196,146 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+
+
+
+class PLATFORM_EXPORT TriggerConfig {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TriggerConfig, T>::value>;
+  using DataView = TriggerConfigDataView;
+  using Data_ = internal::TriggerConfig_Data;
+
+  template <typename... Args>
+  static TriggerConfigPtr New(Args&&... args) {
+    return TriggerConfigPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TriggerConfigPtr From(const U& u) {
+    return mojo::TypeConverter<TriggerConfigPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TriggerConfig>::Convert(*this);
+  }
+
+
+  TriggerConfig();
+
+  explicit TriggerConfig(
+      ::attribution_reporting::mojom::blink::TriggerDataMatching trigger_data_matching);
+
+
+  ~TriggerConfig();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TriggerConfigPtr>
+  TriggerConfigPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TriggerConfig::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TriggerConfig::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TriggerConfig_UnserializedMessageContext<
+            UserType, TriggerConfig::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TriggerConfig::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return TriggerConfig::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TriggerConfig_UnserializedMessageContext<
+            UserType, TriggerConfig::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TriggerConfig::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::attribution_reporting::mojom::blink::TriggerDataMatching trigger_data_matching;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TriggerConfig::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -1486,6 +1627,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class PLATFORM_EXPORT SourceRegistration {
  public:
   template <typename T>
@@ -1523,7 +1665,8 @@ class PLATFORM_EXPORT SourceRegistration {
       const absl::optional<uint64_t>& debug_key,
       const ::attribution_reporting::FilterData& filter_data,
       const ::attribution_reporting::AggregationKeys& aggregation_keys,
-      bool debug_reporting);
+      bool debug_reporting,
+      const ::attribution_reporting::TriggerConfig& trigger_config);
 
 
   ~SourceRegistration();
@@ -1622,6 +1765,8 @@ class PLATFORM_EXPORT SourceRegistration {
   ::attribution_reporting::AggregationKeys aggregation_keys;
   
   bool debug_reporting;
+  
+  ::attribution_reporting::TriggerConfig trigger_config;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2628,6 +2773,28 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+TriggerConfigPtr TriggerConfig::Clone() const {
+  return New(
+      mojo::Clone(trigger_data_matching)
+  );
+}
+
+template <typename T, TriggerConfig::EnableIfSame<T>*>
+bool TriggerConfig::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->trigger_data_matching, other_struct.trigger_data_matching))
+    return false;
+  return true;
+}
+
+template <typename T, TriggerConfig::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.trigger_data_matching < rhs.trigger_data_matching)
+    return true;
+  if (rhs.trigger_data_matching < lhs.trigger_data_matching)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 SourceRegistrationPtr SourceRegistration::Clone() const {
   return New(
       mojo::Clone(destinations),
@@ -2640,7 +2807,8 @@ SourceRegistrationPtr SourceRegistration::Clone() const {
       mojo::Clone(debug_key),
       mojo::Clone(filter_data),
       mojo::Clone(aggregation_keys),
-      mojo::Clone(debug_reporting)
+      mojo::Clone(debug_reporting),
+      mojo::Clone(trigger_config)
   );
 }
 
@@ -2667,6 +2835,8 @@ bool SourceRegistration::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->aggregation_keys, other_struct.aggregation_keys))
     return false;
   if (!mojo::Equals(this->debug_reporting, other_struct.debug_reporting))
+    return false;
+  if (!mojo::Equals(this->trigger_config, other_struct.trigger_config))
     return false;
   return true;
 }
@@ -2716,6 +2886,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.debug_reporting < rhs.debug_reporting)
     return true;
   if (rhs.debug_reporting < lhs.debug_reporting)
+    return false;
+  if (lhs.trigger_config < rhs.trigger_config)
+    return true;
+  if (rhs.trigger_config < lhs.trigger_config)
     return false;
   return false;
 }
@@ -3110,6 +3284,21 @@ struct PLATFORM_EXPORT StructTraits<::attribution_reporting::mojom::blink::Event
 
 
 template <>
+struct PLATFORM_EXPORT StructTraits<::attribution_reporting::mojom::blink::TriggerConfig::DataView,
+                                         ::attribution_reporting::mojom::blink::TriggerConfigPtr> {
+  static bool IsNull(const ::attribution_reporting::mojom::blink::TriggerConfigPtr& input) { return !input; }
+  static void SetToNull(::attribution_reporting::mojom::blink::TriggerConfigPtr* output) { output->reset(); }
+
+  static decltype(::attribution_reporting::mojom::blink::TriggerConfig::trigger_data_matching) trigger_data_matching(
+      const ::attribution_reporting::mojom::blink::TriggerConfigPtr& input) {
+    return input->trigger_data_matching;
+  }
+
+  static bool Read(::attribution_reporting::mojom::blink::TriggerConfig::DataView input, ::attribution_reporting::mojom::blink::TriggerConfigPtr* output);
+};
+
+
+template <>
 struct PLATFORM_EXPORT StructTraits<::attribution_reporting::mojom::blink::SourceRegistration::DataView,
                                          ::attribution_reporting::mojom::blink::SourceRegistrationPtr> {
   static bool IsNull(const ::attribution_reporting::mojom::blink::SourceRegistrationPtr& input) { return !input; }
@@ -3168,6 +3357,11 @@ struct PLATFORM_EXPORT StructTraits<::attribution_reporting::mojom::blink::Sourc
   static decltype(::attribution_reporting::mojom::blink::SourceRegistration::debug_reporting) debug_reporting(
       const ::attribution_reporting::mojom::blink::SourceRegistrationPtr& input) {
     return input->debug_reporting;
+  }
+
+  static const decltype(::attribution_reporting::mojom::blink::SourceRegistration::trigger_config)& trigger_config(
+      const ::attribution_reporting::mojom::blink::SourceRegistrationPtr& input) {
+    return input->trigger_config;
   }
 
   static bool Read(::attribution_reporting::mojom::blink::SourceRegistration::DataView input, ::attribution_reporting::mojom::blink::SourceRegistrationPtr* output);

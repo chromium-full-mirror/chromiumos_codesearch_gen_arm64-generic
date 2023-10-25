@@ -1821,7 +1821,7 @@
     this.captureUpdateRect = null;
     this.sourceSize = null;
     this.regionCaptureRect = null;
-    this.cropVersion = 0;
+    this.subCaptureTargetVersion = 0;
     this.frameDuration = null;
     this.frameRate = 0;
     this.referenceTime = null;
@@ -2018,7 +2018,7 @@
         decoder.decodeStructPointer(geometry$.Size);
     val.regionCaptureRect =
         decoder.decodeStructPointer(geometry$.Rect);
-    val.cropVersion =
+    val.subCaptureTargetVersion =
         decoder.decodeStruct(codec.Uint32);
     decoder.skip(1);
     decoder.skip(1);
@@ -2096,7 +2096,7 @@
     encoder.encodeStructPointer(geometry$.Rect, val.captureUpdateRect);
     encoder.encodeStructPointer(geometry$.Size, val.sourceSize);
     encoder.encodeStructPointer(geometry$.Rect, val.regionCaptureRect);
-    encoder.encodeStruct(codec.Uint32, val.cropVersion);
+    encoder.encodeStruct(codec.Uint32, val.subCaptureTargetVersion);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);

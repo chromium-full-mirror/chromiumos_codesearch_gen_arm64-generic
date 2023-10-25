@@ -34,10 +34,11 @@ export const SetHotspotConfigResultSpec = { $: mojo.internal.Enum() };
 export var SetHotspotConfigResult;
 (function (SetHotspotConfigResult) {
     SetHotspotConfigResult[SetHotspotConfigResult["MIN_VALUE"] = 0] = "MIN_VALUE";
-    SetHotspotConfigResult[SetHotspotConfigResult["MAX_VALUE"] = 2] = "MAX_VALUE";
+    SetHotspotConfigResult[SetHotspotConfigResult["MAX_VALUE"] = 3] = "MAX_VALUE";
     SetHotspotConfigResult[SetHotspotConfigResult["kSuccess"] = 0] = "kSuccess";
     SetHotspotConfigResult[SetHotspotConfigResult["kFailedNotLogin"] = 1] = "kFailedNotLogin";
     SetHotspotConfigResult[SetHotspotConfigResult["kFailedInvalidConfiguration"] = 2] = "kFailedInvalidConfiguration";
+    SetHotspotConfigResult[SetHotspotConfigResult["kFailedShillOperation"] = 3] = "kFailedShillOperation";
 })(SetHotspotConfigResult || (SetHotspotConfigResult = {}));
 export const HotspotAllowStatusSpec = { $: mojo.internal.Enum() };
 export var HotspotAllowStatus;

@@ -93,6 +93,7 @@ export { SettingsSafetyCheckSafeBrowsingChildElement } from './safety_check_page
 export { SettingsSafetyCheckUnusedSitePermissionsElement } from './safety_check_page/safety_check_unused_site_permissions.js';
 export { SettingsSafetyCheckUpdatesChildElement } from './safety_check_page/safety_check_updates_child.js';
 export { SearchEnginesBrowserProxyImpl, SearchEnginesInteractions } from './search_engines_page/search_engines_browser_proxy.js';
+export { SettingsSearchEngineListDialogElement } from './search_page/search_engine_list_dialog.js';
 export { SettingsSearchPageElement } from './search_page/search_page.js';
 export { getSearchManager, SearchRequest, setSearchManagerForTesting } from './search_settings.js';
 export { SettingsMainElement } from './settings_main/settings_main.js';

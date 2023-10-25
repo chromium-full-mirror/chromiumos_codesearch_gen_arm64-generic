@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.timeline-flamechart-popover{overflow:hidden}.timeline-flamechart-popover span{margin-right:5px}.timeline-flamechart-popover span.timeline-info-network-time{color:var(--color-primary-old)}.timeline-flamechart-popover span.timeline-info-time{color:var(--color-accent-green)}.timeline-flamechart-popover span.timeline-info-warning{color:var(--color-accent-red)}.timeline-flamechart-popover span.timeline-info-warning *{color:inherit}
+`.timeline-flamechart-popover{overflow:hidden}.timeline-flamechart-popover span{margin-right:5px}.timeline-flamechart-popover span.timeline-info-network-time{color:var(--sys-color-primary)}.timeline-flamechart-popover span.timeline-info-time{color:var(--sys-color-green)}.timeline-flamechart-popover span.timeline-info-warning{color:var(--sys-color-error)}.timeline-flamechart-popover span.timeline-info-warning *{color:inherit}
 /*# sourceURL=timelineFlamechartPopover.css */
 `);
 

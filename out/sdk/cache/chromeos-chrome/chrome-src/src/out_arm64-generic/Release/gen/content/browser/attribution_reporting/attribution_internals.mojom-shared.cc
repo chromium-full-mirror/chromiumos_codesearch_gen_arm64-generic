@@ -535,7 +535,7 @@ bool WebUISource_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 144, validation_context)) {
+          data, 152, validation_context)) {
     return false;
   }
 
@@ -623,6 +623,13 @@ bool WebUISource_Data::Validate(
                                          &aggregatable_dedup_keys_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->trigger_config, 18, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->trigger_config, validation_context))
+    return false;
 
 
   if (!::attribution_internals::mojom::internal::WebUISource_Attributability_Data

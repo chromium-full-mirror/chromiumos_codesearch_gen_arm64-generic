@@ -1302,6 +1302,9 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
   std::string GetDebugKey() const { DCHECK(HasDebugKey()); return debug_key_.value(); }
   void SetDebugKey(const std::string& value) { debug_key_ = value; }
 
+  ::headless::storage::AttributionReportingTriggerDataMatching GetTriggerDataMatching() const { return trigger_data_matching_; }
+  void SetTriggerDataMatching(::headless::storage::AttributionReportingTriggerDataMatching value) { trigger_data_matching_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<AttributionReportingSourceRegistration> Clone() const;
 
@@ -1322,7 +1325,8 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
     kPrioritySet = 1 << 10,
     kFilterDataSet = 1 << 11,
     kAggregationKeysSet = 1 << 12,
-      kAllRequiredFieldsSet = (kTimeSet | kExpirySet | kEventReportWindowsSet | kAggregatableReportWindowSet | kTypeSet | kSourceOriginSet | kReportingOriginSet | kDestinationSitesSet | kEventIdSet | kPrioritySet | kFilterDataSet | kAggregationKeysSet | 0)
+    kTriggerDataMatchingSet = 1 << 13,
+      kAllRequiredFieldsSet = (kTimeSet | kExpirySet | kEventReportWindowsSet | kAggregatableReportWindowSet | kTypeSet | kSourceOriginSet | kReportingOriginSet | kDestinationSitesSet | kEventIdSet | kPrioritySet | kFilterDataSet | kAggregationKeysSet | kTriggerDataMatchingSet | 0)
     };
 
     AttributionReportingSourceRegistrationBuilder<STATE | kTimeSet>& SetTime(double value) {
@@ -1402,6 +1406,12 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
       return *this;
     }
 
+    AttributionReportingSourceRegistrationBuilder<STATE | kTriggerDataMatchingSet>& SetTriggerDataMatching(::headless::storage::AttributionReportingTriggerDataMatching value) {
+      static_assert(!(STATE & kTriggerDataMatchingSet), "property triggerDataMatching should not have already been set");
+      result_->SetTriggerDataMatching(value);
+      return CastState<kTriggerDataMatchingSet>();
+    }
+
     std::unique_ptr<AttributionReportingSourceRegistration> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -1438,6 +1448,7 @@ class HEADLESS_EXPORT AttributionReportingSourceRegistration {
   std::vector<std::unique_ptr<::headless::storage::AttributionReportingFilterDataEntry>> filter_data_;
   std::vector<std::unique_ptr<::headless::storage::AttributionReportingAggregationKeysEntry>> aggregation_keys_;
   absl::optional<std::string> debug_key_;
+  ::headless::storage::AttributionReportingTriggerDataMatching trigger_data_matching_;
 };
 
 

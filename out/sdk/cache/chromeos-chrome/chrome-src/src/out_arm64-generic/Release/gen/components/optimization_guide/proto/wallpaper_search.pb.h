@@ -42,9 +42,9 @@ struct TableStruct_components_2foptimization_5fguide_2fproto_2fwallpaper_5fsearc
   static const uint32_t offsets[];
 };
 namespace chrome_intelligence_modelexecution_proto {
-class Descriptor;
-struct DescriptorDefaultTypeInternal;
-extern DescriptorDefaultTypeInternal _Descriptor_default_instance_;
+class Descriptors;
+struct DescriptorsDefaultTypeInternal;
+extern DescriptorsDefaultTypeInternal _Descriptors_default_instance_;
 class WallpaperSearchRequest;
 struct WallpaperSearchRequestDefaultTypeInternal;
 extern WallpaperSearchRequestDefaultTypeInternal _WallpaperSearchRequest_default_instance_;
@@ -53,7 +53,7 @@ struct WallpaperSearchResponseDefaultTypeInternal;
 extern WallpaperSearchResponseDefaultTypeInternal _WallpaperSearchResponse_default_instance_;
 }  // namespace chrome_intelligence_modelexecution_proto
 PROTOBUF_NAMESPACE_OPEN
-template<> ::chrome_intelligence_modelexecution_proto::Descriptor* Arena::CreateMaybeMessage<::chrome_intelligence_modelexecution_proto::Descriptor>(Arena*);
+template<> ::chrome_intelligence_modelexecution_proto::Descriptors* Arena::CreateMaybeMessage<::chrome_intelligence_modelexecution_proto::Descriptors>(Arena*);
 template<> ::chrome_intelligence_modelexecution_proto::WallpaperSearchRequest* Arena::CreateMaybeMessage<::chrome_intelligence_modelexecution_proto::WallpaperSearchRequest>(Arena*);
 template<> ::chrome_intelligence_modelexecution_proto::WallpaperSearchResponse* Arena::CreateMaybeMessage<::chrome_intelligence_modelexecution_proto::WallpaperSearchResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -61,24 +61,24 @@ namespace chrome_intelligence_modelexecution_proto {
 
 // ===================================================================
 
-class Descriptor final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:chrome_intelligence_modelexecution_proto.Descriptor) */ {
+class Descriptors final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:chrome_intelligence_modelexecution_proto.Descriptors) */ {
  public:
-  inline Descriptor() : Descriptor(nullptr) {}
-  ~Descriptor() override;
-  explicit PROTOBUF_CONSTEXPR Descriptor(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Descriptors() : Descriptors(nullptr) {}
+  ~Descriptors() override;
+  explicit PROTOBUF_CONSTEXPR Descriptors(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  Descriptor(const Descriptor& from);
-  Descriptor(Descriptor&& from) noexcept
-    : Descriptor() {
+  Descriptors(const Descriptors& from);
+  Descriptors(Descriptors&& from) noexcept
+    : Descriptors() {
     *this = ::std::move(from);
   }
 
-  inline Descriptor& operator=(const Descriptor& from) {
+  inline Descriptors& operator=(const Descriptors& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Descriptor& operator=(Descriptor&& from) noexcept {
+  inline Descriptors& operator=(Descriptors&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -99,20 +99,20 @@ class Descriptor final :
     return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const Descriptor& default_instance() {
+  static const Descriptors& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Descriptor* internal_default_instance() {
-    return reinterpret_cast<const Descriptor*>(
-               &_Descriptor_default_instance_);
+  static inline const Descriptors* internal_default_instance() {
+    return reinterpret_cast<const Descriptors*>(
+               &_Descriptors_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(Descriptor& a, Descriptor& b) {
+  friend void swap(Descriptors& a, Descriptors& b) {
     a.Swap(&b);
   }
-  PROTOBUF_NOINLINE void Swap(Descriptor* other) {
+  PROTOBUF_NOINLINE void Swap(Descriptors* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -125,7 +125,7 @@ class Descriptor final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Descriptor* other) {
+  void UnsafeArenaSwap(Descriptors* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -133,12 +133,12 @@ class Descriptor final :
 
   // implements Message ----------------------------------------------
 
-  Descriptor* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<Descriptor>(arena);
+  Descriptors* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Descriptors>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const Descriptor& from);
-  void MergeFrom(const Descriptor& from);
+  void CopyFrom(const Descriptors& from);
+  void MergeFrom(const Descriptors& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -152,15 +152,15 @@ class Descriptor final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Descriptor* other);
+  void InternalSwap(Descriptors* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "chrome_intelligence_modelexecution_proto.Descriptor";
+    return "chrome_intelligence_modelexecution_proto.Descriptors";
   }
   protected:
-  explicit Descriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Descriptors(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -171,99 +171,96 @@ class Descriptor final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDescriptor1FieldNumber = 1,
-    kDescriptor2FieldNumber = 2,
-    kDescriptor3FieldNumber = 3,
-    kDescriptor4FieldNumber = 4,
+    kDescriptorAFieldNumber = 1,
+    kDescriptorBFieldNumber = 2,
+    kDescriptorCFieldNumber = 3,
+    kDescriptorDFieldNumber = 4,
   };
-  // required string descriptor1 = 1;
-  bool has_descriptor1() const;
+  // optional string descriptor_a = 1;
+  bool has_descriptor_a() const;
   private:
-  bool _internal_has_descriptor1() const;
+  bool _internal_has_descriptor_a() const;
   public:
-  void clear_descriptor1();
-  const std::string& descriptor1() const;
+  void clear_descriptor_a();
+  const std::string& descriptor_a() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_descriptor1(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_descriptor1();
-  PROTOBUF_NODISCARD std::string* release_descriptor1();
-  void set_allocated_descriptor1(std::string* descriptor1);
+  void set_descriptor_a(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_descriptor_a();
+  PROTOBUF_NODISCARD std::string* release_descriptor_a();
+  void set_allocated_descriptor_a(std::string* descriptor_a);
   private:
-  const std::string& _internal_descriptor1() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_descriptor1(const std::string& value);
-  std::string* _internal_mutable_descriptor1();
+  const std::string& _internal_descriptor_a() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_descriptor_a(const std::string& value);
+  std::string* _internal_mutable_descriptor_a();
   public:
 
-  // required string descriptor2 = 2;
-  bool has_descriptor2() const;
+  // optional string descriptor_b = 2;
+  bool has_descriptor_b() const;
   private:
-  bool _internal_has_descriptor2() const;
+  bool _internal_has_descriptor_b() const;
   public:
-  void clear_descriptor2();
-  const std::string& descriptor2() const;
+  void clear_descriptor_b();
+  const std::string& descriptor_b() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_descriptor2(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_descriptor2();
-  PROTOBUF_NODISCARD std::string* release_descriptor2();
-  void set_allocated_descriptor2(std::string* descriptor2);
+  void set_descriptor_b(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_descriptor_b();
+  PROTOBUF_NODISCARD std::string* release_descriptor_b();
+  void set_allocated_descriptor_b(std::string* descriptor_b);
   private:
-  const std::string& _internal_descriptor2() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_descriptor2(const std::string& value);
-  std::string* _internal_mutable_descriptor2();
+  const std::string& _internal_descriptor_b() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_descriptor_b(const std::string& value);
+  std::string* _internal_mutable_descriptor_b();
   public:
 
-  // optional string descriptor3 = 3;
-  bool has_descriptor3() const;
+  // optional string descriptor_c = 3;
+  bool has_descriptor_c() const;
   private:
-  bool _internal_has_descriptor3() const;
+  bool _internal_has_descriptor_c() const;
   public:
-  void clear_descriptor3();
-  const std::string& descriptor3() const;
+  void clear_descriptor_c();
+  const std::string& descriptor_c() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_descriptor3(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_descriptor3();
-  PROTOBUF_NODISCARD std::string* release_descriptor3();
-  void set_allocated_descriptor3(std::string* descriptor3);
+  void set_descriptor_c(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_descriptor_c();
+  PROTOBUF_NODISCARD std::string* release_descriptor_c();
+  void set_allocated_descriptor_c(std::string* descriptor_c);
   private:
-  const std::string& _internal_descriptor3() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_descriptor3(const std::string& value);
-  std::string* _internal_mutable_descriptor3();
+  const std::string& _internal_descriptor_c() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_descriptor_c(const std::string& value);
+  std::string* _internal_mutable_descriptor_c();
   public:
 
-  // optional string descriptor4 = 4;
-  bool has_descriptor4() const;
+  // optional string descriptor_d = 4;
+  bool has_descriptor_d() const;
   private:
-  bool _internal_has_descriptor4() const;
+  bool _internal_has_descriptor_d() const;
   public:
-  void clear_descriptor4();
-  const std::string& descriptor4() const;
+  void clear_descriptor_d();
+  const std::string& descriptor_d() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_descriptor4(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_descriptor4();
-  PROTOBUF_NODISCARD std::string* release_descriptor4();
-  void set_allocated_descriptor4(std::string* descriptor4);
+  void set_descriptor_d(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_descriptor_d();
+  PROTOBUF_NODISCARD std::string* release_descriptor_d();
+  void set_allocated_descriptor_d(std::string* descriptor_d);
   private:
-  const std::string& _internal_descriptor4() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_descriptor4(const std::string& value);
-  std::string* _internal_mutable_descriptor4();
+  const std::string& _internal_descriptor_d() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_descriptor_d(const std::string& value);
+  std::string* _internal_mutable_descriptor_d();
   public:
 
-  // @@protoc_insertion_point(class_scope:chrome_intelligence_modelexecution_proto.Descriptor)
+  // @@protoc_insertion_point(class_scope:chrome_intelligence_modelexecution_proto.Descriptors)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr descriptor1_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr descriptor2_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr descriptor3_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr descriptor4_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr descriptor_a_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr descriptor_b_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr descriptor_c_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr descriptor_d_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fwallpaper_5fsearch_2eproto;
 };
 // -------------------------------------------------------------------
@@ -309,12 +306,6 @@ class WallpaperSearchRequest final :
   static const WallpaperSearchRequest& default_instance() {
     return *internal_default_instance();
   }
-  enum InfoCase {
-    kQuery = 1,
-    kSelector = 2,
-    INFO_NOT_SET = 0,
-  };
-
   static inline const WallpaperSearchRequest* internal_default_instance() {
     return reinterpret_cast<const WallpaperSearchRequest*>(
                &_WallpaperSearchRequest_default_instance_);
@@ -384,68 +375,36 @@ class WallpaperSearchRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kQueryFieldNumber = 1,
-    kSelectorFieldNumber = 2,
+    kDescriptorsFieldNumber = 2,
   };
-  // string query = 1;
-  bool has_query() const;
+  // optional .chrome_intelligence_modelexecution_proto.Descriptors descriptors = 2;
+  bool has_descriptors() const;
   private:
-  bool _internal_has_query() const;
+  bool _internal_has_descriptors() const;
   public:
-  void clear_query();
-  const std::string& query() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_query(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_query();
-  PROTOBUF_NODISCARD std::string* release_query();
-  void set_allocated_query(std::string* query);
+  void clear_descriptors();
+  const ::chrome_intelligence_modelexecution_proto::Descriptors& descriptors() const;
+  PROTOBUF_NODISCARD ::chrome_intelligence_modelexecution_proto::Descriptors* release_descriptors();
+  ::chrome_intelligence_modelexecution_proto::Descriptors* mutable_descriptors();
+  void set_allocated_descriptors(::chrome_intelligence_modelexecution_proto::Descriptors* descriptors);
   private:
-  const std::string& _internal_query() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_query(const std::string& value);
-  std::string* _internal_mutable_query();
+  const ::chrome_intelligence_modelexecution_proto::Descriptors& _internal_descriptors() const;
+  ::chrome_intelligence_modelexecution_proto::Descriptors* _internal_mutable_descriptors();
   public:
+  void unsafe_arena_set_allocated_descriptors(
+      ::chrome_intelligence_modelexecution_proto::Descriptors* descriptors);
+  ::chrome_intelligence_modelexecution_proto::Descriptors* unsafe_arena_release_descriptors();
 
-  // .chrome_intelligence_modelexecution_proto.Descriptor selector = 2;
-  bool has_selector() const;
-  private:
-  bool _internal_has_selector() const;
-  public:
-  void clear_selector();
-  const ::chrome_intelligence_modelexecution_proto::Descriptor& selector() const;
-  PROTOBUF_NODISCARD ::chrome_intelligence_modelexecution_proto::Descriptor* release_selector();
-  ::chrome_intelligence_modelexecution_proto::Descriptor* mutable_selector();
-  void set_allocated_selector(::chrome_intelligence_modelexecution_proto::Descriptor* selector);
-  private:
-  const ::chrome_intelligence_modelexecution_proto::Descriptor& _internal_selector() const;
-  ::chrome_intelligence_modelexecution_proto::Descriptor* _internal_mutable_selector();
-  public:
-  void unsafe_arena_set_allocated_selector(
-      ::chrome_intelligence_modelexecution_proto::Descriptor* selector);
-  ::chrome_intelligence_modelexecution_proto::Descriptor* unsafe_arena_release_selector();
-
-  void clear_info();
-  InfoCase info_case() const;
   // @@protoc_insertion_point(class_scope:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest)
  private:
   class _Internal;
-  void set_has_query();
-  void set_has_selector();
-
-  inline bool has_info() const;
-  inline void clear_has_info();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  union InfoUnion {
-    constexpr InfoUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr query_;
-    ::chrome_intelligence_modelexecution_proto::Descriptor* selector_;
-  } info_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  uint32_t _oneof_case_[1];
-
+  ::chrome_intelligence_modelexecution_proto::Descriptors* descriptors_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fwallpaper_5fsearch_2eproto;
 };
 // -------------------------------------------------------------------
@@ -606,444 +565,374 @@ class WallpaperSearchResponse final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// Descriptor
+// Descriptors
 
-// required string descriptor1 = 1;
-inline bool Descriptor::_internal_has_descriptor1() const {
+// optional string descriptor_a = 1;
+inline bool Descriptors::_internal_has_descriptor_a() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool Descriptor::has_descriptor1() const {
-  return _internal_has_descriptor1();
+inline bool Descriptors::has_descriptor_a() const {
+  return _internal_has_descriptor_a();
 }
-inline void Descriptor::clear_descriptor1() {
-  descriptor1_.ClearToEmpty();
+inline void Descriptors::clear_descriptor_a() {
+  descriptor_a_.ClearToEmpty();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const std::string& Descriptor::descriptor1() const {
-  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.Descriptor.descriptor1)
-  return _internal_descriptor1();
+inline const std::string& Descriptors::descriptor_a() const {
+  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_a)
+  return _internal_descriptor_a();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Descriptor::set_descriptor1(ArgT0&& arg0, ArgT... args) {
+void Descriptors::set_descriptor_a(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
- descriptor1_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.Descriptor.descriptor1)
+ descriptor_a_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_a)
 }
-inline std::string* Descriptor::mutable_descriptor1() {
-  std::string* _s = _internal_mutable_descriptor1();
-  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.Descriptor.descriptor1)
+inline std::string* Descriptors::mutable_descriptor_a() {
+  std::string* _s = _internal_mutable_descriptor_a();
+  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_a)
   return _s;
 }
-inline const std::string& Descriptor::_internal_descriptor1() const {
-  return descriptor1_.Get();
+inline const std::string& Descriptors::_internal_descriptor_a() const {
+  return descriptor_a_.Get();
 }
-inline void Descriptor::_internal_set_descriptor1(const std::string& value) {
+inline void Descriptors::_internal_set_descriptor_a(const std::string& value) {
   _has_bits_[0] |= 0x00000001u;
-  descriptor1_.Set(value, GetArenaForAllocation());
+  descriptor_a_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Descriptor::_internal_mutable_descriptor1() {
+inline std::string* Descriptors::_internal_mutable_descriptor_a() {
   _has_bits_[0] |= 0x00000001u;
-  return descriptor1_.Mutable(GetArenaForAllocation());
+  return descriptor_a_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Descriptor::release_descriptor1() {
-  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.Descriptor.descriptor1)
-  if (!_internal_has_descriptor1()) {
+inline std::string* Descriptors::release_descriptor_a() {
+  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_a)
+  if (!_internal_has_descriptor_a()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000001u;
-  auto* p = descriptor1_.Release();
+  auto* p = descriptor_a_.Release();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (descriptor1_.IsDefault()) {
-    descriptor1_.Set("", GetArenaForAllocation());
+  if (descriptor_a_.IsDefault()) {
+    descriptor_a_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   return p;
 }
-inline void Descriptor::set_allocated_descriptor1(std::string* descriptor1) {
-  if (descriptor1 != nullptr) {
+inline void Descriptors::set_allocated_descriptor_a(std::string* descriptor_a) {
+  if (descriptor_a != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  descriptor1_.SetAllocated(descriptor1, GetArenaForAllocation());
+  descriptor_a_.SetAllocated(descriptor_a, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (descriptor1_.IsDefault()) {
-    descriptor1_.Set("", GetArenaForAllocation());
+  if (descriptor_a_.IsDefault()) {
+    descriptor_a_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.Descriptor.descriptor1)
+  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_a)
 }
 
-// required string descriptor2 = 2;
-inline bool Descriptor::_internal_has_descriptor2() const {
+// optional string descriptor_b = 2;
+inline bool Descriptors::_internal_has_descriptor_b() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool Descriptor::has_descriptor2() const {
-  return _internal_has_descriptor2();
+inline bool Descriptors::has_descriptor_b() const {
+  return _internal_has_descriptor_b();
 }
-inline void Descriptor::clear_descriptor2() {
-  descriptor2_.ClearToEmpty();
+inline void Descriptors::clear_descriptor_b() {
+  descriptor_b_.ClearToEmpty();
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const std::string& Descriptor::descriptor2() const {
-  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.Descriptor.descriptor2)
-  return _internal_descriptor2();
+inline const std::string& Descriptors::descriptor_b() const {
+  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_b)
+  return _internal_descriptor_b();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Descriptor::set_descriptor2(ArgT0&& arg0, ArgT... args) {
+void Descriptors::set_descriptor_b(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000002u;
- descriptor2_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.Descriptor.descriptor2)
+ descriptor_b_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_b)
 }
-inline std::string* Descriptor::mutable_descriptor2() {
-  std::string* _s = _internal_mutable_descriptor2();
-  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.Descriptor.descriptor2)
+inline std::string* Descriptors::mutable_descriptor_b() {
+  std::string* _s = _internal_mutable_descriptor_b();
+  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_b)
   return _s;
 }
-inline const std::string& Descriptor::_internal_descriptor2() const {
-  return descriptor2_.Get();
+inline const std::string& Descriptors::_internal_descriptor_b() const {
+  return descriptor_b_.Get();
 }
-inline void Descriptor::_internal_set_descriptor2(const std::string& value) {
+inline void Descriptors::_internal_set_descriptor_b(const std::string& value) {
   _has_bits_[0] |= 0x00000002u;
-  descriptor2_.Set(value, GetArenaForAllocation());
+  descriptor_b_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Descriptor::_internal_mutable_descriptor2() {
+inline std::string* Descriptors::_internal_mutable_descriptor_b() {
   _has_bits_[0] |= 0x00000002u;
-  return descriptor2_.Mutable(GetArenaForAllocation());
+  return descriptor_b_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Descriptor::release_descriptor2() {
-  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.Descriptor.descriptor2)
-  if (!_internal_has_descriptor2()) {
+inline std::string* Descriptors::release_descriptor_b() {
+  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_b)
+  if (!_internal_has_descriptor_b()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000002u;
-  auto* p = descriptor2_.Release();
+  auto* p = descriptor_b_.Release();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (descriptor2_.IsDefault()) {
-    descriptor2_.Set("", GetArenaForAllocation());
+  if (descriptor_b_.IsDefault()) {
+    descriptor_b_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   return p;
 }
-inline void Descriptor::set_allocated_descriptor2(std::string* descriptor2) {
-  if (descriptor2 != nullptr) {
+inline void Descriptors::set_allocated_descriptor_b(std::string* descriptor_b) {
+  if (descriptor_b != nullptr) {
     _has_bits_[0] |= 0x00000002u;
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  descriptor2_.SetAllocated(descriptor2, GetArenaForAllocation());
+  descriptor_b_.SetAllocated(descriptor_b, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (descriptor2_.IsDefault()) {
-    descriptor2_.Set("", GetArenaForAllocation());
+  if (descriptor_b_.IsDefault()) {
+    descriptor_b_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.Descriptor.descriptor2)
+  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_b)
 }
 
-// optional string descriptor3 = 3;
-inline bool Descriptor::_internal_has_descriptor3() const {
+// optional string descriptor_c = 3;
+inline bool Descriptors::_internal_has_descriptor_c() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool Descriptor::has_descriptor3() const {
-  return _internal_has_descriptor3();
+inline bool Descriptors::has_descriptor_c() const {
+  return _internal_has_descriptor_c();
 }
-inline void Descriptor::clear_descriptor3() {
-  descriptor3_.ClearToEmpty();
+inline void Descriptors::clear_descriptor_c() {
+  descriptor_c_.ClearToEmpty();
   _has_bits_[0] &= ~0x00000004u;
 }
-inline const std::string& Descriptor::descriptor3() const {
-  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.Descriptor.descriptor3)
-  return _internal_descriptor3();
+inline const std::string& Descriptors::descriptor_c() const {
+  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_c)
+  return _internal_descriptor_c();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Descriptor::set_descriptor3(ArgT0&& arg0, ArgT... args) {
+void Descriptors::set_descriptor_c(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000004u;
- descriptor3_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.Descriptor.descriptor3)
+ descriptor_c_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_c)
 }
-inline std::string* Descriptor::mutable_descriptor3() {
-  std::string* _s = _internal_mutable_descriptor3();
-  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.Descriptor.descriptor3)
+inline std::string* Descriptors::mutable_descriptor_c() {
+  std::string* _s = _internal_mutable_descriptor_c();
+  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_c)
   return _s;
 }
-inline const std::string& Descriptor::_internal_descriptor3() const {
-  return descriptor3_.Get();
+inline const std::string& Descriptors::_internal_descriptor_c() const {
+  return descriptor_c_.Get();
 }
-inline void Descriptor::_internal_set_descriptor3(const std::string& value) {
+inline void Descriptors::_internal_set_descriptor_c(const std::string& value) {
   _has_bits_[0] |= 0x00000004u;
-  descriptor3_.Set(value, GetArenaForAllocation());
+  descriptor_c_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Descriptor::_internal_mutable_descriptor3() {
+inline std::string* Descriptors::_internal_mutable_descriptor_c() {
   _has_bits_[0] |= 0x00000004u;
-  return descriptor3_.Mutable(GetArenaForAllocation());
+  return descriptor_c_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Descriptor::release_descriptor3() {
-  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.Descriptor.descriptor3)
-  if (!_internal_has_descriptor3()) {
+inline std::string* Descriptors::release_descriptor_c() {
+  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_c)
+  if (!_internal_has_descriptor_c()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000004u;
-  auto* p = descriptor3_.Release();
+  auto* p = descriptor_c_.Release();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (descriptor3_.IsDefault()) {
-    descriptor3_.Set("", GetArenaForAllocation());
+  if (descriptor_c_.IsDefault()) {
+    descriptor_c_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   return p;
 }
-inline void Descriptor::set_allocated_descriptor3(std::string* descriptor3) {
-  if (descriptor3 != nullptr) {
+inline void Descriptors::set_allocated_descriptor_c(std::string* descriptor_c) {
+  if (descriptor_c != nullptr) {
     _has_bits_[0] |= 0x00000004u;
   } else {
     _has_bits_[0] &= ~0x00000004u;
   }
-  descriptor3_.SetAllocated(descriptor3, GetArenaForAllocation());
+  descriptor_c_.SetAllocated(descriptor_c, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (descriptor3_.IsDefault()) {
-    descriptor3_.Set("", GetArenaForAllocation());
+  if (descriptor_c_.IsDefault()) {
+    descriptor_c_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.Descriptor.descriptor3)
+  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_c)
 }
 
-// optional string descriptor4 = 4;
-inline bool Descriptor::_internal_has_descriptor4() const {
+// optional string descriptor_d = 4;
+inline bool Descriptors::_internal_has_descriptor_d() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
-inline bool Descriptor::has_descriptor4() const {
-  return _internal_has_descriptor4();
+inline bool Descriptors::has_descriptor_d() const {
+  return _internal_has_descriptor_d();
 }
-inline void Descriptor::clear_descriptor4() {
-  descriptor4_.ClearToEmpty();
+inline void Descriptors::clear_descriptor_d() {
+  descriptor_d_.ClearToEmpty();
   _has_bits_[0] &= ~0x00000008u;
 }
-inline const std::string& Descriptor::descriptor4() const {
-  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.Descriptor.descriptor4)
-  return _internal_descriptor4();
+inline const std::string& Descriptors::descriptor_d() const {
+  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_d)
+  return _internal_descriptor_d();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Descriptor::set_descriptor4(ArgT0&& arg0, ArgT... args) {
+void Descriptors::set_descriptor_d(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000008u;
- descriptor4_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.Descriptor.descriptor4)
+ descriptor_d_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_d)
 }
-inline std::string* Descriptor::mutable_descriptor4() {
-  std::string* _s = _internal_mutable_descriptor4();
-  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.Descriptor.descriptor4)
+inline std::string* Descriptors::mutable_descriptor_d() {
+  std::string* _s = _internal_mutable_descriptor_d();
+  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_d)
   return _s;
 }
-inline const std::string& Descriptor::_internal_descriptor4() const {
-  return descriptor4_.Get();
+inline const std::string& Descriptors::_internal_descriptor_d() const {
+  return descriptor_d_.Get();
 }
-inline void Descriptor::_internal_set_descriptor4(const std::string& value) {
+inline void Descriptors::_internal_set_descriptor_d(const std::string& value) {
   _has_bits_[0] |= 0x00000008u;
-  descriptor4_.Set(value, GetArenaForAllocation());
+  descriptor_d_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Descriptor::_internal_mutable_descriptor4() {
+inline std::string* Descriptors::_internal_mutable_descriptor_d() {
   _has_bits_[0] |= 0x00000008u;
-  return descriptor4_.Mutable(GetArenaForAllocation());
+  return descriptor_d_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Descriptor::release_descriptor4() {
-  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.Descriptor.descriptor4)
-  if (!_internal_has_descriptor4()) {
+inline std::string* Descriptors::release_descriptor_d() {
+  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_d)
+  if (!_internal_has_descriptor_d()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000008u;
-  auto* p = descriptor4_.Release();
+  auto* p = descriptor_d_.Release();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (descriptor4_.IsDefault()) {
-    descriptor4_.Set("", GetArenaForAllocation());
+  if (descriptor_d_.IsDefault()) {
+    descriptor_d_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   return p;
 }
-inline void Descriptor::set_allocated_descriptor4(std::string* descriptor4) {
-  if (descriptor4 != nullptr) {
+inline void Descriptors::set_allocated_descriptor_d(std::string* descriptor_d) {
+  if (descriptor_d != nullptr) {
     _has_bits_[0] |= 0x00000008u;
   } else {
     _has_bits_[0] &= ~0x00000008u;
   }
-  descriptor4_.SetAllocated(descriptor4, GetArenaForAllocation());
+  descriptor_d_.SetAllocated(descriptor_d, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (descriptor4_.IsDefault()) {
-    descriptor4_.Set("", GetArenaForAllocation());
+  if (descriptor_d_.IsDefault()) {
+    descriptor_d_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.Descriptor.descriptor4)
+  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.Descriptors.descriptor_d)
 }
 
 // -------------------------------------------------------------------
 
 // WallpaperSearchRequest
 
-// string query = 1;
-inline bool WallpaperSearchRequest::_internal_has_query() const {
-  return info_case() == kQuery;
+// optional .chrome_intelligence_modelexecution_proto.Descriptors descriptors = 2;
+inline bool WallpaperSearchRequest::_internal_has_descriptors() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || descriptors_ != nullptr);
+  return value;
 }
-inline bool WallpaperSearchRequest::has_query() const {
-  return _internal_has_query();
+inline bool WallpaperSearchRequest::has_descriptors() const {
+  return _internal_has_descriptors();
 }
-inline void WallpaperSearchRequest::set_has_query() {
-  _oneof_case_[0] = kQuery;
+inline void WallpaperSearchRequest::clear_descriptors() {
+  if (descriptors_ != nullptr) descriptors_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline void WallpaperSearchRequest::clear_query() {
-  if (_internal_has_query()) {
-    info_.query_.Destroy();
-    clear_has_info();
+inline const ::chrome_intelligence_modelexecution_proto::Descriptors& WallpaperSearchRequest::_internal_descriptors() const {
+  const ::chrome_intelligence_modelexecution_proto::Descriptors* p = descriptors_;
+  return p != nullptr ? *p : reinterpret_cast<const ::chrome_intelligence_modelexecution_proto::Descriptors&>(
+      ::chrome_intelligence_modelexecution_proto::_Descriptors_default_instance_);
+}
+inline const ::chrome_intelligence_modelexecution_proto::Descriptors& WallpaperSearchRequest::descriptors() const {
+  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.descriptors)
+  return _internal_descriptors();
+}
+inline void WallpaperSearchRequest::unsafe_arena_set_allocated_descriptors(
+    ::chrome_intelligence_modelexecution_proto::Descriptors* descriptors) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(descriptors_);
   }
-}
-inline const std::string& WallpaperSearchRequest::query() const {
-  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.query)
-  return _internal_query();
-}
-template <typename ArgT0, typename... ArgT>
-inline void WallpaperSearchRequest::set_query(ArgT0&& arg0, ArgT... args) {
-  if (!_internal_has_query()) {
-    clear_info();
-    set_has_query();
-    info_.query_.InitDefault();
-  }
-  info_.query_.Set( static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.query)
-}
-inline std::string* WallpaperSearchRequest::mutable_query() {
-  std::string* _s = _internal_mutable_query();
-  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.query)
-  return _s;
-}
-inline const std::string& WallpaperSearchRequest::_internal_query() const {
-  if (_internal_has_query()) {
-    return info_.query_.Get();
-  }
-  return ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
-}
-inline void WallpaperSearchRequest::_internal_set_query(const std::string& value) {
-  if (!_internal_has_query()) {
-    clear_info();
-    set_has_query();
-    info_.query_.InitDefault();
-  }
-  info_.query_.Set(value, GetArenaForAllocation());
-}
-inline std::string* WallpaperSearchRequest::_internal_mutable_query() {
-  if (!_internal_has_query()) {
-    clear_info();
-    set_has_query();
-    info_.query_.InitDefault();
-  }
-  return info_.query_.Mutable(      GetArenaForAllocation());
-}
-inline std::string* WallpaperSearchRequest::release_query() {
-  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.query)
-  if (_internal_has_query()) {
-    clear_has_info();
-    return info_.query_.Release();
+  descriptors_ = descriptors;
+  if (descriptors) {
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    return nullptr;
+    _has_bits_[0] &= ~0x00000001u;
   }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.descriptors)
 }
-inline void WallpaperSearchRequest::set_allocated_query(std::string* query) {
-  if (has_info()) {
-    clear_info();
+inline ::chrome_intelligence_modelexecution_proto::Descriptors* WallpaperSearchRequest::release_descriptors() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::chrome_intelligence_modelexecution_proto::Descriptors* temp = descriptors_;
+  descriptors_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
-  if (query != nullptr) {
-    set_has_query();
-    info_.query_.InitAllocated(query, GetArenaForAllocation());
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::chrome_intelligence_modelexecution_proto::Descriptors* WallpaperSearchRequest::unsafe_arena_release_descriptors() {
+  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.descriptors)
+  _has_bits_[0] &= ~0x00000001u;
+  ::chrome_intelligence_modelexecution_proto::Descriptors* temp = descriptors_;
+  descriptors_ = nullptr;
+  return temp;
+}
+inline ::chrome_intelligence_modelexecution_proto::Descriptors* WallpaperSearchRequest::_internal_mutable_descriptors() {
+  _has_bits_[0] |= 0x00000001u;
+  if (descriptors_ == nullptr) {
+    auto* p = CreateMaybeMessage<::chrome_intelligence_modelexecution_proto::Descriptors>(GetArenaForAllocation());
+    descriptors_ = p;
   }
-  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.query)
+  return descriptors_;
 }
-
-// .chrome_intelligence_modelexecution_proto.Descriptor selector = 2;
-inline bool WallpaperSearchRequest::_internal_has_selector() const {
-  return info_case() == kSelector;
-}
-inline bool WallpaperSearchRequest::has_selector() const {
-  return _internal_has_selector();
-}
-inline void WallpaperSearchRequest::set_has_selector() {
-  _oneof_case_[0] = kSelector;
-}
-inline void WallpaperSearchRequest::clear_selector() {
-  if (_internal_has_selector()) {
-    if (GetArenaForAllocation() == nullptr) {
-      delete info_.selector_;
-    }
-    clear_has_info();
-  }
-}
-inline ::chrome_intelligence_modelexecution_proto::Descriptor* WallpaperSearchRequest::release_selector() {
-  // @@protoc_insertion_point(field_release:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.selector)
-  if (_internal_has_selector()) {
-    clear_has_info();
-    ::chrome_intelligence_modelexecution_proto::Descriptor* temp = info_.selector_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    info_.selector_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::chrome_intelligence_modelexecution_proto::Descriptor& WallpaperSearchRequest::_internal_selector() const {
-  return _internal_has_selector()
-      ? *info_.selector_
-      : reinterpret_cast< ::chrome_intelligence_modelexecution_proto::Descriptor&>(::chrome_intelligence_modelexecution_proto::_Descriptor_default_instance_);
-}
-inline const ::chrome_intelligence_modelexecution_proto::Descriptor& WallpaperSearchRequest::selector() const {
-  // @@protoc_insertion_point(field_get:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.selector)
-  return _internal_selector();
-}
-inline ::chrome_intelligence_modelexecution_proto::Descriptor* WallpaperSearchRequest::unsafe_arena_release_selector() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.selector)
-  if (_internal_has_selector()) {
-    clear_has_info();
-    ::chrome_intelligence_modelexecution_proto::Descriptor* temp = info_.selector_;
-    info_.selector_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void WallpaperSearchRequest::unsafe_arena_set_allocated_selector(::chrome_intelligence_modelexecution_proto::Descriptor* selector) {
-  clear_info();
-  if (selector) {
-    set_has_selector();
-    info_.selector_ = selector;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.selector)
-}
-inline ::chrome_intelligence_modelexecution_proto::Descriptor* WallpaperSearchRequest::_internal_mutable_selector() {
-  if (!_internal_has_selector()) {
-    clear_info();
-    set_has_selector();
-    info_.selector_ = CreateMaybeMessage< ::chrome_intelligence_modelexecution_proto::Descriptor >(GetArenaForAllocation());
-  }
-  return info_.selector_;
-}
-inline ::chrome_intelligence_modelexecution_proto::Descriptor* WallpaperSearchRequest::mutable_selector() {
-  ::chrome_intelligence_modelexecution_proto::Descriptor* _msg = _internal_mutable_selector();
-  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.selector)
+inline ::chrome_intelligence_modelexecution_proto::Descriptors* WallpaperSearchRequest::mutable_descriptors() {
+  ::chrome_intelligence_modelexecution_proto::Descriptors* _msg = _internal_mutable_descriptors();
+  // @@protoc_insertion_point(field_mutable:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.descriptors)
   return _msg;
 }
+inline void WallpaperSearchRequest::set_allocated_descriptors(::chrome_intelligence_modelexecution_proto::Descriptors* descriptors) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete descriptors_;
+  }
+  if (descriptors) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(descriptors);
+    if (message_arena != submessage_arena) {
+      descriptors = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, descriptors, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  descriptors_ = descriptors;
+  // @@protoc_insertion_point(field_set_allocated:chrome_intelligence_modelexecution_proto.WallpaperSearchRequest.descriptors)
+}
 
-inline bool WallpaperSearchRequest::has_info() const {
-  return info_case() != INFO_NOT_SET;
-}
-inline void WallpaperSearchRequest::clear_has_info() {
-  _oneof_case_[0] = INFO_NOT_SET;
-}
-inline WallpaperSearchRequest::InfoCase WallpaperSearchRequest::info_case() const {
-  return WallpaperSearchRequest::InfoCase(_oneof_case_[0]);
-}
 // -------------------------------------------------------------------
 
 // WallpaperSearchResponse

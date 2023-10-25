@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="3" failures="0" disabled="0" errors="0" time="0.014" timestamp="2023-10-24T11:10:12.784" name="AllTests">
-  <testsuite name="VolumeCurve" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.005" timestamp="2023-10-24T11:10:12.792">
-    <testcase name="DefaultCurve" file="cras/src/tests/volume_curve_unittest.cc" line="12" status="run" result="completed" time="0.002" timestamp="2023-10-24T11:10:12.793" classname="VolumeCurve" />
-    <testcase name="SteppedCurve" file="cras/src/tests/volume_curve_unittest.cc" line="23" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:12.796" classname="VolumeCurve" />
-    <testcase name="ExplicitCurve" file="cras/src/tests/volume_curve_unittest.cc" line="34" status="run" result="completed" time="0." timestamp="2023-10-24T11:10:12.797" classname="VolumeCurve" />
-  </testsuite>
-</testsuites>

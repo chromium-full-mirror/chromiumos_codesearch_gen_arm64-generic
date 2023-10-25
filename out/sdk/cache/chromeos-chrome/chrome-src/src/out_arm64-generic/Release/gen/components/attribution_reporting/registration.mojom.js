@@ -25,6 +25,12 @@
     mojo.internal.loadMojomIfNecessary(
         'components/attribution_reporting/source_registration_time_config.mojom', 'source_registration_time_config.mojom.js');
   }
+  var trigger_data_matching$ =
+      mojo.internal.exposeNamespace('attributionReporting.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'components/attribution_reporting/trigger_data_matching.mojom', 'trigger_data_matching.mojom.js');
+  }
   var int128$ =
       mojo.internal.exposeNamespace('mojoBase.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -607,6 +613,70 @@
     encoder.encodeStructPointer(time$.TimeDelta, val.startTime);
     encoder.encodeArrayPointer(new codec.PointerTo(time$.TimeDelta), val.endTimes);
   };
+  function TriggerConfig(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  TriggerConfig.prototype.initDefaults_ = function() {
+    this.triggerDataMatching = 0;
+  };
+  TriggerConfig.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  TriggerConfig.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate TriggerConfig.triggerDataMatching
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, trigger_data_matching$.TriggerDataMatching);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  TriggerConfig.encodedSize = codec.kStructHeaderSize + 8;
+
+  TriggerConfig.decode = function(decoder) {
+    var packed;
+    var val = new TriggerConfig();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.triggerDataMatching =
+        decoder.decodeStruct(new codec.Enum(trigger_data_matching$.TriggerDataMatching));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  TriggerConfig.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(TriggerConfig.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.triggerDataMatching);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   function SourceRegistration(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -625,6 +695,7 @@
     this.debugKey = null;
     this.filterData = null;
     this.aggregationKeys = null;
+    this.triggerConfig = null;
   };
   SourceRegistration.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -640,7 +711,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 88}
+      {version: 0, numBytes: 96}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -692,10 +763,16 @@
         return err;
 
 
+
+    // validate SourceRegistration.triggerConfig
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, TriggerConfig, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  SourceRegistration.encodedSize = codec.kStructHeaderSize + 80;
+  SourceRegistration.encodedSize = codec.kStructHeaderSize + 88;
 
   SourceRegistration.decode = function(decoder) {
     var packed;
@@ -727,6 +804,8 @@
         decoder.decodeStructPointer(FilterData);
     val.aggregationKeys =
         decoder.decodeStructPointer(AggregationKeys);
+    val.triggerConfig =
+        decoder.decodeStructPointer(TriggerConfig);
     return val;
   };
 
@@ -750,6 +829,7 @@
     encoder.encodeStructPointer(DebugKey, val.debugKey);
     encoder.encodeStructPointer(FilterData, val.filterData);
     encoder.encodeStructPointer(AggregationKeys, val.aggregationKeys);
+    encoder.encodeStructPointer(TriggerConfig, val.triggerConfig);
   };
   function TriggerDedupKey(values) {
     this.initDefaults_();
@@ -1225,6 +1305,7 @@
   exports.AggregatableTriggerData = AggregatableTriggerData;
   exports.DestinationSet = DestinationSet;
   exports.EventReportWindows = EventReportWindows;
+  exports.TriggerConfig = TriggerConfig;
   exports.SourceRegistration = SourceRegistration;
   exports.TriggerDedupKey = TriggerDedupKey;
   exports.EventTriggerData = EventTriggerData;

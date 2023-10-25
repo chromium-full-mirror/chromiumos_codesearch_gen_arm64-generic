@@ -6,11 +6,11 @@
  * Disable type checking for closure, as it is done by the typescript compiler.
  * @suppress{missingProperties}
  */
-import { util } from '../common/js/util.js';
+import { isCrosComponentsEnabled } from '../common/js/flags.js';
 import { customElement, html, XfBase } from './xf_base.js';
 let XfJellybean = class XfJellybean extends XfBase {
     render() {
-        if (util.isCrosComponentsEnabled()) {
+        if (isCrosComponentsEnabled()) {
             return html `
         <slot name="jelly">
           Jelly
@@ -25,7 +25,7 @@ let XfJellybean = class XfJellybean extends XfBase {
     firstUpdated() {
         // Jellybean status does not change during runtime. We can cleanup the
         // unused variant.
-        const unusedElements = util.isCrosComponentsEnabled() ?
+        const unusedElements = isCrosComponentsEnabled() ?
             this.querySelectorAll('[slot="old"]') :
             this.querySelectorAll('[slot="jelly"]');
         unusedElements.forEach((el) => el.remove());

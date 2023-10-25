@@ -1298,6 +1298,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertymaskclip_));
   }
+  constexpr CSSPropertyUnion(::blink::css_longhand::MaskComposite property)
+    : csspropertymaskcomposite_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertymaskcomposite_));
+  }
   constexpr CSSPropertyUnion(::blink::css_longhand::MaskImage property)
     : csspropertymaskimage_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -1307,6 +1312,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     : csspropertymaskorigin_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertymaskorigin_));
+  }
+  constexpr CSSPropertyUnion(::blink::css_longhand::MaskRepeat property)
+    : csspropertymaskrepeat_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertymaskrepeat_));
   }
   constexpr CSSPropertyUnion(::blink::css_longhand::MaskSize property)
     : csspropertymasksize_(std::move(property)) {
@@ -2978,6 +2988,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertyaliaswebkitalternativemaskclip_));
   }
+  constexpr CSSPropertyUnion(::blink::css_longhand::WebkitAlternativeMaskComposite property)
+    : csspropertyaliaswebkitalternativemaskcomposite_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertyaliaswebkitalternativemaskcomposite_));
+  }
   constexpr CSSPropertyUnion(::blink::css_longhand::WebkitAlternativeMaskImage property)
     : csspropertyaliaswebkitalternativemaskimage_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -2987,6 +3002,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     : csspropertyaliaswebkitalternativemaskorigin_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertyaliaswebkitalternativemaskorigin_));
+  }
+  constexpr CSSPropertyUnion(::blink::css_longhand::WebkitAlternativeMaskRepeat property)
+    : csspropertyaliaswebkitalternativemaskrepeat_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertyaliaswebkitalternativemaskrepeat_));
   }
   constexpr CSSPropertyUnion(::blink::css_longhand::WebkitAlternativeMaskSize property)
     : csspropertyaliaswebkitalternativemasksize_(std::move(property)) {
@@ -3788,8 +3808,10 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::MarkerStart csspropertymarkerstart_;
   ::blink::css_longhand::Mask csspropertymask_;
   ::blink::css_longhand::MaskClip csspropertymaskclip_;
+  ::blink::css_longhand::MaskComposite csspropertymaskcomposite_;
   ::blink::css_longhand::MaskImage csspropertymaskimage_;
   ::blink::css_longhand::MaskOrigin csspropertymaskorigin_;
+  ::blink::css_longhand::MaskRepeat csspropertymaskrepeat_;
   ::blink::css_longhand::MaskSize csspropertymasksize_;
   ::blink::css_longhand::MaskType csspropertymasktype_;
   ::blink::css_longhand::MathDepth csspropertymathdepth_;
@@ -4124,8 +4146,10 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::WebkitAppearance csspropertyaliaswebkitappearance_;
   ::blink::css_longhand::WebkitAppRegion csspropertyaliaswebkitappregion_;
   ::blink::css_longhand::WebkitAlternativeMaskClip csspropertyaliaswebkitalternativemaskclip_;
+  ::blink::css_longhand::WebkitAlternativeMaskComposite csspropertyaliaswebkitalternativemaskcomposite_;
   ::blink::css_longhand::WebkitAlternativeMaskImage csspropertyaliaswebkitalternativemaskimage_;
   ::blink::css_longhand::WebkitAlternativeMaskOrigin csspropertyaliaswebkitalternativemaskorigin_;
+  ::blink::css_longhand::WebkitAlternativeMaskRepeat csspropertyaliaswebkitalternativemaskrepeat_;
   ::blink::css_longhand::WebkitAlternativeMaskSize csspropertyaliaswebkitalternativemasksize_;
   ::blink::css_longhand::WebkitBorderEndColor csspropertyaliaswebkitborderendcolor_;
   ::blink::css_longhand::WebkitBorderEndStyle csspropertyaliaswebkitborderendstyle_;
@@ -4494,8 +4518,10 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::MarkerStart(),
   ::blink::css_longhand::Mask(),
   ::blink::css_longhand::MaskClip(),
+  ::blink::css_longhand::MaskComposite(),
   ::blink::css_longhand::MaskImage(),
   ::blink::css_longhand::MaskOrigin(),
+  ::blink::css_longhand::MaskRepeat(),
   ::blink::css_longhand::MaskSize(),
   ::blink::css_longhand::MaskType(),
   ::blink::css_longhand::MathDepth(),
@@ -4830,8 +4856,10 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::WebkitAppearance(),
   ::blink::css_longhand::WebkitAppRegion(),
   ::blink::css_longhand::WebkitAlternativeMaskClip(),
+  ::blink::css_longhand::WebkitAlternativeMaskComposite(),
   ::blink::css_longhand::WebkitAlternativeMaskImage(),
   ::blink::css_longhand::WebkitAlternativeMaskOrigin(),
+  ::blink::css_longhand::WebkitAlternativeMaskRepeat(),
   ::blink::css_longhand::WebkitAlternativeMaskSize(),
   ::blink::css_longhand::WebkitBorderEndColor(),
   ::blink::css_longhand::WebkitBorderEndStyle(),
@@ -5201,8 +5229,10 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMarkerStart.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMask.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskClip.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskComposite.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskImage.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskOrigin.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskRepeat.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskSize.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMaskType.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kMathDepth.
@@ -5537,8 +5567,10 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAppearance.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAppRegion.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskClip.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskComposite.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskImage.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskOrigin.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskRepeat.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskSize.
       static_cast<uint8_t>(CSSPropertyID::kInternalVisitedBorderInlineEndColor),  // kAliasWebkitBorderEndColor.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderEndStyle.
@@ -5941,8 +5973,10 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMarkerStart.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMask.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskClip.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskComposite.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskImage.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskOrigin.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskRepeat.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskSize.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMaskType.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kMathDepth.
@@ -6277,8 +6311,10 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAppearance.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAppRegion.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskClip.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskComposite.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskImage.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskOrigin.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskRepeat.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitAlternativeMaskSize.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderEndColor.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kAliasWebkitBorderEndStyle.

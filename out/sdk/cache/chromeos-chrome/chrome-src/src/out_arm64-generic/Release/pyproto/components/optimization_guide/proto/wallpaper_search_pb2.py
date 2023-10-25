@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n:components/optimization_guide/proto/wallpaper_search.proto\x12(chrome_intelligence_modelexecution_proto\"`\n\nDescriptor\x12\x13\n\x0b\x64\x65scriptor1\x18\x01 \x02(\t\x12\x13\n\x0b\x64\x65scriptor2\x18\x02 \x02(\t\x12\x13\n\x0b\x64\x65scriptor3\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scriptor4\x18\x04 \x01(\t\"{\n\x16WallpaperSearchRequest\x12\x0f\n\x05query\x18\x01 \x01(\tH\x00\x12H\n\x08selector\x18\x02 \x01(\x0b\x32\x34.chrome_intelligence_modelexecution_proto.DescriptorH\x00\x42\x06\n\x04info\")\n\x17WallpaperSearchResponse\x12\x0e\n\x06images\x18\x01 \x03(\x0c\x42\x02H\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n:components/optimization_guide/proto/wallpaper_search.proto\x12(chrome_intelligence_modelexecution_proto\"e\n\x0b\x44\x65scriptors\x12\x14\n\x0c\x64\x65scriptor_a\x18\x01 \x01(\t\x12\x14\n\x0c\x64\x65scriptor_b\x18\x02 \x01(\t\x12\x14\n\x0c\x64\x65scriptor_c\x18\x03 \x01(\t\x12\x14\n\x0c\x64\x65scriptor_d\x18\x04 \x01(\t\"j\n\x16WallpaperSearchRequest\x12J\n\x0b\x64\x65scriptors\x18\x02 \x01(\x0b\x32\x35.chrome_intelligence_modelexecution_proto.DescriptorsJ\x04\x08\x01\x10\x02\")\n\x17WallpaperSearchResponse\x12\x0e\n\x06images\x18\x01 \x03(\x0c\x42\x02H\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.optimization_guide.proto.wallpaper_search_pb2', globals())
@@ -21,10 +21,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
-  _DESCRIPTOR._serialized_start=104
-  _DESCRIPTOR._serialized_end=200
-  _WALLPAPERSEARCHREQUEST._serialized_start=202
-  _WALLPAPERSEARCHREQUEST._serialized_end=325
-  _WALLPAPERSEARCHRESPONSE._serialized_start=327
-  _WALLPAPERSEARCHRESPONSE._serialized_end=368
+  _DESCRIPTORS._serialized_start=104
+  _DESCRIPTORS._serialized_end=205
+  _WALLPAPERSEARCHREQUEST._serialized_start=207
+  _WALLPAPERSEARCHREQUEST._serialized_end=313
+  _WALLPAPERSEARCHRESPONSE._serialized_start=315
+  _WALLPAPERSEARCHRESPONSE._serialized_end=356
 # @@protoc_insertion_point(module_scope)

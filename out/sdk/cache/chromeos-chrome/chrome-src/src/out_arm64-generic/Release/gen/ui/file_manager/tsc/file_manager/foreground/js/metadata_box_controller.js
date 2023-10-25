@@ -6,7 +6,7 @@
  * This file is checked via TS, so we suppress Closure checks.
  * @suppress {checkTypes}
  */
-import { isFileSystemDirectoryEntry } from '../../common/js/entry_utils.js';
+import { isFileSystemDirectoryEntry, isSameEntry, unwrapEntry } from '../../common/js/entry_utils.js';
 import { FileType } from '../../common/js/file_type.js';
 import '../../common/js/trash.js';
 import { util } from '../../common/js/util.js';
@@ -56,7 +56,7 @@ export class MetadataBoxController {
             return;
         }
         const entry = this.quickViewModel_.getSelectedEntry();
-        const isSameEntry = util.isSameEntry(entry, this.previousEntry_);
+        const sameEntry = isSameEntry(entry, this.previousEntry_);
         this.previousEntry_ = entry;
         if (!entry) {
             this.metadataBox?.clear(false);
@@ -69,10 +69,10 @@ export class MetadataBoxController {
             return;
         }
         // Do not clear isSizeLoading and size fields when the entry is not changed.
-        this.metadataBox.clear(isSameEntry);
+        this.metadataBox.clear(sameEntry);
         const metadata = GENERAL_METADATA_NAMES.concat(['alternateUrl', 'externalFileUrl', 'hosted']);
         this.metadataModel_.get([entry], metadata)
-            .then(this.onGeneralMetadataLoaded_.bind(this, entry, isSameEntry));
+            .then(this.onGeneralMetadataLoaded_.bind(this, entry, sameEntry));
     }
     /**
      * Accessor to get a guaranteed `FilesMetadataBox`.
@@ -192,25 +192,25 @@ export class MetadataBoxController {
      * `isSameEntry` is True if the entry is not changed from the last time. False
      * enables the loading animation.
      */
-    setDirectorySize_(entry, isSameEntry) {
+    setDirectorySize_(entry, sameEntry) {
         if (!isFileSystemDirectoryEntry(entry)) {
             return;
         }
-        const directoryEntry = util.unwrapEntry(entry);
+        const directoryEntry = unwrapEntry(entry);
         if (this.metadataBox.size === '') {
             this.metadataBox.size = ' '; // Provide a dummy size value.
         }
         if (this.isDirectorySizeLoading_) {
-            if (!isSameEntry) {
+            if (!sameEntry) {
                 this.metadataBox.isSizeLoading = true;
             }
             // Store the new setDirectorySize_ request and return.
             this.onDirectorySizeLoaded_ = lastEntry => {
-                this.setDirectorySize_(entry, util.isSameEntry(entry, lastEntry));
+                this.setDirectorySize_(entry, isSameEntry(entry, lastEntry));
             };
             return;
         }
-        this.metadataBox.isSizeLoading = !isSameEntry;
+        this.metadataBox.isSizeLoading = !sameEntry;
         this.isDirectorySizeLoading_ = true;
         chrome.fileManagerPrivate.getDirectorySize(directoryEntry, (size) => {
             this.isDirectorySizeLoading_ = false;

@@ -468,6 +468,33 @@ inline base::Value ToValue(const storage::AttributionReportingEventReportWindows
   return value.Serialize();
 }
 
+template <>
+struct FromValue<storage::AttributionReportingTriggerDataMatching> {
+  static storage::AttributionReportingTriggerDataMatching Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return storage::AttributionReportingTriggerDataMatching::EXACT;
+    }
+    if (value.GetString() == "exact")
+      return storage::AttributionReportingTriggerDataMatching::EXACT;
+    if (value.GetString() == "modulus")
+      return storage::AttributionReportingTriggerDataMatching::MODULUS;
+    errors->AddError("invalid enum value");
+    return storage::AttributionReportingTriggerDataMatching::EXACT;
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingTriggerDataMatching& value) {
+  switch (value) {
+    case storage::AttributionReportingTriggerDataMatching::EXACT:
+      return base::Value("exact");
+    case storage::AttributionReportingTriggerDataMatching::MODULUS:
+      return base::Value("modulus");
+  };
+  NOTREACHED();
+  return base::Value();
+}
 
 template <>
 struct FromValue<storage::AttributionReportingSourceRegistration> {

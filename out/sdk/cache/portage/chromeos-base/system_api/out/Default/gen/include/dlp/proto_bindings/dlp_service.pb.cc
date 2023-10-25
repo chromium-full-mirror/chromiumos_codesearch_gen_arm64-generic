@@ -214,8 +214,7 @@ struct IsDlpPolicyMatchedResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IsDlpPolicyMatchedResponseDefaultTypeInternal _IsDlpPolicyMatchedResponse_default_instance_;
 PROTOBUF_CONSTEXPR GetFilesSourcesRequest::GetFilesSourcesRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.files_inodes_)*/{}
-  , /*decltype(_impl_.files_paths_)*/{}
+    /*decltype(_impl_.files_paths_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetFilesSourcesRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetFilesSourcesRequestDefaultTypeInternal()
@@ -3874,8 +3873,7 @@ GetFilesSourcesRequest::GetFilesSourcesRequest(const GetFilesSourcesRequest& fro
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   GetFilesSourcesRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.files_inodes_){from._impl_.files_inodes_}
-    , decltype(_impl_.files_paths_){from._impl_.files_paths_}
+      decltype(_impl_.files_paths_){from._impl_.files_paths_}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -3887,8 +3885,7 @@ inline void GetFilesSourcesRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.files_inodes_){arena}
-    , decltype(_impl_.files_paths_){arena}
+      decltype(_impl_.files_paths_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3904,7 +3901,6 @@ GetFilesSourcesRequest::~GetFilesSourcesRequest() {
 
 inline void GetFilesSourcesRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.files_inodes_.~RepeatedField();
   _impl_.files_paths_.~RepeatedPtrField();
 }
 
@@ -3918,7 +3914,6 @@ void GetFilesSourcesRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.files_inodes_.Clear();
   _impl_.files_paths_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -3929,22 +3924,6 @@ const char* GetFilesSourcesRequest::_InternalParse(const char* ptr, ::_pbi::Pars
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated uint64 files_inodes = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            _internal_add_files_inodes(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<8>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 10) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_files_inodes(), ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // repeated string files_paths = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
@@ -3988,12 +3967,6 @@ uint8_t* GetFilesSourcesRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated uint64 files_inodes = 1;
-  for (int i = 0, n = this->_internal_files_inodes_size(); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_files_inodes(i), target);
-  }
-
   // repeated string files_paths = 2;
   for (int i = 0, n = this->_internal_files_paths_size(); i < n; i++) {
     const auto& s = this->_internal_files_paths(i);
@@ -4015,15 +3988,6 @@ size_t GetFilesSourcesRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // repeated uint64 files_inodes = 1;
-  {
-    size_t data_size = ::_pbi::WireFormatLite::
-      UInt64Size(this->_impl_.files_inodes_);
-    total_size += 1 *
-                  ::_pbi::FromIntSize(this->_internal_files_inodes_size());
-    total_size += data_size;
-  }
 
   // repeated string files_paths = 2;
   total_size += 1 *
@@ -4054,7 +4018,6 @@ void GetFilesSourcesRequest::MergeFrom(const GetFilesSourcesRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.files_inodes_.MergeFrom(from._impl_.files_inodes_);
   _this->_impl_.files_paths_.MergeFrom(from._impl_.files_paths_);
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -4073,7 +4036,6 @@ bool GetFilesSourcesRequest::IsInitialized() const {
 void GetFilesSourcesRequest::InternalSwap(GetFilesSourcesRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.files_inodes_.InternalSwap(&other->_impl_.files_inodes_);
   _impl_.files_paths_.InternalSwap(&other->_impl_.files_paths_);
 }
 

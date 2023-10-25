@@ -79,6 +79,15 @@ export class TraceLoader {
         return events;
     }
     /**
+     * Load an array of raw events from the trace file.
+     * Will default to typing those events using the types from TraceEngine, but
+     * can be overriden by passing the legacy EventPayload type as the generic.
+     **/
+    static async rawCPUProfile(context, name) {
+        const contents = await TraceLoader.fixtureContents(context, name);
+        return contents;
+    }
+    /**
      * Executes only the new trace engine on the fixture and returns the resulting parsed data.
      *
      * @param context The Mocha test context. |allModelsFromFile| function easily
@@ -99,7 +108,7 @@ export class TraceLoader {
             return fromCache;
         }
         const fileContents = await TraceLoader.fixtureContents(context, name);
-        const traceEngineData = await executeTraceEngineOnFileContents(fileContents, /* emulate fresh recording */ false, config);
+        const traceEngineData = await TraceLoader.executeTraceEngineOnFileContents(fileContents, /* emulate fresh recording */ false, config);
         const cacheByName = traceEngineCache.get(name) || new Map();
         cacheByName.set(configCacheKey, traceEngineData.traceParsedData);
         traceEngineCache.set(name, cacheByName);
@@ -127,7 +136,7 @@ export class TraceLoader {
         const fileContents = await TraceLoader.fixtureContents(context, name);
         const events = 'traceEvents' in fileContents ? fileContents.traceEvents : fileContents;
         // Execute the new trace engine
-        const traceEngineData = await executeTraceEngineOnFileContents(fileContents);
+        const traceEngineData = await TraceLoader.executeTraceEngineOnFileContents(fileContents);
         // Execute and populate the legacy models
         const tracingModel = new TraceEngine.Legacy.TracingModel();
         const performanceModel = new Timeline.PerformanceModel.PerformanceModel();
@@ -147,6 +156,31 @@ export class TraceLoader {
         };
         allModelsCache.set(name, result);
         return result;
+    }
+    static async executeTraceEngineOnFileContents(contents, emulateFreshRecording = false, traceEngineConfig) {
+        const events = 'traceEvents' in contents ? contents.traceEvents : contents;
+        return new Promise((resolve, reject) => {
+            const model = TraceEngine.TraceModel.Model.createWithAllHandlers(traceEngineConfig);
+            model.addEventListener(TraceEngine.TraceModel.ModelUpdateEvent.eventName, (event) => {
+                const { data } = event;
+                // When we receive the final update from the model, update the recording
+                // state back to waiting.
+                if (TraceEngine.TraceModel.isModelUpdateDataComplete(data)) {
+                    const metadata = model.metadata(0);
+                    const traceParsedData = model.traceParsedData(0);
+                    if (metadata && traceParsedData) {
+                        resolve({
+                            metadata,
+                            traceParsedData,
+                        });
+                    }
+                    else {
+                        reject(new Error('Unable to load trace'));
+                    }
+                }
+            });
+            void model.parse(events, { metadata: {}, isFreshRecording: emulateFreshRecording }).catch(e => console.error(e));
+        });
     }
 }
 // Below this point are private methods used in the TraceLoader class. These
@@ -179,30 +213,5 @@ function codec(buffer, codecStream) {
 }
 function decodeGzipBuffer(buffer) {
     return codec(buffer, new DecompressionStream('gzip'));
-}
-async function executeTraceEngineOnFileContents(contents, emulateFreshRecording = false, traceEngineConfig) {
-    const events = 'traceEvents' in contents ? contents.traceEvents : contents;
-    return new Promise((resolve, reject) => {
-        const model = TraceEngine.TraceModel.Model.createWithAllHandlers(traceEngineConfig);
-        model.addEventListener(TraceEngine.TraceModel.ModelUpdateEvent.eventName, (event) => {
-            const { data } = event;
-            // When we receive the final update from the model, update the recording
-            // state back to waiting.
-            if (TraceEngine.TraceModel.isModelUpdateDataComplete(data)) {
-                const metadata = model.metadata(0);
-                const traceParsedData = model.traceParsedData(0);
-                if (metadata && traceParsedData) {
-                    resolve({
-                        metadata,
-                        traceParsedData,
-                    });
-                }
-                else {
-                    reject(new Error('Unable to load trace'));
-                }
-            }
-        });
-        void model.parse(events, { metadata: {}, isFreshRecording: emulateFreshRecording }).catch(e => console.error(e));
-    });
 }
 //# sourceMappingURL=TraceLoader.js.map

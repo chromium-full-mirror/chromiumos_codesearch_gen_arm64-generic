@@ -130,7 +130,7 @@ class FrameSinkVideoConsumer
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kOnFrameCapturedMinVersion = 0,
-    kOnNewCropVersionMinVersion = 0,
+    kOnNewSubCaptureTargetVersionMinVersion = 0,
     kOnFrameWithEmptyRegionCaptureMinVersion = 0,
     kOnStoppedMinVersion = 0,
     kOnLogMinVersion = 0,
@@ -142,7 +142,7 @@ class FrameSinkVideoConsumer
   struct OnFrameCaptured_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct OnNewCropVersion_Sym {
+  struct OnNewSubCaptureTargetVersion_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnFrameWithEmptyRegionCapture_Sym {
@@ -161,7 +161,7 @@ class FrameSinkVideoConsumer
   virtual void OnFrameCaptured(::media::mojom::VideoBufferHandlePtr data, ::media::mojom::VideoFrameInfoPtr info, const ::gfx::Rect& content_rect, ::mojo::PendingRemote<FrameSinkVideoConsumerFrameCallbacks> callbacks) = 0;
 
   
-  virtual void OnNewCropVersion(uint32_t crop_version) = 0;
+  virtual void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) = 0;
 
   
   virtual void OnFrameWithEmptyRegionCapture() = 0;
@@ -266,7 +266,7 @@ class FrameSinkVideoCapturer
   virtual void SetAutoThrottlingEnabled(bool enabled) = 0;
 
   
-  virtual void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t crop_version) = 0;
+  virtual void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) = 0;
 
   
   virtual void Start(::mojo::PendingRemote<FrameSinkVideoConsumer> consumer, BufferFormatPreference buffer_format_preference) = 0;
@@ -361,7 +361,7 @@ class  FrameSinkVideoConsumerProxy
   
   void OnFrameCaptured(::media::mojom::VideoBufferHandlePtr data, ::media::mojom::VideoFrameInfoPtr info, const ::gfx::Rect& content_rect, ::mojo::PendingRemote<FrameSinkVideoConsumerFrameCallbacks> callbacks) final;
   
-  void OnNewCropVersion(uint32_t crop_version) final;
+  void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) final;
   
   void OnFrameWithEmptyRegionCapture() final;
   
@@ -392,7 +392,7 @@ class  FrameSinkVideoCapturerProxy
   
   void SetAutoThrottlingEnabled(bool enabled) final;
   
-  void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t crop_version) final;
+  void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) final;
   
   void Start(::mojo::PendingRemote<FrameSinkVideoConsumer> consumer, BufferFormatPreference buffer_format_preference) final;
   

@@ -1,7 +1,7 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include/update_engine -Igen/include -I../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4837/work/update_engine-0.0.3/platform2 -Igen
+include_dirs = -Igen/include/update_engine -Igen/include -I../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2 -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIE
-cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -DVCSID=\"0.0.3-r4837-db37fc49f46f1f4515f554543d83cf26967e6bcc\" -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -DVCSID=\"0.0.3-r4841-89277b7a646e5ee354d01a90319406721be14bf1\" -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libupdate_metadata-protos
 

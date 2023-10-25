@@ -249,7 +249,7 @@ VideoCaptureObserver_OnFrameDropped_Params_Data::VideoCaptureObserver_OnFrameDro
 
 
 // static
-bool VideoCaptureObserver_OnNewCropVersion_Params_Data::Validate(
+bool VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -261,13 +261,13 @@ bool VideoCaptureObserver_OnNewCropVersion_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const VideoCaptureObserver_OnNewCropVersion_Params_Data* object =
-      static_cast<const VideoCaptureObserver_OnNewCropVersion_Params_Data*>(data);
+  [[maybe_unused]] const VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data* object =
+      static_cast<const VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data*>(data);
 
   return true;
 }
 
-VideoCaptureObserver_OnNewCropVersion_Params_Data::VideoCaptureObserver_OnNewCropVersion_Params_Data()
+VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data::VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

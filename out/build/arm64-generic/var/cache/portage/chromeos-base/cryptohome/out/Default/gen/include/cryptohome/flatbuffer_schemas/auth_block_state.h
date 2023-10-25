@@ -92,7 +92,7 @@ namespace cryptohome {
 
 struct ChallengeCredentialAuthBlockState {
   ::cryptohome::ScryptAuthBlockState scrypt_state;
-  std::optional<::cryptohome::structure::SignatureChallengeInfo>
+  std::optional<::cryptohome::SerializedSignatureChallengeInfo>
       keyset_challenge_info;
 };
 

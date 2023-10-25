@@ -8,6 +8,8 @@
 #define COMPONENTS_ATTRIBUTION_REPORTING_REGISTRATION_MOJOM_IMPORT_HEADERS_H_
 #include "components/attribution_reporting/source_registration_time_config.mojom.h"
 #include "components/attribution_reporting/source_registration_time_config.mojom-import-headers.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-import-headers.h"
 #include "mojo/public/mojom/base/int128.mojom.h"
 #include "mojo/public/mojom/base/int128.mojom-import-headers.h"
 #include "mojo/public/mojom/base/time.mojom.h"

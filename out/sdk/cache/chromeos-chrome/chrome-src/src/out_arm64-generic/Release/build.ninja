@@ -334,6 +334,7 @@ build alpha_compositing_protocol_gen: phony obj/third_party/wayland-protocols/al
 build alr_detector: phony obj/third_party/webrtc/modules/congestion_controller/goog_cc/libalr_detector.a
 build alr_experiment: phony obj/third_party/webrtc/rtc_base/experiments/libalr_experiment.a
 build always_valid_pointer: phony obj/third_party/webrtc/rtc_base/memory/always_valid_pointer.stamp
+build amalgamated_perfetto_sql_stdlib: phony obj/base/test/amalgamated_perfetto_sql_stdlib.stamp
 build ana_config_proto: phony obj/third_party/webrtc/modules/audio_coding/libana_config_proto.a
 build ana_config_proto_gen: phony obj/third_party/webrtc/modules/audio_coding/ana_config_proto_gen.stamp
 build ana_debug_dump_proto: phony obj/third_party/webrtc/modules/audio_coding/libana_debug_dump_proto.a
@@ -1239,7 +1240,6 @@ build builtin_video_decoder_factory: phony obj/third_party/webrtc/api/video_code
 build builtin_video_encoder_factory: phony obj/third_party/webrtc/api/video_codecs/libbuiltin_video_encoder_factory.a
 build bump_allocator: phony obj/third_party/perfetto/src/trace_processor/util/bump_allocator.stamp
 build bundle-copy-gen-javascript: phony obj/third_party/devtools-frontend/src/front_end/third_party/lighthouse/report/bundle-copy-gen-javascript.stamp
-build bundle_js: phony obj/components/security_interstitials/core/browser/resources/bundle_js.stamp
 build bundle_js_interstitial_large: phony obj/components/security_interstitials/core/browser/resources/bundle_js_interstitial_large.stamp
 build bundle_js_interstitial_webview_quiet: phony obj/components/security_interstitials/core/browser/resources/bundle_js_interstitial_webview_quiet.stamp
 build bundle_lit: phony obj/third_party/material_web_components/bundle_lit.stamp
@@ -2147,7 +2147,7 @@ build credentials: phony obj/chromeos/ash/components/nearby/presence/credentials
 build critical_error_page: phony obj/ash/webui/shimless_rma/resources/critical_error_page.stamp
 build critical_error_page_test: phony obj/chrome/test/data/webui/chromeos/shimless_rma/critical_error_page_test.stamp
 build criticalsection: phony obj/third_party/webrtc/rtc_base/libcriticalsection.a
-build cronet: phony ./libcronet.120.0.6084.0.so.TOC
+build cronet: phony ./libcronet.120.0.6086.0.so.TOC
 build cronet_common: phony obj/components/cronet/cronet_common.stamp
 build cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
 build cronet_native_headers: phony obj/components/cronet/native/cronet_native_headers.stamp
@@ -2833,7 +2833,6 @@ build enterprise_enrollment: phony obj/chrome/browser/resources/chromeos/login/s
 build enterprise_params: phony obj/remoting/host/enterprise_params.stamp
 build enterprise_support: phony obj/remoting/host/chromeos/enterprise_support.stamp
 build entities: phony obj/components/optimization_guide/core/libentities.a
-build entries_changed_event: phony obj/ui/file_manager/file_manager/externs/entries_changed_event.stamp
 build entry_location: phony obj/ui/file_manager/file_manager/externs/entry_location.stamp
 build enum: phony obj/components/back_forward_cache/enum.stamp
 build enums: phony obj/third_party/webrtc/api/transport/enums.stamp
@@ -3384,7 +3383,6 @@ build function_view: phony obj/third_party/webrtc/api/function_view.stamp
 build functions: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/intrinsics/functions/functions.stamp
 build fusebox_proto: phony obj/chrome/browser/ash/fusebox/libfusebox_proto.a
 build fusebox_proto_gen: phony obj/chrome/browser/ash/fusebox/fusebox_proto_gen.stamp
-build fuzz: phony obj/third_party/dawn/src/tint/cmd/fuzz/wgsl/fuzz.stamp
 build fuzz_mojom: phony obj/mojo/public/tools/fuzzers/fuzz_mojom.stamp
 build fuzz_mojom__check_deps_are_all_mojom: phony obj/mojo/public/tools/fuzzers/fuzz_mojom__check_deps_are_all_mojom.stamp
 build fuzz_mojom__generate_message_ids: phony obj/mojo/public/tools/fuzzers/fuzz_mojom__generate_message_ids.stamp
@@ -12731,6 +12729,7 @@ build base/allocator/partition_allocator/src/partition_alloc$:partition_alloc_bu
 build base/allocator/partition_allocator/src/partition_alloc$:raw_ptr: phony obj/base/allocator/partition_allocator/src/partition_alloc/raw_ptr.stamp
 build base/allocator/partition_allocator/src/partition_alloc$:raw_ptr_buildflags: phony obj/base/allocator/partition_allocator/src/partition_alloc/raw_ptr_buildflags.stamp
 build base/numerics$:base_numerics: phony obj/base/numerics/base_numerics.stamp
+build base/test$:amalgamated_perfetto_sql_stdlib: phony obj/base/test/amalgamated_perfetto_sql_stdlib.stamp
 build base/test$:gen_cc_chrome_track_event_descriptor: phony obj/base/test/gen_cc_chrome_track_event_descriptor.stamp
 build base/test$:immediate_crash_test_helper: phony ./libimmediate_crash_test_helper.so.TOC
 build base/test$:malloc_wrapper: phony ./libmalloc_wrapper.so.TOC
@@ -20339,8 +20338,8 @@ build components/crash/core/common$:crash_key: phony obj/components/crash/core/c
 build components/crash/core/common$:crash_key_lib: phony obj/components/crash/core/common/libcrash_key_lib.a
 build components/crash/core/common$:crash_key_utils: phony obj/components/crash/core/common/libcrash_key_utils.a
 build components/crash/core/common$:unit_tests: phony obj/components/crash/core/common/unit_tests.stamp
-build components/cronet$:cronet: phony ./libcronet.120.0.6084.0.so.TOC
-build components/cronet: phony ./libcronet.120.0.6084.0.so.TOC
+build components/cronet$:cronet: phony ./libcronet.120.0.6086.0.so.TOC
+build components/cronet: phony ./libcronet.120.0.6086.0.so.TOC
 build components/cronet$:cronet_buildflags: phony obj/components/cronet/cronet_buildflags.stamp
 build components/cronet$:cronet_common: phony obj/components/cronet/cronet_common.stamp
 build components/cronet$:cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
@@ -21674,6 +21673,8 @@ build components/navigation_metrics$:unit_tests: phony obj/components/navigation
 build components/net_log$:net_log: phony obj/components/net_log/libnet_log.a
 build components/net_log: phony obj/components/net_log/libnet_log.a
 build components/net_log$:unit_tests: phony obj/components/net_log/unit_tests.stamp
+build components/neterror/resources$:bundle_js: phony obj/components/neterror/resources/bundle_js.stamp
+build components/neterror/resources$:preprocess: phony obj/components/neterror/resources/preprocess.stamp
 build components/network_hints/browser$:browser: phony obj/components/network_hints/browser/browser.stamp
 build components/network_hints/browser: phony obj/components/network_hints/browser/browser.stamp
 build components/network_hints/common$:mojo_bindings: phony obj/components/network_hints/common/mojo_bindings.stamp
@@ -22325,6 +22326,7 @@ build components/plugins/renderer: phony obj/components/plugins/renderer/librend
 build components/plus_addresses$:features: phony obj/components/plus_addresses/libplus_addresses_features.a
 build components/plus_addresses$:plus_addresses: phony obj/components/plus_addresses/plus_addresses.stamp
 build components/plus_addresses: phony obj/components/plus_addresses/plus_addresses.stamp
+build components/plus_addresses$:test_support: phony obj/components/plus_addresses/libtest_support.a
 build components/plus_addresses$:unit_tests: phony obj/components/plus_addresses/unit_tests.stamp
 build components/policy$:chrome_settings_proto_generated_compile: phony obj/components/policy/chrome_settings_proto_generated_compile.stamp
 build components/policy$:chrome_settings_proto_generated_compile_proto: phony obj/components/policy/libchrome_settings_proto_generated_compile_proto.a
@@ -31024,6 +31026,7 @@ build third_party/blink/renderer/modules/shared_storage$:shared_storage: phony o
 build third_party/blink/renderer/modules/shared_storage: phony obj/third_party/blink/renderer/modules/shared_storage/libshared_storage.a
 build third_party/blink/renderer/modules/smart_card$:smart_card: phony obj/third_party/blink/renderer/modules/smart_card/libsmart_card.a
 build third_party/blink/renderer/modules/smart_card: phony obj/third_party/blink/renderer/modules/smart_card/libsmart_card.a
+build third_party/blink/renderer/modules/smart_card$:unit_tests: phony obj/third_party/blink/renderer/modules/smart_card/unit_tests.stamp
 build third_party/blink/renderer/modules/speech$:speech: phony obj/third_party/blink/renderer/modules/speech/libspeech.a
 build third_party/blink/renderer/modules/speech: phony obj/third_party/blink/renderer/modules/speech/libspeech.a
 build third_party/blink/renderer/modules/srcobject$:srcobject: phony obj/third_party/blink/renderer/modules/srcobject/libsrcobject.a
@@ -31592,12 +31595,14 @@ build third_party/dawn/src/tint/lang/spirv/writer/raise$:raise: phony obj/third_
 build third_party/dawn/src/tint/lang/spirv/writer/raise: phony obj/third_party/dawn/src/tint/lang/spirv/writer/raise/raise.stamp
 build third_party/dawn/src/tint/lang/spirv/writer/raise$:unittests: phony obj/third_party/dawn/src/tint/lang/spirv/writer/raise/unittests.stamp
 build third_party/dawn/src/tint/lang/wgsl$:bench: phony obj/third_party/dawn/src/tint/lang/wgsl/bench.stamp
+build third_party/dawn/src/tint/lang/wgsl$:fuzz: phony obj/third_party/dawn/src/tint/lang/wgsl/fuzz.stamp
 build third_party/dawn/src/tint/lang/wgsl$:unittests: phony obj/third_party/dawn/src/tint/lang/wgsl/unittests.stamp
 build third_party/dawn/src/tint/lang/wgsl$:wgsl: phony obj/third_party/dawn/src/tint/lang/wgsl/wgsl.stamp
 build third_party/dawn/src/tint/lang/wgsl: phony obj/third_party/dawn/src/tint/lang/wgsl/wgsl.stamp
 build third_party/dawn/src/tint/lang/wgsl/ast$:ast: phony obj/third_party/dawn/src/tint/lang/wgsl/ast/ast.stamp
 build third_party/dawn/src/tint/lang/wgsl/ast: phony obj/third_party/dawn/src/tint/lang/wgsl/ast/ast.stamp
 build third_party/dawn/src/tint/lang/wgsl/ast$:unittests: phony obj/third_party/dawn/src/tint/lang/wgsl/ast/unittests.stamp
+build third_party/dawn/src/tint/lang/wgsl/ast/transform$:fuzz: phony obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/fuzz.stamp
 build third_party/dawn/src/tint/lang/wgsl/ast/transform$:transform: phony obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.stamp
 build third_party/dawn/src/tint/lang/wgsl/ast/transform: phony obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.stamp
 build third_party/dawn/src/tint/lang/wgsl/ast/transform$:unittests: phony obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/unittests.stamp
@@ -37539,7 +37544,6 @@ build ui/file_manager/file_manager/common/js$:volume_manager_types: phony obj/ui
 build ui/file_manager/file_manager/common/js$:volume_manager_types_unittest: phony obj/ui/file_manager/file_manager/common/js/volume_manager_types_unittest.stamp
 build ui/file_manager/file_manager/externs$:command_handler_deps: phony obj/ui/file_manager/file_manager/externs/command_handler_deps.stamp
 build ui/file_manager/file_manager/externs$:directory_change_event: phony obj/ui/file_manager/file_manager/externs/directory_change_event.stamp
-build ui/file_manager/file_manager/externs$:entries_changed_event: phony obj/ui/file_manager/file_manager/externs/entries_changed_event.stamp
 build ui/file_manager/file_manager/externs$:entry_location: phony obj/ui/file_manager/file_manager/externs/entry_location.stamp
 build ui/file_manager/file_manager/externs$:exif_entry: phony obj/ui/file_manager/file_manager/externs/exif_entry.stamp
 build ui/file_manager/file_manager/externs$:file_manager_private: phony obj/ui/file_manager/file_manager/externs/file_manager_private.stamp
@@ -40658,6 +40662,7 @@ build all: phony $
     obj/base/allocator/partition_allocator/src/partition_alloc/raw_ptr.stamp $
     obj/base/allocator/partition_allocator/src/partition_alloc/raw_ptr_buildflags.stamp $
     obj/base/numerics/base_numerics.stamp $
+    obj/base/test/amalgamated_perfetto_sql_stdlib.stamp $
     obj/base/test/gen_cc_chrome_track_event_descriptor.stamp $
     ./libimmediate_crash_test_helper.so.TOC $
     ./libmalloc_wrapper.so.TOC $
@@ -47666,7 +47671,7 @@ build all: phony $
     obj/components/crash/core/common/libcrash_key_lib.a $
     obj/components/crash/core/common/libcrash_key_utils.a $
     obj/components/crash/core/common/unit_tests.stamp $
-    ./libcronet.120.0.6084.0.so.TOC $
+    ./libcronet.120.0.6086.0.so.TOC $
     obj/components/cronet/cronet_buildflags.stamp $
     obj/components/cronet/cronet_common.stamp $
     obj/components/cronet/cronet_common_unittests.stamp $
@@ -48842,6 +48847,8 @@ build all: phony $
     obj/components/navigation_metrics/unit_tests.stamp $
     obj/components/net_log/libnet_log.a $
     obj/components/net_log/unit_tests.stamp $
+    obj/components/neterror/resources/bundle_js.stamp $
+    obj/components/neterror/resources/preprocess.stamp $
     obj/components/network_hints/browser/browser.stamp $
     obj/components/network_hints/common/mojo_bindings.stamp $
     obj/components/network_hints/common/mojo_bindings__check_deps_are_all_mojom.stamp $
@@ -49413,6 +49420,7 @@ build all: phony $
     obj/components/plugins/renderer/librenderer.a $
     obj/components/plus_addresses/libplus_addresses_features.a $
     obj/components/plus_addresses/plus_addresses.stamp $
+    obj/components/plus_addresses/libtest_support.a $
     obj/components/plus_addresses/unit_tests.stamp $
     obj/components/policy/chrome_settings_proto_generated_compile.stamp $
     obj/components/policy/libchrome_settings_proto_generated_compile_proto.a $
@@ -57401,6 +57409,7 @@ build all: phony $
     obj/third_party/blink/renderer/modules/shapedetection/libshapedetection.a $
     obj/third_party/blink/renderer/modules/shared_storage/libshared_storage.a $
     obj/third_party/blink/renderer/modules/smart_card/libsmart_card.a $
+    obj/third_party/blink/renderer/modules/smart_card/unit_tests.stamp $
     obj/third_party/blink/renderer/modules/speech/libspeech.a $
     obj/third_party/blink/renderer/modules/srcobject/libsrcobject.a $
     obj/third_party/blink/renderer/modules/storage/libstorage.a $
@@ -57869,10 +57878,12 @@ build all: phony $
     obj/third_party/dawn/src/tint/lang/spirv/writer/raise/raise.stamp $
     obj/third_party/dawn/src/tint/lang/spirv/writer/raise/unittests.stamp $
     obj/third_party/dawn/src/tint/lang/wgsl/bench.stamp $
+    obj/third_party/dawn/src/tint/lang/wgsl/fuzz.stamp $
     obj/third_party/dawn/src/tint/lang/wgsl/unittests.stamp $
     obj/third_party/dawn/src/tint/lang/wgsl/wgsl.stamp $
     obj/third_party/dawn/src/tint/lang/wgsl/ast/ast.stamp $
     obj/third_party/dawn/src/tint/lang/wgsl/ast/unittests.stamp $
+    obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/fuzz.stamp $
     obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.stamp $
     obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/unittests.stamp $
     obj/third_party/dawn/src/tint/lang/wgsl/helpers/helpers.stamp $
@@ -63051,7 +63062,6 @@ build all: phony $
     obj/ui/file_manager/file_manager/common/js/volume_manager_types_unittest.stamp $
     obj/ui/file_manager/file_manager/externs/command_handler_deps.stamp $
     obj/ui/file_manager/file_manager/externs/directory_change_event.stamp $
-    obj/ui/file_manager/file_manager/externs/entries_changed_event.stamp $
     obj/ui/file_manager/file_manager/externs/entry_location.stamp $
     obj/ui/file_manager/file_manager/externs/exif_entry.stamp $
     obj/ui/file_manager/file_manager/externs/file_manager_private.stamp $

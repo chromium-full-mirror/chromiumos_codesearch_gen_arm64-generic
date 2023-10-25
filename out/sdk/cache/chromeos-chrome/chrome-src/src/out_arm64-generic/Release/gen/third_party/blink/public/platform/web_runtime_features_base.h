@@ -93,12 +93,12 @@ class BLINK_PLATFORM_EXPORT WebRuntimeFeaturesBase {
   static bool IsFedCmEnabled();
   static void EnableFedCmAuthz(bool);
   static bool IsFedCmAuthzEnabled();
+  static void EnableFedCmAutoSelectedFlag(bool);
+  static bool IsFedCmAutoSelectedFlagEnabled();
   static void EnableFedCmError(bool);
   static bool IsFedCmErrorEnabled();
   static void EnableFedCmHostedDomain(bool);
   static bool IsFedCmHostedDomainEnabled();
-  static void EnableFedCmIdentityCredentialAutoSelectedFlag(bool);
-  static bool IsFedCmIdentityCredentialAutoSelectedFlagEnabled();
   static void EnableFedCmIdPRegistration(bool);
   static bool IsFedCmIdPRegistrationEnabled();
   static void EnableFedCmIdpSigninStatus(bool);

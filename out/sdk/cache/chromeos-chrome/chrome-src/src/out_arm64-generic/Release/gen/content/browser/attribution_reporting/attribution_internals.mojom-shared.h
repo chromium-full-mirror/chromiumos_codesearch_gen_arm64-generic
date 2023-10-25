@@ -27,9 +27,9 @@
 #include "components/attribution_reporting/registration.mojom-shared.h"
 #include "components/attribution_reporting/source_type.mojom-shared.h"
 #include "content/browser/attribution_reporting/aggregatable_result.mojom-shared.h"
+#include "content/browser/attribution_reporting/attribution_reporting.mojom-shared.h"
 #include "content/browser/attribution_reporting/event_level_result.mojom-shared.h"
 #include "content/browser/attribution_reporting/store_source_result.mojom-shared.h"
-#include "content/browser/attribution_reporting/attribution_reporting.mojom-shared.h"
 #include "services/network/public/mojom/attribution.mojom-shared.h"
 #include "url/mojom/origin.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
@@ -641,6 +641,16 @@ static_assert(
     
     auto* pointer = data_->aggregatable_dedup_keys.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint64_t>>(
+        pointer, output, message_);
+  }
+  inline void GetTriggerConfigDataView(
+      ::attribution_reporting::mojom::TriggerConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggerConfig(UserType* output) {
+    
+    auto* pointer = data_->trigger_config.Get();
+    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerConfigDataView>(
         pointer, output, message_);
   }
   template <typename UserType>
@@ -1585,6 +1595,18 @@ struct Serializer<::attribution_internals::mojom::WebUISourceDataView, MaybeCons
         fragment->aggregatable_dedup_keys.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null aggregatable_dedup_keys in WebUISource struct");
+    decltype(Traits::trigger_config(input)) in_trigger_config = Traits::trigger_config(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->trigger_config)::BaseType> trigger_config_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerConfigDataView>(
+        in_trigger_config, trigger_config_fragment);
+    fragment->trigger_config.Set(
+        trigger_config_fragment.is_null() ? nullptr : trigger_config_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->trigger_config.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null trigger_config in WebUISource struct");
     mojo::internal::Serialize<::attribution_internals::mojom::WebUISource_Attributability>(
         Traits::attributability(input), &fragment->attributability);
   }
@@ -2226,6 +2248,11 @@ inline void WebUISourceDataView::GetAggregatableDedupKeysDataView(
     mojo::ArrayDataView<uint64_t>* output) {
   auto pointer = data_->aggregatable_dedup_keys.Get();
   *output = mojo::ArrayDataView<uint64_t>(pointer, message_);
+}
+inline void WebUISourceDataView::GetTriggerConfigDataView(
+    ::attribution_reporting::mojom::TriggerConfigDataView* output) {
+  auto pointer = data_->trigger_config.Get();
+  *output = ::attribution_reporting::mojom::TriggerConfigDataView(pointer, message_);
 }
 
 

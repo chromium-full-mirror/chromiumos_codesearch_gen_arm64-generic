@@ -374,10 +374,11 @@ export const VideoCaptureFrameDropReason = {
   kResolutionAdapterHasNoCallbacks: 23,
   kVideoTrackFrameDelivererNotEnabledReplacingWithBlackFrame: 24,
   kRendererSinkFrameDelivererIsNotStarted: 25,
-  kCropVersionNotCurrent: 26,
+  kCropVersionNotCurrent_DEPRECATED: 26,
   kGpuMemoryBufferMapFailed: 27,
+  kSubCaptureTargetVersionNotCurrent: 28,
   MIN_VALUE: 0,
-  MAX_VALUE: 27,
+  MAX_VALUE: 28,
 };
 
 /**

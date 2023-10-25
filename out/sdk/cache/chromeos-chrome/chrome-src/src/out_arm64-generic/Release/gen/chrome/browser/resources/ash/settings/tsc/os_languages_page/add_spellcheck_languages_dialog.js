@@ -6,13 +6,10 @@
  * adding spell check languages.
  */
 import './add_items_dialog.js';
-import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { recordSettingChange } from '../metrics_recorder.js';
 import { getTemplate } from './add_spellcheck_languages_dialog.html.js';
-// TODO(b/265559727): Remove PrefsMixin as it is unused.
-const OsSettingsAddSpellcheckLanguagesDialogElementBase = PrefsMixin(PolymerElement);
-class OsSettingsAddSpellcheckLanguagesDialogElement extends OsSettingsAddSpellcheckLanguagesDialogElementBase {
+class OsSettingsAddSpellcheckLanguagesDialogElement extends PolymerElement {
     static get is() {
         return 'os-settings-add-spellcheck-languages-dialog';
     }

@@ -6661,6 +6661,29 @@ CookieHasNonAsciiCharacter& CookieHasNonAsciiCharacter::SetValue(int64_t value) 
 }
 
 
+const char Cookies_FirstPartyPartitionedInCrossSiteContext::kEntryName[] = "Cookies.FirstPartyPartitionedInCrossSiteContext";
+const uint64_t Cookies_FirstPartyPartitionedInCrossSiteContext::kEntryNameHash;
+
+Cookies_FirstPartyPartitionedInCrossSiteContext::Cookies_FirstPartyPartitionedInCrossSiteContext(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Cookies_FirstPartyPartitionedInCrossSiteContext::Cookies_FirstPartyPartitionedInCrossSiteContext(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+Cookies_FirstPartyPartitionedInCrossSiteContext::~Cookies_FirstPartyPartitionedInCrossSiteContext() = default;
+
+
+const char Cookies_FirstPartyPartitionedInCrossSiteContext::kCookiePresentName[] = "CookiePresent";
+const uint64_t Cookies_FirstPartyPartitionedInCrossSiteContext::kCookiePresentNameHash;
+
+Cookies_FirstPartyPartitionedInCrossSiteContext& Cookies_FirstPartyPartitionedInCrossSiteContext::SetCookiePresent(int64_t value) {
+  SetMetricInternal(kCookiePresentNameHash, value);
+  return *this;
+}
+
+
 const char CPUUsageMeasurement::kEntryName[] = "CPUUsageMeasurement";
 const uint64_t CPUUsageMeasurement::kEntryNameHash;
 

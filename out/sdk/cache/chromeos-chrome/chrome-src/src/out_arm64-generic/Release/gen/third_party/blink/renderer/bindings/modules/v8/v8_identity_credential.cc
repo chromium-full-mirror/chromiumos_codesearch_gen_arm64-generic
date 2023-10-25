@@ -97,16 +97,16 @@ bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue:
 }
 
 
-void IsIdentityCredentialAutoSelectedAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+void IsAutoSelectedAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_IdentityCredential_isIdentityCredentialAutoSelected_Getter");
-BLINK_BINDINGS_TRACE_EVENT("IdentityCredential.isIdentityCredentialAutoSelected.get");
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_IdentityCredential_isAutoSelected_Getter");
+BLINK_BINDINGS_TRACE_EVENT("IdentityCredential.isAutoSelected.get");
 
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
 IdentityCredential* blink_receiver = V8IdentityCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->isIdentityCredentialAutoSelected();
+auto&& return_value = blink_receiver->isAutoSelected();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
 
@@ -194,9 +194,9 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 void V8IdentityCredential::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::FedCmIdentityCredentialAutoSelectedFlagEnabled()) {
+if (RuntimeEnabledFeatures::FedCmAutoSelectedFlagEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"isIdentityCredentialAutoSelected", IsIdentityCredentialAutoSelectedAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"isAutoSelected", IsAutoSelectedAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

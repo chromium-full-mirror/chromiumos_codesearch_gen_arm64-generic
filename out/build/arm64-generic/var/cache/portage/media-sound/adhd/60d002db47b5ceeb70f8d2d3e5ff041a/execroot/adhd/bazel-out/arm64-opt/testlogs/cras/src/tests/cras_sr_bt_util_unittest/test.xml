@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="11" failures="0" disabled="0" errors="0" time="0.024" timestamp="2023-10-25T11:33:48.219" name="AllTests">
+  <testsuite name="SrBtUtilTest" tests="6" failures="0" disabled="0" skipped="0" errors="0" time="0.018" timestamp="2023-10-25T11:33:48.224">
+    <testcase name="TestExpectedStatus/0" value_param="12-byte object &lt;00-00 00-00 00-00 00-00 01-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="67" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:33:48.224" classname="SrBtUtilTest" />
+    <testcase name="TestExpectedStatus/1" value_param="12-byte object &lt;00-01 00-00 00-00 00-00 02-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="67" status="run" result="completed" time="0.006" timestamp="2023-10-25T11:33:48.228" classname="SrBtUtilTest" />
+    <testcase name="TestExpectedStatus/2" value_param="12-byte object &lt;00-01 01-01 00-00 00-00 03-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="67" status="run" result="completed" time="0.007" timestamp="2023-10-25T11:33:48.234" classname="SrBtUtilTest" />
+    <testcase name="TestExpectedStatus/3" value_param="12-byte object &lt;00-01 01-01 01-00 00-00 00-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="67" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:48.241" classname="SrBtUtilTest" />
+    <testcase name="TestExpectedStatus/4" value_param="12-byte object &lt;01-00 00-00 00-00 00-00 03-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="67" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:48.242" classname="SrBtUtilTest" />
+    <testcase name="TestExpectedStatus/5" value_param="12-byte object &lt;01-00 00-00 01-00 00-00 00-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="67" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:48.242" classname="SrBtUtilTest" />
+  </testsuite>
+  <testsuite name="SendUMALogTest" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2023-10-25T11:33:48.243">
+    <testcase name="TestExpectedStatus/0" value_param="12-byte object &lt;00-00 00-00 00-00 00-00 01-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="127" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:48.243" classname="SendUMALogTest" />
+    <testcase name="TestExpectedStatus/1" value_param="12-byte object &lt;00-00 00-00 01-00 00-00 00-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="127" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:48.243" classname="SendUMALogTest" />
+    <testcase name="TestExpectedStatus/2" value_param="12-byte object &lt;01-00 00-00 00-00 00-00 04-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="127" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:48.243" classname="SendUMALogTest" />
+    <testcase name="TestExpectedStatus/3" value_param="12-byte object &lt;02-00 00-00 00-00 00-00 02-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="127" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:48.244" classname="SendUMALogTest" />
+    <testcase name="TestExpectedStatus/4" value_param="12-byte object &lt;03-00 00-00 00-00 00-00 03-00 00-00&gt;" file="cras/src/tests/cras_sr_bt_util_unittest.cc" line="127" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:48.244" classname="SendUMALogTest" />
+  </testsuite>
+</testsuites>

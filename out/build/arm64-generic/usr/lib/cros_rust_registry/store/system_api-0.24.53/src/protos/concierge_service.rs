@@ -10313,199 +10313,6 @@ impl ::protobuf::Message for AggressiveBalloonResponse {
 }
 
 #[derive(PartialEq,Clone,Default,Debug)]
-// @@protoc_insertion_point(message:vm_tools.concierge.EnableVmMemoryManagementServiceRequest)
-pub struct EnableVmMemoryManagementServiceRequest {
-    // message fields
-    // @@protoc_insertion_point(field:vm_tools.concierge.EnableVmMemoryManagementServiceRequest.arc_kill_request_timeout_ms)
-    pub arc_kill_request_timeout_ms: u32,
-    // special fields
-    // @@protoc_insertion_point(special_field:vm_tools.concierge.EnableVmMemoryManagementServiceRequest.special_fields)
-    pub special_fields: ::protobuf::SpecialFields,
-}
-
-impl<'a> ::std::default::Default for &'a EnableVmMemoryManagementServiceRequest {
-    fn default() -> &'a EnableVmMemoryManagementServiceRequest {
-        <EnableVmMemoryManagementServiceRequest as ::protobuf::Message>::default_instance()
-    }
-}
-
-impl EnableVmMemoryManagementServiceRequest {
-    pub fn new() -> EnableVmMemoryManagementServiceRequest {
-        ::std::default::Default::default()
-    }
-}
-
-impl ::protobuf::Message for EnableVmMemoryManagementServiceRequest {
-    const NAME: &'static str = "EnableVmMemoryManagementServiceRequest";
-
-    fn is_initialized(&self) -> bool {
-        true
-    }
-
-    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::Result<()> {
-        while let Some(tag) = is.read_raw_tag_or_eof()? {
-            match tag {
-                8 => {
-                    self.arc_kill_request_timeout_ms = is.read_uint32()?;
-                },
-                tag => {
-                    ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
-                },
-            };
-        }
-        ::std::result::Result::Ok(())
-    }
-
-    // Compute sizes of nested messages
-    #[allow(unused_variables)]
-    fn compute_size(&self) -> u64 {
-        let mut my_size = 0;
-        if self.arc_kill_request_timeout_ms != 0 {
-            my_size += ::protobuf::rt::uint32_size(1, self.arc_kill_request_timeout_ms);
-        }
-        my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
-        self.special_fields.cached_size().set(my_size as u32);
-        my_size
-    }
-
-    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
-        if self.arc_kill_request_timeout_ms != 0 {
-            os.write_uint32(1, self.arc_kill_request_timeout_ms)?;
-        }
-        os.write_unknown_fields(self.special_fields.unknown_fields())?;
-        ::std::result::Result::Ok(())
-    }
-
-    fn special_fields(&self) -> &::protobuf::SpecialFields {
-        &self.special_fields
-    }
-
-    fn mut_special_fields(&mut self) -> &mut ::protobuf::SpecialFields {
-        &mut self.special_fields
-    }
-
-    fn new() -> EnableVmMemoryManagementServiceRequest {
-        EnableVmMemoryManagementServiceRequest::new()
-    }
-
-    fn clear(&mut self) {
-        self.arc_kill_request_timeout_ms = 0;
-        self.special_fields.clear();
-    }
-
-    fn default_instance() -> &'static EnableVmMemoryManagementServiceRequest {
-        static instance: EnableVmMemoryManagementServiceRequest = EnableVmMemoryManagementServiceRequest {
-            arc_kill_request_timeout_ms: 0,
-            special_fields: ::protobuf::SpecialFields::new(),
-        };
-        &instance
-    }
-}
-
-#[derive(PartialEq,Clone,Default,Debug)]
-// @@protoc_insertion_point(message:vm_tools.concierge.EnableVmMemoryManagementServiceResponse)
-pub struct EnableVmMemoryManagementServiceResponse {
-    // message fields
-    // @@protoc_insertion_point(field:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.success)
-    pub success: bool,
-    // @@protoc_insertion_point(field:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.failure_reason)
-    pub failure_reason: ::std::string::String,
-    // special fields
-    // @@protoc_insertion_point(special_field:vm_tools.concierge.EnableVmMemoryManagementServiceResponse.special_fields)
-    pub special_fields: ::protobuf::SpecialFields,
-}
-
-impl<'a> ::std::default::Default for &'a EnableVmMemoryManagementServiceResponse {
-    fn default() -> &'a EnableVmMemoryManagementServiceResponse {
-        <EnableVmMemoryManagementServiceResponse as ::protobuf::Message>::default_instance()
-    }
-}
-
-impl EnableVmMemoryManagementServiceResponse {
-    pub fn new() -> EnableVmMemoryManagementServiceResponse {
-        ::std::default::Default::default()
-    }
-}
-
-impl ::protobuf::Message for EnableVmMemoryManagementServiceResponse {
-    const NAME: &'static str = "EnableVmMemoryManagementServiceResponse";
-
-    fn is_initialized(&self) -> bool {
-        true
-    }
-
-    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream<'_>) -> ::protobuf::Result<()> {
-        while let Some(tag) = is.read_raw_tag_or_eof()? {
-            match tag {
-                8 => {
-                    self.success = is.read_bool()?;
-                },
-                18 => {
-                    self.failure_reason = is.read_string()?;
-                },
-                tag => {
-                    ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
-                },
-            };
-        }
-        ::std::result::Result::Ok(())
-    }
-
-    // Compute sizes of nested messages
-    #[allow(unused_variables)]
-    fn compute_size(&self) -> u64 {
-        let mut my_size = 0;
-        if self.success != false {
-            my_size += 1 + 1;
-        }
-        if !self.failure_reason.is_empty() {
-            my_size += ::protobuf::rt::string_size(2, &self.failure_reason);
-        }
-        my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
-        self.special_fields.cached_size().set(my_size as u32);
-        my_size
-    }
-
-    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
-        if self.success != false {
-            os.write_bool(1, self.success)?;
-        }
-        if !self.failure_reason.is_empty() {
-            os.write_string(2, &self.failure_reason)?;
-        }
-        os.write_unknown_fields(self.special_fields.unknown_fields())?;
-        ::std::result::Result::Ok(())
-    }
-
-    fn special_fields(&self) -> &::protobuf::SpecialFields {
-        &self.special_fields
-    }
-
-    fn mut_special_fields(&mut self) -> &mut ::protobuf::SpecialFields {
-        &mut self.special_fields
-    }
-
-    fn new() -> EnableVmMemoryManagementServiceResponse {
-        EnableVmMemoryManagementServiceResponse::new()
-    }
-
-    fn clear(&mut self) {
-        self.success = false;
-        self.failure_reason.clear();
-        self.special_fields.clear();
-    }
-
-    fn default_instance() -> &'static EnableVmMemoryManagementServiceResponse {
-        static instance: EnableVmMemoryManagementServiceResponse = EnableVmMemoryManagementServiceResponse {
-            success: false,
-            failure_reason: ::std::string::String::new(),
-            special_fields: ::protobuf::SpecialFields::new(),
-        };
-        &instance
-    }
-}
-
-#[derive(PartialEq,Clone,Default,Debug)]
 // @@protoc_insertion_point(message:vm_tools.concierge.GetVmMemoryManagementKillsConnectionRequest)
 pub struct GetVmMemoryManagementKillsConnectionRequest {
     // special fields
@@ -10587,6 +10394,8 @@ pub struct GetVmMemoryManagementKillsConnectionResponse {
     // message fields
     // @@protoc_insertion_point(field:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.success)
     pub success: bool,
+    // @@protoc_insertion_point(field:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.host_kill_request_timeout_ms)
+    pub host_kill_request_timeout_ms: u32,
     // @@protoc_insertion_point(field:vm_tools.concierge.GetVmMemoryManagementKillsConnectionResponse.failure_reason)
     pub failure_reason: ::std::string::String,
     // special fields
@@ -10619,6 +10428,9 @@ impl ::protobuf::Message for GetVmMemoryManagementKillsConnectionResponse {
                 8 => {
                     self.success = is.read_bool()?;
                 },
+                24 => {
+                    self.host_kill_request_timeout_ms = is.read_uint32()?;
+                },
                 18 => {
                     self.failure_reason = is.read_string()?;
                 },
@@ -10637,6 +10449,9 @@ impl ::protobuf::Message for GetVmMemoryManagementKillsConnectionResponse {
         if self.success != false {
             my_size += 1 + 1;
         }
+        if self.host_kill_request_timeout_ms != 0 {
+            my_size += ::protobuf::rt::uint32_size(3, self.host_kill_request_timeout_ms);
+        }
         if !self.failure_reason.is_empty() {
             my_size += ::protobuf::rt::string_size(2, &self.failure_reason);
         }
@@ -10648,6 +10463,9 @@ impl ::protobuf::Message for GetVmMemoryManagementKillsConnectionResponse {
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
         if self.success != false {
             os.write_bool(1, self.success)?;
+        }
+        if self.host_kill_request_timeout_ms != 0 {
+            os.write_uint32(3, self.host_kill_request_timeout_ms)?;
         }
         if !self.failure_reason.is_empty() {
             os.write_string(2, &self.failure_reason)?;
@@ -10670,6 +10488,7 @@ impl ::protobuf::Message for GetVmMemoryManagementKillsConnectionResponse {
 
     fn clear(&mut self) {
         self.success = false;
+        self.host_kill_request_timeout_ms = 0;
         self.failure_reason.clear();
         self.special_fields.clear();
     }
@@ -10677,6 +10496,7 @@ impl ::protobuf::Message for GetVmMemoryManagementKillsConnectionResponse {
     fn default_instance() -> &'static GetVmMemoryManagementKillsConnectionResponse {
         static instance: GetVmMemoryManagementKillsConnectionResponse = GetVmMemoryManagementKillsConnectionResponse {
             success: false,
+            host_kill_request_timeout_ms: 0,
             failure_reason: ::std::string::String::new(),
             special_fields: ::protobuf::SpecialFields::new(),
         };

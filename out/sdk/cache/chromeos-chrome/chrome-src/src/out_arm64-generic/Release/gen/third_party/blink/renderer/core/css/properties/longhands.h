@@ -4684,6 +4684,24 @@ class MaskClip final : public Longhand {
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
  };
 
+// mask-composite
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class MaskComposite final : public Longhand {
+ public:
+  constexpr MaskComposite() : Longhand(CSSPropertyID::kMaskComposite, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
+  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  void ApplyInitial(StyleResolverState&) const override;
+  void ApplyInherit(StyleResolverState&) const override;
+  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
+ };
+
 // mask-image
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
@@ -4709,6 +4727,24 @@ class MaskImage final : public Longhand {
 class MaskOrigin final : public Longhand {
  public:
   constexpr MaskOrigin() : Longhand(CSSPropertyID::kMaskOrigin, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
+  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  void ApplyInitial(StyleResolverState&) const override;
+  void ApplyInherit(StyleResolverState&) const override;
+  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
+ };
+
+// mask-repeat
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class MaskRepeat final : public Longhand {
+ public:
+  constexpr MaskRepeat() : Longhand(CSSPropertyID::kMaskRepeat, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
@@ -8404,6 +8440,10 @@ class WebkitMaskComposite final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  CSSPropertyID GetAlternative() const override {
+    return CSSPropertyID::kAliasWebkitAlternativeMaskComposite;
+  }
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
@@ -8497,6 +8537,10 @@ class WebkitMaskRepeat final : public Longhand {
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  CSSPropertyID GetAlternative() const override {
+    return CSSPropertyID::kAliasWebkitAlternativeMaskRepeat;
+  }
   const CSSValue* ParseSingleValue(CSSParserTokenRange&, const CSSParserContext&, const CSSParserLocalContext&) const override;
   const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
   void ApplyInitial(StyleResolverState&) const override;
@@ -8999,6 +9043,19 @@ class WebkitAlternativeMaskClip final : public CSSUnresolvedProperty {
   CSSExposure Exposure(const ExecutionContext*) const override;
  };
 
+// -webkit-alternative-mask-composite
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class WebkitAlternativeMaskComposite final : public CSSUnresolvedProperty {
+ public:
+  constexpr WebkitAlternativeMaskComposite() : CSSUnresolvedProperty() { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+ };
+
 // -webkit-alternative-mask-image
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
@@ -9019,6 +9076,19 @@ class WebkitAlternativeMaskImage final : public CSSUnresolvedProperty {
 class WebkitAlternativeMaskOrigin final : public CSSUnresolvedProperty {
  public:
   constexpr WebkitAlternativeMaskOrigin() : CSSUnresolvedProperty() { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+ };
+
+// -webkit-alternative-mask-repeat
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class WebkitAlternativeMaskRepeat final : public CSSUnresolvedProperty {
+ public:
+  constexpr WebkitAlternativeMaskRepeat() : CSSUnresolvedProperty() { }
   const char* GetPropertyName() const override;
   const WTF::AtomicString& GetPropertyNameAtomicString() const override;
   const char* GetJSPropertyName() const override;

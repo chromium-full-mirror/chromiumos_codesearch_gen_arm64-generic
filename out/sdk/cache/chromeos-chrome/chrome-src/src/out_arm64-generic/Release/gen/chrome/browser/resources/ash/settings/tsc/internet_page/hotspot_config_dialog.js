@@ -172,6 +172,9 @@ export class HotspotConfigDialogElement extends HotspotConfigDialogElementBase {
         else if (response.result === SetHotspotConfigResult.kFailedNotLogin) {
             this.error_ = this.i18n('hotspotConfigNotLoginErrorMessage');
         }
+        else {
+            this.error_ = this.i18n('hotspotConfigGeneralErrorMessage');
+        }
     }
 }
 customElements.define(HotspotConfigDialogElement.is, HotspotConfigDialogElement);

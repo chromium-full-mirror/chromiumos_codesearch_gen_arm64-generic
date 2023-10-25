@@ -37,7 +37,7 @@ external_cxxflags = [
   "-fdata-sections",
 ]
 external_cppflags = [
-  "-DVCSID=\"9999-b636250ec43a7e4f9d72e7250932494d1b93c077\"",
+  "-DVCSID=\"9999-6b2c38b983ef6cbf5ca19d0cac54cb79ddaf36f7\"",
   "-D_FILE_OFFSET_BITS=64",
   "-D_LARGEFILE_SOURCE",
   "-D_LARGEFILE64_SOURCE",

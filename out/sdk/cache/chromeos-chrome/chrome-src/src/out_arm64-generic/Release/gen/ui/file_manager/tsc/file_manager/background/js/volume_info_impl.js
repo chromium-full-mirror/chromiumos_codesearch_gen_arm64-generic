@@ -3,7 +3,8 @@
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { FakeEntryImpl } from '../../common/js/files_app_entry_types.js';
-import { str, util } from '../../common/js/util.js';
+import { isDriveFsBulkPinningEnabled } from '../../common/js/flags.js';
+import { str } from '../../common/js/util.js';
 import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
 import '../../externs/files_app_entry_interfaces.js';
 /**
@@ -85,7 +86,7 @@ export class VolumeInfoImpl {
         this.prefixEntry_ = null;
         this.fakeEntries_ = {};
         if (volumeType_ === VolumeManagerCommon.VolumeType.DRIVE) {
-            if (!util.isDriveFsBulkPinningEnabled()) {
+            if (!isDriveFsBulkPinningEnabled()) {
                 this.fakeEntries_[VolumeManagerCommon.RootType.DRIVE_OFFLINE] =
                     new FakeEntryImpl(str('DRIVE_OFFLINE_COLLECTION_LABEL'), VolumeManagerCommon.RootType.DRIVE_OFFLINE);
             }

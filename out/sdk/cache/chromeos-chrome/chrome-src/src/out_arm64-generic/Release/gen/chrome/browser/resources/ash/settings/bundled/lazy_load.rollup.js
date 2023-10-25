@@ -34804,9 +34804,7 @@ function getTemplate$i() {
  * @fileoverview 'os-settings-add-spellcheck-language-dialog' is a dialog for
  * adding spell check languages.
  */
-// TODO(b/265559727): Remove PrefsMixin as it is unused.
-const OsSettingsAddSpellcheckLanguagesDialogElementBase = PrefsMixin(PolymerElement);
-class OsSettingsAddSpellcheckLanguagesDialogElement extends OsSettingsAddSpellcheckLanguagesDialogElementBase {
+class OsSettingsAddSpellcheckLanguagesDialogElement extends PolymerElement {
     static get is() {
         return 'os-settings-add-spellcheck-languages-dialog';
     }
@@ -35399,7 +35397,7 @@ function getTemplate$g() {
 </template>
 
 <template is="dom-if" if="[[showAddSpellcheckLanguagesDialog_]]" restamp>
-  <os-settings-add-spellcheck-languages-dialog languages="[[languages]]" language-helper="[[languageHelper]]" prefs="{{prefs}}" on-close="onAddSpellcheckLanguagesDialogClose_">
+  <os-settings-add-spellcheck-languages-dialog languages="[[languages]]" language-helper="[[languageHelper]]" on-close="onAddSpellcheckLanguagesDialogClose_">
   </os-settings-add-spellcheck-languages-dialog>
 </template>
 <!--_html_template_end_-->`;

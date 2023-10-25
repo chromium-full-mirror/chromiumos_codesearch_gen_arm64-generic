@@ -20,6 +20,7 @@ export class PrintPreviewDestinationListElement extends PrintPreviewDestinationL
     constructor() {
         super(...arguments);
         this.boundUpdateHeight_ = null;
+        // 
     }
     static get is() {
         return 'print-preview-destination-list';
@@ -131,6 +132,14 @@ export class PrintPreviewDestinationListElement extends PrintPreviewDestinationL
      */
     getAriaRowindex_(index) {
         return index + 1;
+    }
+    // 
+    updatePrinterStatusIcon(destinationKey) {
+        const index = this.matchingDestinations_.findIndex(destination => destination.key === destinationKey);
+        if (index === -1) {
+            return;
+        }
+        this.notifyPath(`matchingDestinations_.${index}.printerStatusReason`);
     }
 }
 customElements.define(PrintPreviewDestinationListElement.is, PrintPreviewDestinationListElement);

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { getFocusedTreeItem } from '../../common/js/dom_utils.js';
-import { util } from '../../common/js/util.js';
+import { isNewDirectoryTreeEnabled } from '../../common/js/flags.js';
 import { VolumeManager } from '../../externs/volume_manager.js';
 import { XfTree } from '../../widgets/xf_tree.js';
 import { Action, ActionsModel } from './actions_model.js';
@@ -60,7 +60,7 @@ export class ActionsController {
         this.updateUiSequence_ = 0;
         // Attach listeners to non-user events which will only update the in-memory
         // ActionsModel.
-        if (util.isNewDirectoryTreeEnabled()) {
+        if (isNewDirectoryTreeEnabled()) {
             // @ts-ignore: error TS2531: Object is possibly 'null'.
             this.ui_.directoryTree.addEventListener(XfTree.events.TREE_SELECTION_CHANGED, this.onNavigationListSelectionChanged_.bind(this), true);
         }

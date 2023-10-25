@@ -65,8 +65,10 @@ attributionReporting.mojom.SourceRegistrationError = {
   kEventReportWindowsEndTimeValueInvalid: 34,
   kEventReportWindowsEndTimeDurationLTEStart: 35,
   kBothEventReportWindowFieldsFound: 36,
+  kTriggerDataMatchingWrongType: 37,
+  kTriggerDataMatchingUnknownValue: 38,
   MIN_VALUE: 0,
-  MAX_VALUE: 36,
+  MAX_VALUE: 38,
 };
 
 

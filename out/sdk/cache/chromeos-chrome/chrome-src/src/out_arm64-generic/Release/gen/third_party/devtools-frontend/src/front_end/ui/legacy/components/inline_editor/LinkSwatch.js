@@ -5,6 +5,7 @@ import * as i18n from '../../../../core/i18n/i18n.js';
 import * as Platform from '../../../../core/platform/platform.js';
 import * as ComponentHelpers from '../../../components/helpers/helpers.js';
 import * as LitHtml from '../../../lit-html/lit-html.js';
+import * as VisualLogging from '../../../visual_logging/visual_logging.js';
 import linkSwatchStyles from './linkSwatch.css.js';
 const UIStrings = {
     /**
@@ -124,7 +125,9 @@ export class CSSVarSwatch extends HTMLElement {
             onLinkActivate,
         };
         this.#link.classList.add('css-var-link');
-        render(html `<span data-title=${data.computedValue || ''}>${functionParts.pre}${this.#link}${fallbackIncludeComma}${functionParts.post}</span>`, this.shadow, { host: this });
+        render(html `<span data-title=${data.computedValue || ''} jslog=${VisualLogging.link().track({ click: true, hover: true }).context('cssVar')}>
+            ${functionParts.pre}${this.#link}${fallbackIncludeComma}${functionParts.post}
+          </span>`, this.shadow, { host: this });
     }
 }
 export class LinkSwatch extends HTMLElement {
@@ -134,9 +137,9 @@ export class LinkSwatch extends HTMLElement {
         this.render(data);
     }
     render(data) {
-        const { text, isDefined, onLinkActivate } = data;
+        const { text, isDefined, onLinkActivate, jslogContext } = data;
         const title = isDefined ? text : i18nString(UIStrings.sIsNotDefined, { PH1: text });
-        render(html `<span title=${data.text}><${BaseLinkSwatch.litTagName} .data=${{
+        render(html `<span title=${data.text} jslog=${VisualLogging.link().track({ click: true }).context(jslogContext)}><${BaseLinkSwatch.litTagName} .data=${{
             text,
             isDefined,
             title,

@@ -28,33 +28,33 @@
 #include "cryptohome/flatbuffer_schemas/structures.h"
 #include "libhwsec/structures/signature_sealed_data_test_utils.h"
 
-namespace cryptohome::structure {
+namespace cryptohome {
 
-inline bool operator==(const ChallengePublicKeyInfo& lhs,
-                       const ChallengePublicKeyInfo& rhs) {
+inline bool operator==(const SerializedChallengePublicKeyInfo& lhs,
+                       const SerializedChallengePublicKeyInfo& rhs) {
   return true && lhs.public_key_spki_der == rhs.public_key_spki_der &&
          lhs.signature_algorithm == rhs.signature_algorithm;
 }
-inline bool operator!=(const ChallengePublicKeyInfo& lhs,
-                       const ChallengePublicKeyInfo& rhs) {
+inline bool operator!=(const SerializedChallengePublicKeyInfo& lhs,
+                       const SerializedChallengePublicKeyInfo& rhs) {
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::structure
+}  // namespace cryptohome
 
-namespace cryptohome::structure {
+namespace cryptohome {
 
-inline bool operator==(const SignatureChallengeInfo& lhs,
-                       const SignatureChallengeInfo& rhs) {
+inline bool operator==(const SerializedSignatureChallengeInfo& lhs,
+                       const SerializedSignatureChallengeInfo& rhs) {
   return true && lhs.public_key_spki_der == rhs.public_key_spki_der &&
          lhs.sealed_secret == rhs.sealed_secret && lhs.salt == rhs.salt &&
          lhs.salt_signature_algorithm == rhs.salt_signature_algorithm;
 }
-inline bool operator!=(const SignatureChallengeInfo& lhs,
-                       const SignatureChallengeInfo& rhs) {
+inline bool operator!=(const SerializedSignatureChallengeInfo& lhs,
+                       const SerializedSignatureChallengeInfo& rhs) {
   return !(lhs == rhs);
 }
 
-}  // namespace cryptohome::structure
+}  // namespace cryptohome
 
 #endif  // CRYPTOHOME_FLATBUFFER_SCHEMAS_STRUCTURES_STRUCTURES_TEST_UTILS_H_

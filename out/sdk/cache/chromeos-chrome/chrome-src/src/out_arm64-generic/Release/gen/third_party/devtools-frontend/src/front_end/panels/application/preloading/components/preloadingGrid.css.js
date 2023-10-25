@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`:host{overflow:auto;height:100%}.preloading-container{height:100%;display:flex;flex-direction:column}.preloading-header{font-size:15px;background-color:var(--color-background-elevation-1);padding:1px 4px}.preloading-placeholder{flex-grow:1;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--sys-color-token-subtle)}devtools-data-grid-controller{border:1px solid var(--sys-color-divider)}.inline-icon{vertical-align:text-bottom}
+`:host{overflow:auto;height:100%}.preloading-container{height:100%;display:flex;flex-direction:column}.preloading-header{font-size:15px;background-color:var(--sys-color-cdt-base-container);padding:1px 4px}.preloading-placeholder{flex-grow:1;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--sys-color-token-subtle)}devtools-data-grid-controller{border:1px solid var(--sys-color-divider)}.inline-icon{vertical-align:text-bottom}
 /*# sourceURL=preloadingGrid.css */
 `);
 

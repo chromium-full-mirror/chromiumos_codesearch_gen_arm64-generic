@@ -40,15 +40,15 @@ namespace {
 [[maybe_unused]] constexpr int kFlatbufferAllocatorInitialSize = 4096;
 }  // namespace
 
-namespace cryptohome::structure {
+namespace cryptohome {
 
 __attribute__((visibility("default"))) std::optional<brillo::Blob>
-SignatureChallengeInfo::Serialize() const {
+SerializedSignatureChallengeInfo::Serialize() const {
   flatbuffers::FlatBufferBuilder builder;
   auto buffer = hwsec_foundation::ToFlatBuffer<
-      ::cryptohome::structure::SignatureChallengeInfo>()(&builder, *this);
+      ::cryptohome::SerializedSignatureChallengeInfo>()(&builder, *this);
   if (buffer.IsNull()) {
-    LOG(ERROR) << "SignatureChallengeInfo cannot be serialized.";
+    LOG(ERROR) << "SerializedSignatureChallengeInfo cannot be serialized.";
     return std::nullopt;
   }
   builder.Finish(buffer);
@@ -57,28 +57,28 @@ SignatureChallengeInfo::Serialize() const {
   return brillo::Blob(buf, buf + size);
 }
 
-}  // namespace cryptohome::structure
+}  // namespace cryptohome
 
-namespace cryptohome::structure {
+namespace cryptohome {
 
 // static
 __attribute__((visibility("default")))
-std::optional<::cryptohome::structure::SignatureChallengeInfo>
-SignatureChallengeInfo::Deserialize(const brillo::Blob& blob) {
+std::optional<::cryptohome::SerializedSignatureChallengeInfo>
+SerializedSignatureChallengeInfo::Deserialize(const brillo::Blob& blob) {
   flatbuffers::Verifier verifier(blob.data(), blob.size());
-  if (!::cryptohome::structure::_serialized_::
-          VerifySignatureChallengeInfoBuffer(verifier)) {
-    LOG(ERROR) << "SignatureChallengeInfo cannot be deserialized.";
+  if (!::cryptohome::_serialized_::VerifySerializedSignatureChallengeInfoBuffer(
+          verifier)) {
+    LOG(ERROR) << "SerializedSignatureChallengeInfo cannot be deserialized.";
     return std::nullopt;
   }
 
-  const ::cryptohome::structure::_serialized_::SignatureChallengeInfo* object =
+  const ::cryptohome::_serialized_::SerializedSignatureChallengeInfo* object =
       flatbuffers::GetRoot<
-          ::cryptohome::structure::_serialized_::SignatureChallengeInfo>(
+          ::cryptohome::_serialized_::SerializedSignatureChallengeInfo>(
           blob.data());
 
   return hwsec_foundation::FromFlatBuffer<
-      ::cryptohome::structure::SignatureChallengeInfo>()(object);
+      ::cryptohome::SerializedSignatureChallengeInfo>()(object);
 }
 
-}  // namespace cryptohome::structure
+}  // namespace cryptohome

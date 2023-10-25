@@ -79,6 +79,10 @@ enum class SoftwareFeature : int32_t {
   
   MAGIC_TETHER_CLIENT = 6,
   
+  SMS_CONNECT_HOST = 7,
+  
+  SMS_CONNECT_CLIENT = 8,
+  
   PHONE_HUB_HOST = 9,
   
   PHONE_HUB_CLIENT = 10,

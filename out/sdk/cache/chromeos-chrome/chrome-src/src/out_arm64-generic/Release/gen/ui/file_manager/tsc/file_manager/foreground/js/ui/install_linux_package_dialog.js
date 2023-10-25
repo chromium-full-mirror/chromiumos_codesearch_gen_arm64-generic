@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/ash/common/assert.js';
-import { str, util } from '../../../common/js/util.js';
+import { isJellyEnabled } from '../../../common/js/flags.js';
+import { str } from '../../../common/js/util.js';
 import { FileManagerDialogBase } from './file_manager_dialog_base.js';
 /**
  * InstallLinuxPackageDialog is used as the handler for .deb files.
@@ -30,7 +31,7 @@ export class InstallLinuxPackageDialog extends FileManagerDialogBase {
             str('INSTALL_LINUX_PACKAGE_DETAILS_LABEL');
         // The OK button normally dismisses the dialog, so add a button we can
         // customize.
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             // Need to copy the whole sub tree because we need child elements.
             // @ts-ignore: error TS2531: Object is possibly 'null'.
             this.installButton_ = this.okButton.cloneNode(true /* deep */);

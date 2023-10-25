@@ -155,23 +155,23 @@ class  VideoFrameHandler_OnFrameDropped_Params_Data {
 };
 static_assert(sizeof(VideoFrameHandler_OnFrameDropped_Params_Data) == 16,
               "Bad sizeof(VideoFrameHandler_OnFrameDropped_Params_Data)");
-class  VideoFrameHandler_OnNewCropVersion_Params_Data {
+class  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint32_t crop_version;
+  uint32_t sub_capture_target_version;
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<VideoFrameHandler_OnNewCropVersion_Params_Data>;
+  friend class mojo::internal::MessageFragment<VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data>;
 
-  VideoFrameHandler_OnNewCropVersion_Params_Data();
-  ~VideoFrameHandler_OnNewCropVersion_Params_Data() = delete;
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data();
+  ~VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data() = delete;
 };
-static_assert(sizeof(VideoFrameHandler_OnNewCropVersion_Params_Data) == 16,
-              "Bad sizeof(VideoFrameHandler_OnNewCropVersion_Params_Data)");
+static_assert(sizeof(VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data) == 16,
+              "Bad sizeof(VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data)");
 class  VideoFrameHandler_OnFrameWithEmptyRegionCapture_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -433,21 +433,21 @@ class VideoFrameHandler_OnFrameDropped_ParamsDataView {
 };
 
 
-class VideoFrameHandler_OnNewCropVersion_ParamsDataView {
+class VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsDataView {
  public:
-  VideoFrameHandler_OnNewCropVersion_ParamsDataView() = default;
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsDataView() = default;
 
-  VideoFrameHandler_OnNewCropVersion_ParamsDataView(
-      internal::VideoFrameHandler_OnNewCropVersion_Params_Data* data,
+  VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsDataView(
+      internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  uint32_t crop_version() const {
-    return data_->crop_version;
+  uint32_t sub_capture_target_version() const {
+    return data_->sub_capture_target_version;
   }
  private:
-  internal::VideoFrameHandler_OnNewCropVersion_Params_Data* data_ = nullptr;
+  internal::VideoFrameHandler_OnNewSubCaptureTargetVersion_Params_Data* data_ = nullptr;
 };
 
 

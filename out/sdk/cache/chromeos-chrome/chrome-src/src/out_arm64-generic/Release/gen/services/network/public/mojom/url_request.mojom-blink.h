@@ -668,6 +668,7 @@ class BLINK_PLATFORM_EXPORT URLRequest {
       const absl::optional<::net::NetLogSource>& net_log_create_info,
       const absl::optional<::net::NetLogSource>& net_log_reference_info,
       ::network::mojom::blink::IPAddressSpace target_ip_address_space,
+      ::network::mojom::blink::IPAddressSpace required_ip_address_space,
       bool has_storage_access,
       ::network::mojom::blink::AttributionSupport attribution_reporting_support,
       ::network::mojom::blink::AttributionReportingEligibility attribution_reporting_eligibility,
@@ -855,6 +856,8 @@ URLRequest& operator=(const URLRequest&) = delete;
   absl::optional<::net::NetLogSource> net_log_reference_info;
   
   ::network::mojom::blink::IPAddressSpace target_ip_address_space;
+  
+  ::network::mojom::blink::IPAddressSpace required_ip_address_space;
   
   bool has_storage_access;
   
@@ -1837,6 +1840,7 @@ URLRequestPtr URLRequest::Clone() const {
       mojo::Clone(net_log_create_info),
       mojo::Clone(net_log_reference_info),
       mojo::Clone(target_ip_address_space),
+      mojo::Clone(required_ip_address_space),
       mojo::Clone(has_storage_access),
       mojo::Clone(attribution_reporting_support),
       mojo::Clone(attribution_reporting_eligibility),
@@ -1955,6 +1959,8 @@ bool URLRequest::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->net_log_reference_info, other_struct.net_log_reference_info))
     return false;
   if (!mojo::Equals(this->target_ip_address_space, other_struct.target_ip_address_space))
+    return false;
+  if (!mojo::Equals(this->required_ip_address_space, other_struct.required_ip_address_space))
     return false;
   if (!mojo::Equals(this->has_storage_access, other_struct.has_storage_access))
     return false;
@@ -2188,6 +2194,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.target_ip_address_space < rhs.target_ip_address_space)
     return true;
   if (rhs.target_ip_address_space < lhs.target_ip_address_space)
+    return false;
+  if (lhs.required_ip_address_space < rhs.required_ip_address_space)
+    return true;
+  if (rhs.required_ip_address_space < lhs.required_ip_address_space)
     return false;
   if (lhs.has_storage_access < rhs.has_storage_access)
     return true;
@@ -2750,6 +2760,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::URLRequest::D
   static decltype(::network::mojom::blink::URLRequest::target_ip_address_space) target_ip_address_space(
       const ::network::mojom::blink::URLRequestPtr& input) {
     return input->target_ip_address_space;
+  }
+
+  static decltype(::network::mojom::blink::URLRequest::required_ip_address_space) required_ip_address_space(
+      const ::network::mojom::blink::URLRequestPtr& input) {
+    return input->required_ip_address_space;
   }
 
   static decltype(::network::mojom::blink::URLRequest::has_storage_access) has_storage_access(

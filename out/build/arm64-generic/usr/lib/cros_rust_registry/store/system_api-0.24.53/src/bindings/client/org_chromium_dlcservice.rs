@@ -5,8 +5,6 @@ use dbus::arg;
 use dbus::blocking;
 
 pub trait OrgChromiumDlcServiceInterface {
-    fn install_dlc(&self, id: &str) -> Result<(), dbus::Error>;
-    fn install_with_omaha_url(&self, id: &str, omaha_url: &str) -> Result<(), dbus::Error>;
     fn install(&self, install_request: Vec<u8>) -> Result<(), dbus::Error>;
     fn uninstall(&self, id: &str) -> Result<(), dbus::Error>;
     fn purge(&self, id: &str) -> Result<(), dbus::Error>;
@@ -44,14 +42,6 @@ impl dbus::message::SignalArgs for OrgChromiumDlcServiceInterfaceDlcStateChanged
 }
 
 impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiumDlcServiceInterface for blocking::Proxy<'a, C> {
-
-    fn install_dlc(&self, id: &str) -> Result<(), dbus::Error> {
-        self.method_call("org.chromium.DlcServiceInterface", "InstallDlc", (id, ))
-    }
-
-    fn install_with_omaha_url(&self, id: &str, omaha_url: &str) -> Result<(), dbus::Error> {
-        self.method_call("org.chromium.DlcServiceInterface", "InstallWithOmahaUrl", (id, omaha_url, ))
-    }
 
     fn install(&self, install_request: Vec<u8>) -> Result<(), dbus::Error> {
         self.method_call("org.chromium.DlcServiceInterface", "Install", (install_request, ))

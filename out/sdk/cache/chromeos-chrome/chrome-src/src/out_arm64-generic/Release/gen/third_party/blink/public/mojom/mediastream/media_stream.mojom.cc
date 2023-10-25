@@ -1250,8 +1250,8 @@ MediaStreamDispatcherHost::IPCStableHashFunction MediaStreamDispatcherHost::Mess
     case internal::kMediaStreamDispatcherHost_OnStreamStarted_Name: {
       return &MediaStreamDispatcherHost::OnStreamStarted_Sym::IPCStableHash;
     }
-    case internal::kMediaStreamDispatcherHost_Crop_Name: {
-      return &MediaStreamDispatcherHost::Crop_Sym::IPCStableHash;
+    case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name: {
+      return &MediaStreamDispatcherHost::ApplySubCaptureTarget_Sym::IPCStableHash;
     }
     case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name: {
       return &MediaStreamDispatcherHost::GetOpenDevice_Sym::IPCStableHash;
@@ -1286,8 +1286,8 @@ const char* MediaStreamDispatcherHost::MessageToMethodName_(mojo::Message& messa
             return "Receive blink::mojom::MediaStreamDispatcherHost::SetCapturingLinkSecured";
       case internal::kMediaStreamDispatcherHost_OnStreamStarted_Name:
             return "Receive blink::mojom::MediaStreamDispatcherHost::OnStreamStarted";
-      case internal::kMediaStreamDispatcherHost_Crop_Name:
-            return "Receive blink::mojom::MediaStreamDispatcherHost::Crop";
+      case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name:
+            return "Receive blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget";
       case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name:
             return "Receive blink::mojom::MediaStreamDispatcherHost::GetOpenDevice";
       case internal::kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name:
@@ -1311,8 +1311,8 @@ const char* MediaStreamDispatcherHost::MessageToMethodName_(mojo::Message& messa
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::SetCapturingLinkSecured";
       case internal::kMediaStreamDispatcherHost_OnStreamStarted_Name:
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::OnStreamStarted";
-      case internal::kMediaStreamDispatcherHost_Crop_Name:
-            return "Receive reply blink::mojom::MediaStreamDispatcherHost::Crop";
+      case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name:
+            return "Receive reply blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget";
       case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name:
             return "Receive reply blink::mojom::MediaStreamDispatcherHost::GetOpenDevice";
       case internal::kMediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Name:
@@ -1435,7 +1435,7 @@ uint32_t MediaStreamDispatcherHost::OnStreamStarted_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t MediaStreamDispatcherHost::Crop_Sym::IPCStableHash() {
+uint32_t MediaStreamDispatcherHost::ApplySubCaptureTarget_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1443,7 +1443,7 @@ uint32_t MediaStreamDispatcherHost::Crop_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::MediaStreamDispatcherHost::Crop");
+          "(Impl)blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1512,20 +1512,20 @@ class MediaStreamDispatcherHost_OpenDevice_ForwardToCallback
   MediaStreamDispatcherHost::OpenDeviceCallback callback_;
 };
 
-class MediaStreamDispatcherHost_Crop_ForwardToCallback
+class MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  MediaStreamDispatcherHost_Crop_ForwardToCallback(
-      MediaStreamDispatcherHost::CropCallback callback
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback(
+      MediaStreamDispatcherHost::ApplySubCaptureTargetCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  MediaStreamDispatcherHost_Crop_ForwardToCallback(const MediaStreamDispatcherHost_Crop_ForwardToCallback&) = delete;
-  MediaStreamDispatcherHost_Crop_ForwardToCallback& operator=(const MediaStreamDispatcherHost_Crop_ForwardToCallback&) = delete;
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback(const MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback&) = delete;
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback& operator=(const MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  MediaStreamDispatcherHost::CropCallback callback_;
+  MediaStreamDispatcherHost::ApplySubCaptureTargetCallback callback_;
 };
 class MediaStreamDispatcherHost_GetOpenDevice_HandleSyncResponse
     : public mojo::MessageReceiver {
@@ -2007,21 +2007,24 @@ void MediaStreamDispatcherHostProxy::OnStreamStarted(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void MediaStreamDispatcherHostProxy::Crop(
-    const ::base::UnguessableToken& in_device_id, const ::base::Token& in_crop_id, uint32_t in_crop_version, CropCallback callback) {
+void MediaStreamDispatcherHostProxy::ApplySubCaptureTarget(
+    const ::base::UnguessableToken& in_device_id, ::blink::mojom::SubCaptureTargetType in_type, const ::base::Token& in_sub_capture_target, uint32_t in_sub_capture_target_version, ApplySubCaptureTargetCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send blink::mojom::MediaStreamDispatcherHost::Crop", "input_parameters",
+    "mojom", "Send blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_id"), in_device_id,
                         "<value of type const ::base::UnguessableToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("crop_id"), in_crop_id,
+           dict.AddItem("type"), in_type,
+                        "<value of type ::blink::mojom::SubCaptureTargetType>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("sub_capture_target"), in_sub_capture_target,
                         "<value of type const ::base::Token&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("crop_version"), in_crop_version,
+           dict.AddItem("sub_capture_target_version"), in_sub_capture_target_version,
                         "<value of type uint32_t>");
    });
 #endif
@@ -2035,9 +2038,9 @@ void MediaStreamDispatcherHostProxy::Crop(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kMediaStreamDispatcherHost_Crop_Name, kFlags, 0, 0, nullptr);
+      internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::blink::mojom::internal::MediaStreamDispatcherHost_Crop_Params_Data> params(
+      ::blink::mojom::internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -2050,26 +2053,28 @@ void MediaStreamDispatcherHostProxy::Crop(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->device_id.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null device_id in MediaStreamDispatcherHost.Crop request");
+      "null device_id in MediaStreamDispatcherHost.ApplySubCaptureTarget request");
+  mojo::internal::Serialize<::blink::mojom::SubCaptureTargetType>(
+      in_type, &params->type);
   mojo::internal::MessageFragment<
-      typename decltype(params->crop_id)::BaseType> crop_id_fragment(
+      typename decltype(params->sub_capture_target)::BaseType> sub_capture_target_fragment(
           params.message());
   mojo::internal::Serialize<::mojo_base::mojom::TokenDataView>(
-      in_crop_id, crop_id_fragment);
-  params->crop_id.Set(
-      crop_id_fragment.is_null() ? nullptr : crop_id_fragment.data());
+      in_sub_capture_target, sub_capture_target_fragment);
+  params->sub_capture_target.Set(
+      sub_capture_target_fragment.is_null() ? nullptr : sub_capture_target_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->crop_id.is_null(),
+      params->sub_capture_target.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null crop_id in MediaStreamDispatcherHost.Crop request");
-  params->crop_version = in_crop_version;
+      "null sub_capture_target in MediaStreamDispatcherHost.ApplySubCaptureTarget request");
+  params->sub_capture_target_version = in_sub_capture_target_version;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MediaStreamDispatcherHost::Name_);
-  message.set_method_name("Crop");
+  message.set_method_name("ApplySubCaptureTarget");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new MediaStreamDispatcherHost_Crop_ForwardToCallback(
+      new MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2601,19 +2606,19 @@ void MediaStreamDispatcherHost_OpenDevice_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class MediaStreamDispatcherHost_Crop_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static MediaStreamDispatcherHost::CropCallback CreateCallback(
+  static MediaStreamDispatcherHost::ApplySubCaptureTargetCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<MediaStreamDispatcherHost_Crop_ProxyToResponder> proxy(
-        new MediaStreamDispatcherHost_Crop_ProxyToResponder(
+    std::unique_ptr<MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder> proxy(
+        new MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&MediaStreamDispatcherHost_Crop_ProxyToResponder::Run,
+    return base::BindOnce(&MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~MediaStreamDispatcherHost_Crop_ProxyToResponder() {
+  ~MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -2630,7 +2635,7 @@ class MediaStreamDispatcherHost_Crop_ProxyToResponder : public ::mojo::internal:
   }
 
  private:
-  MediaStreamDispatcherHost_Crop_ProxyToResponder(
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -2639,7 +2644,7 @@ class MediaStreamDispatcherHost_Crop_ProxyToResponder : public ::mojo::internal:
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "MediaStreamDispatcherHost::CropCallback was destroyed without "
+        << "MediaStreamDispatcherHost::ApplySubCaptureTargetCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -2650,18 +2655,18 @@ class MediaStreamDispatcherHost_Crop_ProxyToResponder : public ::mojo::internal:
       ::media::mojom::ApplySubCaptureTargetResult in_result);
 };
 
-bool MediaStreamDispatcherHost_Crop_ForwardToCallback::Accept(
+bool MediaStreamDispatcherHost_ApplySubCaptureTarget_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::MediaStreamDispatcherHost_Crop_ResponseParams_Data* params =
+  internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::MediaStreamDispatcherHost_Crop_ResponseParams_Data*>(
+          internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   ::media::mojom::ApplySubCaptureTargetResult p_result{};
-  MediaStreamDispatcherHost_Crop_ResponseParamsDataView input_data_view(params, message);
+  MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
     success = false;
@@ -2678,11 +2683,11 @@ std::move(p_result));
   return true;
 }
 
-void MediaStreamDispatcherHost_Crop_ProxyToResponder::Run(
+void MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder::Run(
     ::media::mojom::ApplySubCaptureTargetResult in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply blink::mojom::MediaStreamDispatcherHost::Crop", "async_response_parameters",
+    "mojom", "Send reply blink::mojom::MediaStreamDispatcherHost::ApplySubCaptureTarget", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2696,9 +2701,9 @@ void MediaStreamDispatcherHost_Crop_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kMediaStreamDispatcherHost_Crop_Name, kFlags, 0, 0, nullptr);
+      internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::blink::mojom::internal::MediaStreamDispatcherHost_Crop_ResponseParams_Data> params(
+      ::blink::mojom::internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<::media::mojom::ApplySubCaptureTargetResult>(
@@ -2706,7 +2711,7 @@ void MediaStreamDispatcherHost_Crop_ProxyToResponder::Run(
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MediaStreamDispatcherHost::Name_);
-  message.set_method_name("Crop");
+  message.set_method_name("ApplySubCaptureTarget");
 #endif
 
   message.set_request_id(request_id_);
@@ -3184,7 +3189,7 @@ std::move(p_is_secure));
 std::move(p_label));
       return true;
     }
-    case internal::kMediaStreamDispatcherHost_Crop_Name: {
+    case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name: {
       break;
     }
     case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name: {
@@ -3302,25 +3307,28 @@ std::move(p_type), std::move(callback));
     case internal::kMediaStreamDispatcherHost_OnStreamStarted_Name: {
       break;
     }
-    case internal::kMediaStreamDispatcherHost_Crop_Name: {
+    case internal::kMediaStreamDispatcherHost_ApplySubCaptureTarget_Name: {
 
-      internal::MediaStreamDispatcherHost_Crop_Params_Data* params =
+      internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data* params =
           reinterpret_cast<
-              internal::MediaStreamDispatcherHost_Crop_Params_Data*>(
+              internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       ::base::UnguessableToken p_device_id{};
-      ::base::Token p_crop_id{};
-      uint32_t p_crop_version{};
-      MediaStreamDispatcherHost_Crop_ParamsDataView input_data_view(params, message);
+      ::blink::mojom::SubCaptureTargetType p_type{};
+      ::base::Token p_sub_capture_target{};
+      uint32_t p_sub_capture_target_version{};
+      MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDeviceId(&p_device_id))
         success = false;
-      if (success && !input_data_view.ReadCropId(&p_crop_id))
+      if (success && !input_data_view.ReadType(&p_type))
+        success = false;
+      if (success && !input_data_view.ReadSubCaptureTarget(&p_sub_capture_target))
         success = false;
       if (success)
-        p_crop_version = input_data_view.crop_version();
+        p_sub_capture_target_version = input_data_view.sub_capture_target_version();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -3328,15 +3336,16 @@ std::move(p_type), std::move(callback));
             MediaStreamDispatcherHost::Name_, 8, false);
         return false;
       }
-      MediaStreamDispatcherHost::CropCallback callback =
-          MediaStreamDispatcherHost_Crop_ProxyToResponder::CreateCallback(
+      MediaStreamDispatcherHost::ApplySubCaptureTargetCallback callback =
+          MediaStreamDispatcherHost_ApplySubCaptureTarget_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->Crop(
+      impl->ApplySubCaptureTarget(
 std::move(p_device_id), 
-std::move(p_crop_id), 
-std::move(p_crop_version), std::move(callback));
+std::move(p_type), 
+std::move(p_sub_capture_target), 
+std::move(p_sub_capture_target_version), std::move(callback));
       return true;
     }
     case internal::kMediaStreamDispatcherHost_GetOpenDevice_Name: {
@@ -3431,8 +3440,8 @@ static const mojo::internal::GenericValidationInfo kMediaStreamDispatcherHostVal
      nullptr /* no response */},
     {&internal::MediaStreamDispatcherHost_OnStreamStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaStreamDispatcherHost_Crop_Params_Data::Validate,
-     &internal::MediaStreamDispatcherHost_Crop_ResponseParams_Data::Validate},
+    {&internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_Params_Data::Validate,
+     &internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data::Validate},
     {&internal::MediaStreamDispatcherHost_GetOpenDevice_Params_Data::Validate,
      &internal::MediaStreamDispatcherHost_GetOpenDevice_ResponseParams_Data::Validate},
     {&internal::MediaStreamDispatcherHost_KeepDeviceAliveForTransfer_Params_Data::Validate,
@@ -3924,8 +3933,8 @@ void MediaStreamDispatcherHostInterceptorForTesting::SetCapturingLinkSecured(con
 void MediaStreamDispatcherHostInterceptorForTesting::OnStreamStarted(const std::string& label) {
   GetForwardingInterface()->OnStreamStarted(std::move(label));
 }
-void MediaStreamDispatcherHostInterceptorForTesting::Crop(const ::base::UnguessableToken& device_id, const ::base::Token& crop_id, uint32_t crop_version, CropCallback callback) {
-  GetForwardingInterface()->Crop(std::move(device_id), std::move(crop_id), std::move(crop_version), std::move(callback));
+void MediaStreamDispatcherHostInterceptorForTesting::ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) {
+  GetForwardingInterface()->ApplySubCaptureTarget(std::move(device_id), std::move(type), std::move(sub_capture_target), std::move(sub_capture_target_version), std::move(callback));
 }
 void MediaStreamDispatcherHostInterceptorForTesting::GetOpenDevice(int32_t request_id, const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, GetOpenDeviceCallback callback) {
   GetForwardingInterface()->GetOpenDevice(std::move(request_id), std::move(session_id), std::move(transfer_id), std::move(callback));
@@ -3994,10 +4003,10 @@ void MediaStreamDispatcherHostAsyncWaiter::OpenDevice(
 
 
 
-void MediaStreamDispatcherHostAsyncWaiter::Crop(
-    const ::base::UnguessableToken& device_id, const ::base::Token& crop_id, uint32_t crop_version, ::media::mojom::ApplySubCaptureTargetResult* out_result) {
+void MediaStreamDispatcherHostAsyncWaiter::ApplySubCaptureTarget(
+    const ::base::UnguessableToken& device_id, ::blink::mojom::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ::media::mojom::ApplySubCaptureTargetResult* out_result) {
   base::RunLoop loop;
-  proxy_->Crop(std::move(device_id),std::move(crop_id),std::move(crop_version),
+  proxy_->ApplySubCaptureTarget(std::move(device_id),std::move(type),std::move(sub_capture_target),std::move(sub_capture_target_version),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::media::mojom::ApplySubCaptureTargetResult* out_result
@@ -4010,10 +4019,10 @@ void MediaStreamDispatcherHostAsyncWaiter::Crop(
   loop.Run();
 }
 
-::media::mojom::ApplySubCaptureTargetResult MediaStreamDispatcherHostAsyncWaiter::Crop(
-    const ::base::UnguessableToken& device_id, const ::base::Token& crop_id, uint32_t crop_version) {
+::media::mojom::ApplySubCaptureTargetResult MediaStreamDispatcherHostAsyncWaiter::ApplySubCaptureTarget(
+    const ::base::UnguessableToken& device_id, ::blink::mojom::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version) {
   ::media::mojom::ApplySubCaptureTargetResult async_wait_result;
-  Crop(std::move(device_id),std::move(crop_id),std::move(crop_version),&async_wait_result);
+  ApplySubCaptureTarget(std::move(device_id),std::move(type),std::move(sub_capture_target),std::move(sub_capture_target_version),&async_wait_result);
   return async_wait_result;
 }
 

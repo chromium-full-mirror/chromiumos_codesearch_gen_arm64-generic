@@ -13,7 +13,7 @@ import { getTemplate } from './action_toolbar.html.js';
  * 'action-toolbar' is a floating toolbar that contains post-scan page options.
  */
 const ActionToolbarElementBase = I18nMixin(PolymerElement);
-class ActionToolbarElement extends ActionToolbarElementBase {
+export class ActionToolbarElement extends ActionToolbarElementBase {
     constructor() {
         super(...arguments);
         this.pageIndex = 0;

@@ -1,7 +1,8 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { str, util } from '../../../common/js/util.js';
+import { unwrapEntry } from '../../../common/js/entry_utils.js';
+import { str } from '../../../common/js/util.js';
 import { ConfirmDialog } from './dialogs.js';
 /**
  * ImportCrostiniImageDialog is used as the handler for .tini files.
@@ -25,6 +26,6 @@ export class ImportCrostiniImageDialog extends ConfirmDialog {
      * @param {!Entry} entry
      */
     showImportCrostiniImageDialog(entry) {
-        super.showWithTitle(str('IMPORT_CROSTINI_IMAGE_DIALOG_TITLE'), str('IMPORT_CROSTINI_IMAGE_DIALOG_DESCRIPTION'), chrome.fileManagerPrivate.importCrostiniImage.bind(null, /** @type {!Entry} */ (util.unwrapEntry(entry))));
+        super.showWithTitle(str('IMPORT_CROSTINI_IMAGE_DIALOG_TITLE'), str('IMPORT_CROSTINI_IMAGE_DIALOG_DESCRIPTION'), chrome.fileManagerPrivate.importCrostiniImage.bind(null, /** @type {!Entry} */ (unwrapEntry(entry))));
     }
 }

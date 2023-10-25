@@ -35,7 +35,7 @@ class  FrameSinkVideoConsumerFrameCallbacksAsyncWaiter {
 class  FrameSinkVideoConsumerInterceptorForTesting : public FrameSinkVideoConsumer {
   virtual FrameSinkVideoConsumer* GetForwardingInterface() = 0;
   void OnFrameCaptured(::media::mojom::VideoBufferHandlePtr data, ::media::mojom::VideoFrameInfoPtr info, const ::gfx::Rect& content_rect, ::mojo::PendingRemote<FrameSinkVideoConsumerFrameCallbacks> callbacks) override;
-  void OnNewCropVersion(uint32_t crop_version) override;
+  void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) override;
   void OnFrameWithEmptyRegionCapture() override;
   void OnStopped() override;
   void OnLog(const std::string& message) override;
@@ -61,7 +61,7 @@ class  FrameSinkVideoCapturerInterceptorForTesting : public FrameSinkVideoCaptur
   void SetMinSizeChangePeriod(::base::TimeDelta min_period) override;
   void SetResolutionConstraints(const ::gfx::Size& min_size, const ::gfx::Size& max_size, bool use_fixed_aspect_ratio) override;
   void SetAutoThrottlingEnabled(bool enabled) override;
-  void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t crop_version) override;
+  void ChangeTarget(const absl::optional<::viz::VideoCaptureTarget>& target, uint32_t sub_capture_target_version) override;
   void Start(::mojo::PendingRemote<FrameSinkVideoConsumer> consumer, BufferFormatPreference buffer_format_preference) override;
   void Stop() override;
   void RequestRefreshFrame() override;

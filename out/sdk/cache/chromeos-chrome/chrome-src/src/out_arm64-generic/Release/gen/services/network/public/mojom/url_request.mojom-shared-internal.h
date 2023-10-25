@@ -326,8 +326,10 @@ class  URLRequest_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> devtools_accepted_stream_types;
   mojo::internal::Pointer<::network::mojom::internal::NetLogSource_Data> net_log_create_info;
   mojo::internal::Pointer<::network::mojom::internal::NetLogSource_Data> net_log_reference_info;
+  int32_t required_ip_address_space;
   int32_t attribution_reporting_support;
   int32_t attribution_reporting_eligibility;
+  uint8_t pad58_[4];
   mojo::internal::Pointer<::network::mojom::internal::AttributionReportingRuntimeFeatures_Data> attribution_reporting_runtime_features;
   mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> attribution_reporting_src_token;
 
@@ -337,7 +339,7 @@ class  URLRequest_Data {
   URLRequest_Data();
   ~URLRequest_Data() = delete;
 };
-static_assert(sizeof(URLRequest_Data) == 264,
+static_assert(sizeof(URLRequest_Data) == 272,
               "Bad sizeof(URLRequest_Data)");
 // Used by URLRequest::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -60,6 +60,8 @@ NOINLINE static const char* EventLevelResultToStringHelper(EventLevelResult valu
       return "kNotRegistered";
     case EventLevelResult::kReportWindowNotStarted:
       return "kReportWindowNotStarted";
+    case EventLevelResult::kNoMatchingTriggerData:
+      return "kNoMatchingTriggerData";
     default:
       return nullptr;
   }

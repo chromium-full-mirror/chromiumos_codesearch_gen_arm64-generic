@@ -860,6 +860,22 @@ class  AppInstance_UninstallPackage_Params_Data {
 };
 static_assert(sizeof(AppInstance_UninstallPackage_Params_Data) == 16,
               "Bad sizeof(AppInstance_UninstallPackage_Params_Data)");
+class  AppInstance_UpdateAppDetails_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> package_name;
+
+ private:
+  friend class mojo::internal::MessageFragment<AppInstance_UpdateAppDetails_Params_Data>;
+
+  AppInstance_UpdateAppDetails_Params_Data();
+  ~AppInstance_UpdateAppDetails_Params_Data() = delete;
+};
+static_assert(sizeof(AppInstance_UpdateAppDetails_Params_Data) == 16,
+              "Bad sizeof(AppInstance_UpdateAppDetails_Params_Data)");
 class  AppInstance_GetAndroidId_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2593,6 +2609,32 @@ class AppInstance_UninstallPackage_ParamsDataView {
 };
 
 
+class AppInstance_UpdateAppDetails_ParamsDataView {
+ public:
+  AppInstance_UpdateAppDetails_ParamsDataView() = default;
+
+  AppInstance_UpdateAppDetails_ParamsDataView(
+      internal::AppInstance_UpdateAppDetails_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPackageNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPackageName(UserType* output) {
+    
+    auto* pointer = data_->package_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::AppInstance_UpdateAppDetails_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class AppInstance_GetAndroidId_ParamsDataView {
  public:
   AppInstance_GetAndroidId_ParamsDataView() = default;
@@ -3339,6 +3381,13 @@ inline void AppInstance_StartFastAppReinstallFlow_ParamsDataView::GetArcPackageN
 
 
 inline void AppInstance_UninstallPackage_ParamsDataView::GetPackageNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->package_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void AppInstance_UpdateAppDetails_ParamsDataView::GetPackageNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->package_name.Get();
   *output = mojo::StringDataView(pointer, message_);

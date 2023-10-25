@@ -60,8 +60,8 @@ export class PaymentsManagerImpl {
     authenticateUserAndFlipMandatoryAuthToggle() {
         chrome.autofillPrivate.authenticateUserAndFlipMandatoryAuthToggle();
     }
-    authenticateUserToEditLocalCard() {
-        return chrome.autofillPrivate.authenticateUserToEditLocalCard();
+    getLocalCard(guid) {
+        return chrome.autofillPrivate.getLocalCard(guid);
     }
     // 
     static getInstance() {

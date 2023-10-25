@@ -356,6 +356,34 @@ bool EventReportWindows::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+TriggerConfig::TriggerConfig()
+    : trigger_data_matching() {}
+
+TriggerConfig::TriggerConfig(
+    ::attribution_reporting::mojom::blink::TriggerDataMatching trigger_data_matching_in)
+    : trigger_data_matching(std::move(trigger_data_matching_in)) {}
+
+TriggerConfig::~TriggerConfig() = default;
+
+void TriggerConfig::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "trigger_data_matching"), this->trigger_data_matching,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::attribution_reporting::mojom::blink::TriggerDataMatching>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TriggerConfig::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 SourceRegistration::SourceRegistration()
     : destinations(mojo::internal::DefaultConstructTag()),
       source_event_id(0ULL),
@@ -367,7 +395,8 @@ SourceRegistration::SourceRegistration()
       debug_key(),
       filter_data(),
       aggregation_keys(),
-      debug_reporting(false) {}
+      debug_reporting(false),
+      trigger_config() {}
 
 SourceRegistration::SourceRegistration(
     const ::attribution_reporting::DestinationSet& destinations_in,
@@ -380,7 +409,8 @@ SourceRegistration::SourceRegistration(
     const absl::optional<uint64_t>& debug_key_in,
     const ::attribution_reporting::FilterData& filter_data_in,
     const ::attribution_reporting::AggregationKeys& aggregation_keys_in,
-    bool debug_reporting_in)
+    bool debug_reporting_in,
+    const ::attribution_reporting::TriggerConfig& trigger_config_in)
     : destinations(std::move(destinations_in)),
       source_event_id(std::move(source_event_id_in)),
       expiry(std::move(expiry_in)),
@@ -391,7 +421,8 @@ SourceRegistration::SourceRegistration(
       debug_key(std::move(debug_key_in)),
       filter_data(std::move(filter_data_in)),
       aggregation_keys(std::move(aggregation_keys_in)),
-      debug_reporting(std::move(debug_reporting_in)) {}
+      debug_reporting(std::move(debug_reporting_in)),
+      trigger_config(std::move(trigger_config_in)) {}
 
 SourceRegistration::~SourceRegistration() = default;
 
@@ -493,6 +524,15 @@ void SourceRegistration::WriteIntoTrace(
       "debug_reporting"), this->debug_reporting,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "trigger_config"), this->trigger_config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::attribution_reporting::TriggerConfig&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -973,6 +1013,20 @@ bool StructTraits<::attribution_reporting::mojom::blink::EventReportWindows::Dat
 
 
 // static
+bool StructTraits<::attribution_reporting::mojom::blink::TriggerConfig::DataView, ::attribution_reporting::mojom::blink::TriggerConfigPtr>::Read(
+    ::attribution_reporting::mojom::blink::TriggerConfig::DataView input,
+    ::attribution_reporting::mojom::blink::TriggerConfigPtr* output) {
+  bool success = true;
+  ::attribution_reporting::mojom::blink::TriggerConfigPtr result(::attribution_reporting::mojom::blink::TriggerConfig::New());
+  
+      if (success && !input.ReadTriggerDataMatching(&result->trigger_data_matching))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::attribution_reporting::mojom::blink::SourceRegistration::DataView, ::attribution_reporting::mojom::blink::SourceRegistrationPtr>::Read(
     ::attribution_reporting::mojom::blink::SourceRegistration::DataView input,
     ::attribution_reporting::mojom::blink::SourceRegistrationPtr* output) {
@@ -1001,6 +1055,8 @@ bool StructTraits<::attribution_reporting::mojom::blink::SourceRegistration::Dat
         success = false;
       if (success)
         result->debug_reporting = input.debug_reporting();
+      if (success && !input.ReadTriggerConfig(&result->trigger_config))
+        success = false;
   *output = std::move(result);
   return success;
 }

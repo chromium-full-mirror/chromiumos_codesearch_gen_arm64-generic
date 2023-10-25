@@ -9789,17 +9789,19 @@ bool CrdSessionAvailability_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CrdSessionAvailability_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CrdSessionAvailability_strings[6] = {};
 
 static const char CrdSessionAvailability_names[] =
   "AVAILABLE"
   "CRD_SESSION_AVAILABILITY_UNKNOWN"
+  "UNAVAILABLE_DISABLED_BY_POLICY"
   "UNAVAILABLE_UNMANAGED_ENVIRONMENT"
   "UNAVAILABLE_UNSUPPORTED_DEVICE_OS_VERSION"
   "UNAVAILABLE_UNSUPPORTED_USER_SESSION_TYPE";
@@ -9807,17 +9809,19 @@ static const char CrdSessionAvailability_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CrdSessionAvailability_entries[] = {
   { {CrdSessionAvailability_names + 0, 9}, 1 },
   { {CrdSessionAvailability_names + 9, 32}, 0 },
-  { {CrdSessionAvailability_names + 41, 33}, 3 },
-  { {CrdSessionAvailability_names + 74, 41}, 4 },
-  { {CrdSessionAvailability_names + 115, 41}, 2 },
+  { {CrdSessionAvailability_names + 41, 30}, 5 },
+  { {CrdSessionAvailability_names + 71, 33}, 3 },
+  { {CrdSessionAvailability_names + 104, 41}, 4 },
+  { {CrdSessionAvailability_names + 145, 41}, 2 },
 };
 
 static const int CrdSessionAvailability_entries_by_number[] = {
   1, // 0 -> CRD_SESSION_AVAILABILITY_UNKNOWN
   0, // 1 -> AVAILABLE
-  4, // 2 -> UNAVAILABLE_UNSUPPORTED_USER_SESSION_TYPE
-  2, // 3 -> UNAVAILABLE_UNMANAGED_ENVIRONMENT
-  3, // 4 -> UNAVAILABLE_UNSUPPORTED_DEVICE_OS_VERSION
+  5, // 2 -> UNAVAILABLE_UNSUPPORTED_USER_SESSION_TYPE
+  3, // 3 -> UNAVAILABLE_UNMANAGED_ENVIRONMENT
+  4, // 4 -> UNAVAILABLE_UNSUPPORTED_DEVICE_OS_VERSION
+  2, // 5 -> UNAVAILABLE_DISABLED_BY_POLICY
 };
 
 const std::string& CrdSessionAvailability_Name(
@@ -9826,12 +9830,12 @@ const std::string& CrdSessionAvailability_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CrdSessionAvailability_entries,
           CrdSessionAvailability_entries_by_number,
-          5, CrdSessionAvailability_strings);
+          6, CrdSessionAvailability_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CrdSessionAvailability_entries,
       CrdSessionAvailability_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CrdSessionAvailability_strings[idx].get();
 }
@@ -9839,7 +9843,7 @@ bool CrdSessionAvailability_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CrdSessionAvailability* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CrdSessionAvailability_entries, 5, name, &int_value);
+      CrdSessionAvailability_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<CrdSessionAvailability>(int_value);
   }

@@ -888,7 +888,7 @@ class  VideoFrameMetadata_Data {
   mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> capture_update_rect;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> source_size;
   mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> region_capture_rect;
-  uint32_t crop_version;
+  uint32_t sub_capture_target_version;
   uint8_t pad26_[4];
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> frame_duration;
   double frame_rate;

@@ -75,7 +75,7 @@ class VideoCaptureObserver
     kOnBufferReadyMinVersion = 0,
     kOnBufferDestroyedMinVersion = 0,
     kOnFrameDroppedMinVersion = 0,
-    kOnNewCropVersionMinVersion = 0,
+    kOnNewSubCaptureTargetVersionMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -96,7 +96,7 @@ class VideoCaptureObserver
   struct OnFrameDropped_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct OnNewCropVersion_Sym {
+  struct OnNewSubCaptureTargetVersion_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -118,7 +118,7 @@ class VideoCaptureObserver
   virtual void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) = 0;
 
   
-  virtual void OnNewCropVersion(uint32_t crop_version) = 0;
+  virtual void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) = 0;
 };
 
 class VideoCaptureHostProxy;
@@ -246,7 +246,7 @@ class  VideoCaptureObserverProxy
   
   void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) final;
   
-  void OnNewCropVersion(uint32_t crop_version) final;
+  void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

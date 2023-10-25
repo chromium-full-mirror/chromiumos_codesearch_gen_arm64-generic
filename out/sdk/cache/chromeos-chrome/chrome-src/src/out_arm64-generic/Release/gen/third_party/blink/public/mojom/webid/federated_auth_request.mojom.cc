@@ -1384,7 +1384,7 @@ class FederatedAuthRequest_RequestToken_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      RequestTokenStatus in_status, const absl::optional<::GURL>& in_selected_identity_provider_config_url, const absl::optional<std::string>& in_token, TokenErrorPtr in_error, bool in_is_identity_credential_auto_selected);
+      RequestTokenStatus in_status, const absl::optional<::GURL>& in_selected_identity_provider_config_url, const absl::optional<std::string>& in_token, TokenErrorPtr in_error, bool in_is_auto_selected);
 };
 
 bool FederatedAuthRequest_RequestToken_ForwardToCallback::Accept(
@@ -1401,7 +1401,7 @@ bool FederatedAuthRequest_RequestToken_ForwardToCallback::Accept(
   absl::optional<::GURL> p_selected_identity_provider_config_url{};
   absl::optional<std::string> p_token{};
   TokenErrorPtr p_error{};
-  bool p_is_identity_credential_auto_selected{};
+  bool p_is_auto_selected{};
   FederatedAuthRequest_RequestToken_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -1413,7 +1413,7 @@ bool FederatedAuthRequest_RequestToken_ForwardToCallback::Accept(
   if (success && !input_data_view.ReadError(&p_error))
     success = false;
   if (success)
-    p_is_identity_credential_auto_selected = input_data_view.is_identity_credential_auto_selected();
+    p_is_auto_selected = input_data_view.is_auto_selected();
   if (!success) {
     ReportValidationErrorForMessage(
         message,
@@ -1427,12 +1427,12 @@ std::move(p_status),
 std::move(p_selected_identity_provider_config_url), 
 std::move(p_token), 
 std::move(p_error), 
-std::move(p_is_identity_credential_auto_selected));
+std::move(p_is_auto_selected));
   return true;
 }
 
 void FederatedAuthRequest_RequestToken_ProxyToResponder::Run(
-    RequestTokenStatus in_status, const absl::optional<::GURL>& in_selected_identity_provider_config_url, const absl::optional<std::string>& in_token, TokenErrorPtr in_error, bool in_is_identity_credential_auto_selected) {
+    RequestTokenStatus in_status, const absl::optional<::GURL>& in_selected_identity_provider_config_url, const absl::optional<std::string>& in_token, TokenErrorPtr in_error, bool in_is_auto_selected) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::FederatedAuthRequest::RequestToken", "async_response_parameters",
@@ -1451,7 +1451,7 @@ void FederatedAuthRequest_RequestToken_ProxyToResponder::Run(
            dict.AddItem("error"), in_error,
                         "<value of type TokenErrorPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("is_identity_credential_auto_selected"), in_is_identity_credential_auto_selected,
+           dict.AddItem("is_auto_selected"), in_is_auto_selected,
                         "<value of type bool>");
    });
 #endif
@@ -1489,7 +1489,7 @@ void FederatedAuthRequest_RequestToken_ProxyToResponder::Run(
       in_error, error_fragment);
   params->error.Set(
       error_fragment.is_null() ? nullptr : error_fragment.data());
-  params->is_identity_credential_auto_selected = in_is_identity_credential_auto_selected;
+  params->is_auto_selected = in_is_auto_selected;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(FederatedAuthRequest::Name_);
@@ -2818,7 +2818,7 @@ FederatedAuthRequestAsyncWaiter::FederatedAuthRequestAsyncWaiter(
 FederatedAuthRequestAsyncWaiter::~FederatedAuthRequestAsyncWaiter() = default;
 
 void FederatedAuthRequestAsyncWaiter::RequestToken(
-    std::vector<IdentityProviderGetParametersPtr> idp_get_params, ::password_manager::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::GURL>* out_selected_identity_provider_config_url, absl::optional<std::string>* out_token, TokenErrorPtr* out_error, bool* out_is_identity_credential_auto_selected) {
+    std::vector<IdentityProviderGetParametersPtr> idp_get_params, ::password_manager::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::GURL>* out_selected_identity_provider_config_url, absl::optional<std::string>* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected) {
   base::RunLoop loop;
   proxy_->RequestToken(std::move(idp_get_params),std::move(requirement),
       base::BindOnce(
@@ -2831,13 +2831,13 @@ void FederatedAuthRequestAsyncWaiter::RequestToken(
 ,
              TokenErrorPtr* out_error
 ,
-             bool* out_is_identity_credential_auto_selected
+             bool* out_is_auto_selected
 ,
              RequestTokenStatus status,
              const absl::optional<::GURL>& selected_identity_provider_config_url,
              const absl::optional<std::string>& token,
              TokenErrorPtr error,
-             bool is_identity_credential_auto_selected) {*out_status = std::move(status);*out_selected_identity_provider_config_url = std::move(selected_identity_provider_config_url);*out_token = std::move(token);*out_error = std::move(error);*out_is_identity_credential_auto_selected = std::move(is_identity_credential_auto_selected);
+             bool is_auto_selected) {*out_status = std::move(status);*out_selected_identity_provider_config_url = std::move(selected_identity_provider_config_url);*out_token = std::move(token);*out_error = std::move(error);*out_is_auto_selected = std::move(is_auto_selected);
             loop->Quit();
           },
           &loop,
@@ -2845,7 +2845,7 @@ void FederatedAuthRequestAsyncWaiter::RequestToken(
           out_selected_identity_provider_config_url,
           out_token,
           out_error,
-          out_is_identity_credential_auto_selected));
+          out_is_auto_selected));
   loop.Run();
 }
 

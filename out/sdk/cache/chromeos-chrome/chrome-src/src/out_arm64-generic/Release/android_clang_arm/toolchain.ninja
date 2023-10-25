@@ -132,7 +132,7 @@ build android_clang_arm/gen/base/base_shared_preferences_jni.srcjar android_clan
 build android_clang_arm/obj/base/base_shared_preferences_jni.stamp: android_clang_arm_stamp android_clang_arm/gen/base/base_shared_preferences_jni.srcjar android_clang_arm/gen/jni_headers/base/base_shared_preferences_jni/SharedPreferencesManager_jni.h
 subninja android_clang_arm/obj/base/base_static.ninja
 rule __base_build_date___build_toolchain_android_android_clang_arm__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py android_clang_arm/gen/base/generated_build_date.h 1698030270
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py android_clang_arm/gen/base/generated_build_date.h 1698116641
   description = ACTION //base:build_date(//build/toolchain/android:android_clang_arm)
   restat = 1
   pool = build_toolchain_action_pool

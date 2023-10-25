@@ -129,9 +129,6 @@ ArcBridgeHost::IPCStableHashFunction ArcBridgeHost::MessageToMethodInfo_(mojo::M
     case internal::kArcBridgeHost_OnKioskInstanceReady_Name: {
       return &ArcBridgeHost::OnKioskInstanceReady_Sym::IPCStableHash;
     }
-    case internal::kArcBridgeHost_OnLockScreenInstanceReady_Name: {
-      return &ArcBridgeHost::OnLockScreenInstanceReady_Sym::IPCStableHash;
-    }
     case internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name: {
       return &ArcBridgeHost::OnMediaSessionInstanceReady_Sym::IPCStableHash;
     }
@@ -290,8 +287,6 @@ const char* ArcBridgeHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive arc::mojom::ArcBridgeHost::OnKeyMintInstanceReady";
       case internal::kArcBridgeHost_OnKioskInstanceReady_Name:
             return "Receive arc::mojom::ArcBridgeHost::OnKioskInstanceReady";
-      case internal::kArcBridgeHost_OnLockScreenInstanceReady_Name:
-            return "Receive arc::mojom::ArcBridgeHost::OnLockScreenInstanceReady";
       case internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name:
             return "Receive arc::mojom::ArcBridgeHost::OnMediaSessionInstanceReady";
       case internal::kArcBridgeHost_OnMemoryInstanceReady_Name:
@@ -411,8 +406,6 @@ const char* ArcBridgeHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply arc::mojom::ArcBridgeHost::OnKeyMintInstanceReady";
       case internal::kArcBridgeHost_OnKioskInstanceReady_Name:
             return "Receive reply arc::mojom::ArcBridgeHost::OnKioskInstanceReady";
-      case internal::kArcBridgeHost_OnLockScreenInstanceReady_Name:
-            return "Receive reply arc::mojom::ArcBridgeHost::OnLockScreenInstanceReady";
       case internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name:
             return "Receive reply arc::mojom::ArcBridgeHost::OnMediaSessionInstanceReady";
       case internal::kArcBridgeHost_OnMemoryInstanceReady_Name:
@@ -836,19 +829,6 @@ uint32_t ArcBridgeHost::OnKioskInstanceReady_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)arc::mojom::ArcBridgeHost::OnKioskInstanceReady");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t ArcBridgeHost::OnLockScreenInstanceReady_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)arc::mojom::ArcBridgeHost::OnLockScreenInstanceReady");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2417,49 +2397,6 @@ void ArcBridgeHostProxy::OnKioskInstanceReady(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(ArcBridgeHost::Name_);
   message.set_method_name("OnKioskInstanceReady");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void ArcBridgeHostProxy::OnLockScreenInstanceReady(
-    ::mojo::PendingRemote<::arc::mojom::LockScreenInstance> in_instance_remote) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send arc::mojom::ArcBridgeHost::OnLockScreenInstanceReady", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("instance_remote"), in_instance_remote,
-                        "<value of type ::mojo::PendingRemote<::arc::mojom::LockScreenInstance>>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kArcBridgeHost_OnLockScreenInstanceReady_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::arc::mojom::internal::ArcBridgeHost_OnLockScreenInstanceReady_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::arc::mojom::LockScreenInstanceInterfaceBase>>(
-      in_instance_remote, &params->instance_remote, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->instance_remote),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid instance_remote in ArcBridgeHost.OnLockScreenInstanceReady request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(ArcBridgeHost::Name_);
-  message.set_method_name("OnLockScreenInstanceReady");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -4560,34 +4497,6 @@ std::move(p_instance_remote));
 std::move(p_instance_remote));
       return true;
     }
-    case internal::kArcBridgeHost_OnLockScreenInstanceReady_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::ArcBridgeHost_OnLockScreenInstanceReady_Params_Data* params =
-          reinterpret_cast<internal::ArcBridgeHost_OnLockScreenInstanceReady_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingRemote<::arc::mojom::LockScreenInstance> p_instance_remote{};
-      ArcBridgeHost_OnLockScreenInstanceReady_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_instance_remote =
-            input_data_view.TakeInstanceRemote<decltype(p_instance_remote)>();
-      }
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            ArcBridgeHost::Name_, 134, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->OnLockScreenInstanceReady(
-std::move(p_instance_remote));
-      return true;
-    }
     case internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name: {
 
       DCHECK(message->is_serialized());
@@ -5550,9 +5459,6 @@ bool ArcBridgeHostStubDispatch::AcceptWithResponder(
     case internal::kArcBridgeHost_OnKioskInstanceReady_Name: {
       break;
     }
-    case internal::kArcBridgeHost_OnLockScreenInstanceReady_Name: {
-      break;
-    }
     case internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name: {
       break;
     }
@@ -5732,9 +5638,6 @@ static const std::pair<uint32_t, mojo::internal::GenericValidationInfo> kArcBrid
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnKioskInstanceReady_Name,
      {&internal::ArcBridgeHost_OnKioskInstanceReady_Params_Data::Validate,
-      nullptr /* no response */}},
-    {internal::kArcBridgeHost_OnLockScreenInstanceReady_Name,
-     {&internal::ArcBridgeHost_OnLockScreenInstanceReady_Params_Data::Validate,
       nullptr /* no response */}},
     {internal::kArcBridgeHost_OnMediaSessionInstanceReady_Name,
      {&internal::ArcBridgeHost_OnMediaSessionInstanceReady_Params_Data::Validate,
@@ -5933,9 +5836,6 @@ void ArcBridgeHostInterceptorForTesting::OnKeyMintInstanceReady(::mojo::PendingR
 }
 void ArcBridgeHostInterceptorForTesting::OnKioskInstanceReady(::mojo::PendingRemote<::arc::mojom::KioskInstance> instance_remote) {
   GetForwardingInterface()->OnKioskInstanceReady(std::move(instance_remote));
-}
-void ArcBridgeHostInterceptorForTesting::OnLockScreenInstanceReady(::mojo::PendingRemote<::arc::mojom::LockScreenInstance> instance_remote) {
-  GetForwardingInterface()->OnLockScreenInstanceReady(std::move(instance_remote));
 }
 void ArcBridgeHostInterceptorForTesting::OnMediaSessionInstanceReady(::mojo::PendingRemote<::arc::mojom::MediaSessionInstance> instance_remote) {
   GetForwardingInterface()->OnMediaSessionInstanceReady(std::move(instance_remote));

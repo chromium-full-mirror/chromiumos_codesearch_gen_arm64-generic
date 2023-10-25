@@ -867,6 +867,16 @@ static_assert(
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::network::mojom::IPAddressSpace>(data_->target_ip_address_space));
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadRequiredIpAddressSpace(UserType* output) const {
+    auto data_value = data_->required_ip_address_space;
+    return mojo::internal::Deserialize<::network::mojom::IPAddressSpace>(
+        data_value, output);
+  }
+  ::network::mojom::IPAddressSpace required_ip_address_space() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::network::mojom::IPAddressSpace>(data_->required_ip_address_space));
+  }
   bool has_storage_access() const {
     return data_->has_storage_access;
   }
@@ -1581,6 +1591,8 @@ struct Serializer<::network::mojom::URLRequestDataView, MaybeConstUserType> {
         net_log_reference_info_fragment.is_null() ? nullptr : net_log_reference_info_fragment.data());
     mojo::internal::Serialize<::network::mojom::IPAddressSpace>(
         Traits::target_ip_address_space(input), &fragment->target_ip_address_space);
+    mojo::internal::Serialize<::network::mojom::IPAddressSpace>(
+        Traits::required_ip_address_space(input), &fragment->required_ip_address_space);
     fragment->has_storage_access = Traits::has_storage_access(input);
     mojo::internal::Serialize<::network::mojom::AttributionSupport>(
         Traits::attribution_reporting_support(input), &fragment->attribution_reporting_support);

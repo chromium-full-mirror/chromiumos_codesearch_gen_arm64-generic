@@ -285,10 +285,10 @@ videoCapture.mojom.VideoFrameHandlerInterface = class {
   onFrameDropped(reason) {}
   
   /**
-   * @param { !number } cropVersion
+   * @param { !number } subCaptureTargetVersion
    */
 
-  onNewCropVersion(cropVersion) {}
+  onNewSubCaptureTargetVersion(subCaptureTargetVersion) {}
   
   /**
    */
@@ -455,17 +455,17 @@ videoCapture.mojom.VideoFrameHandlerRemote = class {
 
   
   /**
-   * @param { !number } cropVersion
+   * @param { !number } subCaptureTargetVersion
    */
 
-  onNewCropVersion(
-      cropVersion) {
+  onNewSubCaptureTargetVersion(
+      subCaptureTargetVersion) {
     this.proxy.sendMessage(
         7,
-        videoCapture.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        videoCapture.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
         [
-          cropVersion
+          subCaptureTargetVersion
         ]);
   }
 
@@ -597,9 +597,9 @@ videoCapture.mojom.VideoFrameHandlerReceiver = class {
         impl.onFrameDropped.bind(impl));
     this.helper_internal_.registerHandler(
         7,
-        videoCapture.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        videoCapture.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
-        impl.onNewCropVersion.bind(impl));
+        impl.onNewSubCaptureTargetVersion.bind(impl));
     this.helper_internal_.registerHandler(
         8,
         videoCapture.mojom.VideoFrameHandler_OnFrameWithEmptyRegionCapture_ParamsSpec.$,
@@ -764,15 +764,15 @@ videoCapture.mojom.VideoFrameHandlerCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onNewCropVersion =
+    this.onNewSubCaptureTargetVersion =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         7,
-        videoCapture.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        videoCapture.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
         null,
-        this.onNewCropVersion.createReceiverHandler(false /* expectsResponse */));
+        this.onNewSubCaptureTargetVersion.createReceiverHandler(false /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -920,12 +920,12 @@ goog.provide('videoCapture.mojom.VideoFrameHandler_OnFrameDropped_ParamsSpec');
 videoCapture.mojom.VideoFrameHandler_OnFrameDropped_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('videoCapture.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec');
+goog.provide('videoCapture.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-videoCapture.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec =
+videoCapture.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('videoCapture.mojom.VideoFrameHandler_OnFrameWithEmptyRegionCapture_ParamsSpec');
@@ -1253,11 +1253,11 @@ videoCapture.mojom.VideoFrameHandler_OnFrameDropped_Params = class {
 
 
 mojo.internal.Struct(
-    videoCapture.mojom.VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
-    'VideoFrameHandler_OnNewCropVersion_Params',
+    videoCapture.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+    'VideoFrameHandler_OnNewSubCaptureTargetVersion_Params',
     [
       mojo.internal.StructField(
-        'cropVersion', 0,
+        'subCaptureTargetVersion', 0,
         0,
         mojo.internal.Uint32,
         0,
@@ -1269,13 +1269,13 @@ mojo.internal.Struct(
 
 
 
-goog.provide('videoCapture.mojom.VideoFrameHandler_OnNewCropVersion_Params');
+goog.provide('videoCapture.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_Params');
 
 /** @record */
-videoCapture.mojom.VideoFrameHandler_OnNewCropVersion_Params = class {
+videoCapture.mojom.VideoFrameHandler_OnNewSubCaptureTargetVersion_Params = class {
   constructor() {
     /** @export { !number } */
-    this.cropVersion;
+    this.subCaptureTargetVersion;
   }
 };
 

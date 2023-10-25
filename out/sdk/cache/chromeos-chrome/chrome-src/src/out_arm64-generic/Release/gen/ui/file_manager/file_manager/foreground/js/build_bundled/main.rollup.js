@@ -1,5 +1,5 @@
 import 'chrome://file-manager/strings.m.js';
-import { r as recordEnum, s as startInterval, X as XfBase, u as util, a as requestUpdateOnAriaChange, _ as __decorate$1, i as isActivationClick, d as dispatchActivationClick, b as redispatchEvent, c as assert, e as assertNotReached, V as VolumeManagerCommon, f as assert$1, N as NativeEventTarget, A as AsyncQueue, R as RateLimiter, g as getStore, h as strf, t as toFilesAppURL, j as str, k as startIOTask, o as openWindow, l as getFilesAppIconURL, F as FakeEntryImpl, m as addVolume, n as dispatchSimpleEvent, p as promisify, q as removeVolume, v as recordInterval, w as AllowedPaths, x as isNative, y as parseTrashInfoFiles, z as recordMediumCount, B as isFileSystemFileEntry, C as isFileSystemDirectoryEntry, D as assertInstanceof, S as SearchRecency, E as FileType, G as assertNotReached$1, H as getDlpMetadata, I as createDOMError, J as getDefaultSearchOptions, K as isEntryInsideDrive, L as SearchLocation, M as constants, O as mountGuest, P as ConcurrentQueue, Q as dispatchPropertyChange, T as Aggregator, U as PropStatus, W as getFileData, Y as getVolume, Z as getMyFiles, $ as changeDirectory, a0 as clearSearch, a1 as updateSearch, a2 as getPropertyDescriptor, a3 as define, a4 as decorate$1, a5 as swallowDoubleClick, a6 as PropertyKind, a7 as isTreeItem, a8 as isTree, a9 as handleTreeSlotChange, aa as refreshNavigationRoots, ab as NavigationType, ac as isVolumeEntry, ad as vmTypeToIconName, ae as isMyFilesEntry$1, af as updateNavigationEntry, ag as getVolumeType, ah as readSubDirectories, ai as isEntryInsideMyDrive, aj as isEntryInsideComputers, ak as isGrandRootEntryInDrives, al as maybeShowTooltip, am as convertEntryToFileData, an as getEntry, ao as driveRootEntryListKey, ap as VolumeEntry, aq as isTrashEntry$1, ar as recordUserAction, as as getTrustedHTML, at as storage, au as refreshFolderShortcut, av as recordSmallCount, aw as getPreferences, ax as addFolderShortcut, ay as removeFolderShortcut, az as Group, aA as queryRequiredElement, aB as DialogType, aC as recordBoolean, aD as updateSelection, aE as assertInstanceof$1, aF as FocusOutlineManager, aG as mouseEnterMaybeShowTooltip, aH as getCrActionMenuTop, aI as SEARCH_RESULTS_KEY, aJ as XfCloudPanel, aK as CloudPanelType, aL as isSearchEmpty, aM as PathComponent, aN as recordValue, aO as getDriveQuotaMetadata, aP as getSizeStats, aQ as queryDecoratedElement, aR as getFileTypeForName, aS as getKeyModifiers, aT as addAndroidApps, aU as EntryList, aV as limitInputWidth, aW as getFocusedTreeItem, aX as validateEntryName, aY as renameEntry, aZ as readSubDirectoriesForRenamedEntry, a_ as getDisallowedTransfers, a$ as htmlEscape, b0 as getRootType, b1 as isDirectoryTree, b2 as grantAccess, b3 as validateFileName, b4 as getFile, b5 as UserCanceledError, b6 as getFileTasks, b7 as INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, b8 as annotateTasks, b9 as getDefaultTask, ba as recordTime, bb as parseActionId, bc as isFilesAppId, bd as LEGACY_FILES_EXTENSION_ID, be as executeTask, bf as USER_CANCELLED, bg as getDirectory, bh as updateMetadata, bi as TaskHistory, bj as getFilesData, bk as fetchFileTasks, bl as getMimeType, bm as recordDirectoryListLoadWithTolerance, bn as waitForState, bo as isDirectoryTreeItem, bp as isModal, bq as getHoldingSpaceState, br as getDlpRestrictionDetails, bs as addUiEntry, bt as removeUiEntry, bu as crostiniPlaceHolderKey, bv as isFolderDialogType, bw as updateIsInteractiveVolume, bx as createChild, by as listMountableGuests, bz as GuestOsPlaceholder, bA as toSandboxedURL, bB as updateDirectoryContent, bC as queryRequiredExactlyOne, bD as getBulkPinProgress, bE as updateBulkPinProgress, bF as getEmptyState, bG as getDialogCaller, bH as getDlpBlockedComponents, bI as updatePreferences, bJ as getDriveConnectionState, bK as updateDriveConnectionStatus, bL as updateDeviceConnectionState, bM as trashRootKey } from './shared.rollup.js';
+import { r as recordEnum, s as startInterval, X as XfBase, i as isCrosComponentsEnabled, a as requestUpdateOnAriaChange, _ as __decorate$1, b as isActivationClick, d as dispatchActivationClick, c as redispatchEvent, e as assert, f as assertNotReached, u as util, V as VolumeManagerCommon, g as assert$1, N as NativeEventTarget, A as AsyncQueue, R as RateLimiter, h as isInlineSyncStatusEnabled, j as getStore, k as unwrapEntry, l as strf, m as urlToEntry, t as toFilesAppURL, n as str, o as startIOTask, p as isSameEntry, q as openWindow, v as getFilesAppIconURL, w as isRecentRootType, x as isDriveFsBulkPinningEnabled, F as FakeEntryImpl, y as addVolume, z as dispatchSimpleEvent, B as promisify, C as removeVolume, D as isSameFileSystem, E as isFakeEntry, G as isTeamDriveRoot, H as isComputersRoot, I as recordInterval, J as isFuseBoxDebugEnabled, K as AllowedPaths, L as isNative, M as parseTrashInfoFiles, O as recordMediumCount, P as isFileSystemFileEntry, Q as isFileSystemDirectoryEntry, S as assertInstanceof, T as SearchRecency, U as FileType, W as assertNotReached$1, Y as isDlpEnabled, Z as getDlpMetadata, $ as entriesToURLs, a0 as isTrashEntry$1, a1 as compareName, a2 as compareLabel, a3 as createDOMError, a4 as getDefaultSearchOptions, a5 as readEntriesRecursively, a6 as isEntryInsideDrive, a7 as SearchLocation, a8 as constants, a9 as mountGuest, aa as ConcurrentQueue, ab as dispatchPropertyChange, ac as Aggregator, ad as PropStatus, ae as convertURLsToEntries, af as isNativeEntry, ag as getFileData, ah as getVolume, ai as getMyFiles, aj as changeDirectory, ak as clearSearch, al as updateSearch, am as getPropertyDescriptor, an as define, ao as decorate$1, ap as swallowDoubleClick, aq as PropertyKind, ar as isTreeItem, as as isTree, at as handleTreeSlotChange, au as refreshNavigationRoots, av as NavigationType, aw as isVolumeEntry, ax as vmTypeToIconName, ay as isMyFilesEntry$1, az as updateNavigationEntry, aA as getVolumeType, aB as readSubDirectories, aC as isEntryInsideMyDrive, aD as isEntryInsideComputers, aE as isGrandRootEntryInDrives, aF as maybeShowTooltip, aG as convertEntryToFileData, aH as getEntry, aI as driveRootEntryListKey, aJ as VolumeEntry, aK as recordUserAction, aL as getTrustedHTML, aM as storage, aN as refreshFolderShortcut, aO as recordSmallCount, aP as getPreferences, aQ as comparePath, aR as addFolderShortcut, aS as removeFolderShortcut, aT as Group, aU as isJellyEnabled, aV as isDriveShortcutsEnabled, aW as queryRequiredElement, aX as DialogType, aY as isSameVolume, aZ as recordBoolean, a_ as updateSelection, a$ as assertInstanceof$1, b0 as FocusOutlineManager, b1 as mouseEnterMaybeShowTooltip, b2 as getCrActionMenuTop, b3 as SEARCH_RESULTS_KEY, b4 as XfCloudPanel, b5 as CloudPanelType, b6 as isSearchEmpty, b7 as PathComponent, b8 as recordValue, b9 as isGoogleOneOfferFilesBannerEligibleAndEnabled, ba as getTeamDriveName, bb as getDriveQuotaMetadata, bc as getSizeStats, bd as queryDecoratedElement, be as getFileTypeForName, bf as getKeyModifiers, bg as addAndroidApps, bh as EntryList, bi as isGuestOsEnabled, bj as isArcVmEnabled, bk as isSinglePartitionFormatEnabled, bl as limitInputWidth, bm as isSharedDriveEntry, bn as isComputersEntry, bo as isDescendantEntry, bp as compareLabelAndGroupBottomEntries, bq as isNewDirectoryTreeEnabled, br as getFocusedTreeItem, bs as validateEntryName, bt as renameEntry, bu as readSubDirectoriesForRenamedEntry, bv as isRecentRoot, bw as isTrashRoot, bx as getDisallowedTransfers, by as htmlEscape, bz as getRootType, bA as isDirectoryTree, bB as isSiblingEntry, bC as isNonModifiable, bD as grantAccess, bE as validateFileName, bF as getFile, bG as UserCanceledError, bH as getFileTasks, bI as INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, bJ as annotateTasks, bK as getDefaultTask, bL as recordTime, bM as parseActionId, bN as isFilesAppId, bO as LEGACY_FILES_EXTENSION_ID, bP as executeTask, bQ as USER_CANCELLED, bR as getDirectory, bS as updateMetadata, bT as TaskHistory, bU as getFilesData, bV as fetchFileTasks, bW as getMimeType, bX as recordDirectoryListLoadWithTolerance, bY as waitForState, bZ as isDirectoryTreeItem, b_ as isTeamDrivesGrandRoot, b$ as isModal, c0 as getHoldingSpaceState, c1 as getDlpRestrictionDetails, c2 as isMirrorSyncEnabled, c3 as isTrashRootType, c4 as addUiEntry, c5 as removeUiEntry, c6 as crostiniPlaceHolderKey, c7 as isFolderDialogType, c8 as updateIsInteractiveVolume, c9 as createChild, ca as listMountableGuests, cb as GuestOsPlaceholder, cc as toSandboxedURL, cd as updateDirectoryContent, ce as queryRequiredExactlyOne, cf as getBulkPinProgress, cg as updateBulkPinProgress, ch as getEmptyState, ci as getDialogCaller, cj as getDlpBlockedComponents, ck as updatePreferences, cl as getDriveConnectionState, cm as updateDriveConnectionStatus, cn as updateDeviceConnectionState, co as trashRootKey } from './shared.rollup.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { customElement, html, css, property, query, LitElement, isServer, classMap, nothing, state, ifDefined, styleMap } from 'chrome://resources/mwc/lit/index.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
@@ -370,7 +370,7 @@ class MetadataItem {
  */
 let XfJellybean = class XfJellybean extends XfBase {
     render() {
-        if (util.isCrosComponentsEnabled()) {
+        if (isCrosComponentsEnabled()) {
             return html `
         <slot name="jelly">
           Jelly
@@ -385,7 +385,7 @@ let XfJellybean = class XfJellybean extends XfBase {
     firstUpdated() {
         // Jellybean status does not change during runtime. We can cleanup the
         // unused variant.
-        const unusedElements = util.isCrosComponentsEnabled() ?
+        const unusedElements = isCrosComponentsEnabled() ?
             this.querySelectorAll('[slot="old"]') :
             this.querySelectorAll('[slot="jelly"]');
         unusedElements.forEach((el) => el.remove());
@@ -2810,7 +2810,7 @@ class DriveSyncHandlerImpl extends NativeEventTarget {
         };
         Object.freeze(this.statusMessages_);
         // Register events.
-        if (util.isInlineSyncStatusEnabled()) {
+        if (isInlineSyncStatusEnabled()) {
             chrome.fileManagerPrivate.onIndividualFileTransfersUpdated.addListener(this.updateSyncStateMetadata_.bind(this));
         }
         else {
@@ -2875,7 +2875,7 @@ class DriveSyncHandlerImpl extends NativeEventTarget {
         }
         const metadata = this.metadataModel_?.getCache([entry], [SYNC_COMPLETED_TIME])[0];
         return [
-            util.unwrapEntry(entry),
+            unwrapEntry(entry),
             metadata?.syncCompletedTime || 0,
         ];
     }
@@ -2919,7 +2919,7 @@ class DriveSyncHandlerImpl extends NativeEventTarget {
             }
             else {
                 try {
-                    const entry = await util.urlToEntry(status.fileUrl);
+                    const entry = await urlToEntry(status.fileUrl);
                     item.message =
                         strf(this.statusMessages_[item.id].single, entry.name);
                 }
@@ -3032,7 +3032,7 @@ class DriveSyncHandlerImpl extends NativeEventTarget {
             return;
         }
         try {
-            if (util.isInlineSyncStatusEnabled()) {
+            if (isInlineSyncStatusEnabled()) {
                 this.updateSyncStateMetadata_([
                     {
                         fileUrl: event.fileUrl,
@@ -3041,7 +3041,7 @@ class DriveSyncHandlerImpl extends NativeEventTarget {
                     },
                 ]);
             }
-            const entry = await util.urlToEntry(event.fileUrl);
+            const entry = await urlToEntry(event.fileUrl);
             postError(entry.name);
         }
         catch (error) {
@@ -3395,7 +3395,7 @@ class FileOperationManagerImpl {
                 // @ts-ignore: error TS7006: Parameter 'inParentEntry' implicitly
                 // has an 'any' type.
                 inParentEntry => {
-                    if (!util.isSameEntry(inParentEntry, targetEntry)) {
+                    if (!isSameEntry(inParentEntry, targetEntry)) {
                         resolve(entry);
                     }
                     else {
@@ -4215,7 +4215,7 @@ class EntryLocationImpl {
             this.rootType === VolumeManagerCommon.RootType.DRIVE_OFFLINE ||
                 this.rootType === VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME ||
                 this.rootType === VolumeManagerCommon.RootType.DRIVE_RECENT ||
-                util.isRecentRootType(this.rootType);
+                isRecentRootType(this.rootType);
         this.isDriveBased = this.rootType === VolumeManagerCommon.RootType.DRIVE ||
             this.rootType === VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME ||
             this.rootType === VolumeManagerCommon.RootType.DRIVE_RECENT ||
@@ -4870,7 +4870,7 @@ class VolumeInfoImpl {
         this.prefixEntry_ = null;
         this.fakeEntries_ = {};
         if (volumeType_ === VolumeManagerCommon.VolumeType.DRIVE) {
-            if (!util.isDriveFsBulkPinningEnabled()) {
+            if (!isDriveFsBulkPinningEnabled()) {
                 this.fakeEntries_[VolumeManagerCommon.RootType.DRIVE_OFFLINE] =
                     new FakeEntryImpl(str('DRIVE_OFFLINE_COLLECTION_LABEL'), VolumeManagerCommon.RootType.DRIVE_OFFLINE);
             }
@@ -5574,13 +5574,13 @@ class VolumeManagerImpl extends NativeEventTarget {
         for (let i = 0; i < this.volumeInfoList.length; i++) {
             const volumeInfo = this.volumeInfoList.item(i);
             if (volumeInfo.fileSystem &&
-                util.isSameFileSystem(volumeInfo.fileSystem, entry.filesystem)) {
+                isSameFileSystem(volumeInfo.fileSystem, entry.filesystem)) {
                 return volumeInfo;
             }
             // Additionally, check fake entries.
             for (const key in volumeInfo.fakeEntries) {
                 const fakeEntry = volumeInfo.fakeEntries[key];
-                if (util.isSameEntry(fakeEntry, entry)) {
+                if (isSameEntry(fakeEntry, entry)) {
                     return volumeInfo;
                 }
             }
@@ -5608,7 +5608,7 @@ class VolumeManagerImpl extends NativeEventTarget {
             return null;
         }
         const volumeInfo = this.getVolumeInfo(entry);
-        if (util.isFakeEntry(entry)) {
+        if (isFakeEntry(entry)) {
             // Aggregated views like RECENTS and TRASH exist as fake entries but may
             // actually defer their logic to some underlying implementation or
             // delegate to the location filesystem.
@@ -5646,7 +5646,7 @@ class VolumeManagerImpl extends NativeEventTarget {
                 }
                 else {
                     rootType = VolumeManagerCommon.RootType.SHARED_DRIVE;
-                    if (util.isTeamDriveRoot(entry)) {
+                    if (isTeamDriveRoot(entry)) {
                         isReadOnly = false;
                         isRootEntry = true;
                     }
@@ -5666,7 +5666,7 @@ class VolumeManagerImpl extends NativeEventTarget {
                 }
                 else {
                     rootType = VolumeManagerCommon.RootType.COMPUTER;
-                    if (util.isComputersRoot(entry)) {
+                    if (isComputersRoot(entry)) {
                         isReadOnly = true;
                         isRootEntry = true;
                     }
@@ -5709,7 +5709,7 @@ class VolumeManagerImpl extends NativeEventTarget {
         }
         else {
             rootType = VolumeManagerCommon.getRootTypeFromVolumeType(assert$1(volumeInfo.volumeType));
-            isRootEntry = util.isSameEntry(entry, volumeInfo.fileSystem.root);
+            isRootEntry = isSameEntry(entry, volumeInfo.fileSystem.root);
             // Although "Play files" root directory is writable in file system level,
             // we prohibit write operations on it in the UI level to avoid confusion.
             // Users can still have write access in sub directories like
@@ -6587,7 +6587,7 @@ class FilteredVolumeManager extends NativeEventTarget {
          * UI elements, for manual fusebox testing.
          * @private @const @type {boolean}
          */
-        this.isFuseBoxDebugEnabled_ = util.isFuseBoxDebugEnabled();
+        this.isFuseBoxDebugEnabled_ = isFuseBoxDebugEnabled();
         /**
          * List of disabled volumes.
          * @private @const @type {!Array<!VolumeManagerCommon.VolumeType>}
@@ -9226,7 +9226,7 @@ class ContentMetadataProvider extends MetadataProvider {
                 return;
             }
         }
-        const fileEntry = /** @type {!FileEntry} */ (util.unwrapEntry(entry));
+        const fileEntry = /** @type {!FileEntry} */ (unwrapEntry(entry));
         this.getContentMetadata_(fileEntry, names).then(callback);
     }
     /**
@@ -9562,7 +9562,7 @@ class DlpMetadataProvider extends MetadataProvider {
     // @ts-ignore: error TS7006: Parameter 'requests' implicitly has an 'any'
     // type.
     async get(requests) {
-        if (!util.isDlpEnabled()) {
+        if (!isDlpEnabled()) {
             return requests.map(() => new MetadataItem());
         }
         if (!requests.length) {
@@ -9571,7 +9571,7 @@ class DlpMetadataProvider extends MetadataProvider {
         // Filter out fake entries before fetching the metadata.
         const entries = 
         // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
-        requests.map(r => r.entry).filter(e => !util.isFakeEntry(e));
+        requests.map(r => r.entry).filter(e => !isFakeEntry(e));
         if (!entries.length) {
             return requests.map(() => new MetadataItem());
         }
@@ -9587,7 +9587,7 @@ class DlpMetadataProvider extends MetadataProvider {
                 const item = new MetadataItem();
                 // Check if this entry was filtered, and if not, add the retrieved
                 // metadata.
-                if (!util.isFakeEntry(requests[i].entry)) {
+                if (!isFakeEntry(requests[i].entry)) {
                     // @ts-ignore: error TS2532: Object is possibly 'undefined'.
                     item.isDlpRestricted = dlpMetadataList[j].isDlpRestricted;
                     // @ts-ignore: error TS2532: Object is possibly 'undefined'.
@@ -10127,7 +10127,7 @@ class MetadataCacheSet extends NativeEventTarget {
      * @return {!Array<!MetadataRequest>}
      */
     createRequests(entries, names) {
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         const requests = [];
         for (let i = 0; i < entries.length; i++) {
             const item = this.items_.get(urls[i]);
@@ -10171,7 +10171,7 @@ class MetadataCacheSet extends NativeEventTarget {
      */
     storeProperties(requestId, entries, results, names) {
         const changedEntries = [];
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         const entriesMap = new Map();
         for (let i = 0; i < entries.length; i++) {
             const url = urls[i];
@@ -10206,7 +10206,7 @@ class MetadataCacheSet extends NativeEventTarget {
      */
     get(entries, names) {
         const results = [];
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         for (let i = 0; i < entries.length; i++) {
             const item = this.items_.get(urls[i]);
             results.push(item ? item.get(names) : {});
@@ -10238,7 +10238,7 @@ class MetadataCacheSet extends NativeEventTarget {
      * @param {!Array<string>} [names]
      */
     invalidate(requestId, entries, names) {
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         for (let i = 0; i < entries.length; i++) {
             const item = this.items_.get(urls[i]);
             if (item) {
@@ -10269,7 +10269,7 @@ class MetadataCacheSet extends NativeEventTarget {
     createSnapshot(entries) {
         const snapshot = new MetadataCacheSet();
         const items = snapshot.items_;
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         for (let i = 0; i < entries.length; i++) {
             const url = urls[i];
             const item = this.items_.get(url);
@@ -10289,7 +10289,7 @@ class MetadataCacheSet extends NativeEventTarget {
         if (!names.length) {
             return true;
         }
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         for (let i = 0; i < entries.length; i++) {
             const item = this.items_.get(urls[i]);
             if (!(item && item.hasFreshCache(names))) {
@@ -10418,7 +10418,7 @@ class MultiMetadataProvider extends MetadataProvider {
                     list.push(new MetadataRequest(request.entry, names));
                 }
             };
-            if (volumeInfo && !util.isTrashEntry(request.entry) &&
+            if (volumeInfo && !isTrashEntry$1(request.entry) &&
                 (volumeInfo.volumeType === VolumeManagerCommon.VolumeType.DRIVE ||
                     volumeInfo.volumeType === VolumeManagerCommon.VolumeType.PROVIDED)) {
                 // Because properties can be out of sync just after sync completion
@@ -10761,7 +10761,7 @@ class MetadataModel {
      * @param {!Array<!Entry>} entries
      */
     notifyEntriesCreated(entries) {
-        this.cache_.clear(util.entriesToURLs(entries));
+        this.cache_.clear(entriesToURLs(entries));
         if (window.IN_TEST) {
             // @ts-ignore: error TS2531: Object is possibly 'null'.
             this.stats_.clearCacheCount += entries.length;
@@ -11257,7 +11257,7 @@ class FileListModel extends ArrayDataModel {
         if (a.isDirectory !== b.isDirectory) {
             return a.isDirectory === this.isDescendingOrder_ ? 1 : -1;
         }
-        return util.compareName(a, b);
+        return compareName(a, b);
     }
     /**
      * Compares entries by label (i18n name).
@@ -11277,7 +11277,7 @@ class FileListModel extends ArrayDataModel {
         }
         // @ts-ignore: error TS2345: Argument of type 'EntryLocation | null' is not
         // assignable to parameter of type 'EntryLocation'.
-        return util.compareLabel(this.locationInfo_, a, b);
+        return compareLabel(this.locationInfo_, a, b);
     }
     /**
      * Compares entries by mtime first, then by name.
@@ -11304,7 +11304,7 @@ class FileListModel extends ArrayDataModel {
         if (aTime < bTime) {
             return -1;
         }
-        return util.compareName(a, b);
+        return compareName(a, b);
     }
     /**
      * Returns the modification time from a properties object.
@@ -11342,7 +11342,7 @@ class FileListModel extends ArrayDataModel {
         const aSize = properties[0].size || 0;
         // @ts-ignore: error TS2532: Object is possibly 'undefined'.
         const bSize = properties[1].size || 0;
-        return aSize !== bSize ? aSize - bSize : util.compareName(a, b);
+        return aSize !== bSize ? aSize - bSize : compareName(a, b);
     }
     /**
      * Compares entries by type first, then by subtype and then by name.
@@ -11364,7 +11364,7 @@ class FileListModel extends ArrayDataModel {
         // @ts-ignore: error TS2532: Object is possibly 'undefined'.
         FileType.getType(b, properties[1].contentMimeType));
         const result = util.collator.compare(aType, bType);
-        return result !== 0 ? result : util.compareName(a, b);
+        return result !== 0 ? result : compareName(a, b);
     }
     /**
      * @param {!VolumeManager} volumeManager The volume manager.
@@ -11705,7 +11705,7 @@ class SearchV2ContentScanner extends ContentScanner {
         // @ts-ignore: error TS2769: No overload matches this call.
         /** @type {EntryList} */ (dirEntry).getUIChildren());
         return allRoots
-            .filter(entry => !util.isFakeEntry(entry))
+            .filter(entry => !isFakeEntry(entry))
             // @ts-ignore: error TS18047: 'entry.filesystem' is possibly 'null'.
             .map(entry => entry.filesystem.root);
     }
@@ -11833,7 +11833,7 @@ class SearchV2ContentScanner extends ContentScanner {
             // type 'any[]' in some locations where its type cannot be determined.
             const collectedEntries = [];
             let workLeft = 1;
-            util.readEntriesRecursively(folder, 
+            readEntriesRecursively(folder, 
             // More entries found callback.
             (entries) => {
                 const filtered = entries.filter(entry => {
@@ -12266,7 +12266,7 @@ class MediaViewContentScanner extends ContentScanner {
     invalidateCache = false) {
         // To provide flatten view of files, this media-view scanner retrieves files
         // in directories inside the media's root entry recursively.
-        util.readEntriesRecursively(this.rootEntry_, entries => entriesCallback(entries.filter(entry => !entry.isDirectory)), successCallback, errorCallback, () => false);
+        readEntriesRecursively(this.rootEntry_, entries => entriesCallback(entries.filter(entry => !entry.isDirectory)), successCallback, errorCallback, () => false);
     }
 }
 /**
@@ -13062,9 +13062,9 @@ class FileWatcher extends NativeEventTarget {
      * @return {!Promise<void>}
      */
     changeWatchedDirectory(entry) {
-        if (!util.isFakeEntry(entry)) {
+        if (!isFakeEntry(entry)) {
             return this.changeWatchedEntry_(
-            /** @type {!DirectoryEntry} */ (util.unwrapEntry(entry)));
+            /** @type {!DirectoryEntry} */ (unwrapEntry(entry)));
         }
         else {
             return this.resetWatchedEntry_();
@@ -13930,7 +13930,7 @@ const SHORT_RESCAN_INTERVAL = 100;
 function isRecentScan(entry, query, options) {
     // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
     // 'FileSystemDirectoryEntry | FilesAppEntry'.
-    if (util.isRecentRootType(entry.rootType)) {
+    if (isRecentRootType(entry.rootType)) {
         // The user is in Recent view. If query is empty, this is definitely
         // a scan. Otherwise, we need to check the options.
         if (!query) {
@@ -14073,7 +14073,7 @@ class DirectoryModel extends NativeEventTarget {
             const entry = state.allEntries[newURL] ? state.allEntries[newURL].entry : null;
             if (!entry) {
                 // TODO(lucmult): Fix potential race condition in this await/then.
-                util.urlToEntry(newURL).then((entry) => {
+                urlToEntry(newURL).then((entry) => {
                     if (!entry) {
                         console.error(`Failed to find the new directory key ${newURL}`);
                         return;
@@ -14251,14 +14251,14 @@ class DirectoryModel extends NativeEventTarget {
      */
     isOnNative() {
         const rootType = this.getCurrentRootType();
-        return rootType != null && !util.isRecentRootType(rootType) &&
+        return rootType != null && !isRecentRootType(rootType) &&
             isNative(VolumeManagerCommon.getVolumeTypeFromRootType(rootType));
     }
     /**
      * @return {boolean} True if the current volume is blocked by DLP.
      */
     isDlpBlocked() {
-        if (!util.isDlpEnabled()) {
+        if (!isDlpEnabled()) {
             return false;
         }
         const info = this.getCurrentVolumeInfo();
@@ -14272,7 +14272,7 @@ class DirectoryModel extends NativeEventTarget {
      */
     isCurrentRootVolumeType_(volumeType) {
         const rootType = this.getCurrentRootType();
-        return rootType != null && !util.isRecentRootType(rootType) &&
+        return rootType != null && !isRecentRootType(rootType) &&
             VolumeManagerCommon.getVolumeTypeFromRootType(rootType) === volumeType;
     }
     /**
@@ -14359,7 +14359,7 @@ class DirectoryModel extends NativeEventTarget {
             });
             // @ts-ignore: error TS7005: Variable 'addedOrUpdatedFileUrls' implicitly
             // has an 'any[]' type.
-            util.URLsToEntries(addedOrUpdatedFileUrls)
+            convertURLsToEntries(addedOrUpdatedFileUrls)
                 .then(result => {
                 // @ts-ignore: error TS7005: Variable 'deletedFileUrls' implicitly
                 // has an 'any[]' type.
@@ -14387,7 +14387,7 @@ class DirectoryModel extends NativeEventTarget {
      */
     async onFilterChanged_() {
         const currentDirectory = this.getCurrentDirEntry();
-        if (currentDirectory && util.isNativeEntry(currentDirectory) &&
+        if (currentDirectory && isNativeEntry(currentDirectory) &&
             !this.fileFilter_.filter(
             /** @type {!DirectoryEntry} */ (currentDirectory))) {
             // If the current directory should be hidden in the new filter setting,
@@ -14479,7 +14479,7 @@ class DirectoryModel extends NativeEventTarget {
     setSelectedEntries_(value) {
         const indexes = [];
         const fileList = this.getFileList();
-        const urls = util.entriesToURLs(value);
+        const urls = entriesToURLs(value);
         for (let i = 0; i < fileList.length; i++) {
             if (urls.indexOf(fileList.item(i).toURL()) !== -1) {
                 indexes.push(i);
@@ -14506,7 +14506,7 @@ class DirectoryModel extends NativeEventTarget {
     setLeadEntry_(value) {
         const fileList = this.getFileList();
         for (let i = 0; i < fileList.length; i++) {
-            if (util.isSameEntry(/** @type {Entry} */ (fileList.item(i)), value)) {
+            if (isSameEntry(/** @type {Entry} */ (fileList.item(i)), value)) {
                 this.fileListSelection_.leadIndex = i;
                 return;
             }
@@ -14689,10 +14689,10 @@ class DirectoryModel extends NativeEventTarget {
             // the UI delegate as hosted documents receive the available offline tick
             // when they are both explicitly pinned and heuristically cached.
             if (locationInfo && locationInfo.isDriveBased &&
-                !util.isDriveFsBulkPinningEnabled()) {
+                !isDriveFsBulkPinningEnabled()) {
                 chrome.fileManagerPrivate.pollDriveHostedFilePinStates();
             }
-            if (!util.isFakeEntry(currentEntry)) {
+            if (!isFakeEntry(currentEntry)) {
                 this.metadataModel_.get(
                 // @ts-ignore: error TS2322: Type 'FileSystemDirectoryEntry |
                 // FilesAppDirEntry | FakeEntry' is not assignable to type
@@ -14903,7 +14903,7 @@ class DirectoryModel extends NativeEventTarget {
     findIndexByEntry_(entry) {
         const fileList = this.getFileList();
         for (let i = 0; i < fileList.length; i++) {
-            if (util.isSameEntry(/** @type {Entry} */ (fileList.item(i)), entry)) {
+            if (isSameEntry(/** @type {Entry} */ (fileList.item(i)), entry)) {
                 return i;
             }
         }
@@ -14925,7 +14925,7 @@ class DirectoryModel extends NativeEventTarget {
             this.currentDirContents_.prefetchMetadata([newEntry], true, () => {
                 // If the current directory is the old entry, then quietly change to the
                 // new one.
-                if (util.isSameEntry(oldEntry, this.getCurrentDirEntry())) {
+                if (isSameEntry(oldEntry, this.getCurrentDirEntry())) {
                     this.changeDirectoryEntry(
                     /** @type {!DirectoryEntry|!FilesAppDirEntry} */ (newEntry));
                 }
@@ -15115,8 +15115,7 @@ class DirectoryModel extends NativeEventTarget {
      */
     activateDirectoryEntry(dirEntry, opt_callback) {
         const currentDirectoryEntry = this.getCurrentDirEntry();
-        if (currentDirectoryEntry &&
-            util.isSameEntry(dirEntry, currentDirectoryEntry)) {
+        if (currentDirectoryEntry && isSameEntry(dirEntry, currentDirectoryEntry)) {
             // On activating the current directory, clear the selection on the
             // filelist.
             this.clearSelection();
@@ -15184,7 +15183,7 @@ class DirectoryModel extends NativeEventTarget {
      */
     selectEntries(entries) {
         // URLs are needed here, since we are comparing Entries by URLs.
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         const fileList = this.getFileList();
         this.fileListSelection_.beginChange();
         this.fileListSelection_.unselectAll();
@@ -15229,7 +15228,7 @@ class DirectoryModel extends NativeEventTarget {
         // 'Event'.
         const affectedVolumes = event.added.concat(event.removed);
         for (const volume of affectedVolumes) {
-            if (util.isSameEntry(currentDir, volume.prefixEntry)) {
+            if (isSameEntry(currentDir, volume.prefixEntry)) {
                 this.rescan(false);
                 break;
             }
@@ -15314,7 +15313,7 @@ class DirectoryModel extends NativeEventTarget {
         if (!entry) {
             return false;
         }
-        if (!util.isFakeEntry(entry)) {
+        if (!isFakeEntry(entry)) {
             return !this.volumeManager_.getVolumeInfo(entry);
         }
         const rootType = this.getCurrentRootType();
@@ -15342,7 +15341,7 @@ class DirectoryModel extends NativeEventTarget {
     isSearchDirectory(entry, query) {
         // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
         // 'FileSystemDirectoryEntry | FilesAppEntry'.
-        if (util.isRecentRootType(entry.rootType) ||
+        if (isRecentRootType(entry.rootType) ||
             // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
             // 'FileSystemDirectoryEntry | FilesAppEntry'.
             entry.rootType == VolumeManagerCommon.RootType.CROSTINI ||
@@ -21232,7 +21231,7 @@ class FolderShortcutsDataModel extends NativeEventTarget {
     getIndex(value) {
         for (let i = 0; i < this.length; i++) {
             // Same item check: must be exact match.
-            if (util.isSameEntry(this.array_[i], value)) {
+            if (isSameEntry(this.array_[i], value)) {
                 return i;
             }
         }
@@ -21248,7 +21247,7 @@ class FolderShortcutsDataModel extends NativeEventTarget {
      *     Otherwise, returns 1.
      */
     compare(a, b) {
-        return util.comparePath(a, b);
+        return comparePath(a, b);
     }
     /**
      * Adds the given item to the array. If there were already same item in the
@@ -21283,7 +21282,7 @@ class FolderShortcutsDataModel extends NativeEventTarget {
         let addedIndex = -1;
         for (let i = 0; i < this.length; i++) {
             // Same item check: must be exact match.
-            if (util.isSameEntry(this.array_[i], value)) {
+            if (isSameEntry(this.array_[i], value)) {
                 return i;
             }
             // Since the array is sorted, new item will be added just before the first
@@ -21328,7 +21327,7 @@ class FolderShortcutsDataModel extends NativeEventTarget {
         const oldArray = this.array_.slice(0); // Shallow copy.
         for (let i = 0; i < this.length; i++) {
             // Same item check: must be exact match.
-            if (util.isSameEntry(this.array_[i], value)) {
+            if (isSameEntry(this.array_[i], value)) {
                 this.array_.splice(i, 1);
                 removedIndex = i;
                 break;
@@ -21399,7 +21398,7 @@ class FolderShortcutsDataModel extends NativeEventTarget {
                 // @ts-ignore: error TS2345: Argument of type 'FileSystemEntry |
                 // undefined' is not assignable to parameter of type 'FileSystemEntry |
                 // FilesAppEntry'.
-                if (util.isSameEntry(oldArray[oldIndex], newArray[newIndex])) {
+                if (isSameEntry(oldArray[oldIndex], newArray[newIndex])) {
                     permutation[oldIndex] = newIndex;
                     newIndex++;
                     break;
@@ -21774,7 +21773,7 @@ class BaseDialog {
         // assignable to parameter of type 'Node'.
         this.frame.appendChild(this.title);
         // Use cr-button as close button for refresh23 style.
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             this.closeButton = doc.createElement('cr-button');
             const icon = doc.createElement('div');
             icon.className = 'icon';
@@ -21812,7 +21811,7 @@ class BaseDialog {
         // @ts-ignore: error TS2531: Object is possibly 'null'.
         this.okButton.textContent = BaseDialog.OK_LABEL;
         // Add hover/ripple layer for button in FilesRefresh.
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             const hoverLayer = doc.createElement('div');
             hoverLayer.className = 'hover-layer';
             // @ts-ignore: error TS2531: Object is possibly 'null'.
@@ -21834,7 +21833,7 @@ class BaseDialog {
         // @ts-ignore: error TS2531: Object is possibly 'null'.
         this.cancelButton.textContent = BaseDialog.CANCEL_LABEL;
         // Add hover/ripple layer for button in FilesRefresh.
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             const hoverLayer = doc.createElement('div');
             hoverLayer.className = 'hover-layer';
             // @ts-ignore: error TS2531: Object is possibly 'null'.
@@ -21903,7 +21902,7 @@ class BaseDialog {
     }
     /** @param {string} label */
     setOkLabel(label) {
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             // When Jelly is on, we have child elements inside the button, setting
             // textContent of the button will remove all children.
             // @ts-ignore: error TS2532: Object is possibly 'undefined'.
@@ -21916,7 +21915,7 @@ class BaseDialog {
     }
     /** @param {string} label */
     setCancelLabel(label) {
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             // When Jelly is on, we have child elements inside the button, setting
             // textContent of the button will remove all children.
             // @ts-ignore: error TS2532: Object is possibly 'undefined'.
@@ -26990,7 +26989,7 @@ class TableSplitter extends Splitter {
     decorate() {
         super.decorate();
         const icon = document.createElement('cr-icon-button');
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             icon.setAttribute('iron-icon', 'files32:bar-dragger');
         }
         else {
@@ -28551,7 +28550,7 @@ filelist.decorateListItem = (li, entry, metadataModel, volumeManager) => {
     filelist.updateListItemExternalProps(
     // @ts-ignore: error TS2345: Argument of type 'MetadataItem | undefined'
     // is not assignable to parameter of type 'MetadataItem'.
-    li, entry, externalProps, util.isTeamDriveRoot(entry));
+    li, entry, externalProps, isTeamDriveRoot(entry));
     // Overriding the default role 'list' to 'listbox' for better
     // accessibility on ChromeOS.
     li.setAttribute('role', 'option');
@@ -28598,7 +28597,7 @@ filelist.decorateListItem = (li, entry, metadataModel, volumeManager) => {
  * @return {boolean} If `entry` is DLP blocked.
  */
 filelist.isDlpBlocked = (entry, metadataModel, volumeManager) => {
-    if (!util.isDlpEnabled()) {
+    if (!isDlpEnabled()) {
         return false;
     }
     // TODO(b/259184588): Properly handle case when VolumeInfo is not
@@ -28666,10 +28665,9 @@ filelist.renderFileNameLabel = (doc, entry, locationInfo) => {
  * @param {ListItem} li List item.
  * @param {Entry|FilesAppEntry} entry The entry.
  * @param {MetadataItem} externalProps Metadata.
+ * @param {boolean} isTeamDriveRoot Whether the entry is a team drive root.
  */
 filelist.updateListItemExternalProps =
-    // @ts-ignore: error TS7006: Parameter 'isTeamDriveRoot' implicitly has an
-    // 'any' type.
     (li, entry, externalProps, isTeamDriveRoot) => {
         if (li.classList.contains('file')) {
             li.classList.toggle('dim-hosted', !!externalProps.hosted);
@@ -29225,7 +29223,7 @@ filelist.updateInlineStatus = (li, metadata) => {
     // @ts-ignore: error TS2339: Property 'canPin' does not exist on type
     // 'MetadataItem'.
     canPin, progress, syncStatus, syncCompletedTime, } = metadata;
-    if (util.isDriveFsBulkPinningEnabled()) {
+    if (isDriveFsBulkPinningEnabled()) {
         const cantPin = canPin === false;
         li.classList.toggle('cant-pin', cantPin);
         inlineStatus.toggleAttribute('cant-pin', cantPin);
@@ -29235,7 +29233,7 @@ filelist.updateInlineStatus = (li, metadata) => {
     li.classList.toggle('dim-offline', dimOffline);
     li.classList.toggle('pinned', pinned);
     inlineStatus.toggleAttribute('available-offline', pinned && !dimOffline);
-    if (util.isInlineSyncStatusEnabled()) {
+    if (isInlineSyncStatusEnabled()) {
         let actualSyncStatus = syncStatus;
         let actualProgress = progress;
         // Force sync status as completed if it has been less than 300ms since the
@@ -30441,7 +30439,7 @@ class FileGrid extends Grid {
     getFolderItemHeight_() {
         // Align with CSS value for .thumbnail-item.directory: height + margin +
         // border.
-        const height = util.isJellyEnabled() ? 48 : 40;
+        const height = isJellyEnabled() ? 48 : 40;
         return height + this.getItemMarginTop_() + 2;
     }
     /**
@@ -30464,7 +30462,7 @@ class FileGrid extends Grid {
         // For FilesRefresh, we have an additional margin for non-first group, check
         // the CSS rule ".grid-title ~ .grid-title" for more information in the CSS
         // file.
-        const groupMarginTop = util.isJellyEnabled() && groupIndex > 0 ? GROUP_MARGIN_TOP : 0;
+        const groupMarginTop = isJellyEnabled() && groupIndex > 0 ? GROUP_MARGIN_TOP : 0;
         switch (fileListModel.groupByField) {
             case GROUP_BY_FIELD_DIRECTORY:
                 return DIRECTORY_GROUP_HEADING_HEIGHT + groupMarginTop;
@@ -30519,7 +30517,7 @@ class FileGrid extends Grid {
      */
     getItemWidth_() {
         // Align with CSS value for .thumbnail-item: width + margin + border.
-        const width = util.isJellyEnabled() ? 160 : 180;
+        const width = isJellyEnabled() ? 160 : 180;
         return width + this.getItemMarginLeft_() + 2;
     }
     /**
@@ -30603,7 +30601,7 @@ class FileGrid extends Grid {
      */
     // @ts-ignore: error TS6133: 'type' is declared but its value is never read.
     updateListItemsMetadata(type, entries) {
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         // @ts-ignore: error TS2315: Type 'NodeList' is not generic.
         const boxes = /** @type {!NodeList<!HTMLElement>} */ (this.querySelectorAll('.img-container'));
         for (let i = 0; i < boxes.length; i++) {
@@ -30704,7 +30702,7 @@ class FileGrid extends Grid {
         checkmark.className = 'detail-checkmark';
         detailIcon.appendChild(checkmark);
         bottom.appendChild(detailIcon);
-        if (util.isDriveShortcutsEnabled()) {
+        if (isDriveShortcutsEnabled()) {
             bottom.appendChild(filelist.renderIconBadge(li.ownerDocument));
         }
         bottom.appendChild(
@@ -30867,7 +30865,7 @@ class FileGrid extends Grid {
     setGenericThumbnail_(box, entry, opt_mimeType) {
         if (entry.isDirectory) {
             // There is no space to show the thumbnail so don't adde one for Jelly.
-            if (!util.isJellyEnabled()) {
+            if (!isJellyEnabled()) {
                 box.setAttribute('generic-thumbnail', 'folder');
             }
         }
@@ -31020,7 +31018,7 @@ class FileGrid extends Grid {
  * @return {number}
  */
 FileGrid.GridSize = () => {
-    return util.isJellyEnabled() ? 160 : 180;
+    return isJellyEnabled() ? 160 : 180;
 };
 FileGrid.Item = class extends ListItem {
     constructor() {
@@ -31799,7 +31797,7 @@ class FileTable extends Table {
         // 'Element'.
         nameColumn.renderFunction = self.renderName_.bind(self);
         nameColumn.headerRenderFunction = renderHeader_;
-        const sizeColumn = new TableColumn('size', str('SIZE_COLUMN_LABEL'), 110, util.isJellyEnabled() ? false : true);
+        const sizeColumn = new TableColumn('size', str('SIZE_COLUMN_LABEL'), 110, isJellyEnabled() ? false : true);
         // @ts-ignore: error TS2339: Property 'renderSize_' does not exist on type
         // 'Element'.
         sizeColumn.renderFunction = self.renderSize_.bind(self);
@@ -32202,7 +32200,7 @@ class FileTable extends Table {
         }
         icon.appendChild(this.renderCheckmark_());
         label.appendChild(icon);
-        if (util.isDriveShortcutsEnabled()) {
+        if (isDriveShortcutsEnabled()) {
             // @ts-ignore: error TS2339: Property 'ownerDocument' does not exist on
             // type 'FileTable'.
             label.appendChild(filelist.renderIconBadge(this.ownerDocument));
@@ -32222,13 +32220,13 @@ class FileTable extends Table {
             inlineStatus.classList.add('tast-inline-status');
             label.appendChild(inlineStatus);
         }
-        if (!util.isJellyEnabled() && !util.isInlineSyncStatusEnabled()) {
+        if (!isJellyEnabled() && !isInlineSyncStatusEnabled()) {
             // @ts-ignore: error TS18048: 'metadata' is possibly 'undefined'.
             const isEncrypted = FileType.isEncrypted(entry, metadata.contentMimeType);
             if (isEncrypted) {
                 label.appendChild(this.renderEncryptedIcon_());
             }
-            if (util.isDlpEnabled()) {
+            if (isDlpEnabled()) {
                 label.appendChild(
                 // @ts-ignore: error TS18048: 'metadata' is possibly 'undefined'.
                 this.renderDlpManagedIcon_(!!metadata.isDlpRestricted));
@@ -32330,7 +32328,7 @@ class FileTable extends Table {
         // @ts-ignore: error TS2339: Property 'ownerDocument' does not exist on
         // type 'FileTable'.
         (this.ownerDocument.createElement('div'));
-        if (util.isJellyEnabled() || util.isInlineSyncStatusEnabled()) {
+        if (isJellyEnabled() || isInlineSyncStatusEnabled()) {
             div.className = 'dateholder';
             const label = /** @type {!HTMLDivElement} */ 
             // @ts-ignore: error TS2339: Property 'ownerDocument' does not exist
@@ -32346,7 +32344,7 @@ class FileTable extends Table {
             if (isEncrypted) {
                 div.appendChild(this.renderEncryptedIcon_());
             }
-            if (util.isDlpEnabled()) {
+            if (isDlpEnabled()) {
                 // @ts-ignore: error TS18048: 'metadata' is possibly 'undefined'.
                 div.appendChild(this.renderDlpManagedIcon_(!!metadata.isDlpRestricted));
             }
@@ -32401,7 +32399,7 @@ class FileTable extends Table {
      * @param {Array<Entry>} entries Entries to update.
      */
     updateListItemsMetadata(type, entries) {
-        const urls = util.entriesToURLs(entries);
+        const urls = entriesToURLs(entries);
         // @ts-ignore: error TS7006: Parameter 'callback' implicitly has an 'any'
         // type.
         const forEachCell = (selector, callback) => {
@@ -32458,7 +32456,7 @@ class FileTable extends Table {
                     'shortcut',
                     'canPin',
                     'isDlpRestricted',
-                ])[0], util.isTeamDriveRoot(entry));
+                ])[0], isTeamDriveRoot(entry));
                 listItem.toggleAttribute('disabled', filelist.isDlpBlocked(
                 // @ts-ignore: error TS2683: 'this' implicitly has type 'any'
                 // because it does not have a type annotation.
@@ -33155,7 +33153,7 @@ class DriveShareAction {
         chrome.fileManagerPrivate.getEntryProperties(
         // @ts-ignore: error TS2322: Type 'FileSystemEntry | FilesAppEntry' is
         // not assignable to type 'FileSystemEntry'.
-        [util.unwrapEntry(this.entry_)], ['shareUrl'], results => {
+        [unwrapEntry(this.entry_)], ['shareUrl'], results => {
             if (chrome.runtime.lastError) {
                 console.error(chrome.runtime.lastError.message);
                 return;
@@ -33613,7 +33611,7 @@ class DriveManageAction {
         chrome.fileManagerPrivate.getEntryProperties(
         // @ts-ignore: error TS2322: Type 'FileSystemEntry | FilesAppEntry' is
         // not assignable to type 'FileSystemEntry'.
-        [util.unwrapEntry(this.entry_)], ['alternateUrl'], results => {
+        [unwrapEntry(this.entry_)], ['alternateUrl'], results => {
             if (chrome.runtime.lastError) {
                 console.error(chrome.runtime.lastError.message);
                 return;
@@ -33701,7 +33699,7 @@ class CustomAction {
         // @ts-ignore: error TS2345: Argument of type '(FileSystemEntry |
         // FilesAppEntry)[]' is not assignable to parameter of type
         // 'FileSystemEntry[]'.
-        this.entries_.map(e => util.unwrapEntry(e)), this.id_, () => {
+        this.entries_.map(e => unwrapEntry(e)), this.id_, () => {
             if (chrome.runtime.lastError) {
                 console.error('Failed to execute a custom action because of: ' +
                     chrome.runtime.lastError.message);
@@ -33815,7 +33813,7 @@ class ActionsModel extends NativeEventTarget {
                 // All entries need to be on the same volume to execute ActionsModel
                 // commands.
                 if (!volumeInfo ||
-                    !util.isSameVolume(this.entries_, this.volumeManager_)) {
+                    !isSameVolume(this.entries_, this.volumeManager_)) {
                     fulfill({});
                     return;
                 }
@@ -33879,7 +33877,7 @@ class ActionsModel extends NativeEventTarget {
                         // @ts-ignore: error TS2345: Argument of type
                         // '(FileSystemEntry | FilesAppEntry)[]' is not assignable to
                         // parameter of type 'FileSystemEntry[]'.
-                        this.entries_.map(e => util.unwrapEntry(e)), customActions => {
+                        this.entries_.map(e => unwrapEntry(e)), customActions => {
                             if (chrome.runtime.lastError) {
                                 console.error('Failed to fetch custom actions because of: ' +
                                     chrome.runtime.lastError.message);
@@ -34301,7 +34299,7 @@ class FileSelectionHandler extends NativeEventTarget {
      * @return {boolean}
      */
     isDlpBlocked() {
-        if (!util.isDlpEnabled()) {
+        if (!isDlpEnabled()) {
             return false;
         }
         const selectedIndexes = this.directoryModel_.getFileListSelection().selectedIndexes;
@@ -37900,8 +37898,7 @@ class EducationalBanner extends Banner {
         // the overridden dismiss button first and fall back to the default button
         // if no overridden button.
         const overridenDismissButton = this.querySelector('[slot="dismiss-button"]');
-        const defaultDismissButton = this.shadowRoot.querySelector(util.isCrosComponentsEnabled() ? '#dismiss-button' :
-            '#dismiss-button-old');
+        const defaultDismissButton = this.shadowRoot.querySelector(isCrosComponentsEnabled() ? '#dismiss-button' : '#dismiss-button-old');
         if (overridenDismissButton) {
             overridenDismissButton.addEventListener('click', (event) => this.onDismissClickHandler_(event, DismissedForeverEventSource.OVERRIDEN_DISMISS_BUTTON));
         }
@@ -39582,14 +39579,14 @@ class BannerController extends NativeEventTarget {
                 TAG_NAME$d,
                 TAG_NAME$c,
             ]);
-            const educationalBanners = util.isGoogleOneOfferFilesBannerEligibleAndEnabled() ?
+            const educationalBanners = isGoogleOneOfferFilesBannerEligibleAndEnabled() ?
                 [TAG_NAME$6] :
                 [TAG_NAME$7];
-            if (util.isDriveFsBulkPinningEnabled()) {
+            if (isDriveFsBulkPinningEnabled()) {
                 educationalBanners.push(TAG_NAME$e);
             }
             educationalBanners.push(TAG_NAME$5);
-            if (!util.isDriveFsBulkPinningEnabled()) {
+            if (!isDriveFsBulkPinningEnabled()) {
                 educationalBanners.push(TAG_NAME$b);
             }
             educationalBanners.push(TAG_NAME$2);
@@ -39708,7 +39705,7 @@ class BannerController extends NativeEventTarget {
         const previousSharedDrive = this.currentSharedDrive_;
         this.currentEntry_ = this.directoryModel_.getCurrentDirEntry();
         if (this.currentEntry_) {
-            this.currentSharedDrive_ = util.getTeamDriveName(this.currentEntry_);
+            this.currentSharedDrive_ = getTeamDriveName(this.currentEntry_);
         }
         this.currentRootType_ = this.directoryModel_.getCurrentRootType();
         this.currentVolume_ = this.directoryModel_.getCurrentVolumeInfo();
@@ -43773,14 +43770,14 @@ class NavigationListModel extends NativeEventTarget {
         // TODO(crbug/1293229): To start with, we only support listing and not
         // mounting, which means we're just dealing with fake entries here. This
         // gets updated to handle real volumes once we support mounting them.
-        if (util.isGuestOsEnabled()) {
+        if (isGuestOsEnabled()) {
             // Remove all GuestOs placeholders, we readd any if they're needed.
             // @ts-ignore: error TS2339: Property 'removeAllByRootType' does not exist
             // on type 'FilesAppEntry | EntryList | VolumeEntry'.
             myFilesEntry.removeAllByRootType(VolumeManagerCommon.RootType.GUEST_OS);
             // For each volume, add any which aren't already in the list.
             let guestOsVolumes = getVolumes(VolumeManagerCommon.VolumeType.GUEST_OS);
-            if (util.isArcVmEnabled()) {
+            if (isArcVmEnabled()) {
                 // Remove GuestOs Android placeholder, similar to what we did for
                 // GuestOs placeholders. This should be readded if needed.
                 // @ts-ignore: error TS2339: Property 'removeAllByRootType' does not
@@ -43886,8 +43883,7 @@ class NavigationListModel extends NativeEventTarget {
         const removableModels = new Map();
         const disableRemovables = this.volumeManager_.isDisabled(VolumeManagerCommon.VolumeType.REMOVABLE);
         for (const [devicePath, removableGroup] of groupRemovables().entries()) {
-            if (removableGroup.length == 1 &&
-                !util.isSinglePartitionFormatEnabled()) {
+            if (removableGroup.length == 1 && !isSinglePartitionFormatEnabled()) {
                 // Add unpartitioned removable device as a regular volume.
                 this.navigationItems_.push(removableGroup[0]);
                 removableGroup[0].section = NavigationSection.REMOVABLE;
@@ -45188,7 +45184,7 @@ DirectoryItemTreeBaseMethods.getItemByEntry = function (entry) {
         if (!item.entry) {
             continue;
         }
-        if (util.isSameEntry(item.entry, entry)) {
+        if (isSameEntry(item.entry, entry)) {
             // The Drive root volume item "Google Drive" and its child "My Drive" have
             // the same entry. When we look for a tree item of Drive's root directory,
             // "My Drive" should be returned, as we use "Google Drive" for grouping
@@ -45202,13 +45198,13 @@ DirectoryItemTreeBaseMethods.getItemByEntry = function (entry) {
         // Team drives are descendants of the Drive root volume item "Google Drive".
         // When we looking for an item in team drives, recursively search inside the
         // "Google Drive" root item.
-        if (util.isSharedDriveEntry(entry) && item instanceof DriveVolumeItem) {
+        if (isSharedDriveEntry(entry) && item instanceof DriveVolumeItem) {
             return item.getItemByEntry(entry);
         }
-        if (util.isComputersEntry(entry) && item instanceof DriveVolumeItem) {
+        if (isComputersEntry(entry) && item instanceof DriveVolumeItem) {
             return item.getItemByEntry(entry);
         }
-        if (util.isDescendantEntry(item.entry, entry)) {
+        if (isDescendantEntry(item.entry, entry)) {
             return item.getItemByEntry(entry);
         }
     }
@@ -45238,16 +45234,16 @@ DirectoryItemTreeBaseMethods.searchAndSelectByEntry = async function (entry) {
         // Team drives are descendants of the Drive root volume item "Google Drive".
         // When we looking for an item in team drives, recursively search inside the
         // "Google Drive" root item.
-        if (util.isSharedDriveEntry(entry) && item instanceof DriveVolumeItem) {
+        if (isSharedDriveEntry(entry) && item instanceof DriveVolumeItem) {
             await item.selectByEntry(entry);
             return true;
         }
-        if (util.isComputersEntry(entry) && item instanceof DriveVolumeItem) {
+        if (isComputersEntry(entry) && item instanceof DriveVolumeItem) {
             await item.selectByEntry(entry);
             return true;
         }
-        if (util.isDescendantEntry(item.entry, entry) ||
-            util.isSameEntry(item.entry, entry)) {
+        if (isDescendantEntry(item.entry, entry) ||
+            isSameEntry(item.entry, entry)) {
             await item.selectByEntry(entry);
             return true;
         }
@@ -45324,7 +45320,7 @@ directorytree.styleRowElementDepth = (item, depth) => {
     // @ts-ignore: error TS2339: Property 'rowElement' does not exist on type
     // 'TreeItem'.
     const fileRowElement = item.rowElement.firstElementChild;
-    const indent = depth * (util.isJellyEnabled() ? 20 : 22);
+    const indent = depth * (isJellyEnabled() ? 20 : 22);
     let style = 'padding-inline-start: ' + indent + 'px';
     const width = indent + 60;
     style += '; min-width: ' + width + 'px;';
@@ -45575,7 +45571,7 @@ class DirectoryItem extends FilesTreeItem {
                 this.add(item);
                 index++;
             }
-            else if (util.isSameEntry(currentEntry, currentElement.entry)) {
+            else if (isSameEntry(currentEntry, currentElement.entry)) {
                 currentElement.updateDriveSpecificIcons();
                 if (recursive && this.expanded) {
                     if (this.delayExpansion) {
@@ -45758,7 +45754,7 @@ class DirectoryItem extends FilesTreeItem {
      * @returns {!Array<!Entry>}
      */
     sortEntries(entries) {
-        entries.sort(util.compareName);
+        entries.sort(compareName);
         const filter = this.fileFilter_.filter.bind(this.fileFilter_);
         return entries.filter(filter);
     }
@@ -45858,7 +45854,7 @@ class DirectoryItem extends FilesTreeItem {
         // @ts-ignore: error TS2345: Argument of type 'Object |
         // FileSystemDirectoryEntry' is not assignable to parameter of type
         // 'FileSystemEntry | FilesAppEntry | null | undefined'.
-        if (util.isSameEntry(changedDirectoryEntry, this.entry)) {
+        if (isSameEntry(changedDirectoryEntry, this.entry)) {
             this.updateSubDirectories(false /* recursive */);
             return;
         }
@@ -45872,8 +45868,8 @@ class DirectoryItem extends FilesTreeItem {
             if (!item.entry) {
                 continue;
             }
-            if (util.isDescendantEntry(item.entry, changedDirectoryEntry) ||
-                util.isSameEntry(item.entry, changedDirectoryEntry)) {
+            if (isDescendantEntry(item.entry, changedDirectoryEntry) ||
+                isSameEntry(item.entry, changedDirectoryEntry)) {
                 item.updateItemByEntry(changedDirectoryEntry);
                 break;
             }
@@ -45893,7 +45889,7 @@ class DirectoryItem extends FilesTreeItem {
         // @ts-ignore: error TS2345: Argument of type 'Object |
         // FileSystemDirectoryEntry' is not assignable to parameter of type
         // 'FileSystemEntry | FilesAppEntry | null | undefined'.
-        if (util.isSameEntry(entry, this.entry)) {
+        if (isSameEntry(entry, this.entry)) {
             this.selected = true;
             return;
         }
@@ -46200,7 +46196,7 @@ class EntryListItem extends DirectoryItem {
         // undefined' is not assignable to parameter of type 'FileSystemEntry |
         // FilesAppEntry'.
         this.parentTree_.volumeManager_.getLocationInfo(entries[0]);
-        const compareFunction = util.compareLabelAndGroupBottomEntries(
+        const compareFunction = compareLabelAndGroupBottomEntries(
         // @ts-ignore: error TS2339: Property 'getUIChildren' does not exist on
         // type 'FileSystemDirectoryEntry'.
         locationInfo, this.entry.getUIChildren());
@@ -46385,7 +46381,7 @@ class VolumeItem extends DirectoryItem {
         const onEntryResolved = (entry) => {
             this.resolved_ = true;
             // Changes directory to the model item's root directory if needed.
-            if (!util.isSameEntry(directoryModel.getCurrentDirEntry(), entry)) {
+            if (!isSameEntry(directoryModel.getCurrentDirEntry(), entry)) {
                 directoryModel.changeDirectoryEntry(entry);
             }
             // In case of failure in resolveDisplayRoot() in the volume's constructor,
@@ -46528,7 +46524,7 @@ class DriveVolumeItem extends VolumeItem {
                 // @ts-ignore: error TS2339: Property 'items' does not exist on type
                 // 'DriveVolumeItem'.
                 const entry = this.items[i] && this.items[i].entry;
-                if (entry && util.isSameEntry(entry, sharedDriveGrandRoot)) {
+                if (entry && isSameEntry(entry, sharedDriveGrandRoot)) {
                     index = i;
                     break;
                 }
@@ -46615,7 +46611,7 @@ class DriveVolumeItem extends VolumeItem {
                 // @ts-ignore: error TS2339: Property 'items' does not exist on type
                 // 'DriveVolumeItem'.
                 const entry = this.items[i] && this.items[i].entry;
-                if (entry && util.isSameEntry(entry, computerGrandRoot)) {
+                if (entry && isSameEntry(entry, computerGrandRoot)) {
                     index = i;
                     break;
                 }
@@ -46778,7 +46774,7 @@ class DriveVolumeItem extends VolumeItem {
      * @override
      */
     updateItemByEntry(changedDirectoryEntry) {
-        const isTeamDriveChild = util.isSharedDriveEntry(changedDirectoryEntry);
+        const isTeamDriveChild = isSharedDriveEntry(changedDirectoryEntry);
         // If Shared Drive grand root has been removed and we receive an update for
         // an team drive, we need to create the Shared Drive grand root.
         if (isTeamDriveChild) {
@@ -46789,7 +46785,7 @@ class DriveVolumeItem extends VolumeItem {
             });
             return;
         }
-        const isComputersChild = util.isComputersEntry(changedDirectoryEntry);
+        const isComputersChild = isComputersEntry(changedDirectoryEntry);
         // If Computers grand root has been removed and we receive an update for an
         // computer, we need to create the Computers grand root.
         if (isComputersChild) {
@@ -46842,7 +46838,7 @@ class DriveVolumeItem extends VolumeItem {
             if (!item.entry) {
                 continue;
             }
-            if (util.isSharedDriveEntry(item.entry)) {
+            if (isSharedDriveEntry(item.entry)) {
                 return 2;
             }
         }
@@ -46945,7 +46941,7 @@ class ShortcutItem extends FilesTreeItem {
      * @param {!DirectoryEntry} entry The directory entry to be selected.
      */
     selectByEntry(entry) {
-        if (util.isSameEntry(entry, this.entry)) {
+        if (isSameEntry(entry, this.entry)) {
             this.selected = true;
         }
     }
@@ -46966,7 +46962,7 @@ class ShortcutItem extends FilesTreeItem {
         // @ts-ignore: error TS7006: Parameter 'entry' implicitly has an 'any' type.
         const onEntryResolved = (entry) => {
             // Changes directory to the model item's root directory if needed.
-            if (!util.isSameEntry(directoryModel.getCurrentDirEntry(), entry)) {
+            if (!isSameEntry(directoryModel.getCurrentDirEntry(), entry)) {
                 recordUserAction('FolderShortcut.Navigate');
                 directoryModel.changeDirectoryEntry(entry);
             }
@@ -47100,7 +47096,7 @@ class FakeItem extends FilesTreeItem {
             // @ts-ignore: error TS18047: 'icon' is possibly 'null'.
             icon.setAttribute('root-type-icon', rootType);
         }
-        if (util.isRecentRootType(rootType)) {
+        if (isRecentRootType(rootType)) {
             // @ts-ignore: error TS2339: Property 'fileCategory' does not exist on
             // type 'FilesAppEntry'.
             if (this.dirEntry_.fileCategory) {
@@ -47140,7 +47136,7 @@ class FakeItem extends FilesTreeItem {
      * @param {!DirectoryEntry} entry
      */
     selectByEntry(entry) {
-        if (util.isSameEntry(entry, this.entry)) {
+        if (isSameEntry(entry, this.entry)) {
             this.selected = true;
         }
     }
@@ -47373,7 +47369,7 @@ class DirectoryTree extends Tree {
             // @ts-ignore: error TS2339: Property 'items' does not exist on type
             // 'DirectoryItem'.
             const item = parentItem.items[i];
-            if (util.isSameEntry(item.entry, newDirectory)) {
+            if (isSameEntry(item.entry, newDirectory)) {
                 this.selectedItem = item;
                 return;
             }
@@ -47386,7 +47382,7 @@ class DirectoryTree extends Tree {
         while (addAt < parentItem.items.length &&
             // @ts-ignore: error TS2339: Property 'items' does not exist on type
             // 'DirectoryItem'.
-            util.compareName(parentItem.items[addAt].entry, newDirectory) < 0) {
+            compareName(parentItem.items[addAt].entry, newDirectory) < 0) {
             addAt++;
         }
         // @ts-ignore: error TS2339: Property 'addAt' does not exist on type
@@ -47503,7 +47499,7 @@ class DirectoryTree extends Tree {
             if (item instanceof DriveVolumeItem) {
                 continue;
             }
-            if (util.isSameEntry(item.entry, entry)) {
+            if (isSameEntry(item.entry, entry)) {
                 await item.selectByEntry(entry);
                 return true;
             }
@@ -47519,7 +47515,7 @@ class DirectoryTree extends Tree {
      * @return {!Promise<void>}
      */
     async selectByEntry(entry) {
-        if (this.selectedItem && util.isSameEntry(entry, this.selectedItem.entry)) {
+        if (this.selectedItem && isSameEntry(entry, this.selectedItem.entry)) {
             return;
         }
         if (await this.searchAndSelectByEntry(entry)) {
@@ -48199,7 +48195,7 @@ class ImportCrostiniImageDialog extends ConfirmDialog {
      * @param {!Entry} entry
      */
     showImportCrostiniImageDialog(entry) {
-        super.showWithTitle(str('IMPORT_CROSTINI_IMAGE_DIALOG_TITLE'), str('IMPORT_CROSTINI_IMAGE_DIALOG_DESCRIPTION'), chrome.fileManagerPrivate.importCrostiniImage.bind(null, /** @type {!Entry} */ (util.unwrapEntry(entry))));
+        super.showWithTitle(str('IMPORT_CROSTINI_IMAGE_DIALOG_TITLE'), str('IMPORT_CROSTINI_IMAGE_DIALOG_DESCRIPTION'), chrome.fileManagerPrivate.importCrostiniImage.bind(null, /** @type {!Entry} */ (unwrapEntry(entry))));
     }
 }
 
@@ -48232,7 +48228,7 @@ class InstallLinuxPackageDialog extends FileManagerDialogBase {
             str('INSTALL_LINUX_PACKAGE_DETAILS_LABEL');
         // The OK button normally dismisses the dialog, so add a button we can
         // customize.
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             // Need to copy the whole sub tree because we need child elements.
             // @ts-ignore: error TS2531: Object is possibly 'null'.
             this.installButton_ = this.okButton.cloneNode(true /* deep */);
@@ -49569,7 +49565,7 @@ class FileManagerUI {
      * @return {?XfDlpRestrictionDetailsDialog}
      */
     get dlpRestrictionDetailsDialog() {
-        if (!util.isDlpEnabled()) {
+        if (!isDlpEnabled()) {
             return null;
         }
         if (this.dlpRestrictionDetailsDialog_) {
@@ -49594,7 +49590,7 @@ class FileManagerUI {
         this.breadcrumbContainer_ = new BreadcrumbContainer(queryRequiredElement('#location-breadcrumbs', this.element));
         // Splitter.
         const splitterContainer = queryRequiredElement('#navigation-list-splitter', this.element);
-        if (util.isJellyEnabled()) {
+        if (isJellyEnabled()) {
             // Remove the unused splitter <div> and wrap the tree and list with an
             // xf-splitter.
             const dialogNavList = splitterContainer.previousElementSibling;
@@ -49624,7 +49620,7 @@ class FileManagerUI {
          */
         this.searchContainer = new SearchContainer(volumeManager, queryRequiredElement('#search-wrapper', this.element), queryRequiredElement('#search-options-container', this.element), queryRequiredElement('#path-display-container', this.element), 
         /*a11y=*/ this);
-        if (util.isDriveFsBulkPinningEnabled()) {
+        if (isDriveFsBulkPinningEnabled()) {
             /**
              * @type {!CloudPanelContainer}
              * @const
@@ -49718,7 +49714,7 @@ class FileManagerUI {
      * @suppress {checkTypes} closure can't cast Element to XfTree.
      */
     initDirectoryTree(directoryTree) {
-        if (util.isNewDirectoryTreeEnabled()) {
+        if (isNewDirectoryTreeEnabled()) {
             this.directoryTreeContainer =
                 /** @type {!DirectoryTreeContainer} */ (directoryTree);
             this.directoryTree =
@@ -49813,7 +49809,7 @@ class FileManagerUI {
             ListContainer.ListType.UNINITIALIZED) {
             this.listContainer.currentView.relayout();
         }
-        if (!util.isNewDirectoryTreeEnabled() && this.directoryTree) {
+        if (!isNewDirectoryTreeEnabled() && this.directoryTree) {
             // @ts-ignore: error TS2339: Property 'relayout' does not exist on type
             // 'XfTree | DirectoryTree'.
             this.directoryTree?.relayout();
@@ -49826,7 +49822,7 @@ class FileManagerUI {
      */
     layoutChanged_() {
         // The Jelly splitter uses flexbox, no need for this.
-        if (util.isJellyEnabled() || this.scrollRAFActive_ === true) {
+        if (isJellyEnabled() || this.scrollRAFActive_ === true) {
             return;
         }
         /**
@@ -50090,7 +50086,7 @@ class ActionsController {
         this.updateUiSequence_ = 0;
         // Attach listeners to non-user events which will only update the in-memory
         // ActionsModel.
-        if (util.isNewDirectoryTreeEnabled()) {
+        if (isNewDirectoryTreeEnabled()) {
             // @ts-ignore: error TS2531: Object is possibly 'null'.
             this.ui_.directoryTree.addEventListener(XfTree.events.TREE_SELECTION_CHANGED, this.onNavigationListSelectionChanged_.bind(this), true);
         }
@@ -50475,7 +50471,7 @@ class DirectoryTreeNamingController {
      * @private
      */
     async performRename_(entry, newName) {
-        const renamingCurrentDirectory = util.isSameEntry(entry, this.directoryModel_.getCurrentDirEntry());
+        const renamingCurrentDirectory = isSameEntry(entry, this.directoryModel_.getCurrentDirEntry());
         if (renamingCurrentDirectory) {
             this.directoryModel_.setIgnoringCurrentDirectoryDeletion(true /* ignore */);
         }
@@ -50485,7 +50481,7 @@ class DirectoryTreeNamingController {
             const newEntry = await renameEntry(entry, newName, this.volumeInfo_, this.isRemovableRoot_);
             // Put the new name in the .label element before detaching the
             // <input> to prevent showing the old name.
-            if (util.isNewDirectoryTreeEnabled()) {
+            if (isNewDirectoryTreeEnabled()) {
                 // @ts-ignore: error TS2531: Object is possibly 'null'.
                 this.currentDirectoryItem_.label = newName;
             }
@@ -50502,7 +50498,7 @@ class DirectoryTreeNamingController {
             if (this.isRemovableRoot_) {
                 return;
             }
-            if (util.isNewDirectoryTreeEnabled() && this.directoryTreeContainer_) {
+            if (isNewDirectoryTreeEnabled() && this.directoryTreeContainer_) {
                 getStore().dispatch(readSubDirectoriesForRenamedEntry(newEntry));
                 this.directoryTreeContainer_.focusItemWithKeyWhenRendered(newEntry.toURL());
             }
@@ -50736,10 +50732,10 @@ class FileTransferController {
             return;
         }
         let entry = currentDirEntry;
-        if (util.isRecentRoot(currentDirEntry)) {
+        if (isRecentRoot(currentDirEntry)) {
             entry = this.selectionHandler_.selection.entries[0];
         }
-        else if (util.isTrashRoot(currentDirEntry)) {
+        else if (isTrashRoot(currentDirEntry)) {
             // In the event the entry resides in the Trash root, delegate to the item
             // in .Trash/files to get the source filesystem.
             const trashEntry = this.selectionHandler_.selection.entries[0];
@@ -50765,14 +50761,14 @@ class FileTransferController {
         // In the event a cut event has begun from the TrashRoot, the sources should
         // be delegated to the underlying files to ensure any validation done
         // onDrop_ (e.g. DLP scanning) is done on the actual file.
-        if (entries.every(util.isTrashEntry)) {
+        if (entries.every(isTrashEntry$1)) {
             entries = entries.map(e => e.filesEntry);
         }
         const encrypted = this.metadataModel_.getCache(entries, ['contentMimeType'])
             .some((metadata, i) => entries[i] ?
             FileType.isEncrypted(entries[i], metadata.contentMimeType) :
             false);
-        const sourceURLs = util.entriesToURLs(entries);
+        const sourceURLs = entriesToURLs(entries);
         clipboardData.setData('fs/sources', sourceURLs.join('\n'));
         clipboardData.effectAllowed = effectAllowed;
         clipboardData.setData('fs/effectallowed', effectAllowed);
@@ -50854,8 +50850,8 @@ class FileTransferController {
         const sourceEntries = await pastePlan.resolveEntries();
         let disallowedTransfers = [];
         try {
-            if (util.isDlpEnabled()) {
-                const destinationDir = util.unwrapEntry(pastePlan.destinationEntry);
+            if (isDlpEnabled()) {
+                const destinationDir = unwrapEntry(pastePlan.destinationEntry);
                 disallowedTransfers = await getDisallowedTransfers(sourceEntries, destinationDir, pastePlan.isMove);
             }
         }
@@ -51181,13 +51177,13 @@ class FileTransferController {
             this.canTrashSelection_(getRootType(destinationEntry), event.dataTransfer)) {
             event.preventDefault();
             const sourceURLs = (event?.dataTransfer?.getData('fs/sources') || '').split('\n');
-            const { entries, failureUrls } = await URLsToEntriesWithAccess(sourceURLs);
+            const { entries, failureUrls } = await convertURLsToEntriesWithAccess(sourceURLs);
             // The list of entries should not be special entries (e.g. Camera, Linux
             // files) and should not already exist in Trash (i.e. you can't trash
             // something that's already trashed).
             const isModifiableAndNotInTrashRoot = (entry) => {
-                return !util.isNonModifiable(this.volumeManager_, entry) &&
-                    !util.isTrashEntry(entry);
+                return !isNonModifiable(this.volumeManager_, entry) &&
+                    !isTrashEntry$1(entry);
             };
             const canTrashEntries = entries && entries.length > 0 &&
                 entries.every(isModifiableAndNotInTrashRoot);
@@ -51239,7 +51235,7 @@ class FileTransferController {
         // Disallow dropping a directory on itself.
         const entries = this.selectionHandler_.selection.entries;
         for (const entry of entries) {
-            if (util.isSameEntry(entry, destinationEntry)) {
+            if (isSameEntry(entry, destinationEntry)) {
                 return;
             }
         }
@@ -51374,7 +51370,7 @@ class FileTransferController {
         }
         // Trash entries are only allowed to be restored which is analogous to a
         // cut event, so disallow the copy.
-        if (this.selectionHandler_.selection.entries.every(util.isTrashEntry)) {
+        if (this.selectionHandler_.selection.entries.every(isTrashEntry$1)) {
             return false;
         }
         const entries = this.selectionHandler_.selection.entries;
@@ -51382,12 +51378,12 @@ class FileTransferController {
             if (!entries[i]) {
                 continue;
             }
-            if (util.isTeamDriveRoot(entries[i])) {
+            if (isTeamDriveRoot(entries[i])) {
                 return false;
             }
             // If selected entries are not in the same directory, we can't copy them
             // by a single operation at this moment.
-            if (i > 0 && !util.isSiblingEntry(entries[0], entries[i])) {
+            if (i > 0 && !isSiblingEntry(entries[0], entries[i])) {
                 return false;
             }
         }
@@ -51416,8 +51412,7 @@ class FileTransferController {
             return false;
         }
         for (let i = 0; i < entries.length; i++) {
-            if (entries[i] &&
-                util.isNonModifiable(this.volumeManager_, entries[i])) {
+            if (entries[i] && isNonModifiable(this.volumeManager_, entries[i])) {
                 return false;
             }
         }
@@ -51721,7 +51716,7 @@ class FileTransferController {
         const { entries } = this.selectionHandler_.selection;
         if (entries && entries.length > 0) {
             for (const entry of entries) {
-                if (util.isNonModifiable(this.volumeManager_, entry)) {
+                if (isNonModifiable(this.volumeManager_, entry)) {
                     return false;
                 }
                 const entryURL = entry.toURL();
@@ -51786,7 +51781,7 @@ class PastePlan {
      */
     async resolveEntries() {
         if (!this.sourceEntries.length) {
-            const result = await URLsToEntriesWithAccess(this.sourceURLs);
+            const result = await convertURLsToEntriesWithAccess(this.sourceURLs);
             this.sourceEntries = result.entries;
             this.failureUrls = result.failureUrls;
         }
@@ -51812,12 +51807,12 @@ class PastePlan {
         }
         // Confirmation type for team drives.
         const source = {
-            isTeamDrive: util.isSharedDriveEntry(this.sourceEntries[0]),
-            teamDriveName: util.getTeamDriveName(this.sourceEntries[0]),
+            isTeamDrive: isSharedDriveEntry(this.sourceEntries[0]),
+            teamDriveName: getTeamDriveName(this.sourceEntries[0]),
         };
         const destination = {
-            isTeamDrive: util.isSharedDriveEntry(this.destinationEntry),
-            teamDriveName: util.getTeamDriveName(this.destinationEntry),
+            isTeamDrive: isSharedDriveEntry(this.destinationEntry),
+            teamDriveName: getTeamDriveName(this.destinationEntry),
         };
         if (this.isMove) {
             if (source.isTeamDrive) {
@@ -51856,8 +51851,8 @@ class PastePlan {
      */
     getConfirmationMessages(confirmationType) {
         assert(this.sourceEntries.length != 0);
-        const sourceName = util.getTeamDriveName(this.sourceEntries[0]);
-        const destinationName = util.getTeamDriveName(this.destinationEntry);
+        const sourceName = getTeamDriveName(this.sourceEntries[0]);
+        const destinationName = getTeamDriveName(this.destinationEntry);
         switch (confirmationType) {
             case TransferConfirmationType.COPY_TO_SHARED_DRIVE:
                 return [strf('DRIVE_CONFIRM_COPY_TO_SHARED_DRIVE', this.destinationEntry.fullPath.split('/').pop())];
@@ -51889,9 +51884,9 @@ class PastePlan {
  * Converts list of urls to list of Entries with granting R/W permissions to
  * them, which is essential when pasting files from a different profile.
  */
-const URLsToEntriesWithAccess = async (urls) => {
+const convertURLsToEntriesWithAccess = async (urls) => {
     await grantAccess(urls);
-    return util.URLsToEntries(urls);
+    return convertURLsToEntries(urls);
 };
 /**
  * Checks if the specified set of allowed effects contains the given effect.
@@ -51979,7 +51974,7 @@ class NamingController {
             if (!isValid) {
                 throw new Error('Invalid filename.');
             }
-            if (directory && util.isFakeEntry(directory)) {
+            if (directory && isFakeEntry(directory)) {
                 // Can't save a file into a fake directory.
                 throw new Error('Cannot save into fake entry.');
             }
@@ -52074,7 +52069,7 @@ class NamingController {
             return;
         }
         const leadEntry = /** @type {Entry} */ (dm.getFileList().item(leadIndex));
-        if (!util.isSameEntry(
+        if (!isSameEntry(
         // @ts-ignore: error TS2339: Property 'currentEntry' does not exist
         // on type 'HTMLInputElement'.
         this.listContainer_.renameInput.currentEntry, leadEntry)) {
@@ -52406,7 +52401,7 @@ class FileTasks {
             policyDefaultHandlerStatus: undefined,
         };
         // Cannot use fake entries with getFileTasks.
-        entries = entries.filter(e => !util.isFakeEntry(e));
+        entries = entries.filter(e => !isFakeEntry(e));
         const dlpSourceUrls = metadataModel.getCache(entries, ['sourceUrl'])
             .map(m => m.sourceUrl || '');
         if (entries.length !== 0) {
@@ -52980,7 +52975,7 @@ class FileTasks {
         try {
             // TODO(mtomasz): Move conversion from entry to url to custom bindings.
             // crbug.com/345527.
-            const urls = util.entriesToURLs(this.entries_);
+            const urls = entriesToURLs(this.entries_);
             const promises = urls.map(url => this.mountArchiveAndChangeDirectory_(tracker, url));
             await Promise.all(promises);
         }
@@ -53092,8 +53087,9 @@ class MetadataUpdateController {
         }
         // TODO(dgozman): refresh content metadata only when modificationTime
         // changed.
-        const isFakeEntry = util.isFakeEntry(directoryEntry);
-        const changedEntries = (isFakeEntry ? [] : [util.unwrapEntry(directoryEntry)]).concat(entries);
+        const changedEntries = (isFakeEntry(directoryEntry) ? [] : [
+            unwrapEntry(directoryEntry),
+        ]).concat(entries);
         // @ts-ignore: error TS2345: Argument of type '(FileSystemEntry |
         // FilesAppEntry)[]' is not assignable to parameter of type
         // 'FileSystemEntry[]'.
@@ -53400,7 +53396,7 @@ class TaskController {
         const tasks = fileTasks.getAnnotatedTasks();
         const items = [];
         // We don't bold default task item in refresh23 style.
-        const shouldBoldDefaultItem = !util.isJellyEnabled();
+        const shouldBoldDefaultItem = !isJellyEnabled();
         // Create items.
         for (const task of tasks) {
             if (task === fileTasks.defaultTask) {
@@ -53937,7 +53933,7 @@ class AppStateController {
         }
         // Update preferred sort field and direction only when the current directory
         // is not Recent folder.
-        if (!util.isRecentRoot(currentDirectory)) {
+        if (!isRecentRoot(currentDirectory)) {
             // @ts-ignore: error TS2531: Object is possibly 'null'.
             const currentSortStatus = this.directoryModel_.getFileList().sortStatus;
             // @ts-ignore: error TS2339: Property 'field' does not exist on type
@@ -53977,7 +53973,7 @@ class AppStateController {
         // 2) preferred field and direction on other folders.
         // @ts-ignore: error TS2339: Property 'newDirEntry' does not exist on type
         // 'Event'.
-        const isOnRecent = util.isRecentRoot(event.newDirEntry);
+        const isOnRecent = isRecentRoot(event.newDirEntry);
         // @ts-ignore: error TS2531: Object is possibly 'null'.
         const fileListModel = this.directoryModel_.getFileList();
         // @ts-ignore: error TS2531: Object is possibly 'null'.
@@ -53985,7 +53981,7 @@ class AppStateController {
         const isOnRecentBefore = 
         // @ts-ignore: error TS2339: Property 'previousDirEntry' does not exist
         // on type 'Event'.
-        event.previousDirEntry && util.isRecentRoot(event.previousDirEntry);
+        event.previousDirEntry && isRecentRoot(event.previousDirEntry);
         if (isOnRecent != isOnRecentBefore) {
             if (isOnRecent) {
                 fileListModel.groupByField = GROUP_BY_FIELD_MODIFICATION_TIME;
@@ -54195,7 +54191,7 @@ CommandUtil.getCommandEntries = (fileManager, element) => {
     }
     // The event target could still be a descendant of a DirectoryItem element
     // (e.g. the eject button).
-    if (util.isNewDirectoryTreeEnabled()) {
+    if (isNewDirectoryTreeEnabled()) {
         // Handle eject button in the new directory tree.
         // @ts-ignore: error TS2339: Property 'classList' does not exist on type
         // 'EventTarget'.
@@ -54390,7 +54386,7 @@ CommandUtil.createVolumeSwitchCommand = index => new (class extends FilesCommand
     // @ts-ignore: error TS7006: Parameter 'fileManager' implicitly has an
     // 'any' type.
     execute(event, fileManager) {
-        if (util.isNewDirectoryTreeEnabled()) {
+        if (isNewDirectoryTreeEnabled()) {
             const items = fileManager.ui.directoryTree.items;
             if (items[index - 1]?.entry) {
                 getStore().dispatch(changeDirectory({ toKey: items[index - 1].entry.toURL() }));
@@ -54438,7 +54434,7 @@ CommandUtil.isRootEntry = (volumeManager, entry) => {
         return false;
     }
     const volumeInfo = volumeManager.getVolumeInfo(entry);
-    return !!volumeInfo && util.isSameEntry(volumeInfo.displayRoot, entry);
+    return !!volumeInfo && isSameEntry(volumeInfo.displayRoot, entry);
 };
 /**
  * Returns true if the given event was triggered by the selection menu button.
@@ -54459,7 +54455,7 @@ CommandUtil.isFromSelectionMenu = event => {
  */
 CommandUtil.shouldShowMenuItemsForEntry = (volumeManager, entry) => {
     // If the entry is fake entry, hide context menu entries.
-    if (util.isFakeEntry(entry)) {
+    if (isFakeEntry(entry)) {
         return false;
     }
     // If the entry is not a valid entry, hide context menu entries.
@@ -54478,10 +54474,10 @@ CommandUtil.shouldShowMenuItemsForEntry = (volumeManager, entry) => {
     // If the entry is root entry of its volume (but not a team drive root),
     // hide context menu entries.
     if (CommandUtil.isRootEntry(volumeManager, entry) &&
-        !util.isTeamDriveRoot(entry)) {
+        !isTeamDriveRoot(entry)) {
         return false;
     }
-    if (util.isTeamDrivesGrandRoot(entry)) {
+    if (isTeamDrivesGrandRoot(entry)) {
         return false;
     }
     return true;
@@ -54546,7 +54542,7 @@ CommandUtil.isDriveEntries = (entries, volumeManager) => {
         return false;
     }
     if (volumeInfo.volumeType === VolumeManagerCommon.VolumeType.DRIVE &&
-        util.isSameVolume(entries, volumeManager)) {
+        isSameVolume(entries, volumeManager)) {
         return true;
     }
     return false;
@@ -54588,7 +54584,7 @@ CommandUtil.isOnTrashRoot = fileManager => {
     if (!currentRootType) {
         return false;
     }
-    return util.isTrashRootType(currentRootType);
+    return isTrashRootType(currentRootType);
 };
 /**
  * Extracts entry on which command event was dispatched.
@@ -55021,7 +55017,7 @@ CommandHandler.COMMANDS_['format'] = new (class extends FilesCommand {
         const removableRoot = location && isRoot &&
             location.rootType === VolumeManagerCommon.RootType.REMOVABLE;
         event.canExecute = removableRoot && (isUnrecognizedVolume || writable);
-        if (util.isSinglePartitionFormatEnabled()) {
+        if (isSinglePartitionFormatEnabled()) {
             let isDevice = false;
             if (root && root instanceof EntryList) {
                 // root entry is device node if it has child (partition).
@@ -55056,7 +55052,7 @@ CommandHandler.COMMANDS_['erase-device'] = new (class extends FilesCommand {
     // @ts-ignore: error TS7006: Parameter 'fileManager' implicitly has an 'any'
     // type.
     canExecute(event, fileManager) {
-        if (!util.isSinglePartitionFormatEnabled()) {
+        if (!isSinglePartitionFormatEnabled()) {
             event.canExecute = false;
             event.command.setHidden(true);
             return;
@@ -55141,7 +55137,7 @@ CommandHandler.COMMANDS_['new-folder'] = new (class extends FilesCommand {
                 // @ts-ignore: error TS7005: Variable
                 // 'executedFromDirectoryTree' implicitly has an 'any' type.
                 if (executedFromDirectoryTree) {
-                    if (util.isNewDirectoryTreeEnabled()) {
+                    if (isNewDirectoryTreeEnabled()) {
                         // After new directory is created on parent directory, we
                         // need to trigger a re-read for the parent directory to the
                         // store.
@@ -55231,8 +55227,7 @@ CommandHandler.COMMANDS_['new-folder'] = new (class extends FilesCommand {
         }
         if (isDirectoryTree(event.target) || isDirectoryTreeItem(event.target)) {
             const entry = entries[0];
-            if (!entry || util.isFakeEntry(entry) ||
-                util.isTeamDrivesGrandRoot(entry)) {
+            if (!entry || isFakeEntry(entry) || isTeamDrivesGrandRoot(entry)) {
                 event.canExecute = false;
                 event.command.setHidden(true);
                 return;
@@ -55562,7 +55557,7 @@ class DeleteCommand extends FilesCommand {
         return entries.some(entry => {
             const locationInfo = fileManager.volumeManager.getLocationInfo(entry);
             return (locationInfo && locationInfo.isReadOnly) ||
-                util.isNonModifiable(fileManager.volumeManager, entry);
+                isNonModifiable(fileManager.volumeManager, entry);
         });
     }
 }
@@ -55656,8 +55651,8 @@ CommandHandler
     // type.
     canExecute(event, fileManager) {
         const entries = CommandUtil.getCommandEntries(fileManager, event.target);
-        const enabled = entries.length > 0 &&
-            entries.every(e => util.isTrashEntry(e)) && fileManager.trashEnabled;
+        const enabled = entries.length > 0 && entries.every(e => isTrashEntry$1(e)) &&
+            fileManager.trashEnabled;
         event.canExecute = enabled;
         event.command.setHidden(!enabled);
     }
@@ -55708,10 +55703,10 @@ CommandHandler.COMMANDS_['empty-trash'] = new (class extends FilesCommand {
         const entries = CommandUtil.getCommandEntries(fileManager, event.target);
         // @ts-ignore: error TS2345: Argument of type 'FileSystemEntry | undefined'
         // is not assignable to parameter of type 'FileSystemEntry | FilesAppEntry'.
-        const isTrashRoot = entries.length === 1 && util.isTrashRoot(entries[0]) &&
+        const trashRoot = entries.length === 1 && isTrashRoot(entries[0]) &&
             fileManager.trashEnabled;
-        event.canExecute = isTrashRoot || CommandUtil.isOnTrashRoot(fileManager);
-        event.command.setHidden(!isTrashRoot);
+        event.canExecute = trashRoot || CommandUtil.isOnTrashRoot(fileManager);
+        event.command.setHidden(!trashRoot);
     }
 })();
 /**
@@ -55913,11 +55908,11 @@ CommandHandler.cutCopyCommand_ = new (class extends FilesCommand {
                 return false;
             }
             // For MyFiles/Downloads and MyFiles/PluginVm we only allow copy.
-            if (isMove && util.isNonModifiable(volumeManager, entry)) {
+            if (isMove && isNonModifiable(volumeManager, entry)) {
                 return false;
             }
             // Cut is unavailable on Shared Drive roots.
-            if (util.isTeamDriveRoot(entry)) {
+            if (isTeamDriveRoot(entry)) {
                 return false;
             }
             const metadata = fileManager.metadataModel.getCache([entry], ['canCopy', 'canDelete']);
@@ -55952,7 +55947,7 @@ CommandHandler.cutCopyCommand_ = new (class extends FilesCommand {
             }
             // For MyFiles/Downloads we only allow copy.
             if (isMove &&
-                fileManager.getSelection().entries.some(util.isNonModifiable.bind(null, volumeManager))) {
+                fileManager.getSelection().entries.some(isNonModifiable.bind(null, volumeManager))) {
                 return false;
             }
             return isMove ? fileTransferController.canCutOrDrag() :
@@ -55981,7 +55976,7 @@ CommandHandler.COMMANDS_['rename'] = new (class extends FilesCommand {
     // type.
     execute(event, fileManager) {
         const entry = CommandUtil.getCommandEntry(fileManager, event.target);
-        if (util.isNonModifiable(fileManager.volumeManager, entry)) {
+        if (isNonModifiable(fileManager.volumeManager, entry)) {
             return;
         }
         if (CommandUtil.isOnTrashRoot(fileManager)) {
@@ -56072,7 +56067,7 @@ CommandHandler.COMMANDS_['rename'] = new (class extends FilesCommand {
             // undefined' is not assignable to parameter of type
             // 'FileSystemEntry | FakeEntry'.
             fileManager.volumeManager, entries[0]) ||
-            entries.some(util.isNonModifiable.bind(null, fileManager.volumeManager))) {
+            entries.some(isNonModifiable.bind(null, fileManager.volumeManager))) {
             event.canExecute = false;
             event.command.setHidden(true);
             return;
@@ -56259,7 +56254,7 @@ CommandHandler
             .map(m => m.sourceUrl || '');
         chrome.fileManagerPrivate.invokeSharesheet(
         // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
-        entries.map(e => util.unwrapEntry(e)), launchSource, dlpSourceUrls, () => {
+        entries.map(e => unwrapEntry(e)), launchSource, dlpSourceUrls, () => {
             if (chrome.runtime.lastError) {
                 console.warn(chrome.runtime.lastError.message);
                 return;
@@ -56295,7 +56290,7 @@ CommandHandler
         /** @type {Node} */ (event.target));
         chrome.fileManagerPrivate.sharesheetHasTargets(
         // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
-        entries.map(e => util.unwrapEntry(e)), hasTargets => {
+        entries.map(e => unwrapEntry(e)), hasTargets => {
             if (chrome.runtime.lastError) {
                 console.warn(chrome.runtime.lastError.message);
                 return;
@@ -56352,7 +56347,7 @@ CommandHandler.COMMANDS_['toggle-holding-space'] =
             const command = event.command;
             const allowedVolumeTypes = HoldingSpaceUtil.getAllowedVolumeTypes();
             const currentRootType = fileManager.directoryModel.getCurrentRootType();
-            if (!util.isRecentRootType(currentRootType)) {
+            if (!isRecentRootType(currentRootType)) {
                 const volumeInfo = fileManager.directoryModel.getCurrentVolumeInfo();
                 if (!volumeInfo ||
                     !allowedVolumeTypes.includes(volumeInfo.volumeType)) {
@@ -56407,7 +56402,7 @@ CommandHandler.COMMANDS_['toggle-holding-space'] =
             // @ts-ignore: error TS2345: Argument of type '(FileSystemEntry |
             // FilesAppEntry)[]' is not assignable to parameter of type
             // 'FileSystemEntry[]'.
-            const selectedUrls = util.entriesToURLs(entries);
+            const selectedUrls = entriesToURLs(entries);
             // @ts-ignore: error TS7053: Element implicitly has an 'any' type
             // because expression of type 'string' can't be used to index type '{}'.
             this.addsItems_ = selectedUrls.some(url => !itemsSet[url]);
@@ -56452,7 +56447,7 @@ CommandHandler.COMMANDS_['go-to-file-location'] =
         // 'any' type.
         canExecute(event, fileManager) {
             // Available in Recents, Audio, Images, and Videos.
-            if (!util.isRecentRootType(fileManager.directoryModel.getCurrentRootType())) {
+            if (!isRecentRootType(fileManager.directoryModel.getCurrentRootType())) {
                 event.canExecute = false;
                 event.command.setHidden(true);
                 return;
@@ -56524,7 +56519,7 @@ CommandHandler.COMMANDS_['dlp-restriction-details'] =
         // @ts-ignore: error TS7006: Parameter 'fileManager' implicitly has an
         // 'any' type.
         canExecute(event, fileManager) {
-            if (!util.isDlpEnabled()) {
+            if (!isDlpEnabled()) {
                 event.canExecute = false;
                 event.command.setHidden(true);
                 return;
@@ -56658,7 +56653,7 @@ CommandHandler.COMMANDS_['toggle-pinned'] = new (class extends FilesCommand {
         // When the bulk pinning panel is enabled, the "Available offline" toggle
         // should not be visible as the underlying functionality is handled
         // automatically.
-        if (util.isDriveFsBulkPinningEnabled()) {
+        if (isDriveFsBulkPinningEnabled()) {
             const state = /** @type {State} */ (getStore().getState());
             // @ts-ignore: error TS18048: 'state.preferences' is possibly 'undefined'.
             const bulkPinningPref = state.preferences.driveFsBulkPinningEnabled;
@@ -56952,7 +56947,7 @@ CommandHandler.COMMANDS_['manage-mirrorsync'] =
             event.canExecute =
                 (currentRootType === VolumeManagerCommon.RootType.MY_FILES ||
                     currentRootType === VolumeManagerCommon.RootType.DOWNLOADS) &&
-                    util.isMirrorSyncEnabled();
+                    isMirrorSyncEnabled();
             event.command.setHidden(!event.canExecute);
         }
     })();
@@ -57015,7 +57010,7 @@ class GuestOsShareCommand extends FilesCommand {
             chrome.fileManagerPrivate.sharePathsWithCrostini(
             // @ts-ignore: error TS2322: Type 'FileSystemEntry | FilesAppEntry' is
             // not assignable to type 'FileSystemEntry'.
-            this.vmName_, [util.unwrapEntry(entry)], true /* persist */, () => {
+            this.vmName_, [unwrapEntry(entry)], true /* persist */, () => {
                 if (chrome.runtime.lastError) {
                     console.warn('Error sharing with guest: ' +
                         chrome.runtime.lastError.message);
@@ -57704,7 +57699,7 @@ class CrostiniController {
             crostiniNavigationModelItem = null;
             getStore().dispatch(removeUiEntry({ key: crostiniPlaceHolderKey }));
         }
-        if (!util.isNewDirectoryTreeEnabled()) {
+        if (!isNewDirectoryTreeEnabled()) {
             // @ts-ignore: error TS2322: Type 'NavigationModelFakeItem | null' is not
             // assignable to type 'NavigationModelFakeItem'.
             this.directoryTree_.dataModel.linuxFilesItem =
@@ -58419,7 +58414,7 @@ class EmptyFolderController {
         const currentRootType = this.directoryModel_.getCurrentRootType();
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
         let svgRef = null;
-        if (util.isRecentRootType(currentRootType)) {
+        if (isRecentRootType(currentRootType)) {
             svgRef = RECENTS_EMPTY_FOLDER;
         }
         else if (currentRootType === VolumeManagerCommon.RootType.TRASH) {
@@ -58670,9 +58665,9 @@ class FileTypeFiltersController {
      */
     onCurrentDirectoryChanged_(event) {
         const directoryChangeEvent = /** @type {!DirectoryChangeEvent} */ (event);
-        const isEnteringRecentEntry = util.isSameEntry(directoryChangeEvent.newDirEntry, this.recentEntry_);
+        const isEnteringRecentEntry = isSameEntry(directoryChangeEvent.newDirEntry, this.recentEntry_);
         const isLeavingRecentEntry = !isEnteringRecentEntry &&
-            util.isSameEntry(directoryChangeEvent.previousDirEntry, this.recentEntry_);
+            isSameEntry(directoryChangeEvent.previousDirEntry, this.recentEntry_);
         // We show filter buttons only in Recents view at this moment.
         this.container_.hidden = !isEnteringRecentEntry;
         // Reset the filter back to "All" on leaving Recents view.
@@ -58815,7 +58810,7 @@ class GearMenuController {
     // never read.
     refreshRemainingSpace_(showLoadingCaption) {
         const currentDirectory = this.directoryModel_.getCurrentDirEntry();
-        if (!currentDirectory || util.isRecentRoot(currentDirectory)) {
+        if (!currentDirectory || isRecentRoot(currentDirectory)) {
             // @ts-ignore: error TS2345: Argument of type 'null' is not assignable to
             // parameter of type 'Promise<SpaceInfo | undefined>'.
             this.gearMenu_.setSpaceInfo(null, false);
@@ -58906,7 +58901,7 @@ class GuestOsController {
      * @param {!VolumeManager} volumeManager VolumeManager.
      */
     constructor(directoryModel, directoryTree, volumeManager) {
-        if (!util.isGuestOsEnabled()) {
+        if (!isGuestOsEnabled()) {
             console.warn('Created a guest os controller when it\'s not enabled');
         }
         /** @private @const */
@@ -58955,7 +58950,7 @@ class GuestOsController {
             store.dispatch(addUiEntry({ entry: guestOsEntry }));
             return navigationModelItem;
         });
-        if (!util.isNewDirectoryTreeEnabled()) {
+        if (!isNewDirectoryTreeEnabled()) {
             this.directoryTree_.dataModel.guestOsPlaceholders =
                 newGuestOsPlaceholders;
             // Redraw the tree to ensure any newly added/removed roots are
@@ -58983,7 +58978,7 @@ class LastModifiedController {
     onScanStarted_() {
         // If the current directory is Recent root, request FileTable to use
         // modificationByMeTime instead of modificationTime in last modified column.
-        const useModificationByMeTime = util.isRecentRootType(this.directoryModel_.getCurrentRootType());
+        const useModificationByMeTime = isRecentRootType(this.directoryModel_.getCurrentRootType());
         this.fileTable_.setUseModificationByMeTime(useModificationByMeTime);
         this.directoryModel_.getFileList().setUseModificationByMeTime(useModificationByMeTime);
     }
@@ -59192,7 +59187,7 @@ class MainWindowComponent {
         if (!listItem || !listItem.selected || selection.totalCount !== 1) {
             return false;
         }
-        const trashEntries = /** @type {!Array<!TrashEntry>} */ (selection.entries.filter(util.isTrashEntry));
+        const trashEntries = /** @type {!Array<!TrashEntry>} */ (selection.entries.filter(isTrashEntry$1));
         if (trashEntries.length > 0) {
             this.showFailedToOpenTrashItemDialog_(trashEntries);
             return false;
@@ -59226,7 +59221,7 @@ class MainWindowComponent {
                 if (!selection) {
                     return true;
                 }
-                const trashEntries = /** @type {!Array<!TrashEntry>} */ (selection.entries.filter(util.isTrashEntry));
+                const trashEntries = /** @type {!Array<!TrashEntry>} */ (selection.entries.filter(isTrashEntry$1));
                 this.showFailedToOpenTrashItemDialog_(trashEntries);
                 return true;
             }
@@ -59357,7 +59352,7 @@ class MainWindowComponent {
             if (!focusedItem) {
                 return;
             }
-            if (util.isNewDirectoryTreeEnabled()) {
+            if (isNewDirectoryTreeEnabled()) {
                 focusedItem.selected = true;
             }
             else {
@@ -59367,7 +59362,7 @@ class MainWindowComponent {
             }
             if (this.dialogType_ !== DialogType.FULL_PAGE &&
                 !focusedItem.hasAttribute('renaming') &&
-                util.isSameEntry(
+                isSameEntry(
                 // @ts-ignore: error TS2339: Property 'entry' does not exist on
                 // type 'XfTreeItem | DirectoryItem'.
                 this.directoryModel_.getCurrentDirEntry(), focusedItem.entry) &&
@@ -59407,7 +59402,7 @@ class MainWindowComponent {
                 // @ts-ignore: error TS2532: Object is possibly 'undefined'.
                 if (selection.totalCount === 1 && selection.entries[0].isDirectory &&
                     !isFolderDialogType(this.dialogType_) &&
-                    !selection.entries.some(util.isTrashEntry)) {
+                    !selection.entries.some(isTrashEntry$1)) {
                     const item = this.ui_.listContainer.currentList.getListItemByIndex(
                     // @ts-ignore: error TS2345: Argument of type 'number | undefined'
                     // is not assignable to parameter of type 'number'.
@@ -59492,7 +59487,7 @@ class MainWindowComponent {
     onWindowFocus_() {
         // When the window have got a focus while the current directory is Recent
         // root, refresh the contents.
-        if (util.isRecentRootType(this.directoryModel_.getCurrentRootType())) {
+        if (isRecentRootType(this.directoryModel_.getCurrentRootType())) {
             this.directoryModel_.rescan(true /* refresh */);
             // Do not start the spinner here to silently refresh the contents.
         }
@@ -60562,7 +60557,7 @@ class MetadataBoxController {
             return;
         }
         const entry = this.quickViewModel_.getSelectedEntry();
-        const isSameEntry = util.isSameEntry(entry, this.previousEntry_);
+        const sameEntry = isSameEntry(entry, this.previousEntry_);
         this.previousEntry_ = entry;
         if (!entry) {
             this.metadataBox?.clear(false);
@@ -60575,10 +60570,10 @@ class MetadataBoxController {
             return;
         }
         // Do not clear isSizeLoading and size fields when the entry is not changed.
-        this.metadataBox.clear(isSameEntry);
+        this.metadataBox.clear(sameEntry);
         const metadata = GENERAL_METADATA_NAMES.concat(['alternateUrl', 'externalFileUrl', 'hosted']);
         this.metadataModel_.get([entry], metadata)
-            .then(this.onGeneralMetadataLoaded_.bind(this, entry, isSameEntry));
+            .then(this.onGeneralMetadataLoaded_.bind(this, entry, sameEntry));
     }
     /**
      * Accessor to get a guaranteed `FilesMetadataBox`.
@@ -60698,25 +60693,25 @@ class MetadataBoxController {
      * `isSameEntry` is True if the entry is not changed from the last time. False
      * enables the loading animation.
      */
-    setDirectorySize_(entry, isSameEntry) {
+    setDirectorySize_(entry, sameEntry) {
         if (!isFileSystemDirectoryEntry(entry)) {
             return;
         }
-        const directoryEntry = util.unwrapEntry(entry);
+        const directoryEntry = unwrapEntry(entry);
         if (this.metadataBox.size === '') {
             this.metadataBox.size = ' '; // Provide a dummy size value.
         }
         if (this.isDirectorySizeLoading_) {
-            if (!isSameEntry) {
+            if (!sameEntry) {
                 this.metadataBox.isSizeLoading = true;
             }
             // Store the new setDirectorySize_ request and return.
             this.onDirectorySizeLoaded_ = lastEntry => {
-                this.setDirectorySize_(entry, util.isSameEntry(entry, lastEntry));
+                this.setDirectorySize_(entry, isSameEntry(entry, lastEntry));
             };
             return;
         }
-        this.metadataBox.isSizeLoading = !isSameEntry;
+        this.metadataBox.isSizeLoading = !sameEntry;
         this.isDirectorySizeLoading_ = true;
         chrome.fileManagerPrivate.getDirectorySize(directoryEntry, (size) => {
             this.isDirectorySizeLoading_ = false;
@@ -61186,7 +61181,7 @@ class QuickViewController {
         if (this.quickView_ && this.quickView_.isOpened() &&
             this.entries_[this.currentSelection_]) {
             const entry = this.entries_[this.currentSelection_];
-            if (!util.isSameEntry(entry, this.quickViewModel_.getSelectedEntry())) {
+            if (!isSameEntry(entry, this.quickViewModel_.getSelectedEntry())) {
                 this.updateQuickView_();
             }
         }
@@ -61992,7 +61987,7 @@ class ToolbarController {
         this.moveToTrashButton_.addEventListener('click', this.onMoveToTrashButtonClicked_.bind(this));
         this.restoreFromTrashButton_.addEventListener('click', this.onRestoreFromTrashButtonClicked_.bind(this));
         this.sharesheetButton_.addEventListener('click', this.onSharesheetButtonClicked_.bind(this));
-        if (util.isDriveFsBulkPinningEnabled()) {
+        if (isDriveFsBulkPinningEnabled()) {
             const cloudPanel = queryRequiredElement('xf-cloud-panel');
             this.cloudButton_.addEventListener('click', () => {
                 this.cloudButton_.toggleAttribute('menu-shown', true);
@@ -62097,7 +62092,7 @@ class ToolbarController {
             (selection.totalCount === 0 ||
                 !this.directoryModel_.canDeleteEntries() ||
                 selection.hasReadOnlyEntry() ||
-                selection.entries.some(entry => util.isNonModifiable(this.volumeManager_, entry)));
+                selection.entries.some(entry => isNonModifiable(this.volumeManager_, entry)));
         // Show 'Move to Trash' rather than 'Delete' if possible. The
         // `moveToTrashCommand` needs to be set to hidden to ensure the
         // `canExecuteChange` invokes the `hiddenChange` event in the case where
@@ -62181,7 +62176,7 @@ class ToolbarController {
     /** @private */
     updatePinnedToggle_() {
         this.pinnedToggleWrapper_.hidden = this.togglePinnedCommand_.hidden;
-        if (util.isCrosComponentsEnabled()) {
+        if (isCrosComponentsEnabled()) {
             // @ts-ignore: error TS2339: Property 'pinnedToggleJelly_' does not exist
             // on type 'ToolbarController'.
             this.pinnedToggleJelly_.selected = this.togglePinnedCommand_.checked;
@@ -62203,7 +62198,7 @@ class ToolbarController {
         this.togglePinnedCommand_.execute(this.listContainer_.currentList);
         // Optimistally update the command's properties so we get notified if they
         // change back.
-        this.togglePinnedCommand_.checked = util.isCrosComponentsEnabled() ?
+        this.togglePinnedCommand_.checked = isCrosComponentsEnabled() ?
             // @ts-ignore: error TS2339: Property 'pinnedToggleJelly_' does not
             // exist on type 'ToolbarController'.
             this.pinnedToggleJelly_.selected :
@@ -63035,7 +63030,7 @@ class FileManager extends NativeEventTarget {
         assert$1(this.volumeManager_);
         assert$1(this.fileOperationManager_);
         assert$1(this.dialogDom_);
-        if (util.isInlineSyncStatusEnabled()) {
+        if (isInlineSyncStatusEnabled()) {
             // @ts-ignore: error TS2322: Type 'MetadataModel | null' is not assignable
             // to type 'Object'.
             this.fileBrowserBackground_.driveSyncHandler.metadataModel =
@@ -63136,7 +63131,7 @@ class FileManager extends NativeEventTarget {
      * @private
      */
     async initBulkPinning_() {
-        if (!util.isDriveFsBulkPinningEnabled()) {
+        if (!isDriveFsBulkPinningEnabled()) {
             return;
         }
         try {
@@ -63299,7 +63294,7 @@ class FileManager extends NativeEventTarget {
         // Add theme attribute so widgets can render different styles based on
         // this attribute:
         // [theme="legacy"] -> Legacy style, [theme="refresh23"] -> Refresh23 style
-        const theme = util.isJellyEnabled() ? 'refresh23' : 'legacy';
+        const theme = isJellyEnabled() ? 'refresh23' : 'legacy';
         this.document_.documentElement.setAttribute('theme', theme);
         // @ts-ignore: error TS2531: Object is possibly 'null'.
         this.dialogDom_.setAttribute('theme', theme);
@@ -63614,8 +63609,7 @@ class FileManager extends NativeEventTarget {
      * @return {Promise<!Array<!VolumeManagerCommon.VolumeType>>}
      */
     async getDisabledVolumes_() {
-        if (this.dialogType !== DialogType.SELECT_SAVEAS_FILE ||
-            !util.isDlpEnabled()) {
+        if (this.dialogType !== DialogType.SELECT_SAVEAS_FILE || !isDlpEnabled()) {
             return [];
         }
         const caller = await getDialogCaller();
@@ -63639,7 +63633,7 @@ class FileManager extends NativeEventTarget {
         const directoryTree = /** @type {DirectoryTree} */ 
         // @ts-ignore: error TS2531: Object is possibly 'null'.
         (this.dialogDom_.querySelector('#directory-tree'));
-        if (util.isNewDirectoryTreeEnabled()) {
+        if (isNewDirectoryTreeEnabled()) {
             const treeContainer = directoryTree.parentElement;
             directoryTree.remove();
             const directoryTreeContainer = new DirectoryTreeContainer(
@@ -63711,7 +63705,7 @@ class FileManager extends NativeEventTarget {
         await this.crostiniController_.loadSharedPaths(
         // @ts-ignore: error TS2531: Object is possibly 'null'.
         maybeShowToast, this.ui_.toast);
-        if (util.isGuestOsEnabled()) {
+        if (isGuestOsEnabled()) {
             this.guestOsController_ = new GuestOsController(
             // @ts-ignore: error TS2345: Argument of type 'DirectoryModel | null'
             // is not assignable to parameter of type 'DirectoryModel'.
@@ -63918,7 +63912,7 @@ class FileManager extends NativeEventTarget {
         }
         // If the resolved directory to be changed is blocked by DLP, we should
         // fallback to the default display root.
-        if (nextCurrentDirEntry && util.isDlpEnabled()) {
+        if (nextCurrentDirEntry && isDlpEnabled()) {
             const volumeInfo = this.volumeManager_.getVolumeInfo(nextCurrentDirEntry);
             if (volumeInfo && this.volumeManager_.isDisabled(volumeInfo.volumeType)) {
                 console.warn('Target directory is DLP blocked, redirecting to MyFiles');
@@ -63978,7 +63972,7 @@ class FileManager extends NativeEventTarget {
         }
         // If there is no target select MyFiles by default.
         if (!nextCurrentDirEntry) {
-            if (util.isNewDirectoryTreeEnabled()) {
+            if (isNewDirectoryTreeEnabled()) {
                 const myFiles = getMyFiles(this.store_.getState());
                 nextCurrentDirEntry = myFiles.myFilesEntry;
                 // @ts-ignore: error TS2339: Property 'dataModel' does not exist on type
@@ -64176,7 +64170,7 @@ class FileManager extends NativeEventTarget {
             redraw = true;
         }
         this.updateOfficePrefs_(prefs);
-        if (redraw && !util.isNewDirectoryTreeEnabled()) {
+        if (redraw && !isNewDirectoryTreeEnabled()) {
             // @ts-ignore: error TS2339: Property 'redraw' does not exist on type
             // 'XfTree | DirectoryTree'.
             this.ui_.directoryTree.redraw(false);
@@ -64248,7 +64242,7 @@ class FileManager extends NativeEventTarget {
             // properties from type 'FakeEntryImpl': label, disabled,
             // sourceRestriction, fileCategory, and 7 more.
             this.store_.dispatch(addUiEntry({ entry: this.fakeTrashItem_.entry }));
-            if (!util.isNewDirectoryTreeEnabled()) {
+            if (!isNewDirectoryTreeEnabled()) {
                 // @ts-ignore: error TS2339: Property 'dataModel' does not exist on type
                 // 'XfTree | DirectoryTree'.
                 this.ui_.directoryTree.dataModel.fakeTrashItem = this.fakeTrashItem_;
@@ -64256,7 +64250,7 @@ class FileManager extends NativeEventTarget {
             return;
         }
         this.store_.dispatch(removeUiEntry({ key: trashRootKey }));
-        if (!util.isNewDirectoryTreeEnabled()) {
+        if (!isNewDirectoryTreeEnabled()) {
             // @ts-ignore: error TS2339: Property 'dataModel' does not exist on type
             // 'XfTree | DirectoryTree'.
             this.ui_.directoryTree.dataModel.fakeTrashItem = null;
@@ -64275,14 +64269,14 @@ class FileManager extends NativeEventTarget {
                 this.fakeDriveItem_ = new NavigationModelFakeItem(str('DRIVE_DIRECTORY_LABEL'), NavigationModelItemType.DRIVE, driveFakeRoot);
                 this.fakeDriveItem_.disabled = this.volumeManager_.isDisabled(VolumeManagerCommon.VolumeType.DRIVE);
             }
-            if (!util.isNewDirectoryTreeEnabled()) {
+            if (!isNewDirectoryTreeEnabled()) {
                 // @ts-ignore: error TS2339: Property 'dataModel' does not exist on type
                 // 'XfTree | DirectoryTree'.
                 this.ui_.directoryTree.dataModel.fakeDriveItem = this.fakeDriveItem_;
             }
             return;
         }
-        if (!util.isNewDirectoryTreeEnabled()) {
+        if (!isNewDirectoryTreeEnabled()) {
             // @ts-ignore: error TS2339: Property 'dataModel' does not exist on type
             // 'XfTree | DirectoryTree'.
             this.ui_.directoryTree.dataModel.fakeDriveItem = null;

@@ -15,6 +15,7 @@
 #include "media/mojo/mojom/display_media_information.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/token.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-shared-internal.h"
+#include "third_party/blink/public/mojom/mediastream/media_devices.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 #include "base/component_export.h"

@@ -438,7 +438,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x26cdb95c,  // Sharing.ClickToCallPhoneNumberValid
   0x26d402e1,  // Notifications.Scheduler.BackgroundTask.NotificationShown
   0x26d83bce,  // Apps.RunningPercentage.ChromeApp
-  0x26e982e8,  // NetworkService.CrossOriginResourcePolicy.Result
   0x26f142cb,  // Navigation.RendererCommitProcessWaitTime.MainFrame
   0x2709f44c,  // MobileFre.FragmentInflationSpeed.SlowerThanAppRestriction
   0x27172637,  // Platform.BootMode.DevSwitch
@@ -863,7 +862,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x51cf1a9d,  // PageLoad.Experimental.Memory.Core.Subframe.Aggregate.Max
   0x51e12d7f,  // Tabs.TabCountPerDomainPerLoad.101to150
   0x51e1b89d,  // Apps.AppList.TimeToUserAction.TabletMode
-  0x51e54ca3,  // NetworkService.CrossOriginResourcePolicy.ReportOnlyResult
   0x51fc3aeb,  // Settings.TrackedPreferenceTrustedInitialized
   0x5209782d,  // BackgroundFetch.EventDispatchFailure.StartWorker.AbortEvent
   0x52351988,  // ThreadPool.NumTasksBeforeDetach.Renderer.Foreground
@@ -1793,7 +1791,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xabe26a55,  // Ash.Dock.ItemsVisible
   0xac1304b0,  // Ash.Wallpaper.GooglePhotos.Api.GetEnabled.Result.Count
   0xac270714,  // PageLoad.Experimental.PageTiming.CommitSentToFirstSubresourceLoadStart
-  0xac6abf56,  // DomDistiller.Time.ViewerLoading
   0xac853133,  // Apps.ScrollableShelf.Drag.PresentationTime.MaxLatency.TabletMode.LauncherVisible
   0xac895428,  // Memory.Discardable.Size.Foreground
   0xacb0d3dd,  // MachineLearningService.WebPlatformHandwritingModel.GetPrediction.PrivateMemoryDeltaKb

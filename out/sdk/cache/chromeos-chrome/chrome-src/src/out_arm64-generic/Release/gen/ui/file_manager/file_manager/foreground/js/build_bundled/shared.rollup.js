@@ -1510,217 +1510,6 @@ function isInvalidationError(error) {
     return false;
 }
 
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Helpers for APIs used within Files app.
- */
-/**
- * Calls the `fn` function which should expect the callback as last argument.
- *
- * Resolves with the result of the `fn`.
- *
- * Rejects if there is `chrome.runtime.lastError`.
- */
-async function promisify(fn, ...args) {
-    return new Promise((resolve, reject) => {
-        const callback = (result) => {
-            if (chrome.runtime.lastError) {
-                reject(chrome.runtime.lastError.message);
-            }
-            else {
-                resolve(result);
-            }
-        };
-        fn(...args, callback);
-    });
-}
-/**
- * Opens a new window for Files SWA.
- */
-async function openWindow(params) {
-    return promisify(chrome.fileManagerPrivate.openWindow, params);
-}
-async function getPreferences() {
-    return promisify(chrome.fileManagerPrivate.getPreferences);
-}
-async function validatePathNameLength(parentEntry, name) {
-    return promisify(chrome.fileManagerPrivate.validatePathNameLength, util.unwrapEntry(parentEntry), name);
-}
-/**
- * Wrap the chrome.fileManagerPrivate.getSizeStats function in an async/await
- * compatible style.
- */
-async function getSizeStats(volumeId) {
-    return promisify(chrome.fileManagerPrivate.getSizeStats, volumeId);
-}
-/**
- * Wrap the chrome.fileManagerPrivate.getDriveQuotaMetadata function in an
- * async/await compatible style.
- */
-async function getDriveQuotaMetadata(entry) {
-    return promisify(chrome.fileManagerPrivate.getDriveQuotaMetadata, util.unwrapEntry(entry));
-}
-/**
- * Retrieves the current holding space state, for example the list of items the
- * holding space currently contains.
- */
-async function getHoldingSpaceState() {
-    return promisify(chrome.fileManagerPrivate.getHoldingSpaceState);
-}
-/**
- * Wrap the chrome.fileManagerPrivate.getDisallowedTransfers function in an
- * async/await compatible style.
- */
-async function getDisallowedTransfers(entries, destinationEntry, isMove) {
-    return promisify(chrome.fileManagerPrivate.getDisallowedTransfers, entries.map(e => util.unwrapEntry(e)), util.unwrapEntry(destinationEntry), isMove);
-}
-/**
- * Wrap the chrome.fileManagerPrivate.getDlpMetadata function in an async/await
- * compatible style.
- */
-async function getDlpMetadata(entries) {
-    return promisify(chrome.fileManagerPrivate.getDlpMetadata, entries.map(e => util.unwrapEntry(e)));
-}
-/**
- * Retrieves the list of components to which the transfer of an Entry is blocked
- * by Data Leak Prevention (DLP) policy.
- */
-async function getDlpBlockedComponents(sourceUrl) {
-    return promisify(chrome.fileManagerPrivate.getDlpBlockedComponents, sourceUrl);
-}
-/**
- * Retrieves Data Leak Prevention (DLP) restriction details.
- */
-async function getDlpRestrictionDetails(sourceUrl) {
-    return promisify(chrome.fileManagerPrivate.getDlpRestrictionDetails, sourceUrl);
-}
-/**
- * Retrieves the caller that created the dialog (Save As/File Picker).
- */
-async function getDialogCaller() {
-    return promisify(chrome.fileManagerPrivate.getDialogCaller);
-}
-/**
- * Lists Guest OSs which support having their files mounted.
- */
-async function listMountableGuests() {
-    return promisify(chrome.fileManagerPrivate.listMountableGuests);
-}
-/**
- * Lists Guest OSs which support having their files mounted.
- */
-async function mountGuest(id) {
-    return promisify(chrome.fileManagerPrivate.mountGuest, id);
-}
-/*
- * FileSystemEntry helpers
- */
-async function getParentEntry(entry) {
-    return new Promise((resolve, reject) => {
-        entry.getParent(resolve, reject);
-    });
-}
-async function moveEntryTo(entry, parent, newName) {
-    return new Promise((resolve, reject) => {
-        entry.moveTo(parent, newName, resolve, reject);
-    });
-}
-async function getFile(directory, filename, options) {
-    return new Promise((resolve, reject) => {
-        directory.getFile(filename, options, resolve, reject);
-    });
-}
-async function getDirectory(directory, filename, options) {
-    return new Promise((resolve, reject) => {
-        directory.getDirectory(filename, options, resolve, reject);
-    });
-}
-async function getEntry$1(directory, filename, isFile, options) {
-    const getEntry = isFile ? getFile : getDirectory;
-    return getEntry(directory, filename, options);
-}
-/**
- * Starts an IOTask of `type` and returns a taskId that can be used to cancel
- * or identify the ongoing IO operation.
- */
-async function startIOTask(type, entries, params) {
-    if (params.destinationFolder) {
-        params.destinationFolder =
-            util.unwrapEntry(params.destinationFolder);
-    }
-    return promisify(chrome.fileManagerPrivate.startIOTask, type, entries.map(e => util.unwrapEntry(e)), params);
-}
-/**
- * Parses .trashinfo files to retrieve the restore path and deletion date.
- */
-async function parseTrashInfoFiles(entries) {
-    return promisify(chrome.fileManagerPrivate.parseTrashInfoFiles, entries.map(e => util.unwrapEntry(e)));
-}
-async function getMimeType(entry) {
-    return promisify(chrome.fileManagerPrivate.getMimeType, util.unwrapEntry(entry));
-}
-async function getFileTasks(entries, dlpSourceUrls) {
-    return promisify(chrome.fileManagerPrivate.getFileTasks, entries.map(e => util.unwrapEntry(e)), dlpSourceUrls);
-}
-async function executeTask(taskDescriptor, entries) {
-    return promisify(chrome.fileManagerPrivate.executeTask, taskDescriptor, entries.map(e => util.unwrapEntry(e)));
-}
-/**
- * Gets the current bulk pin progress status.
- */
-async function getBulkPinProgress() {
-    return promisify(chrome.fileManagerPrivate.getBulkPinProgress);
-}
-/**
- * Starts calculating the required space to pin all the users items on their My
- * drive.
- */
-async function calculateBulkPinRequiredSpace() {
-    return promisify(chrome.fileManagerPrivate.calculateBulkPinRequiredSpace);
-}
-/**
- * Wrap the chrome.fileManagerPrivate.getDriveConnectionStatus function in an
- * async/await compatible style.
- */
-async function getDriveConnectionState() {
-    return promisify(chrome.fileManagerPrivate.getDriveConnectionState);
-}
-async function grantAccess(entries) {
-    return promisify(chrome.fileManagerPrivate.grantAccess, entries);
-}
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * List of dialog types.
- *
- * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
- * FULL_PAGE which is specific to this code.
- */
-var DialogType;
-(function (DialogType) {
-    DialogType["SELECT_FOLDER"] = "folder";
-    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
-    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
-    DialogType["SELECT_OPEN_FILE"] = "open-file";
-    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
-    DialogType["FULL_PAGE"] = "full-page";
-})(DialogType || (DialogType = {}));
-function isModal(type) {
-    return type == DialogType.SELECT_FOLDER ||
-        type == DialogType.SELECT_UPLOAD_FOLDER ||
-        type == DialogType.SELECT_SAVEAS_FILE ||
-        type == DialogType.SELECT_OPEN_FILE ||
-        type == DialogType.SELECT_OPEN_MULTI_FILE;
-}
-function isFolderDialogType(type) {
-    return type == DialogType.SELECT_FOLDER ||
-        type == DialogType.SELECT_UPLOAD_FOLDER;
-}
-
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -2654,6 +2443,96 @@ class GuestOsPlaceholder extends FakeEntryImpl {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
+ * Whether the Files app integration with DLP (Data Loss Prevention) is enabled.
+ */
+function isDlpEnabled() {
+    return loadTimeData.valueExists('DLP_ENABLED') &&
+        loadTimeData.getBoolean('DLP_ENABLED');
+}
+/**
+ * Returns true if FuseBoxDebug flag is enabled.
+ */
+function isFuseBoxDebugEnabled() {
+    return loadTimeData.isInitialized() &&
+        loadTimeData.valueExists('FUSEBOX_DEBUG') &&
+        loadTimeData.getBoolean('FUSEBOX_DEBUG');
+}
+/**
+ * Returns true if GuestOsFiles flag is enabled.
+ */
+function isGuestOsEnabled() {
+    return loadTimeData.getBoolean('GUEST_OS');
+}
+/**
+ * Returns true if Jelly flag is enabled.
+ */
+function isJellyEnabled() {
+    return loadTimeData.getBoolean('JELLY');
+}
+/**
+ * Returns true if the cros-components flag is enabled.
+ */
+function isCrosComponentsEnabled() {
+    return loadTimeData.getBoolean('CROS_COMPONENTS');
+}
+/**
+ * Returns true if DriveFsMirroring flag is enabled.
+ */
+function isMirrorSyncEnabled() {
+    return loadTimeData.isInitialized() &&
+        loadTimeData.valueExists('DRIVEFS_MIRRORING') &&
+        loadTimeData.getBoolean('DRIVEFS_MIRRORING');
+}
+function isGoogleOneOfferFilesBannerEligibleAndEnabled() {
+    return loadTimeData.getBoolean('ELIGIBLE_AND_ENABLED_GOOGLE_ONE_OFFER_FILES_BANNER');
+}
+/**
+ * Returns true if FilesSinglePartitionFormat flag is enabled.
+ */
+function isSinglePartitionFormatEnabled() {
+    return loadTimeData.getBoolean('FILES_SINGLE_PARTITION_FORMAT_ENABLED');
+}
+/**
+ * Returns true if InlineSyncStatus feature flag is enabled.
+ */
+function isInlineSyncStatusEnabled() {
+    return loadTimeData.valueExists('INLINE_SYNC_STATUS') &&
+        loadTimeData.getBoolean('INLINE_SYNC_STATUS');
+}
+/**
+ * Returns true if FilesDriveShortcuts flag is enabled.
+ */
+function isDriveShortcutsEnabled() {
+    return loadTimeData.isInitialized() &&
+        loadTimeData.valueExists('DRIVE_SHORTCUTS') &&
+        loadTimeData.getBoolean('DRIVE_SHORTCUTS');
+}
+/**
+ * Returns whether the DriveFsBulkPinning feature flag is enabled.
+ */
+function isDriveFsBulkPinningEnabled() {
+    return loadTimeData.getBoolean('DRIVE_FS_BULK_PINNING');
+}
+/**
+ * Whether the new directory tree flag is enabled.
+ */
+function isNewDirectoryTreeEnabled() {
+    return loadTimeData.valueExists('NEW_DIRECTORY_TREE') &&
+        loadTimeData.getBoolean('NEW_DIRECTORY_TREE');
+}
+function isArcVmEnabled() {
+    return loadTimeData.valueExists('ARC_VM_ENABLED') &&
+        loadTimeData.getBoolean('ARC_VM_ENABLED');
+}
+function isPluginVmEnabled() {
+    return loadTimeData.valueExists('PLUGIN_VM_ENABLED') &&
+        loadTimeData.getBoolean('PLUGIN_VM_ENABLED');
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
  * @fileoverview Device slice of the store.
  * @suppress {checkTypes}
  */
@@ -2693,7 +2572,7 @@ function getVolumeTypesNestedInMyFiles() {
         VolumeType$1.ANDROID_FILES,
         VolumeType$1.CROSTINI,
     ]);
-    if (util.isGuestOsEnabled()) {
+    if (isGuestOsEnabled()) {
         myFilesNestedVolumeTypes.add(VolumeType$1.GUEST_OS);
     }
     return myFilesNestedVolumeTypes;
@@ -2831,8 +2710,7 @@ function removeVolumeReducer(currentState, payload) {
     if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
         const { myFilesEntry } = getMyFiles(currentState);
         const children = myFilesEntry.getUIChildren();
-        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) &&
-            util.isSameEntry(childEntry, volumeEntry));
+        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && isSameEntry(childEntry, volumeEntry));
         if (volumeEntryExistsInMyFiles) {
             // Remove it from the MyFiles UI children.
             myFilesEntry.removeChildEntry(volumeEntry);
@@ -2923,15 +2801,514 @@ function updateDeviceConnectionStateReducer(currentState, payload) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * Type guard used to identify if a generic FileSystemEntry is actually a
- * FileSystemDirectoryEntry.
+ * Verify |value| is truthy.
+ * @param value A value to check for truthiness. Note that this
+ *     may be used to test whether |value| is defined or not, and we don't want
+ *     to force a cast to boolean.
+ */
+function assert(value, message) {
+    if (value) {
+        return;
+    }
+    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
+}
+function assertInstanceof(value, type, message) {
+    if (value instanceof type) {
+        return;
+    }
+    throw new Error(message || `Value ${value} is not of type ${type.name || typeof type}`);
+}
+/**
+ * Call this from places in the code that should never be reached.
+ *
+ * For example, handling all the values of enum with a switch() like this:
+ *
+ *   function getValueFromEnum(enum) {
+ *     switch (enum) {
+ *       case ENUM_FIRST_OF_TWO:
+ *         return first
+ *       case ENUM_LAST_OF_TWO:
+ *         return last;
+ *     }
+ *     assertNotReached();
+ *   }
+ *
+ * This code should only be hit in the case of serious programmer error or
+ * unexpected input.
+ */
+function assertNotReached(message = 'Unreachable code hit') {
+    assert(false, message);
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/** Check if an `Element` is a tree or not. */
+function isTree(element) {
+    return element.tagName === 'XF-TREE';
+}
+/** Check if an `Element` is a tree item or not. */
+function isTreeItem(element) {
+    return element.tagName === 'XF-TREE-ITEM';
+}
+/**
+ * When tree slot or tree item's slot changes, we need to check if the change
+ * impacts the selected item and focused item or not, if so we update the
+ * `selectedItem/focusedItem` in the tree.
+ */
+function handleTreeSlotChange(tree, oldItems, newItems) {
+    if (tree.selectedItem) {
+        if (oldItems.has(tree.selectedItem) && !newItems.has(tree.selectedItem)) {
+            // If the currently selected item exists in `oldItems` but not in
+            // `newItems`, it means it's being removed from the children slot,
+            // we need to mark the selected item to null.
+            tree.selectedItem = null;
+        }
+    }
+    if (tree.focusedItem) {
+        if (oldItems.has(tree.focusedItem) && !newItems.has(tree.focusedItem)) {
+            // If the currently focused item exists in `oldItems` but not in
+            // `newItems`, it means it's being removed from the children slot,
+            // we need to mark the focused item to the currently selected item.
+            tree.focusedItem = tree.selectedItem;
+        }
+    }
+}
+
+// Copyright 2012 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// NOTE: ui.js and the autogenerated ui.m.js module version are deprecated.
+// These files and files that depend on them should only be used by legacy UIs
+// that have not yet been updated to new patterns. Use Web Components in any new
+// code.
+/**
+ * Decorates elements as an instance of a class.
+ * @param {string|!Element} source The way to find the element(s) to decorate.
+ *     If this is a string then {@code querySeletorAll} is used to find the
+ *     elements to decorate.
+ * @param {!Function} constr The constructor to decorate with. The constr
+ *     needs to have a {@code decorate} function.
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+function decorate(source, constr) {
+    let elements;
+    if (typeof source === 'string') {
+        elements = document.querySelectorAll(source);
+    }
+    else {
+        elements = [source];
+    }
+    for (let i = 0, el; el = elements[i]; i++) {
+        if (!(el instanceof constr)) {
+            // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
+            // 'Function'.
+            constr.decorate(el);
+        }
+    }
+}
+/**
+ * Helper function for creating new element for define.
+ */
+// @ts-ignore: error TS7006: Parameter 'opt_bag' implicitly has an 'any' type.
+function createElementHelper(tagName, opt_bag) {
+    // Allow passing in ownerDocument to create in a different document.
+    let doc;
+    if (opt_bag && opt_bag.ownerDocument) {
+        doc = opt_bag.ownerDocument;
+    }
+    else {
+        doc = document;
+    }
+    return doc.createElement(tagName);
+}
+/**
+ * Creates the constructor for a UI element class.
+ *
+ * Usage:
+ * <pre>
+ * var List = cr.ui.define('list');
+ * List.prototype = {
+ *   __proto__: HTMLUListElement.prototype,
+ *   decorate() {
+ *     ...
+ *   },
+ *   ...
+ * };
+ * </pre>
+ *
+ * @param {string|Function} tagNameOrFunction The tagName or
+ *     function to use for newly created elements. If this is a function it
+ *     needs to return a new element when called.
+ * @return {function(Object=):Element} The constructor function which takes
+ *     an optional property bag. The function also has a static
+ *     {@code decorate} method added to it.
+ */
+function define(tagNameOrFunction) {
+    // @ts-ignore: error TS7034: Variable 'createFunction' implicitly has type
+    // 'any' in some locations where its type cannot be determined.
+    let createFunction;
+    // @ts-ignore: error TS7034: Variable 'tagName' implicitly has type 'any' in
+    // some locations where its type cannot be determined.
+    let tagName;
+    if (typeof tagNameOrFunction === 'function') {
+        createFunction = tagNameOrFunction;
+        tagName = '';
+    }
+    else {
+        createFunction = createElementHelper;
+        tagName = tagNameOrFunction;
+    }
+    /**
+     * Creates a new UI element constructor.
+     * @param {Object=} opt_propertyBag Optional bag of properties to set on the
+     *     object after created. The property {@code ownerDocument} is special
+     *     cased and it allows you to create the element in a different
+     *     document than the default.
+     * @constructor
+     */
+    function f(opt_propertyBag) {
+        // @ts-ignore: error TS7005: Variable 'tagName' implicitly has an 'any'
+        // type.
+        const el = createFunction(tagName, opt_propertyBag);
+        f.decorate(el);
+        for (const propertyName in opt_propertyBag) {
+            // @ts-ignore: error TS7053: Element implicitly has an 'any' type
+            // because expression of type 'string' can't be used to index type
+            // 'Object'.
+            el[propertyName] = opt_propertyBag[propertyName];
+        }
+        return el;
+    }
+    /**
+     * Decorates an element as a UI element class.
+     * @param {!Element} el The element to decorate.
+     */
+    f.decorate = function (el) {
+        // @ts-ignore: error TS2339: Property '__proto__' does not exist on type
+        // 'Element'.
+        el.__proto__ = f.prototype;
+        // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
+        // 'Element'.
+        if (el.decorate) {
+            // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
+            // 'Element'.
+            el.decorate();
+        }
+    };
+    // @ts-ignore: error TS2322: Type 'typeof f' is not assignable to type
+    // '(arg0?: Object | undefined) => Element'.
+    return f;
+}
+/**
+ * Input elements do not grow and shrink with their content. This is a simple
+ * (and not very efficient) way of handling shrinking to content with support
+ * for min width and limited by the width of the parent element.
+ * @param {!HTMLElement} el The element to limit the width for.
+ * @param {!HTMLElement} parentEl The parent element that should limit the
+ *     size.
+ * @param {number} min The minimum width.
+ * @param {number=} opt_scale Optional scale factor to apply to the width.
+ */
+function limitInputWidth(el, parentEl, min, opt_scale) {
+    // Needs a size larger than borders
+    el.style.width = '10px';
+    const doc = el.ownerDocument;
+    const win = doc.defaultView;
+    // @ts-ignore: error TS18047: 'win' is possibly 'null'.
+    const computedStyle = win.getComputedStyle(el);
+    // @ts-ignore: error TS18047: 'win' is possibly 'null'.
+    const parentComputedStyle = win.getComputedStyle(parentEl);
+    const rtl = computedStyle.direction === 'rtl';
+    // To get the max width we get the width of the treeItem minus the position
+    // of the input.
+    const inputRect = el.getBoundingClientRect(); // box-sizing
+    const parentRect = parentEl.getBoundingClientRect();
+    const startPos = rtl ? parentRect.right - inputRect.right :
+        inputRect.left - parentRect.left;
+    // Add up border and padding of the input.
+    const inner = parseInt(computedStyle.borderLeftWidth, 10) +
+        parseInt(computedStyle.paddingLeft, 10) +
+        parseInt(computedStyle.paddingRight, 10) +
+        parseInt(computedStyle.borderRightWidth, 10);
+    // We also need to subtract the padding of parent to prevent it to overflow.
+    const parentPadding = rtl ? parseInt(parentComputedStyle.paddingLeft, 10) :
+        parseInt(parentComputedStyle.paddingRight, 10);
+    let max = parentEl.clientWidth - startPos - inner - parentPadding;
+    if (opt_scale) {
+        max *= opt_scale;
+    }
+    function limit() {
+        if (el.scrollWidth > max) {
+            el.style.width = max + 'px';
+        }
+        else {
+            // @ts-ignore: error TS2322: Type 'number' is not assignable to type
+            // 'string'.
+            el.style.width = 0;
+            const sw = el.scrollWidth;
+            if (sw < min) {
+                el.style.width = min + 'px';
+            }
+            else {
+                el.style.width = sw + 'px';
+            }
+        }
+    }
+    el.addEventListener('input', limit);
+    limit();
+}
+/**
+ * Users complain they occasionaly use doubleclicks instead of clicks
+ * (http://crbug.com/140364). To fix it we freeze click handling for
+ * the doubleclick time interval.
+ * @param {MouseEvent} e Initial click event.
+ */
+function swallowDoubleClick(e) {
+    // @ts-ignore: error TS2339: Property 'ownerDocument' does not exist on type
+    // 'EventTarget'.
+    const doc = e.target.ownerDocument;
+    let counter = Math.min(1, e.detail);
+    // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
+    function swallow(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
+    function onclick(e) {
+        if (e.detail > counter) {
+            counter = e.detail;
+            // Swallow the click since it's a click inside the doubleclick timeout.
+            swallow(e);
+        }
+        else {
+            // Stop tracking clicks and let regular handling.
+            doc.removeEventListener('dblclick', swallow, true);
+            doc.removeEventListener('click', onclick, true);
+        }
+    }
+    // The following 'click' event (if e.type === 'mouseup') mustn't be taken
+    // into account (it mustn't stop tracking clicks). Start event listening
+    // after zero timeout.
+    setTimeout(function () {
+        doc.addEventListener('click', onclick, true);
+        doc.addEventListener('dblclick', swallow, true);
+    }, 0);
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Function to be used as event listener for `mouseenter`, it sets the `title`
+ * attribute in the event's element target, when the text content is clipped due
+ * to CSS overflow, as in showing `...`.
+ *
+ * NOTE: This should be used with `mouseenter` because this event triggers less
+ * frequent than `mouseover` and `mouseenter` doesn't bubble from the children
+ * element to the listener (see mouseenter on MDN for more details).
+ */
+function mouseEnterMaybeShowTooltip(event) {
+    const target = event.composedPath()[0];
+    if (!target) {
+        return;
+    }
+    maybeShowTooltip(target, target.innerText);
+}
+/**
+ * Sets the `title` attribute in the event's element target, when the text
+ * content is clipped due to CSS overflow, as in showing `...`.
+ */
+function maybeShowTooltip(target, title) {
+    if (hasOverflowEllipsis(target)) {
+        target.setAttribute('title', title);
+    }
+    else {
+        target.removeAttribute('title');
+    }
+}
+/**
+ * Whether the text content is clipped due to CSS overflow, as in showing `...`.
+ */
+function hasOverflowEllipsis(element) {
+    return element.offsetWidth < element.scrollWidth ||
+        element.offsetHeight < element.scrollHeight;
+}
+/** Escapes the symbols: < > & */
+function htmlEscape(str) {
+    return str.replace(/[<>&]/g, entity => {
+        switch (entity) {
+            case '<':
+                return '&lt;';
+            case '>':
+                return '&gt;';
+            case '&':
+                return '&amp;';
+        }
+        return entity;
+    });
+}
+/**
+ * Returns a string '[Ctrl-][Alt-][Shift-][Meta-]' depending on the event
+ * modifiers. Convenient for writing out conditions in keyboard handlers.
+ *
+ * @param event The keyboard event.
+ */
+function getKeyModifiers(event) {
+    return (event.ctrlKey ? 'Ctrl-' : '') + (event.altKey ? 'Alt-' : '') +
+        (event.shiftKey ? 'Shift-' : '') + (event.metaKey ? 'Meta-' : '');
+}
+/**
+ * A shortcut function to create a child element with given tag and class.
+ *
+ * @param parent Parent element.
+ * @param className Class name.
+ * @param {string=} tag tag, DIV is omitted.
+ * @return Newly created element.
+ */
+function createChild(parent, className, tag) {
+    const child = parent.ownerDocument.createElement(tag || 'div');
+    if (className) {
+        child.className = className;
+    }
+    parent.appendChild(child);
+    return child;
+}
+/**
+ * Query an element that's known to exist by a selector. We use this instead of
+ * just calling querySelector and not checking the result because this lets us
+ * satisfy the JSCompiler type system.
+ * @param selectors CSS selectors to query the element.
+ * @param {(!Document|!DocumentFragment|!Element)=} context An optional
+ *     context object for querySelector.
+ */
+function queryRequiredElement(selectors, context) {
+    const element = (context || document).querySelector(selectors);
+    assertInstanceof(element, HTMLElement, 'Missing required element: ' + selectors);
+    return element;
+}
+/**
+ * Obtains the element that should exist, decorates it with given type, and
+ * returns it.
+ * @param query Query for the element.
+ * @param type Type used to decorate.
+ */
+function queryDecoratedElement(query, type) {
+    const element = queryRequiredElement(query);
+    decorate(element, type);
+    return element;
+}
+/**
+ * Returns an array of elements, based on the `selectors`. Exactly one of these
+ *  elements is required to exist. The rest will be null.
+ * @param selectors A list of CSS selectors to query for elements.
+ * @param {(!Document|!DocumentFragment|!Element)=} context An optional
+ *     context object for querySelector.
+ * @returns A list of query results, with the same indices as the provided
+ *     `selectors`. One element will exist, and the rest will be null padding.
+ */
+function queryRequiredExactlyOne(selectors, context = document) {
+    const elements = selectors.map(selector => context.querySelector(selector));
+    assert(elements.filter(el => !!el).length === 1, 'Exactly one of the elements should exist.');
+    return elements;
+}
+/**
+ * Creates an instance of UserDomError subtype of DOMError because DOMError is
+ * deprecated and its Closure extern is wrong, doesn't have the constructor
+ * with 2 arguments. This DOMError looks like a FileError except that it does
+ * not have the deprecated FileError.code member.
+ *
+ * @param  name Error name for the file error.
+ * @param {string=} message optional message.
+ */
+function createDOMError(name, message) {
+    return new UserDomError(name, message);
+}
+/**
+ * Creates a DOMError-like object to be used in place of returning file errors.
+ */
+class UserDomError extends DOMError {
+    /**
+     * @param name Error name for the file error.
+     * @param {string=} message Optional message for this error.
+     * @suppress {checkTypes} Closure externs for DOMError doesn't have
+     * constructor with 1 arg.
+     */
+    constructor(name, message) {
+        super(name);
+        this.name_ = name;
+        this.message_ = message || '';
+        Object.freeze(this);
+    }
+    get name() {
+        return this.name_;
+    }
+    get message() {
+        return this.message_;
+    }
+}
+/**
+ * A util function to get the correct "top" value when calling
+ * <cr-action-menu>'s `showAt` method.
+ *
+ * @param triggerElement The he element which triggers the menu dropdown.
+ * @param marginTop The gap between the trigger element and the menu dialog.
+ */
+function getCrActionMenuTop(triggerElement, marginTop) {
+    let top = triggerElement.offsetHeight;
+    let offsetElement = triggerElement;
+    // The menu dialog from <cr-action-menu> is "absolute" positioned, we need to
+    // start from the trigger element and go upwards to add all offsetTop from all
+    // offset parents because each level can have its own offsetTop.
+    while (offsetElement instanceof HTMLElement) {
+        top += offsetElement.offsetTop;
+        offsetElement = offsetElement.offsetParent;
+    }
+    top += marginTop;
+    return top;
+}
+/**
+ * Util functions to check if an HTML element is a tree or tree item, these
+ * functions cater both the old tree (cr.ui.Tree/cr.ui.TreeItem) and the new
+ * tree (<xf-tree>/<xf-tree-item>).
+ *
+ * Note: for focused item, the old tree use `selectedItem`, but in the context
+ * of the new tree, `selectedItem` means the item being selected, `focusedItem`
+ * means the item being focused by keyboard.
+ *
+ * Use `element: any` here because `DirectoryTree` and `DirectoryItem` are not
+ * compatible with Element's type definition, which prevents the type guard. No
+ * `instanceof` here to prevent circular imports issue.
+ *
+ * TODO(b/285977941): Remove the old tree support.
+ */
+function isDirectoryTree(element) {
+    return element.typeName === 'directory_tree' || isTree(element);
+}
+function isDirectoryTreeItem(element) {
+    return element.typeName === 'directory_item' || isTreeItem(element);
+}
+function getFocusedTreeItem(tree) {
+    if (tree.typeName === 'directory_tree') {
+        return tree.selectedItem;
+    }
+    if (isTree(tree)) {
+        return tree.focusedItem;
+    }
+    return null;
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Type guard used to identify if a generic Entry is actually a DirectoryEntry.
  */
 function isFileSystemDirectoryEntry(entry) {
     return entry.isDirectory;
 }
 /**
- * Type guard used to identify if a generic FileSystemEntry is actually a
- * FileSystemFileEntry.
+ * Type guard used to identify if a generic Entry is actually a FileEntry.
  */
 function isFileSystemFileEntry(entry) {
     return entry.isFile;
@@ -2955,10 +3332,6 @@ function getNativeEntry(fileData) {
  */
 function isVolumeEntry(entry) {
     return 'volumeInfo' in entry;
-}
-/** Check if a entry is a trash entry or not. */
-function isTrashEntry(entry) {
-    return entry.toURL() === trashRootKey;
 }
 /**
  * Check if the entry is MyFiles or not.
@@ -3059,21 +3432,736 @@ function sortEntries(parentEntry, entries) {
         // TODO(b/271485133): Do not use getLocationInfo() for sorting.
         const locationInfo = volumeManager.getLocationInfo(entries[0]);
         if (locationInfo) {
-            const compareFunction = util.compareLabelAndGroupBottomEntries(locationInfo, 
+            const compareFunction = compareLabelAndGroupBottomEntries(locationInfo, 
             // Only Linux/Play/GuestOS files are in the UI children.
             parentEntry.getUIChildren());
             return entries.filter(entry => fileFilter.filter(entry))
                 .sort(compareFunction);
         }
     }
-    return entries.filter(entry => fileFilter.filter(entry))
-        .sort(util.compareName);
+    return entries.filter(entry => fileFilter.filter(entry)).sort(compareName);
 }
 /**
  * Take an entry and extract the rootType.
  */
 function getRootType(entry) {
     return 'rootType' in entry ? entry.rootType : null;
+}
+/**
+ * Obtains whether an entry is fake or not.
+ */
+function isFakeEntry(entry) {
+    if (entry.getParent === undefined) {
+        return true;
+    }
+    return 'isNativeType' in entry ? !entry.isNativeType : false;
+}
+/**
+ * Obtains whether an entry is the root directory of a Shared Drive.
+ */
+function isTeamDriveRoot(entry) {
+    if (entry === null) {
+        return false;
+    }
+    if (!entry.fullPath) {
+        return false;
+    }
+    const tree = entry.fullPath.split('/');
+    return tree.length == 3 && isSharedDriveEntry(entry);
+}
+/**
+ * Obtains whether an entry is the grand root directory of Shared Drives.
+ */
+function isTeamDrivesGrandRoot(entry) {
+    if (!entry.fullPath) {
+        return false;
+    }
+    const tree = entry.fullPath.split('/');
+    return tree.length == 2 && isSharedDriveEntry(entry);
+}
+/**
+ * Obtains whether an entry is descendant of the Shared Drives directory.
+ */
+function isSharedDriveEntry(entry) {
+    if (!entry.fullPath) {
+        return false;
+    }
+    const tree = entry.fullPath.split('/');
+    return tree[0] == '' &&
+        tree[1] == VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME;
+}
+/**
+ * Extracts Shared Drive name from entry path.
+ * @return {string} The name of Shared Drive. Empty string if |entry| is not
+ *     under Shared Drives.
+ */
+function getTeamDriveName(entry) {
+    if (!entry.fullPath || !isSharedDriveEntry(entry)) {
+        return '';
+    }
+    const tree = entry.fullPath.split('/');
+    if (tree.length < 3) {
+        return '';
+    }
+    return tree[2] || '';
+}
+/**
+ * Returns true if the given root type is for a container of recent files.
+ */
+function isRecentRootType(rootType) {
+    return rootType == VolumeManagerCommon.RootType.RECENT;
+}
+/**
+ * Returns true if the given entry is the root folder of recent files.
+ */
+function isRecentRoot(entry) {
+    return isFakeEntry(entry) && isRecentRootType(getRootType(entry));
+}
+/**
+ * Obtains whether an entry is the root directory of a Computer.
+ */
+function isComputersRoot(entry) {
+    if (entry === null) {
+        return false;
+    }
+    if (!entry.fullPath) {
+        return false;
+    }
+    const tree = entry.fullPath.split('/');
+    return tree.length == 3 && isComputersEntry(entry);
+}
+/**
+ * Obtains whether an entry is descendant of the My Computers directory.
+ */
+function isComputersEntry(entry) {
+    if (!entry.fullPath) {
+        return false;
+    }
+    const tree = entry.fullPath.split('/');
+    return tree[0] == '' &&
+        tree[1] == VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME;
+}
+/**
+ * Returns true if the given root type is Trash.
+ */
+function isTrashRootType(rootType) {
+    return rootType == VolumeManagerCommon.RootType.TRASH;
+}
+/**
+ * Returns true if the given entry is the root folder of Trash.
+ */
+function isTrashRoot(entry) {
+    return entry.fullPath === '/' && isTrashRootType(getRootType(entry));
+}
+/**
+ * Returns true if the given entry is a descendent of Trash.
+ */
+function isTrashEntry(entry) {
+    return isTrashRootType(getRootType(entry));
+}
+/**
+ * Compares two entries.
+ * @return {boolean} True if the both entry represents a same file or
+ *     directory. Returns true if both entries are null.
+ */
+function isSameEntry(entry1, entry2) {
+    if (!entry1 && !entry2) {
+        return true;
+    }
+    if (!entry1 || !entry2) {
+        return false;
+    }
+    return entry1.toURL() === entry2.toURL();
+}
+/**
+ * Compares two file systems.
+ * @return {boolean} True if the both file systems are equal. Also, returns true
+ *     if both file systems are null.
+ */
+function isSameFileSystem(fileSystem1, fileSystem2) {
+    if (!fileSystem1 && !fileSystem2) {
+        return true;
+    }
+    if (!fileSystem1 || !fileSystem2) {
+        return false;
+    }
+    return isSameEntry(fileSystem1.root, fileSystem2.root);
+}
+/**
+ * Checks if given two entries are in the same directory.
+ * @return {boolean} True if given entries are in the same directory.
+ */
+function isSiblingEntry(entry1, entry2) {
+    const path1 = entry1.fullPath.split('/');
+    const path2 = entry2.fullPath.split('/');
+    if (path1.length != path2.length) {
+        return false;
+    }
+    for (let i = 0; i < path1.length - 1; i++) {
+        if (path1[i] != path2[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+/**
+ * Checks if the child entry is a descendant of another entry. If the entries
+ * point to the same file or directory, then returns false.
+ *
+ * @param {!DirectoryEntry|!FilesAppEntry} ancestorEntry The ancestor
+ *     directory entry. Can be a fake.
+ * @param {!Entry|!FilesAppEntry} childEntry The child entry. Can be a fake.
+ * @return {boolean} True if the child entry is contained in the ancestor path.
+ */
+function isDescendantEntry(ancestorEntry, childEntry) {
+    if (!ancestorEntry.isDirectory) {
+        return false;
+    }
+    // For EntryList and VolumeEntry they can contain entries from different
+    // files systems, so we should check its getUIChildren.
+    if ('getUIChildren' in ancestorEntry) {
+        const volumeOrEntryList = ancestorEntry;
+        // VolumeEntry has to check to root entry descendant entry.
+        if ('getNativeEntry' in volumeOrEntryList) {
+            const nativeEntry = volumeOrEntryList.getNativeEntry();
+            if (nativeEntry &&
+                isSameFileSystem(nativeEntry.filesystem, childEntry.filesystem)) {
+                return isDescendantEntry(nativeEntry, childEntry);
+            }
+        }
+        return volumeOrEntryList.getUIChildren().some((ancestorChild) => {
+            if (isSameEntry(ancestorChild, childEntry)) {
+                return true;
+            }
+            // root entry might not be resolved yet.
+            const volumeEntry = 'getNativeEntry' in ancestorChild ?
+                ancestorChild.getNativeEntry() :
+                null;
+            if (!volumeEntry) {
+                return false;
+            }
+            if (isSameEntry(volumeEntry, childEntry)) {
+                return true;
+            }
+            return isFileSystemDirectoryEntry(volumeEntry) &&
+                isDescendantEntry(volumeEntry, childEntry);
+        });
+    }
+    if (!isSameFileSystem(ancestorEntry.filesystem, childEntry.filesystem)) {
+        return false;
+    }
+    if (isSameEntry(ancestorEntry, childEntry)) {
+        return false;
+    }
+    if (isFakeEntry(ancestorEntry) || isFakeEntry(childEntry)) {
+        return false;
+    }
+    // Check if the ancestor's path with trailing slash is a prefix of child's
+    // path.
+    let ancestorPath = ancestorEntry.fullPath;
+    if (ancestorPath.slice(-1) !== '/') {
+        ancestorPath += '/';
+    }
+    return childEntry.fullPath.indexOf(ancestorPath) === 0;
+}
+/**
+ * Compare by name. The 2 entries must be in same directory.
+ */
+function compareName(entry1, entry2) {
+    return util.collator.compare(entry1.name, entry2.name);
+}
+/**
+ * Compare by label (i18n name). The 2 entries must be in same directory.
+ */
+function compareLabel(locationInfo, entry1, entry2) {
+    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
+}
+/**
+ * Compare by path.
+ */
+function comparePath(entry1, entry2) {
+    return util.collator.compare(entry1.fullPath, entry2.fullPath);
+}
+/**
+ * @param bottomEntries entries that should be grouped in the bottom, used for
+ *     sorting Linux and Play files entries after
+ * other folders in MyFiles.
+ */
+function compareLabelAndGroupBottomEntries(locationInfo, bottomEntries) {
+    const childrenMap = new Map();
+    bottomEntries.forEach((entry) => {
+        childrenMap.set(entry.toURL(), entry);
+    });
+    /**
+     * Compare entries putting entries from |bottomEntries| in the bottom and
+     * sort by name within entries that are the same type in regards to
+     * |bottomEntries|.
+     */
+    function compare(entry1, entry2) {
+        // Bottom entry here means Linux or Play files, which should appear after
+        // all native entries.
+        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
+        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
+        // When there are the same type, just compare by label.
+        if (isBottomlEntry1 === isBottomlEntry2) {
+            return compareLabel(locationInfo, entry1, entry2);
+        }
+        return isBottomlEntry1 - isBottomlEntry2;
+    }
+    return compare;
+}
+/**
+ * Converts array of entries to an array of corresponding URLs.
+ */
+function entriesToURLs(entries) {
+    return entries.map(entry => {
+        // When building file_manager_base.js, cachedUrl is not referred other than
+        // here. Thus closure compiler raises an error if we refer the property like
+        // entry.cachedUrl.
+        if ('cachedUrl' in entry) {
+            return entry['cachedUrl'] || entry.toURL();
+        }
+        return entry.toURL();
+    });
+}
+/**
+ * Converts array of URLs to an array of corresponding Entries.
+ *
+ * @param callback Completion callback with array of success Entries and failure
+ *     URLs.
+ */
+function convertURLsToEntries(urls, callback) {
+    const promises = urls.map(url => {
+        return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, url))
+            .then(entry => {
+            return { entry: entry };
+        }, _ => {
+            // Not an error. Possibly, the file is not accessible anymore.
+            console.warn('Failed to resolve the file with url: ' + url + '.');
+            return { failureUrl: url };
+        });
+    });
+    const resultPromise = Promise.all(promises).then(results => {
+        const entries = [];
+        const failureUrls = [];
+        for (let i = 0; i < results.length; i++) {
+            const result = results[i];
+            if ('entry' in result) {
+                entries.push(result.entry);
+            }
+            if ('failureUrl' in result) {
+                failureUrls.push(result.failureUrl);
+            }
+        }
+        return {
+            entries: entries,
+            failureUrls: failureUrls,
+        };
+    });
+    // Invoke the callback. If opt_callback is specified, resultPromise is still
+    // returned and fulfilled with a result.
+    if (callback) {
+        resultPromise
+            .then(result => {
+            callback(result.entries, result.failureUrls);
+        })
+            .catch(error => {
+            console.warn('convertURLsToEntries has failed.', error.stack ? error.stack : error);
+        });
+    }
+    return resultPromise;
+}
+/**
+ * Converts a url into an {!Entry}, if possible.
+ */
+function urlToEntry(url) {
+    return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, url));
+}
+/**
+ * Returns true if the given |entry| matches any of the special entries:
+ *
+ *  - "My Files"/{Downloads,PvmDefault,Camera} directories, or
+ *  - "Play Files"/{<any-directory>,DCIM/Camera} directories, or
+ *  - "Linux Files" root "/" directory
+ *  - "Guest OS" root "/" directory
+ *
+ * which cannot be modified such as deleted/cut or renamed.
+ */
+function isNonModifiable(volumeManager, entry) {
+    if (!entry) {
+        return false;
+    }
+    if (isFakeEntry(entry)) {
+        return true;
+    }
+    if (!volumeManager) {
+        return false;
+    }
+    const volumeInfo = volumeManager.getVolumeInfo(entry);
+    if (!volumeInfo) {
+        return false;
+    }
+    const volumeType = volumeInfo.volumeType;
+    if (volumeType === VolumeManagerCommon.RootType.DOWNLOADS) {
+        if (!entry.isDirectory) {
+            return false;
+        }
+        const fullPath = entry.fullPath;
+        if (fullPath === '/Downloads') {
+            return true;
+        }
+        if (fullPath === '/PvmDefault' && isPluginVmEnabled()) {
+            return true;
+        }
+        if (fullPath === '/Camera') {
+            return true;
+        }
+        return false;
+    }
+    if (volumeType === VolumeManagerCommon.RootType.ANDROID_FILES) {
+        if (!entry.isDirectory) {
+            return false;
+        }
+        const fullPath = entry.fullPath;
+        if (fullPath === '/') {
+            return true;
+        }
+        const isRootDirectory = fullPath === ('/' + entry.name);
+        if (isRootDirectory) {
+            return true;
+        }
+        if (fullPath === '/DCIM/Camera') {
+            return true;
+        }
+        return false;
+    }
+    if (volumeType === VolumeManagerCommon.RootType.CROSTINI) {
+        return entry.fullPath === '/';
+    }
+    if (volumeType === VolumeManagerCommon.RootType.GUEST_OS) {
+        return entry.fullPath === '/';
+    }
+    return false;
+}
+/**
+ * Retrieves all entries inside the given |rootEntry|.
+ * @param entriesCallback Called when some chunk of entries are read. This can
+ *     be called a couple of times until the completion.
+ * @param successCallback Called when the read is completed.
+ * @param errorCallback Called when an error occurs.
+ * @param shouldStop Callback to check if the read process should stop or not.
+ *     When this callback is called and it returns true, the remaining recursive
+ *     reads will be aborted.
+ * @param maxDepth Max depth to delve directories recursively. If 0 is
+ *     specified, only the rootEntry will be read. If -1 is specified or
+ *     maxDepth is unspecified, the depth of recursion is unlimited.
+ */
+function readEntriesRecursively(rootEntry, entriesCallback, successCallback, errorCallback, shouldStop, maxDepth) {
+    let numRunningTasks = 0;
+    let error = null;
+    const maxDirDepth = maxDepth === undefined ? -1 : maxDepth;
+    const maybeRunCallback = () => {
+        if (numRunningTasks === 0) {
+            if (shouldStop()) {
+                errorCallback(createDOMError(util.FileError.ABORT_ERR));
+            }
+            else if (error) {
+                errorCallback(error);
+            }
+            else {
+                successCallback();
+            }
+        }
+    };
+    const processEntry = (entry, depth) => {
+        const onError = (fileError) => {
+            if (!error) {
+                error = fileError;
+            }
+            numRunningTasks--;
+            maybeRunCallback();
+        };
+        const onSuccess = (entries) => {
+            if (shouldStop() || error || entries.length === 0) {
+                numRunningTasks--;
+                maybeRunCallback();
+                return;
+            }
+            entriesCallback(entries);
+            for (let i = 0; i < entries.length; i++) {
+                const entry = entries[i];
+                if (entry && isFileSystemDirectoryEntry(entry) &&
+                    (maxDirDepth === -1 || depth < maxDirDepth)) {
+                    processEntry(entry, depth + 1);
+                }
+            }
+            // Read remaining entries.
+            reader.readEntries(onSuccess, onError);
+        };
+        numRunningTasks++;
+        const reader = entry.createReader();
+        reader.readEntries(onSuccess, onError);
+    };
+    processEntry(rootEntry, 0);
+}
+/**
+ * Returns true if entry is FileSystemEntry or FileSystemDirectoryEntry, it
+ * returns false if it's FakeEntry or any one of the FilesAppEntry types.
+ */
+function isNativeEntry(entry) {
+    return !('type_name' in entry);
+}
+function unwrapEntry(entry) {
+    if (!entry) {
+        return entry;
+    }
+    const nativeEntry = 'getNativeEntry' in entry && entry.getNativeEntry();
+    if (nativeEntry) {
+        if (isFileSystemDirectoryEntry(nativeEntry)) {
+            return nativeEntry;
+        }
+        return nativeEntry;
+    }
+    if (isFileSystemDirectoryEntry(entry)) {
+        return entry;
+    }
+    return entry;
+}
+/**
+ * Returns true if all entries belong to the same volume. If there are no
+ * entries it also returns false.
+ */
+function isSameVolume(entries, volumeManager) {
+    if (!entries.length) {
+        return false;
+    }
+    const firstEntry = entries[0];
+    if (!firstEntry) {
+        return false;
+    }
+    const volumeInfo = volumeManager.getVolumeInfo(firstEntry);
+    for (let i = 1; i < entries.length; i++) {
+        if (!entries[i]) {
+            return false;
+        }
+        const volumeInfoToCompare = volumeManager.getVolumeInfo(entries[i]);
+        if (!volumeInfoToCompare ||
+            volumeInfoToCompare.volumeId !== volumeInfo?.volumeId) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Helpers for APIs used within Files app.
+ */
+/**
+ * Calls the `fn` function which should expect the callback as last argument.
+ *
+ * Resolves with the result of the `fn`.
+ *
+ * Rejects if there is `chrome.runtime.lastError`.
+ */
+async function promisify(fn, ...args) {
+    return new Promise((resolve, reject) => {
+        const callback = (result) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError.message);
+            }
+            else {
+                resolve(result);
+            }
+        };
+        fn(...args, callback);
+    });
+}
+/**
+ * Opens a new window for Files SWA.
+ */
+async function openWindow(params) {
+    return promisify(chrome.fileManagerPrivate.openWindow, params);
+}
+async function getPreferences() {
+    return promisify(chrome.fileManagerPrivate.getPreferences);
+}
+async function validatePathNameLength(parentEntry, name) {
+    return promisify(chrome.fileManagerPrivate.validatePathNameLength, unwrapEntry(parentEntry), name);
+}
+/**
+ * Wrap the chrome.fileManagerPrivate.getSizeStats function in an async/await
+ * compatible style.
+ */
+async function getSizeStats(volumeId) {
+    return promisify(chrome.fileManagerPrivate.getSizeStats, volumeId);
+}
+/**
+ * Wrap the chrome.fileManagerPrivate.getDriveQuotaMetadata function in an
+ * async/await compatible style.
+ */
+async function getDriveQuotaMetadata(entry) {
+    return promisify(chrome.fileManagerPrivate.getDriveQuotaMetadata, unwrapEntry(entry));
+}
+/**
+ * Retrieves the current holding space state, for example the list of items the
+ * holding space currently contains.
+ */
+async function getHoldingSpaceState() {
+    return promisify(chrome.fileManagerPrivate.getHoldingSpaceState);
+}
+/**
+ * Wrap the chrome.fileManagerPrivate.getDisallowedTransfers function in an
+ * async/await compatible style.
+ */
+async function getDisallowedTransfers(entries, destinationEntry, isMove) {
+    return promisify(chrome.fileManagerPrivate.getDisallowedTransfers, entries.map(e => unwrapEntry(e)), unwrapEntry(destinationEntry), isMove);
+}
+/**
+ * Wrap the chrome.fileManagerPrivate.getDlpMetadata function in an async/await
+ * compatible style.
+ */
+async function getDlpMetadata(entries) {
+    return promisify(chrome.fileManagerPrivate.getDlpMetadata, entries.map(e => unwrapEntry(e)));
+}
+/**
+ * Retrieves the list of components to which the transfer of an Entry is blocked
+ * by Data Leak Prevention (DLP) policy.
+ */
+async function getDlpBlockedComponents(sourceUrl) {
+    return promisify(chrome.fileManagerPrivate.getDlpBlockedComponents, sourceUrl);
+}
+/**
+ * Retrieves Data Leak Prevention (DLP) restriction details.
+ */
+async function getDlpRestrictionDetails(sourceUrl) {
+    return promisify(chrome.fileManagerPrivate.getDlpRestrictionDetails, sourceUrl);
+}
+/**
+ * Retrieves the caller that created the dialog (Save As/File Picker).
+ */
+async function getDialogCaller() {
+    return promisify(chrome.fileManagerPrivate.getDialogCaller);
+}
+/**
+ * Lists Guest OSs which support having their files mounted.
+ */
+async function listMountableGuests() {
+    return promisify(chrome.fileManagerPrivate.listMountableGuests);
+}
+/**
+ * Lists Guest OSs which support having their files mounted.
+ */
+async function mountGuest(id) {
+    return promisify(chrome.fileManagerPrivate.mountGuest, id);
+}
+/*
+ * FileSystemEntry helpers
+ */
+async function getParentEntry(entry) {
+    return new Promise((resolve, reject) => {
+        entry.getParent(resolve, reject);
+    });
+}
+async function moveEntryTo(entry, parent, newName) {
+    return new Promise((resolve, reject) => {
+        entry.moveTo(parent, newName, resolve, reject);
+    });
+}
+async function getFile(directory, filename, options) {
+    return new Promise((resolve, reject) => {
+        directory.getFile(filename, options, resolve, reject);
+    });
+}
+async function getDirectory(directory, filename, options) {
+    return new Promise((resolve, reject) => {
+        directory.getDirectory(filename, options, resolve, reject);
+    });
+}
+async function getEntry$1(directory, filename, isFile, options) {
+    const getEntry = isFile ? getFile : getDirectory;
+    return getEntry(directory, filename, options);
+}
+/**
+ * Starts an IOTask of `type` and returns a taskId that can be used to cancel
+ * or identify the ongoing IO operation.
+ */
+async function startIOTask(type, entries, params) {
+    if (params.destinationFolder) {
+        params.destinationFolder =
+            unwrapEntry(params.destinationFolder);
+    }
+    return promisify(chrome.fileManagerPrivate.startIOTask, type, entries.map(e => unwrapEntry(e)), params);
+}
+/**
+ * Parses .trashinfo files to retrieve the restore path and deletion date.
+ */
+async function parseTrashInfoFiles(entries) {
+    return promisify(chrome.fileManagerPrivate.parseTrashInfoFiles, entries.map(e => unwrapEntry(e)));
+}
+async function getMimeType(entry) {
+    return promisify(chrome.fileManagerPrivate.getMimeType, unwrapEntry(entry));
+}
+async function getFileTasks(entries, dlpSourceUrls) {
+    return promisify(chrome.fileManagerPrivate.getFileTasks, entries.map(e => unwrapEntry(e)), dlpSourceUrls);
+}
+async function executeTask(taskDescriptor, entries) {
+    return promisify(chrome.fileManagerPrivate.executeTask, taskDescriptor, entries.map(e => unwrapEntry(e)));
+}
+/**
+ * Gets the current bulk pin progress status.
+ */
+async function getBulkPinProgress() {
+    return promisify(chrome.fileManagerPrivate.getBulkPinProgress);
+}
+/**
+ * Starts calculating the required space to pin all the users items on their My
+ * drive.
+ */
+async function calculateBulkPinRequiredSpace() {
+    return promisify(chrome.fileManagerPrivate.calculateBulkPinRequiredSpace);
+}
+/**
+ * Wrap the chrome.fileManagerPrivate.getDriveConnectionStatus function in an
+ * async/await compatible style.
+ */
+async function getDriveConnectionState() {
+    return promisify(chrome.fileManagerPrivate.getDriveConnectionState);
+}
+async function grantAccess(entries) {
+    return promisify(chrome.fileManagerPrivate.grantAccess, entries);
+}
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * List of dialog types.
+ *
+ * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
+ * FULL_PAGE which is specific to this code.
+ */
+var DialogType;
+(function (DialogType) {
+    DialogType["SELECT_FOLDER"] = "folder";
+    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
+    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
+    DialogType["SELECT_OPEN_FILE"] = "open-file";
+    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
+    DialogType["FULL_PAGE"] = "full-page";
+})(DialogType || (DialogType = {}));
+function isModal(type) {
+    return type == DialogType.SELECT_FOLDER ||
+        type == DialogType.SELECT_UPLOAD_FOLDER ||
+        type == DialogType.SELECT_SAVEAS_FILE ||
+        type == DialogType.SELECT_OPEN_FILE ||
+        type == DialogType.SELECT_OPEN_MULTI_FILE;
+}
+function isFolderDialogType(type) {
+    return type == DialogType.SELECT_FOLDER ||
+        type == DialogType.SELECT_UPLOAD_FOLDER;
 }
 
 // Copyright 2022 The Chromium Authors
@@ -5048,7 +6136,7 @@ FileType.getType = (entry, opt_mimeType) => {
 /**
  * Gets the media type for a given file.
  *
- * @param {Entry} entry Reference to the file.
+ * @param {Entry|FilesAppEntry} entry Reference to the file.
  * @param {string=} opt_mimeType Optional mime type for the file.
  * @return {string} The value of 'type' property from one of the elements in
  *     the knows file types (file_types.json5) or undefined.
@@ -5110,7 +6198,7 @@ FileType.isPDF = (entry, opt_mimeType) => {
 /**
  * Files with more pixels won't have preview.
  * @param {!Array<string>} types
- * @param {Entry} entry Reference to the file.
+ * @param {Entry|FilesAppEntry} entry Reference to the file.
  * @param {string=} opt_mimeType Optional mime type for the file.
  * @return {boolean} True if type is in specified set
  */
@@ -6051,7 +7139,7 @@ class PathComponent {
             // 'any[]' type.
             return components;
         }
-        if (util.isFakeEntry(entry)) {
+        if (isFakeEntry(entry)) {
             components.push(new PathComponent(util.getEntryLabel(locationInfo, entry), entry.toURL(), 
             /** @type {!FakeEntry} */ (entry)));
             return components;
@@ -6694,7 +7782,7 @@ function getEntryIcon(entry, locationInfo, volumeType) {
     return FileType.getIcon(entry, undefined, locationInfo?.rootType);
 }
 function appendChildIfNotExisted(parentEntry, childEntry) {
-    if (!parentEntry.getUIChildren().find((entry) => util.isSameEntry(entry, childEntry))) {
+    if (!parentEntry.getUIChildren().find((entry) => isSameEntry(entry, childEntry))) {
         parentEntry.addEntry(childEntry);
         return true;
     }
@@ -7364,7 +8452,7 @@ function addFolderShortcutReducer(currentState, payload) {
         const shortcutEntry = getEntry(currentState, folderShortcuts[i]);
         // The folder shortcut array is sorted, the new item will be added just
         // before the first larger item.
-        if (util.comparePath(shortcutEntry, entry) > 0) {
+        if (comparePath(shortcutEntry, entry) > 0) {
             return {
                 ...currentState,
                 folderShortcuts: [
@@ -7829,7 +8917,7 @@ function addUiEntryReducer(currentState, payload) {
         const children = myFilesEntry.getUIChildren();
         // Check if the the ui entry already has a corresponding volume entry.
         isVolumeEntryExistedInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && childEntry.name === entry.name);
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => util.isSameEntry(childEntry, entry));
+        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
         // We only add the UI entry here if:
         // 1. it is not existed in MyFiles entry
         // 2. its corresponding volume (which ui entry is a placeholder for) is not
@@ -7875,7 +8963,7 @@ function removeUiEntryReducer(currentState, payload) {
     if (entry && uiEntryRootTypesInMyFiles.has(entry.rootType)) {
         const { myFilesEntry } = getMyFiles(currentState);
         const children = myFilesEntry.getUIChildren();
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => util.isSameEntry(childEntry, entry));
+        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
         if (isUiEntryExistedInMyFiles) {
             myFilesEntry.removeChildEntry(entry);
             const fileData = getFileData(currentState, myFilesEntry.toURL());
@@ -8019,507 +9107,6 @@ function getVolumeType(state, fileData) {
     return getVolume(state, fileData)?.volumeType ?? null;
 }
 
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Verify |value| is truthy.
- * @param value A value to check for truthiness. Note that this
- *     may be used to test whether |value| is defined or not, and we don't want
- *     to force a cast to boolean.
- */
-function assert(value, message) {
-    if (value) {
-        return;
-    }
-    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
-}
-function assertInstanceof(value, type, message) {
-    if (value instanceof type) {
-        return;
-    }
-    throw new Error(message || `Value ${value} is not of type ${type.name || typeof type}`);
-}
-/**
- * Call this from places in the code that should never be reached.
- *
- * For example, handling all the values of enum with a switch() like this:
- *
- *   function getValueFromEnum(enum) {
- *     switch (enum) {
- *       case ENUM_FIRST_OF_TWO:
- *         return first
- *       case ENUM_LAST_OF_TWO:
- *         return last;
- *     }
- *     assertNotReached();
- *   }
- *
- * This code should only be hit in the case of serious programmer error or
- * unexpected input.
- */
-function assertNotReached(message = 'Unreachable code hit') {
-    assert(false, message);
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/** Check if an `Element` is a tree or not. */
-function isTree(element) {
-    return element.tagName === 'XF-TREE';
-}
-/** Check if an `Element` is a tree item or not. */
-function isTreeItem(element) {
-    return element.tagName === 'XF-TREE-ITEM';
-}
-/**
- * When tree slot or tree item's slot changes, we need to check if the change
- * impacts the selected item and focused item or not, if so we update the
- * `selectedItem/focusedItem` in the tree.
- */
-function handleTreeSlotChange(tree, oldItems, newItems) {
-    if (tree.selectedItem) {
-        if (oldItems.has(tree.selectedItem) && !newItems.has(tree.selectedItem)) {
-            // If the currently selected item exists in `oldItems` but not in
-            // `newItems`, it means it's being removed from the children slot,
-            // we need to mark the selected item to null.
-            tree.selectedItem = null;
-        }
-    }
-    if (tree.focusedItem) {
-        if (oldItems.has(tree.focusedItem) && !newItems.has(tree.focusedItem)) {
-            // If the currently focused item exists in `oldItems` but not in
-            // `newItems`, it means it's being removed from the children slot,
-            // we need to mark the focused item to the currently selected item.
-            tree.focusedItem = tree.selectedItem;
-        }
-    }
-}
-
-// Copyright 2012 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-// NOTE: ui.js and the autogenerated ui.m.js module version are deprecated.
-// These files and files that depend on them should only be used by legacy UIs
-// that have not yet been updated to new patterns. Use Web Components in any new
-// code.
-/**
- * Decorates elements as an instance of a class.
- * @param {string|!Element} source The way to find the element(s) to decorate.
- *     If this is a string then {@code querySeletorAll} is used to find the
- *     elements to decorate.
- * @param {!Function} constr The constructor to decorate with. The constr
- *     needs to have a {@code decorate} function.
- * @closurePrimitive {asserts.matchesReturn}
- */
-function decorate(source, constr) {
-    let elements;
-    if (typeof source === 'string') {
-        elements = document.querySelectorAll(source);
-    }
-    else {
-        elements = [source];
-    }
-    for (let i = 0, el; el = elements[i]; i++) {
-        if (!(el instanceof constr)) {
-            // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
-            // 'Function'.
-            constr.decorate(el);
-        }
-    }
-}
-/**
- * Helper function for creating new element for define.
- */
-// @ts-ignore: error TS7006: Parameter 'opt_bag' implicitly has an 'any' type.
-function createElementHelper(tagName, opt_bag) {
-    // Allow passing in ownerDocument to create in a different document.
-    let doc;
-    if (opt_bag && opt_bag.ownerDocument) {
-        doc = opt_bag.ownerDocument;
-    }
-    else {
-        doc = document;
-    }
-    return doc.createElement(tagName);
-}
-/**
- * Creates the constructor for a UI element class.
- *
- * Usage:
- * <pre>
- * var List = cr.ui.define('list');
- * List.prototype = {
- *   __proto__: HTMLUListElement.prototype,
- *   decorate() {
- *     ...
- *   },
- *   ...
- * };
- * </pre>
- *
- * @param {string|Function} tagNameOrFunction The tagName or
- *     function to use for newly created elements. If this is a function it
- *     needs to return a new element when called.
- * @return {function(Object=):Element} The constructor function which takes
- *     an optional property bag. The function also has a static
- *     {@code decorate} method added to it.
- */
-function define(tagNameOrFunction) {
-    // @ts-ignore: error TS7034: Variable 'createFunction' implicitly has type
-    // 'any' in some locations where its type cannot be determined.
-    let createFunction;
-    // @ts-ignore: error TS7034: Variable 'tagName' implicitly has type 'any' in
-    // some locations where its type cannot be determined.
-    let tagName;
-    if (typeof tagNameOrFunction === 'function') {
-        createFunction = tagNameOrFunction;
-        tagName = '';
-    }
-    else {
-        createFunction = createElementHelper;
-        tagName = tagNameOrFunction;
-    }
-    /**
-     * Creates a new UI element constructor.
-     * @param {Object=} opt_propertyBag Optional bag of properties to set on the
-     *     object after created. The property {@code ownerDocument} is special
-     *     cased and it allows you to create the element in a different
-     *     document than the default.
-     * @constructor
-     */
-    function f(opt_propertyBag) {
-        // @ts-ignore: error TS7005: Variable 'tagName' implicitly has an 'any'
-        // type.
-        const el = createFunction(tagName, opt_propertyBag);
-        f.decorate(el);
-        for (const propertyName in opt_propertyBag) {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-            // because expression of type 'string' can't be used to index type
-            // 'Object'.
-            el[propertyName] = opt_propertyBag[propertyName];
-        }
-        return el;
-    }
-    /**
-     * Decorates an element as a UI element class.
-     * @param {!Element} el The element to decorate.
-     */
-    f.decorate = function (el) {
-        // @ts-ignore: error TS2339: Property '__proto__' does not exist on type
-        // 'Element'.
-        el.__proto__ = f.prototype;
-        // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
-        // 'Element'.
-        if (el.decorate) {
-            // @ts-ignore: error TS2339: Property 'decorate' does not exist on type
-            // 'Element'.
-            el.decorate();
-        }
-    };
-    // @ts-ignore: error TS2322: Type 'typeof f' is not assignable to type
-    // '(arg0?: Object | undefined) => Element'.
-    return f;
-}
-/**
- * Input elements do not grow and shrink with their content. This is a simple
- * (and not very efficient) way of handling shrinking to content with support
- * for min width and limited by the width of the parent element.
- * @param {!HTMLElement} el The element to limit the width for.
- * @param {!HTMLElement} parentEl The parent element that should limit the
- *     size.
- * @param {number} min The minimum width.
- * @param {number=} opt_scale Optional scale factor to apply to the width.
- */
-function limitInputWidth(el, parentEl, min, opt_scale) {
-    // Needs a size larger than borders
-    el.style.width = '10px';
-    const doc = el.ownerDocument;
-    const win = doc.defaultView;
-    // @ts-ignore: error TS18047: 'win' is possibly 'null'.
-    const computedStyle = win.getComputedStyle(el);
-    // @ts-ignore: error TS18047: 'win' is possibly 'null'.
-    const parentComputedStyle = win.getComputedStyle(parentEl);
-    const rtl = computedStyle.direction === 'rtl';
-    // To get the max width we get the width of the treeItem minus the position
-    // of the input.
-    const inputRect = el.getBoundingClientRect(); // box-sizing
-    const parentRect = parentEl.getBoundingClientRect();
-    const startPos = rtl ? parentRect.right - inputRect.right :
-        inputRect.left - parentRect.left;
-    // Add up border and padding of the input.
-    const inner = parseInt(computedStyle.borderLeftWidth, 10) +
-        parseInt(computedStyle.paddingLeft, 10) +
-        parseInt(computedStyle.paddingRight, 10) +
-        parseInt(computedStyle.borderRightWidth, 10);
-    // We also need to subtract the padding of parent to prevent it to overflow.
-    const parentPadding = rtl ? parseInt(parentComputedStyle.paddingLeft, 10) :
-        parseInt(parentComputedStyle.paddingRight, 10);
-    let max = parentEl.clientWidth - startPos - inner - parentPadding;
-    if (opt_scale) {
-        max *= opt_scale;
-    }
-    function limit() {
-        if (el.scrollWidth > max) {
-            el.style.width = max + 'px';
-        }
-        else {
-            // @ts-ignore: error TS2322: Type 'number' is not assignable to type
-            // 'string'.
-            el.style.width = 0;
-            const sw = el.scrollWidth;
-            if (sw < min) {
-                el.style.width = min + 'px';
-            }
-            else {
-                el.style.width = sw + 'px';
-            }
-        }
-    }
-    el.addEventListener('input', limit);
-    limit();
-}
-/**
- * Users complain they occasionaly use doubleclicks instead of clicks
- * (http://crbug.com/140364). To fix it we freeze click handling for
- * the doubleclick time interval.
- * @param {MouseEvent} e Initial click event.
- */
-function swallowDoubleClick(e) {
-    // @ts-ignore: error TS2339: Property 'ownerDocument' does not exist on type
-    // 'EventTarget'.
-    const doc = e.target.ownerDocument;
-    let counter = Math.min(1, e.detail);
-    // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
-    function swallow(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    }
-    // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
-    function onclick(e) {
-        if (e.detail > counter) {
-            counter = e.detail;
-            // Swallow the click since it's a click inside the doubleclick timeout.
-            swallow(e);
-        }
-        else {
-            // Stop tracking clicks and let regular handling.
-            doc.removeEventListener('dblclick', swallow, true);
-            doc.removeEventListener('click', onclick, true);
-        }
-    }
-    // The following 'click' event (if e.type === 'mouseup') mustn't be taken
-    // into account (it mustn't stop tracking clicks). Start event listening
-    // after zero timeout.
-    setTimeout(function () {
-        doc.addEventListener('click', onclick, true);
-        doc.addEventListener('dblclick', swallow, true);
-    }, 0);
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Function to be used as event listener for `mouseenter`, it sets the `title`
- * attribute in the event's element target, when the text content is clipped due
- * to CSS overflow, as in showing `...`.
- *
- * NOTE: This should be used with `mouseenter` because this event triggers less
- * frequent than `mouseover` and `mouseenter` doesn't bubble from the children
- * element to the listener (see mouseenter on MDN for more details).
- */
-function mouseEnterMaybeShowTooltip(event) {
-    const target = event.composedPath()[0];
-    if (!target) {
-        return;
-    }
-    maybeShowTooltip(target, target.innerText);
-}
-/**
- * Sets the `title` attribute in the event's element target, when the text
- * content is clipped due to CSS overflow, as in showing `...`.
- */
-function maybeShowTooltip(target, title) {
-    if (hasOverflowEllipsis(target)) {
-        target.setAttribute('title', title);
-    }
-    else {
-        target.removeAttribute('title');
-    }
-}
-/**
- * Whether the text content is clipped due to CSS overflow, as in showing `...`.
- */
-function hasOverflowEllipsis(element) {
-    return element.offsetWidth < element.scrollWidth ||
-        element.offsetHeight < element.scrollHeight;
-}
-/** Escapes the symbols: < > & */
-function htmlEscape(str) {
-    return str.replace(/[<>&]/g, entity => {
-        switch (entity) {
-            case '<':
-                return '&lt;';
-            case '>':
-                return '&gt;';
-            case '&':
-                return '&amp;';
-        }
-        return entity;
-    });
-}
-/**
- * Returns a string '[Ctrl-][Alt-][Shift-][Meta-]' depending on the event
- * modifiers. Convenient for writing out conditions in keyboard handlers.
- *
- * @param event The keyboard event.
- */
-function getKeyModifiers(event) {
-    return (event.ctrlKey ? 'Ctrl-' : '') + (event.altKey ? 'Alt-' : '') +
-        (event.shiftKey ? 'Shift-' : '') + (event.metaKey ? 'Meta-' : '');
-}
-/**
- * A shortcut function to create a child element with given tag and class.
- *
- * @param parent Parent element.
- * @param className Class name.
- * @param {string=} tag tag, DIV is omitted.
- * @return Newly created element.
- */
-function createChild(parent, className, tag) {
-    const child = parent.ownerDocument.createElement(tag || 'div');
-    if (className) {
-        child.className = className;
-    }
-    parent.appendChild(child);
-    return child;
-}
-/**
- * Query an element that's known to exist by a selector. We use this instead of
- * just calling querySelector and not checking the result because this lets us
- * satisfy the JSCompiler type system.
- * @param selectors CSS selectors to query the element.
- * @param {(!Document|!DocumentFragment|!Element)=} context An optional
- *     context object for querySelector.
- */
-function queryRequiredElement(selectors, context) {
-    const element = (context || document).querySelector(selectors);
-    assertInstanceof(element, HTMLElement, 'Missing required element: ' + selectors);
-    return element;
-}
-/**
- * Obtains the element that should exist, decorates it with given type, and
- * returns it.
- * @param query Query for the element.
- * @param type Type used to decorate.
- */
-function queryDecoratedElement(query, type) {
-    const element = queryRequiredElement(query);
-    decorate(element, type);
-    return element;
-}
-/**
- * Returns an array of elements, based on the `selectors`. Exactly one of these
- *  elements is required to exist. The rest will be null.
- * @param selectors A list of CSS selectors to query for elements.
- * @param {(!Document|!DocumentFragment|!Element)=} context An optional
- *     context object for querySelector.
- * @returns A list of query results, with the same indices as the provided
- *     `selectors`. One element will exist, and the rest will be null padding.
- */
-function queryRequiredExactlyOne(selectors, context = document) {
-    const elements = selectors.map(selector => context.querySelector(selector));
-    assert(elements.filter(el => !!el).length === 1, 'Exactly one of the elements should exist.');
-    return elements;
-}
-/**
- * Creates an instance of UserDomError subtype of DOMError because DOMError is
- * deprecated and its Closure extern is wrong, doesn't have the constructor
- * with 2 arguments. This DOMError looks like a FileError except that it does
- * not have the deprecated FileError.code member.
- *
- * @param  name Error name for the file error.
- * @param {string=} message optional message.
- */
-function createDOMError(name, message) {
-    return new UserDomError(name, message);
-}
-/**
- * Creates a DOMError-like object to be used in place of returning file errors.
- */
-class UserDomError extends DOMError {
-    /**
-     * @param name Error name for the file error.
-     * @param {string=} message Optional message for this error.
-     * @suppress {checkTypes} Closure externs for DOMError doesn't have
-     * constructor with 1 arg.
-     */
-    constructor(name, message) {
-        super(name);
-        this.name_ = name;
-        this.message_ = message || '';
-        Object.freeze(this);
-    }
-    get name() {
-        return this.name_;
-    }
-    get message() {
-        return this.message_;
-    }
-}
-/**
- * A util function to get the correct "top" value when calling
- * <cr-action-menu>'s `showAt` method.
- *
- * @param triggerElement The he element which triggers the menu dropdown.
- * @param marginTop The gap between the trigger element and the menu dialog.
- */
-function getCrActionMenuTop(triggerElement, marginTop) {
-    let top = triggerElement.offsetHeight;
-    let offsetElement = triggerElement;
-    // The menu dialog from <cr-action-menu> is "absolute" positioned, we need to
-    // start from the trigger element and go upwards to add all offsetTop from all
-    // offset parents because each level can have its own offsetTop.
-    while (offsetElement instanceof HTMLElement) {
-        top += offsetElement.offsetTop;
-        offsetElement = offsetElement.offsetParent;
-    }
-    top += marginTop;
-    return top;
-}
-/**
- * Util functions to check if an HTML element is a tree or tree item, these
- * functions cater both the old tree (cr.ui.Tree/cr.ui.TreeItem) and the new
- * tree (<xf-tree>/<xf-tree-item>).
- *
- * Note: for focused item, the old tree use `selectedItem`, but in the context
- * of the new tree, `selectedItem` means the item being selected, `focusedItem`
- * means the item being focused by keyboard.
- *
- * Use `element: any` here because `DirectoryTree` and `DirectoryItem` are not
- * compatible with Element's type definition, which prevents the type guard. No
- * `instanceof` here to prevent circular imports issue.
- *
- * TODO(b/285977941): Remove the old tree support.
- */
-function isDirectoryTree(element) {
-    return element.typeName === 'directory_tree' || isTree(element);
-}
-function isDirectoryTreeItem(element) {
-    return element.typeName === 'directory_item' || isTreeItem(element);
-}
-function getFocusedTreeItem(tree) {
-    if (tree.typeName === 'directory_tree') {
-        return tree.selectedItem;
-    }
-    if (isTree(tree)) {
-        return tree.focusedItem;
-    }
-    return null;
-}
-
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -8601,20 +9188,6 @@ util.FileError = {
     ENCODING_ERR: 'EncodingError',
 };
 Object.freeze(util.FileError);
-/**
- * Remove a file or a directory.
- * @param {Entry} entry The entry to remove.
- * @param {function():void} onSuccess The success callback.
- * @param {function(DOMError):void} onError The error callback.
- */
-util.removeFileOrDirectory = (entry, onSuccess, onError) => {
-    if (entry.isDirectory) {
-        /** @type {!DirectoryEntry} */ (entry).removeRecursively(onSuccess, onError);
-    }
-    else {
-        entry.remove(onSuccess, onError);
-    }
-};
 /**
  * Convert a number of bytes into a human friendly format, using the correct
  * number separators.
@@ -8770,383 +9343,11 @@ util.FileOperationErrorType = {
 };
 Object.freeze(util.FileOperationErrorType);
 /**
- * The kind of an entry changed event.
- * @enum {number}
- * @const
- */
-util.EntryChangedKind = {
-    CREATED: 0,
-    DELETED: 1,
-};
-Object.freeze(util.EntryChangedKind);
-/**
- * Obtains whether an entry is fake or not.
- * @param {(!Entry|!FilesAppEntry)} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is fake.
- * @suppress {missingProperties} Closure compiler doesn't allow to call isNative
- * on Entry which is native and thus doesn't define this property, however we
- * handle undefined accordingly.
- * TODO(lucmult): Remove @suppress once all entries are sub-type of
- * FilesAppEntry.
- */
-util.isFakeEntry = entry => {
-    return (entry.getParent === undefined ||
-        // @ts-ignore: error TS2339: Property 'isNativeType' does not exist on
-        // type 'FileSystemEntry | FilesAppEntry'.
-        (entry.isNativeType !== undefined && !entry.isNativeType));
-};
-/**
- * Obtains whether an entry is the root directory of a Shared Drive.
- * @param {Entry|FilesAppEntry} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is root of a Shared Drive.
- */
-util.isTeamDriveRoot = entry => {
-    if (entry === null) {
-        return false;
-    }
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree.length == 3 && util.isSharedDriveEntry(entry);
-};
-/**
- * Obtains whether an entry is the grand root directory of Shared Drives.
- * @param {(!Entry|!FakeEntry)} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is the grand root of Shared Drives.
- */
-util.isTeamDrivesGrandRoot = entry => {
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree.length == 2 && util.isSharedDriveEntry(entry);
-};
-/**
- * Obtains whether an entry is descendant of the Shared Drives directory.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is under Shared Drives.
- */
-util.isSharedDriveEntry = entry => {
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree[0] == '' &&
-        tree[1] == VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME;
-};
-/**
- * Extracts Shared Drive name from entry path.
- * @param {(!Entry|!FakeEntry|!FilesAppEntry)} entry Entry or a fake entry.
- * @return {string} The name of Shared Drive. Empty string if |entry| is not
- *     under Shared Drives.
- */
-util.getTeamDriveName = entry => {
-    if (!entry.fullPath || !util.isSharedDriveEntry(entry)) {
-        return '';
-    }
-    const tree = entry.fullPath.split('/');
-    if (tree.length < 3) {
-        return '';
-    }
-    return tree[2] || '';
-};
-/**
- * Returns true if the given root type is for a container of recent files.
- * @param {VolumeManagerCommon.RootType|null} rootType
- * @return {boolean}
- */
-util.isRecentRootType = rootType => {
-    return rootType == VolumeManagerCommon.RootType.RECENT;
-};
-/**
- * Returns true if the given entry is the root folder of recent files.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @returns {boolean}
- */
-util.isRecentRoot = entry => {
-    // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
-    // 'FileSystemEntry | FilesAppEntry'.
-    return util.isFakeEntry(entry) && util.isRecentRootType(entry.rootType);
-};
-/**
- * Obtains whether an entry is the root directory of a Computer.
- * @param {Entry|FilesAppEntry} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is root of a Computer.
- */
-util.isComputersRoot = entry => {
-    if (entry === null) {
-        return false;
-    }
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree.length == 3 && util.isComputersEntry(entry);
-};
-/**
- * Obtains whether an entry is descendant of the My Computers directory.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @return {boolean} True if the given entry is under My Computers.
- */
-util.isComputersEntry = entry => {
-    if (!entry.fullPath) {
-        return false;
-    }
-    const tree = entry.fullPath.split('/');
-    return tree[0] == '' &&
-        tree[1] == VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME;
-};
-/**
- * Returns true if the given root type is Trash.
- * @param {VolumeManagerCommon.RootType|null} rootType
- * @returns {boolean}
- */
-util.isTrashRootType = rootType => {
-    return rootType == VolumeManagerCommon.RootType.TRASH;
-};
-/**
- * Returns true if the given entry is the root folder of Trash.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @returns {boolean}
- */
-util.isTrashRoot = entry => {
-    // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
-    // 'FileSystemEntry | FilesAppEntry'.
-    return entry.fullPath === '/' && util.isTrashRootType(entry.rootType);
-};
-/**
- * Returns true if the given entry is a descendent of Trash.
- * @param {!Entry|!FilesAppEntry} entry Entry or a fake entry.
- * @returns {boolean}
- */
-util.isTrashEntry = entry => {
-    // @ts-ignore: error TS2339: Property 'rootType' does not exist on type
-    // 'FileSystemEntry | FilesAppEntry'.
-    return entry.fullPath !== '/' && util.isTrashRootType(entry.rootType);
-};
-/**
- * Compares two entries.
- * @param {Entry|FilesAppEntry|undefined} entry1 The entry to be compared. Can
- * be a fake.
- * @param {Entry|FilesAppEntry|undefined} entry2 The entry to be compared. Can
- * be a fake.
- * @return {boolean} True if the both entry represents a same file or
- *     directory. Returns true if both entries are null.
- */
-util.isSameEntry = (entry1, entry2) => {
-    if (!entry1 && !entry2) {
-        return true;
-    }
-    if (!entry1 || !entry2) {
-        return false;
-    }
-    return entry1.toURL() === entry2.toURL();
-};
-/**
- * Compares two entry arrays.
- * @param {Array<!Entry>} entries1 The entry array to be compared.
- * @param {Array<!Entry>} entries2 The entry array to be compared.
- * @return {boolean} True if the both arrays contain same files or directories
- *     in the same order. Returns true if both arrays are null.
- */
-util.isSameEntries = (entries1, entries2) => {
-    if (!entries1 && !entries2) {
-        return true;
-    }
-    if (!entries1 || !entries2) {
-        return false;
-    }
-    if (entries1.length !== entries2.length) {
-        return false;
-    }
-    for (let i = 0; i < entries1.length; i++) {
-        if (!util.isSameEntry(entries1[i], entries2[i])) {
-            return false;
-        }
-    }
-    return true;
-};
-/**
- * Compares two file systems.
- * @param {FileSystem} fileSystem1 The file system to be compared.
- * @param {FileSystem} fileSystem2 The file system to be compared.
- * @return {boolean} True if the both file systems are equal. Also, returns true
- *     if both file systems are null.
- */
-util.isSameFileSystem = (fileSystem1, fileSystem2) => {
-    if (!fileSystem1 && !fileSystem2) {
-        return true;
-    }
-    if (!fileSystem1 || !fileSystem2) {
-        return false;
-    }
-    return util.isSameEntry(fileSystem1.root, fileSystem2.root);
-};
-/**
- * Checks if given two entries are in the same directory.
- * @param {!Entry} entry1
- * @param {!Entry} entry2
- * @return {boolean} True if given entries are in the same directory.
- */
-util.isSiblingEntry = (entry1, entry2) => {
-    const path1 = entry1.fullPath.split('/');
-    const path2 = entry2.fullPath.split('/');
-    if (path1.length != path2.length) {
-        return false;
-    }
-    for (let i = 0; i < path1.length - 1; i++) {
-        if (path1[i] != path2[i]) {
-            return false;
-        }
-    }
-    return true;
-};
-/**
  * Collator for sorting.
  * @type {Intl.Collator}
  */
 util.collator =
     new Intl.Collator([], { usage: 'sort', numeric: true, sensitivity: 'base' });
-/**
- * Compare by name. The 2 entries must be in same directory.
- * @param {Entry|FilesAppEntry} entry1 First entry.
- * @param {Entry|FilesAppEntry} entry2 Second entry.
- * @return {number} Compare result.
- */
-util.compareName = (entry1, entry2) => {
-    return util.collator.compare(entry1.name, entry2.name);
-};
-/**
- * Compare by label (i18n name). The 2 entries must be in same directory.
- * @param {EntryLocation} locationInfo
- * @param {!Entry|!FilesAppEntry} entry1 First entry.
- * @param {!Entry|!FilesAppEntry} entry2 Second entry.
- * @return {number} Compare result.
- */
-util.compareLabel = (locationInfo, entry1, entry2) => {
-    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
-};
-/**
- * Compare by path.
- * @param {Entry|FilesAppEntry} entry1 First entry.
- * @param {Entry|FilesAppEntry} entry2 Second entry.
- * @return {number} Compare result.
- */
-util.comparePath = (entry1, entry2) => {
-    return util.collator.compare(entry1.fullPath, entry2.fullPath);
-};
-/**
- * @param {EntryLocation} locationInfo
- * @param {!Array<Entry|FilesAppEntry>} bottomEntries entries that should be
- * grouped in the bottom, used for sorting Linux and Play files entries after
- * other folders in MyFiles.
- * return {function(Entry|FilesAppEntry, Entry|FilesAppEntry) to compare entries
- * by name.
- */
-util.compareLabelAndGroupBottomEntries = (locationInfo, bottomEntries) => {
-    const childrenMap = new Map();
-    bottomEntries.forEach((entry) => {
-        childrenMap.set(entry.toURL(), entry);
-    });
-    /**
-     * Compare entries putting entries from |bottomEntries| in the bottom and
-     * sort by name within entries that are the same type in regards to
-     * |bottomEntries|.
-     * @param {Entry|FilesAppEntry} entry1 First entry.
-     * @param {Entry|FilesAppEntry} entry2 First entry.
-     */
-    function compare_(entry1, entry2) {
-        // Bottom entry here means Linux or Play files, which should appear after
-        // all native entries.
-        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
-        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
-        // When there are the same type, just compare by label.
-        if (isBottomlEntry1 === isBottomlEntry2) {
-            return util.compareLabel(locationInfo, entry1, entry2);
-        }
-        return isBottomlEntry1 - isBottomlEntry2;
-    }
-    return compare_;
-};
-/**
- * Checks if {@code entry} is an immediate child of {@code directory}.
- *
- * @param {Entry} entry The presumptive child.
- * @param {DirectoryEntry|FilesAppEntry} directory The presumptive
- *     parent.
- * @return {!Promise<boolean>} Resolves with true if {@code directory} is
- *     parent of {@code entry}.
- */
-util.isChildEntry = (entry, directory) => {
-    return new Promise((resolve, reject) => {
-        if (!entry || !directory) {
-            resolve(false);
-        }
-        entry.getParent(parent => {
-            resolve(util.isSameEntry(parent, directory));
-        }, reject);
-    });
-};
-/**
- * Checks if the child entry is a descendant of another entry. If the entries
- * point to the same file or directory, then returns false.
- *
- * @param {!DirectoryEntry|!FilesAppEntry} ancestorEntry The ancestor
- *     directory entry. Can be a fake.
- * @param {!Entry|!FilesAppEntry} childEntry The child entry. Can be a fake.
- * @return {boolean} True if the child entry is contained in the ancestor path.
- */
-util.isDescendantEntry = (ancestorEntry, childEntry) => {
-    if (!ancestorEntry.isDirectory) {
-        return false;
-    }
-    // For EntryList and VolumeEntry they can contain entries from different
-    // files systems, so we should check its getUIChildren.
-    const entryList = util.toEntryList(ancestorEntry);
-    if (entryList.getUIChildren) {
-        // VolumeEntry has to check to root entry descendant entry.
-        const nativeEntry = entryList.getNativeEntry();
-        if (nativeEntry &&
-            // @ts-ignore: error TS2345: Argument of type 'FileSystem | null' is not
-            // assignable to parameter of type 'FileSystem'.
-            util.isSameFileSystem(nativeEntry.filesystem, childEntry.filesystem)) {
-            return util.isDescendantEntry(
-            /** @type {!DirectoryEntry} */ (nativeEntry), childEntry);
-        }
-        return entryList.getUIChildren().some(ancestorChild => {
-            if (util.isSameEntry(ancestorChild, childEntry)) {
-                return true;
-            }
-            // root entry might not be resolved yet.
-            const volumeEntry = 
-            // @ts-ignore: error TS2339: Property 'getNativeEntry' does not exist
-            // on type 'FileSystemEntry | FilesAppEntry'.
-            /** @type {DirectoryEntry} */ (ancestorChild.getNativeEntry());
-            return volumeEntry &&
-                (util.isSameEntry(volumeEntry, childEntry) ||
-                    util.isDescendantEntry(volumeEntry, childEntry));
-        });
-    }
-    // @ts-ignore: error TS2345: Argument of type 'FileSystem | null' is not
-    // assignable to parameter of type 'FileSystem'.
-    if (!util.isSameFileSystem(ancestorEntry.filesystem, childEntry.filesystem)) {
-        return false;
-    }
-    if (util.isSameEntry(ancestorEntry, childEntry)) {
-        return false;
-    }
-    if (util.isFakeEntry(ancestorEntry) || util.isFakeEntry(childEntry)) {
-        return false;
-    }
-    // Check if the ancestor's path with trailing slash is a prefix of child's
-    // path.
-    let ancestorPath = ancestorEntry.fullPath;
-    if (ancestorPath.slice(-1) !== '/') {
-        ancestorPath += '/';
-    }
-    return childEntry.fullPath.indexOf(ancestorPath) === 0;
-};
 /**
  * The last URL with visitURL().
  * @private @type {string}
@@ -9185,95 +9386,6 @@ util.getLastVisitedURL = () => {
 util.getCurrentLocaleOrDefault = () => {
     const locale = str('UI_LOCALE') || 'en';
     return locale.replace(/_/g, '-');
-};
-/**
- * Converts array of entries to an array of corresponding URLs.
- * @param {Array<Entry>} entries Input array of entries.
- * @return {!Array<string>} Output array of URLs.
- */
-util.entriesToURLs = entries => {
-    return entries.map(entry => {
-        // When building file_manager_base.js, cachedUrl is not referred other than
-        // here. Thus closure compiler raises an error if we refer the property like
-        // entry.cachedUrl.
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type '"cachedUrl"' can't be used to index type
-        // 'FileSystemEntry'.
-        return entry['cachedUrl'] || entry.toURL();
-    });
-};
-/**
- * Converts array of URLs to an array of corresponding Entries.
- *
- * @param {Array<string>} urls Input array of URLs.
- * @param {function(!Array<!Entry>, !Array<!URL>)=} opt_callback Completion
- *     callback with array of success Entries and failure URLs.
- * TODO: Add interface for the return object type.
- * @return {Promise<*>} Promise fulfilled with the object that has entries
-property
-// @ts-ignore: error TS2314: Generic type 'Promise<T>' requires 1 type
-argument(s).
- *     and failureUrls property. The promise is never rejected.
- */
-util.URLsToEntries = (urls, opt_callback) => {
-    const promises = urls.map(url => {
-        return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, url))
-            .then(entry => {
-            return { entry: entry };
-        }, 
-        // @ts-ignore: error TS6133: 'failureUrl' is declared but its value
-        // is never read.
-        failureUrl => {
-            // Not an error. Possibly, the file is not accessible anymore.
-            console.warn('Failed to resolve the file with url: ' + url + '.');
-            return { failureUrl: url };
-        });
-    });
-    const resultPromise = Promise.all(promises).then(results => {
-        const entries = [];
-        const failureUrls = [];
-        for (let i = 0; i < results.length; i++) {
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            if ('entry' in results[i]) {
-                // @ts-ignore: error TS2339: Property 'entry' does not exist on type '{
-                // entry: FileSystemEntry; } | { failureUrl: string; }'.
-                entries.push(results[i].entry);
-            }
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            if ('failureUrl' in results[i]) {
-                // @ts-ignore: error TS2339: Property 'failureUrl' does not exist on
-                // type '{ entry: FileSystemEntry; } | { failureUrl: string; }'.
-                failureUrls.push(results[i].failureUrl);
-            }
-        }
-        return {
-            entries: entries,
-            failureUrls: failureUrls,
-        };
-    });
-    // Invoke the callback. If opt_callback is specified, resultPromise is still
-    // returned and fulfilled with a result.
-    if (opt_callback) {
-        resultPromise
-            .then(result => {
-            opt_callback(result.entries, result.failureUrls);
-        })
-            .catch(error => {
-            console.warn('util.URLsToEntries is failed.', error.stack ? error.stack : error);
-        });
-    }
-    return resultPromise;
-};
-/**
- * Converts a url into an {!Entry}, if possible.
- *
- * @param {string} url
- *
- * @return {!Promise<!Entry>} Promise Resolves with the corresponding
- *     {!Entry} if possible, else rejects.
- */
-util.urlToEntry = url => {
-    return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, url));
 };
 /**
  * Returns whether the window is teleported or not.
@@ -9430,76 +9542,6 @@ util.getEntryLabel = (locationInfo, entry) => {
     return entry.name;
 };
 /**
- * Returns true if the given |entry| matches any of the special entries:
- *
- *  - "My Files"/{Downloads,PvmDefault,Camera} directories, or
- *  - "Play Files"/{<any-directory>,DCIM/Camera} directories, or
- *  - "Linux Files" root "/" directory
- *  - "Guest OS" root "/" directory
- *
- * which cannot be modified such as deleted/cut or renamed.
- *
- * @param {!VolumeManager} volumeManager
- * @param {(Entry|FakeEntry)} entry Entry or a fake entry.
- * @return {boolean}
- */
-util.isNonModifiable = (volumeManager, entry) => {
-    if (!entry) {
-        return false;
-    }
-    if (util.isFakeEntry(entry)) {
-        return true;
-    }
-    if (!volumeManager) {
-        return false;
-    }
-    const volumeInfo = volumeManager.getVolumeInfo(entry);
-    if (!volumeInfo) {
-        return false;
-    }
-    const volumeType = volumeInfo.volumeType;
-    if (volumeType === VolumeManagerCommon.RootType.DOWNLOADS) {
-        if (!entry.isDirectory) {
-            return false;
-        }
-        const fullPath = entry.fullPath;
-        if (fullPath === '/Downloads') {
-            return true;
-        }
-        if (fullPath === '/PvmDefault' && util.isPluginVmEnabled()) {
-            return true;
-        }
-        if (fullPath === '/Camera') {
-            return true;
-        }
-        return false;
-    }
-    if (volumeType === VolumeManagerCommon.RootType.ANDROID_FILES) {
-        if (!entry.isDirectory) {
-            return false;
-        }
-        const fullPath = entry.fullPath;
-        if (fullPath === '/') {
-            return true;
-        }
-        const isRootDirectory = fullPath === ('/' + entry.name);
-        if (isRootDirectory) {
-            return true;
-        }
-        if (fullPath === '/DCIM/Camera') {
-            return true;
-        }
-        return false;
-    }
-    if (volumeType === VolumeManagerCommon.RootType.CROSTINI) {
-        return entry.fullPath === '/';
-    }
-    if (volumeType === VolumeManagerCommon.RootType.GUEST_OS) {
-        return entry.fullPath === '/';
-    }
-    return false;
-};
-/**
  * Checks if an API call returned an error, and if yes then prints it.
  */
 util.checkAPIError = () => {
@@ -9540,224 +9582,6 @@ util.timeoutPromise = (promise, ms, opt_message) => {
     ]);
 };
 /**
- * Returns true when copy image to clipboard is enabled.
- * @return {boolean}
- */
-util.isCopyImageEnabled = () => {
-    return loadTimeData.getBoolean('COPY_IMAGE_ENABLED');
-};
-/**
- * Whether the Files app integration with DLP (Data Loss Prevention) is enabled.
- * @returns {boolean}
- */
-util.isDlpEnabled = () => {
-    return loadTimeData.valueExists('DLP_ENABLED') &&
-        loadTimeData.getBoolean('DLP_ENABLED');
-};
-/**
- * Whether the Files app Experimental flag is enabled.
- * @returns {boolean}
- */
-util.isFilesAppExperimental = () => {
-    return loadTimeData.valueExists('FILES_APP_EXPERIMENTAL') &&
-        loadTimeData.getBoolean('FILES_APP_EXPERIMENTAL');
-};
-/**
- * Returns true if the conflict dialog is enabled.
- * @return {boolean}
- */
-util.isFilesConflictDialogEnabled = () => {
-    return loadTimeData.getBoolean('FILES_CONFLICT_DIALOG');
-};
-/**
- * Returns true if FuseBoxDebug flag is enabled.
- * @return {boolean}
- */
-util.isFuseBoxDebugEnabled = () => {
-    return loadTimeData.isInitialized() &&
-        loadTimeData.valueExists('FUSEBOX_DEBUG') &&
-        loadTimeData.getBoolean('FUSEBOX_DEBUG');
-};
-/**
- * Returns true if GuestOsFiles flag is enabled.
- * @return {boolean}
- */
-util.isGuestOsEnabled = () => {
-    return loadTimeData.getBoolean('GUEST_OS');
-};
-/**
- * Returns true if Jelly flag is enabled.
- * @return {boolean}
- */
-util.isJellyEnabled = () => {
-    return loadTimeData.getBoolean('JELLY');
-};
-/**
- * Returns true if the cros-components flag is enabled.
- * @return {boolean}
- */
-util.isCrosComponentsEnabled = () => {
-    return loadTimeData.getBoolean('CROS_COMPONENTS');
-};
-/**
- * Returns true if DriveFsMirroring flag is enabled.
- * @return {boolean}
- */
-util.isMirrorSyncEnabled = () => {
-    return loadTimeData.isInitialized() &&
-        loadTimeData.valueExists('DRIVEFS_MIRRORING') &&
-        loadTimeData.getBoolean('DRIVEFS_MIRRORING');
-};
-util.isGoogleOneOfferFilesBannerEligibleAndEnabled = () => {
-    return loadTimeData.getBoolean('ELIGIBLE_AND_ENABLED_GOOGLE_ONE_OFFER_FILES_BANNER');
-};
-/**
- * Returns true if FilesSinglePartitionFormat flag is enabled.
- * @return {boolean}
- */
-util.isSinglePartitionFormatEnabled = () => {
-    return loadTimeData.getBoolean('FILES_SINGLE_PARTITION_FORMAT_ENABLED');
-};
-/**
- * Returns true if InlineSyncStatus feature flag is enabled.
- * @returns {boolean}
- */
-util.isInlineSyncStatusEnabled = () => {
-    return loadTimeData.valueExists('INLINE_SYNC_STATUS') &&
-        loadTimeData.getBoolean('INLINE_SYNC_STATUS');
-};
-/**
- * Returns true if FilesDriveShortcuts flag is enabled.
- * @return {boolean}
- */
-util.isDriveShortcutsEnabled = () => {
-    return loadTimeData.isInitialized() &&
-        loadTimeData.valueExists('DRIVE_SHORTCUTS') &&
-        loadTimeData.getBoolean('DRIVE_SHORTCUTS');
-};
-/**
- * Returns whether the DriveFsBulkPinning feature flag is enabled.
- * @returns {boolean}
- */
-util.isDriveFsBulkPinningEnabled = () => {
-    return loadTimeData.getBoolean('DRIVE_FS_BULK_PINNING');
-};
-/**
- * Whether the new directory tree flag is enabled.
- * @returns {boolean}
- */
-util.isNewDirectoryTreeEnabled = () => {
-    return loadTimeData.valueExists('NEW_DIRECTORY_TREE') &&
-        loadTimeData.getBoolean('NEW_DIRECTORY_TREE');
-};
-/**
- * Retrieves all entries inside the given |rootEntry|.
- * @param {!DirectoryEntry} rootEntry
- * @param {function(!Array<!Entry>):void} entriesCallback Called when some chunk
- *     of entries are read. This can be called a couple of times until the
- *     completion.
- * @param {function():void} successCallback Called when the read is completed.
- * @param {function(DOMError):void} errorCallback Called when an error occurs.
- * @param {function():boolean} shouldStop Callback to check if the read process
- *     should stop or not. When this callback is called and it returns true,
- *     the remaining recursive reads will be aborted.
- * @param {number=} opt_maxDepth Max depth to delve directories recursively.
- *     If 0 is specified, only the rootEntry will be read. If -1 is specified
- *     or opt_maxDepth is unspecified, the depth of recursion is unlimited.
- */
-util.readEntriesRecursively =
-    (rootEntry, entriesCallback, successCallback, errorCallback, shouldStop, opt_maxDepth) => {
-        let numRunningTasks = 0;
-        // @ts-ignore: error TS7034: Variable 'error' implicitly has type 'any' in
-        // some locations where its type cannot be determined.
-        let error = null;
-        const maxDepth = opt_maxDepth === undefined ? -1 : opt_maxDepth;
-        const maybeRunCallback = () => {
-            if (numRunningTasks === 0) {
-                if (shouldStop()) {
-                    errorCallback(createDOMError(util.FileError.ABORT_ERR));
-                    // @ts-ignore: error TS7005: Variable 'error' implicitly has an
-                    // 'any' type.
-                }
-                else if (error) {
-                    errorCallback(error);
-                }
-                else {
-                    successCallback();
-                }
-            }
-        };
-        // @ts-ignore: error TS7006: Parameter 'depth' implicitly has an 'any'
-        // type.
-        const processEntry = (entry, depth) => {
-            // @ts-ignore: error TS7006: Parameter 'fileError' implicitly has an
-            // 'any' type.
-            const onError = fileError => {
-                // @ts-ignore: error TS7005: Variable 'error' implicitly has an 'any'
-                // type.
-                if (!error) {
-                    error = fileError;
-                }
-                numRunningTasks--;
-                maybeRunCallback();
-            };
-            // @ts-ignore: error TS7006: Parameter 'entries' implicitly has an 'any'
-            // type.
-            const onSuccess = entries => {
-                // @ts-ignore: error TS7005: Variable 'error' implicitly has an 'any'
-                // type.
-                if (shouldStop() || error || entries.length === 0) {
-                    numRunningTasks--;
-                    maybeRunCallback();
-                    return;
-                }
-                entriesCallback(entries);
-                for (let i = 0; i < entries.length; i++) {
-                    if (entries[i].isDirectory &&
-                        (maxDepth === -1 || depth < maxDepth)) {
-                        processEntry(entries[i], depth + 1);
-                    }
-                }
-                // Read remaining entries.
-                reader.readEntries(onSuccess, onError);
-            };
-            numRunningTasks++;
-            const reader = entry.createReader();
-            reader.readEntries(onSuccess, onError);
-        };
-        processEntry(rootEntry, 0);
-    };
-/**
- * Do not remove or modify.  Used in vm.CrostiniFiles tast tests at:
- * https://chromium.googlesource.com/chromiumos/platform/tast-tests
- *
- * Get all entries for the given volume.
- * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo
- * @return {!Promise<Record<string, Entry>>} all entries keyed by fullPath.
- */
-util.getEntries = volumeInfo => {
-    const root = volumeInfo.fileSystem.root;
-    return new Promise((resolve, reject) => {
-        const allEntries = { '/': root };
-        // @ts-ignore: error TS7006: Parameter 'someEntries' implicitly has an 'any'
-        // type.
-        function entriesCallback(someEntries) {
-            // @ts-ignore: error TS7006: Parameter 'entry' implicitly has an 'any'
-            // type.
-            someEntries.forEach(entry => {
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'any' can't be used to index type '{ '/':
-                // FileSystemDirectoryEntry; }'.
-                allEntries[entry.fullPath] = entry;
-            });
-        }
-        function successCallback() {
-            resolve(allEntries);
-        }
-        util.readEntriesRecursively(root, entriesCallback, successCallback, reject, () => false);
-    });
-};
-/**
  * Executes a functions only when the context is not the incognito one in a
  * regular session. Returns a promise that when fulfilled informs us whether or
  * not the callback was invoked.
@@ -9771,135 +9595,6 @@ util.doIfPrimaryContext = async (callback) => {
         return true;
     }
     return false;
-};
-/**
- * Casts an Entry to a FilesAppEntry, to access a FilesAppEntry-specific
- * property without Closure compiler complaining.
- * TODO(lucmult): Wrap Entry in a FilesAppEntry derived class and remove
- * this function. https://crbug.com/835203.
- * @param {Entry|FilesAppEntry} entry
- * @return {FilesAppEntry}
- */
-util.toFilesAppEntry = entry => {
-    return /** @type {FilesAppEntry} */ (entry);
-};
-/**
- * Casts an Entry to a EntryList, to access a FilesAppEntry-specific
- * property without Closure compiler complaining.
- * @param {Entry|FilesAppEntry} entry
- * @return {EntryList}
- */
-util.toEntryList = entry => {
-    return /** @type {EntryList} */ (entry);
-};
-/**
- * Returns true if entry is FileSystemEntry or FileSystemDirectoryEntry, it
- * returns false if it's FakeEntry or any one of the FilesAppEntry types.
- * TODO(lucmult): Wrap Entry in a FilesAppEntry derived class and remove
- * this function. https://crbug.com/835203.
- * @param {Entry|FilesAppEntry} entry
- * @return {boolean}
- */
-util.isNativeEntry = entry => {
-    entry = util.toFilesAppEntry(entry);
-    // Only FilesAppEntry types has |type_name| attribute.
-    return entry.type_name === undefined;
-};
-/**
- * For FilesAppEntry types that wraps a native entry, returns the native entry
- * to be able to send to fileManagerPrivate API.
- * @param {Entry|FilesAppEntry} entry
- * @return {Entry|FilesAppEntry}
- */
-util.unwrapEntry = entry => {
-    if (!entry) {
-        return entry;
-    }
-    // @ts-ignore: error TS2339: Property 'getNativeEntry' does not exist on type
-    // 'FileSystemEntry | FilesAppEntry'.
-    const nativeEntry = entry.getNativeEntry && entry.getNativeEntry();
-    if (nativeEntry) {
-        return nativeEntry;
-    }
-    return entry;
-};
-/** @return {boolean} */
-util.isArcUsbStorageUIEnabled = () => {
-    return loadTimeData.valueExists('ARC_USB_STORAGE_UI_ENABLED') &&
-        loadTimeData.getBoolean('ARC_USB_STORAGE_UI_ENABLED');
-};
-/** @return {boolean} */
-util.isArcVmEnabled = () => {
-    return loadTimeData.valueExists('ARC_VM_ENABLED') &&
-        loadTimeData.getBoolean('ARC_VM_ENABLED');
-};
-/** @return {boolean} */
-util.isPluginVmEnabled = () => {
-    return loadTimeData.valueExists('PLUGIN_VM_ENABLED') &&
-        loadTimeData.getBoolean('PLUGIN_VM_ENABLED');
-};
-/**
- * Used for logs and debugging. It tries to tell what type is the entry, its
- * path and URL.
- *
- * @param {Entry|FilesAppEntry} entry
- * @return {string}
- */
-util.entryDebugString = (entry) => {
-    if (entry === null) {
-        return 'entry is null';
-    }
-    if (entry === undefined) {
-        return 'entry is undefined';
-    }
-    let typeName = '';
-    if (entry.constructor && entry.constructor.name) {
-        typeName = entry.constructor.name;
-    }
-    else {
-        typeName = Object.prototype.toString.call(entry);
-    }
-    let entryDescription = '(' + typeName + ') ';
-    if (entry.fullPath) {
-        entryDescription = entryDescription + entry.fullPath + ' ';
-    }
-    if (entry.toURL) {
-        entryDescription = entryDescription + entry.toURL();
-    }
-    return entryDescription;
-};
-/**
- * Returns true if all entries belong to the same volume. If there are no
- * entries it also returns false.
- *
- * @param {!Array<Entry|FilesAppEntry>} entries
- * @param {!VolumeManager} volumeManager
- * @return boolean
- */
-util.isSameVolume = (entries, volumeManager) => {
-    if (!entries.length) {
-        return false;
-    }
-    const firstEntry = entries[0];
-    if (!firstEntry) {
-        return false;
-    }
-    const volumeInfo = volumeManager.getVolumeInfo(firstEntry);
-    for (let i = 1; i < entries.length; i++) {
-        if (!entries[i]) {
-            return false;
-        }
-        // @ts-ignore: error TS2345: Argument of type 'FileSystemEntry |
-        // FilesAppEntry | undefined' is not assignable to parameter of type
-        // 'FileSystemEntry | FilesAppEntry'.
-        const volumeInfoToCompare = volumeManager.getVolumeInfo(assert$1(entries[i]));
-        if (!volumeInfoToCompare ||
-            // @ts-ignore: error TS18047: 'volumeInfo' is possibly 'null'.
-            volumeInfoToCompare.volumeId !== volumeInfo.volumeId) {
-            return false;
-        }
-    }
-    return true;
 };
 /**
  * Returns the Files app modal dialog used to embed any files app dialog
@@ -9966,7 +9661,7 @@ util.getLocaleBasedWeekStart = () => {
 util.isGuestOs = type => {
     return type === VolumeManagerCommon.VolumeType.GUEST_OS ||
         (type === VolumeManagerCommon.VolumeType.ANDROID_FILES &&
-            util.isArcVmEnabled());
+            isArcVmEnabled());
 };
 /**
  * A kind of error that represents user electing to cancel an operation. We use
@@ -10000,7 +9695,7 @@ util.isOneDrive = (volumeInfo) => {
  * @return {Entry|FilesAppEntry}
  */
 util.getODFSMetadataQueryEntry = (odfsVolumeInfo) => {
-    return util.unwrapEntry(odfsVolumeInfo.displayRoot);
+    return unwrapEntry(odfsVolumeInfo.displayRoot);
 };
 /**
  * Return true if the volume with |volumeInfo| is an
@@ -10030,7 +9725,7 @@ util.isInteractiveVolume = (volumeInfo) => {
  * @returns {boolean}
  */
 util.canBulkPinningCloudPanelShow = (stage, pref) => {
-    if (!util.isDriveFsBulkPinningEnabled()) {
+    if (!isDriveFsBulkPinningEnabled()) {
         return false;
     }
     const BulkPinStage = chrome.fileManagerPrivate.BulkPinStage;
@@ -17199,7 +16894,7 @@ class PanelButton extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
-        if (util.isCrosComponentsEnabled()) {
+        if (isCrosComponentsEnabled()) {
             const extraButton = 
             /** @type {!Button} */ (queryRequiredElement('#extra-button-jelly', this.shadowRoot));
             extraButton.label = text;
@@ -19452,5 +19147,5 @@ Polymer({
 
 });
 
-export { changeDirectory as $, AsyncQueue as A, isFileSystemFileEntry as B, isFileSystemDirectoryEntry as C, assertInstanceof$1 as D, FileType as E, FakeEntryImpl as F, assertNotReached$1 as G, getDlpMetadata as H, createDOMError as I, getDefaultSearchOptions as J, isEntryInsideDrive as K, SearchLocation as L, constants as M, NativeEventTarget as N, mountGuest as O, ConcurrentQueue as P, dispatchPropertyChange as Q, RateLimiter as R, SearchRecency as S, Aggregator as T, PropStatus as U, VolumeManagerCommon as V, getFileData as W, XfBase as X, getVolume as Y, getMyFiles as Z, __decorate$1 as _, requestUpdateOnAriaChange as a, htmlEscape as a$, clearSearch as a0, updateSearch as a1, getPropertyDescriptor as a2, define as a3, decorate as a4, swallowDoubleClick as a5, PropertyKind as a6, isTreeItem as a7, isTree as a8, handleTreeSlotChange as a9, queryRequiredElement as aA, DialogType as aB, recordBoolean as aC, updateSelection as aD, assertInstanceof as aE, FocusOutlineManager as aF, mouseEnterMaybeShowTooltip as aG, getCrActionMenuTop as aH, SEARCH_RESULTS_KEY as aI, XfCloudPanel as aJ, CloudPanelType as aK, isSearchEmpty as aL, PathComponent as aM, recordValue as aN, getDriveQuotaMetadata as aO, getSizeStats as aP, queryDecoratedElement as aQ, getFileTypeForName as aR, getKeyModifiers as aS, addAndroidApps as aT, EntryList as aU, limitInputWidth as aV, getFocusedTreeItem as aW, validateEntryName as aX, renameEntry as aY, readSubDirectoriesForRenamedEntry as aZ, getDisallowedTransfers as a_, refreshNavigationRoots as aa, NavigationType as ab, isVolumeEntry as ac, vmTypeToIconName as ad, isMyFilesEntry as ae, updateNavigationEntry as af, getVolumeType as ag, readSubDirectories as ah, isEntryInsideMyDrive as ai, isEntryInsideComputers as aj, isGrandRootEntryInDrives as ak, maybeShowTooltip as al, convertEntryToFileData as am, getEntry as an, driveRootEntryListKey as ao, VolumeEntry as ap, isTrashEntry as aq, recordUserAction as ar, getTrustedHTML as as, storage as at, refreshFolderShortcut as au, recordSmallCount as av, getPreferences as aw, addFolderShortcut as ax, removeFolderShortcut as ay, Group as az, redispatchEvent as b, getRootType as b0, isDirectoryTree as b1, grantAccess as b2, validateFileName as b3, getFile as b4, UserCanceledError as b5, getFileTasks as b6, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR as b7, annotateTasks as b8, getDefaultTask as b9, toSandboxedURL as bA, updateDirectoryContent as bB, queryRequiredExactlyOne as bC, getBulkPinProgress as bD, updateBulkPinProgress as bE, getEmptyState as bF, getDialogCaller as bG, getDlpBlockedComponents as bH, updatePreferences as bI, getDriveConnectionState as bJ, updateDriveConnectionStatus as bK, updateDeviceConnectionState as bL, trashRootKey as bM, PaperRippleBehavior as bN, validateExternalDriveName as bO, recordTime as ba, parseActionId as bb, isFilesAppId as bc, LEGACY_FILES_EXTENSION_ID as bd, executeTask as be, USER_CANCELLED as bf, getDirectory as bg, updateMetadata as bh, TaskHistory as bi, getFilesData as bj, fetchFileTasks as bk, getMimeType as bl, recordDirectoryListLoadWithTolerance as bm, waitForState as bn, isDirectoryTreeItem as bo, isModal as bp, getHoldingSpaceState as bq, getDlpRestrictionDetails as br, addUiEntry as bs, removeUiEntry as bt, crostiniPlaceHolderKey as bu, isFolderDialogType as bv, updateIsInteractiveVolume as bw, createChild as bx, listMountableGuests as by, GuestOsPlaceholder as bz, assert as c, dispatchActivationClick as d, assertNotReached as e, assert$1 as f, getStore as g, strf as h, isActivationClick as i, str as j, startIOTask as k, getFilesAppIconURL as l, addVolume as m, dispatchSimpleEvent as n, openWindow as o, promisify as p, removeVolume as q, recordEnum as r, startInterval as s, toFilesAppURL as t, util as u, recordInterval as v, AllowedPaths as w, isNative as x, parseTrashInfoFiles as y, recordMediumCount as z };
+export { entriesToURLs as $, AsyncQueue as A, promisify as B, removeVolume as C, isSameFileSystem as D, isFakeEntry as E, FakeEntryImpl as F, isTeamDriveRoot as G, isComputersRoot as H, recordInterval as I, isFuseBoxDebugEnabled as J, AllowedPaths as K, isNative as L, parseTrashInfoFiles as M, NativeEventTarget as N, recordMediumCount as O, isFileSystemFileEntry as P, isFileSystemDirectoryEntry as Q, RateLimiter as R, assertInstanceof$1 as S, SearchRecency as T, FileType as U, VolumeManagerCommon as V, assertNotReached$1 as W, XfBase as X, isDlpEnabled as Y, getDlpMetadata as Z, __decorate$1 as _, requestUpdateOnAriaChange as a, assertInstanceof as a$, isTrashEntry as a0, compareName as a1, compareLabel as a2, createDOMError as a3, getDefaultSearchOptions as a4, readEntriesRecursively as a5, isEntryInsideDrive as a6, SearchLocation as a7, constants as a8, mountGuest as a9, getVolumeType as aA, readSubDirectories as aB, isEntryInsideMyDrive as aC, isEntryInsideComputers as aD, isGrandRootEntryInDrives as aE, maybeShowTooltip as aF, convertEntryToFileData as aG, getEntry as aH, driveRootEntryListKey as aI, VolumeEntry as aJ, recordUserAction as aK, getTrustedHTML as aL, storage as aM, refreshFolderShortcut as aN, recordSmallCount as aO, getPreferences as aP, comparePath as aQ, addFolderShortcut as aR, removeFolderShortcut as aS, Group as aT, isJellyEnabled as aU, isDriveShortcutsEnabled as aV, queryRequiredElement as aW, DialogType as aX, isSameVolume as aY, recordBoolean as aZ, updateSelection as a_, ConcurrentQueue as aa, dispatchPropertyChange as ab, Aggregator as ac, PropStatus as ad, convertURLsToEntries as ae, isNativeEntry as af, getFileData as ag, getVolume as ah, getMyFiles as ai, changeDirectory as aj, clearSearch as ak, updateSearch as al, getPropertyDescriptor as am, define as an, decorate as ao, swallowDoubleClick as ap, PropertyKind as aq, isTreeItem as ar, isTree as as, handleTreeSlotChange as at, refreshNavigationRoots as au, NavigationType as av, isVolumeEntry as aw, vmTypeToIconName as ax, isMyFilesEntry as ay, updateNavigationEntry as az, isActivationClick as b, isModal as b$, FocusOutlineManager as b0, mouseEnterMaybeShowTooltip as b1, getCrActionMenuTop as b2, SEARCH_RESULTS_KEY as b3, XfCloudPanel as b4, CloudPanelType as b5, isSearchEmpty as b6, PathComponent as b7, recordValue as b8, isGoogleOneOfferFilesBannerEligibleAndEnabled as b9, isDirectoryTree as bA, isSiblingEntry as bB, isNonModifiable as bC, grantAccess as bD, validateFileName as bE, getFile as bF, UserCanceledError as bG, getFileTasks as bH, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR as bI, annotateTasks as bJ, getDefaultTask as bK, recordTime as bL, parseActionId as bM, isFilesAppId as bN, LEGACY_FILES_EXTENSION_ID as bO, executeTask as bP, USER_CANCELLED as bQ, getDirectory as bR, updateMetadata as bS, TaskHistory as bT, getFilesData as bU, fetchFileTasks as bV, getMimeType as bW, recordDirectoryListLoadWithTolerance as bX, waitForState as bY, isDirectoryTreeItem as bZ, isTeamDrivesGrandRoot as b_, getTeamDriveName as ba, getDriveQuotaMetadata as bb, getSizeStats as bc, queryDecoratedElement as bd, getFileTypeForName as be, getKeyModifiers as bf, addAndroidApps as bg, EntryList as bh, isGuestOsEnabled as bi, isArcVmEnabled as bj, isSinglePartitionFormatEnabled as bk, limitInputWidth as bl, isSharedDriveEntry as bm, isComputersEntry as bn, isDescendantEntry as bo, compareLabelAndGroupBottomEntries as bp, isNewDirectoryTreeEnabled as bq, getFocusedTreeItem as br, validateEntryName as bs, renameEntry as bt, readSubDirectoriesForRenamedEntry as bu, isRecentRoot as bv, isTrashRoot as bw, getDisallowedTransfers as bx, htmlEscape as by, getRootType as bz, redispatchEvent as c, getHoldingSpaceState as c0, getDlpRestrictionDetails as c1, isMirrorSyncEnabled as c2, isTrashRootType as c3, addUiEntry as c4, removeUiEntry as c5, crostiniPlaceHolderKey as c6, isFolderDialogType as c7, updateIsInteractiveVolume as c8, createChild as c9, listMountableGuests as ca, GuestOsPlaceholder as cb, toSandboxedURL as cc, updateDirectoryContent as cd, queryRequiredExactlyOne as ce, getBulkPinProgress as cf, updateBulkPinProgress as cg, getEmptyState as ch, getDialogCaller as ci, getDlpBlockedComponents as cj, updatePreferences as ck, getDriveConnectionState as cl, updateDriveConnectionStatus as cm, updateDeviceConnectionState as cn, trashRootKey as co, PaperRippleBehavior as cp, validateExternalDriveName as cq, dispatchActivationClick as d, assert as e, assertNotReached as f, assert$1 as g, isInlineSyncStatusEnabled as h, isCrosComponentsEnabled as i, getStore as j, unwrapEntry as k, strf as l, urlToEntry as m, str as n, startIOTask as o, isSameEntry as p, openWindow as q, recordEnum as r, startInterval as s, toFilesAppURL as t, util as u, getFilesAppIconURL as v, isRecentRootType as w, isDriveFsBulkPinningEnabled as x, addVolume as y, dispatchSimpleEvent as z };
 //# sourceMappingURL=shared.rollup.js.map

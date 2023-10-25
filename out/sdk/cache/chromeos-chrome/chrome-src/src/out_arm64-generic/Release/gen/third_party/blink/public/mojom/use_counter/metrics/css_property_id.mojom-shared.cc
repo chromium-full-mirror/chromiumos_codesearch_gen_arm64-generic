@@ -1390,6 +1390,10 @@ NOINLINE static const char* CSSSampleIdToStringHelper(CSSSampleId value) {
       return "kMaskOrigin";
     case CSSSampleId::kTextSpacing:
       return "kTextSpacing";
+    case CSSSampleId::kMaskRepeat:
+      return "kMaskRepeat";
+    case CSSSampleId::kMaskComposite:
+      return "kMaskComposite";
     default:
       return nullptr;
   }

@@ -1,32 +1,32 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -I../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics -Igen/include -I../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2
+include_dirs = -I../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics -Igen/include -I../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -fvisibility=default -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/usr/include/libchrome -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -I/usr/include/chromeos -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/session_manager-client
 cflags_cc = -fno-exceptions -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libmetrics
 
-build obj/metrics/libmetrics.c_metrics_library.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics/c_metrics_library.cc
+build obj/metrics/libmetrics.c_metrics_library.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics/c_metrics_library.cc
   source_file_part = c_metrics_library.cc
   source_name_part = c_metrics_library
-build obj/metrics/libmetrics.cumulative_metrics.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics/cumulative_metrics.cc
+build obj/metrics/libmetrics.cumulative_metrics.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics/cumulative_metrics.cc
   source_file_part = cumulative_metrics.cc
   source_name_part = cumulative_metrics
-build obj/metrics/libmetrics.metrics_library.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics/metrics_library.cc
+build obj/metrics/libmetrics.metrics_library.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics/metrics_library.cc
   source_file_part = metrics_library.cc
   source_name_part = metrics_library
-build obj/metrics/libmetrics.metrics_writer.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics/metrics_writer.cc
+build obj/metrics/libmetrics.metrics_writer.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics/metrics_writer.cc
   source_file_part = metrics_writer.cc
   source_name_part = metrics_writer
-build obj/metrics/libmetrics.persistent_integer.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics/persistent_integer.cc
+build obj/metrics/libmetrics.persistent_integer.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics/persistent_integer.cc
   source_file_part = persistent_integer.cc
   source_name_part = persistent_integer
-build obj/metrics/serialization/libmetrics.metric_sample.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics/serialization/metric_sample.cc
+build obj/metrics/serialization/libmetrics.metric_sample.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics/serialization/metric_sample.cc
   source_file_part = metric_sample.cc
   source_name_part = metric_sample
-build obj/metrics/serialization/libmetrics.serialization_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics/serialization/serialization_utils.cc
+build obj/metrics/serialization/libmetrics.serialization_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics/serialization/serialization_utils.cc
   source_file_part = serialization_utils.cc
   source_name_part = serialization_utils
-build obj/metrics/libmetrics.timer.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3724/work/metrics-0.0.1/platform2/metrics/timer.cc
+build obj/metrics/libmetrics.timer.o: cxx ../../../../../../tmp/portage/chromeos-base/metrics-0.0.1-r3726/work/metrics-0.0.1/platform2/metrics/timer.cc
   source_file_part = timer.cc
   source_name_part = timer
 

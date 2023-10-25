@@ -37,92 +37,93 @@
 
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
-struct PasswordMetadata {};
-
-}  // namespace cryptohome::auth_factor
-
-namespace cryptohome::auth_factor {
-
-struct PinMetadata {};
-
-}  // namespace cryptohome::auth_factor
-
-namespace cryptohome::auth_factor {
-
-struct CryptohomeRecoveryMetadata {
-  brillo::Blob mediator_pub_key;
-};
-
-}  // namespace cryptohome::auth_factor
-
-namespace cryptohome::auth_factor {
-
-struct KioskMetadata {};
-
-}  // namespace cryptohome::auth_factor
-
-namespace cryptohome::auth_factor {
-
-struct SmartCardMetadata {
-  brillo::Blob public_key_spki_der;
-};
-
-}  // namespace cryptohome::auth_factor
-
-namespace cryptohome::auth_factor {
-
-struct FingerprintMetadata {};
-
-}  // namespace cryptohome::auth_factor
-
-namespace cryptohome::auth_factor {
-
-using AuthFactorMetadata =
-    std::variant<std::monostate,
-                 ::cryptohome::auth_factor::PasswordMetadata,
-                 ::cryptohome::auth_factor::PinMetadata,
-                 ::cryptohome::auth_factor::CryptohomeRecoveryMetadata,
-                 ::cryptohome::auth_factor::KioskMetadata,
-                 ::cryptohome::auth_factor::SmartCardMetadata,
-                 ::cryptohome::auth_factor::FingerprintMetadata>;
-
-}  // namespace cryptohome::auth_factor
-
-namespace cryptohome::auth_factor {
-
-enum class LockoutPolicy : int32_t {
+enum class SerializedLockoutPolicy : int32_t {
   UNKNOWN = 0,
   NO_LOCKOUT = 1,
   ATTEMPT_LIMITED = 2,
   TIME_LIMITED = 3,
 };
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
+
+struct PasswordMetadata {};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
+struct PinMetadata {};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
+struct CryptohomeRecoveryMetadata {
+  brillo::Blob mediator_pub_key;
+};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
+struct KioskMetadata {};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
+struct SmartCardMetadata {
+  brillo::Blob public_key_spki_der;
+};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
+struct FingerprintMetadata {};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
+using TypeSpecificMetadata =
+    std::variant<std::monostate,
+                 ::cryptohome::PasswordMetadata,
+                 ::cryptohome::PinMetadata,
+                 ::cryptohome::CryptohomeRecoveryMetadata,
+                 ::cryptohome::KioskMetadata,
+                 ::cryptohome::SmartCardMetadata,
+                 ::cryptohome::FingerprintMetadata>;
+
+}  // namespace cryptohome
+
+namespace cryptohome {
 
 struct CommonMetadata {
   std::string chromeos_version_last_updated;
   std::string chrome_version_last_updated;
-  std::optional<::cryptohome::auth_factor::LockoutPolicy> lockout_policy;
+  std::optional<::cryptohome::SerializedLockoutPolicy> lockout_policy;
   std::string user_specified_name;
 };
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
-namespace cryptohome::auth_factor {
+namespace cryptohome {
 
-struct AuthFactor {
+struct SerializedAuthFactor {
   std::optional<brillo::SecureBlob> Serialize() const;
-  static std::optional<AuthFactor> Deserialize(const brillo::SecureBlob&);
+  static std::optional<SerializedAuthFactor> Deserialize(
+      const brillo::SecureBlob&);
 
   ::cryptohome::AuthBlockState auth_block_state;
-  ::cryptohome::auth_factor::AuthFactorMetadata metadata;
-  ::cryptohome::auth_factor::CommonMetadata common_metadata;
+  ::cryptohome::TypeSpecificMetadata metadata;
+  ::cryptohome::CommonMetadata common_metadata;
 };
 
-}  // namespace cryptohome::auth_factor
+}  // namespace cryptohome
 
 #endif  // CRYPTOHOME_FLATBUFFER_SCHEMAS_AUTH_FACTOR_H_

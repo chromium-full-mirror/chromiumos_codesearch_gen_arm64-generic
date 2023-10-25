@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r941/work/libhwsec-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r944/work/libhwsec-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -24,6 +24,7 @@ build _libhwsec_client-install_config: phony obj/libhwsec/_libhwsec_client-insta
 build error_library: phony obj/libhwsec/error_library.stamp
 build flatbuffers-binding-generator: phony obj/libhwsec/flatbuffers-binding-generator.stamp
 build hardware_abstraction_external_library: phony obj/libhwsec/hardware_abstraction_external_library.stamp
+build hardware_abstraction_external_thread_local_library: phony obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp
 build hardware_abstraction_internal_library: phony obj/libhwsec/hardware_abstraction_internal_library.stamp
 build install_error_h: phony obj/libhwsec/install_error_h.stamp
 build install_headers: phony obj/libhwsec/install_headers.stamp
@@ -52,6 +53,7 @@ build libhwsec$:all: phony obj/libhwsec/all.stamp
 build libhwsec$:error_library: phony obj/libhwsec/error_library.stamp
 build libhwsec$:flatbuffers-binding-generator: phony obj/libhwsec/flatbuffers-binding-generator.stamp
 build libhwsec$:hardware_abstraction_external_library: phony obj/libhwsec/hardware_abstraction_external_library.stamp
+build libhwsec$:hardware_abstraction_external_thread_local_library: phony obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp
 build libhwsec$:hardware_abstraction_internal_library: phony obj/libhwsec/hardware_abstraction_internal_library.stamp
 build libhwsec$:install_error_h: phony obj/libhwsec/install_error_h.stamp
 build libhwsec$:install_headers: phony obj/libhwsec/install_headers.stamp
@@ -83,6 +85,7 @@ build all: phony $
     obj/libhwsec/error_library.stamp $
     obj/libhwsec/flatbuffers-binding-generator.stamp $
     obj/libhwsec/hardware_abstraction_external_library.stamp $
+    obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp $
     obj/libhwsec/hardware_abstraction_internal_library.stamp $
     obj/libhwsec/install_error_h.stamp $
     obj/libhwsec/install_headers.stamp $

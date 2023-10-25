@@ -52,7 +52,6 @@
 #include "ash/components/arc/mojom/keymaster.mojom-forward.h"
 #include "ash/components/arc/mojom/keymint.mojom-forward.h"
 #include "ash/components/arc/mojom/kiosk.mojom-forward.h"
-#include "ash/components/arc/mojom/lock_screen.mojom-forward.h"
 #include "ash/components/arc/mojom/media_session.mojom-forward.h"
 #include "ash/components/arc/mojom/memory.mojom-forward.h"
 #include "ash/components/arc/mojom/metrics.mojom-forward.h"
@@ -153,7 +152,6 @@ class ArcBridgeHost
     kOnKeymasterInstanceReadyMinVersion = 47,
     kOnKeyMintInstanceReadyMinVersion = 63,
     kOnKioskInstanceReadyMinVersion = 20,
-    kOnLockScreenInstanceReadyMinVersion = 29,
     kOnMediaSessionInstanceReadyMinVersion = 43,
     kOnMemoryInstanceReadyMinVersion = 59,
     kOnMetricsInstanceReadyMinVersion = 10,
@@ -269,9 +267,6 @@ class ArcBridgeHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnKioskInstanceReady_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct OnLockScreenInstanceReady_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnMediaSessionInstanceReady_Sym {
@@ -452,9 +447,6 @@ class ArcBridgeHost
   virtual void OnKioskInstanceReady(::mojo::PendingRemote<::arc::mojom::KioskInstance> instance_remote) = 0;
 
   
-  virtual void OnLockScreenInstanceReady(::mojo::PendingRemote<::arc::mojom::LockScreenInstance> instance_remote) = 0;
-
-  
   virtual void OnMediaSessionInstanceReady(::mojo::PendingRemote<::arc::mojom::MediaSessionInstance> instance_remote) = 0;
 
   
@@ -610,8 +602,6 @@ class  ArcBridgeHostProxy
   void OnKeyMintInstanceReady(::mojo::PendingRemote<::arc::mojom::keymint::KeyMintInstance> instance_remote) final;
   
   void OnKioskInstanceReady(::mojo::PendingRemote<::arc::mojom::KioskInstance> instance_remote) final;
-  
-  void OnLockScreenInstanceReady(::mojo::PendingRemote<::arc::mojom::LockScreenInstance> instance_remote) final;
   
   void OnMediaSessionInstanceReady(::mojo::PendingRemote<::arc::mojom::MediaSessionInstance> instance_remote) final;
   

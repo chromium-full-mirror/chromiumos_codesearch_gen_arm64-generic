@@ -114,8 +114,12 @@ enum class SourceRegistrationError : int32_t {
   kEventReportWindowsEndTimeDurationLTEStart = 35,
   
   kBothEventReportWindowFieldsFound = 36,
+  
+  kTriggerDataMatchingWrongType = 37,
+  
+  kTriggerDataMatchingUnknownValue = 38,
   kMinValue = 0,
-  kMaxValue = 36,
+  kMaxValue = 38,
 };
 
  std::ostream& operator<<(std::ostream& os, SourceRegistrationError value);

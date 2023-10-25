@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.cr-row.search-engine{padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto;margin-inline-start:12px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex settings-shared md-select">#search-wrapper{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.cr-row.search-engine{padding:0}.default-search-engine{padding-top:var(--cr-section-vertical-padding)}.search-engine-name{margin-inline-end:auto}.search-engine{align-items:center;display:flex;flex-direction:row;gap:12px}</style>
 <settings-animated-pages id="pages" section="search" focus-config="[[focusConfig_]]">
   <div route-path="default">
     
@@ -24,10 +24,14 @@ export function getTemplate() {
             <site-favicon favicon-url="[[defaultSearchEngine_.iconURL]]" url="[[defaultSearchEngine_.url]]">
             </site-favicon>
             <div class="search-engine-name">[[defaultSearchEngine_.name]]</div>
-            <cr-button disabled$="[[isDefaultSearchEngineEnforced_(
-                prefs.default_search_provider_data.template_url_data)]]">
+            <cr-button id="openDialogButton" on-click="onOpenDialogButtonClick_" disabled$="[[isDefaultSearchEngineEnforced_(
+                    prefs.default_search_provider_data.template_url_data)]]">
               $i18n{searchEnginesChange}
             </cr-button>
+            <template is="dom-if" if="[[showSearchEngineListDialog_]]" restamp>
+              <settings-search-engine-list-dialog search-engines="[[searchEngines_]]" on-close="onSearchEngineListDialogClose_">
+              </settings-search-engine-list-dialog>
+            </template>
           </div>
         </div>
       </template>

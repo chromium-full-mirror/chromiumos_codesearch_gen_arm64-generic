@@ -33,22 +33,22 @@ static DeferredRequestInit* Create(v8::Isolate* isolate, v8::Local<v8::Value> v8
 explicit  DeferredRequestInit();
 explicit  DeferredRequestInit(v8::Isolate* isolate);
 
-bool hasActivationTimeout() const {
-  return has_activation_timeout_;
+bool hasActivateAfter() const {
+  return has_activate_after_;
 }
-double activationTimeout() const {
-  DCHECK(hasActivationTimeout());
-return member_activation_timeout_;
+double activateAfter() const {
+  DCHECK(hasActivateAfter());
+return member_activate_after_;
 }
-double getActivationTimeoutOr(double fallback_value) const {
-  if (!hasActivationTimeout()) {
+double getActivateAfterOr(double fallback_value) const {
+  if (!hasActivateAfter()) {
   return fallback_value;
 }
-return member_activation_timeout_;
+return member_activate_after_;
 }
-void setActivationTimeout(double value) {
-  member_activation_timeout_ = value;
-has_activation_timeout_ = true;
+void setActivateAfter(double value) {
+  member_activate_after_ = value;
+has_activate_after_ = true;
 }
 
 
@@ -66,9 +66,9 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
-bool has_activation_timeout_ = false;
+bool has_activate_after_ = false;
 
-double member_activation_timeout_;
+double member_activate_after_;
 
 
   

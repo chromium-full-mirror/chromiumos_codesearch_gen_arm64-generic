@@ -156,7 +156,7 @@ export class FederatedAuthRequestInterface {
         selectedIdentityProviderConfigUrl: ?url_mojom_Url,
         token: ?string,
         error: ?TokenError,
-        isIdentityCredentialAutoSelected: !boolean,
+        isAutoSelected: !boolean,
    *  }>}
    */
 
@@ -264,7 +264,7 @@ export class FederatedAuthRequestRemote {
         selectedIdentityProviderConfigUrl: ?url_mojom_Url,
         token: ?string,
         error: ?TokenError,
-        isIdentityCredentialAutoSelected: !boolean,
+        isAutoSelected: !boolean,
    *  }>}
    */
 
@@ -1333,7 +1333,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'isIdentityCredentialAutoSelected', 4,
+        'isAutoSelected', 4,
         0,
         mojo.internal.Bool,
         false,
@@ -1359,7 +1359,7 @@ export class FederatedAuthRequest_RequestToken_ResponseParams {
     /** @type { (TokenError|undefined) } */
     this.error;
     /** @type { !boolean } */
-    this.isIdentityCredentialAutoSelected;
+    this.isAutoSelected;
   }
 }
 

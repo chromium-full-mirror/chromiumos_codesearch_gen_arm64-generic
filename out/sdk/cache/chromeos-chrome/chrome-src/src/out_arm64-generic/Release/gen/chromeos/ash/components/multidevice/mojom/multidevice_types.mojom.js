@@ -34,6 +34,8 @@
   SoftwareFeature.EASY_UNLOCK_CLIENT = 4;
   SoftwareFeature.MAGIC_TETHER_HOST = 5;
   SoftwareFeature.MAGIC_TETHER_CLIENT = 6;
+  SoftwareFeature.SMS_CONNECT_HOST = 7;
+  SoftwareFeature.SMS_CONNECT_CLIENT = 8;
   SoftwareFeature.PHONE_HUB_HOST = 9;
   SoftwareFeature.PHONE_HUB_CLIENT = 10;
   SoftwareFeature.WIFI_SYNC_HOST = 11;
@@ -53,6 +55,8 @@
     case 4:
     case 5:
     case 6:
+    case 7:
+    case 8:
     case 9:
     case 10:
     case 11:

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="10" failures="0" disabled="0" errors="0" time="0.018" timestamp="2023-10-25T11:37:05.972" name="AllTests">
+  <testsuite name="Alert" tests="10" failures="0" disabled="0" skipped="0" errors="0" time="0.009" timestamp="2023-10-25T11:37:05.980">
+    <testcase name="OneCallback" file="cras/src/tests/alert_unittest.cc" line="43" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:37:05.980" classname="Alert" />
+    <testcase name="OneCallbackPost2Call1" file="cras/src/tests/alert_unittest.cc" line="54" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.984" classname="Alert" />
+    <testcase name="OneCallbackWithData" file="cras/src/tests/alert_unittest.cc" line="67" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.984" classname="Alert" />
+    <testcase name="OneCallbackTwoDataCalledOnce" file="cras/src/tests/alert_unittest.cc" line="80" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.985" classname="Alert" />
+    <testcase name="OneCallbackTwoDataKeepAll" file="cras/src/tests/alert_unittest.cc" line="96" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.985" classname="Alert" />
+    <testcase name="TwoCallbacks" file="cras/src/tests/alert_unittest.cc" line="113" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.986" classname="Alert" />
+    <testcase name="NoPending" file="cras/src/tests/alert_unittest.cc" line="127" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.987" classname="Alert" />
+    <testcase name="PendingInCallback" file="cras/src/tests/alert_unittest.cc" line="137" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.987" classname="Alert" />
+    <testcase name="Prepare" file="cras/src/tests/alert_unittest.cc" line="154" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.988" classname="Alert" />
+    <testcase name="TwoAlerts" file="cras/src/tests/alert_unittest.cc" line="166" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:05.988" classname="Alert" />
+  </testsuite>
+</testsuites>

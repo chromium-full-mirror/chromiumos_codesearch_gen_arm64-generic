@@ -68,6 +68,7 @@ class SpeechRecognitionEventObserver
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kOnStopMinVersion = 0,
+    kOnResultMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -76,11 +77,17 @@ class SpeechRecognitionEventObserver
   struct OnStop_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnResult_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SpeechRecognitionEventObserver() = default;
 
   
   virtual void OnStop() = 0;
+
+  
+  virtual void OnResult(SpeechRecognitionResultEventPtr event) = 0;
 };
 
 class SpeechRecognitionProxy;
@@ -150,6 +157,8 @@ class  SpeechRecognitionEventObserverProxy
   explicit SpeechRecognitionEventObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void OnStop() final;
+  
+  void OnResult(SpeechRecognitionResultEventPtr event) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -265,6 +274,150 @@ class  SpeechRecognitionResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+
+
+
+
+
+class  SpeechRecognitionResultEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SpeechRecognitionResultEvent, T>::value>;
+  using DataView = SpeechRecognitionResultEventDataView;
+  using Data_ = internal::SpeechRecognitionResultEvent_Data;
+
+  template <typename... Args>
+  static SpeechRecognitionResultEventPtr New(Args&&... args) {
+    return SpeechRecognitionResultEventPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SpeechRecognitionResultEventPtr From(const U& u) {
+    return mojo::TypeConverter<SpeechRecognitionResultEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SpeechRecognitionResultEvent>::Convert(*this);
+  }
+
+
+  SpeechRecognitionResultEvent();
+
+  SpeechRecognitionResultEvent(
+      const std::string& transcript,
+      bool is_final);
+
+
+  ~SpeechRecognitionResultEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SpeechRecognitionResultEventPtr>
+  SpeechRecognitionResultEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SpeechRecognitionResultEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SpeechRecognitionResultEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SpeechRecognitionResultEvent_UnserializedMessageContext<
+            UserType, SpeechRecognitionResultEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SpeechRecognitionResultEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SpeechRecognitionResultEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SpeechRecognitionResultEvent_UnserializedMessageContext<
+            UserType, SpeechRecognitionResultEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SpeechRecognitionResultEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string transcript;
+  
+  bool is_final;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -561,6 +714,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  SpeechRecognitionStartInfo {
  public:
   template <typename T>
@@ -698,6 +852,35 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 template <typename StructPtrType>
+SpeechRecognitionResultEventPtr SpeechRecognitionResultEvent::Clone() const {
+  return New(
+      mojo::Clone(transcript),
+      mojo::Clone(is_final)
+  );
+}
+
+template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>*>
+bool SpeechRecognitionResultEvent::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->transcript, other_struct.transcript))
+    return false;
+  if (!mojo::Equals(this->is_final, other_struct.is_final))
+    return false;
+  return true;
+}
+
+template <typename T, SpeechRecognitionResultEvent::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.transcript < rhs.transcript)
+    return true;
+  if (rhs.transcript < lhs.transcript)
+    return false;
+  if (lhs.is_final < rhs.is_final)
+    return true;
+  if (rhs.is_final < lhs.is_final)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 StartOptionsPtr StartOptions::Clone() const {
   return New(
       mojo::Clone(client_id),
@@ -789,6 +972,26 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // ax::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::ax::mojom::SpeechRecognitionResultEvent::DataView,
+                                         ::ax::mojom::SpeechRecognitionResultEventPtr> {
+  static bool IsNull(const ::ax::mojom::SpeechRecognitionResultEventPtr& input) { return !input; }
+  static void SetToNull(::ax::mojom::SpeechRecognitionResultEventPtr* output) { output->reset(); }
+
+  static const decltype(::ax::mojom::SpeechRecognitionResultEvent::transcript)& transcript(
+      const ::ax::mojom::SpeechRecognitionResultEventPtr& input) {
+    return input->transcript;
+  }
+
+  static decltype(::ax::mojom::SpeechRecognitionResultEvent::is_final) is_final(
+      const ::ax::mojom::SpeechRecognitionResultEventPtr& input) {
+    return input->is_final;
+  }
+
+  static bool Read(::ax::mojom::SpeechRecognitionResultEvent::DataView input, ::ax::mojom::SpeechRecognitionResultEventPtr* output);
+};
 
 
 template <>

@@ -126,8 +126,10 @@ enum class SetHotspotConfigResult : int32_t {
   kFailedNotLogin = 1,
   
   kFailedInvalidConfiguration = 2,
+  
+  kFailedShillOperation = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
 };
 
  std::ostream& operator<<(std::ostream& os, SetHotspotConfigResult value);

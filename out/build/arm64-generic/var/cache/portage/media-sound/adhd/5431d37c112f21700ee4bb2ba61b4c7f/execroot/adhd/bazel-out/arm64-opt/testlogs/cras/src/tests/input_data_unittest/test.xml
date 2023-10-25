@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="3" failures="0" disabled="0" errors="0" time="0.021" timestamp="2023-10-24T11:09:42.403" name="AllTests">
-  <testsuite name="InputData" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.012" timestamp="2023-10-24T11:09:42.411">
-    <testcase name="GetForInputStream" file="cras/src/tests/input_data_unittest.cc" line="27" status="run" result="completed" time="0.003" timestamp="2023-10-24T11:09:42.411" classname="InputData" />
-    <testcase name="Gains" file="cras/src/tests/input_data_unittest.cc" line="80" status="run" result="completed" time="0.001" timestamp="2023-10-24T11:09:42.416" classname="InputData" />
-    <testcase name="RunWithChannelsExceedingLimit" file="cras/src/tests/input_data_unittest.cc" line="121" status="run" result="completed" time="0.004" timestamp="2023-10-24T11:09:42.418" classname="InputData" />
-  </testsuite>
-</testsuites>

@@ -3785,6 +3785,22 @@ class CookieHasNonAsciiCharacter final : public ::ukm::internal::UkmEntryBuilder
 
 };
 
+class Cookies_FirstPartyPartitionedInCrossSiteContext final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit Cookies_FirstPartyPartitionedInCrossSiteContext(ukm::SourceId source_id);
+  explicit Cookies_FirstPartyPartitionedInCrossSiteContext(ukm::SourceIdObj source_id);
+  ~Cookies_FirstPartyPartitionedInCrossSiteContext() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(13054846304569977294);
+
+
+  static const char kCookiePresentName[];
+  static constexpr uint64_t kCookiePresentNameHash = UINT64_C(7098191299343393352);
+  Cookies_FirstPartyPartitionedInCrossSiteContext& SetCookiePresent(int64_t value);
+
+};
+
 class CPUUsageMeasurement final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit CPUUsageMeasurement(ukm::SourceId source_id);

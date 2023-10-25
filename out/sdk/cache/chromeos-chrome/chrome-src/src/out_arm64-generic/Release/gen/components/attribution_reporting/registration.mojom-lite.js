@@ -94,6 +94,14 @@ attributionReporting.mojom.EventReportWindowsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
+attributionReporting.mojom.TriggerConfigSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
 attributionReporting.mojom.SourceRegistrationSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -460,6 +468,35 @@ attributionReporting.mojom.EventReportWindows = class {
 
 
 mojo.internal.Struct(
+    attributionReporting.mojom.TriggerConfigSpec.$,
+    'TriggerConfig',
+    [
+      mojo.internal.StructField(
+        'triggerDataMatching', 0,
+        0,
+        attributionReporting.mojom.TriggerDataMatchingSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+attributionReporting.mojom.TriggerConfig = class {
+  constructor() {
+    /** @export { !attributionReporting.mojom.TriggerDataMatching } */
+    this.triggerDataMatching;
+  }
+};
+
+
+
+mojo.internal.Struct(
     attributionReporting.mojom.SourceRegistrationSpec.$,
     'SourceRegistration',
     [
@@ -551,8 +588,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'triggerConfig', 80,
+        0,
+        attributionReporting.mojom.TriggerConfigSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 88],]);
+    [[0, 96],]);
 
 
 
@@ -583,6 +628,8 @@ attributionReporting.mojom.SourceRegistration = class {
     this.aggregationKeys;
     /** @export { !boolean } */
     this.debugReporting;
+    /** @export { !attributionReporting.mojom.TriggerConfig } */
+    this.triggerConfig;
   }
 };
 

@@ -106,23 +106,23 @@ class  VideoCaptureObserver_OnFrameDropped_Params_Data {
 };
 static_assert(sizeof(VideoCaptureObserver_OnFrameDropped_Params_Data) == 16,
               "Bad sizeof(VideoCaptureObserver_OnFrameDropped_Params_Data)");
-class  VideoCaptureObserver_OnNewCropVersion_Params_Data {
+class  VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint32_t crop_version;
+  uint32_t sub_capture_target_version;
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<VideoCaptureObserver_OnNewCropVersion_Params_Data>;
+  friend class mojo::internal::MessageFragment<VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data>;
 
-  VideoCaptureObserver_OnNewCropVersion_Params_Data();
-  ~VideoCaptureObserver_OnNewCropVersion_Params_Data() = delete;
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data();
+  ~VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data() = delete;
 };
-static_assert(sizeof(VideoCaptureObserver_OnNewCropVersion_Params_Data) == 16,
-              "Bad sizeof(VideoCaptureObserver_OnNewCropVersion_Params_Data)");
+static_assert(sizeof(VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data) == 16,
+              "Bad sizeof(VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data)");
 class  VideoCaptureHost_Start_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -438,21 +438,21 @@ class VideoCaptureObserver_OnFrameDropped_ParamsDataView {
 };
 
 
-class VideoCaptureObserver_OnNewCropVersion_ParamsDataView {
+class VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsDataView {
  public:
-  VideoCaptureObserver_OnNewCropVersion_ParamsDataView() = default;
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsDataView() = default;
 
-  VideoCaptureObserver_OnNewCropVersion_ParamsDataView(
-      internal::VideoCaptureObserver_OnNewCropVersion_Params_Data* data,
+  VideoCaptureObserver_OnNewSubCaptureTargetVersion_ParamsDataView(
+      internal::VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  uint32_t crop_version() const {
-    return data_->crop_version;
+  uint32_t sub_capture_target_version() const {
+    return data_->sub_capture_target_version;
   }
  private:
-  internal::VideoCaptureObserver_OnNewCropVersion_Params_Data* data_ = nullptr;
+  internal::VideoCaptureObserver_OnNewSubCaptureTargetVersion_Params_Data* data_ = nullptr;
 };
 
 

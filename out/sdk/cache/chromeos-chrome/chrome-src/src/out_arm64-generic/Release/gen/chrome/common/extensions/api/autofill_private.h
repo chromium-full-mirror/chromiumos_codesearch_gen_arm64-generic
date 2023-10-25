@@ -896,14 +896,29 @@ namespace AuthenticateUserAndFlipMandatoryAuthToggle {
 
 }  // namespace AuthenticateUserAndFlipMandatoryAuthToggle
 
-namespace AuthenticateUserToEditLocalCard {
+namespace GetLocalCard {
+
+struct Params {
+  static absl::optional<Params> Create(const base::Value::List& args);
+  Params(const Params&) = delete;
+  Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
+  ~Params();
+
+  std::string guid;
+
+
+ private:
+  Params();
+};
 
 namespace Results {
 
-base::Value::List Create(bool is_user_auth_successful);
+base::Value::List Create(const CreditCardEntry& card);
 }  // namespace Results
 
-}  // namespace AuthenticateUserToEditLocalCard
+}  // namespace GetLocalCard
 
 namespace CheckIfDeviceAuthAvailable {
 

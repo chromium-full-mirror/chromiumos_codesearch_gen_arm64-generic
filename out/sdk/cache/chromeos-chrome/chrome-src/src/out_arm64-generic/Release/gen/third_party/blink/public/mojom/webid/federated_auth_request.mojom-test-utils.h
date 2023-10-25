@@ -36,7 +36,7 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestAsyncWaiter {
 
   ~FederatedAuthRequestAsyncWaiter();
   void RequestToken(
-      std::vector<IdentityProviderGetParametersPtr> idp_get_params, ::password_manager::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::GURL>* out_selected_identity_provider_config_url, absl::optional<std::string>* out_token, TokenErrorPtr* out_error, bool* out_is_identity_credential_auto_selected);
+      std::vector<IdentityProviderGetParametersPtr> idp_get_params, ::password_manager::CredentialMediationRequirement requirement, RequestTokenStatus* out_status, absl::optional<::GURL>* out_selected_identity_provider_config_url, absl::optional<std::string>* out_token, TokenErrorPtr* out_error, bool* out_is_auto_selected);
   
   void RequestUserInfo(
       IdentityProviderConfigPtr provider, RequestUserInfoStatus* out_status, absl::optional<std::vector<IdentityUserInfoPtr>>* out_user_info);

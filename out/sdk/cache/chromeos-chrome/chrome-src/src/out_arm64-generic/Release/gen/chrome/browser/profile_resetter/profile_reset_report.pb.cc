@@ -134,7 +134,6 @@ bool ChromeResetReport_ResetRequestOrigin_IsValid(int value) {
     case 0:
     case 1:
     case 2:
-    case 3:
     case 4:
       return true;
     default:
@@ -142,29 +141,26 @@ bool ChromeResetReport_ResetRequestOrigin_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ChromeResetReport_ResetRequestOrigin_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ChromeResetReport_ResetRequestOrigin_strings[4] = {};
 
 static const char ChromeResetReport_ResetRequestOrigin_names[] =
-  "RESET_REQUEST_ORIGIN_CCT"
   "RESET_REQUEST_ORIGIN_TRIGGERED_RESET"
   "RESET_REQUEST_ORIGIN_UNKNOWN"
   "RESET_REQUEST_ORIGIN_UNSPECIFIED"
   "RESET_REQUEST_ORIGIN_USER_CLICK";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ChromeResetReport_ResetRequestOrigin_entries[] = {
-  { {ChromeResetReport_ResetRequestOrigin_names + 0, 24}, 3 },
-  { {ChromeResetReport_ResetRequestOrigin_names + 24, 36}, 4 },
-  { {ChromeResetReport_ResetRequestOrigin_names + 60, 28}, 1 },
-  { {ChromeResetReport_ResetRequestOrigin_names + 88, 32}, 0 },
-  { {ChromeResetReport_ResetRequestOrigin_names + 120, 31}, 2 },
+  { {ChromeResetReport_ResetRequestOrigin_names + 0, 36}, 4 },
+  { {ChromeResetReport_ResetRequestOrigin_names + 36, 28}, 1 },
+  { {ChromeResetReport_ResetRequestOrigin_names + 64, 32}, 0 },
+  { {ChromeResetReport_ResetRequestOrigin_names + 96, 31}, 2 },
 };
 
 static const int ChromeResetReport_ResetRequestOrigin_entries_by_number[] = {
-  3, // 0 -> RESET_REQUEST_ORIGIN_UNSPECIFIED
-  2, // 1 -> RESET_REQUEST_ORIGIN_UNKNOWN
-  4, // 2 -> RESET_REQUEST_ORIGIN_USER_CLICK
-  0, // 3 -> RESET_REQUEST_ORIGIN_CCT
-  1, // 4 -> RESET_REQUEST_ORIGIN_TRIGGERED_RESET
+  2, // 0 -> RESET_REQUEST_ORIGIN_UNSPECIFIED
+  1, // 1 -> RESET_REQUEST_ORIGIN_UNKNOWN
+  3, // 2 -> RESET_REQUEST_ORIGIN_USER_CLICK
+  0, // 4 -> RESET_REQUEST_ORIGIN_TRIGGERED_RESET
 };
 
 const std::string& ChromeResetReport_ResetRequestOrigin_Name(
@@ -173,12 +169,12 @@ const std::string& ChromeResetReport_ResetRequestOrigin_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ChromeResetReport_ResetRequestOrigin_entries,
           ChromeResetReport_ResetRequestOrigin_entries_by_number,
-          5, ChromeResetReport_ResetRequestOrigin_strings);
+          4, ChromeResetReport_ResetRequestOrigin_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ChromeResetReport_ResetRequestOrigin_entries,
       ChromeResetReport_ResetRequestOrigin_entries_by_number,
-      5, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ChromeResetReport_ResetRequestOrigin_strings[idx].get();
 }
@@ -186,7 +182,7 @@ bool ChromeResetReport_ResetRequestOrigin_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ChromeResetReport_ResetRequestOrigin* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ChromeResetReport_ResetRequestOrigin_entries, 5, name, &int_value);
+      ChromeResetReport_ResetRequestOrigin_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<ChromeResetReport_ResetRequestOrigin>(int_value);
   }
@@ -196,7 +192,6 @@ bool ChromeResetReport_ResetRequestOrigin_Parse(
 constexpr ChromeResetReport_ResetRequestOrigin ChromeResetReport::RESET_REQUEST_ORIGIN_UNSPECIFIED;
 constexpr ChromeResetReport_ResetRequestOrigin ChromeResetReport::RESET_REQUEST_ORIGIN_UNKNOWN;
 constexpr ChromeResetReport_ResetRequestOrigin ChromeResetReport::RESET_REQUEST_ORIGIN_USER_CLICK;
-constexpr ChromeResetReport_ResetRequestOrigin ChromeResetReport::RESET_REQUEST_ORIGIN_CCT;
 constexpr ChromeResetReport_ResetRequestOrigin ChromeResetReport::RESET_REQUEST_ORIGIN_TRIGGERED_RESET;
 constexpr ChromeResetReport_ResetRequestOrigin ChromeResetReport::ResetRequestOrigin_MIN;
 constexpr ChromeResetReport_ResetRequestOrigin ChromeResetReport::ResetRequestOrigin_MAX;

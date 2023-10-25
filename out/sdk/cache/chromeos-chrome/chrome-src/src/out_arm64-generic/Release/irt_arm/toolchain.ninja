@@ -96,7 +96,7 @@ build irt_arm/obj/base/anchor_functions_buildflags.stamp: irt_arm_stamp irt_arm/
 subninja irt_arm/obj/base/base.ninja
 subninja irt_arm/obj/base/base_static.ninja
 rule __base_build_date___build_toolchain_nacl_irt_arm__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py irt_arm/gen/base/generated_build_date.h 1698030270
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py irt_arm/gen/base/generated_build_date.h 1698116641
   description = ACTION //base:build_date(//build/toolchain/nacl:irt_arm)
   restat = 1
   pool = build_toolchain_action_pool
@@ -539,6 +539,17 @@ build irt_arm/obj/ipc/mojom_shared__generator.stamp: irt_arm_stamp irt_arm/gen/i
 subninja irt_arm/obj/ipc/mojom_shared_cpp_sources.ninja
 subninja irt_arm/obj/ipc/native_handle_type_converters.ninja
 subninja irt_arm/obj/ipc/param_traits.ninja
+rule __media_media_buildflags___build_toolchain_nacl_irt_arm__rule
+  rspfile = __media_media_buildflags___build_toolchain_nacl_irt_arm__rule.rsp
+  rspfile_content = --flags ALLOW_OOP_VIDEO_DECODER=false ALLOW_HOSTING_OOP_VIDEO_DECODER=false ALTERNATE_CDM_STORAGE_ID_KEY=\"\" CHROME_WIDE_ECHO_CANCELLATION=false ENABLE_PLATFORM_AC3_EAC3_AUDIO=false ENABLE_PLATFORM_AC4_AUDIO=false ENABLE_CAST_AUDIO_RENDERER=false ENABLE_DAV1D_DECODER=true ENABLE_AV1_DECODER=true ENABLE_PLATFORM_DOLBY_VISION=false ENABLE_PLATFORM_ENCRYPTED_DOLBY_VISION=false ENABLE_FFMPEG=true ENABLE_FFMPEG_VIDEO_DECODERS=true ENABLE_PLATFORM_HEVC=false ENABLE_HEVC_PARSER_AND_HW_DECODER=false ENABLE_PLATFORM_VVC=false ENABLE_HLS_DEMUXER=false ENABLE_LIBAOM=true ENABLE_LIBRARY_CDMS=false ENABLE_LIBVPX=true ENABLE_LOGGING_OVERRIDE=false ENABLE_MEDIA_DRM_STORAGE=false ENABLE_MEDIA_REMOTING=true ENABLE_MEDIA_REMOTING_RPC=true ENABLE_OPENH264=false ENABLE_PASSTHROUGH_AUDIO_CODECS=false ENABLE_PLATFORM_DTS_AUDIO=false ENABLE_PLATFORM_MPEG_H_AUDIO=false ENABLE_MSE_MPEG2TS_STREAM_PARSER=false PLATFORM_HAS_OPTIONAL_HEVC_SUPPORT=false USE_ARC_PROTECTED_MEDIA=false USE_CHROMEOS_MEDIA_ACCELERATION=false\|\|true USE_CHROMEOS_PROTECTED_AV1=false USE_CHROMEOS_PROTECTED_MEDIA=false USE_PROPRIETARY_CODECS=false
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/build/write_buildflag_header.py --output media/media_buildflags.h --rulename //media$:media_buildflags --gen-dir irt_arm/gen --definitions ${rspfile}
+  description = ACTION //media:media_buildflags(//build/toolchain/nacl:irt_arm)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build irt_arm/gen/media/media_buildflags.h: __media_media_buildflags___build_toolchain_nacl_irt_arm__rule | ../../../../../../../home/chrome-bot/chrome_root/src/build/write_buildflag_header.py irt_arm/obj/build/buildflag_header_h.stamp host/tls_edit
+
+build irt_arm/obj/media/media_buildflags.stamp: irt_arm_stamp irt_arm/gen/media/media_buildflags.h
 subninja irt_arm/obj/media/shared_memory_support.ninja
 rule __mojo_buildflags___build_toolchain_nacl_irt_arm__rule
   rspfile = __mojo_buildflags___build_toolchain_nacl_irt_arm__rule.rsp

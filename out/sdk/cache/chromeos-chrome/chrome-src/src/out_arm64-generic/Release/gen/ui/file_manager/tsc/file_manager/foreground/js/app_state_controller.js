@@ -4,8 +4,8 @@
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { appUtil } from '../../common/js/app_util.js';
 import { DialogType } from '../../common/js/dialog_type.js';
+import { isRecentRoot } from '../../common/js/entry_utils.js';
 import { storage } from '../../common/js/storage.js';
-import { util } from '../../common/js/util.js';
 import { DirectoryModel } from './directory_model.js';
 import { GROUP_BY_FIELD_DIRECTORY, GROUP_BY_FIELD_MODIFICATION_TIME } from './file_list_model.js';
 import { FileManagerUI } from './ui/file_manager_ui.js';
@@ -161,7 +161,7 @@ export class AppStateController {
         }
         // Update preferred sort field and direction only when the current directory
         // is not Recent folder.
-        if (!util.isRecentRoot(currentDirectory)) {
+        if (!isRecentRoot(currentDirectory)) {
             // @ts-ignore: error TS2531: Object is possibly 'null'.
             const currentSortStatus = this.directoryModel_.getFileList().sortStatus;
             // @ts-ignore: error TS2339: Property 'field' does not exist on type
@@ -201,7 +201,7 @@ export class AppStateController {
         // 2) preferred field and direction on other folders.
         // @ts-ignore: error TS2339: Property 'newDirEntry' does not exist on type
         // 'Event'.
-        const isOnRecent = util.isRecentRoot(event.newDirEntry);
+        const isOnRecent = isRecentRoot(event.newDirEntry);
         // @ts-ignore: error TS2531: Object is possibly 'null'.
         const fileListModel = this.directoryModel_.getFileList();
         // @ts-ignore: error TS2531: Object is possibly 'null'.
@@ -209,7 +209,7 @@ export class AppStateController {
         const isOnRecentBefore = 
         // @ts-ignore: error TS2339: Property 'previousDirEntry' does not exist
         // on type 'Event'.
-        event.previousDirEntry && util.isRecentRoot(event.previousDirEntry);
+        event.previousDirEntry && isRecentRoot(event.previousDirEntry);
         if (isOnRecent != isOnRecentBefore) {
             if (isOnRecent) {
                 fileListModel.groupByField = GROUP_BY_FIELD_MODIFICATION_TIME;

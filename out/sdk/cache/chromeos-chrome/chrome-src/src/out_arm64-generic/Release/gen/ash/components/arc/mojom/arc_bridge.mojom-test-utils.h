@@ -42,7 +42,6 @@ class  ArcBridgeHostInterceptorForTesting : public ArcBridgeHost {
   void OnKeymasterInstanceReady(::mojo::PendingRemote<::arc::mojom::KeymasterInstance> instance_remote) override;
   void OnKeyMintInstanceReady(::mojo::PendingRemote<::arc::mojom::keymint::KeyMintInstance> instance_remote) override;
   void OnKioskInstanceReady(::mojo::PendingRemote<::arc::mojom::KioskInstance> instance_remote) override;
-  void OnLockScreenInstanceReady(::mojo::PendingRemote<::arc::mojom::LockScreenInstance> instance_remote) override;
   void OnMediaSessionInstanceReady(::mojo::PendingRemote<::arc::mojom::MediaSessionInstance> instance_remote) override;
   void OnMemoryInstanceReady(::mojo::PendingRemote<::arc::mojom::MemoryInstance> instance_remote) override;
   void OnMetricsInstanceReady(::mojo::PendingRemote<::arc::mojom::MetricsInstance> instance_remote) override;

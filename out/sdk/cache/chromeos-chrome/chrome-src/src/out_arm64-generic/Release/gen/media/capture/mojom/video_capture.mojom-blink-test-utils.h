@@ -21,7 +21,7 @@ class BLINK_PLATFORM_EXPORT VideoCaptureObserverInterceptorForTesting : public V
   void OnBufferReady(::media::mojom::blink::ReadyBufferPtr buffer) override;
   void OnBufferDestroyed(int32_t buffer_id) override;
   void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) override;
-  void OnNewCropVersion(uint32_t crop_version) override;
+  void OnNewSubCaptureTargetVersion(uint32_t sub_capture_target_version) override;
 };
 class BLINK_PLATFORM_EXPORT VideoCaptureObserverAsyncWaiter {
  public:

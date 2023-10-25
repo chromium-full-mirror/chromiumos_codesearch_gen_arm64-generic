@@ -918,7 +918,7 @@
 
   FederatedAuthRequest_RequestToken_ResponseParams.prototype.initDefaults_ = function() {
     this.status = 0;
-    this.isIdentityCredentialAutoSelected = false;
+    this.isAutoSelected = false;
     this.selectedIdentityProviderConfigUrl = null;
     this.token = null;
     this.error = null;
@@ -981,7 +981,7 @@
     val.status =
         decoder.decodeStruct(new codec.Enum(RequestTokenStatus));
     packed = decoder.readUint8();
-    val.isIdentityCredentialAutoSelected = (packed >> 0) & 1 ? true : false;
+    val.isAutoSelected = (packed >> 0) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -1000,7 +1000,7 @@
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.Int32, val.status);
     packed = 0;
-    packed |= (val.isIdentityCredentialAutoSelected & 1) << 0
+    packed |= (val.isAutoSelected & 1) << 0
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
@@ -2355,7 +2355,7 @@
         responseParams.selectedIdentityProviderConfigUrl = response.selectedIdentityProviderConfigUrl;
         responseParams.token = response.token;
         responseParams.error = response.error;
-        responseParams.isIdentityCredentialAutoSelected = response.isIdentityCredentialAutoSelected;
+        responseParams.isAutoSelected = response.isAutoSelected;
         var builder = new codec.MessageV1Builder(
             kFederatedAuthRequest_RequestToken_Name,
             codec.align(FederatedAuthRequest_RequestToken_ResponseParams.encodedSize),

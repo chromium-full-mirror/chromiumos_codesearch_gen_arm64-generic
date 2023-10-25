@@ -43,13 +43,13 @@
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::structure::ChallengeSignatureAlgorithm> {
+struct ToFlatBuffer<::cryptohome::SerializedChallengeSignatureAlgorithm> {
   using ResultType =
-      ::cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm;
+      ::cryptohome::_serialized_::SerializedChallengeSignatureAlgorithm;
 
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
-      ::cryptohome::structure::ChallengeSignatureAlgorithm object) const {
+      ::cryptohome::SerializedChallengeSignatureAlgorithm object) const {
     return static_cast<ResultType>(object);
   }
 };
@@ -59,11 +59,11 @@ struct ToFlatBuffer<::cryptohome::structure::ChallengeSignatureAlgorithm> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::structure::ChallengeSignatureAlgorithm> {
-  ::cryptohome::structure::ChallengeSignatureAlgorithm operator()(
-      ::cryptohome::structure::_serialized_::ChallengeSignatureAlgorithm object)
+struct FromFlatBuffer<::cryptohome::SerializedChallengeSignatureAlgorithm> {
+  ::cryptohome::SerializedChallengeSignatureAlgorithm operator()(
+      ::cryptohome::_serialized_::SerializedChallengeSignatureAlgorithm object)
       const {
-    return static_cast<::cryptohome::structure::ChallengeSignatureAlgorithm>(
+    return static_cast<::cryptohome::SerializedChallengeSignatureAlgorithm>(
         object);
   }
 };
@@ -73,20 +73,20 @@ struct FromFlatBuffer<::cryptohome::structure::ChallengeSignatureAlgorithm> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::structure::ChallengePublicKeyInfo> {
+struct ToFlatBuffer<::cryptohome::SerializedChallengePublicKeyInfo> {
   using ResultType = flatbuffers::Offset<
-      ::cryptohome::structure::_serialized_::ChallengePublicKeyInfo>;
+      ::cryptohome::_serialized_::SerializedChallengePublicKeyInfo>;
 
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::structure::ChallengePublicKeyInfo& object) const {
+      const ::cryptohome::SerializedChallengePublicKeyInfo& object) const {
     auto public_key_spki_der =
         ToFlatBuffer<brillo::Blob>()(builder, object.public_key_spki_der);
     auto signature_algorithm = ToFlatBuffer<
-        std::vector<::cryptohome::structure::ChallengeSignatureAlgorithm>>()(
+        std::vector<::cryptohome::SerializedChallengeSignatureAlgorithm>>()(
         builder, object.signature_algorithm);
 
-    return ::cryptohome::structure::_serialized_::CreateChallengePublicKeyInfo(
+    return ::cryptohome::_serialized_::CreateSerializedChallengePublicKeyInfo(
         *builder, public_key_spki_der, signature_algorithm);
   }
 };
@@ -96,18 +96,18 @@ struct ToFlatBuffer<::cryptohome::structure::ChallengePublicKeyInfo> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::structure::ChallengePublicKeyInfo> {
-  ::cryptohome::structure::ChallengePublicKeyInfo operator()(
-      const ::cryptohome::structure::_serialized_::ChallengePublicKeyInfo*
+struct FromFlatBuffer<::cryptohome::SerializedChallengePublicKeyInfo> {
+  ::cryptohome::SerializedChallengePublicKeyInfo operator()(
+      const ::cryptohome::_serialized_::SerializedChallengePublicKeyInfo*
           object) const {
     if (object == nullptr) {
-      return ::cryptohome::structure::ChallengePublicKeyInfo();
+      return ::cryptohome::SerializedChallengePublicKeyInfo();
     }
-    return ::cryptohome::structure::ChallengePublicKeyInfo{
+    return ::cryptohome::SerializedChallengePublicKeyInfo{
         .public_key_spki_der =
             FromFlatBuffer<brillo::Blob>()(object->public_key_spki_der()),
-        .signature_algorithm = FromFlatBuffer<std::vector<
-            ::cryptohome::structure::ChallengeSignatureAlgorithm>>()(
+        .signature_algorithm = FromFlatBuffer<
+            std::vector<::cryptohome::SerializedChallengeSignatureAlgorithm>>()(
             object->signature_algorithm()),
     };
   }
@@ -118,13 +118,13 @@ struct FromFlatBuffer<::cryptohome::structure::ChallengePublicKeyInfo> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::structure::SignatureChallengeInfo> {
+struct ToFlatBuffer<::cryptohome::SerializedSignatureChallengeInfo> {
   using ResultType = flatbuffers::Offset<
-      ::cryptohome::structure::_serialized_::SignatureChallengeInfo>;
+      ::cryptohome::_serialized_::SerializedSignatureChallengeInfo>;
 
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::structure::SignatureChallengeInfo& object) const {
+      const ::cryptohome::SerializedSignatureChallengeInfo& object) const {
     auto public_key_spki_der =
         ToFlatBuffer<brillo::Blob>()(builder, object.public_key_spki_der);
     auto sealed_secret_type =
@@ -134,10 +134,10 @@ struct ToFlatBuffer<::cryptohome::structure::SignatureChallengeInfo> {
         builder, object.sealed_secret);
     auto salt = ToFlatBuffer<brillo::Blob>()(builder, object.salt);
     auto salt_signature_algorithm = ToFlatBuffer<
-        std::optional<::cryptohome::structure::ChallengeSignatureAlgorithm>>()(
+        std::optional<::cryptohome::SerializedChallengeSignatureAlgorithm>>()(
         builder, object.salt_signature_algorithm);
 
-    return ::cryptohome::structure::_serialized_::CreateSignatureChallengeInfo(
+    return ::cryptohome::_serialized_::CreateSerializedSignatureChallengeInfo(
         *builder, public_key_spki_der, sealed_secret_type, sealed_secret, salt,
         salt_signature_algorithm);
   }
@@ -148,21 +148,21 @@ struct ToFlatBuffer<::cryptohome::structure::SignatureChallengeInfo> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::structure::SignatureChallengeInfo> {
-  ::cryptohome::structure::SignatureChallengeInfo operator()(
-      const ::cryptohome::structure::_serialized_::SignatureChallengeInfo*
+struct FromFlatBuffer<::cryptohome::SerializedSignatureChallengeInfo> {
+  ::cryptohome::SerializedSignatureChallengeInfo operator()(
+      const ::cryptohome::_serialized_::SerializedSignatureChallengeInfo*
           object) const {
     if (object == nullptr) {
-      return ::cryptohome::structure::SignatureChallengeInfo();
+      return ::cryptohome::SerializedSignatureChallengeInfo();
     }
-    return ::cryptohome::structure::SignatureChallengeInfo{
+    return ::cryptohome::SerializedSignatureChallengeInfo{
         .public_key_spki_der =
             FromFlatBuffer<brillo::Blob>()(object->public_key_spki_der()),
         .sealed_secret = FromFlatBuffer<::hwsec::SignatureSealedData>()(
             object->sealed_secret(), object->sealed_secret_type()),
         .salt = FromFlatBuffer<brillo::Blob>()(object->salt()),
         .salt_signature_algorithm = FromFlatBuffer<std::optional<
-            ::cryptohome::structure::ChallengeSignatureAlgorithm>>()(
+            ::cryptohome::SerializedChallengeSignatureAlgorithm>>()(
             object->salt_signature_algorithm()),
     };
   }

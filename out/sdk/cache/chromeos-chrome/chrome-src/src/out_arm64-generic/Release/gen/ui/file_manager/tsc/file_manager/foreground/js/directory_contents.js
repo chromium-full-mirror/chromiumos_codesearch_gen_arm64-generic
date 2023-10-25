@@ -7,7 +7,7 @@ import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/
 import { mountGuest } from '../../common/js/api.js';
 import { AsyncQueue, ConcurrentQueue } from '../../common/js/async_util.js';
 import { createDOMError } from '../../common/js/dom_utils.js';
-import { isEntryInsideDrive } from '../../common/js/entry_utils.js';
+import { isEntryInsideDrive, isFakeEntry, readEntriesRecursively } from '../../common/js/entry_utils.js';
 import { FileType } from '../../common/js/file_type.js';
 import { EntryList } from '../../common/js/files_app_entry_types.js';
 import { recordInterval, recordMediumCount, startInterval } from '../../common/js/metrics.js';
@@ -176,7 +176,7 @@ export class SearchV2ContentScanner extends ContentScanner {
         // @ts-ignore: error TS2769: No overload matches this call.
         /** @type {EntryList} */ (dirEntry).getUIChildren());
         return allRoots
-            .filter(entry => !util.isFakeEntry(entry))
+            .filter(entry => !isFakeEntry(entry))
             // @ts-ignore: error TS18047: 'entry.filesystem' is possibly 'null'.
             .map(entry => entry.filesystem.root);
     }
@@ -304,7 +304,7 @@ export class SearchV2ContentScanner extends ContentScanner {
             // type 'any[]' in some locations where its type cannot be determined.
             const collectedEntries = [];
             let workLeft = 1;
-            util.readEntriesRecursively(folder, 
+            readEntriesRecursively(folder, 
             // More entries found callback.
             (entries) => {
                 const filtered = entries.filter(entry => {
@@ -737,7 +737,7 @@ export class MediaViewContentScanner extends ContentScanner {
     invalidateCache = false) {
         // To provide flatten view of files, this media-view scanner retrieves files
         // in directories inside the media's root entry recursively.
-        util.readEntriesRecursively(this.rootEntry_, entries => entriesCallback(entries.filter(entry => !entry.isDirectory)), successCallback, errorCallback, () => false);
+        readEntriesRecursively(this.rootEntry_, entries => entriesCallback(entries.filter(entry => !entry.isDirectory)), successCallback, errorCallback, () => false);
     }
 }
 /**

@@ -679,28 +679,6 @@ NoMetricsEvent::~NoMetricsEvent() = default;
 
 }  // namespace cr_os_events
 
-namespace camera_peripheral_info {
-
-OpenCamera::OpenCamera() :
-  ::metrics::structured::Event("CameraPeripheralInfo",
-                               "OpenCamera",
-                               false) {}
-OpenCamera::~OpenCamera() = default;
-
-OpenCamera& OpenCamera::SetVendorId(const int64_t value) {
-  AddMetric("VendorId", Event::MetricType::kLong,
-            base::Value(base::NumberToString(value)));
-  return *this;
-}
-
-OpenCamera& OpenCamera::SetProductId(const int64_t value) {
-  AddMetric("ProductId", Event::MetricType::kLong,
-            base::Value(base::NumberToString(value)));
-  return *this;
-}
-
-}  // namespace camera_peripheral_info
-
 namespace test_project_one {
 
 TestEventOne::TestEventOne() :

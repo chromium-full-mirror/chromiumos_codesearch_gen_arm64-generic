@@ -25,6 +25,7 @@ build _libhwsec_test-install_config: phony obj/libhwsec/_libhwsec_test-install_c
 build error_library: phony obj/libhwsec/error_library.stamp
 build flatbuffers-binding-generator: phony obj/libhwsec/flatbuffers-binding-generator.stamp
 build hardware_abstraction_external_library: phony obj/libhwsec/hardware_abstraction_external_library.stamp
+build hardware_abstraction_external_thread_local_library: phony obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp
 build hardware_abstraction_internal_library: phony obj/libhwsec/hardware_abstraction_internal_library.stamp
 build install_error_h: phony obj/libhwsec/install_error_h.stamp
 build install_headers: phony obj/libhwsec/install_headers.stamp
@@ -58,6 +59,7 @@ build libhwsec$:all: phony obj/libhwsec/all.stamp
 build libhwsec$:error_library: phony obj/libhwsec/error_library.stamp
 build libhwsec$:flatbuffers-binding-generator: phony obj/libhwsec/flatbuffers-binding-generator.stamp
 build libhwsec$:hardware_abstraction_external_library: phony obj/libhwsec/hardware_abstraction_external_library.stamp
+build libhwsec$:hardware_abstraction_external_thread_local_library: phony obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp
 build libhwsec$:hardware_abstraction_internal_library: phony obj/libhwsec/hardware_abstraction_internal_library.stamp
 build libhwsec$:hwsec_testrunner: phony ./hwsec_testrunner
 build libhwsec$:install_error_h: phony obj/libhwsec/install_error_h.stamp
@@ -93,6 +95,7 @@ build all: phony $
     obj/libhwsec/error_library.stamp $
     obj/libhwsec/flatbuffers-binding-generator.stamp $
     obj/libhwsec/hardware_abstraction_external_library.stamp $
+    obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp $
     obj/libhwsec/hardware_abstraction_internal_library.stamp $
     ./hwsec_testrunner $
     obj/libhwsec/install_error_h.stamp $

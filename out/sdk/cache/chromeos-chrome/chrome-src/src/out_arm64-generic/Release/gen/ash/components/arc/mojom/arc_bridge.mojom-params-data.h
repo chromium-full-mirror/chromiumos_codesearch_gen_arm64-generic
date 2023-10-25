@@ -454,22 +454,6 @@ class  ArcBridgeHost_OnKioskInstanceReady_Params_Data {
 };
 static_assert(sizeof(ArcBridgeHost_OnKioskInstanceReady_Params_Data) == 16,
               "Bad sizeof(ArcBridgeHost_OnKioskInstanceReady_Params_Data)");
-class  ArcBridgeHost_OnLockScreenInstanceReady_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Interface_Data instance_remote;
-
- private:
-  friend class mojo::internal::MessageFragment<ArcBridgeHost_OnLockScreenInstanceReady_Params_Data>;
-
-  ArcBridgeHost_OnLockScreenInstanceReady_Params_Data();
-  ~ArcBridgeHost_OnLockScreenInstanceReady_Params_Data() = delete;
-};
-static_assert(sizeof(ArcBridgeHost_OnLockScreenInstanceReady_Params_Data) == 16,
-              "Bad sizeof(ArcBridgeHost_OnLockScreenInstanceReady_Params_Data)");
 class  ArcBridgeHost_OnMediaSessionInstanceReady_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1645,31 +1629,6 @@ class ArcBridgeHost_OnKioskInstanceReady_ParamsDataView {
 };
 
 
-class ArcBridgeHost_OnLockScreenInstanceReady_ParamsDataView {
- public:
-  ArcBridgeHost_OnLockScreenInstanceReady_ParamsDataView() = default;
-
-  ArcBridgeHost_OnLockScreenInstanceReady_ParamsDataView(
-      internal::ArcBridgeHost_OnLockScreenInstanceReady_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  UserType TakeInstanceRemote() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::arc::mojom::LockScreenInstanceInterfaceBase>>(
-            &data_->instance_remote, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
- private:
-  internal::ArcBridgeHost_OnLockScreenInstanceReady_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class ArcBridgeHost_OnMediaSessionInstanceReady_ParamsDataView {
  public:
   ArcBridgeHost_OnMediaSessionInstanceReady_ParamsDataView() = default;
@@ -2443,8 +2402,6 @@ class ArcBridgeHost_OnWebApkInstanceReady_ParamsDataView {
   internal::ArcBridgeHost_OnWebApkInstanceReady_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
-
 
 
 

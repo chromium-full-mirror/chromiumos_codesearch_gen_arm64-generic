@@ -11,6 +11,7 @@ import { EventLevelResult } from './event_level_result.mojom-webui.js';
 import { SourceType } from './source_type.mojom-webui.js';
 import { StoreSourceResult } from './store_source_result.mojom-webui.js';
 import { TableModel } from './table_model.js';
+import { TriggerDataMatching } from './trigger_data_matching.mojom-webui.js';
 // If kAttributionAggregatableBudgetPerSource changes, update this value
 const BUDGET_PER_SOURCE = 65536;
 function compareDefault(a, b) {
@@ -196,6 +197,8 @@ class Source {
         this.dedupKeys = mojo.dedupKeys;
         this.aggregatableBudgetConsumed = mojo.aggregatableBudgetConsumed;
         this.aggregatableDedupKeys = mojo.aggregatableDedupKeys;
+        this.triggerDataMatching =
+            triggerDataMatchingText[mojo.triggerConfig.triggerDataMatching];
         this.status = attributabilityText[mojo.attributability];
     }
 }
@@ -228,6 +231,7 @@ class SourceTableModel extends TableModel {
             new ValueColumn('Priority', (e) => e.priority),
             new CodeColumn('Filter Data', (e) => e.filterData),
             new CodeColumn('Aggregation Keys', (e) => e.aggregationKeys),
+            new ValueColumn('Trigger Data Matching', (e) => e.triggerDataMatching),
             new ValueColumn('Aggregatable Budget Consumed', (e) => `${e.aggregatableBudgetConsumed} / ${BUDGET_PER_SOURCE}`),
             new ValueColumn('Debug Key', (e) => e.debugKey),
             new ListColumn('Dedup Keys', (e) => e.dedupKeys),
@@ -640,6 +644,10 @@ const sourceTypeText = {
     [SourceType.kNavigation]: 'Navigation',
     [SourceType.kEvent]: 'Event',
 };
+const triggerDataMatchingText = {
+    [TriggerDataMatching.kModulus]: 'modulus',
+    [TriggerDataMatching.kExact]: 'exact',
+};
 const attributabilityText = {
     [WebUISource_Attributability.kAttributable]: 'Attributable',
     [WebUISource_Attributability.kNoisedNever]: 'Unattributable: noised with no reports',
@@ -692,6 +700,7 @@ const eventLevelResultText = {
     [EventLevelResult.kProhibitedByBrowserPolicy]: commonResult.prohibitedByBrowserPolicy,
     [EventLevelResult.kNoMatchingConfigurations]: 'Failure: no matching event-level configurations',
     [EventLevelResult.kExcessiveReports]: commonResult.excessiveReports,
+    [EventLevelResult.kNoMatchingTriggerData]: 'Failure: no matching trigger data',
 };
 const aggregatableResultText = {
     [AggregatableResult.kSuccess]: commonResult.success,

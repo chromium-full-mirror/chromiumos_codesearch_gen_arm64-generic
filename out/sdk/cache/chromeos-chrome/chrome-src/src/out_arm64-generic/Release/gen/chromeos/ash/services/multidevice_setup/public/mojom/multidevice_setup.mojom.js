@@ -124,6 +124,7 @@
   var Feature = {};
   Feature.kBetterTogetherSuite = 0;
   Feature.kInstantTethering = 1;
+  Feature.kMessages = 2;
   Feature.kSmartLock = 3;
   Feature.kPhoneHub = 4;
   Feature.kPhoneHubNotifications = 5;
@@ -138,6 +139,7 @@
     switch (value) {
     case 0:
     case 1:
+    case 2:
     case 3:
     case 4:
     case 5:

@@ -45,6 +45,7 @@ struct EventLevelResult_Data {
       case 15:
       case 16:
       case 17:
+      case 18:
         return true;
     }
     return false;

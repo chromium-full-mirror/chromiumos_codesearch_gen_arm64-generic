@@ -2692,8 +2692,8 @@ function getTemplate$a() {
 
 <div class="tab-organization-container">
   <div class="tab-organization-text-container">
-    <div class="tab-organization-header">$i18n{notStartedTitle}</div>
-    <div class="tab-organization-body">$i18n{notStartedBody}</div>
+    <div class="tab-organization-header">[[getTitle_(showFRE_)]]</div>
+    <div class="tab-organization-body">[[getBody_(showFRE_)]]</div>
   </div>
   <cr-button class="action-button" on-click="onOrganizeTabsClick_">
     $i18n{notStartedButton}
@@ -2710,8 +2710,32 @@ class TabOrganizationNotStartedElement extends PolymerElement {
     static get is() {
         return 'tab-organization-not-started';
     }
+    static get properties() {
+        return {
+            showFRE_: {
+                type: Boolean,
+                value: loadTimeData.getBoolean('showTabOrganizationFRE'),
+            },
+        };
+    }
     static get template() {
         return getTemplate$a();
+    }
+    getTitle_() {
+        if (this.showFRE_) {
+            return loadTimeData.getString('notStartedTitleFRE');
+        }
+        else {
+            return loadTimeData.getString('notStartedTitle');
+        }
+    }
+    getBody_() {
+        if (this.showFRE_) {
+            return loadTimeData.getString('notStartedBodyFRE');
+        }
+        else {
+            return loadTimeData.getString('notStartedBody');
+        }
     }
     onOrganizeTabsClick_() {
         this.dispatchEvent(new CustomEvent('organize-tabs-click', { bubbles: true, composed: true }));

@@ -284,7 +284,13 @@ export class VideoFrameHandlerInterface {
    * @param { !number } cropVersion
    */
 
-  onNewCropVersion(cropVersion) {}
+  dEPRECATEDOnNewCropVersion(cropVersion) {}
+  
+  /**
+   * @param { !number } subCaptureTargetVersion
+   */
+
+  onNewSubCaptureTargetVersion(subCaptureTargetVersion) {}
   
   /**
    */
@@ -440,14 +446,30 @@ export class VideoFrameHandlerRemote {
    * @param { !number } cropVersion
    */
 
-  onNewCropVersion(
+  dEPRECATEDOnNewCropVersion(
       cropVersion) {
     this.proxy.sendMessage(
         10,
-        VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec.$,
         null,
         [
           cropVersion
+        ]);
+  }
+
+  
+  /**
+   * @param { !number } subCaptureTargetVersion
+   */
+
+  onNewSubCaptureTargetVersion(
+      subCaptureTargetVersion) {
+    this.proxy.sendMessage(
+        12,
+        VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+        null,
+        [
+          subCaptureTargetVersion
         ]);
   }
 
@@ -572,9 +594,14 @@ export class VideoFrameHandlerReceiver {
         impl.onFrameDropped.bind(impl));
     this.helper_internal_.registerHandler(
         10,
-        VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec.$,
         null,
-        impl.onNewCropVersion.bind(impl));
+        impl.dEPRECATEDOnNewCropVersion.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
+        VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+        null,
+        impl.onNewSubCaptureTargetVersion.bind(impl));
     this.helper_internal_.registerHandler(
         9,
         VideoFrameHandler_OnFrameWithEmptyRegionCapture_ParamsSpec.$,
@@ -721,15 +748,27 @@ export class VideoFrameHandlerCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.onNewCropVersion =
+    this.dEPRECATEDOnNewCropVersion =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         10,
-        VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
+        VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec.$,
         null,
-        this.onNewCropVersion.createReceiverHandler(false /* expectsResponse */));
+        this.dEPRECATEDOnNewCropVersion.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onNewSubCaptureTargetVersion =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
+        VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+        null,
+        this.onNewSubCaptureTargetVersion.createReceiverHandler(false /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -1524,7 +1563,13 @@ export const VideoFrameHandler_OnFrameDropped_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const VideoFrameHandler_OnNewCropVersion_ParamsSpec =
+export const VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -2083,8 +2128,8 @@ export class VideoFrameHandler_OnFrameDropped_Params {
 
 
 mojo.internal.Struct(
-    VideoFrameHandler_OnNewCropVersion_ParamsSpec.$,
-    'VideoFrameHandler_OnNewCropVersion_Params',
+    VideoFrameHandler_DEPRECATED_OnNewCropVersion_ParamsSpec.$,
+    'VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params',
     [
       mojo.internal.StructField(
         'cropVersion', 0,
@@ -2102,10 +2147,39 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class VideoFrameHandler_OnNewCropVersion_Params {
+export class VideoFrameHandler_DEPRECATED_OnNewCropVersion_Params {
   constructor() {
     /** @type { !number } */
     this.cropVersion;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    VideoFrameHandler_OnNewSubCaptureTargetVersion_ParamsSpec.$,
+    'VideoFrameHandler_OnNewSubCaptureTargetVersion_Params',
+    [
+      mojo.internal.StructField(
+        'subCaptureTargetVersion', 0,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class VideoFrameHandler_OnNewSubCaptureTargetVersion_Params {
+  constructor() {
+    /** @type { !number } */
+    this.subCaptureTargetVersion;
   }
 }
 

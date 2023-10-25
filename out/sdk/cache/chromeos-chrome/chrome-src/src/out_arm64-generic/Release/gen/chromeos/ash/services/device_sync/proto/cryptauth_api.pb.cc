@@ -434,6 +434,8 @@ bool SoftwareFeature_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
+    case 8:
     case 9:
     case 10:
     case 11:
@@ -448,7 +450,7 @@ bool SoftwareFeature_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SoftwareFeature_strings[15] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SoftwareFeature_strings[17] = {};
 
 static const char SoftwareFeature_names[] =
   "BETTER_TOGETHER_CLIENT"
@@ -463,6 +465,8 @@ static const char SoftwareFeature_names[] =
   "PHONE_HUB_CAMERA_ROLL_HOST"
   "PHONE_HUB_CLIENT"
   "PHONE_HUB_HOST"
+  "SMS_CONNECT_CLIENT"
+  "SMS_CONNECT_HOST"
   "UNKNOWN_FEATURE"
   "WIFI_SYNC_CLIENT"
   "WIFI_SYNC_HOST";
@@ -480,23 +484,27 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SoftwareFeature_entrie
   { {SoftwareFeature_names + 160, 26}, 15 },
   { {SoftwareFeature_names + 186, 16}, 10 },
   { {SoftwareFeature_names + 202, 14}, 9 },
-  { {SoftwareFeature_names + 216, 15}, 0 },
-  { {SoftwareFeature_names + 231, 16}, 12 },
-  { {SoftwareFeature_names + 247, 14}, 11 },
+  { {SoftwareFeature_names + 216, 18}, 8 },
+  { {SoftwareFeature_names + 234, 16}, 7 },
+  { {SoftwareFeature_names + 250, 15}, 0 },
+  { {SoftwareFeature_names + 265, 16}, 12 },
+  { {SoftwareFeature_names + 281, 14}, 11 },
 };
 
 static const int SoftwareFeature_entries_by_number[] = {
-  12, // 0 -> UNKNOWN_FEATURE
+  14, // 0 -> UNKNOWN_FEATURE
   1, // 1 -> BETTER_TOGETHER_HOST
   0, // 2 -> BETTER_TOGETHER_CLIENT
   3, // 3 -> EASY_UNLOCK_HOST
   2, // 4 -> EASY_UNLOCK_CLIENT
   7, // 5 -> MAGIC_TETHER_HOST
   6, // 6 -> MAGIC_TETHER_CLIENT
+  13, // 7 -> SMS_CONNECT_HOST
+  12, // 8 -> SMS_CONNECT_CLIENT
   11, // 9 -> PHONE_HUB_HOST
   10, // 10 -> PHONE_HUB_CLIENT
-  14, // 11 -> WIFI_SYNC_HOST
-  13, // 12 -> WIFI_SYNC_CLIENT
+  16, // 11 -> WIFI_SYNC_HOST
+  15, // 12 -> WIFI_SYNC_CLIENT
   5, // 13 -> ECHE_HOST
   4, // 14 -> ECHE_CLIENT
   9, // 15 -> PHONE_HUB_CAMERA_ROLL_HOST
@@ -509,12 +517,12 @@ const std::string& SoftwareFeature_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SoftwareFeature_entries,
           SoftwareFeature_entries_by_number,
-          15, SoftwareFeature_strings);
+          17, SoftwareFeature_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SoftwareFeature_entries,
       SoftwareFeature_entries_by_number,
-      15, value);
+      17, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SoftwareFeature_strings[idx].get();
 }
@@ -522,7 +530,7 @@ bool SoftwareFeature_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SoftwareFeature* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SoftwareFeature_entries, 15, name, &int_value);
+      SoftwareFeature_entries, 17, name, &int_value);
   if (success) {
     *value = static_cast<SoftwareFeature>(int_value);
   }

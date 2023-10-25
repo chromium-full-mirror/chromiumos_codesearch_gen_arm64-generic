@@ -96,7 +96,7 @@ build host/obj/base/anchor_functions_buildflags.stamp: host_stamp host/gen/base/
 subninja host/obj/base/base.ninja
 subninja host/obj/base/base_static.ninja
 rule __base_build_date___build_toolchain_cros_host__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py host/gen/base/generated_build_date.h 1698030270
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py host/gen/base/generated_build_date.h 1698116641
   description = ACTION //base:build_date(//build/toolchain/cros:host)
   restat = 1
   pool = build_toolchain_action_pool

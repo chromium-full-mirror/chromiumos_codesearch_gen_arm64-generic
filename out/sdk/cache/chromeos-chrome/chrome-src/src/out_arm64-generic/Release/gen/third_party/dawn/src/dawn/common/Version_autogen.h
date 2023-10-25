@@ -33,7 +33,7 @@
 namespace dawn {
 
 // The version string should either be a valid git hash or empty.
-static constexpr std::string_view kDawnVersion("2954e3d86146620d8c12ef36321562bbbf19fa6c");
+static constexpr std::string_view kDawnVersion("591f05655be3c53bccab2426cc23a47ebb7b2927");
 static_assert(kDawnVersion.size() == 40 || kDawnVersion.size() == 0);
 
 } // namespace dawn

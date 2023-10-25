@@ -101,6 +101,11 @@ const UIStrings = {
      * @example {https://google.com} PH1
      */
     workletServiceS: 'Auction Worklet Service — {PH1}',
+    /**
+     *@description Text used to show an EventDispatch event which has a type associated with it
+     *@example {click} PH1
+     */
+    eventDispatchS: 'Event: {PH1}',
 };
 const str_ = i18n.i18n.registerUIStrings('panels/timeline/ThreadAppender.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
@@ -477,6 +482,12 @@ export class ThreadAppender {
                 }
             }
             return entry.callFrame.functionName || i18nString(UIStrings.anonymous);
+        }
+        if (TraceEngine.Types.TraceEvents.isTraceEventDispatch(entry)) {
+            // EventDispatch represent user actions such as clicks, so in this case
+            // rather than show the event title (which is always just "Event"), we
+            // add the type ("click") to help the user understand the event.
+            return i18nString(UIStrings.eventDispatchS, { PH1: entry.args.data.type });
         }
         const defaultName = getEventStyle(entry.name)?.title;
         return defaultName || entry.name;

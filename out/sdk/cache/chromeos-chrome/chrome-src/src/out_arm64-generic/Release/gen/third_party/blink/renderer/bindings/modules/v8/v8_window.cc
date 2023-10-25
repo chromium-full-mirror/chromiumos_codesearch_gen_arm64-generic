@@ -8677,6 +8677,13 @@ BLINK_BINDINGS_TRACE_EVENT("Window.FencedFrameConfig");
 bindings::V8SetReturnValue(info, V8FencedFrameConfig::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void FetchLaterResultExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_FetchLaterResult_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.FetchLaterResult");
+
+bindings::V8SetReturnValue(info, V8FetchLaterResult::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
 void FileExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_File_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("Window.File");
@@ -19368,6 +19375,15 @@ if ((feature_selector.IsAll() && RuntimeEnabledFeatures::FencedFramesEnabled(exe
 {"Fence", FenceExposedConstructCallback}, 
 {"FencedFrameConfig", FencedFrameConfigExposedConstructCallback}, 
 {"HTMLFencedFrameElement", HTMLFencedFrameElementExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::FetchLaterAPIEnabled())) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"FetchLaterResult", FetchLaterResultExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

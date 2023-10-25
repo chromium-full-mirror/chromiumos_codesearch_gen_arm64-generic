@@ -32,6 +32,7 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common/metadata.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common/percentiles.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common/slices.sql
+../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common/thread_states.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common/timestamps.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/experimental/android_broadcast.sql
 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/experimental/flat_slices.sql

@@ -73,6 +73,7 @@ class  AppInstanceInterceptorForTesting : public AppInstance {
   void StartPaiFlow(StartPaiFlowCallback callback) override;
   void StartFastAppReinstallFlow(const std::vector<std::string>& arc_package_names) override;
   void UninstallPackage(const std::string& package_name) override;
+  void UpdateAppDetails(const std::string& package_name) override;
   void GetAndroidId(GetAndroidIdCallback callback) override;
   void GetAppShortcutGlobalQueryItems(const std::string& query, int32_t max_results, GetAppShortcutGlobalQueryItemsCallback callback) override;
   void GetAppShortcutItems(const std::string& package_name, GetAppShortcutItemsCallback callback) override;

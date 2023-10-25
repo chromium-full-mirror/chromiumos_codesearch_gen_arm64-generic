@@ -15,6 +15,7 @@ import { DestinationMatch } from './destination_match.js';
 import { parseDestination } from './local_parsers.js';
 // 
 import { parseExtensionDestination } from './local_parsers.js';
+import { getStatusReasonFromPrinterStatus } from './printer_status_cros.js';
 // 
 /**
  * Printer search statuses used by the destination store.
@@ -141,6 +142,7 @@ export var DestinationStoreEventType;
     DestinationStoreEventType["SELECTED_DESTINATION_CAPABILITIES_READY"] = "DestinationStore.SELECTED_DESTINATION_CAPABILITIES_READY";
     // 
     DestinationStoreEventType["DESTINATION_EULA_READY"] = "DestinationStore.DESTINATION_EULA_READY";
+    DestinationStoreEventType["DESTINATION_PRINTER_STATUS_UPDATE"] = "DestinationStore.DESTINATION_PRINTER_STATUS_UPDATE";
     // 
 })(DestinationStoreEventType || (DestinationStoreEventType = {}));
 export class DestinationStore extends EventTarget {
@@ -816,7 +818,29 @@ export class DestinationStore extends EventTarget {
         if (!printers) {
             return;
         }
+        // The logic in insertDestinations_() ensures only new destinations are
+        // added to the store.
         this.insertDestinations_(printers.map(printer => parseDestination(PrinterType.LOCAL_PRINTER, printer)));
+        // Parse the printer status from the LocalDestinationInfo object.
+        for (const printer of printers) {
+            this.parsePrinterStatus(printer);
+        }
+    }
+    // Updates the printer status for an existing destination then fires an event
+    // for updating printer status icons and text.
+    parsePrinterStatus(destinationInfo) {
+        const printerStatus = destinationInfo.printerStatus;
+        if (!printerStatus || !printerStatus.printerId) {
+            return;
+        }
+        const destinationKey = createDestinationKey(destinationInfo.deviceName, DestinationOrigin.CROS);
+        const existingDestination = this.destinationMap_.get(destinationKey);
+        if (existingDestination === undefined) {
+            return;
+        }
+        existingDestination.printerStatusReason =
+            getStatusReasonFromPrinterStatus(printerStatus);
+        this.dispatchEvent(new CustomEvent(DestinationStoreEventType.DESTINATION_PRINTER_STATUS_UPDATE, { detail: destinationKey }));
     }
 }
 /**

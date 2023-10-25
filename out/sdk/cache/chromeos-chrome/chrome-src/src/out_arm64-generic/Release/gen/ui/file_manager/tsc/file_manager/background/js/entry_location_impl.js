@@ -1,7 +1,7 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { util } from '../../common/js/util.js';
+import { isRecentRootType } from '../../common/js/entry_utils.js';
 import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
 import { EntryLocation } from '../../externs/entry_location.js';
 // To avoid the import being elided, closure requires this name here because of
@@ -22,7 +22,7 @@ export class EntryLocationImpl {
             this.rootType === VolumeManagerCommon.RootType.DRIVE_OFFLINE ||
                 this.rootType === VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME ||
                 this.rootType === VolumeManagerCommon.RootType.DRIVE_RECENT ||
-                util.isRecentRootType(this.rootType);
+                isRecentRootType(this.rootType);
         this.isDriveBased = this.rootType === VolumeManagerCommon.RootType.DRIVE ||
             this.rootType === VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME ||
             this.rootType === VolumeManagerCommon.RootType.DRIVE_RECENT ||

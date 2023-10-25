@@ -30,6 +30,7 @@
 #include "media/mojo/mojom/display_media_information.mojom-blink.h"
 #include "mojo/public/mojom/base/token.mojom-blink.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-blink.h"
+#include "third_party/blink/public/mojom/mediastream/media_devices.mojom-blink-forward.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
 #include "mojo/public/cpp/bindings/lib/wtf_hash_util.h"
@@ -224,7 +225,7 @@ class PLATFORM_EXPORT MediaStreamDispatcherHost
     kCloseDeviceMinVersion = 0,
     kSetCapturingLinkSecuredMinVersion = 0,
     kOnStreamStartedMinVersion = 0,
-    kCropMinVersion = 0,
+    kApplySubCaptureTargetMinVersion = 0,
     kGetOpenDeviceMinVersion = 0,
     kKeepDeviceAliveForTransferMinVersion = 0,
   };
@@ -256,7 +257,7 @@ class PLATFORM_EXPORT MediaStreamDispatcherHost
   struct OnStreamStarted_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct Crop_Sym {
+  struct ApplySubCaptureTarget_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetOpenDevice_Sym {
@@ -297,9 +298,9 @@ class PLATFORM_EXPORT MediaStreamDispatcherHost
   virtual void OnStreamStarted(const WTF::String& label) = 0;
 
 
-  using CropCallback = base::OnceCallback<void(::media::mojom::blink::ApplySubCaptureTargetResult)>;
+  using ApplySubCaptureTargetCallback = base::OnceCallback<void(::media::mojom::blink::ApplySubCaptureTargetResult)>;
   
-  virtual void Crop(const ::base::UnguessableToken& device_id, const ::base::Token& crop_id, uint32_t crop_version, CropCallback callback) = 0;
+  virtual void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
@@ -416,7 +417,7 @@ class PLATFORM_EXPORT MediaStreamDispatcherHostProxy
   
   void OnStreamStarted(const WTF::String& label) final;
   
-  void Crop(const ::base::UnguessableToken& device_id, const ::base::Token& crop_id, uint32_t crop_version, CropCallback callback) final;
+  void ApplySubCaptureTarget(const ::base::UnguessableToken& device_id, ::blink::mojom::blink::SubCaptureTargetType type, const ::base::Token& sub_capture_target, uint32_t sub_capture_target_version, ApplySubCaptureTargetCallback callback) final;
   
   bool GetOpenDevice(int32_t request_id, const ::base::UnguessableToken& session_id, const ::base::UnguessableToken& transfer_id, MediaStreamRequestResult* out_result, GetOpenDeviceResponsePtr* out_response) final;
   

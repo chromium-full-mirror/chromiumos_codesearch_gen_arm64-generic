@@ -45,17 +45,12 @@
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::PasswordMetadata> {
-  using ResultType = flatbuffers::Offset<
-      ::cryptohome::auth_factor::_serialized_::PasswordMetadata>;
+struct ToFlatBuffer<::cryptohome::SerializedLockoutPolicy> {
+  using ResultType = ::cryptohome::_serialized_::SerializedLockoutPolicy;
 
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::PasswordMetadata& object) const {
-    return ::cryptohome::auth_factor::_serialized_::CreatePasswordMetadata(
-        *builder
-
-    );
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        ::cryptohome::SerializedLockoutPolicy object) const {
+    return static_cast<ResultType>(object);
   }
 };
 
@@ -64,16 +59,10 @@ struct ToFlatBuffer<::cryptohome::auth_factor::PasswordMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::PasswordMetadata> {
-  ::cryptohome::auth_factor::PasswordMetadata operator()(
-      const ::cryptohome::auth_factor::_serialized_::PasswordMetadata* object)
-      const {
-    if (object == nullptr) {
-      return ::cryptohome::auth_factor::PasswordMetadata();
-    }
-    return ::cryptohome::auth_factor::PasswordMetadata{
-
-    };
+struct FromFlatBuffer<::cryptohome::SerializedLockoutPolicy> {
+  ::cryptohome::SerializedLockoutPolicy operator()(
+      ::cryptohome::_serialized_::SerializedLockoutPolicy object) const {
+    return static_cast<::cryptohome::SerializedLockoutPolicy>(object);
   }
 };
 
@@ -82,14 +71,13 @@ struct FromFlatBuffer<::cryptohome::auth_factor::PasswordMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::PinMetadata> {
+struct ToFlatBuffer<::cryptohome::PasswordMetadata> {
   using ResultType =
-      flatbuffers::Offset<::cryptohome::auth_factor::_serialized_::PinMetadata>;
+      flatbuffers::Offset<::cryptohome::_serialized_::PasswordMetadata>;
 
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::PinMetadata& object) const {
-    return ::cryptohome::auth_factor::_serialized_::CreatePinMetadata(*builder
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        const ::cryptohome::PasswordMetadata& object) const {
+    return ::cryptohome::_serialized_::CreatePasswordMetadata(*builder
 
     );
   }
@@ -100,14 +88,13 @@ struct ToFlatBuffer<::cryptohome::auth_factor::PinMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::PinMetadata> {
-  ::cryptohome::auth_factor::PinMetadata operator()(
-      const ::cryptohome::auth_factor::_serialized_::PinMetadata* object)
-      const {
+struct FromFlatBuffer<::cryptohome::PasswordMetadata> {
+  ::cryptohome::PasswordMetadata operator()(
+      const ::cryptohome::_serialized_::PasswordMetadata* object) const {
     if (object == nullptr) {
-      return ::cryptohome::auth_factor::PinMetadata();
+      return ::cryptohome::PasswordMetadata();
     }
-    return ::cryptohome::auth_factor::PinMetadata{
+    return ::cryptohome::PasswordMetadata{
 
     };
   }
@@ -118,19 +105,52 @@ struct FromFlatBuffer<::cryptohome::auth_factor::PinMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::CryptohomeRecoveryMetadata> {
+struct ToFlatBuffer<::cryptohome::PinMetadata> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::PinMetadata>;
+
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        const ::cryptohome::PinMetadata& object) const {
+    return ::cryptohome::_serialized_::CreatePinMetadata(*builder
+
+    );
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
+struct FromFlatBuffer<::cryptohome::PinMetadata> {
+  ::cryptohome::PinMetadata operator()(
+      const ::cryptohome::_serialized_::PinMetadata* object) const {
+    if (object == nullptr) {
+      return ::cryptohome::PinMetadata();
+    }
+    return ::cryptohome::PinMetadata{
+
+    };
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
+struct ToFlatBuffer<::cryptohome::CryptohomeRecoveryMetadata> {
   using ResultType = flatbuffers::Offset<
-      ::cryptohome::auth_factor::_serialized_::CryptohomeRecoveryMetadata>;
+      ::cryptohome::_serialized_::CryptohomeRecoveryMetadata>;
 
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::CryptohomeRecoveryMetadata& object)
-      const {
+      const ::cryptohome::CryptohomeRecoveryMetadata& object) const {
     auto mediator_pub_key =
         ToFlatBuffer<brillo::Blob>()(builder, object.mediator_pub_key);
 
-    return ::cryptohome::auth_factor::_serialized_::
-        CreateCryptohomeRecoveryMetadata(*builder, mediator_pub_key);
+    return ::cryptohome::_serialized_::CreateCryptohomeRecoveryMetadata(
+        *builder, mediator_pub_key);
   }
 };
 
@@ -139,14 +159,14 @@ struct ToFlatBuffer<::cryptohome::auth_factor::CryptohomeRecoveryMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::CryptohomeRecoveryMetadata> {
-  ::cryptohome::auth_factor::CryptohomeRecoveryMetadata operator()(
-      const ::cryptohome::auth_factor::_serialized_::CryptohomeRecoveryMetadata*
-          object) const {
+struct FromFlatBuffer<::cryptohome::CryptohomeRecoveryMetadata> {
+  ::cryptohome::CryptohomeRecoveryMetadata operator()(
+      const ::cryptohome::_serialized_::CryptohomeRecoveryMetadata* object)
+      const {
     if (object == nullptr) {
-      return ::cryptohome::auth_factor::CryptohomeRecoveryMetadata();
+      return ::cryptohome::CryptohomeRecoveryMetadata();
     }
-    return ::cryptohome::auth_factor::CryptohomeRecoveryMetadata{
+    return ::cryptohome::CryptohomeRecoveryMetadata{
         .mediator_pub_key =
             FromFlatBuffer<brillo::Blob>()(object->mediator_pub_key()),
     };
@@ -158,14 +178,13 @@ struct FromFlatBuffer<::cryptohome::auth_factor::CryptohomeRecoveryMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::KioskMetadata> {
-  using ResultType = flatbuffers::Offset<
-      ::cryptohome::auth_factor::_serialized_::KioskMetadata>;
+struct ToFlatBuffer<::cryptohome::KioskMetadata> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::KioskMetadata>;
 
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::KioskMetadata& object) const {
-    return ::cryptohome::auth_factor::_serialized_::CreateKioskMetadata(*builder
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        const ::cryptohome::KioskMetadata& object) const {
+    return ::cryptohome::_serialized_::CreateKioskMetadata(*builder
 
     );
   }
@@ -176,14 +195,13 @@ struct ToFlatBuffer<::cryptohome::auth_factor::KioskMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::KioskMetadata> {
-  ::cryptohome::auth_factor::KioskMetadata operator()(
-      const ::cryptohome::auth_factor::_serialized_::KioskMetadata* object)
-      const {
+struct FromFlatBuffer<::cryptohome::KioskMetadata> {
+  ::cryptohome::KioskMetadata operator()(
+      const ::cryptohome::_serialized_::KioskMetadata* object) const {
     if (object == nullptr) {
-      return ::cryptohome::auth_factor::KioskMetadata();
+      return ::cryptohome::KioskMetadata();
     }
-    return ::cryptohome::auth_factor::KioskMetadata{
+    return ::cryptohome::KioskMetadata{
 
     };
   }
@@ -194,17 +212,16 @@ struct FromFlatBuffer<::cryptohome::auth_factor::KioskMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::SmartCardMetadata> {
-  using ResultType = flatbuffers::Offset<
-      ::cryptohome::auth_factor::_serialized_::SmartCardMetadata>;
+struct ToFlatBuffer<::cryptohome::SmartCardMetadata> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::SmartCardMetadata>;
 
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::SmartCardMetadata& object) const {
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        const ::cryptohome::SmartCardMetadata& object) const {
     auto public_key_spki_der =
         ToFlatBuffer<brillo::Blob>()(builder, object.public_key_spki_der);
 
-    return ::cryptohome::auth_factor::_serialized_::CreateSmartCardMetadata(
+    return ::cryptohome::_serialized_::CreateSmartCardMetadata(
         *builder, public_key_spki_der);
   }
 };
@@ -214,14 +231,13 @@ struct ToFlatBuffer<::cryptohome::auth_factor::SmartCardMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::SmartCardMetadata> {
-  ::cryptohome::auth_factor::SmartCardMetadata operator()(
-      const ::cryptohome::auth_factor::_serialized_::SmartCardMetadata* object)
-      const {
+struct FromFlatBuffer<::cryptohome::SmartCardMetadata> {
+  ::cryptohome::SmartCardMetadata operator()(
+      const ::cryptohome::_serialized_::SmartCardMetadata* object) const {
     if (object == nullptr) {
-      return ::cryptohome::auth_factor::SmartCardMetadata();
+      return ::cryptohome::SmartCardMetadata();
     }
-    return ::cryptohome::auth_factor::SmartCardMetadata{
+    return ::cryptohome::SmartCardMetadata{
         .public_key_spki_der =
             FromFlatBuffer<brillo::Blob>()(object->public_key_spki_der()),
     };
@@ -233,15 +249,13 @@ struct FromFlatBuffer<::cryptohome::auth_factor::SmartCardMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::FingerprintMetadata> {
-  using ResultType = flatbuffers::Offset<
-      ::cryptohome::auth_factor::_serialized_::FingerprintMetadata>;
+struct ToFlatBuffer<::cryptohome::FingerprintMetadata> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::FingerprintMetadata>;
 
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::FingerprintMetadata& object) const {
-    return ::cryptohome::auth_factor::_serialized_::CreateFingerprintMetadata(
-        *builder
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        const ::cryptohome::FingerprintMetadata& object) const {
+    return ::cryptohome::_serialized_::CreateFingerprintMetadata(*builder
 
     );
   }
@@ -252,14 +266,13 @@ struct ToFlatBuffer<::cryptohome::auth_factor::FingerprintMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::FingerprintMetadata> {
-  ::cryptohome::auth_factor::FingerprintMetadata operator()(
-      const ::cryptohome::auth_factor::_serialized_::FingerprintMetadata*
-          object) const {
+struct FromFlatBuffer<::cryptohome::FingerprintMetadata> {
+  ::cryptohome::FingerprintMetadata operator()(
+      const ::cryptohome::_serialized_::FingerprintMetadata* object) const {
     if (object == nullptr) {
-      return ::cryptohome::auth_factor::FingerprintMetadata();
+      return ::cryptohome::FingerprintMetadata();
     }
-    return ::cryptohome::auth_factor::FingerprintMetadata{
+    return ::cryptohome::FingerprintMetadata{
 
     };
   }
@@ -270,46 +283,37 @@ struct FromFlatBuffer<::cryptohome::auth_factor::FingerprintMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::AuthFactorMetadata,
-                    IsUnionEnum> {
-  using ResultType =
-      ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata;
+struct ToFlatBuffer<::cryptohome::TypeSpecificMetadata, IsUnionEnum> {
+  using ResultType = ::cryptohome::_serialized_::TypeSpecificMetadata;
 
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::AuthFactorMetadata& object) const {
+      const ::cryptohome::TypeSpecificMetadata& object) const {
     return std::visit(
         [](const auto& arg)
-            -> ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata {
+            -> ::cryptohome::_serialized_::TypeSpecificMetadata {
           using T = std::decay_t<decltype(arg)>;
           if constexpr (std::is_same_v<T, std::monostate>)
-            return ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
-                NONE;
-          else if constexpr (std::is_same_v<
-                                 T,
-                                 ::cryptohome::auth_factor::PasswordMetadata>)
-            return ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
+            return ::cryptohome::_serialized_::TypeSpecificMetadata::NONE;
+          else if constexpr (std::is_same_v<T, ::cryptohome::PasswordMetadata>)
+            return ::cryptohome::_serialized_::TypeSpecificMetadata::
                 PasswordMetadata;
-          else if constexpr (std::is_same_v<
-                                 T, ::cryptohome::auth_factor::PinMetadata>)
-            return ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
+          else if constexpr (std::is_same_v<T, ::cryptohome::PinMetadata>)
+            return ::cryptohome::_serialized_::TypeSpecificMetadata::
                 PinMetadata;
-          else if constexpr (std::is_same_v<T, ::cryptohome::auth_factor::
-                                                   CryptohomeRecoveryMetadata>)
-            return ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
+          else if constexpr (std::is_same_v<
+                                 T, ::cryptohome::CryptohomeRecoveryMetadata>)
+            return ::cryptohome::_serialized_::TypeSpecificMetadata::
                 CryptohomeRecoveryMetadata;
-          else if constexpr (std::is_same_v<
-                                 T, ::cryptohome::auth_factor::KioskMetadata>)
-            return ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
+          else if constexpr (std::is_same_v<T, ::cryptohome::KioskMetadata>)
+            return ::cryptohome::_serialized_::TypeSpecificMetadata::
                 KioskMetadata;
-          else if constexpr (std::is_same_v<
-                                 T,
-                                 ::cryptohome::auth_factor::SmartCardMetadata>)
-            return ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
+          else if constexpr (std::is_same_v<T, ::cryptohome::SmartCardMetadata>)
+            return ::cryptohome::_serialized_::TypeSpecificMetadata::
                 SmartCardMetadata;
-          else if constexpr (std::is_same_v<T, ::cryptohome::auth_factor::
-                                                   FingerprintMetadata>)
-            return ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
+          else if constexpr (std::is_same_v<T,
+                                            ::cryptohome::FingerprintMetadata>)
+            return ::cryptohome::_serialized_::TypeSpecificMetadata::
                 FingerprintMetadata;
         },
         object);
@@ -321,55 +325,50 @@ struct ToFlatBuffer<::cryptohome::auth_factor::AuthFactorMetadata,
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::AuthFactorMetadata> {
-  ::cryptohome::auth_factor::AuthFactorMetadata operator()(
+struct FromFlatBuffer<::cryptohome::TypeSpecificMetadata> {
+  ::cryptohome::TypeSpecificMetadata operator()(
       const void* object,
-      ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata type) const {
+      ::cryptohome::_serialized_::TypeSpecificMetadata type) const {
     if (object == nullptr) {
       return std::monostate();
     }
     switch (type) {
-      case ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::NONE: {
+      case ::cryptohome::_serialized_::TypeSpecificMetadata::NONE: {
         return std::monostate();
       }
-      case ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
-          PasswordMetadata: {
-        return FromFlatBuffer<::cryptohome::auth_factor::PasswordMetadata>()(
-            static_cast<const ::cryptohome::auth_factor::_serialized_::
-                            PasswordMetadata*>(object));
-      }
-      case ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
-          PinMetadata: {
-        return FromFlatBuffer<::cryptohome::auth_factor::PinMetadata>()(
-            static_cast<
-                const ::cryptohome::auth_factor::_serialized_::PinMetadata*>(
+      case ::cryptohome::_serialized_::TypeSpecificMetadata::PasswordMetadata: {
+        return FromFlatBuffer<::cryptohome::PasswordMetadata>()(
+            static_cast<const ::cryptohome::_serialized_::PasswordMetadata*>(
                 object));
       }
-      case ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
+      case ::cryptohome::_serialized_::TypeSpecificMetadata::PinMetadata: {
+        return FromFlatBuffer<::cryptohome::PinMetadata>()(
+            static_cast<const ::cryptohome::_serialized_::PinMetadata*>(
+                object));
+      }
+      case ::cryptohome::_serialized_::TypeSpecificMetadata::
           CryptohomeRecoveryMetadata: {
-        return FromFlatBuffer<
-            ::cryptohome::auth_factor::CryptohomeRecoveryMetadata>()(
-            static_cast<const ::cryptohome::auth_factor::_serialized_::
-                            CryptohomeRecoveryMetadata*>(object));
-      }
-      case ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
-          KioskMetadata: {
-        return FromFlatBuffer<::cryptohome::auth_factor::KioskMetadata>()(
+        return FromFlatBuffer<::cryptohome::CryptohomeRecoveryMetadata>()(
             static_cast<
-                const ::cryptohome::auth_factor::_serialized_::KioskMetadata*>(
+                const ::cryptohome::_serialized_::CryptohomeRecoveryMetadata*>(
                 object));
       }
-      case ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
-          SmartCardMetadata: {
-        return FromFlatBuffer<::cryptohome::auth_factor::SmartCardMetadata>()(
-            static_cast<const ::cryptohome::auth_factor::_serialized_::
-                            SmartCardMetadata*>(object));
+      case ::cryptohome::_serialized_::TypeSpecificMetadata::KioskMetadata: {
+        return FromFlatBuffer<::cryptohome::KioskMetadata>()(
+            static_cast<const ::cryptohome::_serialized_::KioskMetadata*>(
+                object));
       }
-      case ::cryptohome::auth_factor::_serialized_::AuthFactorMetadata::
+      case ::cryptohome::_serialized_::TypeSpecificMetadata::
+          SmartCardMetadata: {
+        return FromFlatBuffer<::cryptohome::SmartCardMetadata>()(
+            static_cast<const ::cryptohome::_serialized_::SmartCardMetadata*>(
+                object));
+      }
+      case ::cryptohome::_serialized_::TypeSpecificMetadata::
           FingerprintMetadata: {
-        return FromFlatBuffer<::cryptohome::auth_factor::FingerprintMetadata>()(
-            static_cast<const ::cryptohome::auth_factor::_serialized_::
-                            FingerprintMetadata*>(object));
+        return FromFlatBuffer<::cryptohome::FingerprintMetadata>()(
+            static_cast<const ::cryptohome::_serialized_::FingerprintMetadata*>(
+                object));
       }
     }
   }
@@ -380,50 +379,23 @@ struct FromFlatBuffer<::cryptohome::auth_factor::AuthFactorMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::LockoutPolicy> {
-  using ResultType = ::cryptohome::auth_factor::_serialized_::LockoutPolicy;
+struct ToFlatBuffer<::cryptohome::CommonMetadata> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::CommonMetadata>;
 
   ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
-                        ::cryptohome::auth_factor::LockoutPolicy object) const {
-    return static_cast<ResultType>(object);
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::LockoutPolicy> {
-  ::cryptohome::auth_factor::LockoutPolicy operator()(
-      ::cryptohome::auth_factor::_serialized_::LockoutPolicy object) const {
-    return static_cast<::cryptohome::auth_factor::LockoutPolicy>(object);
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::CommonMetadata> {
-  using ResultType = flatbuffers::Offset<
-      ::cryptohome::auth_factor::_serialized_::CommonMetadata>;
-
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::CommonMetadata& object) const {
+                        const ::cryptohome::CommonMetadata& object) const {
     auto chromeos_version_last_updated = ToFlatBuffer<std::string>()(
         builder, object.chromeos_version_last_updated);
     auto chrome_version_last_updated = ToFlatBuffer<std::string>()(
         builder, object.chrome_version_last_updated);
     auto lockout_policy =
-        ToFlatBuffer<std::optional<::cryptohome::auth_factor::LockoutPolicy>>()(
+        ToFlatBuffer<std::optional<::cryptohome::SerializedLockoutPolicy>>()(
             builder, object.lockout_policy);
     auto user_specified_name =
         ToFlatBuffer<std::string>()(builder, object.user_specified_name);
 
-    return ::cryptohome::auth_factor::_serialized_::CreateCommonMetadata(
+    return ::cryptohome::_serialized_::CreateCommonMetadata(
         *builder, chromeos_version_last_updated, chrome_version_last_updated,
         lockout_policy, user_specified_name);
   }
@@ -434,20 +406,19 @@ struct ToFlatBuffer<::cryptohome::auth_factor::CommonMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::CommonMetadata> {
-  ::cryptohome::auth_factor::CommonMetadata operator()(
-      const ::cryptohome::auth_factor::_serialized_::CommonMetadata* object)
-      const {
+struct FromFlatBuffer<::cryptohome::CommonMetadata> {
+  ::cryptohome::CommonMetadata operator()(
+      const ::cryptohome::_serialized_::CommonMetadata* object) const {
     if (object == nullptr) {
-      return ::cryptohome::auth_factor::CommonMetadata();
+      return ::cryptohome::CommonMetadata();
     }
-    return ::cryptohome::auth_factor::CommonMetadata{
+    return ::cryptohome::CommonMetadata{
         .chromeos_version_last_updated = FromFlatBuffer<std::string>()(
             object->chromeos_version_last_updated()),
         .chrome_version_last_updated = FromFlatBuffer<std::string>()(
             object->chrome_version_last_updated()),
         .lockout_policy = FromFlatBuffer<
-            std::optional<::cryptohome::auth_factor::LockoutPolicy>>()(
+            std::optional<::cryptohome::SerializedLockoutPolicy>>()(
             object->lockout_policy()),
         .user_specified_name =
             FromFlatBuffer<std::string>()(object->user_specified_name()),
@@ -460,26 +431,24 @@ struct FromFlatBuffer<::cryptohome::auth_factor::CommonMetadata> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::auth_factor::AuthFactor> {
+struct ToFlatBuffer<::cryptohome::SerializedAuthFactor> {
   using ResultType =
-      flatbuffers::Offset<::cryptohome::auth_factor::_serialized_::AuthFactor>;
+      flatbuffers::Offset<::cryptohome::_serialized_::SerializedAuthFactor>;
 
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::auth_factor::AuthFactor& object) const {
+      const ::cryptohome::SerializedAuthFactor& object) const {
     auto auth_block_state = ToFlatBuffer<::cryptohome::AuthBlockState>()(
         builder, object.auth_block_state);
     auto metadata_type =
-        ToFlatBuffer<::cryptohome::auth_factor::AuthFactorMetadata,
-                     IsUnionEnum>()(builder, object.metadata);
-    auto metadata =
-        ToFlatBuffer<::cryptohome::auth_factor::AuthFactorMetadata>()(
+        ToFlatBuffer<::cryptohome::TypeSpecificMetadata, IsUnionEnum>()(
             builder, object.metadata);
-    auto common_metadata =
-        ToFlatBuffer<::cryptohome::auth_factor::CommonMetadata>()(
-            builder, object.common_metadata);
+    auto metadata = ToFlatBuffer<::cryptohome::TypeSpecificMetadata>()(
+        builder, object.metadata);
+    auto common_metadata = ToFlatBuffer<::cryptohome::CommonMetadata>()(
+        builder, object.common_metadata);
 
-    return ::cryptohome::auth_factor::_serialized_::CreateAuthFactor(
+    return ::cryptohome::_serialized_::CreateSerializedAuthFactor(
         *builder, auth_block_state, metadata_type, metadata, common_metadata);
   }
 };
@@ -489,21 +458,19 @@ struct ToFlatBuffer<::cryptohome::auth_factor::AuthFactor> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::auth_factor::AuthFactor> {
-  ::cryptohome::auth_factor::AuthFactor operator()(
-      const ::cryptohome::auth_factor::_serialized_::AuthFactor* object) const {
+struct FromFlatBuffer<::cryptohome::SerializedAuthFactor> {
+  ::cryptohome::SerializedAuthFactor operator()(
+      const ::cryptohome::_serialized_::SerializedAuthFactor* object) const {
     if (object == nullptr) {
-      return ::cryptohome::auth_factor::AuthFactor();
+      return ::cryptohome::SerializedAuthFactor();
     }
-    return ::cryptohome::auth_factor::AuthFactor{
+    return ::cryptohome::SerializedAuthFactor{
         .auth_block_state = FromFlatBuffer<::cryptohome::AuthBlockState>()(
             object->auth_block_state()),
-        .metadata =
-            FromFlatBuffer<::cryptohome::auth_factor::AuthFactorMetadata>()(
-                object->metadata(), object->metadata_type()),
-        .common_metadata =
-            FromFlatBuffer<::cryptohome::auth_factor::CommonMetadata>()(
-                object->common_metadata()),
+        .metadata = FromFlatBuffer<::cryptohome::TypeSpecificMetadata>()(
+            object->metadata(), object->metadata_type()),
+        .common_metadata = FromFlatBuffer<::cryptohome::CommonMetadata>()(
+            object->common_metadata()),
     };
   }
 };

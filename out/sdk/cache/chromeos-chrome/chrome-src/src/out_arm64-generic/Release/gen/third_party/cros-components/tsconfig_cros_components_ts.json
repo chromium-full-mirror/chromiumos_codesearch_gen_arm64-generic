@@ -39,6 +39,7 @@
   "files": [
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/cros-components/src/async_helpers/async_helpers.ts",
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/cros-components/src/button/button.ts",
+    "../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/cros-components/src/card/card.ts",
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/cros-components/src/checkbox/checkbox.ts",
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/cros-components/src/helpers/helpers.ts",
     "../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/cros-components/src/lottie_renderer/lottie-renderer.ts",

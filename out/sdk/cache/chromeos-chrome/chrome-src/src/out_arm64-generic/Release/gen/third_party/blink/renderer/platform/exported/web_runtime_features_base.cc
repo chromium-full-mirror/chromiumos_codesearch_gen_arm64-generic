@@ -395,6 +395,16 @@ bool WebRuntimeFeaturesBase::IsFedCmAuthzEnabled() {
 }
 
 // static
+void WebRuntimeFeaturesBase::EnableFedCmAutoSelectedFlag(bool enable) {
+  RuntimeEnabledFeatures::SetFedCmAutoSelectedFlagEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsFedCmAutoSelectedFlagEnabled() {
+  return RuntimeEnabledFeatures::FedCmAutoSelectedFlagEnabled();
+}
+
+// static
 void WebRuntimeFeaturesBase::EnableFedCmError(bool enable) {
   RuntimeEnabledFeatures::SetFedCmErrorEnabled(enable);
 }
@@ -412,16 +422,6 @@ void WebRuntimeFeaturesBase::EnableFedCmHostedDomain(bool enable) {
 // static
 bool WebRuntimeFeaturesBase::IsFedCmHostedDomainEnabled() {
   return RuntimeEnabledFeatures::FedCmHostedDomainEnabled();
-}
-
-// static
-void WebRuntimeFeaturesBase::EnableFedCmIdentityCredentialAutoSelectedFlag(bool enable) {
-  RuntimeEnabledFeatures::SetFedCmIdentityCredentialAutoSelectedFlagEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsFedCmIdentityCredentialAutoSelectedFlagEnabled() {
-  return RuntimeEnabledFeatures::FedCmIdentityCredentialAutoSelectedFlagEnabled();
 }
 
 // static

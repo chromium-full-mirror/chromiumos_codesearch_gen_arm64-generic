@@ -257,9 +257,12 @@ export class SettingsPaymentsSectionElement extends SettingsPaymentsSectionEleme
      */
     async onMenuEditCreditCardClick_(e) {
         e.preventDefault();
+        assert(this.activeCreditCard_);
         if (this.activeCreditCard_.metadata.isLocal) {
-            this.showCreditCardDialog_ =
-                await this.paymentsManager_.authenticateUserToEditLocalCard();
+            const unmaskedCreditCard = await this.paymentsManager_.getLocalCard(this.activeCreditCard_.guid);
+            assert(unmaskedCreditCard);
+            this.activeCreditCard_ = unmaskedCreditCard;
+            this.showCreditCardDialog_ = true;
         }
         else {
             this.onRemoteCreditCardUrlClick_();
