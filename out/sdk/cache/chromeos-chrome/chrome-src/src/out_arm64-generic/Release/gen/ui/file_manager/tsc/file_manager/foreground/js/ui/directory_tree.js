@@ -5,7 +5,7 @@ import { assert, assertNotReached } from 'chrome://resources/ash/common/assert.j
 import { dispatchSimpleEvent, getPropertyDescriptor, PropertyKind } from 'chrome://resources/ash/common/cr_deprecated.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
 import { maybeShowTooltip } from '../../../common/js/dom_utils.js';
-import { compareLabelAndGroupBottomEntries, compareName, isComputersEntry, isDescendantEntry, isEntryInsideDrive, isRecentRootType, isSameEntry, isSharedDriveEntry } from '../../../common/js/entry_utils.js';
+import { compareLabelAndGroupBottomEntries, compareName, isComputersEntry, isDescendantEntry, isEntryInsideDrive, isOneDrive, isOneDriveId, isRecentRootType, isSameEntry, isSharedDriveEntry } from '../../../common/js/entry_utils.js';
 import { FileType } from '../../../common/js/file_type.js';
 import { isJellyEnabled } from '../../../common/js/flags.js';
 import { vmTypeToIconName } from '../../../common/js/icon_util.js';
@@ -1176,7 +1176,7 @@ class VolumeItem extends DirectoryItem {
         // @ts-ignore: error TS2345: Argument of type 'Element | null' is not
         // assignable to parameter of type 'Element'.
         this.setupIcon_(this.querySelector('.icon'), this.volumeInfo_);
-        if (util.isOneDrive(modelItem.volumeInfo)) {
+        if (isOneDrive(modelItem.volumeInfo)) {
             this.toggleAttribute('one-drive', true);
         }
         // Attach a placeholder for rename input text box and the eject icon if the
@@ -2177,7 +2177,7 @@ export class DirectoryTree extends Tree {
         }
         // ODFS.
         const odfsDisabledUpdated = Object.values(state.volumes)
-            .some(volume => volume && util.isOneDriveId(volume.providerId) &&
+            .some(volume => volume && isOneDriveId(volume.providerId) &&
             !!volume.isDisabled !== this.isODFSVolumeDisabled_);
         if (odfsDisabledUpdated) {
             this.isODFSVolumeDisabled_ = !this.isODFSVolumeDisabled_;
@@ -2191,7 +2191,7 @@ export class DirectoryTree extends Tree {
                 // @ts-ignore: error TS2339: Property 'items' does not exist on type
                 // 'DirectoryTree'.
                 const treeItem = this.items[i];
-                if (util.isOneDrive(treeItem.modelItem.volumeInfo)) {
+                if (isOneDrive(treeItem.modelItem.volumeInfo)) {
                     // @ts-ignore: error TS2554: Expected 0 arguments, but got 1.
                     this.remove(treeItem);
                     // Decrement to account for the removed item.

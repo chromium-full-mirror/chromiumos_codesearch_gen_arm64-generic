@@ -4549,15 +4549,17 @@ bool ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_strings[8] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_strings[9] = {};
 
 static const char ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names[] =
+  "ANDROID_SAFEBROWSING"
   "ANDROID_SAFEBROWSING_REAL_TIME"
   "ANDROID_SAFETYNET"
   "FLYWHEEL"
@@ -4568,25 +4570,27 @@ static const char ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names[]
   "SAFE_BROWSING_URL_API_TYPE_UNSPECIFIED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_entries[] = {
-  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 0, 30}, 7 },
-  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 30, 17}, 3 },
-  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 47, 8}, 4 },
-  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 55, 12}, 1 },
-  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 67, 12}, 2 },
-  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 79, 22}, 6 },
-  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 101, 9}, 5 },
-  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 110, 38}, 0 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 0, 20}, 8 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 20, 30}, 7 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 50, 17}, 3 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 67, 8}, 4 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 75, 12}, 1 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 87, 12}, 2 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 99, 22}, 6 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 121, 9}, 5 },
+  { {ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_names + 130, 38}, 0 },
 };
 
 static const int ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_entries_by_number[] = {
-  7, // 0 -> SAFE_BROWSING_URL_API_TYPE_UNSPECIFIED
-  3, // 1 -> PVER3_NATIVE
-  4, // 2 -> PVER4_NATIVE
-  1, // 3 -> ANDROID_SAFETYNET
-  2, // 4 -> FLYWHEEL
-  6, // 5 -> REAL_TIME
-  5, // 6 -> PVER5_NATIVE_REAL_TIME
-  0, // 7 -> ANDROID_SAFEBROWSING_REAL_TIME
+  8, // 0 -> SAFE_BROWSING_URL_API_TYPE_UNSPECIFIED
+  4, // 1 -> PVER3_NATIVE
+  5, // 2 -> PVER4_NATIVE
+  2, // 3 -> ANDROID_SAFETYNET
+  3, // 4 -> FLYWHEEL
+  7, // 5 -> REAL_TIME
+  6, // 6 -> PVER5_NATIVE_REAL_TIME
+  1, // 7 -> ANDROID_SAFEBROWSING_REAL_TIME
+  0, // 8 -> ANDROID_SAFEBROWSING
 };
 
 const std::string& ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_Name(
@@ -4595,12 +4599,12 @@ const std::string& ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_entries,
           ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_entries_by_number,
-          8, ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_strings);
+          9, ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_entries,
       ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_entries_by_number,
-      8, value);
+      9, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_strings[idx].get();
 }
@@ -4608,7 +4612,7 @@ bool ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_entries, 8, name, &int_value);
+      ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_entries, 9, name, &int_value);
   if (success) {
     *value = static_cast<ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType>(int_value);
   }
@@ -4623,6 +4627,7 @@ constexpr ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType ClientSafeBrows
 constexpr ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType ClientSafeBrowsingReportRequest::REAL_TIME;
 constexpr ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType ClientSafeBrowsingReportRequest::PVER5_NATIVE_REAL_TIME;
 constexpr ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType ClientSafeBrowsingReportRequest::ANDROID_SAFEBROWSING_REAL_TIME;
+constexpr ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType ClientSafeBrowsingReportRequest::ANDROID_SAFEBROWSING;
 constexpr ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType ClientSafeBrowsingReportRequest::SafeBrowsingUrlApiType_MIN;
 constexpr ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType ClientSafeBrowsingReportRequest::SafeBrowsingUrlApiType_MAX;
 constexpr int ClientSafeBrowsingReportRequest::SafeBrowsingUrlApiType_ARRAYSIZE;

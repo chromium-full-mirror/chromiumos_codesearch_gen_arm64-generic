@@ -7388,8 +7388,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kSpeculationRulesEagernessModerate";
     case WebFeature::kSpeculationRulesEagernessEager:
       return "kSpeculationRulesEagernessEager";
-    case WebFeature::kURLSetPortCheckOverflow:
-      return "kURLSetPortCheckOverflow";
+    case WebFeature::kOBSOLETE_URLSetPortCheckOverflow:
+      return "kOBSOLETE_URLSetPortCheckOverflow";
     case WebFeature::kV8Animation_RangeStart_AttributeGetter:
       return "kV8Animation_RangeStart_AttributeGetter";
     case WebFeature::kV8Animation_RangeStart_AttributeSetter:

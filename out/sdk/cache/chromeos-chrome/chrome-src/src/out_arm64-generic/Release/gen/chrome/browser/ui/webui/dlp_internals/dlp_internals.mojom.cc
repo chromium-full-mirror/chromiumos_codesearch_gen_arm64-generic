@@ -49,7 +49,7 @@ DataTransferEndpoint::DataTransferEndpoint()
 
 DataTransferEndpoint::DataTransferEndpoint(
     EndpointType type_in,
-    const absl::optional<std::string>& url_in)
+    const absl::optional<::GURL>& url_in)
     : type(std::move(type_in)),
       url(std::move(url_in)) {}
 
@@ -71,7 +71,7 @@ void DataTransferEndpoint::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const absl::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -83,6 +83,150 @@ bool DataTransferEndpoint::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+ContentRestrictionInfo::ContentRestrictionInfo()
+    : restriction(),
+      level(),
+      url() {}
+
+ContentRestrictionInfo::ContentRestrictionInfo(
+    ContentRestriction restriction_in,
+    Level level_in,
+    const ::GURL& url_in)
+    : restriction(std::move(restriction_in)),
+      level(std::move(level_in)),
+      url(std::move(url_in)) {}
+
+ContentRestrictionInfo::~ContentRestrictionInfo() = default;
+
+void ContentRestrictionInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "restriction"), this->restriction,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ContentRestriction>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "level"), this->level,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Level>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "url"), this->url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::GURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ContentRestrictionInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+RenderFrameHostInfo::RenderFrameHostInfo()
+    : last_committed_url(),
+      restrictions_info() {}
+
+RenderFrameHostInfo::RenderFrameHostInfo(
+    const ::GURL& last_committed_url_in,
+    std::vector<ContentRestrictionInfoPtr> restrictions_info_in)
+    : last_committed_url(std::move(last_committed_url_in)),
+      restrictions_info(std::move(restrictions_info_in)) {}
+
+RenderFrameHostInfo::~RenderFrameHostInfo() = default;
+
+void RenderFrameHostInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "last_committed_url"), this->last_committed_url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::GURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "restrictions_info"), this->restrictions_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<ContentRestrictionInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool RenderFrameHostInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+WebContentsInfo::WebContentsInfo()
+    : last_committed_url(),
+      restrictions_info(),
+      frames_info() {}
+
+WebContentsInfo::WebContentsInfo(
+    const ::GURL& last_committed_url_in,
+    std::vector<ContentRestrictionInfoPtr> restrictions_info_in,
+    std::vector<RenderFrameHostInfoPtr> frames_info_in)
+    : last_committed_url(std::move(last_committed_url_in)),
+      restrictions_info(std::move(restrictions_info_in)),
+      frames_info(std::move(frames_info_in)) {}
+
+WebContentsInfo::~WebContentsInfo() = default;
+
+void WebContentsInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "last_committed_url"), this->last_committed_url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::GURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "restrictions_info"), this->restrictions_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<ContentRestrictionInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "frames_info"), this->frames_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<RenderFrameHostInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool WebContentsInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char PageHandler::Name_[] = "dlp_internals.mojom.PageHandler";
 
 PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Message& message) {
@@ -90,6 +234,9 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
   switch (message.name()) {
     case internal::kPageHandler_GetClipboardDataSource_Name: {
       return &PageHandler::GetClipboardDataSource_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_GetContentRestrictionsInfo_Name: {
+      return &PageHandler::GetContentRestrictionsInfo_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -104,11 +251,15 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kPageHandler_GetClipboardDataSource_Name:
             return "Receive dlp_internals::mojom::PageHandler::GetClipboardDataSource";
+      case internal::kPageHandler_GetContentRestrictionsInfo_Name:
+            return "Receive dlp_internals::mojom::PageHandler::GetContentRestrictionsInfo";
     }
   } else {
     switch (message.name()) {
       case internal::kPageHandler_GetClipboardDataSource_Name:
             return "Receive reply dlp_internals::mojom::PageHandler::GetClipboardDataSource";
+      case internal::kPageHandler_GetContentRestrictionsInfo_Name:
+            return "Receive reply dlp_internals::mojom::PageHandler::GetContentRestrictionsInfo";
     }
   }
   return "Receive unknown mojo message";
@@ -136,6 +287,19 @@ uint32_t PageHandler::GetClipboardDataSource_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::GetContentRestrictionsInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)dlp_internals::mojom::PageHandler::GetContentRestrictionsInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PageHandler_GetClipboardDataSource_ForwardToCallback
@@ -152,6 +316,22 @@ class PageHandler_GetClipboardDataSource_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   PageHandler::GetClipboardDataSourceCallback callback_;
+};
+
+class PageHandler_GetContentRestrictionsInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_GetContentRestrictionsInfo_ForwardToCallback(
+      PageHandler::GetContentRestrictionsInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_GetContentRestrictionsInfo_ForwardToCallback(const PageHandler_GetContentRestrictionsInfo_ForwardToCallback&) = delete;
+  PageHandler_GetContentRestrictionsInfo_ForwardToCallback& operator=(const PageHandler_GetContentRestrictionsInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::GetContentRestrictionsInfoCallback callback_;
 };
 
 PageHandlerProxy::PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -185,6 +365,37 @@ void PageHandlerProxy::GetClipboardDataSource(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new PageHandler_GetClipboardDataSource_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerProxy::GetContentRestrictionsInfo(
+    GetContentRestrictionsInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send dlp_internals::mojom::PageHandler::GetContentRestrictionsInfo");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetContentRestrictionsInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::dlp_internals::mojom::internal::PageHandler_GetContentRestrictionsInfo_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetContentRestrictionsInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_GetContentRestrictionsInfo_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -312,6 +523,136 @@ void PageHandler_GetClipboardDataSource_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class PageHandler_GetContentRestrictionsInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::GetContentRestrictionsInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_GetContentRestrictionsInfo_ProxyToResponder> proxy(
+        new PageHandler_GetContentRestrictionsInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_GetContentRestrictionsInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_GetContentRestrictionsInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_GetContentRestrictionsInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::GetContentRestrictionsInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<WebContentsInfoPtr> in_web_contents_info);
+};
+
+bool PageHandler_GetContentRestrictionsInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::vector<WebContentsInfoPtr> p_web_contents_info{};
+  PageHandler_GetContentRestrictionsInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadWebContentsInfo(&p_web_contents_info))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_web_contents_info));
+  return true;
+}
+
+void PageHandler_GetContentRestrictionsInfo_ProxyToResponder::Run(
+    std::vector<WebContentsInfoPtr> in_web_contents_info) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply dlp_internals::mojom::PageHandler::GetContentRestrictionsInfo", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("web_contents_info"), in_web_contents_info,
+                        "<value of type std::vector<WebContentsInfoPtr>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetContentRestrictionsInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::dlp_internals::mojom::internal::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->web_contents_info)::BaseType>
+      web_contents_info_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& web_contents_info_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::dlp_internals::mojom::WebContentsInfoDataView>>(
+      in_web_contents_info, web_contents_info_fragment, &web_contents_info_validate_params);
+  params->web_contents_info.Set(
+      web_contents_info_fragment.is_null() ? nullptr : web_contents_info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->web_contents_info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null web_contents_info in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetContentRestrictionsInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool PageHandlerStubDispatch::Accept(
@@ -319,6 +660,9 @@ bool PageHandlerStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kPageHandler_GetClipboardDataSource_Name: {
+      break;
+    }
+    case internal::kPageHandler_GetContentRestrictionsInfo_Name: {
       break;
     }
   }
@@ -359,6 +703,31 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
       impl->GetClipboardDataSource(std::move(callback));
       return true;
     }
+    case internal::kPageHandler_GetContentRestrictionsInfo_Name: {
+
+      internal::PageHandler_GetContentRestrictionsInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_GetContentRestrictionsInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_GetContentRestrictionsInfo_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 1, false);
+        return false;
+      }
+      PageHandler::GetContentRestrictionsInfoCallback callback =
+          PageHandler_GetContentRestrictionsInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetContentRestrictionsInfo(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -367,6 +736,8 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
     {&internal::PageHandler_GetClipboardDataSource_Params_Data::Validate,
      &internal::PageHandler_GetClipboardDataSource_ResponseParams_Data::Validate},
+    {&internal::PageHandler_GetContentRestrictionsInfo_Params_Data::Validate,
+     &internal::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data::Validate},
 };
 
 bool PageHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -401,6 +772,58 @@ bool StructTraits<::dlp_internals::mojom::DataTransferEndpoint::DataView, ::dlp_
   return success;
 }
 
+
+// static
+bool StructTraits<::dlp_internals::mojom::ContentRestrictionInfo::DataView, ::dlp_internals::mojom::ContentRestrictionInfoPtr>::Read(
+    ::dlp_internals::mojom::ContentRestrictionInfo::DataView input,
+    ::dlp_internals::mojom::ContentRestrictionInfoPtr* output) {
+  bool success = true;
+  ::dlp_internals::mojom::ContentRestrictionInfoPtr result(::dlp_internals::mojom::ContentRestrictionInfo::New());
+  
+      if (success && !input.ReadRestriction(&result->restriction))
+        success = false;
+      if (success && !input.ReadLevel(&result->level))
+        success = false;
+      if (success && !input.ReadUrl(&result->url))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::dlp_internals::mojom::RenderFrameHostInfo::DataView, ::dlp_internals::mojom::RenderFrameHostInfoPtr>::Read(
+    ::dlp_internals::mojom::RenderFrameHostInfo::DataView input,
+    ::dlp_internals::mojom::RenderFrameHostInfoPtr* output) {
+  bool success = true;
+  ::dlp_internals::mojom::RenderFrameHostInfoPtr result(::dlp_internals::mojom::RenderFrameHostInfo::New());
+  
+      if (success && !input.ReadLastCommittedUrl(&result->last_committed_url))
+        success = false;
+      if (success && !input.ReadRestrictionsInfo(&result->restrictions_info))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::dlp_internals::mojom::WebContentsInfo::DataView, ::dlp_internals::mojom::WebContentsInfoPtr>::Read(
+    ::dlp_internals::mojom::WebContentsInfo::DataView input,
+    ::dlp_internals::mojom::WebContentsInfoPtr* output) {
+  bool success = true;
+  ::dlp_internals::mojom::WebContentsInfoPtr result(::dlp_internals::mojom::WebContentsInfo::New());
+  
+      if (success && !input.ReadLastCommittedUrl(&result->last_committed_url))
+        success = false;
+      if (success && !input.ReadRestrictionsInfo(&result->restrictions_info))
+        success = false;
+      if (success && !input.ReadFramesInfo(&result->frames_info))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -413,6 +836,9 @@ namespace dlp_internals::mojom {
 
 void PageHandlerInterceptorForTesting::GetClipboardDataSource(GetClipboardDataSourceCallback callback) {
   GetForwardingInterface()->GetClipboardDataSource(std::move(callback));
+}
+void PageHandlerInterceptorForTesting::GetContentRestrictionsInfo(GetContentRestrictionsInfoCallback callback) {
+  GetForwardingInterface()->GetContentRestrictionsInfo(std::move(callback));
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}
@@ -439,6 +865,29 @@ DataTransferEndpointPtr PageHandlerAsyncWaiter::GetClipboardDataSource(
     ) {
   DataTransferEndpointPtr async_wait_result;
   GetClipboardDataSource(&async_wait_result);
+  return async_wait_result;
+}
+
+void PageHandlerAsyncWaiter::GetContentRestrictionsInfo(
+    std::vector<WebContentsInfoPtr>* out_web_contents_info) {
+  base::RunLoop loop;
+  proxy_->GetContentRestrictionsInfo(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<WebContentsInfoPtr>* out_web_contents_info
+,
+             std::vector<WebContentsInfoPtr> web_contents_info) {*out_web_contents_info = std::move(web_contents_info);
+            loop->Quit();
+          },
+          &loop,
+          out_web_contents_info));
+  loop.Run();
+}
+
+std::vector<WebContentsInfoPtr> PageHandlerAsyncWaiter::GetContentRestrictionsInfo(
+    ) {
+  std::vector<WebContentsInfoPtr> async_wait_result;
+  GetContentRestrictionsInfo(&async_wait_result);
   return async_wait_result;
 }
 

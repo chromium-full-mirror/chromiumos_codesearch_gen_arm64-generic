@@ -22832,7 +22832,7 @@ message UserFeedbackAllowedProto {
 // Valid values:
 //   all: Allow users to include low level debug data from all device types
 // available below in user feedback
-//   wifi: Allow users to include WiFi firmware dump in user feedback
+//   wifi: Allow users to include WiFi low level debug data in user feedback
 //
 // Supported on: chrome_os
 message UserFeedbackWithLowLevelDebugDataAllowedProto {

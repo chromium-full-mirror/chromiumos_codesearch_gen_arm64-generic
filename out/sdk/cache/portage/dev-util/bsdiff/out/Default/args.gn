@@ -12,7 +12,7 @@ sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/dev-util/bsdiff"
 platform2_root =
-    "/var/tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2"
+    "/var/tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2"
 libbase_ver = "1211970"
 enable_exceptions = false
 external_cflags = [
@@ -96,6 +96,7 @@ use = {
   fake_drivefs_launcher = false
   feature_management = false
   feedback = false
+  flex_internal = false
   floss = false
   floss_rootcanal = false
   force_breakpad = false
@@ -125,6 +126,7 @@ use = {
   iwlwifi_dump = false
   jetstream_routing = false
   keymint = false
+  key_eviction = false
   kvm_guest = false
   kvm_host = false
   libglvnd = false

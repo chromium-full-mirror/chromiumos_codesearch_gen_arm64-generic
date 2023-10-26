@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.01" timestamp="2023-10-25T11:37:13.623" name="AllTests">
-  <testsuite name="BlobWrapper" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.005" timestamp="2023-10-25T11:37:13.628">
-    <testcase name="BaseInvalidArguments" file="cras/src/tests/blob_wrapper_unittest.cc" line="36" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:37:13.629" classname="BlobWrapper" />
-    <testcase name="TlvBlobWrapUnwrap" file="cras/src/tests/blob_wrapper_unittest.cc" line="56" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:13.632" classname="BlobWrapper" />
-    <testcase name="SofBlobStandardFlow" file="cras/src/tests/blob_wrapper_unittest.cc" line="108" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:13.633" classname="BlobWrapper" />
-    <testcase name="SofBlobCheckBufferSize" file="cras/src/tests/blob_wrapper_unittest.cc" line="162" status="run" result="completed" time="0." timestamp="2023-10-25T11:37:13.633" classname="BlobWrapper" />
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.016" timestamp="2023-10-26T00:27:46.083" name="AllTests">
+  <testsuite name="BlobWrapper" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.007" timestamp="2023-10-26T00:27:46.091">
+    <testcase name="BaseInvalidArguments" file="cras/src/tests/blob_wrapper_unittest.cc" line="36" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:27:46.092" classname="BlobWrapper" />
+    <testcase name="TlvBlobWrapUnwrap" file="cras/src/tests/blob_wrapper_unittest.cc" line="56" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:27:46.096" classname="BlobWrapper" />
+    <testcase name="SofBlobStandardFlow" file="cras/src/tests/blob_wrapper_unittest.cc" line="108" status="run" result="completed" time="0." timestamp="2023-10-26T00:27:46.097" classname="BlobWrapper" />
+    <testcase name="SofBlobCheckBufferSize" file="cras/src/tests/blob_wrapper_unittest.cc" line="162" status="run" result="completed" time="0." timestamp="2023-10-26T00:27:46.098" classname="BlobWrapper" />
   </testsuite>
 </testsuites>

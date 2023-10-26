@@ -1406,6 +1406,184 @@
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.text);
   };
+  function EditorClient_PreviewFeedback_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  EditorClient_PreviewFeedback_Params.prototype.initDefaults_ = function() {
+    this.resultId = null;
+  };
+  EditorClient_PreviewFeedback_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  EditorClient_PreviewFeedback_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate EditorClient_PreviewFeedback_Params.resultId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  EditorClient_PreviewFeedback_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  EditorClient_PreviewFeedback_Params.decode = function(decoder) {
+    var packed;
+    var val = new EditorClient_PreviewFeedback_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.resultId =
+        decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  EditorClient_PreviewFeedback_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(EditorClient_PreviewFeedback_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.resultId);
+  };
+  function EditorClient_PreviewFeedback_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  EditorClient_PreviewFeedback_ResponseParams.prototype.initDefaults_ = function() {
+    this.preview = null;
+  };
+  EditorClient_PreviewFeedback_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  EditorClient_PreviewFeedback_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate EditorClient_PreviewFeedback_ResponseParams.preview
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 0, false, codec.String, codec.String, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  EditorClient_PreviewFeedback_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  EditorClient_PreviewFeedback_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new EditorClient_PreviewFeedback_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.preview =
+        decoder.decodeMapPointer(codec.String, codec.String);
+    return val;
+  };
+
+  EditorClient_PreviewFeedback_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(EditorClient_PreviewFeedback_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeMapPointer(codec.String, codec.String, val.preview);
+  };
+  function EditorClient_SubmitFeedback_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  EditorClient_SubmitFeedback_Params.prototype.initDefaults_ = function() {
+    this.resultId = null;
+    this.userDescription = null;
+  };
+  EditorClient_SubmitFeedback_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  EditorClient_SubmitFeedback_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate EditorClient_SubmitFeedback_Params.resultId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate EditorClient_SubmitFeedback_Params.userDescription
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  EditorClient_SubmitFeedback_Params.encodedSize = codec.kStructHeaderSize + 16;
+
+  EditorClient_SubmitFeedback_Params.decode = function(decoder) {
+    var packed;
+    var val = new EditorClient_SubmitFeedback_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.resultId =
+        decoder.decodeStruct(codec.String);
+    val.userDescription =
+        decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  EditorClient_SubmitFeedback_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(EditorClient_SubmitFeedback_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.resultId);
+    encoder.encodeStruct(codec.String, val.userDescription);
+  };
   function EditorClientConnector_BindEditorClient_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1822,6 +2000,62 @@
     encoder.writeUint32(TextActuator_CloseUI_Params.encodedSize);
     encoder.writeUint32(0);
   };
+  function TextActuator_SubmitFeedback_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  TextActuator_SubmitFeedback_Params.prototype.initDefaults_ = function() {
+    this.description = null;
+  };
+  TextActuator_SubmitFeedback_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  TextActuator_SubmitFeedback_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate TextActuator_SubmitFeedback_Params.description
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  TextActuator_SubmitFeedback_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  TextActuator_SubmitFeedback_Params.decode = function(decoder) {
+    var packed;
+    var val = new TextActuator_SubmitFeedback_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.description =
+        decoder.decodeStruct(codec.String);
+    return val;
+  };
+
+  TextActuator_SubmitFeedback_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(TextActuator_SubmitFeedback_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.String, val.description);
+  };
   function TextQueryProvider_Process_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -2185,6 +2419,8 @@
   var kEditorClient_ShowUI_Name = 9;
   var kEditorClient_CloseUI_Name = 10;
   var kEditorClient_AppendText_Name = 11;
+  var kEditorClient_PreviewFeedback_Name = 12;
+  var kEditorClient_SubmitFeedback_Name = 13;
 
   function EditorClientPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(EditorClient,
@@ -2420,6 +2656,47 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  EditorClientPtr.prototype.previewFeedback = function() {
+    return EditorClientProxy.prototype.previewFeedback
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  EditorClientProxy.prototype.previewFeedback = function(resultId) {
+    var params_ = new EditorClient_PreviewFeedback_Params();
+    params_.resultId = resultId;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kEditorClient_PreviewFeedback_Name,
+          codec.align(EditorClient_PreviewFeedback_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(EditorClient_PreviewFeedback_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(EditorClient_PreviewFeedback_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
+  EditorClientPtr.prototype.submitFeedback = function() {
+    return EditorClientProxy.prototype.submitFeedback
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  EditorClientProxy.prototype.submitFeedback = function(resultId, userDescription) {
+    var params_ = new EditorClient_SubmitFeedback_Params();
+    params_.resultId = resultId;
+    params_.userDescription = userDescription;
+    var builder = new codec.MessageV0Builder(
+        kEditorClient_SubmitFeedback_Name,
+        codec.align(EditorClient_SubmitFeedback_Params.encodedSize));
+    builder.encodeStruct(EditorClient_SubmitFeedback_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function EditorClientStub(delegate) {
     this.delegate_ = delegate;
@@ -2460,6 +2737,12 @@
   EditorClientStub.prototype.appendText = function(text) {
     return this.delegate_ && this.delegate_.appendText && this.delegate_.appendText(text);
   }
+  EditorClientStub.prototype.previewFeedback = function(resultId) {
+    return this.delegate_ && this.delegate_.previewFeedback && this.delegate_.previewFeedback(resultId);
+  }
+  EditorClientStub.prototype.submitFeedback = function(resultId, userDescription) {
+    return this.delegate_ && this.delegate_.submitFeedback && this.delegate_.submitFeedback(resultId, userDescription);
+  }
 
   EditorClientStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
@@ -2495,6 +2778,10 @@
     case kEditorClient_AppendText_Name:
       var params = reader.decodeStruct(EditorClient_AppendText_Params);
       this.appendText(params.text);
+      return true;
+    case kEditorClient_SubmitFeedback_Name:
+      var params = reader.decodeStruct(EditorClient_SubmitFeedback_Params);
+      this.submitFeedback(params.resultId, params.userDescription);
       return true;
     default:
       return false;
@@ -2569,6 +2856,22 @@
         responder.accept(message);
       });
       return true;
+    case kEditorClient_PreviewFeedback_Name:
+      var params = reader.decodeStruct(EditorClient_PreviewFeedback_Params);
+      this.previewFeedback(params.resultId).then(function(response) {
+        var responseParams =
+            new EditorClient_PreviewFeedback_ResponseParams();
+        responseParams.preview = response.preview;
+        var builder = new codec.MessageV1Builder(
+            kEditorClient_PreviewFeedback_Name,
+            codec.align(EditorClient_PreviewFeedback_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(EditorClient_PreviewFeedback_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -2626,6 +2929,14 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = EditorClient_AppendText_Params;
       break;
+      case kEditorClient_PreviewFeedback_Name:
+        if (message.expectsResponse())
+          paramsClass = EditorClient_PreviewFeedback_Params;
+      break;
+      case kEditorClient_SubmitFeedback_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = EditorClient_SubmitFeedback_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -2652,6 +2963,10 @@
         if (message.isResponse())
           paramsClass = EditorClient_RequestFreeformWrite_ResponseParams;
         break;
+      case kEditorClient_PreviewFeedback_Name:
+        if (message.isResponse())
+          paramsClass = EditorClient_PreviewFeedback_ResponseParams;
+        break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -2660,7 +2975,7 @@
 
   var EditorClient = {
     name: 'ash.orca.mojom.EditorClient',
-    kVersion: 6,
+    kVersion: 7,
     ptrClass: EditorClientPtr,
     proxyClass: EditorClientProxy,
     stubClass: EditorClientStub,
@@ -2861,6 +3176,7 @@
   var kTextActuator_OpenUrlInNewWindow_Name = 3;
   var kTextActuator_ShowUI_Name = 4;
   var kTextActuator_CloseUI_Name = 5;
+  var kTextActuator_SubmitFeedback_Name = 6;
 
   function TextActuatorPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(TextActuator,
@@ -2966,6 +3282,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  TextActuatorPtr.prototype.submitFeedback = function() {
+    return TextActuatorProxy.prototype.submitFeedback
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  TextActuatorProxy.prototype.submitFeedback = function(description) {
+    var params_ = new TextActuator_SubmitFeedback_Params();
+    params_.description = description;
+    var builder = new codec.MessageV0Builder(
+        kTextActuator_SubmitFeedback_Name,
+        codec.align(TextActuator_SubmitFeedback_Params.encodedSize));
+    builder.encodeStruct(TextActuator_SubmitFeedback_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function TextActuatorStub(delegate) {
     this.delegate_ = delegate;
@@ -2987,6 +3318,9 @@
   }
   TextActuatorStub.prototype.closeUI = function() {
     return this.delegate_ && this.delegate_.closeUI && this.delegate_.closeUI();
+  }
+  TextActuatorStub.prototype.submitFeedback = function(description) {
+    return this.delegate_ && this.delegate_.submitFeedback && this.delegate_.submitFeedback(description);
   }
 
   TextActuatorStub.prototype.accept = function(message) {
@@ -3015,6 +3349,10 @@
     case kTextActuator_CloseUI_Name:
       var params = reader.decodeStruct(TextActuator_CloseUI_Params);
       this.closeUI();
+      return true;
+    case kTextActuator_SubmitFeedback_Name:
+      var params = reader.decodeStruct(TextActuator_SubmitFeedback_Params);
+      this.submitFeedback(params.description);
       return true;
     default:
       return false;
@@ -3058,6 +3396,10 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = TextActuator_CloseUI_Params;
       break;
+      case kTextActuator_SubmitFeedback_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = TextActuator_SubmitFeedback_Params;
+      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -3070,7 +3412,7 @@
 
   var TextActuator = {
     name: 'ash.orca.mojom.TextActuator',
-    kVersion: 5,
+    kVersion: 7,
     ptrClass: TextActuatorPtr,
     proxyClass: TextActuatorProxy,
     stubClass: TextActuatorStub,

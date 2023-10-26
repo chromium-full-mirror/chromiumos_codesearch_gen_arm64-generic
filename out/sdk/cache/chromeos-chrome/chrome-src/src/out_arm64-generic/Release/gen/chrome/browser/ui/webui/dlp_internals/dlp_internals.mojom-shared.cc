@@ -59,6 +59,64 @@ std::ostream& operator<<(std::ostream& os, EndpointType value) {
   return os << EndpointTypeToString(value);
 }
 
+NOINLINE static const char* ContentRestrictionToStringHelper(ContentRestriction value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ContentRestriction::kScreenshot:
+      return "kScreenshot";
+    case ContentRestriction::kPrivacyScreen:
+      return "kPrivacyScreen";
+    case ContentRestriction::kPrint:
+      return "kPrint";
+    case ContentRestriction::kScreenShare:
+      return "kScreenShare";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ContentRestrictionToString(ContentRestriction value) {
+  const char *str = ContentRestrictionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ContentRestriction value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ContentRestriction value) {
+  return os << ContentRestrictionToString(value);
+}
+
+NOINLINE static const char* LevelToStringHelper(Level value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Level::kNotSet:
+      return "kNotSet";
+    case Level::kReport:
+      return "kReport";
+    case Level::kWarn:
+      return "kWarn";
+    case Level::kBlock:
+      return "kBlock";
+    case Level::kAllow:
+      return "kAllow";
+    default:
+      return nullptr;
+  }
+}
+
+std::string LevelToString(Level value) {
+  const char *str = LevelToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Level value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Level value) {
+  return os << LevelToString(value);
+}
+
 namespace internal {
 
 
@@ -83,17 +141,146 @@ bool DataTransferEndpoint_Data::Validate(
         ::Validate(object->type, validation_context))
     return false;
 
-  constexpr const mojo::internal::ContainerValidateParams& url_validate_params =
+  if (!mojo::internal::ValidateStruct(object->url, validation_context))
+    return false;
+
+  return true;
+}
+
+DataTransferEndpoint_Data::DataTransferEndpoint_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ContentRestrictionInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ContentRestrictionInfo_Data* object =
+      static_cast<const ContentRestrictionInfo_Data*>(data);
+
+
+  if (!::dlp_internals::mojom::internal::ContentRestriction_Data
+        ::Validate(object->restriction, validation_context))
+    return false;
+
+
+  if (!::dlp_internals::mojom::internal::Level_Data
+        ::Validate(object->level, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->url, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->url, validation_context))
+    return false;
+
+  return true;
+}
+
+ContentRestrictionInfo_Data::ContentRestrictionInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RenderFrameHostInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RenderFrameHostInfo_Data* object =
+      static_cast<const RenderFrameHostInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->last_committed_url, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->last_committed_url, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->restrictions_info, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& restrictions_info_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->url, validation_context,
-                                         &url_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->restrictions_info, validation_context,
+                                         &restrictions_info_validate_params)) {
     return false;
   }
 
   return true;
 }
 
-DataTransferEndpoint_Data::DataTransferEndpoint_Data()
+RenderFrameHostInfo_Data::RenderFrameHostInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WebContentsInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WebContentsInfo_Data* object =
+      static_cast<const WebContentsInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->last_committed_url, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->last_committed_url, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->restrictions_info, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& restrictions_info_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->restrictions_info, validation_context,
+                                         &restrictions_info_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->frames_info, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& frames_info_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->frames_info, validation_context,
+                                         &frames_info_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+WebContentsInfo_Data::WebContentsInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -145,6 +332,63 @@ bool PageHandler_GetClipboardDataSource_ResponseParams_Data::Validate(
 PageHandler_GetClipboardDataSource_ResponseParams_Data::PageHandler_GetClipboardDataSource_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool PageHandler_GetContentRestrictionsInfo_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_GetContentRestrictionsInfo_Params_Data* object =
+      static_cast<const PageHandler_GetContentRestrictionsInfo_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_GetContentRestrictionsInfo_Params_Data::PageHandler_GetContentRestrictionsInfo_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_GetContentRestrictionsInfo_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_GetContentRestrictionsInfo_ResponseParams_Data* object =
+      static_cast<const PageHandler_GetContentRestrictionsInfo_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->web_contents_info, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& web_contents_info_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->web_contents_info, validation_context,
+                                         &web_contents_info_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_GetContentRestrictionsInfo_ResponseParams_Data::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace dlp_internals
@@ -155,6 +399,26 @@ namespace perfetto {
 void TraceFormatTraits<::dlp_internals::mojom::EndpointType>::WriteIntoTrace(
    perfetto::TracedValue context, ::dlp_internals::mojom::EndpointType value) {
   return std::move(context).WriteString(::dlp_internals::mojom::EndpointTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::dlp_internals::mojom::ContentRestriction>::WriteIntoTrace(
+   perfetto::TracedValue context, ::dlp_internals::mojom::ContentRestriction value) {
+  return std::move(context).WriteString(::dlp_internals::mojom::ContentRestrictionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::dlp_internals::mojom::Level>::WriteIntoTrace(
+   perfetto::TracedValue context, ::dlp_internals::mojom::Level value) {
+  return std::move(context).WriteString(::dlp_internals::mojom::LevelToString(value));
 }
 
 } // namespace perfetto

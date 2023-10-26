@@ -24,10 +24,29 @@
 namespace dlp_internals::mojom {
 class DataTransferEndpointDataView;
 
+class ContentRestrictionInfoDataView;
+
+class RenderFrameHostInfoDataView;
+
+class WebContentsInfoDataView;
+
 
 enum class EndpointType : int32_t;
+
+enum class ContentRestriction : int32_t;
+
+enum class Level : int32_t;
 class DataTransferEndpoint;
-using DataTransferEndpointPtr = mojo::InlinedStructPtr<DataTransferEndpoint>;
+using DataTransferEndpointPtr = mojo::StructPtr<DataTransferEndpoint>;
+
+class ContentRestrictionInfo;
+using ContentRestrictionInfoPtr = mojo::StructPtr<ContentRestrictionInfo>;
+
+class RenderFrameHostInfo;
+using RenderFrameHostInfoPtr = mojo::StructPtr<RenderFrameHostInfo>;
+
+class WebContentsInfo;
+using WebContentsInfoPtr = mojo::StructPtr<WebContentsInfo>;
 
 class PageHandler;
 

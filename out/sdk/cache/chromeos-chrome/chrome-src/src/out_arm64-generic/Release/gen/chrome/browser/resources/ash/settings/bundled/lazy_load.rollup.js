@@ -1,6 +1,6 @@
 import './strings.m.js';
-import { T as TERMINA_VM_TYPE, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, C as CrPolicyIndicatorType, e as equalContainerId, V as VM_DEVICE_MICROPHONE, c as assert, d as cast, P as PrefsMixin, f as containerLabel, g as SettingsGuestOsSharedUsbDevicesElement, h as castExists, i as RouteOriginMixin, j as Router, k as isCrostiniSupported, l as isCrostiniAllowed, m as isRevampWayfindingEnabled, n as Section, A as AboutPageBrowserProxyImpl, U as UpdateStatus, L as LifetimeBrowserProxyImpl, s as sanitizeInnerHtml, o as browserChannelToI18nId, p as PrinterSetupResult, q as PrintServerResult, N as NetworkListenerBehavior, t as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, u as focusWithoutInk, v as I18nBehavior, w as getApnDisplayName, x as assert$1, y as ApnDetailDialogMode, z as processDeviceState, B as getInstance, E as CrPolicyNetworkBehaviorMojo, G as FAKE_CREDENTIAL, H as isActiveSim, J as InternetPageBrowserProxyImpl, K as OsSyncBrowserProxyImpl, M as assertExists, Q as FocusRowBehavior, X as getESimProfileProperties, Y as CellularSetupPageName, Z as CrScrollableBehavior, _ as ESimManagerListenerBehavior, $ as MultiDeviceBrowserProxyImpl, a0 as getEuicc, a1 as getSimSlotCount, a2 as getPendingESimProfiles, a3 as MultiDeviceFeatureState, a4 as CrToggleElement, a5 as BrowserProxy, a6 as getImage, a7 as SettingsToggleButtonElement, a8 as DevicePageBrowserProxyImpl, a9 as ChromeVoxSubpageBrowserProxyImpl, aa as assertExhaustive, ab as SelectToSpeakSubpageBrowserProxyImpl, ac as LanguagesBrowserProxyImpl, ad as SwitchAccessSubpageBrowserProxyImpl, ae as TextToSpeechSubpageBrowserProxyImpl, af as TtsVoiceSubpageBrowserProxyImpl, ag as BrowserChannel, ah as isTargetChannelMoreStable, ai as DeviceNameBrowserProxyImpl, aj as SetDeviceNameResult, ak as DeviceNameState, al as isChild, am as AccountManagerBrowserProxyImpl, an as ParentalControlsBrowserProxyImpl, ao as assertInstanceof, ap as focusWithoutInk$1, aq as fireAuthTokenInvalidEvent, ar as LockStateMixin, as as MultiDeviceFeatureMixin, at as MultiDeviceFeature, au as MultiDeviceSettingsMode, av as CrInputElement, aw as CrButtonElement, ax as CrDialogElement, ay as CrIconButtonElement, az as CrActionMenuElement, aA as recordLockScreenProgress, aB as LockScreenProgress, aC as PluralStringProxyImpl, aD as SyncBrowserProxyImpl, aE as PageStatus, aF as StatusAction, aG as CrScrollableMixin, aH as PrivacyHubBrowserProxyImpl, aI as MediaDevicesProxy, aJ as isPermissionEnabled, aK as OneDriveBrowserProxy, aL as GlobalScrollTargetMixin, aM as OsSettingsSubpageElement, aN as FindShortcutMixin, aO as ACCESSIBILITY_COMMON_IME_ID, aP as IronA11yKeysBehavior, aQ as PrivacyPageBrowserProxyImpl, aR as SecureDnsMode, aS as SecureDnsUiManagementMode, aT as TimeZoneBrowserProxyImpl, aU as EventTracker, aV as getInputDeviceSettingsProvider, aW as FakeInputDeviceSettingsProvider, aX as ButtonPressObserverReceiver, aY as buttonsAreEqual, aZ as keyEventsAreEqual, a_ as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
-export { bp as AppManagementAppDetailViewElement, bq as AppManagementAppDetailsItem, br as AppManagementAppItemElement, bt as AppManagementArcDetailViewElement, bu as AppManagementBorealisDetailViewElement, bv as AppManagementChromeAppDetailViewElement, bw as AppManagementDomSwitchElement, bx as AppManagementMainViewElement, by as AppManagementPermissionHeadingElement, bz as AppManagementPinToShelfItemElement, bA as AppManagementPluginVmDetailViewElement, bB as AppManagementPwaDetailViewElement, bC as AppManagementResizeLockItemElement, bD as AppManagementSubAppsItemElement, b2 as AppManagementSupportedLinksItemElement, b3 as AppManagementSupportedLinksOverlappingAppsDialogElement, bF as AppNotificationsSubpage, ba as CROSTINI_TYPE, bd as ContainerSelectElement, b4 as DateTimeSettingsCardElement, bO as FilesSettingsCardElement, bb as GuestOsBrowserProxyImpl, bQ as LanguageSettingsCardElement, bm as NearbyShareReceiveDialogElement, bV as OsResetBrowserProxyImpl, bU as OsSettingsPowerwashDialogElement, bc as PLUGIN_VM_TYPE, bS as PrintingSettingsCardElement, bW as ResetSettingsCardElement, bo as SettingsAndroidAppsSubpageElement, bs as SettingsAppManagementPageElement, bE as SettingsAppNotificationsManagerSubpage, bG as SettingsBluetoothChangeDeviceNameDialogElement, bH as SettingsBluetoothDeviceDetailSubpageElement, bI as SettingsBluetoothDevicesSubpageElement, bJ as SettingsBluetoothSavedDevicesSubpageElement, bK as SettingsBluetoothTrueWirelessImagesElement, b6 as SettingsCustomizeMouseButtonsSubpageElement, b7 as SettingsCustomizePenButtonsSubpageElement, b8 as SettingsCustomizeTabletButtonsSubpageElement, bP as SettingsGoogleDriveSubpageElement, be as SettingsGuestOsSharedPathsElement, bR as SettingsLanguagesElement, bf as SettingsMultideviceCombinedSetupItemElement, bg as SettingsMultideviceFeatureItemElement, bh as SettingsMultideviceFeatureToggleElement, bi as SettingsMultideviceSubpageElement, bj as SettingsMultideviceTaskContinuationDisabledLinkElement, bk as SettingsMultideviceTaskContinuationItemElement, bl as SettingsMultideviceWifiSyncDisabledLinkElement, bn as SettingsNearbyShareSubpageElement, bL as SettingsPairedBluetoothListElement, bM as SettingsPairedBluetoothListItemElement, b9 as SettingsPowerElement, bT as SettingsPrivacyHubSubpage, a$ as SettingsRadioGroupElement, bN as SettingsSavedDevicesListElement, b0 as SmbBrowserProxyImpl, b1 as SmbMountResult, b5 as TimezoneSelectorElement } from './shared.rollup.js';
+import { T as TERMINA_VM_TYPE, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, C as CrPolicyIndicatorType, e as equalContainerId, V as VM_DEVICE_MICROPHONE, c as assert, d as cast, P as PrefsMixin, f as containerLabel, g as SettingsGuestOsSharedUsbDevicesElement, h as castExists, i as RouteOriginMixin, j as Router, k as isCrostiniSupported, l as isCrostiniAllowed, m as isRevampWayfindingEnabled, n as Section, A as AboutPageBrowserProxyImpl, U as UpdateStatus, L as LifetimeBrowserProxyImpl, s as sanitizeInnerHtml, o as browserChannelToI18nId, p as PrinterSetupResult, q as PrintServerResult, N as NetworkListenerBehavior, t as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, u as focusWithoutInk, v as I18nBehavior, w as getApnDisplayName, x as assert$1, y as ApnDetailDialogMode, z as processDeviceState, B as getInstance, E as CrPolicyNetworkBehaviorMojo, G as FAKE_CREDENTIAL, H as isActiveSim, J as InternetPageBrowserProxyImpl, K as OsSyncBrowserProxyImpl, M as assertExists, Q as FocusRowBehavior, X as getESimProfileProperties, Y as CellularSetupPageName, Z as CrScrollableBehavior, _ as ESimManagerListenerBehavior, $ as MultiDeviceBrowserProxyImpl, a0 as getEuicc, a1 as getSimSlotCount, a2 as getPendingESimProfiles, a3 as MultiDeviceFeatureState, a4 as CrToggleElement, a5 as BrowserProxy, a6 as getImage, a7 as SettingsToggleButtonElement, a8 as DevicePageBrowserProxyImpl, a9 as ChromeVoxSubpageBrowserProxyImpl, aa as assertExhaustive, ab as SelectToSpeakSubpageBrowserProxyImpl, ac as LanguagesBrowserProxyImpl, ad as SwitchAccessSubpageBrowserProxyImpl, ae as TextToSpeechSubpageBrowserProxyImpl, af as TtsVoiceSubpageBrowserProxyImpl, ag as BrowserChannel, ah as isTargetChannelMoreStable, ai as DeviceNameBrowserProxyImpl, aj as SetDeviceNameResult, ak as DeviceNameState, al as isChild, am as AccountManagerBrowserProxyImpl, an as ParentalControlsBrowserProxyImpl, ao as assertInstanceof, ap as focusWithoutInk$1, aq as fireAuthTokenInvalidEvent, ar as LockStateMixin, as as MultiDeviceFeatureMixin, at as MultiDeviceFeature, au as MultiDeviceSettingsMode, av as CrInputElement, aw as CrButtonElement, ax as CrDialogElement, ay as CrIconButtonElement, az as CrActionMenuElement, aA as recordLockScreenProgress, aB as LockScreenProgress, aC as PluralStringProxyImpl, aD as SyncBrowserProxyImpl, aE as PageStatus, aF as StatusAction, aG as CrScrollableMixin, aH as PrivacyHubBrowserProxyImpl, aI as MediaDevicesProxy, aJ as isPermissionEnabled, aK as OneDriveBrowserProxy, aL as GlobalScrollTargetMixin, aM as OsSettingsSubpageElement, aN as FindShortcutMixin, aO as ACCESSIBILITY_COMMON_IME_ID, aP as IronA11yKeysBehavior, aQ as PrivacyPageBrowserProxyImpl, aR as SecureDnsMode, aS as SecureDnsUiManagementMode, aT as TimeZoneBrowserProxyImpl, aU as EventTracker, aV as getInputDeviceSettingsProvider, aW as FakeInputDeviceSettingsProvider, aX as ButtonPressObserverReceiver, aY as StaticShortcutAction, aZ as buttonsAreEqual, a_ as keyEventsAreEqual, a$ as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
+export { bq as AppManagementAppDetailViewElement, br as AppManagementAppDetailsItem, bs as AppManagementAppItemElement, bu as AppManagementArcDetailViewElement, bv as AppManagementBorealisDetailViewElement, bw as AppManagementChromeAppDetailViewElement, bx as AppManagementDomSwitchElement, by as AppManagementMainViewElement, bz as AppManagementPermissionHeadingElement, bA as AppManagementPinToShelfItemElement, bB as AppManagementPluginVmDetailViewElement, bC as AppManagementPwaDetailViewElement, bD as AppManagementResizeLockItemElement, bE as AppManagementSubAppsItemElement, b3 as AppManagementSupportedLinksItemElement, b4 as AppManagementSupportedLinksOverlappingAppsDialogElement, bG as AppNotificationsSubpage, bb as CROSTINI_TYPE, be as ContainerSelectElement, b5 as DateTimeSettingsCardElement, bP as FilesSettingsCardElement, bc as GuestOsBrowserProxyImpl, bR as LanguageSettingsCardElement, bn as NearbyShareReceiveDialogElement, bW as OsResetBrowserProxyImpl, bV as OsSettingsPowerwashDialogElement, bd as PLUGIN_VM_TYPE, bT as PrintingSettingsCardElement, bX as ResetSettingsCardElement, bp as SettingsAndroidAppsSubpageElement, bt as SettingsAppManagementPageElement, bF as SettingsAppNotificationsManagerSubpage, bH as SettingsBluetoothChangeDeviceNameDialogElement, bI as SettingsBluetoothDeviceDetailSubpageElement, bJ as SettingsBluetoothDevicesSubpageElement, bK as SettingsBluetoothSavedDevicesSubpageElement, bL as SettingsBluetoothTrueWirelessImagesElement, b7 as SettingsCustomizeMouseButtonsSubpageElement, b8 as SettingsCustomizePenButtonsSubpageElement, b9 as SettingsCustomizeTabletButtonsSubpageElement, bQ as SettingsGoogleDriveSubpageElement, bf as SettingsGuestOsSharedPathsElement, bS as SettingsLanguagesElement, bg as SettingsMultideviceCombinedSetupItemElement, bh as SettingsMultideviceFeatureItemElement, bi as SettingsMultideviceFeatureToggleElement, bj as SettingsMultideviceSubpageElement, bk as SettingsMultideviceTaskContinuationDisabledLinkElement, bl as SettingsMultideviceTaskContinuationItemElement, bm as SettingsMultideviceWifiSyncDisabledLinkElement, bo as SettingsNearbyShareSubpageElement, bM as SettingsPairedBluetoothListElement, bN as SettingsPairedBluetoothListItemElement, ba as SettingsPowerElement, bU as SettingsPrivacyHubSubpage, b0 as SettingsRadioGroupElement, bO as SettingsSavedDevicesListElement, b1 as SmbBrowserProxyImpl, b2 as SmbMountResult, b6 as TimezoneSelectorElement } from './shared.rollup.js';
 import { html, PolymerElement, microTask, mixinBehaviors, dedupingMixin, calculateSplices, afterNextRender, Polymer, flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { sendWithPromise, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -37686,9 +37686,6 @@ function getTemplate$6() {
   </div>
   <div id="dropdownContainer" class="text-field-container">
     <select id="remappingActionDropdown" class="md-select" on-change="onSelectChange_" disabled="[[isDropdownDisabled_(isBeingDragged_)]]">
-      <option id="noRemappingOption" value="[[noRemappingOptionValue_]]">
-        $i18n{noRemappingOptionLabel}
-      </option>
       <template is="dom-repeat" items="[[buttonMapTargets_]]" as="buttonMapping">
         <option value$="[[buttonMapping.value]]">
           [[buttonMapping.name]]
@@ -37696,9 +37693,6 @@ function getTemplate$6() {
       </template>
       <option id="keyCombination" value="[[keyCombinationOptionValue_]]">
         [[keyCombinationLabel_]]
-      </option>
-      <option id="openDialogOption" value="[[openDialogOptionValue_]]">
-        $i18n{keyCombinationOptionLabel}
       </option>
     </select>
   </div>
@@ -37867,9 +37861,9 @@ class DragAndDropManager {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const NO_REMAPPING_OPTION_LABEL = 'none';
-const KEY_COMBINATION_OPTION_LABEL = 'key combination';
-const OPEN_DIALOG_OPTION_LABEL = 'open key combination dialog';
+const NO_REMAPPING_OPTION_VALUE = 'none';
+const KEY_COMBINATION_OPTION_VALUE = 'key combination';
+const OPEN_DIALOG_OPTION_VALUE = 'open key combination dialog';
 const ACCELERATOR_ACTION_PREFIX = 'acceleratorAction';
 const STATICS_SHORTCUT_ACTION_PREFIX = 'staticShortcutAction';
 /**
@@ -37945,7 +37939,7 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
                     return {
                         key: 'fakeCustomizeKeyPref',
                         type: chrome.settingsPrivate.PrefType.STRING,
-                        value: NO_REMAPPING_OPTION_LABEL,
+                        value: NO_REMAPPING_OPTION_VALUE,
                     };
                 },
             },
@@ -37961,24 +37955,11 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
                 type: String,
             },
             /**
-             * The value of the "None" item in dropdown menu.
-             */
-            noRemappingOptionValue_: {
-                type: String,
-                value: NO_REMAPPING_OPTION_LABEL,
-                readOnly: true,
-            },
-            /**
              * The value of the "Key combination" item in dropdown menu.
              */
             keyCombinationOptionValue_: {
                 type: String,
-                value: KEY_COMBINATION_OPTION_LABEL,
-                readOnly: true,
-            },
-            openDialogOptionValue_: {
-                type: String,
-                value: OPEN_DIALOG_OPTION_LABEL,
+                value: KEY_COMBINATION_OPTION_VALUE,
                 readOnly: true,
             },
             /**
@@ -38041,7 +38022,7 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
         });
         microTask.run(() => {
             dropdown.value =
-                option === undefined ? NO_REMAPPING_OPTION_LABEL : originalAction;
+                option === undefined ? NO_REMAPPING_OPTION_VALUE : originalAction;
             this.prevChoice_ = dropdown.value;
         });
     }
@@ -38053,8 +38034,12 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
         if (!this.actionList) {
             return;
         }
-        // TODO(yyhyyh@): Get buttonMapTargets_ from provider in customization
-        // pages, and pass it as a value instead of creating fake data here.
+        // Put default action to the top of dropdown menu per UX requirement.
+        this.buttonMapTargets_.push({
+            value: NO_REMAPPING_OPTION_VALUE,
+            name: this.i18n('noRemappingOptionLabel'),
+        });
+        // Fill the dropdown menu with actionList.
         for (const actionChoice of this.actionList) {
             const acceleratorAction = actionChoice.actionType.acceleratorAction;
             const staticShortcutAction = actionChoice.actionType.staticShortcutAction;
@@ -38075,6 +38060,16 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
                 });
             }
         }
+        // Put 'Key combination' option in the dropdown menu.
+        this.buttonMapTargets_.push({
+            value: OPEN_DIALOG_OPTION_VALUE,
+            name: this.i18n('keyCombinationOptionLabel'),
+        });
+        // Put kDisable action to the end of dropdown menu per UX requirement.
+        this.buttonMapTargets_.push({
+            value: STATICS_SHORTCUT_ACTION_PREFIX + StaticShortcutAction.kDisable,
+            name: this.i18n('disbableOptionLabel'),
+        });
     }
     /**
      * Populate the button remapping action according to the existing settings.
@@ -38097,11 +38092,11 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             this.initializeDropdown_(originalAcceleratorAction, dropdown);
         }
         else if (keyEvent) {
-            this.set('fakePref_.value', KEY_COMBINATION_OPTION_LABEL);
+            this.set('fakePref_.value', KEY_COMBINATION_OPTION_VALUE);
             this.keyCombinationLabel_ = getKeyCombinationLabel(keyEvent) ??
                 this.i18n('keyCombinationOptionLabel');
             microTask.run(() => {
-                dropdown.value = KEY_COMBINATION_OPTION_LABEL;
+                dropdown.value = KEY_COMBINATION_OPTION_VALUE;
                 this.prevChoice_ = dropdown.value;
             });
         }
@@ -38112,9 +38107,9 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             this.initializeDropdown_(originalStaticShortcutAction, dropdown);
         }
         else {
-            this.set('fakePref_.value', NO_REMAPPING_OPTION_LABEL);
+            this.set('fakePref_.value', NO_REMAPPING_OPTION_VALUE);
             microTask.run(() => {
-                dropdown.value = NO_REMAPPING_OPTION_LABEL;
+                dropdown.value = NO_REMAPPING_OPTION_VALUE;
                 this.prevChoice_ = dropdown.value;
             });
         }
@@ -38135,13 +38130,13 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     }
     /**
      * This method is called when fakePref_.value is changed to
-     * NO_REMAPPING_OPTION_LABEL or enums of remappingAction.
+     * NO_REMAPPING_OPTION_VALUE or enums of remappingAction.
      *
      * @returns Updated button remapping with selected remapping action or
      * no remapping action.
      */
     getUpdatedRemapping() {
-        if (this.fakePref_.value === NO_REMAPPING_OPTION_LABEL) {
+        if (this.fakePref_.value === NO_REMAPPING_OPTION_VALUE) {
             const updatedRemapping = {
                 name: this.buttonRemapping_.name,
                 button: this.buttonRemapping_.button,
@@ -38187,7 +38182,7 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     }
     onSelectChange_() {
         const select = this.$.remappingActionDropdown;
-        if (select.value === OPEN_DIALOG_OPTION_LABEL) {
+        if (select.value === OPEN_DIALOG_OPTION_VALUE) {
             this.dispatchEvent(new CustomEvent('show-key-combination-dialog', {
                 bubbles: true,
                 composed: true,
@@ -38293,6 +38288,7 @@ function getTemplate$5() {
       
       [[buttonRemapping_.name]]
     </div>
+    <button on-click="onButtonClicked_">button</button>
   </div>
   <div slot="button-container">
     <div>

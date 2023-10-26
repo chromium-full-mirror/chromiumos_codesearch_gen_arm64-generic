@@ -30,6 +30,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
 #include "quiche/blind_sign_auth/proto/attestation.pb.h"
+#include "quiche/blind_sign_auth/proto/proxy_layer.pb.h"
 #include "quiche/blind_sign_auth/proto/public_metadata.pb.h"
 #include "anonymous_tokens/proto/anonymous_tokens.pb.h"
 // @@protoc_insertion_point(includes)
@@ -226,6 +227,7 @@ kServiceTypeFieldNumber = 2,
 kUseAttestationFieldNumber = 1,
 kLocationGranularityFieldNumber = 3,
 kValidationVersionFieldNumber = 4,
+kProxyLayerFieldNumber = 5,
 };
 // string service_type = 2;
 void clear_service_type();
@@ -268,6 +270,15 @@ int64_t _internal_validation_version() const;
 void _internal_set_validation_version(int64_t value);
 public:
 
+// .privacy.ppn.ProxyLayer proxy_layer = 5;
+void clear_proxy_layer();
+::privacy::ppn::ProxyLayer proxy_layer() const;
+void set_proxy_layer(::privacy::ppn::ProxyLayer value);
+private:
+::privacy::ppn::ProxyLayer _internal_proxy_layer() const;
+void _internal_set_proxy_layer(::privacy::ppn::ProxyLayer value);
+public:
+
 // @@protoc_insertion_point(class_scope:privacy.ppn.GetInitialDataRequest)
 private:
 class _Internal;
@@ -279,6 +290,7 @@ typedef void DestructorSkippable_;
 bool use_attestation_;
 int location_granularity_;
 int64_t validation_version_;
+int proxy_layer_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 friend struct ::TableStruct_quiche_2fblind_5fsign_5fauth_2fproto_2fget_5finitial_5fdata_2eproto;
 };
@@ -747,6 +759,26 @@ validation_version_ = value;
 inline void GetInitialDataRequest::set_validation_version(int64_t value) {
 _internal_set_validation_version(value);
 // @@protoc_insertion_point(field_set:privacy.ppn.GetInitialDataRequest.validation_version)
+}
+
+// .privacy.ppn.ProxyLayer proxy_layer = 5;
+inline void GetInitialDataRequest::clear_proxy_layer() {
+proxy_layer_ = 0;
+}
+inline ::privacy::ppn::ProxyLayer GetInitialDataRequest::_internal_proxy_layer() const {
+return static_cast< ::privacy::ppn::ProxyLayer >(proxy_layer_);
+}
+inline ::privacy::ppn::ProxyLayer GetInitialDataRequest::proxy_layer() const {
+// @@protoc_insertion_point(field_get:privacy.ppn.GetInitialDataRequest.proxy_layer)
+return _internal_proxy_layer();
+}
+inline void GetInitialDataRequest::_internal_set_proxy_layer(::privacy::ppn::ProxyLayer value) {
+
+proxy_layer_ = value;
+}
+inline void GetInitialDataRequest::set_proxy_layer(::privacy::ppn::ProxyLayer value) {
+_internal_set_proxy_layer(value);
+// @@protoc_insertion_point(field_set:privacy.ppn.GetInitialDataRequest.proxy_layer)
 }
 
 // -------------------------------------------------------------------

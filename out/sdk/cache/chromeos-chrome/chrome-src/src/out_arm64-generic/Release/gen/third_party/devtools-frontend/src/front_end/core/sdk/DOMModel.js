@@ -1098,13 +1098,7 @@ export class DOMModel extends SDKModel {
         return nodeId ? this.idToDOMNode.get(nodeId) || null : null;
     }
     documentUpdated() {
-        // If we have this.#pendingDocumentRequestPromise in flight,
-        // it will contain most recent result.
-        const documentWasRequested = this.#pendingDocumentRequestPromise;
         this.setDocument(null);
-        if (this.parentModel() && !documentWasRequested) {
-            void this.requestDocument();
-        }
     }
     setDocument(payload) {
         this.idToDOMNode = new Map();

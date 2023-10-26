@@ -6740,6 +6740,8 @@ gen/third_party/webgpu-cts/src/webgpu/shader/execution/expression/binary/af_matr
 gen/third_party/webgpu-cts/src-node/webgpu/shader/execution/expression/binary/af_matrix_subtraction.spec.js
 gen/third_party/webgpu-cts/src/webgpu/shader/execution/expression/binary/af_multiplication.spec.js
 gen/third_party/webgpu-cts/src-node/webgpu/shader/execution/expression/binary/af_multiplication.spec.js
+gen/third_party/webgpu-cts/src/webgpu/shader/execution/expression/binary/af_remainder.spec.js
+gen/third_party/webgpu-cts/src-node/webgpu/shader/execution/expression/binary/af_remainder.spec.js
 gen/third_party/webgpu-cts/src/webgpu/shader/execution/expression/binary/af_subtraction.spec.js
 gen/third_party/webgpu-cts/src-node/webgpu/shader/execution/expression/binary/af_subtraction.spec.js
 gen/third_party/webgpu-cts/src/webgpu/shader/execution/expression/binary/bitwise.spec.js

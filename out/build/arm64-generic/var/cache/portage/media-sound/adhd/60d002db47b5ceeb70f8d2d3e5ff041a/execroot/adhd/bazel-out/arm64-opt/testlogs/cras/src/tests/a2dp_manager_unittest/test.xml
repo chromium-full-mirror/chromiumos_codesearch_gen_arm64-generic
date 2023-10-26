@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="9" failures="0" disabled="0" errors="0" time="0.079" timestamp="2023-10-25T11:36:25.534" name="AllTests">
-  <testsuite name="A2dpManagerTestSuite" tests="8" failures="0" disabled="0" skipped="0" errors="0" time="0.053" timestamp="2023-10-25T11:36:25.557">
-    <testcase name="CreateFailed" file="cras/src/tests/a2dp_manager_unittest.cc" line="86" status="run" result="completed" time="0.028" timestamp="2023-10-25T11:36:25.557" classname="A2dpManagerTestSuite" />
-    <testcase name="CreateDestroy" file="cras/src/tests/a2dp_manager_unittest.cc" line="106" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:25.586" classname="A2dpManagerTestSuite" />
-    <testcase name="StartStop" file="cras/src/tests/a2dp_manager_unittest.cc" line="120" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:36:25.588" classname="A2dpManagerTestSuite" />
-    <testcase name="DelaySync" file="cras/src/tests/a2dp_manager_unittest.cc" line="147" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:36:25.590" classname="A2dpManagerTestSuite" />
-    <testcase name="SetSupportAbsoluteVolume" file="cras/src/tests/a2dp_manager_unittest.cc" line="258" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:25.591" classname="A2dpManagerTestSuite" />
-    <testcase name="ConvertVolume" file="cras/src/tests/a2dp_manager_unittest.cc" line="278" status="run" result="completed" time="0.015" timestamp="2023-10-25T11:36:25.592" classname="A2dpManagerTestSuite" />
-    <testcase name="SetVolume" file="cras/src/tests/a2dp_manager_unittest.cc" line="299" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:25.608" classname="A2dpManagerTestSuite" />
-    <testcase name="SuspendCallback" file="cras/src/tests/a2dp_manager_unittest.cc" line="322" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:36:25.609" classname="A2dpManagerTestSuite" />
+<testsuites tests="9" failures="0" disabled="0" errors="0" time="0.039" timestamp="2023-10-26T00:28:03.897" name="AllTests">
+  <testsuite name="A2dpManagerTestSuite" tests="8" failures="0" disabled="0" skipped="0" errors="0" time="0.028" timestamp="2023-10-26T00:28:03.905">
+    <testcase name="CreateFailed" file="cras/src/tests/a2dp_manager_unittest.cc" line="86" status="run" result="completed" time="0.014" timestamp="2023-10-26T00:28:03.905" classname="A2dpManagerTestSuite" />
+    <testcase name="CreateDestroy" file="cras/src/tests/a2dp_manager_unittest.cc" line="106" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:03.921" classname="A2dpManagerTestSuite" />
+    <testcase name="StartStop" file="cras/src/tests/a2dp_manager_unittest.cc" line="120" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:28:03.922" classname="A2dpManagerTestSuite" />
+    <testcase name="DelaySync" file="cras/src/tests/a2dp_manager_unittest.cc" line="147" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:28:03.924" classname="A2dpManagerTestSuite" />
+    <testcase name="SetSupportAbsoluteVolume" file="cras/src/tests/a2dp_manager_unittest.cc" line="258" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:03.926" classname="A2dpManagerTestSuite" />
+    <testcase name="ConvertVolume" file="cras/src/tests/a2dp_manager_unittest.cc" line="278" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:28:03.927" classname="A2dpManagerTestSuite" />
+    <testcase name="SetVolume" file="cras/src/tests/a2dp_manager_unittest.cc" line="299" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:03.928" classname="A2dpManagerTestSuite" />
+    <testcase name="SuspendCallback" file="cras/src/tests/a2dp_manager_unittest.cc" line="322" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:28:03.931" classname="A2dpManagerTestSuite" />
   </testsuite>
-  <testsuite name="A2dpManager" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2023-10-25T11:36:25.612">
-    <testcase name="FillFormat" file="cras/src/tests/a2dp_manager_unittest.cc" line="177" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:36:25.612" classname="A2dpManager" />
+  <testsuite name="A2dpManager" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2023-10-26T00:28:03.935">
+    <testcase name="FillFormat" file="cras/src/tests/a2dp_manager_unittest.cc" line="177" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:28:03.935" classname="A2dpManager" />
   </testsuite>
 </testsuites>

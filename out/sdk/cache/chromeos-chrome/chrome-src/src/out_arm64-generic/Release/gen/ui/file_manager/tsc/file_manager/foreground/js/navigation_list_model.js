@@ -4,9 +4,10 @@
 import { assertNotReached } from 'chrome://resources/ash/common/assert.js';
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
 import { DialogType } from '../../common/js/dialog_type.js';
+import { isOneDrive } from '../../common/js/entry_utils.js';
 import { EntryList, VolumeEntry } from '../../common/js/files_app_entry_types.js';
 import { isArcVmEnabled, isGuestOsEnabled, isSinglePartitionFormatEnabled } from '../../common/js/flags.js';
-import { str, util } from '../../common/js/util.js';
+import { str } from '../../common/js/util.js';
 import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
 import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
 import { VolumeManager } from '../../externs/volume_manager.js';
@@ -766,7 +767,7 @@ export class NavigationListModel extends EventTarget {
         }
         // Add ODFS.
         for (const provided of getVolumes(VolumeManagerCommon.VolumeType.PROVIDED)) {
-            if (util.isOneDrive(provided.volumeInfo)) {
+            if (isOneDrive(provided.volumeInfo)) {
                 provided.section = NavigationSection.ODFS;
                 const { volumes } = getStore().getState();
                 const volume = volumes[provided.volumeInfo.volumeId];
@@ -786,7 +787,7 @@ export class NavigationListModel extends EventTarget {
         // Add other FSPs.
         for (const provided of getVolumes(VolumeManagerCommon.VolumeType.PROVIDED)) {
             // ODFS added already.
-            if (util.isOneDrive(provided.volumeInfo)) {
+            if (isOneDrive(provided.volumeInfo)) {
                 continue;
             }
             this.navigationItems_.push(provided);

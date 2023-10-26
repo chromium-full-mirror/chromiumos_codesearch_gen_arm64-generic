@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.03" timestamp="2023-10-25T11:33:33.308" name="AllTests">
-  <testsuite name="AlsaConfigTestSuite" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.024" timestamp="2023-10-25T11:33:33.313">
-    <testcase name="GetSetSwitch" file="cras/src/tests/alsa_config_unittest.cc" line="146" status="run" result="completed" time="0.012" timestamp="2023-10-25T11:33:33.313" classname="AlsaConfigTestSuite" />
-    <testcase name="GetBytes" file="cras/src/tests/alsa_config_unittest.cc" line="189" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:33:33.327" classname="AlsaConfigTestSuite" />
-    <testcase name="SetBytes" file="cras/src/tests/alsa_config_unittest.cc" line="234" status="run" result="completed" time="0.003" timestamp="2023-10-25T11:33:33.329" classname="AlsaConfigTestSuite" />
-    <testcase name="InvalidArguments" file="cras/src/tests/alsa_config_unittest.cc" line="317" status="run" result="completed" time="0.004" timestamp="2023-10-25T11:33:33.333" classname="AlsaConfigTestSuite" />
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.035" timestamp="2023-10-26T00:26:28.859" name="AllTests">
+  <testsuite name="AlsaConfigTestSuite" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.028" timestamp="2023-10-26T00:26:28.866">
+    <testcase name="GetSetSwitch" file="cras/src/tests/alsa_config_unittest.cc" line="146" status="run" result="completed" time="0.017" timestamp="2023-10-26T00:26:28.866" classname="AlsaConfigTestSuite" />
+    <testcase name="GetBytes" file="cras/src/tests/alsa_config_unittest.cc" line="189" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:26:28.884" classname="AlsaConfigTestSuite" />
+    <testcase name="SetBytes" file="cras/src/tests/alsa_config_unittest.cc" line="234" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:26:28.887" classname="AlsaConfigTestSuite" />
+    <testcase name="InvalidArguments" file="cras/src/tests/alsa_config_unittest.cc" line="317" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:26:28.891" classname="AlsaConfigTestSuite" />
   </testsuite>
 </testsuites>

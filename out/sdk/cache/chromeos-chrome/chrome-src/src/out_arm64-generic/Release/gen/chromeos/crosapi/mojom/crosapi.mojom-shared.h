@@ -1856,6 +1856,11 @@ static_assert(
       return bool{};
     return data_->is_desk_profiles_enabled;
   }
+  bool is_cros_web_app_shortcut_ui_update_enabled() const {
+    if (data_->header_.version < 72)
+      return bool{};
+    return data_->is_cros_web_app_shortcut_ui_update_enabled;
+  }
  private:
   internal::BrowserInitParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -3025,6 +3030,7 @@ struct Serializer<::crosapi::mojom::BrowserInitParamsDataView, MaybeConstUserTyp
     fragment->is_floss_availability_check_needed = Traits::is_floss_availability_check_needed(input);
     fragment->is_app_install_service_uri_enabled = Traits::is_app_install_service_uri_enabled(input);
     fragment->is_desk_profiles_enabled = Traits::is_desk_profiles_enabled(input);
+    fragment->is_cros_web_app_shortcut_ui_update_enabled = Traits::is_cros_web_app_shortcut_ui_update_enabled(input);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::BrowserInitParams_Data* input,

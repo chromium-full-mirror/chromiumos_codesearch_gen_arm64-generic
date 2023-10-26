@@ -4,11 +4,11 @@
 import { isRTL } from 'chrome://resources/ash/common/util.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import { maybeShowTooltip } from '../common/js/dom_utils.js';
-import { isEntryInsideComputers, isEntryInsideDrive, isEntryInsideMyDrive, isGrandRootEntryInDrives, isMyFilesEntry, isTrashEntry, isVolumeEntry } from '../common/js/entry_utils.js';
+import { isEntryInsideComputers, isEntryInsideDrive, isEntryInsideMyDrive, isGrandRootEntryInDrives, isMyFilesEntry, isOneDriveId, isTrashEntry, isVolumeEntry } from '../common/js/entry_utils.js';
 import { FakeEntryImpl, VolumeEntry } from '../common/js/files_app_entry_types.js';
 import { vmTypeToIconName } from '../common/js/icon_util.js';
 import { recordEnum, recordUserAction } from '../common/js/metrics.js';
-import { str, strf, util } from '../common/js/util.js';
+import { str, strf } from '../common/js/util.js';
 import { VolumeManagerCommon } from '../common/js/volume_manager_types.js';
 import { NavigationType, PropStatus } from '../externs/ts/state.js';
 import '../externs/volume_manager.js';
@@ -378,7 +378,7 @@ export class DirectoryTreeContainer {
                 this.handleInitialRender_(navigationItem, childFileData);
             }
         }
-        const isOdfs = util.isOneDriveId(getVolume(this.store_.getState(), fileData)?.providerId);
+        const isOdfs = isOneDriveId(getVolume(this.store_.getState(), fileData)?.providerId);
         if (isOdfs && fileData?.disabled) {
             // The entries under ODFS are not disabled recursively. Collapse ODFS when
             // it is disabled.

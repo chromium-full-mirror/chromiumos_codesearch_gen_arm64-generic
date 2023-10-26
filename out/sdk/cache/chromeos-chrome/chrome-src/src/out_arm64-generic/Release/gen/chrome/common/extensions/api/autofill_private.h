@@ -574,6 +574,9 @@ struct CreditCardEntry {
   // Credit card's image source.
   absl::optional<std::string> image_src;
 
+  // Credit card's masked cvc.
+  absl::optional<std::string> cvc;
+
   absl::optional<AutofillMetadata> metadata;
 
 };

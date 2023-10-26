@@ -48,6 +48,8 @@ class BluetoothDiscoveryRoutineArgumentDataView;
 
 class FanRoutineArgumentDataView;
 
+class BluetoothScanningRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -87,6 +89,10 @@ class BluetoothPowerRoutineDetailDataView;
 class BluetoothDiscoveringDetailDataView;
 
 class BluetoothDiscoveryRoutineDetailDataView;
+
+class BluetoothScannedPeripheralInfoDataView;
+
+class BluetoothScanningRoutineDetailDataView;
 
 class FanRoutineDetailDataView;
 
@@ -145,6 +151,9 @@ using BluetoothDiscoveryRoutineArgumentPtr = mojo::InlinedStructPtr<BluetoothDis
 
 class FanRoutineArgument;
 using FanRoutineArgumentPtr = mojo::InlinedStructPtr<FanRoutineArgument>;
+
+class BluetoothScanningRoutineArgument;
+using BluetoothScanningRoutineArgumentPtr = mojo::StructPtr<BluetoothScanningRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -205,6 +214,12 @@ using BluetoothDiscoveringDetailPtr = mojo::InlinedStructPtr<BluetoothDiscoverin
 
 class BluetoothDiscoveryRoutineDetail;
 using BluetoothDiscoveryRoutineDetailPtr = mojo::StructPtr<BluetoothDiscoveryRoutineDetail>;
+
+class BluetoothScannedPeripheralInfo;
+using BluetoothScannedPeripheralInfoPtr = mojo::StructPtr<BluetoothScannedPeripheralInfo>;
+
+class BluetoothScanningRoutineDetail;
+using BluetoothScanningRoutineDetailPtr = mojo::StructPtr<BluetoothScanningRoutineDetail>;
 
 class FanRoutineDetail;
 using FanRoutineDetailPtr = mojo::StructPtr<FanRoutineDetail>;

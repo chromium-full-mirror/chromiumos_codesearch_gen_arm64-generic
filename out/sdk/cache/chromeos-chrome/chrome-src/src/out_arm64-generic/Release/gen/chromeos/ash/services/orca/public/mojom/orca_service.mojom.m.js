@@ -162,6 +162,22 @@ export class EditorClientInterface {
    */
 
   appendText(text) {}
+  
+  /**
+   * @param { !string } resultId
+   * @return {!Promise<{
+        preview: !Object<!string, !string>,
+   *  }>}
+   */
+
+  previewFeedback(resultId) {}
+  
+  /**
+   * @param { !string } resultId
+   * @param { !string } userDescription
+   */
+
+  submitFeedback(resultId, userDescription) {}
 }
 
 /**
@@ -378,6 +394,44 @@ export class EditorClientRemote {
           text
         ]);
   }
+
+  
+  /**
+   * @param { !string } resultId
+   * @return {!Promise<{
+        preview: !Object<!string, !string>,
+   *  }>}
+   */
+
+  previewFeedback(
+      resultId) {
+    return this.proxy.sendMessage(
+        12,
+        EditorClient_PreviewFeedback_ParamsSpec.$,
+        EditorClient_PreviewFeedback_ResponseParamsSpec.$,
+        [
+          resultId
+        ]);
+  }
+
+  
+  /**
+   * @param { !string } resultId
+   * @param { !string } userDescription
+   */
+
+  submitFeedback(
+      resultId,
+      userDescription) {
+    this.proxy.sendMessage(
+        13,
+        EditorClient_SubmitFeedback_ParamsSpec.$,
+        null,
+        [
+          resultId,
+          userDescription
+        ]);
+  }
 }
 
 /**
@@ -460,6 +514,16 @@ export class EditorClientReceiver {
         EditorClient_AppendText_ParamsSpec.$,
         null,
         impl.appendText.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
+        EditorClient_PreviewFeedback_ParamsSpec.$,
+        EditorClient_PreviewFeedback_ResponseParamsSpec.$,
+        impl.previewFeedback.bind(impl));
+    this.helper_internal_.registerHandler(
+        13,
+        EditorClient_SubmitFeedback_ParamsSpec.$,
+        null,
+        impl.submitFeedback.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -650,6 +714,30 @@ export class EditorClientCallbackRouter {
         EditorClient_AppendText_ParamsSpec.$,
         null,
         this.appendText.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.previewFeedback =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
+        EditorClient_PreviewFeedback_ParamsSpec.$,
+        EditorClient_PreviewFeedback_ResponseParamsSpec.$,
+        this.previewFeedback.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.submitFeedback =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        13,
+        EditorClient_SubmitFeedback_ParamsSpec.$,
+        null,
+        this.submitFeedback.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1049,6 +1137,12 @@ export class TextActuatorInterface {
    */
 
   closeUI() {}
+  
+  /**
+   * @param { !string } description
+   */
+
+  submitFeedback(description) {}
 }
 
 /**
@@ -1157,6 +1251,22 @@ export class TextActuatorRemote {
         [
         ]);
   }
+
+  
+  /**
+   * @param { !string } description
+   */
+
+  submitFeedback(
+      description) {
+    this.proxy.sendMessage(
+        6,
+        TextActuator_SubmitFeedback_ParamsSpec.$,
+        null,
+        [
+          description
+        ]);
+  }
 }
 
 /**
@@ -1209,6 +1319,11 @@ export class TextActuatorReceiver {
         TextActuator_CloseUI_ParamsSpec.$,
         null,
         impl.closeUI.bind(impl));
+    this.helper_internal_.registerHandler(
+        6,
+        TextActuator_SubmitFeedback_ParamsSpec.$,
+        null,
+        impl.submitFeedback.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1327,6 +1442,18 @@ export class TextActuatorCallbackRouter {
         TextActuator_CloseUI_ParamsSpec.$,
         null,
         this.closeUI.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.submitFeedback =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        6,
+        TextActuator_SubmitFeedback_ParamsSpec.$,
+        null,
+        this.submitFeedback.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1825,6 +1952,24 @@ export const EditorClient_AppendText_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const EditorClient_PreviewFeedback_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const EditorClient_PreviewFeedback_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const EditorClient_SubmitFeedback_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const EditorClientConnector_BindEditorClient_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1868,6 +2013,12 @@ export const TextActuator_ShowUI_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const TextActuator_CloseUI_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const TextActuator_SubmitFeedback_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -2576,6 +2727,103 @@ export class EditorClient_AppendText_Params {
 
 
 mojo.internal.Struct(
+    EditorClient_PreviewFeedback_ParamsSpec.$,
+    'EditorClient_PreviewFeedback_Params',
+    [
+      mojo.internal.StructField(
+        'resultId', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class EditorClient_PreviewFeedback_Params {
+  constructor() {
+    /** @type { !string } */
+    this.resultId;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    EditorClient_PreviewFeedback_ResponseParamsSpec.$,
+    'EditorClient_PreviewFeedback_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'preview', 0,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class EditorClient_PreviewFeedback_ResponseParams {
+  constructor() {
+    /** @type { !Object<!string, !string> } */
+    this.preview;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    EditorClient_SubmitFeedback_ParamsSpec.$,
+    'EditorClient_SubmitFeedback_Params',
+    [
+      mojo.internal.StructField(
+        'resultId', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'userDescription', 8,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+/**
+ * @record
+ */
+export class EditorClient_SubmitFeedback_Params {
+  constructor() {
+    /** @type { !string } */
+    this.resultId;
+    /** @type { !string } */
+    this.userDescription;
+  }
+}
+
+
+
+mojo.internal.Struct(
     EditorClientConnector_BindEditorClient_ParamsSpec.$,
     'EditorClientConnector_BindEditorClient_Params',
     [
@@ -2762,6 +3010,35 @@ mojo.internal.Struct(
  */
 export class TextActuator_CloseUI_Params {
   constructor() {
+  }
+}
+
+
+
+mojo.internal.Struct(
+    TextActuator_SubmitFeedback_ParamsSpec.$,
+    'TextActuator_SubmitFeedback_Params',
+    [
+      mojo.internal.StructField(
+        'description', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class TextActuator_SubmitFeedback_Params {
+  constructor() {
+    /** @type { !string } */
+    this.description;
   }
 }
 

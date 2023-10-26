@@ -3710,7 +3710,7 @@ blink.mojom.WebFeature = {
   kSpeculationRulesEagernessConservative: 4500,
   kSpeculationRulesEagernessModerate: 4501,
   kSpeculationRulesEagernessEager: 4502,
-  kURLSetPortCheckOverflow: 4503,
+  kOBSOLETE_URLSetPortCheckOverflow: 4503,
   kV8Animation_RangeStart_AttributeGetter: 4504,
   kV8Animation_RangeStart_AttributeSetter: 4505,
   kV8Animation_RangeEnd_AttributeGetter: 4506,

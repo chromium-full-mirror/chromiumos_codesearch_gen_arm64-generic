@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
   <testsuite name="pkg_config_test_suite_test_0.sh" tests="1" failures="0" errors="0">
-    <testcase name="pkg_config_test_suite_test_0.sh" status="run" duration="15" time="15"></testcase>
+    <testcase name="pkg_config_test_suite_test_0.sh" status="run" duration="28" time="28"></testcase>
       <system-out>
 Generated test.log (if the file is not UTF-8, then this may be unreadable):
 <![CDATA[exec ${PAGER:-/usr/bin/less} "$0" || exit 1

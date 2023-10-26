@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.028" timestamp="2023-10-25T11:35:13.909" name="AllTests">
-  <testsuite name="ABI" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.005" timestamp="2023-10-25T11:35:13.931">
-    <testcase name="CrasServerState" file="cras/include/abi_test.cc" line="8" status="run" result="completed" time="0.003" timestamp="2023-10-25T11:35:13.932" classname="ABI" />
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.023" timestamp="2023-10-26T00:25:11.181" name="AllTests">
+  <testsuite name="ABI" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.007" timestamp="2023-10-26T00:25:11.190">
+    <testcase name="CrasServerState" file="cras/include/abi_test.cc" line="8" status="run" result="completed" time="0.005" timestamp="2023-10-26T00:25:11.190" classname="ABI" />
   </testsuite>
 </testsuites>

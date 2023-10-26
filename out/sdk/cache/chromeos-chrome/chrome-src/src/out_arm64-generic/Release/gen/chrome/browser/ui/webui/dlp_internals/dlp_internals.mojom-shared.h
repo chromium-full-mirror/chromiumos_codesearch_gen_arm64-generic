@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chrome/browser/ui/webui/dlp_internals/dlp_internals.mojom-shared-internal.h"
+#include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -35,6 +36,12 @@
 namespace dlp_internals::mojom {
 class DataTransferEndpointDataView;
 
+class ContentRestrictionInfoDataView;
+
+class RenderFrameHostInfoDataView;
+
+class WebContentsInfoDataView;
+
 
 
 }  // dlp_internals::mojom
@@ -45,6 +52,27 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::dlp_internals::mojom::DataTransferEndpointDataView> {
   using Data = ::dlp_internals::mojom::internal::DataTransferEndpoint_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::dlp_internals::mojom::ContentRestrictionInfoDataView> {
+  using Data = ::dlp_internals::mojom::internal::ContentRestrictionInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::dlp_internals::mojom::RenderFrameHostInfoDataView> {
+  using Data = ::dlp_internals::mojom::internal::RenderFrameHostInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::dlp_internals::mojom::WebContentsInfoDataView> {
+  using Data = ::dlp_internals::mojom::internal::WebContentsInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -84,6 +112,48 @@ inline bool IsKnownEnumValue(EndpointType value) {
   return internal::EndpointType_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class ContentRestriction : int32_t {
+  
+  kScreenshot = 0,
+  
+  kPrivacyScreen = 1,
+  
+  kPrint = 2,
+  
+  kScreenShare = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+};
+
+ std::ostream& operator<<(std::ostream& os, ContentRestriction value);
+inline bool IsKnownEnumValue(ContentRestriction value) {
+  return internal::ContentRestriction_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class Level : int32_t {
+  
+  kNotSet = 0,
+  
+  kReport = 1,
+  
+  kWarn = 2,
+  
+  kBlock = 3,
+  
+  kAllow = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+};
+
+ std::ostream& operator<<(std::ostream& os, Level value);
+inline bool IsKnownEnumValue(Level value) {
+  return internal::Level_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class PageHandlerInterfaceBase {};
 
@@ -118,14 +188,14 @@ class DataTransferEndpointDataView {
           static_cast<::dlp_internals::mojom::EndpointType>(data_->type));
   }
   inline void GetUrlDataView(
-      mojo::StringDataView* output);
+      ::url::mojom::UrlDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadUrl(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
+        ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -134,11 +204,139 @@ static_assert(
     "of `ReadUrl if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->url.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
         pointer, output, message_);
   }
  private:
   internal::DataTransferEndpoint_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ContentRestrictionInfoDataView {
+ public:
+  ContentRestrictionInfoDataView() = default;
+
+  ContentRestrictionInfoDataView(
+      internal::ContentRestrictionInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadRestriction(UserType* output) const {
+    auto data_value = data_->restriction;
+    return mojo::internal::Deserialize<::dlp_internals::mojom::ContentRestriction>(
+        data_value, output);
+  }
+  ContentRestriction restriction() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::dlp_internals::mojom::ContentRestriction>(data_->restriction));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadLevel(UserType* output) const {
+    auto data_value = data_->level;
+    return mojo::internal::Deserialize<::dlp_internals::mojom::Level>(
+        data_value, output);
+  }
+  Level level() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::dlp_internals::mojom::Level>(data_->level));
+  }
+  inline void GetUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUrl(UserType* output) {
+    
+    auto* pointer = data_->url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ContentRestrictionInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class RenderFrameHostInfoDataView {
+ public:
+  RenderFrameHostInfoDataView() = default;
+
+  RenderFrameHostInfoDataView(
+      internal::RenderFrameHostInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLastCommittedUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLastCommittedUrl(UserType* output) {
+    
+    auto* pointer = data_->last_committed_url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRestrictionsInfoDataView(
+      mojo::ArrayDataView<ContentRestrictionInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRestrictionsInfo(UserType* output) {
+    
+    auto* pointer = data_->restrictions_info.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::dlp_internals::mojom::ContentRestrictionInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RenderFrameHostInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class WebContentsInfoDataView {
+ public:
+  WebContentsInfoDataView() = default;
+
+  WebContentsInfoDataView(
+      internal::WebContentsInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLastCommittedUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLastCommittedUrl(UserType* output) {
+    
+    auto* pointer = data_->last_committed_url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRestrictionsInfoDataView(
+      mojo::ArrayDataView<ContentRestrictionInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRestrictionsInfo(UserType* output) {
+    
+    auto* pointer = data_->restrictions_info.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::dlp_internals::mojom::ContentRestrictionInfoDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetFramesInfoDataView(
+      mojo::ArrayDataView<RenderFrameHostInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFramesInfo(UserType* output) {
+    
+    auto* pointer = data_->frames_info.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::dlp_internals::mojom::RenderFrameHostInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::WebContentsInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -150,6 +348,14 @@ namespace std {
 template <>
 struct hash<::dlp_internals::mojom::EndpointType>
     : public mojo::internal::EnumHashImpl<::dlp_internals::mojom::EndpointType> {};
+
+template <>
+struct hash<::dlp_internals::mojom::ContentRestriction>
+    : public mojo::internal::EnumHashImpl<::dlp_internals::mojom::ContentRestriction> {};
+
+template <>
+struct hash<::dlp_internals::mojom::Level>
+    : public mojo::internal::EnumHashImpl<::dlp_internals::mojom::Level> {};
 
 }  // namespace std
 
@@ -179,6 +385,46 @@ struct Serializer<::dlp_internals::mojom::EndpointType, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::ContentRestriction, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::dlp_internals::mojom::ContentRestriction, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::dlp_internals::mojom::ContentRestriction>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::Level, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::dlp_internals::mojom::Level, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::dlp_internals::mojom::Level>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::dlp_internals::mojom::DataTransferEndpointDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::dlp_internals::mojom::DataTransferEndpointDataView, UserType>;
@@ -195,7 +441,7 @@ struct Serializer<::dlp_internals::mojom::DataTransferEndpointDataView, MaybeCon
     mojo::internal::MessageFragment<
         typename decltype(fragment->url)::BaseType> url_fragment(
             fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
+    mojo::internal::Serialize<::url::mojom::UrlDataView>(
         in_url, url_fragment);
     fragment->url.Set(
         url_fragment.is_null() ? nullptr : url_fragment.data());
@@ -214,15 +460,220 @@ struct Serializer<::dlp_internals::mojom::DataTransferEndpointDataView, MaybeCon
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::ContentRestrictionInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::dlp_internals::mojom::ContentRestrictionInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::dlp_internals::mojom::internal::ContentRestrictionInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::dlp_internals::mojom::ContentRestriction>(
+        Traits::restriction(input), &fragment->restriction);
+    mojo::internal::Serialize<::dlp_internals::mojom::Level>(
+        Traits::level(input), &fragment->level);
+    decltype(Traits::url(input)) in_url = Traits::url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->url)::BaseType> url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::UrlDataView>(
+        in_url, url_fragment);
+    fragment->url.Set(
+        url_fragment.is_null() ? nullptr : url_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->url.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null url in ContentRestrictionInfo struct");
+  }
+
+  static bool Deserialize(::dlp_internals::mojom::internal::ContentRestrictionInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::dlp_internals::mojom::ContentRestrictionInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::RenderFrameHostInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::dlp_internals::mojom::RenderFrameHostInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::dlp_internals::mojom::internal::RenderFrameHostInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::last_committed_url(input)) in_last_committed_url = Traits::last_committed_url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->last_committed_url)::BaseType> last_committed_url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::UrlDataView>(
+        in_last_committed_url, last_committed_url_fragment);
+    fragment->last_committed_url.Set(
+        last_committed_url_fragment.is_null() ? nullptr : last_committed_url_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->last_committed_url.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null last_committed_url in RenderFrameHostInfo struct");
+    decltype(Traits::restrictions_info(input)) in_restrictions_info = Traits::restrictions_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->restrictions_info)::BaseType>
+        restrictions_info_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& restrictions_info_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::dlp_internals::mojom::ContentRestrictionInfoDataView>>(
+        in_restrictions_info, restrictions_info_fragment, &restrictions_info_validate_params);
+    fragment->restrictions_info.Set(
+        restrictions_info_fragment.is_null() ? nullptr : restrictions_info_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->restrictions_info.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null restrictions_info in RenderFrameHostInfo struct");
+  }
+
+  static bool Deserialize(::dlp_internals::mojom::internal::RenderFrameHostInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::dlp_internals::mojom::RenderFrameHostInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::dlp_internals::mojom::WebContentsInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::dlp_internals::mojom::WebContentsInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::dlp_internals::mojom::internal::WebContentsInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::last_committed_url(input)) in_last_committed_url = Traits::last_committed_url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->last_committed_url)::BaseType> last_committed_url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::UrlDataView>(
+        in_last_committed_url, last_committed_url_fragment);
+    fragment->last_committed_url.Set(
+        last_committed_url_fragment.is_null() ? nullptr : last_committed_url_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->last_committed_url.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null last_committed_url in WebContentsInfo struct");
+    decltype(Traits::restrictions_info(input)) in_restrictions_info = Traits::restrictions_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->restrictions_info)::BaseType>
+        restrictions_info_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& restrictions_info_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::dlp_internals::mojom::ContentRestrictionInfoDataView>>(
+        in_restrictions_info, restrictions_info_fragment, &restrictions_info_validate_params);
+    fragment->restrictions_info.Set(
+        restrictions_info_fragment.is_null() ? nullptr : restrictions_info_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->restrictions_info.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null restrictions_info in WebContentsInfo struct");
+    decltype(Traits::frames_info(input)) in_frames_info = Traits::frames_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->frames_info)::BaseType>
+        frames_info_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& frames_info_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::dlp_internals::mojom::RenderFrameHostInfoDataView>>(
+        in_frames_info, frames_info_fragment, &frames_info_validate_params);
+    fragment->frames_info.Set(
+        frames_info_fragment.is_null() ? nullptr : frames_info_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->frames_info.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null frames_info in WebContentsInfo struct");
+  }
+
+  static bool Deserialize(::dlp_internals::mojom::internal::WebContentsInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::dlp_internals::mojom::WebContentsInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace dlp_internals::mojom {
 
 inline void DataTransferEndpointDataView::GetUrlDataView(
-    mojo::StringDataView* output) {
+    ::url::mojom::UrlDataView* output) {
   auto pointer = data_->url.Get();
-  *output = mojo::StringDataView(pointer, message_);
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+
+
+inline void ContentRestrictionInfoDataView::GetUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+
+
+inline void RenderFrameHostInfoDataView::GetLastCommittedUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->last_committed_url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+inline void RenderFrameHostInfoDataView::GetRestrictionsInfoDataView(
+    mojo::ArrayDataView<ContentRestrictionInfoDataView>* output) {
+  auto pointer = data_->restrictions_info.Get();
+  *output = mojo::ArrayDataView<ContentRestrictionInfoDataView>(pointer, message_);
+}
+
+
+inline void WebContentsInfoDataView::GetLastCommittedUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->last_committed_url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+inline void WebContentsInfoDataView::GetRestrictionsInfoDataView(
+    mojo::ArrayDataView<ContentRestrictionInfoDataView>* output) {
+  auto pointer = data_->restrictions_info.Get();
+  *output = mojo::ArrayDataView<ContentRestrictionInfoDataView>(pointer, message_);
+}
+inline void WebContentsInfoDataView::GetFramesInfoDataView(
+    mojo::ArrayDataView<RenderFrameHostInfoDataView>* output) {
+  auto pointer = data_->frames_info.Get();
+  *output = mojo::ArrayDataView<RenderFrameHostInfoDataView>(pointer, message_);
 }
 
 
@@ -237,6 +688,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::dlp_internals::mojom::EndpointType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::dlp_internals::mojom::EndpointType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::dlp_internals::mojom::ContentRestriction> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::dlp_internals::mojom::ContentRestriction value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::dlp_internals::mojom::Level> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::dlp_internals::mojom::Level value);
 };
 
 } // namespace perfetto

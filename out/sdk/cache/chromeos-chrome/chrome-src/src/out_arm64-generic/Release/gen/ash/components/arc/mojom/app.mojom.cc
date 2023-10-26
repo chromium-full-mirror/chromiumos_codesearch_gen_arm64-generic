@@ -647,6 +647,46 @@ bool WindowLayout::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+PackageLocaleInfo::PackageLocaleInfo()
+    : supported_locales(),
+      selected_locale() {}
+
+PackageLocaleInfo::PackageLocaleInfo(
+    std::vector<std::string> supported_locales_in,
+    const std::string& selected_locale_in)
+    : supported_locales(std::move(supported_locales_in)),
+      selected_locale(std::move(selected_locale_in)) {}
+
+PackageLocaleInfo::~PackageLocaleInfo() = default;
+
+void PackageLocaleInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "supported_locales"), this->supported_locales,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "selected_locale"), this->selected_locale,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PackageLocaleInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 ArcPackageInfo::ArcPackageInfo()
     : package_name(),
       package_version(),
@@ -660,7 +700,8 @@ ArcPackageInfo::ArcPackageInfo()
       permission_states(),
       version_name(),
       preinstalled(),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -680,7 +721,8 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(),
       version_name(),
       preinstalled(),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -701,7 +743,8 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(),
       version_name(),
       preinstalled(),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -723,7 +766,8 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(),
       version_name(),
       preinstalled(),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -746,7 +790,8 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(),
       version_name(),
       preinstalled(),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -770,7 +815,8 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(),
       version_name(),
       preinstalled(),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -795,7 +841,8 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(std::move(permission_states_in)),
       version_name(),
       preinstalled(),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -821,7 +868,8 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(std::move(permission_states_in)),
       version_name(std::move(version_name_in)),
       preinstalled(),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -848,7 +896,8 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(std::move(permission_states_in)),
       version_name(std::move(version_name_in)),
       preinstalled(std::move(preinstalled_in)),
-      priority() {}
+      priority(),
+      locale_info() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -876,7 +925,38 @@ ArcPackageInfo::ArcPackageInfo(
       permission_states(std::move(permission_states_in)),
       version_name(std::move(version_name_in)),
       preinstalled(std::move(preinstalled_in)),
-      priority(std::move(priority_in)) {}
+      priority(std::move(priority_in)),
+      locale_info() {}
+
+ArcPackageInfo::ArcPackageInfo(
+    const std::string& package_name_in,
+    int32_t package_version_in,
+    int64_t last_backup_android_id_in,
+    int64_t last_backup_time_in,
+    bool sync_in,
+    bool deprecated_system_in,
+    bool vpn_provider_in,
+    WebAppInfoPtr web_app_info_in,
+    const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
+    absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
+    const absl::optional<std::string>& version_name_in,
+    bool preinstalled_in,
+    InstallPriority priority_in,
+    PackageLocaleInfoPtr locale_info_in)
+    : package_name(std::move(package_name_in)),
+      package_version(std::move(package_version_in)),
+      last_backup_android_id(std::move(last_backup_android_id_in)),
+      last_backup_time(std::move(last_backup_time_in)),
+      sync(std::move(sync_in)),
+      deprecated_system(std::move(deprecated_system_in)),
+      vpn_provider(std::move(vpn_provider_in)),
+      web_app_info(std::move(web_app_info_in)),
+      deprecated_permissions(std::move(deprecated_permissions_in)),
+      permission_states(std::move(permission_states_in)),
+      version_name(std::move(version_name_in)),
+      preinstalled(std::move(preinstalled_in)),
+      priority(std::move(priority_in)),
+      locale_info(std::move(locale_info_in)) {}
 
 ArcPackageInfo::~ArcPackageInfo() = default;
 
@@ -996,6 +1076,15 @@ void ArcPackageInfo::WriteIntoTrace(
       "priority"), this->priority,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type InstallPriority>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "locale_info"), this->locale_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type PackageLocaleInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9208,6 +9297,22 @@ bool StructTraits<::arc::mojom::WindowLayout::DataView, ::arc::mojom::WindowLayo
 
 
 // static
+bool StructTraits<::arc::mojom::PackageLocaleInfo::DataView, ::arc::mojom::PackageLocaleInfoPtr>::Read(
+    ::arc::mojom::PackageLocaleInfo::DataView input,
+    ::arc::mojom::PackageLocaleInfoPtr* output) {
+  bool success = true;
+  ::arc::mojom::PackageLocaleInfoPtr result(::arc::mojom::PackageLocaleInfo::New());
+  
+      if (success && !input.ReadSupportedLocales(&result->supported_locales))
+        success = false;
+      if (success && !input.ReadSelectedLocale(&result->selected_locale))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::arc::mojom::ArcPackageInfo::DataView, ::arc::mojom::ArcPackageInfoPtr>::Read(
     ::arc::mojom::ArcPackageInfo::DataView input,
     ::arc::mojom::ArcPackageInfoPtr* output) {
@@ -9239,6 +9344,8 @@ bool StructTraits<::arc::mojom::ArcPackageInfo::DataView, ::arc::mojom::ArcPacka
       if (success)
         result->preinstalled = input.preinstalled();
       if (success && !input.ReadPriority(&result->priority))
+        success = false;
+      if (success && !input.ReadLocaleInfo(&result->locale_info))
         success = false;
   *output = std::move(result);
   return success;

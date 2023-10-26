@@ -1780,6 +1780,10 @@ class ComputedStyleInitialValues{
     return nullptr;
   }
 
+  static bool InitialSkipsContents() {
+    return false;
+  }
+
   static bool InitialIsInert() {
     return false;
   }

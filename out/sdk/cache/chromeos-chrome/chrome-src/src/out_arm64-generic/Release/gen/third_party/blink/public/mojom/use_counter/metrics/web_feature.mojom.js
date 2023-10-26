@@ -3704,7 +3704,7 @@
   WebFeature.kSpeculationRulesEagernessConservative = 4500;
   WebFeature.kSpeculationRulesEagernessModerate = 4501;
   WebFeature.kSpeculationRulesEagernessEager = 4502;
-  WebFeature.kURLSetPortCheckOverflow = 4503;
+  WebFeature.kOBSOLETE_URLSetPortCheckOverflow = 4503;
   WebFeature.kV8Animation_RangeStart_AttributeGetter = 4504;
   WebFeature.kV8Animation_RangeStart_AttributeSetter = 4505;
   WebFeature.kV8Animation_RangeEnd_AttributeGetter = 4506;

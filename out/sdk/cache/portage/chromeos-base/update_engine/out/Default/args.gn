@@ -11,7 +11,7 @@ OS = "linux"
 sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/update_engine"
-platform2_root = "/var/tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2"
+platform2_root = "/var/tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2"
 libbase_ver = "1211970"
 enable_exceptions = false
 external_cflags = [
@@ -23,7 +23,7 @@ external_cxxflags = [
   "-pipe",
 ]
 external_cppflags = [
-  "-DVCSID=\"0.0.3-r4841-89277b7a646e5ee354d01a90319406721be14bf1\"",
+  "-DVCSID=\"0.0.3-r4843-709b318295da055ad247683cea8ac1376322677e\"",
   "-DNDEBUG",
   "-D_FILE_OFFSET_BITS=64",
   "-D_LARGEFILE_SOURCE",

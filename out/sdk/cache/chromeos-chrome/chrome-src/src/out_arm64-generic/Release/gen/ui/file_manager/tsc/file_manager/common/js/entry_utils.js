@@ -1,26 +1,26 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import '../../externs/entry_location.js';
-import '../../externs/files_app_entry_interfaces.js';
 import { EntryType } from '../../externs/ts/state.js';
 import '../../externs/volume_manager.js';
+import { constants } from '../../foreground/js/constants.js';
 import { driveRootEntryListKey, myFilesEntryListKey } from '../../state/ducks/volumes.js';
+import { getStore } from '../../state/store.js';
 import { createDOMError } from './dom_utils.js';
 import { EntryList, FakeEntryImpl } from './files_app_entry_types.js';
-import { isPluginVmEnabled } from './flags.js';
+import { isArcVmEnabled, isPluginVmEnabled } from './flags.js';
 import { util } from './util.js';
 import { VolumeManagerCommon } from './volume_manager_types.js';
 /**
  * Type guard used to identify if a generic Entry is actually a DirectoryEntry.
  */
-export function isFileSystemDirectoryEntry(entry) {
+export function isDirectoryEntry(entry) {
     return entry.isDirectory;
 }
 /**
  * Type guard used to identify if a generic Entry is actually a FileEntry.
  */
-export function isFileSystemFileEntry(entry) {
+export function isFileEntry(entry) {
     return entry.isFile;
 }
 /**
@@ -375,7 +375,7 @@ export function isDescendantEntry(ancestorEntry, childEntry) {
             if (isSameEntry(volumeEntry, childEntry)) {
                 return true;
             }
-            return isFileSystemDirectoryEntry(volumeEntry) &&
+            return isDirectoryEntry(volumeEntry) &&
                 isDescendantEntry(volumeEntry, childEntry);
         });
     }
@@ -622,7 +622,7 @@ export function readEntriesRecursively(rootEntry, entriesCallback, successCallba
             entriesCallback(entries);
             for (let i = 0; i < entries.length; i++) {
                 const entry = entries[i];
-                if (entry && isFileSystemDirectoryEntry(entry) &&
+                if (entry && isDirectoryEntry(entry) &&
                     (maxDirDepth === -1 || depth < maxDirDepth)) {
                     processEntry(entry, depth + 1);
                 }
@@ -649,12 +649,12 @@ export function unwrapEntry(entry) {
     }
     const nativeEntry = 'getNativeEntry' in entry && entry.getNativeEntry();
     if (nativeEntry) {
-        if (isFileSystemDirectoryEntry(nativeEntry)) {
+        if (isDirectoryEntry(nativeEntry)) {
             return nativeEntry;
         }
         return nativeEntry;
     }
-    if (isFileSystemDirectoryEntry(entry)) {
+    if (isDirectoryEntry(entry)) {
         return entry;
     }
     return entry;
@@ -710,4 +710,42 @@ export function isSameVolume(entries, volumeManager) {
         }
     }
     return true;
+}
+/**
+ * Returns the ODFS root as an Entry. Request the actions of this
+ * Entry to get ODFS metadata.
+ */
+export function getODFSMetadataQueryEntry(odfsVolumeInfo) {
+    return unwrapEntry(odfsVolumeInfo.displayRoot);
+}
+/**
+ * Return true if the volume with |volumeInfo| is an
+ * interactive volume.
+ */
+export function isInteractiveVolume(volumeInfo) {
+    const state = getStore().getState();
+    const volumes = state.volumes;
+    if (!volumes) {
+        console.error('Expected volumes to exist in the store.');
+        return true;
+    }
+    const volume = volumes[volumeInfo.volumeId];
+    if (!volume) {
+        console.error('Expected volume to be in the store.');
+        return true;
+    }
+    return volume.isInteractive;
+}
+export const isOneDriveId = (providerId) => providerId === constants.ODFS_EXTENSION_ID;
+export function isOneDrive(volumeInfo) {
+    return isOneDriveId(volumeInfo?.providerId);
+}
+/**
+ * Returns a boolean indicating whether the volume is a GuestOs volume. And
+ * ANDROID_FILES type volume can also be a GuestOs volume if ARCVM is enabled.
+ */
+export function isGuestOs(type) {
+    return type === VolumeManagerCommon.VolumeType.GUEST_OS ||
+        (type === VolumeManagerCommon.VolumeType.ANDROID_FILES &&
+            isArcVmEnabled());
 }

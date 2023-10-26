@@ -15,9 +15,6 @@ export function getTemplate() {
   </div>
   <div id="dropdownContainer" class="text-field-container">
     <select id="remappingActionDropdown" class="md-select" on-change="onSelectChange_" disabled="[[isDropdownDisabled_(isBeingDragged_)]]">
-      <option id="noRemappingOption" value="[[noRemappingOptionValue_]]">
-        $i18n{noRemappingOptionLabel}
-      </option>
       <template is="dom-repeat" items="[[buttonMapTargets_]]" as="buttonMapping">
         <option value$="[[buttonMapping.value]]">
           [[buttonMapping.name]]
@@ -25,9 +22,6 @@ export function getTemplate() {
       </template>
       <option id="keyCombination" value="[[keyCombinationOptionValue_]]">
         [[keyCombinationLabel_]]
-      </option>
-      <option id="openDialogOption" value="[[openDialogOptionValue_]]">
-        $i18n{keyCombinationOptionLabel}
       </option>
     </select>
   </div>

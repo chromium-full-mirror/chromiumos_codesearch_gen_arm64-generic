@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
   <testsuite name="repositories/ensure_deps_bzl_is_in_sync_with_webrtc_apm-test.sh" tests="1" failures="0" errors="0">
-    <testcase name="repositories/ensure_deps_bzl_is_in_sync_with_webrtc_apm-test.sh" status="run" duration="9" time="9"></testcase>
+    <testcase name="repositories/ensure_deps_bzl_is_in_sync_with_webrtc_apm-test.sh" status="run" duration="3" time="3"></testcase>
       <system-out>
 Generated test.log (if the file is not UTF-8, then this may be unreadable):
 <![CDATA[exec ${PAGER:-/usr/bin/less} "$0" || exit 1

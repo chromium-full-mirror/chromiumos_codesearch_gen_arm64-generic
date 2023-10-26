@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { queryRequiredElement } from '../../common/js/dom_utils.js';
-import { isRecentRootType } from '../../common/js/entry_utils.js';
+import { getODFSMetadataQueryEntry, isInteractiveVolume, isOneDrive, isRecentRootType } from '../../common/js/entry_utils.js';
 import { str, util } from '../../common/js/util.js';
 import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
 import { FakeEntry } from '../../externs/files_app_entry_interfaces.js';
@@ -108,7 +108,7 @@ export class EmptyFolderController {
             chrome.fileManagerPrivate.getCustomActions(
             // @ts-ignore: error TS2322: Type 'FileSystemEntry | FilesAppEntry' is
             // not assignable to type 'FileSystemEntry'.
-            [util.getODFSMetadataQueryEntry(odfsVolumeInfo)], customActions => {
+            [getODFSMetadataQueryEntry(odfsVolumeInfo)], customActions => {
                 if (chrome.runtime.lastError) {
                     console.error('Unexpectedly failed to fetch custom actions for ODFS ' +
                         'root because of: ' + chrome.runtime.lastError.message);
@@ -144,7 +144,7 @@ export class EmptyFolderController {
             return;
         }
         // If scan did not fail for ODFS, return.
-        if (!util.isOneDrive(currentVolumeInfo)) {
+        if (!isOneDrive(currentVolumeInfo)) {
             this.updateUI_();
             return;
         }
@@ -155,7 +155,7 @@ export class EmptyFolderController {
             return;
         }
         // If ODFS is already non-interactive, return.
-        if (!util.isInteractiveVolume(currentVolumeInfo)) {
+        if (!isInteractiveVolume(currentVolumeInfo)) {
             this.updateUI_();
             return;
         }
@@ -179,8 +179,8 @@ export class EmptyFolderController {
      */
     onScanFinished_() {
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
-        if (util.isOneDrive(currentVolumeInfo)) {
-            if (!util.isInteractiveVolume(currentVolumeInfo)) {
+        if (isOneDrive(currentVolumeInfo)) {
+            if (!isInteractiveVolume(currentVolumeInfo)) {
                 // Set |isInteractive| to true for ODFS when in an authenticated state.
                 getStore().dispatch(updateIsInteractiveVolume({
                     volumeId: currentVolumeInfo.volumeId,
@@ -244,7 +244,7 @@ export class EmptyFolderController {
      */
     onODFSSignIn_() {
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
-        if (util.isOneDrive(currentVolumeInfo) &&
+        if (isOneDrive(currentVolumeInfo) &&
             currentVolumeInfo.providerId !== undefined) {
             this.providersModel_.requestMount(currentVolumeInfo.providerId);
         }
@@ -263,8 +263,8 @@ export class EmptyFolderController {
         else if (currentRootType === VolumeManagerCommon.RootType.TRASH) {
             svgRef = TRASH_EMPTY_FOLDER;
         }
-        else if (util.isOneDrive(currentVolumeInfo) &&
-            !util.isInteractiveVolume(currentVolumeInfo)) {
+        else if (isOneDrive(currentVolumeInfo) &&
+            !isInteractiveVolume(currentVolumeInfo)) {
             // Show ODFS reauthentication required empty state if is it
             // non-interactive.
             svgRef = ODFS_REAUTHENTICATION_REQUIRED;

@@ -619,7 +619,8 @@ BrowserInitParams::BrowserInitParams()
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in)
@@ -694,7 +695,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -771,7 +773,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -849,7 +852,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -928,7 +932,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1008,7 +1013,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1089,7 +1095,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1171,7 +1178,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1254,7 +1262,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1338,7 +1347,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1423,7 +1433,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1509,7 +1520,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1596,7 +1608,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1684,7 +1697,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1773,7 +1787,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1863,7 +1878,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -1954,7 +1970,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2046,7 +2063,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2139,7 +2157,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2233,7 +2252,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2328,7 +2348,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2424,7 +2445,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2521,7 +2543,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2619,7 +2642,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2718,7 +2742,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2818,7 +2843,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -2919,7 +2945,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3021,7 +3048,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3124,7 +3152,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3228,7 +3257,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3333,7 +3363,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3439,7 +3470,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3546,7 +3578,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3655,7 +3688,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3765,7 +3799,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3876,7 +3911,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -3988,7 +4024,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4101,7 +4138,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4215,7 +4253,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4330,7 +4369,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4446,7 +4486,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4563,7 +4604,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4681,7 +4723,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4800,7 +4843,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -4920,7 +4964,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5041,7 +5086,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5163,7 +5209,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5286,7 +5333,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5410,7 +5458,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5535,7 +5584,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5661,7 +5711,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5788,7 +5839,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -5916,7 +5968,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6045,7 +6098,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6175,7 +6229,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6306,7 +6361,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6438,7 +6494,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6571,7 +6628,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6705,7 +6763,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6840,7 +6899,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -6976,7 +7036,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7113,7 +7174,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7251,7 +7313,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7390,7 +7453,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7530,7 +7594,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7671,7 +7736,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7813,7 +7879,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -7956,7 +8023,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(std::move(is_cros_battery_saver_available_in)),
       is_floss_availability_check_needed(),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -8100,7 +8168,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(std::move(is_cros_battery_saver_available_in)),
       is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
       is_app_install_service_uri_enabled(),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -8245,7 +8314,8 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(std::move(is_cros_battery_saver_available_in)),
       is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
       is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
-      is_desk_profiles_enabled() {}
+      is_desk_profiles_enabled(),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
 
 BrowserInitParams::BrowserInitParams(
     uint32_t crosapi_version_in,
@@ -8391,7 +8461,156 @@ BrowserInitParams::BrowserInitParams(
       is_cros_battery_saver_available(std::move(is_cros_battery_saver_available_in)),
       is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
       is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
-      is_desk_profiles_enabled(std::move(is_desk_profiles_enabled_in)) {}
+      is_desk_profiles_enabled(std::move(is_desk_profiles_enabled_in)),
+      is_cros_web_app_shortcut_ui_update_enabled() {}
+
+BrowserInitParams::BrowserInitParams(
+    uint32_t crosapi_version_in,
+    bool deprecated_ash_metrics_enabled_has_value_in,
+    bool ash_metrics_enabled_in,
+    SessionType session_type_in,
+    DeviceMode device_mode_in,
+    const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions_in,
+    DefaultPathsPtr default_paths_in,
+    const absl::optional<std::string>& REMOVED_7_in,
+    MetricsReportingManaged ash_metrics_managed_in,
+    ExoImeSupport exo_ime_support_in,
+    const absl::optional<std::string>& cros_user_id_hash_in,
+    absl::optional<std::vector<uint8_t>> device_account_policy_in,
+    uint64_t last_policy_fetch_attempt_timestamp_in,
+    ::crosapi::mojom::IdleInfoPtr idle_info_in,
+    bool REMOVED_13_in,
+    bool REMOVED_14_in,
+    InitialBrowserAction initial_browser_action_in,
+    ::crosapi::mojom::AccountPtr device_account_in,
+    bool web_apps_enabled_in,
+    bool REMOVED_18_in,
+    bool standalone_browser_is_primary_in,
+    ::crosapi::mojom::NativeThemeInfoPtr native_theme_info_in,
+    DevicePropertiesPtr device_properties_in,
+    OndeviceHandwritingSupport ondevice_handwriting_support_in,
+    absl::optional<std::vector<BuildFlag>> build_flags_in,
+    OpenUrlFrom startup_urls_from_in,
+    absl::optional<std::vector<::GURL>> REMOVED_24_in,
+    ::crosapi::mojom::DeviceSettingsPtr device_settings_in,
+    const absl::optional<std::string>& metrics_service_client_id_in,
+    uint64_t ukm_client_id_in,
+    bool standalone_browser_is_only_browser_in,
+    bool publish_chrome_apps_in,
+    bool publish_hosted_apps_in,
+    BrowserInitParams::InitialKeepAlive initial_keep_alive_in,
+    bool is_unfiltered_bluetooth_device_enabled_in,
+    absl::optional<std::vector<std::string>> ash_capabilities_in,
+    absl::optional<std::vector<::GURL>> accepted_internal_ash_urls_in,
+    bool is_holding_space_incognito_profile_integration_enabled_deprecated_in,
+    bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in,
+    bool is_device_enterprised_managed_in,
+    BrowserInitParams::DeviceType device_type_in,
+    bool is_ondevice_speech_supported_in,
+    absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41_in,
+    absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy_in,
+    const absl::optional<std::string>& ash_chrome_version_in,
+    bool use_cups_for_printing_in,
+    bool use_floss_bluetooth_in,
+    bool is_current_user_device_owner_in,
+    bool REMOVED_48_in,
+    bool enable_lacros_tts_support_in,
+    BrowserInitParams::LacrosSelection lacros_selection_in,
+    bool enable_window_layout_menu_in,
+    bool is_cloud_gaming_device_in,
+    BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode_in,
+    ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list_in,
+    bool enable_partial_split_deprecated_in,
+    bool vc_controls_ui_enabled_in,
+    ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist_in,
+    bool enable_cpu_mappable_native_gpu_memory_buffers_in,
+    bool oop_video_decoding_enabled_in,
+    bool is_upload_office_to_cloud_enabled_in,
+    bool enable_clipboard_history_refresh_in,
+    bool is_variable_refresh_rate_always_on_in,
+    bool is_current_user_ephemeral_in,
+    bool is_pdf_ocr_enabled_in,
+    bool is_drivefs_bulk_pinning_available_in,
+    bool is_floss_available_in,
+    bool is_sys_ui_downloads_integration_v2_enabled_in,
+    bool is_cros_battery_saver_available_in,
+    bool is_floss_availability_check_needed_in,
+    bool is_app_install_service_uri_enabled_in,
+    bool is_desk_profiles_enabled_in,
+    bool is_cros_web_app_shortcut_ui_update_enabled_in)
+    : crosapi_version(std::move(crosapi_version_in)),
+      deprecated_ash_metrics_enabled_has_value(std::move(deprecated_ash_metrics_enabled_has_value_in)),
+      ash_metrics_enabled(std::move(ash_metrics_enabled_in)),
+      session_type(std::move(session_type_in)),
+      device_mode(std::move(device_mode_in)),
+      interface_versions(std::move(interface_versions_in)),
+      default_paths(std::move(default_paths_in)),
+      REMOVED_7(std::move(REMOVED_7_in)),
+      ash_metrics_managed(std::move(ash_metrics_managed_in)),
+      exo_ime_support(std::move(exo_ime_support_in)),
+      cros_user_id_hash(std::move(cros_user_id_hash_in)),
+      device_account_policy(std::move(device_account_policy_in)),
+      last_policy_fetch_attempt_timestamp(std::move(last_policy_fetch_attempt_timestamp_in)),
+      idle_info(std::move(idle_info_in)),
+      REMOVED_13(std::move(REMOVED_13_in)),
+      REMOVED_14(std::move(REMOVED_14_in)),
+      initial_browser_action(std::move(initial_browser_action_in)),
+      device_account(std::move(device_account_in)),
+      web_apps_enabled(std::move(web_apps_enabled_in)),
+      REMOVED_18(std::move(REMOVED_18_in)),
+      standalone_browser_is_primary(std::move(standalone_browser_is_primary_in)),
+      native_theme_info(std::move(native_theme_info_in)),
+      device_properties(std::move(device_properties_in)),
+      ondevice_handwriting_support(std::move(ondevice_handwriting_support_in)),
+      build_flags(std::move(build_flags_in)),
+      startup_urls_from(std::move(startup_urls_from_in)),
+      REMOVED_24(std::move(REMOVED_24_in)),
+      device_settings(std::move(device_settings_in)),
+      metrics_service_client_id(std::move(metrics_service_client_id_in)),
+      ukm_client_id(std::move(ukm_client_id_in)),
+      standalone_browser_is_only_browser(std::move(standalone_browser_is_only_browser_in)),
+      publish_chrome_apps(std::move(publish_chrome_apps_in)),
+      publish_hosted_apps(std::move(publish_hosted_apps_in)),
+      initial_keep_alive(std::move(initial_keep_alive_in)),
+      is_unfiltered_bluetooth_device_enabled(std::move(is_unfiltered_bluetooth_device_enabled_in)),
+      ash_capabilities(std::move(ash_capabilities_in)),
+      accepted_internal_ash_urls(std::move(accepted_internal_ash_urls_in)),
+      is_holding_space_incognito_profile_integration_enabled_deprecated(std::move(is_holding_space_incognito_profile_integration_enabled_deprecated_in)),
+      is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated(std::move(is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated_in)),
+      is_device_enterprised_managed(std::move(is_device_enterprised_managed_in)),
+      device_type(std::move(device_type_in)),
+      is_ondevice_speech_supported(std::move(is_ondevice_speech_supported_in)),
+      REMOVED_41(std::move(REMOVED_41_in)),
+      device_account_component_policy(std::move(device_account_component_policy_in)),
+      ash_chrome_version(std::move(ash_chrome_version_in)),
+      use_cups_for_printing(std::move(use_cups_for_printing_in)),
+      use_floss_bluetooth(std::move(use_floss_bluetooth_in)),
+      is_current_user_device_owner(std::move(is_current_user_device_owner_in)),
+      REMOVED_48(std::move(REMOVED_48_in)),
+      enable_lacros_tts_support(std::move(enable_lacros_tts_support_in)),
+      lacros_selection(std::move(lacros_selection_in)),
+      enable_window_layout_menu(std::move(enable_window_layout_menu_in)),
+      is_cloud_gaming_device(std::move(is_cloud_gaming_device_in)),
+      gpu_sandbox_start_mode(std::move(gpu_sandbox_start_mode_in)),
+      extension_keep_list(std::move(extension_keep_list_in)),
+      enable_partial_split_deprecated(std::move(enable_partial_split_deprecated_in)),
+      vc_controls_ui_enabled(std::move(vc_controls_ui_enabled_in)),
+      standalone_browser_app_service_blocklist(std::move(standalone_browser_app_service_blocklist_in)),
+      enable_cpu_mappable_native_gpu_memory_buffers(std::move(enable_cpu_mappable_native_gpu_memory_buffers_in)),
+      oop_video_decoding_enabled(std::move(oop_video_decoding_enabled_in)),
+      is_upload_office_to_cloud_enabled(std::move(is_upload_office_to_cloud_enabled_in)),
+      enable_clipboard_history_refresh(std::move(enable_clipboard_history_refresh_in)),
+      is_variable_refresh_rate_always_on(std::move(is_variable_refresh_rate_always_on_in)),
+      is_current_user_ephemeral(std::move(is_current_user_ephemeral_in)),
+      is_pdf_ocr_enabled(std::move(is_pdf_ocr_enabled_in)),
+      is_drivefs_bulk_pinning_available(std::move(is_drivefs_bulk_pinning_available_in)),
+      is_floss_available(std::move(is_floss_available_in)),
+      is_sys_ui_downloads_integration_v2_enabled(std::move(is_sys_ui_downloads_integration_v2_enabled_in)),
+      is_cros_battery_saver_available(std::move(is_cros_battery_saver_available_in)),
+      is_floss_availability_check_needed(std::move(is_floss_availability_check_needed_in)),
+      is_app_install_service_uri_enabled(std::move(is_app_install_service_uri_enabled_in)),
+      is_desk_profiles_enabled(std::move(is_desk_profiles_enabled_in)),
+      is_cros_web_app_shortcut_ui_update_enabled(std::move(is_cros_web_app_shortcut_ui_update_enabled_in)) {}
 
 BrowserInitParams::~BrowserInitParams() = default;
 
@@ -9040,6 +9259,15 @@ void BrowserInitParams::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_desk_profiles_enabled"), this->is_desk_profiles_enabled,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_cros_web_app_shortcut_ui_update_enabled"), this->is_cros_web_app_shortcut_ui_update_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -25352,6 +25580,8 @@ bool StructTraits<::crosapi::mojom::BrowserInitParams::DataView, ::crosapi::mojo
         result->is_app_install_service_uri_enabled = input.is_app_install_service_uri_enabled();
       if (success)
         result->is_desk_profiles_enabled = input.is_desk_profiles_enabled();
+      if (success)
+        result->is_cros_web_app_shortcut_ui_update_enabled = input.is_cros_web_app_shortcut_ui_update_enabled();
   *output = std::move(result);
   return success;
 }

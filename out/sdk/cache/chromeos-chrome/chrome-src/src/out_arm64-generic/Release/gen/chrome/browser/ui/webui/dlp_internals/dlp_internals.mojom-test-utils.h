@@ -16,6 +16,7 @@ namespace dlp_internals::mojom {
 class  PageHandlerInterceptorForTesting : public PageHandler {
   virtual PageHandler* GetForwardingInterface() = 0;
   void GetClipboardDataSource(GetClipboardDataSourceCallback callback) override;
+  void GetContentRestrictionsInfo(GetContentRestrictionsInfoCallback callback) override;
 };
 class  PageHandlerAsyncWaiter {
  public:
@@ -28,6 +29,9 @@ class  PageHandlerAsyncWaiter {
   void GetClipboardDataSource(
       DataTransferEndpointPtr* out_source);
   DataTransferEndpointPtr GetClipboardDataSource();
+  void GetContentRestrictionsInfo(
+      std::vector<WebContentsInfoPtr>* out_web_contents_info);
+  std::vector<WebContentsInfoPtr> GetContentRestrictionsInfo();
 
  private:
   PageHandler* const proxy_;

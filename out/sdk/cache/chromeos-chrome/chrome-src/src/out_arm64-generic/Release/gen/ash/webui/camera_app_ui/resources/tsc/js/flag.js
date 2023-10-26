@@ -6,6 +6,5 @@
  */
 export var Flag;
 (function (Flag) {
-    Flag["JELLY"] = "jelly";
     Flag["TIME_LAPSE"] = "timeLapse";
 })(Flag || (Flag = {}));

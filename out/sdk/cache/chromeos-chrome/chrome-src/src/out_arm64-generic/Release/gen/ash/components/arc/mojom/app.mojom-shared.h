@@ -48,6 +48,8 @@ class WebAppInfoDataView;
 
 class WindowLayoutDataView;
 
+class PackageLocaleInfoDataView;
+
 class ArcPackageInfoDataView;
 
 class ShortcutInfoDataView;
@@ -98,6 +100,13 @@ struct MojomTypeTraits<::arc::mojom::WebAppInfoDataView> {
 template <>
 struct MojomTypeTraits<::arc::mojom::WindowLayoutDataView> {
   using Data = ::arc::mojom::internal::WindowLayout_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::arc::mojom::PackageLocaleInfoDataView> {
+  using Data = ::arc::mojom::internal::PackageLocaleInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -704,6 +713,42 @@ static_assert(
 };
 
 
+class PackageLocaleInfoDataView {
+ public:
+  PackageLocaleInfoDataView() = default;
+
+  PackageLocaleInfoDataView(
+      internal::PackageLocaleInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSupportedLocalesDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSupportedLocales(UserType* output) {
+    
+    auto* pointer = data_->supported_locales.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetSelectedLocaleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSelectedLocale(UserType* output) {
+    
+    auto* pointer = data_->selected_locale.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PackageLocaleInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class ArcPackageInfoDataView {
  public:
   ArcPackageInfoDataView() = default;
@@ -847,6 +892,27 @@ static_assert(
       return InstallPriority{};
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::arc::mojom::InstallPriority>(data_->priority));
+  }
+  inline void GetLocaleInfoDataView(
+      PackageLocaleInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocaleInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::arc::mojom::PackageLocaleInfoDataView, UserType>(),
+    "Attempting to read the optional `locale_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLocaleInfo` instead "
+    "of `ReadLocaleInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 60
+                    ? data_->locale_info.Get() : nullptr;
+    return mojo::internal::Deserialize<::arc::mojom::PackageLocaleInfoDataView>(
+        pointer, output, message_);
   }
  private:
   internal::ArcPackageInfo_Data* data_ = nullptr;
@@ -1782,6 +1848,61 @@ struct Serializer<::arc::mojom::WindowLayoutDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::arc::mojom::PackageLocaleInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::arc::mojom::PackageLocaleInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::arc::mojom::internal::PackageLocaleInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::supported_locales(input)) in_supported_locales = Traits::supported_locales(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->supported_locales)::BaseType>
+        supported_locales_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& supported_locales_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        in_supported_locales, supported_locales_fragment, &supported_locales_validate_params);
+    fragment->supported_locales.Set(
+        supported_locales_fragment.is_null() ? nullptr : supported_locales_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->supported_locales.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null supported_locales in PackageLocaleInfo struct");
+    decltype(Traits::selected_locale(input)) in_selected_locale = Traits::selected_locale(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->selected_locale)::BaseType> selected_locale_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_selected_locale, selected_locale_fragment);
+    fragment->selected_locale.Set(
+        selected_locale_fragment.is_null() ? nullptr : selected_locale_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->selected_locale.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null selected_locale in PackageLocaleInfo struct");
+  }
+
+  static bool Deserialize(::arc::mojom::internal::PackageLocaleInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::arc::mojom::PackageLocaleInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::arc::mojom::ArcPackageInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::arc::mojom::ArcPackageInfoDataView, UserType>;
@@ -1849,6 +1970,14 @@ struct Serializer<::arc::mojom::ArcPackageInfoDataView, MaybeConstUserType> {
     fragment->preinstalled = Traits::preinstalled(input);
     mojo::internal::Serialize<::arc::mojom::InstallPriority>(
         Traits::priority(input), &fragment->priority);
+    decltype(Traits::locale_info(input)) in_locale_info = Traits::locale_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->locale_info)::BaseType> locale_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::arc::mojom::PackageLocaleInfoDataView>(
+        in_locale_info, locale_info_fragment);
+    fragment->locale_info.Set(
+        locale_info_fragment.is_null() ? nullptr : locale_info_fragment.data());
   }
 
   static bool Deserialize(::arc::mojom::internal::ArcPackageInfo_Data* input,
@@ -2308,6 +2437,18 @@ inline void WindowLayoutDataView::GetBoundsDataView(
 }
 
 
+inline void PackageLocaleInfoDataView::GetSupportedLocalesDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->supported_locales.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+inline void PackageLocaleInfoDataView::GetSelectedLocaleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->selected_locale.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void ArcPackageInfoDataView::GetPackageNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->package_name.Get();
@@ -2336,6 +2477,12 @@ inline void ArcPackageInfoDataView::GetVersionNameDataView(
   auto pointer = data_->header_.version >= 51
                  ? data_->version_name.Get() : nullptr;
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void ArcPackageInfoDataView::GetLocaleInfoDataView(
+    PackageLocaleInfoDataView* output) {
+  auto pointer = data_->header_.version >= 60
+                 ? data_->locale_info.Get() : nullptr;
+  *output = PackageLocaleInfoDataView(pointer, message_);
 }
 
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="8" failures="0" disabled="0" errors="0" time="0.035" timestamp="2023-10-25T11:37:31.632" name="AllTests">
-  <testsuite name="DspIniTestSuite" tests="8" failures="0" disabled="0" skipped="0" errors="0" time="0.029" timestamp="2023-10-25T11:37:31.638">
-    <testcase name="EmptyIni" file="cras/src/tests/dsp_ini_unittest.cc" line="39" status="run" result="completed" time="0.003" timestamp="2023-10-25T11:37:31.638" classname="DspIniTestSuite" />
-    <testcase name="NoLibraryOrLabel" file="cras/src/tests/dsp_ini_unittest.cc" line="46" status="run" result="completed" time="0.01" timestamp="2023-10-25T11:37:31.642" classname="DspIniTestSuite" />
-    <testcase name="OneSimplePlugin" file="cras/src/tests/dsp_ini_unittest.cc" line="55" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:37:31.653" classname="DspIniTestSuite" />
-    <testcase name="BuiltinPlugin" file="cras/src/tests/dsp_ini_unittest.cc" line="76" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:37:31.656" classname="DspIniTestSuite" />
-    <testcase name="Ports" file="cras/src/tests/dsp_ini_unittest.cc" line="95" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:37:31.658" classname="DspIniTestSuite" />
-    <testcase name="Flows" file="cras/src/tests/dsp_ini_unittest.cc" line="115" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:37:31.660" classname="DspIniTestSuite" />
-    <testcase name="QuadRotation" file="cras/src/tests/dsp_ini_unittest.cc" line="177" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:37:31.662" classname="DspIniTestSuite" />
-    <testcase name="TwoChannelPlayback" file="cras/src/tests/dsp_ini_unittest.cc" line="315" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:37:31.665" classname="DspIniTestSuite" />
+<testsuites tests="8" failures="0" disabled="0" errors="0" time="0.055" timestamp="2023-10-26T00:29:17.380" name="AllTests">
+  <testsuite name="DspIniTestSuite" tests="8" failures="0" disabled="0" skipped="0" errors="0" time="0.046" timestamp="2023-10-26T00:29:17.388">
+    <testcase name="EmptyIni" file="cras/src/tests/dsp_ini_unittest.cc" line="39" status="run" result="completed" time="0.005" timestamp="2023-10-26T00:29:17.389" classname="DspIniTestSuite" />
+    <testcase name="NoLibraryOrLabel" file="cras/src/tests/dsp_ini_unittest.cc" line="46" status="run" result="completed" time="0.014" timestamp="2023-10-26T00:29:17.396" classname="DspIniTestSuite" />
+    <testcase name="OneSimplePlugin" file="cras/src/tests/dsp_ini_unittest.cc" line="55" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:17.411" classname="DspIniTestSuite" />
+    <testcase name="BuiltinPlugin" file="cras/src/tests/dsp_ini_unittest.cc" line="76" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:17.416" classname="DspIniTestSuite" />
+    <testcase name="Ports" file="cras/src/tests/dsp_ini_unittest.cc" line="95" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:17.419" classname="DspIniTestSuite" />
+    <testcase name="Flows" file="cras/src/tests/dsp_ini_unittest.cc" line="115" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:17.423" classname="DspIniTestSuite" />
+    <testcase name="QuadRotation" file="cras/src/tests/dsp_ini_unittest.cc" line="177" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:17.427" classname="DspIniTestSuite" />
+    <testcase name="TwoChannelPlayback" file="cras/src/tests/dsp_ini_unittest.cc" line="315" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:17.432" classname="DspIniTestSuite" />
   </testsuite>
 </testsuites>

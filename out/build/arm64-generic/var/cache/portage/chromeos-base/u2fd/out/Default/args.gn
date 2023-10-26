@@ -11,7 +11,7 @@ OS = "linux"
 sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/u2fd"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/u2fd-0.0.1-r2053/work/u2fd-0.0.1"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/u2fd-0.0.1-r2054/work/u2fd-0.0.1"
 libbase_ver = "1211970"
 enable_exceptions = false
 external_cflags = [
@@ -37,7 +37,7 @@ external_cxxflags = [
   "-fdata-sections",
 ]
 external_cppflags = [
-  "-DVCSID=\"0.0.1-r2053-e4f2d2d9f956253fdb97105f75c511ebcc56910f\"",
+  "-DVCSID=\"0.0.1-r2054-4d192aa58ccc981e86c38f04c84d2ca414e892ed\"",
   "-D_FILE_OFFSET_BITS=64",
   "-D_LARGEFILE_SOURCE",
   "-D_LARGEFILE64_SOURCE",

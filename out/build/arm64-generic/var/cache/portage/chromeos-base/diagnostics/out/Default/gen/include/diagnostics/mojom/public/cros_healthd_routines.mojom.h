@@ -1331,6 +1331,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  RoutineStateInitialized {
  public:
   template <typename T>
@@ -3285,6 +3286,8 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
 class  RoutineArgument {
  public:
   using DataView = RoutineArgumentDataView;
@@ -3411,6 +3414,14 @@ class  RoutineArgument {
       FanRoutineArgumentPtr fan) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_fan(std::move(fan));
+    return result;
+  }
+  // Construct an instance holding |bluetooth_scanning|.
+  static RoutineArgumentPtr
+  NewBluetoothScanning(
+      BluetoothScanningRoutineArgumentPtr bluetooth_scanning) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_bluetooth_scanning(std::move(bluetooth_scanning));
     return result;
   }
 
@@ -3623,6 +3634,18 @@ class  RoutineArgument {
   
   void set_fan(
       FanRoutineArgumentPtr fan);
+  
+  bool is_bluetooth_scanning() const { return tag_ == Tag::kBluetoothScanning; }
+
+  
+  BluetoothScanningRoutineArgumentPtr& get_bluetooth_scanning() const {
+    CHECK(tag_ == Tag::kBluetoothScanning);
+    return *(data_.bluetooth_scanning);
+  }
+
+  
+  void set_bluetooth_scanning(
+      BluetoothScanningRoutineArgumentPtr bluetooth_scanning);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -3655,6 +3678,7 @@ class  RoutineArgument {
     BluetoothPowerRoutineArgumentPtr* bluetooth_power;
     BluetoothDiscoveryRoutineArgumentPtr* bluetooth_discovery;
     FanRoutineArgumentPtr* fan;
+    BluetoothScanningRoutineArgumentPtr* bluetooth_scanning;
   };
 
   static bool Validate(const void* data,
@@ -3988,6 +4012,14 @@ class  RoutineDetail {
     result->set_fan(std::move(fan));
     return result;
   }
+  // Construct an instance holding |bluetooth_scanning|.
+  static RoutineDetailPtr
+  NewBluetoothScanning(
+      BluetoothScanningRoutineDetailPtr bluetooth_scanning) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_bluetooth_scanning(std::move(bluetooth_scanning));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -4198,6 +4230,18 @@ class  RoutineDetail {
   
   void set_fan(
       FanRoutineDetailPtr fan);
+  
+  bool is_bluetooth_scanning() const { return tag_ == Tag::kBluetoothScanning; }
+
+  
+  BluetoothScanningRoutineDetailPtr& get_bluetooth_scanning() const {
+    CHECK(tag_ == Tag::kBluetoothScanning);
+    return *(data_.bluetooth_scanning);
+  }
+
+  
+  void set_bluetooth_scanning(
+      BluetoothScanningRoutineDetailPtr bluetooth_scanning);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -4230,6 +4274,7 @@ class  RoutineDetail {
     BluetoothPowerRoutineDetailPtr* bluetooth_power;
     BluetoothDiscoveryRoutineDetailPtr* bluetooth_discovery;
     FanRoutineDetailPtr* fan;
+    BluetoothScanningRoutineDetailPtr* bluetooth_scanning;
   };
 
   static bool Validate(const void* data,
@@ -5243,6 +5288,146 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  BluetoothScanningRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<BluetoothScanningRoutineArgument, T>::value>;
+  using DataView = BluetoothScanningRoutineArgumentDataView;
+  using Data_ = internal::BluetoothScanningRoutineArgument_Data;
+
+  template <typename... Args>
+  static BluetoothScanningRoutineArgumentPtr New(Args&&... args) {
+    return BluetoothScanningRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static BluetoothScanningRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<BluetoothScanningRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, BluetoothScanningRoutineArgument>::Convert(*this);
+  }
+
+
+  BluetoothScanningRoutineArgument();
+
+  explicit BluetoothScanningRoutineArgument(
+      absl::optional<base::TimeDelta> exec_duration);
+
+
+  ~BluetoothScanningRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = BluetoothScanningRoutineArgumentPtr>
+  BluetoothScanningRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        BluetoothScanningRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        BluetoothScanningRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::BluetoothScanningRoutineArgument_UnserializedMessageContext<
+            UserType, BluetoothScanningRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<BluetoothScanningRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return BluetoothScanningRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::BluetoothScanningRoutineArgument_UnserializedMessageContext<
+            UserType, BluetoothScanningRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<BluetoothScanningRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  absl::optional<base::TimeDelta> exec_duration;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  RoutineState {
  public:
   template <typename T>
@@ -6125,6 +6310,294 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  BluetoothScannedPeripheralInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<BluetoothScannedPeripheralInfo, T>::value>;
+  using DataView = BluetoothScannedPeripheralInfoDataView;
+  using Data_ = internal::BluetoothScannedPeripheralInfo_Data;
+
+  template <typename... Args>
+  static BluetoothScannedPeripheralInfoPtr New(Args&&... args) {
+    return BluetoothScannedPeripheralInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static BluetoothScannedPeripheralInfoPtr From(const U& u) {
+    return mojo::TypeConverter<BluetoothScannedPeripheralInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, BluetoothScannedPeripheralInfo>::Convert(*this);
+  }
+
+
+  BluetoothScannedPeripheralInfo();
+
+  BluetoothScannedPeripheralInfo(
+      std::vector<int16_t> rssi_history,
+      const absl::optional<std::string>& name,
+      const absl::optional<std::string>& peripheral_id);
+
+
+  ~BluetoothScannedPeripheralInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = BluetoothScannedPeripheralInfoPtr>
+  BluetoothScannedPeripheralInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        BluetoothScannedPeripheralInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        BluetoothScannedPeripheralInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::BluetoothScannedPeripheralInfo_UnserializedMessageContext<
+            UserType, BluetoothScannedPeripheralInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<BluetoothScannedPeripheralInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return BluetoothScannedPeripheralInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::BluetoothScannedPeripheralInfo_UnserializedMessageContext<
+            UserType, BluetoothScannedPeripheralInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<BluetoothScannedPeripheralInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<int16_t> rssi_history;
+  
+  absl::optional<std::string> name;
+  
+  absl::optional<std::string> peripheral_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  BluetoothScanningRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<BluetoothScanningRoutineDetail, T>::value>;
+  using DataView = BluetoothScanningRoutineDetailDataView;
+  using Data_ = internal::BluetoothScanningRoutineDetail_Data;
+
+  template <typename... Args>
+  static BluetoothScanningRoutineDetailPtr New(Args&&... args) {
+    return BluetoothScanningRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static BluetoothScanningRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<BluetoothScanningRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, BluetoothScanningRoutineDetail>::Convert(*this);
+  }
+
+
+  BluetoothScanningRoutineDetail();
+
+  explicit BluetoothScanningRoutineDetail(
+      std::vector<BluetoothScannedPeripheralInfoPtr> peripherals);
+
+BluetoothScanningRoutineDetail(const BluetoothScanningRoutineDetail&) = delete;
+BluetoothScanningRoutineDetail& operator=(const BluetoothScanningRoutineDetail&) = delete;
+
+  ~BluetoothScanningRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = BluetoothScanningRoutineDetailPtr>
+  BluetoothScanningRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        BluetoothScanningRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        BluetoothScanningRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::BluetoothScanningRoutineDetail_UnserializedMessageContext<
+            UserType, BluetoothScanningRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<BluetoothScanningRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return BluetoothScanningRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::BluetoothScanningRoutineDetail_UnserializedMessageContext<
+            UserType, BluetoothScanningRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<BluetoothScanningRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<BluetoothScannedPeripheralInfoPtr> peripherals;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  FanRoutineDetail {
  public:
   template <typename T>
@@ -6312,6 +6785,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kFan:
       return NewFan(
           mojo::Clone(*data_.fan));
+    case Tag::kBluetoothScanning:
+      return NewBluetoothScanning(
+          mojo::Clone(*data_.bluetooth_scanning));
   }
   return nullptr;
 }
@@ -6352,6 +6828,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.bluetooth_discovery), *(other.data_.bluetooth_discovery));
     case Tag::kFan:
       return mojo::Equals(*(data_.fan), *(other.data_.fan));
+    case Tag::kBluetoothScanning:
+      return mojo::Equals(*(data_.bluetooth_scanning), *(other.data_.bluetooth_scanning));
   }
 
   return false;
@@ -6445,6 +6923,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kFan:
       return NewFan(
           mojo::Clone(*data_.fan));
+    case Tag::kBluetoothScanning:
+      return NewBluetoothScanning(
+          mojo::Clone(*data_.bluetooth_scanning));
   }
   return nullptr;
 }
@@ -6485,6 +6966,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.bluetooth_discovery), *(other.data_.bluetooth_discovery));
     case Tag::kFan:
       return mojo::Equals(*(data_.fan), *(other.data_.fan));
+    case Tag::kBluetoothScanning:
+      return mojo::Equals(*(data_.bluetooth_scanning), *(other.data_.bluetooth_scanning));
   }
 
   return false;
@@ -6773,6 +7256,28 @@ bool FanRoutineArgument::Equals(const T& other_struct) const {
 
 template <typename T, FanRoutineArgument::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+BluetoothScanningRoutineArgumentPtr BluetoothScanningRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(exec_duration)
+  );
+}
+
+template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>*>
+bool BluetoothScanningRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->exec_duration, other_struct.exec_duration))
+    return false;
+  return true;
+}
+
+template <typename T, BluetoothScanningRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.exec_duration < rhs.exec_duration)
+    return true;
+  if (rhs.exec_duration < lhs.exec_duration)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -7237,6 +7742,64 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+BluetoothScannedPeripheralInfoPtr BluetoothScannedPeripheralInfo::Clone() const {
+  return New(
+      mojo::Clone(rssi_history),
+      mojo::Clone(name),
+      mojo::Clone(peripheral_id)
+  );
+}
+
+template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>*>
+bool BluetoothScannedPeripheralInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->rssi_history, other_struct.rssi_history))
+    return false;
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->peripheral_id, other_struct.peripheral_id))
+    return false;
+  return true;
+}
+
+template <typename T, BluetoothScannedPeripheralInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.rssi_history < rhs.rssi_history)
+    return true;
+  if (rhs.rssi_history < lhs.rssi_history)
+    return false;
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.peripheral_id < rhs.peripheral_id)
+    return true;
+  if (rhs.peripheral_id < lhs.peripheral_id)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+BluetoothScanningRoutineDetailPtr BluetoothScanningRoutineDetail::Clone() const {
+  return New(
+      mojo::Clone(peripherals)
+  );
+}
+
+template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>*>
+bool BluetoothScanningRoutineDetail::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->peripherals, other_struct.peripherals))
+    return false;
+  return true;
+}
+
+template <typename T, BluetoothScanningRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.peripherals < rhs.peripherals)
+    return true;
+  if (rhs.peripherals < lhs.peripherals)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 FanRoutineDetailPtr FanRoutineDetail::Clone() const {
   return New(
       mojo::Clone(passed_fan_ids),
@@ -7471,6 +8034,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::FanRoutineArgument::DataView,
   static void SetToNull(::ash::cros_healthd::mojom::FanRoutineArgumentPtr* output) { output->reset(); }
 
   static bool Read(::ash::cros_healthd::mojom::FanRoutineArgument::DataView input, ::ash::cros_healthd::mojom::FanRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::exec_duration)& exec_duration(
+      const ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr& input) {
+    return input->exec_duration;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::DataView input, ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr* output);
 };
 
 
@@ -7790,6 +8368,46 @@ struct  StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetail
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::DataView,
+                                         ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::rssi_history)& rssi_history(
+      const ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr& input) {
+    return input->rssi_history;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::name)& name(
+      const ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr& input) {
+    return input->name;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::peripheral_id)& peripheral_id(
+      const ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr& input) {
+    return input->peripheral_id;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::DataView input, ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::peripherals)& peripherals(
+      const ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr& input) {
+    return input->peripherals;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::DataView input, ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView,
                                          ::ash::cros_healthd::mojom::FanRoutineDetailPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::FanRoutineDetailPtr& input) { return !input; }
@@ -7878,6 +8496,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::FanRoutineArgumentPtr& fan(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_fan();
+  }
+
+  static const ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr& bluetooth_scanning(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_bluetooth_scanning();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -7982,6 +8604,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::FanRoutineDetailPtr& fan(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_fan();
+  }
+
+  static const ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr& bluetooth_scanning(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_bluetooth_scanning();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

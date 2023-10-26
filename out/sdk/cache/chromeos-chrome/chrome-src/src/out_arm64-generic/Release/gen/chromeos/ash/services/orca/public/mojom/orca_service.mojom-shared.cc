@@ -903,6 +903,119 @@ EditorClient_AppendText_Params_Data::EditorClient_AppendText_Params_Data()
 
 
 // static
+bool EditorClient_PreviewFeedback_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const EditorClient_PreviewFeedback_Params_Data* object =
+      static_cast<const EditorClient_PreviewFeedback_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& result_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->result_id, validation_context,
+                                         &result_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+EditorClient_PreviewFeedback_Params_Data::EditorClient_PreviewFeedback_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool EditorClient_PreviewFeedback_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const EditorClient_PreviewFeedback_ResponseParams_Data* object =
+      static_cast<const EditorClient_PreviewFeedback_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->preview, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& preview_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+  if (!mojo::internal::ValidateContainer(object->preview, validation_context,
+                                         &preview_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+EditorClient_PreviewFeedback_ResponseParams_Data::EditorClient_PreviewFeedback_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool EditorClient_SubmitFeedback_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const EditorClient_SubmitFeedback_Params_Data* object =
+      static_cast<const EditorClient_SubmitFeedback_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& result_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->result_id, validation_context,
+                                         &result_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->user_description, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& user_description_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->user_description, validation_context,
+                                         &user_description_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+EditorClient_SubmitFeedback_Params_Data::EditorClient_SubmitFeedback_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool EditorClientConnector_BindEditorClient_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1117,6 +1230,40 @@ bool TextActuator_CloseUI_Params_Data::Validate(
 }
 
 TextActuator_CloseUI_Params_Data::TextActuator_CloseUI_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TextActuator_SubmitFeedback_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TextActuator_SubmitFeedback_Params_Data* object =
+      static_cast<const TextActuator_SubmitFeedback_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->description, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& description_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->description, validation_context,
+                                         &description_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TextActuator_SubmitFeedback_Params_Data::TextActuator_SubmitFeedback_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

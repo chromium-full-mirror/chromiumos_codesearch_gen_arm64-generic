@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="23" failures="0" disabled="0" errors="0" time="0.035" timestamp="2023-10-25T11:33:27.063" name="AllTests">
-  <testsuite name="ShmTestSuite" tests="23" failures="0" disabled="0" skipped="0" errors="0" time="0.024" timestamp="2023-10-25T11:33:27.072">
-    <testcase name="NoneReadableWhenEmpty" file="cras/src/tests/shm_unittest.cc" line="40" status="run" result="completed" time="0.003" timestamp="2023-10-25T11:33:27.073" classname="ShmTestSuite" />
-    <testcase name="OneHundredFilled" file="cras/src/tests/shm_unittest.cc" line="48" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.077" classname="ShmTestSuite" />
-    <testcase name="OneHundredFilled50Read" file="cras/src/tests/shm_unittest.cc" line="62" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.078" classname="ShmTestSuite" />
-    <testcase name="OneHundredFilled50Read25offset" file="cras/src/tests/shm_unittest.cc" line="76" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.079" classname="ShmTestSuite" />
-    <testcase name="WrapToNextBuffer" file="cras/src/tests/shm_unittest.cc" line="87" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.080" classname="ShmTestSuite" />
-    <testcase name="WrapToNextBufferReadAll" file="cras/src/tests/shm_unittest.cc" line="108" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:33:27.081" classname="ShmTestSuite" />
-    <testcase name="WrapFromFinalBuffer" file="cras/src/tests/shm_unittest.cc" line="128" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.082" classname="ShmTestSuite" />
-    <testcase name="WriteAvailNotFree" file="cras/src/tests/shm_unittest.cc" line="154" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.083" classname="ShmTestSuite" />
-    <testcase name="WriteAvailValid" file="cras/src/tests/shm_unittest.cc" line="164" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.084" classname="ShmTestSuite" />
-    <testcase name="GetNumWritten" file="cras/src/tests/shm_unittest.cc" line="175" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.084" classname="ShmTestSuite" />
-    <testcase name="GetWriteBufferBase" file="cras/src/tests/shm_unittest.cc" line="186" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.084" classname="ShmTestSuite" />
-    <testcase name="SetVolume" file="cras/src/tests/shm_unittest.cc" line="202" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.085" classname="ShmTestSuite" />
-    <testcase name="InvalidWriteOffset" file="cras/src/tests/shm_unittest.cc" line="215" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.085" classname="ShmTestSuite" />
-    <testcase name="InvalidReadOffset" file="cras/src/tests/shm_unittest.cc" line="222" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.086" classname="ShmTestSuite" />
-    <testcase name="InvalidReadAndWriteOffset" file="cras/src/tests/shm_unittest.cc" line="231" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.086" classname="ShmTestSuite" />
-    <testcase name="InputBufferOverrun" file="cras/src/tests/shm_unittest.cc" line="238" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.087" classname="ShmTestSuite" />
-    <testcase name="GetWritableFramesNeedToWrite" file="cras/src/tests/shm_unittest.cc" line="266" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.088" classname="ShmTestSuite" />
-    <testcase name="GetWritableFramesNoNeedToWrite" file="cras/src/tests/shm_unittest.cc" line="279" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.088" classname="ShmTestSuite" />
-    <testcase name="WrapWithNonstandardBufferLocations" file="cras/src/tests/shm_unittest.cc" line="293" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.089" classname="ShmTestSuite" />
-    <testcase name="PlaybackWithDifferentSequentialBufferLocations" file="cras/src/tests/shm_unittest.cc" line="319" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:33:27.090" classname="ShmTestSuite" />
-    <testcase name="GetCheckedBufferOffset" file="cras/src/tests/shm_unittest.cc" line="407" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.094" classname="ShmTestSuite" />
-    <testcase name="GetCheckedReadOffset" file="cras/src/tests/shm_unittest.cc" line="446" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.095" classname="ShmTestSuite" />
-    <testcase name="GetCheckedWriteOffset" file="cras/src/tests/shm_unittest.cc" line="503" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:27.096" classname="ShmTestSuite" />
+<testsuites tests="23" failures="0" disabled="0" errors="0" time="0.018" timestamp="2023-10-26T00:26:27.758" name="AllTests">
+  <testsuite name="ShmTestSuite" tests="23" failures="0" disabled="0" skipped="0" errors="0" time="0.013" timestamp="2023-10-26T00:26:27.762">
+    <testcase name="NoneReadableWhenEmpty" file="cras/src/tests/shm_unittest.cc" line="40" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:26:27.763" classname="ShmTestSuite" />
+    <testcase name="OneHundredFilled" file="cras/src/tests/shm_unittest.cc" line="48" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.765" classname="ShmTestSuite" />
+    <testcase name="OneHundredFilled50Read" file="cras/src/tests/shm_unittest.cc" line="62" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.766" classname="ShmTestSuite" />
+    <testcase name="OneHundredFilled50Read25offset" file="cras/src/tests/shm_unittest.cc" line="76" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.767" classname="ShmTestSuite" />
+    <testcase name="WrapToNextBuffer" file="cras/src/tests/shm_unittest.cc" line="87" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.767" classname="ShmTestSuite" />
+    <testcase name="WrapToNextBufferReadAll" file="cras/src/tests/shm_unittest.cc" line="108" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.768" classname="ShmTestSuite" />
+    <testcase name="WrapFromFinalBuffer" file="cras/src/tests/shm_unittest.cc" line="128" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.768" classname="ShmTestSuite" />
+    <testcase name="WriteAvailNotFree" file="cras/src/tests/shm_unittest.cc" line="154" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.769" classname="ShmTestSuite" />
+    <testcase name="WriteAvailValid" file="cras/src/tests/shm_unittest.cc" line="164" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.769" classname="ShmTestSuite" />
+    <testcase name="GetNumWritten" file="cras/src/tests/shm_unittest.cc" line="175" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.769" classname="ShmTestSuite" />
+    <testcase name="GetWriteBufferBase" file="cras/src/tests/shm_unittest.cc" line="186" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.770" classname="ShmTestSuite" />
+    <testcase name="SetVolume" file="cras/src/tests/shm_unittest.cc" line="202" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.770" classname="ShmTestSuite" />
+    <testcase name="InvalidWriteOffset" file="cras/src/tests/shm_unittest.cc" line="215" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.770" classname="ShmTestSuite" />
+    <testcase name="InvalidReadOffset" file="cras/src/tests/shm_unittest.cc" line="222" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.771" classname="ShmTestSuite" />
+    <testcase name="InvalidReadAndWriteOffset" file="cras/src/tests/shm_unittest.cc" line="231" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.771" classname="ShmTestSuite" />
+    <testcase name="InputBufferOverrun" file="cras/src/tests/shm_unittest.cc" line="238" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.771" classname="ShmTestSuite" />
+    <testcase name="GetWritableFramesNeedToWrite" file="cras/src/tests/shm_unittest.cc" line="266" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.772" classname="ShmTestSuite" />
+    <testcase name="GetWritableFramesNoNeedToWrite" file="cras/src/tests/shm_unittest.cc" line="279" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.772" classname="ShmTestSuite" />
+    <testcase name="WrapWithNonstandardBufferLocations" file="cras/src/tests/shm_unittest.cc" line="293" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.772" classname="ShmTestSuite" />
+    <testcase name="PlaybackWithDifferentSequentialBufferLocations" file="cras/src/tests/shm_unittest.cc" line="319" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:26:27.773" classname="ShmTestSuite" />
+    <testcase name="GetCheckedBufferOffset" file="cras/src/tests/shm_unittest.cc" line="407" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.774" classname="ShmTestSuite" />
+    <testcase name="GetCheckedReadOffset" file="cras/src/tests/shm_unittest.cc" line="446" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.775" classname="ShmTestSuite" />
+    <testcase name="GetCheckedWriteOffset" file="cras/src/tests/shm_unittest.cc" line="503" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:27.776" classname="ShmTestSuite" />
   </testsuite>
 </testsuites>

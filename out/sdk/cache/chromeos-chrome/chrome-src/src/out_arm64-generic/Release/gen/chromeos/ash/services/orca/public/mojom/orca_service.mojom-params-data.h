@@ -274,6 +274,55 @@ class  EditorClient_AppendText_Params_Data {
 };
 static_assert(sizeof(EditorClient_AppendText_Params_Data) == 16,
               "Bad sizeof(EditorClient_AppendText_Params_Data)");
+class  EditorClient_PreviewFeedback_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> result_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<EditorClient_PreviewFeedback_Params_Data>;
+
+  EditorClient_PreviewFeedback_Params_Data();
+  ~EditorClient_PreviewFeedback_Params_Data() = delete;
+};
+static_assert(sizeof(EditorClient_PreviewFeedback_Params_Data) == 16,
+              "Bad sizeof(EditorClient_PreviewFeedback_Params_Data)");
+class  EditorClient_PreviewFeedback_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<mojo::internal::String_Data>>> preview;
+
+ private:
+  friend class mojo::internal::MessageFragment<EditorClient_PreviewFeedback_ResponseParams_Data>;
+
+  EditorClient_PreviewFeedback_ResponseParams_Data();
+  ~EditorClient_PreviewFeedback_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(EditorClient_PreviewFeedback_ResponseParams_Data) == 16,
+              "Bad sizeof(EditorClient_PreviewFeedback_ResponseParams_Data)");
+class  EditorClient_SubmitFeedback_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> result_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> user_description;
+
+ private:
+  friend class mojo::internal::MessageFragment<EditorClient_SubmitFeedback_Params_Data>;
+
+  EditorClient_SubmitFeedback_Params_Data();
+  ~EditorClient_SubmitFeedback_Params_Data() = delete;
+};
+static_assert(sizeof(EditorClient_SubmitFeedback_Params_Data) == 24,
+              "Bad sizeof(EditorClient_SubmitFeedback_Params_Data)");
 class  EditorClientConnector_BindEditorClient_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -399,6 +448,22 @@ class  TextActuator_CloseUI_Params_Data {
 };
 static_assert(sizeof(TextActuator_CloseUI_Params_Data) == 8,
               "Bad sizeof(TextActuator_CloseUI_Params_Data)");
+class  TextActuator_SubmitFeedback_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> description;
+
+ private:
+  friend class mojo::internal::MessageFragment<TextActuator_SubmitFeedback_Params_Data>;
+
+  TextActuator_SubmitFeedback_Params_Data();
+  ~TextActuator_SubmitFeedback_Params_Data() = delete;
+};
+static_assert(sizeof(TextActuator_SubmitFeedback_Params_Data) == 16,
+              "Bad sizeof(TextActuator_SubmitFeedback_Params_Data)");
 class  TextQueryProvider_Process_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -844,6 +909,94 @@ class EditorClient_AppendText_ParamsDataView {
 };
 
 
+class EditorClient_PreviewFeedback_ParamsDataView {
+ public:
+  EditorClient_PreviewFeedback_ParamsDataView() = default;
+
+  EditorClient_PreviewFeedback_ParamsDataView(
+      internal::EditorClient_PreviewFeedback_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResultId(UserType* output) {
+    
+    auto* pointer = data_->result_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::EditorClient_PreviewFeedback_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class EditorClient_PreviewFeedback_ResponseParamsDataView {
+ public:
+  EditorClient_PreviewFeedback_ResponseParamsDataView() = default;
+
+  EditorClient_PreviewFeedback_ResponseParamsDataView(
+      internal::EditorClient_PreviewFeedback_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPreviewDataView(
+      mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPreview(UserType* output) {
+    
+    auto* pointer = data_->preview.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::EditorClient_PreviewFeedback_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class EditorClient_SubmitFeedback_ParamsDataView {
+ public:
+  EditorClient_SubmitFeedback_ParamsDataView() = default;
+
+  EditorClient_SubmitFeedback_ParamsDataView(
+      internal::EditorClient_SubmitFeedback_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResultId(UserType* output) {
+    
+    auto* pointer = data_->result_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetUserDescriptionDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUserDescription(UserType* output) {
+    
+    auto* pointer = data_->user_description.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::EditorClient_SubmitFeedback_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class EditorClientConnector_BindEditorClient_ParamsDataView {
  public:
   EditorClientConnector_BindEditorClient_ParamsDataView() = default;
@@ -1004,6 +1157,32 @@ class TextActuator_CloseUI_ParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::TextActuator_CloseUI_Params_Data* data_ = nullptr;
+};
+
+
+class TextActuator_SubmitFeedback_ParamsDataView {
+ public:
+  TextActuator_SubmitFeedback_ParamsDataView() = default;
+
+  TextActuator_SubmitFeedback_ParamsDataView(
+      internal::TextActuator_SubmitFeedback_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDescriptionDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDescription(UserType* output) {
+    
+    auto* pointer = data_->description.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TextActuator_SubmitFeedback_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1202,6 +1381,32 @@ inline void EditorClient_AppendText_ParamsDataView::GetTextDataView(
 }
 
 
+inline void EditorClient_PreviewFeedback_ParamsDataView::GetResultIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->result_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void EditorClient_PreviewFeedback_ResponseParamsDataView::GetPreviewDataView(
+    mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output) {
+  auto pointer = data_->preview.Get();
+  *output = mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>(pointer, message_);
+}
+
+
+inline void EditorClient_SubmitFeedback_ParamsDataView::GetResultIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->result_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void EditorClient_SubmitFeedback_ParamsDataView::GetUserDescriptionDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->user_description.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 
 
 inline void EditorEventSink_OnContextUpdated_ParamsDataView::GetContextDataView(
@@ -1231,6 +1436,13 @@ inline void TextActuator_OpenUrlInNewWindow_ParamsDataView::GetUrlDataView(
 
 
 
+
+
+inline void TextActuator_SubmitFeedback_ParamsDataView::GetDescriptionDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->description.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 inline void TextQueryProvider_Process_ParamsDataView::GetRequestDataView(

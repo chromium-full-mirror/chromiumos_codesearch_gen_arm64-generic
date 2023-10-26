@@ -182,6 +182,22 @@ ash.orca.mojom.EditorClientInterface = class {
    */
 
   appendText(text) {}
+  
+  /**
+   * @param { !string } resultId
+   * @return {!Promise<{
+        preview: !Object<!string, !string>,
+   *  }>}
+   */
+
+  previewFeedback(resultId) {}
+  
+  /**
+   * @param { !string } resultId
+   * @param { !string } userDescription
+   */
+
+  submitFeedback(resultId, userDescription) {}
 };
 
 /**
@@ -399,6 +415,44 @@ ash.orca.mojom.EditorClientRemote = class {
           text
         ]);
   }
+
+  
+  /**
+   * @param { !string } resultId
+   * @return {!Promise<{
+        preview: !Object<!string, !string>,
+   *  }>}
+   */
+
+  previewFeedback(
+      resultId) {
+    return this.proxy.sendMessage(
+        12,
+        ash.orca.mojom.EditorClient_PreviewFeedback_ParamsSpec.$,
+        ash.orca.mojom.EditorClient_PreviewFeedback_ResponseParamsSpec.$,
+        [
+          resultId
+        ]);
+  }
+
+  
+  /**
+   * @param { !string } resultId
+   * @param { !string } userDescription
+   */
+
+  submitFeedback(
+      resultId,
+      userDescription) {
+    this.proxy.sendMessage(
+        13,
+        ash.orca.mojom.EditorClient_SubmitFeedback_ParamsSpec.$,
+        null,
+        [
+          resultId,
+          userDescription
+        ]);
+  }
 };
 
 /**
@@ -483,6 +537,16 @@ ash.orca.mojom.EditorClientReceiver = class {
         ash.orca.mojom.EditorClient_AppendText_ParamsSpec.$,
         null,
         impl.appendText.bind(impl));
+    this.helper_internal_.registerHandler(
+        12,
+        ash.orca.mojom.EditorClient_PreviewFeedback_ParamsSpec.$,
+        ash.orca.mojom.EditorClient_PreviewFeedback_ResponseParamsSpec.$,
+        impl.previewFeedback.bind(impl));
+    this.helper_internal_.registerHandler(
+        13,
+        ash.orca.mojom.EditorClient_SubmitFeedback_ParamsSpec.$,
+        null,
+        impl.submitFeedback.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -679,6 +743,30 @@ ash.orca.mojom.EditorClientCallbackRouter = class {
         ash.orca.mojom.EditorClient_AppendText_ParamsSpec.$,
         null,
         this.appendText.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.previewFeedback =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        12,
+        ash.orca.mojom.EditorClient_PreviewFeedback_ParamsSpec.$,
+        ash.orca.mojom.EditorClient_PreviewFeedback_ResponseParamsSpec.$,
+        this.previewFeedback.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.submitFeedback =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        13,
+        ash.orca.mojom.EditorClient_SubmitFeedback_ParamsSpec.$,
+        null,
+        this.submitFeedback.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1132,6 +1220,12 @@ ash.orca.mojom.TextActuatorInterface = class {
    */
 
   closeUI() {}
+  
+  /**
+   * @param { !string } description
+   */
+
+  submitFeedback(description) {}
 };
 
 /**
@@ -1241,6 +1335,22 @@ ash.orca.mojom.TextActuatorRemote = class {
         [
         ]);
   }
+
+  
+  /**
+   * @param { !string } description
+   */
+
+  submitFeedback(
+      description) {
+    this.proxy.sendMessage(
+        6,
+        ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec.$,
+        null,
+        [
+          description
+        ]);
+  }
 };
 
 /**
@@ -1295,6 +1405,11 @@ ash.orca.mojom.TextActuatorReceiver = class {
         ash.orca.mojom.TextActuator_CloseUI_ParamsSpec.$,
         null,
         impl.closeUI.bind(impl));
+    this.helper_internal_.registerHandler(
+        6,
+        ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec.$,
+        null,
+        impl.submitFeedback.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1419,6 +1534,18 @@ ash.orca.mojom.TextActuatorCallbackRouter = class {
         ash.orca.mojom.TextActuator_CloseUI_ParamsSpec.$,
         null,
         this.closeUI.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.submitFeedback =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        6,
+        ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec.$,
+        null,
+        this.submitFeedback.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -2002,6 +2129,30 @@ goog.provide('ash.orca.mojom.EditorClient_AppendText_ParamsSpec');
 ash.orca.mojom.EditorClient_AppendText_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('ash.orca.mojom.EditorClient_PreviewFeedback_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+ash.orca.mojom.EditorClient_PreviewFeedback_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('ash.orca.mojom.EditorClient_PreviewFeedback_ResponseParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+ash.orca.mojom.EditorClient_PreviewFeedback_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('ash.orca.mojom.EditorClient_SubmitFeedback_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+ash.orca.mojom.EditorClient_SubmitFeedback_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('ash.orca.mojom.EditorClientConnector_BindEditorClient_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -2064,6 +2215,14 @@ goog.provide('ash.orca.mojom.TextActuator_CloseUI_ParamsSpec');
  * @export
  */
 ash.orca.mojom.TextActuator_CloseUI_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('ash.orca.mojom.TextQueryProvider_Process_ParamsSpec');
@@ -2780,6 +2939,103 @@ ash.orca.mojom.EditorClient_AppendText_Params = class {
 
 
 mojo.internal.Struct(
+    ash.orca.mojom.EditorClient_PreviewFeedback_ParamsSpec.$,
+    'EditorClient_PreviewFeedback_Params',
+    [
+      mojo.internal.StructField(
+        'resultId', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('ash.orca.mojom.EditorClient_PreviewFeedback_Params');
+
+/** @record */
+ash.orca.mojom.EditorClient_PreviewFeedback_Params = class {
+  constructor() {
+    /** @export { !string } */
+    this.resultId;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    ash.orca.mojom.EditorClient_PreviewFeedback_ResponseParamsSpec.$,
+    'EditorClient_PreviewFeedback_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'preview', 0,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('ash.orca.mojom.EditorClient_PreviewFeedback_ResponseParams');
+
+/** @record */
+ash.orca.mojom.EditorClient_PreviewFeedback_ResponseParams = class {
+  constructor() {
+    /** @export { !Object<!string, !string> } */
+    this.preview;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    ash.orca.mojom.EditorClient_SubmitFeedback_ParamsSpec.$,
+    'EditorClient_SubmitFeedback_Params',
+    [
+      mojo.internal.StructField(
+        'resultId', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'userDescription', 8,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('ash.orca.mojom.EditorClient_SubmitFeedback_Params');
+
+/** @record */
+ash.orca.mojom.EditorClient_SubmitFeedback_Params = class {
+  constructor() {
+    /** @export { !string } */
+    this.resultId;
+    /** @export { !string } */
+    this.userDescription;
+  }
+};
+
+
+
+mojo.internal.Struct(
     ash.orca.mojom.EditorClientConnector_BindEditorClient_ParamsSpec.$,
     'EditorClientConnector_BindEditorClient_Params',
     [
@@ -2966,6 +3222,35 @@ goog.provide('ash.orca.mojom.TextActuator_CloseUI_Params');
 /** @record */
 ash.orca.mojom.TextActuator_CloseUI_Params = class {
   constructor() {
+  }
+};
+
+
+
+mojo.internal.Struct(
+    ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec.$,
+    'TextActuator_SubmitFeedback_Params',
+    [
+      mojo.internal.StructField(
+        'description', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('ash.orca.mojom.TextActuator_SubmitFeedback_Params');
+
+/** @record */
+ash.orca.mojom.TextActuator_SubmitFeedback_Params = class {
+  constructor() {
+    /** @export { !string } */
+    this.description;
   }
 };
 

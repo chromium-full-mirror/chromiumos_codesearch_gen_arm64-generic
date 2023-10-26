@@ -1471,6 +1471,7 @@ CreditCardEntry CreditCardEntry::Clone() const {
   out.nickname = nickname;
   out.network = network;
   out.image_src = image_src;
+  out.cvc = cvc;
   if (metadata) {
     out.metadata = metadata->Clone();
   }
@@ -1588,6 +1589,18 @@ bool CreditCardEntry::Populate(
     }
   }
 
+  const base::Value* cvc_value = dict.Find("cvc");
+  if (cvc_value) {
+    {
+      auto* temp = (*cvc_value).GetIfString();
+      if (!temp) {
+        out.cvc = absl::nullopt;
+        return false;
+      }
+      out.cvc = *temp;
+    }
+  }
+
   const base::Value* metadata_value = dict.Find("metadata");
   if (metadata_value) {
     {
@@ -1685,6 +1698,10 @@ base::Value::Dict CreditCardEntry::ToValue() const {
   }
   if (this->image_src) {
     to_value_result.Set("imageSrc", *this->image_src);
+
+  }
+  if (this->cvc) {
+    to_value_result.Set("cvc", *this->cvc);
 
   }
   if (this->metadata) {

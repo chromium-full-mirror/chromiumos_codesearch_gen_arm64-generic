@@ -1056,541 +1056,6 @@ constants.ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * Exception used to stop ActionsProducer when they're no longer valid.
- *
- * The concurrency model function uses this exception to force the
- * ActionsProducer to stop.
- */
-class ConcurrentActionInvalidatedError extends Error {
-}
-/** Helper to distinguish the Action from a ActionsProducer.  */
-function isActionsProducer(value) {
-    return (value.next !== undefined &&
-        value.throw !== undefined);
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview A Selector implementation for redux, bundled with a
- * SelectorEmitter helper class that allows selectors to be efficiently updated.
- * @suppress {checkTypes} closure can't recognize LitElement
- */
-/**
- * A class implementing ReactiveController in order to provide an ergonomic
- * way to update Lit elements based on selected data.
- */
-class SelectorController {
-    constructor(host, value, subscribe) {
-        this.host = host;
-        this.value = value;
-        this.subscribe = subscribe;
-        this.host.addController(this);
-    }
-    hostConnected() {
-        this.unsubscribe = this.subscribe((value) => {
-            this.value = value;
-            this.host.requestUpdate();
-        });
-    }
-    hostDisconnected() {
-        this.unsubscribe();
-    }
-}
-/**
- * A node in the selector DAG (Directed Acyclic Graph). Used to efficiently
- * process selectors and eliminate redundant calculations and state updates. A
- * selector node essentially connects parent selectors through a `select()`
- * function that combines all of their parents' emitted values to form a new
- * value.
- *
- * Note: `SelectorNode` implements the `Selector` interface, allowing the store
- * to expose nodes as `Selector`s, hiding complexities related to
- * `SelectorNode`'s implementation.
- */
-class SelectorNode {
-    /**
-     * @param parents Either an array of Selectors or SelectorNodes whose values
-     *     should be fed into the `select` function to calculate the selector's
-     *     new value.
-     * @param select The function that calculates the selector's new value once at
-     *     least one its parents emits a new value or, initially, after the
-     *     selector node is constructed. The arguments of select() must match the
-     *     order and type of what is emitted by the parents. This typing match is
-     *     not enforced here because SelectorNodes are only meant to be created by
-     *     the Store. Users of the Store should use `combineXSelectors()` to combine
-     *     selectors.
-     * @param name An optional human-readable name used for debugging purposes.
-     *     Named selectors will log to the console when window.DEBUG_STORE is set,
-     *     whenever they emit a new value.
-     */
-    constructor(parents, select, name) {
-        this.select = select;
-        this.name = name;
-        /** Last value emitted by the selector. */
-        this.value_ = undefined;
-        /** List of selector's current subscribers. */
-        this.subscribers_ = [];
-        /** List of selector's current parents. */
-        this.parents_ = [];
-        /**
-         * The depth of this node in the SelectorEmitter DAG. Used to ensure Selector
-         * nodes are emitted in the correct order.
-         *
-         * Nodes of depth D+1 are only processed after all nodes of depth D have been
-         * processed, starting from D=0.
-         *
-         * Only source nodes (nodes without parents) have depth=0;
-         */
-        this.depth = 0;
-        /** List of selector's current children. */
-        this.children = [];
-        this.parents = parents;
-    }
-    /**
-     * Creates a new source node (a node with no parents).
-     *
-     * The store's default selector should be a source node, but other data
-     * sources can be registered as source nodes as well.
-     *
-     * Slice's default selectors are then connected to the store's source node,
-     * and additional selector nodes can then be created from store and slices'
-     * default selectors using `combineXSelectors()` (and resulting selectors can be
-     * further combined using `combineXSelectors()`).
-     */
-    static createSourceNode(select) {
-        return new SelectorNode([], select);
-    }
-    /**
-     * Creates a selector node that doesn't have parents or select function. Used
-     * by slices to create selectors that are not yet connected to the store but
-     * that can be subscribed to before the store is constructed.
-     *
-     * In other words, disconnected nodes should eventually be connected to the
-     * SelectorEmitter DAG and should retain their list of subscribers after doing
-     * so.
-     *
-     * Disconnected nodes are exclusively used internally by slices and are not
-     * meant to be used outside of it.
-     */
-    static createDisconnectedNode(name) {
-        return new SelectorNode([], () => undefined, name);
-    }
-    /**
-     * We use a getter for parents to make sure they are always retrieved as
-     * SelectorNodes, even though they might be passed in as Selectors in the
-     * `combineXSelectors()` functions.
-     */
-    get parents() {
-        return this.parents_;
-    }
-    set parents(parents) {
-        // Disconnect current parents, if any, before replacing them.
-        this.disconnect_();
-        this.parents_ = parents;
-        // Connects this node to its new parents.
-        for (const parent of parents) {
-            parent.children.push(this);
-            this.depth = Math.max(this.depth, parent.depth + 1);
-        }
-        // Calculate the node's initial value.
-        this.emit();
-    }
-    /**
-     * Disconnects itself from the DAG by deleting its connections with its
-     * parents.
-     */
-    disconnect_() {
-        // Disconnect node from its parents.
-        this.parents.forEach(p => p.disconnectChild_(this));
-        this.parents_ = [];
-    }
-    /** Disconnects the node from one of its children. */
-    disconnectChild_(node) {
-        this.children.splice(this.children.indexOf(node), 1);
-    }
-    /**
-     * Sets a new value, if such new value is different from the current. If
-     * it's different, returns true and notify subscribers. Else, returns false.
-     */
-    emit() {
-        const parentValues = this.parents.map(p => p.get());
-        const newValue = this.select(...parentValues);
-        if (newValue === this.value_) {
-            return false;
-        }
-        if (window.DEBUG_STORE && this.name) {
-            console.log(`Selector '${this.name}' emitted a new value:`);
-            console.log(newValue);
-        }
-        this.value_ = newValue;
-        for (const subscriber of this.subscribers_) {
-            try {
-                subscriber(newValue);
-            }
-            catch (e) {
-                console.error(e);
-            }
-        }
-        return true;
-    }
-    get() {
-        return this.value_;
-    }
-    subscribe(cb) {
-        this.subscribers_.push(cb);
-        return () => this.subscribers_.splice(this.subscribers_.indexOf(cb), 1);
-    }
-    createController(host) {
-        return new SelectorController(host, this.get(), this.subscribe.bind(this));
-    }
-    delete() {
-        if (this.children.length > 0) {
-            throw new Error('Attempting to delete node that still has children.');
-        }
-        this.disconnect_();
-        this.subscribers_ = [];
-    }
-}
-/**
- * A DAG (Directed Acyclic Graph) representation of chains of selectors where
- * one selector only emits if at least one of their parents has emitted, while
- * also guaranteeing that, when multiple parents of a given node emit, their
- * child only emits a single time.
- */
-class SelectorEmitter {
-    constructor() {
-        /** Source nodes. I.e., nodes with no parents. */
-        this.sourceNodes_ = [];
-    }
-    /** Connect source node to the DAG. */
-    addSource(node) {
-        this.sourceNodes_.push(node);
-    }
-    /**
-     * Propagates changes from sourceNodes to the rest of the DAG.
-     *
-     * Nodes of depth D+1 are only processed after all nodes of depth D have been
-     * processed, starting from D=0.
-     *
-     * This method ensures selectors are evaluated efficiently by:
-     * - Only evaluating nodes if at least one of their parents has emitted a new
-     * value;
-     * - Ensuring each node only emits once per call to `processChange()` unlike a
-     * naive implementation that would emit every time a parent emitted a new
-     * value (meaning the node would emit multiple times per iteration if it had
-     * multiple emitting parents).
-     */
-    processChange() {
-        const toExplore = [...this.sourceNodes_];
-        while (toExplore.length > 0) {
-            const node = toExplore.pop();
-            // Only traverse children if a new value is emitted. Children with
-            // multiple parents might still be enqueued by the remaining parents.
-            if (node.emit()) {
-                toExplore.push(...node.children);
-                // TODO(300209290): use heap instead.
-                // Ensure nodes are explored in ascending order of depth.
-                toExplore.sort((a, b) => b.depth - a.depth);
-            }
-        }
-    }
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Slices represent a part of the state that is nested directly under the root
- * state, aggregating its reducers and selectors.
- * @template State The shape of the store's root state.
- * @template LocalState The shape of this slice.
- */
-// eslint-disable-next-line @typescript-eslint/naming-convention
-class Slice {
-    /**
-     * @param name The prefix to be used when registering action types with
-     *     this slice.
-     */
-    constructor(name) {
-        this.name = name;
-        /**
-         * Reducers registered with this slice.
-         * Only one reducer per slice can be associated with a given action type.
-         */
-        this.reducers = new Map();
-        /**
-         * The slice's default selector - a selector that is created automatically
-         * when the slice is constructed. It selects the slice's part of the state.
-         */
-        this.selector = SelectorNode.createDisconnectedNode(this.name);
-    }
-    /**
-     * Returns the full action name given by prepending the slice's name to the
-     * given action type (the full name is formatted as "[SLICE_NAME] TYPE").
-     *
-     * If the given action type is already the full name, it's returned without
-     * any changes.
-     *
-     * Note: the only valid scenario where the given type is the full name is when
-     * registering a reducer for an action primarily registered in another slice.
-     */
-    prependSliceName_(type) {
-        const isFullName = type[0] === '[';
-        return isFullName ? type : `[${this.name}] ${type}`;
-    }
-    /**
-     * Returns an action factory for the added reducer.
-     * @param localType The name of the action handled by this reducer. It should
-     *     be either a new action, (e.g., 'do-thing') in which case it will get
-     *     prefixed with the slice's name (e.g., '[sliceName] do-thing'), or an
-     *     existing action from another slice (e.g., `someActionFactory.type`).
-     * @returns A callable action factory that also holds the type and payload
-     *     typing of the actions it produces. Those can be used to register
-     *     reducers in other slices with the same action type.
-     */
-    addReducer(localType, reducer) {
-        const type = this.prependSliceName_(localType);
-        if (this.reducers.get(type)) {
-            throw new Error('Attempting to register multiple reducers ' +
-                `within slice for the same action type: ${type}`);
-        }
-        this.reducers.set(type, reducer);
-        const actionFactory = (payload) => ({ type, payload });
-        // Include action type and payload typing so different slices can register
-        // reducers for the same action type.
-        actionFactory.type = type;
-        actionFactory.PAYLOAD = null;
-        return actionFactory;
-    }
-}
-/**
- * A generic datastore for the state of a page, where the state is publicly
- * readable but can only be modified by dispatching an Action.
- *
- * The Store should be extended by specifying `StateType`, the app state type
- * associated with the store.
- */
-class BaseStore {
-    constructor(state, slices) {
-        /**
-         * A map of action names to reducers handled by the store.
-         */
-        this.reducers_ = new Map();
-        /**
-         * Whether the Store has been initialized. See init() method to initialize.
-         */
-        this.initialized_ = false;
-        /**
-         * Batch mode groups multiple Action mutations and only notify the observes
-         * at the end of the batch. See beginBatchUpdate() and endBatchUpdate()
-         * methods.
-         */
-        this.batchMode_ = false;
-        /**
-         * The DAG representation of selectors held by the store. It ensures
-         * selectors are updated in an efficient manner. For more information,
-         * please see the `SelectorEmitter` class documentation.
-         */
-        this.selectorEmitter_ = new SelectorEmitter();
-        this.state_ = state;
-        this.queuedActions_ = [];
-        this.observers_ = [];
-        this.initialized_ = false;
-        this.batchMode_ = false;
-        const sliceNames = new Set(slices.map(slice => slice.name));
-        if (sliceNames.size !== slices.length) {
-            throw new Error('One or more given slices have the same name. ' +
-                'Please ensure slices are uniquely named: ' +
-                [...sliceNames].join(', '));
-        }
-        // Connect the default root selector to the Selector Emitter.
-        const rootSelector = SelectorNode.createSourceNode(() => this.state_);
-        this.selectorEmitter_.addSource(rootSelector);
-        this.selector = rootSelector;
-        for (const slice of slices) {
-            // Connect the slice's default selector to the store's.
-            slice.selector.select = (state) => state[slice.name];
-            slice.selector.parents = [rootSelector];
-            // Populate reducers with slice.
-            for (const [type, reducer] of slice.reducers.entries()) {
-                const reducerList = this.reducers_.get(type);
-                if (!reducerList) {
-                    this.reducers_.set(type, [reducer]);
-                }
-                else {
-                    reducerList.push(reducer);
-                }
-            }
-        }
-    }
-    /**
-     * Marks the Store as initialized.
-     * While the Store is not initialized, no action is processed and no observes
-     * are notified.
-     *
-     * It should be called by the app's initialization code.
-     */
-    init(initialState) {
-        this.state_ = initialState;
-        this.queuedActions_.forEach((action) => {
-            this.dispatchInternal_(action);
-        });
-        this.initialized_ = true;
-        this.selectorEmitter_.processChange();
-        this.notifyObservers_(this.state_);
-    }
-    isInitialized() {
-        return this.initialized_;
-    }
-    /**
-     * Subscribe to Store changes/updates.
-     * @param observer Callback called whenever the Store is updated.
-     * @returns callback to unsubscribe the observer.
-     */
-    subscribe(observer) {
-        this.observers_.push(observer);
-        return this.unsubscribe.bind(this, observer);
-    }
-    /**
-     * Removes the observer which will stop receiving Store updates.
-     * @param observer The instance that was observing the store.
-     */
-    unsubscribe(observer) {
-        // Create new copy of `observers_` to ensure elements are not removed
-        // from the array in the middle of the loop in `notifyObservers_()`.
-        this.observers_ = this.observers_.filter(o => o !== observer);
-    }
-    /**
-     * Begin a batch update to store data, which will disable updates to the
-     * observers until `endBatchUpdate()` is called. This is useful when a single
-     * UI operation is likely to cause many sequential model updates.
-     */
-    beginBatchUpdate() {
-        this.batchMode_ = true;
-    }
-    /**
-     * End a batch update to the store data, notifying the observers of any
-     * changes which occurred while batch mode was enabled.
-     */
-    endBatchUpdate() {
-        this.batchMode_ = false;
-        this.notifyObservers_(this.state_);
-    }
-    /** @returns the current state of the store.  */
-    getState() {
-        return this.state_;
-    }
-    /**
-     * Dispatches an Action to the Store.
-     *
-     * For synchronous actions it sends the action to the reducers, which updates
-     * the Store state, then the Store notifies all subscribers.
-     * If the Store isn't initialized, the action is queued and dispatched to
-     * reducers during the initialization.
-     */
-    dispatch(action) {
-        if (isActionsProducer(action)) {
-            this.consumeProducedActions_(action);
-            return;
-        }
-        if (!this.initialized_) {
-            this.queuedActions_.push(action);
-            return;
-        }
-        this.dispatchInternal_(action);
-    }
-    /** Synchronously call apply the `action` by calling the reducer.  */
-    dispatchInternal_(action) {
-        this.reduce(action);
-    }
-    /**
-     * Consumes the produced actions from the actions producer.
-     * It dispatches each generated action.
-     */
-    async consumeProducedActions_(actionsProducer) {
-        while (true) {
-            try {
-                const { done, value } = await actionsProducer.next();
-                // Accept undefined to accept empty `yield;` or `return;`.
-                // The empty `yield` is useful to allow the generator to be stopped at
-                // any arbitrary point.
-                if (value !== undefined) {
-                    this.dispatch(value);
-                }
-                if (done) {
-                    return;
-                }
-            }
-            catch (error) {
-                if (isInvalidationError(error)) {
-                    // This error is expected when the actionsProducer has been
-                    // invalidated.
-                    return;
-                }
-                console.warn('Failure executing actions producer', error);
-            }
-        }
-    }
-    /** Apply the `action` to the Store by calling the reducer.  */
-    reduce(action) {
-        if (window.DEBUG_STORE) {
-            console.groupCollapsed(`Action: ${action.type}`);
-            console.dir(action.payload);
-        }
-        const reducers = this.reducers_.get(action.type);
-        if (!reducers || reducers.length === 0) {
-            console.error(`No registered reducers for action: ${action.type}`);
-            return;
-        }
-        this.state_ = reducers.reduce((state, reducer) => reducer(state, action.payload), this.state_);
-        // Batch notifications until after all initialization queuedActions are
-        // resolved.
-        if (this.initialized_ && !this.batchMode_) {
-            this.notifyObservers_(this.state_);
-        }
-        if (this.selector.get() !== this.state_) {
-            this.selectorEmitter_.processChange();
-        }
-        if (window.DEBUG_STORE) {
-            console.groupEnd();
-        }
-    }
-    /** Notify observers with the current state. */
-    notifyObservers_(state) {
-        this.observers_.forEach(o => {
-            try {
-                o.onStateChanged(state);
-            }
-            catch (error) {
-                // Subscribers shouldn't fail, here we only log and continue to all
-                // other subscribers.
-                console.error(error);
-            }
-        });
-    }
-}
-/** Returns true when the error is a ConcurrentActionInvalidatedError. */
-function isInvalidationError(error) {
-    if (!error) {
-        return false;
-    }
-    if (error instanceof ConcurrentActionInvalidatedError) {
-        return true;
-    }
-    // Rollup sometimes duplicate the definition of error class so the
-    // `instanceof` above fail in this condition.
-    if (error.constructor?.name === 'ConcurrentActionInvalidatedError') {
-        return true;
-    }
-    return false;
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
  * @fileoverview This file contains utils for working with icons.
  */
 /** Return icon name for the VM type. */
@@ -2295,475 +1760,556 @@ class VolumeEntry {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+function isFlagEnabled(flagName) {
+    return loadTimeData.isInitialized() && loadTimeData.valueExists(flagName) &&
+        loadTimeData.getBoolean(flagName);
+}
 /**
  * Returns true if GuestOsFiles flag is enabled.
  */
 function isGuestOsEnabled() {
-    return loadTimeData.getBoolean('GUEST_OS');
+    return isFlagEnabled('GUEST_OS');
 }
 /**
  * Returns whether the DriveFsBulkPinning feature flag is enabled.
  */
 function isDriveFsBulkPinningEnabled() {
-    return loadTimeData.getBoolean('DRIVE_FS_BULK_PINNING');
-}
-function isArcVmEnabled() {
-    return loadTimeData.valueExists('ARC_VM_ENABLED') &&
-        loadTimeData.getBoolean('ARC_VM_ENABLED');
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Device slice of the store.
- * @suppress {checkTypes}
- */
-const slice$b = new Slice('device');
-const updateDeviceConnectionState = slice$b.addReducer('set-connection-state', updateDeviceConnectionStateReducer$1);
-function updateDeviceConnectionStateReducer$1(currentState, payload) {
-    let device;
-    // Device connection.
-    if (payload.connection !== currentState.device.connection) {
-        device = {
-            ...currentState.device,
-            connection: payload.connection,
-        };
-    }
-    return device ? { ...currentState, device } : currentState;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Volumes slice of the store.
- * @suppress {checkTypes}
- */
-const slice$a = new Slice('volumes');
-const VolumeType$1 = VolumeManagerCommon.VolumeType;
-const myFilesEntryListKey = `entry-list://${VolumeManagerCommon.RootType.MY_FILES}`;
-`fake-entry://${VolumeManagerCommon.RootType.CROSTINI}`;
-`fake-entry://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
-const recentRootKey = `fake-entry://${VolumeManagerCommon.RootType.RECENT}/all`;
-const trashRootKey = `fake-entry://${VolumeManagerCommon.RootType.TRASH}`;
-const driveRootEntryListKey = `entry-list://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
-const makeRemovableParentKey = (volume) => `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}/${volume.devicePath}`;
-const removableGroupKey = (volume) => `${volume.devicePath}/${volume.driveLabel}`;
-function getVolumeTypesNestedInMyFiles() {
-    const myFilesNestedVolumeTypes = new Set([
-        VolumeType$1.ANDROID_FILES,
-        VolumeType$1.CROSTINI,
-    ]);
-    if (isGuestOsEnabled()) {
-        myFilesNestedVolumeTypes.add(VolumeType$1.GUEST_OS);
-    }
-    return myFilesNestedVolumeTypes;
-}
-/**
- * Convert VolumeInfo and VolumeMetadata to its store representation: Volume.
- */
-function convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata) {
-    /**
-     * FileKey for the volume root's Entry. Or how do we find the Entry for this
-     * volume in the allEntries.
-     */
-    const volumeRootKey = volumeInfo.displayRoot.toURL();
-    return {
-        volumeId: volumeMetadata.volumeId,
-        volumeType: volumeMetadata.volumeType,
-        rootKey: volumeRootKey,
-        status: PropStatus.SUCCESS,
-        label: volumeInfo.label,
-        error: volumeMetadata.mountCondition,
-        deviceType: volumeMetadata.deviceType,
-        devicePath: volumeMetadata.devicePath,
-        isReadOnly: volumeMetadata.isReadOnly,
-        isReadOnlyRemovableDevice: volumeMetadata.isReadOnlyRemovableDevice,
-        providerId: volumeMetadata.providerId,
-        configurable: volumeMetadata.configurable,
-        watchable: volumeMetadata.watchable,
-        source: volumeMetadata.source,
-        diskFileSystemType: volumeMetadata.diskFileSystemType,
-        iconSet: volumeMetadata.iconSet,
-        driveLabel: volumeMetadata.driveLabel,
-        vmType: volumeMetadata.vmType,
-        isDisabled: false,
-        // FileKey to volume's parent in the Tree.
-        prefixKey: undefined,
-        // A volume is by default interactive unless explicitly made
-        // non-interactive.
-        isInteractive: true,
-    };
-}
-/**
- * Updates a volume from the store.
- */
-function updateVolume(state, volumeId, changes) {
-    if (!state.volumes[volumeId]) {
-        console.warn(`Volume not found in the store: ${volumeId}`);
-        return;
-    }
-    return {
-        ...state.volumes[volumeId],
-        ...changes,
-    };
-}
-/** Create action to add a volume. */
-slice$a.addReducer('add', addVolumeReducer);
-function addVolumeReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, [new VolumeEntry(payload.volumeInfo)]);
-    volumeNestingEntries(currentState, payload.volumeInfo, payload.volumeMetadata);
-    const volumeMetadata = payload.volumeMetadata;
-    const volumeInfo = payload.volumeInfo;
-    if (!volumeInfo.fileSystem) {
-        console.error('Only add to the store volumes that have successfully resolved.');
-        return currentState;
-    }
-    const volumes = {
-        ...currentState.volumes,
-    };
-    const volume = convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata);
-    const volumeEntry = getEntry(currentState, volume.rootKey);
-    // Use volume entry's disabled property because that one is derived from
-    // volume manager.
-    if (volumeEntry) {
-        volume.isDisabled = !!volumeEntry.disabled;
-    }
-    // Nested in MyFiles.
-    const myFilesNestedVolumeTypes = getVolumeTypesNestedInMyFiles();
-    // When mounting MyFiles replace the temporary placeholder in nested volumes.
-    if (volume.volumeType === VolumeType$1.DOWNLOADS) {
-        for (const v of Object.values(volumes)) {
-            if (myFilesNestedVolumeTypes.has(v.volumeType)) {
-                v.prefixKey = volume.rootKey;
-            }
-        }
-    }
-    // When mounting a nested volume, set the prefixKey.
-    if (myFilesNestedVolumeTypes.has(volume.volumeType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        volume.prefixKey = myFilesEntry.toURL();
-    }
-    // When mounting Drive.
-    if (volume.volumeType === VolumeType$1.DRIVE) {
-        const drive = getEntry(currentState, driveRootEntryListKey);
-        assert(drive);
-        volume.prefixKey = drive.toURL();
-    }
-    // When mounting Removable.
-    if (volume.volumeType === VolumeType$1.REMOVABLE) {
-        // Should it it be nested or not?
-        const groupingKey = removableGroupKey(volume);
-        const parentKey = makeRemovableParentKey(volume);
-        const groupParentEntry = getEntry(currentState, parentKey);
-        if (groupParentEntry) {
-            const volumesInSameGroup = Object.values(volumes).filter(v => {
-                if (v.volumeType === VolumeType$1.REMOVABLE &&
-                    removableGroupKey(v) === groupingKey) {
-                    v.prefixKey = parentKey;
-                    return true;
-                }
-                return false;
-            });
-            volume.prefixKey =
-                volumesInSameGroup.length > 0 ? groupParentEntry?.toURL() : undefined;
-        }
-    }
-    return {
-        ...currentState,
-        volumes: {
-            ...volumes,
-            [volume.volumeId]: volume,
-        },
-    };
-}
-/** Create action to remove a volume. */
-slice$a.addReducer('remove', removeVolumeReducer);
-function removeVolumeReducer(currentState, payload) {
-    const volumeToRemove = currentState.volumes[payload.volumeId];
-    const volumeEntry = getEntry(currentState, volumeToRemove.rootKey);
-    delete currentState.volumes[payload.volumeId];
-    currentState.volumes = {
-        ...currentState.volumes,
-    };
-    // We also need to check if the removed volume is a child of My files.
-    const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
-    if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && isSameEntry(childEntry, volumeEntry));
-        if (volumeEntryExistsInMyFiles) {
-            // Remove it from the MyFiles UI children.
-            myFilesEntry.removeChildEntry(volumeEntry);
-            // Re-add the corresponding placeholder ui entry to the UI children.
-            const uiEntryKey = currentState.uiEntries.find(entryKey => {
-                const uiEntry = getEntry(currentState, entryKey);
-                return uiEntry.name === volumeEntry.name;
-            });
-            if (uiEntryKey) {
-                const uiEntry = getEntry(currentState, uiEntryKey);
-                myFilesEntry.addEntry(uiEntry);
-            }
-            // Remove it from the MyFiles file data.
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                let newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
-                // Re-add the corresponding placeholder ui entry to the file data.
-                if (uiEntryKey) {
-                    newChildren = newChildren.concat(uiEntryKey);
-                    const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
-                    newChildren = sortEntries(myFilesEntry, childEntries)
-                        .map(entry => entry.toURL());
-                }
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: newChildren,
-                };
-            }
-        }
-    }
-    return {
-        ...currentState,
-    };
-}
-/** Create action to update isInteractive for a volume. */
-slice$a.addReducer('set-is-interactive', updateIsInteractiveVolumeReducer);
-function updateIsInteractiveVolumeReducer(currentState, payload) {
-    const volumes = {
-        ...currentState.volumes,
-    };
-    const updatedVolume = {
-        ...volumes[payload.volumeId],
-        isInteractive: payload.isInteractive,
-    };
-    return {
-        ...currentState,
-        volumes: {
-            ...volumes,
-            [payload.volumeId]: updatedVolume,
-        },
-    };
-}
-slice$a.addReducer(updateDeviceConnectionState.type, updateDeviceConnectionStateReducer);
-function updateDeviceConnectionStateReducer(currentState, payload) {
-    let volumes;
-    // Find ODFS volume(s) and disable it (or them) if offline.
-    const disableODFS = payload.connection ===
-        chrome.fileManagerPrivate.DeviceConnectionState.OFFLINE;
-    for (const volume of Object.values(currentState.volumes)) {
-        if (!util.isOneDriveId(volume.providerId) ||
-            volume.isDisabled === disableODFS) {
-            continue;
-        }
-        const updatedVolume = updateVolume(currentState, volume.volumeId, { isDisabled: disableODFS });
-        if (updatedVolume) {
-            if (!volumes) {
-                volumes = {
-                    ...currentState.volumes,
-                    [volume.volumeId]: updatedVolume,
-                };
-            }
-            else {
-                volumes[volume.volumeId] = updatedVolume;
-            }
-        }
-        // Make the ODFS FileData/VolumeEntry consistent with its volume in the
-        // store.
-        updateFileData(currentState, volume.rootKey, { disabled: disableODFS });
-        const odfsVolumeEntry = getEntry(currentState, volume.rootKey);
-        if (odfsVolumeEntry) {
-            odfsVolumeEntry.disabled = disableODFS;
-        }
-    }
-    return volumes ? { ...currentState, volumes } : currentState;
+    return isFlagEnabled('DRIVE_FS_BULK_PINNING');
 }
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * Type guard used to identify if a generic Entry is actually a DirectoryEntry.
+ * Exception used to stop ActionsProducer when they're no longer valid.
+ *
+ * The concurrency model function uses this exception to force the
+ * ActionsProducer to stop.
  */
-function isFileSystemDirectoryEntry(entry) {
-    return entry.isDirectory;
+class ConcurrentActionInvalidatedError extends Error {
 }
-/**
- * Type guard used to identify if a given entry is actually a
- * VolumeEntry.
- */
-function isVolumeEntry(entry) {
-    return 'volumeInfo' in entry;
-}
-/**
- * Check if the entry is MyFiles or not.
- * Note: if the return value is true, the input entry is guaranteed to be
- * EntryList or VolumeEntry type.
- */
-function isMyFilesEntry(entry) {
-    if (!entry) {
-        return false;
-    }
-    if (entry instanceof EntryList && entry.toURL() === myFilesEntryListKey) {
-        return true;
-    }
-    if (isVolumeEntry(entry) &&
-        entry.volumeType === VolumeManagerCommon.VolumeType.DOWNLOADS) {
-        return true;
-    }
-    return false;
-}
-/** Sort the entries based on the filter and the names. */
-function sortEntries(parentEntry, entries) {
-    if (entries.length === 0) {
-        return [];
-    }
-    // TODO: proper way to get directory model and volume manager.
-    const { directoryModel, volumeManager } = window.fileManager;
-    const fileFilter = directoryModel.getFileFilter();
-    // For entries under My Files we need to use a different sorting logic
-    // because we need to make sure curtain files are always at the bottom.
-    if (isMyFilesEntry(parentEntry)) {
-        // Use locationInfo from first entry because it only compare within the
-        // same volume.
-        // TODO(b/271485133): Do not use getLocationInfo() for sorting.
-        const locationInfo = volumeManager.getLocationInfo(entries[0]);
-        if (locationInfo) {
-            const compareFunction = compareLabelAndGroupBottomEntries(locationInfo, 
-            // Only Linux/Play/GuestOS files are in the UI children.
-            parentEntry.getUIChildren());
-            return entries.filter(entry => fileFilter.filter(entry))
-                .sort(compareFunction);
-        }
-    }
-    return entries.filter(entry => fileFilter.filter(entry)).sort(compareName);
-}
-/**
- * Obtains whether an entry is fake or not.
- */
-function isFakeEntry(entry) {
-    if (entry.getParent === undefined) {
-        return true;
-    }
-    return 'isNativeType' in entry ? !entry.isNativeType : false;
-}
-/**
- * Compares two entries.
- * @return {boolean} True if the both entry represents a same file or
- *     directory. Returns true if both entries are null.
- */
-function isSameEntry(entry1, entry2) {
-    if (!entry1 && !entry2) {
-        return true;
-    }
-    if (!entry1 || !entry2) {
-        return false;
-    }
-    return entry1.toURL() === entry2.toURL();
-}
-/**
- * Compare by name. The 2 entries must be in same directory.
- */
-function compareName(entry1, entry2) {
-    return util.collator.compare(entry1.name, entry2.name);
-}
-/**
- * Compare by label (i18n name). The 2 entries must be in same directory.
- */
-function compareLabel(locationInfo, entry1, entry2) {
-    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
-}
-/**
- * Compare by path.
- */
-function comparePath(entry1, entry2) {
-    return util.collator.compare(entry1.fullPath, entry2.fullPath);
-}
-/**
- * @param bottomEntries entries that should be grouped in the bottom, used for
- *     sorting Linux and Play files entries after
- * other folders in MyFiles.
- */
-function compareLabelAndGroupBottomEntries(locationInfo, bottomEntries) {
-    const childrenMap = new Map();
-    bottomEntries.forEach((entry) => {
-        childrenMap.set(entry.toURL(), entry);
-    });
-    /**
-     * Compare entries putting entries from |bottomEntries| in the bottom and
-     * sort by name within entries that are the same type in regards to
-     * |bottomEntries|.
-     */
-    function compare(entry1, entry2) {
-        // Bottom entry here means Linux or Play files, which should appear after
-        // all native entries.
-        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
-        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
-        // When there are the same type, just compare by label.
-        if (isBottomlEntry1 === isBottomlEntry2) {
-            return compareLabel(locationInfo, entry1, entry2);
-        }
-        return isBottomlEntry1 - isBottomlEntry2;
-    }
-    return compare;
-}
-/**
- * Converts array of entries to an array of corresponding URLs.
- */
-function entriesToURLs(entries) {
-    return entries.map(entry => {
-        // When building file_manager_base.js, cachedUrl is not referred other than
-        // here. Thus closure compiler raises an error if we refer the property like
-        // entry.cachedUrl.
-        if ('cachedUrl' in entry) {
-            return entry['cachedUrl'] || entry.toURL();
-        }
-        return entry.toURL();
-    });
-}
-function unwrapEntry(entry) {
-    if (!entry) {
-        return entry;
-    }
-    const nativeEntry = 'getNativeEntry' in entry && entry.getNativeEntry();
-    if (nativeEntry) {
-        if (isFileSystemDirectoryEntry(nativeEntry)) {
-            return nativeEntry;
-        }
-        return nativeEntry;
-    }
-    if (isFileSystemDirectoryEntry(entry)) {
-        return entry;
-    }
-    return entry;
+/** Helper to distinguish the Action from a ActionsProducer.  */
+function isActionsProducer(value) {
+    return (value.next !== undefined &&
+        value.throw !== undefined);
 }
 
-// Copyright 2021 The Chromium Authors
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview Helpers for APIs used within Files app.
+ * @fileoverview A Selector implementation for redux, bundled with a
+ * SelectorEmitter helper class that allows selectors to be efficiently updated.
+ * @suppress {checkTypes} closure can't recognize LitElement
  */
 /**
- * Calls the `fn` function which should expect the callback as last argument.
- *
- * Resolves with the result of the `fn`.
- *
- * Rejects if there is `chrome.runtime.lastError`.
+ * A class implementing ReactiveController in order to provide an ergonomic
+ * way to update Lit elements based on selected data.
  */
-async function promisify(fn, ...args) {
-    return new Promise((resolve, reject) => {
-        const callback = (result) => {
-            if (chrome.runtime.lastError) {
-                reject(chrome.runtime.lastError.message);
+class SelectorController {
+    constructor(host, value, subscribe) {
+        this.host = host;
+        this.value = value;
+        this.subscribe = subscribe;
+        this.host.addController(this);
+    }
+    hostConnected() {
+        this.unsubscribe = this.subscribe((value) => {
+            this.value = value;
+            this.host.requestUpdate();
+        });
+    }
+    hostDisconnected() {
+        this.unsubscribe();
+    }
+}
+/**
+ * A node in the selector DAG (Directed Acyclic Graph). Used to efficiently
+ * process selectors and eliminate redundant calculations and state updates. A
+ * selector node essentially connects parent selectors through a `select()`
+ * function that combines all of their parents' emitted values to form a new
+ * value.
+ *
+ * Note: `SelectorNode` implements the `Selector` interface, allowing the store
+ * to expose nodes as `Selector`s, hiding complexities related to
+ * `SelectorNode`'s implementation.
+ */
+class SelectorNode {
+    /**
+     * @param parents Either an array of Selectors or SelectorNodes whose values
+     *     should be fed into the `select` function to calculate the selector's
+     *     new value.
+     * @param select The function that calculates the selector's new value once at
+     *     least one its parents emits a new value or, initially, after the
+     *     selector node is constructed. The arguments of select() must match the
+     *     order and type of what is emitted by the parents. This typing match is
+     *     not enforced here because SelectorNodes are only meant to be created by
+     *     the Store. Users of the Store should use `combineXSelectors()` to combine
+     *     selectors.
+     * @param name An optional human-readable name used for debugging purposes.
+     *     Named selectors will log to the console when window.DEBUG_STORE is set,
+     *     whenever they emit a new value.
+     */
+    constructor(parents, select, name) {
+        this.select = select;
+        this.name = name;
+        /** Last value emitted by the selector. */
+        this.value_ = undefined;
+        /** List of selector's current subscribers. */
+        this.subscribers_ = [];
+        /** List of selector's current parents. */
+        this.parents_ = [];
+        /**
+         * The depth of this node in the SelectorEmitter DAG. Used to ensure Selector
+         * nodes are emitted in the correct order.
+         *
+         * Nodes of depth D+1 are only processed after all nodes of depth D have been
+         * processed, starting from D=0.
+         *
+         * Only source nodes (nodes without parents) have depth=0;
+         */
+        this.depth = 0;
+        /** List of selector's current children. */
+        this.children = [];
+        this.parents = parents;
+    }
+    /**
+     * Creates a new source node (a node with no parents).
+     *
+     * The store's default selector should be a source node, but other data
+     * sources can be registered as source nodes as well.
+     *
+     * Slice's default selectors are then connected to the store's source node,
+     * and additional selector nodes can then be created from store and slices'
+     * default selectors using `combineXSelectors()` (and resulting selectors can be
+     * further combined using `combineXSelectors()`).
+     */
+    static createSourceNode(select) {
+        return new SelectorNode([], select);
+    }
+    /**
+     * Creates a selector node that doesn't have parents or select function. Used
+     * by slices to create selectors that are not yet connected to the store but
+     * that can be subscribed to before the store is constructed.
+     *
+     * In other words, disconnected nodes should eventually be connected to the
+     * SelectorEmitter DAG and should retain their list of subscribers after doing
+     * so.
+     *
+     * Disconnected nodes are exclusively used internally by slices and are not
+     * meant to be used outside of it.
+     */
+    static createDisconnectedNode(name) {
+        return new SelectorNode([], () => undefined, name);
+    }
+    /**
+     * We use a getter for parents to make sure they are always retrieved as
+     * SelectorNodes, even though they might be passed in as Selectors in the
+     * `combineXSelectors()` functions.
+     */
+    get parents() {
+        return this.parents_;
+    }
+    set parents(parents) {
+        // Disconnect current parents, if any, before replacing them.
+        this.disconnect_();
+        this.parents_ = parents;
+        // Connects this node to its new parents.
+        for (const parent of parents) {
+            parent.children.push(this);
+            this.depth = Math.max(this.depth, parent.depth + 1);
+        }
+        // Calculate the node's initial value.
+        this.emit();
+    }
+    /**
+     * Disconnects itself from the DAG by deleting its connections with its
+     * parents.
+     */
+    disconnect_() {
+        // Disconnect node from its parents.
+        this.parents.forEach(p => p.disconnectChild_(this));
+        this.parents_ = [];
+    }
+    /** Disconnects the node from one of its children. */
+    disconnectChild_(node) {
+        this.children.splice(this.children.indexOf(node), 1);
+    }
+    /**
+     * Sets a new value, if such new value is different from the current. If
+     * it's different, returns true and notify subscribers. Else, returns false.
+     */
+    emit() {
+        const parentValues = this.parents.map(p => p.get());
+        const newValue = this.select(...parentValues);
+        if (newValue === this.value_) {
+            return false;
+        }
+        if (window.DEBUG_STORE && this.name) {
+            console.log(`Selector '${this.name}' emitted a new value:`);
+            console.log(newValue);
+        }
+        this.value_ = newValue;
+        for (const subscriber of this.subscribers_) {
+            try {
+                subscriber(newValue);
             }
-            else {
-                resolve(result);
+            catch (e) {
+                console.error(e);
             }
-        };
-        fn(...args, callback);
-    });
+        }
+        return true;
+    }
+    get() {
+        return this.value_;
+    }
+    subscribe(cb) {
+        this.subscribers_.push(cb);
+        return () => this.subscribers_.splice(this.subscribers_.indexOf(cb), 1);
+    }
+    createController(host) {
+        return new SelectorController(host, this.get(), this.subscribe.bind(this));
+    }
+    delete() {
+        if (this.children.length > 0) {
+            throw new Error('Attempting to delete node that still has children.');
+        }
+        this.disconnect_();
+        this.subscribers_ = [];
+    }
+}
+/**
+ * A DAG (Directed Acyclic Graph) representation of chains of selectors where
+ * one selector only emits if at least one of their parents has emitted, while
+ * also guaranteeing that, when multiple parents of a given node emit, their
+ * child only emits a single time.
+ */
+class SelectorEmitter {
+    constructor() {
+        /** Source nodes. I.e., nodes with no parents. */
+        this.sourceNodes_ = [];
+    }
+    /** Connect source node to the DAG. */
+    addSource(node) {
+        this.sourceNodes_.push(node);
+    }
+    /**
+     * Propagates changes from sourceNodes to the rest of the DAG.
+     *
+     * Nodes of depth D+1 are only processed after all nodes of depth D have been
+     * processed, starting from D=0.
+     *
+     * This method ensures selectors are evaluated efficiently by:
+     * - Only evaluating nodes if at least one of their parents has emitted a new
+     * value;
+     * - Ensuring each node only emits once per call to `processChange()` unlike a
+     * naive implementation that would emit every time a parent emitted a new
+     * value (meaning the node would emit multiple times per iteration if it had
+     * multiple emitting parents).
+     */
+    processChange() {
+        const toExplore = [...this.sourceNodes_];
+        while (toExplore.length > 0) {
+            const node = toExplore.pop();
+            // Only traverse children if a new value is emitted. Children with
+            // multiple parents might still be enqueued by the remaining parents.
+            if (node.emit()) {
+                toExplore.push(...node.children);
+                // TODO(300209290): use heap instead.
+                // Ensure nodes are explored in ascending order of depth.
+                toExplore.sort((a, b) => b.depth - a.depth);
+            }
+        }
+    }
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Slices represent a part of the state that is nested directly under the root
+ * state, aggregating its reducers and selectors.
+ * @template State The shape of the store's root state.
+ * @template LocalState The shape of this slice.
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+class Slice {
+    /**
+     * @param name The prefix to be used when registering action types with
+     *     this slice.
+     */
+    constructor(name) {
+        this.name = name;
+        /**
+         * Reducers registered with this slice.
+         * Only one reducer per slice can be associated with a given action type.
+         */
+        this.reducers = new Map();
+        /**
+         * The slice's default selector - a selector that is created automatically
+         * when the slice is constructed. It selects the slice's part of the state.
+         */
+        this.selector = SelectorNode.createDisconnectedNode(this.name);
+    }
+    /**
+     * Returns the full action name given by prepending the slice's name to the
+     * given action type (the full name is formatted as "[SLICE_NAME] TYPE").
+     *
+     * If the given action type is already the full name, it's returned without
+     * any changes.
+     *
+     * Note: the only valid scenario where the given type is the full name is when
+     * registering a reducer for an action primarily registered in another slice.
+     */
+    prependSliceName_(type) {
+        const isFullName = type[0] === '[';
+        return isFullName ? type : `[${this.name}] ${type}`;
+    }
+    /**
+     * Returns an action factory for the added reducer.
+     * @param localType The name of the action handled by this reducer. It should
+     *     be either a new action, (e.g., 'do-thing') in which case it will get
+     *     prefixed with the slice's name (e.g., '[sliceName] do-thing'), or an
+     *     existing action from another slice (e.g., `someActionFactory.type`).
+     * @returns A callable action factory that also holds the type and payload
+     *     typing of the actions it produces. Those can be used to register
+     *     reducers in other slices with the same action type.
+     */
+    addReducer(localType, reducer) {
+        const type = this.prependSliceName_(localType);
+        if (this.reducers.get(type)) {
+            throw new Error('Attempting to register multiple reducers ' +
+                `within slice for the same action type: ${type}`);
+        }
+        this.reducers.set(type, reducer);
+        const actionFactory = (payload) => ({ type, payload });
+        // Include action type and payload typing so different slices can register
+        // reducers for the same action type.
+        actionFactory.type = type;
+        actionFactory.PAYLOAD = null;
+        return actionFactory;
+    }
+}
+/**
+ * A generic datastore for the state of a page, where the state is publicly
+ * readable but can only be modified by dispatching an Action.
+ *
+ * The Store should be extended by specifying `StateType`, the app state type
+ * associated with the store.
+ */
+class BaseStore {
+    constructor(state, slices) {
+        /**
+         * A map of action names to reducers handled by the store.
+         */
+        this.reducers_ = new Map();
+        /**
+         * Whether the Store has been initialized. See init() method to initialize.
+         */
+        this.initialized_ = false;
+        /**
+         * Batch mode groups multiple Action mutations and only notify the observes
+         * at the end of the batch. See beginBatchUpdate() and endBatchUpdate()
+         * methods.
+         */
+        this.batchMode_ = false;
+        /**
+         * The DAG representation of selectors held by the store. It ensures
+         * selectors are updated in an efficient manner. For more information,
+         * please see the `SelectorEmitter` class documentation.
+         */
+        this.selectorEmitter_ = new SelectorEmitter();
+        this.state_ = state;
+        this.queuedActions_ = [];
+        this.observers_ = [];
+        this.initialized_ = false;
+        this.batchMode_ = false;
+        const sliceNames = new Set(slices.map(slice => slice.name));
+        if (sliceNames.size !== slices.length) {
+            throw new Error('One or more given slices have the same name. ' +
+                'Please ensure slices are uniquely named: ' +
+                [...sliceNames].join(', '));
+        }
+        // Connect the default root selector to the Selector Emitter.
+        const rootSelector = SelectorNode.createSourceNode(() => this.state_);
+        this.selectorEmitter_.addSource(rootSelector);
+        this.selector = rootSelector;
+        for (const slice of slices) {
+            // Connect the slice's default selector to the store's.
+            slice.selector.select = (state) => state[slice.name];
+            slice.selector.parents = [rootSelector];
+            // Populate reducers with slice.
+            for (const [type, reducer] of slice.reducers.entries()) {
+                const reducerList = this.reducers_.get(type);
+                if (!reducerList) {
+                    this.reducers_.set(type, [reducer]);
+                }
+                else {
+                    reducerList.push(reducer);
+                }
+            }
+        }
+    }
+    /**
+     * Marks the Store as initialized.
+     * While the Store is not initialized, no action is processed and no observes
+     * are notified.
+     *
+     * It should be called by the app's initialization code.
+     */
+    init(initialState) {
+        this.state_ = initialState;
+        this.queuedActions_.forEach((action) => {
+            this.dispatchInternal_(action);
+        });
+        this.initialized_ = true;
+        this.selectorEmitter_.processChange();
+        this.notifyObservers_(this.state_);
+    }
+    isInitialized() {
+        return this.initialized_;
+    }
+    /**
+     * Subscribe to Store changes/updates.
+     * @param observer Callback called whenever the Store is updated.
+     * @returns callback to unsubscribe the observer.
+     */
+    subscribe(observer) {
+        this.observers_.push(observer);
+        return this.unsubscribe.bind(this, observer);
+    }
+    /**
+     * Removes the observer which will stop receiving Store updates.
+     * @param observer The instance that was observing the store.
+     */
+    unsubscribe(observer) {
+        // Create new copy of `observers_` to ensure elements are not removed
+        // from the array in the middle of the loop in `notifyObservers_()`.
+        this.observers_ = this.observers_.filter(o => o !== observer);
+    }
+    /**
+     * Begin a batch update to store data, which will disable updates to the
+     * observers until `endBatchUpdate()` is called. This is useful when a single
+     * UI operation is likely to cause many sequential model updates.
+     */
+    beginBatchUpdate() {
+        this.batchMode_ = true;
+    }
+    /**
+     * End a batch update to the store data, notifying the observers of any
+     * changes which occurred while batch mode was enabled.
+     */
+    endBatchUpdate() {
+        this.batchMode_ = false;
+        this.notifyObservers_(this.state_);
+    }
+    /** @returns the current state of the store.  */
+    getState() {
+        return this.state_;
+    }
+    /**
+     * Dispatches an Action to the Store.
+     *
+     * For synchronous actions it sends the action to the reducers, which updates
+     * the Store state, then the Store notifies all subscribers.
+     * If the Store isn't initialized, the action is queued and dispatched to
+     * reducers during the initialization.
+     */
+    dispatch(action) {
+        if (isActionsProducer(action)) {
+            this.consumeProducedActions_(action);
+            return;
+        }
+        if (!this.initialized_) {
+            this.queuedActions_.push(action);
+            return;
+        }
+        this.dispatchInternal_(action);
+    }
+    /** Synchronously call apply the `action` by calling the reducer.  */
+    dispatchInternal_(action) {
+        this.reduce(action);
+    }
+    /**
+     * Consumes the produced actions from the actions producer.
+     * It dispatches each generated action.
+     */
+    async consumeProducedActions_(actionsProducer) {
+        while (true) {
+            try {
+                const { done, value } = await actionsProducer.next();
+                // Accept undefined to accept empty `yield;` or `return;`.
+                // The empty `yield` is useful to allow the generator to be stopped at
+                // any arbitrary point.
+                if (value !== undefined) {
+                    this.dispatch(value);
+                }
+                if (done) {
+                    return;
+                }
+            }
+            catch (error) {
+                if (isInvalidationError(error)) {
+                    // This error is expected when the actionsProducer has been
+                    // invalidated.
+                    return;
+                }
+                console.warn('Failure executing actions producer', error);
+            }
+        }
+    }
+    /** Apply the `action` to the Store by calling the reducer.  */
+    reduce(action) {
+        if (window.DEBUG_STORE) {
+            console.groupCollapsed(`Action: ${action.type}`);
+            console.dir(action.payload);
+        }
+        const reducers = this.reducers_.get(action.type);
+        if (!reducers || reducers.length === 0) {
+            console.error(`No registered reducers for action: ${action.type}`);
+            return;
+        }
+        this.state_ = reducers.reduce((state, reducer) => reducer(state, action.payload), this.state_);
+        // Batch notifications until after all initialization queuedActions are
+        // resolved.
+        if (this.initialized_ && !this.batchMode_) {
+            this.notifyObservers_(this.state_);
+        }
+        if (this.selector.get() !== this.state_) {
+            this.selectorEmitter_.processChange();
+        }
+        if (window.DEBUG_STORE) {
+            console.groupEnd();
+        }
+    }
+    /** Notify observers with the current state. */
+    notifyObservers_(state) {
+        this.observers_.forEach(o => {
+            try {
+                o.onStateChanged(state);
+            }
+            catch (error) {
+                // Subscribers shouldn't fail, here we only log and continue to all
+                // other subscribers.
+                console.error(error);
+            }
+        });
+    }
+}
+/** Returns true when the error is a ConcurrentActionInvalidatedError. */
+function isInvalidationError(error) {
+    if (!error) {
+        return false;
+    }
+    if (error instanceof ConcurrentActionInvalidatedError) {
+        return true;
+    }
+    // Rollup sometimes duplicate the definition of error class so the
+    // `instanceof` above fail in this condition.
+    if (error.constructor?.name === 'ConcurrentActionInvalidatedError') {
+        return true;
+    }
+    return false;
 }
 
 // Copyright 2014 The Chromium Authors
@@ -5554,10 +5100,728 @@ class PathComponent {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
+ * @fileoverview Android apps slice of the store.
+ * @suppress {checkTypes}
+ *
+ * Android App is something we get from private API
+ * `chrome.fileManagerPrivate.getAndroidPickerApps`, it will be shown as a
+ * directory item in FilePicker mode.
+ */
+const slice$b = new Slice('androidApps');
+/** Action factory to add all android app config to the store. */
+slice$b.addReducer('add', addAndroidAppsReducer);
+function addAndroidAppsReducer(currentState, payload) {
+    const androidApps = {};
+    for (const app of payload.apps) {
+        // For android app item, if no icon is derived from IconSet, set the icon to
+        // the generic one.
+        let icon = constants.ICON_TYPES.GENERIC;
+        if (app.iconSet) {
+            const backgroundImage = util.iconSetToCSSBackgroundImageValue(app.iconSet);
+            if (backgroundImage !== 'none') {
+                icon = app.iconSet;
+            }
+        }
+        androidApps[app.packageName] = {
+            ...app,
+            icon,
+        };
+    }
+    return {
+        ...currentState,
+        androidApps,
+    };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Bulk pinning slice of the store.
+ * @suppress {checkTypes}
+ *
+ * BulkPinProgress is the current state of files that are being pinned when the
+ * BulkPinning feature is enabled. During bulk pinning, all the users items in
+ * My drive are pinned and kept available offline. This tracks the progress of
+ * both the initial operation and any subsequent updates along with any error
+ * states that may occur.
+ */
+const slice$a = new Slice('bulkPinning');
+/** Create action to update the bulk pin progress. */
+slice$a.addReducer('set-progress', (state, bulkPinning) => ({
+    ...state,
+    bulkPinning,
+}));
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Device slice of the store.
+ * @suppress {checkTypes}
+ */
+const slice$9 = new Slice('device');
+const updateDeviceConnectionState = slice$9.addReducer('set-connection-state', updateDeviceConnectionStateReducer$1);
+function updateDeviceConnectionStateReducer$1(currentState, payload) {
+    let device;
+    // Device connection.
+    if (payload.connection !== currentState.device.connection) {
+        device = {
+            ...currentState.device,
+            connection: payload.connection,
+        };
+    }
+    return device ? { ...currentState, device } : currentState;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Drive slice of the store.
+ * @suppress {checkTypes}
+ */
+const slice$8 = new Slice('drive');
+slice$8.addReducer('set-drive-connection-status', updateDriveConnectionStatusReducer);
+function updateDriveConnectionStatusReducer(currentState, payload) {
+    const drive = { ...currentState.drive };
+    if (payload.type !== currentState.drive.connectionType) {
+        drive.connectionType = payload.type;
+    }
+    if (payload.type ===
+        chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE &&
+        payload.reason !== currentState.drive.offlineReason) {
+        drive.offlineReason = payload.reason;
+    }
+    else {
+        drive.offlineReason = undefined;
+    }
+    return { ...currentState, drive };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Folder shortcuts slice of the store.
+ * @suppress {checkTypes}
+ */
+const slice$7 = new Slice('folderShortcuts');
+/** Create action to refresh all folder shortcuts with provided ones. */
+slice$7.addReducer('refresh', refreshFolderShortcutReducer);
+function refreshFolderShortcutReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.entries);
+    return {
+        ...currentState,
+        folderShortcuts: payload.entries.map(entry => entry.toURL()),
+    };
+}
+/** Create action to add a folder shortcut. */
+slice$7.addReducer('add', addFolderShortcutReducer);
+function addFolderShortcutReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, [payload.entry]);
+    const { entry } = payload;
+    const key = entry.toURL();
+    const { folderShortcuts } = currentState;
+    for (let i = 0; i < folderShortcuts.length; i++) {
+        // Do nothing if the key is already existed.
+        if (key === folderShortcuts[i]) {
+            return currentState;
+        }
+        const shortcutEntry = getEntry(currentState, folderShortcuts[i]);
+        // The folder shortcut array is sorted, the new item will be added just
+        // before the first larger item.
+        if (comparePath(shortcutEntry, entry) > 0) {
+            return {
+                ...currentState,
+                folderShortcuts: [
+                    ...folderShortcuts.slice(0, i),
+                    key,
+                    ...folderShortcuts.slice(i),
+                ],
+            };
+        }
+    }
+    // If for loop is not returned, the key is not added yet, add it at the last.
+    return {
+        ...currentState,
+        folderShortcuts: folderShortcuts.concat(key),
+    };
+}
+/** Create action to remove a folder shortcut. */
+slice$7.addReducer('remove', removeFolderShortcutReducer);
+function removeFolderShortcutReducer(currentState, payload) {
+    const { key } = payload;
+    const { folderShortcuts } = currentState;
+    const isExisted = folderShortcuts.find(k => k === key);
+    // Do nothing if the key is not existed.
+    if (!isExisted) {
+        return currentState;
+    }
+    return {
+        ...currentState,
+        folderShortcuts: folderShortcuts.filter(k => k !== key),
+    };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Navigation slice of the store.
+ * @suppress {checkTypes}
+ */
+const slice$6 = new Slice('navigation');
+const VolumeType$1 = VolumeManagerCommon.VolumeType;
+const sections = new Map();
+// My Files.
+sections.set(VolumeType$1.DOWNLOADS, NavigationSection.MY_FILES);
+// Cloud.
+sections.set(VolumeType$1.DRIVE, NavigationSection.CLOUD);
+sections.set(VolumeType$1.SMB, NavigationSection.CLOUD);
+sections.set(VolumeType$1.PROVIDED, NavigationSection.CLOUD);
+sections.set(VolumeType$1.DOCUMENTS_PROVIDER, NavigationSection.CLOUD);
+// Removable.
+sections.set(VolumeType$1.REMOVABLE, NavigationSection.REMOVABLE);
+sections.set(VolumeType$1.MTP, NavigationSection.REMOVABLE);
+sections.set(VolumeType$1.ARCHIVE, NavigationSection.REMOVABLE);
+/** Returns the entry for the volume's top-most prefix or the volume itself. */
+function getPrefixEntryOrEntry(state, volume) {
+    if (volume.prefixKey) {
+        const entry = getEntry(state, volume.prefixKey);
+        return entry;
+    }
+    if (volume.volumeType === VolumeType$1.DOWNLOADS) {
+        return getMyFiles(state).myFilesEntry;
+    }
+    const entry = getEntry(state, volume.rootKey);
+    return entry;
+}
+/**
+ * Create action to refresh all navigation roots. This will clear all existing
+ * navigation roots in the store and regenerate them with the current state
+ * data.
+ *
+ * Navigation roots' Entries/Volumes will be ordered as below:
+ *  1. Recents.
+ *  2. Shortcuts.
+ *  3. "My-Files" (grouping), actually Downloads volume.
+ *  4. Google Drive.
+ *  5. ODFS.
+ *  6. SMBs
+ *  7. Other FSP (File System Provider) (when mounted).
+ *  8. Other volumes (MTP, ARCHIVE, REMOVABLE).
+ *  9. Android apps.
+ *  10. Trash.
+ */
+slice$6.addReducer('refresh-roots', refreshNavigationRootsReducer);
+function refreshNavigationRootsReducer(currentState) {
+    const { navigation: { roots: previousRoots }, folderShortcuts, androidApps, } = currentState;
+    /** Roots in the desired order. */
+    const roots = [];
+    /** Set to avoid adding the same entry multiple times. */
+    const processedEntryKeys = new Set();
+    // 1. Add the Recent/Materialized view root.
+    const recentRoot = previousRoots.find(root => root.key === recentRootKey);
+    if (recentRoot) {
+        roots.push(recentRoot);
+        processedEntryKeys.add(recentRootKey);
+    }
+    else {
+        const recentEntry = getEntry(currentState, recentRootKey);
+        if (recentEntry) {
+            roots.push({
+                key: recentRootKey,
+                section: NavigationSection.TOP,
+                separator: false,
+                type: NavigationType.RECENT,
+            });
+            processedEntryKeys.add(recentRootKey);
+        }
+    }
+    // 2. Add the Shortcuts.
+    // TODO: Since Shortcuts are only for Drive, do we need to remove shortcuts
+    // if Drive isn't available anymore?
+    folderShortcuts.forEach(shortcutKey => {
+        const shortcutEntry = getEntry(currentState, shortcutKey);
+        if (shortcutEntry) {
+            roots.push({
+                key: shortcutKey,
+                section: NavigationSection.TOP,
+                separator: false,
+                type: NavigationType.SHORTCUT,
+            });
+            processedEntryKeys.add(shortcutKey);
+        }
+    });
+    // 3. MyFiles
+    const { myFilesEntry, myFilesVolume } = getMyFiles(currentState);
+    roots.push({
+        key: myFilesEntry.toURL(),
+        section: NavigationSection.MY_FILES,
+        // Only show separator if this is not the first navigation item.
+        separator: processedEntryKeys.size > 0,
+        type: myFilesVolume ? NavigationType.VOLUME : NavigationType.ENTRY_LIST,
+    });
+    processedEntryKeys.add(myFilesEntry.toURL());
+    // 4. Add Google Drive - the only Drive.
+    const driveEntry = getEntry(currentState, driveRootEntryListKey);
+    if (driveEntry) {
+        roots.push({
+            key: driveEntry.toURL(),
+            section: NavigationSection.GOOGLE_DRIVE,
+            separator: true,
+            type: NavigationType.DRIVE,
+        });
+        processedEntryKeys.add(driveEntry.toURL());
+    }
+    // 5/6/7/8 Other volumes.
+    const volumesOrder = {
+        // ODFS is a PROVIDED volume type but is a special case to be directly below
+        // Drive.
+        // ODFS : 0
+        [VolumeType$1.SMB]: 1,
+        [VolumeType$1.PROVIDED]: 2,
+        [VolumeType$1.DOCUMENTS_PROVIDER]: 3,
+        [VolumeType$1.REMOVABLE]: 4,
+        [VolumeType$1.ARCHIVE]: 5,
+        [VolumeType$1.MTP]: 6,
+    };
+    // Filter volumes based on the volumeInfoList in volumeManager.
+    const { volumeManager } = window.fileManager;
+    const filteredVolumes = Object.values(currentState.volumes).filter(volume => {
+        const volumeEntry = getEntry(currentState, volume.rootKey);
+        return volumeManager.isAllowedVolume(volumeEntry.volumeInfo);
+    });
+    function getVolumeOrder(volume) {
+        if (isOneDriveId(volume.providerId)) {
+            return 0;
+        }
+        return volumesOrder[volume.volumeType] ?? 999;
+    }
+    const volumes = filteredVolumes
+        .filter((v) => {
+        return (
+        // Only display if the entry is resolved.
+        v.rootKey &&
+            // MyFiles and Drive is already displayed above.
+            // MediaView volumeType isn't displayed.
+            !(v.volumeType === VolumeType$1.DOWNLOADS ||
+                v.volumeType === VolumeType$1.DRIVE ||
+                v.volumeType === VolumeType$1.MEDIA_VIEW));
+    })
+        .sort((v1, v2) => {
+        const v1Order = getVolumeOrder(v1);
+        const v2Order = getVolumeOrder(v2);
+        return v1Order - v2Order;
+    });
+    let lastSection = null;
+    for (const volume of volumes) {
+        // Some volumes might be nested inside another volume or entry list, e.g.
+        // Multiple partition removable volumes can be nested inside a EntryList, or
+        // GuestOS/Crostini/Android volumes will be nested inside MyFiles, for these
+        // volumes, we only need to add its parent volume in the navigation roots.
+        const volumeEntry = getPrefixEntryOrEntry(currentState, volume);
+        if (volumeEntry && !processedEntryKeys.has(volumeEntry.toURL())) {
+            let section = sections.get(volume.volumeType) ?? NavigationSection.REMOVABLE;
+            if (isOneDriveId(volume.providerId)) {
+                section = NavigationSection.ODFS;
+            }
+            const isSectionStart = section !== lastSection;
+            roots.push({
+                key: volumeEntry.toURL(),
+                section,
+                separator: isSectionStart,
+                type: NavigationType.VOLUME,
+            });
+            processedEntryKeys.add(volumeEntry.toURL());
+            lastSection = section;
+        }
+    }
+    // 9. Android Apps.
+    Object.values(androidApps)
+        .forEach((app, index) => {
+        roots.push({
+            key: app.packageName,
+            section: NavigationSection.ANDROID_APPS,
+            separator: index === 0,
+            type: NavigationType.ANDROID_APPS,
+        });
+        processedEntryKeys.add(app.packageName);
+    });
+    // 10. Trash
+    const trashEntry = getEntry(currentState, trashRootKey);
+    if (trashEntry) {
+        roots.push({
+            key: trashRootKey,
+            section: NavigationSection.TRASH,
+            separator: true,
+            type: NavigationType.TRASH,
+        });
+        processedEntryKeys.add(trashRootKey);
+    }
+    return {
+        ...currentState,
+        navigation: {
+            roots,
+        },
+    };
+}
+/** Create action to update navigation data in FileData for a given entry. */
+slice$6.addReducer('update-entry', updateNavigationEntryReducer);
+function updateNavigationEntryReducer(currentState, payload) {
+    const { key, expanded } = payload;
+    const fileData = getFileData(currentState, key);
+    if (!fileData) {
+        return currentState;
+    }
+    currentState.allEntries[key] = {
+        ...fileData,
+        expanded,
+    };
+    return { ...currentState };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Chrome preferences slice of the store.
+ * @suppress {checkTypes}
+ *
+ * Chrome preferences store user data that is persisted to disk OR across
+ * profiles, this takes care of initially populating these values then keeping
+ * them updated on dynamic changes.
+ */
+const slice$5 = new Slice('preferences');
+/**
+ * A type guard to see if the payload supplied is a change of preferences or the
+ * entire preferences object. Useful in ensuring subsequent type checks are done
+ * on the correct type (instead of the union type).
+ */
+function isPreferencesChange(payload) {
+    // The field `driveEnabled` is only on a `Preferences` object, so if this is
+    // undefined the payload is a `PreferencesChange` object otherwise it's a
+    // `Preferences` object.
+    if (payload.driveEnabled !== undefined) {
+        return false;
+    }
+    return true;
+}
+/**
+ * Only update the existing preferences with their new values if they are
+ * defined. In the event of spreading the change event over the existing
+ * preferences, undefined values should not overwrite their existing values.
+ */
+function updateIfDefined(updatedPreferences, newPreferences, key) {
+    if (!(key in newPreferences) || newPreferences[key] === undefined) {
+        return false;
+    }
+    if (updatedPreferences[key] === newPreferences[key]) {
+        return false;
+    }
+    // We're updating the `Preferences` original here and it doesn't type union
+    // well with `PreferencesChange`. Given we've done all the type validation
+    // above, cast them both to the `Preferences` type to ensure subsequent
+    // updates can work.
+    updatedPreferences[key] =
+        newPreferences[key];
+    return true;
+}
+/** Create action to update user preferences. */
+slice$5.addReducer('set', updatePreferencesReducer);
+function updatePreferencesReducer(currentState, payload) {
+    const preferences = payload;
+    // This action takes two potential payloads:
+    //  - chrome.fileManagerPrivate.Preferences
+    //  - chrome.fileManagerPrivate.PreferencesChange
+    // Both of these have different type requirements. If we receive a
+    // `Preferences` update, just store the data directly in the store. If we
+    // receive a `PreferencesChange` the individual fields need to be checked to
+    // ensure they are different to what we have in the store AND they won't
+    // remove the existing data (i.e. they are not null or undefined).
+    if (!isPreferencesChange(preferences)) {
+        return {
+            ...currentState,
+            preferences,
+        };
+    }
+    const updatedPreferences = { ...currentState.preferences };
+    const keysToCheck = [
+        'driveSyncEnabledOnMeteredNetwork',
+        'arcEnabled',
+        'arcRemovableMediaAccessEnabled',
+        'folderShortcuts',
+        'driveFsBulkPinningEnabled',
+    ];
+    let updated = false;
+    for (const key of keysToCheck) {
+        updated = updateIfDefined(updatedPreferences, preferences, key) || updated;
+    }
+    // If no keys have been updated in the preference change, then send back the
+    // original state as nothing has changed.
+    if (!updated) {
+        return currentState;
+    }
+    return {
+        ...currentState,
+        preferences: updatedPreferences,
+    };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Search slice of the store.
+ * @suppress {checkTypes}
+ */
+const slice$4 = new Slice('search');
+/**
+ * Returns if the given search data represents empty (cleared) search.
+ */
+function isSearchEmpty(search) {
+    return Object.values(search).every(f => f === undefined);
+}
+/**
+ * Helper function that does a deep comparison between two SearchOptions.
+ */
+function optionsChanged(stored, fresh) {
+    if (fresh === undefined) {
+        // If fresh options are undefined, that means keep the stored options. No
+        // matter what the stored options are, we are saying they have not changed.
+        return false;
+    }
+    if (stored === undefined) {
+        return true;
+    }
+    return fresh.location !== stored.location ||
+        fresh.recency !== stored.recency ||
+        fresh.fileCategory !== stored.fileCategory;
+}
+slice$4.addReducer('set', searchReducer);
+function searchReducer(state, payload) {
+    const blankSearch = {
+        query: undefined,
+        status: undefined,
+        options: undefined,
+    };
+    // Special case: if none of the fields are set, the action clears the search
+    // state in the store.
+    if (isSearchEmpty(payload)) {
+        // Only change the state if the stored value has some defined values.
+        if (state.search && !isSearchEmpty(state.search)) {
+            return {
+                ...state,
+                search: blankSearch,
+            };
+        }
+        return state;
+    }
+    const currentSearch = state.search || blankSearch;
+    // Create a clone of current search. We must not modify the original object,
+    // as store customers are free to cache it and check for changes. If we modify
+    // the original object the check for changes incorrectly return false.
+    const search = { ...currentSearch };
+    let changed = false;
+    if (payload.query !== undefined && payload.query !== currentSearch.query) {
+        search.query = payload.query;
+        changed = true;
+    }
+    if (payload.status !== undefined && payload.status !== currentSearch.status) {
+        search.status = payload.status;
+        changed = true;
+    }
+    if (optionsChanged(currentSearch.options, payload.options)) {
+        search.options = { ...payload.options };
+        changed = true;
+    }
+    return changed ? { ...state, search } : state;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview UI entries slice of the store.
+ * @suppress {checkTypes}
+ *
+ * UI entries represents entries shown on UI only (aka FakeEntry, e.g.
+ * Recents/Trash/Google Drive wrapper), they don't have a real entry backup in
+ * the file system.
+ */
+const slice$3 = new Slice('uiEntries');
+const uiEntryRootTypesInMyFiles = new Set([
+    VolumeManagerCommon.RootType.ANDROID_FILES,
+    VolumeManagerCommon.RootType.CROSTINI,
+    VolumeManagerCommon.RootType.GUEST_OS,
+]);
+/** Create action to add an UI entry to the store. */
+slice$3.addReducer('add', addUiEntryReducer);
+function addUiEntryReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, [payload.entry]);
+    const { entry } = payload;
+    const key = entry.toURL();
+    let isVolumeEntryExistedInMyFiles = false;
+    if (uiEntryRootTypesInMyFiles.has(entry.rootType)) {
+        const { myFilesEntry } = getMyFiles(currentState);
+        const children = myFilesEntry.getUIChildren();
+        // Check if the the ui entry already has a corresponding volume entry.
+        isVolumeEntryExistedInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && childEntry.name === entry.name);
+        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
+        // We only add the UI entry here if:
+        // 1. it is not existed in MyFiles entry
+        // 2. its corresponding volume (which ui entry is a placeholder for) is not
+        // existed in MyFiles entry
+        const shouldAddUiEntry = !isUiEntryExistedInMyFiles && !isVolumeEntryExistedInMyFiles;
+        if (shouldAddUiEntry) {
+            myFilesEntry.addEntry(entry);
+            // Push the new entry to the children of FileData and sort them.
+            const fileData = getFileData(currentState, myFilesEntry.toURL());
+            if (fileData) {
+                const newChildren = fileData.children.concat(entry.toURL());
+                const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
+                const sortedChildren = sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
+                currentState.allEntries[myFilesEntry.toURL()] = {
+                    ...fileData,
+                    children: sortedChildren,
+                };
+            }
+        }
+    }
+    // If the corresponding volume entry exists, we don't add the ui entry here.
+    if (!currentState.uiEntries.find(k => k === key) &&
+        !isVolumeEntryExistedInMyFiles) {
+        // Shallow copy.
+        currentState.uiEntries = currentState.uiEntries.slice();
+        currentState.uiEntries.push(key);
+    }
+    return {
+        ...currentState,
+    };
+}
+/** Create action to remove an UI entry from the store. */
+slice$3.addReducer('remove', removeUiEntryReducer);
+function removeUiEntryReducer(currentState, payload) {
+    const { key } = payload;
+    const entry = getEntry(currentState, key);
+    if (currentState.uiEntries.find(k => k === key)) {
+        // Shallow copy.
+        currentState.uiEntries = currentState.uiEntries.filter(k => k !== key);
+    }
+    // We also need to remove it from the children of MyFiles if it's existed
+    // there.
+    if (entry && uiEntryRootTypesInMyFiles.has(entry.rootType)) {
+        const { myFilesEntry } = getMyFiles(currentState);
+        const children = myFilesEntry.getUIChildren();
+        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
+        if (isUiEntryExistedInMyFiles) {
+            myFilesEntry.removeChildEntry(entry);
+            const fileData = getFileData(currentState, myFilesEntry.toURL());
+            if (fileData) {
+                currentState.allEntries[myFilesEntry.toURL()] = {
+                    ...fileData,
+                    children: fileData.children.filter(child => child !== key),
+                };
+            }
+        }
+    }
+    return {
+        ...currentState,
+    };
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Store singleton instance.
+ * It's only exposed via `getStore()` to guarantee it's a single instance.
+ * TODO(b/272120634): Use window.store temporarily, uncomment below code after
+ * the duplicate store issue is resolved.
+ */
+// let store: null|Store = null;
+/**
+ * Returns the singleton instance for the Files app's Store.
+ *
+ * NOTE: This doesn't guarantee the Store's initialization. This should be done
+ * at the app's main entry point.
+ */
+function getStore() {
+    // TODO(b/272120634): Put the store on window to prevent Store being created
+    // twice.
+    if (!window.store) {
+        window.store = new BaseStore(getEmptyState(), [
+            slice$4,
+            slice,
+            slice$a,
+            slice$3,
+            slice$b,
+            slice$7,
+            slice$6,
+            slice$5,
+            slice$9,
+            slice$8,
+            slice$2,
+            slice$1,
+        ]);
+    }
+    return window.store;
+}
+function getEmptyState() {
+    // TODO(b/241707820): Migrate State to allow optional attributes.
+    return {
+        allEntries: {},
+        currentDirectory: undefined,
+        device: {
+            connection: chrome.fileManagerPrivate.DeviceConnectionState.ONLINE,
+        },
+        drive: {
+            connectionType: chrome.fileManagerPrivate.DriveConnectionStateType.ONLINE,
+            offlineReason: undefined,
+        },
+        search: {
+            query: undefined,
+            status: undefined,
+            options: undefined,
+        },
+        navigation: {
+            roots: [],
+        },
+        volumes: {},
+        uiEntries: [],
+        folderShortcuts: [],
+        androidApps: [],
+        bulkPinning: undefined,
+        preferences: undefined,
+    };
+}
+/**
+ * Returns the `FileData` from a FileKey.
+ */
+function getFileData(state, key) {
+    const fileData = state.allEntries[key];
+    if (fileData) {
+        return fileData;
+    }
+    return null;
+}
+function getEntry(state, key) {
+    const fileData = state.allEntries[key];
+    return fileData?.entry ?? null;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
  * @fileoverview Current directory slice of the store.
  * @suppress {checkTypes}
  */
-const slice$9 = new Slice('currentDirectory');
+const slice$2 = new Slice('currentDirectory');
 function getEmptySelection(keys = []) {
     return {
         keys,
@@ -5597,7 +5861,7 @@ function hasDlpDisabledFiles(currentState) {
     return false;
 }
 /** Create action to change the Current Directory. */
-slice$9.addReducer('set', changeDirectoryReducer);
+slice$2.addReducer('set', changeDirectoryReducer);
 function changeDirectoryReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     if (payload.to) {
@@ -5673,7 +5937,7 @@ function changeDirectoryReducer(currentState, payload) {
     };
 }
 /** Create action to update currently selected files/folders. */
-slice$9.addReducer('set-selection', updateSelectionReducer);
+slice$2.addReducer('set-selection', updateSelectionReducer);
 function updateSelectionReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, payload.entries);
@@ -5746,7 +6010,7 @@ function updateSelectionReducer(currentState, payload) {
     };
 }
 /** Create action to update FileTasks for the current selection. */
-slice$9.addReducer('set-file-tasks', updateFileTasksReducer);
+slice$2.addReducer('set-file-tasks', updateFileTasksReducer);
 function updateFileTasksReducer(currentState, payload) {
     const initialSelection = currentState.currentDirectory?.selection ?? getEmptySelection();
     // Apply the changes over the current selection.
@@ -5769,7 +6033,7 @@ function updateFileTasksReducer(currentState, payload) {
     };
 }
 /** Create action to update the current directory's content. */
-slice$9.addReducer('update-content', updateDirectoryContentReducer);
+slice$2.addReducer('update-content', updateDirectoryContentReducer);
 function updateDirectoryContentReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, payload.entries);
@@ -5808,11 +6072,11 @@ function updateDirectoryContentReducer(currentState, payload) {
  * @fileoverview Entries slice of the store.
  * @suppress {checkTypes} TS already checks this file.
  */
-const slice$8 = new Slice('allEntries');
+const slice$1 = new Slice('allEntries');
 /**
  * Create action to scan `allEntries` and remove its stale entries.
  */
-const clearCachedEntries = slice$8.addReducer('clear-stale-cache', clearCachedEntriesReducer);
+const clearCachedEntries = slice$1.addReducer('clear-stale-cache', clearCachedEntriesReducer);
 function clearCachedEntriesReducer(state) {
     const entries = state.allEntries;
     const currentDirectoryKey = state.currentDirectory?.key;
@@ -6122,7 +6386,7 @@ function getEntryType(entry) {
     }
 }
 /** Create action to update entries metadata. */
-slice$8.addReducer('update-metadata', updateMetadataReducer);
+slice$1.addReducer('update-metadata', updateMetadataReducer);
 function updateMetadataReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, payload.metadata.map(m => m.entry));
@@ -6358,7 +6622,7 @@ function volumeNestingEntries(state, volumeInfo, volumeMetadata) {
                 volumeInfo.volumeType === VolumeManagerCommon.VolumeType.SMB);
 }
 /**  Create action to add child entries to a parent entry. */
-slice$8.addReducer('add-children', addChildEntriesReducer);
+slice$1.addReducer('add-children', addChildEntriesReducer);
 function addChildEntriesReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, payload.entries);
@@ -6397,610 +6661,189 @@ function addChildEntriesReducer(currentState, payload) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview Android apps slice of the store.
+ * @fileoverview Volumes slice of the store.
  * @suppress {checkTypes}
- *
- * Android App is something we get from private API
- * `chrome.fileManagerPrivate.getAndroidPickerApps`, it will be shown as a
- * directory item in FilePicker mode.
  */
-const slice$7 = new Slice('androidApps');
-/** Action factory to add all android app config to the store. */
-slice$7.addReducer('add', addAndroidAppsReducer);
-function addAndroidAppsReducer(currentState, payload) {
-    const androidApps = {};
-    for (const app of payload.apps) {
-        // For android app item, if no icon is derived from IconSet, set the icon to
-        // the generic one.
-        let icon = constants.ICON_TYPES.GENERIC;
-        if (app.iconSet) {
-            const backgroundImage = util.iconSetToCSSBackgroundImageValue(app.iconSet);
-            if (backgroundImage !== 'none') {
-                icon = app.iconSet;
-            }
-        }
-        androidApps[app.packageName] = {
-            ...app,
-            icon,
-        };
+const slice = new Slice('volumes');
+const VolumeType = VolumeManagerCommon.VolumeType;
+const myFilesEntryListKey = `entry-list://${VolumeManagerCommon.RootType.MY_FILES}`;
+`fake-entry://${VolumeManagerCommon.RootType.CROSTINI}`;
+`fake-entry://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
+const recentRootKey = `fake-entry://${VolumeManagerCommon.RootType.RECENT}/all`;
+const trashRootKey = `fake-entry://${VolumeManagerCommon.RootType.TRASH}`;
+const driveRootEntryListKey = `entry-list://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
+const makeRemovableParentKey = (volume) => `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}/${volume.devicePath}`;
+const removableGroupKey = (volume) => `${volume.devicePath}/${volume.driveLabel}`;
+function getVolumeTypesNestedInMyFiles() {
+    const myFilesNestedVolumeTypes = new Set([
+        VolumeType.ANDROID_FILES,
+        VolumeType.CROSTINI,
+    ]);
+    if (isGuestOsEnabled()) {
+        myFilesNestedVolumeTypes.add(VolumeType.GUEST_OS);
     }
+    return myFilesNestedVolumeTypes;
+}
+/**
+ * Convert VolumeInfo and VolumeMetadata to its store representation: Volume.
+ */
+function convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata) {
+    /**
+     * FileKey for the volume root's Entry. Or how do we find the Entry for this
+     * volume in the allEntries.
+     */
+    const volumeRootKey = volumeInfo.displayRoot.toURL();
     return {
-        ...currentState,
-        androidApps,
+        volumeId: volumeMetadata.volumeId,
+        volumeType: volumeMetadata.volumeType,
+        rootKey: volumeRootKey,
+        status: PropStatus.SUCCESS,
+        label: volumeInfo.label,
+        error: volumeMetadata.mountCondition,
+        deviceType: volumeMetadata.deviceType,
+        devicePath: volumeMetadata.devicePath,
+        isReadOnly: volumeMetadata.isReadOnly,
+        isReadOnlyRemovableDevice: volumeMetadata.isReadOnlyRemovableDevice,
+        providerId: volumeMetadata.providerId,
+        configurable: volumeMetadata.configurable,
+        watchable: volumeMetadata.watchable,
+        source: volumeMetadata.source,
+        diskFileSystemType: volumeMetadata.diskFileSystemType,
+        iconSet: volumeMetadata.iconSet,
+        driveLabel: volumeMetadata.driveLabel,
+        vmType: volumeMetadata.vmType,
+        isDisabled: false,
+        // FileKey to volume's parent in the Tree.
+        prefixKey: undefined,
+        // A volume is by default interactive unless explicitly made
+        // non-interactive.
+        isInteractive: true,
     };
 }
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 /**
- * @fileoverview Bulk pinning slice of the store.
- * @suppress {checkTypes}
- *
- * BulkPinProgress is the current state of files that are being pinned when the
- * BulkPinning feature is enabled. During bulk pinning, all the users items in
- * My drive are pinned and kept available offline. This tracks the progress of
- * both the initial operation and any subsequent updates along with any error
- * states that may occur.
+ * Updates a volume from the store.
  */
-const slice$6 = new Slice('bulkPinning');
-/** Create action to update the bulk pin progress. */
-slice$6.addReducer('set-progress', (state, bulkPinning) => ({
-    ...state,
-    bulkPinning,
-}));
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Drive slice of the store.
- * @suppress {checkTypes}
- */
-const slice$5 = new Slice('drive');
-slice$5.addReducer('set-drive-connection-status', updateDriveConnectionStatusReducer);
-function updateDriveConnectionStatusReducer(currentState, payload) {
-    const drive = { ...currentState.drive };
-    if (payload.type !== currentState.drive.connectionType) {
-        drive.connectionType = payload.type;
+function updateVolume(state, volumeId, changes) {
+    if (!state.volumes[volumeId]) {
+        console.warn(`Volume not found in the store: ${volumeId}`);
+        return;
     }
-    if (payload.type ===
-        chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE &&
-        payload.reason !== currentState.drive.offlineReason) {
-        drive.offlineReason = payload.reason;
-    }
-    else {
-        drive.offlineReason = undefined;
-    }
-    return { ...currentState, drive };
+    return {
+        ...state.volumes[volumeId],
+        ...changes,
+    };
 }
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Folder shortcuts slice of the store.
- * @suppress {checkTypes}
- */
-const slice$4 = new Slice('folderShortcuts');
-/** Create action to refresh all folder shortcuts with provided ones. */
-slice$4.addReducer('refresh', refreshFolderShortcutReducer);
-function refreshFolderShortcutReducer(currentState, payload) {
+/** Create action to add a volume. */
+slice.addReducer('add', addVolumeReducer);
+function addVolumeReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.entries);
-    return {
-        ...currentState,
-        folderShortcuts: payload.entries.map(entry => entry.toURL()),
-    };
-}
-/** Create action to add a folder shortcut. */
-slice$4.addReducer('add', addFolderShortcutReducer);
-function addFolderShortcutReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, [payload.entry]);
-    const { entry } = payload;
-    const key = entry.toURL();
-    const { folderShortcuts } = currentState;
-    for (let i = 0; i < folderShortcuts.length; i++) {
-        // Do nothing if the key is already existed.
-        if (key === folderShortcuts[i]) {
-            return currentState;
-        }
-        const shortcutEntry = getEntry(currentState, folderShortcuts[i]);
-        // The folder shortcut array is sorted, the new item will be added just
-        // before the first larger item.
-        if (comparePath(shortcutEntry, entry) > 0) {
-            return {
-                ...currentState,
-                folderShortcuts: [
-                    ...folderShortcuts.slice(0, i),
-                    key,
-                    ...folderShortcuts.slice(i),
-                ],
-            };
-        }
-    }
-    // If for loop is not returned, the key is not added yet, add it at the last.
-    return {
-        ...currentState,
-        folderShortcuts: folderShortcuts.concat(key),
-    };
-}
-/** Create action to remove a folder shortcut. */
-slice$4.addReducer('remove', removeFolderShortcutReducer);
-function removeFolderShortcutReducer(currentState, payload) {
-    const { key } = payload;
-    const { folderShortcuts } = currentState;
-    const isExisted = folderShortcuts.find(k => k === key);
-    // Do nothing if the key is not existed.
-    if (!isExisted) {
+    cacheEntries(currentState, [new VolumeEntry(payload.volumeInfo)]);
+    volumeNestingEntries(currentState, payload.volumeInfo, payload.volumeMetadata);
+    const volumeMetadata = payload.volumeMetadata;
+    const volumeInfo = payload.volumeInfo;
+    if (!volumeInfo.fileSystem) {
+        console.error('Only add to the store volumes that have successfully resolved.');
         return currentState;
     }
-    return {
-        ...currentState,
-        folderShortcuts: folderShortcuts.filter(k => k !== key),
+    const volumes = {
+        ...currentState.volumes,
     };
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Navigation slice of the store.
- * @suppress {checkTypes}
- */
-const slice$3 = new Slice('navigation');
-const VolumeType = VolumeManagerCommon.VolumeType;
-const sections = new Map();
-// My Files.
-sections.set(VolumeType.DOWNLOADS, NavigationSection.MY_FILES);
-// Cloud.
-sections.set(VolumeType.DRIVE, NavigationSection.CLOUD);
-sections.set(VolumeType.SMB, NavigationSection.CLOUD);
-sections.set(VolumeType.PROVIDED, NavigationSection.CLOUD);
-sections.set(VolumeType.DOCUMENTS_PROVIDER, NavigationSection.CLOUD);
-// Removable.
-sections.set(VolumeType.REMOVABLE, NavigationSection.REMOVABLE);
-sections.set(VolumeType.MTP, NavigationSection.REMOVABLE);
-sections.set(VolumeType.ARCHIVE, NavigationSection.REMOVABLE);
-/** Returns the entry for the volume's top-most prefix or the volume itself. */
-function getPrefixEntryOrEntry(state, volume) {
-    if (volume.prefixKey) {
-        const entry = getEntry(state, volume.prefixKey);
-        return entry;
+    const volume = convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata);
+    const volumeEntry = getEntry(currentState, volume.rootKey);
+    // Use volume entry's disabled property because that one is derived from
+    // volume manager.
+    if (volumeEntry) {
+        volume.isDisabled = !!volumeEntry.disabled;
     }
+    // Nested in MyFiles.
+    const myFilesNestedVolumeTypes = getVolumeTypesNestedInMyFiles();
+    // When mounting MyFiles replace the temporary placeholder in nested volumes.
     if (volume.volumeType === VolumeType.DOWNLOADS) {
-        return getMyFiles(state).myFilesEntry;
-    }
-    const entry = getEntry(state, volume.rootKey);
-    return entry;
-}
-/**
- * Create action to refresh all navigation roots. This will clear all existing
- * navigation roots in the store and regenerate them with the current state
- * data.
- *
- * Navigation roots' Entries/Volumes will be ordered as below:
- *  1. Recents.
- *  2. Shortcuts.
- *  3. "My-Files" (grouping), actually Downloads volume.
- *  4. Google Drive.
- *  5. ODFS.
- *  6. SMBs
- *  7. Other FSP (File System Provider) (when mounted).
- *  8. Other volumes (MTP, ARCHIVE, REMOVABLE).
- *  9. Android apps.
- *  10. Trash.
- */
-slice$3.addReducer('refresh-roots', refreshNavigationRootsReducer);
-function refreshNavigationRootsReducer(currentState) {
-    const { navigation: { roots: previousRoots }, folderShortcuts, androidApps, } = currentState;
-    /** Roots in the desired order. */
-    const roots = [];
-    /** Set to avoid adding the same entry multiple times. */
-    const processedEntryKeys = new Set();
-    // 1. Add the Recent/Materialized view root.
-    const recentRoot = previousRoots.find(root => root.key === recentRootKey);
-    if (recentRoot) {
-        roots.push(recentRoot);
-        processedEntryKeys.add(recentRootKey);
-    }
-    else {
-        const recentEntry = getEntry(currentState, recentRootKey);
-        if (recentEntry) {
-            roots.push({
-                key: recentRootKey,
-                section: NavigationSection.TOP,
-                separator: false,
-                type: NavigationType.RECENT,
-            });
-            processedEntryKeys.add(recentRootKey);
-        }
-    }
-    // 2. Add the Shortcuts.
-    // TODO: Since Shortcuts are only for Drive, do we need to remove shortcuts
-    // if Drive isn't available anymore?
-    folderShortcuts.forEach(shortcutKey => {
-        const shortcutEntry = getEntry(currentState, shortcutKey);
-        if (shortcutEntry) {
-            roots.push({
-                key: shortcutKey,
-                section: NavigationSection.TOP,
-                separator: false,
-                type: NavigationType.SHORTCUT,
-            });
-            processedEntryKeys.add(shortcutKey);
-        }
-    });
-    // 3. MyFiles
-    const { myFilesEntry, myFilesVolume } = getMyFiles(currentState);
-    roots.push({
-        key: myFilesEntry.toURL(),
-        section: NavigationSection.MY_FILES,
-        // Only show separator if this is not the first navigation item.
-        separator: processedEntryKeys.size > 0,
-        type: myFilesVolume ? NavigationType.VOLUME : NavigationType.ENTRY_LIST,
-    });
-    processedEntryKeys.add(myFilesEntry.toURL());
-    // 4. Add Google Drive - the only Drive.
-    const driveEntry = getEntry(currentState, driveRootEntryListKey);
-    if (driveEntry) {
-        roots.push({
-            key: driveEntry.toURL(),
-            section: NavigationSection.GOOGLE_DRIVE,
-            separator: true,
-            type: NavigationType.DRIVE,
-        });
-        processedEntryKeys.add(driveEntry.toURL());
-    }
-    // 5/6/7/8 Other volumes.
-    const volumesOrder = {
-        // ODFS is a PROVIDED volume type but is a special case to be directly below
-        // Drive.
-        // ODFS : 0
-        [VolumeType.SMB]: 1,
-        [VolumeType.PROVIDED]: 2,
-        [VolumeType.DOCUMENTS_PROVIDER]: 3,
-        [VolumeType.REMOVABLE]: 4,
-        [VolumeType.ARCHIVE]: 5,
-        [VolumeType.MTP]: 6,
-    };
-    // Filter volumes based on the volumeInfoList in volumeManager.
-    const { volumeManager } = window.fileManager;
-    const filteredVolumes = Object.values(currentState.volumes).filter(volume => {
-        const volumeEntry = getEntry(currentState, volume.rootKey);
-        return volumeManager.isAllowedVolume(volumeEntry.volumeInfo);
-    });
-    function getVolumeOrder(volume) {
-        if (util.isOneDriveId(volume.providerId)) {
-            return 0;
-        }
-        return volumesOrder[volume.volumeType] ?? 999;
-    }
-    const volumes = filteredVolumes
-        .filter((v) => {
-        return (
-        // Only display if the entry is resolved.
-        v.rootKey &&
-            // MyFiles and Drive is already displayed above.
-            // MediaView volumeType isn't displayed.
-            !(v.volumeType === VolumeType.DOWNLOADS ||
-                v.volumeType === VolumeType.DRIVE ||
-                v.volumeType === VolumeType.MEDIA_VIEW));
-    })
-        .sort((v1, v2) => {
-        const v1Order = getVolumeOrder(v1);
-        const v2Order = getVolumeOrder(v2);
-        return v1Order - v2Order;
-    });
-    let lastSection = null;
-    for (const volume of volumes) {
-        // Some volumes might be nested inside another volume or entry list, e.g.
-        // Multiple partition removable volumes can be nested inside a EntryList, or
-        // GuestOS/Crostini/Android volumes will be nested inside MyFiles, for these
-        // volumes, we only need to add its parent volume in the navigation roots.
-        const volumeEntry = getPrefixEntryOrEntry(currentState, volume);
-        if (volumeEntry && !processedEntryKeys.has(volumeEntry.toURL())) {
-            let section = sections.get(volume.volumeType) ?? NavigationSection.REMOVABLE;
-            if (util.isOneDriveId(volume.providerId)) {
-                section = NavigationSection.ODFS;
+        for (const v of Object.values(volumes)) {
+            if (myFilesNestedVolumeTypes.has(v.volumeType)) {
+                v.prefixKey = volume.rootKey;
             }
-            const isSectionStart = section !== lastSection;
-            roots.push({
-                key: volumeEntry.toURL(),
-                section,
-                separator: isSectionStart,
-                type: NavigationType.VOLUME,
-            });
-            processedEntryKeys.add(volumeEntry.toURL());
-            lastSection = section;
         }
     }
-    // 9. Android Apps.
-    Object.values(androidApps)
-        .forEach((app, index) => {
-        roots.push({
-            key: app.packageName,
-            section: NavigationSection.ANDROID_APPS,
-            separator: index === 0,
-            type: NavigationType.ANDROID_APPS,
-        });
-        processedEntryKeys.add(app.packageName);
-    });
-    // 10. Trash
-    const trashEntry = getEntry(currentState, trashRootKey);
-    if (trashEntry) {
-        roots.push({
-            key: trashRootKey,
-            section: NavigationSection.TRASH,
-            separator: true,
-            type: NavigationType.TRASH,
-        });
-        processedEntryKeys.add(trashRootKey);
+    // When mounting a nested volume, set the prefixKey.
+    if (myFilesNestedVolumeTypes.has(volume.volumeType)) {
+        const { myFilesEntry } = getMyFiles(currentState);
+        volume.prefixKey = myFilesEntry.toURL();
+    }
+    // When mounting Drive.
+    if (volume.volumeType === VolumeType.DRIVE) {
+        const drive = getEntry(currentState, driveRootEntryListKey);
+        assert(drive);
+        volume.prefixKey = drive.toURL();
+    }
+    // When mounting Removable.
+    if (volume.volumeType === VolumeType.REMOVABLE) {
+        // Should it it be nested or not?
+        const groupingKey = removableGroupKey(volume);
+        const parentKey = makeRemovableParentKey(volume);
+        const groupParentEntry = getEntry(currentState, parentKey);
+        if (groupParentEntry) {
+            const volumesInSameGroup = Object.values(volumes).filter(v => {
+                if (v.volumeType === VolumeType.REMOVABLE &&
+                    removableGroupKey(v) === groupingKey) {
+                    v.prefixKey = parentKey;
+                    return true;
+                }
+                return false;
+            });
+            volume.prefixKey =
+                volumesInSameGroup.length > 0 ? groupParentEntry?.toURL() : undefined;
+        }
     }
     return {
         ...currentState,
-        navigation: {
-            roots,
+        volumes: {
+            ...volumes,
+            [volume.volumeId]: volume,
         },
     };
 }
-/** Create action to update navigation data in FileData for a given entry. */
-slice$3.addReducer('update-entry', updateNavigationEntryReducer);
-function updateNavigationEntryReducer(currentState, payload) {
-    const { key, expanded } = payload;
-    const fileData = getFileData(currentState, key);
-    if (!fileData) {
-        return currentState;
-    }
-    currentState.allEntries[key] = {
-        ...fileData,
-        expanded,
+/** Create action to remove a volume. */
+slice.addReducer('remove', removeVolumeReducer);
+function removeVolumeReducer(currentState, payload) {
+    const volumeToRemove = currentState.volumes[payload.volumeId];
+    const volumeEntry = getEntry(currentState, volumeToRemove.rootKey);
+    delete currentState.volumes[payload.volumeId];
+    currentState.volumes = {
+        ...currentState.volumes,
     };
-    return { ...currentState };
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Chrome preferences slice of the store.
- * @suppress {checkTypes}
- *
- * Chrome preferences store user data that is persisted to disk OR across
- * profiles, this takes care of initially populating these values then keeping
- * them updated on dynamic changes.
- */
-const slice$2 = new Slice('preferences');
-/**
- * A type guard to see if the payload supplied is a change of preferences or the
- * entire preferences object. Useful in ensuring subsequent type checks are done
- * on the correct type (instead of the union type).
- */
-function isPreferencesChange(payload) {
-    // The field `driveEnabled` is only on a `Preferences` object, so if this is
-    // undefined the payload is a `PreferencesChange` object otherwise it's a
-    // `Preferences` object.
-    if (payload.driveEnabled !== undefined) {
-        return false;
-    }
-    return true;
-}
-/**
- * Only update the existing preferences with their new values if they are
- * defined. In the event of spreading the change event over the existing
- * preferences, undefined values should not overwrite their existing values.
- */
-function updateIfDefined(updatedPreferences, newPreferences, key) {
-    if (!(key in newPreferences) || newPreferences[key] === undefined) {
-        return false;
-    }
-    if (updatedPreferences[key] === newPreferences[key]) {
-        return false;
-    }
-    // We're updating the `Preferences` original here and it doesn't type union
-    // well with `PreferencesChange`. Given we've done all the type validation
-    // above, cast them both to the `Preferences` type to ensure subsequent
-    // updates can work.
-    updatedPreferences[key] =
-        newPreferences[key];
-    return true;
-}
-/** Create action to update user preferences. */
-slice$2.addReducer('set', updatePreferencesReducer);
-function updatePreferencesReducer(currentState, payload) {
-    const preferences = payload;
-    // This action takes two potential payloads:
-    //  - chrome.fileManagerPrivate.Preferences
-    //  - chrome.fileManagerPrivate.PreferencesChange
-    // Both of these have different type requirements. If we receive a
-    // `Preferences` update, just store the data directly in the store. If we
-    // receive a `PreferencesChange` the individual fields need to be checked to
-    // ensure they are different to what we have in the store AND they won't
-    // remove the existing data (i.e. they are not null or undefined).
-    if (!isPreferencesChange(preferences)) {
-        return {
-            ...currentState,
-            preferences,
-        };
-    }
-    const updatedPreferences = { ...currentState.preferences };
-    const keysToCheck = [
-        'driveSyncEnabledOnMeteredNetwork',
-        'arcEnabled',
-        'arcRemovableMediaAccessEnabled',
-        'folderShortcuts',
-        'driveFsBulkPinningEnabled',
-    ];
-    let updated = false;
-    for (const key of keysToCheck) {
-        updated = updateIfDefined(updatedPreferences, preferences, key) || updated;
-    }
-    // If no keys have been updated in the preference change, then send back the
-    // original state as nothing has changed.
-    if (!updated) {
-        return currentState;
-    }
-    return {
-        ...currentState,
-        preferences: updatedPreferences,
-    };
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Search slice of the store.
- * @suppress {checkTypes}
- */
-const slice$1 = new Slice('search');
-/**
- * Returns if the given search data represents empty (cleared) search.
- */
-function isSearchEmpty(search) {
-    return Object.values(search).every(f => f === undefined);
-}
-/**
- * Helper function that does a deep comparison between two SearchOptions.
- */
-function optionsChanged(stored, fresh) {
-    if (fresh === undefined) {
-        // If fresh options are undefined, that means keep the stored options. No
-        // matter what the stored options are, we are saying they have not changed.
-        return false;
-    }
-    if (stored === undefined) {
-        return true;
-    }
-    return fresh.location !== stored.location ||
-        fresh.recency !== stored.recency ||
-        fresh.fileCategory !== stored.fileCategory;
-}
-slice$1.addReducer('set', searchReducer);
-function searchReducer(state, payload) {
-    const blankSearch = {
-        query: undefined,
-        status: undefined,
-        options: undefined,
-    };
-    // Special case: if none of the fields are set, the action clears the search
-    // state in the store.
-    if (isSearchEmpty(payload)) {
-        // Only change the state if the stored value has some defined values.
-        if (state.search && !isSearchEmpty(state.search)) {
-            return {
-                ...state,
-                search: blankSearch,
-            };
-        }
-        return state;
-    }
-    const currentSearch = state.search || blankSearch;
-    // Create a clone of current search. We must not modify the original object,
-    // as store customers are free to cache it and check for changes. If we modify
-    // the original object the check for changes incorrectly return false.
-    const search = { ...currentSearch };
-    let changed = false;
-    if (payload.query !== undefined && payload.query !== currentSearch.query) {
-        search.query = payload.query;
-        changed = true;
-    }
-    if (payload.status !== undefined && payload.status !== currentSearch.status) {
-        search.status = payload.status;
-        changed = true;
-    }
-    if (optionsChanged(currentSearch.options, payload.options)) {
-        search.options = { ...payload.options };
-        changed = true;
-    }
-    return changed ? { ...state, search } : state;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview UI entries slice of the store.
- * @suppress {checkTypes}
- *
- * UI entries represents entries shown on UI only (aka FakeEntry, e.g.
- * Recents/Trash/Google Drive wrapper), they don't have a real entry backup in
- * the file system.
- */
-const slice = new Slice('uiEntries');
-const uiEntryRootTypesInMyFiles = new Set([
-    VolumeManagerCommon.RootType.ANDROID_FILES,
-    VolumeManagerCommon.RootType.CROSTINI,
-    VolumeManagerCommon.RootType.GUEST_OS,
-]);
-/** Create action to add an UI entry to the store. */
-slice.addReducer('add', addUiEntryReducer);
-function addUiEntryReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, [payload.entry]);
-    const { entry } = payload;
-    const key = entry.toURL();
-    let isVolumeEntryExistedInMyFiles = false;
-    if (uiEntryRootTypesInMyFiles.has(entry.rootType)) {
+    // We also need to check if the removed volume is a child of My files.
+    const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
+    if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
         const { myFilesEntry } = getMyFiles(currentState);
         const children = myFilesEntry.getUIChildren();
-        // Check if the the ui entry already has a corresponding volume entry.
-        isVolumeEntryExistedInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && childEntry.name === entry.name);
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
-        // We only add the UI entry here if:
-        // 1. it is not existed in MyFiles entry
-        // 2. its corresponding volume (which ui entry is a placeholder for) is not
-        // existed in MyFiles entry
-        const shouldAddUiEntry = !isUiEntryExistedInMyFiles && !isVolumeEntryExistedInMyFiles;
-        if (shouldAddUiEntry) {
-            myFilesEntry.addEntry(entry);
-            // Push the new entry to the children of FileData and sort them.
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                const newChildren = fileData.children.concat(entry.toURL());
-                const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
-                const sortedChildren = sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: sortedChildren,
-                };
+        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && isSameEntry(childEntry, volumeEntry));
+        if (volumeEntryExistsInMyFiles) {
+            // Remove it from the MyFiles UI children.
+            myFilesEntry.removeChildEntry(volumeEntry);
+            // Re-add the corresponding placeholder ui entry to the UI children.
+            const uiEntryKey = currentState.uiEntries.find(entryKey => {
+                const uiEntry = getEntry(currentState, entryKey);
+                return uiEntry.name === volumeEntry.name;
+            });
+            if (uiEntryKey) {
+                const uiEntry = getEntry(currentState, uiEntryKey);
+                myFilesEntry.addEntry(uiEntry);
             }
-        }
-    }
-    // If the corresponding volume entry exists, we don't add the ui entry here.
-    if (!currentState.uiEntries.find(k => k === key) &&
-        !isVolumeEntryExistedInMyFiles) {
-        // Shallow copy.
-        currentState.uiEntries = currentState.uiEntries.slice();
-        currentState.uiEntries.push(key);
-    }
-    return {
-        ...currentState,
-    };
-}
-/** Create action to remove an UI entry from the store. */
-slice.addReducer('remove', removeUiEntryReducer);
-function removeUiEntryReducer(currentState, payload) {
-    const { key } = payload;
-    const entry = getEntry(currentState, key);
-    if (currentState.uiEntries.find(k => k === key)) {
-        // Shallow copy.
-        currentState.uiEntries = currentState.uiEntries.filter(k => k !== key);
-    }
-    // We also need to remove it from the children of MyFiles if it's existed
-    // there.
-    if (entry && uiEntryRootTypesInMyFiles.has(entry.rootType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
-        if (isUiEntryExistedInMyFiles) {
-            myFilesEntry.removeChildEntry(entry);
+            // Remove it from the MyFiles file data.
             const fileData = getFileData(currentState, myFilesEntry.toURL());
             if (fileData) {
+                let newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
+                // Re-add the corresponding placeholder ui entry to the file data.
+                if (uiEntryKey) {
+                    newChildren = newChildren.concat(uiEntryKey);
+                    const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
+                    newChildren = sortEntries(myFilesEntry, childEntries)
+                        .map(entry => entry.toURL());
+                }
                 currentState.allEntries[myFilesEntry.toURL()] = {
                     ...fileData,
-                    children: fileData.children.filter(child => child !== key),
+                    children: newChildren,
                 };
             }
         }
@@ -7008,86 +6851,221 @@ function removeUiEntryReducer(currentState, payload) {
     return {
         ...currentState,
     };
+}
+/** Create action to update isInteractive for a volume. */
+slice.addReducer('set-is-interactive', updateIsInteractiveVolumeReducer);
+function updateIsInteractiveVolumeReducer(currentState, payload) {
+    const volumes = {
+        ...currentState.volumes,
+    };
+    const updatedVolume = {
+        ...volumes[payload.volumeId],
+        isInteractive: payload.isInteractive,
+    };
+    return {
+        ...currentState,
+        volumes: {
+            ...volumes,
+            [payload.volumeId]: updatedVolume,
+        },
+    };
+}
+slice.addReducer(updateDeviceConnectionState.type, updateDeviceConnectionStateReducer);
+function updateDeviceConnectionStateReducer(currentState, payload) {
+    let volumes;
+    // Find ODFS volume(s) and disable it (or them) if offline.
+    const disableODFS = payload.connection ===
+        chrome.fileManagerPrivate.DeviceConnectionState.OFFLINE;
+    for (const volume of Object.values(currentState.volumes)) {
+        if (!isOneDriveId(volume.providerId) || volume.isDisabled === disableODFS) {
+            continue;
+        }
+        const updatedVolume = updateVolume(currentState, volume.volumeId, { isDisabled: disableODFS });
+        if (updatedVolume) {
+            if (!volumes) {
+                volumes = {
+                    ...currentState.volumes,
+                    [volume.volumeId]: updatedVolume,
+                };
+            }
+            else {
+                volumes[volume.volumeId] = updatedVolume;
+            }
+        }
+        // Make the ODFS FileData/VolumeEntry consistent with its volume in the
+        // store.
+        updateFileData(currentState, volume.rootKey, { disabled: disableODFS });
+        const odfsVolumeEntry = getEntry(currentState, volume.rootKey);
+        if (odfsVolumeEntry) {
+            odfsVolumeEntry.disabled = disableODFS;
+        }
+    }
+    return volumes ? { ...currentState, volumes } : currentState;
 }
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * Store singleton instance.
- * It's only exposed via `getStore()` to guarantee it's a single instance.
- * TODO(b/272120634): Use window.store temporarily, uncomment below code after
- * the duplicate store issue is resolved.
+ * Type guard used to identify if a given entry is actually a
+ * VolumeEntry.
  */
-// let store: null|Store = null;
+function isVolumeEntry(entry) {
+    return 'volumeInfo' in entry;
+}
 /**
- * Returns the singleton instance for the Files app's Store.
+ * Check if the entry is MyFiles or not.
+ * Note: if the return value is true, the input entry is guaranteed to be
+ * EntryList or VolumeEntry type.
+ */
+function isMyFilesEntry(entry) {
+    if (!entry) {
+        return false;
+    }
+    if (entry instanceof EntryList && entry.toURL() === myFilesEntryListKey) {
+        return true;
+    }
+    if (isVolumeEntry(entry) &&
+        entry.volumeType === VolumeManagerCommon.VolumeType.DOWNLOADS) {
+        return true;
+    }
+    return false;
+}
+/** Sort the entries based on the filter and the names. */
+function sortEntries(parentEntry, entries) {
+    if (entries.length === 0) {
+        return [];
+    }
+    // TODO: proper way to get directory model and volume manager.
+    const { directoryModel, volumeManager } = window.fileManager;
+    const fileFilter = directoryModel.getFileFilter();
+    // For entries under My Files we need to use a different sorting logic
+    // because we need to make sure curtain files are always at the bottom.
+    if (isMyFilesEntry(parentEntry)) {
+        // Use locationInfo from first entry because it only compare within the
+        // same volume.
+        // TODO(b/271485133): Do not use getLocationInfo() for sorting.
+        const locationInfo = volumeManager.getLocationInfo(entries[0]);
+        if (locationInfo) {
+            const compareFunction = compareLabelAndGroupBottomEntries(locationInfo, 
+            // Only Linux/Play/GuestOS files are in the UI children.
+            parentEntry.getUIChildren());
+            return entries.filter(entry => fileFilter.filter(entry))
+                .sort(compareFunction);
+        }
+    }
+    return entries.filter(entry => fileFilter.filter(entry)).sort(compareName);
+}
+/**
+ * Obtains whether an entry is fake or not.
+ */
+function isFakeEntry(entry) {
+    if (entry.getParent === undefined) {
+        return true;
+    }
+    return 'isNativeType' in entry ? !entry.isNativeType : false;
+}
+/**
+ * Compares two entries.
+ * @return {boolean} True if the both entry represents a same file or
+ *     directory. Returns true if both entries are null.
+ */
+function isSameEntry(entry1, entry2) {
+    if (!entry1 && !entry2) {
+        return true;
+    }
+    if (!entry1 || !entry2) {
+        return false;
+    }
+    return entry1.toURL() === entry2.toURL();
+}
+/**
+ * Compare by name. The 2 entries must be in same directory.
+ */
+function compareName(entry1, entry2) {
+    return util.collator.compare(entry1.name, entry2.name);
+}
+/**
+ * Compare by label (i18n name). The 2 entries must be in same directory.
+ */
+function compareLabel(locationInfo, entry1, entry2) {
+    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
+}
+/**
+ * Compare by path.
+ */
+function comparePath(entry1, entry2) {
+    return util.collator.compare(entry1.fullPath, entry2.fullPath);
+}
+/**
+ * @param bottomEntries entries that should be grouped in the bottom, used for
+ *     sorting Linux and Play files entries after
+ * other folders in MyFiles.
+ */
+function compareLabelAndGroupBottomEntries(locationInfo, bottomEntries) {
+    const childrenMap = new Map();
+    bottomEntries.forEach((entry) => {
+        childrenMap.set(entry.toURL(), entry);
+    });
+    /**
+     * Compare entries putting entries from |bottomEntries| in the bottom and
+     * sort by name within entries that are the same type in regards to
+     * |bottomEntries|.
+     */
+    function compare(entry1, entry2) {
+        // Bottom entry here means Linux or Play files, which should appear after
+        // all native entries.
+        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
+        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
+        // When there are the same type, just compare by label.
+        if (isBottomlEntry1 === isBottomlEntry2) {
+            return compareLabel(locationInfo, entry1, entry2);
+        }
+        return isBottomlEntry1 - isBottomlEntry2;
+    }
+    return compare;
+}
+/**
+ * Converts array of entries to an array of corresponding URLs.
+ */
+function entriesToURLs(entries) {
+    return entries.map(entry => {
+        // When building file_manager_base.js, cachedUrl is not referred other than
+        // here. Thus closure compiler raises an error if we refer the property like
+        // entry.cachedUrl.
+        if ('cachedUrl' in entry) {
+            return entry['cachedUrl'] || entry.toURL();
+        }
+        return entry.toURL();
+    });
+}
+const isOneDriveId = (providerId) => providerId === constants.ODFS_EXTENSION_ID;
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Helpers for APIs used within Files app.
+ */
+/**
+ * Calls the `fn` function which should expect the callback as last argument.
  *
- * NOTE: This doesn't guarantee the Store's initialization. This should be done
- * at the app's main entry point.
+ * Resolves with the result of the `fn`.
+ *
+ * Rejects if there is `chrome.runtime.lastError`.
  */
-function getStore() {
-    // TODO(b/272120634): Put the store on window to prevent Store being created
-    // twice.
-    if (!window.store) {
-        window.store = new BaseStore(getEmptyState(), [
-            slice$1,
-            slice$a,
-            slice$6,
-            slice,
-            slice$7,
-            slice$4,
-            slice$3,
-            slice$2,
-            slice$b,
-            slice$5,
-            slice$9,
-            slice$8,
-        ]);
-    }
-    return window.store;
-}
-function getEmptyState() {
-    // TODO(b/241707820): Migrate State to allow optional attributes.
-    return {
-        allEntries: {},
-        currentDirectory: undefined,
-        device: {
-            connection: chrome.fileManagerPrivate.DeviceConnectionState.ONLINE,
-        },
-        drive: {
-            connectionType: chrome.fileManagerPrivate.DriveConnectionStateType.ONLINE,
-            offlineReason: undefined,
-        },
-        search: {
-            query: undefined,
-            status: undefined,
-            options: undefined,
-        },
-        navigation: {
-            roots: [],
-        },
-        volumes: {},
-        uiEntries: [],
-        folderShortcuts: [],
-        androidApps: [],
-        bulkPinning: undefined,
-        preferences: undefined,
-    };
-}
-/**
- * Returns the `FileData` from a FileKey.
- */
-function getFileData(state, key) {
-    const fileData = state.allEntries[key];
-    if (fileData) {
-        return fileData;
-    }
-    return null;
-}
-function getEntry(state, key) {
-    const fileData = state.allEntries[key];
-    return fileData?.entry ?? null;
+async function promisify(fn, ...args) {
+    return new Promise((resolve, reject) => {
+        const callback = (result) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError.message);
+            }
+            else {
+                resolve(result);
+            }
+        };
+        fn(...args, callback);
+    });
 }
 
 // Copyright 2012 The Chromium Authors
@@ -7636,63 +7614,11 @@ util.getLocaleBasedWeekStart = () => {
         0;
 };
 /**
- * Returns a boolean indicating whether the volume is a GuestOs volume. And
- * ANDROID_FILES type volume can also be a GuestOs volume if ARCVM is enabled.
- * @param {VolumeManagerCommon.VolumeType} type
- * @return {boolean}
- */
-util.isGuestOs = type => {
-    return type === VolumeManagerCommon.VolumeType.GUEST_OS ||
-        (type === VolumeManagerCommon.VolumeType.ANDROID_FILES &&
-            isArcVmEnabled());
-};
-/**
  * Returns whether the given value is null or undefined.
  * @param {*} value
  * @returns {boolean}
  */
 util.isNullOrUndefined = (value) => value === null || value === undefined;
-/**
- * @param {string|undefined} providerId
- * @return {boolean}
- */
-util.isOneDriveId = (providerId) => providerId === constants.ODFS_EXTENSION_ID;
-/**
- * @param {?import('../../externs/volume_info.js').VolumeInfo} volumeInfo
- * @return {boolean}
- */
-util.isOneDrive = (volumeInfo) => {
-    return util.isOneDriveId(volumeInfo?.providerId);
-};
-/**
- * Returns the ODFS root as an Entry. Request the actions of this
- * Entry to get ODFS metadata.
- * @param {import('../../externs/volume_info.js').VolumeInfo} odfsVolumeInfo
- * @return {Entry|FilesAppEntry}
- */
-util.getODFSMetadataQueryEntry = (odfsVolumeInfo) => {
-    return unwrapEntry(odfsVolumeInfo.displayRoot);
-};
-/**
- * Return true if the volume with |volumeInfo| is an
- * interactive volume.
- * @param {import('../../externs/volume_info.js').VolumeInfo} volumeInfo
- * @return {boolean}
- */
-util.isInteractiveVolume = (volumeInfo) => {
-    const state = /** @type {State} */ (getStore().getState());
-    const volumes = state.volumes;
-    if (!volumes) {
-        console.error('Expected volumes to exist in the store.');
-        return true;
-    }
-    const volume = volumes[volumeInfo.volumeId];
-    if (!volume) {
-        console.error('Expected volume to be in the store.');
-        return true;
-    }
-    return volume.isInteractive;
-};
 /**
  * Bulk pinning should only show visible UI elements when in progress or
  * continuing to sync.

@@ -24,7 +24,7 @@ import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_
 import { BaseMixin } from '../base_mixin.js';
 import { routes } from '../route.js';
 import { Router } from '../router.js';
-import { SearchEnginesBrowserProxyImpl } from '../search_engines_page/search_engines_browser_proxy.js';
+import { ChoiceMadeLocation, SearchEnginesBrowserProxyImpl } from '../search_engines_page/search_engines_browser_proxy.js';
 import { getTemplate } from './search_page.html.js';
 const SettingsSearchPageElementBase = BaseMixin(WebUiListenerMixin(PolymerElement));
 export class SettingsSearchPageElement extends SettingsSearchPageElementBase {
@@ -90,7 +90,7 @@ export class SettingsSearchPageElement extends SettingsSearchPageElementBase {
         const select = this.shadowRoot.querySelector('select');
         assert(select);
         const searchEngine = this.searchEngines_[select.selectedIndex];
-        this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex);
+        this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex, ChoiceMadeLocation.SEARCH_SETTINGS);
     }
     onDisableExtension_() {
         this.dispatchEvent(new CustomEvent('refresh-pref', {

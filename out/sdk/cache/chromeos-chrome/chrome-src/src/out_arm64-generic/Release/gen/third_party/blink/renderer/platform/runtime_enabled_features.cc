@@ -1698,7 +1698,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetSecurePaymentConfirmationAllowOneActivationlessShowEnabled(enable);
   SetSecurePaymentConfirmationExtensionsEnabled(enable);
   SetSecurePaymentConfirmationOptOutEnabled(enable);
-  SetSelectHrEnabled(enable);
   SetSendBeaconThrowForBlobWithNonSimpleTypeEnabled(enable);
   SetSendMouseEventsDisabledFormControlsEnabled(enable);
   SetSimplifiedClearPropertyTreeChangeEnabled(enable);
@@ -1793,6 +1792,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetPagePopupEnabled(enable);
   SetReduceUserAgentPlatformOsCpuEnabled(enable);
   SetRegionCaptureEnabled(enable);
+  SetSelectHrEnabled(enable);
   SetSerialEnabled(enable);
   SetSharedWorkerEnabled(enable);
   SetWebAppLaunchHandlerEnabled(enable);
@@ -1826,6 +1826,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetPagePopupEnabled(enable);
   SetReduceUserAgentPlatformOsCpuEnabled(enable);
   SetRegionCaptureEnabled(enable);
+  SetSelectHrEnabled(enable);
   SetSerialEnabled(enable);
   SetSharedWorkerEnabled(enable);
   SetUseBeginFramePresentationFeedbackEnabled(enable);
@@ -1860,6 +1861,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetPagePopupEnabled(enable);
   SetReduceUserAgentPlatformOsCpuEnabled(enable);
   SetRegionCaptureEnabled(enable);
+  SetSelectHrEnabled(enable);
   SetSerialEnabled(enable);
   SetSharedWorkerEnabled(enable);
   SetUseBeginFramePresentationFeedbackEnabled(enable);
@@ -1887,6 +1889,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetPagePopupEnabled(enable);
   SetReduceUserAgentPlatformOsCpuEnabled(enable);
   SetRegionCaptureEnabled(enable);
+  SetSelectHrEnabled(enable);
   SetSerialEnabled(enable);
   SetSharedWorkerEnabled(enable);
   SetWebAppLaunchHandlerEnabled(enable);
@@ -1913,6 +1916,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetPagePopupEnabled(enable);
   SetReduceUserAgentPlatformOsCpuEnabled(enable);
   SetRegionCaptureEnabled(enable);
+  SetSelectHrEnabled(enable);
   SetSerialEnabled(enable);
   SetSharedWorkerEnabled(enable);
   SetWebAppLaunchHandlerEnabled(enable);
@@ -1938,6 +1942,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetPagePopupEnabled(enable);
   SetReduceUserAgentPlatformOsCpuEnabled(enable);
   SetRegionCaptureEnabled(enable);
+  SetSelectHrEnabled(enable);
   SetSerialEnabled(enable);
   SetSharedWorkerEnabled(enable);
   SetWebAppLaunchHandlerEnabled(enable);
@@ -5303,7 +5308,6 @@ bool RuntimeEnabledFeaturesBase::is_secure_payment_confirmation_allow_one_activa
 bool RuntimeEnabledFeaturesBase::is_secure_payment_confirmation_debug_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_secure_payment_confirmation_extensions_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_secure_payment_confirmation_opt_out_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_select_hr_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_send_beacon_throw_for_blob_with_non_simple_type_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_send_mouse_events_disabled_form_controls_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_sensor_extra_classes_enabled_ = false;
@@ -5519,6 +5523,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_select_hr_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5572,6 +5577,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_select_hr_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5625,6 +5631,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_select_hr_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5678,6 +5685,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_select_hr_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5731,6 +5739,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_select_hr_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5784,6 +5793,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_select_hr_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5838,6 +5848,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_select_hr_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;

@@ -215,27 +215,6 @@ function preloadImages() {
     }
     document.body.appendChild(imagesContainer);
 }
-/**
- * Append dynamic color CSS files and setup watcher for color changes.
- */
-async function setupDynamicColor() {
-    function loadCSS(url) {
-        return new Promise((resolve) => {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = url;
-            link.addEventListener('load', () => resolve());
-            document.head.appendChild(link);
-        });
-    }
-    if (loadTimeData.getChromeFlag(Flag.JELLY)) {
-        ColorChangeUpdater.forDocument().start();
-        await loadCSS('chrome://theme/colors.css?sets=ref,sys');
-    }
-    else {
-        await loadCSS(util.expandPath('/css/colors_default.css'));
-    }
-}
 async function setupMultiWindowHandling(cameraManager, cameraView, cameraResourceInitialized) {
     async function handleResume() {
         try {
@@ -369,8 +348,7 @@ async function main() {
         void metrics.setEnabled(false);
     }
     const perfLogger = createPerfLogger();
-    // toast and splash style depends on dynamic color css being imported.
-    await setupDynamicColor();
+    ColorChangeUpdater.forDocument().start();
     if (DEPLOYED_VERSION !== undefined) {
         // eslint-disable-next-line no-console
         console.log(`Local override enabled for CCA (${DEPLOYED_VERSION}). ` +

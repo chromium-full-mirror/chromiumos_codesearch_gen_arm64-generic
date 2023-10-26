@@ -3,6 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
+import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export const EndpointTypeSpec = { $: mojo.internal.Enum() };
 export var EndpointType;
 (function (EndpointType) {
@@ -18,6 +19,27 @@ export var EndpointType;
     EndpointType[EndpointType["kPluginVm"] = 7] = "kPluginVm";
     EndpointType[EndpointType["kLacros"] = 8] = "kLacros";
 })(EndpointType || (EndpointType = {}));
+export const ContentRestrictionSpec = { $: mojo.internal.Enum() };
+export var ContentRestriction;
+(function (ContentRestriction) {
+    ContentRestriction[ContentRestriction["MIN_VALUE"] = 0] = "MIN_VALUE";
+    ContentRestriction[ContentRestriction["MAX_VALUE"] = 3] = "MAX_VALUE";
+    ContentRestriction[ContentRestriction["kScreenshot"] = 0] = "kScreenshot";
+    ContentRestriction[ContentRestriction["kPrivacyScreen"] = 1] = "kPrivacyScreen";
+    ContentRestriction[ContentRestriction["kPrint"] = 2] = "kPrint";
+    ContentRestriction[ContentRestriction["kScreenShare"] = 3] = "kScreenShare";
+})(ContentRestriction || (ContentRestriction = {}));
+export const LevelSpec = { $: mojo.internal.Enum() };
+export var Level;
+(function (Level) {
+    Level[Level["MIN_VALUE"] = 0] = "MIN_VALUE";
+    Level[Level["MAX_VALUE"] = 4] = "MAX_VALUE";
+    Level[Level["kNotSet"] = 0] = "kNotSet";
+    Level[Level["kReport"] = 1] = "kReport";
+    Level[Level["kWarn"] = 2] = "kWarn";
+    Level[Level["kBlock"] = 3] = "kBlock";
+    Level[Level["kAllow"] = 4] = "kAllow";
+})(Level || (Level = {}));
 export class PageHandlerPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -36,6 +58,9 @@ export class PageHandlerRemote {
     getClipboardDataSource() {
         return this.proxy.sendMessage(0, PageHandler_GetClipboardDataSource_ParamsSpec.$, PageHandler_GetClipboardDataSource_ResponseParamsSpec.$, []);
     }
+    getContentRestrictionsInfo() {
+        return this.proxy.sendMessage(1, PageHandler_GetContentRestrictionsInfo_ParamsSpec.$, PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec.$, []);
+    }
 }
 ;
 /**
@@ -48,6 +73,7 @@ export class PageHandlerReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, PageHandler_GetClipboardDataSource_ParamsSpec.$, PageHandler_GetClipboardDataSource_ResponseParamsSpec.$, impl.getClipboardDataSource.bind(impl));
+        this.helper_internal_.registerHandler(1, PageHandler_GetContentRestrictionsInfo_ParamsSpec.$, PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec.$, impl.getContentRestrictionsInfo.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -80,6 +106,9 @@ export class PageHandlerCallbackRouter {
         this.getClipboardDataSource =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, PageHandler_GetClipboardDataSource_ParamsSpec.$, PageHandler_GetClipboardDataSource_ResponseParamsSpec.$, this.getClipboardDataSource.createReceiverHandler(true /* expectsResponse */));
+        this.getContentRestrictionsInfo =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, PageHandler_GetContentRestrictionsInfo_ParamsSpec.$, PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec.$, this.getContentRestrictionsInfo.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -91,13 +120,36 @@ export class PageHandlerCallbackRouter {
     }
 }
 export const DataTransferEndpointSpec = { $: {} };
+export const ContentRestrictionInfoSpec = { $: {} };
+export const RenderFrameHostInfoSpec = { $: {} };
+export const WebContentsInfoSpec = { $: {} };
 export const PageHandler_GetClipboardDataSource_ParamsSpec = { $: {} };
 export const PageHandler_GetClipboardDataSource_ResponseParamsSpec = { $: {} };
+export const PageHandler_GetContentRestrictionsInfo_ParamsSpec = { $: {} };
+export const PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec = { $: {} };
 mojo.internal.Struct(DataTransferEndpointSpec.$, 'DataTransferEndpoint', [
     mojo.internal.StructField('type', 0, 0, EndpointTypeSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('url', 8, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('url', 8, 0, url_mojom_UrlSpec.$, null, true /* nullable */, 0),
 ], [[0, 24],]);
+mojo.internal.Struct(ContentRestrictionInfoSpec.$, 'ContentRestrictionInfo', [
+    mojo.internal.StructField('restriction', 0, 0, ContentRestrictionSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('level', 4, 0, LevelSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('url', 8, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(RenderFrameHostInfoSpec.$, 'RenderFrameHostInfo', [
+    mojo.internal.StructField('lastCommittedUrl', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('restrictionsInfo', 8, 0, mojo.internal.Array(ContentRestrictionInfoSpec.$, false), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(WebContentsInfoSpec.$, 'WebContentsInfo', [
+    mojo.internal.StructField('lastCommittedUrl', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('restrictionsInfo', 8, 0, mojo.internal.Array(ContentRestrictionInfoSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('framesInfo', 16, 0, mojo.internal.Array(RenderFrameHostInfoSpec.$, false), null, false /* nullable */, 0),
+], [[0, 32],]);
 mojo.internal.Struct(PageHandler_GetClipboardDataSource_ParamsSpec.$, 'PageHandler_GetClipboardDataSource_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_GetClipboardDataSource_ResponseParamsSpec.$, 'PageHandler_GetClipboardDataSource_ResponseParams', [
     mojo.internal.StructField('source', 0, 0, DataTransferEndpointSpec.$, null, true /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_GetContentRestrictionsInfo_ParamsSpec.$, 'PageHandler_GetContentRestrictionsInfo_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_GetContentRestrictionsInfo_ResponseParamsSpec.$, 'PageHandler_GetContentRestrictionsInfo_ResponseParams', [
+    mojo.internal.StructField('webContentsInfo', 0, 0, mojo.internal.Array(WebContentsInfoSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 16],]);

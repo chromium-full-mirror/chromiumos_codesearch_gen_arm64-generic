@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform/empty-project",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/tast-use-flags-1-r113/work/tast-use-flags-1"
+    }
+  ]
+}

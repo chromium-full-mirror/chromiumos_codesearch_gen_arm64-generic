@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="16" failures="0" disabled="0" errors="0" time="0.018" timestamp="2023-10-25T11:33:47.210" name="AllTests">
-  <testsuite name="BtIoBasicSuite" tests="16" failures="0" disabled="0" skipped="0" errors="0" time="0.011" timestamp="2023-10-25T11:33:47.217">
-    <testcase name="CreateBtIo" file="cras/src/tests/bt_io_unittest.cc" line="168" status="run" result="completed" time="0.003" timestamp="2023-10-25T11:33:47.217" classname="BtIoBasicSuite" />
-    <testcase name="AppendRmIodev" file="cras/src/tests/bt_io_unittest.cc" line="207" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.222" classname="BtIoBasicSuite" />
-    <testcase name="CanStartOp" file="cras/src/tests/bt_io_unittest.cc" line="234" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.223" classname="BtIoBasicSuite" />
-    <testcase name="SwitchProfileOnOpenDevForInputDev" file="cras/src/tests/bt_io_unittest.cc" line="258" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.224" classname="BtIoBasicSuite" />
-    <testcase name="NoSwitchProfileOnOpenDevForInputDevAlreadyOnHfp" file="cras/src/tests/bt_io_unittest.cc" line="281" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.225" classname="BtIoBasicSuite" />
-    <testcase name="HfpOpenDevWhileProfileSwitchEventQueued" file="cras/src/tests/bt_io_unittest.cc" line="297" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.225" classname="BtIoBasicSuite" />
-    <testcase name="HfpCloseDevWhileProfileSwitchEventQueued" file="cras/src/tests/bt_io_unittest.cc" line="314" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.225" classname="BtIoBasicSuite" />
-    <testcase name="SwitchProfileOnCloseInputDev" file="cras/src/tests/bt_io_unittest.cc" line="333" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.226" classname="BtIoBasicSuite" />
-    <testcase name="NoSwitchProfileOnCloseInputDevNoSupportA2dp" file="cras/src/tests/bt_io_unittest.cc" line="356" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.226" classname="BtIoBasicSuite" />
-    <testcase name="NoSwitchProfileOnCloseInputDevInCloseState" file="cras/src/tests/bt_io_unittest.cc" line="372" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.226" classname="BtIoBasicSuite" />
-    <testcase name="SwitchProfileOnAppendA2dpDev" file="cras/src/tests/bt_io_unittest.cc" line="392" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.227" classname="BtIoBasicSuite" />
-    <testcase name="NoSwitchProfileOnAppendHfpDev" file="cras/src/tests/bt_io_unittest.cc" line="406" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.227" classname="BtIoBasicSuite" />
-    <testcase name="CreateSetDeviceActiveProfileToA2DP" file="cras/src/tests/bt_io_unittest.cc" line="419" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.227" classname="BtIoBasicSuite" />
-    <testcase name="CreateNoSetDeviceActiveProfileToA2DP" file="cras/src/tests/bt_io_unittest.cc" line="427" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.228" classname="BtIoBasicSuite" />
-    <testcase name="CreateSetDeviceActiveProfileToHFP" file="cras/src/tests/bt_io_unittest.cc" line="451" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.228" classname="BtIoBasicSuite" />
-    <testcase name="CreateDeviceWithInvalidUTF8Name" file="cras/src/tests/bt_io_unittest.cc" line="460" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:47.228" classname="BtIoBasicSuite" />
+<testsuites tests="16" failures="0" disabled="0" errors="0" time="0.028" timestamp="2023-10-26T00:29:40.821" name="AllTests">
+  <testsuite name="BtIoBasicSuite" tests="16" failures="0" disabled="0" skipped="0" errors="0" time="0.016" timestamp="2023-10-26T00:29:40.833">
+    <testcase name="CreateBtIo" file="cras/src/tests/bt_io_unittest.cc" line="168" status="run" result="completed" time="0.005" timestamp="2023-10-26T00:29:40.833" classname="BtIoBasicSuite" />
+    <testcase name="AppendRmIodev" file="cras/src/tests/bt_io_unittest.cc" line="207" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:29:40.839" classname="BtIoBasicSuite" />
+    <testcase name="CanStartOp" file="cras/src/tests/bt_io_unittest.cc" line="234" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.841" classname="BtIoBasicSuite" />
+    <testcase name="SwitchProfileOnOpenDevForInputDev" file="cras/src/tests/bt_io_unittest.cc" line="258" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.842" classname="BtIoBasicSuite" />
+    <testcase name="NoSwitchProfileOnOpenDevForInputDevAlreadyOnHfp" file="cras/src/tests/bt_io_unittest.cc" line="281" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.843" classname="BtIoBasicSuite" />
+    <testcase name="HfpOpenDevWhileProfileSwitchEventQueued" file="cras/src/tests/bt_io_unittest.cc" line="297" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.844" classname="BtIoBasicSuite" />
+    <testcase name="HfpCloseDevWhileProfileSwitchEventQueued" file="cras/src/tests/bt_io_unittest.cc" line="314" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.844" classname="BtIoBasicSuite" />
+    <testcase name="SwitchProfileOnCloseInputDev" file="cras/src/tests/bt_io_unittest.cc" line="333" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.845" classname="BtIoBasicSuite" />
+    <testcase name="NoSwitchProfileOnCloseInputDevNoSupportA2dp" file="cras/src/tests/bt_io_unittest.cc" line="356" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.846" classname="BtIoBasicSuite" />
+    <testcase name="NoSwitchProfileOnCloseInputDevInCloseState" file="cras/src/tests/bt_io_unittest.cc" line="372" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.846" classname="BtIoBasicSuite" />
+    <testcase name="SwitchProfileOnAppendA2dpDev" file="cras/src/tests/bt_io_unittest.cc" line="392" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.846" classname="BtIoBasicSuite" />
+    <testcase name="NoSwitchProfileOnAppendHfpDev" file="cras/src/tests/bt_io_unittest.cc" line="406" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.847" classname="BtIoBasicSuite" />
+    <testcase name="CreateSetDeviceActiveProfileToA2DP" file="cras/src/tests/bt_io_unittest.cc" line="419" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.848" classname="BtIoBasicSuite" />
+    <testcase name="CreateNoSetDeviceActiveProfileToA2DP" file="cras/src/tests/bt_io_unittest.cc" line="427" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.848" classname="BtIoBasicSuite" />
+    <testcase name="CreateSetDeviceActiveProfileToHFP" file="cras/src/tests/bt_io_unittest.cc" line="451" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.848" classname="BtIoBasicSuite" />
+    <testcase name="CreateDeviceWithInvalidUTF8Name" file="cras/src/tests/bt_io_unittest.cc" line="460" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:40.849" classname="BtIoBasicSuite" />
   </testsuite>
 </testsuites>

@@ -26,6 +26,8 @@ constexpr uint32_t kEditorClient_OpenUrlInNewWindow_Name = 8;
 constexpr uint32_t kEditorClient_ShowUI_Name = 9;
 constexpr uint32_t kEditorClient_CloseUI_Name = 10;
 constexpr uint32_t kEditorClient_AppendText_Name = 11;
+constexpr uint32_t kEditorClient_PreviewFeedback_Name = 12;
+constexpr uint32_t kEditorClient_SubmitFeedback_Name = 13;
 constexpr uint32_t kEditorClientConnector_BindEditorClient_Name = 0;
 constexpr uint32_t kEditorEventSink_OnContextUpdated_Name = 0;
 constexpr uint32_t kTextActuator_InsertText_Name = 0;
@@ -34,6 +36,7 @@ constexpr uint32_t kTextActuator_DeclineConsent_Name = 2;
 constexpr uint32_t kTextActuator_OpenUrlInNewWindow_Name = 3;
 constexpr uint32_t kTextActuator_ShowUI_Name = 4;
 constexpr uint32_t kTextActuator_CloseUI_Name = 5;
+constexpr uint32_t kTextActuator_SubmitFeedback_Name = 6;
 constexpr uint32_t kTextQueryProvider_Process_Name = 0;
 constexpr uint32_t kOrcaService_BindEditor_Name = 0;
 

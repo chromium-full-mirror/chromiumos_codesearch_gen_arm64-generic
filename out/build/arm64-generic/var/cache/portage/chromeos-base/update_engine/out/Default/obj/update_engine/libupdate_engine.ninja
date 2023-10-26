@@ -1,237 +1,237 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D__CHROMEOS__ -D_POSIX_C_SOURCE=199309L -DUSE_CFM=false -DUSE_FEC=0 -DUSE_HWID_OVERRIDE=false -DUSE_HW_DETAILS=false -DUSE_REPORT_REQUISITION=false -DUSE_LVM_STATEFUL_PARTITION=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/client_library/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/client_library/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -ffunction-sections -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -pthread -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libusb-1.0 -I/build/arm64-generic/usr/include/debugd-client -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/power_manager-client -I/build/arm64-generic/usr/include/session_manager-client -I/build/arm64-generic/usr/include/shill-client -I/build/arm64-generic/usr/include/update_engine-client -I/build/arm64-generic/usr/include/dlcservice-client -I/build/arm64-generic/usr/include/xz-embedded
-cflags_cc = -std=gnu++20 -DVCSID=\"0.0.3-r4841-89277b7a646e5ee354d01a90319406721be14bf1\" -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-strict-aliasing -Wdelete-non-virtual-dtor
+cflags_cc = -std=gnu++20 -DVCSID=\"0.0.3-r4843-709b318295da055ad247683cea8ac1376322677e\" -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-strict-aliasing -Wdelete-non-virtual-dtor
 root_out_dir = .
 target_output_name = libupdate_engine
 
 build obj/update_engine/libupdate_engine.inputdeps.stamp: stamp obj/update_engine/update_engine-dbus-adaptor.stamp obj/update_engine/update_engine-dbus-kiosk-app-client.stamp obj/update_engine/update_metadata-protos_gen.stamp
-build obj/update_engine/libupdate_engine.certificate_checker.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/certificate_checker.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/libupdate_engine.certificate_checker.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/certificate_checker.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = certificate_checker.cc
   source_name_part = certificate_checker
-build obj/update_engine/common/libupdate_engine.call_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/common/call_wrapper.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/common/libupdate_engine.call_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/common/call_wrapper.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = call_wrapper.cc
   source_name_part = call_wrapper
-build obj/update_engine/common/libupdate_engine.connection_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/common/connection_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/common/libupdate_engine.connection_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/common/connection_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = connection_utils.cc
   source_name_part = connection_utils
-build obj/update_engine/common/libupdate_engine.system_state.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/common/system_state.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/common/libupdate_engine.system_state.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/common/system_state.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = system_state.cc
   source_name_part = system_state
-build obj/update_engine/cros/libupdate_engine.boot_control_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/boot_control_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.boot_control_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/boot_control_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = boot_control_chromeos.cc
   source_name_part = boot_control_chromeos
-build obj/update_engine/cros/libupdate_engine.common_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/common_service.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.common_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/common_service.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = common_service.cc
   source_name_part = common_service
-build obj/update_engine/cros/libupdate_engine.connection_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/connection_manager.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.connection_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/connection_manager.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = connection_manager.cc
   source_name_part = connection_manager
-build obj/update_engine/cros/libupdate_engine.daemon_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/daemon_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.daemon_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/daemon_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = daemon_chromeos.cc
   source_name_part = daemon_chromeos
-build obj/update_engine/cros/libupdate_engine.dbus_connection.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/dbus_connection.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.dbus_connection.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/dbus_connection.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = dbus_connection.cc
   source_name_part = dbus_connection
-build obj/update_engine/cros/libupdate_engine.dbus_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/dbus_service.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.dbus_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/dbus_service.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = dbus_service.cc
   source_name_part = dbus_service
-build obj/update_engine/cros/libupdate_engine.download_action_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/download_action_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.download_action_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/download_action_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = download_action_chromeos.cc
   source_name_part = download_action_chromeos
-build obj/update_engine/cros/libupdate_engine.hardware_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/hardware_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.hardware_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/hardware_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = hardware_chromeos.cc
   source_name_part = hardware_chromeos
-build obj/update_engine/cros/libupdate_engine.image_properties_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/image_properties_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.image_properties_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/image_properties_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = image_properties_chromeos.cc
   source_name_part = image_properties_chromeos
-build obj/update_engine/cros/libupdate_engine.install_action.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/install_action.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.install_action.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/install_action.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = install_action.cc
   source_name_part = install_action
-build obj/update_engine/cros/libupdate_engine.logging.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/logging.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.logging.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/logging.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = logging.cc
   source_name_part = logging
-build obj/update_engine/cros/libupdate_engine.metrics_reporter_omaha.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/metrics_reporter_omaha.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.metrics_reporter_omaha.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/metrics_reporter_omaha.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = metrics_reporter_omaha.cc
   source_name_part = metrics_reporter_omaha
-build obj/update_engine/cros/libupdate_engine.omaha_parser_data.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_parser_data.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.omaha_parser_data.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_parser_data.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = omaha_parser_data.cc
   source_name_part = omaha_parser_data
-build obj/update_engine/cros/libupdate_engine.omaha_parser_xml.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_parser_xml.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.omaha_parser_xml.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_parser_xml.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = omaha_parser_xml.cc
   source_name_part = omaha_parser_xml
-build obj/update_engine/cros/libupdate_engine.omaha_request_action.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_request_action.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.omaha_request_action.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_request_action.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = omaha_request_action.cc
   source_name_part = omaha_request_action
-build obj/update_engine/cros/libupdate_engine.omaha_request_builder_xml.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_request_builder_xml.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.omaha_request_builder_xml.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_request_builder_xml.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = omaha_request_builder_xml.cc
   source_name_part = omaha_request_builder_xml
-build obj/update_engine/cros/libupdate_engine.omaha_request_params.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_request_params.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.omaha_request_params.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_request_params.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = omaha_request_params.cc
   source_name_part = omaha_request_params
-build obj/update_engine/cros/libupdate_engine.omaha_response_handler_action.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_response_handler_action.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.omaha_response_handler_action.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_response_handler_action.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = omaha_response_handler_action.cc
   source_name_part = omaha_response_handler_action
-build obj/update_engine/cros/libupdate_engine.omaha_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.omaha_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/omaha_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = omaha_utils.cc
   source_name_part = omaha_utils
-build obj/update_engine/cros/libupdate_engine.p2p_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/p2p_manager.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.p2p_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/p2p_manager.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = p2p_manager.cc
   source_name_part = p2p_manager
-build obj/update_engine/cros/libupdate_engine.payload_state.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/payload_state.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.payload_state.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/payload_state.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = payload_state.cc
   source_name_part = payload_state
-build obj/update_engine/cros/libupdate_engine.power_manager_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/power_manager_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.power_manager_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/power_manager_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = power_manager_chromeos.cc
   source_name_part = power_manager_chromeos
-build obj/update_engine/cros/libupdate_engine.real_system_state.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/real_system_state.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.real_system_state.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/real_system_state.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = real_system_state.cc
   source_name_part = real_system_state
-build obj/update_engine/cros/libupdate_engine.requisition_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/requisition_util.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.requisition_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/requisition_util.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = requisition_util.cc
   source_name_part = requisition_util
-build obj/update_engine/cros/libupdate_engine.shill_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/shill_proxy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.shill_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/shill_proxy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = shill_proxy.cc
   source_name_part = shill_proxy
-build obj/update_engine/cros/libupdate_engine.update_attempter.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/update_attempter.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.update_attempter.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/update_attempter.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_attempter.cc
   source_name_part = update_attempter
-build obj/update_engine/libupdate_engine.libcurl_http_fetcher.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/libcurl_http_fetcher.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/libupdate_engine.libcurl_http_fetcher.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/libcurl_http_fetcher.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = libcurl_http_fetcher.cc
   source_name_part = libcurl_http_fetcher
-build obj/update_engine/libupdate_engine.metrics_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/metrics_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/libupdate_engine.metrics_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/metrics_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = metrics_utils.cc
   source_name_part = metrics_utils
-build obj/update_engine/libupdate_engine.update_boot_flags_action.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_boot_flags_action.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/libupdate_engine.update_boot_flags_action.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_boot_flags_action.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_boot_flags_action.cc
   source_name_part = update_boot_flags_action
-build obj/update_engine/update_manager/libupdate_engine.boxed_value.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/boxed_value.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.boxed_value.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/boxed_value.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = boxed_value.cc
   source_name_part = boxed_value
-build obj/update_engine/update_manager/libupdate_engine.deferred_update_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/deferred_update_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.deferred_update_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/deferred_update_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = deferred_update_policy_impl.cc
   source_name_part = deferred_update_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.enough_slots_ab_updates_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/enough_slots_ab_updates_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.enough_slots_ab_updates_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/enough_slots_ab_updates_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = enough_slots_ab_updates_policy_impl.cc
   source_name_part = enough_slots_ab_updates_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.enterprise_device_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/enterprise_device_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.enterprise_device_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/enterprise_device_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = enterprise_device_policy_impl.cc
   source_name_part = enterprise_device_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.enterprise_rollback_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/enterprise_rollback_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.enterprise_rollback_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/enterprise_rollback_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = enterprise_rollback_policy_impl.cc
   source_name_part = enterprise_rollback_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.enterprise_update_disabled_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/enterprise_update_disabled_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.enterprise_update_disabled_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/enterprise_update_disabled_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = enterprise_update_disabled_policy_impl.cc
   source_name_part = enterprise_update_disabled_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.evaluation_context.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/evaluation_context.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.evaluation_context.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/evaluation_context.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = evaluation_context.cc
   source_name_part = evaluation_context
-build obj/update_engine/update_manager/libupdate_engine.installation_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/installation_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.installation_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/installation_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = installation_policy_impl.cc
   source_name_part = installation_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.interactive_update_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/interactive_update_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.interactive_update_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/interactive_update_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = interactive_update_policy_impl.cc
   source_name_part = interactive_update_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.minimum_version_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/minimum_version_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.minimum_version_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/minimum_version_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = minimum_version_policy_impl.cc
   source_name_part = minimum_version_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.next_update_check_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/next_update_check_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.next_update_check_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/next_update_check_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = next_update_check_policy_impl.cc
   source_name_part = next_update_check_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.official_build_check_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/official_build_check_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.official_build_check_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/official_build_check_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = official_build_check_policy_impl.cc
   source_name_part = official_build_check_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.omaha_request_params_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/omaha_request_params_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.omaha_request_params_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/omaha_request_params_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = omaha_request_params_policy.cc
   source_name_part = omaha_request_params_policy
-build obj/update_engine/update_manager/libupdate_engine.out_of_box_experience_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/out_of_box_experience_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.out_of_box_experience_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/out_of_box_experience_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = out_of_box_experience_policy_impl.cc
   source_name_part = out_of_box_experience_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.p2p_enabled_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/p2p_enabled_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.p2p_enabled_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/p2p_enabled_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = p2p_enabled_policy.cc
   source_name_part = p2p_enabled_policy
-build obj/update_engine/update_manager/libupdate_engine.policy_evaluator.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/policy_evaluator.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.policy_evaluator.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/policy_evaluator.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = policy_evaluator.cc
   source_name_part = policy_evaluator
-build obj/update_engine/update_manager/libupdate_engine.policy_test_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/policy_test_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.policy_test_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/policy_test_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = policy_test_utils.cc
   source_name_part = policy_test_utils
-build obj/update_engine/update_manager/libupdate_engine.policy_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/policy_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.policy_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/policy_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = policy_utils.cc
   source_name_part = policy_utils
-build obj/update_engine/update_manager/libupdate_engine.real_config_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_config_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.real_config_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_config_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = real_config_provider.cc
   source_name_part = real_config_provider
-build obj/update_engine/update_manager/libupdate_engine.real_device_policy_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_device_policy_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.real_device_policy_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_device_policy_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = real_device_policy_provider.cc
   source_name_part = real_device_policy_provider
-build obj/update_engine/update_manager/libupdate_engine.real_random_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_random_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.real_random_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_random_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = real_random_provider.cc
   source_name_part = real_random_provider
-build obj/update_engine/update_manager/libupdate_engine.real_shill_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_shill_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.real_shill_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_shill_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = real_shill_provider.cc
   source_name_part = real_shill_provider
-build obj/update_engine/update_manager/libupdate_engine.real_system_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_system_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.real_system_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_system_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = real_system_provider.cc
   source_name_part = real_system_provider
-build obj/update_engine/update_manager/libupdate_engine.real_time_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_time_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.real_time_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_time_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = real_time_provider.cc
   source_name_part = real_time_provider
-build obj/update_engine/update_manager/libupdate_engine.real_updater_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_updater_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.real_updater_provider.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/real_updater_provider.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = real_updater_provider.cc
   source_name_part = real_updater_provider
-build obj/update_engine/update_manager/libupdate_engine.recovery_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/recovery_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.recovery_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/recovery_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = recovery_policy.cc
   source_name_part = recovery_policy
-build obj/update_engine/update_manager/libupdate_engine.staging_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/staging_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.staging_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/staging_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = staging_utils.cc
   source_name_part = staging_utils
-build obj/update_engine/update_manager/libupdate_engine.state_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/state_factory.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.state_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/state_factory.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = state_factory.cc
   source_name_part = state_factory
-build obj/update_engine/update_manager/libupdate_engine.update_can_be_applied_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_can_be_applied_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.update_can_be_applied_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_can_be_applied_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_can_be_applied_policy.cc
   source_name_part = update_can_be_applied_policy
-build obj/update_engine/update_manager/libupdate_engine.update_can_start_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_can_start_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.update_can_start_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_can_start_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_can_start_policy.cc
   source_name_part = update_can_start_policy
-build obj/update_engine/update_manager/libupdate_engine.update_check_allowed_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_check_allowed_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.update_check_allowed_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_check_allowed_policy.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_check_allowed_policy.cc
   source_name_part = update_check_allowed_policy
-build obj/update_engine/update_manager/libupdate_engine.update_in_hibernate_resume_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_in_hibernate_resume_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.update_in_hibernate_resume_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_in_hibernate_resume_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_in_hibernate_resume_policy_impl.cc
   source_name_part = update_in_hibernate_resume_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.update_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_manager.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.update_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_manager.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_manager.cc
   source_name_part = update_manager
-build obj/update_engine/update_manager/libupdate_engine.update_time_restrictions_monitor.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_time_restrictions_monitor.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.update_time_restrictions_monitor.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_time_restrictions_monitor.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_time_restrictions_monitor.cc
   source_name_part = update_time_restrictions_monitor
-build obj/update_engine/update_manager/libupdate_engine.update_time_restrictions_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_time_restrictions_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.update_time_restrictions_policy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/update_time_restrictions_policy_impl.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_time_restrictions_policy_impl.cc
   source_name_part = update_time_restrictions_policy_impl
-build obj/update_engine/update_manager/libupdate_engine.weekly_time.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_manager/weekly_time.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/update_manager/libupdate_engine.weekly_time.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_manager/weekly_time.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = weekly_time.cc
   source_name_part = weekly_time
-build obj/update_engine/libupdate_engine.update_status_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/update_status_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/libupdate_engine.update_status_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/update_status_utils.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = update_status_utils.cc
   source_name_part = update_status_utils
-build obj/update_engine/common/libupdate_engine.cros_healthd_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/common/cros_healthd_stub.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/common/libupdate_engine.cros_healthd_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/common/cros_healthd_stub.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = cros_healthd_stub.cc
   source_name_part = cros_healthd_stub
-build obj/update_engine/common/libupdate_engine.telemetry_info.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/common/telemetry_info.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/common/libupdate_engine.telemetry_info.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/common/telemetry_info.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = telemetry_info.cc
   source_name_part = telemetry_info
-build obj/update_engine/common/libupdate_engine.hibernate_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/common/hibernate_stub.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/common/libupdate_engine.hibernate_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/common/hibernate_stub.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = hibernate_stub.cc
   source_name_part = hibernate_stub
-build obj/update_engine/cros/libupdate_engine.chrome_browser_proxy_resolver.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/chrome_browser_proxy_resolver.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.chrome_browser_proxy_resolver.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/chrome_browser_proxy_resolver.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = chrome_browser_proxy_resolver.cc
   source_name_part = chrome_browser_proxy_resolver
-build obj/update_engine/cros/libupdate_engine.dlcservice_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/dlcservice_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.dlcservice_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/dlcservice_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = dlcservice_chromeos.cc
   source_name_part = dlcservice_chromeos
-build obj/update_engine/cros/libupdate_engine.excluder_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2/update_engine/cros/excluder_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
+build obj/update_engine/cros/libupdate_engine.excluder_chromeos.o: cxx ../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2/update_engine/cros/excluder_chromeos.cc || obj/update_engine/libupdate_engine.inputdeps.stamp
   source_file_part = excluder_chromeos.cc
   source_name_part = excluder_chromeos
 

@@ -416,6 +416,12 @@ EditorClient::IPCStableHashFunction EditorClient::MessageToMethodInfo_(mojo::Mes
     case internal::kEditorClient_AppendText_Name: {
       return &EditorClient::AppendText_Sym::IPCStableHash;
     }
+    case internal::kEditorClient_PreviewFeedback_Name: {
+      return &EditorClient::PreviewFeedback_Sym::IPCStableHash;
+    }
+    case internal::kEditorClient_SubmitFeedback_Name: {
+      return &EditorClient::SubmitFeedback_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -451,6 +457,10 @@ const char* EditorClient::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::orca::mojom::EditorClient::CloseUI";
       case internal::kEditorClient_AppendText_Name:
             return "Receive ash::orca::mojom::EditorClient::AppendText";
+      case internal::kEditorClient_PreviewFeedback_Name:
+            return "Receive ash::orca::mojom::EditorClient::PreviewFeedback";
+      case internal::kEditorClient_SubmitFeedback_Name:
+            return "Receive ash::orca::mojom::EditorClient::SubmitFeedback";
     }
   } else {
     switch (message.name()) {
@@ -478,6 +488,10 @@ const char* EditorClient::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::orca::mojom::EditorClient::CloseUI";
       case internal::kEditorClient_AppendText_Name:
             return "Receive reply ash::orca::mojom::EditorClient::AppendText";
+      case internal::kEditorClient_PreviewFeedback_Name:
+            return "Receive reply ash::orca::mojom::EditorClient::PreviewFeedback";
+      case internal::kEditorClient_SubmitFeedback_Name:
+            return "Receive reply ash::orca::mojom::EditorClient::SubmitFeedback";
     }
   }
   return "Receive unknown mojo message";
@@ -648,6 +662,32 @@ uint32_t EditorClient::AppendText_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t EditorClient::PreviewFeedback_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::orca::mojom::EditorClient::PreviewFeedback");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t EditorClient::SubmitFeedback_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::orca::mojom::EditorClient::SubmitFeedback");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class EditorClient_GetPresetTextQueries_ForwardToCallback
@@ -712,6 +752,22 @@ class EditorClient_RequestFreeformWrite_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   EditorClient::RequestFreeformWriteCallback callback_;
+};
+
+class EditorClient_PreviewFeedback_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  EditorClient_PreviewFeedback_ForwardToCallback(
+      EditorClient::PreviewFeedbackCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  EditorClient_PreviewFeedback_ForwardToCallback(const EditorClient_PreviewFeedback_ForwardToCallback&) = delete;
+  EditorClient_PreviewFeedback_ForwardToCallback& operator=(const EditorClient_PreviewFeedback_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  EditorClient::PreviewFeedbackCallback callback_;
 };
 
 EditorClientProxy::EditorClientProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1204,6 +1260,117 @@ void EditorClientProxy::AppendText(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(EditorClient::Name_);
   message.set_method_name("AppendText");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void EditorClientProxy::PreviewFeedback(
+    const std::string& in_result_id, PreviewFeedbackCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::orca::mojom::EditorClient::PreviewFeedback", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result_id"), in_result_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kEditorClient_PreviewFeedback_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::orca::mojom::internal::EditorClient_PreviewFeedback_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result_id)::BaseType> result_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_result_id, result_id_fragment);
+  params->result_id.Set(
+      result_id_fragment.is_null() ? nullptr : result_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result_id in EditorClient.PreviewFeedback request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(EditorClient::Name_);
+  message.set_method_name("PreviewFeedback");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new EditorClient_PreviewFeedback_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void EditorClientProxy::SubmitFeedback(
+    const std::string& in_result_id, const std::string& in_user_description) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::orca::mojom::EditorClient::SubmitFeedback", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result_id"), in_result_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("user_description"), in_user_description,
+                        "<value of type const std::string&>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kEditorClient_SubmitFeedback_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::orca::mojom::internal::EditorClient_SubmitFeedback_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result_id)::BaseType> result_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_result_id, result_id_fragment);
+  params->result_id.Set(
+      result_id_fragment.is_null() ? nullptr : result_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result_id in EditorClient.SubmitFeedback request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->user_description)::BaseType> user_description_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_user_description, user_description_fragment);
+  params->user_description.Set(
+      user_description_fragment.is_null() ? nullptr : user_description_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->user_description.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null user_description in EditorClient.SubmitFeedback request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(EditorClient::Name_);
+  message.set_method_name("SubmitFeedback");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1717,6 +1884,136 @@ void EditorClient_RequestFreeformWrite_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class EditorClient_PreviewFeedback_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static EditorClient::PreviewFeedbackCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<EditorClient_PreviewFeedback_ProxyToResponder> proxy(
+        new EditorClient_PreviewFeedback_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&EditorClient_PreviewFeedback_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~EditorClient_PreviewFeedback_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  EditorClient_PreviewFeedback_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "EditorClient::PreviewFeedbackCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const base::flat_map<std::string, std::string>& in_preview);
+};
+
+bool EditorClient_PreviewFeedback_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::EditorClient_PreviewFeedback_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::EditorClient_PreviewFeedback_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  base::flat_map<std::string, std::string> p_preview{};
+  EditorClient_PreviewFeedback_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadPreview(&p_preview))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        EditorClient::Name_, 12, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_preview));
+  return true;
+}
+
+void EditorClient_PreviewFeedback_ProxyToResponder::Run(
+    const base::flat_map<std::string, std::string>& in_preview) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::orca::mojom::EditorClient::PreviewFeedback", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("preview"), in_preview,
+                        "<value of type const base::flat_map<std::string, std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kEditorClient_PreviewFeedback_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::orca::mojom::internal::EditorClient_PreviewFeedback_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->preview)::BaseType>
+      preview_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& preview_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+  mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
+      in_preview, preview_fragment, &preview_validate_params);
+  params->preview.Set(
+      preview_fragment.is_null() ? nullptr : preview_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->preview.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null preview in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(EditorClient::Name_);
+  message.set_method_name("PreviewFeedback");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool EditorClientStubDispatch::Accept(
@@ -1923,6 +2220,39 @@ std::move(p_url));
 std::move(p_text));
       return true;
     }
+    case internal::kEditorClient_PreviewFeedback_Name: {
+      break;
+    }
+    case internal::kEditorClient_SubmitFeedback_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::EditorClient_SubmitFeedback_Params_Data* params =
+          reinterpret_cast<internal::EditorClient_SubmitFeedback_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_result_id{};
+      std::string p_user_description{};
+      EditorClient_SubmitFeedback_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadResultId(&p_result_id))
+        success = false;
+      if (success && !input_data_view.ReadUserDescription(&p_user_description))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            EditorClient::Name_, 13, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SubmitFeedback(
+std::move(p_result_id), 
+std::move(p_user_description));
+      return true;
+    }
   }
   return false;
 }
@@ -2080,6 +2410,38 @@ std::move(p_input), std::move(callback));
     case internal::kEditorClient_AppendText_Name: {
       break;
     }
+    case internal::kEditorClient_PreviewFeedback_Name: {
+
+      internal::EditorClient_PreviewFeedback_Params_Data* params =
+          reinterpret_cast<
+              internal::EditorClient_PreviewFeedback_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_result_id{};
+      EditorClient_PreviewFeedback_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadResultId(&p_result_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            EditorClient::Name_, 12, false);
+        return false;
+      }
+      EditorClient::PreviewFeedbackCallback callback =
+          EditorClient_PreviewFeedback_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->PreviewFeedback(
+std::move(p_result_id), std::move(callback));
+      return true;
+    }
+    case internal::kEditorClient_SubmitFeedback_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -2109,6 +2471,10 @@ static const mojo::internal::GenericValidationInfo kEditorClientValidationInfo[]
     {&internal::EditorClient_CloseUI_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::EditorClient_AppendText_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::EditorClient_PreviewFeedback_Params_Data::Validate,
+     &internal::EditorClient_PreviewFeedback_ResponseParams_Data::Validate},
+    {&internal::EditorClient_SubmitFeedback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2479,6 +2845,9 @@ TextActuator::IPCStableHashFunction TextActuator::MessageToMethodInfo_(mojo::Mes
     case internal::kTextActuator_CloseUI_Name: {
       return &TextActuator::CloseUI_Sym::IPCStableHash;
     }
+    case internal::kTextActuator_SubmitFeedback_Name: {
+      return &TextActuator::SubmitFeedback_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2502,6 +2871,8 @@ const char* TextActuator::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::orca::mojom::TextActuator::ShowUI";
       case internal::kTextActuator_CloseUI_Name:
             return "Receive ash::orca::mojom::TextActuator::CloseUI";
+      case internal::kTextActuator_SubmitFeedback_Name:
+            return "Receive ash::orca::mojom::TextActuator::SubmitFeedback";
     }
   } else {
     switch (message.name()) {
@@ -2517,6 +2888,8 @@ const char* TextActuator::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::orca::mojom::TextActuator::ShowUI";
       case internal::kTextActuator_CloseUI_Name:
             return "Receive reply ash::orca::mojom::TextActuator::CloseUI";
+      case internal::kTextActuator_SubmitFeedback_Name:
+            return "Receive reply ash::orca::mojom::TextActuator::SubmitFeedback";
     }
   }
   return "Receive unknown mojo message";
@@ -2605,6 +2978,19 @@ uint32_t TextActuator::CloseUI_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::orca::mojom::TextActuator::CloseUI");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t TextActuator::SubmitFeedback_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::orca::mojom::TextActuator::SubmitFeedback");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2831,6 +3217,54 @@ void TextActuatorProxy::CloseUI(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void TextActuatorProxy::SubmitFeedback(
+    const std::string& in_description) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::orca::mojom::TextActuator::SubmitFeedback", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("description"), in_description,
+                        "<value of type const std::string&>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kTextActuator_SubmitFeedback_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::orca::mojom::internal::TextActuator_SubmitFeedback_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->description)::BaseType> description_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_description, description_fragment);
+  params->description.Set(
+      description_fragment.is_null() ? nullptr : description_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->description.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null description in TextActuator.SubmitFeedback request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TextActuator::Name_);
+  message.set_method_name("SubmitFeedback");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool TextActuatorStubDispatch::Accept(
     TextActuator* impl,
@@ -2976,6 +3410,32 @@ std::move(p_url));
       impl->CloseUI();
       return true;
     }
+    case internal::kTextActuator_SubmitFeedback_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::TextActuator_SubmitFeedback_Params_Data* params =
+          reinterpret_cast<internal::TextActuator_SubmitFeedback_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_description{};
+      TextActuator_SubmitFeedback_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadDescription(&p_description))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TextActuator::Name_, 6, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SubmitFeedback(
+std::move(p_description));
+      return true;
+    }
   }
   return false;
 }
@@ -3007,6 +3467,9 @@ bool TextActuatorStubDispatch::AcceptWithResponder(
     case internal::kTextActuator_CloseUI_Name: {
       break;
     }
+    case internal::kTextActuator_SubmitFeedback_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -3024,6 +3487,8 @@ static const mojo::internal::GenericValidationInfo kTextActuatorValidationInfo[]
     {&internal::TextActuator_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::TextActuator_CloseUI_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::TextActuator_SubmitFeedback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3748,6 +4213,12 @@ void EditorClientInterceptorForTesting::CloseUI() {
 void EditorClientInterceptorForTesting::AppendText(const std::string& text) {
   GetForwardingInterface()->AppendText(std::move(text));
 }
+void EditorClientInterceptorForTesting::PreviewFeedback(const std::string& result_id, PreviewFeedbackCallback callback) {
+  GetForwardingInterface()->PreviewFeedback(std::move(result_id), std::move(callback));
+}
+void EditorClientInterceptorForTesting::SubmitFeedback(const std::string& result_id, const std::string& user_description) {
+  GetForwardingInterface()->SubmitFeedback(std::move(result_id), std::move(user_description));
+}
 EditorClientAsyncWaiter::EditorClientAsyncWaiter(
     EditorClient* proxy) : proxy_(proxy) {}
 
@@ -3845,6 +4316,29 @@ TextQueryResponsePtr EditorClientAsyncWaiter::RequestFreeformWrite(
   return async_wait_result;
 }
 
+void EditorClientAsyncWaiter::PreviewFeedback(
+    const std::string& result_id, base::flat_map<std::string, std::string>* out_preview) {
+  base::RunLoop loop;
+  proxy_->PreviewFeedback(std::move(result_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             base::flat_map<std::string, std::string>* out_preview
+,
+             const base::flat_map<std::string, std::string>& preview) {*out_preview = std::move(preview);
+            loop->Quit();
+          },
+          &loop,
+          out_preview));
+  loop.Run();
+}
+
+base::flat_map<std::string, std::string> EditorClientAsyncWaiter::PreviewFeedback(
+    const std::string& result_id) {
+  base::flat_map<std::string, std::string> async_wait_result;
+  PreviewFeedback(std::move(result_id),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -3887,6 +4381,9 @@ void TextActuatorInterceptorForTesting::ShowUI() {
 }
 void TextActuatorInterceptorForTesting::CloseUI() {
   GetForwardingInterface()->CloseUI();
+}
+void TextActuatorInterceptorForTesting::SubmitFeedback(const std::string& description) {
+  GetForwardingInterface()->SubmitFeedback(std::move(description));
 }
 TextActuatorAsyncWaiter::TextActuatorAsyncWaiter(
     TextActuator* proxy) : proxy_(proxy) {}

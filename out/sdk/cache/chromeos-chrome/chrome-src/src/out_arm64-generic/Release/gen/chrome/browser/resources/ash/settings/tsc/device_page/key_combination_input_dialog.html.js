@@ -8,6 +8,7 @@ export function getTemplate() {
       
       [[buttonRemapping_.name]]
     </div>
+    <button on-click="onButtonClicked_">button</button>
   </div>
   <div slot="button-container">
     <div>

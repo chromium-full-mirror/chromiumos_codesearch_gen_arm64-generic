@@ -1,5 +1,5 @@
 import 'chrome://file-manager/strings.m.js';
-import { r as recordEnum, s as startInterval, X as XfBase, i as isCrosComponentsEnabled, a as requestUpdateOnAriaChange, _ as __decorate$1, b as isActivationClick, d as dispatchActivationClick, c as redispatchEvent, e as assert, f as assertNotReached, u as util, V as VolumeManagerCommon, g as assert$1, N as NativeEventTarget, A as AsyncQueue, R as RateLimiter, h as isInlineSyncStatusEnabled, j as getStore, k as unwrapEntry, l as strf, m as urlToEntry, t as toFilesAppURL, n as str, o as startIOTask, p as isSameEntry, q as openWindow, v as getFilesAppIconURL, w as isRecentRootType, x as isDriveFsBulkPinningEnabled, F as FakeEntryImpl, y as addVolume, z as dispatchSimpleEvent, B as promisify, C as removeVolume, D as isSameFileSystem, E as isFakeEntry, G as isTeamDriveRoot, H as isComputersRoot, I as recordInterval, J as isFuseBoxDebugEnabled, K as AllowedPaths, L as isNative, M as parseTrashInfoFiles, O as recordMediumCount, P as isFileSystemFileEntry, Q as isFileSystemDirectoryEntry, S as assertInstanceof, T as SearchRecency, U as FileType, W as assertNotReached$1, Y as isDlpEnabled, Z as getDlpMetadata, $ as entriesToURLs, a0 as isTrashEntry$1, a1 as compareName, a2 as compareLabel, a3 as createDOMError, a4 as getDefaultSearchOptions, a5 as readEntriesRecursively, a6 as isEntryInsideDrive, a7 as SearchLocation, a8 as constants, a9 as mountGuest, aa as ConcurrentQueue, ab as dispatchPropertyChange, ac as Aggregator, ad as PropStatus, ae as convertURLsToEntries, af as isNativeEntry, ag as getFileData, ah as getVolume, ai as getMyFiles, aj as changeDirectory, ak as clearSearch, al as updateSearch, am as getPropertyDescriptor, an as define, ao as decorate$1, ap as swallowDoubleClick, aq as PropertyKind, ar as isTreeItem, as as isTree, at as handleTreeSlotChange, au as refreshNavigationRoots, av as NavigationType, aw as isVolumeEntry, ax as vmTypeToIconName, ay as isMyFilesEntry$1, az as updateNavigationEntry, aA as getVolumeType, aB as readSubDirectories, aC as isEntryInsideMyDrive, aD as isEntryInsideComputers, aE as isGrandRootEntryInDrives, aF as maybeShowTooltip, aG as convertEntryToFileData, aH as getEntry, aI as driveRootEntryListKey, aJ as VolumeEntry, aK as recordUserAction, aL as getTrustedHTML, aM as storage, aN as refreshFolderShortcut, aO as recordSmallCount, aP as getPreferences, aQ as comparePath, aR as addFolderShortcut, aS as removeFolderShortcut, aT as Group, aU as isJellyEnabled, aV as isDriveShortcutsEnabled, aW as queryRequiredElement, aX as DialogType, aY as isSameVolume, aZ as recordBoolean, a_ as updateSelection, a$ as assertInstanceof$1, b0 as FocusOutlineManager, b1 as mouseEnterMaybeShowTooltip, b2 as getCrActionMenuTop, b3 as SEARCH_RESULTS_KEY, b4 as XfCloudPanel, b5 as CloudPanelType, b6 as isSearchEmpty, b7 as PathComponent, b8 as recordValue, b9 as isGoogleOneOfferFilesBannerEligibleAndEnabled, ba as getTeamDriveName, bb as getDriveQuotaMetadata, bc as getSizeStats, bd as queryDecoratedElement, be as getFileTypeForName, bf as getKeyModifiers, bg as addAndroidApps, bh as EntryList, bi as isGuestOsEnabled, bj as isArcVmEnabled, bk as isSinglePartitionFormatEnabled, bl as limitInputWidth, bm as isSharedDriveEntry, bn as isComputersEntry, bo as isDescendantEntry, bp as compareLabelAndGroupBottomEntries, bq as isNewDirectoryTreeEnabled, br as getFocusedTreeItem, bs as validateEntryName, bt as renameEntry, bu as readSubDirectoriesForRenamedEntry, bv as isRecentRoot, bw as isTrashRoot, bx as getDisallowedTransfers, by as htmlEscape, bz as getRootType, bA as isDirectoryTree, bB as isSiblingEntry, bC as isNonModifiable, bD as grantAccess, bE as validateFileName, bF as getFile, bG as UserCanceledError, bH as getFileTasks, bI as INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, bJ as annotateTasks, bK as getDefaultTask, bL as recordTime, bM as parseActionId, bN as isFilesAppId, bO as LEGACY_FILES_EXTENSION_ID, bP as executeTask, bQ as USER_CANCELLED, bR as getDirectory, bS as updateMetadata, bT as TaskHistory, bU as getFilesData, bV as fetchFileTasks, bW as getMimeType, bX as recordDirectoryListLoadWithTolerance, bY as waitForState, bZ as isDirectoryTreeItem, b_ as isTeamDrivesGrandRoot, b$ as isModal, c0 as getHoldingSpaceState, c1 as getDlpRestrictionDetails, c2 as isMirrorSyncEnabled, c3 as isTrashRootType, c4 as addUiEntry, c5 as removeUiEntry, c6 as crostiniPlaceHolderKey, c7 as isFolderDialogType, c8 as updateIsInteractiveVolume, c9 as createChild, ca as listMountableGuests, cb as GuestOsPlaceholder, cc as toSandboxedURL, cd as updateDirectoryContent, ce as queryRequiredExactlyOne, cf as getBulkPinProgress, cg as updateBulkPinProgress, ch as getEmptyState, ci as getDialogCaller, cj as getDlpBlockedComponents, ck as updatePreferences, cl as getDriveConnectionState, cm as updateDriveConnectionStatus, cn as updateDeviceConnectionState, co as trashRootKey } from './shared.rollup.js';
+import { r as recordEnum, s as startInterval, X as XfBase, i as isCrosComponentsEnabled, a as requestUpdateOnAriaChange, _ as __decorate$1, b as isActivationClick, d as dispatchActivationClick, c as redispatchEvent, e as assert, f as assertNotReached, u as util, V as VolumeManagerCommon, g as assert$1, N as NativeEventTarget, A as AsyncQueue, R as RateLimiter, h as isInlineSyncStatusEnabled, j as getStore, k as unwrapEntry, l as strf, m as urlToEntry, t as toFilesAppURL, n as str, o as startIOTask, p as isSameEntry, q as openWindow, v as getFilesAppIconURL, w as isRecentRootType, x as isDriveFsBulkPinningEnabled, F as FakeEntryImpl, y as addVolume, z as dispatchSimpleEvent, B as promisify, C as removeVolume, D as isSameFileSystem, E as isFakeEntry, G as isTeamDriveRoot, H as isComputersRoot, I as recordInterval, J as isFuseBoxDebugEnabled, K as AllowedPaths, L as isNative, M as parseTrashInfoFiles, O as recordMediumCount, P as isFileEntry, Q as isDirectoryEntry, S as assertInstanceof, T as SearchRecency, U as FileType, W as assertNotReached$1, Y as isDlpEnabled, Z as getDlpMetadata, $ as entriesToURLs, a0 as isTrashEntry$1, a1 as compareName, a2 as compareLabel, a3 as createDOMError, a4 as getDefaultSearchOptions, a5 as readEntriesRecursively, a6 as isEntryInsideDrive, a7 as SearchLocation, a8 as constants, a9 as mountGuest, aa as ConcurrentQueue, ab as dispatchPropertyChange, ac as Aggregator, ad as PropStatus, ae as convertURLsToEntries, af as isNativeEntry, ag as isOneDriveId, ah as getFileData, ai as getVolume, aj as getMyFiles, ak as changeDirectory, al as clearSearch, am as isGuestOs, an as updateSearch, ao as getPropertyDescriptor, ap as define, aq as decorate$1, ar as swallowDoubleClick, as as PropertyKind, at as isTreeItem, au as isTree, av as handleTreeSlotChange, aw as refreshNavigationRoots, ax as NavigationType, ay as isVolumeEntry, az as vmTypeToIconName, aA as isMyFilesEntry$1, aB as updateNavigationEntry, aC as getVolumeType, aD as readSubDirectories, aE as isEntryInsideMyDrive, aF as isEntryInsideComputers, aG as isGrandRootEntryInDrives, aH as maybeShowTooltip, aI as convertEntryToFileData, aJ as getEntry, aK as driveRootEntryListKey, aL as VolumeEntry, aM as recordUserAction, aN as getTrustedHTML, aO as storage, aP as refreshFolderShortcut, aQ as recordSmallCount, aR as getPreferences, aS as comparePath, aT as addFolderShortcut, aU as removeFolderShortcut, aV as Group, aW as isJellyEnabled, aX as isDriveShortcutsEnabled, aY as queryRequiredElement, aZ as DialogType, a_ as isSameVolume, a$ as recordBoolean, b0 as updateSelection, b1 as assertInstanceof$1, b2 as FocusOutlineManager, b3 as mouseEnterMaybeShowTooltip, b4 as getCrActionMenuTop, b5 as SEARCH_RESULTS_KEY, b6 as XfCloudPanel, b7 as CloudPanelType, b8 as isSearchEmpty, b9 as PathComponent, ba as recordValue, bb as isGoogleOneOfferFilesBannerEligibleAndEnabled, bc as getTeamDriveName, bd as getDriveQuotaMetadata, be as getSizeStats, bf as queryDecoratedElement, bg as getFileTypeForName, bh as getKeyModifiers, bi as addAndroidApps, bj as EntryList, bk as isGuestOsEnabled, bl as isArcVmEnabled, bm as isOneDrive, bn as isSinglePartitionFormatEnabled, bo as limitInputWidth, bp as isSharedDriveEntry, bq as isComputersEntry, br as isDescendantEntry, bs as compareLabelAndGroupBottomEntries, bt as isNewDirectoryTreeEnabled, bu as getFocusedTreeItem, bv as validateEntryName, bw as renameEntry, bx as readSubDirectoriesForRenamedEntry, by as isRecentRoot, bz as isTrashRoot, bA as getDisallowedTransfers, bB as htmlEscape, bC as getRootType, bD as isDirectoryTree, bE as isSiblingEntry, bF as isNonModifiable, bG as grantAccess, bH as validateFileName, bI as getFile, bJ as UserCanceledError, bK as getFileTasks, bL as INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, bM as annotateTasks, bN as getDefaultTask, bO as recordTime, bP as parseActionId, bQ as isFilesAppId, bR as LEGACY_FILES_EXTENSION_ID, bS as executeTask, bT as USER_CANCELLED, bU as getDirectory, bV as updateMetadata, bW as TaskHistory, bX as getFilesData, bY as fetchFileTasks, bZ as getMimeType, b_ as recordDirectoryListLoadWithTolerance, b$ as waitForState, c0 as isDirectoryTreeItem, c1 as isTeamDrivesGrandRoot, c2 as isModal, c3 as getHoldingSpaceState, c4 as getDlpRestrictionDetails, c5 as isMirrorSyncEnabled, c6 as isInteractiveVolume, c7 as isTrashRootType, c8 as addUiEntry, c9 as removeUiEntry, ca as crostiniPlaceHolderKey, cb as isFolderDialogType, cc as getODFSMetadataQueryEntry, cd as updateIsInteractiveVolume, ce as createChild, cf as listMountableGuests, cg as GuestOsPlaceholder, ch as toSandboxedURL, ci as updateDirectoryContent, cj as queryRequiredExactlyOne, ck as getBulkPinProgress, cl as updateBulkPinProgress, cm as getEmptyState, cn as getDialogCaller, co as getDlpBlockedComponents, cp as updatePreferences, cq as getDriveConnectionState, cr as updateDriveConnectionStatus, cs as updateDeviceConnectionState, ct as trashRootKey } from './shared.rollup.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { customElement, html, css, property, query, LitElement, isServer, classMap, nothing, state, ifDefined, styleMap } from 'chrome://resources/mwc/lit/index.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
@@ -7247,7 +7247,7 @@ class TrashEntry {
      * Pass through to filesEntry. Overrides FileEntry.
      */
     file(success, error) {
-        if (isFileSystemFileEntry(this.filesEntry)) {
+        if (isFileEntry(this.filesEntry)) {
             this.filesEntry.file(success, error);
             return;
         }
@@ -7257,7 +7257,7 @@ class TrashEntry {
      * Pass through to filesEntry. Overrides DirectoryEntry.
      */
     getFile(path, options, success, error) {
-        if (isFileSystemDirectoryEntry(this.filesEntry)) {
+        if (isDirectoryEntry(this.filesEntry)) {
             this.filesEntry.getFile(path, options, success, error);
             return;
         }
@@ -7267,7 +7267,7 @@ class TrashEntry {
      * Remove filesEntry first, then remove infoEntry. Overrides DirectoryEntry.
      */
     removeRecursively(success, error) {
-        if (isFileSystemDirectoryEntry(this.filesEntry)) {
+        if (isDirectoryEntry(this.filesEntry)) {
             this.filesEntry.removeRecursively(() => this.infoEntry.remove(success, error), error);
             return;
         }
@@ -14414,7 +14414,7 @@ class DirectoryModel extends NativeEventTarget {
         for (const volume of Object.values(state.volumes)) {
             // Navigate out of ODFS if it got disabled and the current directory is
             // under ODFS.
-            const isOdfs = util.isOneDriveId(volume.providerId);
+            const isOdfs = isOneDriveId(volume.providerId);
             if (!(isOdfs && volume.isDisabled)) {
                 continue;
             }
@@ -14422,7 +14422,7 @@ class DirectoryModel extends NativeEventTarget {
             // @ts-ignore: error TS18048: 'state.currentDirectory' is possibly
             // 'undefined'.
             getFileData(state, state.currentDirectory.key);
-            const currentDirectoryOnOdfs = util.isOneDriveId(getVolume(state, currentDirectoryFileData)?.providerId);
+            const currentDirectoryOnOdfs = isOneDriveId(getVolume(state, currentDirectoryFileData)?.providerId);
             if (currentDirectoryOnOdfs) {
                 const { myFilesEntry } = /**
                                           @type {{myFilesVolume: (Volume|null),
@@ -15281,7 +15281,7 @@ class DirectoryModel extends NativeEventTarget {
             // different Guest OS folder.
             // @ts-ignore: error TS2339: Property 'added' does not exist on type
             // 'Event'.
-            (util.isGuestOs(event.added[0].volumeType) &&
+            (isGuestOs(event.added[0].volumeType) &&
                 this.getCurrentRootType() === VolumeManagerCommon.RootType.GUEST_OS)) {
             // Resolving a display root on FSP volumes is instant, despite the
             // asynchronous call.
@@ -19556,7 +19556,7 @@ class DirectoryTreeContainer {
                 this.handleInitialRender_(navigationItem, childFileData);
             }
         }
-        const isOdfs = util.isOneDriveId(getVolume(this.store_.getState(), fileData)?.providerId);
+        const isOdfs = isOneDriveId(getVolume(this.store_.getState(), fileData)?.providerId);
         if (isOdfs && fileData?.disabled) {
             // The entries under ODFS are not disabled recursively. Collapse ODFS when
             // it is disabled.
@@ -43848,7 +43848,7 @@ class NavigationListModel extends NativeEventTarget {
         }
         // Add ODFS.
         for (const provided of getVolumes(VolumeManagerCommon.VolumeType.PROVIDED)) {
-            if (util.isOneDrive(provided.volumeInfo)) {
+            if (isOneDrive(provided.volumeInfo)) {
                 provided.section = NavigationSection.ODFS;
                 const { volumes } = getStore().getState();
                 const volume = volumes[provided.volumeInfo.volumeId];
@@ -43868,7 +43868,7 @@ class NavigationListModel extends NativeEventTarget {
         // Add other FSPs.
         for (const provided of getVolumes(VolumeManagerCommon.VolumeType.PROVIDED)) {
             // ODFS added already.
-            if (util.isOneDrive(provided.volumeInfo)) {
+            if (isOneDrive(provided.volumeInfo)) {
                 continue;
             }
             this.navigationItems_.push(provided);
@@ -46307,7 +46307,7 @@ class VolumeItem extends DirectoryItem {
         // @ts-ignore: error TS2345: Argument of type 'Element | null' is not
         // assignable to parameter of type 'Element'.
         this.setupIcon_(this.querySelector('.icon'), this.volumeInfo_);
-        if (util.isOneDrive(modelItem.volumeInfo)) {
+        if (isOneDrive(modelItem.volumeInfo)) {
             this.toggleAttribute('one-drive', true);
         }
         // Attach a placeholder for rename input text box and the eject icon if the
@@ -47308,7 +47308,7 @@ class DirectoryTree extends Tree {
         }
         // ODFS.
         const odfsDisabledUpdated = Object.values(state.volumes)
-            .some(volume => volume && util.isOneDriveId(volume.providerId) &&
+            .some(volume => volume && isOneDriveId(volume.providerId) &&
             !!volume.isDisabled !== this.isODFSVolumeDisabled_);
         if (odfsDisabledUpdated) {
             this.isODFSVolumeDisabled_ = !this.isODFSVolumeDisabled_;
@@ -47322,7 +47322,7 @@ class DirectoryTree extends Tree {
                 // @ts-ignore: error TS2339: Property 'items' does not exist on type
                 // 'DirectoryTree'.
                 const treeItem = this.items[i];
-                if (util.isOneDrive(treeItem.modelItem.volumeInfo)) {
+                if (isOneDrive(treeItem.modelItem.volumeInfo)) {
                     // @ts-ignore: error TS2554: Expected 0 arguments, but got 1.
                     this.remove(treeItem);
                     // Decrement to account for the removed item.
@@ -54468,7 +54468,7 @@ CommandUtil.shouldShowMenuItemsForEntry = (volumeManager, entry) => {
     }
     // If the entry belongs to a non-interactive volume, hide context menu
     // entries.
-    if (!util.isInteractiveVolume(volumeInfo)) {
+    if (!isInteractiveVolume(volumeInfo)) {
         return false;
     }
     // If the entry is root entry of its volume (but not a team drive root),
@@ -54621,7 +54621,7 @@ CommandUtil.currentVolumeIsInteractive = fileManager => {
     if (!volumeInfo) {
         return true;
     }
-    return util.isInteractiveVolume(volumeInfo);
+    return isInteractiveVolume(volumeInfo);
 };
 /**
  * Returns true if any entry belongs to a non-interactive volume.
@@ -54636,7 +54636,7 @@ CommandUtil.containsNonInteractiveEntry = (entries, fileManager) => {
         if (!volumeInfo) {
             return false;
         }
-        return util.isInteractiveVolume(volumeInfo);
+        return isInteractiveVolume(volumeInfo);
     });
 };
 /**
@@ -58265,7 +58265,7 @@ class EmptyFolderController {
             chrome.fileManagerPrivate.getCustomActions(
             // @ts-ignore: error TS2322: Type 'FileSystemEntry | FilesAppEntry' is
             // not assignable to type 'FileSystemEntry'.
-            [util.getODFSMetadataQueryEntry(odfsVolumeInfo)], customActions => {
+            [getODFSMetadataQueryEntry(odfsVolumeInfo)], customActions => {
                 if (chrome.runtime.lastError) {
                     console.error('Unexpectedly failed to fetch custom actions for ODFS ' +
                         'root because of: ' + chrome.runtime.lastError.message);
@@ -58301,7 +58301,7 @@ class EmptyFolderController {
             return;
         }
         // If scan did not fail for ODFS, return.
-        if (!util.isOneDrive(currentVolumeInfo)) {
+        if (!isOneDrive(currentVolumeInfo)) {
             this.updateUI_();
             return;
         }
@@ -58312,7 +58312,7 @@ class EmptyFolderController {
             return;
         }
         // If ODFS is already non-interactive, return.
-        if (!util.isInteractiveVolume(currentVolumeInfo)) {
+        if (!isInteractiveVolume(currentVolumeInfo)) {
             this.updateUI_();
             return;
         }
@@ -58336,8 +58336,8 @@ class EmptyFolderController {
      */
     onScanFinished_() {
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
-        if (util.isOneDrive(currentVolumeInfo)) {
-            if (!util.isInteractiveVolume(currentVolumeInfo)) {
+        if (isOneDrive(currentVolumeInfo)) {
+            if (!isInteractiveVolume(currentVolumeInfo)) {
                 // Set |isInteractive| to true for ODFS when in an authenticated state.
                 getStore().dispatch(updateIsInteractiveVolume({
                     volumeId: currentVolumeInfo.volumeId,
@@ -58401,7 +58401,7 @@ class EmptyFolderController {
      */
     onODFSSignIn_() {
         const currentVolumeInfo = this.directoryModel_.getCurrentVolumeInfo();
-        if (util.isOneDrive(currentVolumeInfo) &&
+        if (isOneDrive(currentVolumeInfo) &&
             currentVolumeInfo.providerId !== undefined) {
             this.providersModel_.requestMount(currentVolumeInfo.providerId);
         }
@@ -58420,8 +58420,8 @@ class EmptyFolderController {
         else if (currentRootType === VolumeManagerCommon.RootType.TRASH) {
             svgRef = TRASH_EMPTY_FOLDER;
         }
-        else if (util.isOneDrive(currentVolumeInfo) &&
-            !util.isInteractiveVolume(currentVolumeInfo)) {
+        else if (isOneDrive(currentVolumeInfo) &&
+            !isInteractiveVolume(currentVolumeInfo)) {
             // Show ODFS reauthentication required empty state if is it
             // non-interactive.
             svgRef = ODFS_REAUTHENTICATION_REQUIRED;
@@ -60589,7 +60589,7 @@ class MetadataBoxController {
     onGeneralMetadataLoaded_(entry, isSameEntry, items) {
         const type = FileType.getType(entry).type;
         const item = items[0];
-        if (isFileSystemDirectoryEntry(entry)) {
+        if (isDirectoryEntry(entry)) {
             this.setDirectorySize_(entry, isSameEntry);
         }
         else if (item?.size) {
@@ -60694,7 +60694,7 @@ class MetadataBoxController {
      * enables the loading animation.
      */
     setDirectorySize_(entry, sameEntry) {
-        if (!isFileSystemDirectoryEntry(entry)) {
+        if (!isDirectoryEntry(entry)) {
             return;
         }
         const directoryEntry = unwrapEntry(entry);

@@ -23,9 +23,6 @@ build obj/camera/hal/usb/libcamera_hal.camera_hal.o: cxx ../../../../../../../..
 build obj/camera/hal/usb/libcamera_hal.camera_hal_device_ops.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal/usb/camera_hal_device_ops.cc
   source_file_part = camera_hal_device_ops.cc
   source_name_part = camera_hal_device_ops
-build obj/camera/hal/usb/libcamera_hal.camera_privacy_switch_monitor.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal/usb/camera_privacy_switch_monitor.cc
-  source_file_part = camera_privacy_switch_monitor.cc
-  source_name_part = camera_privacy_switch_monitor
 build obj/camera/hal/usb/libcamera_hal.capture_request.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal/usb/capture_request.cc
   source_file_part = capture_request.cc
   source_name_part = capture_request
@@ -50,11 +47,14 @@ build obj/camera/hal/usb/libcamera_hal.test_pattern.o: cxx ../../../../../../../
 build obj/camera/hal/usb/libcamera_hal.v4l2_camera_device.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal/usb/v4l2_camera_device.cc
   source_file_part = v4l2_camera_device.cc
   source_name_part = v4l2_camera_device
+build obj/camera/hal/usb/libcamera_hal.v4l2_event_monitor.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal/usb/v4l2_event_monitor.cc
+  source_file_part = v4l2_event_monitor.cc
+  source_name_part = v4l2_event_monitor
 build obj/camera/hal/usb/libcamera_hal.vendor_tag.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/camera/hal/usb/vendor_tag.cc
   source_file_part = vendor_tag.cc
   source_name_part = vendor_tag
 
-build ./lib/libcamera_hal.so: solink obj/camera/common/libcamera_hal.vendor_tag_manager.o obj/camera/hal/usb/libcamera_hal.cached_frame.o obj/camera/hal/usb/libcamera_hal.camera_characteristics.o obj/camera/hal/usb/libcamera_hal.camera_client.o obj/camera/hal/usb/libcamera_hal.camera_hal.o obj/camera/hal/usb/libcamera_hal.camera_hal_device_ops.o obj/camera/hal/usb/libcamera_hal.camera_privacy_switch_monitor.o obj/camera/hal/usb/libcamera_hal.capture_request.o obj/camera/hal/usb/libcamera_hal.frame_buffer.o obj/camera/hal/usb/libcamera_hal.image_processor.o obj/camera/hal/usb/libcamera_hal.metadata_handler.o obj/camera/hal/usb/libcamera_hal.quirks.o obj/camera/hal/usb/libcamera_hal.stream_format.o obj/camera/hal/usb/libcamera_hal.test_pattern.o obj/camera/hal/usb/libcamera_hal.v4l2_camera_device.o obj/camera/hal/usb/libcamera_hal.vendor_tag.o
+build ./lib/libcamera_hal.so: solink obj/camera/common/libcamera_hal.vendor_tag_manager.o obj/camera/hal/usb/libcamera_hal.cached_frame.o obj/camera/hal/usb/libcamera_hal.camera_characteristics.o obj/camera/hal/usb/libcamera_hal.camera_client.o obj/camera/hal/usb/libcamera_hal.camera_hal.o obj/camera/hal/usb/libcamera_hal.camera_hal_device_ops.o obj/camera/hal/usb/libcamera_hal.capture_request.o obj/camera/hal/usb/libcamera_hal.frame_buffer.o obj/camera/hal/usb/libcamera_hal.image_processor.o obj/camera/hal/usb/libcamera_hal.metadata_handler.o obj/camera/hal/usb/libcamera_hal.quirks.o obj/camera/hal/usb/libcamera_hal.stream_format.o obj/camera/hal/usb/libcamera_hal.test_pattern.o obj/camera/hal/usb/libcamera_hal.v4l2_camera_device.o obj/camera/hal/usb/libcamera_hal.v4l2_event_monitor.o obj/camera/hal/usb/libcamera_hal.vendor_tag.o
   ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pthread -Wl,-rpath=/usr/share/cros-camera/libfs/ -Wl,-rpath=/build/share/cros_camera/ -L/build/arm64-generic/usr/lib64 -L/build/arm64-generic/build/share/cros_camera
   libs = -lcros_camera -lcros_camera_mojom -lmojo -lcros_camera_android_deps -lcros_camera_device_config -lsync -lyuv.pic -ljpeg -lre2 -lbase -lpthread
   frameworks =

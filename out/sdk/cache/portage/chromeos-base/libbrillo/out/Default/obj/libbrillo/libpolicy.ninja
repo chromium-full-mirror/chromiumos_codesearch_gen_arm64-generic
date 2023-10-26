@@ -1,32 +1,32 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_DBUS=true -DUSE_RTTI_FOR_TYPE_TAGS=1 -DUSE_ENTERPRISE_ROLLBACK_REVEN=false
-include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1 -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1/libbrillo -Igen
+include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1 -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1/libbrillo -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1211970 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include
 cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libpolicy
 
 build obj/libbrillo/libpolicy.inputdeps.stamp: stamp obj/common-mk/external_dependencies/policy-protos_gen.stamp obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp obj/libbrillo/install_attributes_proto_gen.stamp obj/libbrillo/libinstallattributes-includes.stamp obj/libbrillo/libpolicy-includes.stamp
-build obj/libbrillo/policy/libpolicy.device_local_account_policy_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1/libbrillo/policy/device_local_account_policy_util.cc || obj/libbrillo/libpolicy.inputdeps.stamp
+build obj/libbrillo/policy/libpolicy.device_local_account_policy_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1/libbrillo/policy/device_local_account_policy_util.cc || obj/libbrillo/libpolicy.inputdeps.stamp
   source_file_part = device_local_account_policy_util.cc
   source_name_part = device_local_account_policy_util
-build obj/libbrillo/policy/libpolicy.device_policy.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1/libbrillo/policy/device_policy.cc || obj/libbrillo/libpolicy.inputdeps.stamp
+build obj/libbrillo/policy/libpolicy.device_policy.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1/libbrillo/policy/device_policy.cc || obj/libbrillo/libpolicy.inputdeps.stamp
   source_file_part = device_policy.cc
   source_name_part = device_policy
-build obj/libbrillo/policy/libpolicy.device_policy_impl.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1/libbrillo/policy/device_policy_impl.cc || obj/libbrillo/libpolicy.inputdeps.stamp
+build obj/libbrillo/policy/libpolicy.device_policy_impl.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1/libbrillo/policy/device_policy_impl.cc || obj/libbrillo/libpolicy.inputdeps.stamp
   source_file_part = device_policy_impl.cc
   source_name_part = device_policy_impl
-build obj/libbrillo/policy/libpolicy.libpolicy.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1/libbrillo/policy/libpolicy.cc || obj/libbrillo/libpolicy.inputdeps.stamp
+build obj/libbrillo/policy/libpolicy.libpolicy.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1/libbrillo/policy/libpolicy.cc || obj/libbrillo/libpolicy.inputdeps.stamp
   source_file_part = libpolicy.cc
   source_name_part = libpolicy
-build obj/libbrillo/policy/libpolicy.policy_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1/libbrillo/policy/policy_util.cc || obj/libbrillo/libpolicy.inputdeps.stamp
+build obj/libbrillo/policy/libpolicy.policy_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1/libbrillo/policy/policy_util.cc || obj/libbrillo/libpolicy.inputdeps.stamp
   source_file_part = policy_util.cc
   source_name_part = policy_util
-build obj/libbrillo/policy/libpolicy.resilient_policy_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1/libbrillo/policy/resilient_policy_util.cc || obj/libbrillo/libpolicy.inputdeps.stamp
+build obj/libbrillo/policy/libpolicy.resilient_policy_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1/libbrillo/policy/resilient_policy_util.cc || obj/libbrillo/libpolicy.inputdeps.stamp
   source_file_part = resilient_policy_util.cc
   source_name_part = resilient_policy_util
 
 build ./lib/libpolicy.so: solink obj/libbrillo/policy/libpolicy.device_local_account_policy_util.o obj/libbrillo/policy/libpolicy.device_policy.o obj/libbrillo/policy/libpolicy.device_policy_impl.o obj/libbrillo/policy/libpolicy.libpolicy.o obj/libbrillo/policy/libpolicy.policy_util.o obj/libbrillo/policy/libpolicy.resilient_policy_util.o ./lib/libinstallattributes.so ./libpolicy-protos.a ./libpolicy_common_definitions-protos.a || obj/libbrillo/libpolicy-includes.stamp
-  ldflags = -Wl,--version-script,/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2343/work/libbrillo-0.0.1/libbrillo/libpolicy.ver -Wl,-O2 -Wl,--as-needed -Wl,-O2 -Wl,--as-needed -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed
+  ldflags = -Wl,--version-script,/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2344/work/libbrillo-0.0.1/libbrillo/libpolicy.ver -Wl,-O2 -Wl,--as-needed -Wl,-O2 -Wl,--as-needed -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed
   libs = -lbase -lpthread -lssl -lcrypto -lprotobuf-lite
   frameworks =
   swiftmodules =

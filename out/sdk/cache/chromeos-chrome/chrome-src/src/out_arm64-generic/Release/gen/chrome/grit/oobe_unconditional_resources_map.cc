@@ -116,6 +116,7 @@ const webui::ResourcePath kOobeUnconditionalResources[] = {
   {"screens/common/os_trial.js", IDR_OOBE_UNCONDITIONAL_SCREENS_COMMON_OS_TRIAL_JS},
   {"screens/common/parental_handoff.js", IDR_OOBE_UNCONDITIONAL_SCREENS_COMMON_PARENTAL_HANDOFF_JS},
   {"screens/common/pin_setup.js", IDR_OOBE_UNCONDITIONAL_SCREENS_COMMON_PIN_SETUP_JS},
+  {"screens/common/remote_activity_notification.js", IDR_OOBE_UNCONDITIONAL_SCREENS_COMMON_REMOTE_ACTIVITY_NOTIFICATION_JS},
   {"screens/common/placeholder.js", IDR_OOBE_UNCONDITIONAL_SCREENS_COMMON_PLACEHOLDER_JS},
   {"screens/common/recommend_apps.js", IDR_OOBE_UNCONDITIONAL_SCREENS_COMMON_RECOMMEND_APPS_JS},
   {"screens/common/saml_confirm_password.js", IDR_OOBE_UNCONDITIONAL_SCREENS_COMMON_SAML_CONFIRM_PASSWORD_JS},

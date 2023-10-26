@@ -29,16 +29,6 @@ void AddChromeOSSystemExtensionsAPIFeatures(FeatureProvider* provider) {
   }
   {
     SimpleFeature* feature = new SimpleFeature();
-    feature->set_name("os.diagnostics.runFanRoutine");
-    feature->set_channel(version_info::Channel::STABLE);
-    feature->set_contexts({Feature::BLESSED_EXTENSION_CONTEXT});
-    feature->set_dependencies({"permission:os.diagnostics.runFanRoutine"});
-    feature->set_feature_flag("TelemetryExtensionPendingApprovalApi");
-    feature->set_platforms({Feature::CHROMEOS_PLATFORM,Feature::LACROS_PLATFORM});
-    provider->AddFeature("os.diagnostics.runFanRoutine", feature);
-  }
-  {
-    SimpleFeature* feature = new SimpleFeature();
     feature->set_name("os.events");
     feature->set_channel(version_info::Channel::STABLE);
     feature->set_contexts({Feature::BLESSED_EXTENSION_CONTEXT});

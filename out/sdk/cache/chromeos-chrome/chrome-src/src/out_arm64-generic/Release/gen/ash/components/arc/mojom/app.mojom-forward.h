@@ -32,6 +32,8 @@ class WebAppInfoDataView;
 
 class WindowLayoutDataView;
 
+class PackageLocaleInfoDataView;
+
 class ArcPackageInfoDataView;
 
 class ShortcutInfoDataView;
@@ -72,6 +74,9 @@ using WebAppInfoPtr = mojo::StructPtr<WebAppInfo>;
 
 class WindowLayout;
 using WindowLayoutPtr = mojo::StructPtr<WindowLayout>;
+
+class PackageLocaleInfo;
+using PackageLocaleInfoPtr = mojo::StructPtr<PackageLocaleInfo>;
 
 class ArcPackageInfo;
 using ArcPackageInfoPtr = mojo::StructPtr<ArcPackageInfo>;

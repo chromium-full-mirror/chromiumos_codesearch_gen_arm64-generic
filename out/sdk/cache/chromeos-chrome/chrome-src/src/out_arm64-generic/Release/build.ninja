@@ -2141,13 +2141,13 @@ build create_frame_generator: phony obj/third_party/webrtc/api/create_frame_gene
 build create_frame_generator_capturer: phony obj/third_party/webrtc/test/create_frame_generator_capturer.stamp
 build create_new_folder: phony obj/ui/file_manager/integration_tests/file_manager/create_new_folder.stamp
 build create_peer_connection_quality_test_frame_generator: phony obj/third_party/webrtc/api/create_peer_connection_quality_test_frame_generator.stamp
-build credential_ui_entry: phony obj/components/password_manager/core/browser/credential_ui_entry.stamp
+build credential_ui_entry: phony obj/components/password_manager/core/browser/ui/credential_ui_entry.stamp
 build credentialmanagement: phony obj/third_party/blink/renderer/modules/credentialmanagement/libcredentialmanagement.a
 build credentials: phony obj/chromeos/ash/components/nearby/presence/credentials/libcredentials.a
 build critical_error_page: phony obj/ash/webui/shimless_rma/resources/critical_error_page.stamp
 build critical_error_page_test: phony obj/chrome/test/data/webui/chromeos/shimless_rma/critical_error_page_test.stamp
 build criticalsection: phony obj/third_party/webrtc/rtc_base/libcriticalsection.a
-build cronet: phony ./libcronet.120.0.6086.0.so.TOC
+build cronet: phony ./libcronet.120.0.6087.0.so.TOC
 build cronet_common: phony obj/components/cronet/cronet_common.stamp
 build cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
 build cronet_native_headers: phony obj/components/cronet/native/cronet_native_headers.stamp
@@ -5258,7 +5258,6 @@ build metrics_python_tests: phony obj/tools/metrics/metrics_python_tests.stamp
 build metrics_services_manager: phony obj/components/metrics_services_manager/libmetrics_services_manager.a
 build metrics_set_proto_file_exporter: phony obj/third_party/webrtc/api/test/metrics/metrics_set_proto_file_exporter.stamp
 build metrics_unittests__runner: phony obj/components/metrics/metrics_unittests__runner.stamp
-build metrics_util: phony obj/components/cronet/metrics_util.stamp
 build metrics_utils: phony obj/chrome/browser/resources/chromeos/accessibility/select_to_speak/metrics_utils.stamp
 build metronome: phony obj/third_party/webrtc/api/metronome/metronome.stamp
 build metronome_like_task_queue_test: phony obj/third_party/webrtc_overrides/metronome_like_task_queue_test.stamp
@@ -7587,6 +7586,7 @@ build reimaging_provisioning_page_test: phony obj/chrome/test/data/webui/chromeo
 build relative_pointer_protocol: phony obj/third_party/wayland-protocols/relative_pointer_protocol.stamp
 build relative_pointer_protocol_gen: phony obj/third_party/wayland-protocols/relative_pointer_protocol_gen.stamp
 build remap_alloc: phony obj/build/rust/std/remap_alloc.stamp
+build remote_activity_notification: phony obj/chrome/browser/resources/chromeos/login/screens/common/remote_activity_notification.stamp
 build remote_audio_source: phony obj/third_party/webrtc/pc/libremote_audio_source.a
 build remote_bitrate_estimator: phony obj/third_party/webrtc/modules/remote_bitrate_estimator/libremote_bitrate_estimator.a
 build remote_call: phony obj/ui/file_manager/integration_tests/remote_call.stamp
@@ -14636,6 +14636,7 @@ build chrome/browser/resources/chromeos/login/screens/common$:password_selection
 build chrome/browser/resources/chromeos/login/screens/common$:pin_setup: phony obj/chrome/browser/resources/chromeos/login/screens/common/pin_setup.stamp
 build chrome/browser/resources/chromeos/login/screens/common$:placeholder: phony obj/chrome/browser/resources/chromeos/login/screens/common/placeholder.stamp
 build chrome/browser/resources/chromeos/login/screens/common$:recommend_apps: phony obj/chrome/browser/resources/chromeos/login/screens/common/recommend_apps.stamp
+build chrome/browser/resources/chromeos/login/screens/common$:remote_activity_notification: phony obj/chrome/browser/resources/chromeos/login/screens/common/remote_activity_notification.stamp
 build chrome/browser/resources/chromeos/login/screens/common$:saml_confirm_password: phony obj/chrome/browser/resources/chromeos/login/screens/common/saml_confirm_password.stamp
 build chrome/browser/resources/chromeos/login/screens/common$:signin_fatal_error: phony obj/chrome/browser/resources/chromeos/login/screens/common/signin_fatal_error.stamp
 build chrome/browser/resources/chromeos/login/screens/common$:smart_privacy_protection: phony obj/chrome/browser/resources/chromeos/login/screens/common/smart_privacy_protection.stamp
@@ -20338,8 +20339,8 @@ build components/crash/core/common$:crash_key: phony obj/components/crash/core/c
 build components/crash/core/common$:crash_key_lib: phony obj/components/crash/core/common/libcrash_key_lib.a
 build components/crash/core/common$:crash_key_utils: phony obj/components/crash/core/common/libcrash_key_utils.a
 build components/crash/core/common$:unit_tests: phony obj/components/crash/core/common/unit_tests.stamp
-build components/cronet$:cronet: phony ./libcronet.120.0.6086.0.so.TOC
-build components/cronet: phony ./libcronet.120.0.6086.0.so.TOC
+build components/cronet$:cronet: phony ./libcronet.120.0.6087.0.so.TOC
+build components/cronet: phony ./libcronet.120.0.6087.0.so.TOC
 build components/cronet$:cronet_buildflags: phony obj/components/cronet/cronet_buildflags.stamp
 build components/cronet$:cronet_common: phony obj/components/cronet/cronet_common.stamp
 build components/cronet$:cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
@@ -22135,8 +22136,8 @@ build components/password_manager/core/browser$:affiliation_proto: phony obj/com
 build components/password_manager/core/browser$:affiliation_proto_gen: phony obj/components/password_manager/core/browser/affiliation_proto_gen.stamp
 build components/password_manager/core/browser$:browser: phony obj/components/password_manager/core/browser/libbrowser.a
 build components/password_manager/core/browser: phony obj/components/password_manager/core/browser/libbrowser.a
-build components/password_manager/core/browser$:credential_ui_entry: phony obj/components/password_manager/core/browser/credential_ui_entry.stamp
 build components/password_manager/core/browser$:hash_password_manager: phony obj/components/password_manager/core/browser/libhash_password_manager.a
+build components/password_manager/core/browser$:metrics_util: phony obj/components/password_manager/core/browser/metrics_util.stamp
 build components/password_manager/core/browser$:passkey_credential: phony obj/components/password_manager/core/browser/passkey_credential.stamp
 build components/password_manager/core/browser$:password_form: phony obj/components/password_manager/core/browser/password_form.stamp
 build components/password_manager/core/browser$:password_hash_data: phony obj/components/password_manager/core/browser/libpassword_hash_data.a
@@ -22193,6 +22194,10 @@ build components/password_manager/core/browser/sharing$:sharing: phony obj/compo
 build components/password_manager/core/browser/sharing: phony obj/components/password_manager/core/browser/sharing/sharing.stamp
 build components/password_manager/core/browser/sharing$:test_support: phony obj/components/password_manager/core/browser/sharing/libtest_support.a
 build components/password_manager/core/browser/sharing$:unit_tests: phony obj/components/password_manager/core/browser/sharing/unit_tests.stamp
+build components/password_manager/core/browser/ui$:credential_ui_entry: phony obj/components/password_manager/core/browser/ui/credential_ui_entry.stamp
+build components/password_manager/core/browser/ui$:ui: phony obj/components/password_manager/core/browser/ui/ui.stamp
+build components/password_manager/core/browser/ui: phony obj/components/password_manager/core/browser/ui/ui.stamp
+build components/password_manager/core/browser/ui$:unit_tests: phony obj/components/password_manager/core/browser/ui/unit_tests.stamp
 build components/password_manager/core/browser/well_known_change_password$:unit_tests: phony obj/components/password_manager/core/browser/well_known_change_password/unit_tests.stamp
 build components/password_manager/core/browser/well_known_change_password$:well_known_change_password: phony obj/components/password_manager/core/browser/well_known_change_password/well_known_change_password.stamp
 build components/password_manager/core/browser/well_known_change_password: phony obj/components/password_manager/core/browser/well_known_change_password/well_known_change_password.stamp
@@ -42416,6 +42421,7 @@ build all: phony $
     obj/chrome/browser/resources/chromeos/login/screens/common/pin_setup.stamp $
     obj/chrome/browser/resources/chromeos/login/screens/common/placeholder.stamp $
     obj/chrome/browser/resources/chromeos/login/screens/common/recommend_apps.stamp $
+    obj/chrome/browser/resources/chromeos/login/screens/common/remote_activity_notification.stamp $
     obj/chrome/browser/resources/chromeos/login/screens/common/saml_confirm_password.stamp $
     obj/chrome/browser/resources/chromeos/login/screens/common/signin_fatal_error.stamp $
     obj/chrome/browser/resources/chromeos/login/screens/common/smart_privacy_protection.stamp $
@@ -47671,7 +47677,7 @@ build all: phony $
     obj/components/crash/core/common/libcrash_key_lib.a $
     obj/components/crash/core/common/libcrash_key_utils.a $
     obj/components/crash/core/common/unit_tests.stamp $
-    ./libcronet.120.0.6086.0.so.TOC $
+    ./libcronet.120.0.6087.0.so.TOC $
     obj/components/cronet/cronet_buildflags.stamp $
     obj/components/cronet/cronet_common.stamp $
     obj/components/cronet/cronet_common_unittests.stamp $
@@ -49255,8 +49261,8 @@ build all: phony $
     obj/components/password_manager/core/browser/libaffiliation_proto.a $
     obj/components/password_manager/core/browser/affiliation_proto_gen.stamp $
     obj/components/password_manager/core/browser/libbrowser.a $
-    obj/components/password_manager/core/browser/credential_ui_entry.stamp $
     obj/components/password_manager/core/browser/libhash_password_manager.a $
+    obj/components/password_manager/core/browser/metrics_util.stamp $
     obj/components/password_manager/core/browser/passkey_credential.stamp $
     obj/components/password_manager/core/browser/password_form.stamp $
     obj/components/password_manager/core/browser/libpassword_hash_data.a $
@@ -49306,6 +49312,9 @@ build all: phony $
     obj/components/password_manager/core/browser/sharing/sharing.stamp $
     obj/components/password_manager/core/browser/sharing/libtest_support.a $
     obj/components/password_manager/core/browser/sharing/unit_tests.stamp $
+    obj/components/password_manager/core/browser/ui/credential_ui_entry.stamp $
+    obj/components/password_manager/core/browser/ui/ui.stamp $
+    obj/components/password_manager/core/browser/ui/unit_tests.stamp $
     obj/components/password_manager/core/browser/well_known_change_password/unit_tests.stamp $
     obj/components/password_manager/core/browser/well_known_change_password/well_known_change_password.stamp $
     obj/components/password_manager/core/common/libcommon.a $

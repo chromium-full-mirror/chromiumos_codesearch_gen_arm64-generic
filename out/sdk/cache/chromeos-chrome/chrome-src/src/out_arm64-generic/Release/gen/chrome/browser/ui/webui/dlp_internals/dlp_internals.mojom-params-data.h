@@ -53,6 +53,37 @@ class  PageHandler_GetClipboardDataSource_ResponseParams_Data {
 };
 static_assert(sizeof(PageHandler_GetClipboardDataSource_ResponseParams_Data) == 16,
               "Bad sizeof(PageHandler_GetClipboardDataSource_ResponseParams_Data)");
+class  PageHandler_GetContentRestrictionsInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetContentRestrictionsInfo_Params_Data>;
+
+  PageHandler_GetContentRestrictionsInfo_Params_Data();
+  ~PageHandler_GetContentRestrictionsInfo_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetContentRestrictionsInfo_Params_Data) == 8,
+              "Bad sizeof(PageHandler_GetContentRestrictionsInfo_Params_Data)");
+class  PageHandler_GetContentRestrictionsInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::WebContentsInfo_Data>>> web_contents_info;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetContentRestrictionsInfo_ResponseParams_Data>;
+
+  PageHandler_GetContentRestrictionsInfo_ResponseParams_Data();
+  ~PageHandler_GetContentRestrictionsInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetContentRestrictionsInfo_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandler_GetContentRestrictionsInfo_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -108,11 +139,61 @@ static_assert(
 };
 
 
+class PageHandler_GetContentRestrictionsInfo_ParamsDataView {
+ public:
+  PageHandler_GetContentRestrictionsInfo_ParamsDataView() = default;
+
+  PageHandler_GetContentRestrictionsInfo_ParamsDataView(
+      internal::PageHandler_GetContentRestrictionsInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_GetContentRestrictionsInfo_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_GetContentRestrictionsInfo_ResponseParamsDataView {
+ public:
+  PageHandler_GetContentRestrictionsInfo_ResponseParamsDataView() = default;
+
+  PageHandler_GetContentRestrictionsInfo_ResponseParamsDataView(
+      internal::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetWebContentsInfoDataView(
+      mojo::ArrayDataView<WebContentsInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadWebContentsInfo(UserType* output) {
+    
+    auto* pointer = data_->web_contents_info.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::dlp_internals::mojom::WebContentsInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void PageHandler_GetClipboardDataSource_ResponseParamsDataView::GetSourceDataView(
     DataTransferEndpointDataView* output) {
   auto pointer = data_->source.Get();
   *output = DataTransferEndpointDataView(pointer, message_);
+}
+
+
+
+
+inline void PageHandler_GetContentRestrictionsInfo_ResponseParamsDataView::GetWebContentsInfoDataView(
+    mojo::ArrayDataView<WebContentsInfoDataView>* output) {
+  auto pointer = data_->web_contents_info.Get();
+  *output = mojo::ArrayDataView<WebContentsInfoDataView>(pointer, message_);
 }
 
 

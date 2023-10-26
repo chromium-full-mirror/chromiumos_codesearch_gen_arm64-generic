@@ -790,7 +790,8 @@ class  BrowserInitParams_Data {
   uint8_t is_floss_availability_check_needed : 1;
   uint8_t is_app_install_service_uri_enabled : 1;
   uint8_t is_desk_profiles_enabled : 1;
-  uint8_t pad69_[3];
+  uint8_t is_cros_web_app_shortcut_ui_update_enabled : 1;
+  uint8_t pad70_[3];
   mojo::internal::Pointer<::crosapi::mojom::internal::ExtensionKeepList_Data> extension_keep_list;
   mojo::internal::Pointer<::crosapi::mojom::internal::StandaloneBrowserAppServiceBlockList_Data> standalone_browser_app_service_blocklist;
 

@@ -25,7 +25,9 @@ PROTOBUF_CONSTEXPR GetInitialDataRequest::GetInitialDataRequest(
   , use_attestation_(false)
   , location_granularity_(0)
 
-  , validation_version_(int64_t{0}){}
+  , validation_version_(int64_t{0})
+  , proxy_layer_(0)
+{}
 struct GetInitialDataRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetInitialDataRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -155,8 +157,8 @@ GetInitialDataRequest::GetInitialDataRequest(const GetInitialDataRequest& from)
       GetArenaForAllocation());
   }
   ::memcpy(&use_attestation_, &from.use_attestation_,
-    static_cast<size_t>(reinterpret_cast<char*>(&validation_version_) -
-    reinterpret_cast<char*>(&use_attestation_)) + sizeof(validation_version_));
+    static_cast<size_t>(reinterpret_cast<char*>(&proxy_layer_) -
+    reinterpret_cast<char*>(&use_attestation_)) + sizeof(proxy_layer_));
   // @@protoc_insertion_point(copy_constructor:privacy.ppn.GetInitialDataRequest)
 }
 
@@ -167,8 +169,8 @@ service_type_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&use_attestation_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&validation_version_) -
-    reinterpret_cast<char*>(&use_attestation_)) + sizeof(validation_version_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&proxy_layer_) -
+    reinterpret_cast<char*>(&use_attestation_)) + sizeof(proxy_layer_));
 }
 
 GetInitialDataRequest::~GetInitialDataRequest() {
@@ -197,8 +199,8 @@ void GetInitialDataRequest::Clear() {
 
   service_type_.ClearToEmpty();
   ::memset(&use_attestation_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&validation_version_) -
-      reinterpret_cast<char*>(&use_attestation_)) + sizeof(validation_version_));
+      reinterpret_cast<char*>(&proxy_layer_) -
+      reinterpret_cast<char*>(&use_attestation_)) + sizeof(proxy_layer_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -240,6 +242,15 @@ const char* GetInitialDataRequest::_InternalParse(const char* ptr, ::_pbi::Parse
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           validation_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .privacy.ppn.ProxyLayer proxy_layer = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_proxy_layer(static_cast<::privacy::ppn::ProxyLayer>(val));
         } else
           goto handle_unusual;
         continue;
@@ -301,6 +312,13 @@ uint8_t* GetInitialDataRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_validation_version(), target);
   }
 
+  // .privacy.ppn.ProxyLayer proxy_layer = 5;
+  if (this->_internal_proxy_layer() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      5, this->_internal_proxy_layer(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -340,6 +358,12 @@ size_t GetInitialDataRequest::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_validation_version());
   }
 
+  // .privacy.ppn.ProxyLayer proxy_layer = 5;
+  if (this->_internal_proxy_layer() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_proxy_layer());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -372,6 +396,9 @@ void GetInitialDataRequest::MergeFrom(const GetInitialDataRequest& from) {
   if (from._internal_validation_version() != 0) {
     _internal_set_validation_version(from._internal_validation_version());
   }
+  if (from._internal_proxy_layer() != 0) {
+    _internal_set_proxy_layer(from._internal_proxy_layer());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -396,8 +423,8 @@ void GetInitialDataRequest::InternalSwap(GetInitialDataRequest* other) {
       &other->service_type_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetInitialDataRequest, validation_version_)
-      + sizeof(GetInitialDataRequest::validation_version_)
+      PROTOBUF_FIELD_OFFSET(GetInitialDataRequest, proxy_layer_)
+      + sizeof(GetInitialDataRequest::proxy_layer_)
       - PROTOBUF_FIELD_OFFSET(GetInitialDataRequest, use_attestation_)>(
           reinterpret_cast<char*>(&use_attestation_),
           reinterpret_cast<char*>(&other->use_attestation_));

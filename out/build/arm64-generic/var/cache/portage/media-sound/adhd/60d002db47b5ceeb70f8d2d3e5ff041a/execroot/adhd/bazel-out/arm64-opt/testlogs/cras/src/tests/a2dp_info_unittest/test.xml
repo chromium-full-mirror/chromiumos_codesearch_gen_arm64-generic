@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="5" failures="0" disabled="0" errors="0" time="0.01" timestamp="2023-10-25T11:33:46.277" name="AllTests">
-  <testsuite name="A2dpInfoInit" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.003" timestamp="2023-10-25T11:33:46.282">
-    <testcase name="InitA2dp" file="cras/src/tests/a2dp_info_unittest.cc" line="40" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:33:46.283" classname="A2dpInfoInit" />
-    <testcase name="InitA2dpFail" file="cras/src/tests/a2dp_info_unittest.cc" line="61" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:46.285" classname="A2dpInfoInit" />
-    <testcase name="DestroyA2dp" file="cras/src/tests/a2dp_info_unittest.cc" line="72" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:46.285" classname="A2dpInfoInit" />
-    <testcase name="ResetA2dp" file="cras/src/tests/a2dp_info_unittest.cc" line="80" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:46.286" classname="A2dpInfoInit" />
+<testsuites tests="5" failures="0" disabled="0" errors="0" time="0.031" timestamp="2023-10-26T00:28:20.857" name="AllTests">
+  <testsuite name="A2dpInfoInit" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.006" timestamp="2023-10-26T00:28:20.879">
+    <testcase name="InitA2dp" file="cras/src/tests/a2dp_info_unittest.cc" line="40" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:28:20.880" classname="A2dpInfoInit" />
+    <testcase name="InitA2dpFail" file="cras/src/tests/a2dp_info_unittest.cc" line="61" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:20.884" classname="A2dpInfoInit" />
+    <testcase name="DestroyA2dp" file="cras/src/tests/a2dp_info_unittest.cc" line="72" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:20.885" classname="A2dpInfoInit" />
+    <testcase name="ResetA2dp" file="cras/src/tests/a2dp_info_unittest.cc" line="80" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:20.885" classname="A2dpInfoInit" />
   </testsuite>
-  <testsuite name="A2dpEncode" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2023-10-25T11:33:46.286">
-    <testcase name="WriteA2dp" file="cras/src/tests/a2dp_info_unittest.cc" line="98" status="run" result="completed" time="0." timestamp="2023-10-25T11:33:46.286" classname="A2dpEncode" />
+  <testsuite name="A2dpEncode" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2023-10-26T00:28:20.887">
+    <testcase name="WriteA2dp" file="cras/src/tests/a2dp_info_unittest.cc" line="98" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:20.887" classname="A2dpEncode" />
   </testsuite>
 </testsuites>

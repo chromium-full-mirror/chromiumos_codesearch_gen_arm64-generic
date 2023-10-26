@@ -270,9 +270,6 @@ BLINK_BINDINGS_TRACE_EVENT("URL.port.set");
 
 v8::Local<v8::Object> v8_receiver = info.This();
 DOMURL* blink_receiver = V8URL::ToWrappableUnsafe(v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
@@ -283,7 +280,7 @@ auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_pro
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->setPort(script_state, arg1_value);
+blink_receiver->setPort(arg1_value);
 
 }
 

@@ -23,7 +23,7 @@
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import '../../externs/volume_manager.js';
 import { parseTrashInfoFiles, startIOTask } from './api.js';
-import { isFileSystemDirectoryEntry, isFileSystemFileEntry } from './entry_utils.js';
+import { isDirectoryEntry, isFileEntry } from './entry_utils.js';
 import { FakeEntryImpl } from './files_app_entry_types.js';
 import { recordMediumCount } from './metrics.js';
 import { str } from './util.js';
@@ -259,7 +259,7 @@ export class TrashEntry {
      * Pass through to filesEntry. Overrides FileEntry.
      */
     file(success, error) {
-        if (isFileSystemFileEntry(this.filesEntry)) {
+        if (isFileEntry(this.filesEntry)) {
             this.filesEntry.file(success, error);
             return;
         }
@@ -269,7 +269,7 @@ export class TrashEntry {
      * Pass through to filesEntry. Overrides DirectoryEntry.
      */
     getFile(path, options, success, error) {
-        if (isFileSystemDirectoryEntry(this.filesEntry)) {
+        if (isDirectoryEntry(this.filesEntry)) {
             this.filesEntry.getFile(path, options, success, error);
             return;
         }
@@ -279,7 +279,7 @@ export class TrashEntry {
      * Remove filesEntry first, then remove infoEntry. Overrides DirectoryEntry.
      */
     removeRecursively(success, error) {
-        if (isFileSystemDirectoryEntry(this.filesEntry)) {
+        if (isDirectoryEntry(this.filesEntry)) {
             this.filesEntry.removeRecursively(() => this.infoEntry.remove(success, error), error);
             return;
         }

@@ -15,7 +15,7 @@ import { AnchorAlignment } from 'chrome://resources/cr_elements/cr_action_menu/c
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './search_engine_entry.html.js';
-import { SearchEnginesBrowserProxyImpl } from './search_engines_browser_proxy.js';
+import { ChoiceMadeLocation, SearchEnginesBrowserProxyImpl } from './search_engines_browser_proxy.js';
 export class SettingsSearchEngineEntryElement extends PolymerElement {
     constructor() {
         super(...arguments);
@@ -86,7 +86,7 @@ export class SettingsSearchEngineEntryElement extends PolymerElement {
     }
     onMakeDefaultClick_() {
         this.closePopupMenu_();
-        this.browserProxy_.setDefaultSearchEngine(this.engine.modelIndex);
+        this.browserProxy_.setDefaultSearchEngine(this.engine.modelIndex, ChoiceMadeLocation.SEARCH_ENGINE_SETTINGS);
     }
     onActivateClick_() {
         this.closePopupMenu_();

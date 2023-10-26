@@ -417,6 +417,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kBluetoothScanning: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_scanning, 15, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_scanning, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -662,6 +672,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_fan, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kBluetoothScanning: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_scanning, 15, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_scanning, validation_context))
         return false;
       return true;
     }
@@ -1028,6 +1048,32 @@ bool FanRoutineArgument_Data::Validate(
 }
 
 FanRoutineArgument_Data::FanRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothScanningRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothScanningRoutineArgument_Data* object =
+      static_cast<const BluetoothScanningRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+BluetoothScanningRoutineArgument_Data::BluetoothScanningRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1555,6 +1601,88 @@ bool BluetoothDiscoveryRoutineDetail_Data::Validate(
 }
 
 BluetoothDiscoveryRoutineDetail_Data::BluetoothDiscoveryRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothScannedPeripheralInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothScannedPeripheralInfo_Data* object =
+      static_cast<const BluetoothScannedPeripheralInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->rssi_history, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& rssi_history_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->rssi_history, validation_context,
+                                         &rssi_history_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& peripheral_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->peripheral_id, validation_context,
+                                         &peripheral_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BluetoothScannedPeripheralInfo_Data::BluetoothScannedPeripheralInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothScanningRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothScanningRoutineDetail_Data* object =
+      static_cast<const BluetoothScanningRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->peripherals, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& peripherals_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->peripherals, validation_context,
+                                         &peripherals_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+BluetoothScanningRoutineDetail_Data::BluetoothScanningRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 

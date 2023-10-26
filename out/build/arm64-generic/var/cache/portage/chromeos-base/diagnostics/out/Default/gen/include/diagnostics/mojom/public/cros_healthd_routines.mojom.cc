@@ -413,6 +413,34 @@ bool FanRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+BluetoothScanningRoutineArgument::BluetoothScanningRoutineArgument()
+    : exec_duration() {}
+
+BluetoothScanningRoutineArgument::BluetoothScanningRoutineArgument(
+    absl::optional<base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+BluetoothScanningRoutineArgument::~BluetoothScanningRoutineArgument() = default;
+
+void BluetoothScanningRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothScanningRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -1044,6 +1072,86 @@ bool BluetoothDiscoveryRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+BluetoothScannedPeripheralInfo::BluetoothScannedPeripheralInfo()
+    : rssi_history(),
+      name(),
+      peripheral_id() {}
+
+BluetoothScannedPeripheralInfo::BluetoothScannedPeripheralInfo(
+    std::vector<int16_t> rssi_history_in,
+    const absl::optional<std::string>& name_in,
+    const absl::optional<std::string>& peripheral_id_in)
+    : rssi_history(std::move(rssi_history_in)),
+      name(std::move(name_in)),
+      peripheral_id(std::move(peripheral_id_in)) {}
+
+BluetoothScannedPeripheralInfo::~BluetoothScannedPeripheralInfo() = default;
+
+void BluetoothScannedPeripheralInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "rssi_history"), this->rssi_history,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<int16_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const absl::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "peripheral_id"), this->peripheral_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const absl::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothScannedPeripheralInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothScanningRoutineDetail::BluetoothScanningRoutineDetail()
+    : peripherals() {}
+
+BluetoothScanningRoutineDetail::BluetoothScanningRoutineDetail(
+    std::vector<BluetoothScannedPeripheralInfoPtr> peripherals_in)
+    : peripherals(std::move(peripherals_in)) {}
+
+BluetoothScanningRoutineDetail::~BluetoothScanningRoutineDetail() = default;
+
+void BluetoothScanningRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "peripherals"), this->peripherals,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<BluetoothScannedPeripheralInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothScanningRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 FanRoutineDetail::FanRoutineDetail()
     : passed_fan_ids(),
       failed_fan_ids(),
@@ -1256,6 +1364,17 @@ void RoutineArgument::set_fan(
         std::move(fan));
   }
 }
+void RoutineArgument::set_bluetooth_scanning(
+    BluetoothScanningRoutineArgumentPtr bluetooth_scanning) {
+  if (tag_ == Tag::kBluetoothScanning) {
+    *(data_.bluetooth_scanning) = std::move(bluetooth_scanning);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothScanning;
+    data_.bluetooth_scanning = new BluetoothScanningRoutineArgumentPtr(
+        std::move(bluetooth_scanning));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -1314,6 +1433,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kFan:
 
       delete data_.fan;
+      break;
+    case Tag::kBluetoothScanning:
+
+      delete data_.bluetooth_scanning;
       break;
   }
 }
@@ -1575,6 +1698,17 @@ void RoutineDetail::set_fan(
         std::move(fan));
   }
 }
+void RoutineDetail::set_bluetooth_scanning(
+    BluetoothScanningRoutineDetailPtr bluetooth_scanning) {
+  if (tag_ == Tag::kBluetoothScanning) {
+    *(data_.bluetooth_scanning) = std::move(bluetooth_scanning);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothScanning;
+    data_.bluetooth_scanning = new BluetoothScanningRoutineDetailPtr(
+        std::move(bluetooth_scanning));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -1633,6 +1767,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kFan:
 
       delete data_.fan;
+      break;
+    case Tag::kBluetoothScanning:
+
+      delete data_.bluetooth_scanning;
       break;
   }
 }
@@ -3110,6 +3248,20 @@ bool StructTraits<::ash::cros_healthd::mojom::FanRoutineArgument::DataView, ::as
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::DataView, ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr result(::ash::cros_healthd::mojom::BluetoothScanningRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -3396,6 +3548,38 @@ bool StructTraits<::ash::cros_healthd::mojom::BluetoothDiscoveryRoutineDetail::D
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::DataView, ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfoPtr result(::ash::cros_healthd::mojom::BluetoothScannedPeripheralInfo::New());
+  
+      if (success && !input.ReadRssiHistory(&result->rssi_history))
+        success = false;
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadPeripheralId(&result->peripheral_id))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::DataView, ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr result(::ash::cros_healthd::mojom::BluetoothScanningRoutineDetail::New());
+  
+      if (success && !input.ReadPeripherals(&result->peripherals))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::FanRoutineDetail::DataView, ::ash::cros_healthd::mojom::FanRoutineDetailPtr>::Read(
     ::ash::cros_healthd::mojom::FanRoutineDetail::DataView input,
     ::ash::cros_healthd::mojom::FanRoutineDetailPtr* output) {
@@ -3539,6 +3723,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewFan(
           std::move(result_fan));
+      break;
+    }
+    case Tag::kBluetoothScanning: {
+      ::ash::cros_healthd::mojom::BluetoothScanningRoutineArgumentPtr result_bluetooth_scanning;
+      if (!input.ReadBluetoothScanning(&result_bluetooth_scanning))
+        return false;
+
+      *output = UnionType::NewBluetoothScanning(
+          std::move(result_bluetooth_scanning));
       break;
     }
     default:
@@ -3731,6 +3924,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewFan(
           std::move(result_fan));
+      break;
+    }
+    case Tag::kBluetoothScanning: {
+      ::ash::cros_healthd::mojom::BluetoothScanningRoutineDetailPtr result_bluetooth_scanning;
+      if (!input.ReadBluetoothScanning(&result_bluetooth_scanning))
+        return false;
+
+      *output = UnionType::NewBluetoothScanning(
+          std::move(result_bluetooth_scanning));
       break;
     }
     default:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.03" timestamp="2023-10-25T11:37:08.767" name="AllTests">
-  <testsuite name="BtManager" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.021" timestamp="2023-10-25T11:37:08.775">
-    <testcase name="StartStop" file="cras/src/tests/bt_manager_unittest.cc" line="54" status="run" result="completed" time="0.017" timestamp="2023-10-25T11:37:08.775" classname="BtManager" />
-    <testcase name="SwitchStackThenBackToDefault" file="cras/src/tests/bt_manager_unittest.cc" line="80" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:37:08.794" classname="BtManager" />
+<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.062" timestamp="2023-10-26T00:28:46.492" name="AllTests">
+  <testsuite name="BtManager" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.053" timestamp="2023-10-26T00:28:46.500">
+    <testcase name="StartStop" file="cras/src/tests/bt_manager_unittest.cc" line="54" status="run" result="completed" time="0.033" timestamp="2023-10-26T00:28:46.500" classname="BtManager" />
+    <testcase name="SwitchStackThenBackToDefault" file="cras/src/tests/bt_manager_unittest.cc" line="80" status="run" result="completed" time="0.019" timestamp="2023-10-26T00:28:46.534" classname="BtManager" />
   </testsuite>
 </testsuites>

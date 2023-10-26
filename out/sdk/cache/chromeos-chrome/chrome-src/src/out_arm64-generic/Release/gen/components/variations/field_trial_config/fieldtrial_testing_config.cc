@@ -14896,7 +14896,7 @@ const FieldTrialTestingExperimentParams array_kFieldTrialConfig_params_137[] = {
       },
       {
         "enabled-processes",
-        "non-renderer",
+        "all-processes",
       },
 };
 const Study::FormFactor array_kFieldTrialConfig_form_factors_399[] = {

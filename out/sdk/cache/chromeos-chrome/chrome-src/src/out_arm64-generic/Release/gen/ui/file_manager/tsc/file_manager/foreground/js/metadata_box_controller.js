@@ -6,7 +6,7 @@
  * This file is checked via TS, so we suppress Closure checks.
  * @suppress {checkTypes}
  */
-import { isFileSystemDirectoryEntry, isSameEntry, unwrapEntry } from '../../common/js/entry_utils.js';
+import { isDirectoryEntry, isSameEntry, unwrapEntry } from '../../common/js/entry_utils.js';
 import { FileType } from '../../common/js/file_type.js';
 import '../../common/js/trash.js';
 import { util } from '../../common/js/util.js';
@@ -88,7 +88,7 @@ export class MetadataBoxController {
     onGeneralMetadataLoaded_(entry, isSameEntry, items) {
         const type = FileType.getType(entry).type;
         const item = items[0];
-        if (isFileSystemDirectoryEntry(entry)) {
+        if (isDirectoryEntry(entry)) {
             this.setDirectorySize_(entry, isSameEntry);
         }
         else if (item?.size) {
@@ -193,7 +193,7 @@ export class MetadataBoxController {
      * enables the loading animation.
      */
     setDirectorySize_(entry, sameEntry) {
-        if (!isFileSystemDirectoryEntry(entry)) {
+        if (!isDirectoryEntry(entry)) {
             return;
         }
         const directoryEntry = unwrapEntry(entry);

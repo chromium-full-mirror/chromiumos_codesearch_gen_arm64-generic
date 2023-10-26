@@ -1,41 +1,41 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/include -I../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/aosp/external
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/include -I../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/aosp/external
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -Wextra -Wno-unused-parameter
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Wnon-virtual-dtor
 root_out_dir = .
 target_output_name = libbsdiff
 
-build obj/bsdiff/libbsdiff.brotli_compressor.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/brotli_compressor.cc
+build obj/bsdiff/libbsdiff.brotli_compressor.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/brotli_compressor.cc
   source_file_part = brotli_compressor.cc
   source_name_part = brotli_compressor
-build obj/bsdiff/libbsdiff.bsdiff.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/bsdiff.cc
+build obj/bsdiff/libbsdiff.bsdiff.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/bsdiff.cc
   source_file_part = bsdiff.cc
   source_name_part = bsdiff
-build obj/bsdiff/libbsdiff.bz2_compressor.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/bz2_compressor.cc
+build obj/bsdiff/libbsdiff.bz2_compressor.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/bz2_compressor.cc
   source_file_part = bz2_compressor.cc
   source_name_part = bz2_compressor
-build obj/bsdiff/libbsdiff.compressor_buffer.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/compressor_buffer.cc
+build obj/bsdiff/libbsdiff.compressor_buffer.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/compressor_buffer.cc
   source_file_part = compressor_buffer.cc
   source_name_part = compressor_buffer
-build obj/bsdiff/libbsdiff.diff_encoder.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/diff_encoder.cc
+build obj/bsdiff/libbsdiff.diff_encoder.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/diff_encoder.cc
   source_file_part = diff_encoder.cc
   source_name_part = diff_encoder
-build obj/bsdiff/libbsdiff.endsley_patch_writer.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/endsley_patch_writer.cc
+build obj/bsdiff/libbsdiff.endsley_patch_writer.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/endsley_patch_writer.cc
   source_file_part = endsley_patch_writer.cc
   source_name_part = endsley_patch_writer
-build obj/bsdiff/libbsdiff.logging.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/logging.cc
+build obj/bsdiff/libbsdiff.logging.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/logging.cc
   source_file_part = logging.cc
   source_name_part = logging
-build obj/bsdiff/libbsdiff.patch_writer.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/patch_writer.cc
+build obj/bsdiff/libbsdiff.patch_writer.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/patch_writer.cc
   source_file_part = patch_writer.cc
   source_name_part = patch_writer
-build obj/bsdiff/libbsdiff.patch_writer_factory.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/patch_writer_factory.cc
+build obj/bsdiff/libbsdiff.patch_writer_factory.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/patch_writer_factory.cc
   source_file_part = patch_writer_factory.cc
   source_name_part = patch_writer_factory
-build obj/bsdiff/libbsdiff.split_patch_writer.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/split_patch_writer.cc
+build obj/bsdiff/libbsdiff.split_patch_writer.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/split_patch_writer.cc
   source_file_part = split_patch_writer.cc
   source_name_part = split_patch_writer
-build obj/bsdiff/libbsdiff.suffix_array_index.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r41/work/bsdiff-4.3.1/platform2/bsdiff/suffix_array_index.cc
+build obj/bsdiff/libbsdiff.suffix_array_index.o: cxx ../../../../../../../tmp/portage/dev-util/bsdiff-4.3.1-r42/work/bsdiff-4.3.1/platform2/bsdiff/suffix_array_index.cc
   source_file_part = suffix_array_index.cc
   source_name_part = suffix_array_index
 

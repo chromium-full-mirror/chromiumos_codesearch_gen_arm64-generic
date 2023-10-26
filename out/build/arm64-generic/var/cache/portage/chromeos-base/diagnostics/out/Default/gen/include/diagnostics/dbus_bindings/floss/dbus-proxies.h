@@ -250,6 +250,18 @@ class BluetoothProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool GetRemoteRSSI(
+      const brillo::VariantDictionary& in_device,
+      int16_t* out_rssi,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetRemoteRSSIAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(int16_t /*rssi*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool GetRemoteUuids(
       const brillo::VariantDictionary& in_device,
       std::vector<std::vector<uint8_t>>* out_uuids,
@@ -607,6 +619,37 @@ class BluetoothProxy final : public BluetoothProxyInterface {
         dbus_object_proxy_,
         "org.chromium.bluetooth.Bluetooth",
         "GetRemoteVendorProductInfo",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device);
+  }
+
+  bool GetRemoteRSSI(
+      const brillo::VariantDictionary& in_device,
+      int16_t* out_rssi,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetRemoteRSSI",
+        error,
+        in_device);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_rssi);
+  }
+
+  void GetRemoteRSSIAsync(
+      const brillo::VariantDictionary& in_device,
+      base::OnceCallback<void(int16_t /*rssi*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetRemoteRSSI",
         std::move(success_callback),
         std::move(error_callback),
         in_device);

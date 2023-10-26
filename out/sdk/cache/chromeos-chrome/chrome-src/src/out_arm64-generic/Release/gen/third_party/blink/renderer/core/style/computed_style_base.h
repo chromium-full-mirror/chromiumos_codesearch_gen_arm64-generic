@@ -3580,6 +3580,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+
   // speak
   ESpeak Speak() const {
     return static_cast<ESpeak>(rare_inherited_usage_less_than_64_percent_data_->speak_);
@@ -8978,6 +8979,9 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
   // SkipsContents
   
+
+
+
 
   // speak
   
@@ -15442,8 +15446,12 @@ class ComputedStyleBuilderBase {
     return static_cast<bool>(data_.skips_contents_);
   }
 
-  void SetSkipsContents() {
-    data_.skips_contents_ = static_cast<unsigned>(true);
+  void SetSkipsContents(bool v) {
+    data_.skips_contents_ = static_cast<unsigned>(v);
+  }
+
+  inline void ResetSkipsContents() {
+    data_.skips_contents_ = static_cast<unsigned>(false);
   }
 
 
@@ -20425,6 +20433,12 @@ class ComputedStyleBuilderBase {
 
   // SkipsContents
   
+
+
+  bool MutableSkipsContentsInternal() {
+    return static_cast<bool>(data_.skips_contents_);
+  }
+
 
   // speak
   

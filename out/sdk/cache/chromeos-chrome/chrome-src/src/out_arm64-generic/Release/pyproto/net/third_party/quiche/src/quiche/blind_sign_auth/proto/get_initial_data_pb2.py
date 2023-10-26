@@ -12,11 +12,12 @@ _sym_db = _symbol_database.Default()
 
 
 from quiche.blind_sign_auth.proto import attestation_pb2 as quiche_dot_blind__sign__auth_dot_proto_dot_attestation__pb2
+from quiche.blind_sign_auth.proto import proxy_layer_pb2 as quiche_dot_blind__sign__auth_dot_proto_dot_proxy__layer__pb2
 from quiche.blind_sign_auth.proto import public_metadata_pb2 as quiche_dot_blind__sign__auth_dot_proto_dot_public__metadata__pb2
 from anonymous_tokens.proto import anonymous_tokens_pb2 as anonymous__tokens_dot_proto_dot_anonymous__tokens__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n3quiche/blind_sign_auth/proto/get_initial_data.proto\x12\x0bprivacy.ppn\x1a.quiche/blind_sign_auth/proto/attestation.proto\x1a\x32quiche/blind_sign_auth/proto/public_metadata.proto\x1a-anonymous_tokens/proto/anonymous_tokens.proto\"\xf8\x01\n\x15GetInitialDataRequest\x12\x17\n\x0fuse_attestation\x18\x01 \x01(\x08\x12\x14\n\x0cservice_type\x18\x02 \x01(\t\x12T\n\x14location_granularity\x18\x03 \x01(\x0e\x32\x36.privacy.ppn.GetInitialDataRequest.LocationGranularity\x12\x1a\n\x12validation_version\x18\x04 \x01(\x03\">\n\x13LocationGranularity\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07\x43OUNTRY\x10\x01\x12\r\n\tCITY_GEOS\x10\x02\"\x89\x03\n\x16GetInitialDataResponse\x12S\n\x1d\x61t_public_metadata_public_key\x18\x01 \x01(\x0b\x32,.anonymous_tokens.RSABlindSignaturePublicKey\x12=\n\x14public_metadata_info\x18\x02 \x01(\x0b\x32\x1f.privacy.ppn.PublicMetadataInfo\x12\x38\n\x0b\x61ttestation\x18\x03 \x01(\x0b\x32#.privacy.ppn.PrepareAttestationData\x12N\n\x11privacy_pass_data\x18\x05 \x01(\x0b\x32\x33.privacy.ppn.GetInitialDataResponse.PrivacyPassData\x1aK\n\x0fPrivacyPassData\x12\x14\n\x0ctoken_key_id\x18\x01 \x01(\x0c\x12\"\n\x1apublic_metadata_extensions\x18\x02 \x01(\x0cJ\x04\x08\x04\x10\x05\x42\x02P\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n3quiche/blind_sign_auth/proto/get_initial_data.proto\x12\x0bprivacy.ppn\x1a.quiche/blind_sign_auth/proto/attestation.proto\x1a.quiche/blind_sign_auth/proto/proxy_layer.proto\x1a\x32quiche/blind_sign_auth/proto/public_metadata.proto\x1a-anonymous_tokens/proto/anonymous_tokens.proto\"\xa6\x02\n\x15GetInitialDataRequest\x12\x17\n\x0fuse_attestation\x18\x01 \x01(\x08\x12\x14\n\x0cservice_type\x18\x02 \x01(\t\x12T\n\x14location_granularity\x18\x03 \x01(\x0e\x32\x36.privacy.ppn.GetInitialDataRequest.LocationGranularity\x12\x1a\n\x12validation_version\x18\x04 \x01(\x03\x12,\n\x0bproxy_layer\x18\x05 \x01(\x0e\x32\x17.privacy.ppn.ProxyLayer\">\n\x13LocationGranularity\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07\x43OUNTRY\x10\x01\x12\r\n\tCITY_GEOS\x10\x02\"\x89\x03\n\x16GetInitialDataResponse\x12S\n\x1d\x61t_public_metadata_public_key\x18\x01 \x01(\x0b\x32,.anonymous_tokens.RSABlindSignaturePublicKey\x12=\n\x14public_metadata_info\x18\x02 \x01(\x0b\x32\x1f.privacy.ppn.PublicMetadataInfo\x12\x38\n\x0b\x61ttestation\x18\x03 \x01(\x0b\x32#.privacy.ppn.PrepareAttestationData\x12N\n\x11privacy_pass_data\x18\x05 \x01(\x0b\x32\x33.privacy.ppn.GetInitialDataResponse.PrivacyPassData\x1aK\n\x0fPrivacyPassData\x12\x14\n\x0ctoken_key_id\x18\x01 \x01(\x0c\x12\"\n\x1apublic_metadata_extensions\x18\x02 \x01(\x0cJ\x04\x08\x04\x10\x05\x42\x02P\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'quiche.blind_sign_auth.proto.get_initial_data_pb2', globals())
@@ -24,12 +25,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'P\001'
-  _GETINITIALDATAREQUEST._serialized_start=216
-  _GETINITIALDATAREQUEST._serialized_end=464
-  _GETINITIALDATAREQUEST_LOCATIONGRANULARITY._serialized_start=402
-  _GETINITIALDATAREQUEST_LOCATIONGRANULARITY._serialized_end=464
-  _GETINITIALDATARESPONSE._serialized_start=467
-  _GETINITIALDATARESPONSE._serialized_end=860
-  _GETINITIALDATARESPONSE_PRIVACYPASSDATA._serialized_start=779
-  _GETINITIALDATARESPONSE_PRIVACYPASSDATA._serialized_end=854
+  _GETINITIALDATAREQUEST._serialized_start=264
+  _GETINITIALDATAREQUEST._serialized_end=558
+  _GETINITIALDATAREQUEST_LOCATIONGRANULARITY._serialized_start=496
+  _GETINITIALDATAREQUEST_LOCATIONGRANULARITY._serialized_end=558
+  _GETINITIALDATARESPONSE._serialized_start=561
+  _GETINITIALDATARESPONSE._serialized_end=954
+  _GETINITIALDATARESPONSE_PRIVACYPASSDATA._serialized_start=873
+  _GETINITIALDATARESPONSE_PRIVACYPASSDATA._serialized_end=948
 # @@protoc_insertion_point(module_scope)

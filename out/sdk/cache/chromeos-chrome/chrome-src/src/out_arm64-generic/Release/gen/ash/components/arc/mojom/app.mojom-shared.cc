@@ -522,6 +522,51 @@ WindowLayout_Data::WindowLayout_Data()
 
 
 // static
+bool PackageLocaleInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PackageLocaleInfo_Data* object =
+      static_cast<const PackageLocaleInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->supported_locales, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& supported_locales_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->supported_locales, validation_context,
+                                         &supported_locales_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->selected_locale, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& selected_locale_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->selected_locale, validation_context,
+                                         &selected_locale_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PackageLocaleInfo_Data::PackageLocaleInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool ArcPackageInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -537,6 +582,7 @@ bool ArcPackageInfo_Data::Validate(
     { 51, 72 },
     { 55, 72 },
     { 56, 80 },
+    { 60, 88 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -597,12 +643,17 @@ bool ArcPackageInfo_Data::Validate(
   if (!::arc::mojom::internal::InstallPriority_Data
         ::Validate(object->priority, validation_context))
     return false;
+  if (object->header_.version < 60)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->locale_info, validation_context))
+    return false;
 
   return true;
 }
 
 ArcPackageInfo_Data::ArcPackageInfo_Data()
-    : header_({sizeof(*this), 56}) {}
+    : header_({sizeof(*this), 60}) {}
 
 
 // static

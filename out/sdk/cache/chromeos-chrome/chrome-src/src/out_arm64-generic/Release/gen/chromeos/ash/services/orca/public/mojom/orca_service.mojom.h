@@ -58,7 +58,7 @@ class EditorClient
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 6;
+  static constexpr uint32_t Version_ = 7;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -83,6 +83,8 @@ class EditorClient
     kShowUIMinVersion = 5,
     kCloseUIMinVersion = 5,
     kAppendTextMinVersion = 6,
+    kPreviewFeedbackMinVersion = 7,
+    kSubmitFeedbackMinVersion = 7,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -122,6 +124,12 @@ class EditorClient
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AppendText_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct PreviewFeedback_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SubmitFeedback_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -170,6 +178,14 @@ class EditorClient
 
   
   virtual void AppendText(const std::string& text) = 0;
+
+
+  using PreviewFeedbackCallback = base::OnceCallback<void(const base::flat_map<std::string, std::string>&)>;
+  
+  virtual void PreviewFeedback(const std::string& result_id, PreviewFeedbackCallback callback) = 0;
+
+  
+  virtual void SubmitFeedback(const std::string& result_id, const std::string& user_description) = 0;
 };
 
 class EditorClientConnectorProxy;
@@ -278,7 +294,7 @@ class TextActuator
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 5;
+  static constexpr uint32_t Version_ = 7;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -297,6 +313,7 @@ class TextActuator
     kOpenUrlInNewWindowMinVersion = 4,
     kShowUIMinVersion = 5,
     kCloseUIMinVersion = 5,
+    kSubmitFeedbackMinVersion = 7,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -320,6 +337,9 @@ class TextActuator
   struct CloseUI_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SubmitFeedback_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~TextActuator() = default;
 
@@ -340,6 +360,9 @@ class TextActuator
 
   
   virtual void CloseUI() = 0;
+
+  
+  virtual void SubmitFeedback(const std::string& description) = 0;
 };
 
 class TextQueryProviderProxy;
@@ -468,6 +491,10 @@ class  EditorClientProxy
   void CloseUI() final;
   
   void AppendText(const std::string& text) final;
+  
+  void PreviewFeedback(const std::string& result_id, PreviewFeedbackCallback callback) final;
+  
+  void SubmitFeedback(const std::string& result_id, const std::string& user_description) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -523,6 +550,8 @@ class  TextActuatorProxy
   void ShowUI() final;
   
   void CloseUI() final;
+  
+  void SubmitFeedback(const std::string& description) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -323,6 +323,7 @@ const webui::ResourcePath kAshWebuiCommonResources[] = {
   {"cros_components/slider/slider.js", IDR_CROS_COMPONENTS_SLIDER_SLIDER_JS},
   {"cros_components/switch/switch.js", IDR_CROS_COMPONENTS_SWITCH_SWITCH_JS},
   {"cros_components/tag/tag.js", IDR_CROS_COMPONENTS_TAG_TAG_JS},
+  {"cros_components/textfield/textfield.js", IDR_CROS_COMPONENTS_TEXTFIELD_TEXTFIELD_JS},
   {"ash/common/fake_method_resolver.js", IDR_ASH_WEBUI_COMMON_FAKE_METHOD_RESOLVER_JS},
   {"ash/common/fake_observables.js", IDR_ASH_WEBUI_COMMON_FAKE_OBSERVABLES_JS},
   {"ash/common/keyboard_layouts.js", IDR_ASH_WEBUI_COMMON_KEYBOARD_LAYOUTS_JS},

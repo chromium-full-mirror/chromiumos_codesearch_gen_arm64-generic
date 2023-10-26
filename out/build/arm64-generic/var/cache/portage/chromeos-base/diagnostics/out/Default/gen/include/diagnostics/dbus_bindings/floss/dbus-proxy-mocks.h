@@ -173,6 +173,21 @@ class BluetoothProxyMock : public BluetoothProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              GetRemoteRSSI,
+              (const brillo::VariantDictionary& /*in_device*/,
+               int16_t* /*out_rssi*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRemoteRSSIAsync,
+              (const brillo::VariantDictionary& /*in_device*/,
+               base::OnceCallback<void(int16_t /*rssi*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               GetRemoteUuids,
               (const brillo::VariantDictionary& /*in_device*/,
                std::vector<std::vector<uint8_t>>* /*out_uuids*/,

@@ -25,6 +25,7 @@
 
 #include "chrome/browser/ui/webui/dlp_internals/dlp_internals.mojom-shared.h"
 #include "chrome/browser/ui/webui/dlp_internals/dlp_internals.mojom-forward.h"
+#include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
 
@@ -69,12 +70,16 @@ class PageHandler
   using ResponseValidator_ = PageHandlerResponseValidator;
   enum MethodMinVersions : uint32_t {
     kGetClipboardDataSourceMinVersion = 0,
+    kGetContentRestrictionsInfoMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct GetClipboardDataSource_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetContentRestrictionsInfo_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -84,6 +89,11 @@ class PageHandler
   using GetClipboardDataSourceCallback = base::OnceCallback<void(DataTransferEndpointPtr)>;
   
   virtual void GetClipboardDataSource(GetClipboardDataSourceCallback callback) = 0;
+
+
+  using GetContentRestrictionsInfoCallback = base::OnceCallback<void(std::vector<WebContentsInfoPtr>)>;
+  
+  virtual void GetContentRestrictionsInfo(GetContentRestrictionsInfoCallback callback) = 0;
 };
 
 
@@ -96,6 +106,8 @@ class  PageHandlerProxy
   explicit PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void GetClipboardDataSource(GetClipboardDataSourceCallback callback) final;
+  
+  void GetContentRestrictionsInfo(GetContentRestrictionsInfoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -154,6 +166,12 @@ class  PageHandlerResponseValidator : public mojo::MessageReceiver {
 
 
 
+
+
+
+
+
+
 class  DataTransferEndpoint {
  public:
   template <typename T>
@@ -182,7 +200,7 @@ class  DataTransferEndpoint {
 
   DataTransferEndpoint(
       EndpointType type,
-      const absl::optional<std::string>& url);
+      const absl::optional<::GURL>& url);
 
 
   ~DataTransferEndpoint();
@@ -262,7 +280,7 @@ class  DataTransferEndpoint {
   
   EndpointType type;
   
-  absl::optional<std::string> url;
+  absl::optional<::GURL> url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -296,6 +314,442 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+class  ContentRestrictionInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ContentRestrictionInfo, T>::value>;
+  using DataView = ContentRestrictionInfoDataView;
+  using Data_ = internal::ContentRestrictionInfo_Data;
+
+  template <typename... Args>
+  static ContentRestrictionInfoPtr New(Args&&... args) {
+    return ContentRestrictionInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ContentRestrictionInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ContentRestrictionInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ContentRestrictionInfo>::Convert(*this);
+  }
+
+
+  ContentRestrictionInfo();
+
+  ContentRestrictionInfo(
+      ContentRestriction restriction,
+      Level level,
+      const ::GURL& url);
+
+
+  ~ContentRestrictionInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ContentRestrictionInfoPtr>
+  ContentRestrictionInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ContentRestrictionInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ContentRestrictionInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ContentRestrictionInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ContentRestrictionInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ContentRestrictionInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ContentRestrictionInfo_UnserializedMessageContext<
+            UserType, ContentRestrictionInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ContentRestrictionInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ContentRestrictionInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ContentRestrictionInfo_UnserializedMessageContext<
+            UserType, ContentRestrictionInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ContentRestrictionInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ContentRestriction restriction;
+  
+  Level level;
+  
+  ::GURL url;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ContentRestrictionInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ContentRestrictionInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ContentRestrictionInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ContentRestrictionInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  RenderFrameHostInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<RenderFrameHostInfo, T>::value>;
+  using DataView = RenderFrameHostInfoDataView;
+  using Data_ = internal::RenderFrameHostInfo_Data;
+
+  template <typename... Args>
+  static RenderFrameHostInfoPtr New(Args&&... args) {
+    return RenderFrameHostInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static RenderFrameHostInfoPtr From(const U& u) {
+    return mojo::TypeConverter<RenderFrameHostInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RenderFrameHostInfo>::Convert(*this);
+  }
+
+
+  RenderFrameHostInfo();
+
+  RenderFrameHostInfo(
+      const ::GURL& last_committed_url,
+      std::vector<ContentRestrictionInfoPtr> restrictions_info);
+
+RenderFrameHostInfo(const RenderFrameHostInfo&) = delete;
+RenderFrameHostInfo& operator=(const RenderFrameHostInfo&) = delete;
+
+  ~RenderFrameHostInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = RenderFrameHostInfoPtr>
+  RenderFrameHostInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, RenderFrameHostInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, RenderFrameHostInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RenderFrameHostInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        RenderFrameHostInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RenderFrameHostInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::RenderFrameHostInfo_UnserializedMessageContext<
+            UserType, RenderFrameHostInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<RenderFrameHostInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return RenderFrameHostInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::RenderFrameHostInfo_UnserializedMessageContext<
+            UserType, RenderFrameHostInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<RenderFrameHostInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::GURL last_committed_url;
+  
+  std::vector<ContentRestrictionInfoPtr> restrictions_info;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, RenderFrameHostInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, RenderFrameHostInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, RenderFrameHostInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, RenderFrameHostInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  WebContentsInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<WebContentsInfo, T>::value>;
+  using DataView = WebContentsInfoDataView;
+  using Data_ = internal::WebContentsInfo_Data;
+
+  template <typename... Args>
+  static WebContentsInfoPtr New(Args&&... args) {
+    return WebContentsInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static WebContentsInfoPtr From(const U& u) {
+    return mojo::TypeConverter<WebContentsInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, WebContentsInfo>::Convert(*this);
+  }
+
+
+  WebContentsInfo();
+
+  WebContentsInfo(
+      const ::GURL& last_committed_url,
+      std::vector<ContentRestrictionInfoPtr> restrictions_info,
+      std::vector<RenderFrameHostInfoPtr> frames_info);
+
+WebContentsInfo(const WebContentsInfo&) = delete;
+WebContentsInfo& operator=(const WebContentsInfo&) = delete;
+
+  ~WebContentsInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = WebContentsInfoPtr>
+  WebContentsInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, WebContentsInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, WebContentsInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, WebContentsInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        WebContentsInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        WebContentsInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::WebContentsInfo_UnserializedMessageContext<
+            UserType, WebContentsInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<WebContentsInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return WebContentsInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::WebContentsInfo_UnserializedMessageContext<
+            UserType, WebContentsInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<WebContentsInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::GURL last_committed_url;
+  
+  std::vector<ContentRestrictionInfoPtr> restrictions_info;
+  
+  std::vector<RenderFrameHostInfoPtr> frames_info;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, WebContentsInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, WebContentsInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, WebContentsInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, WebContentsInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename StructPtrType>
 DataTransferEndpointPtr DataTransferEndpoint::Clone() const {
   return New(
@@ -325,6 +779,107 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+ContentRestrictionInfoPtr ContentRestrictionInfo::Clone() const {
+  return New(
+      mojo::Clone(restriction),
+      mojo::Clone(level),
+      mojo::Clone(url)
+  );
+}
+
+template <typename T, ContentRestrictionInfo::EnableIfSame<T>*>
+bool ContentRestrictionInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->restriction, other_struct.restriction))
+    return false;
+  if (!mojo::Equals(this->level, other_struct.level))
+    return false;
+  if (!mojo::Equals(this->url, other_struct.url))
+    return false;
+  return true;
+}
+
+template <typename T, ContentRestrictionInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.restriction < rhs.restriction)
+    return true;
+  if (rhs.restriction < lhs.restriction)
+    return false;
+  if (lhs.level < rhs.level)
+    return true;
+  if (rhs.level < lhs.level)
+    return false;
+  if (lhs.url < rhs.url)
+    return true;
+  if (rhs.url < lhs.url)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+RenderFrameHostInfoPtr RenderFrameHostInfo::Clone() const {
+  return New(
+      mojo::Clone(last_committed_url),
+      mojo::Clone(restrictions_info)
+  );
+}
+
+template <typename T, RenderFrameHostInfo::EnableIfSame<T>*>
+bool RenderFrameHostInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->last_committed_url, other_struct.last_committed_url))
+    return false;
+  if (!mojo::Equals(this->restrictions_info, other_struct.restrictions_info))
+    return false;
+  return true;
+}
+
+template <typename T, RenderFrameHostInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.last_committed_url < rhs.last_committed_url)
+    return true;
+  if (rhs.last_committed_url < lhs.last_committed_url)
+    return false;
+  if (lhs.restrictions_info < rhs.restrictions_info)
+    return true;
+  if (rhs.restrictions_info < lhs.restrictions_info)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+WebContentsInfoPtr WebContentsInfo::Clone() const {
+  return New(
+      mojo::Clone(last_committed_url),
+      mojo::Clone(restrictions_info),
+      mojo::Clone(frames_info)
+  );
+}
+
+template <typename T, WebContentsInfo::EnableIfSame<T>*>
+bool WebContentsInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->last_committed_url, other_struct.last_committed_url))
+    return false;
+  if (!mojo::Equals(this->restrictions_info, other_struct.restrictions_info))
+    return false;
+  if (!mojo::Equals(this->frames_info, other_struct.frames_info))
+    return false;
+  return true;
+}
+
+template <typename T, WebContentsInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.last_committed_url < rhs.last_committed_url)
+    return true;
+  if (rhs.last_committed_url < lhs.last_committed_url)
+    return false;
+  if (lhs.restrictions_info < rhs.restrictions_info)
+    return true;
+  if (rhs.restrictions_info < lhs.restrictions_info)
+    return false;
+  if (lhs.frames_info < rhs.frames_info)
+    return true;
+  if (rhs.frames_info < lhs.frames_info)
+    return false;
+  return false;
+}
 
 
 }  // dlp_internals::mojom
@@ -349,6 +904,76 @@ struct  StructTraits<::dlp_internals::mojom::DataTransferEndpoint::DataView,
   }
 
   static bool Read(::dlp_internals::mojom::DataTransferEndpoint::DataView input, ::dlp_internals::mojom::DataTransferEndpointPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::dlp_internals::mojom::ContentRestrictionInfo::DataView,
+                                         ::dlp_internals::mojom::ContentRestrictionInfoPtr> {
+  static bool IsNull(const ::dlp_internals::mojom::ContentRestrictionInfoPtr& input) { return !input; }
+  static void SetToNull(::dlp_internals::mojom::ContentRestrictionInfoPtr* output) { output->reset(); }
+
+  static decltype(::dlp_internals::mojom::ContentRestrictionInfo::restriction) restriction(
+      const ::dlp_internals::mojom::ContentRestrictionInfoPtr& input) {
+    return input->restriction;
+  }
+
+  static decltype(::dlp_internals::mojom::ContentRestrictionInfo::level) level(
+      const ::dlp_internals::mojom::ContentRestrictionInfoPtr& input) {
+    return input->level;
+  }
+
+  static const decltype(::dlp_internals::mojom::ContentRestrictionInfo::url)& url(
+      const ::dlp_internals::mojom::ContentRestrictionInfoPtr& input) {
+    return input->url;
+  }
+
+  static bool Read(::dlp_internals::mojom::ContentRestrictionInfo::DataView input, ::dlp_internals::mojom::ContentRestrictionInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::dlp_internals::mojom::RenderFrameHostInfo::DataView,
+                                         ::dlp_internals::mojom::RenderFrameHostInfoPtr> {
+  static bool IsNull(const ::dlp_internals::mojom::RenderFrameHostInfoPtr& input) { return !input; }
+  static void SetToNull(::dlp_internals::mojom::RenderFrameHostInfoPtr* output) { output->reset(); }
+
+  static const decltype(::dlp_internals::mojom::RenderFrameHostInfo::last_committed_url)& last_committed_url(
+      const ::dlp_internals::mojom::RenderFrameHostInfoPtr& input) {
+    return input->last_committed_url;
+  }
+
+  static const decltype(::dlp_internals::mojom::RenderFrameHostInfo::restrictions_info)& restrictions_info(
+      const ::dlp_internals::mojom::RenderFrameHostInfoPtr& input) {
+    return input->restrictions_info;
+  }
+
+  static bool Read(::dlp_internals::mojom::RenderFrameHostInfo::DataView input, ::dlp_internals::mojom::RenderFrameHostInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::dlp_internals::mojom::WebContentsInfo::DataView,
+                                         ::dlp_internals::mojom::WebContentsInfoPtr> {
+  static bool IsNull(const ::dlp_internals::mojom::WebContentsInfoPtr& input) { return !input; }
+  static void SetToNull(::dlp_internals::mojom::WebContentsInfoPtr* output) { output->reset(); }
+
+  static const decltype(::dlp_internals::mojom::WebContentsInfo::last_committed_url)& last_committed_url(
+      const ::dlp_internals::mojom::WebContentsInfoPtr& input) {
+    return input->last_committed_url;
+  }
+
+  static const decltype(::dlp_internals::mojom::WebContentsInfo::restrictions_info)& restrictions_info(
+      const ::dlp_internals::mojom::WebContentsInfoPtr& input) {
+    return input->restrictions_info;
+  }
+
+  static const decltype(::dlp_internals::mojom::WebContentsInfo::frames_info)& frames_info(
+      const ::dlp_internals::mojom::WebContentsInfoPtr& input) {
+    return input->frames_info;
+  }
+
+  static bool Read(::dlp_internals::mojom::WebContentsInfo::DataView input, ::dlp_internals::mojom::WebContentsInfoPtr* output);
 };
 
 }  // namespace mojo

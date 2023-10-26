@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/update_engine"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/update_engine-0.0.3-r4841/work/update_engine-0.0.3/platform2"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/update_engine-0.0.3-r4843/work/update_engine-0.0.3/platform2"
 libbase_ver = "1211970"
 enable_exceptions = false
 external_cflags = [
@@ -38,7 +38,7 @@ external_cxxflags = [
   "-fdata-sections",
 ]
 external_cppflags = [
-  "-DVCSID=\"0.0.3-r4841-89277b7a646e5ee354d01a90319406721be14bf1\"",
+  "-DVCSID=\"0.0.3-r4843-709b318295da055ad247683cea8ac1376322677e\"",
   "-D_FILE_OFFSET_BITS=64",
   "-D_LARGEFILE_SOURCE",
   "-D_LARGEFILE64_SOURCE",

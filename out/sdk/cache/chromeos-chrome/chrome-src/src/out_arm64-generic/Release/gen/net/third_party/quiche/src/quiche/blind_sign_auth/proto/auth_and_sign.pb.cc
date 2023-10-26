@@ -32,6 +32,8 @@ PROTOBUF_CONSTEXPR AuthAndSignRequest::AuthAndSignRequest(
   , key_type_(0)
 
   , do_not_use_rsa_public_exponent_(false)
+  , proxy_layer_(0)
+
   , _oneof_case_{}{}
 struct AuthAndSignRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AuthAndSignRequestDefaultTypeInternal()
@@ -202,8 +204,8 @@ AuthAndSignRequest::AuthAndSignRequest(const AuthAndSignRequest& from)
     public_metadata_info_ = nullptr;
   }
   ::memcpy(&key_version_, &from.key_version_,
-    static_cast<size_t>(reinterpret_cast<char*>(&do_not_use_rsa_public_exponent_) -
-    reinterpret_cast<char*>(&key_version_)) + sizeof(do_not_use_rsa_public_exponent_));
+    static_cast<size_t>(reinterpret_cast<char*>(&proxy_layer_) -
+    reinterpret_cast<char*>(&key_version_)) + sizeof(proxy_layer_));
   clear_has_attestation_data();
   switch (from.attestation_data_case()) {
     case kAndroidAttestationData: {
@@ -240,8 +242,8 @@ public_metadata_extensions_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&attestation_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&do_not_use_rsa_public_exponent_) -
-    reinterpret_cast<char*>(&attestation_)) + sizeof(do_not_use_rsa_public_exponent_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&proxy_layer_) -
+    reinterpret_cast<char*>(&attestation_)) + sizeof(proxy_layer_));
 clear_has_attestation_data();
 }
 
@@ -314,8 +316,8 @@ void AuthAndSignRequest::Clear() {
   }
   public_metadata_info_ = nullptr;
   ::memset(&key_version_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&do_not_use_rsa_public_exponent_) -
-      reinterpret_cast<char*>(&key_version_)) + sizeof(do_not_use_rsa_public_exponent_));
+      reinterpret_cast<char*>(&proxy_layer_) -
+      reinterpret_cast<char*>(&key_version_)) + sizeof(proxy_layer_));
   clear_attestation_data();
   _internal_metadata_.Clear<std::string>();
 }
@@ -434,6 +436,15 @@ const char* AuthAndSignRequest::_InternalParse(const char* ptr, ::_pbi::ParseCon
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
           do_not_use_rsa_public_exponent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .privacy.ppn.ProxyLayer proxy_layer = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_proxy_layer(static_cast<::privacy::ppn::ProxyLayer>(val));
         } else
           goto handle_unusual;
         continue;
@@ -559,6 +570,13 @@ uint8_t* AuthAndSignRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(15, this->_internal_do_not_use_rsa_public_exponent(), target);
   }
 
+  // .privacy.ppn.ProxyLayer proxy_layer = 16;
+  if (this->_internal_proxy_layer() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      16, this->_internal_proxy_layer(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -641,6 +659,12 @@ size_t AuthAndSignRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // .privacy.ppn.ProxyLayer proxy_layer = 16;
+  if (this->_internal_proxy_layer() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_proxy_layer());
+  }
+
   switch (attestation_data_case()) {
     // .privacy.ppn.AndroidAttestationData android_attestation_data = 6;
     case kAndroidAttestationData: {
@@ -708,6 +732,9 @@ void AuthAndSignRequest::MergeFrom(const AuthAndSignRequest& from) {
   if (from._internal_do_not_use_rsa_public_exponent() != 0) {
     _internal_set_do_not_use_rsa_public_exponent(from._internal_do_not_use_rsa_public_exponent());
   }
+  if (from._internal_proxy_layer() != 0) {
+    _internal_set_proxy_layer(from._internal_proxy_layer());
+  }
   switch (from.attestation_data_case()) {
     case kAndroidAttestationData: {
       _internal_mutable_android_attestation_data()->::privacy::ppn::AndroidAttestationData::MergeFrom(from._internal_android_attestation_data());
@@ -758,8 +785,8 @@ void AuthAndSignRequest::InternalSwap(AuthAndSignRequest* other) {
       &other->public_metadata_extensions_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AuthAndSignRequest, do_not_use_rsa_public_exponent_)
-      + sizeof(AuthAndSignRequest::do_not_use_rsa_public_exponent_)
+      PROTOBUF_FIELD_OFFSET(AuthAndSignRequest, proxy_layer_)
+      + sizeof(AuthAndSignRequest::proxy_layer_)
       - PROTOBUF_FIELD_OFFSET(AuthAndSignRequest, attestation_)>(
           reinterpret_cast<char*>(&attestation_),
           reinterpret_cast<char*>(&other->attestation_));

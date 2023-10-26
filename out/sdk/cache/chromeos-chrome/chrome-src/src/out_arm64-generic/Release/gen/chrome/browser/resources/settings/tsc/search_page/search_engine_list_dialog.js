@@ -17,7 +17,7 @@ import '../site_favicon.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { SearchEnginesBrowserProxyImpl } from '../search_engines_page/search_engines_browser_proxy.js';
+import { ChoiceMadeLocation, SearchEnginesBrowserProxyImpl } from '../search_engines_page/search_engines_browser_proxy.js';
 import { getTemplate } from './search_engine_list_dialog.html.js';
 const SettingsSearchEngineListDialogElementBase = WebUiListenerMixin(PolymerElement);
 export class SettingsSearchEngineListDialogElement extends SettingsSearchEngineListDialogElementBase {
@@ -52,7 +52,7 @@ export class SettingsSearchEngineListDialogElement extends SettingsSearchEngineL
     onSetAsDefaultClick_() {
         const searchEngine = this.searchEngines.find(engine => engine.id === parseInt(this.selectedEngineId_));
         assert(searchEngine);
-        this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex);
+        this.browserProxy_.setDefaultSearchEngine(searchEngine.modelIndex, ChoiceMadeLocation.SEARCH_SETTINGS);
         this.$.dialog.close();
     }
     onCancelClick_() {

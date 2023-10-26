@@ -7406,7 +7406,7 @@ enum class WebFeature : int32_t {
   
   kSpeculationRulesEagernessEager = 4502,
   
-  kURLSetPortCheckOverflow = 4503,
+  kOBSOLETE_URLSetPortCheckOverflow = 4503,
   
   kV8Animation_RangeStart_AttributeGetter = 4504,
   

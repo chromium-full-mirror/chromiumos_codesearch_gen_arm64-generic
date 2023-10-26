@@ -47,7 +47,7 @@ export class DlpClipboardElement extends CustomElement {
             this.clipboardSourceUrlString = 'undefined';
         }
         else {
-            this.clipboardSourceUrlString = source.url;
+            this.clipboardSourceUrlString = source.url.url;
         }
     }
     async fetchClipboardSourceInfo() {

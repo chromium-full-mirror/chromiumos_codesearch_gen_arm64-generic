@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.015" timestamp="2023-10-25T11:37:01.558" name="AllTests">
-  <testsuite name="CrasLog" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.007" timestamp="2023-10-25T11:37:01.566">
-    <testcase name="tlsprintf_buffer_over_run" file="cras/src/tests/cras_log_unittest.cc" line="11" status="run" result="completed" time="0.005" timestamp="2023-10-25T11:37:01.566" classname="CrasLog" />
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.016" timestamp="2023-10-26T00:27:11.290" name="AllTests">
+  <testsuite name="CrasLog" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.007" timestamp="2023-10-26T00:27:11.298">
+    <testcase name="tlsprintf_buffer_over_run" file="cras/src/tests/cras_log_unittest.cc" line="11" status="run" result="completed" time="0.006" timestamp="2023-10-26T00:27:11.298" classname="CrasLog" />
   </testsuite>
 </testsuites>

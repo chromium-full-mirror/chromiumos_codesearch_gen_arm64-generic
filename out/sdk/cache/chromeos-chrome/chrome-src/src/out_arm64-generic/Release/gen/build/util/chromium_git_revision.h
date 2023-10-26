@@ -5,4 +5,4 @@
 // chromium_git_revision.h is generated from chromium_git_revision.h.in.  Edit
 // the source!
 
-#define CHROMIUM_GIT_REVISION "@ef09b8bcddcd851c3c3b194789d1b833ee389488"
+#define CHROMIUM_GIT_REVISION "@7a6272a8465e3cc99da6fd4dfa1d586523aaf1b9"

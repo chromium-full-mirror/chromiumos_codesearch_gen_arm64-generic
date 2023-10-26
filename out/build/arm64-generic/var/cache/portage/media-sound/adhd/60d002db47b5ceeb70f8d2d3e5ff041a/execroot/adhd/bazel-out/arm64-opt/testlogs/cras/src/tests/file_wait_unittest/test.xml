@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.595" timestamp="2023-10-25T11:37:26.630" name="AllTests">
-  <testsuite name="Util" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.59" timestamp="2023-10-25T11:37:26.635">
-    <testcase name="FileWait" file="cras/src/tests/file_wait_unittest.cc" line="99" status="run" result="completed" time="0.589" timestamp="2023-10-25T11:37:26.636" classname="Util" />
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="1.381" timestamp="2023-10-26T00:28:10.546" name="AllTests">
+  <testsuite name="Util" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="1.372" timestamp="2023-10-26T00:28:10.554">
+    <testcase name="FileWait" file="cras/src/tests/file_wait_unittest.cc" line="99" status="run" result="completed" time="1.37" timestamp="2023-10-26T00:28:10.554" classname="Util" />
   </testsuite>
 </testsuites>

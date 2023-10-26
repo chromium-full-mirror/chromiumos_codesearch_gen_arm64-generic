@@ -1008,6 +1008,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  ShortcutInfo {
  public:
   template <typename T>
@@ -1736,6 +1737,149 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  PackageLocaleInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PackageLocaleInfo, T>::value>;
+  using DataView = PackageLocaleInfoDataView;
+  using Data_ = internal::PackageLocaleInfo_Data;
+
+  template <typename... Args>
+  static PackageLocaleInfoPtr New(Args&&... args) {
+    return PackageLocaleInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PackageLocaleInfoPtr From(const U& u) {
+    return mojo::TypeConverter<PackageLocaleInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PackageLocaleInfo>::Convert(*this);
+  }
+
+
+  PackageLocaleInfo();
+
+  PackageLocaleInfo(
+      std::vector<std::string> supported_locales,
+      const std::string& selected_locale);
+
+
+  ~PackageLocaleInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PackageLocaleInfoPtr>
+  PackageLocaleInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PackageLocaleInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PackageLocaleInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, PackageLocaleInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PackageLocaleInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PackageLocaleInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PackageLocaleInfo_UnserializedMessageContext<
+            UserType, PackageLocaleInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PackageLocaleInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PackageLocaleInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PackageLocaleInfo_UnserializedMessageContext<
+            UserType, PackageLocaleInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PackageLocaleInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<std::string> supported_locales;
+  
+  std::string selected_locale;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PackageLocaleInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PackageLocaleInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PackageLocaleInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PackageLocaleInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  ArcPackageInfo {
  public:
   template <typename T>
@@ -1861,6 +2005,22 @@ class  ArcPackageInfo {
       bool preinstalled,
       InstallPriority priority);
 
+  ArcPackageInfo(
+      const std::string& package_name,
+      int32_t package_version,
+      int64_t last_backup_android_id,
+      int64_t last_backup_time,
+      bool sync,
+      bool deprecated_system,
+      bool vpn_provider,
+      WebAppInfoPtr web_app_info,
+      const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions,
+      absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states,
+      const absl::optional<std::string>& version_name,
+      bool preinstalled,
+      InstallPriority priority,
+      PackageLocaleInfoPtr locale_info);
+
 ArcPackageInfo(const ArcPackageInfo&) = delete;
 ArcPackageInfo& operator=(const ArcPackageInfo&) = delete;
 
@@ -1964,6 +2124,8 @@ ArcPackageInfo& operator=(const ArcPackageInfo&) = delete;
   bool preinstalled;
   
   InstallPriority priority;
+  
+  PackageLocaleInfoPtr locale_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2918,6 +3080,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+PackageLocaleInfoPtr PackageLocaleInfo::Clone() const {
+  return New(
+      mojo::Clone(supported_locales),
+      mojo::Clone(selected_locale)
+  );
+}
+
+template <typename T, PackageLocaleInfo::EnableIfSame<T>*>
+bool PackageLocaleInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->supported_locales, other_struct.supported_locales))
+    return false;
+  if (!mojo::Equals(this->selected_locale, other_struct.selected_locale))
+    return false;
+  return true;
+}
+
+template <typename T, PackageLocaleInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.supported_locales < rhs.supported_locales)
+    return true;
+  if (rhs.supported_locales < lhs.supported_locales)
+    return false;
+  if (lhs.selected_locale < rhs.selected_locale)
+    return true;
+  if (rhs.selected_locale < lhs.selected_locale)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 ArcPackageInfoPtr ArcPackageInfo::Clone() const {
   return New(
       mojo::Clone(package_name),
@@ -2932,7 +3123,8 @@ ArcPackageInfoPtr ArcPackageInfo::Clone() const {
       mojo::Clone(permission_states),
       mojo::Clone(version_name),
       mojo::Clone(preinstalled),
-      mojo::Clone(priority)
+      mojo::Clone(priority),
+      mojo::Clone(locale_info)
   );
 }
 
@@ -2963,6 +3155,8 @@ bool ArcPackageInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->preinstalled, other_struct.preinstalled))
     return false;
   if (!mojo::Equals(this->priority, other_struct.priority))
+    return false;
+  if (!mojo::Equals(this->locale_info, other_struct.locale_info))
     return false;
   return true;
 }
@@ -3020,6 +3214,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.priority < rhs.priority)
     return true;
   if (rhs.priority < lhs.priority)
+    return false;
+  if (lhs.locale_info < rhs.locale_info)
+    return true;
+  if (rhs.locale_info < lhs.locale_info)
     return false;
   return false;
 }
@@ -3491,6 +3689,26 @@ struct  StructTraits<::arc::mojom::WindowLayout::DataView,
 
 
 template <>
+struct  StructTraits<::arc::mojom::PackageLocaleInfo::DataView,
+                                         ::arc::mojom::PackageLocaleInfoPtr> {
+  static bool IsNull(const ::arc::mojom::PackageLocaleInfoPtr& input) { return !input; }
+  static void SetToNull(::arc::mojom::PackageLocaleInfoPtr* output) { output->reset(); }
+
+  static const decltype(::arc::mojom::PackageLocaleInfo::supported_locales)& supported_locales(
+      const ::arc::mojom::PackageLocaleInfoPtr& input) {
+    return input->supported_locales;
+  }
+
+  static const decltype(::arc::mojom::PackageLocaleInfo::selected_locale)& selected_locale(
+      const ::arc::mojom::PackageLocaleInfoPtr& input) {
+    return input->selected_locale;
+  }
+
+  static bool Read(::arc::mojom::PackageLocaleInfo::DataView input, ::arc::mojom::PackageLocaleInfoPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::arc::mojom::ArcPackageInfo::DataView,
                                          ::arc::mojom::ArcPackageInfoPtr> {
   static bool IsNull(const ::arc::mojom::ArcPackageInfoPtr& input) { return !input; }
@@ -3559,6 +3777,11 @@ struct  StructTraits<::arc::mojom::ArcPackageInfo::DataView,
   static decltype(::arc::mojom::ArcPackageInfo::priority) priority(
       const ::arc::mojom::ArcPackageInfoPtr& input) {
     return input->priority;
+  }
+
+  static const decltype(::arc::mojom::ArcPackageInfo::locale_info)& locale_info(
+      const ::arc::mojom::ArcPackageInfoPtr& input) {
+    return input->locale_info;
   }
 
   static bool Read(::arc::mojom::ArcPackageInfo::DataView input, ::arc::mojom::ArcPackageInfoPtr* output);

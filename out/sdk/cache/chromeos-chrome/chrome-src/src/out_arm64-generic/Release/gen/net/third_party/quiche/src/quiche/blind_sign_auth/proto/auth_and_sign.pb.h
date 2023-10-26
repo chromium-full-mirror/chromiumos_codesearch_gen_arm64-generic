@@ -30,6 +30,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include "quiche/blind_sign_auth/proto/attestation.pb.h"
 #include "quiche/blind_sign_auth/proto/key_services.pb.h"
+#include "quiche/blind_sign_auth/proto/proxy_layer.pb.h"
 #include "quiche/blind_sign_auth/proto/public_metadata.pb.h"
 // @@protoc_insertion_point(includes)
 #include "base/component_export.h"
@@ -183,6 +184,7 @@ kPublicMetadataInfoFieldNumber = 11,
 kKeyVersionFieldNumber = 12,
 kKeyTypeFieldNumber = 10,
 kDoNotUseRsaPublicExponentFieldNumber = 15,
+kProxyLayerFieldNumber = 16,
 kAndroidAttestationDataFieldNumber = 6,
 kIosAttestationDataFieldNumber = 7,
 };
@@ -329,6 +331,15 @@ bool _internal_do_not_use_rsa_public_exponent() const;
 void _internal_set_do_not_use_rsa_public_exponent(bool value);
 public:
 
+// .privacy.ppn.ProxyLayer proxy_layer = 16;
+void clear_proxy_layer();
+::privacy::ppn::ProxyLayer proxy_layer() const;
+void set_proxy_layer(::privacy::ppn::ProxyLayer value);
+private:
+::privacy::ppn::ProxyLayer _internal_proxy_layer() const;
+void _internal_set_proxy_layer(::privacy::ppn::ProxyLayer value);
+public:
+
 // .privacy.ppn.AndroidAttestationData android_attestation_data = 6;
 bool has_android_attestation_data() const;
 private:
@@ -389,6 +400,7 @@ typedef void DestructorSkippable_;
 int64_t key_version_;
 int key_type_;
 bool do_not_use_rsa_public_exponent_;
+int proxy_layer_;
 union AttestationDataUnion {
 constexpr AttestationDataUnion() : _constinit_{} {}
 ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -1236,6 +1248,26 @@ do_not_use_rsa_public_exponent_ = value;
 inline void AuthAndSignRequest::set_do_not_use_rsa_public_exponent(bool value) {
 _internal_set_do_not_use_rsa_public_exponent(value);
 // @@protoc_insertion_point(field_set:privacy.ppn.AuthAndSignRequest.do_not_use_rsa_public_exponent)
+}
+
+// .privacy.ppn.ProxyLayer proxy_layer = 16;
+inline void AuthAndSignRequest::clear_proxy_layer() {
+proxy_layer_ = 0;
+}
+inline ::privacy::ppn::ProxyLayer AuthAndSignRequest::_internal_proxy_layer() const {
+return static_cast< ::privacy::ppn::ProxyLayer >(proxy_layer_);
+}
+inline ::privacy::ppn::ProxyLayer AuthAndSignRequest::proxy_layer() const {
+// @@protoc_insertion_point(field_get:privacy.ppn.AuthAndSignRequest.proxy_layer)
+return _internal_proxy_layer();
+}
+inline void AuthAndSignRequest::_internal_set_proxy_layer(::privacy::ppn::ProxyLayer value) {
+
+proxy_layer_ = value;
+}
+inline void AuthAndSignRequest::set_proxy_layer(::privacy::ppn::ProxyLayer value) {
+_internal_set_proxy_layer(value);
+// @@protoc_insertion_point(field_set:privacy.ppn.AuthAndSignRequest.proxy_layer)
 }
 
 inline bool AuthAndSignRequest::has_attestation_data() const {

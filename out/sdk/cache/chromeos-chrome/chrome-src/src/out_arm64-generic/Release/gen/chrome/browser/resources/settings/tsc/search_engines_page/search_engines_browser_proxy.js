@@ -21,9 +21,28 @@ export var SearchEnginesInteractions;
     // Leave this at the end.
     SearchEnginesInteractions[SearchEnginesInteractions["COUNT"] = 4] = "COUNT";
 })(SearchEnginesInteractions || (SearchEnginesInteractions = {}));
+/**
+ * The location from which the search engine choice was made.
+ *
+ * These values are persisted to logs. Entries should not be renumbered and
+ * numeric values should never be reused.
+ *
+ * Must be kept in sync with the ChoiceMadeLocation enum in
+ * search_engine_choice_utils.h
+ */
+export var ChoiceMadeLocation;
+(function (ChoiceMadeLocation) {
+    // `chrome://settings/search`
+    ChoiceMadeLocation[ChoiceMadeLocation["SEARCH_SETTINGS"] = 0] = "SEARCH_SETTINGS";
+    // `chrome://settings/searchEngines`
+    ChoiceMadeLocation[ChoiceMadeLocation["SEARCH_ENGINE_SETTINGS"] = 1] = "SEARCH_ENGINE_SETTINGS";
+    // The search engine choice dialog for existing users or the profile picker
+    // for new users. This value should not be used in settings.
+    ChoiceMadeLocation[ChoiceMadeLocation["CHOICE_SCREEN"] = 2] = "CHOICE_SCREEN";
+})(ChoiceMadeLocation || (ChoiceMadeLocation = {}));
 export class SearchEnginesBrowserProxyImpl {
-    setDefaultSearchEngine(modelIndex) {
-        chrome.send('setDefaultSearchEngine', [modelIndex]);
+    setDefaultSearchEngine(modelIndex, choiceMadeLocation) {
+        chrome.send('setDefaultSearchEngine', [modelIndex, choiceMadeLocation]);
     }
     setIsActiveSearchEngine(modelIndex, isActive) {
         chrome.send('setIsActiveSearchEngine', [modelIndex, isActive]);

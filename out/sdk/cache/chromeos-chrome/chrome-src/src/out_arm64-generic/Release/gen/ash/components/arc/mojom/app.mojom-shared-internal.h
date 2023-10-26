@@ -34,6 +34,7 @@ class AppStorage_Data;
 class AppInfo_Data;
 class WebAppInfo_Data;
 class WindowLayout_Data;
+class PackageLocaleInfo_Data;
 class ArcPackageInfo_Data;
 class ShortcutInfo_Data;
 class RawIconPngData_Data;
@@ -510,6 +511,55 @@ struct WindowLayout_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     WindowLayout_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PackageLocaleInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> supported_locales;
+  mojo::internal::Pointer<mojo::internal::String_Data> selected_locale;
+
+ private:
+  friend class mojo::internal::MessageFragment<PackageLocaleInfo_Data>;
+
+  PackageLocaleInfo_Data();
+  ~PackageLocaleInfo_Data() = delete;
+};
+static_assert(sizeof(PackageLocaleInfo_Data) == 24,
+              "Bad sizeof(PackageLocaleInfo_Data)");
+// Used by PackageLocaleInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PackageLocaleInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PackageLocaleInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PackageLocaleInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PackageLocaleInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PackageLocaleInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  ArcPackageInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -530,7 +580,8 @@ class  ArcPackageInfo_Data {
   mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<::arc::mojom::internal::PermissionState_Data>>> permission_states;
   mojo::internal::Pointer<mojo::internal::String_Data> version_name;
   int32_t priority;
-  uint8_t padfinal_[4];
+  uint8_t pad12_[4];
+  mojo::internal::Pointer<internal::PackageLocaleInfo_Data> locale_info;
 
  private:
   friend class mojo::internal::MessageFragment<ArcPackageInfo_Data>;
@@ -538,7 +589,7 @@ class  ArcPackageInfo_Data {
   ArcPackageInfo_Data();
   ~ArcPackageInfo_Data() = delete;
 };
-static_assert(sizeof(ArcPackageInfo_Data) == 80,
+static_assert(sizeof(ArcPackageInfo_Data) == 88,
               "Bad sizeof(ArcPackageInfo_Data)");
 // Used by ArcPackageInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

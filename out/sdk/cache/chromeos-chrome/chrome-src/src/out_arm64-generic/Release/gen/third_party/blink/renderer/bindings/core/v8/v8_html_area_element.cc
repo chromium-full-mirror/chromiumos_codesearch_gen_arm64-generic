@@ -621,15 +621,12 @@ CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
 HTMLAreaElement* blink_receiver = V8HTMLAreaElement::ToWrappableUnsafe(v8_receiver);
-v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
-ScriptState* receiver_script_state = ScriptState::From(receiver_context);
-ScriptState* script_state = receiver_script_state;
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->setPort(script_state, arg1_value);
+blink_receiver->setPort(arg1_value);
 
 }
 

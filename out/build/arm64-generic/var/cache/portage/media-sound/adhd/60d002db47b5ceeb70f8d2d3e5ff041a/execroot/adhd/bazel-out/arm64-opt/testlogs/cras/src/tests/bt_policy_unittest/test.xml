@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="14" failures="0" disabled="0" errors="0" time="0.038" timestamp="2023-10-25T11:36:19.987" name="AllTests">
-  <testsuite name="BtPolicyTestSuite" tests="14" failures="0" disabled="0" skipped="0" errors="0" time="0.029" timestamp="2023-10-25T11:36:19.996">
-    <testcase name="HandleMessageWithInvalidDev" file="cras/src/tests/bt_policy_unittest.cc" line="93" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:36:19.996" classname="BtPolicyTestSuite" />
-    <testcase name="SwitchProfile" file="cras/src/tests/bt_policy_unittest.cc" line="114" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:36:20.000" classname="BtPolicyTestSuite" />
-    <testcase name="SwitchProfileRepeatedly" file="cras/src/tests/bt_policy_unittest.cc" line="136" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:36:20.001" classname="BtPolicyTestSuite" />
-    <testcase name="DropHfpBeforeSwitchProfile" file="cras/src/tests/bt_policy_unittest.cc" line="157" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:20.002" classname="BtPolicyTestSuite" />
-    <testcase name="DropA2dpWhileSwitchProfile" file="cras/src/tests/bt_policy_unittest.cc" line="173" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:20.003" classname="BtPolicyTestSuite" />
-    <testcase name="RemoveDevWhileSwitchProfile" file="cras/src/tests/bt_policy_unittest.cc" line="191" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:20.004" classname="BtPolicyTestSuite" />
-    <testcase name="ScheduleCancelSuspend" file="cras/src/tests/bt_policy_unittest.cc" line="209" status="run" result="completed" time="0.011" timestamp="2023-10-25T11:36:20.004" classname="BtPolicyTestSuite" />
-    <testcase name="DevRemoveWithScheduleSuspend" file="cras/src/tests/bt_policy_unittest.cc" line="236" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:20.016" classname="BtPolicyTestSuite" />
-    <testcase name="StartConnectionWatchRepeatedly" file="cras/src/tests/bt_policy_unittest.cc" line="249" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:20.017" classname="BtPolicyTestSuite" />
-    <testcase name="ConnectionWatchNoAudioProfiles" file="cras/src/tests/bt_policy_unittest.cc" line="261" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:20.018" classname="BtPolicyTestSuite" />
-    <testcase name="ConnectionWatchA2dpAndHfp" file="cras/src/tests/bt_policy_unittest.cc" line="273" status="run" result="completed" time="0.001" timestamp="2023-10-25T11:36:20.018" classname="BtPolicyTestSuite" />
-    <testcase name="ConnectionWatchHfpOnly" file="cras/src/tests/bt_policy_unittest.cc" line="302" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:20.020" classname="BtPolicyTestSuite" />
-    <testcase name="ConnectionWatchA2dpOnly" file="cras/src/tests/bt_policy_unittest.cc" line="324" status="run" result="completed" time="0." timestamp="2023-10-25T11:36:20.021" classname="BtPolicyTestSuite" />
-    <testcase name="ConnectionWatchTimeout" file="cras/src/tests/bt_policy_unittest.cc" line="346" status="run" result="completed" time="0.003" timestamp="2023-10-25T11:36:20.021" classname="BtPolicyTestSuite" />
+<testsuites tests="14" failures="0" disabled="0" errors="0" time="0.026" timestamp="2023-10-26T00:26:28.273" name="AllTests">
+  <testsuite name="BtPolicyTestSuite" tests="14" failures="0" disabled="0" skipped="0" errors="0" time="0.02" timestamp="2023-10-26T00:26:28.278">
+    <testcase name="HandleMessageWithInvalidDev" file="cras/src/tests/bt_policy_unittest.cc" line="93" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:26:28.278" classname="BtPolicyTestSuite" />
+    <testcase name="SwitchProfile" file="cras/src/tests/bt_policy_unittest.cc" line="114" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.280" classname="BtPolicyTestSuite" />
+    <testcase name="SwitchProfileRepeatedly" file="cras/src/tests/bt_policy_unittest.cc" line="136" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.281" classname="BtPolicyTestSuite" />
+    <testcase name="DropHfpBeforeSwitchProfile" file="cras/src/tests/bt_policy_unittest.cc" line="157" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.282" classname="BtPolicyTestSuite" />
+    <testcase name="DropA2dpWhileSwitchProfile" file="cras/src/tests/bt_policy_unittest.cc" line="173" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.282" classname="BtPolicyTestSuite" />
+    <testcase name="RemoveDevWhileSwitchProfile" file="cras/src/tests/bt_policy_unittest.cc" line="191" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.283" classname="BtPolicyTestSuite" />
+    <testcase name="ScheduleCancelSuspend" file="cras/src/tests/bt_policy_unittest.cc" line="209" status="run" result="completed" time="0.007" timestamp="2023-10-26T00:26:28.283" classname="BtPolicyTestSuite" />
+    <testcase name="DevRemoveWithScheduleSuspend" file="cras/src/tests/bt_policy_unittest.cc" line="236" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.291" classname="BtPolicyTestSuite" />
+    <testcase name="StartConnectionWatchRepeatedly" file="cras/src/tests/bt_policy_unittest.cc" line="249" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.292" classname="BtPolicyTestSuite" />
+    <testcase name="ConnectionWatchNoAudioProfiles" file="cras/src/tests/bt_policy_unittest.cc" line="261" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.292" classname="BtPolicyTestSuite" />
+    <testcase name="ConnectionWatchA2dpAndHfp" file="cras/src/tests/bt_policy_unittest.cc" line="273" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.292" classname="BtPolicyTestSuite" />
+    <testcase name="ConnectionWatchHfpOnly" file="cras/src/tests/bt_policy_unittest.cc" line="302" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.293" classname="BtPolicyTestSuite" />
+    <testcase name="ConnectionWatchA2dpOnly" file="cras/src/tests/bt_policy_unittest.cc" line="324" status="run" result="completed" time="0." timestamp="2023-10-26T00:26:28.294" classname="BtPolicyTestSuite" />
+    <testcase name="ConnectionWatchTimeout" file="cras/src/tests/bt_policy_unittest.cc" line="346" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:26:28.294" classname="BtPolicyTestSuite" />
   </testsuite>
 </testsuites>

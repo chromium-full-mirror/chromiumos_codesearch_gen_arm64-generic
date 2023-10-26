@@ -5251,6 +5251,81 @@ class  BrowserInitParams {
       bool is_app_install_service_uri_enabled,
       bool is_desk_profiles_enabled);
 
+  BrowserInitParams(
+      uint32_t crosapi_version,
+      bool deprecated_ash_metrics_enabled_has_value,
+      bool ash_metrics_enabled,
+      SessionType session_type,
+      DeviceMode device_mode,
+      const absl::optional<base::flat_map<::base::Token, uint32_t>>& interface_versions,
+      DefaultPathsPtr default_paths,
+      const absl::optional<std::string>& REMOVED_7,
+      MetricsReportingManaged ash_metrics_managed,
+      ExoImeSupport exo_ime_support,
+      const absl::optional<std::string>& cros_user_id_hash,
+      absl::optional<std::vector<uint8_t>> device_account_policy,
+      uint64_t last_policy_fetch_attempt_timestamp,
+      ::crosapi::mojom::IdleInfoPtr idle_info,
+      bool REMOVED_13,
+      bool REMOVED_14,
+      InitialBrowserAction initial_browser_action,
+      ::crosapi::mojom::AccountPtr device_account,
+      bool web_apps_enabled,
+      bool REMOVED_18,
+      bool standalone_browser_is_primary,
+      ::crosapi::mojom::NativeThemeInfoPtr native_theme_info,
+      DevicePropertiesPtr device_properties,
+      OndeviceHandwritingSupport ondevice_handwriting_support,
+      absl::optional<std::vector<BuildFlag>> build_flags,
+      OpenUrlFrom startup_urls_from,
+      absl::optional<std::vector<::GURL>> REMOVED_24,
+      ::crosapi::mojom::DeviceSettingsPtr device_settings,
+      const absl::optional<std::string>& metrics_service_client_id,
+      uint64_t ukm_client_id,
+      bool standalone_browser_is_only_browser,
+      bool publish_chrome_apps,
+      bool publish_hosted_apps,
+      BrowserInitParams::InitialKeepAlive initial_keep_alive,
+      bool is_unfiltered_bluetooth_device_enabled,
+      absl::optional<std::vector<std::string>> ash_capabilities,
+      absl::optional<std::vector<::GURL>> accepted_internal_ash_urls,
+      bool is_holding_space_incognito_profile_integration_enabled_deprecated,
+      bool is_holding_space_in_progress_downloads_notification_suppression_enabled_deprecated,
+      bool is_device_enterprised_managed,
+      BrowserInitParams::DeviceType device_type,
+      bool is_ondevice_speech_supported,
+      absl::optional<base::flat_map<::policy::PolicyNamespace, std::vector<uint8_t>>> REMOVED_41,
+      absl::optional<base::flat_map<::policy::PolicyNamespace, ::base::Value>> device_account_component_policy,
+      const absl::optional<std::string>& ash_chrome_version,
+      bool use_cups_for_printing,
+      bool use_floss_bluetooth,
+      bool is_current_user_device_owner,
+      bool REMOVED_48,
+      bool enable_lacros_tts_support,
+      BrowserInitParams::LacrosSelection lacros_selection,
+      bool enable_window_layout_menu,
+      bool is_cloud_gaming_device,
+      BrowserInitParams::GpuSandboxStartMode gpu_sandbox_start_mode,
+      ::crosapi::mojom::ExtensionKeepListPtr extension_keep_list,
+      bool enable_partial_split_deprecated,
+      bool vc_controls_ui_enabled,
+      ::crosapi::mojom::StandaloneBrowserAppServiceBlockListPtr standalone_browser_app_service_blocklist,
+      bool enable_cpu_mappable_native_gpu_memory_buffers,
+      bool oop_video_decoding_enabled,
+      bool is_upload_office_to_cloud_enabled,
+      bool enable_clipboard_history_refresh,
+      bool is_variable_refresh_rate_always_on,
+      bool is_current_user_ephemeral,
+      bool is_pdf_ocr_enabled,
+      bool is_drivefs_bulk_pinning_available,
+      bool is_floss_available,
+      bool is_sys_ui_downloads_integration_v2_enabled,
+      bool is_cros_battery_saver_available,
+      bool is_floss_availability_check_needed,
+      bool is_app_install_service_uri_enabled,
+      bool is_desk_profiles_enabled,
+      bool is_cros_web_app_shortcut_ui_update_enabled);
+
 BrowserInitParams(const BrowserInitParams&) = delete;
 BrowserInitParams& operator=(const BrowserInitParams&) = delete;
 
@@ -5472,6 +5547,8 @@ BrowserInitParams& operator=(const BrowserInitParams&) = delete;
   bool is_app_install_service_uri_enabled;
   
   bool is_desk_profiles_enabled;
+  
+  bool is_cros_web_app_shortcut_ui_update_enabled;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -6003,7 +6080,8 @@ BrowserInitParamsPtr BrowserInitParams::Clone() const {
       mojo::Clone(is_cros_battery_saver_available),
       mojo::Clone(is_floss_availability_check_needed),
       mojo::Clone(is_app_install_service_uri_enabled),
-      mojo::Clone(is_desk_profiles_enabled)
+      mojo::Clone(is_desk_profiles_enabled),
+      mojo::Clone(is_cros_web_app_shortcut_ui_update_enabled)
   );
 }
 
@@ -6152,6 +6230,8 @@ bool BrowserInitParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->is_app_install_service_uri_enabled, other_struct.is_app_install_service_uri_enabled))
     return false;
   if (!mojo::Equals(this->is_desk_profiles_enabled, other_struct.is_desk_profiles_enabled))
+    return false;
+  if (!mojo::Equals(this->is_cros_web_app_shortcut_ui_update_enabled, other_struct.is_cros_web_app_shortcut_ui_update_enabled))
     return false;
   return true;
 }
@@ -6445,6 +6525,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_desk_profiles_enabled < rhs.is_desk_profiles_enabled)
     return true;
   if (rhs.is_desk_profiles_enabled < lhs.is_desk_profiles_enabled)
+    return false;
+  if (lhs.is_cros_web_app_shortcut_ui_update_enabled < rhs.is_cros_web_app_shortcut_ui_update_enabled)
+    return true;
+  if (rhs.is_cros_web_app_shortcut_ui_update_enabled < lhs.is_cros_web_app_shortcut_ui_update_enabled)
     return false;
   return false;
 }
@@ -7155,6 +7239,11 @@ struct  StructTraits<::crosapi::mojom::BrowserInitParams::DataView,
   static decltype(::crosapi::mojom::BrowserInitParams::is_desk_profiles_enabled) is_desk_profiles_enabled(
       const ::crosapi::mojom::BrowserInitParamsPtr& input) {
     return input->is_desk_profiles_enabled;
+  }
+
+  static decltype(::crosapi::mojom::BrowserInitParams::is_cros_web_app_shortcut_ui_update_enabled) is_cros_web_app_shortcut_ui_update_enabled(
+      const ::crosapi::mojom::BrowserInitParamsPtr& input) {
+    return input->is_cros_web_app_shortcut_ui_update_enabled;
   }
 
   static bool Read(::crosapi::mojom::BrowserInitParams::DataView input, ::crosapi::mojom::BrowserInitParamsPtr* output);

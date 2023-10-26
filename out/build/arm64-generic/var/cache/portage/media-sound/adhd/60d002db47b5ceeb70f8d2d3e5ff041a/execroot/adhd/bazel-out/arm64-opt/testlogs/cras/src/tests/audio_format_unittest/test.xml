@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.025" timestamp="2023-10-25T11:35:23.508" name="AllTests">
-  <testsuite name="ChannelConvMtxTestSuite" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.015" timestamp="2023-10-25T11:35:23.516">
-    <testcase name="MatrixCreateSuccess" file="cras/src/tests/audio_format_unittest.cc" line="39" status="run" result="completed" time="0.002" timestamp="2023-10-25T11:35:23.517" classname="ChannelConvMtxTestSuite" />
-    <testcase name="MatrixCreateSuccess2" file="cras/src/tests/audio_format_unittest.cc" line="58" status="run" result="completed" time="0.009" timestamp="2023-10-25T11:35:23.521" classname="ChannelConvMtxTestSuite" />
-    <testcase name="MatrixCreateMissingCRAS_CH_FC" file="cras/src/tests/audio_format_unittest.cc" line="77" status="run" result="completed" time="0." timestamp="2023-10-25T11:35:23.531" classname="ChannelConvMtxTestSuite" />
-    <testcase name="SLSRToRRRL" file="cras/src/tests/audio_format_unittest.cc" line="96" status="run" result="completed" time="0." timestamp="2023-10-25T11:35:23.532" classname="ChannelConvMtxTestSuite" />
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.025" timestamp="2023-10-26T00:28:40.559" name="AllTests">
+  <testsuite name="ChannelConvMtxTestSuite" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.016" timestamp="2023-10-26T00:28:40.567">
+    <testcase name="MatrixCreateSuccess" file="cras/src/tests/audio_format_unittest.cc" line="39" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:28:40.568" classname="ChannelConvMtxTestSuite" />
+    <testcase name="MatrixCreateSuccess2" file="cras/src/tests/audio_format_unittest.cc" line="58" status="run" result="completed" time="0.009" timestamp="2023-10-26T00:28:40.571" classname="ChannelConvMtxTestSuite" />
+    <testcase name="MatrixCreateMissingCRAS_CH_FC" file="cras/src/tests/audio_format_unittest.cc" line="77" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:28:40.582" classname="ChannelConvMtxTestSuite" />
+    <testcase name="SLSRToRRRL" file="cras/src/tests/audio_format_unittest.cc" line="96" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:40.583" classname="ChannelConvMtxTestSuite" />
   </testsuite>
 </testsuites>

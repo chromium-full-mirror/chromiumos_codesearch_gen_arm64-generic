@@ -11,7 +11,6 @@
 const webui::ResourcePath kAshCameraAppResources[] = {
   {"js/preload_images.js", IDR_ASH_CAMERA_APP_JS_JS_PRELOAD_IMAGES_JS},
   {"css/button.css", IDR_ASH_CAMERA_APP_CSS_BUTTON_CSS},
-  {"css/colors_default.css", IDR_ASH_CAMERA_APP_CSS_COLORS_DEFAULT_CSS},
   {"css/custom_toast.css", IDR_ASH_CAMERA_APP_CSS_CUSTOM_TOAST_CSS},
   {"css/flash.css", IDR_ASH_CAMERA_APP_CSS_FLASH_CSS},
   {"css/inkdrop.css", IDR_ASH_CAMERA_APP_CSS_INKDROP_CSS},

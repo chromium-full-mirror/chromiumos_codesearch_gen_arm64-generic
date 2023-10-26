@@ -27,6 +27,8 @@ class  EditorClientInterceptorForTesting : public EditorClient {
   void ShowUI() override;
   void CloseUI() override;
   void AppendText(const std::string& text) override;
+  void PreviewFeedback(const std::string& result_id, PreviewFeedbackCallback callback) override;
+  void SubmitFeedback(const std::string& result_id, const std::string& user_description) override;
 };
 class  EditorClientAsyncWaiter {
  public:
@@ -48,6 +50,9 @@ class  EditorClientAsyncWaiter {
   void RequestFreeformWrite(
       const std::string& input, TextQueryResponsePtr* out_response);
   TextQueryResponsePtr RequestFreeformWrite(const std::string& input);
+  void PreviewFeedback(
+      const std::string& result_id, base::flat_map<std::string, std::string>* out_preview);
+  base::flat_map<std::string, std::string> PreviewFeedback(const std::string& result_id);
 
  private:
   EditorClient* const proxy_;
@@ -98,6 +103,7 @@ class  TextActuatorInterceptorForTesting : public TextActuator {
   void OpenUrlInNewWindow(const ::GURL& url) override;
   void ShowUI() override;
   void CloseUI() override;
+  void SubmitFeedback(const std::string& description) override;
 };
 class  TextActuatorAsyncWaiter {
  public:

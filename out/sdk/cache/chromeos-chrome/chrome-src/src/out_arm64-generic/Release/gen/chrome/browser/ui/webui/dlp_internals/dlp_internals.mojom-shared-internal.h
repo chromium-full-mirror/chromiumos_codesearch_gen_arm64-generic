@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -25,6 +26,9 @@ class ValidationContext;
 namespace dlp_internals::mojom {
 namespace internal {
 class DataTransferEndpoint_Data;
+class ContentRestrictionInfo_Data;
+class RenderFrameHostInfo_Data;
+class WebContentsInfo_Data;
 
 struct EndpointType_Data {
  public:
@@ -57,6 +61,59 @@ struct EndpointType_Data {
   }
 };
 
+struct ContentRestriction_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Level_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 class  DataTransferEndpoint_Data {
  public:
@@ -66,7 +123,7 @@ class  DataTransferEndpoint_Data {
   mojo::internal::StructHeader header_;
   int32_t type;
   uint8_t pad0_[4];
-  mojo::internal::Pointer<mojo::internal::String_Data> url;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
 
  private:
   friend class mojo::internal::MessageFragment<DataTransferEndpoint_Data>;
@@ -108,6 +165,155 @@ struct DataTransferEndpoint_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     DataTransferEndpoint_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ContentRestrictionInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t restriction;
+  int32_t level;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
+
+ private:
+  friend class mojo::internal::MessageFragment<ContentRestrictionInfo_Data>;
+
+  ContentRestrictionInfo_Data();
+  ~ContentRestrictionInfo_Data() = delete;
+};
+static_assert(sizeof(ContentRestrictionInfo_Data) == 24,
+              "Bad sizeof(ContentRestrictionInfo_Data)");
+// Used by ContentRestrictionInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ContentRestrictionInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ContentRestrictionInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ContentRestrictionInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ContentRestrictionInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ContentRestrictionInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  RenderFrameHostInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> last_committed_url;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ContentRestrictionInfo_Data>>> restrictions_info;
+
+ private:
+  friend class mojo::internal::MessageFragment<RenderFrameHostInfo_Data>;
+
+  RenderFrameHostInfo_Data();
+  ~RenderFrameHostInfo_Data() = delete;
+};
+static_assert(sizeof(RenderFrameHostInfo_Data) == 24,
+              "Bad sizeof(RenderFrameHostInfo_Data)");
+// Used by RenderFrameHostInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct RenderFrameHostInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  RenderFrameHostInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~RenderFrameHostInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<RenderFrameHostInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    RenderFrameHostInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  WebContentsInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> last_committed_url;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ContentRestrictionInfo_Data>>> restrictions_info;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::RenderFrameHostInfo_Data>>> frames_info;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebContentsInfo_Data>;
+
+  WebContentsInfo_Data();
+  ~WebContentsInfo_Data() = delete;
+};
+static_assert(sizeof(WebContentsInfo_Data) == 32,
+              "Bad sizeof(WebContentsInfo_Data)");
+// Used by WebContentsInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct WebContentsInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  WebContentsInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~WebContentsInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<WebContentsInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    WebContentsInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 
