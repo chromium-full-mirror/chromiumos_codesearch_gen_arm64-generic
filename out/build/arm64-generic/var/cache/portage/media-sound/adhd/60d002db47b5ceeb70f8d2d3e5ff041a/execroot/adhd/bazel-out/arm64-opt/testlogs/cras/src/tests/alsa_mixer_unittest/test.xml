@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="28" failures="0" disabled="0" errors="0" time="0.14" timestamp="2023-10-26T00:29:46.378" name="AllTests">
-  <testsuite name="AlsaMixer" tests="15" failures="0" disabled="0" skipped="0" errors="0" time="0.059" timestamp="2023-10-26T00:29:46.388">
-    <testcase name="CreateFailOpen" file="cras/src/tests/alsa_mixer_unittest.cc" line="179" status="run" result="completed" time="0.014" timestamp="2023-10-26T00:29:46.389" classname="AlsaMixer" />
-    <testcase name="CreateFailAttach" file="cras/src/tests/alsa_mixer_unittest.cc" line="190" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:29:46.404" classname="AlsaMixer" />
-    <testcase name="CreateFailSelemRegister" file="cras/src/tests/alsa_mixer_unittest.cc" line="204" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:46.405" classname="AlsaMixer" />
-    <testcase name="CreateFailLoad" file="cras/src/tests/alsa_mixer_unittest.cc" line="219" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:29:46.406" classname="AlsaMixer" />
-    <testcase name="CreateNoElements" file="cras/src/tests/alsa_mixer_unittest.cc" line="235" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:29:46.408" classname="AlsaMixer" />
-    <testcase name="CreateOneUnknownElementWithoutVolume" file="cras/src/tests/alsa_mixer_unittest.cc" line="260" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:29:46.410" classname="AlsaMixer" />
-    <testcase name="CreateOneUnknownElementWithVolume" file="cras/src/tests/alsa_mixer_unittest.cc" line="336" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:46.413" classname="AlsaMixer" />
-    <testcase name="CreateOneMainElement" file="cras/src/tests/alsa_mixer_unittest.cc" line="425" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:46.417" classname="AlsaMixer" />
-    <testcase name="CreateTwoMainVolumeElements" file="cras/src/tests/alsa_mixer_unittest.cc" line="512" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.420" classname="AlsaMixer" />
-    <testcase name="CreateTwoMainCaptureElements" file="cras/src/tests/alsa_mixer_unittest.cc" line="659" status="run" result="completed" time="0.005" timestamp="2023-10-26T00:29:46.425" classname="AlsaMixer" />
-    <testcase name="GetPlayBackStep" file="cras/src/tests/alsa_mixer_unittest.cc" line="1007" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:46.431" classname="AlsaMixer" />
-    <testcase name="CreateWithCoupledOutputControls" file="cras/src/tests/alsa_mixer_unittest.cc" line="1043" status="run" result="completed" time="0.007" timestamp="2023-10-26T00:29:46.432" classname="AlsaMixer" />
-    <testcase name="CoupledOutputHasMuteNoVolume" file="cras/src/tests/alsa_mixer_unittest.cc" line="1153" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:46.439" classname="AlsaMixer" />
-    <testcase name="CoupledOutputHasVolumeNoMute" file="cras/src/tests/alsa_mixer_unittest.cc" line="1235" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:46.443" classname="AlsaMixer" />
-    <testcase name="MixerName" file="cras/src/tests/alsa_mixer_unittest.cc" line="1317" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:46.447" classname="AlsaMixer" />
+<testsuites tests="28" failures="0" disabled="0" errors="0" time="0.134" timestamp="2023-10-26T11:40:04.712" name="AllTests">
+  <testsuite name="AlsaMixer" tests="15" failures="0" disabled="0" skipped="0" errors="0" time="0.048" timestamp="2023-10-26T11:40:04.719">
+    <testcase name="CreateFailOpen" file="cras/src/tests/alsa_mixer_unittest.cc" line="179" status="run" result="completed" time="0.011" timestamp="2023-10-26T11:40:04.720" classname="AlsaMixer" />
+    <testcase name="CreateFailAttach" file="cras/src/tests/alsa_mixer_unittest.cc" line="190" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:04.733" classname="AlsaMixer" />
+    <testcase name="CreateFailSelemRegister" file="cras/src/tests/alsa_mixer_unittest.cc" line="204" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:04.734" classname="AlsaMixer" />
+    <testcase name="CreateFailLoad" file="cras/src/tests/alsa_mixer_unittest.cc" line="219" status="run" result="completed" time="0.001" timestamp="2023-10-26T11:40:04.735" classname="AlsaMixer" />
+    <testcase name="CreateNoElements" file="cras/src/tests/alsa_mixer_unittest.cc" line="235" status="run" result="completed" time="0.001" timestamp="2023-10-26T11:40:04.737" classname="AlsaMixer" />
+    <testcase name="CreateOneUnknownElementWithoutVolume" file="cras/src/tests/alsa_mixer_unittest.cc" line="260" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.739" classname="AlsaMixer" />
+    <testcase name="CreateOneUnknownElementWithVolume" file="cras/src/tests/alsa_mixer_unittest.cc" line="336" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:04.743" classname="AlsaMixer" />
+    <testcase name="CreateOneMainElement" file="cras/src/tests/alsa_mixer_unittest.cc" line="425" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:04.745" classname="AlsaMixer" />
+    <testcase name="CreateTwoMainVolumeElements" file="cras/src/tests/alsa_mixer_unittest.cc" line="512" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.747" classname="AlsaMixer" />
+    <testcase name="CreateTwoMainCaptureElements" file="cras/src/tests/alsa_mixer_unittest.cc" line="659" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.751" classname="AlsaMixer" />
+    <testcase name="GetPlayBackStep" file="cras/src/tests/alsa_mixer_unittest.cc" line="1007" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:04.755" classname="AlsaMixer" />
+    <testcase name="CreateWithCoupledOutputControls" file="cras/src/tests/alsa_mixer_unittest.cc" line="1043" status="run" result="completed" time="0.005" timestamp="2023-10-26T11:40:04.755" classname="AlsaMixer" />
+    <testcase name="CoupledOutputHasMuteNoVolume" file="cras/src/tests/alsa_mixer_unittest.cc" line="1153" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:04.761" classname="AlsaMixer" />
+    <testcase name="CoupledOutputHasVolumeNoMute" file="cras/src/tests/alsa_mixer_unittest.cc" line="1235" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.764" classname="AlsaMixer" />
+    <testcase name="MixerName" file="cras/src/tests/alsa_mixer_unittest.cc" line="1317" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:04.768" classname="AlsaMixer" />
   </testsuite>
-  <testsuite name="AlsaMixerOutputs" tests="9" failures="0" disabled="0" skipped="0" errors="0" time="0.044" timestamp="2023-10-26T00:29:46.449">
-    <testcase name="CheckSixOutputs" file="cras/src/tests/alsa_mixer_unittest.cc" line="903" status="run" result="completed" time="0.006" timestamp="2023-10-26T00:29:46.449" classname="AlsaMixerOutputs" />
-    <testcase name="CheckOneInputs" file="cras/src/tests/alsa_mixer_unittest.cc" line="909" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.455" classname="AlsaMixerOutputs" />
-    <testcase name="CheckFindOutputByNameNoMatch" file="cras/src/tests/alsa_mixer_unittest.cc" line="915" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.459" classname="AlsaMixerOutputs" />
-    <testcase name="CheckFindOutputByName" file="cras/src/tests/alsa_mixer_unittest.cc" line="922" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.464" classname="AlsaMixerOutputs" />
-    <testcase name="CheckFindOutputHDMIByName" file="cras/src/tests/alsa_mixer_unittest.cc" line="929" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.469" classname="AlsaMixerOutputs" />
-    <testcase name="CheckFindInputNameWorkaround" file="cras/src/tests/alsa_mixer_unittest.cc" line="936" status="run" result="completed" time="0.005" timestamp="2023-10-26T00:29:46.473" classname="AlsaMixerOutputs" />
-    <testcase name="ActivateDeactivate" file="cras/src/tests/alsa_mixer_unittest.cc" line="968" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.479" classname="AlsaMixerOutputs" />
-    <testcase name="MinMaxCaptureGain" file="cras/src/tests/alsa_mixer_unittest.cc" line="983" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.484" classname="AlsaMixerOutputs" />
-    <testcase name="MinMaxCaptureGainWithActiveInput" file="cras/src/tests/alsa_mixer_unittest.cc" line="991" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.489" classname="AlsaMixerOutputs" />
+  <testsuite name="AlsaMixerOutputs" tests="9" failures="0" disabled="0" skipped="0" errors="0" time="0.031" timestamp="2023-10-26T11:40:04.769">
+    <testcase name="CheckSixOutputs" file="cras/src/tests/alsa_mixer_unittest.cc" line="903" status="run" result="completed" time="0.005" timestamp="2023-10-26T11:40:04.769" classname="AlsaMixerOutputs" />
+    <testcase name="CheckOneInputs" file="cras/src/tests/alsa_mixer_unittest.cc" line="909" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.775" classname="AlsaMixerOutputs" />
+    <testcase name="CheckFindOutputByNameNoMatch" file="cras/src/tests/alsa_mixer_unittest.cc" line="915" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:04.779" classname="AlsaMixerOutputs" />
+    <testcase name="CheckFindOutputByName" file="cras/src/tests/alsa_mixer_unittest.cc" line="922" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:04.782" classname="AlsaMixerOutputs" />
+    <testcase name="CheckFindOutputHDMIByName" file="cras/src/tests/alsa_mixer_unittest.cc" line="929" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:04.784" classname="AlsaMixerOutputs" />
+    <testcase name="CheckFindInputNameWorkaround" file="cras/src/tests/alsa_mixer_unittest.cc" line="936" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.787" classname="AlsaMixerOutputs" />
+    <testcase name="ActivateDeactivate" file="cras/src/tests/alsa_mixer_unittest.cc" line="968" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:04.791" classname="AlsaMixerOutputs" />
+    <testcase name="MinMaxCaptureGain" file="cras/src/tests/alsa_mixer_unittest.cc" line="983" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.794" classname="AlsaMixerOutputs" />
+    <testcase name="MinMaxCaptureGainWithActiveInput" file="cras/src/tests/alsa_mixer_unittest.cc" line="991" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.797" classname="AlsaMixerOutputs" />
   </testsuite>
-  <testsuite name="AlsaMixerFullySpeced" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.024" timestamp="2023-10-26T00:29:46.493">
-    <testcase name="CheckControlCounts" file="cras/src/tests/alsa_mixer_unittest.cc" line="1522" status="run" result="completed" time="0.008" timestamp="2023-10-26T00:29:46.493" classname="AlsaMixerFullySpeced" />
-    <testcase name="CheckFindOutputByNameNoMatch" file="cras/src/tests/alsa_mixer_unittest.cc" line="1532" status="run" result="completed" time="0.005" timestamp="2023-10-26T00:29:46.502" classname="AlsaMixerFullySpeced" />
-    <testcase name="CheckFindOutputByName" file="cras/src/tests/alsa_mixer_unittest.cc" line="1539" status="run" result="completed" time="0.004" timestamp="2023-10-26T00:29:46.508" classname="AlsaMixerFullySpeced" />
-    <testcase name="CheckFindControlForSection" file="cras/src/tests/alsa_mixer_unittest.cc" line="1546" status="run" result="completed" time="0.005" timestamp="2023-10-26T00:29:46.513" classname="AlsaMixerFullySpeced" />
+  <testsuite name="AlsaMixerFullySpeced" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.046" timestamp="2023-10-26T11:40:04.801">
+    <testcase name="CheckControlCounts" file="cras/src/tests/alsa_mixer_unittest.cc" line="1522" status="run" result="completed" time="0.016" timestamp="2023-10-26T11:40:04.801" classname="AlsaMixerFullySpeced" />
+    <testcase name="CheckFindOutputByNameNoMatch" file="cras/src/tests/alsa_mixer_unittest.cc" line="1532" status="run" result="completed" time="0.014" timestamp="2023-10-26T11:40:04.826" classname="AlsaMixerFullySpeced" />
+    <testcase name="CheckFindOutputByName" file="cras/src/tests/alsa_mixer_unittest.cc" line="1539" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:04.841" classname="AlsaMixerFullySpeced" />
+    <testcase name="CheckFindControlForSection" file="cras/src/tests/alsa_mixer_unittest.cc" line="1546" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:04.843" classname="AlsaMixerFullySpeced" />
   </testsuite>
 </testsuites>

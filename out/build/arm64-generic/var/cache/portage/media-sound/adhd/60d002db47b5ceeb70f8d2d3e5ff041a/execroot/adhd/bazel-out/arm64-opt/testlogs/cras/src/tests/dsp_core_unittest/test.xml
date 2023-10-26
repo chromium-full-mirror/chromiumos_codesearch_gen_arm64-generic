@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="8" failures="0" disabled="0" errors="0" time="4.768" timestamp="2023-10-26T00:28:25.257" name="AllTests">
-  <testsuite name="QuadRotationTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2023-10-26T00:28:25.265">
-    <testcase name="QuadRotationRotate90" file="cras/src/tests/dsp_core_unittest.cc" line="41" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:28:25.265" classname="QuadRotationTest" />
-    <testcase name="QuadRotationSwap" file="cras/src/tests/dsp_core_unittest.cc" line="75" status="run" result="completed" time="0." timestamp="2023-10-26T00:28:25.269" classname="QuadRotationTest" />
+<testsuites tests="8" failures="0" disabled="0" errors="0" time="3.012" timestamp="2023-10-26T11:39:47.108" name="AllTests">
+  <testsuite name="QuadRotationTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2023-10-26T11:39:47.115">
+    <testcase name="QuadRotationRotate90" file="cras/src/tests/dsp_core_unittest.cc" line="41" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:39:47.115" classname="QuadRotationTest" />
+    <testcase name="QuadRotationSwap" file="cras/src/tests/dsp_core_unittest.cc" line="75" status="run" result="completed" time="0." timestamp="2023-10-26T11:39:47.118" classname="QuadRotationTest" />
   </testsuite>
-  <testsuite name="InterleaveTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2023-10-26T00:28:25.271">
-    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="109" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:28:25.271" classname="InterleaveTest" />
+  <testsuite name="InterleaveTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2023-10-26T11:39:47.120">
+    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="109" status="run" result="completed" time="0.001" timestamp="2023-10-26T11:39:47.120" classname="InterleaveTest" />
   </testsuite>
-  <testsuite name="EqTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.801" timestamp="2023-10-26T00:28:25.273">
-    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="168" status="run" result="completed" time="0.801" timestamp="2023-10-26T00:28:25.273" classname="EqTest" />
+  <testsuite name="EqTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.574" timestamp="2023-10-26T11:39:47.121">
+    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="168" status="run" result="completed" time="0.574" timestamp="2023-10-26T11:39:47.121" classname="EqTest" />
   </testsuite>
-  <testsuite name="Eq2Test" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.839" timestamp="2023-10-26T00:28:26.075">
-    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="233" status="run" result="completed" time="0.822" timestamp="2023-10-26T00:28:26.091" classname="Eq2Test" />
+  <testsuite name="Eq2Test" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.554" timestamp="2023-10-26T11:39:47.697">
+    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="233" status="run" result="completed" time="0.553" timestamp="2023-10-26T11:39:47.697" classname="Eq2Test" />
   </testsuite>
-  <testsuite name="CrossoverTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.776" timestamp="2023-10-26T00:28:26.914">
-    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="302" status="run" result="completed" time="0.776" timestamp="2023-10-26T00:28:26.914" classname="CrossoverTest" />
+  <testsuite name="CrossoverTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.521" timestamp="2023-10-26T11:39:48.251">
+    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="302" status="run" result="completed" time="0.519" timestamp="2023-10-26T11:39:48.251" classname="CrossoverTest" />
   </testsuite>
-  <testsuite name="Crossover2Test" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="1.36" timestamp="2023-10-26T00:28:27.691">
-    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="347" status="run" result="completed" time="1.359" timestamp="2023-10-26T00:28:27.691" classname="Crossover2Test" />
+  <testsuite name="Crossover2Test" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.863" timestamp="2023-10-26T11:39:48.773">
+    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="347" status="run" result="completed" time="0.863" timestamp="2023-10-26T11:39:48.773" classname="Crossover2Test" />
   </testsuite>
-  <testsuite name="DrcTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.958" timestamp="2023-10-26T00:28:29.067">
-    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="419" status="run" result="completed" time="0.957" timestamp="2023-10-26T00:28:29.067" classname="DrcTest" />
+  <testsuite name="DrcTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.483" timestamp="2023-10-26T11:39:49.637">
+    <testcase name="All" file="cras/src/tests/dsp_core_unittest.cc" line="419" status="run" result="completed" time="0.483" timestamp="2023-10-26T11:39:49.637" classname="DrcTest" />
   </testsuite>
 </testsuites>

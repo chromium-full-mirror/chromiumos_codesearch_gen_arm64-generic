@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/cups",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/net-print/cups-2.4.7-r304/work/cups-release-2.4.7"
-    }
-  ]
-}

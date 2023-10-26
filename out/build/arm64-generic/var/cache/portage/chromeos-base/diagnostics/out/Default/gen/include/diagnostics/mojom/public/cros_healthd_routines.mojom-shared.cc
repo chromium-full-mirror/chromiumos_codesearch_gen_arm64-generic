@@ -297,10 +297,20 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kVolumeButton: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_volume_button, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
+        return false;
+      return true;
+    }
     case RoutineArgument_Tag::kAudioDriver: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_audio_driver, 3, validation_context)) {
+              object->data.f_audio_driver, 4, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
@@ -310,7 +320,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kCpuStress: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_stress, 4, validation_context)) {
+              object->data.f_cpu_stress, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
@@ -320,7 +330,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kUfsLifetime: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_ufs_lifetime, 5, validation_context)) {
+              object->data.f_ufs_lifetime, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
@@ -330,7 +340,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kDiskRead: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_disk_read, 6, validation_context)) {
+              object->data.f_disk_read, 7, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
@@ -340,7 +350,7 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kCpuCache: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_cache, 7, validation_context)) {
+              object->data.f_cpu_cache, 8, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
@@ -350,20 +360,10 @@ bool RoutineArgument_Data::Validate(
     case RoutineArgument_Tag::kPrimeSearch: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_prime_search, 8, validation_context)) {
+              object->data.f_prime_search, 9, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineArgument_Tag::kVolumeButton: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_volume_button, 9, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
         return false;
       return true;
     }
@@ -555,10 +555,20 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kVolumeButton: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_volume_button, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
+        return false;
+      return true;
+    }
     case RoutineDetail_Tag::kAudioDriver: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_audio_driver, 3, validation_context)) {
+              object->data.f_audio_driver, 4, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
@@ -568,7 +578,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kCpuStress: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_stress, 4, validation_context)) {
+              object->data.f_cpu_stress, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
@@ -578,7 +588,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kUfsLifetime: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_ufs_lifetime, 5, validation_context)) {
+              object->data.f_ufs_lifetime, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
@@ -588,7 +598,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kDiskRead: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_disk_read, 6, validation_context)) {
+              object->data.f_disk_read, 7, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
@@ -598,7 +608,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kCpuCache: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_cache, 7, validation_context)) {
+              object->data.f_cpu_cache, 8, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
@@ -608,20 +618,10 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kPrimeSearch: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_prime_search, 8, validation_context)) {
+              object->data.f_prime_search, 9, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
-        return false;
-      return true;
-    }
-    case RoutineDetail_Tag::kVolumeButton: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_volume_button, 9, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
         return false;
       return true;
     }
@@ -687,11 +687,7 @@ bool RoutineDetail_Data::Validate(
     }
     default: {
 
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in RoutineDetail");
-      return false;
+      return true;
     }
   }
 }

@@ -3320,6 +3320,14 @@ class  RoutineArgument {
     result->set_memory(std::move(memory));
     return result;
   }
+  // Construct an instance holding |volume_button|.
+  static RoutineArgumentPtr
+  NewVolumeButton(
+      VolumeButtonRoutineArgumentPtr volume_button) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_volume_button(std::move(volume_button));
+    return result;
+  }
   // Construct an instance holding |audio_driver|.
   static RoutineArgumentPtr
   NewAudioDriver(
@@ -3366,14 +3374,6 @@ class  RoutineArgument {
       PrimeSearchRoutineArgumentPtr prime_search) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_prime_search(std::move(prime_search));
-    return result;
-  }
-  // Construct an instance holding |volume_button|.
-  static RoutineArgumentPtr
-  NewVolumeButton(
-      VolumeButtonRoutineArgumentPtr volume_button) {
-    auto result = RoutineArgumentPtr(absl::in_place);
-    result->set_volume_button(std::move(volume_button));
     return result;
   }
   // Construct an instance holding |led_lit_up|.
@@ -3491,6 +3491,18 @@ class  RoutineArgument {
   void set_memory(
       MemoryRoutineArgumentPtr memory);
   
+  bool is_volume_button() const { return tag_ == Tag::kVolumeButton; }
+
+  
+  VolumeButtonRoutineArgumentPtr& get_volume_button() const {
+    CHECK(tag_ == Tag::kVolumeButton);
+    return *(data_.volume_button);
+  }
+
+  
+  void set_volume_button(
+      VolumeButtonRoutineArgumentPtr volume_button);
+  
   bool is_audio_driver() const { return tag_ == Tag::kAudioDriver; }
 
   
@@ -3562,18 +3574,6 @@ class  RoutineArgument {
   
   void set_prime_search(
       PrimeSearchRoutineArgumentPtr prime_search);
-  
-  bool is_volume_button() const { return tag_ == Tag::kVolumeButton; }
-
-  
-  VolumeButtonRoutineArgumentPtr& get_volume_button() const {
-    CHECK(tag_ == Tag::kVolumeButton);
-    return *(data_.volume_button);
-  }
-
-  
-  void set_volume_button(
-      VolumeButtonRoutineArgumentPtr volume_button);
   
   bool is_led_lit_up() const { return tag_ == Tag::kLedLitUp; }
 
@@ -3666,13 +3666,13 @@ class  RoutineArgument {
     ~Union_() = default;
     bool unrecognizedArgument;
     MemoryRoutineArgumentPtr* memory;
+    VolumeButtonRoutineArgumentPtr* volume_button;
     AudioDriverRoutineArgumentPtr* audio_driver;
     CpuStressRoutineArgumentPtr* cpu_stress;
     UfsLifetimeRoutineArgumentPtr* ufs_lifetime;
     DiskReadRoutineArgumentPtr* disk_read;
     CpuCacheRoutineArgumentPtr* cpu_cache;
     PrimeSearchRoutineArgumentPtr* prime_search;
-    VolumeButtonRoutineArgumentPtr* volume_button;
     LedLitUpRoutineArgumentPtr* led_lit_up;
     FloatingPointRoutineArgumentPtr* floating_point;
     BluetoothPowerRoutineArgumentPtr* bluetooth_power;
@@ -3916,6 +3916,14 @@ class  RoutineDetail {
     result->set_memory(std::move(memory));
     return result;
   }
+  // Construct an instance holding |volume_button|.
+  static RoutineDetailPtr
+  NewVolumeButton(
+      VolumeButtonRoutineDetailPtr volume_button) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_volume_button(std::move(volume_button));
+    return result;
+  }
   // Construct an instance holding |audio_driver|.
   static RoutineDetailPtr
   NewAudioDriver(
@@ -3962,14 +3970,6 @@ class  RoutineDetail {
       PrimeSearchRoutineDetailPtr prime_search) {
     auto result = RoutineDetailPtr(absl::in_place);
     result->set_prime_search(std::move(prime_search));
-    return result;
-  }
-  // Construct an instance holding |volume_button|.
-  static RoutineDetailPtr
-  NewVolumeButton(
-      VolumeButtonRoutineDetailPtr volume_button) {
-    auto result = RoutineDetailPtr(absl::in_place);
-    result->set_volume_button(std::move(volume_button));
     return result;
   }
   // Construct an instance holding |led_lit_up|.
@@ -4087,6 +4087,18 @@ class  RoutineDetail {
   void set_memory(
       MemoryRoutineDetailPtr memory);
   
+  bool is_volume_button() const { return tag_ == Tag::kVolumeButton; }
+
+  
+  VolumeButtonRoutineDetailPtr& get_volume_button() const {
+    CHECK(tag_ == Tag::kVolumeButton);
+    return *(data_.volume_button);
+  }
+
+  
+  void set_volume_button(
+      VolumeButtonRoutineDetailPtr volume_button);
+  
   bool is_audio_driver() const { return tag_ == Tag::kAudioDriver; }
 
   
@@ -4158,18 +4170,6 @@ class  RoutineDetail {
   
   void set_prime_search(
       PrimeSearchRoutineDetailPtr prime_search);
-  
-  bool is_volume_button() const { return tag_ == Tag::kVolumeButton; }
-
-  
-  VolumeButtonRoutineDetailPtr& get_volume_button() const {
-    CHECK(tag_ == Tag::kVolumeButton);
-    return *(data_.volume_button);
-  }
-
-  
-  void set_volume_button(
-      VolumeButtonRoutineDetailPtr volume_button);
   
   bool is_led_lit_up() const { return tag_ == Tag::kLedLitUp; }
 
@@ -4262,13 +4262,13 @@ class  RoutineDetail {
     ~Union_() = default;
     bool unrecognizedArgument;
     MemoryRoutineDetailPtr* memory;
+    VolumeButtonRoutineDetailPtr* volume_button;
     AudioDriverRoutineDetailPtr* audio_driver;
     CpuStressRoutineDetailPtr* cpu_stress;
     UfsLifetimeRoutineDetailPtr* ufs_lifetime;
     DiskReadRoutineDetailPtr* disk_read;
     CpuCacheRoutineDetailPtr* cpu_cache;
     PrimeSearchRoutineDetailPtr* prime_search;
-    VolumeButtonRoutineDetailPtr* volume_button;
     LedLitUpRoutineDetailPtr* led_lit_up;
     FloatingPointRoutineDetailPtr* floating_point;
     BluetoothPowerRoutineDetailPtr* bluetooth_power;
@@ -6749,6 +6749,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
+    case Tag::kVolumeButton:
+      return NewVolumeButton(
+          mojo::Clone(*data_.volume_button));
     case Tag::kAudioDriver:
       return NewAudioDriver(
           mojo::Clone(*data_.audio_driver));
@@ -6767,9 +6770,6 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kPrimeSearch:
       return NewPrimeSearch(
           mojo::Clone(*data_.prime_search));
-    case Tag::kVolumeButton:
-      return NewVolumeButton(
-          mojo::Clone(*data_.volume_button));
     case Tag::kLedLitUp:
       return NewLedLitUp(
           mojo::Clone(*data_.led_lit_up));
@@ -6804,6 +6804,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
+    case Tag::kVolumeButton:
+      return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
     case Tag::kAudioDriver:
       return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
     case Tag::kCpuStress:
@@ -6816,8 +6818,6 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.cpu_cache), *(other.data_.cpu_cache));
     case Tag::kPrimeSearch:
       return mojo::Equals(*(data_.prime_search), *(other.data_.prime_search));
-    case Tag::kVolumeButton:
-      return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
     case Tag::kLedLitUp:
       return mojo::Equals(*(data_.led_lit_up), *(other.data_.led_lit_up));
     case Tag::kFloatingPoint:
@@ -6887,6 +6887,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
+    case Tag::kVolumeButton:
+      return NewVolumeButton(
+          mojo::Clone(*data_.volume_button));
     case Tag::kAudioDriver:
       return NewAudioDriver(
           mojo::Clone(*data_.audio_driver));
@@ -6905,9 +6908,6 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kPrimeSearch:
       return NewPrimeSearch(
           mojo::Clone(*data_.prime_search));
-    case Tag::kVolumeButton:
-      return NewVolumeButton(
-          mojo::Clone(*data_.volume_button));
     case Tag::kLedLitUp:
       return NewLedLitUp(
           mojo::Clone(*data_.led_lit_up));
@@ -6942,6 +6942,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
+    case Tag::kVolumeButton:
+      return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
     case Tag::kAudioDriver:
       return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
     case Tag::kCpuStress:
@@ -6954,8 +6956,6 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.cpu_cache), *(other.data_.cpu_cache));
     case Tag::kPrimeSearch:
       return mojo::Equals(*(data_.prime_search), *(other.data_.prime_search));
-    case Tag::kVolumeButton:
-      return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
     case Tag::kLedLitUp:
       return mojo::Equals(*(data_.led_lit_up), *(other.data_.led_lit_up));
     case Tag::kFloatingPoint:
@@ -8450,6 +8450,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
     return input->get_memory();
   }
 
+  static const ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr& volume_button(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_volume_button();
+  }
+
   static const ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr& audio_driver(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_audio_driver();
   }
@@ -8472,10 +8476,6 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr& prime_search(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_prime_search();
-  }
-
-  static const ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr& volume_button(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
-    return input->get_volume_button();
   }
 
   static  ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& led_lit_up( ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
@@ -8558,6 +8558,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
     return input->get_memory();
   }
 
+  static const ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr& volume_button(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_volume_button();
+  }
+
   static const ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr& audio_driver(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_audio_driver();
   }
@@ -8580,10 +8584,6 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr& prime_search(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_prime_search();
-  }
-
-  static const ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr& volume_button(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
-    return input->get_volume_button();
   }
 
   static const ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr& led_lit_up(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {

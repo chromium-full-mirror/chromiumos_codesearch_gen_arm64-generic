@@ -1232,6 +1232,17 @@ void RoutineArgument::set_memory(
         std::move(memory));
   }
 }
+void RoutineArgument::set_volume_button(
+    VolumeButtonRoutineArgumentPtr volume_button) {
+  if (tag_ == Tag::kVolumeButton) {
+    *(data_.volume_button) = std::move(volume_button);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kVolumeButton;
+    data_.volume_button = new VolumeButtonRoutineArgumentPtr(
+        std::move(volume_button));
+  }
+}
 void RoutineArgument::set_audio_driver(
     AudioDriverRoutineArgumentPtr audio_driver) {
   if (tag_ == Tag::kAudioDriver) {
@@ -1296,17 +1307,6 @@ void RoutineArgument::set_prime_search(
     tag_ = Tag::kPrimeSearch;
     data_.prime_search = new PrimeSearchRoutineArgumentPtr(
         std::move(prime_search));
-  }
-}
-void RoutineArgument::set_volume_button(
-    VolumeButtonRoutineArgumentPtr volume_button) {
-  if (tag_ == Tag::kVolumeButton) {
-    *(data_.volume_button) = std::move(volume_button);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kVolumeButton;
-    data_.volume_button = new VolumeButtonRoutineArgumentPtr(
-        std::move(volume_button));
   }
 }
 void RoutineArgument::set_led_lit_up(
@@ -1386,6 +1386,10 @@ void RoutineArgument::DestroyActive() {
 
       delete data_.memory;
       break;
+    case Tag::kVolumeButton:
+
+      delete data_.volume_button;
+      break;
     case Tag::kAudioDriver:
 
       delete data_.audio_driver;
@@ -1409,10 +1413,6 @@ void RoutineArgument::DestroyActive() {
     case Tag::kPrimeSearch:
 
       delete data_.prime_search;
-      break;
-    case Tag::kVolumeButton:
-
-      delete data_.volume_button;
       break;
     case Tag::kLedLitUp:
 
@@ -1566,6 +1566,17 @@ void RoutineDetail::set_memory(
         std::move(memory));
   }
 }
+void RoutineDetail::set_volume_button(
+    VolumeButtonRoutineDetailPtr volume_button) {
+  if (tag_ == Tag::kVolumeButton) {
+    *(data_.volume_button) = std::move(volume_button);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kVolumeButton;
+    data_.volume_button = new VolumeButtonRoutineDetailPtr(
+        std::move(volume_button));
+  }
+}
 void RoutineDetail::set_audio_driver(
     AudioDriverRoutineDetailPtr audio_driver) {
   if (tag_ == Tag::kAudioDriver) {
@@ -1630,17 +1641,6 @@ void RoutineDetail::set_prime_search(
     tag_ = Tag::kPrimeSearch;
     data_.prime_search = new PrimeSearchRoutineDetailPtr(
         std::move(prime_search));
-  }
-}
-void RoutineDetail::set_volume_button(
-    VolumeButtonRoutineDetailPtr volume_button) {
-  if (tag_ == Tag::kVolumeButton) {
-    *(data_.volume_button) = std::move(volume_button);
-  } else {
-    DestroyActive();
-    tag_ = Tag::kVolumeButton;
-    data_.volume_button = new VolumeButtonRoutineDetailPtr(
-        std::move(volume_button));
   }
 }
 void RoutineDetail::set_led_lit_up(
@@ -1720,6 +1720,10 @@ void RoutineDetail::DestroyActive() {
 
       delete data_.memory;
       break;
+    case Tag::kVolumeButton:
+
+      delete data_.volume_button;
+      break;
     case Tag::kAudioDriver:
 
       delete data_.audio_driver;
@@ -1743,10 +1747,6 @@ void RoutineDetail::DestroyActive() {
     case Tag::kPrimeSearch:
 
       delete data_.prime_search;
-      break;
-    case Tag::kVolumeButton:
-
-      delete data_.volume_button;
       break;
     case Tag::kLedLitUp:
 
@@ -3617,6 +3617,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
           std::move(result_memory));
       break;
     }
+    case Tag::kVolumeButton: {
+      ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr result_volume_button;
+      if (!input.ReadVolumeButton(&result_volume_button))
+        return false;
+
+      *output = UnionType::NewVolumeButton(
+          std::move(result_volume_button));
+      break;
+    }
     case Tag::kAudioDriver: {
       ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr result_audio_driver;
       if (!input.ReadAudioDriver(&result_audio_driver))
@@ -3669,15 +3678,6 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewPrimeSearch(
           std::move(result_prime_search));
-      break;
-    }
-    case Tag::kVolumeButton: {
-      ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr result_volume_button;
-      if (!input.ReadVolumeButton(&result_volume_button))
-        return false;
-
-      *output = UnionType::NewVolumeButton(
-          std::move(result_volume_button));
       break;
     }
     case Tag::kLedLitUp: {
@@ -3818,6 +3818,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
           std::move(result_memory));
       break;
     }
+    case Tag::kVolumeButton: {
+      ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result_volume_button;
+      if (!input.ReadVolumeButton(&result_volume_button))
+        return false;
+
+      *output = UnionType::NewVolumeButton(
+          std::move(result_volume_button));
+      break;
+    }
     case Tag::kAudioDriver: {
       ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr result_audio_driver;
       if (!input.ReadAudioDriver(&result_audio_driver))
@@ -3870,15 +3879,6 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewPrimeSearch(
           std::move(result_prime_search));
-      break;
-    }
-    case Tag::kVolumeButton: {
-      ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result_volume_button;
-      if (!input.ReadVolumeButton(&result_volume_button))
-        return false;
-
-      *output = UnionType::NewVolumeButton(
-          std::move(result_volume_button));
       break;
     }
     case Tag::kLedLitUp: {
@@ -3937,7 +3937,8 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
     }
     default:
 
-      return false;
+      *output = UnionType::NewUnrecognizedArgument({});
+      return true;
   }
   return true;
 }

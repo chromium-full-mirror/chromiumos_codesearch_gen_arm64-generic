@@ -1,105 +1,105 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -Igen/bt/system/gd/packet/parser
+include_dirs = -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -Igen/bt/system/gd/packet/parser
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fPIC
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -std=c++17 -Wno-inconsistent-missing-override -Wno-implicit-fallthrough -Wno-poison-system-directories -Wno-unknown-warning-option
 root_out_dir = .
 target_output_name = bluetooth_packetgen
 
 build obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp: stamp obj/bt/system/gd/packet/parser/pktlexer_gen.stamp obj/bt/system/gd/packet/parser/pktparser_gen.stamp
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.checksum_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/checksum_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.checksum_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/checksum_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = checksum_def.cc
   source_name_part = checksum_def
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.custom_field_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/custom_field_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.custom_field_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/custom_field_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = custom_field_def.cc
   source_name_part = custom_field_def
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.enum_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/enum_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.enum_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/enum_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = enum_def.cc
   source_name_part = enum_def
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.enum_gen.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/enum_gen.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.enum_gen.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/enum_gen.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = enum_gen.cc
   source_name_part = enum_gen
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.array_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/array_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.array_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/array_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = array_field.cc
   source_name_part = array_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.body_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/body_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.body_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/body_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = body_field.cc
   source_name_part = body_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.checksum_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/checksum_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.checksum_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/checksum_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = checksum_field.cc
   source_name_part = checksum_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.checksum_start_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/checksum_start_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.checksum_start_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/checksum_start_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = checksum_start_field.cc
   source_name_part = checksum_start_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.count_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/count_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.count_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/count_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = count_field.cc
   source_name_part = count_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.custom_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/custom_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.custom_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/custom_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = custom_field.cc
   source_name_part = custom_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.custom_field_fixed_size.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/custom_field_fixed_size.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.custom_field_fixed_size.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/custom_field_fixed_size.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = custom_field_fixed_size.cc
   source_name_part = custom_field_fixed_size
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.enum_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/enum_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.enum_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/enum_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = enum_field.cc
   source_name_part = enum_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.fixed_enum_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/fixed_enum_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.fixed_enum_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/fixed_enum_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = fixed_enum_field.cc
   source_name_part = fixed_enum_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.fixed_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/fixed_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.fixed_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/fixed_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = fixed_field.cc
   source_name_part = fixed_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.fixed_scalar_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/fixed_scalar_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.fixed_scalar_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/fixed_scalar_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = fixed_scalar_field.cc
   source_name_part = fixed_scalar_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.group_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/group_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.group_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/group_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = group_field.cc
   source_name_part = group_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.packet_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/packet_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.packet_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/packet_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = packet_field.cc
   source_name_part = packet_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.padding_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/padding_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.padding_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/padding_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = padding_field.cc
   source_name_part = padding_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.payload_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/payload_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.payload_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/payload_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = payload_field.cc
   source_name_part = payload_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.reserved_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/reserved_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.reserved_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/reserved_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = reserved_field.cc
   source_name_part = reserved_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.scalar_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/scalar_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.scalar_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/scalar_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = scalar_field.cc
   source_name_part = scalar_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.size_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/size_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.size_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/size_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = size_field.cc
   source_name_part = size_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.struct_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/struct_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.struct_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/struct_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = struct_field.cc
   source_name_part = struct_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.variable_length_struct_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/variable_length_struct_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.variable_length_struct_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/variable_length_struct_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = variable_length_struct_field.cc
   source_name_part = variable_length_struct_field
-build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.vector_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/vector_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/fields/bluetooth_packetgen.vector_field.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/fields/vector_field.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = vector_field.cc
   source_name_part = vector_field
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.gen_cpp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/gen_cpp.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.gen_cpp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/gen_cpp.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = gen_cpp.cc
   source_name_part = gen_cpp
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/main.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.main.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/main.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = main.cc
   source_name_part = main
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.packet_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/packet_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.packet_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/packet_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = packet_def.cc
   source_name_part = packet_def
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.packet_dependency.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/packet_dependency.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.packet_dependency.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/packet_dependency.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = packet_dependency.cc
   source_name_part = packet_dependency
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.parent_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/parent_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.parent_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/parent_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = parent_def.cc
   source_name_part = parent_def
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.struct_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/struct_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.struct_def.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/struct_def.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = struct_def.cc
   source_name_part = struct_def
-build obj/bt/system/gd/packet/parser/bluetooth_packetgen.struct_parser_generator.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4565/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/struct_parser_generator.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
+build obj/bt/system/gd/packet/parser/bluetooth_packetgen.struct_parser_generator.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r4569/work/floss-0.0.2/platform2/bt/system/gd/packet/parser/struct_parser_generator.cc || obj/bt/system/gd/packet/parser/bluetooth_packetgen.inputdeps.stamp
   source_file_part = struct_parser_generator.cc
   source_name_part = struct_parser_generator
 

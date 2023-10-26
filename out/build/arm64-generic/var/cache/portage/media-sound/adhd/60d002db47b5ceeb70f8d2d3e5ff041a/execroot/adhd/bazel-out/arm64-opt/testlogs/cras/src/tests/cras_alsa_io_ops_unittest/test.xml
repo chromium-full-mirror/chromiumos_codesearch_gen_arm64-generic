@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="7" failures="0" disabled="0" errors="0" time="0.01" timestamp="2023-10-26T00:29:30.456" name="AllTests">
-  <testsuite name="AlsaIodevOps" tests="7" failures="0" disabled="0" skipped="0" errors="0" time="0.003" timestamp="2023-10-26T00:29:30.462">
-    <testcase name="Create" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="85" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:29:30.462" classname="AlsaIodevOps" />
-    <testcase name="LegacyCompleteInit" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="104" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:30.464" classname="AlsaIodevOps" />
-    <testcase name="UcmAddNodesAndJacks" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="122" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:30.465" classname="AlsaIodevOps" />
-    <testcase name="UcmCompleteInit" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="140" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:30.465" classname="AlsaIodevOps" />
-    <testcase name="Destroy" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="154" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:30.465" classname="AlsaIodevOps" />
-    <testcase name="HasHctlJacks" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="167" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:30.465" classname="AlsaIodevOps" />
-    <testcase name="Index" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="182" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:30.466" classname="AlsaIodevOps" />
+<testsuites tests="7" failures="0" disabled="0" errors="0" time="0.03" timestamp="2023-10-26T11:40:15.495" name="AllTests">
+  <testsuite name="AlsaIodevOps" tests="7" failures="0" disabled="0" skipped="0" errors="0" time="0.01" timestamp="2023-10-26T11:40:15.513">
+    <testcase name="Create" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="85" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:15.514" classname="AlsaIodevOps" />
+    <testcase name="LegacyCompleteInit" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="104" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:15.519" classname="AlsaIodevOps" />
+    <testcase name="UcmAddNodesAndJacks" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="122" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:15.520" classname="AlsaIodevOps" />
+    <testcase name="UcmCompleteInit" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="140" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:15.521" classname="AlsaIodevOps" />
+    <testcase name="Destroy" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="154" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:15.521" classname="AlsaIodevOps" />
+    <testcase name="HasHctlJacks" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="167" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:15.522" classname="AlsaIodevOps" />
+    <testcase name="Index" file="cras/src/tests/cras_alsa_io_ops_unittest.cc" line="182" status="run" result="completed" time="0." timestamp="2023-10-26T11:40:15.523" classname="AlsaIodevOps" />
   </testsuite>
 </testsuites>

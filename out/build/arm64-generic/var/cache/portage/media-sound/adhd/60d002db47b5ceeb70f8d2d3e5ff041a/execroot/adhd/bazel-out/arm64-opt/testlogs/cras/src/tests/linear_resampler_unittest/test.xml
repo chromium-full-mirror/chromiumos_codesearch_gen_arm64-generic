@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="5" failures="0" disabled="0" errors="0" time="0.01" timestamp="2023-10-26T00:25:29.729" name="AllTests">
-  <testsuite name="LinearResampler" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2023-10-26T00:25:29.734">
-    <testcase name="ReampleToSlightlyLargerRate" file="cras/src/tests/linear_resampler_unittest.cc" line="17" status="run" result="completed" time="0.002" timestamp="2023-10-26T00:25:29.734" classname="LinearResampler" />
-    <testcase name="ResampleIntegerFractionToLarger" file="cras/src/tests/linear_resampler_unittest.cc" line="55" status="run" result="completed" time="0." timestamp="2023-10-26T00:25:29.737" classname="LinearResampler" />
-    <testcase name="ResampleIntegerFractionToLess" file="cras/src/tests/linear_resampler_unittest.cc" line="105" status="run" result="completed" time="0." timestamp="2023-10-26T00:25:29.738" classname="LinearResampler" />
-    <testcase name="ResampleIntegerNoSrcBuffer" file="cras/src/tests/linear_resampler_unittest.cc" line="153" status="run" result="completed" time="0." timestamp="2023-10-26T00:25:29.738" classname="LinearResampler" />
-    <testcase name="ResampleIntegerNoDstBuffer" file="cras/src/tests/linear_resampler_unittest.cc" line="171" status="run" result="completed" time="0." timestamp="2023-10-26T00:25:29.739" classname="LinearResampler" />
+<testsuites tests="5" failures="0" disabled="0" errors="0" time="0.04" timestamp="2023-10-26T11:38:45.819" name="AllTests">
+  <testsuite name="LinearResampler" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0.02" timestamp="2023-10-26T11:38:45.838">
+    <testcase name="ReampleToSlightlyLargerRate" file="cras/src/tests/linear_resampler_unittest.cc" line="17" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:38:45.839" classname="LinearResampler" />
+    <testcase name="ResampleIntegerFractionToLarger" file="cras/src/tests/linear_resampler_unittest.cc" line="55" status="run" result="completed" time="0." timestamp="2023-10-26T11:38:45.843" classname="LinearResampler" />
+    <testcase name="ResampleIntegerFractionToLess" file="cras/src/tests/linear_resampler_unittest.cc" line="105" status="run" result="completed" time="0." timestamp="2023-10-26T11:38:45.844" classname="LinearResampler" />
+    <testcase name="ResampleIntegerNoSrcBuffer" file="cras/src/tests/linear_resampler_unittest.cc" line="153" status="run" result="completed" time="0." timestamp="2023-10-26T11:38:45.858" classname="LinearResampler" />
+    <testcase name="ResampleIntegerNoDstBuffer" file="cras/src/tests/linear_resampler_unittest.cc" line="171" status="run" result="completed" time="0." timestamp="2023-10-26T11:38:45.859" classname="LinearResampler" />
   </testsuite>
 </testsuites>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.032" timestamp="2023-10-26T00:28:45.118" name="AllTests">
-  <testsuite name="FRA" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.005" timestamp="2023-10-26T00:28:45.125">
-    <testcase name="Fralog" file="cras/src/server/rust/cras_fra_test.cc" line="11" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:28:45.125" classname="FRA" />
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.011" timestamp="2023-10-26T11:37:01.534" name="AllTests">
+  <testsuite name="FRA" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2023-10-26T11:37:01.541">
+    <testcase name="Fralog" file="cras/src/server/rust/cras_fra_test.cc" line="11" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:37:01.541" classname="FRA" />
   </testsuite>
 </testsuites>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.038" timestamp="2023-10-26T00:26:25.539" name="AllTests">
-  <testsuite name="DspTestSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.03" timestamp="2023-10-26T00:26:25.547">
-    <testcase name="Simple" file="cras/src/tests/dsp_unittest.cc" line="44" status="run" result="completed" time="0.029" timestamp="2023-10-26T00:26:25.548" classname="DspTestSuite" />
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="0.108" timestamp="2023-10-26T11:38:42.299" name="AllTests">
+  <testsuite name="DspTestSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.101" timestamp="2023-10-26T11:38:42.305">
+    <testcase name="Simple" file="cras/src/tests/dsp_unittest.cc" line="44" status="run" result="completed" time="0.085" timestamp="2023-10-26T11:38:42.305" classname="DspTestSuite" />
   </testsuite>
 </testsuites>

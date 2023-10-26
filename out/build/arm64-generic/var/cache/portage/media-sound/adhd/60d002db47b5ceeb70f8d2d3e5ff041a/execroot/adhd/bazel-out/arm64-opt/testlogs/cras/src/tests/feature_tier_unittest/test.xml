@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="3" failures="0" disabled="0" errors="0" time="0.015" timestamp="2023-10-26T00:30:08.958" name="AllTests">
-  <testsuite name="FeatureTierTest" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.006" timestamp="2023-10-26T00:30:08.966">
-    <testcase name="EveI7" file="cras/src/tests/feature_tier_unittest.cc" line="11" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:30:08.967" classname="FeatureTierTest" />
-    <testcase name="RandomCeleron" file="cras/src/tests/feature_tier_unittest.cc" line="18" status="run" result="completed" time="0." timestamp="2023-10-26T00:30:08.972" classname="FeatureTierTest" />
-    <testcase name="NullString" file="cras/src/tests/feature_tier_unittest.cc" line="24" status="run" result="completed" time="0." timestamp="2023-10-26T00:30:08.972" classname="FeatureTierTest" />
+<testsuites tests="3" failures="0" disabled="0" errors="0" time="0.024" timestamp="2023-10-26T11:38:38.696" name="AllTests">
+  <testsuite name="FeatureTierTest" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.005" timestamp="2023-10-26T11:38:38.714">
+    <testcase name="EveI7" file="cras/src/tests/feature_tier_unittest.cc" line="11" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:38:38.715" classname="FeatureTierTest" />
+    <testcase name="RandomCeleron" file="cras/src/tests/feature_tier_unittest.cc" line="18" status="run" result="completed" time="0." timestamp="2023-10-26T11:38:38.719" classname="FeatureTierTest" />
+    <testcase name="NullString" file="cras/src/tests/feature_tier_unittest.cc" line="24" status="run" result="completed" time="0." timestamp="2023-10-26T11:38:38.720" classname="FeatureTierTest" />
   </testsuite>
 </testsuites>

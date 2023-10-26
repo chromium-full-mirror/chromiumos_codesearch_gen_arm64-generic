@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.19" timestamp="2023-10-26T00:25:19.253" name="AllTests">
-  <testsuite name="CrasCheck" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.182" timestamp="2023-10-26T00:25:19.261">
-    <testcase name="Pass" file="cras/base/check_test.cc" line="8" status="run" result="completed" time="0.001" timestamp="2023-10-26T00:25:19.261" classname="CrasCheck" />
-    <testcase name="Fail" file="cras/base/check_test.cc" line="12" status="run" result="completed" time="0.179" timestamp="2023-10-26T00:25:19.264" classname="CrasCheck" />
+<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.263" timestamp="2023-10-26T11:39:04.978" name="AllTests">
+  <testsuite name="CrasCheck" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.256" timestamp="2023-10-26T11:39:04.985">
+    <testcase name="Pass" file="cras/base/check_test.cc" line="8" status="run" result="completed" time="0.001" timestamp="2023-10-26T11:39:04.986" classname="CrasCheck" />
+    <testcase name="Fail" file="cras/base/check_test.cc" line="12" status="run" result="completed" time="0.252" timestamp="2023-10-26T11:39:04.988" classname="CrasCheck" />
   </testsuite>
 </testsuites>

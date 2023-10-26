@@ -303,6 +303,8 @@ class  RoutineArgument_Data {
     
     kMemory,
     
+    kVolumeButton,
+    
     kAudioDriver,
     
     kCpuStress,
@@ -314,8 +316,6 @@ class  RoutineArgument_Data {
     kCpuCache,
     
     kPrimeSearch,
-    
-    kVolumeButton,
     
     kLedLitUp,
     
@@ -337,13 +337,13 @@ class  RoutineArgument_Data {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineArgument_Data> f_memory;
+    mojo::internal::Pointer<internal::VolumeButtonRoutineArgument_Data> f_volume_button;
     mojo::internal::Pointer<internal::AudioDriverRoutineArgument_Data> f_audio_driver;
     mojo::internal::Pointer<internal::CpuStressRoutineArgument_Data> f_cpu_stress;
     mojo::internal::Pointer<internal::UfsLifetimeRoutineArgument_Data> f_ufs_lifetime;
     mojo::internal::Pointer<internal::DiskReadRoutineArgument_Data> f_disk_read;
     mojo::internal::Pointer<internal::CpuCacheRoutineArgument_Data> f_cpu_cache;
     mojo::internal::Pointer<internal::PrimeSearchRoutineArgument_Data> f_prime_search;
-    mojo::internal::Pointer<internal::VolumeButtonRoutineArgument_Data> f_volume_button;
     mojo::internal::Pointer<internal::LedLitUpRoutineArgument_Data> f_led_lit_up;
     mojo::internal::Pointer<internal::FloatingPointRoutineArgument_Data> f_floating_point;
     mojo::internal::Pointer<internal::BluetoothPowerRoutineArgument_Data> f_bluetooth_power;
@@ -455,6 +455,8 @@ class  RoutineDetail_Data {
     
     kMemory,
     
+    kVolumeButton,
+    
     kAudioDriver,
     
     kCpuStress,
@@ -466,8 +468,6 @@ class  RoutineDetail_Data {
     kCpuCache,
     
     kPrimeSearch,
-    
-    kVolumeButton,
     
     kLedLitUp,
     
@@ -489,13 +489,13 @@ class  RoutineDetail_Data {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
+    mojo::internal::Pointer<internal::VolumeButtonRoutineDetail_Data> f_volume_button;
     mojo::internal::Pointer<internal::AudioDriverRoutineDetail_Data> f_audio_driver;
     mojo::internal::Pointer<internal::CpuStressRoutineDetail_Data> f_cpu_stress;
     mojo::internal::Pointer<internal::UfsLifetimeRoutineDetail_Data> f_ufs_lifetime;
     mojo::internal::Pointer<internal::DiskReadRoutineDetail_Data> f_disk_read;
     mojo::internal::Pointer<internal::CpuCacheRoutineDetail_Data> f_cpu_cache;
     mojo::internal::Pointer<internal::PrimeSearchRoutineDetail_Data> f_prime_search;
-    mojo::internal::Pointer<internal::VolumeButtonRoutineDetail_Data> f_volume_button;
     mojo::internal::Pointer<internal::LedLitUpRoutineDetail_Data> f_led_lit_up;
     mojo::internal::Pointer<internal::FloatingPointRoutineDetail_Data> f_floating_point;
     mojo::internal::Pointer<internal::BluetoothPowerRoutineDetail_Data> f_bluetooth_power;

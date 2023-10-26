@@ -1743,6 +1743,17 @@ class RoutineArgumentDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView>(
         data_->data.f_memory.Get(), output, message_);
   }
+  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
+  inline void GetVolumeButtonDataView(
+      VolumeButtonRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
+    
+    CHECK(is_volume_button());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView>(
+        data_->data.f_volume_button.Get(), output, message_);
+  }
   bool is_audio_driver() const { return data_->tag == Tag::kAudioDriver; }
   inline void GetAudioDriverDataView(
       AudioDriverRoutineArgumentDataView* output) const;
@@ -1808,17 +1819,6 @@ class RoutineArgumentDataView {
     CHECK(is_prime_search());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView>(
         data_->data.f_prime_search.Get(), output, message_);
-  }
-  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
-  inline void GetVolumeButtonDataView(
-      VolumeButtonRoutineArgumentDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
-    
-    CHECK(is_volume_button());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView>(
-        data_->data.f_volume_button.Get(), output, message_);
   }
   bool is_led_lit_up() const { return data_->tag == Tag::kLedLitUp; }
   inline void GetLedLitUpDataView(
@@ -2003,6 +2003,17 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView>(
         data_->data.f_memory.Get(), output, message_);
   }
+  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
+  inline void GetVolumeButtonDataView(
+      VolumeButtonRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
+    
+    CHECK(is_volume_button());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
+        data_->data.f_volume_button.Get(), output, message_);
+  }
   bool is_audio_driver() const { return data_->tag == Tag::kAudioDriver; }
   inline void GetAudioDriverDataView(
       AudioDriverRoutineDetailDataView* output) const;
@@ -2068,17 +2079,6 @@ class RoutineDetailDataView {
     CHECK(is_prime_search());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView>(
         data_->data.f_prime_search.Get(), output, message_);
-  }
-  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
-  inline void GetVolumeButtonDataView(
-      VolumeButtonRoutineDetailDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
-    
-    CHECK(is_volume_button());
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
-        data_->data.f_volume_button.Get(), output, message_);
   }
   bool is_led_lit_up() const { return data_->tag == Tag::kLedLitUp; }
   inline void GetLedLitUpDataView(
@@ -3722,6 +3722,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kVolumeButton: {
+        decltype(Traits::volume_button(input))
+            in_volume_button = Traits::volume_button(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_volume_button)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView>(
+            in_volume_button, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null volume_button in RoutineArgument union");
+        fragment->data.f_volume_button.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
       case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kAudioDriver: {
         decltype(Traits::audio_driver(input))
             in_audio_driver = Traits::audio_driver(input);
@@ -3815,22 +3831,6 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null prime_search in RoutineArgument union");
         fragment->data.f_prime_search.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kVolumeButton: {
-        decltype(Traits::volume_button(input))
-            in_volume_button = Traits::volume_button(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_volume_button)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView>(
-            in_volume_button, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null volume_button in RoutineArgument union");
-        fragment->data.f_volume_button.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -4104,6 +4104,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kVolumeButton: {
+        decltype(Traits::volume_button(input))
+            in_volume_button = Traits::volume_button(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_volume_button)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
+            in_volume_button, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null volume_button in RoutineDetail union");
+        fragment->data.f_volume_button.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
       case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kAudioDriver: {
         decltype(Traits::audio_driver(input))
             in_audio_driver = Traits::audio_driver(input);
@@ -4197,22 +4213,6 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null prime_search in RoutineDetail union");
         fragment->data.f_prime_search.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kVolumeButton: {
-        decltype(Traits::volume_button(input))
-            in_volume_button = Traits::volume_button(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_volume_button)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
-            in_volume_button, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null volume_button in RoutineDetail union");
-        fragment->data.f_volume_button.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -4527,6 +4527,11 @@ inline void RoutineArgumentDataView::GetMemoryDataView(
   CHECK(is_memory());
   *output = MemoryRoutineArgumentDataView(data_->data.f_memory.Get(), message_);
 }
+inline void RoutineArgumentDataView::GetVolumeButtonDataView(
+    VolumeButtonRoutineArgumentDataView* output) const {
+  CHECK(is_volume_button());
+  *output = VolumeButtonRoutineArgumentDataView(data_->data.f_volume_button.Get(), message_);
+}
 inline void RoutineArgumentDataView::GetAudioDriverDataView(
     AudioDriverRoutineArgumentDataView* output) const {
   CHECK(is_audio_driver());
@@ -4556,11 +4561,6 @@ inline void RoutineArgumentDataView::GetPrimeSearchDataView(
     PrimeSearchRoutineArgumentDataView* output) const {
   CHECK(is_prime_search());
   *output = PrimeSearchRoutineArgumentDataView(data_->data.f_prime_search.Get(), message_);
-}
-inline void RoutineArgumentDataView::GetVolumeButtonDataView(
-    VolumeButtonRoutineArgumentDataView* output) const {
-  CHECK(is_volume_button());
-  *output = VolumeButtonRoutineArgumentDataView(data_->data.f_volume_button.Get(), message_);
 }
 inline void RoutineArgumentDataView::GetLedLitUpDataView(
     LedLitUpRoutineArgumentDataView* output) const {
@@ -4619,6 +4619,11 @@ inline void RoutineDetailDataView::GetMemoryDataView(
   CHECK(is_memory());
   *output = MemoryRoutineDetailDataView(data_->data.f_memory.Get(), message_);
 }
+inline void RoutineDetailDataView::GetVolumeButtonDataView(
+    VolumeButtonRoutineDetailDataView* output) const {
+  CHECK(is_volume_button());
+  *output = VolumeButtonRoutineDetailDataView(data_->data.f_volume_button.Get(), message_);
+}
 inline void RoutineDetailDataView::GetAudioDriverDataView(
     AudioDriverRoutineDetailDataView* output) const {
   CHECK(is_audio_driver());
@@ -4648,11 +4653,6 @@ inline void RoutineDetailDataView::GetPrimeSearchDataView(
     PrimeSearchRoutineDetailDataView* output) const {
   CHECK(is_prime_search());
   *output = PrimeSearchRoutineDetailDataView(data_->data.f_prime_search.Get(), message_);
-}
-inline void RoutineDetailDataView::GetVolumeButtonDataView(
-    VolumeButtonRoutineDetailDataView* output) const {
-  CHECK(is_volume_button());
-  *output = VolumeButtonRoutineDetailDataView(data_->data.f_volume_button.Get(), message_);
 }
 inline void RoutineDetailDataView::GetLedLitUpDataView(
     LedLitUpRoutineDetailDataView* output) const {

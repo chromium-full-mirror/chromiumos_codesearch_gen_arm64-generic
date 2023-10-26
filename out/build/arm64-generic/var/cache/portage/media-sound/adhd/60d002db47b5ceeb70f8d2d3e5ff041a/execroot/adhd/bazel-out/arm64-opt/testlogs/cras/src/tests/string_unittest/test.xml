@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.014" timestamp="2023-10-26T00:29:03.216" name="AllTests">
-  <testsuite name="String" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2023-10-26T00:29:03.224">
-    <testcase name="Strerror" file="cras/src/tests/string_unittest.cc" line="12" status="run" result="completed" time="0.003" timestamp="2023-10-26T00:29:03.225" classname="String" />
-    <testcase name="HasPrefix" file="cras/src/tests/string_unittest.cc" line="17" status="run" result="completed" time="0." timestamp="2023-10-26T00:29:03.229" classname="String" />
+<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.008" timestamp="2023-10-26T11:37:03.191" name="AllTests">
+  <testsuite name="String" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.003" timestamp="2023-10-26T11:37:03.195">
+    <testcase name="Strerror" file="cras/src/tests/string_unittest.cc" line="12" status="run" result="completed" time="0.001" timestamp="2023-10-26T11:37:03.195" classname="String" />
+    <testcase name="HasPrefix" file="cras/src/tests/string_unittest.cc" line="17" status="run" result="completed" time="0." timestamp="2023-10-26T11:37:03.198" classname="String" />
   </testsuite>
 </testsuites>
