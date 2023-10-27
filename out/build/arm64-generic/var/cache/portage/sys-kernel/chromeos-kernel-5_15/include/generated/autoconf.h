@@ -1005,7 +1005,7 @@
 #define CONFIG_PM_OPP 1
 #define CONFIG_GPIO_CDEV 1
 #define CONFIG_CRYPTO_SHA2_ARM64_CE 1
-#define CONFIG_CC_VERSION_TEXT "Chromium OS 17.0_pre498229-r17 clang version 17.0.0 (/mnt/host/source/src/third_party/llvm-project 14f0776550b5a49e1c42f49a00213f7f3fa047bf)"
+#define CONFIG_CC_VERSION_TEXT "Chromium OS 17.0_pre498229-r23 clang version 17.0.0 (/mnt/host/source/src/third_party/llvm-project 14f0776550b5a49e1c42f49a00213f7f3fa047bf)"
 #define CONFIG_NET_IP_TUNNEL_MODULE 1
 #define CONFIG_MTD_CFI_I1 1
 #define CONFIG_NF_NAT 1

@@ -244,7 +244,6 @@ VECTOR_ICON_TEMPLATE_H(kVrHeadsetOffIcon)
 VECTOR_ICON_TEMPLATE_H(kVrHeadsetOffChromeRefreshIcon)
 VECTOR_ICON_TEMPLATE_H(kWarningIcon)
 VECTOR_ICON_TEMPLATE_H(kWarningOutlineIcon)
-VECTOR_ICON_TEMPLATE_H(kWifiAddIcon)
 VECTOR_ICON_TEMPLATE_H(kVideogameAssetOutlineIcon)
 
 }  // namespace vector_icons

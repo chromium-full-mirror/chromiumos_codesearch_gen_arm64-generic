@@ -156,7 +156,7 @@ class  PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Da
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlySharedMemoryRegion_Data> region;
   mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlyFile_Data> tflite_model;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlyFile_Data> image_embedding_model_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlyFile_Data> image_embedding_model;
 
  private:
   friend class mojo::internal::MessageFragment<PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data>;
@@ -166,6 +166,22 @@ class  PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Da
 };
 static_assert(sizeof(PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data) == 32,
               "Bad sizeof(PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data)");
+class  PhishingModelSetter_AttachImageEmbeddingModel_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlyFile_Data> image_embedding_model;
+
+ private:
+  friend class mojo::internal::MessageFragment<PhishingModelSetter_AttachImageEmbeddingModel_Params_Data>;
+
+  PhishingModelSetter_AttachImageEmbeddingModel_Params_Data();
+  ~PhishingModelSetter_AttachImageEmbeddingModel_Params_Data() = delete;
+};
+static_assert(sizeof(PhishingModelSetter_AttachImageEmbeddingModel_Params_Data) == 16,
+              "Bad sizeof(PhishingModelSetter_AttachImageEmbeddingModel_Params_Data)");
 class  PhishingModelSetter_SetPhishingFlatBufferModel_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -603,19 +619,55 @@ static_assert(
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
-    "Attempting to read the optional `image_embedding_model_` field into a type which "
+    "Attempting to read the optional `image_embedding_model` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImageEmbeddingModel` instead "
     "of `ReadImageEmbeddingModel if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = data_->image_embedding_model_.Get();
+    auto* pointer = data_->image_embedding_model.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlyFileDataView>(
         pointer, output, message_);
   }
  private:
   internal::PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PhishingModelSetter_AttachImageEmbeddingModel_ParamsDataView {
+ public:
+  PhishingModelSetter_AttachImageEmbeddingModel_ParamsDataView() = default;
+
+  PhishingModelSetter_AttachImageEmbeddingModel_ParamsDataView(
+      internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetImageEmbeddingModelDataView(
+      ::mojo_base::mojom::ReadOnlyFileDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadImageEmbeddingModel(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
+    "Attempting to read the optional `image_embedding_model` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadImageEmbeddingModel` instead "
+    "of `ReadImageEmbeddingModel if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->image_embedding_model.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlyFileDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -924,7 +976,14 @@ inline void PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Para
 }
 inline void PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_ParamsDataView::GetImageEmbeddingModelDataView(
     ::mojo_base::mojom::ReadOnlyFileDataView* output) {
-  auto pointer = data_->image_embedding_model_.Get();
+  auto pointer = data_->image_embedding_model.Get();
+  *output = ::mojo_base::mojom::ReadOnlyFileDataView(pointer, message_);
+}
+
+
+inline void PhishingModelSetter_AttachImageEmbeddingModel_ParamsDataView::GetImageEmbeddingModelDataView(
+    ::mojo_base::mojom::ReadOnlyFileDataView* output) {
+  auto pointer = data_->image_embedding_model.Get();
   *output = ::mojo_base::mojom::ReadOnlyFileDataView(pointer, message_);
 }
 

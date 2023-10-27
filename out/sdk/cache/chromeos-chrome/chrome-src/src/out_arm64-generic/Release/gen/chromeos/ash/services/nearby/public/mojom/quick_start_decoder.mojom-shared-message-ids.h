@@ -14,14 +14,7 @@ namespace ash::quick_start::mojom {
 namespace internal {
 
 
-constexpr uint32_t kQuickStartDecoder_DecodeBootstrapConfigurations_Name = 0;
-constexpr uint32_t kQuickStartDecoder_DecodeWifiCredentialsResponse_Name = 1;
-constexpr uint32_t kQuickStartDecoder_DecodeNotifySourceOfUpdateResponse_Name = 2;
-constexpr uint32_t kQuickStartDecoder_DecodeGetAssertionResponse_Name = 3;
-constexpr uint32_t kQuickStartDecoder_DecodeUserVerificationMethod_Name = 4;
-constexpr uint32_t kQuickStartDecoder_DecodeUserVerificationRequested_Name = 5;
-constexpr uint32_t kQuickStartDecoder_DecodeUserVerificationResult_Name = 6;
-constexpr uint32_t kQuickStartDecoder_DecodeQuickStartMessage_Name = 7;
+constexpr uint32_t kQuickStartDecoder_DecodeQuickStartMessage_Name = 0;
 
 }  // namespace internal
 

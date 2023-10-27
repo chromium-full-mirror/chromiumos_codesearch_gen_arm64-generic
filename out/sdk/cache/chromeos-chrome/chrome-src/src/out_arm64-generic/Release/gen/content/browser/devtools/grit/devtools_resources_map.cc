@@ -363,6 +363,7 @@ const webui::ResourcePath kDevtoolsResources[] = {
   {"models/issues_manager/descriptions/bounceTrackingMitigations.md", MODELS_ISSUES_MANAGER_DESCRIPTIONS_BOUNCETRACKINGMITIGATIONS_MD},
   {"models/issues_manager/descriptions/clientHintMetaTagAllowListInvalidOrigin.md", MODELS_ISSUES_MANAGER_DESCRIPTIONS_CLIENTHINTMETATAGALLOWLISTINVALIDORIGIN_MD},
   {"models/issues_manager/descriptions/clientHintMetaTagModifiedHTML.md", MODELS_ISSUES_MANAGER_DESCRIPTIONS_CLIENTHINTMETATAGMODIFIEDHTML_MD},
+  {"models/issues_manager/descriptions/cookieCrossSiteRedirectDowngrade.md", MODELS_ISSUES_MANAGER_DESCRIPTIONS_COOKIECROSSSITEREDIRECTDOWNGRADE_MD},
   {"models/issues_manager/descriptions/cookieExcludeBlockedWithinFirstPartySet.md", MODELS_ISSUES_MANAGER_DESCRIPTIONS_COOKIEEXCLUDEBLOCKEDWITHINFIRSTPARTYSET_MD},
   {"models/issues_manager/descriptions/cookieExcludeDomainNonAscii.md", MODELS_ISSUES_MANAGER_DESCRIPTIONS_COOKIEEXCLUDEDOMAINNONASCII_MD},
   {"models/issues_manager/descriptions/cookieExcludeThirdPartyPhaseoutRead.md", MODELS_ISSUES_MANAGER_DESCRIPTIONS_COOKIEEXCLUDETHIRDPARTYPHASEOUTREAD_MD},

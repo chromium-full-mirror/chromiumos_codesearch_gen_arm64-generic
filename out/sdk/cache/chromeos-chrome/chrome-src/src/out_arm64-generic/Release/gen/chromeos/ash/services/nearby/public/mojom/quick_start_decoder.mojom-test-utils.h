@@ -15,13 +15,6 @@ namespace ash::quick_start::mojom {
 
 class  QuickStartDecoderInterceptorForTesting : public QuickStartDecoder {
   virtual QuickStartDecoder* GetForwardingInterface() = 0;
-  void DecodeBootstrapConfigurations(const absl::optional<std::vector<uint8_t>>& data, DecodeBootstrapConfigurationsCallback callback) override;
-  void DecodeWifiCredentialsResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeWifiCredentialsResponseCallback callback) override;
-  void DecodeNotifySourceOfUpdateResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeNotifySourceOfUpdateResponseCallback callback) override;
-  void DecodeGetAssertionResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeGetAssertionResponseCallback callback) override;
-  void DecodeUserVerificationMethod(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationMethodCallback callback) override;
-  void DecodeUserVerificationRequested(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationRequestedCallback callback) override;
-  void DecodeUserVerificationResult(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationResultCallback callback) override;
   void DecodeQuickStartMessage(const absl::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) override;
 };
 class  QuickStartDecoderAsyncWaiter {
@@ -32,27 +25,6 @@ class  QuickStartDecoderAsyncWaiter {
   QuickStartDecoderAsyncWaiter& operator=(const QuickStartDecoderAsyncWaiter&) = delete;
 
   ~QuickStartDecoderAsyncWaiter();
-  void DecodeBootstrapConfigurations(
-      const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::BootstrapConfigurationsPtr* out_bootstrap_configurations, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
-  
-  void DecodeWifiCredentialsResponse(
-      const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::WifiCredentialsPtr* out_credentials, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
-  
-  void DecodeNotifySourceOfUpdateResponse(
-      const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::NotifySourceOfUpdateResponsePtr* out_notify_source_of_update_response, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
-  
-  void DecodeGetAssertionResponse(
-      const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::FidoAssertionResponsePtr* out_response, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
-  
-  void DecodeUserVerificationMethod(
-      const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::UserVerificationMethodPtr* out_response, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
-  
-  void DecodeUserVerificationRequested(
-      const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::UserVerificationRequestedPtr* out_response, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
-  
-  void DecodeUserVerificationResult(
-      const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::UserVerificationResponsePtr* out_response, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
-  
   void DecodeQuickStartMessage(
       const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::QuickStartMessagePtr* out_result, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error);
   

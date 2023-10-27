@@ -470,27 +470,18 @@ bool ParseTiming::Validate(
 InteractiveTiming::InteractiveTiming()
     : first_input_delay(),
       first_input_timestamp(),
-      longest_input_delay(),
-      longest_input_timestamp(),
       first_scroll_delay(),
-      first_scroll_timestamp(),
-      first_input_processing_time() {}
+      first_scroll_timestamp() {}
 
 InteractiveTiming::InteractiveTiming(
     absl::optional<::base::TimeDelta> first_input_delay_in,
     absl::optional<::base::TimeDelta> first_input_timestamp_in,
-    absl::optional<::base::TimeDelta> longest_input_delay_in,
-    absl::optional<::base::TimeDelta> longest_input_timestamp_in,
     absl::optional<::base::TimeDelta> first_scroll_delay_in,
-    absl::optional<::base::TimeDelta> first_scroll_timestamp_in,
-    absl::optional<::base::TimeDelta> first_input_processing_time_in)
+    absl::optional<::base::TimeDelta> first_scroll_timestamp_in)
     : first_input_delay(std::move(first_input_delay_in)),
       first_input_timestamp(std::move(first_input_timestamp_in)),
-      longest_input_delay(std::move(longest_input_delay_in)),
-      longest_input_timestamp(std::move(longest_input_timestamp_in)),
       first_scroll_delay(std::move(first_scroll_delay_in)),
-      first_scroll_timestamp(std::move(first_scroll_timestamp_in)),
-      first_input_processing_time(std::move(first_input_processing_time_in)) {}
+      first_scroll_timestamp(std::move(first_scroll_timestamp_in)) {}
 
 InteractiveTiming::~InteractiveTiming() = default;
 
@@ -517,24 +508,6 @@ void InteractiveTiming::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "longest_input_delay"), this->longest_input_delay,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "longest_input_timestamp"), this->longest_input_timestamp,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "first_scroll_delay"), this->first_scroll_delay,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type absl::optional<::base::TimeDelta>>"
@@ -545,15 +518,6 @@ void InteractiveTiming::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "first_scroll_timestamp"), this->first_scroll_timestamp,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "first_input_processing_time"), this->first_input_processing_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type absl::optional<::base::TimeDelta>>"
 #else
@@ -1553,22 +1517,13 @@ bool CpuTiming::Validate(
   return Data_::Validate(data, validation_context);
 }
 InputTiming::InputTiming()
-    : total_input_delay(),
-      total_adjusted_input_delay(),
-      num_input_events(0ULL),
-      num_interactions(0ULL),
+    : num_interactions(0ULL),
       max_event_durations() {}
 
 InputTiming::InputTiming(
-    ::base::TimeDelta total_input_delay_in,
-    ::base::TimeDelta total_adjusted_input_delay_in,
-    uint64_t num_input_events_in,
     uint64_t num_interactions_in,
     UserInteractionLatenciesPtr max_event_durations_in)
-    : total_input_delay(std::move(total_input_delay_in)),
-      total_adjusted_input_delay(std::move(total_adjusted_input_delay_in)),
-      num_input_events(std::move(num_input_events_in)),
-      num_interactions(std::move(num_interactions_in)),
+    : num_interactions(std::move(num_interactions_in)),
       max_event_durations(std::move(max_event_durations_in)) {}
 
 InputTiming::~InputTiming() = default;
@@ -1576,33 +1531,6 @@ InputTiming::~InputTiming() = default;
 void InputTiming::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "total_input_delay"), this->total_input_delay,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::base::TimeDelta>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "total_adjusted_input_delay"), this->total_adjusted_input_delay,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::base::TimeDelta>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "num_input_events"), this->num_input_events,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint64_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "num_interactions"), this->num_interactions,
@@ -2374,15 +2302,9 @@ bool StructTraits<::page_load_metrics::mojom::InteractiveTiming::DataView, ::pag
         success = false;
       if (success && !input.ReadFirstInputTimestamp(&result->first_input_timestamp))
         success = false;
-      if (success && !input.ReadLongestInputDelay(&result->longest_input_delay))
-        success = false;
-      if (success && !input.ReadLongestInputTimestamp(&result->longest_input_timestamp))
-        success = false;
       if (success && !input.ReadFirstScrollDelay(&result->first_scroll_delay))
         success = false;
       if (success && !input.ReadFirstScrollTimestamp(&result->first_scroll_timestamp))
-        success = false;
-      if (success && !input.ReadFirstInputProcessingTime(&result->first_input_processing_time))
         success = false;
   *output = std::move(result);
   return success;
@@ -2632,12 +2554,6 @@ bool StructTraits<::page_load_metrics::mojom::InputTiming::DataView, ::page_load
   bool success = true;
   ::page_load_metrics::mojom::InputTimingPtr result(::page_load_metrics::mojom::InputTiming::New());
   
-      if (success && !input.ReadTotalInputDelay(&result->total_input_delay))
-        success = false;
-      if (success && !input.ReadTotalAdjustedInputDelay(&result->total_adjusted_input_delay))
-        success = false;
-      if (success)
-        result->num_input_events = input.num_input_events();
       if (success)
         result->num_interactions = input.num_interactions();
       if (success && !input.ReadMaxEventDurations(&result->max_event_durations))

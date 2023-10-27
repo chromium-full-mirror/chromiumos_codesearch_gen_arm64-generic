@@ -236,6 +236,10 @@ export class ConsoleViewMessage {
         this.repeatCountElement = null;
         this.consoleGroupInternal = null;
     }
+    setInsight(insight) {
+        this.elementInternal?.querySelector('devtools-console-insight')?.remove();
+        this.elementInternal?.append(insight);
+    }
     element() {
         return this.toMessageElement();
     }

@@ -827,46 +827,6 @@ static_assert(
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
         pointer, output, message_);
   }
-  inline void GetLongestInputDelayDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadLongestInputDelay(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
-    "Attempting to read the optional `longest_input_delay` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadLongestInputDelay` instead "
-    "of `ReadLongestInputDelay if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->longest_input_delay.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
-        pointer, output, message_);
-  }
-  inline void GetLongestInputTimestampDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadLongestInputTimestamp(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
-    "Attempting to read the optional `longest_input_timestamp` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadLongestInputTimestamp` instead "
-    "of `ReadLongestInputTimestamp if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->longest_input_timestamp.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
-        pointer, output, message_);
-  }
   inline void GetFirstScrollDelayDataView(
       ::mojo_base::mojom::TimeDeltaDataView* output);
 
@@ -904,26 +864,6 @@ static_assert(
     "of `ReadFirstScrollTimestamp if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->first_scroll_timestamp.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
-        pointer, output, message_);
-  }
-  inline void GetFirstInputProcessingTimeDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFirstInputProcessingTime(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
-    "Attempting to read the optional `first_input_processing_time` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadFirstInputProcessingTime` instead "
-    "of `ReadFirstInputProcessingTime if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->first_input_processing_time.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
         pointer, output, message_);
   }
@@ -1524,29 +1464,6 @@ class InputTimingDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetTotalInputDelayDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadTotalInputDelay(UserType* output) {
-    
-    auto* pointer = data_->total_input_delay.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
-        pointer, output, message_);
-  }
-  inline void GetTotalAdjustedInputDelayDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadTotalAdjustedInputDelay(UserType* output) {
-    
-    auto* pointer = data_->total_adjusted_input_delay.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
-        pointer, output, message_);
-  }
-  uint64_t num_input_events() const {
-    return data_->num_input_events;
-  }
   uint64_t num_interactions() const {
     return data_->num_interactions;
   }
@@ -2150,22 +2067,6 @@ struct Serializer<::page_load_metrics::mojom::InteractiveTimingDataView, MaybeCo
         in_first_input_timestamp, first_input_timestamp_fragment);
     fragment->first_input_timestamp.Set(
         first_input_timestamp_fragment.is_null() ? nullptr : first_input_timestamp_fragment.data());
-    decltype(Traits::longest_input_delay(input)) in_longest_input_delay = Traits::longest_input_delay(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->longest_input_delay)::BaseType> longest_input_delay_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
-        in_longest_input_delay, longest_input_delay_fragment);
-    fragment->longest_input_delay.Set(
-        longest_input_delay_fragment.is_null() ? nullptr : longest_input_delay_fragment.data());
-    decltype(Traits::longest_input_timestamp(input)) in_longest_input_timestamp = Traits::longest_input_timestamp(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->longest_input_timestamp)::BaseType> longest_input_timestamp_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
-        in_longest_input_timestamp, longest_input_timestamp_fragment);
-    fragment->longest_input_timestamp.Set(
-        longest_input_timestamp_fragment.is_null() ? nullptr : longest_input_timestamp_fragment.data());
     decltype(Traits::first_scroll_delay(input)) in_first_scroll_delay = Traits::first_scroll_delay(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->first_scroll_delay)::BaseType> first_scroll_delay_fragment(
@@ -2182,14 +2083,6 @@ struct Serializer<::page_load_metrics::mojom::InteractiveTimingDataView, MaybeCo
         in_first_scroll_timestamp, first_scroll_timestamp_fragment);
     fragment->first_scroll_timestamp.Set(
         first_scroll_timestamp_fragment.is_null() ? nullptr : first_scroll_timestamp_fragment.data());
-    decltype(Traits::first_input_processing_time(input)) in_first_input_processing_time = Traits::first_input_processing_time(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->first_input_processing_time)::BaseType> first_input_processing_time_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
-        in_first_input_processing_time, first_input_processing_time_fragment);
-    fragment->first_input_processing_time.Set(
-        first_input_processing_time_fragment.is_null() ? nullptr : first_input_processing_time_fragment.data());
   }
 
   static bool Deserialize(::page_load_metrics::mojom::internal::InteractiveTiming_Data* input,
@@ -2723,31 +2616,6 @@ struct Serializer<::page_load_metrics::mojom::InputTimingDataView, MaybeConstUse
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::total_input_delay(input)) in_total_input_delay = Traits::total_input_delay(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->total_input_delay)::BaseType> total_input_delay_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
-        in_total_input_delay, total_input_delay_fragment);
-    fragment->total_input_delay.Set(
-        total_input_delay_fragment.is_null() ? nullptr : total_input_delay_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->total_input_delay.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null total_input_delay in InputTiming struct");
-    decltype(Traits::total_adjusted_input_delay(input)) in_total_adjusted_input_delay = Traits::total_adjusted_input_delay(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->total_adjusted_input_delay)::BaseType> total_adjusted_input_delay_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
-        in_total_adjusted_input_delay, total_adjusted_input_delay_fragment);
-    fragment->total_adjusted_input_delay.Set(
-        total_adjusted_input_delay_fragment.is_null() ? nullptr : total_adjusted_input_delay_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->total_adjusted_input_delay.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null total_adjusted_input_delay in InputTiming struct");
-    fragment->num_input_events = Traits::num_input_events(input);
     fragment->num_interactions = Traits::num_interactions(input);
     decltype(Traits::max_event_durations(input)) in_max_event_durations = Traits::max_event_durations(input);
     mojo::internal::MessageFragment<decltype(fragment->max_event_durations)>
@@ -3154,16 +3022,6 @@ inline void InteractiveTimingDataView::GetFirstInputTimestampDataView(
   auto pointer = data_->first_input_timestamp.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
-inline void InteractiveTimingDataView::GetLongestInputDelayDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
-  auto pointer = data_->longest_input_delay.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
-}
-inline void InteractiveTimingDataView::GetLongestInputTimestampDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
-  auto pointer = data_->longest_input_timestamp.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
-}
 inline void InteractiveTimingDataView::GetFirstScrollDelayDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->first_scroll_delay.Get();
@@ -3172,11 +3030,6 @@ inline void InteractiveTimingDataView::GetFirstScrollDelayDataView(
 inline void InteractiveTimingDataView::GetFirstScrollTimestampDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->first_scroll_timestamp.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
-}
-inline void InteractiveTimingDataView::GetFirstInputProcessingTimeDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
-  auto pointer = data_->first_input_processing_time.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
 
@@ -3302,16 +3155,6 @@ inline void CpuTimingDataView::GetTaskTimeDataView(
 }
 
 
-inline void InputTimingDataView::GetTotalInputDelayDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
-  auto pointer = data_->total_input_delay.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
-}
-inline void InputTimingDataView::GetTotalAdjustedInputDelayDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
-  auto pointer = data_->total_adjusted_input_delay.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
-}
 inline void InputTimingDataView::GetMaxEventDurationsDataView(
     UserInteractionLatenciesDataView* output) {
   auto pointer = &data_->max_event_durations;

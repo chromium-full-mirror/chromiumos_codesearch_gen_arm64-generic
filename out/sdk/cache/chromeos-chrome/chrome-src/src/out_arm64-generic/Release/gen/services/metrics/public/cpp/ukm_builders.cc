@@ -9253,53 +9253,6 @@ Identifiability& Identifiability::SetStudyGeneration_626(int64_t value) {
 }
 
 
-const char InputEvent::kEntryName[] = "InputEvent";
-const uint64_t InputEvent::kEntryNameHash;
-
-InputEvent::InputEvent(ukm::SourceId source_id) :
-  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
-}
-
-InputEvent::InputEvent(ukm::SourceIdObj source_id) :
-  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
-}
-
-InputEvent::~InputEvent() = default;
-
-
-const char InputEvent::kEventTypeName[] = "EventType";
-const uint64_t InputEvent::kEventTypeNameHash;
-
-InputEvent& InputEvent::SetEventType(int64_t value) {
-  SetMetricInternal(kEventTypeNameHash, value);
-  return *this;
-}
-
-const char InputEvent::kInteractiveTiming_InputDelayName[] = "InteractiveTiming.InputDelay";
-const uint64_t InputEvent::kInteractiveTiming_InputDelayNameHash;
-
-InputEvent& InputEvent::SetInteractiveTiming_InputDelay(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_InputDelayNameHash, value);
-  return *this;
-}
-
-const char InputEvent::kInteractiveTiming_ProcessingFinishedToNextPaintName[] = "InteractiveTiming.ProcessingFinishedToNextPaint";
-const uint64_t InputEvent::kInteractiveTiming_ProcessingFinishedToNextPaintNameHash;
-
-InputEvent& InputEvent::SetInteractiveTiming_ProcessingFinishedToNextPaint(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_ProcessingFinishedToNextPaintNameHash, value);
-  return *this;
-}
-
-const char InputEvent::kInteractiveTiming_ProcessingTimeName[] = "InteractiveTiming.ProcessingTime";
-const uint64_t InputEvent::kInteractiveTiming_ProcessingTimeNameHash;
-
-InputEvent& InputEvent::SetInteractiveTiming_ProcessingTime(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_ProcessingTimeNameHash, value);
-  return *this;
-}
-
-
 const char InputMethod_Assistive_AutocorrectV2::kEntryName[] = "InputMethod.Assistive.AutocorrectV2";
 const uint64_t InputMethod_Assistive_AutocorrectV2::kEntryNameHash;
 
@@ -13660,22 +13613,6 @@ PageForegroundSession& PageForegroundSession::SetForegroundDuration(int64_t valu
   return *this;
 }
 
-const char PageForegroundSession::kForegroundNumInputEventsName[] = "ForegroundNumInputEvents";
-const uint64_t PageForegroundSession::kForegroundNumInputEventsNameHash;
-
-PageForegroundSession& PageForegroundSession::SetForegroundNumInputEvents(int64_t value) {
-  SetMetricInternal(kForegroundNumInputEventsNameHash, value);
-  return *this;
-}
-
-const char PageForegroundSession::kForegroundTotalAdjustedInputDelayName[] = "ForegroundTotalAdjustedInputDelay";
-const uint64_t PageForegroundSession::kForegroundTotalAdjustedInputDelayNameHash;
-
-PageForegroundSession& PageForegroundSession::SetForegroundTotalAdjustedInputDelay(int64_t value) {
-  SetMetricInternal(kForegroundTotalAdjustedInputDelayNameHash, value);
-  return *this;
-}
-
 const char PageForegroundSession::kForegroundTotalInputDelayName[] = "ForegroundTotalInputDelay";
 const uint64_t PageForegroundSession::kForegroundTotalInputDelayNameHash;
 
@@ -13810,14 +13747,6 @@ PageLoad& PageLoad::SetInteractiveTiming_FirstInputDelay4(int64_t value) {
   return *this;
 }
 
-const char PageLoad::kInteractiveTiming_FirstInputProcessingTimesName[] = "InteractiveTiming.FirstInputProcessingTimes";
-const uint64_t PageLoad::kInteractiveTiming_FirstInputProcessingTimesNameHash;
-
-PageLoad& PageLoad::SetInteractiveTiming_FirstInputProcessingTimes(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_FirstInputProcessingTimesNameHash, value);
-  return *this;
-}
-
 const char PageLoad::kInteractiveTiming_FirstInputTimestamp4Name[] = "InteractiveTiming.FirstInputTimestamp4";
 const uint64_t PageLoad::kInteractiveTiming_FirstInputTimestamp4NameHash;
 
@@ -13842,51 +13771,11 @@ PageLoad& PageLoad::SetInteractiveTiming_FirstScrollTimestamp(int64_t value) {
   return *this;
 }
 
-const char PageLoad::kInteractiveTiming_LongestInputDelay4Name[] = "InteractiveTiming.LongestInputDelay4";
-const uint64_t PageLoad::kInteractiveTiming_LongestInputDelay4NameHash;
-
-PageLoad& PageLoad::SetInteractiveTiming_LongestInputDelay4(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_LongestInputDelay4NameHash, value);
-  return *this;
-}
-
-const char PageLoad::kInteractiveTiming_LongestInputTimestamp4Name[] = "InteractiveTiming.LongestInputTimestamp4";
-const uint64_t PageLoad::kInteractiveTiming_LongestInputTimestamp4NameHash;
-
-PageLoad& PageLoad::SetInteractiveTiming_LongestInputTimestamp4(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_LongestInputTimestamp4NameHash, value);
-  return *this;
-}
-
-const char PageLoad::kInteractiveTiming_NumInputEventsName[] = "InteractiveTiming.NumInputEvents";
-const uint64_t PageLoad::kInteractiveTiming_NumInputEventsNameHash;
-
-PageLoad& PageLoad::SetInteractiveTiming_NumInputEvents(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_NumInputEventsNameHash, value);
-  return *this;
-}
-
 const char PageLoad::kInteractiveTiming_NumInteractionsName[] = "InteractiveTiming.NumInteractions";
 const uint64_t PageLoad::kInteractiveTiming_NumInteractionsNameHash;
 
 PageLoad& PageLoad::SetInteractiveTiming_NumInteractions(int64_t value) {
   SetMetricInternal(kInteractiveTiming_NumInteractionsNameHash, value);
-  return *this;
-}
-
-const char PageLoad::kInteractiveTiming_TotalAdjustedInputDelayName[] = "InteractiveTiming.TotalAdjustedInputDelay";
-const uint64_t PageLoad::kInteractiveTiming_TotalAdjustedInputDelayNameHash;
-
-PageLoad& PageLoad::SetInteractiveTiming_TotalAdjustedInputDelay(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_TotalAdjustedInputDelayNameHash, value);
-  return *this;
-}
-
-const char PageLoad::kInteractiveTiming_TotalInputDelayName[] = "InteractiveTiming.TotalInputDelay";
-const uint64_t PageLoad::kInteractiveTiming_TotalInputDelayNameHash;
-
-PageLoad& PageLoad::SetInteractiveTiming_TotalInputDelay(int64_t value) {
-  SetMetricInternal(kInteractiveTiming_TotalInputDelayNameHash, value);
   return *this;
 }
 
@@ -16561,14 +16450,6 @@ const uint64_t PowerUsageScenariosIntervalData::kDeviceSleptDuringIntervalNameHa
 
 PowerUsageScenariosIntervalData& PowerUsageScenariosIntervalData::SetDeviceSleptDuringInterval(int64_t value) {
   SetMetricInternal(kDeviceSleptDuringIntervalNameHash, value);
-  return *this;
-}
-
-const char PowerUsageScenariosIntervalData::kEnergyImpactScoreName[] = "EnergyImpactScore";
-const uint64_t PowerUsageScenariosIntervalData::kEnergyImpactScoreNameHash;
-
-PowerUsageScenariosIntervalData& PowerUsageScenariosIntervalData::SetEnergyImpactScore(int64_t value) {
-  SetMetricInternal(kEnergyImpactScoreNameHash, value);
   return *this;
 }
 

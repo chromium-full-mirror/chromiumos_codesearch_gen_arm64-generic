@@ -7766,6 +7766,10 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kV8MediaStreamTrack_Stats_AttributeGetter";
     case WebFeature::kElementCheckVisibility:
       return "kElementCheckVisibility";
+    case WebFeature::kV8ClipboardItem_Supports_Method:
+      return "kV8ClipboardItem_Supports_Method";
+    case WebFeature::kThirdPartyCookieAccessBlockByExperiment:
+      return "kThirdPartyCookieAccessBlockByExperiment";
     case WebFeature::kNumberOfFeatures:
       return "kNumberOfFeatures";
     default:

@@ -96,7 +96,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) UserAgentMetadata_Data 
   uint8_t wow64 : 1;
   uint8_t pad8_[7];
   mojo::internal::Pointer<mojo::internal::String_Data> bitness;
-  mojo::internal::Pointer<mojo::internal::String_Data> form_factor;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> form_factor;
 
  private:
   friend class mojo::internal::MessageFragment<UserAgentMetadata_Data>;

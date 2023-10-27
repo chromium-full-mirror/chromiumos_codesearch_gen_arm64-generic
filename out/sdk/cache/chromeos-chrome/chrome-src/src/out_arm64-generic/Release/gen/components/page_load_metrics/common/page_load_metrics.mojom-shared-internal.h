@@ -380,11 +380,8 @@ class  InteractiveTiming_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> first_input_delay;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> first_input_timestamp;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> longest_input_delay;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> longest_input_timestamp;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> first_scroll_delay;
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> first_scroll_timestamp;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> first_input_processing_time;
 
  private:
   friend class mojo::internal::MessageFragment<InteractiveTiming_Data>;
@@ -392,7 +389,7 @@ class  InteractiveTiming_Data {
   InteractiveTiming_Data();
   ~InteractiveTiming_Data() = delete;
 };
-static_assert(sizeof(InteractiveTiming_Data) == 64,
+static_assert(sizeof(InteractiveTiming_Data) == 40,
               "Bad sizeof(InteractiveTiming_Data)");
 // Used by InteractiveTiming::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -882,9 +879,6 @@ class  InputTiming_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> total_input_delay;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> total_adjusted_input_delay;
-  uint64_t num_input_events;
   uint64_t num_interactions;
   internal::UserInteractionLatencies_Data max_event_durations;
 
@@ -894,7 +888,7 @@ class  InputTiming_Data {
   InputTiming_Data();
   ~InputTiming_Data() = delete;
 };
-static_assert(sizeof(InputTiming_Data) == 56,
+static_assert(sizeof(InputTiming_Data) == 32,
               "Bad sizeof(InputTiming_Data)");
 // Used by InputTiming::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

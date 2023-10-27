@@ -3899,9 +3899,11 @@ blink.mojom.WebFeature = {
   kWebAssemblyModuleCompilation: 4689,
   kV8MediaStreamTrack_Stats_AttributeGetter: 4690,
   kElementCheckVisibility: 4691,
-  kNumberOfFeatures: 4692,
+  kV8ClipboardItem_Supports_Method: 4692,
+  kThirdPartyCookieAccessBlockByExperiment: 4693,
+  kNumberOfFeatures: 4694,
   MIN_VALUE: 0,
-  MAX_VALUE: 4692,
+  MAX_VALUE: 4694,
 };
 
 

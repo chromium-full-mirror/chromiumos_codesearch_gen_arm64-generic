@@ -43,29 +43,29 @@
 
 
 namespace crosapi::mojom {
-QuickUnlockPrivateTokenInfo::QuickUnlockPrivateTokenInfo()
-    : token(),
-      lifetime_seconds() {}
+QuickUnlockPrivateTokenInfoDeprecated::QuickUnlockPrivateTokenInfoDeprecated()
+    : REMOVED_0(),
+      REMOVED_1() {}
 
-QuickUnlockPrivateTokenInfo::QuickUnlockPrivateTokenInfo(
-    const std::string& token_in,
-    int32_t lifetime_seconds_in)
-    : token(std::move(token_in)),
-      lifetime_seconds(std::move(lifetime_seconds_in)) {}
+QuickUnlockPrivateTokenInfoDeprecated::QuickUnlockPrivateTokenInfoDeprecated(
+    const std::string& REMOVED_0_in,
+    int32_t REMOVED_1_in)
+    : REMOVED_0(std::move(REMOVED_0_in)),
+      REMOVED_1(std::move(REMOVED_1_in)) {}
 
-QuickUnlockPrivateTokenInfo::~QuickUnlockPrivateTokenInfo() = default;
-size_t QuickUnlockPrivateTokenInfo::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->token);
-  seed = mojo::internal::Hash(seed, this->lifetime_seconds);
+QuickUnlockPrivateTokenInfoDeprecated::~QuickUnlockPrivateTokenInfoDeprecated() = default;
+size_t QuickUnlockPrivateTokenInfoDeprecated::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->REMOVED_0);
+  seed = mojo::internal::Hash(seed, this->REMOVED_1);
   return seed;
 }
 
-void QuickUnlockPrivateTokenInfo::WriteIntoTrace(
+void QuickUnlockPrivateTokenInfoDeprecated::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "token"), this->token,
+      "REMOVED_0"), this->REMOVED_0,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
 #else
@@ -74,7 +74,7 @@ void QuickUnlockPrivateTokenInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "lifetime_seconds"), this->lifetime_seconds,
+      "REMOVED_1"), this->REMOVED_1,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type int32_t>"
 #else
@@ -83,86 +83,86 @@ void QuickUnlockPrivateTokenInfo::WriteIntoTrace(
     );
 }
 
-bool QuickUnlockPrivateTokenInfo::Validate(
+bool QuickUnlockPrivateTokenInfoDeprecated::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-CreateQuickUnlockPrivateTokenInfoResult::CreateQuickUnlockPrivateTokenInfoResult() : tag_(Tag::kErrorMessage) {
-  data_.error_message = new std::string;
+CreateQuickUnlockPrivateTokenInfoResultDeprecated::CreateQuickUnlockPrivateTokenInfoResultDeprecated() : tag_(Tag::kRemoved0) {
+  data_.REMOVED_0 = new std::string;
 }
 
-CreateQuickUnlockPrivateTokenInfoResult::~CreateQuickUnlockPrivateTokenInfoResult() {
+CreateQuickUnlockPrivateTokenInfoResultDeprecated::~CreateQuickUnlockPrivateTokenInfoResultDeprecated() {
   DestroyActive();
 }
 
 
-void CreateQuickUnlockPrivateTokenInfoResult::set_error_message(
-    const std::string& error_message) {
-  if (tag_ == Tag::kErrorMessage) {
-    *(data_.error_message) = std::move(error_message);
+void CreateQuickUnlockPrivateTokenInfoResultDeprecated::set_REMOVED_0(
+    const std::string& REMOVED_0) {
+  if (tag_ == Tag::kRemoved0) {
+    *(data_.REMOVED_0) = std::move(REMOVED_0);
   } else {
     DestroyActive();
-    tag_ = Tag::kErrorMessage;
-    data_.error_message = new std::string(
-        std::move(error_message));
+    tag_ = Tag::kRemoved0;
+    data_.REMOVED_0 = new std::string(
+        std::move(REMOVED_0));
   }
 }
-void CreateQuickUnlockPrivateTokenInfoResult::set_token_info(
-    QuickUnlockPrivateTokenInfoPtr token_info) {
-  if (tag_ == Tag::kTokenInfo) {
-    *(data_.token_info) = std::move(token_info);
+void CreateQuickUnlockPrivateTokenInfoResultDeprecated::set_REMOVED_1(
+    QuickUnlockPrivateTokenInfoDeprecatedPtr REMOVED_1) {
+  if (tag_ == Tag::kRemoved1) {
+    *(data_.REMOVED_1) = std::move(REMOVED_1);
   } else {
     DestroyActive();
-    tag_ = Tag::kTokenInfo;
-    data_.token_info = new QuickUnlockPrivateTokenInfoPtr(
-        std::move(token_info));
+    tag_ = Tag::kRemoved1;
+    data_.REMOVED_1 = new QuickUnlockPrivateTokenInfoDeprecatedPtr(
+        std::move(REMOVED_1));
   }
 }
 
-void CreateQuickUnlockPrivateTokenInfoResult::DestroyActive() {
+void CreateQuickUnlockPrivateTokenInfoResultDeprecated::DestroyActive() {
   switch (tag_) {
 
-    case Tag::kErrorMessage:
+    case Tag::kRemoved0:
 
-      delete data_.error_message;
+      delete data_.REMOVED_0;
       break;
-    case Tag::kTokenInfo:
+    case Tag::kRemoved1:
 
-      delete data_.token_info;
+      delete data_.REMOVED_1;
       break;
   }
 }
-size_t CreateQuickUnlockPrivateTokenInfoResult::Hash(size_t seed) const {
+size_t CreateQuickUnlockPrivateTokenInfoResultDeprecated::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::kErrorMessage:
-      return mojo::internal::Hash(seed, data_.error_message);
-    case Tag::kTokenInfo:
-      return mojo::internal::Hash(seed, data_.token_info);
+    case Tag::kRemoved0:
+      return mojo::internal::Hash(seed, data_.REMOVED_0);
+    case Tag::kRemoved1:
+      return mojo::internal::Hash(seed, data_.REMOVED_1);
     default:
       NOTREACHED();
       return seed;
   }
 }
 
-bool CreateQuickUnlockPrivateTokenInfoResult::Validate(
+bool CreateQuickUnlockPrivateTokenInfoResultDeprecated::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-const char Authentication::Name_[] = "crosapi.mojom.Authentication";
-constexpr base::Token Authentication::Uuid_;
+const char AuthenticationDeprecated::Name_[] = "crosapi.mojom.AuthenticationDeprecated";
+constexpr base::Token AuthenticationDeprecated::Uuid_;
 
-Authentication::IPCStableHashFunction Authentication::MessageToMethodInfo_(mojo::Message& message) {
+AuthenticationDeprecated::IPCStableHashFunction AuthenticationDeprecated::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kAuthentication_CreateQuickUnlockPrivateTokenInfo_Name: {
-      return &Authentication::CreateQuickUnlockPrivateTokenInfo_Sym::IPCStableHash;
+    case internal::kAuthenticationDeprecated_REMOVED_0_Name: {
+      return &AuthenticationDeprecated::REMOVED_0_Sym::IPCStableHash;
     }
-    case internal::kAuthentication_IsOsReauthAllowedForActiveUserProfile_Name: {
-      return &Authentication::IsOsReauthAllowedForActiveUserProfile_Sym::IPCStableHash;
+    case internal::kAuthenticationDeprecated_REMOVED_1_Name: {
+      return &AuthenticationDeprecated::REMOVED_1_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -170,22 +170,22 @@ Authentication::IPCStableHashFunction Authentication::MessageToMethodInfo_(mojo:
 }
 
 
-const char* Authentication::MessageToMethodName_(mojo::Message& message) {
+const char* AuthenticationDeprecated::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kAuthentication_CreateQuickUnlockPrivateTokenInfo_Name:
-            return "Receive crosapi::mojom::Authentication::CreateQuickUnlockPrivateTokenInfo";
-      case internal::kAuthentication_IsOsReauthAllowedForActiveUserProfile_Name:
-            return "Receive crosapi::mojom::Authentication::IsOsReauthAllowedForActiveUserProfile";
+      case internal::kAuthenticationDeprecated_REMOVED_0_Name:
+            return "Receive crosapi::mojom::AuthenticationDeprecated::REMOVED_0";
+      case internal::kAuthenticationDeprecated_REMOVED_1_Name:
+            return "Receive crosapi::mojom::AuthenticationDeprecated::REMOVED_1";
     }
   } else {
     switch (message.name()) {
-      case internal::kAuthentication_CreateQuickUnlockPrivateTokenInfo_Name:
-            return "Receive reply crosapi::mojom::Authentication::CreateQuickUnlockPrivateTokenInfo";
-      case internal::kAuthentication_IsOsReauthAllowedForActiveUserProfile_Name:
-            return "Receive reply crosapi::mojom::Authentication::IsOsReauthAllowedForActiveUserProfile";
+      case internal::kAuthenticationDeprecated_REMOVED_0_Name:
+            return "Receive reply crosapi::mojom::AuthenticationDeprecated::REMOVED_0";
+      case internal::kAuthenticationDeprecated_REMOVED_1_Name:
+            return "Receive reply crosapi::mojom::AuthenticationDeprecated::REMOVED_1";
     }
   }
   return "Receive unknown mojo message";
@@ -200,7 +200,7 @@ const char* Authentication::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t Authentication::CreateQuickUnlockPrivateTokenInfo_Sym::IPCStableHash() {
+uint32_t AuthenticationDeprecated::REMOVED_0_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -208,12 +208,12 @@ uint32_t Authentication::CreateQuickUnlockPrivateTokenInfo_Sym::IPCStableHash() 
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)crosapi::mojom::Authentication::CreateQuickUnlockPrivateTokenInfo");
+          "(Impl)crosapi::mojom::AuthenticationDeprecated::REMOVED_0");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t Authentication::IsOsReauthAllowedForActiveUserProfile_Sym::IPCStableHash() {
+uint32_t AuthenticationDeprecated::REMOVED_1_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -221,54 +221,54 @@ uint32_t Authentication::IsOsReauthAllowedForActiveUserProfile_Sym::IPCStableHas
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)crosapi::mojom::Authentication::IsOsReauthAllowedForActiveUserProfile");
+          "(Impl)crosapi::mojom::AuthenticationDeprecated::REMOVED_1");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback
+class AuthenticationDeprecated_REMOVED_0_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback(
-      Authentication::CreateQuickUnlockPrivateTokenInfoCallback callback
+  AuthenticationDeprecated_REMOVED_0_ForwardToCallback(
+      AuthenticationDeprecated::REMOVED_0Callback callback
       ) : callback_(std::move(callback)) {
   }
 
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback(const Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback&) = delete;
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback& operator=(const Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback&) = delete;
+  AuthenticationDeprecated_REMOVED_0_ForwardToCallback(const AuthenticationDeprecated_REMOVED_0_ForwardToCallback&) = delete;
+  AuthenticationDeprecated_REMOVED_0_ForwardToCallback& operator=(const AuthenticationDeprecated_REMOVED_0_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  Authentication::CreateQuickUnlockPrivateTokenInfoCallback callback_;
+  AuthenticationDeprecated::REMOVED_0Callback callback_;
 };
 
-class Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback
+class AuthenticationDeprecated_REMOVED_1_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback(
-      Authentication::IsOsReauthAllowedForActiveUserProfileCallback callback
+  AuthenticationDeprecated_REMOVED_1_ForwardToCallback(
+      AuthenticationDeprecated::REMOVED_1Callback callback
       ) : callback_(std::move(callback)) {
   }
 
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback(const Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback&) = delete;
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback& operator=(const Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback&) = delete;
+  AuthenticationDeprecated_REMOVED_1_ForwardToCallback(const AuthenticationDeprecated_REMOVED_1_ForwardToCallback&) = delete;
+  AuthenticationDeprecated_REMOVED_1_ForwardToCallback& operator=(const AuthenticationDeprecated_REMOVED_1_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  Authentication::IsOsReauthAllowedForActiveUserProfileCallback callback_;
+  AuthenticationDeprecated::REMOVED_1Callback callback_;
 };
 
-AuthenticationProxy::AuthenticationProxy(mojo::MessageReceiverWithResponder* receiver)
+AuthenticationDeprecatedProxy::AuthenticationDeprecatedProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void AuthenticationProxy::CreateQuickUnlockPrivateTokenInfo(
-    const std::string& in_password, CreateQuickUnlockPrivateTokenInfoCallback callback) {
+void AuthenticationDeprecatedProxy::REMOVED_0(
+    const std::string& in_password, REMOVED_0Callback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send crosapi::mojom::Authentication::CreateQuickUnlockPrivateTokenInfo", "input_parameters",
+    "mojom", "Send crosapi::mojom::AuthenticationDeprecated::REMOVED_0", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -286,9 +286,9 @@ void AuthenticationProxy::CreateQuickUnlockPrivateTokenInfo(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kAuthentication_CreateQuickUnlockPrivateTokenInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kAuthenticationDeprecated_REMOVED_0_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::crosapi::mojom::internal::Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data> params(
+      ::crosapi::mojom::internal::AuthenticationDeprecated_REMOVED_0_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -301,23 +301,23 @@ void AuthenticationProxy::CreateQuickUnlockPrivateTokenInfo(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->password.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null password in Authentication.CreateQuickUnlockPrivateTokenInfo request");
+      "null password in AuthenticationDeprecated.REMOVED_0 request");
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Authentication::Name_);
-  message.set_method_name("CreateQuickUnlockPrivateTokenInfo");
+  message.set_interface_name(AuthenticationDeprecated::Name_);
+  message.set_method_name("REMOVED_0");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback(
+      new AuthenticationDeprecated_REMOVED_0_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void AuthenticationProxy::IsOsReauthAllowedForActiveUserProfile(
-    ::base::TimeDelta in_auth_token_lifetime, IsOsReauthAllowedForActiveUserProfileCallback callback) {
+void AuthenticationDeprecatedProxy::REMOVED_1(
+    ::base::TimeDelta in_auth_token_lifetime, REMOVED_1Callback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send crosapi::mojom::Authentication::IsOsReauthAllowedForActiveUserProfile", "input_parameters",
+    "mojom", "Send crosapi::mojom::AuthenticationDeprecated::REMOVED_1", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -335,9 +335,9 @@ void AuthenticationProxy::IsOsReauthAllowedForActiveUserProfile(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kAuthentication_IsOsReauthAllowedForActiveUserProfile_Name, kFlags, 0, 0, nullptr);
+      internal::kAuthenticationDeprecated_REMOVED_1_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::crosapi::mojom::internal::Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data> params(
+      ::crosapi::mojom::internal::AuthenticationDeprecated_REMOVED_1_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -350,30 +350,30 @@ void AuthenticationProxy::IsOsReauthAllowedForActiveUserProfile(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->auth_token_lifetime.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null auth_token_lifetime in Authentication.IsOsReauthAllowedForActiveUserProfile request");
+      "null auth_token_lifetime in AuthenticationDeprecated.REMOVED_1 request");
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Authentication::Name_);
-  message.set_method_name("IsOsReauthAllowedForActiveUserProfile");
+  message.set_interface_name(AuthenticationDeprecated::Name_);
+  message.set_method_name("REMOVED_1");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback(
+      new AuthenticationDeprecated_REMOVED_1_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-class Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class AuthenticationDeprecated_REMOVED_0_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static Authentication::CreateQuickUnlockPrivateTokenInfoCallback CreateCallback(
+  static AuthenticationDeprecated::REMOVED_0Callback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder> proxy(
-        new Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder(
+    std::unique_ptr<AuthenticationDeprecated_REMOVED_0_ProxyToResponder> proxy(
+        new AuthenticationDeprecated_REMOVED_0_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder::Run,
+    return base::BindOnce(&AuthenticationDeprecated_REMOVED_0_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder() {
+  ~AuthenticationDeprecated_REMOVED_0_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -390,7 +390,7 @@ class Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder : public
   }
 
  private:
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder(
+  AuthenticationDeprecated_REMOVED_0_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -399,7 +399,7 @@ class Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder : public
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "Authentication::CreateQuickUnlockPrivateTokenInfoCallback was destroyed without "
+        << "AuthenticationDeprecated::REMOVED_0Callback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -407,21 +407,21 @@ class Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder : public
 #endif
 
   void Run(
-      CreateQuickUnlockPrivateTokenInfoResultPtr in_result);
+      CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr in_result);
 };
 
-bool Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback::Accept(
+bool AuthenticationDeprecated_REMOVED_0_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data* params =
+  internal::AuthenticationDeprecated_REMOVED_0_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data*>(
+          internal::AuthenticationDeprecated_REMOVED_0_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
-  CreateQuickUnlockPrivateTokenInfoResultPtr p_result{};
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParamsDataView input_data_view(params, message);
+  CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr p_result{};
+  AuthenticationDeprecated_REMOVED_0_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
     success = false;
@@ -429,7 +429,7 @@ bool Authentication_CreateQuickUnlockPrivateTokenInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Authentication::Name_, 0, true);
+        AuthenticationDeprecated::Name_, 0, true);
     return false;
   }
   if (!callback_.is_null())
@@ -438,16 +438,16 @@ std::move(p_result));
   return true;
 }
 
-void Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder::Run(
-    CreateQuickUnlockPrivateTokenInfoResultPtr in_result) {
+void AuthenticationDeprecated_REMOVED_0_ProxyToResponder::Run(
+    CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply crosapi::mojom::Authentication::CreateQuickUnlockPrivateTokenInfo", "async_response_parameters",
+    "mojom", "Send reply crosapi::mojom::AuthenticationDeprecated::REMOVED_0", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type CreateQuickUnlockPrivateTokenInfoResultPtr>");
+                        "<value of type CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr>");
    });
 #endif
   
@@ -456,15 +456,15 @@ void Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kAuthentication_CreateQuickUnlockPrivateTokenInfo_Name, kFlags, 0, 0, nullptr);
+      internal::kAuthenticationDeprecated_REMOVED_0_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::crosapi::mojom::internal::Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data> params(
+      ::crosapi::mojom::internal::AuthenticationDeprecated_REMOVED_0_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<decltype(params->result)>
       result_fragment(params.message());
   result_fragment.Claim(&params->result);
-  mojo::internal::Serialize<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataView>(
+  mojo::internal::Serialize<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView>(
       in_result, result_fragment, true);
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->result.is_null(),
@@ -472,8 +472,8 @@ void Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder::Run(
       "null result in ");
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Authentication::Name_);
-  message.set_method_name("CreateQuickUnlockPrivateTokenInfo");
+  message.set_interface_name(AuthenticationDeprecated::Name_);
+  message.set_method_name("REMOVED_0");
 #endif
 
   message.set_request_id(request_id_);
@@ -487,19 +487,19 @@ void Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class AuthenticationDeprecated_REMOVED_1_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static Authentication::IsOsReauthAllowedForActiveUserProfileCallback CreateCallback(
+  static AuthenticationDeprecated::REMOVED_1Callback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder> proxy(
-        new Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder(
+    std::unique_ptr<AuthenticationDeprecated_REMOVED_1_ProxyToResponder> proxy(
+        new AuthenticationDeprecated_REMOVED_1_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder::Run,
+    return base::BindOnce(&AuthenticationDeprecated_REMOVED_1_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder() {
+  ~AuthenticationDeprecated_REMOVED_1_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -516,7 +516,7 @@ class Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder : pu
   }
 
  private:
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder(
+  AuthenticationDeprecated_REMOVED_1_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -525,7 +525,7 @@ class Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder : pu
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "Authentication::IsOsReauthAllowedForActiveUserProfileCallback was destroyed without "
+        << "AuthenticationDeprecated::REMOVED_1Callback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -536,18 +536,18 @@ class Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder : pu
       bool in_allowed);
 };
 
-bool Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback::Accept(
+bool AuthenticationDeprecated_REMOVED_1_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data* params =
+  internal::AuthenticationDeprecated_REMOVED_1_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data*>(
+          internal::AuthenticationDeprecated_REMOVED_1_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   bool p_allowed{};
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParamsDataView input_data_view(params, message);
+  AuthenticationDeprecated_REMOVED_1_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
     p_allowed = input_data_view.allowed();
@@ -555,7 +555,7 @@ bool Authentication_IsOsReauthAllowedForActiveUserProfile_ForwardToCallback::Acc
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Authentication::Name_, 1, true);
+        AuthenticationDeprecated::Name_, 1, true);
     return false;
   }
   if (!callback_.is_null())
@@ -564,11 +564,11 @@ std::move(p_allowed));
   return true;
 }
 
-void Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder::Run(
+void AuthenticationDeprecated_REMOVED_1_ProxyToResponder::Run(
     bool in_allowed) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply crosapi::mojom::Authentication::IsOsReauthAllowedForActiveUserProfile", "async_response_parameters",
+    "mojom", "Send reply crosapi::mojom::AuthenticationDeprecated::REMOVED_1", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -582,16 +582,16 @@ void Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kAuthentication_IsOsReauthAllowedForActiveUserProfile_Name, kFlags, 0, 0, nullptr);
+      internal::kAuthenticationDeprecated_REMOVED_1_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::crosapi::mojom::internal::Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data> params(
+      ::crosapi::mojom::internal::AuthenticationDeprecated_REMOVED_1_ResponseParams_Data> params(
           message);
   params.Allocate();
   params->allowed = in_allowed;
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Authentication::Name_);
-  message.set_method_name("IsOsReauthAllowedForActiveUserProfile");
+  message.set_interface_name(AuthenticationDeprecated::Name_);
+  message.set_method_name("REMOVED_1");
 #endif
 
   message.set_request_id(request_id_);
@@ -607,14 +607,14 @@ void Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder::Run(
 }
 
 // static
-bool AuthenticationStubDispatch::Accept(
-    Authentication* impl,
+bool AuthenticationDeprecatedStubDispatch::Accept(
+    AuthenticationDeprecated* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kAuthentication_CreateQuickUnlockPrivateTokenInfo_Name: {
+    case internal::kAuthenticationDeprecated_REMOVED_0_Name: {
       break;
     }
-    case internal::kAuthentication_IsOsReauthAllowedForActiveUserProfile_Name: {
+    case internal::kAuthenticationDeprecated_REMOVED_1_Name: {
       break;
     }
   }
@@ -622,24 +622,24 @@ bool AuthenticationStubDispatch::Accept(
 }
 
 // static
-bool AuthenticationStubDispatch::AcceptWithResponder(
-    Authentication* impl,
+bool AuthenticationDeprecatedStubDispatch::AcceptWithResponder(
+    AuthenticationDeprecated* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kAuthentication_CreateQuickUnlockPrivateTokenInfo_Name: {
+    case internal::kAuthenticationDeprecated_REMOVED_0_Name: {
 
-      internal::Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data* params =
+      internal::AuthenticationDeprecated_REMOVED_0_Params_Data* params =
           reinterpret_cast<
-              internal::Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data*>(
+              internal::AuthenticationDeprecated_REMOVED_0_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       std::string p_password{};
-      Authentication_CreateQuickUnlockPrivateTokenInfo_ParamsDataView input_data_view(params, message);
+      AuthenticationDeprecated_REMOVED_0_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPassword(&p_password))
         success = false;
@@ -647,28 +647,28 @@ bool AuthenticationStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Authentication::Name_, 0, false);
+            AuthenticationDeprecated::Name_, 0, false);
         return false;
       }
-      Authentication::CreateQuickUnlockPrivateTokenInfoCallback callback =
-          Authentication_CreateQuickUnlockPrivateTokenInfo_ProxyToResponder::CreateCallback(
+      AuthenticationDeprecated::REMOVED_0Callback callback =
+          AuthenticationDeprecated_REMOVED_0_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->CreateQuickUnlockPrivateTokenInfo(
+      impl->REMOVED_0(
 std::move(p_password), std::move(callback));
       return true;
     }
-    case internal::kAuthentication_IsOsReauthAllowedForActiveUserProfile_Name: {
+    case internal::kAuthenticationDeprecated_REMOVED_1_Name: {
 
-      internal::Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data* params =
+      internal::AuthenticationDeprecated_REMOVED_1_Params_Data* params =
           reinterpret_cast<
-              internal::Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data*>(
+              internal::AuthenticationDeprecated_REMOVED_1_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       ::base::TimeDelta p_auth_token_lifetime{};
-      Authentication_IsOsReauthAllowedForActiveUserProfile_ParamsDataView input_data_view(params, message);
+      AuthenticationDeprecated_REMOVED_1_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAuthTokenLifetime(&p_auth_token_lifetime))
         success = false;
@@ -676,15 +676,15 @@ std::move(p_password), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Authentication::Name_, 1, false);
+            AuthenticationDeprecated::Name_, 1, false);
         return false;
       }
-      Authentication::IsOsReauthAllowedForActiveUserProfileCallback callback =
-          Authentication_IsOsReauthAllowedForActiveUserProfile_ProxyToResponder::CreateCallback(
+      AuthenticationDeprecated::REMOVED_1Callback callback =
+          AuthenticationDeprecated_REMOVED_1_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsOsReauthAllowedForActiveUserProfile(
+      impl->REMOVED_1(
 std::move(p_auth_token_lifetime), std::move(callback));
       return true;
     }
@@ -693,21 +693,21 @@ std::move(p_auth_token_lifetime), std::move(callback));
 }
 
 
-static const mojo::internal::GenericValidationInfo kAuthenticationValidationInfo[] = {
-    {&internal::Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data::Validate,
-     &internal::Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data::Validate},
-    {&internal::Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data::Validate,
-     &internal::Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data::Validate},
+static const mojo::internal::GenericValidationInfo kAuthenticationDeprecatedValidationInfo[] = {
+    {&internal::AuthenticationDeprecated_REMOVED_0_Params_Data::Validate,
+     &internal::AuthenticationDeprecated_REMOVED_0_ResponseParams_Data::Validate},
+    {&internal::AuthenticationDeprecated_REMOVED_1_Params_Data::Validate,
+     &internal::AuthenticationDeprecated_REMOVED_1_ResponseParams_Data::Validate},
 };
 
-bool AuthenticationRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::crosapi::mojom::Authentication::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kAuthenticationValidationInfo);
+bool AuthenticationDeprecatedRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::crosapi::mojom::AuthenticationDeprecated::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kAuthenticationDeprecatedValidationInfo);
 }
 
-bool AuthenticationResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::crosapi::mojom::Authentication::Name_;
-  return mojo::internal::ValidateResponseGenericPacked(message, name, kAuthenticationValidationInfo);
+bool AuthenticationDeprecatedResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::crosapi::mojom::AuthenticationDeprecated::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kAuthenticationDeprecatedValidationInfo);
 }
 
 
@@ -718,44 +718,44 @@ namespace mojo {
 
 
 // static
-bool StructTraits<::crosapi::mojom::QuickUnlockPrivateTokenInfo::DataView, ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr>::Read(
-    ::crosapi::mojom::QuickUnlockPrivateTokenInfo::DataView input,
-    ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr* output) {
+bool StructTraits<::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecated::DataView, ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr>::Read(
+    ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecated::DataView input,
+    ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr* output) {
   bool success = true;
-  ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr result(::crosapi::mojom::QuickUnlockPrivateTokenInfo::New());
+  ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr result(::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecated::New());
   
-      if (success && !input.ReadToken(&result->token))
+      if (success && !input.ReadRemoved0(&result->REMOVED_0))
         success = false;
       if (success)
-        result->lifetime_seconds = input.lifetime_seconds();
+        result->REMOVED_1 = input.REMOVED_1();
   *output = std::move(result);
   return success;
 }
 
 // static
-bool UnionTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResult::DataView, ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr>::Read(
-    ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResult::DataView input,
-    ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr* output) {
-  using UnionType = ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResult;
+bool UnionTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecated::DataView, ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr>::Read(
+    ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecated::DataView input,
+    ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr* output) {
+  using UnionType = ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecated;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::kErrorMessage: {
-      std::string result_error_message;
-      if (!input.ReadErrorMessage(&result_error_message))
+    case Tag::kRemoved0: {
+      std::string result_REMOVED_0;
+      if (!input.ReadRemoved0(&result_REMOVED_0))
         return false;
 
-      *output = UnionType::NewErrorMessage(
-          std::move(result_error_message));
+      *output = UnionType::NewRemoved0(
+          std::move(result_REMOVED_0));
       break;
     }
-    case Tag::kTokenInfo: {
-      ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr result_token_info;
-      if (!input.ReadTokenInfo(&result_token_info))
+    case Tag::kRemoved1: {
+      ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr result_REMOVED_1;
+      if (!input.ReadRemoved1(&result_REMOVED_1))
         return false;
 
-      *output = UnionType::NewTokenInfo(
-          std::move(result_token_info));
+      *output = UnionType::NewRemoved1(
+          std::move(result_REMOVED_1));
       break;
     }
     default:
@@ -775,26 +775,26 @@ bool UnionTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResult::Data
 namespace crosapi::mojom {
 
 
-void AuthenticationInterceptorForTesting::CreateQuickUnlockPrivateTokenInfo(const std::string& password, CreateQuickUnlockPrivateTokenInfoCallback callback) {
-  GetForwardingInterface()->CreateQuickUnlockPrivateTokenInfo(std::move(password), std::move(callback));
+void AuthenticationDeprecatedInterceptorForTesting::REMOVED_0(const std::string& password, REMOVED_0Callback callback) {
+  GetForwardingInterface()->REMOVED_0(std::move(password), std::move(callback));
 }
-void AuthenticationInterceptorForTesting::IsOsReauthAllowedForActiveUserProfile(::base::TimeDelta auth_token_lifetime, IsOsReauthAllowedForActiveUserProfileCallback callback) {
-  GetForwardingInterface()->IsOsReauthAllowedForActiveUserProfile(std::move(auth_token_lifetime), std::move(callback));
+void AuthenticationDeprecatedInterceptorForTesting::REMOVED_1(::base::TimeDelta auth_token_lifetime, REMOVED_1Callback callback) {
+  GetForwardingInterface()->REMOVED_1(std::move(auth_token_lifetime), std::move(callback));
 }
-AuthenticationAsyncWaiter::AuthenticationAsyncWaiter(
-    Authentication* proxy) : proxy_(proxy) {}
+AuthenticationDeprecatedAsyncWaiter::AuthenticationDeprecatedAsyncWaiter(
+    AuthenticationDeprecated* proxy) : proxy_(proxy) {}
 
-AuthenticationAsyncWaiter::~AuthenticationAsyncWaiter() = default;
+AuthenticationDeprecatedAsyncWaiter::~AuthenticationDeprecatedAsyncWaiter() = default;
 
-void AuthenticationAsyncWaiter::CreateQuickUnlockPrivateTokenInfo(
-    const std::string& password, CreateQuickUnlockPrivateTokenInfoResultPtr* out_result) {
+void AuthenticationDeprecatedAsyncWaiter::REMOVED_0(
+    const std::string& password, CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr* out_result) {
   base::RunLoop loop;
-  proxy_->CreateQuickUnlockPrivateTokenInfo(std::move(password),
+  proxy_->REMOVED_0(std::move(password),
       base::BindOnce(
           [](base::RunLoop* loop,
-             CreateQuickUnlockPrivateTokenInfoResultPtr* out_result
+             CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr* out_result
 ,
-             CreateQuickUnlockPrivateTokenInfoResultPtr result) {*out_result = std::move(result);
+             CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
@@ -802,17 +802,17 @@ void AuthenticationAsyncWaiter::CreateQuickUnlockPrivateTokenInfo(
   loop.Run();
 }
 
-CreateQuickUnlockPrivateTokenInfoResultPtr AuthenticationAsyncWaiter::CreateQuickUnlockPrivateTokenInfo(
+CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr AuthenticationDeprecatedAsyncWaiter::REMOVED_0(
     const std::string& password) {
-  CreateQuickUnlockPrivateTokenInfoResultPtr async_wait_result;
-  CreateQuickUnlockPrivateTokenInfo(std::move(password),&async_wait_result);
+  CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr async_wait_result;
+  REMOVED_0(std::move(password),&async_wait_result);
   return async_wait_result;
 }
 
-void AuthenticationAsyncWaiter::IsOsReauthAllowedForActiveUserProfile(
+void AuthenticationDeprecatedAsyncWaiter::REMOVED_1(
     ::base::TimeDelta auth_token_lifetime, bool* out_allowed) {
   base::RunLoop loop;
-  proxy_->IsOsReauthAllowedForActiveUserProfile(std::move(auth_token_lifetime),
+  proxy_->REMOVED_1(std::move(auth_token_lifetime),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_allowed
@@ -825,10 +825,10 @@ void AuthenticationAsyncWaiter::IsOsReauthAllowedForActiveUserProfile(
   loop.Run();
 }
 
-bool AuthenticationAsyncWaiter::IsOsReauthAllowedForActiveUserProfile(
+bool AuthenticationDeprecatedAsyncWaiter::REMOVED_1(
     ::base::TimeDelta auth_token_lifetime) {
   bool async_wait_result;
-  IsOsReauthAllowedForActiveUserProfile(std::move(auth_token_lifetime),&async_wait_result);
+  REMOVED_1(std::move(auth_token_lifetime),&async_wait_result);
   return async_wait_result;
 }
 

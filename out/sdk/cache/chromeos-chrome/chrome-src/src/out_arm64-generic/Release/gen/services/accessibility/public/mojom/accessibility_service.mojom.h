@@ -33,6 +33,7 @@
 #include "services/accessibility/public/mojom/user_interface.mojom-forward.h"
 #include "services/accessibility/public/mojom/assistive_technology_type.mojom-forward.h"
 #include "services/accessibility/public/mojom/file_loader.mojom-forward.h"
+#include "services/accessibility/public/mojom/autoclick.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -181,6 +182,7 @@ class AccessibilityServiceClient
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kBindAutomationMinVersion = 0,
+    kBindAutoclickClientMinVersion = 0,
     kBindSpeechRecognitionMinVersion = 0,
     kBindTtsMinVersion = 0,
     kBindUserInterfaceMinVersion = 0,
@@ -191,6 +193,9 @@ class AccessibilityServiceClient
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct BindAutomation_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindAutoclickClient_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindSpeechRecognition_Sym {
@@ -210,6 +215,9 @@ class AccessibilityServiceClient
 
   
   virtual void BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation, ::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) = 0;
+
+  
+  virtual void BindAutoclickClient(::mojo::PendingReceiver<::ax::mojom::AutoclickClient> autoclick_client) = 0;
 
   
   virtual void BindSpeechRecognition(::mojo::PendingReceiver<::ax::mojom::SpeechRecognition> sr_receiver) = 0;
@@ -268,6 +276,8 @@ class  AccessibilityServiceClientProxy
   explicit AccessibilityServiceClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation, ::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) final;
+  
+  void BindAutoclickClient(::mojo::PendingReceiver<::ax::mojom::AutoclickClient> autoclick_client) final;
   
   void BindSpeechRecognition(::mojo::PendingReceiver<::ax::mojom::SpeechRecognition> sr_receiver) final;
   

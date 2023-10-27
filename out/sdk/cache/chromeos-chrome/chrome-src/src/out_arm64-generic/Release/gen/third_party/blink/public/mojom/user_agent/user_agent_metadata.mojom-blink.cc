@@ -113,7 +113,7 @@ UserAgentMetadata::UserAgentMetadata(
     bool mobile_in,
     const WTF::String& bitness_in,
     bool wow64_in,
-    const WTF::String& form_factor_in)
+    WTF::Vector<WTF::String> form_factor_in)
     : brand_version_list(std::move(brand_version_list_in)),
       brand_full_version_list(std::move(brand_full_version_list_in)),
       full_version(std::move(full_version_in)),
@@ -225,7 +225,7 @@ void UserAgentMetadata::WriteIntoTrace(
     dict.AddItem(
       "form_factor"), this->form_factor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const WTF::String&>"
+      "<value of type const WTF::Vector<WTF::String>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

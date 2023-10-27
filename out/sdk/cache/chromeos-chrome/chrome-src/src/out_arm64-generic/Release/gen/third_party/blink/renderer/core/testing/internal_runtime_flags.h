@@ -301,6 +301,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool clipboardCustomFormatsEnabled() {
     return RuntimeEnabledFeatures::ClipboardCustomFormatsEnabled();
   }
+  bool clipboardSupportedTypesEnabled() {
+    return RuntimeEnabledFeatures::ClipboardSupportedTypesEnabled();
+  }
   bool clipboardSvgEnabled() {
     return RuntimeEnabledFeatures::ClipboardSvgEnabled();
   }
@@ -738,6 +741,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool displayCutoutAPIEnabled() {
     return RuntimeEnabledFeatures::DisplayCutoutAPIEnabled();
+  }
+  bool documentBaseURIFixEnabled() {
+    return RuntimeEnabledFeatures::DocumentBaseURIFixEnabled();
   }
   bool documentCookieEnabled() {
     return RuntimeEnabledFeatures::DocumentCookieEnabled();
@@ -2010,6 +2016,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool unrestrictedSharedArrayBufferEnabled() {
     return RuntimeEnabledFeatures::UnrestrictedSharedArrayBufferEnabledByRuntimeFlag();
+  }
+  bool urlAttributeFixEnabled() {
+    return RuntimeEnabledFeatures::URLAttributeFixEnabled();
   }
   bool urlCanParseEnabled() {
     return RuntimeEnabledFeatures::URLCanParseEnabled();

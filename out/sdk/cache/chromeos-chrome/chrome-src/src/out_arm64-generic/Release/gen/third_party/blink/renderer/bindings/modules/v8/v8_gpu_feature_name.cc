@@ -17,7 +17,7 @@ namespace blink {
 
 
 constexpr const char* const V8GPUFeatureName::string_table_[] = {
-"depth-clip-control", "depth32float-stencil8", "texture-compression-bc", "texture-compression-etc2", "texture-compression-astc", "timestamp-query", "indirect-first-instance", "shader-f16", "rg11b10ufloat-renderable", "bgra8unorm-storage", "float32-filterable", "chromium-experimental-pipeline-statistics-query", "chromium-experimental-timestamp-query-inside-passes", "chromium-experimental-dp4a", "chromium-experimental-read-write-storage-texture", "chromium-experimental-subgroups", "chromium-experimental-subgroup-uniform-control-flow"
+"depth-clip-control", "depth32float-stencil8", "texture-compression-bc", "texture-compression-etc2", "texture-compression-astc", "timestamp-query", "indirect-first-instance", "shader-f16", "rg11b10ufloat-renderable", "bgra8unorm-storage", "float32-filterable", "chromium-experimental-timestamp-query-inside-passes", "chromium-experimental-dp4a", "chromium-experimental-read-write-storage-texture", "chromium-experimental-subgroups", "chromium-experimental-subgroup-uniform-control-flow"
 };
 
 V8GPUFeatureName V8GPUFeatureName::Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state) {

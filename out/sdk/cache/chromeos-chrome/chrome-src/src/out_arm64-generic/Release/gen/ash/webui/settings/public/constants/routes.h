@@ -90,6 +90,7 @@ inline const char* const kPaths[] = {
   mojom::kSmartPrivacySubpagePath,
   mojom::kPrivacyHubSubpagePath,
   mojom::kPrivacyHubMicrophoneSubpagePath,
+  mojom::kPrivacyHubGeolocationSubpagePath,
   mojom::kLanguagesAndInputSectionPath,
   mojom::kInputMethodOptionsSubpagePath,
   mojom::kLanguagesSubpagePath,

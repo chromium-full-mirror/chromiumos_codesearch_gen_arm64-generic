@@ -509,17 +509,19 @@ bool Study_FormFactor_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Study_FormFactor_strings[7] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Study_FormFactor_strings[8] = {};
 
 static const char Study_FormFactor_names[] =
   "AUTOMOTIVE"
   "DESKTOP"
+  "FOLDABLE"
   "KIOSK"
   "MEET_DEVICE"
   "PHONE"
@@ -529,21 +531,23 @@ static const char Study_FormFactor_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Study_FormFactor_entries[] = {
   { {Study_FormFactor_names + 0, 10}, 6 },
   { {Study_FormFactor_names + 10, 7}, 0 },
-  { {Study_FormFactor_names + 17, 5}, 3 },
-  { {Study_FormFactor_names + 22, 11}, 4 },
-  { {Study_FormFactor_names + 33, 5}, 1 },
-  { {Study_FormFactor_names + 38, 6}, 2 },
-  { {Study_FormFactor_names + 44, 2}, 5 },
+  { {Study_FormFactor_names + 17, 8}, 7 },
+  { {Study_FormFactor_names + 25, 5}, 3 },
+  { {Study_FormFactor_names + 30, 11}, 4 },
+  { {Study_FormFactor_names + 41, 5}, 1 },
+  { {Study_FormFactor_names + 46, 6}, 2 },
+  { {Study_FormFactor_names + 52, 2}, 5 },
 };
 
 static const int Study_FormFactor_entries_by_number[] = {
   1, // 0 -> DESKTOP
-  4, // 1 -> PHONE
-  5, // 2 -> TABLET
-  2, // 3 -> KIOSK
-  3, // 4 -> MEET_DEVICE
-  6, // 5 -> TV
+  5, // 1 -> PHONE
+  6, // 2 -> TABLET
+  3, // 3 -> KIOSK
+  4, // 4 -> MEET_DEVICE
+  7, // 5 -> TV
   0, // 6 -> AUTOMOTIVE
+  2, // 7 -> FOLDABLE
 };
 
 const std::string& Study_FormFactor_Name(
@@ -552,12 +556,12 @@ const std::string& Study_FormFactor_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Study_FormFactor_entries,
           Study_FormFactor_entries_by_number,
-          7, Study_FormFactor_strings);
+          8, Study_FormFactor_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Study_FormFactor_entries,
       Study_FormFactor_entries_by_number,
-      7, value);
+      8, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Study_FormFactor_strings[idx].get();
 }
@@ -565,7 +569,7 @@ bool Study_FormFactor_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Study_FormFactor* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Study_FormFactor_entries, 7, name, &int_value);
+      Study_FormFactor_entries, 8, name, &int_value);
   if (success) {
     *value = static_cast<Study_FormFactor>(int_value);
   }
@@ -579,6 +583,7 @@ constexpr Study_FormFactor Study::KIOSK;
 constexpr Study_FormFactor Study::MEET_DEVICE;
 constexpr Study_FormFactor Study::TV;
 constexpr Study_FormFactor Study::AUTOMOTIVE;
+constexpr Study_FormFactor Study::FOLDABLE;
 constexpr Study_FormFactor Study::FormFactor_MIN;
 constexpr Study_FormFactor Study::FormFactor_MAX;
 constexpr int Study::FormFactor_ARRAYSIZE;

@@ -39,11 +39,11 @@
 namespace blink::mojom {
 class LogoutRpsRequestDataView;
 
-class WalletProviderDataView;
+class DigitalCredentialProviderDataView;
 
-class WalletSelectorDataView;
+class DigitalCredentialSelectorDataView;
 
-class WalletFieldRequirementDataView;
+class DigitalCredentialFieldRequirementDataView;
 
 class IdentityProviderConfigDataView;
 
@@ -69,22 +69,22 @@ struct MojomTypeTraits<::blink::mojom::LogoutRpsRequestDataView> {
 };
 
 template <>
-struct MojomTypeTraits<::blink::mojom::WalletProviderDataView> {
-  using Data = ::blink::mojom::internal::WalletProvider_Data;
+struct MojomTypeTraits<::blink::mojom::DigitalCredentialProviderDataView> {
+  using Data = ::blink::mojom::internal::DigitalCredentialProvider_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::blink::mojom::WalletSelectorDataView> {
-  using Data = ::blink::mojom::internal::WalletSelector_Data;
+struct MojomTypeTraits<::blink::mojom::DigitalCredentialSelectorDataView> {
+  using Data = ::blink::mojom::internal::DigitalCredentialSelector_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::blink::mojom::WalletFieldRequirementDataView> {
-  using Data = ::blink::mojom::internal::WalletFieldRequirement_Data;
+struct MojomTypeTraits<::blink::mojom::DigitalCredentialFieldRequirementDataView> {
+  using Data = ::blink::mojom::internal::DigitalCredentialFieldRequirement_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -286,12 +286,12 @@ class LogoutRpsRequestDataView {
 };
 
 
-class WalletProviderDataView {
+class DigitalCredentialProviderDataView {
  public:
-  WalletProviderDataView() = default;
+  DigitalCredentialProviderDataView() = default;
 
-  WalletProviderDataView(
-      internal::WalletProvider_Data* data,
+  DigitalCredentialProviderDataView(
+      internal::DigitalCredentialProvider_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -307,27 +307,27 @@ class WalletProviderDataView {
         pointer, output, message_);
   }
   inline void GetSelectorDataView(
-      WalletSelectorDataView* output);
+      DigitalCredentialSelectorDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadSelector(UserType* output) {
     
     auto* pointer = data_->selector.Get();
-    return mojo::internal::Deserialize<::blink::mojom::WalletSelectorDataView>(
+    return mojo::internal::Deserialize<::blink::mojom::DigitalCredentialSelectorDataView>(
         pointer, output, message_);
   }
  private:
-  internal::WalletProvider_Data* data_ = nullptr;
+  internal::DigitalCredentialProvider_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class WalletSelectorDataView {
+class DigitalCredentialSelectorDataView {
  public:
-  WalletSelectorDataView() = default;
+  DigitalCredentialSelectorDataView() = default;
 
-  WalletSelectorDataView(
-      internal::WalletSelector_Data* data,
+  DigitalCredentialSelectorDataView(
+      internal::DigitalCredentialSelector_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -363,27 +363,27 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetFieldsDataView(
-      mojo::ArrayDataView<WalletFieldRequirementDataView>* output);
+      mojo::ArrayDataView<DigitalCredentialFieldRequirementDataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadFields(UserType* output) {
     
     auto* pointer = data_->fields.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::WalletFieldRequirementDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::DigitalCredentialFieldRequirementDataView>>(
         pointer, output, message_);
   }
  private:
-  internal::WalletSelector_Data* data_ = nullptr;
+  internal::DigitalCredentialSelector_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class WalletFieldRequirementDataView {
+class DigitalCredentialFieldRequirementDataView {
  public:
-  WalletFieldRequirementDataView() = default;
+  DigitalCredentialFieldRequirementDataView() = default;
 
-  WalletFieldRequirementDataView(
-      internal::WalletFieldRequirement_Data* data,
+  DigitalCredentialFieldRequirementDataView(
+      internal::DigitalCredentialFieldRequirement_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -419,7 +419,7 @@ static_assert(
         pointer, output, message_);
   }
  private:
-  internal::WalletFieldRequirement_Data* data_ = nullptr;
+  internal::DigitalCredentialFieldRequirement_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -709,13 +709,13 @@ class IdentityProviderDataView {
   }
   bool is_holder() const { return data_->tag == Tag::kHolder; }
   inline void GetHolderDataView(
-      WalletProviderDataView* output) const;
+      DigitalCredentialProviderDataView* output) const;
 
   template <typename UserType>
   [[nodiscard]] bool ReadHolder(UserType* output) const {
     
     CHECK(is_holder());
-    return mojo::internal::Deserialize<::blink::mojom::WalletProviderDataView>(
+    return mojo::internal::Deserialize<::blink::mojom::DigitalCredentialProviderDataView>(
         data_->data.f_holder.Get(), output, message_);
   }
 
@@ -935,13 +935,13 @@ struct Serializer<::blink::mojom::LogoutRpsRequestDataView, MaybeConstUserType> 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::WalletProviderDataView, MaybeConstUserType> {
+struct Serializer<::blink::mojom::DigitalCredentialProviderDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::WalletProviderDataView, UserType>;
+  using Traits = StructTraits<::blink::mojom::DigitalCredentialProviderDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::WalletProvider_Data>& fragment) {
+      mojo::internal::MessageFragment<::blink::mojom::internal::DigitalCredentialProvider_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -958,28 +958,28 @@ struct Serializer<::blink::mojom::WalletProviderDataView, MaybeConstUserType> {
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->params.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null params in WalletProvider struct");
+        "null params in DigitalCredentialProvider struct");
     decltype(Traits::selector(input)) in_selector = Traits::selector(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->selector)::BaseType> selector_fragment(
             fragment.message());
-    mojo::internal::Serialize<::blink::mojom::WalletSelectorDataView>(
+    mojo::internal::Serialize<::blink::mojom::DigitalCredentialSelectorDataView>(
         in_selector, selector_fragment);
     fragment->selector.Set(
         selector_fragment.is_null() ? nullptr : selector_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->selector.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null selector in WalletProvider struct");
+        "null selector in DigitalCredentialProvider struct");
   }
 
-  static bool Deserialize(::blink::mojom::internal::WalletProvider_Data* input,
+  static bool Deserialize(::blink::mojom::internal::DigitalCredentialProvider_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::blink::mojom::WalletProviderDataView data_view(input, message);
+    ::blink::mojom::DigitalCredentialProviderDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -990,13 +990,13 @@ struct Serializer<::blink::mojom::WalletProviderDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::WalletSelectorDataView, MaybeConstUserType> {
+struct Serializer<::blink::mojom::DigitalCredentialSelectorDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::WalletSelectorDataView, UserType>;
+  using Traits = StructTraits<::blink::mojom::DigitalCredentialSelectorDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::WalletSelector_Data>& fragment) {
+      mojo::internal::MessageFragment<::blink::mojom::internal::DigitalCredentialSelector_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -1013,7 +1013,7 @@ struct Serializer<::blink::mojom::WalletSelectorDataView, MaybeConstUserType> {
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->format.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null format in WalletSelector struct");
+        "null format in DigitalCredentialSelector struct");
     decltype(Traits::doctype(input)) in_doctype = Traits::doctype(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->doctype)::BaseType> doctype_fragment(
@@ -1028,23 +1028,23 @@ struct Serializer<::blink::mojom::WalletSelectorDataView, MaybeConstUserType> {
         fields_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& fields_validate_params =
         mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::WalletFieldRequirementDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::blink::mojom::DigitalCredentialFieldRequirementDataView>>(
         in_fields, fields_fragment, &fields_validate_params);
     fragment->fields.Set(
         fields_fragment.is_null() ? nullptr : fields_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->fields.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null fields in WalletSelector struct");
+        "null fields in DigitalCredentialSelector struct");
   }
 
-  static bool Deserialize(::blink::mojom::internal::WalletSelector_Data* input,
+  static bool Deserialize(::blink::mojom::internal::DigitalCredentialSelector_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::blink::mojom::WalletSelectorDataView data_view(input, message);
+    ::blink::mojom::DigitalCredentialSelectorDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1055,13 +1055,13 @@ struct Serializer<::blink::mojom::WalletSelectorDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::WalletFieldRequirementDataView, MaybeConstUserType> {
+struct Serializer<::blink::mojom::DigitalCredentialFieldRequirementDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::WalletFieldRequirementDataView, UserType>;
+  using Traits = StructTraits<::blink::mojom::DigitalCredentialFieldRequirementDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::WalletFieldRequirement_Data>& fragment) {
+      mojo::internal::MessageFragment<::blink::mojom::internal::DigitalCredentialFieldRequirement_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -1076,7 +1076,7 @@ struct Serializer<::blink::mojom::WalletFieldRequirementDataView, MaybeConstUser
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null name in WalletFieldRequirement struct");
+        "null name in DigitalCredentialFieldRequirement struct");
     decltype(Traits::equals(input)) in_equals = Traits::equals(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->equals)::BaseType> equals_fragment(
@@ -1087,13 +1087,13 @@ struct Serializer<::blink::mojom::WalletFieldRequirementDataView, MaybeConstUser
         equals_fragment.is_null() ? nullptr : equals_fragment.data());
   }
 
-  static bool Deserialize(::blink::mojom::internal::WalletFieldRequirement_Data* input,
+  static bool Deserialize(::blink::mojom::internal::DigitalCredentialFieldRequirement_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::blink::mojom::WalletFieldRequirementDataView data_view(input, message);
+    ::blink::mojom::DigitalCredentialFieldRequirementDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1447,7 +1447,7 @@ struct Serializer<::blink::mojom::IdentityProviderDataView, MaybeConstUserType> 
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_holder)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::blink::mojom::WalletProviderDataView>(
+        mojo::internal::Serialize<::blink::mojom::DigitalCredentialProviderDataView>(
             in_holder, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -1490,41 +1490,41 @@ inline void LogoutRpsRequestDataView::GetAccountIdDataView(
 }
 
 
-inline void WalletProviderDataView::GetParamsDataView(
+inline void DigitalCredentialProviderDataView::GetParamsDataView(
     mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output) {
   auto pointer = data_->params.Get();
   *output = mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>(pointer, message_);
 }
-inline void WalletProviderDataView::GetSelectorDataView(
-    WalletSelectorDataView* output) {
+inline void DigitalCredentialProviderDataView::GetSelectorDataView(
+    DigitalCredentialSelectorDataView* output) {
   auto pointer = data_->selector.Get();
-  *output = WalletSelectorDataView(pointer, message_);
+  *output = DigitalCredentialSelectorDataView(pointer, message_);
 }
 
 
-inline void WalletSelectorDataView::GetFormatDataView(
+inline void DigitalCredentialSelectorDataView::GetFormatDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->format.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
-inline void WalletSelectorDataView::GetDoctypeDataView(
+inline void DigitalCredentialSelectorDataView::GetDoctypeDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->doctype.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void WalletSelectorDataView::GetFieldsDataView(
-    mojo::ArrayDataView<WalletFieldRequirementDataView>* output) {
+inline void DigitalCredentialSelectorDataView::GetFieldsDataView(
+    mojo::ArrayDataView<DigitalCredentialFieldRequirementDataView>* output) {
   auto pointer = data_->fields.Get();
-  *output = mojo::ArrayDataView<WalletFieldRequirementDataView>(pointer, message_);
+  *output = mojo::ArrayDataView<DigitalCredentialFieldRequirementDataView>(pointer, message_);
 }
 
 
-inline void WalletFieldRequirementDataView::GetNameDataView(
+inline void DigitalCredentialFieldRequirementDataView::GetNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
-inline void WalletFieldRequirementDataView::GetEqualsDataView(
+inline void DigitalCredentialFieldRequirementDataView::GetEqualsDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->equals.Get();
   *output = mojo::StringDataView(pointer, message_);
@@ -1620,9 +1620,9 @@ inline void IdentityProviderDataView::GetFederatedDataView(
   *output = IdentityProviderConfigDataView(data_->data.f_federated.Get(), message_);
 }
 inline void IdentityProviderDataView::GetHolderDataView(
-    WalletProviderDataView* output) const {
+    DigitalCredentialProviderDataView* output) const {
   CHECK(is_holder());
-  *output = WalletProviderDataView(data_->data.f_holder.Get(), message_);
+  *output = DigitalCredentialProviderDataView(data_->data.f_holder.Get(), message_);
 }
 
 

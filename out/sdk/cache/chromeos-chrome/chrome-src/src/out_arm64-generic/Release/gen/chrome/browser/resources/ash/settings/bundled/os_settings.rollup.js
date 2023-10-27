@@ -507,6 +507,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
                     path: this.aboutMenuItemPath_,
                     icon: 'os-settings:chrome',
                     label: this.i18n('aboutOsPageTitle'),
+                    sublabel: this.i18n('aboutChromeOsMenuItemDescription'),
                 },
             ];
         }
@@ -5676,7 +5677,7 @@ class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTabletSubpage
         const customizeTabletButton = cast(e.target, CrLinkRowElement);
         const closestTablet = castExists(customizeTabletButton.closest('.device'));
         return new URLSearchParams({
-            'graphicsTabletId': encodeURIComponent(closestTablet.getAttribute('data-evdev-id')),
+            graphicsTabletId: encodeURIComponent(closestTablet.getAttribute('data-evdev-id')),
         });
     }
 }
@@ -27127,6 +27128,12 @@ function getTemplate$l() {
       <os-settings-subpage page-title="$i18n{microphoneToggleTitle}">
         <settings-privacy-hub-microphone-subpage prefs="{{prefs}}">
         </settings-privacy-hub-microphone-subpage>
+      </os-settings-subpage>
+    </template>
+    <template is="dom-if" route-path="/osPrivacy/privacyHub/geolocation">
+      <os-settings-subpage page-title="$i18n{geolocationAreaTitle}">
+        <settings-privacy-hub-geolocation-subpage prefs="{{prefs}}">
+        </settings-privacy-hub-geolocation-subpage>
       </os-settings-subpage>
     </template>
   </template>

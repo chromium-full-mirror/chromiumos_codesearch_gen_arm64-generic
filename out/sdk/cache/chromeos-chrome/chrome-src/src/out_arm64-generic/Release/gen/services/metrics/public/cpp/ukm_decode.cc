@@ -3192,24 +3192,6 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
-      UINT64_C(2784102704372436909),
-      {
-        InputEvent::kEntryName,
-        {
-          
-    {InputEvent::kEventTypeNameHash, InputEvent::kEventTypeName},
-
-    {InputEvent::kInteractiveTiming_InputDelayNameHash, InputEvent::kInteractiveTiming_InputDelayName},
-
-    {InputEvent::kInteractiveTiming_ProcessingFinishedToNextPaintNameHash, InputEvent::kInteractiveTiming_ProcessingFinishedToNextPaintName},
-
-    {InputEvent::kInteractiveTiming_ProcessingTimeNameHash, InputEvent::kInteractiveTiming_ProcessingTimeName},
-
-        }
-      }
-    },
-
-    {
       UINT64_C(7967874514472474467),
       {
         InputMethod_Assistive_AutocorrectV2::kEntryName,
@@ -4739,10 +4721,6 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
           
     {PageForegroundSession::kForegroundDurationNameHash, PageForegroundSession::kForegroundDurationName},
 
-    {PageForegroundSession::kForegroundNumInputEventsNameHash, PageForegroundSession::kForegroundNumInputEventsName},
-
-    {PageForegroundSession::kForegroundTotalAdjustedInputDelayNameHash, PageForegroundSession::kForegroundTotalAdjustedInputDelayName},
-
     {PageForegroundSession::kForegroundTotalInputDelayNameHash, PageForegroundSession::kForegroundTotalInputDelayName},
 
         }
@@ -4789,25 +4767,13 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
 
     {PageLoad::kInteractiveTiming_FirstInputDelay4NameHash, PageLoad::kInteractiveTiming_FirstInputDelay4Name},
 
-    {PageLoad::kInteractiveTiming_FirstInputProcessingTimesNameHash, PageLoad::kInteractiveTiming_FirstInputProcessingTimesName},
-
     {PageLoad::kInteractiveTiming_FirstInputTimestamp4NameHash, PageLoad::kInteractiveTiming_FirstInputTimestamp4Name},
 
     {PageLoad::kInteractiveTiming_FirstScrollDelayNameHash, PageLoad::kInteractiveTiming_FirstScrollDelayName},
 
     {PageLoad::kInteractiveTiming_FirstScrollTimestampNameHash, PageLoad::kInteractiveTiming_FirstScrollTimestampName},
 
-    {PageLoad::kInteractiveTiming_LongestInputDelay4NameHash, PageLoad::kInteractiveTiming_LongestInputDelay4Name},
-
-    {PageLoad::kInteractiveTiming_LongestInputTimestamp4NameHash, PageLoad::kInteractiveTiming_LongestInputTimestamp4Name},
-
-    {PageLoad::kInteractiveTiming_NumInputEventsNameHash, PageLoad::kInteractiveTiming_NumInputEventsName},
-
     {PageLoad::kInteractiveTiming_NumInteractionsNameHash, PageLoad::kInteractiveTiming_NumInteractionsName},
-
-    {PageLoad::kInteractiveTiming_TotalAdjustedInputDelayNameHash, PageLoad::kInteractiveTiming_TotalAdjustedInputDelayName},
-
-    {PageLoad::kInteractiveTiming_TotalInputDelayNameHash, PageLoad::kInteractiveTiming_TotalInputDelayName},
 
     {PageLoad::kInteractiveTiming_UserInteractionLatency_HighPercentile2_MaxEventDurationNameHash, PageLoad::kInteractiveTiming_UserInteractionLatency_HighPercentile2_MaxEventDurationName},
 
@@ -5764,8 +5730,6 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     {PowerUsageScenariosIntervalData::kCPUTimeMsNameHash, PowerUsageScenariosIntervalData::kCPUTimeMsName},
 
     {PowerUsageScenariosIntervalData::kDeviceSleptDuringIntervalNameHash, PowerUsageScenariosIntervalData::kDeviceSleptDuringIntervalName},
-
-    {PowerUsageScenariosIntervalData::kEnergyImpactScoreNameHash, PowerUsageScenariosIntervalData::kEnergyImpactScoreName},
 
     {PowerUsageScenariosIntervalData::kFullscreenVideoSingleMonitorSecondsNameHash, PowerUsageScenariosIntervalData::kFullscreenVideoSingleMonitorSecondsName},
 

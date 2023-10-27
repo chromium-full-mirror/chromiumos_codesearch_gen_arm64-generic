@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "chromeos-lacros", "version": "120.0.6089.0", "revision": 1, "fullname": "chromeos-base/chromeos-lacros", "fullnamerev": "chromeos-base/chromeos-lacros-120.0.6089.0-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

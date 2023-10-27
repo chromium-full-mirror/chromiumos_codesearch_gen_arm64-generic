@@ -182,6 +182,8 @@ extern const char kPrivacyHubSubpagePath[];
 
 extern const char kPrivacyHubMicrophoneSubpagePath[];
 
+extern const char kPrivacyHubGeolocationSubpagePath[];
+
 extern const char kLanguagesAndInputSectionPath[];
 
 extern const char kInputMethodOptionsSubpagePath[];

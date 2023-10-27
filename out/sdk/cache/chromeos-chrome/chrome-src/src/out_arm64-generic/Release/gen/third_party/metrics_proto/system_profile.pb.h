@@ -268,11 +268,12 @@ enum SystemProfileProto_Hardware_FormFactor : int {
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TABLET = 3,
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TV = 4,
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE = 5,
-  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_AUTOMOTIVE = 6
+  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_AUTOMOTIVE = 6,
+  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_FOLDABLE = 7
 };
 bool SystemProfileProto_Hardware_FormFactor_IsValid(int value);
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MIN = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_UNKNOWN;
-constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MAX = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_AUTOMOTIVE;
+constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MAX = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_FOLDABLE;
 constexpr int SystemProfileProto_Hardware_FormFactor_FormFactor_ARRAYSIZE = SystemProfileProto_Hardware_FormFactor_FormFactor_MAX + 1;
 
 const std::string& SystemProfileProto_Hardware_FormFactor_Name(SystemProfileProto_Hardware_FormFactor value);
@@ -2756,6 +2757,8 @@ class SystemProfileProto_Hardware final :
     SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE;
   static constexpr FormFactor FORM_FACTOR_AUTOMOTIVE =
     SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_AUTOMOTIVE;
+  static constexpr FormFactor FORM_FACTOR_FOLDABLE =
+    SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_FOLDABLE;
   static inline bool FormFactor_IsValid(int value) {
     return SystemProfileProto_Hardware_FormFactor_IsValid(value);
   }
@@ -6353,14 +6356,14 @@ class SystemProfileProto_LinkedAndroidPhoneData final :
   void _internal_set_is_instant_tethering_enabled(bool value);
   public:
 
-  // optional bool is_messages_enabled = 4;
-  bool has_is_messages_enabled() const;
+  // optional bool is_messages_enabled = 4 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_is_messages_enabled() const;
   private:
   bool _internal_has_is_messages_enabled() const;
   public:
-  void clear_is_messages_enabled();
-  bool is_messages_enabled() const;
-  void set_is_messages_enabled(bool value);
+  PROTOBUF_DEPRECATED void clear_is_messages_enabled();
+  PROTOBUF_DEPRECATED bool is_messages_enabled() const;
+  PROTOBUF_DEPRECATED void set_is_messages_enabled(bool value);
   private:
   bool _internal_is_messages_enabled() const;
   void _internal_set_is_messages_enabled(bool value);
@@ -14008,7 +14011,7 @@ inline void SystemProfileProto_LinkedAndroidPhoneData::set_is_instant_tethering_
   // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.LinkedAndroidPhoneData.is_instant_tethering_enabled)
 }
 
-// optional bool is_messages_enabled = 4;
+// optional bool is_messages_enabled = 4 [deprecated = true];
 inline bool SystemProfileProto_LinkedAndroidPhoneData::_internal_has_is_messages_enabled() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;

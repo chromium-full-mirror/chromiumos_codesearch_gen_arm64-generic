@@ -6,6 +6,7 @@
     "../../../../ui/gfx/geometry/mojom/mojom.build_metadata"
   ],
   "sources": [
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/autoclick.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/file_loader.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/speech_recognition.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/accessibility/public/mojom/tts.mojom",

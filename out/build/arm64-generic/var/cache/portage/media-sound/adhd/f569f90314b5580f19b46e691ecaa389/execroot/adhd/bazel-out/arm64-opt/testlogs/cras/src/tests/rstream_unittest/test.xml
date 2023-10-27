@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="15" failures="0" disabled="0" errors="0" time="0.177" timestamp="2023-10-27T00:17:41.619" name="AllTests">
+  <testsuite name="RstreamTestSuite" tests="15" failures="0" disabled="0" skipped="0" errors="0" time="0.159" timestamp="2023-10-27T00:17:41.634">
+    <testcase name="InvalidDirection" file="cras/src/tests/rstream_unittest.cc" line="89" status="run" result="completed" time="0.025" timestamp="2023-10-27T00:17:41.635" classname="RstreamTestSuite" />
+    <testcase name="InvalidStreamType" file="cras/src/tests/rstream_unittest.cc" line="98" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:41.663" classname="RstreamTestSuite" />
+    <testcase name="InvalidBufferSize" file="cras/src/tests/rstream_unittest.cc" line="107" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:41.664" classname="RstreamTestSuite" />
+    <testcase name="InvalidCallbackThreshold" file="cras/src/tests/rstream_unittest.cc" line="116" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:41.666" classname="RstreamTestSuite" />
+    <testcase name="InvalidStreamPointer" file="cras/src/tests/rstream_unittest.cc" line="125" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:41.666" classname="RstreamTestSuite" />
+    <testcase name="CreateOutput" file="cras/src/tests/rstream_unittest.cc" line="132" status="run" result="completed" time="0.038" timestamp="2023-10-27T00:17:41.667" classname="RstreamTestSuite" />
+    <testcase name="TestNumDelayedFetch" file="cras/src/tests/rstream_unittest.cc" line="169" status="run" result="completed" time="0.017" timestamp="2023-10-27T00:17:41.718" classname="RstreamTestSuite" />
+    <testcase name="CreateInput" file="cras/src/tests/rstream_unittest.cc" line="200" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:17:41.737" classname="RstreamTestSuite" />
+    <testcase name="VerifyStreamTypes" file="cras/src/tests/rstream_unittest.cc" line="238" status="run" result="completed" time="0.016" timestamp="2023-10-27T00:17:41.743" classname="RstreamTestSuite" />
+    <testcase name="OutputStreamIsPendingReply" file="cras/src/tests/rstream_unittest.cc" line="269" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:17:41.760" classname="RstreamTestSuite" />
+    <testcase name="OutputStreamFlushMessages" file="cras/src/tests/rstream_unittest.cc" line="292" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:17:41.766" classname="RstreamTestSuite" />
+    <testcase name="InputStreamIsPendingReply" file="cras/src/tests/rstream_unittest.cc" line="325" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:17:41.772" classname="RstreamTestSuite" />
+    <testcase name="InputStreamFlushMessages" file="cras/src/tests/rstream_unittest.cc" line="349" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:17:41.777" classname="RstreamTestSuite" />
+    <testcase name="UpdateOutputReadPtr" file="cras/src/tests/rstream_unittest.cc" line="383" status="run" result="completed" time="0.006" timestamp="2023-10-27T00:17:41.783" classname="RstreamTestSuite" />
+    <testcase name="EffectPostProcessingFormat" file="cras/src/tests/rstream_unittest.cc" line="416" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:17:41.790" classname="RstreamTestSuite" />
+  </testsuite>
+</testsuites>

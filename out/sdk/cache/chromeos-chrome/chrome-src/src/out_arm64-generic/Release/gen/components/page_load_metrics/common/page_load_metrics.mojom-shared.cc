@@ -315,7 +315,7 @@ bool InteractiveTiming_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 64, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -330,19 +330,10 @@ bool InteractiveTiming_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->first_input_timestamp, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->longest_input_delay, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidateStruct(object->longest_input_timestamp, validation_context))
-    return false;
-
   if (!mojo::internal::ValidateStruct(object->first_scroll_delay, validation_context))
     return false;
 
   if (!mojo::internal::ValidateStruct(object->first_scroll_timestamp, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidateStruct(object->first_input_processing_time, validation_context))
     return false;
 
   return true;
@@ -675,7 +666,7 @@ bool InputTiming_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -684,22 +675,8 @@ bool InputTiming_Data::Validate(
   [[maybe_unused]] const InputTiming_Data* object =
       static_cast<const InputTiming_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->total_input_delay, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->total_input_delay, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->total_adjusted_input_delay, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->total_adjusted_input_delay, validation_context))
-    return false;
-
   if (!mojo::internal::ValidateInlinedUnionNonNullable(
-          object->max_event_durations, 5, validation_context)) {
+          object->max_event_durations, 2, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateInlinedUnion(object->max_event_durations, validation_context))

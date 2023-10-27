@@ -82,8 +82,13 @@ export function getTemplate() {
 </template>
 
 <template is="dom-if" if="[[showPrivacyHubLocationControl_]]" restamp>
-  <settings-toggle-button class="hr" pref="{{prefs.ash.user.geolocation_allowed}}" id="geolocationToggle" label="$i18n{geolocationToggleTitle}" sub-label="$i18n{geolocationToggleDesc}" deep-link-focus-id$="[[Setting.kGeolocationOnOff]]" learn-more-url="$i18n{geolocationToggleLearnMoreURL}">
-  </settings-toggle-button>
+  <cr-link-row id="geolocationAreaLinkRow" class="hr" on-click="onGeolocationAreaClick_" deep-link-focus-id$="[[Setting.kGeolocationOnOff]]" using-slotted-label>
+    <div slot="label">$i18n{geolocationAreaTitle}</div>
+    <div slot="sub-label">
+      <localized-link localized-string="$i18n{geolocationAreaDescription}" link-url="$i18n{geolocationAreaLearnMoreURL}">
+      </localized-link>
+    </div>
+  </cr-link-row>
 </template>
 
 

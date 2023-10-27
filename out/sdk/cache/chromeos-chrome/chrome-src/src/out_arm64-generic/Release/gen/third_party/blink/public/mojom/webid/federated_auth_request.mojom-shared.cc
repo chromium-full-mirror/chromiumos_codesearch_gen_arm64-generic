@@ -279,7 +279,7 @@ LogoutRpsRequest_Data::LogoutRpsRequest_Data()
 
 
 // static
-bool WalletProvider_Data::Validate(
+bool DigitalCredentialProvider_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -291,8 +291,8 @@ bool WalletProvider_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const WalletProvider_Data* object =
-      static_cast<const WalletProvider_Data*>(data);
+  [[maybe_unused]] const DigitalCredentialProvider_Data* object =
+      static_cast<const DigitalCredentialProvider_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->params, 1, validation_context)) {
@@ -315,12 +315,12 @@ bool WalletProvider_Data::Validate(
   return true;
 }
 
-WalletProvider_Data::WalletProvider_Data()
+DigitalCredentialProvider_Data::DigitalCredentialProvider_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool WalletSelector_Data::Validate(
+bool DigitalCredentialSelector_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -332,8 +332,8 @@ bool WalletSelector_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const WalletSelector_Data* object =
-      static_cast<const WalletSelector_Data*>(data);
+  [[maybe_unused]] const DigitalCredentialSelector_Data* object =
+      static_cast<const DigitalCredentialSelector_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->format, 1, validation_context)) {
@@ -367,12 +367,12 @@ bool WalletSelector_Data::Validate(
   return true;
 }
 
-WalletSelector_Data::WalletSelector_Data()
+DigitalCredentialSelector_Data::DigitalCredentialSelector_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool WalletFieldRequirement_Data::Validate(
+bool DigitalCredentialFieldRequirement_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -384,8 +384,8 @@ bool WalletFieldRequirement_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const WalletFieldRequirement_Data* object =
-      static_cast<const WalletFieldRequirement_Data*>(data);
+  [[maybe_unused]] const DigitalCredentialFieldRequirement_Data* object =
+      static_cast<const DigitalCredentialFieldRequirement_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->name, 1, validation_context)) {
@@ -408,7 +408,7 @@ bool WalletFieldRequirement_Data::Validate(
   return true;
 }
 
-WalletFieldRequirement_Data::WalletFieldRequirement_Data()
+DigitalCredentialFieldRequirement_Data::DigitalCredentialFieldRequirement_Data()
     : header_({sizeof(*this), 0}) {}
 
 

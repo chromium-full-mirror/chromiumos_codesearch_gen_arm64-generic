@@ -170,7 +170,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'formFactor', 72,
         0,
-        mojo.internal.String,
+        mojo.internal.Array(mojo.internal.String, false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -205,7 +205,7 @@ blink.mojom.UserAgentMetadata = class {
     this.bitness;
     /** @export { !boolean } */
     this.wow64;
-    /** @export { !string } */
+    /** @export { !Array<!string> } */
     this.formFactor;
   }
 };

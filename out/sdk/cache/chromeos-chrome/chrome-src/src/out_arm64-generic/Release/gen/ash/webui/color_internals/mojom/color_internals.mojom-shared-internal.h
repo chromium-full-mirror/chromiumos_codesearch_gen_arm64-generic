@@ -34,8 +34,8 @@ class  WallpaperCalculatedColors_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data>>> prominent_colors;
   mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> k_mean_color;
+  mojo::internal::Pointer<::skia::mojom::internal::SkColor_Data> celebi_color;
 
  private:
   friend class mojo::internal::MessageFragment<WallpaperCalculatedColors_Data>;

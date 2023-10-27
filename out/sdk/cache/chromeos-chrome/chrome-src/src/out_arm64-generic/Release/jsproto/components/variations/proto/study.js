@@ -433,7 +433,8 @@ proto.variations.Study.FormFactor = {
   KIOSK: 3,
   MEET_DEVICE: 4,
   TV: 5,
-  AUTOMOTIVE: 6
+  AUTOMOTIVE: 6,
+  FOLDABLE: 7
 };
 
 /**

@@ -156,8 +156,8 @@ export const WallpaperCalculatedColorsSpec = { $: {} };
 export const WallpaperColorsObserver_OnWallpaperColorsChanged_ParamsSpec = { $: {} };
 export const WallpaperColorsHandler_SetWallpaperColorsObserver_ParamsSpec = { $: {} };
 mojo.internal.Struct(WallpaperCalculatedColorsSpec.$, 'WallpaperCalculatedColors', [
-    mojo.internal.StructField('prominentColors', 0, 0, mojo.internal.Array(skia_mojom_SkColorSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('kMeanColor', 8, 0, skia_mojom_SkColorSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('kMeanColor', 0, 0, skia_mojom_SkColorSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('celebiColor', 8, 0, skia_mojom_SkColorSpec.$, null, false /* nullable */, 0),
 ], [[0, 24],]);
 mojo.internal.Struct(WallpaperColorsObserver_OnWallpaperColorsChanged_ParamsSpec.$, 'WallpaperColorsObserver_OnWallpaperColorsChanged_Params', [
     mojo.internal.StructField('colors', 0, 0, WallpaperCalculatedColorsSpec.$, null, false /* nullable */, 0),

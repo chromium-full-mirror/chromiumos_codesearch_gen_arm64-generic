@@ -13,28 +13,28 @@
 namespace crosapi::mojom {
 
 
-class  AuthenticationInterceptorForTesting : public Authentication {
-  virtual Authentication* GetForwardingInterface() = 0;
-  void CreateQuickUnlockPrivateTokenInfo(const std::string& password, CreateQuickUnlockPrivateTokenInfoCallback callback) override;
-  void IsOsReauthAllowedForActiveUserProfile(::base::TimeDelta auth_token_lifetime, IsOsReauthAllowedForActiveUserProfileCallback callback) override;
+class  AuthenticationDeprecatedInterceptorForTesting : public AuthenticationDeprecated {
+  virtual AuthenticationDeprecated* GetForwardingInterface() = 0;
+  void REMOVED_0(const std::string& password, REMOVED_0Callback callback) override;
+  void REMOVED_1(::base::TimeDelta auth_token_lifetime, REMOVED_1Callback callback) override;
 };
-class  AuthenticationAsyncWaiter {
+class  AuthenticationDeprecatedAsyncWaiter {
  public:
-  explicit AuthenticationAsyncWaiter(Authentication* proxy);
+  explicit AuthenticationDeprecatedAsyncWaiter(AuthenticationDeprecated* proxy);
 
-  AuthenticationAsyncWaiter(const AuthenticationAsyncWaiter&) = delete;
-  AuthenticationAsyncWaiter& operator=(const AuthenticationAsyncWaiter&) = delete;
+  AuthenticationDeprecatedAsyncWaiter(const AuthenticationDeprecatedAsyncWaiter&) = delete;
+  AuthenticationDeprecatedAsyncWaiter& operator=(const AuthenticationDeprecatedAsyncWaiter&) = delete;
 
-  ~AuthenticationAsyncWaiter();
-  void CreateQuickUnlockPrivateTokenInfo(
-      const std::string& password, CreateQuickUnlockPrivateTokenInfoResultPtr* out_result);
-  CreateQuickUnlockPrivateTokenInfoResultPtr CreateQuickUnlockPrivateTokenInfo(const std::string& password);
-  void IsOsReauthAllowedForActiveUserProfile(
+  ~AuthenticationDeprecatedAsyncWaiter();
+  void REMOVED_0(
+      const std::string& password, CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr* out_result);
+  CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr REMOVED_0(const std::string& password);
+  void REMOVED_1(
       ::base::TimeDelta auth_token_lifetime, bool* out_allowed);
-  bool IsOsReauthAllowedForActiveUserProfile(::base::TimeDelta auth_token_lifetime);
+  bool REMOVED_1(::base::TimeDelta auth_token_lifetime);
 
  private:
-  Authentication* const proxy_;
+  AuthenticationDeprecated* const proxy_;
 };
 
 

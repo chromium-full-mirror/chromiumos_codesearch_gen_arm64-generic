@@ -18,6 +18,24 @@ const coverage_helpers_js_1 = require("../helpers/coverage-helpers.js");
         await (0, coverage_helpers_js_1.stopInstrumentingCoverage)();
         await (0, coverage_helpers_js_1.clearCoverageContent)();
     });
+    (0, mocha_extensions_js_1.it)('Shows coverage data on page loads if the instrumentation has started', async () => {
+        await (0, coverage_helpers_js_1.waitForTheCoveragePanelToLoad)();
+        await (0, coverage_helpers_js_1.startInstrumentingCoverage)();
+        await (0, coverage_helpers_js_1.navigateToCoverageTestSite)();
+        const URL_PREFIX = `https://localhost:${(0, helper_js_1.getTestServerPort)()}/test/e2e/resources/coverage`;
+        chai_1.assert.deepEqual(await (0, coverage_helpers_js_1.getCoverageData)(2), [
+            {
+                'total': '193',
+                'unused': '35',
+                'url': `${URL_PREFIX}/default.html`,
+            },
+            {
+                'total': '43',
+                'unused': '31',
+                'url': `${URL_PREFIX}/script.js`,
+            },
+        ]);
+    });
     // Skip until flake is fixed
     mocha_extensions_js_1.it.skip('[crbug.com/1432922]: Shows completly uncovered css files', async () => {
         const { target } = (0, helper_js_1.getBrowserAndPages)();

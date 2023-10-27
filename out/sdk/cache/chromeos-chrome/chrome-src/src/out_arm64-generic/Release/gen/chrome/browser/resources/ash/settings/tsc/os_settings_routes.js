@@ -211,6 +211,7 @@ export function createRoutes() {
     r.SMART_PRIVACY = createSubpage(r.OS_PRIVACY, routesMojom.SMART_PRIVACY_SUBPAGE_PATH, Subpage.kSmartPrivacy);
     r.PRIVACY_HUB = createSubpage(r.OS_PRIVACY, routesMojom.PRIVACY_HUB_SUBPAGE_PATH, Subpage.kPrivacyHub);
     r.PRIVACY_HUB_MICROPHONE = createSubpage(r.OS_PRIVACY, routesMojom.PRIVACY_HUB_MICROPHONE_SUBPAGE_PATH, Subpage.kPrivacyHubMicrophone);
+    r.PRIVACY_HUB_GEOLOCATION = createSubpage(r.OS_PRIVACY, routesMojom.PRIVACY_HUB_GEOLOCATION_SUBPAGE_PATH, Subpage.kPrivacyHubGeolocation);
     // About section.
     r.ABOUT = createSection(
     /*parent=*/ null, routesMojom.ABOUT_CHROME_OS_SECTION_PATH, Section.kAboutChromeOs);

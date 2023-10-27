@@ -213,6 +213,8 @@ NOINLINE static const char* SubpageToStringHelper(Subpage value) {
       return "kPrivacyHub";
     case Subpage::kPrivacyHubMicrophone:
       return "kPrivacyHubMicrophone";
+    case Subpage::kPrivacyHubGeolocation:
+      return "kPrivacyHubGeolocation";
     case Subpage::kInputMethodOptions:
       return "kInputMethodOptions";
     case Subpage::kLanguages:

@@ -27,8 +27,7 @@ export function getTemplate() {
         </cr-button>
       </div>
       <div>
-        <cr-button id="saveButton" class="action-button" on-click="saveRenamingDialogClicked_" disabled$="[[isSaveDisabled_(buttonRemappingList,
-                actionList, selectedButtonName_)]]">
+        <cr-button id="saveButton" class="action-button" on-click="saveRenamingDialogClicked_" disabled="[[isSaveButtonDisabled_]]">
           $i18n{buttonRemappingDialogSaveLabel}
         </cr-button>
       </div>

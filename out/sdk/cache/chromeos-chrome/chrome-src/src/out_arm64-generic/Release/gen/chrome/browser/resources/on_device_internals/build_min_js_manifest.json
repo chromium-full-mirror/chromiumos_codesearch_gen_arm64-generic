@@ -1,1 +1,1 @@
-{"base_dir": "gen/chrome/browser/resources/on_device_internals/minified", "files": ["app.js", "browser_proxy.js", "app.html.js", "on_device_model.mojom-webui.js"]}
+{"base_dir": "gen/chrome/browser/resources/on_device_internals/minified", "files": ["app.js", "browser_proxy.js", "app.html.js", "on_device_internals_page.mojom-webui.js", "on_device_model.mojom-webui.js"]}

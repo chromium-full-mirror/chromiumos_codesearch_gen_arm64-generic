@@ -284,8 +284,8 @@ class  WallpaperCalculatedColors {
   WallpaperCalculatedColors();
 
   WallpaperCalculatedColors(
-      std::vector<::SkColor> prominent_colors,
-      ::SkColor k_mean_color);
+      ::SkColor k_mean_color,
+      ::SkColor celebi_color);
 
 
   ~WallpaperCalculatedColors();
@@ -363,9 +363,9 @@ class  WallpaperCalculatedColors {
   }
 
   
-  std::vector<::SkColor> prominent_colors;
-  
   ::SkColor k_mean_color;
+  
+  ::SkColor celebi_color;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -399,29 +399,29 @@ bool operator>=(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 WallpaperCalculatedColorsPtr WallpaperCalculatedColors::Clone() const {
   return New(
-      mojo::Clone(prominent_colors),
-      mojo::Clone(k_mean_color)
+      mojo::Clone(k_mean_color),
+      mojo::Clone(celebi_color)
   );
 }
 
 template <typename T, WallpaperCalculatedColors::EnableIfSame<T>*>
 bool WallpaperCalculatedColors::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->prominent_colors, other_struct.prominent_colors))
-    return false;
   if (!mojo::Equals(this->k_mean_color, other_struct.k_mean_color))
+    return false;
+  if (!mojo::Equals(this->celebi_color, other_struct.celebi_color))
     return false;
   return true;
 }
 
 template <typename T, WallpaperCalculatedColors::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.prominent_colors < rhs.prominent_colors)
-    return true;
-  if (rhs.prominent_colors < lhs.prominent_colors)
-    return false;
   if (lhs.k_mean_color < rhs.k_mean_color)
     return true;
   if (rhs.k_mean_color < lhs.k_mean_color)
+    return false;
+  if (lhs.celebi_color < rhs.celebi_color)
+    return true;
+  if (rhs.celebi_color < lhs.celebi_color)
     return false;
   return false;
 }
@@ -438,14 +438,14 @@ struct  StructTraits<::ash::color_internals::mojom::WallpaperCalculatedColors::D
   static bool IsNull(const ::ash::color_internals::mojom::WallpaperCalculatedColorsPtr& input) { return !input; }
   static void SetToNull(::ash::color_internals::mojom::WallpaperCalculatedColorsPtr* output) { output->reset(); }
 
-  static const decltype(::ash::color_internals::mojom::WallpaperCalculatedColors::prominent_colors)& prominent_colors(
-      const ::ash::color_internals::mojom::WallpaperCalculatedColorsPtr& input) {
-    return input->prominent_colors;
-  }
-
   static const decltype(::ash::color_internals::mojom::WallpaperCalculatedColors::k_mean_color)& k_mean_color(
       const ::ash::color_internals::mojom::WallpaperCalculatedColorsPtr& input) {
     return input->k_mean_color;
+  }
+
+  static const decltype(::ash::color_internals::mojom::WallpaperCalculatedColors::celebi_color)& celebi_color(
+      const ::ash::color_internals::mojom::WallpaperCalculatedColorsPtr& input) {
+    return input->celebi_color;
   }
 
   static bool Read(::ash::color_internals::mojom::WallpaperCalculatedColors::DataView input, ::ash::color_internals::mojom::WallpaperCalculatedColorsPtr* output);

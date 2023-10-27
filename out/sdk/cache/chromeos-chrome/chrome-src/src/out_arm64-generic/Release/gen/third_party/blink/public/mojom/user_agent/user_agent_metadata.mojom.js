@@ -179,7 +179,7 @@
 
 
     // validate UserAgentMetadata.formFactor
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 72, false)
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 72, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -220,7 +220,7 @@
     val.bitness =
         decoder.decodeStruct(codec.String);
     val.formFactor =
-        decoder.decodeStruct(codec.String);
+        decoder.decodeArrayPointer(codec.String);
     return val;
   };
 
@@ -247,7 +247,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeStruct(codec.String, val.bitness);
-    encoder.encodeStruct(codec.String, val.formFactor);
+    encoder.encodeArrayPointer(codec.String, val.formFactor);
   };
   function UserAgentOverride(values) {
     this.initDefaults_();

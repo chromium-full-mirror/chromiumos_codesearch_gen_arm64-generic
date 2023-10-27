@@ -388,6 +388,7 @@ class ReportBrowserProcesses_Process final :
     kPidFieldNumber = 1,
     kProtectedFieldNumber = 2,
     kVisibleFieldNumber = 3,
+    kFocusedFieldNumber = 4,
   };
   // int32 pid = 1;
   void clear_pid();
@@ -416,6 +417,15 @@ class ReportBrowserProcesses_Process final :
   void _internal_set_visible(bool value);
   public:
 
+  // bool focused = 4;
+  void clear_focused();
+  bool focused() const;
+  void set_focused(bool value);
+  private:
+  bool _internal_focused() const;
+  void _internal_set_focused(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:resource_manager.ReportBrowserProcesses.Process)
  private:
   class _Internal;
@@ -426,6 +436,7 @@ class ReportBrowserProcesses_Process final :
   int32_t pid_;
   bool protected__;
   bool visible_;
+  bool focused_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_resource_5fmanager_2eproto;
 };
@@ -718,6 +729,26 @@ inline void ReportBrowserProcesses_Process::_internal_set_visible(bool value) {
 inline void ReportBrowserProcesses_Process::set_visible(bool value) {
   _internal_set_visible(value);
   // @@protoc_insertion_point(field_set:resource_manager.ReportBrowserProcesses.Process.visible)
+}
+
+// bool focused = 4;
+inline void ReportBrowserProcesses_Process::clear_focused() {
+  focused_ = false;
+}
+inline bool ReportBrowserProcesses_Process::_internal_focused() const {
+  return focused_;
+}
+inline bool ReportBrowserProcesses_Process::focused() const {
+  // @@protoc_insertion_point(field_get:resource_manager.ReportBrowserProcesses.Process.focused)
+  return _internal_focused();
+}
+inline void ReportBrowserProcesses_Process::_internal_set_focused(bool value) {
+  
+  focused_ = value;
+}
+inline void ReportBrowserProcesses_Process::set_focused(bool value) {
+  _internal_set_focused(value);
+  // @@protoc_insertion_point(field_set:resource_manager.ReportBrowserProcesses.Process.focused)
 }
 
 // -------------------------------------------------------------------

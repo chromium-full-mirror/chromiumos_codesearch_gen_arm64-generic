@@ -1832,6 +1832,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  Sigmoid {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Sigmoid, T>::value>;
+  using DataView = SigmoidDataView;
+  using Data_ = internal::Sigmoid_Data;
+
+  template <typename... Args>
+  static SigmoidPtr New(Args&&... args) {
+    return SigmoidPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SigmoidPtr From(const U& u) {
+    return mojo::TypeConverter<SigmoidPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Sigmoid>::Convert(*this);
+  }
+
+
+  Sigmoid();
+
+  Sigmoid(
+      uint64_t input_operand_id,
+      uint64_t output_operand_id);
+
+
+  ~Sigmoid();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SigmoidPtr>
+  SigmoidPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Sigmoid::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Sigmoid::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Sigmoid::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Sigmoid::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Sigmoid::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Sigmoid_UnserializedMessageContext<
+            UserType, Sigmoid::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Sigmoid::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return Sigmoid::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Sigmoid_UnserializedMessageContext<
+            UserType, Sigmoid::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Sigmoid::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t input_operand_id;
+  
+  uint64_t output_operand_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Sigmoid::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Sigmoid::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Sigmoid::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Sigmoid::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  Softmax {
  public:
   template <typename T>
@@ -1972,6 +2116,150 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+
+class  Tanh {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Tanh, T>::value>;
+  using DataView = TanhDataView;
+  using Data_ = internal::Tanh_Data;
+
+  template <typename... Args>
+  static TanhPtr New(Args&&... args) {
+    return TanhPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TanhPtr From(const U& u) {
+    return mojo::TypeConverter<TanhPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Tanh>::Convert(*this);
+  }
+
+
+  Tanh();
+
+  Tanh(
+      uint64_t input_operand_id,
+      uint64_t output_operand_id);
+
+
+  ~Tanh();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TanhPtr>
+  TanhPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Tanh::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Tanh::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Tanh::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Tanh::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Tanh::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Tanh_UnserializedMessageContext<
+            UserType, Tanh::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Tanh::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return Tanh::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Tanh_UnserializedMessageContext<
+            UserType, Tanh::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Tanh::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t input_operand_id;
+  
+  uint64_t output_operand_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Tanh::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Tanh::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Tanh::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Tanh::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -2300,6 +2588,200 @@ class  PaddingMode {
 
 
 
+class  Activation {
+ public:
+  using DataView = ActivationDataView;
+  using Data_ = internal::Activation_Data;
+  using Tag = Data_::Activation_Tag;
+
+  template <typename... Args>
+  static ActivationPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |clamp|.
+  static ActivationPtr
+  NewClamp(
+      ClampPtr clamp) {
+    auto result = ActivationPtr(absl::in_place);
+    result->set_clamp(std::move(clamp));
+    return result;
+  }
+  // Construct an instance holding |relu|.
+  static ActivationPtr
+  NewRelu(
+      ReluPtr relu) {
+    auto result = ActivationPtr(absl::in_place);
+    result->set_relu(std::move(relu));
+    return result;
+  }
+  // Construct an instance holding |sigmoid|.
+  static ActivationPtr
+  NewSigmoid(
+      SigmoidPtr sigmoid) {
+    auto result = ActivationPtr(absl::in_place);
+    result->set_sigmoid(std::move(sigmoid));
+    return result;
+  }
+  // Construct an instance holding |softmax|.
+  static ActivationPtr
+  NewSoftmax(
+      SoftmaxPtr softmax) {
+    auto result = ActivationPtr(absl::in_place);
+    result->set_softmax(std::move(softmax));
+    return result;
+  }
+  // Construct an instance holding |tanh|.
+  static ActivationPtr
+  NewTanh(
+      TanhPtr tanh) {
+    auto result = ActivationPtr(absl::in_place);
+    result->set_tanh(std::move(tanh));
+    return result;
+  }
+
+  template <typename U>
+  static ActivationPtr From(const U& u) {
+    return mojo::TypeConverter<ActivationPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Activation>::Convert(*this);
+  }
+
+  Activation();
+  ~Activation();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  Activation(const Activation& other) = delete;
+  Activation& operator=(const Activation& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = ActivationPtr>
+  ActivationPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, Activation>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, Activation>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_clamp() const { return tag_ == Tag::kClamp; }
+
+  
+  ClampPtr& get_clamp() const {
+    CHECK(tag_ == Tag::kClamp);
+    return *(data_.clamp);
+  }
+
+  
+  void set_clamp(
+      ClampPtr clamp);
+  
+  bool is_relu() const { return tag_ == Tag::kRelu; }
+
+  
+  ReluPtr& get_relu() const {
+    CHECK(tag_ == Tag::kRelu);
+    return *(data_.relu);
+  }
+
+  
+  void set_relu(
+      ReluPtr relu);
+  
+  bool is_sigmoid() const { return tag_ == Tag::kSigmoid; }
+
+  
+  SigmoidPtr& get_sigmoid() const {
+    CHECK(tag_ == Tag::kSigmoid);
+    return *(data_.sigmoid);
+  }
+
+  
+  void set_sigmoid(
+      SigmoidPtr sigmoid);
+  
+  bool is_softmax() const { return tag_ == Tag::kSoftmax; }
+
+  
+  SoftmaxPtr& get_softmax() const {
+    CHECK(tag_ == Tag::kSoftmax);
+    return *(data_.softmax);
+  }
+
+  
+  void set_softmax(
+      SoftmaxPtr softmax);
+  
+  bool is_tanh() const { return tag_ == Tag::kTanh; }
+
+  
+  TanhPtr& get_tanh() const {
+    CHECK(tag_ == Tag::kTanh);
+    return *(data_.tanh);
+  }
+
+  
+  void set_tanh(
+      TanhPtr tanh);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Activation::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<Activation::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ClampPtr* clamp;
+    ReluPtr* relu;
+    SigmoidPtr* sigmoid;
+    SoftmaxPtr* softmax;
+    TanhPtr* tanh;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
 class  Operation {
  public:
   using DataView = OperationDataView;
@@ -2404,6 +2886,14 @@ class  Operation {
     result->set_reshape(std::move(reshape));
     return result;
   }
+  // Construct an instance holding |sigmoid|.
+  static OperationPtr
+  NewSigmoid(
+      SigmoidPtr sigmoid) {
+    auto result = OperationPtr(absl::in_place);
+    result->set_sigmoid(std::move(sigmoid));
+    return result;
+  }
   // Construct an instance holding |slice|.
   static OperationPtr
   NewSlice(
@@ -2426,6 +2916,14 @@ class  Operation {
       SplitPtr split) {
     auto result = OperationPtr(absl::in_place);
     result->set_split(std::move(split));
+    return result;
+  }
+  // Construct an instance holding |tanh|.
+  static OperationPtr
+  NewTanh(
+      TanhPtr tanh) {
+    auto result = OperationPtr(absl::in_place);
+    result->set_tanh(std::move(tanh));
     return result;
   }
   // Construct an instance holding |transpose|.
@@ -2611,6 +3109,18 @@ class  Operation {
   void set_reshape(
       ReshapePtr reshape);
   
+  bool is_sigmoid() const { return tag_ == Tag::kSigmoid; }
+
+  
+  SigmoidPtr& get_sigmoid() const {
+    CHECK(tag_ == Tag::kSigmoid);
+    return *(data_.sigmoid);
+  }
+
+  
+  void set_sigmoid(
+      SigmoidPtr sigmoid);
+  
   bool is_slice() const { return tag_ == Tag::kSlice; }
 
   
@@ -2646,6 +3156,18 @@ class  Operation {
   
   void set_split(
       SplitPtr split);
+  
+  bool is_tanh() const { return tag_ == Tag::kTanh; }
+
+  
+  TanhPtr& get_tanh() const {
+    CHECK(tag_ == Tag::kTanh);
+    return *(data_.tanh);
+  }
+
+  
+  void set_tanh(
+      TanhPtr tanh);
   
   bool is_transpose() const { return tag_ == Tag::kTranspose; }
 
@@ -2687,9 +3209,11 @@ class  Operation {
     ReluPtr* relu;
     Resample2dPtr* resample2d;
     ReshapePtr* reshape;
+    SigmoidPtr* sigmoid;
     SlicePtr* slice;
     SoftmaxPtr* softmax;
     SplitPtr* split;
+    TanhPtr* tanh;
     TransposePtr* transpose;
   };
 
@@ -3186,7 +3710,7 @@ class  Conv2d {
       uint32_t groups,
       InputOperandLayout input_layout,
       absl::optional<uint64_t> bias_operand_id,
-      OperationPtr activation);
+      ActivationPtr activation);
 
 Conv2d(const Conv2d&) = delete;
 Conv2d& operator=(const Conv2d&) = delete;
@@ -3284,7 +3808,7 @@ Conv2d& operator=(const Conv2d&) = delete;
   
   absl::optional<uint64_t> bias_operand_id;
   
-  OperationPtr activation;
+  ActivationPtr activation;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3957,6 +4481,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  Split {
  public:
   template <typename T>
@@ -4098,6 +4623,7 @@ template <typename T, Split::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -4435,6 +4961,50 @@ bool PaddingMode::Equals(const T& other) const {
   return false;
 }
 template <typename UnionPtrType>
+ActivationPtr Activation::Clone() const {
+  switch (tag_) {
+    case Tag::kClamp:
+      return NewClamp(
+          mojo::Clone(*data_.clamp));
+    case Tag::kRelu:
+      return NewRelu(
+          mojo::Clone(*data_.relu));
+    case Tag::kSigmoid:
+      return NewSigmoid(
+          mojo::Clone(*data_.sigmoid));
+    case Tag::kSoftmax:
+      return NewSoftmax(
+          mojo::Clone(*data_.softmax));
+    case Tag::kTanh:
+      return NewTanh(
+          mojo::Clone(*data_.tanh));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, Activation>::value>::type*>
+bool Activation::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kClamp:
+      return mojo::Equals(*(data_.clamp), *(other.data_.clamp));
+    case Tag::kRelu:
+      return mojo::Equals(*(data_.relu), *(other.data_.relu));
+    case Tag::kSigmoid:
+      return mojo::Equals(*(data_.sigmoid), *(other.data_.sigmoid));
+    case Tag::kSoftmax:
+      return mojo::Equals(*(data_.softmax), *(other.data_.softmax));
+    case Tag::kTanh:
+      return mojo::Equals(*(data_.tanh), *(other.data_.tanh));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
 OperationPtr Operation::Clone() const {
   switch (tag_) {
     case Tag::kClamp:
@@ -4470,6 +5040,9 @@ OperationPtr Operation::Clone() const {
     case Tag::kReshape:
       return NewReshape(
           mojo::Clone(*data_.reshape));
+    case Tag::kSigmoid:
+      return NewSigmoid(
+          mojo::Clone(*data_.sigmoid));
     case Tag::kSlice:
       return NewSlice(
           mojo::Clone(*data_.slice));
@@ -4479,6 +5052,9 @@ OperationPtr Operation::Clone() const {
     case Tag::kSplit:
       return NewSplit(
           mojo::Clone(*data_.split));
+    case Tag::kTanh:
+      return NewTanh(
+          mojo::Clone(*data_.tanh));
     case Tag::kTranspose:
       return NewTranspose(
           mojo::Clone(*data_.transpose));
@@ -4516,12 +5092,16 @@ bool Operation::Equals(const T& other) const {
       return mojo::Equals(*(data_.resample2d), *(other.data_.resample2d));
     case Tag::kReshape:
       return mojo::Equals(*(data_.reshape), *(other.data_.reshape));
+    case Tag::kSigmoid:
+      return mojo::Equals(*(data_.sigmoid), *(other.data_.sigmoid));
     case Tag::kSlice:
       return mojo::Equals(*(data_.slice), *(other.data_.slice));
     case Tag::kSoftmax:
       return mojo::Equals(*(data_.softmax), *(other.data_.softmax));
     case Tag::kSplit:
       return mojo::Equals(*(data_.split), *(other.data_.split));
+    case Tag::kTanh:
+      return mojo::Equals(*(data_.tanh), *(other.data_.tanh));
     case Tag::kTranspose:
       return mojo::Equals(*(data_.transpose), *(other.data_.transpose));
   }
@@ -5255,6 +5835,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+SigmoidPtr Sigmoid::Clone() const {
+  return New(
+      mojo::Clone(input_operand_id),
+      mojo::Clone(output_operand_id)
+  );
+}
+
+template <typename T, Sigmoid::EnableIfSame<T>*>
+bool Sigmoid::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->input_operand_id, other_struct.input_operand_id))
+    return false;
+  if (!mojo::Equals(this->output_operand_id, other_struct.output_operand_id))
+    return false;
+  return true;
+}
+
+template <typename T, Sigmoid::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.input_operand_id < rhs.input_operand_id)
+    return true;
+  if (rhs.input_operand_id < lhs.input_operand_id)
+    return false;
+  if (lhs.output_operand_id < rhs.output_operand_id)
+    return true;
+  if (rhs.output_operand_id < lhs.output_operand_id)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 SoftmaxPtr Softmax::Clone() const {
   return New(
       mojo::Clone(input_operand_id),
@@ -5316,6 +5925,35 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.axis < rhs.axis)
     return true;
   if (rhs.axis < lhs.axis)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+TanhPtr Tanh::Clone() const {
+  return New(
+      mojo::Clone(input_operand_id),
+      mojo::Clone(output_operand_id)
+  );
+}
+
+template <typename T, Tanh::EnableIfSame<T>*>
+bool Tanh::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->input_operand_id, other_struct.input_operand_id))
+    return false;
+  if (!mojo::Equals(this->output_operand_id, other_struct.output_operand_id))
+    return false;
+  return true;
+}
+
+template <typename T, Tanh::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.input_operand_id < rhs.input_operand_id)
+    return true;
+  if (rhs.input_operand_id < lhs.input_operand_id)
+    return false;
+  if (lhs.output_operand_id < rhs.output_operand_id)
+    return true;
+  if (rhs.output_operand_id < lhs.output_operand_id)
     return false;
   return false;
 }
@@ -5954,6 +6592,26 @@ struct  StructTraits<::webnn::mojom::blink::Reshape::DataView,
 
 
 template <>
+struct  StructTraits<::webnn::mojom::blink::Sigmoid::DataView,
+                                         ::webnn::mojom::blink::SigmoidPtr> {
+  static bool IsNull(const ::webnn::mojom::blink::SigmoidPtr& input) { return !input; }
+  static void SetToNull(::webnn::mojom::blink::SigmoidPtr* output) { output->reset(); }
+
+  static decltype(::webnn::mojom::blink::Sigmoid::input_operand_id) input_operand_id(
+      const ::webnn::mojom::blink::SigmoidPtr& input) {
+    return input->input_operand_id;
+  }
+
+  static decltype(::webnn::mojom::blink::Sigmoid::output_operand_id) output_operand_id(
+      const ::webnn::mojom::blink::SigmoidPtr& input) {
+    return input->output_operand_id;
+  }
+
+  static bool Read(::webnn::mojom::blink::Sigmoid::DataView input, ::webnn::mojom::blink::SigmoidPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::webnn::mojom::blink::Softmax::DataView,
                                          ::webnn::mojom::blink::SoftmaxPtr> {
   static bool IsNull(const ::webnn::mojom::blink::SoftmaxPtr& input) { return !input; }
@@ -5995,6 +6653,26 @@ struct  StructTraits<::webnn::mojom::blink::Split::DataView,
   }
 
   static bool Read(::webnn::mojom::blink::Split::DataView input, ::webnn::mojom::blink::SplitPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::webnn::mojom::blink::Tanh::DataView,
+                                         ::webnn::mojom::blink::TanhPtr> {
+  static bool IsNull(const ::webnn::mojom::blink::TanhPtr& input) { return !input; }
+  static void SetToNull(::webnn::mojom::blink::TanhPtr* output) { output->reset(); }
+
+  static decltype(::webnn::mojom::blink::Tanh::input_operand_id) input_operand_id(
+      const ::webnn::mojom::blink::TanhPtr& input) {
+    return input->input_operand_id;
+  }
+
+  static decltype(::webnn::mojom::blink::Tanh::output_operand_id) output_operand_id(
+      const ::webnn::mojom::blink::TanhPtr& input) {
+    return input->output_operand_id;
+  }
+
+  static bool Read(::webnn::mojom::blink::Tanh::DataView input, ::webnn::mojom::blink::TanhPtr* output);
 };
 
 
@@ -6114,6 +6792,40 @@ struct  UnionTraits<::webnn::mojom::blink::PaddingMode::DataView,
 
 
 template <>
+struct  UnionTraits<::webnn::mojom::blink::Activation::DataView,
+                                        ::webnn::mojom::blink::ActivationPtr> {
+  static bool IsNull(const ::webnn::mojom::blink::ActivationPtr& input) { return !input; }
+  static void SetToNull(::webnn::mojom::blink::ActivationPtr* output) { output->reset(); }
+
+  static ::webnn::mojom::blink::Activation::Tag GetTag(const ::webnn::mojom::blink::ActivationPtr& input) {
+    return input->which();
+  }
+
+  static const ::webnn::mojom::blink::ClampPtr& clamp(const ::webnn::mojom::blink::ActivationPtr& input) {
+    return input->get_clamp();
+  }
+
+  static const ::webnn::mojom::blink::ReluPtr& relu(const ::webnn::mojom::blink::ActivationPtr& input) {
+    return input->get_relu();
+  }
+
+  static const ::webnn::mojom::blink::SigmoidPtr& sigmoid(const ::webnn::mojom::blink::ActivationPtr& input) {
+    return input->get_sigmoid();
+  }
+
+  static const ::webnn::mojom::blink::SoftmaxPtr& softmax(const ::webnn::mojom::blink::ActivationPtr& input) {
+    return input->get_softmax();
+  }
+
+  static const ::webnn::mojom::blink::TanhPtr& tanh(const ::webnn::mojom::blink::ActivationPtr& input) {
+    return input->get_tanh();
+  }
+
+  static bool Read(::webnn::mojom::blink::Activation::DataView input, ::webnn::mojom::blink::ActivationPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::webnn::mojom::blink::Operation::DataView,
                                         ::webnn::mojom::blink::OperationPtr> {
   static bool IsNull(const ::webnn::mojom::blink::OperationPtr& input) { return !input; }
@@ -6167,6 +6879,10 @@ struct  UnionTraits<::webnn::mojom::blink::Operation::DataView,
     return input->get_reshape();
   }
 
+  static const ::webnn::mojom::blink::SigmoidPtr& sigmoid(const ::webnn::mojom::blink::OperationPtr& input) {
+    return input->get_sigmoid();
+  }
+
   static const ::webnn::mojom::blink::SlicePtr& slice(const ::webnn::mojom::blink::OperationPtr& input) {
     return input->get_slice();
   }
@@ -6177,6 +6893,10 @@ struct  UnionTraits<::webnn::mojom::blink::Operation::DataView,
 
   static const ::webnn::mojom::blink::SplitPtr& split(const ::webnn::mojom::blink::OperationPtr& input) {
     return input->get_split();
+  }
+
+  static const ::webnn::mojom::blink::TanhPtr& tanh(const ::webnn::mojom::blink::OperationPtr& input) {
+    return input->get_tanh();
   }
 
   static const ::webnn::mojom::blink::TransposePtr& transpose(const ::webnn::mojom::blink::OperationPtr& input) {

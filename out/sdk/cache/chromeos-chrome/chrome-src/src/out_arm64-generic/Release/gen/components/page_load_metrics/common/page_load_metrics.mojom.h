@@ -982,11 +982,8 @@ class  InteractiveTiming {
   InteractiveTiming(
       absl::optional<::base::TimeDelta> first_input_delay,
       absl::optional<::base::TimeDelta> first_input_timestamp,
-      absl::optional<::base::TimeDelta> longest_input_delay,
-      absl::optional<::base::TimeDelta> longest_input_timestamp,
       absl::optional<::base::TimeDelta> first_scroll_delay,
-      absl::optional<::base::TimeDelta> first_scroll_timestamp,
-      absl::optional<::base::TimeDelta> first_input_processing_time);
+      absl::optional<::base::TimeDelta> first_scroll_timestamp);
 
 
   ~InteractiveTiming();
@@ -1068,15 +1065,9 @@ class  InteractiveTiming {
   
   absl::optional<::base::TimeDelta> first_input_timestamp;
   
-  absl::optional<::base::TimeDelta> longest_input_delay;
-  
-  absl::optional<::base::TimeDelta> longest_input_timestamp;
-  
   absl::optional<::base::TimeDelta> first_scroll_delay;
   
   absl::optional<::base::TimeDelta> first_scroll_timestamp;
-  
-  absl::optional<::base::TimeDelta> first_input_processing_time;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2449,9 +2440,6 @@ class  InputTiming {
   InputTiming();
 
   InputTiming(
-      ::base::TimeDelta total_input_delay,
-      ::base::TimeDelta total_adjusted_input_delay,
-      uint64_t num_input_events,
       uint64_t num_interactions,
       UserInteractionLatenciesPtr max_event_durations);
 
@@ -2532,12 +2520,6 @@ InputTiming& operator=(const InputTiming&) = delete;
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
-  
-  ::base::TimeDelta total_input_delay;
-  
-  ::base::TimeDelta total_adjusted_input_delay;
-  
-  uint64_t num_input_events;
   
   uint64_t num_interactions;
   
@@ -3316,11 +3298,8 @@ InteractiveTimingPtr InteractiveTiming::Clone() const {
   return New(
       mojo::Clone(first_input_delay),
       mojo::Clone(first_input_timestamp),
-      mojo::Clone(longest_input_delay),
-      mojo::Clone(longest_input_timestamp),
       mojo::Clone(first_scroll_delay),
-      mojo::Clone(first_scroll_timestamp),
-      mojo::Clone(first_input_processing_time)
+      mojo::Clone(first_scroll_timestamp)
   );
 }
 
@@ -3330,15 +3309,9 @@ bool InteractiveTiming::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->first_input_timestamp, other_struct.first_input_timestamp))
     return false;
-  if (!mojo::Equals(this->longest_input_delay, other_struct.longest_input_delay))
-    return false;
-  if (!mojo::Equals(this->longest_input_timestamp, other_struct.longest_input_timestamp))
-    return false;
   if (!mojo::Equals(this->first_scroll_delay, other_struct.first_scroll_delay))
     return false;
   if (!mojo::Equals(this->first_scroll_timestamp, other_struct.first_scroll_timestamp))
-    return false;
-  if (!mojo::Equals(this->first_input_processing_time, other_struct.first_input_processing_time))
     return false;
   return true;
 }
@@ -3353,14 +3326,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.first_input_timestamp < lhs.first_input_timestamp)
     return false;
-  if (lhs.longest_input_delay < rhs.longest_input_delay)
-    return true;
-  if (rhs.longest_input_delay < lhs.longest_input_delay)
-    return false;
-  if (lhs.longest_input_timestamp < rhs.longest_input_timestamp)
-    return true;
-  if (rhs.longest_input_timestamp < lhs.longest_input_timestamp)
-    return false;
   if (lhs.first_scroll_delay < rhs.first_scroll_delay)
     return true;
   if (rhs.first_scroll_delay < lhs.first_scroll_delay)
@@ -3368,10 +3333,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.first_scroll_timestamp < rhs.first_scroll_timestamp)
     return true;
   if (rhs.first_scroll_timestamp < lhs.first_scroll_timestamp)
-    return false;
-  if (lhs.first_input_processing_time < rhs.first_input_processing_time)
-    return true;
-  if (rhs.first_input_processing_time < lhs.first_input_processing_time)
     return false;
   return false;
 }
@@ -3988,9 +3949,6 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 InputTimingPtr InputTiming::Clone() const {
   return New(
-      mojo::Clone(total_input_delay),
-      mojo::Clone(total_adjusted_input_delay),
-      mojo::Clone(num_input_events),
       mojo::Clone(num_interactions),
       mojo::Clone(max_event_durations)
   );
@@ -3998,12 +3956,6 @@ InputTimingPtr InputTiming::Clone() const {
 
 template <typename T, InputTiming::EnableIfSame<T>*>
 bool InputTiming::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->total_input_delay, other_struct.total_input_delay))
-    return false;
-  if (!mojo::Equals(this->total_adjusted_input_delay, other_struct.total_adjusted_input_delay))
-    return false;
-  if (!mojo::Equals(this->num_input_events, other_struct.num_input_events))
-    return false;
   if (!mojo::Equals(this->num_interactions, other_struct.num_interactions))
     return false;
   if (!mojo::Equals(this->max_event_durations, other_struct.max_event_durations))
@@ -4013,18 +3965,6 @@ bool InputTiming::Equals(const T& other_struct) const {
 
 template <typename T, InputTiming::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.total_input_delay < rhs.total_input_delay)
-    return true;
-  if (rhs.total_input_delay < lhs.total_input_delay)
-    return false;
-  if (lhs.total_adjusted_input_delay < rhs.total_adjusted_input_delay)
-    return true;
-  if (rhs.total_adjusted_input_delay < lhs.total_adjusted_input_delay)
-    return false;
-  if (lhs.num_input_events < rhs.num_input_events)
-    return true;
-  if (rhs.num_input_events < lhs.num_input_events)
-    return false;
   if (lhs.num_interactions < rhs.num_interactions)
     return true;
   if (rhs.num_interactions < lhs.num_interactions)
@@ -4356,16 +4296,6 @@ struct  StructTraits<::page_load_metrics::mojom::InteractiveTiming::DataView,
     return input->first_input_timestamp;
   }
 
-  static const decltype(::page_load_metrics::mojom::InteractiveTiming::longest_input_delay)& longest_input_delay(
-      const ::page_load_metrics::mojom::InteractiveTimingPtr& input) {
-    return input->longest_input_delay;
-  }
-
-  static const decltype(::page_load_metrics::mojom::InteractiveTiming::longest_input_timestamp)& longest_input_timestamp(
-      const ::page_load_metrics::mojom::InteractiveTimingPtr& input) {
-    return input->longest_input_timestamp;
-  }
-
   static const decltype(::page_load_metrics::mojom::InteractiveTiming::first_scroll_delay)& first_scroll_delay(
       const ::page_load_metrics::mojom::InteractiveTimingPtr& input) {
     return input->first_scroll_delay;
@@ -4374,11 +4304,6 @@ struct  StructTraits<::page_load_metrics::mojom::InteractiveTiming::DataView,
   static const decltype(::page_load_metrics::mojom::InteractiveTiming::first_scroll_timestamp)& first_scroll_timestamp(
       const ::page_load_metrics::mojom::InteractiveTimingPtr& input) {
     return input->first_scroll_timestamp;
-  }
-
-  static const decltype(::page_load_metrics::mojom::InteractiveTiming::first_input_processing_time)& first_input_processing_time(
-      const ::page_load_metrics::mojom::InteractiveTimingPtr& input) {
-    return input->first_input_processing_time;
   }
 
   static bool Read(::page_load_metrics::mojom::InteractiveTiming::DataView input, ::page_load_metrics::mojom::InteractiveTimingPtr* output);
@@ -4820,21 +4745,6 @@ struct  StructTraits<::page_load_metrics::mojom::InputTiming::DataView,
                                          ::page_load_metrics::mojom::InputTimingPtr> {
   static bool IsNull(const ::page_load_metrics::mojom::InputTimingPtr& input) { return !input; }
   static void SetToNull(::page_load_metrics::mojom::InputTimingPtr* output) { output->reset(); }
-
-  static const decltype(::page_load_metrics::mojom::InputTiming::total_input_delay)& total_input_delay(
-      const ::page_load_metrics::mojom::InputTimingPtr& input) {
-    return input->total_input_delay;
-  }
-
-  static const decltype(::page_load_metrics::mojom::InputTiming::total_adjusted_input_delay)& total_adjusted_input_delay(
-      const ::page_load_metrics::mojom::InputTimingPtr& input) {
-    return input->total_adjusted_input_delay;
-  }
-
-  static decltype(::page_load_metrics::mojom::InputTiming::num_input_events) num_input_events(
-      const ::page_load_metrics::mojom::InputTimingPtr& input) {
-    return input->num_input_events;
-  }
 
   static decltype(::page_load_metrics::mojom::InputTiming::num_interactions) num_interactions(
       const ::page_load_metrics::mojom::InputTimingPtr& input) {

@@ -112,6 +112,7 @@ class  PageProcess_Data {
   int32_t pid;
   uint8_t host_protected_page : 1;
   uint8_t host_visible_page : 1;
+  uint8_t host_focused_page : 1;
   uint8_t padfinal_[3];
 
  private:

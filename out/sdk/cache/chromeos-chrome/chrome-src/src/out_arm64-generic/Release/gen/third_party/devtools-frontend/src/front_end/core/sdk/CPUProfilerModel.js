@@ -126,7 +126,7 @@ export class CPUProfilerModel extends SDKModel {
     }
     preciseCoverageDeltaUpdate({ timestamp, occasion, result }) {
         if (this.#preciseCoverageDeltaUpdateCallback) {
-            this.#preciseCoverageDeltaUpdateCallback(timestamp, occasion, result);
+            void this.#preciseCoverageDeltaUpdateCallback(timestamp, occasion, result);
         }
     }
 }

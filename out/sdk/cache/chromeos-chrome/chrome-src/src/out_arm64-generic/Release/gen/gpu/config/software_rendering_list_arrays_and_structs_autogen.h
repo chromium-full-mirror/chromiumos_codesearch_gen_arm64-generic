@@ -303,6 +303,27 @@ GpuControlList::kDontCare,  // hardware_overlay
 GpuControlList::kDontCare,  // subpixel_font_rendering
 };
 
+const int kFeatureListForSoftwareEntry179[1] = {
+GPU_FEATURE_TYPE_ACCELERATED_2D_CANVAS,
+};
+
+const GpuControlList::Device kDevicesForSoftwareEntry179[1] = {
+{0x22b1, 0x0},
+};
+
+const GpuControlList::More kMoreForEntry179_1043157500 = {
+GpuControlList::kGLTypeNone,  // gl_type
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gl_version
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // pixel_shader_version
+false,  // in_process_gpu
+0,  // gl_reset_notification_strategy
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // direct_rendering_version
+{GpuControlList::kUnknown, GpuControlList::kVersionStyleNumerical, GpuControlList::kVersionSchemaCommon, nullptr, nullptr},  // gpu_count
+GpuControlList::kDontCare,  // hardware_overlay
+0,  // test_group
+GpuControlList::kDontCare,  // subpixel_font_rendering
+};
+
 }  // namespace gpu
 
 #endif  // GPU_CONFIG_SOFTWARE_RENDERING_LIST_ARRAYS_AND_STRUCTS_AUTOGEN_H_

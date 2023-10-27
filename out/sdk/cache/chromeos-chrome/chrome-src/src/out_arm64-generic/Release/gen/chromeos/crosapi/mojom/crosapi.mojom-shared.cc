@@ -1208,7 +1208,7 @@ Crosapi_BindAudioService_Params_Data::Crosapi_BindAudioService_Params_Data()
 
 
 // static
-bool Crosapi_BindAuthentication_Params_Data::Validate(
+bool Crosapi_REMOVED_62_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1220,8 +1220,8 @@ bool Crosapi_BindAuthentication_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Crosapi_BindAuthentication_Params_Data* object =
-      static_cast<const Crosapi_BindAuthentication_Params_Data*>(data);
+  [[maybe_unused]] const Crosapi_REMOVED_62_Params_Data* object =
+      static_cast<const Crosapi_REMOVED_62_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->receiver, 1, validation_context)) {
@@ -1235,7 +1235,7 @@ bool Crosapi_BindAuthentication_Params_Data::Validate(
   return true;
 }
 
-Crosapi_BindAuthentication_Params_Data::Crosapi_BindAuthentication_Params_Data()
+Crosapi_REMOVED_62_Params_Data::Crosapi_REMOVED_62_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

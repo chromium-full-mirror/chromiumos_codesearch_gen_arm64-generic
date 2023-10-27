@@ -24,11 +24,11 @@
 namespace blink::mojom {
 class LogoutRpsRequestDataView;
 
-class WalletProviderDataView;
+class DigitalCredentialProviderDataView;
 
-class WalletSelectorDataView;
+class DigitalCredentialSelectorDataView;
 
-class WalletFieldRequirementDataView;
+class DigitalCredentialFieldRequirementDataView;
 
 class IdentityProviderConfigDataView;
 
@@ -54,14 +54,14 @@ enum class RpMode : int32_t;
 class LogoutRpsRequest;
 using LogoutRpsRequestPtr = mojo::StructPtr<LogoutRpsRequest>;
 
-class WalletProvider;
-using WalletProviderPtr = mojo::StructPtr<WalletProvider>;
+class DigitalCredentialProvider;
+using DigitalCredentialProviderPtr = mojo::StructPtr<DigitalCredentialProvider>;
 
-class WalletSelector;
-using WalletSelectorPtr = mojo::StructPtr<WalletSelector>;
+class DigitalCredentialSelector;
+using DigitalCredentialSelectorPtr = mojo::StructPtr<DigitalCredentialSelector>;
 
-class WalletFieldRequirement;
-using WalletFieldRequirementPtr = mojo::InlinedStructPtr<WalletFieldRequirement>;
+class DigitalCredentialFieldRequirement;
+using DigitalCredentialFieldRequirementPtr = mojo::InlinedStructPtr<DigitalCredentialFieldRequirement>;
 
 class IdentityProviderConfig;
 using IdentityProviderConfigPtr = mojo::StructPtr<IdentityProviderConfig>;

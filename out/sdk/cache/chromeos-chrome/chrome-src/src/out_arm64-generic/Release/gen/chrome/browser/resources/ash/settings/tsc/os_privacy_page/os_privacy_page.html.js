@@ -114,6 +114,12 @@ export function getTemplate() {
         </settings-privacy-hub-microphone-subpage>
       </os-settings-subpage>
     </template>
+    <template is="dom-if" route-path="/osPrivacy/privacyHub/geolocation">
+      <os-settings-subpage page-title="$i18n{geolocationAreaTitle}">
+        <settings-privacy-hub-geolocation-subpage prefs="{{prefs}}">
+        </settings-privacy-hub-geolocation-subpage>
+      </os-settings-subpage>
+    </template>
   </template>
 
 </os-settings-animated-pages>

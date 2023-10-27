@@ -9,7 +9,8 @@
 // --guard_prefix=CRYPTOHOME_FLATBUFFER_SCHEMAS_ENUMERATIONS
 // --flatbuffer_header_include_paths
 // cryptohome/flatbuffer_schemas/enumerations.h
-// --flatbuffer_header_include_paths cryptohome/enumerations_generated.h
+// --flatbuffer_header_include_paths
+// cryptohome/flatbuffer_schemas/enumerations_generated.h
 // --flatbuffer_header_include_paths
 // libhwsec-foundation/flatbuffers/basic_objects.h --impl_include_paths
 // cryptohome/flatbuffer_schemas/enumerations.h --impl_include_paths
@@ -30,8 +31,8 @@
 #include <brillo/secure_blob.h>
 #include <flatbuffers/flatbuffers.h>
 
-#include "cryptohome/enumerations_generated.h"
 #include "cryptohome/flatbuffer_schemas/enumerations.h"
+#include "cryptohome/flatbuffer_schemas/enumerations_generated.h"
 #include "libhwsec-foundation/flatbuffers/basic_objects.h"
 
 namespace hwsec_foundation {

@@ -8,7 +8,8 @@
 // --output_dir=/build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/include/cryptohome/flatbuffer_schemas
 // --guard_prefix=CRYPTOHOME_FLATBUFFER_SCHEMAS_AUTH_BLOCK_STATE
 // --header_include_paths cryptohome/flatbuffer_schemas/structures.h
-// --flatbuffer_header_include_paths cryptohome/auth_block_state_generated.h
+// --flatbuffer_header_include_paths
+// cryptohome/flatbuffer_schemas/auth_block_state_generated.h
 // --flatbuffer_header_include_paths
 // cryptohome/flatbuffer_schemas/auth_block_state.h
 // --flatbuffer_header_include_paths

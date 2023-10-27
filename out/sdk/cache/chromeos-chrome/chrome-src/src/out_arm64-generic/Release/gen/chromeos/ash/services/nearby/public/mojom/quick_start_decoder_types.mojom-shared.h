@@ -490,6 +490,17 @@ class QuickStartMessageDataView {
     return mojo::internal::Deserialize<::ash::quick_start::mojom::UserVerificationResponseDataView>(
         data_->data.f_user_verification_response.Get(), output, message_);
   }
+  bool is_user_verification_method() const { return data_->tag == Tag::kUserVerificationMethod; }
+  inline void GetUserVerificationMethodDataView(
+      UserVerificationMethodDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUserVerificationMethod(UserType* output) const {
+    
+    CHECK(is_user_verification_method());
+    return mojo::internal::Deserialize<::ash::quick_start::mojom::UserVerificationMethodDataView>(
+        data_->data.f_user_verification_method.Get(), output, message_);
+  }
 
  private:
   internal::QuickStartMessage_Data* data_ = nullptr;
@@ -995,6 +1006,22 @@ struct Serializer<::ash::quick_start::mojom::QuickStartMessageDataView, MaybeCon
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::quick_start::mojom::QuickStartMessageDataView::Tag::kUserVerificationMethod: {
+        decltype(Traits::user_verification_method(input))
+            in_user_verification_method = Traits::user_verification_method(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_user_verification_method)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::quick_start::mojom::UserVerificationMethodDataView>(
+            in_user_verification_method, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null user_verification_method in QuickStartMessage union");
+        fragment->data.f_user_verification_method.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1094,6 +1121,11 @@ inline void QuickStartMessageDataView::GetUserVerificationResponseDataView(
     UserVerificationResponseDataView* output) const {
   CHECK(is_user_verification_response());
   *output = UserVerificationResponseDataView(data_->data.f_user_verification_response.Get(), message_);
+}
+inline void QuickStartMessageDataView::GetUserVerificationMethodDataView(
+    UserVerificationMethodDataView* output) const {
+  CHECK(is_user_verification_method());
+  *output = UserVerificationMethodDataView(data_->data.f_user_verification_method.Get(), message_);
 }
 
 

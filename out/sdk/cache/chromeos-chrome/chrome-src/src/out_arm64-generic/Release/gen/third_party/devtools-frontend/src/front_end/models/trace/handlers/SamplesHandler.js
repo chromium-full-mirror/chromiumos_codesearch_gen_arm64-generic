@@ -7,6 +7,7 @@ import * as Helpers from '../helpers/helpers.js';
 import * as Types from '../types/types.js';
 const events = new Map();
 const profilesInProcess = new Map();
+const entryToNode = new Map();
 // The profile head, containing its metadata like its start
 // time, comes in a "Profile" event. The sample data comes in
 // "ProfileChunk" events. We match these ProfileChunks with their head
@@ -18,7 +19,7 @@ const profilesInProcess = new Map();
 // events matched by thread id.
 const preprocessedData = new Map();
 let handlerState = 1 /* HandlerState.UNINITIALIZED */;
-export function buildProfileCalls() {
+function buildProfileCalls() {
     for (const [processId, profiles] of preprocessedData) {
         for (const [profileId, preProcessedData] of profiles) {
             const threadId = preProcessedData.threadId;
@@ -30,7 +31,6 @@ export function buildProfileCalls() {
             const profileTree = Helpers.TreeHelpers.makeEmptyTraceEntryTree();
             profileTree.maxDepth = profileModel.maxDepth;
             const finalizedData = { rawProfile: preProcessedData.rawProfile, parsedProfile: profileModel, profileCalls: [], profileTree };
-            const entryToNode = new Map();
             const dataByThread = Platform.MapUtilities.getWithDefault(profilesInProcess, processId, () => new Map());
             profileModel.forEachFrame(openFrameCallback, closeFrameCallback);
             dataByThread.set(threadId, finalizedData);
@@ -84,6 +84,7 @@ export function reset() {
     events.clear();
     preprocessedData.clear();
     profilesInProcess.clear();
+    entryToNode.clear();
     handlerState = 1 /* HandlerState.UNINITIALIZED */;
 }
 export function initialize() {
@@ -179,6 +180,7 @@ export function data() {
     }
     return {
         profilesInProcess: new Map(profilesInProcess),
+        entryToNode: new Map(entryToNode),
     };
 }
 function getOrCreatePreProcessedData(processId, profileId) {

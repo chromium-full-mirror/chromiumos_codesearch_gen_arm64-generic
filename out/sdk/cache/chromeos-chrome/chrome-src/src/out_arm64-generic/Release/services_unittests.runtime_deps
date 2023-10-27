@@ -96,6 +96,7 @@ gen/services/accessibility/features/mojo/test/mojom_test_support.js
 gen/skia/public/mojom/skcolor.mojom-lite.js
 gen/ui/gfx/geometry/mojom/geometry.mojom-lite.js
 gen/services/accessibility/public/mojom/assistive_technology_type.mojom-lite.js
+gen/services/accessibility/public/mojom/autoclick.mojom-lite.js
 gen/services/accessibility/public/mojom/speech_recognition.mojom-lite.js
 gen/services/accessibility/public/mojom/tts.mojom-lite.js
 gen/services/accessibility/public/mojom/user_interface.mojom-lite.js

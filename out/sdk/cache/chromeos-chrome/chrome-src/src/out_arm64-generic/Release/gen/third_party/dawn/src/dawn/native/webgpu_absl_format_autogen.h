@@ -245,10 +245,6 @@ namespace wgpu {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
         absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
-        AbslFormatConvert(PipelineStatisticName value,
-                          const absl::FormatConversionSpec& spec,
-                          absl::FormatSink* s);
-        absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
         AbslFormatConvert(PowerPreference value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);

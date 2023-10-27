@@ -1363,6 +1363,11 @@ export class TimelineUIUtils {
             return new TimelineRecordStyle(event.name, TimelineUIUtils.categories()['scripting']);
         }
         if (TraceEngine.Legacy.eventIsFromNewEngine(event)) {
+            if (TraceEngine.Types.TraceEvents.isProfileCall(event)) {
+                if (event.callFrame.functionName === '(idle)') {
+                    return new TimelineRecordStyle(event.name, getCategoryStyles().Idle);
+                }
+            }
             const defaultStyles = new TimelineRecordStyle(event.name, getCategoryStyles().Other);
             return getEventStyle(event.name) || defaultStyles;
         }

@@ -281,6 +281,7 @@ message CloudPolicySettings {
   optional BooleanPolicyProto ScreensaverLockScreenEnabled = 1061;
   optional IntegerPolicyProto ScreensaverLockScreenImageDisplayIntervalSeconds = 1063;
   optional StringListPolicyProto ScreensaverLockScreenImages = 1064;
+  optional BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 1179;
   optional StringListPolicyProto InsecurePrivateNetworkRequestsAllowedForUrls = 769;
   optional BooleanPolicyProto InsecurePrivateNetworkRequestsAllowed = 768;
   optional BooleanPolicyProto PrivacyScreenEnabled = 679;

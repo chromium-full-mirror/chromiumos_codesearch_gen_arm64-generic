@@ -7784,9 +7784,13 @@ enum class WebFeature : int32_t {
   
   kElementCheckVisibility = 4691,
   
-  kNumberOfFeatures = 4692,
+  kV8ClipboardItem_Supports_Method = 4692,
+  
+  kThirdPartyCookieAccessBlockByExperiment = 4693,
+  
+  kNumberOfFeatures = 4694,
   kMinValue = 0,
-  kMaxValue = 4692,
+  kMaxValue = 4694,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, WebFeature value);

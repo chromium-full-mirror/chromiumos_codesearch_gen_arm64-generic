@@ -155,7 +155,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'formFactor', 72,
         0,
-        mojo.internal.String,
+        mojo.internal.Array(mojo.internal.String, false),
         null,
         false /* nullable */,
         0,
@@ -190,7 +190,7 @@ export class UserAgentMetadata {
     this.bitness;
     /** @type { !boolean } */
     this.wow64;
-    /** @type { !string } */
+    /** @type { !Array<!string> } */
     this.formFactor;
   }
 }

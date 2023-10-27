@@ -261,7 +261,7 @@
     "VirtualMachinesAllowed": "virtual_machines_allowed.virtual_machines_allowed"
   },
   "highest_atomic_group_id_currently_used": 49,
-  "highest_id_currently_used": 1176,
+  "highest_id_currently_used": 1178,
   "legacy_device_policy_proto_map": [
     [
       "",
@@ -17738,10 +17738,12 @@
     },
     {
       "caption": "Allow cookies on these sites",
-      "desc": "Allows you to set a list of url patterns that specify sites which are allowed to set cookies.\n\n          If this policy is left not set the global default value will be used for all sites either from the <ph name=\"DEFAULT_COOKIES_SETTINGS_POLICY_NAME\">DefaultCookiesSetting</ph> policy if it is set, or the user's personal configuration otherwise.\n\n          See also policies <ph name=\"COOKIES_BLOCKED_FOR_URLS_POLICY_NAME\">CookiesBlockedForUrls</ph> and <ph name=\"COOKIES_SESSIONS_ONLY_FOR_URLS\">CookiesSessionOnlyForUrls</ph>. Note that there must be no conflicting URL patterns between these three policies - it is unspecified which policy takes precedence.\n\n          For detailed information on valid url patterns, please see https://cloud.google.com/docs/chrome-enterprise/policies/url-patterns. <ph name=\"WILDCARD_VALUE\">*</ph> is not an accepted value for this policy.",
+      "desc": "Allows you to set a list of url patterns that specify sites which are allowed to set cookies.\n\n          URL patterns may be a single URL indicating that the site may use cookies on all top-level sites.\n\n          Patterns may also be two URLs delimited by a comma. The first specifies the site that should be allowed to use cookies. The second specifies the top-level site that the first value should be applied on.\n\n          If you use a pair of URLs, the first value in the pair supports * but the second value does not. Using * for the first value indicates that all sites may use cookies when the second URL is the top-level site.\n\n          If this policy is left not set the global default value will be used for all sites either from the <ph name=\"DEFAULT_COOKIES_SETTINGS_POLICY_NAME\">DefaultCookiesSetting</ph> or <ph name=\"BLOCK_THIRD_PARTY_COOKIES_POLICY_NAME\">BlockThirdPartyCookies</ph> policies if they are set, or the user's personal configuration otherwise.\n\n          See also policies <ph name=\"COOKIES_BLOCKED_FOR_URLS_POLICY_NAME\">CookiesBlockedForUrls</ph> and <ph name=\"COOKIES_SESSIONS_ONLY_FOR_URLS\">CookiesSessionOnlyForUrls</ph>. Note that there must be no conflicting URL patterns between these three policies - it is unspecified which policy takes precedence.\n\n          For detailed information on valid url patterns, please see https://cloud.google.com/docs/chrome-enterprise/policies/url-patterns. <ph name=\"WILDCARD_VALUE\">*</ph> is not an accepted value for this policy.",
       "example_value": [
         "https://www.example.com",
-        "[*.]example.edu"
+        "[*.]example.edu",
+        "https://www.example.com/,https://www.toplevel.com/",
+        "*,https://www.toplevel.com/"
       ],
       "features": {
         "dynamic_refresh": true,
@@ -19822,6 +19824,44 @@
       ],
       "tags": [],
       "type": "list"
+    },
+    {
+      "caption": "Specifies whether to apply restrictions to requests to more-private network endpoints",
+      "desc": "When this policy is set to Enabled, any time when a warning is supposed to be\ndisplayed in the <ph name=\"DEV_TOOLS_NAME\">DevTools</ph> due to <ph\nname=\"PRIVATE_NETWORK_ACCESS\">Private Network Access</ph> checks failing, the\nmain request will be blocked instead.\n\nWhen this policy is set to Disabled or unset, all <ph\nname=\"PRIVATE_NETWORK_ACCESS\">Private Network Access</ph> warnings will not\nbe enforced and the requests will not be blocked.\n\nSee https://wicg.github.io/private-network-access/ for <ph\nname=\"PRIVATE_NETWORK_ACCESS\">Private Network Access</ph> restrictions.",
+      "example_value": true,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "future_on": [
+        "fuchsia"
+      ],
+      "id": 1177,
+      "items": [
+        {
+          "caption": "Apply restrictions to requests to more-private network endpoints",
+          "value": true
+        },
+        {
+          "caption": "Use default behavior when determining if websites can make requests to network endpoints",
+          "value": false
+        }
+      ],
+      "name": "PrivateNetworkAccessRestrictionsEnabled",
+      "owners": [
+        "phao@chromium.org",
+        "file://chrome/browser/private_network_access/OWNERS"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "supported_on": [
+        "chrome.*:120-",
+        "chrome_os:120-",
+        "android:120-"
+      ],
+      "tags": [],
+      "type": "main"
     },
     {
       "caption": "Allow the listed sites to make requests to more-private network endpoints in an insecure manner.",
@@ -27855,8 +27895,7 @@
         "per_profile": true
       },
       "future_on": [
-        "fuchsia",
-        "chrome_os"
+        "fuchsia"
       ],
       "id": 824,
       "name": "WebAppSettings",
@@ -27895,7 +27934,8 @@
         "type": "array"
       },
       "supported_on": [
-        "chrome.*:102-"
+        "chrome.*:102-",
+        "chrome_os:120-"
       ],
       "tags": [],
       "type": "dict"
@@ -32111,6 +32151,46 @@
       "tags": [
         "filtering"
       ],
+      "type": "int-enum"
+    },
+    {
+      "caption": "Allow saving images directly to <ph name=\"GOOGLE_PHOTOS_PRODUCT_NAME\">Google Photos</ph>",
+      "default": 0,
+      "desc": "This policy controls whether the user is allowed to save images to <ph name=\"GOOGLE_PHOTOS_PRODUCT_NAME\">Google Photos</ph> directly from the context menu.\nSetting the policy to Enabled or leaving it unset allows the user to save images to <ph name=\"GOOGLE_PHOTOS_PRODUCT_NAME\">Google Photos</ph> from the context menu. Setting the policy to Disabled prevent users seeing the option in the context menu.\nThis policy does not prevent users from saving images to <ph name=\"GOOGLE_PHOTOS_PRODUCT_NAME\">Google Photos</ph> using other ways beside the context menu.",
+      "example_value": 0,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": true
+      },
+      "id": 1178,
+      "items": [
+        {
+          "caption": "The context menu will have a menu item to share images to <ph name=\"GOOGLE_PHOTOS_PRODUCT_NAME\">Google Photos</ph>.",
+          "name": "Enabled",
+          "value": 0
+        },
+        {
+          "caption": "The context menu will not have a menu item to share images to <ph name=\"GOOGLE_PHOTOS_PRODUCT_NAME\">Google Photos</ph>.",
+          "name": "Disabled",
+          "value": 1
+        }
+      ],
+      "name": "ContextMenuPhotoSharingSettings",
+      "owners": [
+        "qpubert@google.com",
+        "olivierrobin@google.com"
+      ],
+      "schema": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer"
+      },
+      "supported_on": [
+        "ios:120-"
+      ],
+      "tags": [],
       "type": "int-enum"
     },
     {
@@ -48660,6 +48740,7 @@
       "desc": "A group of policies related to private network request settings.  See https://wicg.github.io/private-network-access/.",
       "name": "PrivateNetworkRequestSettings",
       "policies": [
+        "PrivateNetworkAccessRestrictionsEnabled",
         "InsecurePrivateNetworkRequestsAllowedForUrls",
         "InsecurePrivateNetworkRequestsAllowed"
       ],
@@ -49066,6 +49147,7 @@
         "CommandLineFlagSecurityWarningsEnabled",
         "PhoneHubNotificationsAllowed",
         "ForceYouTubeRestrict",
+        "ContextMenuPhotoSharingSettings",
         "ClickToCallEnabled",
         "ForcePermissionPolicyUnloadDefaultEnabled",
         "ImportHistory",

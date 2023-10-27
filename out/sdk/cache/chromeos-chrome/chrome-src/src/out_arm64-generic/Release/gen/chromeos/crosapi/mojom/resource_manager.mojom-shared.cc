@@ -84,8 +84,12 @@ bool PageProcess_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 16 },
+    { 1, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -98,7 +102,7 @@ bool PageProcess_Data::Validate(
 }
 
 PageProcess_Data::PageProcess_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static

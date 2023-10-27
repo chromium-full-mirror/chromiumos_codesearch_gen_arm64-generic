@@ -17,7 +17,7 @@ namespace blink {
 
 
 constexpr const char* const V8GPUQueryType::string_table_[] = {
-"occlusion", "pipeline-statistics", "timestamp"
+"occlusion", "timestamp"
 };
 
 V8GPUQueryType V8GPUQueryType::Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state) {

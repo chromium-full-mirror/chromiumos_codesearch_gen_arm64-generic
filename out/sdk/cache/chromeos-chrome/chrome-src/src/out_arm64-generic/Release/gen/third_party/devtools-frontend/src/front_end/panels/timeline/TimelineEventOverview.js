@@ -140,8 +140,7 @@ export class TimelineEventOverviewCPUActivity extends TimelineEventOverview {
     backgroundCanvas;
     #performanceModel = null;
     #traceParsedData;
-    #isCpuProfile;
-    constructor(model, traceParsedData, isCpuProfile) {
+    constructor(model, traceParsedData) {
         // During the sync tracks migration this component can use either legacy
         // Performance Model data or the new engine's data. Once the migration is
         // complete this will be updated to only use the new engine and mentions of
@@ -150,7 +149,6 @@ export class TimelineEventOverviewCPUActivity extends TimelineEventOverview {
         this.#performanceModel = model;
         this.#traceParsedData = traceParsedData;
         this.backgroundCanvas = this.element.createChild('canvas', 'fill background');
-        this.#isCpuProfile = isCpuProfile;
     }
     resetCanvas() {
         super.resetCanvas();
@@ -182,15 +180,17 @@ export class TimelineEventOverviewCPUActivity extends TimelineEventOverview {
         if (!backgroundContext) {
             throw new Error('Could not find 2d canvas');
         }
+        const threads = TraceEngine.Handlers.Threads.threadsInTrace(traceParsedData);
         const mainThreadContext = this.context();
-        for (const [, process] of traceParsedData.Renderer.processes) {
-            for (const [, thread] of process.threads) {
-                if (thread.name === 'CrRendererMain') {
-                    drawThreadEntries(mainThreadContext, traceParsedData.Renderer.entryToNode, thread);
-                }
-                else {
-                    drawThreadEntries(backgroundContext, traceParsedData.Renderer.entryToNode, thread);
-                }
+        for (const thread of threads) {
+            // We treat CPU_PROFILE as main thread because in a CPU Profile trace there is only ever one thread.
+            const isMainThread = thread.type === "MAIN_THREAD" /* TraceEngine.Handlers.Threads.ThreadType.MAIN_THREAD */ ||
+                thread.type === "CPU_PROFILE" /* TraceEngine.Handlers.Threads.ThreadType.CPU_PROFILE */;
+            if (isMainThread) {
+                drawThreadEntries(mainThreadContext, thread);
+            }
+            else {
+                drawThreadEntries(backgroundContext, thread);
             }
         }
         function applyPattern(ctx) {
@@ -206,10 +206,7 @@ export class TimelineEventOverviewCPUActivity extends TimelineEventOverview {
             ctx.restore();
         }
         applyPattern(backgroundContext);
-        function drawThreadEntries(context, entryToNode, thread) {
-            if (!thread.tree) {
-                return;
-            }
+        function drawThreadEntries(context, threadData) {
             const quantizer = new Quantizer(timeStart, quantTime, drawSample);
             let x = 0;
             const categoryIndexStack = [];
@@ -249,7 +246,7 @@ export class TimelineEventOverviewCPUActivity extends TimelineEventOverview {
                     quantizer.appendInterval(endTime, lastCategoryIndex);
                 }
             }
-            TraceEngine.Helpers.TreeHelpers.walkEntireTree(entryToNode, thread.tree, onEntryStart, onEntryEnd);
+            TraceEngine.Helpers.TreeHelpers.walkEntireTree(threadData.entryToNode, threadData.tree, onEntryStart, onEntryEnd);
             quantizer.appendInterval(timeStart + timeRange + quantTime, idleIndex); // Kick drawing the last bucket.
             for (let i = categoryOrder.length - 1; i > 0; --i) {
                 paths[i].lineTo(width, height);
@@ -267,10 +264,7 @@ export class TimelineEventOverviewCPUActivity extends TimelineEventOverview {
         // Whilst the sync tracks migration is in process, we only use the new
         // engine if the Renderer data is present. Once that migratin is complete,
         // the Renderer data will always be present and we can remove this check.
-        if (!this.#isCpuProfile && this.#traceParsedData && this.#traceParsedData.Renderer) {
-            // TODO(crbug.com/1464206): we are falling back to the old engine for CPU Profiles. We need to
-            // update this code to have the ability to find the Main Thread from the
-            // CPU Profile and use that if we are in CPU Profiling mode.
+        if (this.#traceParsedData) {
             this.#drawWithNewEngine(this.#traceParsedData);
             return;
         }

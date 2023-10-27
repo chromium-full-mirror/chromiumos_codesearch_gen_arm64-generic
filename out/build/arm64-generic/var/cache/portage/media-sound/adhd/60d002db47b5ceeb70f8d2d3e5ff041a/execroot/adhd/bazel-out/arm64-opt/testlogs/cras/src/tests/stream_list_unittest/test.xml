@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="3" failures="0" disabled="0" errors="0" time="0.019" timestamp="2023-10-26T11:40:17.913" name="AllTests">
-  <testsuite name="StreamList" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.009" timestamp="2023-10-26T11:40:17.923">
-    <testcase name="AddRemove" file="cras/src/tests/stream_list_unittest.cc" line="69" status="run" result="completed" time="0.003" timestamp="2023-10-26T11:40:17.923" classname="StreamList" />
-    <testcase name="AddInDescendingOrderByChannels" file="cras/src/tests/stream_list_unittest.cc" line="95" status="run" result="completed" time="0.001" timestamp="2023-10-26T11:40:17.929" classname="StreamList" />
-    <testcase name="GetStreamCount" file="cras/src/tests/stream_list_unittest.cc" line="147" status="run" result="completed" time="0.001" timestamp="2023-10-26T11:40:17.931" classname="StreamList" />
-  </testsuite>
-</testsuites>

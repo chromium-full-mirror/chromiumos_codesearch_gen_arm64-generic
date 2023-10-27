@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/include-what-you-use",
+      "build_dest_path": "/var/tmp/portage/dev-util/iwyu-2023.04.18.193007-r5/work/iwyu-2023.04.18.193007"
+    }
+  ]
+}

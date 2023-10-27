@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="1" failures="0" disabled="0" errors="0" time="1.166" timestamp="2023-10-27T00:18:26.130" name="AllTests">
+  <testsuite name="Util" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="1.15" timestamp="2023-10-27T00:18:26.145">
+    <testcase name="FileWait" file="cras/src/tests/file_wait_unittest.cc" line="99" status="run" result="completed" time="1.148" timestamp="2023-10-27T00:18:26.145" classname="Util" />
+  </testsuite>
+</testsuites>

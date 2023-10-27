@@ -178,7 +178,7 @@ bool UserAgentMetadata_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& form_factor_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->form_factor, validation_context,
                                          &form_factor_validate_params)) {
     return false;

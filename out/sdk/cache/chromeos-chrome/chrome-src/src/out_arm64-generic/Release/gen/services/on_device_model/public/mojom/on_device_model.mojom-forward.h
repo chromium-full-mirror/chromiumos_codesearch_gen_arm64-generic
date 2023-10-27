@@ -7,7 +7,7 @@
 #ifndef SERVICES_ON_DEVICE_MODEL_PUBLIC_MOJOM_ON_DEVICE_MODEL_MOJOM_FORWARD_H_
 #define SERVICES_ON_DEVICE_MODEL_PUBLIC_MOJOM_ON_DEVICE_MODEL_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -22,11 +22,13 @@
 
 
 namespace on_device_model::mojom {
-class LoadModelParamsDataView;
+class ModelAssetsDataView;
 
 class LoadModelResultDataView;
-class LoadModelParams;
-using LoadModelParamsPtr = mojo::StructPtr<LoadModelParams>;
+
+enum class PerformanceClass : int32_t;
+class ModelAssets;
+using ModelAssetsPtr = mojo::StructPtr<ModelAssets>;
 
 class LoadModelResult;
 

@@ -9661,8 +9661,8 @@ Crosapi::IPCStableHashFunction Crosapi::MessageToMethodInfo_(mojo::Message& mess
     case internal::kCrosapi_BindAudioService_Name: {
       return &Crosapi::BindAudioService_Sym::IPCStableHash;
     }
-    case internal::kCrosapi_BindAuthentication_Name: {
-      return &Crosapi::BindAuthentication_Sym::IPCStableHash;
+    case internal::kCrosapi_REMOVED_62_Name: {
+      return &Crosapi::REMOVED_62_Sym::IPCStableHash;
     }
     case internal::kCrosapi_BindAutomationFactory_Name: {
       return &Crosapi::BindAutomationFactory_Sym::IPCStableHash;
@@ -10030,8 +10030,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::Crosapi::BindAutomationDeprecated";
       case internal::kCrosapi_BindAudioService_Name:
             return "Receive crosapi::mojom::Crosapi::BindAudioService";
-      case internal::kCrosapi_BindAuthentication_Name:
-            return "Receive crosapi::mojom::Crosapi::BindAuthentication";
+      case internal::kCrosapi_REMOVED_62_Name:
+            return "Receive crosapi::mojom::Crosapi::REMOVED_62";
       case internal::kCrosapi_BindAutomationFactory_Name:
             return "Receive crosapi::mojom::Crosapi::BindAutomationFactory";
       case internal::kCrosapi_BindAccountManager_Name:
@@ -10273,8 +10273,8 @@ const char* Crosapi::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::Crosapi::BindAutomationDeprecated";
       case internal::kCrosapi_BindAudioService_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindAudioService";
-      case internal::kCrosapi_BindAuthentication_Name:
-            return "Receive reply crosapi::mojom::Crosapi::BindAuthentication";
+      case internal::kCrosapi_REMOVED_62_Name:
+            return "Receive reply crosapi::mojom::Crosapi::REMOVED_62";
       case internal::kCrosapi_BindAutomationFactory_Name:
             return "Receive reply crosapi::mojom::Crosapi::BindAutomationFactory";
       case internal::kCrosapi_BindAccountManager_Name:
@@ -10549,7 +10549,7 @@ uint32_t Crosapi::BindAudioService_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t Crosapi::BindAuthentication_Sym::IPCStableHash() {
+uint32_t Crosapi::REMOVED_62_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -10557,7 +10557,7 @@ uint32_t Crosapi::BindAuthentication_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)crosapi::mojom::Crosapi::BindAuthentication");
+          "(Impl)crosapi::mojom::Crosapi::REMOVED_62");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -12175,16 +12175,16 @@ void CrosapiProxy::BindAudioService(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CrosapiProxy::BindAuthentication(
-    ::mojo::PendingReceiver<::crosapi::mojom::Authentication> in_receiver) {
+void CrosapiProxy::REMOVED_62(
+    ::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send crosapi::mojom::Crosapi::BindAuthentication", "input_parameters",
+    "mojom", "Send crosapi::mojom::Crosapi::REMOVED_62", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
-                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::Authentication>>");
+                        "<value of type ::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -12197,21 +12197,21 @@ void CrosapiProxy::BindAuthentication(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosapi_BindAuthentication_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosapi_REMOVED_62_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::crosapi::mojom::internal::Crosapi_BindAuthentication_Params_Data> params(
+      ::crosapi::mojom::internal::Crosapi_REMOVED_62_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::AuthenticationInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::crosapi::mojom::AuthenticationDeprecatedInterfaceBase>>(
       in_receiver, &params->receiver, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid receiver in Crosapi.BindAuthentication request");
+      "invalid receiver in Crosapi.REMOVED_62 request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Crosapi::Name_);
-  message.set_method_name("BindAuthentication");
+  message.set_method_name("REMOVED_62");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -17325,16 +17325,16 @@ std::move(p_receiver));
 std::move(p_receiver));
       return true;
     }
-    case internal::kCrosapi_BindAuthentication_Name: {
+    case internal::kCrosapi_REMOVED_62_Name: {
 
       DCHECK(message->is_serialized());
-      internal::Crosapi_BindAuthentication_Params_Data* params =
-          reinterpret_cast<internal::Crosapi_BindAuthentication_Params_Data*>(
+      internal::Crosapi_REMOVED_62_Params_Data* params =
+          reinterpret_cast<internal::Crosapi_REMOVED_62_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::crosapi::mojom::Authentication> p_receiver{};
-      Crosapi_BindAuthentication_ParamsDataView input_data_view(params, message);
+      ::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated> p_receiver{};
+      Crosapi_REMOVED_62_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_receiver =
@@ -17349,7 +17349,7 @@ std::move(p_receiver));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->BindAuthentication(
+      impl->REMOVED_62(
 std::move(p_receiver));
       return true;
     }
@@ -20642,7 +20642,7 @@ bool CrosapiStubDispatch::AcceptWithResponder(
     case internal::kCrosapi_BindAudioService_Name: {
       break;
     }
-    case internal::kCrosapi_BindAuthentication_Name: {
+    case internal::kCrosapi_REMOVED_62_Name: {
       break;
     }
     case internal::kCrosapi_BindAutomationFactory_Name: {
@@ -21124,7 +21124,7 @@ static const mojo::internal::GenericValidationInfo kCrosapiValidationInfo[] = {
      nullptr /* no response */},
     {&internal::Crosapi_BindLoginState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Crosapi_BindAuthentication_Params_Data::Validate,
+    {&internal::Crosapi_REMOVED_62_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::Crosapi_BindArc_Params_Data::Validate,
      nullptr /* no response */},
@@ -25672,8 +25672,8 @@ void CrosapiInterceptorForTesting::BindAutomationDeprecated(::mojo::PendingRecei
 void CrosapiInterceptorForTesting::BindAudioService(::mojo::PendingReceiver<::crosapi::mojom::AudioService> receiver) {
   GetForwardingInterface()->BindAudioService(std::move(receiver));
 }
-void CrosapiInterceptorForTesting::BindAuthentication(::mojo::PendingReceiver<::crosapi::mojom::Authentication> receiver) {
-  GetForwardingInterface()->BindAuthentication(std::move(receiver));
+void CrosapiInterceptorForTesting::REMOVED_62(::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated> receiver) {
+  GetForwardingInterface()->REMOVED_62(std::move(receiver));
 }
 void CrosapiInterceptorForTesting::BindAutomationFactory(::mojo::PendingReceiver<::crosapi::mojom::AutomationFactory> receiver) {
   GetForwardingInterface()->BindAutomationFactory(std::move(receiver));

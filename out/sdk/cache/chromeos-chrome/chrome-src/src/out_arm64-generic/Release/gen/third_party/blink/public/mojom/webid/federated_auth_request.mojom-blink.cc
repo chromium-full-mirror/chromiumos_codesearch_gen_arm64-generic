@@ -84,19 +84,19 @@ bool LogoutRpsRequest::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-WalletProvider::WalletProvider()
+DigitalCredentialProvider::DigitalCredentialProvider()
     : params(),
       selector() {}
 
-WalletProvider::WalletProvider(
+DigitalCredentialProvider::DigitalCredentialProvider(
     const WTF::HashMap<WTF::String, WTF::String>& params_in,
-    WalletSelectorPtr selector_in)
+    DigitalCredentialSelectorPtr selector_in)
     : params(std::move(params_in)),
       selector(std::move(selector_in)) {}
 
-WalletProvider::~WalletProvider() = default;
+DigitalCredentialProvider::~DigitalCredentialProvider() = default;
 
-void WalletProvider::WriteIntoTrace(
+void DigitalCredentialProvider::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
@@ -112,34 +112,34 @@ void WalletProvider::WriteIntoTrace(
     dict.AddItem(
       "selector"), this->selector,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type WalletSelectorPtr>"
+      "<value of type DigitalCredentialSelectorPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
 }
 
-bool WalletProvider::Validate(
+bool DigitalCredentialProvider::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-WalletSelector::WalletSelector()
+DigitalCredentialSelector::DigitalCredentialSelector()
     : format(),
       doctype(),
       fields() {}
 
-WalletSelector::WalletSelector(
+DigitalCredentialSelector::DigitalCredentialSelector(
     WTF::Vector<WTF::String> format_in,
     const WTF::String& doctype_in,
-    WTF::Vector<WalletFieldRequirementPtr> fields_in)
+    WTF::Vector<DigitalCredentialFieldRequirementPtr> fields_in)
     : format(std::move(format_in)),
       doctype(std::move(doctype_in)),
       fields(std::move(fields_in)) {}
 
-WalletSelector::~WalletSelector() = default;
+DigitalCredentialSelector::~DigitalCredentialSelector() = default;
 
-void WalletSelector::WriteIntoTrace(
+void DigitalCredentialSelector::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
@@ -164,31 +164,31 @@ void WalletSelector::WriteIntoTrace(
     dict.AddItem(
       "fields"), this->fields,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type WTF::Vector<WalletFieldRequirementPtr>>"
+      "<value of type WTF::Vector<DigitalCredentialFieldRequirementPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
 }
 
-bool WalletSelector::Validate(
+bool DigitalCredentialSelector::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-WalletFieldRequirement::WalletFieldRequirement()
+DigitalCredentialFieldRequirement::DigitalCredentialFieldRequirement()
     : name(),
       equals() {}
 
-WalletFieldRequirement::WalletFieldRequirement(
+DigitalCredentialFieldRequirement::DigitalCredentialFieldRequirement(
     const WTF::String& name_in,
     const WTF::String& equals_in)
     : name(std::move(name_in)),
       equals(std::move(equals_in)) {}
 
-WalletFieldRequirement::~WalletFieldRequirement() = default;
+DigitalCredentialFieldRequirement::~DigitalCredentialFieldRequirement() = default;
 
-void WalletFieldRequirement::WriteIntoTrace(
+void DigitalCredentialFieldRequirement::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
@@ -211,7 +211,7 @@ void WalletFieldRequirement::WriteIntoTrace(
     );
 }
 
-bool WalletFieldRequirement::Validate(
+bool DigitalCredentialFieldRequirement::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -512,13 +512,13 @@ void IdentityProvider::set_federated(
   }
 }
 void IdentityProvider::set_holder(
-    WalletProviderPtr holder) {
+    DigitalCredentialProviderPtr holder) {
   if (tag_ == Tag::kHolder) {
     *(data_.holder) = std::move(holder);
   } else {
     DestroyActive();
     tag_ = Tag::kHolder;
-    data_.holder = new WalletProviderPtr(
+    data_.holder = new DigitalCredentialProviderPtr(
         std::move(holder));
   }
 }
@@ -2610,11 +2610,11 @@ bool StructTraits<::blink::mojom::blink::LogoutRpsRequest::DataView, ::blink::mo
 
 
 // static
-bool StructTraits<::blink::mojom::blink::WalletProvider::DataView, ::blink::mojom::blink::WalletProviderPtr>::Read(
-    ::blink::mojom::blink::WalletProvider::DataView input,
-    ::blink::mojom::blink::WalletProviderPtr* output) {
+bool StructTraits<::blink::mojom::blink::DigitalCredentialProvider::DataView, ::blink::mojom::blink::DigitalCredentialProviderPtr>::Read(
+    ::blink::mojom::blink::DigitalCredentialProvider::DataView input,
+    ::blink::mojom::blink::DigitalCredentialProviderPtr* output) {
   bool success = true;
-  ::blink::mojom::blink::WalletProviderPtr result(::blink::mojom::blink::WalletProvider::New());
+  ::blink::mojom::blink::DigitalCredentialProviderPtr result(::blink::mojom::blink::DigitalCredentialProvider::New());
   
       if (success && !input.ReadParams(&result->params))
         success = false;
@@ -2626,11 +2626,11 @@ bool StructTraits<::blink::mojom::blink::WalletProvider::DataView, ::blink::mojo
 
 
 // static
-bool StructTraits<::blink::mojom::blink::WalletSelector::DataView, ::blink::mojom::blink::WalletSelectorPtr>::Read(
-    ::blink::mojom::blink::WalletSelector::DataView input,
-    ::blink::mojom::blink::WalletSelectorPtr* output) {
+bool StructTraits<::blink::mojom::blink::DigitalCredentialSelector::DataView, ::blink::mojom::blink::DigitalCredentialSelectorPtr>::Read(
+    ::blink::mojom::blink::DigitalCredentialSelector::DataView input,
+    ::blink::mojom::blink::DigitalCredentialSelectorPtr* output) {
   bool success = true;
-  ::blink::mojom::blink::WalletSelectorPtr result(::blink::mojom::blink::WalletSelector::New());
+  ::blink::mojom::blink::DigitalCredentialSelectorPtr result(::blink::mojom::blink::DigitalCredentialSelector::New());
   
       if (success && !input.ReadFormat(&result->format))
         success = false;
@@ -2644,11 +2644,11 @@ bool StructTraits<::blink::mojom::blink::WalletSelector::DataView, ::blink::mojo
 
 
 // static
-bool StructTraits<::blink::mojom::blink::WalletFieldRequirement::DataView, ::blink::mojom::blink::WalletFieldRequirementPtr>::Read(
-    ::blink::mojom::blink::WalletFieldRequirement::DataView input,
-    ::blink::mojom::blink::WalletFieldRequirementPtr* output) {
+bool StructTraits<::blink::mojom::blink::DigitalCredentialFieldRequirement::DataView, ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr>::Read(
+    ::blink::mojom::blink::DigitalCredentialFieldRequirement::DataView input,
+    ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr* output) {
   bool success = true;
-  ::blink::mojom::blink::WalletFieldRequirementPtr result(::blink::mojom::blink::WalletFieldRequirement::New());
+  ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr result(::blink::mojom::blink::DigitalCredentialFieldRequirement::New());
   
       if (success && !input.ReadName(&result->name))
         success = false;
@@ -2758,7 +2758,7 @@ bool UnionTraits<::blink::mojom::blink::IdentityProvider::DataView, ::blink::moj
       break;
     }
     case Tag::kHolder: {
-      ::blink::mojom::blink::WalletProviderPtr result_holder;
+      ::blink::mojom::blink::DigitalCredentialProviderPtr result_holder;
       if (!input.ReadHolder(&result_holder))
         return false;
 

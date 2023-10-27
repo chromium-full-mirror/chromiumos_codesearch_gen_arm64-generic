@@ -343,7 +343,7 @@ Conv2d::Conv2d(
     uint32_t groups_in,
     InputOperandLayout input_layout_in,
     absl::optional<uint64_t> bias_operand_id_in,
-    OperationPtr activation_in)
+    ActivationPtr activation_in)
     : input_operand_id(std::move(input_operand_id_in)),
       filter_operand_id(std::move(filter_operand_id_in)),
       output_operand_id(std::move(output_operand_id_in)),
@@ -445,7 +445,7 @@ void Conv2d::WriteIntoTrace(
     dict.AddItem(
       "activation"), this->activation,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type OperationPtr>"
+      "<value of type ActivationPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1167,6 +1167,51 @@ bool Reshape::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+Sigmoid::Sigmoid()
+    : input_operand_id(),
+      output_operand_id() {}
+
+Sigmoid::Sigmoid(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)) {}
+
+Sigmoid::~Sigmoid() = default;
+size_t Sigmoid::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  return seed;
+}
+
+void Sigmoid::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Sigmoid::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 Softmax::Softmax()
     : input_operand_id(),
       output_operand_id() {}
@@ -1260,6 +1305,51 @@ void Split::WriteIntoTrace(
 }
 
 bool Split::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Tanh::Tanh()
+    : input_operand_id(),
+      output_operand_id() {}
+
+Tanh::Tanh(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)) {}
+
+Tanh::~Tanh() = default;
+size_t Tanh::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  return seed;
+}
+
+void Tanh::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Tanh::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1548,6 +1638,121 @@ bool PaddingMode::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+Activation::Activation() : tag_(Tag::kClamp) {
+  data_.clamp = new ClampPtr;
+}
+
+Activation::~Activation() {
+  DestroyActive();
+}
+
+
+void Activation::set_clamp(
+    ClampPtr clamp) {
+  if (tag_ == Tag::kClamp) {
+    *(data_.clamp) = std::move(clamp);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kClamp;
+    data_.clamp = new ClampPtr(
+        std::move(clamp));
+  }
+}
+void Activation::set_relu(
+    ReluPtr relu) {
+  if (tag_ == Tag::kRelu) {
+    *(data_.relu) = std::move(relu);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kRelu;
+    data_.relu = new ReluPtr(
+        std::move(relu));
+  }
+}
+void Activation::set_sigmoid(
+    SigmoidPtr sigmoid) {
+  if (tag_ == Tag::kSigmoid) {
+    *(data_.sigmoid) = std::move(sigmoid);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSigmoid;
+    data_.sigmoid = new SigmoidPtr(
+        std::move(sigmoid));
+  }
+}
+void Activation::set_softmax(
+    SoftmaxPtr softmax) {
+  if (tag_ == Tag::kSoftmax) {
+    *(data_.softmax) = std::move(softmax);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSoftmax;
+    data_.softmax = new SoftmaxPtr(
+        std::move(softmax));
+  }
+}
+void Activation::set_tanh(
+    TanhPtr tanh) {
+  if (tag_ == Tag::kTanh) {
+    *(data_.tanh) = std::move(tanh);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kTanh;
+    data_.tanh = new TanhPtr(
+        std::move(tanh));
+  }
+}
+
+void Activation::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kClamp:
+
+      delete data_.clamp;
+      break;
+    case Tag::kRelu:
+
+      delete data_.relu;
+      break;
+    case Tag::kSigmoid:
+
+      delete data_.sigmoid;
+      break;
+    case Tag::kSoftmax:
+
+      delete data_.softmax;
+      break;
+    case Tag::kTanh:
+
+      delete data_.tanh;
+      break;
+  }
+}
+size_t Activation::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kClamp:
+      return mojo::internal::WTFHash(seed, data_.clamp);
+    case Tag::kRelu:
+      return mojo::internal::WTFHash(seed, data_.relu);
+    case Tag::kSigmoid:
+      return mojo::internal::WTFHash(seed, data_.sigmoid);
+    case Tag::kSoftmax:
+      return mojo::internal::WTFHash(seed, data_.softmax);
+    case Tag::kTanh:
+      return mojo::internal::WTFHash(seed, data_.tanh);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool Activation::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 Operation::Operation() : tag_(Tag::kClamp) {
   data_.clamp = new ClampPtr;
 }
@@ -1678,6 +1883,17 @@ void Operation::set_reshape(
         std::move(reshape));
   }
 }
+void Operation::set_sigmoid(
+    SigmoidPtr sigmoid) {
+  if (tag_ == Tag::kSigmoid) {
+    *(data_.sigmoid) = std::move(sigmoid);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSigmoid;
+    data_.sigmoid = new SigmoidPtr(
+        std::move(sigmoid));
+  }
+}
 void Operation::set_slice(
     SlicePtr slice) {
   if (tag_ == Tag::kSlice) {
@@ -1709,6 +1925,17 @@ void Operation::set_split(
     tag_ = Tag::kSplit;
     data_.split = new SplitPtr(
         std::move(split));
+  }
+}
+void Operation::set_tanh(
+    TanhPtr tanh) {
+  if (tag_ == Tag::kTanh) {
+    *(data_.tanh) = std::move(tanh);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kTanh;
+    data_.tanh = new TanhPtr(
+        std::move(tanh));
   }
 }
 void Operation::set_transpose(
@@ -1770,6 +1997,10 @@ void Operation::DestroyActive() {
 
       delete data_.reshape;
       break;
+    case Tag::kSigmoid:
+
+      delete data_.sigmoid;
+      break;
     case Tag::kSlice:
 
       delete data_.slice;
@@ -1781,6 +2012,10 @@ void Operation::DestroyActive() {
     case Tag::kSplit:
 
       delete data_.split;
+      break;
+    case Tag::kTanh:
+
+      delete data_.tanh;
       break;
     case Tag::kTranspose:
 
@@ -2608,6 +2843,22 @@ bool StructTraits<::webnn::mojom::blink::Reshape::DataView, ::webnn::mojom::blin
 
 
 // static
+bool StructTraits<::webnn::mojom::blink::Sigmoid::DataView, ::webnn::mojom::blink::SigmoidPtr>::Read(
+    ::webnn::mojom::blink::Sigmoid::DataView input,
+    ::webnn::mojom::blink::SigmoidPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::SigmoidPtr result(::webnn::mojom::blink::Sigmoid::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::webnn::mojom::blink::Softmax::DataView, ::webnn::mojom::blink::SoftmaxPtr>::Read(
     ::webnn::mojom::blink::Softmax::DataView input,
     ::webnn::mojom::blink::SoftmaxPtr* output) {
@@ -2636,6 +2887,22 @@ bool StructTraits<::webnn::mojom::blink::Split::DataView, ::webnn::mojom::blink:
         success = false;
       if (success)
         result->axis = input.axis();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::Tanh::DataView, ::webnn::mojom::blink::TanhPtr>::Read(
+    ::webnn::mojom::blink::Tanh::DataView input,
+    ::webnn::mojom::blink::TanhPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::TanhPtr result(::webnn::mojom::blink::Tanh::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
   *output = std::move(result);
   return success;
 }
@@ -2740,6 +3007,66 @@ bool UnionTraits<::webnn::mojom::blink::PaddingMode::DataView, ::webnn::mojom::b
 
       *output = UnionType::NewSymmetric(
           std::move(result_symmetric));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::webnn::mojom::blink::Activation::DataView, ::webnn::mojom::blink::ActivationPtr>::Read(
+    ::webnn::mojom::blink::Activation::DataView input,
+    ::webnn::mojom::blink::ActivationPtr* output) {
+  using UnionType = ::webnn::mojom::blink::Activation;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kClamp: {
+      ::webnn::mojom::blink::ClampPtr result_clamp;
+      if (!input.ReadClamp(&result_clamp))
+        return false;
+
+      *output = UnionType::NewClamp(
+          std::move(result_clamp));
+      break;
+    }
+    case Tag::kRelu: {
+      ::webnn::mojom::blink::ReluPtr result_relu;
+      if (!input.ReadRelu(&result_relu))
+        return false;
+
+      *output = UnionType::NewRelu(
+          std::move(result_relu));
+      break;
+    }
+    case Tag::kSigmoid: {
+      ::webnn::mojom::blink::SigmoidPtr result_sigmoid;
+      if (!input.ReadSigmoid(&result_sigmoid))
+        return false;
+
+      *output = UnionType::NewSigmoid(
+          std::move(result_sigmoid));
+      break;
+    }
+    case Tag::kSoftmax: {
+      ::webnn::mojom::blink::SoftmaxPtr result_softmax;
+      if (!input.ReadSoftmax(&result_softmax))
+        return false;
+
+      *output = UnionType::NewSoftmax(
+          std::move(result_softmax));
+      break;
+    }
+    case Tag::kTanh: {
+      ::webnn::mojom::blink::TanhPtr result_tanh;
+      if (!input.ReadTanh(&result_tanh))
+        return false;
+
+      *output = UnionType::NewTanh(
+          std::move(result_tanh));
       break;
     }
     default:
@@ -2856,6 +3183,15 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
           std::move(result_reshape));
       break;
     }
+    case Tag::kSigmoid: {
+      ::webnn::mojom::blink::SigmoidPtr result_sigmoid;
+      if (!input.ReadSigmoid(&result_sigmoid))
+        return false;
+
+      *output = UnionType::NewSigmoid(
+          std::move(result_sigmoid));
+      break;
+    }
     case Tag::kSlice: {
       ::webnn::mojom::blink::SlicePtr result_slice;
       if (!input.ReadSlice(&result_slice))
@@ -2881,6 +3217,15 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
 
       *output = UnionType::NewSplit(
           std::move(result_split));
+      break;
+    }
+    case Tag::kTanh: {
+      ::webnn::mojom::blink::TanhPtr result_tanh;
+      if (!input.ReadTanh(&result_tanh))
+        return false;
+
+      *output = UnionType::NewTanh(
+          std::move(result_tanh));
       break;
     }
     case Tag::kTranspose: {

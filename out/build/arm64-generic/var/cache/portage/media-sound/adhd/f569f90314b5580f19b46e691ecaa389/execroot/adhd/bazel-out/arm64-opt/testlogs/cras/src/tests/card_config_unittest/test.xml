@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="7" failures="0" disabled="0" errors="0" time="0.049" timestamp="2023-10-27T00:17:15.172" name="AllTests">
+  <testsuite name="CardConfigTestSuite" tests="7" failures="0" disabled="0" skipped="0" errors="0" time="0.041" timestamp="2023-10-27T00:17:15.179">
+    <testcase name="NoConfigFound" file="cras/src/tests/card_config_unittest.cc" line="57" status="run" result="completed" time="0.014" timestamp="2023-10-27T00:17:15.180" classname="CardConfigTestSuite" />
+    <testcase name="ConfigFileWithCardSettingsSuffix" file="cras/src/tests/card_config_unittest.cc" line="64" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:15.195" classname="CardConfigTestSuite" />
+    <testcase name="CardSettingsSuffixTakesPriority" file="cras/src/tests/card_config_unittest.cc" line="74" status="run" result="completed" time="0.01" timestamp="2023-10-27T00:17:15.198" classname="CardConfigTestSuite" />
+    <testcase name="EmptyConfigFileReturnsNullVolumeCurve" file="cras/src/tests/card_config_unittest.cc" line="103" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:15.209" classname="CardConfigTestSuite" />
+    <testcase name="NullConfigGivesDefaultVolumeCurve" file="cras/src/tests/card_config_unittest.cc" line="122" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:15.212" classname="CardConfigTestSuite" />
+    <testcase name="SimpleStepConfig" file="cras/src/tests/card_config_unittest.cc" line="131" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:15.212" classname="CardConfigTestSuite" />
+    <testcase name="ExplicitCurveConfig" file="cras/src/tests/card_config_unittest.cc" line="163" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:17:15.215" classname="CardConfigTestSuite" />
+  </testsuite>
+</testsuites>

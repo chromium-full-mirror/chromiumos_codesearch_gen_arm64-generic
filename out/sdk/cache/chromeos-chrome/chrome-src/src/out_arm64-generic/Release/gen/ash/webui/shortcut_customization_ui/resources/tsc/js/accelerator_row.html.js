@@ -7,7 +7,7 @@ export function getTemplate() {
     display: grid;
     grid-auto-rows: minmax(52px, auto);
     grid-template-columns: minmax(min-content, 286px) 50%;
-    padding: 0 20px;
+    padding-inline-end: 10px;
   }
 
   /* Show edit-button when user hover on the row container. */
@@ -29,6 +29,8 @@ export function getTemplate() {
 
   #container:focus {
     background-color: var(--cros-sys-highlight_shape);
+    box-shadow: -20px 0 var(--cros-sys-highlight_shape),
+                10px 0 var(--cros-sys-highlight_shape);
     outline: none;
   }
 

@@ -80,7 +80,7 @@ found in the LICENSE file.
 <oobe-adaptive-dialog role="dialog" for-step="password">
   <iron-icon slot="icon" icon="oobe-32:lock"></iron-icon>
   <h1 slot="title">
-      [[i18nDynamic(locale, 'localPasswordSetupTitle')]]
+    [[titleText_(locale, isRecoveryFlow)]]
   </h1>
   <div slot="content" class="landscape-vertical-centered">
     <set-local-password-input id="passwordInput" on-submit="onSubmit_">
@@ -104,7 +104,7 @@ found in the LICENSE file.
     footer-shrinkable>
   <iron-icon slot="icon" icon="oobe-32:lock"></iron-icon>
   <h1 slot="title">
-      [[i18nDynamic(locale, 'localPasswordSetupDoneTitle')]]
+    [[doneTitleText_(locale, isRecoveryFlow)]]
   </h1>
   <div slot="subtitle">
     [[i18nDynamic(locale, 'localPasswordSetupDoneSubtitle')]]</div>
@@ -196,6 +196,18 @@ found in the LICENSE file.
 
   onDoneClicked_() {
     this.userActed(['done']);
+  }
+
+  titleText_(locale, isRecoveryFlow) {
+    const key =
+        isRecoveryFlow ? 'localPasswordResetTitle' : 'localPasswordSetupTitle';
+    return this.i18n(key);
+  }
+
+  doneTitleText_(locale, isRecoveryFlow) {
+    const key = isRecoveryFlow ? 'localPasswordResetDoneTitle' :
+                                 'localPasswordSetupDoneTitle';
+    return this.i18n(key);
   }
 }
 

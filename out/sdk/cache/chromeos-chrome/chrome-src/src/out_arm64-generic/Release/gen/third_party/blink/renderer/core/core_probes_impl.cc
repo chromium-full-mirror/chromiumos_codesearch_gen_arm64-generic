@@ -26,6 +26,7 @@
 #include "third_party/blink/renderer/core/inspector/inspector_log_agent.h"
 #include "third_party/blink/renderer/core/inspector/inspector_media_agent.h"
 #include "third_party/blink/renderer/core/inspector/inspector_network_agent.h"
+#include "third_party/blink/renderer/core/inspector/inspector_overlay_agent.h"
 #include "third_party/blink/renderer/core/inspector/inspector_page_agent.h"
 #include "third_party/blink/renderer/core/inspector/inspector_performance_agent.h"
 #include "third_party/blink/renderer/core/inspector/inspector_performance_timeline_agent.h"
@@ -85,6 +86,8 @@ CoreProbeSink::~CoreProbeSink() {
     s_existingAgents &= ~kInspectorMediaAgent;
   if (HasInspectorNetworkAgents() && --s_numSinksWithInspectorNetworkAgent == 0)
     s_existingAgents &= ~kInspectorNetworkAgent;
+  if (HasInspectorOverlayAgents() && --s_numSinksWithInspectorOverlayAgent == 0)
+    s_existingAgents &= ~kInspectorOverlayAgent;
   if (HasInspectorPageAgents() && --s_numSinksWithInspectorPageAgent == 0)
     s_existingAgents &= ~kInspectorPageAgent;
   if (HasInspectorPerformanceAgents() && --s_numSinksWithInspectorPerformanceAgent == 0)
@@ -631,6 +634,39 @@ void CoreProbeSink::RemoveInspectorNetworkAgent(InspectorNetworkAgent* agent) {
 
 
 // static
+unsigned CoreProbeSink::s_numSinksWithInspectorOverlayAgent = 0;
+
+void CoreProbeSink::AddInspectorOverlayAgent(InspectorOverlayAgent* agent) {
+  bool already_had_agent = HasInspectorOverlayAgents();
+  inspector_overlay_agents_.AddAgent(agent);
+
+  if (!already_had_agent) {
+    base::AutoLock locker(AgentCountLock());
+    if (++s_numSinksWithInspectorOverlayAgent == 1)
+      s_existingAgents |= kInspectorOverlayAgent;
+  }
+
+  DCHECK(HasAgentsGlobal(kInspectorOverlayAgent));
+}
+
+void CoreProbeSink::RemoveInspectorOverlayAgent(InspectorOverlayAgent* agent) {
+  if (!HasInspectorOverlayAgents())
+    return;
+
+  inspector_overlay_agents_.RemoveAgent(agent);
+
+  if (!HasInspectorOverlayAgents()) {
+    base::AutoLock locker(AgentCountLock());
+    if (--s_numSinksWithInspectorOverlayAgent == 0)
+      s_existingAgents &= ~kInspectorOverlayAgent;
+  }
+
+  if (HasInspectorOverlayAgents())
+    DCHECK(HasAgentsGlobal(kInspectorOverlayAgent));
+}
+
+
+// static
 unsigned CoreProbeSink::s_numSinksWithInspectorPageAgent = 0;
 
 void CoreProbeSink::AddInspectorPageAgent(InspectorPageAgent* agent) {
@@ -878,6 +914,7 @@ void CoreProbeSink::Trace(Visitor* visitor) const
   visitor->Trace(inspector_log_agents_);
   visitor->Trace(inspector_media_agents_);
   visitor->Trace(inspector_network_agents_);
+  visitor->Trace(inspector_overlay_agents_);
   visitor->Trace(inspector_page_agents_);
   visitor->Trace(inspector_performance_agents_);
   visitor->Trace(inspector_performance_timeline_agents_);
@@ -2906,6 +2943,17 @@ void SpeculationCandidatesUpdatedImpl(Document& param_document, const HeapVector
   if (probe_sink->HasInspectorPreloadAgents()) {
     probe_sink->InspectorPreloadAgents().ForEachAgent([&](InspectorPreloadAgent* agent) {
       agent->SpeculationCandidatesUpdated(param_document, candidates);
+    });
+  }
+}
+
+void DidInitializeFrameWidgetImpl(LocalFrame* document) {
+  CoreProbeSink* probe_sink = ToCoreProbeSink(document);
+  if (!probe_sink)
+    return;
+  if (probe_sink->HasInspectorOverlayAgents()) {
+    probe_sink->InspectorOverlayAgents().ForEachAgent([&](InspectorOverlayAgent* agent) {
+      agent->DidInitializeFrameWidget();
     });
   }
 }

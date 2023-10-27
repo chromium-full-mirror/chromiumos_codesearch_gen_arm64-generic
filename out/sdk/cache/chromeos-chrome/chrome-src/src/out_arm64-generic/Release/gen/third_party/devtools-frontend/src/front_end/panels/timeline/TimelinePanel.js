@@ -321,7 +321,7 @@ export class TimelinePanel extends UI.Panel.Panel {
             UI.ActionRegistry.ActionRegistry.instance().action('timeline.toggle-recording');
         this.recordReloadAction =
             UI.ActionRegistry.ActionRegistry.instance().action('timeline.record-reload');
-        this.#historyManager = new TimelineHistoryManager();
+        this.#historyManager = new TimelineHistoryManager(threadTracksSource);
         this.performanceModel = null;
         this.traceLoadStart = null;
         this.disableCaptureJSProfileSetting =

@@ -1215,6 +1215,8 @@ namespace policy {
   { false,        false,    false,           1050,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // PrivacyScreenEnabled
   { false,        false,    false,            677,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
+  // PrivateNetworkAccessRestrictionsEnabled
+  { false,        false,    false,           1177,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // ProfilePickerOnStartupAvailability
   { false,        false,    false,            810,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // ProjectorDogfoodForFamilyLinkEnabled
@@ -1687,7 +1689,7 @@ namespace policy {
   // WebAppInstallForceList
   { false,        false,    false,            468,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // WebAppSettings
-  { false,        true,     false,            824,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
+  { false,        false,    false,            824,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // WebAuthenticationRemoteProxiedRequestsAllowed
   { false,        false,    false,            965,                     0, { RISK_TAG_FULL_ADMIN_ACCESS, RISK_TAG_NONE, RISK_TAG_NONE } },
   // WebAuthnFactors
@@ -3433,6 +3435,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kPrivacySandboxPromptEnabled,                                    1 },
   { key::kPrivacySandboxSiteEnabledAdsEnabled,                            1 },
   { key::kPrivacyScreenEnabled,                                           1 },
+  { key::kPrivateNetworkAccessRestrictionsEnabled,                        1 },
   { key::kProfilePickerOnStartupAvailability,                            16 },
   { key::kProjectorDogfoodForFamilyLinkEnabled,                           1 },
   { key::kProjectorEnabled,                                               1 },
@@ -3916,19 +3919,19 @@ const internal::PropertiesNode kProperties[] = {
   {   506,   508,   508,    93,         95,    -1 },  // urls
   {   508,   510,   510,    95,         95,    -1 },  // items of devices
   {   510,   512,   512,    95,         97,    -1 },  // urls
-  {   512,  1363,  1363,    97,         97,    -1 },  // root node
-  {  1363,  1367,  1367,    97,         97,    -1 },  // ISSUER
-  {  1367,  1371,  1371,    97,         97,    -1 },  // SUBJECT
-  {  1371,  1373,  1373,    97,         97,    -1 },  // filter
-  {  1373,  1375,  1375,    97,         97,    -1 },  // items of AutoSelectCertificateForUrls
-  {  1375,  1378,  1378,    97,         97,    -1 },  // DefaultPrinterSelection
-  {  1378,  1382,  1382,    97,         97,    -1 },  // ISSUER
-  {  1382,  1386,  1386,    97,         97,    -1 },  // SUBJECT
-  {  1386,  1388,  1388,    97,         97,    -1 },  // filter
-  {  1388,  1390,  1390,    97,         97,    -1 },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
-  {  1390,  1392,  1392,    97,         97,    -1 },  // ppd_resource
-  {  1392,  1399,  1399,    97,         97,    -1 },  // items of Printers
-  {  1399,  1403,  1403,    97,         97,    -1 },  // validation_schema root node
+  {   512,  1364,  1364,    97,         97,    -1 },  // root node
+  {  1364,  1368,  1368,    97,         97,    -1 },  // ISSUER
+  {  1368,  1372,  1372,    97,         97,    -1 },  // SUBJECT
+  {  1372,  1374,  1374,    97,         97,    -1 },  // filter
+  {  1374,  1376,  1376,    97,         97,    -1 },  // items of AutoSelectCertificateForUrls
+  {  1376,  1379,  1379,    97,         97,    -1 },  // DefaultPrinterSelection
+  {  1379,  1383,  1383,    97,         97,    -1 },  // ISSUER
+  {  1383,  1387,  1387,    97,         97,    -1 },  // SUBJECT
+  {  1387,  1389,  1389,    97,         97,    -1 },  // filter
+  {  1389,  1391,  1391,    97,         97,    -1 },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
+  {  1391,  1393,  1393,    97,         97,    -1 },  // ppd_resource
+  {  1393,  1400,  1400,    97,         97,    -1 },  // items of Printers
+  {  1400,  1404,  1404,    97,         97,    -1 },  // validation_schema root node
 };
 
 const internal::RestrictionNode kRestrictionNodes[] = {
@@ -5223,7 +5226,7 @@ const PolicyDetails* GetChromePolicyDetails(const std::string& policy) {
   // First index in kPropertyNodes of the Chrome policies.
   static constexpr int begin_index = 512;
   // One-past-the-end of the Chrome policies in kPropertyNodes.
-  static constexpr int end_index = 1363;
+  static constexpr int end_index = 1364;
   const internal::PropertyNode* begin =
      kPropertyNodes + begin_index;
   const internal::PropertyNode* end = kPropertyNodes + end_index;
@@ -5839,6 +5842,7 @@ const char kPrivacySandboxAdTopicsEnabled[] = "PrivacySandboxAdTopicsEnabled";
 const char kPrivacySandboxPromptEnabled[] = "PrivacySandboxPromptEnabled";
 const char kPrivacySandboxSiteEnabledAdsEnabled[] = "PrivacySandboxSiteEnabledAdsEnabled";
 const char kPrivacyScreenEnabled[] = "PrivacyScreenEnabled";
+const char kPrivateNetworkAccessRestrictionsEnabled[] = "PrivateNetworkAccessRestrictionsEnabled";
 const char kProfilePickerOnStartupAvailability[] = "ProfilePickerOnStartupAvailability";
 const char kProjectorDogfoodForFamilyLinkEnabled[] = "ProjectorDogfoodForFamilyLinkEnabled";
 const char kProjectorEnabled[] = "ProjectorEnabled";
@@ -6273,7 +6277,7 @@ const char* const kPrecedence[0] = {
 
 }  // namespace metapolicy
 
-const std::array<BooleanPolicyAccess, 294> kBooleanPolicyAccess {{
+const std::array<BooleanPolicyAccess, 295> kBooleanPolicyAccess {{
   {key::kAbusiveExperienceInterventionEnforce,
    true,
    [](const em::CloudPolicySettings& policy) {
@@ -8215,6 +8219,17 @@ const std::array<BooleanPolicyAccess, 294> kBooleanPolicyAccess {{
    [](const em::CloudPolicySettings& policy)
        -> const em::BooleanPolicyProto& {
      return policy.privacyscreenenabled();
+   }
+  },
+  {key::kPrivateNetworkAccessRestrictionsEnabled,
+   false,
+   [](const em::CloudPolicySettings& policy) {
+     return policy.has_subproto1() &&
+              policy.subproto1().has_privatenetworkaccessrestrictionsenabled();
+   },
+   [](const em::CloudPolicySettings& policy)
+       -> const em::BooleanPolicyProto& {
+     return policy.subproto1().privatenetworkaccessrestrictionsenabled();
    }
   },
   {key::kProjectorDogfoodForFamilyLinkEnabled,

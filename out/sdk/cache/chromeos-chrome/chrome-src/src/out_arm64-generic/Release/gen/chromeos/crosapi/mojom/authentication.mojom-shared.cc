@@ -23,7 +23,7 @@ namespace mojom {
 
 namespace internal {
 // static
-bool CreateQuickUnlockPrivateTokenInfoResult_Data::Validate(
+bool CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
     bool inlined) {
@@ -42,34 +42,34 @@ bool CreateQuickUnlockPrivateTokenInfoResult_Data::Validate(
     return false;
   }
 
-  const CreateQuickUnlockPrivateTokenInfoResult_Data* object = static_cast<const CreateQuickUnlockPrivateTokenInfoResult_Data*>(data);
+  const CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data* object = static_cast<const CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data*>(data);
 
   if (inlined && object->is_null())
     return true;
 
   switch (object->tag) {
 
-    case CreateQuickUnlockPrivateTokenInfoResult_Tag::kErrorMessage: {
+    case CreateQuickUnlockPrivateTokenInfoResultDeprecated_Tag::kRemoved0: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_error_message, 1, validation_context)) {
+              object->data.f_REMOVED_0, 1, validation_context)) {
         return false;
       }
-      constexpr const mojo::internal::ContainerValidateParams& error_message_validate_params =
+      constexpr const mojo::internal::ContainerValidateParams& REMOVED_0_validate_params =
           mojo::internal::GetArrayValidator<0, false, nullptr>();
-      if (!mojo::internal::ValidateContainer(object->data.f_error_message, validation_context,
-                                             &error_message_validate_params)) {
+      if (!mojo::internal::ValidateContainer(object->data.f_REMOVED_0, validation_context,
+                                             &REMOVED_0_validate_params)) {
         return false;
       }
       return true;
     }
-    case CreateQuickUnlockPrivateTokenInfoResult_Tag::kTokenInfo: {
+    case CreateQuickUnlockPrivateTokenInfoResultDeprecated_Tag::kRemoved1: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_token_info, 2, validation_context)) {
+              object->data.f_REMOVED_1, 2, validation_context)) {
         return false;
       }
-      if (!mojo::internal::ValidateStruct(object->data.f_token_info, validation_context))
+      if (!mojo::internal::ValidateStruct(object->data.f_REMOVED_1, validation_context))
         return false;
       return true;
     }
@@ -78,7 +78,7 @@ bool CreateQuickUnlockPrivateTokenInfoResult_Data::Validate(
       ReportValidationError(
           validation_context,
           mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in CreateQuickUnlockPrivateTokenInfoResult");
+          "unknown tag in CreateQuickUnlockPrivateTokenInfoResultDeprecated");
       return false;
     }
   }
@@ -86,7 +86,7 @@ bool CreateQuickUnlockPrivateTokenInfoResult_Data::Validate(
 
 
 // static
-bool QuickUnlockPrivateTokenInfo_Data::Validate(
+bool QuickUnlockPrivateTokenInfoDeprecated_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -98,29 +98,29 @@ bool QuickUnlockPrivateTokenInfo_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const QuickUnlockPrivateTokenInfo_Data* object =
-      static_cast<const QuickUnlockPrivateTokenInfo_Data*>(data);
+  [[maybe_unused]] const QuickUnlockPrivateTokenInfoDeprecated_Data* object =
+      static_cast<const QuickUnlockPrivateTokenInfoDeprecated_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->token, 1, validation_context)) {
+          object->REMOVED_0, 1, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& token_validate_params =
+  constexpr const mojo::internal::ContainerValidateParams& REMOVED_0_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->token, validation_context,
-                                         &token_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->REMOVED_0, validation_context,
+                                         &REMOVED_0_validate_params)) {
     return false;
   }
 
   return true;
 }
 
-QuickUnlockPrivateTokenInfo_Data::QuickUnlockPrivateTokenInfo_Data()
+QuickUnlockPrivateTokenInfoDeprecated_Data::QuickUnlockPrivateTokenInfoDeprecated_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data::Validate(
+bool AuthenticationDeprecated_REMOVED_0_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -132,8 +132,8 @@ bool Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data* object =
-      static_cast<const Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data*>(data);
+  [[maybe_unused]] const AuthenticationDeprecated_REMOVED_0_Params_Data* object =
+      static_cast<const AuthenticationDeprecated_REMOVED_0_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->password, 1, validation_context)) {
@@ -149,12 +149,12 @@ bool Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data::Validate(
   return true;
 }
 
-Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data::Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data()
+AuthenticationDeprecated_REMOVED_0_Params_Data::AuthenticationDeprecated_REMOVED_0_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data::Validate(
+bool AuthenticationDeprecated_REMOVED_0_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -166,8 +166,8 @@ bool Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data::Valid
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data* object =
-      static_cast<const Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data*>(data);
+  [[maybe_unused]] const AuthenticationDeprecated_REMOVED_0_ResponseParams_Data* object =
+      static_cast<const AuthenticationDeprecated_REMOVED_0_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidateInlinedUnionNonNullable(
           object->result, 1, validation_context)) {
@@ -179,12 +179,12 @@ bool Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data::Valid
   return true;
 }
 
-Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data::Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data()
+AuthenticationDeprecated_REMOVED_0_ResponseParams_Data::AuthenticationDeprecated_REMOVED_0_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data::Validate(
+bool AuthenticationDeprecated_REMOVED_1_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -196,8 +196,8 @@ bool Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data* object =
-      static_cast<const Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data*>(data);
+  [[maybe_unused]] const AuthenticationDeprecated_REMOVED_1_Params_Data* object =
+      static_cast<const AuthenticationDeprecated_REMOVED_1_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->auth_token_lifetime, 1, validation_context)) {
@@ -209,12 +209,12 @@ bool Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data::Validate(
   return true;
 }
 
-Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data::Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data()
+AuthenticationDeprecated_REMOVED_1_Params_Data::AuthenticationDeprecated_REMOVED_1_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data::Validate(
+bool AuthenticationDeprecated_REMOVED_1_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -226,13 +226,13 @@ bool Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data::V
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data* object =
-      static_cast<const Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data*>(data);
+  [[maybe_unused]] const AuthenticationDeprecated_REMOVED_1_ResponseParams_Data* object =
+      static_cast<const AuthenticationDeprecated_REMOVED_1_ResponseParams_Data*>(data);
 
   return true;
 }
 
-Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data::Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data()
+AuthenticationDeprecated_REMOVED_1_ResponseParams_Data::AuthenticationDeprecated_REMOVED_1_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

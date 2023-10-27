@@ -8,7 +8,8 @@
 // --output_dir=/build/arm64-generic/var/cache/portage/chromeos-base/cryptohome-dev-utils/out/Default/gen/include/cryptohome/flatbuffer_schemas
 // --guard_prefix=CRYPTOHOME_FLATBUFFER_SCHEMAS_USER_POLICY
 // --header_include_paths cryptohome/flatbuffer_schemas/enumerations.h
-// --flatbuffer_header_include_paths cryptohome/user_policy_generated.h
+// --flatbuffer_header_include_paths
+// cryptohome/flatbuffer_schemas/user_policy_generated.h
 // --flatbuffer_header_include_paths cryptohome/flatbuffer_schemas/user_policy.h
 // --flatbuffer_header_include_paths
 // cryptohome/flatbuffer_schemas/enumerations_flatbuffer.h

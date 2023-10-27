@@ -228,7 +228,7 @@ class BLINK_COMMON_EXPORT UserAgentMetadata {
       bool mobile,
       const std::string& bitness,
       bool wow64,
-      const std::string& form_factor);
+      std::vector<std::string> form_factor);
 
 
   ~UserAgentMetadata();
@@ -326,7 +326,7 @@ class BLINK_COMMON_EXPORT UserAgentMetadata {
   
   bool wow64;
   
-  std::string form_factor;
+  std::vector<std::string> form_factor;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

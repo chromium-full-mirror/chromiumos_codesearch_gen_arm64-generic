@@ -252,5 +252,8 @@ export class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
         this.navigateToMicrophoneSubpage_();
         e.stopPropagation();
     }
+    onGeolocationAreaClick_() {
+        Router.getInstance().navigateTo(routes.PRIVACY_HUB_GEOLOCATION);
+    }
 }
 customElements.define(SettingsPrivacyHubSubpage.is, SettingsPrivacyHubSubpage);

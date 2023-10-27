@@ -23,9 +23,9 @@ class MODULES_EXPORT V8GPUQueryType final : public bindings::EnumerationBase {
   
   public:
 enum class Enum : enum_int_t {
-kOcclusion, kPipelineStatistics, kTimestamp
+kOcclusion, kTimestamp
 };
-static constexpr size_t kEnumSize = 3;
+static constexpr size_t kEnumSize = 2;
 
 static V8GPUQueryType Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state);
 static absl::optional<V8GPUQueryType> Create(const String& value);

@@ -48,6 +48,7 @@ message CloudPolicySubProto1 {
   optional BooleanPolicyProto ScreensaverLockScreenEnabled = 19;
   optional IntegerPolicyProto ScreensaverLockScreenImageDisplayIntervalSeconds = 21;
   optional StringListPolicyProto ScreensaverLockScreenImages = 22;
+  optional BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 137;
   optional IntegerPolicyProto ReportAppUsageCollectionRateMs = 64;
   optional StringListPolicyProto ReportWebsiteTelemetryAllowlist = 99;
   optional StringListPolicyProto ReportAppInventory = 62;

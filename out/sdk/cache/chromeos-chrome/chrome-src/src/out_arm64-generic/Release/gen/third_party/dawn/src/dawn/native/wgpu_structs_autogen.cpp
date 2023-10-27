@@ -3,7 +3,7 @@
 
 #include <tuple>
 
-#ifdef __GNUC__
+#if defined(__GNUC__) || defined(__clang__)
 // error: 'offsetof' within non-standard-layout type 'wgpu::XXX' is conditionally-supported
 #pragma GCC diagnostic ignored "-Winvalid-offsetof"
 #endif
@@ -1022,24 +1022,16 @@ namespace dawn::native {
                  "offsetof mismatch for QuerySetDescriptor::type");
     static_assert(offsetof(QuerySetDescriptor, count) == offsetof(WGPUQuerySetDescriptor, count),
                  "offsetof mismatch for QuerySetDescriptor::count");
-    static_assert(offsetof(QuerySetDescriptor, pipelineStatistics) == offsetof(WGPUQuerySetDescriptor, pipelineStatistics),
-                 "offsetof mismatch for QuerySetDescriptor::pipelineStatistics");
-    static_assert(offsetof(QuerySetDescriptor, pipelineStatisticCount) == offsetof(WGPUQuerySetDescriptor, pipelineStatisticCount),
-                 "offsetof mismatch for QuerySetDescriptor::pipelineStatisticCount");
 
     bool QuerySetDescriptor::operator==(const QuerySetDescriptor& rhs) const {
         return (nextInChain == rhs.nextInChain) && std::tie(
             label,
             type,
-            count,
-            pipelineStatistics,
-            pipelineStatisticCount
+            count
         ) == std::tie(
             rhs.label,
             rhs.type,
-            rhs.count,
-            rhs.pipelineStatistics,
-            rhs.pipelineStatisticCount
+            rhs.count
         );
     }
 

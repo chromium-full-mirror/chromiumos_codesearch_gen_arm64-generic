@@ -246,7 +246,7 @@ struct QueryInfo {
   absl::optional<std::string> title;
 
   // Indicates whether to search for read (<code>true</code>) or unread
-  // (code>false</code>) items.
+  // (<code>false</code>) items.
   absl::optional<bool> has_been_read;
 
 };

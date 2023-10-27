@@ -24,7 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "services/on_device_model/public/mojom/on_device_model.mojom-shared-internal.h"
-#include "mojo/public/mojom/base/file_path.mojom-shared.h"
+#include "mojo/public/mojom/base/file.mojom-shared.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
@@ -35,7 +35,7 @@
 
 
 namespace on_device_model::mojom {
-class LoadModelParamsDataView;
+class ModelAssetsDataView;
 
 class LoadModelResultDataView;
 
@@ -46,8 +46,8 @@ namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::on_device_model::mojom::LoadModelParamsDataView> {
-  using Data = ::on_device_model::mojom::internal::LoadModelParams_Data;
+struct MojomTypeTraits<::on_device_model::mojom::ModelAssetsDataView> {
+  using Data = ::on_device_model::mojom::internal::ModelAssets_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -64,6 +64,30 @@ struct MojomTypeTraits<::on_device_model::mojom::LoadModelResultDataView> {
 
 
 namespace on_device_model::mojom {
+
+
+enum class PerformanceClass : int32_t {
+  
+  kError = 0,
+  
+  kVeryLow = 1,
+  
+  kLow = 2,
+  
+  kMedium = 3,
+  
+  kHigh = 4,
+  
+  kVeryHigh = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+};
+
+ std::ostream& operator<<(std::ostream& os, PerformanceClass value);
+inline bool IsKnownEnumValue(PerformanceClass value) {
+  return internal::PerformanceClass_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class StreamingResponderInterfaceBase {};
 
@@ -97,28 +121,78 @@ using OnDeviceModelServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<OnDeviceModelServiceInterfaceBase>;
 
 
-class LoadModelParamsDataView {
+class ModelAssetsDataView {
  public:
-  LoadModelParamsDataView() = default;
+  ModelAssetsDataView() = default;
 
-  LoadModelParamsDataView(
-      internal::LoadModelParams_Data* data,
+  ModelAssetsDataView(
+      internal::ModelAssets_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetPathDataView(
-      ::mojo_base::mojom::FilePathDataView* output);
+  inline void GetSpModelDataView(
+      ::mojo_base::mojom::FileDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadPath(UserType* output) {
+  [[nodiscard]] bool ReadSpModel(UserType* output) {
     
-    auto* pointer = data_->path.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::FilePathDataView>(
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::FileDataView, UserType>(),
+    "Attempting to read the optional `sp_model` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSpModel` instead "
+    "of `ReadSpModel if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->sp_model.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::FileDataView>(
+        pointer, output, message_);
+  }
+  inline void GetModelDataView(
+      ::mojo_base::mojom::FileDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadModel(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::FileDataView, UserType>(),
+    "Attempting to read the optional `model` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadModel` instead "
+    "of `ReadModel if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->model.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::FileDataView>(
+        pointer, output, message_);
+  }
+  inline void GetWeightsDataView(
+      ::mojo_base::mojom::FileDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadWeights(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::FileDataView, UserType>(),
+    "Attempting to read the optional `weights` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadWeights` instead "
+    "of `ReadWeights if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->weights.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::FileDataView>(
         pointer, output, message_);
   }
  private:
-  internal::LoadModelParams_Data* data_ = nullptr;
+  internal::ModelAssets_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -175,6 +249,10 @@ class LoadModelResultDataView {
 
 namespace std {
 
+template <>
+struct hash<::on_device_model::mojom::PerformanceClass>
+    : public mojo::internal::EnumHashImpl<::on_device_model::mojom::PerformanceClass> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -183,37 +261,69 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::on_device_model::mojom::LoadModelParamsDataView, MaybeConstUserType> {
+struct Serializer<::on_device_model::mojom::PerformanceClass, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::on_device_model::mojom::LoadModelParamsDataView, UserType>;
+  using Traits = EnumTraits<::on_device_model::mojom::PerformanceClass, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::on_device_model::mojom::PerformanceClass>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::on_device_model::mojom::ModelAssetsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::on_device_model::mojom::ModelAssetsDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::on_device_model::mojom::internal::LoadModelParams_Data>& fragment) {
+      mojo::internal::MessageFragment<::on_device_model::mojom::internal::ModelAssets_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::path(input)) in_path = Traits::path(input);
+    decltype(Traits::sp_model(input)) in_sp_model = Traits::sp_model(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->path)::BaseType> path_fragment(
+        typename decltype(fragment->sp_model)::BaseType> sp_model_fragment(
             fragment.message());
-    mojo::internal::Serialize<::mojo_base::mojom::FilePathDataView>(
-        in_path, path_fragment);
-    fragment->path.Set(
-        path_fragment.is_null() ? nullptr : path_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->path.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null path in LoadModelParams struct");
+    mojo::internal::Serialize<::mojo_base::mojom::FileDataView>(
+        in_sp_model, sp_model_fragment);
+    fragment->sp_model.Set(
+        sp_model_fragment.is_null() ? nullptr : sp_model_fragment.data());
+    decltype(Traits::model(input)) in_model = Traits::model(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->model)::BaseType> model_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::FileDataView>(
+        in_model, model_fragment);
+    fragment->model.Set(
+        model_fragment.is_null() ? nullptr : model_fragment.data());
+    decltype(Traits::weights(input)) in_weights = Traits::weights(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->weights)::BaseType> weights_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::FileDataView>(
+        in_weights, weights_fragment);
+    fragment->weights.Set(
+        weights_fragment.is_null() ? nullptr : weights_fragment.data());
   }
 
-  static bool Deserialize(::on_device_model::mojom::internal::LoadModelParams_Data* input,
+  static bool Deserialize(::on_device_model::mojom::internal::ModelAssets_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::on_device_model::mojom::LoadModelParamsDataView data_view(input, message);
+    ::on_device_model::mojom::ModelAssetsDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -293,10 +403,20 @@ struct Serializer<::on_device_model::mojom::LoadModelResultDataView, MaybeConstU
 
 namespace on_device_model::mojom {
 
-inline void LoadModelParamsDataView::GetPathDataView(
-    ::mojo_base::mojom::FilePathDataView* output) {
-  auto pointer = data_->path.Get();
-  *output = ::mojo_base::mojom::FilePathDataView(pointer, message_);
+inline void ModelAssetsDataView::GetSpModelDataView(
+    ::mojo_base::mojom::FileDataView* output) {
+  auto pointer = data_->sp_model.Get();
+  *output = ::mojo_base::mojom::FileDataView(pointer, message_);
+}
+inline void ModelAssetsDataView::GetModelDataView(
+    ::mojo_base::mojom::FileDataView* output) {
+  auto pointer = data_->model.Get();
+  *output = ::mojo_base::mojom::FileDataView(pointer, message_);
+}
+inline void ModelAssetsDataView::GetWeightsDataView(
+    ::mojo_base::mojom::FileDataView* output) {
+  auto pointer = data_->weights.Get();
+  *output = ::mojo_base::mojom::FileDataView(pointer, message_);
 }
 
 
@@ -311,5 +431,14 @@ inline void LoadModelResultDataView::GetErrorDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::on_device_model::mojom::PerformanceClass> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::on_device_model::mojom::PerformanceClass value);
+};
+
+} // namespace perfetto
 
 #endif  // SERVICES_ON_DEVICE_MODEL_PUBLIC_MOJOM_ON_DEVICE_MODEL_MOJOM_SHARED_H_

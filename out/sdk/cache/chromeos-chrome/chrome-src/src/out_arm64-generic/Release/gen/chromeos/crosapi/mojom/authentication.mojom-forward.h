@@ -22,17 +22,17 @@
 
 
 namespace crosapi::mojom {
-class QuickUnlockPrivateTokenInfoDataView;
+class QuickUnlockPrivateTokenInfoDeprecatedDataView;
 
-class CreateQuickUnlockPrivateTokenInfoResultDataView;
-class QuickUnlockPrivateTokenInfo;
-using QuickUnlockPrivateTokenInfoPtr = mojo::InlinedStructPtr<QuickUnlockPrivateTokenInfo>;
+class CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView;
+class QuickUnlockPrivateTokenInfoDeprecated;
+using QuickUnlockPrivateTokenInfoDeprecatedPtr = mojo::InlinedStructPtr<QuickUnlockPrivateTokenInfoDeprecated>;
 
-class CreateQuickUnlockPrivateTokenInfoResult;
+class CreateQuickUnlockPrivateTokenInfoResultDeprecated;
 
-using CreateQuickUnlockPrivateTokenInfoResultPtr = mojo::StructPtr<CreateQuickUnlockPrivateTokenInfoResult>;
+using CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr = mojo::StructPtr<CreateQuickUnlockPrivateTokenInfoResultDeprecated>;
 
-class Authentication;
+class AuthenticationDeprecated;
 
 
 

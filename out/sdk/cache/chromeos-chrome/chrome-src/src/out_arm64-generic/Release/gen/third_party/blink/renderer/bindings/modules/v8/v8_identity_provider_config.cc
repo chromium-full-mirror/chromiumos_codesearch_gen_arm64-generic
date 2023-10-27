@@ -13,7 +13,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
-#include "third_party/blink/renderer/bindings/modules/v8/v8_wallet_provider.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_digital_credential_provider.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
 #include "third_party/blink/renderer/platform/bindings/v8_per_isolate_data.h"
@@ -275,7 +275,7 @@ has_scope_ = true;
 void IdentityProviderConfig::Trace(Visitor* visitor) const {
   TraceIfNeeded<String>::Trace(visitor, member_client_id_);
 TraceIfNeeded<String>::Trace(visitor, member_config_url_);
-TraceIfNeeded<Member<WalletProvider>>::Trace(visitor, member_holder_);
+TraceIfNeeded<Member<DigitalCredentialProvider>>::Trace(visitor, member_holder_);
 TraceIfNeeded<String>::Trace(visitor, member_hosted_domain_);
 TraceIfNeeded<String>::Trace(visitor, member_login_hint_);
 TraceIfNeeded<String>::Trace(visitor, member_nonce_);
@@ -309,7 +309,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].G
 }
 if (RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled()) {
   if (hasHolder()) {
-  if (!ToV8Traits<WalletProvider>::ToV8(script_state, member_holder_.Get()).ToLocal(&v8_value)) {
+  if (!ToV8Traits<DigitalCredentialProvider>::ToV8(script_state, member_holder_.Get()).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
@@ -393,7 +393,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolat
 }
 if (RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("holder");
-if (!bindings::GetDictionaryMemberFromV8Object<WalletProvider, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_holder_, member_holder_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<DigitalCredentialProvider, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_holder_, member_holder_, try_block, exception_state)) {
   return;
 }
 }

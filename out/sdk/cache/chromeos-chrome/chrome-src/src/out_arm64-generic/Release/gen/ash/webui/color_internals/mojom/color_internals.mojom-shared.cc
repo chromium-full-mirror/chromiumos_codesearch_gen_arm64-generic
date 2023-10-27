@@ -42,21 +42,17 @@ bool WallpaperCalculatedColors_Data::Validate(
       static_cast<const WallpaperCalculatedColors_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->prominent_colors, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& prominent_colors_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->prominent_colors, validation_context,
-                                         &prominent_colors_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->k_mean_color, 2, validation_context)) {
+          object->k_mean_color, 1, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->k_mean_color, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->celebi_color, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->celebi_color, validation_context))
     return false;
 
   return true;

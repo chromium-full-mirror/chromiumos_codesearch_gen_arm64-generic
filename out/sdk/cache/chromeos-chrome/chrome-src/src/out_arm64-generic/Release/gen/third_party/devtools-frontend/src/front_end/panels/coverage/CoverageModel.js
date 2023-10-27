@@ -64,9 +64,12 @@ export class CoverageModel extends SDK.SDKModel.SDKModel {
         await Promise.all(promises);
         return Boolean(this.cssModel || this.cpuProfilerModel);
     }
-    preciseCoverageDeltaUpdate(timestamp, occasion, coverageData) {
+    async preciseCoverageDeltaUpdate(timestamp, occasion, coverageData) {
         this.coverageUpdateTimes.add(timestamp);
-        void this.backlogOrProcessJSCoverage(coverageData, timestamp);
+        const result = await this.backlogOrProcessJSCoverage(coverageData, timestamp);
+        if (result.length) {
+            this.dispatchEventToListeners(Events.CoverageUpdated, result);
+        }
     }
     async stop() {
         await this.stopPolling();

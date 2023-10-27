@@ -8,9 +8,9 @@
 // --output_dir=/build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/include/cryptohome/flatbuffer_schemas
 // --guard_prefix=CRYPTOHOME_FLATBUFFER_SCHEMAS
 // --flatbuffer_header_include_paths
-// cryptohome/user_secret_stash_container_generated.h
+// cryptohome/flatbuffer_schemas/user_secret_stash_container_generated.h
 // --flatbuffer_header_include_paths
-// cryptohome/user_secret_stash_payload_generated.h
+// cryptohome/flatbuffer_schemas/user_secret_stash_payload_generated.h
 // --flatbuffer_header_include_paths
 // libhwsec-foundation/flatbuffers/basic_objects.h --impl_include_paths
 // cryptohome/flatbuffer_schemas/user_secret_stash_container.h
@@ -40,8 +40,8 @@
 #include <brillo/secure_blob.h>
 #include <flatbuffers/flatbuffers.h>
 
-#include "cryptohome/user_secret_stash_container_generated.h"
-#include "cryptohome/user_secret_stash_payload_generated.h"
+#include "cryptohome/flatbuffer_schemas/user_secret_stash_container_generated.h"
+#include "cryptohome/flatbuffer_schemas/user_secret_stash_payload_generated.h"
 #include "libhwsec-foundation/flatbuffers/basic_objects.h"
 
 namespace hwsec_foundation {

@@ -30,6 +30,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include "components/optimization_guide/proto/model_quality_metadata.pb.h"
 #include "components/optimization_guide/proto/features/default_feature_ai_logging_data.pb.h"
+#include "components/optimization_guide/proto/features/compose_ai_logging_data.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_components_2foptimization_5fguide_2fproto_2fmodel_5fquality_5fservice_2eproto
@@ -371,6 +372,7 @@ class AiLoggingData final :
     return *internal_default_instance();
   }
   enum FeatureCase {
+    kCompose = 3,
     kDefault = 1000,
     FEATURE_NOT_SET = 0,
   };
@@ -446,6 +448,7 @@ class AiLoggingData final :
   enum : int {
     kLoggingMetadataFieldNumber = 1,
     kModelExecutionInfoFieldNumber = 2,
+    kComposeFieldNumber = 3,
     kDefaultFieldNumber = 1000,
   };
   // .optimization_guide.proto.LoggingMetadata logging_metadata = 1;
@@ -484,6 +487,24 @@ class AiLoggingData final :
       ::optimization_guide::proto::ModelExecutionInfo* model_execution_info);
   ::optimization_guide::proto::ModelExecutionInfo* unsafe_arena_release_model_execution_info();
 
+  // .optimization_guide.proto.ComposeAiLoggingData compose = 3;
+  bool has_compose() const;
+  private:
+  bool _internal_has_compose() const;
+  public:
+  void clear_compose();
+  const ::optimization_guide::proto::ComposeAiLoggingData& compose() const;
+  PROTOBUF_NODISCARD ::optimization_guide::proto::ComposeAiLoggingData* release_compose();
+  ::optimization_guide::proto::ComposeAiLoggingData* mutable_compose();
+  void set_allocated_compose(::optimization_guide::proto::ComposeAiLoggingData* compose);
+  private:
+  const ::optimization_guide::proto::ComposeAiLoggingData& _internal_compose() const;
+  ::optimization_guide::proto::ComposeAiLoggingData* _internal_mutable_compose();
+  public:
+  void unsafe_arena_set_allocated_compose(
+      ::optimization_guide::proto::ComposeAiLoggingData* compose);
+  ::optimization_guide::proto::ComposeAiLoggingData* unsafe_arena_release_compose();
+
   // .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;
   bool has_default_() const;
   private:
@@ -507,6 +528,7 @@ class AiLoggingData final :
   // @@protoc_insertion_point(class_scope:optimization_guide.proto.AiLoggingData)
  private:
   class _Internal;
+  void set_has_compose();
   void set_has_default_();
 
   inline bool has_feature() const;
@@ -520,6 +542,7 @@ class AiLoggingData final :
   union FeatureUnion {
     constexpr FeatureUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::optimization_guide::proto::ComposeAiLoggingData* compose_;
     ::optimization_guide::proto::DefaultFeatureAiLoggingData* default__;
   } feature_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -839,6 +862,72 @@ inline void AiLoggingData::set_allocated_model_execution_info(::optimization_gui
   }
   model_execution_info_ = model_execution_info;
   // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.AiLoggingData.model_execution_info)
+}
+
+// .optimization_guide.proto.ComposeAiLoggingData compose = 3;
+inline bool AiLoggingData::_internal_has_compose() const {
+  return feature_case() == kCompose;
+}
+inline bool AiLoggingData::has_compose() const {
+  return _internal_has_compose();
+}
+inline void AiLoggingData::set_has_compose() {
+  _oneof_case_[0] = kCompose;
+}
+inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::release_compose() {
+  // @@protoc_insertion_point(field_release:optimization_guide.proto.AiLoggingData.compose)
+  if (_internal_has_compose()) {
+    clear_has_feature();
+    ::optimization_guide::proto::ComposeAiLoggingData* temp = feature_.compose_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    feature_.compose_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::optimization_guide::proto::ComposeAiLoggingData& AiLoggingData::_internal_compose() const {
+  return _internal_has_compose()
+      ? *feature_.compose_
+      : reinterpret_cast< ::optimization_guide::proto::ComposeAiLoggingData&>(::optimization_guide::proto::_ComposeAiLoggingData_default_instance_);
+}
+inline const ::optimization_guide::proto::ComposeAiLoggingData& AiLoggingData::compose() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.AiLoggingData.compose)
+  return _internal_compose();
+}
+inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::unsafe_arena_release_compose() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:optimization_guide.proto.AiLoggingData.compose)
+  if (_internal_has_compose()) {
+    clear_has_feature();
+    ::optimization_guide::proto::ComposeAiLoggingData* temp = feature_.compose_;
+    feature_.compose_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void AiLoggingData::unsafe_arena_set_allocated_compose(::optimization_guide::proto::ComposeAiLoggingData* compose) {
+  clear_feature();
+  if (compose) {
+    set_has_compose();
+    feature_.compose_ = compose;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:optimization_guide.proto.AiLoggingData.compose)
+}
+inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::_internal_mutable_compose() {
+  if (!_internal_has_compose()) {
+    clear_feature();
+    set_has_compose();
+    feature_.compose_ = CreateMaybeMessage< ::optimization_guide::proto::ComposeAiLoggingData >(GetArenaForAllocation());
+  }
+  return feature_.compose_;
+}
+inline ::optimization_guide::proto::ComposeAiLoggingData* AiLoggingData::mutable_compose() {
+  ::optimization_guide::proto::ComposeAiLoggingData* _msg = _internal_mutable_compose();
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.AiLoggingData.compose)
+  return _msg;
 }
 
 // .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;

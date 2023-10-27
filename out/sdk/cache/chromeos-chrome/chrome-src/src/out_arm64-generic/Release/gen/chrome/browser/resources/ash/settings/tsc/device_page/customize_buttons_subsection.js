@@ -75,6 +75,10 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
                 value: false,
                 reflectToAttribute: true,
             },
+            isSaveButtonDisabled_: {
+                type: Boolean,
+                value: false,
+            },
         };
     }
     connectedCallback() {
@@ -91,6 +95,7 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
         this.selectedButton_ = this.buttonRemappingList[this.selectedButtonIndex_];
         this.selectedButtonName_ = this.selectedButton_.name;
         this.buttonNameInvalid_ = false;
+        this.isSaveButtonDisabled_ = false;
         this.shouldShowRenamingDialog_ = true;
     }
     /**
@@ -111,7 +116,7 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
         this.shouldShowRenamingDialog_ = false;
     }
     saveRenamingDialogClicked_() {
-        if (!this.isSaveDisabled_()) {
+        if (!this.isSaveButtonDisabled_) {
             this.updateButtonName_();
             this.shouldShowRenamingDialog_ = false;
         }
@@ -131,6 +136,7 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
         // Truncate the name to maxInputLength.
         this.selectedButtonName_ =
             this.selectedButtonName_.substring(0, MAX_BUTTON_NAME_INPUT_LENGTH);
+        this.isSaveButtonDisabled_ = this.selectedButtonName_ === '';
     }
     updateButtonName_() {
         if (!!this.selectedButtonName_ &&
@@ -142,15 +148,6 @@ export class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectio
             }));
         }
         this.selectedButtonName_ = '';
-    }
-    isSaveDisabled_() {
-        if (this.selectedButtonName_ === this.selectedButton_.name) {
-            return true;
-        }
-        if (!this.selectedButtonName_.length) {
-            return true;
-        }
-        return false;
     }
 }
 customElements.define(CustomizeButtonsSubsectionElement.is, CustomizeButtonsSubsectionElement);

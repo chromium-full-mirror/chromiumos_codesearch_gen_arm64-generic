@@ -6,8 +6,8 @@
 
 #ifndef SERVICES_ON_DEVICE_MODEL_PUBLIC_MOJOM_ON_DEVICE_MODEL_MOJOM_IMPORT_HEADERS_H_
 #define SERVICES_ON_DEVICE_MODEL_PUBLIC_MOJOM_ON_DEVICE_MODEL_MOJOM_IMPORT_HEADERS_H_
-#include "mojo/public/mojom/base/file_path.mojom.h"
-#include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
+#include "mojo/public/mojom/base/file.mojom.h"
+#include "mojo/public/mojom/base/file.mojom-import-headers.h"
 #include "sandbox/policy/mojom/sandbox.mojom.h"
 #include "sandbox/policy/mojom/sandbox.mojom-import-headers.h"
 

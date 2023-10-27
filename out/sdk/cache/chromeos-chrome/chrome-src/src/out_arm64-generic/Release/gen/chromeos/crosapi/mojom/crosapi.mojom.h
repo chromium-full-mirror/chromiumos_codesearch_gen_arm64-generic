@@ -191,7 +191,7 @@ class Crosapi
   enum MethodMinVersions : uint32_t {
     kBindAutomationDeprecatedMinVersion = 18,
     kBindAudioServiceMinVersion = 82,
-    kBindAuthenticationMinVersion = 58,
+    kREMOVED_62MinVersion = 58,
     kBindAutomationFactoryMinVersion = 21,
     kBindAccountManagerMinVersion = 4,
     kBindAppServiceProxyMinVersion = 40,
@@ -320,7 +320,7 @@ class Crosapi
   struct BindAudioService_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct BindAuthentication_Sym {
+  struct REMOVED_62_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct BindAutomationFactory_Sym {
@@ -684,7 +684,7 @@ class Crosapi
   virtual void BindAudioService(::mojo::PendingReceiver<::crosapi::mojom::AudioService> receiver) = 0;
 
   
-  virtual void BindAuthentication(::mojo::PendingReceiver<::crosapi::mojom::Authentication> receiver) = 0;
+  virtual void REMOVED_62(::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated> receiver) = 0;
 
   
   virtual void BindAutomationFactory(::mojo::PendingReceiver<::crosapi::mojom::AutomationFactory> receiver) = 0;
@@ -1319,7 +1319,7 @@ class  CrosapiProxy
   
   void BindAudioService(::mojo::PendingReceiver<::crosapi::mojom::AudioService> receiver) final;
   
-  void BindAuthentication(::mojo::PendingReceiver<::crosapi::mojom::Authentication> receiver) final;
+  void REMOVED_62(::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated> receiver) final;
   
   void BindAutomationFactory(::mojo::PendingReceiver<::crosapi::mojom::AutomationFactory> receiver) final;
   

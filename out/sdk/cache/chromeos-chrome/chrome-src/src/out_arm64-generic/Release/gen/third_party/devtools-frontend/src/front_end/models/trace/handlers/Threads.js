@@ -44,6 +44,7 @@ export function threadsInTrace(traceParseData) {
                     entries: thread.entries,
                     tree: thread.tree,
                     type: threadType,
+                    entryToNode: traceParseData.Renderer.entryToNode,
                 });
             }
         }
@@ -65,6 +66,7 @@ export function threadsInTrace(traceParseData) {
                     entries: thread.profileCalls,
                     tree: thread.profileTree,
                     type: "CPU_PROFILE" /* ThreadType.CPU_PROFILE */,
+                    entryToNode: traceParseData.Samples.entryToNode,
                 });
             }
         }

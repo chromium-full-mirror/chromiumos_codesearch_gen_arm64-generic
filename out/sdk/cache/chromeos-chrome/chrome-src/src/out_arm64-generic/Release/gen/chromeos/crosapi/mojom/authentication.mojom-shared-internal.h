@@ -25,21 +25,21 @@ class ValidationContext;
 
 namespace crosapi::mojom {
 namespace internal {
-class QuickUnlockPrivateTokenInfo_Data;
-class CreateQuickUnlockPrivateTokenInfoResult_Data;
+class QuickUnlockPrivateTokenInfoDeprecated_Data;
+class CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data;
 
 #pragma pack(push, 1)
 
 
-class  CreateQuickUnlockPrivateTokenInfoResult_Data {
+class  CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data {
  public:
   // Used to identify Mojom Union Data Classes.
   typedef void MojomUnionDataType;
 
-  CreateQuickUnlockPrivateTokenInfoResult_Data() = default;
+  CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data() = default;
   // Do nothing in the destructor since it won't be called when it is a
   // non-inlined union.
-  ~CreateQuickUnlockPrivateTokenInfoResult_Data() = default;
+  ~CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data() = default;
 
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context,
@@ -49,7 +49,7 @@ class  CreateQuickUnlockPrivateTokenInfoResult_Data {
 
   void set_null() {
     size = 0U;
-    tag = static_cast<CreateQuickUnlockPrivateTokenInfoResult_Tag>(0);
+    tag = static_cast<CreateQuickUnlockPrivateTokenInfoResultDeprecated_Tag>(0);
     data.unknown = 0U;
   }
 
@@ -57,12 +57,12 @@ class  CreateQuickUnlockPrivateTokenInfoResult_Data {
   // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
   // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
   // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
-  enum class CreateQuickUnlockPrivateTokenInfoResult_Tag : uint32_t {
+  enum class CreateQuickUnlockPrivateTokenInfoResultDeprecated_Tag : uint32_t {
 
     
-    kErrorMessage,
+    kRemoved0,
     
-    kTokenInfo,
+    kRemoved1,
   };
 
   // A note on layout:
@@ -70,49 +70,49 @@ class  CreateQuickUnlockPrivateTokenInfoResult_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
-    mojo::internal::Pointer<mojo::internal::String_Data> f_error_message;
-    mojo::internal::Pointer<internal::QuickUnlockPrivateTokenInfo_Data> f_token_info;
+    mojo::internal::Pointer<mojo::internal::String_Data> f_REMOVED_0;
+    mojo::internal::Pointer<internal::QuickUnlockPrivateTokenInfoDeprecated_Data> f_REMOVED_1;
     uint64_t unknown;
   };
 
   uint32_t size;
-  CreateQuickUnlockPrivateTokenInfoResult_Tag tag;
+  CreateQuickUnlockPrivateTokenInfoResultDeprecated_Tag tag;
   Union_ data;
 };
-static_assert(sizeof(CreateQuickUnlockPrivateTokenInfoResult_Data) == mojo::internal::kUnionDataSize,
-              "Bad sizeof(CreateQuickUnlockPrivateTokenInfoResult_Data)");
-class  QuickUnlockPrivateTokenInfo_Data {
+static_assert(sizeof(CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data)");
+class  QuickUnlockPrivateTokenInfoDeprecated_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> token;
-  int32_t lifetime_seconds;
+  mojo::internal::Pointer<mojo::internal::String_Data> REMOVED_0;
+  int32_t REMOVED_1;
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<QuickUnlockPrivateTokenInfo_Data>;
+  friend class mojo::internal::MessageFragment<QuickUnlockPrivateTokenInfoDeprecated_Data>;
 
-  QuickUnlockPrivateTokenInfo_Data();
-  ~QuickUnlockPrivateTokenInfo_Data() = delete;
+  QuickUnlockPrivateTokenInfoDeprecated_Data();
+  ~QuickUnlockPrivateTokenInfoDeprecated_Data() = delete;
 };
-static_assert(sizeof(QuickUnlockPrivateTokenInfo_Data) == 24,
-              "Bad sizeof(QuickUnlockPrivateTokenInfo_Data)");
-// Used by QuickUnlockPrivateTokenInfo::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(QuickUnlockPrivateTokenInfoDeprecated_Data) == 24,
+              "Bad sizeof(QuickUnlockPrivateTokenInfoDeprecated_Data)");
+// Used by QuickUnlockPrivateTokenInfoDeprecated::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct QuickUnlockPrivateTokenInfo_UnserializedMessageContext
+struct QuickUnlockPrivateTokenInfoDeprecated_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  QuickUnlockPrivateTokenInfo_UnserializedMessageContext(
+  QuickUnlockPrivateTokenInfoDeprecated_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~QuickUnlockPrivateTokenInfo_UnserializedMessageContext() override = default;
+  ~QuickUnlockPrivateTokenInfoDeprecated_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -121,7 +121,7 @@ struct QuickUnlockPrivateTokenInfo_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<QuickUnlockPrivateTokenInfo_Data> fragment(message);
+    mojo::internal::MessageFragment<QuickUnlockPrivateTokenInfoDeprecated_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -130,7 +130,7 @@ struct QuickUnlockPrivateTokenInfo_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    QuickUnlockPrivateTokenInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    QuickUnlockPrivateTokenInfoDeprecated_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

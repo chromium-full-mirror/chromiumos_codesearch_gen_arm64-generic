@@ -48,7 +48,7 @@ export class SettingsCrostiniConfirmationDialogElement extends PolymerElement {
     }
     onDialogClose_(e) {
         e.stopPropagation();
-        const closeEvent = new CustomEvent('close', { bubbles: true, composed: true, detail: { 'accepted': this.accepted_ } });
+        const closeEvent = new CustomEvent('close', { bubbles: true, composed: true, detail: { accepted: this.accepted_ } });
         this.dispatchEvent(closeEvent);
     }
 }

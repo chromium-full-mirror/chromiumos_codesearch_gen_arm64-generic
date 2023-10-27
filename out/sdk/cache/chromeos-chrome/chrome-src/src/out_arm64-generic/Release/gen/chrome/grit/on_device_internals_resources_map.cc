@@ -13,6 +13,7 @@ const webui::ResourcePath kOnDeviceInternalsResources[] = {
   {"app.js", IDR_ON_DEVICE_INTERNALS_APP_JS},
   {"browser_proxy.js", IDR_ON_DEVICE_INTERNALS_BROWSER_PROXY_JS},
   {"app.html.js", IDR_ON_DEVICE_INTERNALS_APP_HTML_JS},
+  {"on_device_internals_page.mojom-webui.js", IDR_ON_DEVICE_INTERNALS_ON_DEVICE_INTERNALS_PAGE_MOJOM_WEBUI_JS},
   {"on_device_model.mojom-webui.js", IDR_ON_DEVICE_INTERNALS_ON_DEVICE_MODEL_MOJOM_WEBUI_JS},
 };
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.021" timestamp="2023-10-27T00:17:20.178" name="AllTests">
+  <testsuite name="SrBtAdaptersTest" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.01" timestamp="2023-10-27T00:17:20.188">
+    <testcase name="FramesQueued" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="117" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:17:20.188" classname="SrBtAdaptersTest" />
+    <testcase name="DelayFrames" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="134" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.194" classname="SrBtAdaptersTest" />
+    <testcase name="FramesQueuedMoreThanNumFramesPerRunMs" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="144" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:20.194" classname="SrBtAdaptersTest" />
+    <testcase name="FlushBuffer" file="cras/src/tests/sr_bt_adapters_unittest.cc" line="209" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:20.196" classname="SrBtAdaptersTest" />
+  </testsuite>
+</testsuites>

@@ -3893,9 +3893,11 @@
   WebFeature.kWebAssemblyModuleCompilation = 4689;
   WebFeature.kV8MediaStreamTrack_Stats_AttributeGetter = 4690;
   WebFeature.kElementCheckVisibility = 4691;
-  WebFeature.kNumberOfFeatures = 4692;
+  WebFeature.kV8ClipboardItem_Supports_Method = 4692;
+  WebFeature.kThirdPartyCookieAccessBlockByExperiment = 4693;
+  WebFeature.kNumberOfFeatures = 4694;
   WebFeature.MIN_VALUE = 0;
-  WebFeature.MAX_VALUE = 4692;
+  WebFeature.MAX_VALUE = 4694;
 
   WebFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -7771,6 +7773,8 @@
     case 4690:
     case 4691:
     case 4692:
+    case 4693:
+    case 4694:
       return true;
     }
     return false;

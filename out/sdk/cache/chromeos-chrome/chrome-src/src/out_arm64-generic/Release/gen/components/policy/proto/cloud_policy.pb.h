@@ -266,6 +266,7 @@ kIPv6ReachabilityOverrideEnabledFieldNumber = 132,
 kUserFeedbackWithLowLevelDebugDataAllowedFieldNumber = 133,
 kMicrosoftOneDriveAccountRestrictionsFieldNumber = 134,
 kSiteSearchSettingsFieldNumber = 136,
+kPrivateNetworkAccessRestrictionsEnabledFieldNumber = 137,
 };
 // optional .enterprise_management.BooleanPolicyProto NewBaseUrlInheritanceBehaviorAllowed = 1;
 bool has_newbaseurlinheritancebehaviorallowed() const;
@@ -2013,6 +2014,24 @@ void unsafe_arena_set_allocated_sitesearchsettings(
 ::enterprise_management::StringPolicyProto* sitesearchsettings);
 ::enterprise_management::StringPolicyProto* unsafe_arena_release_sitesearchsettings();
 
+// optional .enterprise_management.BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 137;
+bool has_privatenetworkaccessrestrictionsenabled() const;
+private:
+bool _internal_has_privatenetworkaccessrestrictionsenabled() const;
+public:
+void clear_privatenetworkaccessrestrictionsenabled();
+const ::enterprise_management::BooleanPolicyProto& privatenetworkaccessrestrictionsenabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::BooleanPolicyProto* release_privatenetworkaccessrestrictionsenabled();
+::enterprise_management::BooleanPolicyProto* mutable_privatenetworkaccessrestrictionsenabled();
+void set_allocated_privatenetworkaccessrestrictionsenabled(::enterprise_management::BooleanPolicyProto* privatenetworkaccessrestrictionsenabled);
+private:
+const ::enterprise_management::BooleanPolicyProto& _internal_privatenetworkaccessrestrictionsenabled() const;
+::enterprise_management::BooleanPolicyProto* _internal_mutable_privatenetworkaccessrestrictionsenabled();
+public:
+void unsafe_arena_set_allocated_privatenetworkaccessrestrictionsenabled(
+::enterprise_management::BooleanPolicyProto* privatenetworkaccessrestrictionsenabled);
+::enterprise_management::BooleanPolicyProto* unsafe_arena_release_privatenetworkaccessrestrictionsenabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -2119,6 +2138,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringListPolicyProto* userfeedbackwithlowleveldebugdataallowed_;
 ::enterprise_management::StringListPolicyProto* microsoftonedriveaccountrestrictions_;
 ::enterprise_management::StringPolicyProto* sitesearchsettings_;
+::enterprise_management::BooleanPolicyProto* privatenetworkaccessrestrictionsenabled_;
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -15858,6 +15878,93 @@ _has_bits_[0] &= ~0x00004000u;
 }
 screensaverlockscreenimages_ = screensaverlockscreenimages;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.ScreensaverLockScreenImages)
+}
+
+// optional .enterprise_management.BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 137;
+inline bool CloudPolicySubProto1::_internal_has_privatenetworkaccessrestrictionsenabled() const {
+bool value = (_has_bits_[3] & 0x00000002u) != 0;
+PROTOBUF_ASSUME(!value || privatenetworkaccessrestrictionsenabled_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_privatenetworkaccessrestrictionsenabled() const {
+return _internal_has_privatenetworkaccessrestrictionsenabled();
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::_internal_privatenetworkaccessrestrictionsenabled() const {
+const ::enterprise_management::BooleanPolicyProto* p = privatenetworkaccessrestrictionsenabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::BooleanPolicyProto&>(
+::enterprise_management::_BooleanPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::BooleanPolicyProto& CloudPolicySubProto1::privatenetworkaccessrestrictionsenabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.PrivateNetworkAccessRestrictionsEnabled)
+return _internal_privatenetworkaccessrestrictionsenabled();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_privatenetworkaccessrestrictionsenabled(
+::enterprise_management::BooleanPolicyProto* privatenetworkaccessrestrictionsenabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(privatenetworkaccessrestrictionsenabled_);
+}
+privatenetworkaccessrestrictionsenabled_ = privatenetworkaccessrestrictionsenabled;
+if (privatenetworkaccessrestrictionsenabled) {
+_has_bits_[3] |= 0x00000002u;
+} else {
+_has_bits_[3] &= ~0x00000002u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.PrivateNetworkAccessRestrictionsEnabled)
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::release_privatenetworkaccessrestrictionsenabled() {
+_has_bits_[3] &= ~0x00000002u;
+::enterprise_management::BooleanPolicyProto* temp = privatenetworkaccessrestrictionsenabled_;
+privatenetworkaccessrestrictionsenabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::unsafe_arena_release_privatenetworkaccessrestrictionsenabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.PrivateNetworkAccessRestrictionsEnabled)
+_has_bits_[3] &= ~0x00000002u;
+::enterprise_management::BooleanPolicyProto* temp = privatenetworkaccessrestrictionsenabled_;
+privatenetworkaccessrestrictionsenabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::_internal_mutable_privatenetworkaccessrestrictionsenabled() {
+_has_bits_[3] |= 0x00000002u;
+if (privatenetworkaccessrestrictionsenabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::BooleanPolicyProto>(GetArenaForAllocation());
+privatenetworkaccessrestrictionsenabled_ = p;
+}
+return privatenetworkaccessrestrictionsenabled_;
+}
+inline ::enterprise_management::BooleanPolicyProto* CloudPolicySubProto1::mutable_privatenetworkaccessrestrictionsenabled() {
+::enterprise_management::BooleanPolicyProto* _msg = _internal_mutable_privatenetworkaccessrestrictionsenabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.PrivateNetworkAccessRestrictionsEnabled)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_privatenetworkaccessrestrictionsenabled(::enterprise_management::BooleanPolicyProto* privatenetworkaccessrestrictionsenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(privatenetworkaccessrestrictionsenabled_);
+}
+if (privatenetworkaccessrestrictionsenabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(privatenetworkaccessrestrictionsenabled));
+if (message_arena != submessage_arena) {
+privatenetworkaccessrestrictionsenabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, privatenetworkaccessrestrictionsenabled, submessage_arena);
+}
+_has_bits_[3] |= 0x00000002u;
+} else {
+_has_bits_[3] &= ~0x00000002u;
+}
+privatenetworkaccessrestrictionsenabled_ = privatenetworkaccessrestrictionsenabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.PrivateNetworkAccessRestrictionsEnabled)
 }
 
 // optional .enterprise_management.IntegerPolicyProto ReportAppUsageCollectionRateMs = 64;

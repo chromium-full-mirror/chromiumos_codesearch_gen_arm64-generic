@@ -338,8 +338,6 @@ namespace dawn::native {
                 return {};
             case wgpu::FeatureName::TimestampQuery:
                 return {};
-            case wgpu::FeatureName::ChromiumExperimentalPipelineStatisticsQuery:
-                return {};
             case wgpu::FeatureName::TextureCompressionBC:
                 return {};
             case wgpu::FeatureName::TextureCompressionETC2:
@@ -507,23 +505,6 @@ namespace dawn::native {
         }
     }
 
-    MaybeError ValidatePipelineStatisticName(wgpu::PipelineStatisticName value) {
-        switch (value) {
-            case wgpu::PipelineStatisticName::VertexShaderInvocations:
-                return {};
-            case wgpu::PipelineStatisticName::ClipperInvocations:
-                return {};
-            case wgpu::PipelineStatisticName::ClipperPrimitivesOut:
-                return {};
-            case wgpu::PipelineStatisticName::FragmentShaderInvocations:
-                return {};
-            case wgpu::PipelineStatisticName::ComputeShaderInvocations:
-                return {};
-            default:
-                return DAWN_VALIDATION_ERROR("Value %i is invalid for WGPUPipelineStatisticName.", static_cast<uint32_t>(value));
-        }
-    }
-
     MaybeError ValidatePowerPreference(wgpu::PowerPreference value) {
         switch (value) {
             case wgpu::PowerPreference::Undefined:
@@ -570,8 +551,6 @@ namespace dawn::native {
     MaybeError ValidateQueryType(wgpu::QueryType value) {
         switch (value) {
             case wgpu::QueryType::Occlusion:
-                return {};
-            case wgpu::QueryType::PipelineStatistics:
                 return {};
             case wgpu::QueryType::Timestamp:
                 return {};

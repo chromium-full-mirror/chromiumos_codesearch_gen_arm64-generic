@@ -25,7 +25,7 @@
 
 #include "services/on_device_model/public/mojom/on_device_model.mojom-shared.h"
 #include "services/on_device_model/public/mojom/on_device_model.mojom-forward.h"
-#include "mojo/public/mojom/base/file_path.mojom.h"
+#include "mojo/public/mojom/base/file.mojom.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
 #include <string>
 #include <vector>
@@ -34,6 +34,7 @@
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
 
+#include "services/on_device_model/public/cpp/model_assets_mojom_traits.h"
 
 
 
@@ -169,6 +170,7 @@ class OnDeviceModelService
   using ResponseValidator_ = OnDeviceModelServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kLoadModelMinVersion = 0,
+    kGetEstimatedPerformanceClassMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -177,13 +179,21 @@ class OnDeviceModelService
   struct LoadModel_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct GetEstimatedPerformanceClass_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~OnDeviceModelService() = default;
 
 
   using LoadModelCallback = base::OnceCallback<void(LoadModelResultPtr)>;
   
-  virtual void LoadModel(LoadModelParamsPtr params, LoadModelCallback callback) = 0;
+  virtual void LoadModel(on_device_model::ModelAssets assets, LoadModelCallback callback) = 0;
+
+
+  using GetEstimatedPerformanceClassCallback = base::OnceCallback<void(PerformanceClass)>;
+  
+  virtual void GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) = 0;
 };
 
 
@@ -227,7 +237,9 @@ class  OnDeviceModelServiceProxy
 
   explicit OnDeviceModelServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void LoadModel(LoadModelParamsPtr params, LoadModelCallback callback) final;
+  void LoadModel(on_device_model::ModelAssets assets, LoadModelCallback callback) final;
+  
+  void GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -509,65 +521,64 @@ class  LoadModelResult {
 
 
 
-class  LoadModelParams {
+class  ModelAssets {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<LoadModelParams, T>::value>;
-  using DataView = LoadModelParamsDataView;
-  using Data_ = internal::LoadModelParams_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<ModelAssets, T>::value>;
+  using DataView = ModelAssetsDataView;
+  using Data_ = internal::ModelAssets_Data;
 
   template <typename... Args>
-  static LoadModelParamsPtr New(Args&&... args) {
-    return LoadModelParamsPtr(
+  static ModelAssetsPtr New(Args&&... args) {
+    return ModelAssetsPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static LoadModelParamsPtr From(const U& u) {
-    return mojo::TypeConverter<LoadModelParamsPtr, U>::Convert(u);
+  static ModelAssetsPtr From(const U& u) {
+    return mojo::TypeConverter<ModelAssetsPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, LoadModelParams>::Convert(*this);
+    return mojo::TypeConverter<U, ModelAssets>::Convert(*this);
   }
 
 
-  LoadModelParams();
+  ModelAssets();
 
-  explicit LoadModelParams(
-      const ::base::FilePath& path);
+  ModelAssets(
+      ::base::File sp_model,
+      ::base::File model,
+      ::base::File weights);
 
+ModelAssets(const ModelAssets&) = delete;
+ModelAssets& operator=(const ModelAssets&) = delete;
 
-  ~LoadModelParams();
+  ~ModelAssets();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = LoadModelParamsPtr>
-  LoadModelParamsPtr Clone() const;
+  template <typename StructPtrType = ModelAssetsPtr>
+  ModelAssetsPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, LoadModelParams::EnableIfSame<T>* = nullptr>
+  template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, LoadModelParams::EnableIfSame<T>* = nullptr>
+  template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, LoadModelParams::EnableIfSame<T>* = nullptr>
+  template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        LoadModelParams::DataView, std::vector<uint8_t>>(input);
-  }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        LoadModelParams::DataView>(input);
+        ModelAssets::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -577,8 +588,8 @@ class  LoadModelParams {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::LoadModelParams_UnserializedMessageContext<
-            UserType, LoadModelParams::DataView>>(0, 0, std::move(input)),
+        internal::ModelAssets_UnserializedMessageContext<
+            UserType, ModelAssets::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -587,14 +598,14 @@ class  LoadModelParams {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<LoadModelParams::DataView>(
+    return mojo::internal::DeserializeImpl<ModelAssets::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return LoadModelParams::Deserialize(
+    return ModelAssets::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -602,19 +613,23 @@ class  LoadModelParams {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::LoadModelParams_UnserializedMessageContext<
-            UserType, LoadModelParams::DataView>>();
+        internal::ModelAssets_UnserializedMessageContext<
+            UserType, ModelAssets::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<LoadModelParams::DataView>(
+    return mojo::internal::DeserializeImpl<ModelAssets::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
   
-  ::base::FilePath path;
+  ::base::File sp_model;
+  
+  ::base::File model;
+  
+  ::base::File weights;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -627,20 +642,20 @@ class  LoadModelParams {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, LoadModelParams::EnableIfSame<T>* = nullptr>
+template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, LoadModelParams::EnableIfSame<T>* = nullptr>
+template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, LoadModelParams::EnableIfSame<T>* = nullptr>
+template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, LoadModelParams::EnableIfSame<T>* = nullptr>
+template <typename T, ModelAssets::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -675,24 +690,38 @@ bool LoadModelResult::Equals(const T& other) const {
   return false;
 }
 template <typename StructPtrType>
-LoadModelParamsPtr LoadModelParams::Clone() const {
+ModelAssetsPtr ModelAssets::Clone() const {
   return New(
-      mojo::Clone(path)
+      mojo::Clone(sp_model),
+      mojo::Clone(model),
+      mojo::Clone(weights)
   );
 }
 
-template <typename T, LoadModelParams::EnableIfSame<T>*>
-bool LoadModelParams::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->path, other_struct.path))
+template <typename T, ModelAssets::EnableIfSame<T>*>
+bool ModelAssets::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->sp_model, other_struct.sp_model))
+    return false;
+  if (!mojo::Equals(this->model, other_struct.model))
+    return false;
+  if (!mojo::Equals(this->weights, other_struct.weights))
     return false;
   return true;
 }
 
-template <typename T, LoadModelParams::EnableIfSame<T>*>
+template <typename T, ModelAssets::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.path < rhs.path)
+  if (lhs.sp_model < rhs.sp_model)
     return true;
-  if (rhs.path < lhs.path)
+  if (rhs.sp_model < lhs.sp_model)
+    return false;
+  if (lhs.model < rhs.model)
+    return true;
+  if (rhs.model < lhs.model)
+    return false;
+  if (lhs.weights < rhs.weights)
+    return true;
+  if (rhs.weights < lhs.weights)
     return false;
   return false;
 }
@@ -704,17 +733,27 @@ namespace mojo {
 
 
 template <>
-struct  StructTraits<::on_device_model::mojom::LoadModelParams::DataView,
-                                         ::on_device_model::mojom::LoadModelParamsPtr> {
-  static bool IsNull(const ::on_device_model::mojom::LoadModelParamsPtr& input) { return !input; }
-  static void SetToNull(::on_device_model::mojom::LoadModelParamsPtr* output) { output->reset(); }
+struct  StructTraits<::on_device_model::mojom::ModelAssets::DataView,
+                                         ::on_device_model::mojom::ModelAssetsPtr> {
+  static bool IsNull(const ::on_device_model::mojom::ModelAssetsPtr& input) { return !input; }
+  static void SetToNull(::on_device_model::mojom::ModelAssetsPtr* output) { output->reset(); }
 
-  static const decltype(::on_device_model::mojom::LoadModelParams::path)& path(
-      const ::on_device_model::mojom::LoadModelParamsPtr& input) {
-    return input->path;
+  static  decltype(::on_device_model::mojom::ModelAssets::sp_model)& sp_model(
+       ::on_device_model::mojom::ModelAssetsPtr& input) {
+    return input->sp_model;
   }
 
-  static bool Read(::on_device_model::mojom::LoadModelParams::DataView input, ::on_device_model::mojom::LoadModelParamsPtr* output);
+  static  decltype(::on_device_model::mojom::ModelAssets::model)& model(
+       ::on_device_model::mojom::ModelAssetsPtr& input) {
+    return input->model;
+  }
+
+  static  decltype(::on_device_model::mojom::ModelAssets::weights)& weights(
+       ::on_device_model::mojom::ModelAssetsPtr& input) {
+    return input->weights;
+  }
+
+  static bool Read(::on_device_model::mojom::ModelAssets::DataView input, ::on_device_model::mojom::ModelAssetsPtr* output);
 };
 
 

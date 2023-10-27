@@ -640,6 +640,7 @@ extern const char kPrivacySandboxAdTopicsEnabled[];
 extern const char kPrivacySandboxPromptEnabled[];
 extern const char kPrivacySandboxSiteEnabledAdsEnabled[];
 extern const char kPrivacyScreenEnabled[];
+extern const char kPrivateNetworkAccessRestrictionsEnabled[];
 extern const char kProfilePickerOnStartupAvailability[];
 extern const char kProjectorDogfoodForFamilyLinkEnabled[];
 extern const char kProjectorEnabled[];
@@ -989,7 +990,7 @@ struct BooleanPolicyAccess {
   const em::BooleanPolicyProto& (*get_proto)(
       const em::CloudPolicySettings& policy);
 };
-extern const std::array<BooleanPolicyAccess, 294> kBooleanPolicyAccess;
+extern const std::array<BooleanPolicyAccess, 295> kBooleanPolicyAccess;
 
 // Read access to the protobufs of all supported integer user policies.
 struct IntegerPolicyAccess {

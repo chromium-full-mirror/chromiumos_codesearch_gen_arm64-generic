@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.015" timestamp="2023-10-27T00:16:37.522" name="AllTests">
+  <testsuite name="UTF8" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.006" timestamp="2023-10-27T00:16:37.530">
+    <testcase name="ValidStress" file="cras/src/tests/utf8_unittest.cc" line="17" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:16:37.531" classname="UTF8" />
+    <testcase name="InvalidStress" file="cras/src/tests/utf8_unittest.cc" line="80" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:37.535" classname="UTF8" />
+  </testsuite>
+</testsuites>

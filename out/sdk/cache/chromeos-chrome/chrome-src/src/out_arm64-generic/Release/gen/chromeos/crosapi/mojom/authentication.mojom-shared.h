@@ -34,9 +34,9 @@
 
 
 namespace crosapi::mojom {
-class QuickUnlockPrivateTokenInfoDataView;
+class QuickUnlockPrivateTokenInfoDeprecatedDataView;
 
-class CreateQuickUnlockPrivateTokenInfoResultDataView;
+class CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView;
 
 
 }  // crosapi::mojom
@@ -45,15 +45,15 @@ namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::crosapi::mojom::QuickUnlockPrivateTokenInfoDataView> {
-  using Data = ::crosapi::mojom::internal::QuickUnlockPrivateTokenInfo_Data;
+struct MojomTypeTraits<::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedDataView> {
+  using Data = ::crosapi::mojom::internal::QuickUnlockPrivateTokenInfoDeprecated_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataView> {
-  using Data = ::crosapi::mojom::internal::CreateQuickUnlockPrivateTokenInfoResult_Data;
+struct MojomTypeTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView> {
+  using Data = ::crosapi::mojom::internal::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -64,55 +64,55 @@ struct MojomTypeTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResult
 
 namespace crosapi::mojom {
 // Interface base classes. They are used for type safety check.
-class AuthenticationInterfaceBase {};
+class AuthenticationDeprecatedInterfaceBase {};
 
-using AuthenticationPtrDataView =
-    mojo::InterfacePtrDataView<AuthenticationInterfaceBase>;
-using AuthenticationRequestDataView =
-    mojo::InterfaceRequestDataView<AuthenticationInterfaceBase>;
-using AuthenticationAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<AuthenticationInterfaceBase>;
-using AuthenticationAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<AuthenticationInterfaceBase>;
+using AuthenticationDeprecatedPtrDataView =
+    mojo::InterfacePtrDataView<AuthenticationDeprecatedInterfaceBase>;
+using AuthenticationDeprecatedRequestDataView =
+    mojo::InterfaceRequestDataView<AuthenticationDeprecatedInterfaceBase>;
+using AuthenticationDeprecatedAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<AuthenticationDeprecatedInterfaceBase>;
+using AuthenticationDeprecatedAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<AuthenticationDeprecatedInterfaceBase>;
 
 
-class QuickUnlockPrivateTokenInfoDataView {
+class QuickUnlockPrivateTokenInfoDeprecatedDataView {
  public:
-  QuickUnlockPrivateTokenInfoDataView() = default;
+  QuickUnlockPrivateTokenInfoDeprecatedDataView() = default;
 
-  QuickUnlockPrivateTokenInfoDataView(
-      internal::QuickUnlockPrivateTokenInfo_Data* data,
+  QuickUnlockPrivateTokenInfoDeprecatedDataView(
+      internal::QuickUnlockPrivateTokenInfoDeprecated_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetTokenDataView(
+  inline void GetRemoved0DataView(
       mojo::StringDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadToken(UserType* output) {
+  [[nodiscard]] bool ReadRemoved0(UserType* output) {
     
-    auto* pointer = data_->token.Get();
+    auto* pointer = data_->REMOVED_0.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  int32_t lifetime_seconds() const {
-    return data_->lifetime_seconds;
+  int32_t REMOVED_1() const {
+    return data_->REMOVED_1;
   }
  private:
-  internal::QuickUnlockPrivateTokenInfo_Data* data_ = nullptr;
+  internal::QuickUnlockPrivateTokenInfoDeprecated_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class CreateQuickUnlockPrivateTokenInfoResultDataView {
+class CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView {
  public:
-  using Tag = internal::CreateQuickUnlockPrivateTokenInfoResult_Data::CreateQuickUnlockPrivateTokenInfoResult_Tag;
+  using Tag = internal::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Tag;
 
-  CreateQuickUnlockPrivateTokenInfoResultDataView() = default;
+  CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView() = default;
 
-  CreateQuickUnlockPrivateTokenInfoResultDataView(
-      internal::CreateQuickUnlockPrivateTokenInfoResult_Data* data,
+  CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView(
+      internal::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -123,31 +123,31 @@ class CreateQuickUnlockPrivateTokenInfoResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_error_message() const { return data_->tag == Tag::kErrorMessage; }
-  inline void GetErrorMessageDataView(
+  bool is_REMOVED_0() const { return data_->tag == Tag::kRemoved0; }
+  inline void GetRemoved0DataView(
       mojo::StringDataView* output) const;
 
   template <typename UserType>
-  [[nodiscard]] bool ReadErrorMessage(UserType* output) const {
+  [[nodiscard]] bool ReadRemoved0(UserType* output) const {
     
-    CHECK(is_error_message());
+    CHECK(is_REMOVED_0());
     return mojo::internal::Deserialize<mojo::StringDataView>(
-        data_->data.f_error_message.Get(), output, message_);
+        data_->data.f_REMOVED_0.Get(), output, message_);
   }
-  bool is_token_info() const { return data_->tag == Tag::kTokenInfo; }
-  inline void GetTokenInfoDataView(
-      QuickUnlockPrivateTokenInfoDataView* output) const;
+  bool is_REMOVED_1() const { return data_->tag == Tag::kRemoved1; }
+  inline void GetRemoved1DataView(
+      QuickUnlockPrivateTokenInfoDeprecatedDataView* output) const;
 
   template <typename UserType>
-  [[nodiscard]] bool ReadTokenInfo(UserType* output) const {
+  [[nodiscard]] bool ReadRemoved1(UserType* output) const {
     
-    CHECK(is_token_info());
-    return mojo::internal::Deserialize<::crosapi::mojom::QuickUnlockPrivateTokenInfoDataView>(
-        data_->data.f_token_info.Get(), output, message_);
+    CHECK(is_REMOVED_1());
+    return mojo::internal::Deserialize<::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedDataView>(
+        data_->data.f_REMOVED_1.Get(), output, message_);
   }
 
  private:
-  internal::CreateQuickUnlockPrivateTokenInfoResult_Data* data_ = nullptr;
+  internal::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -165,38 +165,38 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::crosapi::mojom::QuickUnlockPrivateTokenInfoDataView, MaybeConstUserType> {
+struct Serializer<::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::crosapi::mojom::QuickUnlockPrivateTokenInfoDataView, UserType>;
+  using Traits = StructTraits<::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::crosapi::mojom::internal::QuickUnlockPrivateTokenInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::QuickUnlockPrivateTokenInfoDeprecated_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::token(input)) in_token = Traits::token(input);
+    decltype(Traits::REMOVED_0(input)) in_REMOVED_0 = Traits::REMOVED_0(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->token)::BaseType> token_fragment(
+        typename decltype(fragment->REMOVED_0)::BaseType> REMOVED_0_fragment(
             fragment.message());
     mojo::internal::Serialize<mojo::StringDataView>(
-        in_token, token_fragment);
-    fragment->token.Set(
-        token_fragment.is_null() ? nullptr : token_fragment.data());
+        in_REMOVED_0, REMOVED_0_fragment);
+    fragment->REMOVED_0.Set(
+        REMOVED_0_fragment.is_null() ? nullptr : REMOVED_0_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->token.is_null(),
+        fragment->REMOVED_0.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null token in QuickUnlockPrivateTokenInfo struct");
-    fragment->lifetime_seconds = Traits::lifetime_seconds(input);
+        "null REMOVED_0 in QuickUnlockPrivateTokenInfoDeprecated struct");
+    fragment->REMOVED_1 = Traits::REMOVED_1(input);
   }
 
-  static bool Deserialize(::crosapi::mojom::internal::QuickUnlockPrivateTokenInfo_Data* input,
+  static bool Deserialize(::crosapi::mojom::internal::QuickUnlockPrivateTokenInfoDeprecated_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::crosapi::mojom::QuickUnlockPrivateTokenInfoDataView data_view(input, message);
+    ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -207,12 +207,12 @@ struct Serializer<::crosapi::mojom::QuickUnlockPrivateTokenInfoDataView, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataView, MaybeConstUserType> {
+struct Serializer<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataView, UserType>;
+  using Traits = UnionTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::crosapi::mojom::internal::CreateQuickUnlockPrivateTokenInfoResult_Data>& fragment,
+                        MessageFragment<::crosapi::mojom::internal::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -228,48 +228,48 @@ struct Serializer<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataV
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataView::Tag::kErrorMessage: {
-        decltype(Traits::error_message(input))
-            in_error_message = Traits::error_message(input);
+      case ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView::Tag::kRemoved0: {
+        decltype(Traits::REMOVED_0(input))
+            in_REMOVED_0 = Traits::REMOVED_0(input);
         mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_error_message)::BaseType>
+            typename decltype(fragment->data.f_REMOVED_0)::BaseType>
             value_fragment(fragment.message());
         mojo::internal::Serialize<mojo::StringDataView>(
-            in_error_message, value_fragment);
+            in_REMOVED_0, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null error_message in CreateQuickUnlockPrivateTokenInfoResult union");
-        fragment->data.f_error_message.Set(
+            "null REMOVED_0 in CreateQuickUnlockPrivateTokenInfoResultDeprecated union");
+        fragment->data.f_REMOVED_0.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataView::Tag::kTokenInfo: {
-        decltype(Traits::token_info(input))
-            in_token_info = Traits::token_info(input);
+      case ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView::Tag::kRemoved1: {
+        decltype(Traits::REMOVED_1(input))
+            in_REMOVED_1 = Traits::REMOVED_1(input);
         mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_token_info)::BaseType>
+            typename decltype(fragment->data.f_REMOVED_1)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::crosapi::mojom::QuickUnlockPrivateTokenInfoDataView>(
-            in_token_info, value_fragment);
+        mojo::internal::Serialize<::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedDataView>(
+            in_REMOVED_1, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null token_info in CreateQuickUnlockPrivateTokenInfoResult union");
-        fragment->data.f_token_info.Set(
+            "null REMOVED_1 in CreateQuickUnlockPrivateTokenInfoResultDeprecated union");
+        fragment->data.f_REMOVED_1.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
     }
   }
 
-  static bool Deserialize(::crosapi::mojom::internal::CreateQuickUnlockPrivateTokenInfoResult_Data* input,
+  static bool Deserialize(::crosapi::mojom::internal::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataView data_view(input, message);
+    ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -281,22 +281,22 @@ struct Serializer<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataV
 
 namespace crosapi::mojom {
 
-inline void QuickUnlockPrivateTokenInfoDataView::GetTokenDataView(
+inline void QuickUnlockPrivateTokenInfoDeprecatedDataView::GetRemoved0DataView(
     mojo::StringDataView* output) {
-  auto pointer = data_->token.Get();
+  auto pointer = data_->REMOVED_0.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 
 
-inline void CreateQuickUnlockPrivateTokenInfoResultDataView::GetErrorMessageDataView(
+inline void CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView::GetRemoved0DataView(
     mojo::StringDataView* output) const {
-  CHECK(is_error_message());
-  *output = mojo::StringDataView(data_->data.f_error_message.Get(), message_);
+  CHECK(is_REMOVED_0());
+  *output = mojo::StringDataView(data_->data.f_REMOVED_0.Get(), message_);
 }
-inline void CreateQuickUnlockPrivateTokenInfoResultDataView::GetTokenInfoDataView(
-    QuickUnlockPrivateTokenInfoDataView* output) const {
-  CHECK(is_token_info());
-  *output = QuickUnlockPrivateTokenInfoDataView(data_->data.f_token_info.Get(), message_);
+inline void CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView::GetRemoved1DataView(
+    QuickUnlockPrivateTokenInfoDeprecatedDataView* output) const {
+  CHECK(is_REMOVED_1());
+  *output = QuickUnlockPrivateTokenInfoDeprecatedDataView(data_->data.f_REMOVED_1.Get(), message_);
 }
 
 

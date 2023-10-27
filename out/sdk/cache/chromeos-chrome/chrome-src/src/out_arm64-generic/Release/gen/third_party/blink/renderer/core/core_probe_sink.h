@@ -36,6 +36,7 @@ class InspectorLayerTreeAgent;
 class InspectorLogAgent;
 class InspectorMediaAgent;
 class InspectorNetworkAgent;
+class InspectorOverlayAgent;
 class InspectorPageAgent;
 class InspectorPerformanceAgent;
 class InspectorPerformanceTimelineAgent;
@@ -64,13 +65,14 @@ class CORE_EXPORT CoreProbeSink final : public GarbageCollected<CoreProbeSink> {
     kInspectorLogAgent = 1u << 13,
     kInspectorMediaAgent = 1u << 14,
     kInspectorNetworkAgent = 1u << 15,
-    kInspectorPageAgent = 1u << 16,
-    kInspectorPerformanceAgent = 1u << 17,
-    kInspectorPerformanceTimelineAgent = 1u << 18,
-    kInspectorPreloadAgent = 1u << 19,
-    kInspectorTraceEvents = 1u << 20,
-    kLCPScriptObserver = 1u << 21,
-    kPerformanceMonitor = 1u << 22,
+    kInspectorOverlayAgent = 1u << 16,
+    kInspectorPageAgent = 1u << 17,
+    kInspectorPerformanceAgent = 1u << 18,
+    kInspectorPerformanceTimelineAgent = 1u << 19,
+    kInspectorPreloadAgent = 1u << 20,
+    kInspectorTraceEvents = 1u << 21,
+    kLCPScriptObserver = 1u << 22,
+    kPerformanceMonitor = 1u << 23,
   };
 
   CoreProbeSink();
@@ -160,6 +162,11 @@ class CORE_EXPORT CoreProbeSink final : public GarbageCollected<CoreProbeSink> {
   void AddInspectorNetworkAgent(InspectorNetworkAgent* agent);
   void RemoveInspectorNetworkAgent(InspectorNetworkAgent* agent);
 
+  bool HasInspectorOverlayAgents() const { return !inspector_overlay_agents_.IsEmpty(); }
+  const AgentRegistry<InspectorOverlayAgent>& InspectorOverlayAgents() const { return inspector_overlay_agents_; }
+  void AddInspectorOverlayAgent(InspectorOverlayAgent* agent);
+  void RemoveInspectorOverlayAgent(InspectorOverlayAgent* agent);
+
   bool HasInspectorPageAgents() const { return !inspector_page_agents_.IsEmpty(); }
   const AgentRegistry<InspectorPageAgent>& InspectorPageAgents() const { return inspector_page_agents_; }
   void AddInspectorPageAgent(InspectorPageAgent* agent);
@@ -217,6 +224,7 @@ class CORE_EXPORT CoreProbeSink final : public GarbageCollected<CoreProbeSink> {
   AgentRegistry<InspectorLogAgent> inspector_log_agents_;
   AgentRegistry<InspectorMediaAgent> inspector_media_agents_;
   AgentRegistry<InspectorNetworkAgent> inspector_network_agents_;
+  AgentRegistry<InspectorOverlayAgent> inspector_overlay_agents_;
   AgentRegistry<InspectorPageAgent> inspector_page_agents_;
   AgentRegistry<InspectorPerformanceAgent> inspector_performance_agents_;
   AgentRegistry<InspectorPerformanceTimelineAgent> inspector_performance_timeline_agents_;
@@ -244,6 +252,7 @@ class CORE_EXPORT CoreProbeSink final : public GarbageCollected<CoreProbeSink> {
   static unsigned s_numSinksWithInspectorLogAgent;
   static unsigned s_numSinksWithInspectorMediaAgent;
   static unsigned s_numSinksWithInspectorNetworkAgent;
+  static unsigned s_numSinksWithInspectorOverlayAgent;
   static unsigned s_numSinksWithInspectorPageAgent;
   static unsigned s_numSinksWithInspectorPerformanceAgent;
   static unsigned s_numSinksWithInspectorPerformanceTimelineAgent;

@@ -1394,6 +1394,9 @@
   "models/issues_manager/CookieIssue.ts | aSecure": {
     "message": "a secure"
   },
+  "models/issues_manager/CookieIssue.ts | fileCrosSiteRedirectBug": {
+    "message": "File a bug"
+  },
   "models/issues_manager/CookieIssue.ts | firstPartySetsExplained": {
     "message": "First-Party Sets and the SameParty attribute"
   },
@@ -6208,9 +6211,6 @@
   },
   "panels/event_listeners/EventListenersView.ts | toggleWhetherEventListenerIs": {
     "message": "Toggle whether event listener is passive or blocking"
-  },
-  "panels/explain/explain-meta.ts | explainCode": {
-    "message": "✨ Explain selected code"
   },
   "panels/explain/explain-meta.ts | explainConsoleMessage": {
     "message": "✨ Explain console message"

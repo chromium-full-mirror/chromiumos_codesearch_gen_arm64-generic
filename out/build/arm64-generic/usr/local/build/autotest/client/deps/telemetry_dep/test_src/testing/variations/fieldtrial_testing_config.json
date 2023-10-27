@@ -2956,43 +2956,6 @@
             ]
         }
     ],
-    "CacheTransparency": [
-        {
-            "platforms": [
-                "android",
-                "chromeos",
-                "chromeos_lacros",
-                "fuchsia",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "CacheTransparencyEnabled",
-                    "params": {
-                        "pervasive-payloads": "1,http://127.0.0.1:4353/pervasive.js,3790EEB37E2A761CFD3B274CCF45CE5AB86A34DF11E28FB7ED4D82AFBBC13BEB"
-                    },
-                    "enable_features": [
-                        "CacheTransparency",
-                        "PervasivePayloadsList"
-                    ]
-                },
-                {
-                    "name": "InputPervasivePayloadsList",
-                    "params": {
-                        "pervasive-payloads": "1,http://127.0.0.1:4353/pervasive.js,3790EEB37E2A761CFD3B274CCF45CE5AB86A34DF11E28FB7ED4D82AFBBC13BEB"
-                    },
-                    "enable_features": [
-                        "PervasivePayloadsList"
-                    ],
-                    "disable_features": [
-                        "CacheTransparency"
-                    ]
-                }
-            ]
-        }
-    ],
     "Canvas2DAutoFlushParams": [
         {
             "platforms": [
@@ -3420,22 +3383,6 @@
             ]
         }
     ],
-    "ChromeOSEnableArcvmAAudioMMAP": [
-        {
-            "platforms": [
-                "chromeos"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "enable_features": [
-                        "CrOSLateBootArcVmAAudioMMAP"
-                    ],
-                    "min_os_version": "15376.0.0"
-                }
-            ]
-        }
-    ],
     "ChromeOSHWVBREncoding": [
         {
             "platforms": [
@@ -3807,6 +3754,28 @@
                     "name": "Enabled",
                     "enable_features": [
                         "ClientSideDetectionModelImageEmbedder"
+                    ]
+                }
+            ]
+        }
+    ],
+    "ClientSideDetectionRetryLimit": [
+        {
+            "platforms": [
+                "android",
+                "chromeos",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "params": {
+                        "RetryTimeMax": "15"
+                    },
+                    "enable_features": [
+                        "ClientSideDetectionRetryLimit"
                     ]
                 }
             ]
@@ -5061,6 +5030,30 @@
                     "disable_features": [
                         "DefaultBrowserGenericTailoredPromoTrain",
                         "FullScreenPromoOnOmniboxCopyPaste"
+                    ]
+                }
+            ]
+        }
+    ],
+    "DefaultBucketUsesRelaxedDurability": [
+        {
+            "platforms": [
+                "windows",
+                "mac",
+                "chromeos",
+                "chromeos_lacros",
+                "fuchsia",
+                "linux",
+                "ios",
+                "android",
+                "android_weblayer",
+                "android_webview"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "DefaultBucketUsesRelaxedDurability"
                     ]
                 }
             ]
@@ -8001,6 +7994,27 @@
             ]
         }
     ],
+    "HatsBluetoothRevamp": [
+        {
+            "platforms": [
+                "chromeos"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "params": {
+                        "prob": "0.01",
+                        "survey_cycle_length": "7",
+                        "survey_start_date_ms": "1642608000000",
+                        "trigger_id": "FvkCS2uJU0jBnuKU19R0UrXtnAdP"
+                    },
+                    "enable_features": [
+                        "HappinessTrackingSystemBluetoothRevamp"
+                    ]
+                }
+            ]
+        }
+    ],
     "HatsGeneralCamera": [
         {
             "platforms": [
@@ -8572,6 +8586,21 @@
             ]
         }
     ],
+    "IOSIncognitoDownloadsWarning": [
+        {
+            "platforms": [
+                "ios"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "IOSIncognitoDownloadsWarning"
+                    ]
+                }
+            ]
+        }
+    ],
     "IOSKeepsRenderProcessAlive": [
         {
             "platforms": [
@@ -8609,7 +8638,7 @@
             ],
             "experiments": [
                 {
-                    "name": "Enabled_Magic_Stack_Less_Top_Space_20230928",
+                    "name": "Enabled_Magic_Stack_Less_Top_Space_20231024",
                     "params": {
                         "ReducedNTPTopSpace": "20",
                         "enable_default_model": "true"
@@ -17308,10 +17337,11 @@
             ]
         }
     ],
-    "SpdyHeadersToHttpResponseVerifyCorrectness": [
+    "SpdyHeadersToHttpResponseUseBuilder": [
         {
             "platforms": [
                 "android",
+                "android_webview",
                 "chromeos",
                 "chromeos_lacros",
                 "linux",
@@ -17322,7 +17352,7 @@
                 {
                     "name": "Enabled",
                     "enable_features": [
-                        "SpdyHeadersToHttpResponseVerifyCorrectness"
+                        "SpdyHeadersToHttpResponseUseBuilder"
                     ]
                 }
             ]
@@ -17661,6 +17691,25 @@
                     "name": "Enabled_10",
                     "enable_features": [
                         "SyncTrustedVaultVerifyDeviceRegistration"
+                    ]
+                }
+            ]
+        }
+    ],
+    "SyncWebauthnCredentials": [
+        {
+            "platforms": [
+                "chromeos",
+                "chromeos_lacros",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "SyncWebauthnCredentials"
                     ]
                 }
             ]
@@ -18841,10 +18890,20 @@
             ],
             "experiments": [
                 {
-                    "name": "Enabled_99p_5m",
+                    "name": "Enabled_default",
                     "params": {
                         "inert_interval_after_loading": "5m",
                         "memory_threshold_mb": "458"
+                    },
+                    "enable_features": [
+                        "UserLevelMemoryPressureSignalOn4GbDevices"
+                    ]
+                },
+                {
+                    "name": "Enabled_99p_5m",
+                    "params": {
+                        "inert_interval_after_loading": "5m",
+                        "memory_threshold_mb": "803"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn4GbDevices"
@@ -18854,27 +18913,27 @@
                     "name": "Enabled_99p_1m",
                     "params": {
                         "inert_interval_after_loading": "1m",
-                        "memory_threshold_mb": "458"
+                        "memory_threshold_mb": "803"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn4GbDevices"
                     ]
                 },
                 {
-                    "name": "Enabled_Middle_5m",
+                    "name": "Enabled_95p_5m",
                     "params": {
                         "inert_interval_after_loading": "5m",
-                        "memory_threshold_mb": "345"
+                        "memory_threshold_mb": "508"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn4GbDevices"
                     ]
                 },
                 {
-                    "name": "Enabled_Middle_1m",
+                    "name": "Enabled_95p_1m",
                     "params": {
                         "inert_interval_after_loading": "1m",
-                        "memory_threshold_mb": "345"
+                        "memory_threshold_mb": "508"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn4GbDevices"
@@ -18884,7 +18943,7 @@
                     "name": "Enabled_90p_5m",
                     "params": {
                         "inert_interval_after_loading": "5m",
-                        "memory_threshold_mb": "229"
+                        "memory_threshold_mb": "405"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn4GbDevices"
@@ -18894,7 +18953,7 @@
                     "name": "Enabled_90p_1m",
                     "params": {
                         "inert_interval_after_loading": "1m",
-                        "memory_threshold_mb": "229"
+                        "memory_threshold_mb": "405"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn4GbDevices"
@@ -18911,10 +18970,20 @@
             ],
             "experiments": [
                 {
-                    "name": "Enabled_99p_5m",
+                    "name": "Enabled_default",
                     "params": {
                         "inert_interval_after_loading": "5m",
                         "memory_threshold_mb": "494"
+                    },
+                    "enable_features": [
+                        "UserLevelMemoryPressureSignalOn6GbDevices"
+                    ]
+                },
+                {
+                    "name": "Enabled_99p_5m",
+                    "params": {
+                        "inert_interval_after_loading": "5m",
+                        "memory_threshold_mb": "924"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn6GbDevices"
@@ -18924,27 +18993,27 @@
                     "name": "Enabled_99p_1m",
                     "params": {
                         "inert_interval_after_loading": "1m",
-                        "memory_threshold_mb": "494"
+                        "memory_threshold_mb": "924"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn6GbDevices"
                     ]
                 },
                 {
-                    "name": "Enabled_Middle_5m",
+                    "name": "Enabled_95p_5m",
                     "params": {
                         "inert_interval_after_loading": "5m",
-                        "memory_threshold_mb": "400"
+                        "memory_threshold_mb": "580"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn6GbDevices"
                     ]
                 },
                 {
-                    "name": "Enabled_Middle_1m",
+                    "name": "Enabled_95p_1m",
                     "params": {
                         "inert_interval_after_loading": "1m",
-                        "memory_threshold_mb": "400"
+                        "memory_threshold_mb": "580"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn6GbDevices"
@@ -18954,7 +19023,7 @@
                     "name": "Enabled_90p_5m",
                     "params": {
                         "inert_interval_after_loading": "5m",
-                        "memory_threshold_mb": "252"
+                        "memory_threshold_mb": "460"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn6GbDevices"
@@ -18964,7 +19033,7 @@
                     "name": "Enabled_90p_1m",
                     "params": {
                         "inert_interval_after_loading": "1m",
-                        "memory_threshold_mb": "252"
+                        "memory_threshold_mb": "460"
                     },
                     "enable_features": [
                         "UserLevelMemoryPressureSignalOn6GbDevices"
@@ -20921,16 +20990,16 @@
             ]
         }
     ],
-    "WebViewUseMetricsUploadService": [
+    "WebViewUseMetricsUploadServiceOnlySdkRuntime": [
         {
             "platforms": [
                 "android_webview"
             ],
             "experiments": [
                 {
-                    "name": "Enabled_V8",
+                    "name": "Enabled",
                     "enable_features": [
-                        "WebViewUseMetricsUploadService"
+                        "WebViewUseMetricsUploadServiceOnlySdkRuntime"
                     ]
                 }
             ]

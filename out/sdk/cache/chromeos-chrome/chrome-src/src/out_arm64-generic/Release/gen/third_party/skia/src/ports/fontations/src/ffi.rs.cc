@@ -1,0 +1,1087 @@
+#include "src/ports/fontations/src/skpath_bridge.h"
+#include <array>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <new>
+#include <stdexcept>
+#include <string>
+#include <type_traits>
+#include <utility>
+#if defined(_WIN32)
+#include <basetsd.h>
+#else
+#include <sys/types.h>
+#endif
+
+namespace rust {
+inline namespace cxxbridge1 {
+// #include "rust/cxx.h"
+
+#ifndef CXXBRIDGE1_PANIC
+#define CXXBRIDGE1_PANIC
+template <typename Exception>
+void panic [[noreturn]] (const char *msg);
+#endif // CXXBRIDGE1_PANIC
+
+struct unsafe_bitcopy_t;
+
+namespace {
+template <typename T>
+class impl;
+} // namespace
+
+template <typename T>
+::std::size_t size_of();
+template <typename T>
+::std::size_t align_of();
+
+#ifndef CXXBRIDGE1_RUST_STRING
+#define CXXBRIDGE1_RUST_STRING
+class String final {
+public:
+  String() noexcept;
+  String(const String &) noexcept;
+  String(String &&) noexcept;
+  ~String() noexcept;
+
+  String(const std::string &);
+  String(const char *);
+  String(const char *, std::size_t);
+  String(const char16_t *);
+  String(const char16_t *, std::size_t);
+
+  static String lossy(const std::string &) noexcept;
+  static String lossy(const char *) noexcept;
+  static String lossy(const char *, std::size_t) noexcept;
+  static String lossy(const char16_t *) noexcept;
+  static String lossy(const char16_t *, std::size_t) noexcept;
+
+  String &operator=(const String &) &noexcept;
+  String &operator=(String &&) &noexcept;
+
+  explicit operator std::string() const;
+
+  const char *data() const noexcept;
+  std::size_t size() const noexcept;
+  std::size_t length() const noexcept;
+  bool empty() const noexcept;
+
+  const char *c_str() noexcept;
+
+  std::size_t capacity() const noexcept;
+  void reserve(size_t new_cap) noexcept;
+
+  using iterator = char *;
+  iterator begin() noexcept;
+  iterator end() noexcept;
+
+  using const_iterator = const char *;
+  const_iterator begin() const noexcept;
+  const_iterator end() const noexcept;
+  const_iterator cbegin() const noexcept;
+  const_iterator cend() const noexcept;
+
+  bool operator==(const String &) const noexcept;
+  bool operator!=(const String &) const noexcept;
+  bool operator<(const String &) const noexcept;
+  bool operator<=(const String &) const noexcept;
+  bool operator>(const String &) const noexcept;
+  bool operator>=(const String &) const noexcept;
+
+  void swap(String &) noexcept;
+
+  String(unsafe_bitcopy_t, const String &) noexcept;
+
+private:
+  struct lossy_t;
+  String(lossy_t, const char *, std::size_t) noexcept;
+  String(lossy_t, const char16_t *, std::size_t) noexcept;
+  friend void swap(String &lhs, String &rhs) noexcept { lhs.swap(rhs); }
+
+  std::array<std::uintptr_t, 3> repr;
+};
+#endif // CXXBRIDGE1_RUST_STRING
+
+#ifndef CXXBRIDGE1_RUST_SLICE
+#define CXXBRIDGE1_RUST_SLICE
+namespace detail {
+template <bool>
+struct copy_assignable_if {};
+
+template <>
+struct copy_assignable_if<false> {
+  copy_assignable_if() noexcept = default;
+  copy_assignable_if(const copy_assignable_if &) noexcept = default;
+  copy_assignable_if &operator=(const copy_assignable_if &) &noexcept = delete;
+  copy_assignable_if &operator=(copy_assignable_if &&) &noexcept = default;
+};
+} // namespace detail
+
+template <typename T>
+class Slice final
+    : private detail::copy_assignable_if<std::is_const<T>::value> {
+public:
+  using value_type = T;
+
+  Slice() noexcept;
+  Slice(T *, std::size_t count) noexcept;
+
+  Slice &operator=(const Slice<T> &) &noexcept = default;
+  Slice &operator=(Slice<T> &&) &noexcept = default;
+
+  T *data() const noexcept;
+  std::size_t size() const noexcept;
+  std::size_t length() const noexcept;
+  bool empty() const noexcept;
+
+  T &operator[](std::size_t n) const noexcept;
+  T &at(std::size_t n) const;
+  T &front() const noexcept;
+  T &back() const noexcept;
+
+  Slice(const Slice<T> &) noexcept = default;
+  ~Slice() noexcept = default;
+
+  class iterator;
+  iterator begin() const noexcept;
+  iterator end() const noexcept;
+
+  void swap(Slice &) noexcept;
+
+private:
+  class uninit;
+  Slice(uninit) noexcept;
+  friend impl<Slice>;
+  friend void sliceInit(void *, const void *, std::size_t) noexcept;
+  friend void *slicePtr(const void *) noexcept;
+  friend std::size_t sliceLen(const void *) noexcept;
+
+  std::array<std::uintptr_t, 2> repr;
+};
+
+template <typename T>
+class Slice<T>::iterator final {
+public:
+  using iterator_category = std::random_access_iterator_tag;
+  using value_type = T;
+  using difference_type = std::ptrdiff_t;
+  using pointer = typename std::add_pointer<T>::type;
+  using reference = typename std::add_lvalue_reference<T>::type;
+
+  reference operator*() const noexcept;
+  pointer operator->() const noexcept;
+  reference operator[](difference_type) const noexcept;
+
+  iterator &operator++() noexcept;
+  iterator operator++(int) noexcept;
+  iterator &operator--() noexcept;
+  iterator operator--(int) noexcept;
+
+  iterator &operator+=(difference_type) noexcept;
+  iterator &operator-=(difference_type) noexcept;
+  iterator operator+(difference_type) const noexcept;
+  iterator operator-(difference_type) const noexcept;
+  difference_type operator-(const iterator &) const noexcept;
+
+  bool operator==(const iterator &) const noexcept;
+  bool operator!=(const iterator &) const noexcept;
+  bool operator<(const iterator &) const noexcept;
+  bool operator<=(const iterator &) const noexcept;
+  bool operator>(const iterator &) const noexcept;
+  bool operator>=(const iterator &) const noexcept;
+
+private:
+  friend class Slice;
+  void *pos;
+  std::size_t stride;
+};
+
+template <typename T>
+Slice<T>::Slice() noexcept {
+  sliceInit(this, reinterpret_cast<void *>(align_of<T>()), 0);
+}
+
+template <typename T>
+Slice<T>::Slice(T *s, std::size_t count) noexcept {
+  assert(s != nullptr || count == 0);
+  sliceInit(this,
+            s == nullptr && count == 0
+                ? reinterpret_cast<void *>(align_of<T>())
+                : const_cast<typename std::remove_const<T>::type *>(s),
+            count);
+}
+
+template <typename T>
+T *Slice<T>::data() const noexcept {
+  return reinterpret_cast<T *>(slicePtr(this));
+}
+
+template <typename T>
+std::size_t Slice<T>::size() const noexcept {
+  return sliceLen(this);
+}
+
+template <typename T>
+std::size_t Slice<T>::length() const noexcept {
+  return this->size();
+}
+
+template <typename T>
+bool Slice<T>::empty() const noexcept {
+  return this->size() == 0;
+}
+
+template <typename T>
+T &Slice<T>::operator[](std::size_t n) const noexcept {
+  assert(n < this->size());
+  auto ptr = static_cast<char *>(slicePtr(this)) + size_of<T>() * n;
+  return *reinterpret_cast<T *>(ptr);
+}
+
+template <typename T>
+T &Slice<T>::at(std::size_t n) const {
+  if (n >= this->size()) {
+    panic<std::out_of_range>("rust::Slice index out of range");
+  }
+  return (*this)[n];
+}
+
+template <typename T>
+T &Slice<T>::front() const noexcept {
+  assert(!this->empty());
+  return (*this)[0];
+}
+
+template <typename T>
+T &Slice<T>::back() const noexcept {
+  assert(!this->empty());
+  return (*this)[this->size() - 1];
+}
+
+template <typename T>
+typename Slice<T>::iterator::reference
+Slice<T>::iterator::operator*() const noexcept {
+  return *static_cast<T *>(this->pos);
+}
+
+template <typename T>
+typename Slice<T>::iterator::pointer
+Slice<T>::iterator::operator->() const noexcept {
+  return static_cast<T *>(this->pos);
+}
+
+template <typename T>
+typename Slice<T>::iterator::reference Slice<T>::iterator::operator[](
+    typename Slice<T>::iterator::difference_type n) const noexcept {
+  auto ptr = static_cast<char *>(this->pos) + this->stride * n;
+  return *reinterpret_cast<T *>(ptr);
+}
+
+template <typename T>
+typename Slice<T>::iterator &Slice<T>::iterator::operator++() noexcept {
+  this->pos = static_cast<char *>(this->pos) + this->stride;
+  return *this;
+}
+
+template <typename T>
+typename Slice<T>::iterator Slice<T>::iterator::operator++(int) noexcept {
+  auto ret = iterator(*this);
+  this->pos = static_cast<char *>(this->pos) + this->stride;
+  return ret;
+}
+
+template <typename T>
+typename Slice<T>::iterator &Slice<T>::iterator::operator--() noexcept {
+  this->pos = static_cast<char *>(this->pos) - this->stride;
+  return *this;
+}
+
+template <typename T>
+typename Slice<T>::iterator Slice<T>::iterator::operator--(int) noexcept {
+  auto ret = iterator(*this);
+  this->pos = static_cast<char *>(this->pos) - this->stride;
+  return ret;
+}
+
+template <typename T>
+typename Slice<T>::iterator &Slice<T>::iterator::operator+=(
+    typename Slice<T>::iterator::difference_type n) noexcept {
+  this->pos = static_cast<char *>(this->pos) + this->stride * n;
+  return *this;
+}
+
+template <typename T>
+typename Slice<T>::iterator &Slice<T>::iterator::operator-=(
+    typename Slice<T>::iterator::difference_type n) noexcept {
+  this->pos = static_cast<char *>(this->pos) - this->stride * n;
+  return *this;
+}
+
+template <typename T>
+typename Slice<T>::iterator Slice<T>::iterator::operator+(
+    typename Slice<T>::iterator::difference_type n) const noexcept {
+  auto ret = iterator(*this);
+  ret.pos = static_cast<char *>(this->pos) + this->stride * n;
+  return ret;
+}
+
+template <typename T>
+typename Slice<T>::iterator Slice<T>::iterator::operator-(
+    typename Slice<T>::iterator::difference_type n) const noexcept {
+  auto ret = iterator(*this);
+  ret.pos = static_cast<char *>(this->pos) - this->stride * n;
+  return ret;
+}
+
+template <typename T>
+typename Slice<T>::iterator::difference_type
+Slice<T>::iterator::operator-(const iterator &other) const noexcept {
+  auto diff = std::distance(static_cast<char *>(other.pos),
+                            static_cast<char *>(this->pos));
+  return diff / static_cast<typename Slice<T>::iterator::difference_type>(
+                    this->stride);
+}
+
+template <typename T>
+bool Slice<T>::iterator::operator==(const iterator &other) const noexcept {
+  return this->pos == other.pos;
+}
+
+template <typename T>
+bool Slice<T>::iterator::operator!=(const iterator &other) const noexcept {
+  return this->pos != other.pos;
+}
+
+template <typename T>
+bool Slice<T>::iterator::operator<(const iterator &other) const noexcept {
+  return this->pos < other.pos;
+}
+
+template <typename T>
+bool Slice<T>::iterator::operator<=(const iterator &other) const noexcept {
+  return this->pos <= other.pos;
+}
+
+template <typename T>
+bool Slice<T>::iterator::operator>(const iterator &other) const noexcept {
+  return this->pos > other.pos;
+}
+
+template <typename T>
+bool Slice<T>::iterator::operator>=(const iterator &other) const noexcept {
+  return this->pos >= other.pos;
+}
+
+template <typename T>
+typename Slice<T>::iterator Slice<T>::begin() const noexcept {
+  iterator it;
+  it.pos = slicePtr(this);
+  it.stride = size_of<T>();
+  return it;
+}
+
+template <typename T>
+typename Slice<T>::iterator Slice<T>::end() const noexcept {
+  iterator it = this->begin();
+  it.pos = static_cast<char *>(it.pos) + it.stride * this->size();
+  return it;
+}
+
+template <typename T>
+void Slice<T>::swap(Slice &rhs) noexcept {
+  std::swap(*this, rhs);
+}
+#endif // CXXBRIDGE1_RUST_SLICE
+
+#ifndef CXXBRIDGE1_RUST_BOX
+#define CXXBRIDGE1_RUST_BOX
+template <typename T>
+class Box final {
+public:
+  using element_type = T;
+  using const_pointer =
+      typename std::add_pointer<typename std::add_const<T>::type>::type;
+  using pointer = typename std::add_pointer<T>::type;
+
+  Box() = delete;
+  Box(Box &&) noexcept;
+  ~Box() noexcept;
+
+  explicit Box(const T &);
+  explicit Box(T &&);
+
+  Box &operator=(Box &&) &noexcept;
+
+  const T *operator->() const noexcept;
+  const T &operator*() const noexcept;
+  T *operator->() noexcept;
+  T &operator*() noexcept;
+
+  template <typename... Fields>
+  static Box in_place(Fields &&...);
+
+  void swap(Box &) noexcept;
+
+  static Box from_raw(T *) noexcept;
+
+  T *into_raw() noexcept;
+
+  /* Deprecated */ using value_type = element_type;
+
+private:
+  class uninit;
+  class allocation;
+  Box(uninit) noexcept;
+  void drop() noexcept;
+
+  friend void swap(Box &lhs, Box &rhs) noexcept { lhs.swap(rhs); }
+
+  T *ptr;
+};
+
+template <typename T>
+class Box<T>::uninit {};
+
+template <typename T>
+class Box<T>::allocation {
+  static T *alloc() noexcept;
+  static void dealloc(T *) noexcept;
+
+public:
+  allocation() noexcept : ptr(alloc()) {}
+  ~allocation() noexcept {
+    if (this->ptr) {
+      dealloc(this->ptr);
+    }
+  }
+  T *ptr;
+};
+
+template <typename T>
+Box<T>::Box(Box &&other) noexcept : ptr(other.ptr) {
+  other.ptr = nullptr;
+}
+
+template <typename T>
+Box<T>::Box(const T &val) {
+  allocation alloc;
+  ::new (alloc.ptr) T(val);
+  this->ptr = alloc.ptr;
+  alloc.ptr = nullptr;
+}
+
+template <typename T>
+Box<T>::Box(T &&val) {
+  allocation alloc;
+  ::new (alloc.ptr) T(std::move(val));
+  this->ptr = alloc.ptr;
+  alloc.ptr = nullptr;
+}
+
+template <typename T>
+Box<T>::~Box() noexcept {
+  if (this->ptr) {
+    this->drop();
+  }
+}
+
+template <typename T>
+Box<T> &Box<T>::operator=(Box &&other) &noexcept {
+  if (this->ptr) {
+    this->drop();
+  }
+  this->ptr = other.ptr;
+  other.ptr = nullptr;
+  return *this;
+}
+
+template <typename T>
+const T *Box<T>::operator->() const noexcept {
+  return this->ptr;
+}
+
+template <typename T>
+const T &Box<T>::operator*() const noexcept {
+  return *this->ptr;
+}
+
+template <typename T>
+T *Box<T>::operator->() noexcept {
+  return this->ptr;
+}
+
+template <typename T>
+T &Box<T>::operator*() noexcept {
+  return *this->ptr;
+}
+
+template <typename T>
+template <typename... Fields>
+Box<T> Box<T>::in_place(Fields &&...fields) {
+  allocation alloc;
+  auto ptr = alloc.ptr;
+  ::new (ptr) T{std::forward<Fields>(fields)...};
+  alloc.ptr = nullptr;
+  return from_raw(ptr);
+}
+
+template <typename T>
+void Box<T>::swap(Box &rhs) noexcept {
+  using std::swap;
+  swap(this->ptr, rhs.ptr);
+}
+
+template <typename T>
+Box<T> Box<T>::from_raw(T *raw) noexcept {
+  Box box = uninit{};
+  box.ptr = raw;
+  return box;
+}
+
+template <typename T>
+T *Box<T>::into_raw() noexcept {
+  T *raw = this->ptr;
+  this->ptr = nullptr;
+  return raw;
+}
+
+template <typename T>
+Box<T>::Box(uninit) noexcept {}
+#endif // CXXBRIDGE1_RUST_BOX
+
+#ifndef CXXBRIDGE1_RUST_ISIZE
+#define CXXBRIDGE1_RUST_ISIZE
+#if defined(_WIN32)
+using isize = SSIZE_T;
+#else
+using isize = ssize_t;
+#endif
+#endif // CXXBRIDGE1_RUST_ISIZE
+
+#ifndef CXXBRIDGE1_RUST_OPAQUE
+#define CXXBRIDGE1_RUST_OPAQUE
+class Opaque {
+public:
+  Opaque() = delete;
+  Opaque(const Opaque &) = delete;
+  ~Opaque() = delete;
+};
+#endif // CXXBRIDGE1_RUST_OPAQUE
+
+#ifndef CXXBRIDGE1_IS_COMPLETE
+#define CXXBRIDGE1_IS_COMPLETE
+namespace detail {
+namespace {
+template <typename T, typename = std::size_t>
+struct is_complete : std::false_type {};
+template <typename T>
+struct is_complete<T, decltype(sizeof(T))> : std::true_type {};
+} // namespace
+} // namespace detail
+#endif // CXXBRIDGE1_IS_COMPLETE
+
+#ifndef CXXBRIDGE1_LAYOUT
+#define CXXBRIDGE1_LAYOUT
+class layout {
+  template <typename T>
+  friend std::size_t size_of();
+  template <typename T>
+  friend std::size_t align_of();
+  template <typename T>
+  static typename std::enable_if<std::is_base_of<Opaque, T>::value,
+                                 std::size_t>::type
+  do_size_of() {
+    return T::layout::size();
+  }
+  template <typename T>
+  static typename std::enable_if<!std::is_base_of<Opaque, T>::value,
+                                 std::size_t>::type
+  do_size_of() {
+    return sizeof(T);
+  }
+  template <typename T>
+  static
+      typename std::enable_if<detail::is_complete<T>::value, std::size_t>::type
+      size_of() {
+    return do_size_of<T>();
+  }
+  template <typename T>
+  static typename std::enable_if<std::is_base_of<Opaque, T>::value,
+                                 std::size_t>::type
+  do_align_of() {
+    return T::layout::align();
+  }
+  template <typename T>
+  static typename std::enable_if<!std::is_base_of<Opaque, T>::value,
+                                 std::size_t>::type
+  do_align_of() {
+    return alignof(T);
+  }
+  template <typename T>
+  static
+      typename std::enable_if<detail::is_complete<T>::value, std::size_t>::type
+      align_of() {
+    return do_align_of<T>();
+  }
+};
+
+template <typename T>
+std::size_t size_of() {
+  return layout::size_of<T>();
+}
+
+template <typename T>
+std::size_t align_of() {
+  return layout::align_of<T>();
+}
+#endif // CXXBRIDGE1_LAYOUT
+
+namespace detail {
+template <typename T, typename = void *>
+struct operator_new {
+  void *operator()(::std::size_t sz) { return ::operator new(sz); }
+};
+
+template <typename T>
+struct operator_new<T, decltype(T::operator new(sizeof(T)))> {
+  void *operator()(::std::size_t sz) { return T::operator new(sz); }
+};
+} // namespace detail
+
+template <typename T>
+union MaybeUninit {
+  T value;
+  void *operator new(::std::size_t sz) { return detail::operator_new<T>{}(sz); }
+  MaybeUninit() {}
+  ~MaybeUninit() {}
+};
+} // namespace cxxbridge1
+} // namespace rust
+
+namespace fontations_ffi {
+  struct Metrics;
+  struct BridgeLocalizedName;
+  struct SkiaDesignCoordinate;
+  struct BridgeScalerMetrics;
+  struct ColrV0GlyphLayerRange;
+  struct ColrV0Layer;
+  struct BridgeFontRef;
+  struct BridgeLocalizedStrings;
+  struct BridgeNormalizedCoords;
+  using PathWrapper = ::fontations_ffi::PathWrapper;
+  using AxisWrapper = ::fontations_ffi::AxisWrapper;
+}
+
+namespace fontations_ffi {
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$Metrics
+#define CXXBRIDGE1_STRUCT_fontations_ffi$Metrics
+struct Metrics final {
+  float top;
+  float ascent;
+  float descent;
+  float bottom;
+  float leading;
+  float avg_char_width;
+  float max_char_width;
+  float x_min;
+  float x_max;
+  float x_height;
+  float cap_height;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$Metrics
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeLocalizedName
+#define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeLocalizedName
+struct BridgeLocalizedName final {
+  ::rust::String string;
+  ::rust::String language;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeLocalizedName
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$SkiaDesignCoordinate
+#define CXXBRIDGE1_STRUCT_fontations_ffi$SkiaDesignCoordinate
+struct SkiaDesignCoordinate final {
+  ::std::uint32_t axis;
+  float value;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$SkiaDesignCoordinate
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeScalerMetrics
+#define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeScalerMetrics
+struct BridgeScalerMetrics final {
+  bool has_overlaps;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeScalerMetrics
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0GlyphLayerRange
+#define CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0GlyphLayerRange
+// Information on whether COLRv0 glyph coverage exists for a
+// certain glyph and if yes, which layers need to be drawn.
+struct ColrV0GlyphLayerRange final {
+  bool has_v0_layers;
+  ::std::size_t start_index;
+  ::std::size_t end_index;
+
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0GlyphLayerRange
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0Layer
+#define CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0Layer
+// Representation of a COLRv0 layer consisting of glyph id
+// and palette index.
+struct ColrV0Layer final {
+  ::std::uint16_t glyph_id;
+  ::std::uint16_t palette_index;
+
+  bool operator==(ColrV0Layer const &) const noexcept;
+  bool operator!=(ColrV0Layer const &) const noexcept;
+  using IsRelocatable = ::std::true_type;
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$ColrV0Layer
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeFontRef
+#define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeFontRef
+struct BridgeFontRef final : public ::rust::Opaque {
+  ~BridgeFontRef() = delete;
+
+private:
+  friend ::rust::layout;
+  struct layout {
+    static ::std::size_t size() noexcept;
+    static ::std::size_t align() noexcept;
+  };
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeFontRef
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeLocalizedStrings
+#define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeLocalizedStrings
+struct BridgeLocalizedStrings final : public ::rust::Opaque {
+  ~BridgeLocalizedStrings() = delete;
+
+private:
+  friend ::rust::layout;
+  struct layout {
+    static ::std::size_t size() noexcept;
+    static ::std::size_t align() noexcept;
+  };
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeLocalizedStrings
+
+#ifndef CXXBRIDGE1_STRUCT_fontations_ffi$BridgeNormalizedCoords
+#define CXXBRIDGE1_STRUCT_fontations_ffi$BridgeNormalizedCoords
+struct BridgeNormalizedCoords final : public ::rust::Opaque {
+  ~BridgeNormalizedCoords() = delete;
+
+private:
+  friend ::rust::layout;
+  struct layout {
+    static ::std::size_t size() noexcept;
+    static ::std::size_t align() noexcept;
+  };
+};
+#endif // CXXBRIDGE1_STRUCT_fontations_ffi$BridgeNormalizedCoords
+
+extern "C" {
+bool fontations_ffi$cxxbridge1$ColrV0Layer$operator$eq(ColrV0Layer const &, ColrV0Layer const &) noexcept;
+bool fontations_ffi$cxxbridge1$ColrV0Layer$operator$ne(ColrV0Layer const &, ColrV0Layer const &) noexcept;
+::std::size_t fontations_ffi$cxxbridge1$BridgeFontRef$operator$sizeof() noexcept;
+::std::size_t fontations_ffi$cxxbridge1$BridgeFontRef$operator$alignof() noexcept;
+
+::fontations_ffi::BridgeFontRef *fontations_ffi$cxxbridge1$make_font_ref(::rust::Slice<::std::uint8_t const> font_data, ::std::uint32_t index) noexcept;
+
+bool fontations_ffi$cxxbridge1$font_ref_is_valid(::fontations_ffi::BridgeFontRef const &bridge_font_ref) noexcept;
+
+::std::uint16_t fontations_ffi$cxxbridge1$lookup_glyph_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t codepoint) noexcept;
+
+bool fontations_ffi$cxxbridge1$get_path(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t glyph_id, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::fontations_ffi::PathWrapper &path_wrapper, ::fontations_ffi::BridgeScalerMetrics &scaler_metrics) noexcept;
+
+float fontations_ffi$cxxbridge1$advance_width_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::std::uint16_t glyph_id) noexcept;
+
+::std::uint16_t fontations_ffi$cxxbridge1$units_per_em_or_zero(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
+
+::fontations_ffi::Metrics fontations_ffi$cxxbridge1$get_skia_metrics(::fontations_ffi::BridgeFontRef const &font_ref, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords) noexcept;
+
+::std::uint16_t fontations_ffi$cxxbridge1$num_glyphs(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
+
+void fontations_ffi$cxxbridge1$family_name(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::String *return$) noexcept;
+
+bool fontations_ffi$cxxbridge1$postscript_name(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::String &out_string) noexcept;
+
+::std::uint16_t fontations_ffi$cxxbridge1$num_palettes(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
+
+::std::uint16_t fontations_ffi$cxxbridge1$num_palette_entries(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
+
+bool fontations_ffi$cxxbridge1$palette_colors(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t palette_index, ::rust::Slice<::std::uint32_t > colors) noexcept;
+
+::fontations_ffi::ColrV0GlyphLayerRange fontations_ffi$cxxbridge1$colrv0_layer_range(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t glyph_id) noexcept;
+
+bool fontations_ffi$cxxbridge1$colrv0_glyph_layer(::fontations_ffi::BridgeFontRef const &font_ref, ::std::size_t layer_index, ::fontations_ffi::ColrV0Layer &out_layer) noexcept;
+
+::std::size_t fontations_ffi$cxxbridge1$table_data(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t tag, ::std::size_t offset, ::rust::Slice<::std::uint8_t > data) noexcept;
+
+::std::uint16_t fontations_ffi$cxxbridge1$table_tags(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::Slice<::std::uint32_t > tags) noexcept;
+
+::rust::isize fontations_ffi$cxxbridge1$variation_position(::fontations_ffi::BridgeNormalizedCoords const &coords, ::rust::Slice<::fontations_ffi::SkiaDesignCoordinate > coordinates) noexcept;
+
+::rust::isize fontations_ffi$cxxbridge1$populate_axes(::fontations_ffi::BridgeFontRef const &font_ref, ::fontations_ffi::AxisWrapper &axis_wrapper) noexcept;
+::std::size_t fontations_ffi$cxxbridge1$BridgeLocalizedStrings$operator$sizeof() noexcept;
+::std::size_t fontations_ffi$cxxbridge1$BridgeLocalizedStrings$operator$alignof() noexcept;
+
+::fontations_ffi::BridgeLocalizedStrings *fontations_ffi$cxxbridge1$get_localized_strings(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
+
+bool fontations_ffi$cxxbridge1$localized_name_next(::fontations_ffi::BridgeLocalizedStrings &bridge_localized_strings, ::fontations_ffi::BridgeLocalizedName &out_localized_name) noexcept;
+::std::size_t fontations_ffi$cxxbridge1$BridgeNormalizedCoords$operator$sizeof() noexcept;
+::std::size_t fontations_ffi$cxxbridge1$BridgeNormalizedCoords$operator$alignof() noexcept;
+
+::fontations_ffi::BridgeNormalizedCoords *fontations_ffi$cxxbridge1$resolve_into_normalized_coords(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::Slice<::fontations_ffi::SkiaDesignCoordinate const> design_coords) noexcept;
+
+void fontations_ffi$cxxbridge1$PathWrapper$move_to(::fontations_ffi::PathWrapper &self, float x, float y) noexcept {
+  void (::fontations_ffi::PathWrapper::*move_to$)(float, float) = &::fontations_ffi::PathWrapper::move_to;
+  (self.*move_to$)(x, y);
+}
+
+void fontations_ffi$cxxbridge1$PathWrapper$line_to(::fontations_ffi::PathWrapper &self, float x, float y) noexcept {
+  void (::fontations_ffi::PathWrapper::*line_to$)(float, float) = &::fontations_ffi::PathWrapper::line_to;
+  (self.*line_to$)(x, y);
+}
+
+void fontations_ffi$cxxbridge1$PathWrapper$quad_to(::fontations_ffi::PathWrapper &self, float cx0, float cy0, float x, float y) noexcept {
+  void (::fontations_ffi::PathWrapper::*quad_to$)(float, float, float, float) = &::fontations_ffi::PathWrapper::quad_to;
+  (self.*quad_to$)(cx0, cy0, x, y);
+}
+
+void fontations_ffi$cxxbridge1$PathWrapper$curve_to(::fontations_ffi::PathWrapper &self, float cx0, float cy0, float cx1, float cy1, float x, float y) noexcept {
+  void (::fontations_ffi::PathWrapper::*curve_to$)(float, float, float, float, float, float) = &::fontations_ffi::PathWrapper::curve_to;
+  (self.*curve_to$)(cx0, cy0, cx1, cy1, x, y);
+}
+
+void fontations_ffi$cxxbridge1$PathWrapper$close(::fontations_ffi::PathWrapper &self) noexcept {
+  void (::fontations_ffi::PathWrapper::*close$)() = &::fontations_ffi::PathWrapper::close;
+  (self.*close$)();
+}
+
+bool fontations_ffi$cxxbridge1$AxisWrapper$populate_axis(::fontations_ffi::AxisWrapper &self, ::std::size_t i, ::std::uint32_t axis, float min, float def, float max, bool hidden) noexcept {
+  bool (::fontations_ffi::AxisWrapper::*populate_axis$)(::std::size_t, ::std::uint32_t, float, float, float, bool) = &::fontations_ffi::AxisWrapper::populate_axis;
+  return (self.*populate_axis$)(i, axis, min, def, max, hidden);
+}
+
+::std::size_t fontations_ffi$cxxbridge1$AxisWrapper$size(::fontations_ffi::AxisWrapper const &self) noexcept {
+  ::std::size_t (::fontations_ffi::AxisWrapper::*size$)() const = &::fontations_ffi::AxisWrapper::size;
+  return (self.*size$)();
+}
+} // extern "C"
+
+bool ColrV0Layer::operator==(ColrV0Layer const &rhs) const noexcept {
+  return fontations_ffi$cxxbridge1$ColrV0Layer$operator$eq(*this, rhs);
+}
+
+bool ColrV0Layer::operator!=(ColrV0Layer const &rhs) const noexcept {
+  return fontations_ffi$cxxbridge1$ColrV0Layer$operator$ne(*this, rhs);
+}
+
+::std::size_t BridgeFontRef::layout::size() noexcept {
+  return fontations_ffi$cxxbridge1$BridgeFontRef$operator$sizeof();
+}
+
+::std::size_t BridgeFontRef::layout::align() noexcept {
+  return fontations_ffi$cxxbridge1$BridgeFontRef$operator$alignof();
+}
+
+::rust::Box<::fontations_ffi::BridgeFontRef> make_font_ref(::rust::Slice<::std::uint8_t const> font_data, ::std::uint32_t index) noexcept {
+  return ::rust::Box<::fontations_ffi::BridgeFontRef>::from_raw(fontations_ffi$cxxbridge1$make_font_ref(font_data, index));
+}
+
+bool font_ref_is_valid(::fontations_ffi::BridgeFontRef const &bridge_font_ref) noexcept {
+  return fontations_ffi$cxxbridge1$font_ref_is_valid(bridge_font_ref);
+}
+
+::std::uint16_t lookup_glyph_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t codepoint) noexcept {
+  return fontations_ffi$cxxbridge1$lookup_glyph_or_zero(font_ref, codepoint);
+}
+
+bool get_path(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t glyph_id, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::fontations_ffi::PathWrapper &path_wrapper, ::fontations_ffi::BridgeScalerMetrics &scaler_metrics) noexcept {
+  return fontations_ffi$cxxbridge1$get_path(font_ref, glyph_id, size, coords, path_wrapper, scaler_metrics);
+}
+
+float advance_width_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::std::uint16_t glyph_id) noexcept {
+  return fontations_ffi$cxxbridge1$advance_width_or_zero(font_ref, size, coords, glyph_id);
+}
+
+::std::uint16_t units_per_em_or_zero(::fontations_ffi::BridgeFontRef const &font_ref) noexcept {
+  return fontations_ffi$cxxbridge1$units_per_em_or_zero(font_ref);
+}
+
+::fontations_ffi::Metrics get_skia_metrics(::fontations_ffi::BridgeFontRef const &font_ref, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords) noexcept {
+  return fontations_ffi$cxxbridge1$get_skia_metrics(font_ref, size, coords);
+}
+
+::std::uint16_t num_glyphs(::fontations_ffi::BridgeFontRef const &font_ref) noexcept {
+  return fontations_ffi$cxxbridge1$num_glyphs(font_ref);
+}
+
+::rust::String family_name(::fontations_ffi::BridgeFontRef const &font_ref) noexcept {
+  ::rust::MaybeUninit<::rust::String> return$;
+  fontations_ffi$cxxbridge1$family_name(font_ref, &return$.value);
+  return ::std::move(return$.value);
+}
+
+bool postscript_name(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::String &out_string) noexcept {
+  return fontations_ffi$cxxbridge1$postscript_name(font_ref, out_string);
+}
+
+// Get the number of CPAL palettes.
+// # Returns
+// * Number of palettes in the font, 0 if there are none or an error occured.
+::std::uint16_t num_palettes(::fontations_ffi::BridgeFontRef const &font_ref) noexcept {
+  return fontations_ffi$cxxbridge1$num_palettes(font_ref);
+}
+
+// Get the number of entries in each CPAL palette.
+// # Returns
+// * Number of palette entries per palette, 0 if none or an error occured.
+::std::uint16_t num_palette_entries(::fontations_ffi::BridgeFontRef const &font_ref) noexcept {
+  return fontations_ffi$cxxbridge1$num_palette_entries(font_ref);
+}
+
+// Copies into `colors` slice `SkColor`-compatible uint32_t ARGB color values
+// for a specified `palette_index`.
+// # Returns
+// `true` on success, `false` on failure.
+bool palette_colors(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t palette_index, ::rust::Slice<::std::uint32_t > colors) noexcept {
+  return fontations_ffi$cxxbridge1$palette_colors(font_ref, palette_index, colors);
+}
+
+// Provides information on whether the specified glyph can be drawn
+// as a COLRv0 colored glyph.
+//
+// # Arguments
+//
+// * `font_ref` - font instance as created with `make_font_ref`
+// * `glyph_id` - glyph id of the glyph to check for COLRv0 coverage for
+//
+// # Returns
+//
+// `ColrV0GlyphLayerRange` - struct containing information on whether COLRv0
+// coverage exists, and if yes, start and end layer index.
+::fontations_ffi::ColrV0GlyphLayerRange colrv0_layer_range(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint16_t glyph_id) noexcept {
+  return fontations_ffi$cxxbridge1$colrv0_layer_range(font_ref, glyph_id);
+}
+
+// Provides access to COLRv0 layers in the COLR table.
+// Using a layer index between start and end index
+// retrieved with [colrv0_layer_range], use this method
+// to retrieve glyph id and palette index of a specific layer.
+bool colrv0_glyph_layer(::fontations_ffi::BridgeFontRef const &font_ref, ::std::size_t layer_index, ::fontations_ffi::ColrV0Layer &out_layer) noexcept {
+  return fontations_ffi$cxxbridge1$colrv0_glyph_layer(font_ref, layer_index, out_layer);
+}
+
+::std::size_t table_data(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t tag, ::std::size_t offset, ::rust::Slice<::std::uint8_t > data) noexcept {
+  return fontations_ffi$cxxbridge1$table_data(font_ref, tag, offset, data);
+}
+
+::std::uint16_t table_tags(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::Slice<::std::uint32_t > tags) noexcept {
+  return fontations_ffi$cxxbridge1$table_tags(font_ref, tags);
+}
+
+::rust::isize variation_position(::fontations_ffi::BridgeNormalizedCoords const &coords, ::rust::Slice<::fontations_ffi::SkiaDesignCoordinate > coordinates) noexcept {
+  return fontations_ffi$cxxbridge1$variation_position(coords, coordinates);
+}
+
+::rust::isize populate_axes(::fontations_ffi::BridgeFontRef const &font_ref, ::fontations_ffi::AxisWrapper &axis_wrapper) noexcept {
+  return fontations_ffi$cxxbridge1$populate_axes(font_ref, axis_wrapper);
+}
+
+::std::size_t BridgeLocalizedStrings::layout::size() noexcept {
+  return fontations_ffi$cxxbridge1$BridgeLocalizedStrings$operator$sizeof();
+}
+
+::std::size_t BridgeLocalizedStrings::layout::align() noexcept {
+  return fontations_ffi$cxxbridge1$BridgeLocalizedStrings$operator$alignof();
+}
+
+::rust::Box<::fontations_ffi::BridgeLocalizedStrings> get_localized_strings(::fontations_ffi::BridgeFontRef const &font_ref) noexcept {
+  return ::rust::Box<::fontations_ffi::BridgeLocalizedStrings>::from_raw(fontations_ffi$cxxbridge1$get_localized_strings(font_ref));
+}
+
+bool localized_name_next(::fontations_ffi::BridgeLocalizedStrings &bridge_localized_strings, ::fontations_ffi::BridgeLocalizedName &out_localized_name) noexcept {
+  return fontations_ffi$cxxbridge1$localized_name_next(bridge_localized_strings, out_localized_name);
+}
+
+::std::size_t BridgeNormalizedCoords::layout::size() noexcept {
+  return fontations_ffi$cxxbridge1$BridgeNormalizedCoords$operator$sizeof();
+}
+
+::std::size_t BridgeNormalizedCoords::layout::align() noexcept {
+  return fontations_ffi$cxxbridge1$BridgeNormalizedCoords$operator$alignof();
+}
+
+::rust::Box<::fontations_ffi::BridgeNormalizedCoords> resolve_into_normalized_coords(::fontations_ffi::BridgeFontRef const &font_ref, ::rust::Slice<::fontations_ffi::SkiaDesignCoordinate const> design_coords) noexcept {
+  return ::rust::Box<::fontations_ffi::BridgeNormalizedCoords>::from_raw(fontations_ffi$cxxbridge1$resolve_into_normalized_coords(font_ref, design_coords));
+}
+} // namespace fontations_ffi
+
+extern "C" {
+::fontations_ffi::BridgeFontRef *cxxbridge1$box$fontations_ffi$BridgeFontRef$alloc() noexcept;
+void cxxbridge1$box$fontations_ffi$BridgeFontRef$dealloc(::fontations_ffi::BridgeFontRef *) noexcept;
+void cxxbridge1$box$fontations_ffi$BridgeFontRef$drop(::rust::Box<::fontations_ffi::BridgeFontRef> *ptr) noexcept;
+
+::fontations_ffi::BridgeLocalizedStrings *cxxbridge1$box$fontations_ffi$BridgeLocalizedStrings$alloc() noexcept;
+void cxxbridge1$box$fontations_ffi$BridgeLocalizedStrings$dealloc(::fontations_ffi::BridgeLocalizedStrings *) noexcept;
+void cxxbridge1$box$fontations_ffi$BridgeLocalizedStrings$drop(::rust::Box<::fontations_ffi::BridgeLocalizedStrings> *ptr) noexcept;
+
+::fontations_ffi::BridgeNormalizedCoords *cxxbridge1$box$fontations_ffi$BridgeNormalizedCoords$alloc() noexcept;
+void cxxbridge1$box$fontations_ffi$BridgeNormalizedCoords$dealloc(::fontations_ffi::BridgeNormalizedCoords *) noexcept;
+void cxxbridge1$box$fontations_ffi$BridgeNormalizedCoords$drop(::rust::Box<::fontations_ffi::BridgeNormalizedCoords> *ptr) noexcept;
+} // extern "C"
+
+namespace rust {
+inline namespace cxxbridge1 {
+template <>
+::fontations_ffi::BridgeFontRef *Box<::fontations_ffi::BridgeFontRef>::allocation::alloc() noexcept {
+  return cxxbridge1$box$fontations_ffi$BridgeFontRef$alloc();
+}
+template <>
+void Box<::fontations_ffi::BridgeFontRef>::allocation::dealloc(::fontations_ffi::BridgeFontRef *ptr) noexcept {
+  cxxbridge1$box$fontations_ffi$BridgeFontRef$dealloc(ptr);
+}
+template <>
+void Box<::fontations_ffi::BridgeFontRef>::drop() noexcept {
+  cxxbridge1$box$fontations_ffi$BridgeFontRef$drop(this);
+}
+template <>
+::fontations_ffi::BridgeLocalizedStrings *Box<::fontations_ffi::BridgeLocalizedStrings>::allocation::alloc() noexcept {
+  return cxxbridge1$box$fontations_ffi$BridgeLocalizedStrings$alloc();
+}
+template <>
+void Box<::fontations_ffi::BridgeLocalizedStrings>::allocation::dealloc(::fontations_ffi::BridgeLocalizedStrings *ptr) noexcept {
+  cxxbridge1$box$fontations_ffi$BridgeLocalizedStrings$dealloc(ptr);
+}
+template <>
+void Box<::fontations_ffi::BridgeLocalizedStrings>::drop() noexcept {
+  cxxbridge1$box$fontations_ffi$BridgeLocalizedStrings$drop(this);
+}
+template <>
+::fontations_ffi::BridgeNormalizedCoords *Box<::fontations_ffi::BridgeNormalizedCoords>::allocation::alloc() noexcept {
+  return cxxbridge1$box$fontations_ffi$BridgeNormalizedCoords$alloc();
+}
+template <>
+void Box<::fontations_ffi::BridgeNormalizedCoords>::allocation::dealloc(::fontations_ffi::BridgeNormalizedCoords *ptr) noexcept {
+  cxxbridge1$box$fontations_ffi$BridgeNormalizedCoords$dealloc(ptr);
+}
+template <>
+void Box<::fontations_ffi::BridgeNormalizedCoords>::drop() noexcept {
+  cxxbridge1$box$fontations_ffi$BridgeNormalizedCoords$drop(this);
+}
+} // namespace cxxbridge1
+} // namespace rust

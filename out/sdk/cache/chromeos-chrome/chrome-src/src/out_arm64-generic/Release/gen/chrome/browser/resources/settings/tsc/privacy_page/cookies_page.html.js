@@ -16,7 +16,8 @@ export function getTemplate() {
       </div>
       <div>
         <div class="bullet-row">
-          <iron-icon icon="settings:visibility-off"></iron-icon>
+          <iron-icon icon="settings:visibility-off" aria-hidden="true">
+          </iron-icon>
           <div>
             $i18n{trackingProtectionBulletOne}
             <div class="secondary">
@@ -25,7 +26,8 @@ export function getTemplate() {
           </div>
         </div>
         <div class="bullet-row">
-          <iron-icon icon="settings:domain-verification"></iron-icon>
+          <iron-icon icon="settings:domain-verification" aria-hidden="true">
+          </iron-icon>
           <div>
             $i18n{trackingProtectionBulletTwo}
             <div class="secondary">

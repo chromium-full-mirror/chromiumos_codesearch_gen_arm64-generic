@@ -450,6 +450,12 @@ class  PageProcess {
       bool host_protected_page,
       bool host_visible_page);
 
+  PageProcess(
+      int32_t pid,
+      bool host_protected_page,
+      bool host_visible_page,
+      bool host_focused_page);
+
 
   ~PageProcess();
 
@@ -532,6 +538,8 @@ class  PageProcess {
   bool host_protected_page;
   
   bool host_visible_page;
+  
+  bool host_focused_page;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -600,7 +608,8 @@ PageProcessPtr PageProcess::Clone() const {
   return New(
       mojo::Clone(pid),
       mojo::Clone(host_protected_page),
-      mojo::Clone(host_visible_page)
+      mojo::Clone(host_visible_page),
+      mojo::Clone(host_focused_page)
   );
 }
 
@@ -611,6 +620,8 @@ bool PageProcess::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->host_protected_page, other_struct.host_protected_page))
     return false;
   if (!mojo::Equals(this->host_visible_page, other_struct.host_visible_page))
+    return false;
+  if (!mojo::Equals(this->host_focused_page, other_struct.host_focused_page))
     return false;
   return true;
 }
@@ -628,6 +639,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.host_visible_page < rhs.host_visible_page)
     return true;
   if (rhs.host_visible_page < lhs.host_visible_page)
+    return false;
+  if (lhs.host_focused_page < rhs.host_focused_page)
+    return true;
+  if (rhs.host_focused_page < lhs.host_focused_page)
     return false;
   return false;
 }
@@ -677,6 +692,11 @@ struct  StructTraits<::crosapi::mojom::PageProcess::DataView,
   static decltype(::crosapi::mojom::PageProcess::host_visible_page) host_visible_page(
       const ::crosapi::mojom::PageProcessPtr& input) {
     return input->host_visible_page;
+  }
+
+  static decltype(::crosapi::mojom::PageProcess::host_focused_page) host_focused_page(
+      const ::crosapi::mojom::PageProcessPtr& input) {
+    return input->host_focused_page;
   }
 
   static bool Read(::crosapi::mojom::PageProcess::DataView input, ::crosapi::mojom::PageProcessPtr* output);

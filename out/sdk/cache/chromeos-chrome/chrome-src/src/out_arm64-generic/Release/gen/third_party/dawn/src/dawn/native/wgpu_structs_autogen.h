@@ -490,8 +490,6 @@ namespace dawn::native {
         char const * label = nullptr;
         wgpu::QueryType type;
         uint32_t count;
-        wgpu::PipelineStatisticName const * pipelineStatistics;
-        size_t pipelineStatisticCount = 0;
 
         // Equality operators, mostly for testing. Note that this tests
         // strict pointer-pointer equality if the struct contains member pointers.

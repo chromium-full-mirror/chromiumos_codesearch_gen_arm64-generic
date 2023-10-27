@@ -2454,31 +2454,8 @@ class GetFilesSourcesRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFilesInodesFieldNumber = 1,
     kFilesPathsFieldNumber = 2,
   };
-  // repeated uint64 files_inodes = 1;
-  int files_inodes_size() const;
-  private:
-  int _internal_files_inodes_size() const;
-  public:
-  void clear_files_inodes();
-  private:
-  uint64_t _internal_files_inodes(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-      _internal_files_inodes() const;
-  void _internal_add_files_inodes(uint64_t value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-      _internal_mutable_files_inodes();
-  public:
-  uint64_t files_inodes(int index) const;
-  void set_files_inodes(int index, uint64_t value);
-  void add_files_inodes(uint64_t value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-      files_inodes() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-      mutable_files_inodes();
-
   // repeated string files_paths = 2;
   int files_paths_size() const;
   private:
@@ -2510,7 +2487,6 @@ class GetFilesSourcesRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t > files_inodes_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> files_paths_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_dlp_5fservice_2eproto;
@@ -5004,53 +4980,6 @@ inline void IsDlpPolicyMatchedResponse::set_restricted(bool value) {
 // -------------------------------------------------------------------
 
 // GetFilesSourcesRequest
-
-// repeated uint64 files_inodes = 1;
-inline int GetFilesSourcesRequest::_internal_files_inodes_size() const {
-  return files_inodes_.size();
-}
-inline int GetFilesSourcesRequest::files_inodes_size() const {
-  return _internal_files_inodes_size();
-}
-inline void GetFilesSourcesRequest::clear_files_inodes() {
-  files_inodes_.Clear();
-}
-inline uint64_t GetFilesSourcesRequest::_internal_files_inodes(int index) const {
-  return files_inodes_.Get(index);
-}
-inline uint64_t GetFilesSourcesRequest::files_inodes(int index) const {
-  // @@protoc_insertion_point(field_get:dlp.GetFilesSourcesRequest.files_inodes)
-  return _internal_files_inodes(index);
-}
-inline void GetFilesSourcesRequest::set_files_inodes(int index, uint64_t value) {
-  files_inodes_.Set(index, value);
-  // @@protoc_insertion_point(field_set:dlp.GetFilesSourcesRequest.files_inodes)
-}
-inline void GetFilesSourcesRequest::_internal_add_files_inodes(uint64_t value) {
-  files_inodes_.Add(value);
-}
-inline void GetFilesSourcesRequest::add_files_inodes(uint64_t value) {
-  _internal_add_files_inodes(value);
-  // @@protoc_insertion_point(field_add:dlp.GetFilesSourcesRequest.files_inodes)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-GetFilesSourcesRequest::_internal_files_inodes() const {
-  return files_inodes_;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-GetFilesSourcesRequest::files_inodes() const {
-  // @@protoc_insertion_point(field_list:dlp.GetFilesSourcesRequest.files_inodes)
-  return _internal_files_inodes();
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-GetFilesSourcesRequest::_internal_mutable_files_inodes() {
-  return &files_inodes_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-GetFilesSourcesRequest::mutable_files_inodes() {
-  // @@protoc_insertion_point(field_mutable_list:dlp.GetFilesSourcesRequest.files_inodes)
-  return _internal_mutable_files_inodes();
-}
 
 // repeated string files_paths = 2;
 inline int GetFilesSourcesRequest::_internal_files_paths_size() const {

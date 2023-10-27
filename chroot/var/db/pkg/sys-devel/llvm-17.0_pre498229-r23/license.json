@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "llvm", "version": "17.0_pre498229", "revision": 23, "fullname": "sys-devel/llvm", "fullnamerev": "sys-devel/llvm-17.0_pre498229-r23", "license_names": ["LLVM-exception"], "license_text_scanned": [], "homepages": ["http://llvm.org/"], "skip": false, "tainted": false, "ebuild_path": null}

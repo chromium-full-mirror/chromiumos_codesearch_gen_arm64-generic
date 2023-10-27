@@ -261,11 +261,12 @@ enum OmniboxEventProto_Feature : int {
   OmniboxEventProto_Feature_REMOTE_ZERO_SUGGEST_FEATURE = 7,
   OmniboxEventProto_Feature_SHORTCUT_BOOST = 8,
   OmniboxEventProto_Feature_REMOTE_SECONDARY_ZERO_SUGGEST = 9,
-  OmniboxEventProto_Feature_ML_URL_SCORING = 10
+  OmniboxEventProto_Feature_ML_URL_SCORING = 10,
+  OmniboxEventProto_Feature_COMPANY_ENTITY_ADJUSTMENT = 11
 };
 bool OmniboxEventProto_Feature_IsValid(int value);
 constexpr OmniboxEventProto_Feature OmniboxEventProto_Feature_Feature_MIN = OmniboxEventProto_Feature_RICH_AUTOCOMPLETION;
-constexpr OmniboxEventProto_Feature OmniboxEventProto_Feature_Feature_MAX = OmniboxEventProto_Feature_ML_URL_SCORING;
+constexpr OmniboxEventProto_Feature OmniboxEventProto_Feature_Feature_MAX = OmniboxEventProto_Feature_COMPANY_ENTITY_ADJUSTMENT;
 constexpr int OmniboxEventProto_Feature_Feature_ARRAYSIZE = OmniboxEventProto_Feature_Feature_MAX + 1;
 
 const std::string& OmniboxEventProto_Feature_Name(OmniboxEventProto_Feature value);
@@ -1902,6 +1903,8 @@ class OmniboxEventProto final :
     OmniboxEventProto_Feature_REMOTE_SECONDARY_ZERO_SUGGEST;
   static constexpr Feature ML_URL_SCORING =
     OmniboxEventProto_Feature_ML_URL_SCORING;
+  static constexpr Feature COMPANY_ENTITY_ADJUSTMENT =
+    OmniboxEventProto_Feature_COMPANY_ENTITY_ADJUSTMENT;
   static inline bool Feature_IsValid(int value) {
     return OmniboxEventProto_Feature_IsValid(value);
   }

@@ -393,6 +393,7 @@
   "front_end/models/issues_manager/descriptions/SameSiteUnspecifiedLaxAllowUnsafeSet.md",
   "front_end/models/issues_manager/descriptions/SameSiteWarnCrossDowngradeRead.md",
   "front_end/models/issues_manager/descriptions/SameSiteWarnCrossDowngradeSet.md",
+  "front_end/models/issues_manager/descriptions/cookieCrossSiteRedirectDowngrade.md",
   "front_end/models/issues_manager/descriptions/cookieWarnThirdPartyPhaseoutSet.md",
   "front_end/models/issues_manager/descriptions/cookieWarnThirdPartyPhaseoutRead.md",
   "front_end/models/issues_manager/descriptions/cookieExcludeThirdPartyPhaseoutSet.md",

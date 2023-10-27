@@ -13,10 +13,8 @@
 
 #include "base/containers/span.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_object_descriptor_base.h"
-#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_pipeline_statistic_name.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_query_type.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
-#include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
 
 namespace blink {
 
@@ -45,15 +43,6 @@ uint32_t count() const {
 void setCount(uint32_t value) {
   member_count_ = value;
 }
-
-bool hasPipelineStatistics() const {
-  return true;
-}
-const Vector<V8GPUPipelineStatisticName>& pipelineStatistics() const {
-  return member_pipeline_statistics_;
-}
-void setPipelineStatistics(const Vector<V8GPUPipelineStatisticName>& value);
-void setPipelineStatistics(Vector<V8GPUPipelineStatisticName>&& value);
 
 bool hasType() const {
   return true;
@@ -89,7 +78,6 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 
 uint32_t member_count_;
-Vector<V8GPUPipelineStatisticName> member_pipeline_statistics_;
 V8GPUQueryType member_type_{static_cast<V8GPUQueryType::Enum>(0)};
 
 

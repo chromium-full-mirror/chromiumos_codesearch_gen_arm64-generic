@@ -22,5 +22,7 @@
 #include "services/accessibility/public/mojom/assistive_technology_type.mojom-import-headers.h"
 #include "services/accessibility/public/mojom/file_loader.mojom.h"
 #include "services/accessibility/public/mojom/file_loader.mojom-import-headers.h"
+#include "services/accessibility/public/mojom/autoclick.mojom.h"
+#include "services/accessibility/public/mojom/autoclick.mojom-import-headers.h"
 
 #endif  // SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_ACCESSIBILITY_SERVICE_MOJOM_IMPORT_HEADERS_H_

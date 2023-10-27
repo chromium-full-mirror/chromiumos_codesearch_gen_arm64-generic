@@ -54,6 +54,7 @@ const DISABLED_STATE_OVERRIDES = css `
  */
 export class Slider extends LitElement {
     // TODO: b/285172083 - check disabled styling.
+    /** @nocollapse */
     static { this.styles = [
         css `
     :host {

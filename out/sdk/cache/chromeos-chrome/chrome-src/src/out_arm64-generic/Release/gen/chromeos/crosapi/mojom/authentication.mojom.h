@@ -40,17 +40,17 @@
 
 namespace crosapi::mojom {
 
-class AuthenticationProxy;
+class AuthenticationDeprecatedProxy;
 
 template <typename ImplRefTraits>
-class AuthenticationStub;
+class AuthenticationDeprecatedStub;
 
-class AuthenticationRequestValidator;
-class AuthenticationResponseValidator;
+class AuthenticationDeprecatedRequestValidator;
+class AuthenticationDeprecatedResponseValidator;
 
 
-class Authentication
-    : public AuthenticationInterfaceBase {
+class AuthenticationDeprecated
+    : public AuthenticationDeprecatedInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
 
@@ -63,76 +63,76 @@ class Authentication
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
-  using Base_ = AuthenticationInterfaceBase;
-  using Proxy_ = AuthenticationProxy;
+  using Base_ = AuthenticationDeprecatedInterfaceBase;
+  using Proxy_ = AuthenticationDeprecatedProxy;
 
   template <typename ImplRefTraits>
-  using Stub_ = AuthenticationStub<ImplRefTraits>;
+  using Stub_ = AuthenticationDeprecatedStub<ImplRefTraits>;
 
-  using RequestValidator_ = AuthenticationRequestValidator;
-  using ResponseValidator_ = AuthenticationResponseValidator;
+  using RequestValidator_ = AuthenticationDeprecatedRequestValidator;
+  using ResponseValidator_ = AuthenticationDeprecatedResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kCreateQuickUnlockPrivateTokenInfoMinVersion = 0,
-    kIsOsReauthAllowedForActiveUserProfileMinVersion = 0,
+    kREMOVED_0MinVersion = 0,
+    kREMOVED_1MinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct CreateQuickUnlockPrivateTokenInfo_Sym {
+  struct REMOVED_0_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct IsOsReauthAllowedForActiveUserProfile_Sym {
+  struct REMOVED_1_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~Authentication() = default;
+  virtual ~AuthenticationDeprecated() = default;
 
 
-  using CreateQuickUnlockPrivateTokenInfoCallback = base::OnceCallback<void(CreateQuickUnlockPrivateTokenInfoResultPtr)>;
+  using REMOVED_0Callback = base::OnceCallback<void(CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr)>;
   
-  virtual void CreateQuickUnlockPrivateTokenInfo(const std::string& password, CreateQuickUnlockPrivateTokenInfoCallback callback) = 0;
+  virtual void REMOVED_0(const std::string& password, REMOVED_0Callback callback) = 0;
 
 
-  using IsOsReauthAllowedForActiveUserProfileCallback = base::OnceCallback<void(bool)>;
+  using REMOVED_1Callback = base::OnceCallback<void(bool)>;
   
-  virtual void IsOsReauthAllowedForActiveUserProfile(::base::TimeDelta auth_token_lifetime, IsOsReauthAllowedForActiveUserProfileCallback callback) = 0;
+  virtual void REMOVED_1(::base::TimeDelta auth_token_lifetime, REMOVED_1Callback callback) = 0;
 };
 
 
 
-class  AuthenticationProxy
-    : public Authentication {
+class  AuthenticationDeprecatedProxy
+    : public AuthenticationDeprecated {
  public:
-  using InterfaceType = Authentication;
+  using InterfaceType = AuthenticationDeprecated;
 
-  explicit AuthenticationProxy(mojo::MessageReceiverWithResponder* receiver);
+  explicit AuthenticationDeprecatedProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void CreateQuickUnlockPrivateTokenInfo(const std::string& password, CreateQuickUnlockPrivateTokenInfoCallback callback) final;
+  void REMOVED_0(const std::string& password, REMOVED_0Callback callback) final;
   
-  void IsOsReauthAllowedForActiveUserProfile(::base::TimeDelta auth_token_lifetime, IsOsReauthAllowedForActiveUserProfileCallback callback) final;
+  void REMOVED_1(::base::TimeDelta auth_token_lifetime, REMOVED_1Callback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
 };
-class  AuthenticationStubDispatch {
+class  AuthenticationDeprecatedStubDispatch {
  public:
-  static bool Accept(Authentication* impl, mojo::Message* message);
+  static bool Accept(AuthenticationDeprecated* impl, mojo::Message* message);
   static bool AcceptWithResponder(
-      Authentication* impl,
+      AuthenticationDeprecated* impl,
       mojo::Message* message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
 };
 
 template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<Authentication>>
-class AuthenticationStub
+              mojo::RawPtrImplRefTraits<AuthenticationDeprecated>>
+class AuthenticationDeprecatedStub
     : public mojo::MessageReceiverWithResponderStatus {
  public:
   using ImplPointerType = typename ImplRefTraits::PointerType;
 
-  AuthenticationStub() = default;
-  ~AuthenticationStub() override = default;
+  AuthenticationDeprecatedStub() = default;
+  ~AuthenticationDeprecatedStub() override = default;
 
   void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
   ImplPointerType& sink() { return sink_; }
@@ -140,7 +140,7 @@ class AuthenticationStub
   bool Accept(mojo::Message* message) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return AuthenticationStubDispatch::Accept(
+    return AuthenticationDeprecatedStubDispatch::Accept(
         ImplRefTraits::GetRawPointer(&sink_), message);
   }
 
@@ -149,18 +149,18 @@ class AuthenticationStub
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return AuthenticationStubDispatch::AcceptWithResponder(
+    return AuthenticationDeprecatedStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
  private:
   ImplPointerType sink_;
 };
-class  AuthenticationRequestValidator : public mojo::MessageReceiver {
+class  AuthenticationDeprecatedRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  AuthenticationResponseValidator : public mojo::MessageReceiver {
+class  AuthenticationDeprecatedResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -169,67 +169,67 @@ class  AuthenticationResponseValidator : public mojo::MessageReceiver {
 
 
 
-class  QuickUnlockPrivateTokenInfo {
+class  QuickUnlockPrivateTokenInfoDeprecated {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<QuickUnlockPrivateTokenInfo, T>::value>;
-  using DataView = QuickUnlockPrivateTokenInfoDataView;
-  using Data_ = internal::QuickUnlockPrivateTokenInfo_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<QuickUnlockPrivateTokenInfoDeprecated, T>::value>;
+  using DataView = QuickUnlockPrivateTokenInfoDeprecatedDataView;
+  using Data_ = internal::QuickUnlockPrivateTokenInfoDeprecated_Data;
 
   template <typename... Args>
-  static QuickUnlockPrivateTokenInfoPtr New(Args&&... args) {
-    return QuickUnlockPrivateTokenInfoPtr(
+  static QuickUnlockPrivateTokenInfoDeprecatedPtr New(Args&&... args) {
+    return QuickUnlockPrivateTokenInfoDeprecatedPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static QuickUnlockPrivateTokenInfoPtr From(const U& u) {
-    return mojo::TypeConverter<QuickUnlockPrivateTokenInfoPtr, U>::Convert(u);
+  static QuickUnlockPrivateTokenInfoDeprecatedPtr From(const U& u) {
+    return mojo::TypeConverter<QuickUnlockPrivateTokenInfoDeprecatedPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, QuickUnlockPrivateTokenInfo>::Convert(*this);
+    return mojo::TypeConverter<U, QuickUnlockPrivateTokenInfoDeprecated>::Convert(*this);
   }
 
 
-  QuickUnlockPrivateTokenInfo();
+  QuickUnlockPrivateTokenInfoDeprecated();
 
-  QuickUnlockPrivateTokenInfo(
-      const std::string& token,
-      int32_t lifetime_seconds);
+  QuickUnlockPrivateTokenInfoDeprecated(
+      const std::string& REMOVED_0,
+      int32_t REMOVED_1);
 
 
-  ~QuickUnlockPrivateTokenInfo();
+  ~QuickUnlockPrivateTokenInfoDeprecated();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = QuickUnlockPrivateTokenInfoPtr>
-  QuickUnlockPrivateTokenInfoPtr Clone() const;
+  template <typename StructPtrType = QuickUnlockPrivateTokenInfoDeprecatedPtr>
+  QuickUnlockPrivateTokenInfoDeprecatedPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>* = nullptr>
+  template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>* = nullptr>
+  template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>* = nullptr>
+  template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        QuickUnlockPrivateTokenInfo::DataView, std::vector<uint8_t>>(input);
+        QuickUnlockPrivateTokenInfoDeprecated::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        QuickUnlockPrivateTokenInfo::DataView>(input);
+        QuickUnlockPrivateTokenInfoDeprecated::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -239,8 +239,8 @@ class  QuickUnlockPrivateTokenInfo {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::QuickUnlockPrivateTokenInfo_UnserializedMessageContext<
-            UserType, QuickUnlockPrivateTokenInfo::DataView>>(0, 0, std::move(input)),
+        internal::QuickUnlockPrivateTokenInfoDeprecated_UnserializedMessageContext<
+            UserType, QuickUnlockPrivateTokenInfoDeprecated::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -249,14 +249,14 @@ class  QuickUnlockPrivateTokenInfo {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<QuickUnlockPrivateTokenInfo::DataView>(
+    return mojo::internal::DeserializeImpl<QuickUnlockPrivateTokenInfoDeprecated::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return QuickUnlockPrivateTokenInfo::Deserialize(
+    return QuickUnlockPrivateTokenInfoDeprecated::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -264,21 +264,21 @@ class  QuickUnlockPrivateTokenInfo {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::QuickUnlockPrivateTokenInfo_UnserializedMessageContext<
-            UserType, QuickUnlockPrivateTokenInfo::DataView>>();
+        internal::QuickUnlockPrivateTokenInfoDeprecated_UnserializedMessageContext<
+            UserType, QuickUnlockPrivateTokenInfoDeprecated::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<QuickUnlockPrivateTokenInfo::DataView>(
+    return mojo::internal::DeserializeImpl<QuickUnlockPrivateTokenInfoDeprecated::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
   
-  std::string token;
+  std::string REMOVED_0;
   
-  int32_t lifetime_seconds;
+  int32_t REMOVED_1;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -291,20 +291,20 @@ class  QuickUnlockPrivateTokenInfo {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>* = nullptr>
+template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>* = nullptr>
+template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>* = nullptr>
+template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>* = nullptr>
+template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -313,14 +313,14 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  CreateQuickUnlockPrivateTokenInfoResult {
+class  CreateQuickUnlockPrivateTokenInfoResultDeprecated {
  public:
-  using DataView = CreateQuickUnlockPrivateTokenInfoResultDataView;
-  using Data_ = internal::CreateQuickUnlockPrivateTokenInfoResult_Data;
-  using Tag = Data_::CreateQuickUnlockPrivateTokenInfoResult_Tag;
+  using DataView = CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView;
+  using Data_ = internal::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data;
+  using Tag = Data_::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Tag;
 
   template <typename... Args>
-  static CreateQuickUnlockPrivateTokenInfoResultPtr New(Args&&... args) {
+  static CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr New(Args&&... args) {
     static_assert(
         sizeof...(args) < 0,
         "Do not use Union::New(); to create a union of a given subtype, use "
@@ -329,57 +329,57 @@ class  CreateQuickUnlockPrivateTokenInfoResult {
         "definition.");
     return nullptr;
   }
-  // Construct an instance holding |error_message|.
-  static CreateQuickUnlockPrivateTokenInfoResultPtr
-  NewErrorMessage(
-      const std::string& error_message) {
-    auto result = CreateQuickUnlockPrivateTokenInfoResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+  // Construct an instance holding |REMOVED_0|.
+  static CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr
+  NewRemoved0(
+      const std::string& REMOVED_0) {
+    auto result = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr(absl::in_place);
+    result->set_REMOVED_0(std::move(REMOVED_0));
     return result;
   }
-  // Construct an instance holding |token_info|.
-  static CreateQuickUnlockPrivateTokenInfoResultPtr
-  NewTokenInfo(
-      QuickUnlockPrivateTokenInfoPtr token_info) {
-    auto result = CreateQuickUnlockPrivateTokenInfoResultPtr(absl::in_place);
-    result->set_token_info(std::move(token_info));
+  // Construct an instance holding |REMOVED_1|.
+  static CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr
+  NewRemoved1(
+      QuickUnlockPrivateTokenInfoDeprecatedPtr REMOVED_1) {
+    auto result = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr(absl::in_place);
+    result->set_REMOVED_1(std::move(REMOVED_1));
     return result;
   }
 
   template <typename U>
-  static CreateQuickUnlockPrivateTokenInfoResultPtr From(const U& u) {
-    return mojo::TypeConverter<CreateQuickUnlockPrivateTokenInfoResultPtr, U>::Convert(u);
+  static CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr From(const U& u) {
+    return mojo::TypeConverter<CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, CreateQuickUnlockPrivateTokenInfoResult>::Convert(*this);
+    return mojo::TypeConverter<U, CreateQuickUnlockPrivateTokenInfoResultDeprecated>::Convert(*this);
   }
 
-  CreateQuickUnlockPrivateTokenInfoResult();
-  ~CreateQuickUnlockPrivateTokenInfoResult();
+  CreateQuickUnlockPrivateTokenInfoResultDeprecated();
+  ~CreateQuickUnlockPrivateTokenInfoResultDeprecated();
   // Delete the copy constructor and copy assignment operators because `data_`
   // contains raw pointers that must not be copied.
-  CreateQuickUnlockPrivateTokenInfoResult(const CreateQuickUnlockPrivateTokenInfoResult& other) = delete;
-  CreateQuickUnlockPrivateTokenInfoResult& operator=(const CreateQuickUnlockPrivateTokenInfoResult& other) = delete;
+  CreateQuickUnlockPrivateTokenInfoResultDeprecated(const CreateQuickUnlockPrivateTokenInfoResultDeprecated& other) = delete;
+  CreateQuickUnlockPrivateTokenInfoResultDeprecated& operator=(const CreateQuickUnlockPrivateTokenInfoResultDeprecated& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename UnionPtrType = CreateQuickUnlockPrivateTokenInfoResultPtr>
-  CreateQuickUnlockPrivateTokenInfoResultPtr Clone() const;
+  template <typename UnionPtrType = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr>
+  CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
   template <typename T,
             typename std::enable_if<std::is_same<
-                T, CreateQuickUnlockPrivateTokenInfoResult>::value>::type* = nullptr>
+                T, CreateQuickUnlockPrivateTokenInfoResultDeprecated>::value>::type* = nullptr>
   bool Equals(const T& other) const;
 
   template <typename T,
             typename std::enable_if<std::is_same<
-                T, CreateQuickUnlockPrivateTokenInfoResult>::value>::type* = nullptr>
+                T, CreateQuickUnlockPrivateTokenInfoResultDeprecated>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
   size_t Hash(size_t seed) const;
 
@@ -389,40 +389,40 @@ class  CreateQuickUnlockPrivateTokenInfoResult {
 
 
   
-  bool is_error_message() const { return tag_ == Tag::kErrorMessage; }
+  bool is_REMOVED_0() const { return tag_ == Tag::kRemoved0; }
 
   
-  std::string& get_error_message() const {
-    CHECK(tag_ == Tag::kErrorMessage);
-    return *(data_.error_message);
+  std::string& get_REMOVED_0() const {
+    CHECK(tag_ == Tag::kRemoved0);
+    return *(data_.REMOVED_0);
   }
 
   
-  void set_error_message(
-      const std::string& error_message);
+  void set_REMOVED_0(
+      const std::string& REMOVED_0);
   
-  bool is_token_info() const { return tag_ == Tag::kTokenInfo; }
+  bool is_REMOVED_1() const { return tag_ == Tag::kRemoved1; }
 
   
-  QuickUnlockPrivateTokenInfoPtr& get_token_info() const {
-    CHECK(tag_ == Tag::kTokenInfo);
-    return *(data_.token_info);
+  QuickUnlockPrivateTokenInfoDeprecatedPtr& get_REMOVED_1() const {
+    CHECK(tag_ == Tag::kRemoved1);
+    return *(data_.REMOVED_1);
   }
 
   
-  void set_token_info(
-      QuickUnlockPrivateTokenInfoPtr token_info);
+  void set_REMOVED_1(
+      QuickUnlockPrivateTokenInfoDeprecatedPtr REMOVED_1);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        CreateQuickUnlockPrivateTokenInfoResult::DataView>(input);
+        CreateQuickUnlockPrivateTokenInfoResultDeprecated::DataView>(input);
   }
 
   template <typename UserType>
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
-    return mojo::internal::DeserializeImpl<CreateQuickUnlockPrivateTokenInfoResult::DataView>(
+    return mojo::internal::DeserializeImpl<CreateQuickUnlockPrivateTokenInfoResultDeprecated::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
@@ -430,8 +430,8 @@ class  CreateQuickUnlockPrivateTokenInfoResult {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
-    std::string* error_message;
-    QuickUnlockPrivateTokenInfoPtr* token_info;
+    std::string* REMOVED_0;
+    QuickUnlockPrivateTokenInfoDeprecatedPtr* REMOVED_1;
   };
 
   static bool Validate(const void* data,
@@ -444,60 +444,60 @@ class  CreateQuickUnlockPrivateTokenInfoResult {
 
 
 template <typename UnionPtrType>
-CreateQuickUnlockPrivateTokenInfoResultPtr CreateQuickUnlockPrivateTokenInfoResult::Clone() const {
+CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr CreateQuickUnlockPrivateTokenInfoResultDeprecated::Clone() const {
   switch (tag_) {
-    case Tag::kErrorMessage:
-      return NewErrorMessage(
-          mojo::Clone(*data_.error_message));
-    case Tag::kTokenInfo:
-      return NewTokenInfo(
-          mojo::Clone(*data_.token_info));
+    case Tag::kRemoved0:
+      return NewRemoved0(
+          mojo::Clone(*data_.REMOVED_0));
+    case Tag::kRemoved1:
+      return NewRemoved1(
+          mojo::Clone(*data_.REMOVED_1));
   }
   return nullptr;
 }
 
 template <typename T,
           typename std::enable_if<std::is_same<
-              T, CreateQuickUnlockPrivateTokenInfoResult>::value>::type*>
-bool CreateQuickUnlockPrivateTokenInfoResult::Equals(const T& other) const {
+              T, CreateQuickUnlockPrivateTokenInfoResultDeprecated>::value>::type*>
+bool CreateQuickUnlockPrivateTokenInfoResultDeprecated::Equals(const T& other) const {
   if (tag_ != other.which())
     return false;
 
   switch (tag_) {
-    case Tag::kErrorMessage:
-      return mojo::Equals(*(data_.error_message), *(other.data_.error_message));
-    case Tag::kTokenInfo:
-      return mojo::Equals(*(data_.token_info), *(other.data_.token_info));
+    case Tag::kRemoved0:
+      return mojo::Equals(*(data_.REMOVED_0), *(other.data_.REMOVED_0));
+    case Tag::kRemoved1:
+      return mojo::Equals(*(data_.REMOVED_1), *(other.data_.REMOVED_1));
   }
 
   return false;
 }
 template <typename StructPtrType>
-QuickUnlockPrivateTokenInfoPtr QuickUnlockPrivateTokenInfo::Clone() const {
+QuickUnlockPrivateTokenInfoDeprecatedPtr QuickUnlockPrivateTokenInfoDeprecated::Clone() const {
   return New(
-      mojo::Clone(token),
-      mojo::Clone(lifetime_seconds)
+      mojo::Clone(REMOVED_0),
+      mojo::Clone(REMOVED_1)
   );
 }
 
-template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>*>
-bool QuickUnlockPrivateTokenInfo::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->token, other_struct.token))
+template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>*>
+bool QuickUnlockPrivateTokenInfoDeprecated::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->REMOVED_0, other_struct.REMOVED_0))
     return false;
-  if (!mojo::Equals(this->lifetime_seconds, other_struct.lifetime_seconds))
+  if (!mojo::Equals(this->REMOVED_1, other_struct.REMOVED_1))
     return false;
   return true;
 }
 
-template <typename T, QuickUnlockPrivateTokenInfo::EnableIfSame<T>*>
+template <typename T, QuickUnlockPrivateTokenInfoDeprecated::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.token < rhs.token)
+  if (lhs.REMOVED_0 < rhs.REMOVED_0)
     return true;
-  if (rhs.token < lhs.token)
+  if (rhs.REMOVED_0 < lhs.REMOVED_0)
     return false;
-  if (lhs.lifetime_seconds < rhs.lifetime_seconds)
+  if (lhs.REMOVED_1 < rhs.REMOVED_1)
     return true;
-  if (rhs.lifetime_seconds < lhs.lifetime_seconds)
+  if (rhs.REMOVED_1 < lhs.REMOVED_1)
     return false;
   return false;
 }
@@ -509,44 +509,44 @@ namespace mojo {
 
 
 template <>
-struct  StructTraits<::crosapi::mojom::QuickUnlockPrivateTokenInfo::DataView,
-                                         ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr> {
-  static bool IsNull(const ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr& input) { return !input; }
-  static void SetToNull(::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr* output) { output->reset(); }
+struct  StructTraits<::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecated::DataView,
+                                         ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr> {
+  static bool IsNull(const ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr* output) { output->reset(); }
 
-  static const decltype(::crosapi::mojom::QuickUnlockPrivateTokenInfo::token)& token(
-      const ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr& input) {
-    return input->token;
+  static const decltype(::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecated::REMOVED_0)& REMOVED_0(
+      const ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr& input) {
+    return input->REMOVED_0;
   }
 
-  static decltype(::crosapi::mojom::QuickUnlockPrivateTokenInfo::lifetime_seconds) lifetime_seconds(
-      const ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr& input) {
-    return input->lifetime_seconds;
+  static decltype(::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecated::REMOVED_1) REMOVED_1(
+      const ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr& input) {
+    return input->REMOVED_1;
   }
 
-  static bool Read(::crosapi::mojom::QuickUnlockPrivateTokenInfo::DataView input, ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr* output);
+  static bool Read(::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecated::DataView input, ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResult::DataView,
-                                        ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr> {
-  static bool IsNull(const ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr& input) { return !input; }
-  static void SetToNull(::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr* output) { output->reset(); }
+struct  UnionTraits<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecated::DataView,
+                                        ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr> {
+  static bool IsNull(const ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr* output) { output->reset(); }
 
-  static ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResult::Tag GetTag(const ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr& input) {
+  static ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecated::Tag GetTag(const ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr& input) {
     return input->which();
   }
 
-  static const std::string& error_message(const ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr& input) {
-    return input->get_error_message();
+  static const std::string& REMOVED_0(const ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr& input) {
+    return input->get_REMOVED_0();
   }
 
-  static const ::crosapi::mojom::QuickUnlockPrivateTokenInfoPtr& token_info(const ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr& input) {
-    return input->get_token_info();
+  static const ::crosapi::mojom::QuickUnlockPrivateTokenInfoDeprecatedPtr& REMOVED_1(const ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr& input) {
+    return input->get_REMOVED_1();
   }
 
-  static bool Read(::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResult::DataView input, ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultPtr* output);
+  static bool Read(::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecated::DataView input, ::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr* output);
 };
 
 }  // namespace mojo

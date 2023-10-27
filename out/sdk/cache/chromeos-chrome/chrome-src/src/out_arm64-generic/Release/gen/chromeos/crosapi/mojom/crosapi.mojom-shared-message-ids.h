@@ -16,7 +16,7 @@ namespace internal {
 
 constexpr uint32_t kCrosapi_BindAutomationDeprecated_Name = 23;
 constexpr uint32_t kCrosapi_BindAudioService_Name = 85;
-constexpr uint32_t kCrosapi_BindAuthentication_Name = 62;
+constexpr uint32_t kCrosapi_REMOVED_62_Name = 62;
 constexpr uint32_t kCrosapi_BindAutomationFactory_Name = 26;
 constexpr uint32_t kCrosapi_BindAccountManager_Name = 7;
 constexpr uint32_t kCrosapi_BindAppServiceProxy_Name = 45;

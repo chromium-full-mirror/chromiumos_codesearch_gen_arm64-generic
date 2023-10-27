@@ -5261,34 +5261,6 @@ class Identifiability final : public ::ukm::internal::UkmEntryBuilderBase {
 
 };
 
-class InputEvent final : public ::ukm::internal::UkmEntryBuilderBase {
- public:
-  explicit InputEvent(ukm::SourceId source_id);
-  explicit InputEvent(ukm::SourceIdObj source_id);
-  ~InputEvent() override;
-
-  static const char kEntryName[];
-  static constexpr uint64_t kEntryNameHash = UINT64_C(2784102704372436909);
-
-
-  static const char kEventTypeName[];
-  static constexpr uint64_t kEventTypeNameHash = UINT64_C(5446425777535537951);
-  InputEvent& SetEventType(int64_t value);
-
-  static const char kInteractiveTiming_InputDelayName[];
-  static constexpr uint64_t kInteractiveTiming_InputDelayNameHash = UINT64_C(4816242175536355714);
-  InputEvent& SetInteractiveTiming_InputDelay(int64_t value);
-
-  static const char kInteractiveTiming_ProcessingFinishedToNextPaintName[];
-  static constexpr uint64_t kInteractiveTiming_ProcessingFinishedToNextPaintNameHash = UINT64_C(9246241537259935746);
-  InputEvent& SetInteractiveTiming_ProcessingFinishedToNextPaint(int64_t value);
-
-  static const char kInteractiveTiming_ProcessingTimeName[];
-  static constexpr uint64_t kInteractiveTiming_ProcessingTimeNameHash = UINT64_C(7806768776702689257);
-  InputEvent& SetInteractiveTiming_ProcessingTime(int64_t value);
-
-};
-
 class InputMethod_Assistive_AutocorrectV2 final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit InputMethod_Assistive_AutocorrectV2(ukm::SourceId source_id);
@@ -7787,14 +7759,6 @@ class PageForegroundSession final : public ::ukm::internal::UkmEntryBuilderBase 
   static constexpr uint64_t kForegroundDurationNameHash = UINT64_C(14040493619853098912);
   PageForegroundSession& SetForegroundDuration(int64_t value);
 
-  static const char kForegroundNumInputEventsName[];
-  static constexpr uint64_t kForegroundNumInputEventsNameHash = UINT64_C(8312183371249827438);
-  PageForegroundSession& SetForegroundNumInputEvents(int64_t value);
-
-  static const char kForegroundTotalAdjustedInputDelayName[];
-  static constexpr uint64_t kForegroundTotalAdjustedInputDelayNameHash = UINT64_C(4081792426231663378);
-  PageForegroundSession& SetForegroundTotalAdjustedInputDelay(int64_t value);
-
   static const char kForegroundTotalInputDelayName[];
   static constexpr uint64_t kForegroundTotalInputDelayNameHash = UINT64_C(8008711279838603073);
   PageForegroundSession& SetForegroundTotalInputDelay(int64_t value);
@@ -7871,10 +7835,6 @@ class PageLoad final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kInteractiveTiming_FirstInputDelay4NameHash = UINT64_C(6127468907094730300);
   PageLoad& SetInteractiveTiming_FirstInputDelay4(int64_t value);
 
-  static const char kInteractiveTiming_FirstInputProcessingTimesName[];
-  static constexpr uint64_t kInteractiveTiming_FirstInputProcessingTimesNameHash = UINT64_C(1593757276256967582);
-  PageLoad& SetInteractiveTiming_FirstInputProcessingTimes(int64_t value);
-
   static const char kInteractiveTiming_FirstInputTimestamp4Name[];
   static constexpr uint64_t kInteractiveTiming_FirstInputTimestamp4NameHash = UINT64_C(16268762437310799839);
   PageLoad& SetInteractiveTiming_FirstInputTimestamp4(int64_t value);
@@ -7887,29 +7847,9 @@ class PageLoad final : public ::ukm::internal::UkmEntryBuilderBase {
   static constexpr uint64_t kInteractiveTiming_FirstScrollTimestampNameHash = UINT64_C(9092590817606449334);
   PageLoad& SetInteractiveTiming_FirstScrollTimestamp(int64_t value);
 
-  static const char kInteractiveTiming_LongestInputDelay4Name[];
-  static constexpr uint64_t kInteractiveTiming_LongestInputDelay4NameHash = UINT64_C(9023942308232641926);
-  PageLoad& SetInteractiveTiming_LongestInputDelay4(int64_t value);
-
-  static const char kInteractiveTiming_LongestInputTimestamp4Name[];
-  static constexpr uint64_t kInteractiveTiming_LongestInputTimestamp4NameHash = UINT64_C(4114176268949136412);
-  PageLoad& SetInteractiveTiming_LongestInputTimestamp4(int64_t value);
-
-  static const char kInteractiveTiming_NumInputEventsName[];
-  static constexpr uint64_t kInteractiveTiming_NumInputEventsNameHash = UINT64_C(396062217706944461);
-  PageLoad& SetInteractiveTiming_NumInputEvents(int64_t value);
-
   static const char kInteractiveTiming_NumInteractionsName[];
   static constexpr uint64_t kInteractiveTiming_NumInteractionsNameHash = UINT64_C(11809849059952828483);
   PageLoad& SetInteractiveTiming_NumInteractions(int64_t value);
-
-  static const char kInteractiveTiming_TotalAdjustedInputDelayName[];
-  static constexpr uint64_t kInteractiveTiming_TotalAdjustedInputDelayNameHash = UINT64_C(6954135380531273761);
-  PageLoad& SetInteractiveTiming_TotalAdjustedInputDelay(int64_t value);
-
-  static const char kInteractiveTiming_TotalInputDelayName[];
-  static constexpr uint64_t kInteractiveTiming_TotalInputDelayNameHash = UINT64_C(11141808103060574535);
-  PageLoad& SetInteractiveTiming_TotalInputDelay(int64_t value);
 
   static const char kInteractiveTiming_UserInteractionLatency_HighPercentile2_MaxEventDurationName[];
   static constexpr uint64_t kInteractiveTiming_UserInteractionLatency_HighPercentile2_MaxEventDurationNameHash = UINT64_C(10840313540306654437);
@@ -9454,10 +9394,6 @@ class PowerUsageScenariosIntervalData final : public ::ukm::internal::UkmEntryBu
   static const char kDeviceSleptDuringIntervalName[];
   static constexpr uint64_t kDeviceSleptDuringIntervalNameHash = UINT64_C(1647534641725523716);
   PowerUsageScenariosIntervalData& SetDeviceSleptDuringInterval(int64_t value);
-
-  static const char kEnergyImpactScoreName[];
-  static constexpr uint64_t kEnergyImpactScoreNameHash = UINT64_C(17870695258671759221);
-  PowerUsageScenariosIntervalData& SetEnergyImpactScore(int64_t value);
 
   static const char kFullscreenVideoSingleMonitorSecondsName[];
   static constexpr uint64_t kFullscreenVideoSingleMonitorSecondsNameHash = UINT64_C(5005689392526458623);

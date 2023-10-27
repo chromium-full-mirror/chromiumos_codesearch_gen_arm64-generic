@@ -315,7 +315,7 @@ export class SourceMap {
     parseSources(sourceMap) {
         const sourcesList = [];
         const sourceRoot = sourceMap.sourceRoot ?? '';
-        const ignoreList = new Set(sourceMap.x_google_ignoreList);
+        const ignoreList = new Set(sourceMap.ignoreList ?? sourceMap.x_google_ignoreList);
         for (let i = 0; i < sourceMap.sources.length; ++i) {
             let href = sourceMap.sources[i];
             // The source map v3 proposal says to prepend the sourceRoot to the source URL

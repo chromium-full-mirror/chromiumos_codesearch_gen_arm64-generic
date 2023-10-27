@@ -99,6 +99,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_client_hints_meta_http_equiv_accept_ch_enabled_(RuntimeEnabledFeaturesBase::is_client_hints_meta_http_equiv_accept_ch_enabled_),
     is_client_hint_third_party_delegation_enabled_(RuntimeEnabledFeaturesBase::is_client_hint_third_party_delegation_enabled_),
     is_clipboard_custom_formats_enabled_(RuntimeEnabledFeaturesBase::is_clipboard_custom_formats_enabled_),
+    is_clipboard_supported_types_enabled_(RuntimeEnabledFeaturesBase::is_clipboard_supported_types_enabled_),
     is_clipboard_svg_enabled_(RuntimeEnabledFeaturesBase::is_clipboard_svg_enabled_),
     is_clipboard_unsanitized_content_enabled_(RuntimeEnabledFeaturesBase::is_clipboard_unsanitized_content_enabled_),
     is_clipboard_well_formed_html_sanitization_write_enabled_(RuntimeEnabledFeaturesBase::is_clipboard_well_formed_html_sanitization_write_enabled_),
@@ -245,6 +246,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_(RuntimeEnabledFeaturesBase::is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_),
     is_disable_third_party_storage_partitioning_enabled_(RuntimeEnabledFeaturesBase::is_disable_third_party_storage_partitioning_enabled_),
     is_display_cutout_api_enabled_(RuntimeEnabledFeaturesBase::is_display_cutout_api_enabled_),
+    is_document_base_uri_fix_enabled_(RuntimeEnabledFeaturesBase::is_document_base_uri_fix_enabled_),
     is_document_cookie_enabled_(RuntimeEnabledFeaturesBase::is_document_cookie_enabled_),
     is_document_domain_enabled_(RuntimeEnabledFeaturesBase::is_document_domain_enabled_),
     is_document_open_origin_alias_removal_enabled_(RuntimeEnabledFeaturesBase::is_document_open_origin_alias_removal_enabled_),
@@ -669,6 +671,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_unowned_animations_skip_css_events_enabled_(RuntimeEnabledFeaturesBase::is_unowned_animations_skip_css_events_enabled_),
     is_unrestricted_measure_user_agent_specific_memory_enabled_(RuntimeEnabledFeaturesBase::is_unrestricted_measure_user_agent_specific_memory_enabled_),
     is_unrestricted_shared_array_buffer_enabled_(RuntimeEnabledFeaturesBase::is_unrestricted_shared_array_buffer_enabled_),
+    is_url_attribute_fix_enabled_(RuntimeEnabledFeaturesBase::is_url_attribute_fix_enabled_),
     is_url_can_parse_enabled_(RuntimeEnabledFeaturesBase::is_url_can_parse_enabled_),
     is_url_pattern_compare_component_enabled_(RuntimeEnabledFeaturesBase::is_url_pattern_compare_component_enabled_),
     is_url_search_params_has_and_delete_multiple_args_enabled_(RuntimeEnabledFeaturesBase::is_url_search_params_has_and_delete_multiple_args_enabled_),
@@ -842,6 +845,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_client_hints_meta_http_equiv_accept_ch_enabled_ = is_client_hints_meta_http_equiv_accept_ch_enabled_;
   RuntimeEnabledFeaturesBase::is_client_hint_third_party_delegation_enabled_ = is_client_hint_third_party_delegation_enabled_;
   RuntimeEnabledFeaturesBase::is_clipboard_custom_formats_enabled_ = is_clipboard_custom_formats_enabled_;
+  RuntimeEnabledFeaturesBase::is_clipboard_supported_types_enabled_ = is_clipboard_supported_types_enabled_;
   RuntimeEnabledFeaturesBase::is_clipboard_svg_enabled_ = is_clipboard_svg_enabled_;
   RuntimeEnabledFeaturesBase::is_clipboard_unsanitized_content_enabled_ = is_clipboard_unsanitized_content_enabled_;
   RuntimeEnabledFeaturesBase::is_clipboard_well_formed_html_sanitization_write_enabled_ = is_clipboard_well_formed_html_sanitization_write_enabled_;
@@ -988,6 +992,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_ = is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_;
   RuntimeEnabledFeaturesBase::is_disable_third_party_storage_partitioning_enabled_ = is_disable_third_party_storage_partitioning_enabled_;
   RuntimeEnabledFeaturesBase::is_display_cutout_api_enabled_ = is_display_cutout_api_enabled_;
+  RuntimeEnabledFeaturesBase::is_document_base_uri_fix_enabled_ = is_document_base_uri_fix_enabled_;
   RuntimeEnabledFeaturesBase::is_document_cookie_enabled_ = is_document_cookie_enabled_;
   RuntimeEnabledFeaturesBase::is_document_domain_enabled_ = is_document_domain_enabled_;
   RuntimeEnabledFeaturesBase::is_document_open_origin_alias_removal_enabled_ = is_document_open_origin_alias_removal_enabled_;
@@ -1412,6 +1417,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_unowned_animations_skip_css_events_enabled_ = is_unowned_animations_skip_css_events_enabled_;
   RuntimeEnabledFeaturesBase::is_unrestricted_measure_user_agent_specific_memory_enabled_ = is_unrestricted_measure_user_agent_specific_memory_enabled_;
   RuntimeEnabledFeaturesBase::is_unrestricted_shared_array_buffer_enabled_ = is_unrestricted_shared_array_buffer_enabled_;
+  RuntimeEnabledFeaturesBase::is_url_attribute_fix_enabled_ = is_url_attribute_fix_enabled_;
   RuntimeEnabledFeaturesBase::is_url_can_parse_enabled_ = is_url_can_parse_enabled_;
   RuntimeEnabledFeaturesBase::is_url_pattern_compare_component_enabled_ = is_url_pattern_compare_component_enabled_;
   RuntimeEnabledFeaturesBase::is_url_search_params_has_and_delete_multiple_args_enabled_ = is_url_search_params_has_and_delete_multiple_args_enabled_;
@@ -1593,6 +1599,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetDeprecatedNonStreamingDeclarativeShadowDOMEnabled(enable);
   SetDetailsElementToggleEventEnabled(enable);
   SetDisableSelectAllForEmptyTextEnabled(enable);
+  SetDocumentBaseURIFixEnabled(enable);
   SetDocumentOpenSandboxInheritanceRemovalEnabled(enable);
   SetDocumentPolicyEnabled(enable);
   SetEarlyHintsPreloadForNavigationOptInEnabled(enable);
@@ -1703,6 +1710,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetSimplifiedClearPropertyTreeChangeEnabled(enable);
   SetSkipShadowHostWhenHoveringForTooltipEnabled(enable);
   SetSkipTouchEventFilterEnabled(enable);
+  SetSmilAutoSuspendOnLagEnabled(enable);
   SetSnapBorderWidthsBeforeLayoutEnabled(enable);
   SetSpeculationRulesEnabled(enable);
   SetSpeculationRulesPrefetchProxyEnabled(enable);
@@ -1722,6 +1730,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetTimerThrottlingForBackgroundTabsEnabled(enable);
   SetTouchEventFeatureDetectionEnabled(enable);
   SetUnownedAnimationsSkipCSSEventsEnabled(enable);
+  SetURLAttributeFixEnabled(enable);
   SetURLSearchParamsHasAndDeleteMultipleArgsEnabled(enable);
   SetUserAgentClientHintEnabled(enable);
   SetUserValidUserInvalidEnabled(enable);
@@ -1969,6 +1978,7 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetCanvasImageSmoothingEnabled(enable);
   SetCapabilityDelegationDisplayCaptureRequestEnabled(enable);
   SetClickToCapturedPointerEnabled(enable);
+  SetClipboardSupportedTypesEnabled(enable);
   SetClipboardSvgEnabled(enable);
   SetClipboardUnsanitizedContentEnabled(enable);
   SetClipboardWellFormedHtmlSanitizationWriteEnabled(enable);
@@ -2651,6 +2661,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"ClipPathRejectEmptyPaths", &is_clip_path_reject_empty_paths_enabled_},
     {"ClipPathXYWHAndRect", &is_clip_path_xywh_and_rect_enabled_},
     {"ClipboardCustomFormats", &is_clipboard_custom_formats_enabled_},
+    {"ClipboardSupportedTypes", &is_clipboard_supported_types_enabled_},
     {"ClipboardSvg", &is_clipboard_svg_enabled_},
     {"ClipboardUnsanitizedContent", &is_clipboard_unsanitized_content_enabled_},
     {"ClipboardWellFormedHtmlSanitizationWrite", &is_clipboard_well_formed_html_sanitization_write_enabled_},
@@ -2706,6 +2717,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"DisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning", &is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_},
     {"DisableThirdPartyStoragePartitioning", &is_disable_third_party_storage_partitioning_enabled_},
     {"DisplayCutoutAPI", &is_display_cutout_api_enabled_},
+    {"DocumentBaseURIFix", &is_document_base_uri_fix_enabled_},
     {"DocumentCookie", &is_document_cookie_enabled_},
     {"DocumentDomain", &is_document_domain_enabled_},
     {"DocumentOpenOriginAliasRemoval", &is_document_open_origin_alias_removal_enabled_},
@@ -3123,6 +3135,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"TrustedTypeBeforePolicyCreationEvent", &is_trusted_type_before_policy_creation_event_enabled_},
     {"TrustedTypesFromLiteral", &is_trusted_types_from_literal_enabled_},
     {"TrustedTypesUseCodeLike", &is_trusted_types_use_code_like_enabled_},
+    {"URLAttributeFix", &is_url_attribute_fix_enabled_},
     {"URLCanParse", &is_url_can_parse_enabled_},
     {"URLPatternCompareComponent", &is_url_pattern_compare_component_enabled_},
     {"URLSearchParamsHasAndDeleteMultipleArgs", &is_url_search_params_has_and_delete_multiple_args_enabled_},
@@ -3410,6 +3423,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
      false},
     {blink::features::kClipboardCustomFormats, SetClipboardCustomFormatsEnabled,
      false},
+    {blink::features::kClipboardSupportedTypes, SetClipboardSupportedTypesEnabled,
+     false},
     {blink::features::kClipboardWellFormedHtmlSanitizationWrite, SetClipboardWellFormedHtmlSanitizationWriteEnabled,
      false},
     {blink::features::kCloseWatcher, SetCloseWatcherEnabled,
@@ -3449,6 +3464,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kDialogNewFocusBehavior, SetDialogNewFocusBehaviorEnabled,
      false},
     {blink::features::kDisableSelectAllForEmptyText, SetDisableSelectAllForEmptyTextEnabled,
+     false},
+    {blink::features::kDocumentBaseURIFix, SetDocumentBaseURIFixEnabled,
      false},
     {blink::features::kDocumentOpenOriginAliasRemoval, SetDocumentOpenOriginAliasRemovalEnabled,
      true},
@@ -3801,6 +3818,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kTextMetricsBaselines, SetTextMetricsBaselinesEnabled,
      false},
     {blink::features::kTimelineScope, SetTimelineScopeEnabled,
+     false},
+    {blink::features::kURLAttributeFix, SetURLAttributeFixEnabled,
      false},
     {blink::features::kURLCanParse, SetURLCanParseEnabled,
      false},
@@ -4863,6 +4882,7 @@ bool RuntimeEnabledFeaturesBase::is_client_hints_meta_equiv_delegate_ch_enabled_
 bool RuntimeEnabledFeaturesBase::is_client_hints_meta_http_equiv_accept_ch_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_client_hint_third_party_delegation_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_clipboard_custom_formats_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_clipboard_supported_types_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_clipboard_svg_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_clipboard_unsanitized_content_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_clipboard_well_formed_html_sanitization_write_enabled_ = false;
@@ -5001,6 +5021,7 @@ bool RuntimeEnabledFeaturesBase::is_disable_select_all_for_empty_text_enabled_ =
 bool RuntimeEnabledFeaturesBase::is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_disable_third_party_storage_partitioning_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_display_cutout_api_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_document_base_uri_fix_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_document_cookie_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_document_domain_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_document_open_origin_alias_removal_enabled_ = false;
@@ -5329,7 +5350,7 @@ bool RuntimeEnabledFeaturesBase::is_site_initiated_mirroring_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_skip_ad_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_skip_shadow_host_when_hovering_for_tooltip_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_skip_touch_event_filter_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_smil_auto_suspend_on_lag_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_smil_auto_suspend_on_lag_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_snap_border_widths_before_layout_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_soft_navigation_heuristics_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_soft_navigation_heuristics_expose_fp_and_fcp_enabled_ = false;
@@ -5392,6 +5413,7 @@ bool RuntimeEnabledFeaturesBase::is_unexposed_task_ids_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_unowned_animations_skip_css_events_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_unrestricted_measure_user_agent_specific_memory_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_unrestricted_shared_array_buffer_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_url_attribute_fix_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_url_can_parse_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_url_pattern_compare_component_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_url_search_params_has_and_delete_multiple_args_enabled_ = true;

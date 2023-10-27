@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="27" failures="0" disabled="0" errors="0" time="0.119" timestamp="2023-10-27T00:17:19.822" name="AllTests">
+  <testsuite name="AlsaJacks" tests="27" failures="0" disabled="0" skipped="0" errors="0" time="0.105" timestamp="2023-10-27T00:17:19.834">
+    <testcase name="CreateNullHctl" file="cras/src/tests/alsa_jack_unittest.cc" line="184" status="run" result="completed" time="0.012" timestamp="2023-10-27T00:17:19.835" classname="AlsaJacks" />
+    <testcase name="CreateNoElements" file="cras/src/tests/alsa_jack_unittest.cc" line="200" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:19.848" classname="AlsaJacks" />
+    <testcase name="ReportNull" file="cras/src/tests/alsa_jack_unittest.cc" line="307" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:19.849" classname="AlsaJacks" />
+    <testcase name="CreateNoJacks" file="cras/src/tests/alsa_jack_unittest.cc" line="311" status="run" result="completed" time="0.014" timestamp="2023-10-27T00:17:19.849" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHp" file="cras/src/tests/alsa_jack_unittest.cc" line="328" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:17:19.864" classname="AlsaJacks" />
+    <testcase name="CreateGPIOMic" file="cras/src/tests/alsa_jack_unittest.cc" line="351" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:19.870" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHdmi" file="cras/src/tests/alsa_jack_unittest.cc" line="378" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:19.872" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHpUCMPlaybackPCMMatched" file="cras/src/tests/alsa_jack_unittest.cc" line="439" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:19.875" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHpUCMCapturePCMMatched" file="cras/src/tests/alsa_jack_unittest.cc" line="455" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.877" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHpUCMPlaybackPCMNotMatched" file="cras/src/tests/alsa_jack_unittest.cc" line="471" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.879" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHpUCMPlaybackPCMNotSpecifiedFirstDevice" file="cras/src/tests/alsa_jack_unittest.cc" line="487" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:19.881" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHpUCMPlaybackPCMNotSpecifiedSecondDevice" file="cras/src/tests/alsa_jack_unittest.cc" line="503" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.883" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHpNoUCMFirstDevice" file="cras/src/tests/alsa_jack_unittest.cc" line="519" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:19.885" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHpNoUCMSecondDevice" file="cras/src/tests/alsa_jack_unittest.cc" line="535" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.887" classname="AlsaJacks" />
+    <testcase name="CreateGPIOMicNoUCMFirstDeviceMicJack" file="cras/src/tests/alsa_jack_unittest.cc" line="551" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.889" classname="AlsaJacks" />
+    <testcase name="CreateGPIOMicNoUCMFirstDeviceHeadsetJack" file="cras/src/tests/alsa_jack_unittest.cc" line="568" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.890" classname="AlsaJacks" />
+    <testcase name="GPIOHdmiWithEdid" file="cras/src/tests/alsa_jack_unittest.cc" line="585" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:19.892" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHpNoNameMatch" file="cras/src/tests/alsa_jack_unittest.cc" line="616" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.895" classname="AlsaJacks" />
+    <testcase name="CreateOneHpJack" file="cras/src/tests/alsa_jack_unittest.cc" line="636" status="run" result="completed" time="0.02" timestamp="2023-10-27T00:17:19.897" classname="AlsaJacks" />
+    <testcase name="CreateOneMicJack" file="cras/src/tests/alsa_jack_unittest.cc" line="675" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.918" classname="AlsaJacks" />
+    <testcase name="CreateHDMIJacksWithELD" file="cras/src/tests/alsa_jack_unittest.cc" line="697" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.919" classname="AlsaJacks" />
+    <testcase name="CreateOneHpTwoHDMIJacks" file="cras/src/tests/alsa_jack_unittest.cc" line="714" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.921" classname="AlsaJacks" />
+    <testcase name="CreateHCTLHeadphoneJackFromUCM" file="cras/src/tests/alsa_jack_unittest.cc" line="752" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:17:19.922" classname="AlsaJacks" />
+    <testcase name="CreateGPIOHeadphoneJackFromUCM" file="cras/src/tests/alsa_jack_unittest.cc" line="791" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:17:19.926" classname="AlsaJacks" />
+    <testcase name="BadJackTypeFromUCM" file="cras/src/tests/alsa_jack_unittest.cc" line="830" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:19.927" classname="AlsaJacks" />
+    <testcase name="NoJackTypeFromUCM" file="cras/src/tests/alsa_jack_unittest.cc" line="852" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:19.928" classname="AlsaJacks" />
+    <testcase name="StableId" file="cras/src/tests/alsa_jack_unittest.cc" line="874" status="run" result="completed" time="0.011" timestamp="2023-10-27T00:17:19.928" classname="AlsaJacks" />
+  </testsuite>
+</testsuites>

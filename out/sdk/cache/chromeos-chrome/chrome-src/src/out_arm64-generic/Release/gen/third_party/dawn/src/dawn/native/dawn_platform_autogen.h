@@ -4507,10 +4507,6 @@ namespace dawn::native {
         static constexpr uint32_t value = 2;
     };
     template<>
-    struct EnumCount<wgpu::PipelineStatisticName> {
-        static constexpr uint32_t value = 5;
-    };
-    template<>
     struct EnumCount<wgpu::PowerPreference> {
         static constexpr uint32_t value = 3;
     };
@@ -4520,7 +4516,7 @@ namespace dawn::native {
     };
     template<>
     struct EnumCount<wgpu::QueryType> {
-        static constexpr uint32_t value = 3;
+        static constexpr uint32_t value = 2;
     };
     template<>
     struct EnumCount<wgpu::QueueWorkDoneStatus> {
@@ -4768,13 +4764,6 @@ namespace dawn::native {
 
     inline wgpu::MipmapFilterMode FromAPI(WGPUMipmapFilterMode rhs) {
         return static_cast<wgpu::MipmapFilterMode>(rhs);
-    }
-    inline WGPUPipelineStatisticName ToAPI(wgpu::PipelineStatisticName rhs) {
-        return static_cast<WGPUPipelineStatisticName>(rhs);
-    }
-
-    inline wgpu::PipelineStatisticName FromAPI(WGPUPipelineStatisticName rhs) {
-        return static_cast<wgpu::PipelineStatisticName>(rhs);
     }
     inline WGPUPowerPreference ToAPI(wgpu::PowerPreference rhs) {
         return static_cast<WGPUPowerPreference>(rhs);

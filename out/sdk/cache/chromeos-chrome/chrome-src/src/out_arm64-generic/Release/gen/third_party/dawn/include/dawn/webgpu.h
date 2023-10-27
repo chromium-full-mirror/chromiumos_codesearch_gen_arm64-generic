@@ -417,15 +417,14 @@ typedef enum WGPUFeatureName {
     WGPUFeatureName_DepthClipControl = 0x00000001,
     WGPUFeatureName_Depth32FloatStencil8 = 0x00000002,
     WGPUFeatureName_TimestampQuery = 0x00000003,
-    WGPUFeatureName_ChromiumExperimentalPipelineStatisticsQuery = 0x00000004,
-    WGPUFeatureName_TextureCompressionBC = 0x00000005,
-    WGPUFeatureName_TextureCompressionETC2 = 0x00000006,
-    WGPUFeatureName_TextureCompressionASTC = 0x00000007,
-    WGPUFeatureName_IndirectFirstInstance = 0x00000008,
-    WGPUFeatureName_ShaderF16 = 0x00000009,
-    WGPUFeatureName_RG11B10UfloatRenderable = 0x0000000A,
-    WGPUFeatureName_BGRA8UnormStorage = 0x0000000B,
-    WGPUFeatureName_Float32Filterable = 0x0000000C,
+    WGPUFeatureName_TextureCompressionBC = 0x00000004,
+    WGPUFeatureName_TextureCompressionETC2 = 0x00000005,
+    WGPUFeatureName_TextureCompressionASTC = 0x00000006,
+    WGPUFeatureName_IndirectFirstInstance = 0x00000007,
+    WGPUFeatureName_ShaderF16 = 0x00000008,
+    WGPUFeatureName_RG11B10UfloatRenderable = 0x00000009,
+    WGPUFeatureName_BGRA8UnormStorage = 0x0000000A,
+    WGPUFeatureName_Float32Filterable = 0x0000000B,
     WGPUFeatureName_DawnInternalUsages = 0x000003EA,
     WGPUFeatureName_DawnMultiPlanarFormats = 0x000003EB,
     WGPUFeatureName_DawnNative = 0x000003EC,
@@ -505,15 +504,6 @@ typedef enum WGPUMipmapFilterMode {
     WGPUMipmapFilterMode_Force32 = 0x7FFFFFFF
 } WGPUMipmapFilterMode WGPU_ENUM_ATTRIBUTE;
 
-typedef enum WGPUPipelineStatisticName {
-    WGPUPipelineStatisticName_VertexShaderInvocations = 0x00000000,
-    WGPUPipelineStatisticName_ClipperInvocations = 0x00000001,
-    WGPUPipelineStatisticName_ClipperPrimitivesOut = 0x00000002,
-    WGPUPipelineStatisticName_FragmentShaderInvocations = 0x00000003,
-    WGPUPipelineStatisticName_ComputeShaderInvocations = 0x00000004,
-    WGPUPipelineStatisticName_Force32 = 0x7FFFFFFF
-} WGPUPipelineStatisticName WGPU_ENUM_ATTRIBUTE;
-
 typedef enum WGPUPowerPreference {
     WGPUPowerPreference_Undefined = 0x00000000,
     WGPUPowerPreference_LowPower = 0x00000001,
@@ -539,8 +529,7 @@ typedef enum WGPUPrimitiveTopology {
 
 typedef enum WGPUQueryType {
     WGPUQueryType_Occlusion = 0x00000000,
-    WGPUQueryType_PipelineStatistics = 0x00000001,
-    WGPUQueryType_Timestamp = 0x00000002,
+    WGPUQueryType_Timestamp = 0x00000001,
     WGPUQueryType_Force32 = 0x7FFFFFFF
 } WGPUQueryType WGPU_ENUM_ATTRIBUTE;
 
@@ -1252,8 +1241,6 @@ typedef struct WGPUQuerySetDescriptor {
     WGPU_NULLABLE char const * label;
     WGPUQueryType type;
     uint32_t count;
-    WGPUPipelineStatisticName const * pipelineStatistics;
-    size_t pipelineStatisticCount;
 } WGPUQuerySetDescriptor WGPU_STRUCTURE_ATTRIBUTE;
 
 typedef struct WGPUQueueDescriptor {

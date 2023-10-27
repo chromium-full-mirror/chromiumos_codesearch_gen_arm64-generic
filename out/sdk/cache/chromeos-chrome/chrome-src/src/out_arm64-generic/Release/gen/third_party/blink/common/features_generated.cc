@@ -153,6 +153,11 @@ BASE_FEATURE(kClipboardCustomFormats,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kClipboardSupportedTypes,
+    "ClipboardSupportedTypes",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kClipboardWellFormedHtmlSanitizationWrite,
     "ClipboardWellFormedHtmlSanitizationWrite",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -560,6 +565,11 @@ BASE_FEATURE(kDialogNewFocusBehavior,
 
 BASE_FEATURE(kDisableSelectAllForEmptyText,
     "DisableSelectAllForEmptyText",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kDocumentBaseURIFix,
+    "DocumentBaseURIFix",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -1530,7 +1540,7 @@ BASE_FEATURE(kSmartCard,
 
 BASE_FEATURE(kSmilAutoSuspendOnLag,
     "SmilAutoSuspendOnLag",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kSnapBorderWidthsBeforeLayout,
@@ -1655,6 +1665,11 @@ BASE_FEATURE(kTimelineScope,
 
 BASE_FEATURE(kUnownedAnimationsSkipCSSEvents,
     "UnownedAnimationsSkipCSSEvents",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kURLAttributeFix,
+    "URLAttributeFix",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 

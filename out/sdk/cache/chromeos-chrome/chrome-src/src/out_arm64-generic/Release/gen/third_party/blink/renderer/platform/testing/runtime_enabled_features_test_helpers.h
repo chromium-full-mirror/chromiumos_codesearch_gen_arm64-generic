@@ -189,6 +189,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_client_hint_third_party_delegation_enabled_>;
   using ScopedClipboardCustomFormats = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_clipboard_custom_formats_enabled_>;
+  using ScopedClipboardSupportedTypes = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_clipboard_supported_types_enabled_>;
   using ScopedClipboardSvg = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_clipboard_svg_enabled_>;
   using ScopedClipboardUnsanitizedContent = ScopedRuntimeEnabledFeature<
@@ -481,6 +483,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_disable_third_party_storage_partitioning_enabled_>;
   using ScopedDisplayCutoutAPI = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_display_cutout_api_enabled_>;
+  using ScopedDocumentBaseURIFix = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_document_base_uri_fix_enabled_>;
   using ScopedDocumentCookie = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_document_cookie_enabled_>;
   using ScopedDocumentDomain = ScopedRuntimeEnabledFeature<
@@ -1329,6 +1333,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_unrestricted_measure_user_agent_specific_memory_enabled_>;
   using ScopedUnrestrictedSharedArrayBuffer = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_unrestricted_shared_array_buffer_enabled_>;
+  using ScopedURLAttributeFix = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_url_attribute_fix_enabled_>;
   using ScopedURLCanParse = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_url_can_parse_enabled_>;
   using ScopedURLPatternCompareComponent = ScopedRuntimeEnabledFeature<
@@ -1673,6 +1679,8 @@ using ScopedClientHintThirdPartyDelegationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedClientHintThirdPartyDelegation;
 using ScopedClipboardCustomFormatsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedClipboardCustomFormats;
+using ScopedClipboardSupportedTypesForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedClipboardSupportedTypes;
 using ScopedClipboardSvgForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedClipboardSvg;
 using ScopedClipboardUnsanitizedContentForTest =
@@ -1965,6 +1973,8 @@ using ScopedDisableThirdPartyStoragePartitioningForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDisableThirdPartyStoragePartitioning;
 using ScopedDisplayCutoutAPIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDisplayCutoutAPI;
+using ScopedDocumentBaseURIFixForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedDocumentBaseURIFix;
 using ScopedDocumentCookieForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedDocumentCookie;
 using ScopedDocumentDomainForTest =
@@ -2813,6 +2823,8 @@ using ScopedUnrestrictedMeasureUserAgentSpecificMemoryForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedUnrestrictedMeasureUserAgentSpecificMemory;
 using ScopedUnrestrictedSharedArrayBufferForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedUnrestrictedSharedArrayBuffer;
+using ScopedURLAttributeFixForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedURLAttributeFix;
 using ScopedURLCanParseForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedURLCanParse;
 using ScopedURLPatternCompareComponentForTest =

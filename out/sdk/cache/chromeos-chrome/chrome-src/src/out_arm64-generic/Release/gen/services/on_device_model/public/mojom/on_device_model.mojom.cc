@@ -43,30 +43,54 @@
 
 
 namespace on_device_model::mojom {
-LoadModelParams::LoadModelParams()
-    : path() {}
+ModelAssets::ModelAssets()
+    : sp_model(),
+      model(),
+      weights() {}
 
-LoadModelParams::LoadModelParams(
-    const ::base::FilePath& path_in)
-    : path(std::move(path_in)) {}
+ModelAssets::ModelAssets(
+    ::base::File sp_model_in,
+    ::base::File model_in,
+    ::base::File weights_in)
+    : sp_model(std::move(sp_model_in)),
+      model(std::move(model_in)),
+      weights(std::move(weights_in)) {}
 
-LoadModelParams::~LoadModelParams() = default;
+ModelAssets::~ModelAssets() = default;
 
-void LoadModelParams::WriteIntoTrace(
+void ModelAssets::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "path"), this->path,
+      "sp_model"), this->sp_model,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const ::base::FilePath&>"
+      "<value of type ::base::File>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "model"), this->model,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::File>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "weights"), this->weights,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::File>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
 }
 
-bool LoadModelParams::Validate(
+bool ModelAssets::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -560,6 +584,9 @@ OnDeviceModelService::IPCStableHashFunction OnDeviceModelService::MessageToMetho
     case internal::kOnDeviceModelService_LoadModel_Name: {
       return &OnDeviceModelService::LoadModel_Sym::IPCStableHash;
     }
+    case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name: {
+      return &OnDeviceModelService::GetEstimatedPerformanceClass_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -573,11 +600,15 @@ const char* OnDeviceModelService::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kOnDeviceModelService_LoadModel_Name:
             return "Receive on_device_model::mojom::OnDeviceModelService::LoadModel";
+      case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name:
+            return "Receive on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass";
     }
   } else {
     switch (message.name()) {
       case internal::kOnDeviceModelService_LoadModel_Name:
             return "Receive reply on_device_model::mojom::OnDeviceModelService::LoadModel";
+      case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name:
+            return "Receive reply on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass";
     }
   }
   return "Receive unknown mojo message";
@@ -605,6 +636,19 @@ uint32_t OnDeviceModelService::LoadModel_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t OnDeviceModelService::GetEstimatedPerformanceClass_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class OnDeviceModelService_LoadModel_ForwardToCallback
@@ -623,20 +667,36 @@ class OnDeviceModelService_LoadModel_ForwardToCallback
   OnDeviceModelService::LoadModelCallback callback_;
 };
 
+class OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback(
+      OnDeviceModelService::GetEstimatedPerformanceClassCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback(const OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback&) = delete;
+  OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback& operator=(const OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  OnDeviceModelService::GetEstimatedPerformanceClassCallback callback_;
+};
+
 OnDeviceModelServiceProxy::OnDeviceModelServiceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
 void OnDeviceModelServiceProxy::LoadModel(
-    LoadModelParamsPtr in_params, LoadModelCallback callback) {
+    on_device_model::ModelAssets in_assets, LoadModelCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send on_device_model::mojom::OnDeviceModelService::LoadModel", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("params"), in_params,
-                        "<value of type LoadModelParamsPtr>");
+           dict.AddItem("assets"), in_assets,
+                        "<value of type on_device_model::ModelAssets>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -655,16 +715,16 @@ void OnDeviceModelServiceProxy::LoadModel(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->params)::BaseType> params_fragment(
+      typename decltype(params->assets)::BaseType> assets_fragment(
           params.message());
-  mojo::internal::Serialize<::on_device_model::mojom::LoadModelParamsDataView>(
-      in_params, params_fragment);
-  params->params.Set(
-      params_fragment.is_null() ? nullptr : params_fragment.data());
+  mojo::internal::Serialize<::on_device_model::mojom::ModelAssetsDataView>(
+      in_assets, assets_fragment);
+  params->assets.Set(
+      assets_fragment.is_null() ? nullptr : assets_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->params.is_null(),
+      params->assets.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null params in OnDeviceModelService.LoadModel request");
+      "null assets in OnDeviceModelService.LoadModel request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(OnDeviceModelService::Name_);
@@ -672,6 +732,37 @@ void OnDeviceModelServiceProxy::LoadModel(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new OnDeviceModelService_LoadModel_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void OnDeviceModelServiceProxy::GetEstimatedPerformanceClass(
+    GetEstimatedPerformanceClassCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::on_device_model::mojom::internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(OnDeviceModelService::Name_);
+  message.set_method_name("GetEstimatedPerformanceClass");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -801,6 +892,125 @@ void OnDeviceModelService_LoadModel_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static OnDeviceModelService::GetEstimatedPerformanceClassCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder> proxy(
+        new OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "OnDeviceModelService::GetEstimatedPerformanceClassCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      PerformanceClass in_performance_class);
+};
+
+bool OnDeviceModelService_GetEstimatedPerformanceClass_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  PerformanceClass p_performance_class{};
+  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadPerformanceClass(&p_performance_class))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        OnDeviceModelService::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_performance_class));
+  return true;
+}
+
+void OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder::Run(
+    PerformanceClass in_performance_class) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply on_device_model::mojom::OnDeviceModelService::GetEstimatedPerformanceClass", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("performance_class"), in_performance_class,
+                        "<value of type PerformanceClass>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::on_device_model::mojom::internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::on_device_model::mojom::PerformanceClass>(
+      in_performance_class, &params->performance_class);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(OnDeviceModelService::Name_);
+  message.set_method_name("GetEstimatedPerformanceClass");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool OnDeviceModelServiceStubDispatch::Accept(
@@ -808,6 +1018,9 @@ bool OnDeviceModelServiceStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kOnDeviceModelService_LoadModel_Name: {
+      break;
+    }
+    case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name: {
       break;
     }
   }
@@ -831,10 +1044,10 @@ bool OnDeviceModelServiceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      LoadModelParamsPtr p_params{};
+      on_device_model::ModelAssets p_assets{};
       OnDeviceModelService_LoadModel_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadParams(&p_params))
+      if (success && !input_data_view.ReadAssets(&p_assets))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -849,7 +1062,32 @@ bool OnDeviceModelServiceStubDispatch::AcceptWithResponder(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->LoadModel(
-std::move(p_params), std::move(callback));
+std::move(p_assets), std::move(callback));
+      return true;
+    }
+    case internal::kOnDeviceModelService_GetEstimatedPerformanceClass_Name: {
+
+      internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data* params =
+          reinterpret_cast<
+              internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            OnDeviceModelService::Name_, 1, false);
+        return false;
+      }
+      OnDeviceModelService::GetEstimatedPerformanceClassCallback callback =
+          OnDeviceModelService_GetEstimatedPerformanceClass_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetEstimatedPerformanceClass(std::move(callback));
       return true;
     }
   }
@@ -860,6 +1098,8 @@ std::move(p_params), std::move(callback));
 static const mojo::internal::GenericValidationInfo kOnDeviceModelServiceValidationInfo[] = {
     {&internal::OnDeviceModelService_LoadModel_Params_Data::Validate,
      &internal::OnDeviceModelService_LoadModel_ResponseParams_Data::Validate},
+    {&internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data::Validate,
+     &internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data::Validate},
 };
 
 bool OnDeviceModelServiceRequestValidator::Accept(mojo::Message* message) {
@@ -880,13 +1120,17 @@ namespace mojo {
 
 
 // static
-bool StructTraits<::on_device_model::mojom::LoadModelParams::DataView, ::on_device_model::mojom::LoadModelParamsPtr>::Read(
-    ::on_device_model::mojom::LoadModelParams::DataView input,
-    ::on_device_model::mojom::LoadModelParamsPtr* output) {
+bool StructTraits<::on_device_model::mojom::ModelAssets::DataView, ::on_device_model::mojom::ModelAssetsPtr>::Read(
+    ::on_device_model::mojom::ModelAssets::DataView input,
+    ::on_device_model::mojom::ModelAssetsPtr* output) {
   bool success = true;
-  ::on_device_model::mojom::LoadModelParamsPtr result(::on_device_model::mojom::LoadModelParams::New());
+  ::on_device_model::mojom::ModelAssetsPtr result(::on_device_model::mojom::ModelAssets::New());
   
-      if (success && !input.ReadPath(&result->path))
+      if (success && !input.ReadSpModel(&result->sp_model))
+        success = false;
+      if (success && !input.ReadModel(&result->model))
+        success = false;
+      if (success && !input.ReadWeights(&result->weights))
         success = false;
   *output = std::move(result);
   return success;
@@ -956,8 +1200,11 @@ OnDeviceModelAsyncWaiter::~OnDeviceModelAsyncWaiter() = default;
 
 
 
-void OnDeviceModelServiceInterceptorForTesting::LoadModel(LoadModelParamsPtr params, LoadModelCallback callback) {
-  GetForwardingInterface()->LoadModel(std::move(params), std::move(callback));
+void OnDeviceModelServiceInterceptorForTesting::LoadModel(on_device_model::ModelAssets assets, LoadModelCallback callback) {
+  GetForwardingInterface()->LoadModel(std::move(assets), std::move(callback));
+}
+void OnDeviceModelServiceInterceptorForTesting::GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) {
+  GetForwardingInterface()->GetEstimatedPerformanceClass(std::move(callback));
 }
 OnDeviceModelServiceAsyncWaiter::OnDeviceModelServiceAsyncWaiter(
     OnDeviceModelService* proxy) : proxy_(proxy) {}
@@ -965,9 +1212,9 @@ OnDeviceModelServiceAsyncWaiter::OnDeviceModelServiceAsyncWaiter(
 OnDeviceModelServiceAsyncWaiter::~OnDeviceModelServiceAsyncWaiter() = default;
 
 void OnDeviceModelServiceAsyncWaiter::LoadModel(
-    LoadModelParamsPtr params, LoadModelResultPtr* out_result) {
+    on_device_model::ModelAssets assets, LoadModelResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->LoadModel(std::move(params),
+  proxy_->LoadModel(std::move(assets),
       base::BindOnce(
           [](base::RunLoop* loop,
              LoadModelResultPtr* out_result
@@ -981,9 +1228,32 @@ void OnDeviceModelServiceAsyncWaiter::LoadModel(
 }
 
 LoadModelResultPtr OnDeviceModelServiceAsyncWaiter::LoadModel(
-    LoadModelParamsPtr params) {
+    on_device_model::ModelAssets assets) {
   LoadModelResultPtr async_wait_result;
-  LoadModel(std::move(params),&async_wait_result);
+  LoadModel(std::move(assets),&async_wait_result);
+  return async_wait_result;
+}
+
+void OnDeviceModelServiceAsyncWaiter::GetEstimatedPerformanceClass(
+    PerformanceClass* out_performance_class) {
+  base::RunLoop loop;
+  proxy_->GetEstimatedPerformanceClass(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             PerformanceClass* out_performance_class
+,
+             PerformanceClass performance_class) {*out_performance_class = std::move(performance_class);
+            loop->Quit();
+          },
+          &loop,
+          out_performance_class));
+  loop.Run();
+}
+
+PerformanceClass OnDeviceModelServiceAsyncWaiter::GetEstimatedPerformanceClass(
+    ) {
+  PerformanceClass async_wait_result;
+  GetEstimatedPerformanceClass(&async_wait_result);
   return async_wait_result;
 }
 

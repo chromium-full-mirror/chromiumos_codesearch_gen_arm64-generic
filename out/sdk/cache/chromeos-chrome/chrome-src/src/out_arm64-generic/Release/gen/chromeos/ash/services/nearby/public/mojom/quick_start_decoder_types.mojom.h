@@ -963,6 +963,14 @@ class  QuickStartMessage {
     result->set_user_verification_response(std::move(user_verification_response));
     return result;
   }
+  // Construct an instance holding |user_verification_method|.
+  static QuickStartMessagePtr
+  NewUserVerificationMethod(
+      UserVerificationMethodPtr user_verification_method) {
+    auto result = QuickStartMessagePtr(absl::in_place);
+    result->set_user_verification_method(std::move(user_verification_method));
+    return result;
+  }
 
   template <typename U>
   static QuickStartMessagePtr From(const U& u) {
@@ -1077,6 +1085,18 @@ class  QuickStartMessage {
   
   void set_user_verification_response(
       UserVerificationResponsePtr user_verification_response);
+  
+  bool is_user_verification_method() const { return tag_ == Tag::kUserVerificationMethod; }
+
+  
+  UserVerificationMethodPtr& get_user_verification_method() const {
+    CHECK(tag_ == Tag::kUserVerificationMethod);
+    return *(data_.user_verification_method);
+  }
+
+  
+  void set_user_verification_method(
+      UserVerificationMethodPtr user_verification_method);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1101,6 +1121,7 @@ class  QuickStartMessage {
     FidoAssertionResponsePtr* fido_assertion_response;
     UserVerificationRequestedPtr* user_verification_requested;
     UserVerificationResponsePtr* user_verification_response;
+    UserVerificationMethodPtr* user_verification_method;
   };
 
   static bool Validate(const void* data,
@@ -1287,6 +1308,9 @@ QuickStartMessagePtr QuickStartMessage::Clone() const {
     case Tag::kUserVerificationResponse:
       return NewUserVerificationResponse(
           mojo::Clone(*data_.user_verification_response));
+    case Tag::kUserVerificationMethod:
+      return NewUserVerificationMethod(
+          mojo::Clone(*data_.user_verification_method));
   }
   return nullptr;
 }
@@ -1311,6 +1335,8 @@ bool QuickStartMessage::Equals(const T& other) const {
       return mojo::Equals(*(data_.user_verification_requested), *(other.data_.user_verification_requested));
     case Tag::kUserVerificationResponse:
       return mojo::Equals(*(data_.user_verification_response), *(other.data_.user_verification_response));
+    case Tag::kUserVerificationMethod:
+      return mojo::Equals(*(data_.user_verification_method), *(other.data_.user_verification_method));
   }
 
   return false;
@@ -1697,6 +1723,10 @@ struct  UnionTraits<::ash::quick_start::mojom::QuickStartMessage::DataView,
 
   static const ::ash::quick_start::mojom::UserVerificationResponsePtr& user_verification_response(const ::ash::quick_start::mojom::QuickStartMessagePtr& input) {
     return input->get_user_verification_response();
+  }
+
+  static const ::ash::quick_start::mojom::UserVerificationMethodPtr& user_verification_method(const ::ash::quick_start::mojom::QuickStartMessagePtr& input) {
+    return input->get_user_verification_method();
   }
 
   static bool Read(::ash::quick_start::mojom::QuickStartMessage::DataView input, ::ash::quick_start::mojom::QuickStartMessagePtr* output);

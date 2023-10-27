@@ -191,15 +191,14 @@ namespace wgpu {
         DepthClipControl = 0x00000001,
         Depth32FloatStencil8 = 0x00000002,
         TimestampQuery = 0x00000003,
-        ChromiumExperimentalPipelineStatisticsQuery = 0x00000004,
-        TextureCompressionBC = 0x00000005,
-        TextureCompressionETC2 = 0x00000006,
-        TextureCompressionASTC = 0x00000007,
-        IndirectFirstInstance = 0x00000008,
-        ShaderF16 = 0x00000009,
-        RG11B10UfloatRenderable = 0x0000000A,
-        BGRA8UnormStorage = 0x0000000B,
-        Float32Filterable = 0x0000000C,
+        TextureCompressionBC = 0x00000004,
+        TextureCompressionETC2 = 0x00000005,
+        TextureCompressionASTC = 0x00000006,
+        IndirectFirstInstance = 0x00000007,
+        ShaderF16 = 0x00000008,
+        RG11B10UfloatRenderable = 0x00000009,
+        BGRA8UnormStorage = 0x0000000A,
+        Float32Filterable = 0x0000000B,
         DawnInternalUsages = 0x000003EA,
         DawnMultiPlanarFormats = 0x000003EB,
         DawnNative = 0x000003EC,
@@ -272,14 +271,6 @@ namespace wgpu {
         Linear = 0x00000001,
     };
 
-    enum class PipelineStatisticName : uint32_t {
-        VertexShaderInvocations = 0x00000000,
-        ClipperInvocations = 0x00000001,
-        ClipperPrimitivesOut = 0x00000002,
-        FragmentShaderInvocations = 0x00000003,
-        ComputeShaderInvocations = 0x00000004,
-    };
-
     enum class PowerPreference : uint32_t {
         Undefined = 0x00000000,
         LowPower = 0x00000001,
@@ -302,8 +293,7 @@ namespace wgpu {
 
     enum class QueryType : uint32_t {
         Occlusion = 0x00000000,
-        PipelineStatistics = 0x00000001,
-        Timestamp = 0x00000002,
+        Timestamp = 0x00000001,
     };
 
     enum class QueueWorkDoneStatus : uint32_t {
@@ -1763,8 +1753,6 @@ namespace wgpu {
         char const * label = nullptr;
         QueryType type;
         uint32_t count;
-        PipelineStatisticName const * pipelineStatistics;
-        size_t pipelineStatisticCount = 0;
     };
 
     struct QueueDescriptor {

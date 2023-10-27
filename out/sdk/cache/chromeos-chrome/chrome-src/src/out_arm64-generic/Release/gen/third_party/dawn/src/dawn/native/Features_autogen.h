@@ -37,7 +37,6 @@ enum class Feature {
 DepthClipControl,
 Depth32FloatStencil8,
 TimestampQuery,
-ChromiumExperimentalPipelineStatisticsQuery,
 TextureCompressionBC,
 TextureCompressionETC2,
 TextureCompressionASTC,
@@ -87,7 +86,7 @@ SharedFenceMTLSharedEvent,
 
 template<>
 struct EnumCount<Feature> {
-    static constexpr uint32_t value = 48;
+    static constexpr uint32_t value = 47;
 };
 
 }  // namespace dawn::native

@@ -37,6 +37,7 @@
     "preprocessed/app.ts",
     "preprocessed/browser_proxy.ts",
     "preprocessed/app.html.ts",
+    "preprocessed/on_device_internals_page.mojom-webui.ts",
     "preprocessed/on_device_model.mojom-webui.ts"
   ],
   "references": [

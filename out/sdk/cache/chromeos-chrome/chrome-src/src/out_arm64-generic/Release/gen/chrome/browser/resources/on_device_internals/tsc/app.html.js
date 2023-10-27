@@ -1,7 +1,10 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style cr-hidden-style">:host{display:block;margin:auto;max-width:800px;padding:20px}@media (prefers-color-scheme:dark){:host{color:var(--google-grey-200)}}.throbber{background:url(chrome://resources/images/throbber_small.svg) no-repeat;display:block;height:20px;margin:auto;width:20px}#textInput{--cr-input-error-display:none;margin-bottom:20px}h1{text-align:center}.model-text{margin:0 5px 20px 5px}.session{margin-top:10px}.response,.text{background-color:var(--google-grey-300);border-radius:15px;color:var(--google-grey-800);margin:10px 5px 5px 5px;padding:15px 20px;white-space:pre-wrap}.response{background-color:var(--google-blue-200);margin-bottom:30px;margin-inline-start:50px}.text{margin-inline-end:50px}#modelInput{max-width:400px}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style cr-hidden-style">:host{display:block;margin:auto;max-width:800px;padding:20px}@media (prefers-color-scheme:dark){:host{color:var(--google-grey-200)}}.throbber{background:url(chrome://resources/images/throbber_small.svg) no-repeat;display:block;height:20px;margin:auto;width:20px}#textInput{--cr-input-error-display:none;margin-bottom:20px}h1{margin-bottom:5px;text-align:center}.performance-class{padding-bottom:20px;text-align:center}.model-text{margin:0 5px 20px 5px}.session{margin-top:10px}.response,.text{background-color:var(--google-grey-300);border-radius:15px;color:var(--google-grey-800);margin:10px 5px 5px 5px;padding:15px 20px;white-space:pre-wrap}.response{background-color:var(--google-blue-200);margin-bottom:30px;margin-inline-start:50px}.text{margin-inline-end:50px}#modelInput{max-width:400px}</style>
 <h1>On-Device Internals</h1>
+<div class="performance-class">
+  Device performance class: <strong>[[performanceClassText_]]</strong>
+</div>
 <cr-input id="modelInput" label="Model directory" placeholder="/tmp/model" disabled="[[isLoading_(loadModelStart_)]]" on-change="onModelSelected_" error-message="[[error_]]" invalid="[[error_.length]]" autofocus>
   <cr-button slot="suffix" disabled="[[isLoading_(loadModelStart_)]]" on-click="onLoadClick_">
     Load

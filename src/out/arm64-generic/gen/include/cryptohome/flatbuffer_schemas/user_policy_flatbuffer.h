@@ -8,7 +8,8 @@
 // --output_dir=/build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/include/cryptohome/flatbuffer_schemas
 // --guard_prefix=CRYPTOHOME_FLATBUFFER_SCHEMAS_USER_POLICY
 // --header_include_paths cryptohome/flatbuffer_schemas/enumerations.h
-// --flatbuffer_header_include_paths cryptohome/user_policy_generated.h
+// --flatbuffer_header_include_paths
+// cryptohome/flatbuffer_schemas/user_policy_generated.h
 // --flatbuffer_header_include_paths cryptohome/flatbuffer_schemas/user_policy.h
 // --flatbuffer_header_include_paths
 // cryptohome/flatbuffer_schemas/enumerations_flatbuffer.h
@@ -38,7 +39,7 @@
 
 #include "cryptohome/flatbuffer_schemas/enumerations_flatbuffer.h"
 #include "cryptohome/flatbuffer_schemas/user_policy.h"
-#include "cryptohome/user_policy_generated.h"
+#include "cryptohome/flatbuffer_schemas/user_policy_generated.h"
 #include "libhwsec-foundation/flatbuffers/basic_objects.h"
 
 namespace hwsec_foundation {

@@ -19,10 +19,11 @@ constexpr uint32_t kAccessibilityService_BindAccessibilityServiceClient_Name = 0
 constexpr uint32_t kAccessibilityService_BindAssistiveTechnologyController_Name = 1;
 constexpr uint32_t kAccessibilityService_ConnectDevToolsAgent_Name = 2;
 constexpr uint32_t kAccessibilityServiceClient_BindAutomation_Name = 0;
-constexpr uint32_t kAccessibilityServiceClient_BindSpeechRecognition_Name = 1;
-constexpr uint32_t kAccessibilityServiceClient_BindTts_Name = 2;
-constexpr uint32_t kAccessibilityServiceClient_BindUserInterface_Name = 3;
-constexpr uint32_t kAccessibilityServiceClient_BindAccessibilityFileLoader_Name = 4;
+constexpr uint32_t kAccessibilityServiceClient_BindAutoclickClient_Name = 1;
+constexpr uint32_t kAccessibilityServiceClient_BindSpeechRecognition_Name = 2;
+constexpr uint32_t kAccessibilityServiceClient_BindTts_Name = 3;
+constexpr uint32_t kAccessibilityServiceClient_BindUserInterface_Name = 4;
+constexpr uint32_t kAccessibilityServiceClient_BindAccessibilityFileLoader_Name = 5;
 
 }  // namespace internal
 

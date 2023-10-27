@@ -228,6 +228,7 @@ class PhishingModelSetter
   using ResponseValidator_ = PhishingModelSetterResponseValidator;
   enum MethodMinVersions : uint32_t {
     kSetImageEmbeddingAndPhishingFlatBufferModelMinVersion = 0,
+    kAttachImageEmbeddingModelMinVersion = 0,
     kSetPhishingFlatBufferModelMinVersion = 0,
     kClearScorerMinVersion = 0,
     kSetTestObserverMinVersion = 0,
@@ -237,6 +238,9 @@ class PhishingModelSetter
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct SetImageEmbeddingAndPhishingFlatBufferModel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct AttachImageEmbeddingModel_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetPhishingFlatBufferModel_Sym {
@@ -252,7 +256,10 @@ class PhishingModelSetter
   virtual ~PhishingModelSetter() = default;
 
   
-  virtual void SetImageEmbeddingAndPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model, ::base::File image_embedding_model_) = 0;
+  virtual void SetImageEmbeddingAndPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model, ::base::File image_embedding_model) = 0;
+
+  
+  virtual void AttachImageEmbeddingModel(::base::File image_embedding_model) = 0;
 
   
   virtual void SetPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model) = 0;
@@ -467,7 +474,9 @@ class  PhishingModelSetterProxy
 
   explicit PhishingModelSetterProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SetImageEmbeddingAndPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model, ::base::File image_embedding_model_) final;
+  void SetImageEmbeddingAndPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model, ::base::File image_embedding_model) final;
+  
+  void AttachImageEmbeddingModel(::base::File image_embedding_model) final;
   
   void SetPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model) final;
   

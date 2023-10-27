@@ -228,6 +228,8 @@ enum class Subpage : int32_t {
   
   kPrivacyHubMicrophone = 1105,
   
+  kPrivacyHubGeolocation = 1107,
+  
   kInputMethodOptions = 1203,
   
   kLanguages = 1204,

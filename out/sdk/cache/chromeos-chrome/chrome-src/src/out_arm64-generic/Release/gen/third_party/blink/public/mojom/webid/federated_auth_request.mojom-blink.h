@@ -329,66 +329,66 @@ class PLATFORM_EXPORT FederatedAuthRequestResponseValidator : public mojo::Messa
 
 
 
-class PLATFORM_EXPORT WalletFieldRequirement {
+class PLATFORM_EXPORT DigitalCredentialFieldRequirement {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<WalletFieldRequirement, T>::value>;
-  using DataView = WalletFieldRequirementDataView;
-  using Data_ = internal::WalletFieldRequirement_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<DigitalCredentialFieldRequirement, T>::value>;
+  using DataView = DigitalCredentialFieldRequirementDataView;
+  using Data_ = internal::DigitalCredentialFieldRequirement_Data;
 
   template <typename... Args>
-  static WalletFieldRequirementPtr New(Args&&... args) {
-    return WalletFieldRequirementPtr(
+  static DigitalCredentialFieldRequirementPtr New(Args&&... args) {
+    return DigitalCredentialFieldRequirementPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static WalletFieldRequirementPtr From(const U& u) {
-    return mojo::TypeConverter<WalletFieldRequirementPtr, U>::Convert(u);
+  static DigitalCredentialFieldRequirementPtr From(const U& u) {
+    return mojo::TypeConverter<DigitalCredentialFieldRequirementPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, WalletFieldRequirement>::Convert(*this);
+    return mojo::TypeConverter<U, DigitalCredentialFieldRequirement>::Convert(*this);
   }
 
 
-  WalletFieldRequirement();
+  DigitalCredentialFieldRequirement();
 
-  WalletFieldRequirement(
+  DigitalCredentialFieldRequirement(
       const WTF::String& name,
       const WTF::String& equals);
 
 
-  ~WalletFieldRequirement();
+  ~DigitalCredentialFieldRequirement();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = WalletFieldRequirementPtr>
-  WalletFieldRequirementPtr Clone() const;
+  template <typename StructPtrType = DigitalCredentialFieldRequirementPtr>
+  DigitalCredentialFieldRequirementPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, WalletFieldRequirement::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, WalletFieldRequirement::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, WalletFieldRequirement::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static WTF::Vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        WalletFieldRequirement::DataView, WTF::Vector<uint8_t>>(input);
+        DigitalCredentialFieldRequirement::DataView, WTF::Vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        WalletFieldRequirement::DataView>(input);
+        DigitalCredentialFieldRequirement::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -398,8 +398,8 @@ class PLATFORM_EXPORT WalletFieldRequirement {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::WalletFieldRequirement_UnserializedMessageContext<
-            UserType, WalletFieldRequirement::DataView>>(0, 0, std::move(input)),
+        internal::DigitalCredentialFieldRequirement_UnserializedMessageContext<
+            UserType, DigitalCredentialFieldRequirement::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -408,14 +408,14 @@ class PLATFORM_EXPORT WalletFieldRequirement {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<WalletFieldRequirement::DataView>(
+    return mojo::internal::DeserializeImpl<DigitalCredentialFieldRequirement::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const WTF::Vector<uint8_t>& input,
                           UserType* output) {
-    return WalletFieldRequirement::Deserialize(
+    return DigitalCredentialFieldRequirement::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -423,14 +423,14 @@ class PLATFORM_EXPORT WalletFieldRequirement {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::WalletFieldRequirement_UnserializedMessageContext<
-            UserType, WalletFieldRequirement::DataView>>();
+        internal::DigitalCredentialFieldRequirement_UnserializedMessageContext<
+            UserType, DigitalCredentialFieldRequirement::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<WalletFieldRequirement::DataView>(
+    return mojo::internal::DeserializeImpl<DigitalCredentialFieldRequirement::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
@@ -450,20 +450,20 @@ class PLATFORM_EXPORT WalletFieldRequirement {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, WalletFieldRequirement::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, WalletFieldRequirement::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, WalletFieldRequirement::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, WalletFieldRequirement::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -794,7 +794,7 @@ class PLATFORM_EXPORT IdentityProvider {
   // Construct an instance holding |holder|.
   static IdentityProviderPtr
   NewHolder(
-      WalletProviderPtr holder) {
+      DigitalCredentialProviderPtr holder) {
     auto result = IdentityProviderPtr(absl::in_place);
     result->set_holder(std::move(holder));
     return result;
@@ -857,14 +857,14 @@ class PLATFORM_EXPORT IdentityProvider {
   bool is_holder() const { return tag_ == Tag::kHolder; }
 
   
-  WalletProviderPtr& get_holder() const {
+  DigitalCredentialProviderPtr& get_holder() const {
     CHECK(tag_ == Tag::kHolder);
     return *(data_.holder);
   }
 
   
   void set_holder(
-      WalletProviderPtr holder);
+      DigitalCredentialProviderPtr holder);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -884,7 +884,7 @@ class PLATFORM_EXPORT IdentityProvider {
     Union_() = default;
     ~Union_() = default;
     IdentityProviderConfigPtr* federated;
-    WalletProviderPtr* holder;
+    DigitalCredentialProviderPtr* holder;
   };
 
   static bool Validate(const void* data,
@@ -1042,68 +1042,68 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class PLATFORM_EXPORT WalletProvider {
+class PLATFORM_EXPORT DigitalCredentialProvider {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<WalletProvider, T>::value>;
-  using DataView = WalletProviderDataView;
-  using Data_ = internal::WalletProvider_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<DigitalCredentialProvider, T>::value>;
+  using DataView = DigitalCredentialProviderDataView;
+  using Data_ = internal::DigitalCredentialProvider_Data;
 
   template <typename... Args>
-  static WalletProviderPtr New(Args&&... args) {
-    return WalletProviderPtr(
+  static DigitalCredentialProviderPtr New(Args&&... args) {
+    return DigitalCredentialProviderPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static WalletProviderPtr From(const U& u) {
-    return mojo::TypeConverter<WalletProviderPtr, U>::Convert(u);
+  static DigitalCredentialProviderPtr From(const U& u) {
+    return mojo::TypeConverter<DigitalCredentialProviderPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, WalletProvider>::Convert(*this);
+    return mojo::TypeConverter<U, DigitalCredentialProvider>::Convert(*this);
   }
 
 
-  WalletProvider();
+  DigitalCredentialProvider();
 
-  WalletProvider(
+  DigitalCredentialProvider(
       const WTF::HashMap<WTF::String, WTF::String>& params,
-      WalletSelectorPtr selector);
+      DigitalCredentialSelectorPtr selector);
 
-WalletProvider(const WalletProvider&) = delete;
-WalletProvider& operator=(const WalletProvider&) = delete;
+DigitalCredentialProvider(const DigitalCredentialProvider&) = delete;
+DigitalCredentialProvider& operator=(const DigitalCredentialProvider&) = delete;
 
-  ~WalletProvider();
+  ~DigitalCredentialProvider();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = WalletProviderPtr>
-  WalletProviderPtr Clone() const;
+  template <typename StructPtrType = DigitalCredentialProviderPtr>
+  DigitalCredentialProviderPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, WalletProvider::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialProvider::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, WalletProvider::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialProvider::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, WalletProvider::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialProvider::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static WTF::Vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        WalletProvider::DataView, WTF::Vector<uint8_t>>(input);
+        DigitalCredentialProvider::DataView, WTF::Vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        WalletProvider::DataView>(input);
+        DigitalCredentialProvider::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -1113,8 +1113,8 @@ WalletProvider& operator=(const WalletProvider&) = delete;
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::WalletProvider_UnserializedMessageContext<
-            UserType, WalletProvider::DataView>>(0, 0, std::move(input)),
+        internal::DigitalCredentialProvider_UnserializedMessageContext<
+            UserType, DigitalCredentialProvider::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -1123,14 +1123,14 @@ WalletProvider& operator=(const WalletProvider&) = delete;
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<WalletProvider::DataView>(
+    return mojo::internal::DeserializeImpl<DigitalCredentialProvider::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const WTF::Vector<uint8_t>& input,
                           UserType* output) {
-    return WalletProvider::Deserialize(
+    return DigitalCredentialProvider::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -1138,21 +1138,21 @@ WalletProvider& operator=(const WalletProvider&) = delete;
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::WalletProvider_UnserializedMessageContext<
-            UserType, WalletProvider::DataView>>();
+        internal::DigitalCredentialProvider_UnserializedMessageContext<
+            UserType, DigitalCredentialProvider::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<WalletProvider::DataView>(
+    return mojo::internal::DeserializeImpl<DigitalCredentialProvider::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
   
   WTF::HashMap<WTF::String, WTF::String> params;
   
-  WalletSelectorPtr selector;
+  DigitalCredentialSelectorPtr selector;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1165,20 +1165,20 @@ WalletProvider& operator=(const WalletProvider&) = delete;
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, WalletProvider::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialProvider::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, WalletProvider::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialProvider::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, WalletProvider::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialProvider::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, WalletProvider::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialProvider::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1187,69 +1187,69 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class PLATFORM_EXPORT WalletSelector {
+class PLATFORM_EXPORT DigitalCredentialSelector {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<WalletSelector, T>::value>;
-  using DataView = WalletSelectorDataView;
-  using Data_ = internal::WalletSelector_Data;
+  using EnableIfSame = std::enable_if_t<std::is_same<DigitalCredentialSelector, T>::value>;
+  using DataView = DigitalCredentialSelectorDataView;
+  using Data_ = internal::DigitalCredentialSelector_Data;
 
   template <typename... Args>
-  static WalletSelectorPtr New(Args&&... args) {
-    return WalletSelectorPtr(
+  static DigitalCredentialSelectorPtr New(Args&&... args) {
+    return DigitalCredentialSelectorPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static WalletSelectorPtr From(const U& u) {
-    return mojo::TypeConverter<WalletSelectorPtr, U>::Convert(u);
+  static DigitalCredentialSelectorPtr From(const U& u) {
+    return mojo::TypeConverter<DigitalCredentialSelectorPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, WalletSelector>::Convert(*this);
+    return mojo::TypeConverter<U, DigitalCredentialSelector>::Convert(*this);
   }
 
 
-  WalletSelector();
+  DigitalCredentialSelector();
 
-  WalletSelector(
+  DigitalCredentialSelector(
       WTF::Vector<WTF::String> format,
       const WTF::String& doctype,
-      WTF::Vector<WalletFieldRequirementPtr> fields);
+      WTF::Vector<DigitalCredentialFieldRequirementPtr> fields);
 
-WalletSelector(const WalletSelector&) = delete;
-WalletSelector& operator=(const WalletSelector&) = delete;
+DigitalCredentialSelector(const DigitalCredentialSelector&) = delete;
+DigitalCredentialSelector& operator=(const DigitalCredentialSelector&) = delete;
 
-  ~WalletSelector();
+  ~DigitalCredentialSelector();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = WalletSelectorPtr>
-  WalletSelectorPtr Clone() const;
+  template <typename StructPtrType = DigitalCredentialSelectorPtr>
+  DigitalCredentialSelectorPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, WalletSelector::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialSelector::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, WalletSelector::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialSelector::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, WalletSelector::EnableIfSame<T>* = nullptr>
+  template <typename T, DigitalCredentialSelector::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static WTF::Vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        WalletSelector::DataView, WTF::Vector<uint8_t>>(input);
+        DigitalCredentialSelector::DataView, WTF::Vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        WalletSelector::DataView>(input);
+        DigitalCredentialSelector::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -1259,8 +1259,8 @@ WalletSelector& operator=(const WalletSelector&) = delete;
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::WalletSelector_UnserializedMessageContext<
-            UserType, WalletSelector::DataView>>(0, 0, std::move(input)),
+        internal::DigitalCredentialSelector_UnserializedMessageContext<
+            UserType, DigitalCredentialSelector::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -1269,14 +1269,14 @@ WalletSelector& operator=(const WalletSelector&) = delete;
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<WalletSelector::DataView>(
+    return mojo::internal::DeserializeImpl<DigitalCredentialSelector::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const WTF::Vector<uint8_t>& input,
                           UserType* output) {
-    return WalletSelector::Deserialize(
+    return DigitalCredentialSelector::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -1284,14 +1284,14 @@ WalletSelector& operator=(const WalletSelector&) = delete;
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::WalletSelector_UnserializedMessageContext<
-            UserType, WalletSelector::DataView>>();
+        internal::DigitalCredentialSelector_UnserializedMessageContext<
+            UserType, DigitalCredentialSelector::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<WalletSelector::DataView>(
+    return mojo::internal::DeserializeImpl<DigitalCredentialSelector::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
@@ -1300,7 +1300,7 @@ WalletSelector& operator=(const WalletSelector&) = delete;
   
   WTF::String doctype;
   
-  WTF::Vector<WalletFieldRequirementPtr> fields;
+  WTF::Vector<DigitalCredentialFieldRequirementPtr> fields;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1313,20 +1313,20 @@ WalletSelector& operator=(const WalletSelector&) = delete;
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, WalletSelector::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialSelector::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, WalletSelector::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialSelector::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, WalletSelector::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialSelector::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, WalletSelector::EnableIfSame<T>* = nullptr>
+template <typename T, DigitalCredentialSelector::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1702,15 +1702,15 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-WalletProviderPtr WalletProvider::Clone() const {
+DigitalCredentialProviderPtr DigitalCredentialProvider::Clone() const {
   return New(
       mojo::Clone(params),
       mojo::Clone(selector)
   );
 }
 
-template <typename T, WalletProvider::EnableIfSame<T>*>
-bool WalletProvider::Equals(const T& other_struct) const {
+template <typename T, DigitalCredentialProvider::EnableIfSame<T>*>
+bool DigitalCredentialProvider::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->params, other_struct.params))
     return false;
   if (!mojo::Equals(this->selector, other_struct.selector))
@@ -1718,7 +1718,7 @@ bool WalletProvider::Equals(const T& other_struct) const {
   return true;
 }
 
-template <typename T, WalletProvider::EnableIfSame<T>*>
+template <typename T, DigitalCredentialProvider::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.params < rhs.params)
     return true;
@@ -1731,7 +1731,7 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-WalletSelectorPtr WalletSelector::Clone() const {
+DigitalCredentialSelectorPtr DigitalCredentialSelector::Clone() const {
   return New(
       mojo::Clone(format),
       mojo::Clone(doctype),
@@ -1739,8 +1739,8 @@ WalletSelectorPtr WalletSelector::Clone() const {
   );
 }
 
-template <typename T, WalletSelector::EnableIfSame<T>*>
-bool WalletSelector::Equals(const T& other_struct) const {
+template <typename T, DigitalCredentialSelector::EnableIfSame<T>*>
+bool DigitalCredentialSelector::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->format, other_struct.format))
     return false;
   if (!mojo::Equals(this->doctype, other_struct.doctype))
@@ -1750,7 +1750,7 @@ bool WalletSelector::Equals(const T& other_struct) const {
   return true;
 }
 
-template <typename T, WalletSelector::EnableIfSame<T>*>
+template <typename T, DigitalCredentialSelector::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.format < rhs.format)
     return true;
@@ -1767,15 +1767,15 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-WalletFieldRequirementPtr WalletFieldRequirement::Clone() const {
+DigitalCredentialFieldRequirementPtr DigitalCredentialFieldRequirement::Clone() const {
   return New(
       mojo::Clone(name),
       mojo::Clone(equals)
   );
 }
 
-template <typename T, WalletFieldRequirement::EnableIfSame<T>*>
-bool WalletFieldRequirement::Equals(const T& other_struct) const {
+template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>*>
+bool DigitalCredentialFieldRequirement::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->name, other_struct.name))
     return false;
   if (!mojo::Equals(this->equals, other_struct.equals))
@@ -1783,7 +1783,7 @@ bool WalletFieldRequirement::Equals(const T& other_struct) const {
   return true;
 }
 
-template <typename T, WalletFieldRequirement::EnableIfSame<T>*>
+template <typename T, DigitalCredentialFieldRequirement::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.name < rhs.name)
     return true;
@@ -2002,67 +2002,67 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::LogoutRpsRequest::Dat
 
 
 template <>
-struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::WalletProvider::DataView,
-                                         ::blink::mojom::blink::WalletProviderPtr> {
-  static bool IsNull(const ::blink::mojom::blink::WalletProviderPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::blink::WalletProviderPtr* output) { output->reset(); }
+struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::DigitalCredentialProvider::DataView,
+                                         ::blink::mojom::blink::DigitalCredentialProviderPtr> {
+  static bool IsNull(const ::blink::mojom::blink::DigitalCredentialProviderPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::blink::DigitalCredentialProviderPtr* output) { output->reset(); }
 
-  static const decltype(::blink::mojom::blink::WalletProvider::params)& params(
-      const ::blink::mojom::blink::WalletProviderPtr& input) {
+  static const decltype(::blink::mojom::blink::DigitalCredentialProvider::params)& params(
+      const ::blink::mojom::blink::DigitalCredentialProviderPtr& input) {
     return input->params;
   }
 
-  static const decltype(::blink::mojom::blink::WalletProvider::selector)& selector(
-      const ::blink::mojom::blink::WalletProviderPtr& input) {
+  static const decltype(::blink::mojom::blink::DigitalCredentialProvider::selector)& selector(
+      const ::blink::mojom::blink::DigitalCredentialProviderPtr& input) {
     return input->selector;
   }
 
-  static bool Read(::blink::mojom::blink::WalletProvider::DataView input, ::blink::mojom::blink::WalletProviderPtr* output);
+  static bool Read(::blink::mojom::blink::DigitalCredentialProvider::DataView input, ::blink::mojom::blink::DigitalCredentialProviderPtr* output);
 };
 
 
 template <>
-struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::WalletSelector::DataView,
-                                         ::blink::mojom::blink::WalletSelectorPtr> {
-  static bool IsNull(const ::blink::mojom::blink::WalletSelectorPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::blink::WalletSelectorPtr* output) { output->reset(); }
+struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::DigitalCredentialSelector::DataView,
+                                         ::blink::mojom::blink::DigitalCredentialSelectorPtr> {
+  static bool IsNull(const ::blink::mojom::blink::DigitalCredentialSelectorPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::blink::DigitalCredentialSelectorPtr* output) { output->reset(); }
 
-  static const decltype(::blink::mojom::blink::WalletSelector::format)& format(
-      const ::blink::mojom::blink::WalletSelectorPtr& input) {
+  static const decltype(::blink::mojom::blink::DigitalCredentialSelector::format)& format(
+      const ::blink::mojom::blink::DigitalCredentialSelectorPtr& input) {
     return input->format;
   }
 
-  static const decltype(::blink::mojom::blink::WalletSelector::doctype)& doctype(
-      const ::blink::mojom::blink::WalletSelectorPtr& input) {
+  static const decltype(::blink::mojom::blink::DigitalCredentialSelector::doctype)& doctype(
+      const ::blink::mojom::blink::DigitalCredentialSelectorPtr& input) {
     return input->doctype;
   }
 
-  static const decltype(::blink::mojom::blink::WalletSelector::fields)& fields(
-      const ::blink::mojom::blink::WalletSelectorPtr& input) {
+  static const decltype(::blink::mojom::blink::DigitalCredentialSelector::fields)& fields(
+      const ::blink::mojom::blink::DigitalCredentialSelectorPtr& input) {
     return input->fields;
   }
 
-  static bool Read(::blink::mojom::blink::WalletSelector::DataView input, ::blink::mojom::blink::WalletSelectorPtr* output);
+  static bool Read(::blink::mojom::blink::DigitalCredentialSelector::DataView input, ::blink::mojom::blink::DigitalCredentialSelectorPtr* output);
 };
 
 
 template <>
-struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::WalletFieldRequirement::DataView,
-                                         ::blink::mojom::blink::WalletFieldRequirementPtr> {
-  static bool IsNull(const ::blink::mojom::blink::WalletFieldRequirementPtr& input) { return !input; }
-  static void SetToNull(::blink::mojom::blink::WalletFieldRequirementPtr* output) { output->reset(); }
+struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::DigitalCredentialFieldRequirement::DataView,
+                                         ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr> {
+  static bool IsNull(const ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr& input) { return !input; }
+  static void SetToNull(::blink::mojom::blink::DigitalCredentialFieldRequirementPtr* output) { output->reset(); }
 
-  static const decltype(::blink::mojom::blink::WalletFieldRequirement::name)& name(
-      const ::blink::mojom::blink::WalletFieldRequirementPtr& input) {
+  static const decltype(::blink::mojom::blink::DigitalCredentialFieldRequirement::name)& name(
+      const ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr& input) {
     return input->name;
   }
 
-  static const decltype(::blink::mojom::blink::WalletFieldRequirement::equals)& equals(
-      const ::blink::mojom::blink::WalletFieldRequirementPtr& input) {
+  static const decltype(::blink::mojom::blink::DigitalCredentialFieldRequirement::equals)& equals(
+      const ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr& input) {
     return input->equals;
   }
 
-  static bool Read(::blink::mojom::blink::WalletFieldRequirement::DataView input, ::blink::mojom::blink::WalletFieldRequirementPtr* output);
+  static bool Read(::blink::mojom::blink::DigitalCredentialFieldRequirement::DataView input, ::blink::mojom::blink::DigitalCredentialFieldRequirementPtr* output);
 };
 
 
@@ -2205,7 +2205,7 @@ struct PLATFORM_EXPORT UnionTraits<::blink::mojom::blink::IdentityProvider::Data
     return input->get_federated();
   }
 
-  static const ::blink::mojom::blink::WalletProviderPtr& holder(const ::blink::mojom::blink::IdentityProviderPtr& input) {
+  static const ::blink::mojom::blink::DigitalCredentialProviderPtr& holder(const ::blink::mojom::blink::IdentityProviderPtr& input) {
     return input->get_holder();
   }
 

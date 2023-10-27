@@ -200,6 +200,16 @@ bool QuickStartMessage_Data::Validate(
         return false;
       return true;
     }
+    case QuickStartMessage_Tag::kUserVerificationMethod: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_user_verification_method, 7, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_user_verification_method, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(

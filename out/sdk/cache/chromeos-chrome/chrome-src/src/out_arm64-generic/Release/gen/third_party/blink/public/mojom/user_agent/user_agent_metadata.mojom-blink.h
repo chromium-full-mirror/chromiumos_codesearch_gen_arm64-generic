@@ -231,7 +231,7 @@ class PLATFORM_EXPORT UserAgentMetadata {
       bool mobile,
       const WTF::String& bitness,
       bool wow64,
-      const WTF::String& form_factor);
+      WTF::Vector<WTF::String> form_factor);
 
 UserAgentMetadata(const UserAgentMetadata&) = delete;
 UserAgentMetadata& operator=(const UserAgentMetadata&) = delete;
@@ -331,7 +331,7 @@ UserAgentMetadata& operator=(const UserAgentMetadata&) = delete;
   
   bool wow64;
   
-  WTF::String form_factor;
+  WTF::Vector<WTF::String> form_factor;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -68,13 +68,6 @@ export class WallpaperSearchElement extends PolymerElement {
     async onBackClick_() {
         this.dispatchEvent(new Event('back-click'));
     }
-    onComboboxDemoChange_() {
-        this.selectedDescriptorA_ = this.$.combobox.value || null;
-    }
-    onDescriptorLabelClickA_(e) {
-        this.selectedDescriptorA_ = e.model.item;
-        this.$.descriptorMenuA.close();
-    }
     onDescriptorLabelClickB_(e) {
         this.selectedDescriptorB_ = e.model.item.label;
         this.$.descriptorMenuB.close();
@@ -86,9 +79,6 @@ export class WallpaperSearchElement extends PolymerElement {
     onDescriptorLabelClickD_(e) {
         this.selectedDescriptorD_ = e.model.item;
         this.$.descriptorMenuC.close();
-    }
-    onDescriptorMenuClickA_(e) {
-        this.$.descriptorMenuA.showAt(e.target);
     }
     onDescriptorMenuClickB_(e) {
         this.$.descriptorMenuB.showAt(e.target);

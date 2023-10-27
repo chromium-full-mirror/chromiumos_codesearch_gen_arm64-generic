@@ -256,14 +256,14 @@ class SettingsDetailedBuildInfoSubpageElement extends SettingsDetailedBuildInfoS
     }
     onCopyBuildDetailsToClipBoardClick_() {
         const buildInfo = {
-            'application_label': loadTimeData.getString('aboutBrowserVersion'),
-            'platform': this.versionInfo_.osVersion,
-            'aboutChannelLabel': this.channelInfo_.targetChannel,
-            'firmware_version': this.versionInfo_.osFirmware,
-            'aboutIsArcStatusTitle': loadTimeData.getBoolean('aboutIsArcEnabled'),
-            'arc_label': this.versionInfo_.arcVersion,
-            'isEnterpriseManagedTitle': loadTimeData.getBoolean('aboutEnterpriseManaged'),
-            'aboutIsDeveloperModeTitle': loadTimeData.getBoolean('aboutIsDeveloperMode'),
+            application_label: loadTimeData.getString('aboutBrowserVersion'),
+            platform: this.versionInfo_.osVersion,
+            aboutChannelLabel: this.channelInfo_.targetChannel,
+            firmware_version: this.versionInfo_.osFirmware,
+            aboutIsArcStatusTitle: loadTimeData.getBoolean('aboutIsArcEnabled'),
+            arc_label: this.versionInfo_.arcVersion,
+            isEnterpriseManagedTitle: loadTimeData.getBoolean('aboutEnterpriseManaged'),
+            aboutIsDeveloperModeTitle: loadTimeData.getBoolean('aboutIsDeveloperMode'),
         };
         const entries = [];
         for (const key in buildInfo) {

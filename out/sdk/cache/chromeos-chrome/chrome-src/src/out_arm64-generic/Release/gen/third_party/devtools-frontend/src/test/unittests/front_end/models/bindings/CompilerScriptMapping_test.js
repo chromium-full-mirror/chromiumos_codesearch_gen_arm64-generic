@@ -189,7 +189,7 @@ describeWithMockConnection('CompilerScriptMapping', () => {
                 mappings: '',
                 sourceRoot,
                 sources: ['app.ts', 'lib.ts'],
-                x_google_ignoreList: [1],
+                ignoreList: [1],
             },
         };
         await Promise.all([

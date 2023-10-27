@@ -4005,6 +4005,27 @@ message ContextAwareAccessSignalsAllowlistProto {
   optional StringList ContextAwareAccessSignalsAllowlist = 2;
 }
 
+// Allow saving images directly to Google Photos
+//
+// This policy controls whether the user is allowed to save images to Google
+// Photos directly from the context menu.
+// Setting the policy to Enabled or leaving it unset allows the user to save
+// images to Google Photos from the context menu. Setting the policy to Disabled
+// prevent users seeing the option in the context menu.
+// This policy does not prevent users from saving images to Google Photos using
+// other ways beside the context menu.
+//
+// Valid values:
+//   0: The context menu will have a menu item to share images to Google Photos.
+//   1: The context menu will not have a menu item to share images to Google
+// Photos.
+//
+// Supported on: ios
+message ContextMenuPhotoSharingSettingsProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 ContextMenuPhotoSharingSettings = 2;
+}
+
 // Enable Touch to Search
 //
 // Setting the policy to True or leaving it unset makes Touch to Search
@@ -4043,9 +4064,20 @@ message ContextualSuggestionsEnabledProto {
 // Allows you to set a list of url patterns that specify sites which are allowed
 // to set cookies.
 //
+// URL patterns may be a single URL indicating that the site may use cookies on
+// all top-level sites.
+//
+// Patterns may also be two URLs delimited by a comma. The first specifies the
+// site that should be allowed to use cookies. The second specifies the top-
+// level site that the first value should be applied on.
+//
+// If you use a pair of URLs, the first value in the pair supports * but the
+// second value does not. Using * for the first value indicates that all sites
+// may use cookies when the second URL is the top-level site.
+//
 // If this policy is left not set the global default value will be used for all
-// sites either from the DefaultCookiesSetting policy if it is set, or the
-// user's personal configuration otherwise.
+// sites either from the DefaultCookiesSetting or BlockThirdPartyCookies
+// policies if they are set, or the user's personal configuration otherwise.
 //
 // See also policies CookiesBlockedForUrls and CookiesSessionOnlyForUrls. Note
 // that there must be no conflicting URL patterns between these three policies -
@@ -16458,6 +16490,31 @@ message PrivacyScreenEnabledProto {
   optional bool PrivacyScreenEnabled = 2;
 }
 
+// Specifies whether to apply restrictions to requests to more-private network
+// endpoints
+//
+// When this policy is set to Enabled, any time when a warning is supposed to be
+// displayed in the DevTools due to Private Network Access checks failing, the
+// main request will be blocked instead.
+//
+// When this policy is set to Disabled or unset, all Private Network Access
+// warnings will not
+// be enforced and the requests will not be blocked.
+//
+// See https://wicg.github.io/private-network-access/ for Private Network Access
+// restrictions.
+//
+// Valid values:
+//   True: Apply restrictions to requests to more-private network endpoints
+//   False: Use default behavior when determining if websites can make requests
+// to network endpoints
+//
+// Supported on: android, chrome_os, fuchsia, linux, mac, win
+message PrivateNetworkAccessRestrictionsEnabledProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool PrivateNetworkAccessRestrictionsEnabled = 2;
+}
+
 // Profile picker availability on startup
 //
 // Specifies whether the profile picker is enabled, disabled or forced at the
@@ -24447,6 +24504,7 @@ message ChromeSettingsProto {
   optional ComponentUpdatesEnabledProto ComponentUpdatesEnabled = 344;
   optional CompressionDictionaryTransportEnabledProto CompressionDictionaryTransportEnabled = 1146;
   optional ContextAwareAccessSignalsAllowlistProto ContextAwareAccessSignalsAllowlist = 828;
+  optional ContextMenuPhotoSharingSettingsProto ContextMenuPhotoSharingSettings = 1180;
   optional ContextualSearchEnabledProto ContextualSearchEnabled = 283;
   optional ContextualSuggestionsEnabledProto ContextualSuggestionsEnabled = 454;
   optional CookiesAllowedForUrlsProto CookiesAllowedForUrls = 79;
@@ -24894,6 +24952,7 @@ message ChromeSettingsProto {
   optional PrivacySandboxPromptEnabledProto PrivacySandboxPromptEnabled = 1050;
   optional PrivacySandboxSiteEnabledAdsEnabledProto PrivacySandboxSiteEnabledAdsEnabled = 1052;
   optional PrivacyScreenEnabledProto PrivacyScreenEnabled = 679;
+  optional PrivateNetworkAccessRestrictionsEnabledProto PrivateNetworkAccessRestrictionsEnabled = 1179;
   optional ProfilePickerOnStartupAvailabilityProto ProfilePickerOnStartupAvailability = 812;
   optional ProfileReauthPromptProto ProfileReauthPrompt = 1166;
   optional ProfileSeparationDataMigrationSettingsProto ProfileSeparationDataMigrationSettings = 1155;

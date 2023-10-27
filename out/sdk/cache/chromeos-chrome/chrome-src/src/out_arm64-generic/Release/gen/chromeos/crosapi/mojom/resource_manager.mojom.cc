@@ -91,7 +91,8 @@ bool MemoryPressure::Validate(
 PageProcess::PageProcess()
     : pid(),
       host_protected_page(),
-      host_visible_page() {}
+      host_visible_page(),
+      host_focused_page() {}
 
 PageProcess::PageProcess(
     int32_t pid_in,
@@ -99,13 +100,25 @@ PageProcess::PageProcess(
     bool host_visible_page_in)
     : pid(std::move(pid_in)),
       host_protected_page(std::move(host_protected_page_in)),
-      host_visible_page(std::move(host_visible_page_in)) {}
+      host_visible_page(std::move(host_visible_page_in)),
+      host_focused_page() {}
+
+PageProcess::PageProcess(
+    int32_t pid_in,
+    bool host_protected_page_in,
+    bool host_visible_page_in,
+    bool host_focused_page_in)
+    : pid(std::move(pid_in)),
+      host_protected_page(std::move(host_protected_page_in)),
+      host_visible_page(std::move(host_visible_page_in)),
+      host_focused_page(std::move(host_focused_page_in)) {}
 
 PageProcess::~PageProcess() = default;
 size_t PageProcess::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->pid);
   seed = mojo::internal::Hash(seed, this->host_protected_page);
   seed = mojo::internal::Hash(seed, this->host_visible_page);
+  seed = mojo::internal::Hash(seed, this->host_focused_page);
   return seed;
 }
 
@@ -133,6 +146,15 @@ void PageProcess::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "host_visible_page"), this->host_visible_page,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "host_focused_page"), this->host_focused_page,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -722,6 +744,8 @@ bool StructTraits<::crosapi::mojom::PageProcess::DataView, ::crosapi::mojom::Pag
         result->host_protected_page = input.host_protected_page();
       if (success)
         result->host_visible_page = input.host_visible_page();
+      if (success)
+        result->host_focused_page = input.host_focused_page();
   *output = std::move(result);
   return success;
 }

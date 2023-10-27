@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="40" failures="0" disabled="0" errors="0" time="1.357" timestamp="2023-10-27T00:18:33.934" name="AllTests">
+  <testsuite name="FormatConverterTest" tests="39" failures="0" disabled="0" skipped="0" errors="0" time="1.341" timestamp="2023-10-27T00:18:33.946">
+    <testcase name="SmallFramesSRCWithLinearResampler" file="cras/src/tests/fmt_conv_unittest.cc" line="56" status="run" result="completed" time="0.026" timestamp="2023-10-27T00:18:33.946" classname="FormatConverterTest" />
+    <testcase name="InvalidParamsOnlyLE" file="cras/src/tests/fmt_conv_unittest.cc" line="107" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:33.975" classname="FormatConverterTest" />
+    <testcase name="MonoToStereo" file="cras/src/tests/fmt_conv_unittest.cc" line="120" status="run" result="completed" time="0.023" timestamp="2023-10-27T00:18:33.976" classname="FormatConverterTest" />
+    <testcase name="StereoToMono" file="cras/src/tests/fmt_conv_unittest.cc" line="167" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:18:34.000" classname="FormatConverterTest" />
+    <testcase name="StereoToMonoOverflow" file="cras/src/tests/fmt_conv_unittest.cc" line="216" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:18:34.003" classname="FormatConverterTest" />
+    <testcase name="StereoToMonoUnderflow" file="cras/src/tests/fmt_conv_unittest.cc" line="265" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:18:34.005" classname="FormatConverterTest" />
+    <testcase name="StereoToMono24bit" file="cras/src/tests/fmt_conv_unittest.cc" line="314" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:18:34.008" classname="FormatConverterTest" />
+    <testcase name="SurroundToStereo" file="cras/src/tests/fmt_conv_unittest.cc" line="372" status="run" result="completed" time="0.031" timestamp="2023-10-27T00:18:34.013" classname="FormatConverterTest" />
+    <testcase name="SurroundToQuad" file="cras/src/tests/fmt_conv_unittest.cc" line="478" status="run" result="completed" time="0.017" timestamp="2023-10-27T00:18:34.045" classname="FormatConverterTest" />
+    <testcase name="QuadToStereo" file="cras/src/tests/fmt_conv_unittest.cc" line="555" status="run" result="completed" time="0.013" timestamp="2023-10-27T00:18:34.063" classname="FormatConverterTest" />
+    <testcase name="Convert2To1" file="cras/src/tests/fmt_conv_unittest.cc" line="665" status="run" result="completed" time="0.042" timestamp="2023-10-27T00:18:34.077" classname="FormatConverterTest" />
+    <testcase name="Convert1To2" file="cras/src/tests/fmt_conv_unittest.cc" line="699" status="run" result="completed" time="0.072" timestamp="2023-10-27T00:18:34.119" classname="FormatConverterTest" />
+    <testcase name="Convert1To2MonoToStereo" file="cras/src/tests/fmt_conv_unittest.cc" line="732" status="run" result="completed" time="0.064" timestamp="2023-10-27T00:18:34.192" classname="FormatConverterTest" />
+    <testcase name="ConvertS32LEToS16LE" file="cras/src/tests/fmt_conv_unittest.cc" line="769" status="run" result="completed" time="0.03" timestamp="2023-10-27T00:18:34.257" classname="FormatConverterTest" />
+    <testcase name="ConvertS24LEToS16LE" file="cras/src/tests/fmt_conv_unittest.cc" line="809" status="run" result="completed" time="0.033" timestamp="2023-10-27T00:18:34.288" classname="FormatConverterTest" />
+    <testcase name="ConvertU8LEToS16LE" file="cras/src/tests/fmt_conv_unittest.cc" line="849" status="run" result="completed" time="0.012" timestamp="2023-10-27T00:18:34.322" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEToS32LE" file="cras/src/tests/fmt_conv_unittest.cc" line="891" status="run" result="completed" time="0.019" timestamp="2023-10-27T00:18:34.335" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEToS24LE" file="cras/src/tests/fmt_conv_unittest.cc" line="931" status="run" result="completed" time="0.033" timestamp="2023-10-27T00:18:34.355" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEToU8" file="cras/src/tests/fmt_conv_unittest.cc" line="971" status="run" result="completed" time="0.012" timestamp="2023-10-27T00:18:34.389" classname="FormatConverterTest" />
+    <testcase name="ConvertS32LEToS16LEDownmix51ToStereo" file="cras/src/tests/fmt_conv_unittest.cc" line="1012" status="run" result="completed" time="0.086" timestamp="2023-10-27T00:18:34.402" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEToS16LEStereoTo51" file="cras/src/tests/fmt_conv_unittest.cc" line="1054" status="run" result="completed" time="0.039" timestamp="2023-10-27T00:18:34.490" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEToS16LEMonoTo51Center" file="cras/src/tests/fmt_conv_unittest.cc" line="1105" status="run" result="completed" time="0.071" timestamp="2023-10-27T00:18:34.530" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEToS16LEMonoTo51LeftRight" file="cras/src/tests/fmt_conv_unittest.cc" line="1156" status="run" result="completed" time="0.028" timestamp="2023-10-27T00:18:34.602" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEToS16LEMonoTo51Unknown" file="cras/src/tests/fmt_conv_unittest.cc" line="1212" status="run" result="completed" time="0.028" timestamp="2023-10-27T00:18:34.631" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEToS16LEStereoToQuad" file="cras/src/tests/fmt_conv_unittest.cc" line="1263" status="run" result="completed" time="0.008" timestamp="2023-10-27T00:18:34.660" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEStereoToQuadInternalSpeakerDefaultLayout" file="cras/src/tests/fmt_conv_unittest.cc" line="1332" status="run" result="completed" time="0.009" timestamp="2023-10-27T00:18:34.669" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LEStereoToQuadInternalSpeaker" file="cras/src/tests/fmt_conv_unittest.cc" line="1386" status="run" result="completed" time="0.007" timestamp="2023-10-27T00:18:34.678" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LE5_1ToQuadInternalSpeaker" file="cras/src/tests/fmt_conv_unittest.cc" line="1443" status="run" result="completed" time="0.016" timestamp="2023-10-27T00:18:34.687" classname="FormatConverterTest" />
+    <testcase name="ConvertS16LE5_1Map2ToQuadInternalSpeaker" file="cras/src/tests/fmt_conv_unittest.cc" line="1504" status="run" result="completed" time="0.016" timestamp="2023-10-27T00:18:34.704" classname="FormatConverterTest" />
+    <testcase name="ConvertS32LEToS16LEDownmix51ToStereo48To96" file="cras/src/tests/fmt_conv_unittest.cc" line="1562" status="run" result="completed" time="0.102" timestamp="2023-10-27T00:18:34.722" classname="FormatConverterTest" />
+    <testcase name="ConvertS32LEToS16LEDownmix51ToStereo96To48" file="cras/src/tests/fmt_conv_unittest.cc" line="1604" status="run" result="completed" time="0.076" timestamp="2023-10-27T00:18:34.825" classname="FormatConverterTest" />
+    <testcase name="ConvertS32LEToS16LEDownmix51ToStereo48To441" file="cras/src/tests/fmt_conv_unittest.cc" line="1646" status="run" result="completed" time="0.101" timestamp="2023-10-27T00:18:34.902" classname="FormatConverterTest" />
+    <testcase name="ConvertS32LEToS16LEDownmix51ToStereo441To48" file="cras/src/tests/fmt_conv_unittest.cc" line="1689" status="run" result="completed" time="0.11" timestamp="2023-10-27T00:18:35.004" classname="FormatConverterTest" />
+    <testcase name="ConvertS32LEToS16LEDownmix51ToStereo96To48Short" file="cras/src/tests/fmt_conv_unittest.cc" line="1733" status="run" result="completed" time="0.073" timestamp="2023-10-27T00:18:35.115" classname="FormatConverterTest" />
+    <testcase name="Convert96to48PreLinearResample" file="cras/src/tests/fmt_conv_unittest.cc" line="1777" status="run" result="completed" time="0.048" timestamp="2023-10-27T00:18:35.189" classname="FormatConverterTest" />
+    <testcase name="Convert96to48PostLinearResample" file="cras/src/tests/fmt_conv_unittest.cc" line="1826" status="run" result="completed" time="0.043" timestamp="2023-10-27T00:18:35.238" classname="FormatConverterTest" />
+    <testcase name="ConfigConverter" file="cras/src/tests/fmt_conv_unittest.cc" line="1875" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:18:35.282" classname="FormatConverterTest" />
+    <testcase name="ConfigConverterNoNeed" file="cras/src/tests/fmt_conv_unittest.cc" line="1902" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:35.285" classname="FormatConverterTest" />
+    <testcase name="ConfigConverterNoNeedForInput" file="cras/src/tests/fmt_conv_unittest.cc" line="1929" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:35.286" classname="FormatConverterTest" />
+  </testsuite>
+  <testsuite name="ChannelRemixTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2023-10-27T00:18:35.288">
+    <testcase name="ChannelRemixAppliedOrNot" file="cras/src/tests/fmt_conv_unittest.cc" line="1956" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:18:35.289" classname="ChannelRemixTest" />
+  </testsuite>
+</testsuites>

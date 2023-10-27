@@ -1121,6 +1121,7 @@ const FINGERPRINT_SUBPAGE_PATH_V2 = "osPrivacy/lockScreen/fingerprint";
 const SMART_PRIVACY_SUBPAGE_PATH = "osPrivacy/smartPrivacy";
 const PRIVACY_HUB_SUBPAGE_PATH = "osPrivacy/privacyHub";
 const PRIVACY_HUB_MICROPHONE_SUBPAGE_PATH = "osPrivacy/privacyHub/microphone";
+const PRIVACY_HUB_GEOLOCATION_SUBPAGE_PATH = "osPrivacy/privacyHub/geolocation";
 const LANGUAGES_AND_INPUT_SECTION_PATH = "osLanguages";
 const INPUT_METHOD_OPTIONS_SUBPAGE_PATH = "osLanguages/inputMethodOptions";
 const LANGUAGES_SUBPAGE_PATH = "osLanguages/languages";
@@ -1246,6 +1247,7 @@ var Subpage;
     Subpage[Subpage["kSmartPrivacy"] = 1103] = "kSmartPrivacy";
     Subpage[Subpage["kPrivacyHub"] = 1104] = "kPrivacyHub";
     Subpage[Subpage["kPrivacyHubMicrophone"] = 1105] = "kPrivacyHubMicrophone";
+    Subpage[Subpage["kPrivacyHubGeolocation"] = 1107] = "kPrivacyHubGeolocation";
     Subpage[Subpage["kInputMethodOptions"] = 1203] = "kInputMethodOptions";
     Subpage[Subpage["kLanguages"] = 1204] = "kLanguages";
     Subpage[Subpage["kInput"] = 1205] = "kInput";
@@ -1358,6 +1360,7 @@ var routesMojom = /*#__PURE__*/Object.freeze({
   PRINTING_DETAILS_SUBPAGE_PATH: PRINTING_DETAILS_SUBPAGE_PATH,
   PRINTING_SECTION_PATH: PRINTING_SECTION_PATH,
   PRIVACY_AND_SECURITY_SECTION_PATH: PRIVACY_AND_SECURITY_SECTION_PATH,
+  PRIVACY_HUB_GEOLOCATION_SUBPAGE_PATH: PRIVACY_HUB_GEOLOCATION_SUBPAGE_PATH,
   PRIVACY_HUB_MICROPHONE_SUBPAGE_PATH: PRIVACY_HUB_MICROPHONE_SUBPAGE_PATH,
   PRIVACY_HUB_SUBPAGE_PATH: PRIVACY_HUB_SUBPAGE_PATH,
   RESET_SECTION_PATH: RESET_SECTION_PATH,
@@ -1595,6 +1598,7 @@ function createRoutes() {
     r.SMART_PRIVACY = createSubpage(r.OS_PRIVACY, SMART_PRIVACY_SUBPAGE_PATH, Subpage.kSmartPrivacy);
     r.PRIVACY_HUB = createSubpage(r.OS_PRIVACY, PRIVACY_HUB_SUBPAGE_PATH, Subpage.kPrivacyHub);
     r.PRIVACY_HUB_MICROPHONE = createSubpage(r.OS_PRIVACY, PRIVACY_HUB_MICROPHONE_SUBPAGE_PATH, Subpage.kPrivacyHubMicrophone);
+    r.PRIVACY_HUB_GEOLOCATION = createSubpage(r.OS_PRIVACY, PRIVACY_HUB_GEOLOCATION_SUBPAGE_PATH, Subpage.kPrivacyHubGeolocation);
     // About section.
     r.ABOUT = createSection(
     /*parent=*/ null, ABOUT_CHROME_OS_SECTION_PATH, Section.kAboutChromeOs);
@@ -5028,7 +5032,7 @@ document.head.appendChild(template$e.content);
 
 function getTemplate$24() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
-          var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:24px;margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
+          var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
     <cr-input id="searchInput" part="searchInput" on-search="onSearchTermSearch" on-input="onSearchTermInput" aria-label$="[[label]]" type="search" autofocus="[[autofocus]]" placeholder="[[label]]" spellcheck="false">
       <iron-icon id="searchIconInline" slot="inline-prefix" icon="cr:search"></iron-icon>
@@ -13916,8 +13920,8 @@ class GuestOsSharedUsbDevicesAddDialog extends GuestOsSharedUsbDevicesAddDialogE
                 type: Object,
                 value() {
                     return {
-                        'vm_name': '',
-                        'container_name': '',
+                        vm_name: '',
+                        container_name: '',
                     };
                 },
             },
@@ -14114,8 +14118,8 @@ class SettingsGuestOsSharedUsbDevicesElement extends SettingsGuestOsSharedUsbDev
                 type: Object,
                 value() {
                     return {
-                        'vm_name': '',
-                        'container_name': '',
+                        vm_name: '',
+                        container_name: '',
                     };
                 },
             },
@@ -25130,8 +25134,8 @@ const kLanguageCodeToTranslateCode = {
 // Translate still uses the old versions. TODO(michaelpg): Chrome does too.
 // Follow up with Translate owners to understand the right thing to do.
 const kTranslateLanguageSynonyms = {
-    'he': 'iw',
-    'jv': 'jw',
+    he: 'iw',
+    jv: 'jw',
 };
 // The fake language name used for ARC IMEs. The value must be in sync with the
 // one in ui/base/ime/ash/extension_ime_util.h.
@@ -38918,10 +38922,10 @@ class AppManagementPluginVmDetailViewElement extends AppManagementPluginVmDetail
         this.updateFromStore();
     }
     onSharedPathsClick_() {
-        Router.getInstance().navigateTo(routes.APP_MANAGEMENT_PLUGIN_VM_SHARED_PATHS, new URLSearchParams({ 'id': this.app_.id }));
+        Router.getInstance().navigateTo(routes.APP_MANAGEMENT_PLUGIN_VM_SHARED_PATHS, new URLSearchParams({ id: this.app_.id }));
     }
     onSharedUsbDevicesClick_() {
-        Router.getInstance().navigateTo(routes.APP_MANAGEMENT_PLUGIN_VM_SHARED_USB_DEVICES, new URLSearchParams({ 'id': this.app_.id }));
+        Router.getInstance().navigateTo(routes.APP_MANAGEMENT_PLUGIN_VM_SHARED_USB_DEVICES, new URLSearchParams({ id: this.app_.id }));
     }
     async onPermissionChanged_(e) {
         this.pendingPermissionItem_ =
@@ -43002,8 +43006,13 @@ function getTemplate$P() {
 </template>
 
 <template is="dom-if" if="[[showPrivacyHubLocationControl_]]" restamp>
-  <settings-toggle-button class="hr" pref="{{prefs.ash.user.geolocation_allowed}}" id="geolocationToggle" label="$i18n{geolocationToggleTitle}" sub-label="$i18n{geolocationToggleDesc}" deep-link-focus-id$="[[Setting.kGeolocationOnOff]]" learn-more-url="$i18n{geolocationToggleLearnMoreURL}">
-  </settings-toggle-button>
+  <cr-link-row id="geolocationAreaLinkRow" class="hr" on-click="onGeolocationAreaClick_" deep-link-focus-id$="[[Setting.kGeolocationOnOff]]" using-slotted-label>
+    <div slot="label">$i18n{geolocationAreaTitle}</div>
+    <div slot="sub-label">
+      <localized-link localized-string="$i18n{geolocationAreaDescription}" link-url="$i18n{geolocationAreaLearnMoreURL}">
+      </localized-link>
+    </div>
+  </cr-link-row>
 </template>
 
 
@@ -43247,6 +43256,9 @@ class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
     onMicrophoneSubpageArrowClick_(e) {
         this.navigateToMicrophoneSubpage_();
         e.stopPropagation();
+    }
+    onGeolocationAreaClick_() {
+        Router.getInstance().navigateTo(routes.PRIVACY_HUB_GEOLOCATION);
     }
 }
 customElements.define(SettingsPrivacyHubSubpage.is, SettingsPrivacyHubSubpage);

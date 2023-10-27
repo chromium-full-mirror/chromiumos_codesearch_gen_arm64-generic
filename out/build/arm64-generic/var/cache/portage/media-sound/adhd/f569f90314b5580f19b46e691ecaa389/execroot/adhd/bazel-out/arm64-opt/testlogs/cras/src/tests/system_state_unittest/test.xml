@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="31" failures="0" disabled="0" errors="0" time="0.462" timestamp="2023-10-27T00:18:37.963" name="AllTests">
+  <testsuite name="SystemStateSuite" tests="19" failures="0" disabled="0" skipped="0" errors="0" time="0.317" timestamp="2023-10-27T00:18:38.005">
+    <testcase name="DefaultVolume" file="cras/src/tests/system_state_unittest.cc" line="136" status="run" result="completed" time="0.044" timestamp="2023-10-27T00:18:38.006" classname="SystemStateSuite" />
+    <testcase name="SetVolume" file="cras/src/tests/system_state_unittest.cc" line="144" status="run" result="completed" time="0.059" timestamp="2023-10-27T00:18:38.078" classname="SystemStateSuite" />
+    <testcase name="SetMinMaxVolume" file="cras/src/tests/system_state_unittest.cc" line="158" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.139" classname="SystemStateSuite" />
+    <testcase name="SetUserMute" file="cras/src/tests/system_state_unittest.cc" line="166" status="run" result="completed" time="0.017" timestamp="2023-10-27T00:18:38.143" classname="SystemStateSuite" />
+    <testcase name="SetMute" file="cras/src/tests/system_state_unittest.cc" line="187" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:18:38.161" classname="SystemStateSuite" />
+    <testcase name="SetSystemMuteThenSwitchUserMute" file="cras/src/tests/system_state_unittest.cc" line="208" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.164" classname="SystemStateSuite" />
+    <testcase name="SetUserMuteThenSwitchSystemMute" file="cras/src/tests/system_state_unittest.cc" line="231" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.168" classname="SystemStateSuite" />
+    <testcase name="CaptureMuteChangedCallbackMultiple" file="cras/src/tests/system_state_unittest.cc" line="254" status="run" result="completed" time="0.037" timestamp="2023-10-27T00:18:38.172" classname="SystemStateSuite" />
+    <testcase name="MuteLocked" file="cras/src/tests/system_state_unittest.cc" line="268" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:18:38.209" classname="SystemStateSuite" />
+    <testcase name="Suspend" file="cras/src/tests/system_state_unittest.cc" line="296" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:18:38.214" classname="SystemStateSuite" />
+    <testcase name="AddCardFailCreate" file="cras/src/tests/system_state_unittest.cc" line="312" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.219" classname="SystemStateSuite" />
+    <testcase name="AddCard" file="cras/src/tests/system_state_unittest.cc" line="326" status="run" result="completed" time="0.026" timestamp="2023-10-27T00:18:38.223" classname="SystemStateSuite" />
+    <testcase name="IgnoreUCMSuffix" file="cras/src/tests/system_state_unittest.cc" line="458" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:18:38.250" classname="SystemStateSuite" />
+    <testcase name="SetNoiseCancellationEnabled" file="cras/src/tests/system_state_unittest.cc" line="469" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:18:38.265" classname="SystemStateSuite" />
+    <testcase name="InternalCardDetectdNoCard" file="cras/src/tests/system_state_unittest.cc" line="520" status="run" result="completed" time="0.006" timestamp="2023-10-27T00:18:38.285" classname="SystemStateSuite" />
+    <testcase name="InternalCardDetectdUSBCardOnly" file="cras/src/tests/system_state_unittest.cc" line="526" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.292" classname="SystemStateSuite" />
+    <testcase name="InternalCardDetectdInternalCardOnly" file="cras/src/tests/system_state_unittest.cc" line="542" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.295" classname="SystemStateSuite" />
+    <testcase name="InternalCardDetectdHDMICardOnly" file="cras/src/tests/system_state_unittest.cc" line="558" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.299" classname="SystemStateSuite" />
+    <testcase name="InternalCardDetectedMultipleCards" file="cras/src/tests/system_state_unittest.cc" line="574" status="run" result="completed" time="0.019" timestamp="2023-10-27T00:18:38.303" classname="SystemStateSuite" />
+  </testsuite>
+  <testsuite name="SystemSettingsRegisterSelectDescriptor" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.004" timestamp="2023-10-27T00:18:38.327">
+    <testcase name="AddSelectFd" file="cras/src/tests/system_state_unittest.cc" line="346" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:18:38.327" classname="SystemSettingsRegisterSelectDescriptor" />
+  </testsuite>
+  <testsuite name="SystemSettingsAddTask" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.017" timestamp="2023-10-27T00:18:38.332">
+    <testcase name="AddTask" file="cras/src/tests/system_state_unittest.cc" line="376" status="run" result="completed" time="0.016" timestamp="2023-10-27T00:18:38.332" classname="SystemSettingsAddTask" />
+  </testsuite>
+  <testsuite name="SystemSettingsStreamCount" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.027" timestamp="2023-10-27T00:18:38.350">
+    <testcase name="StreamCount" file="cras/src/tests/system_state_unittest.cc" line="396" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:18:38.350" classname="SystemSettingsStreamCount" />
+    <testcase name="StreamCountByDirection" file="cras/src/tests/system_state_unittest.cc" line="415" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:18:38.355" classname="SystemSettingsStreamCount" />
+    <testcase name="ForceSrBtEnabled" file="cras/src/tests/system_state_unittest.cc" line="496" status="run" result="completed" time="0.011" timestamp="2023-10-27T00:18:38.361" classname="SystemSettingsStreamCount" />
+    <testcase name="ForceA2DPAdvancedCodecsEnabled" file="cras/src/tests/system_state_unittest.cc" line="508" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.373" classname="SystemSettingsStreamCount" />
+  </testsuite>
+  <testsuite name="SystemFeatureTier" tests="6" failures="0" disabled="0" skipped="0" errors="0" time="0.048" timestamp="2023-10-27T00:18:38.377">
+    <testcase name="CrasFeatureTierInitCalled" file="cras/src/tests/system_state_unittest.cc" line="598" status="run" result="completed" time="0.017" timestamp="2023-10-27T00:18:38.377" classname="SystemFeatureTier" />
+    <testcase name="GetSrBtEnabled" file="cras/src/tests/system_state_unittest.cc" line="607" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.395" classname="SystemFeatureTier" />
+    <testcase name="SetSrBtEnabledWhenNotSupported" file="cras/src/tests/system_state_unittest.cc" line="616" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.399" classname="SystemFeatureTier" />
+    <testcase name="SetSrBtEnabledWhenSupported" file="cras/src/tests/system_state_unittest.cc" line="627" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:18:38.403" classname="SystemFeatureTier" />
+    <testcase name="GetSrBtUnsupported" file="cras/src/tests/system_state_unittest.cc" line="638" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:38.406" classname="SystemFeatureTier" />
+    <testcase name="GetSrBtSupported" file="cras/src/tests/system_state_unittest.cc" line="647" status="run" result="completed" time="0.015" timestamp="2023-10-27T00:18:38.409" classname="SystemFeatureTier" />
+  </testsuite>
+</testsuites>

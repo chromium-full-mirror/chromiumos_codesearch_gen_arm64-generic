@@ -1764,7 +1764,7 @@ class SettingsCrostiniConfirmationDialogElement extends PolymerElement {
     }
     onDialogClose_(e) {
         e.stopPropagation();
-        const closeEvent = new CustomEvent('close', { bubbles: true, composed: true, detail: { 'accepted': this.accepted_ } });
+        const closeEvent = new CustomEvent('close', { bubbles: true, composed: true, detail: { accepted: this.accepted_ } });
         this.dispatchEvent(closeEvent);
     }
 }
@@ -26795,14 +26795,14 @@ class SettingsDetailedBuildInfoSubpageElement extends SettingsDetailedBuildInfoS
     }
     onCopyBuildDetailsToClipBoardClick_() {
         const buildInfo = {
-            'application_label': loadTimeData.getString('aboutBrowserVersion'),
-            'platform': this.versionInfo_.osVersion,
-            'aboutChannelLabel': this.channelInfo_.targetChannel,
-            'firmware_version': this.versionInfo_.osFirmware,
-            'aboutIsArcStatusTitle': loadTimeData.getBoolean('aboutIsArcEnabled'),
-            'arc_label': this.versionInfo_.arcVersion,
-            'isEnterpriseManagedTitle': loadTimeData.getBoolean('aboutEnterpriseManaged'),
-            'aboutIsDeveloperModeTitle': loadTimeData.getBoolean('aboutIsDeveloperMode'),
+            application_label: loadTimeData.getString('aboutBrowserVersion'),
+            platform: this.versionInfo_.osVersion,
+            aboutChannelLabel: this.channelInfo_.targetChannel,
+            firmware_version: this.versionInfo_.osFirmware,
+            aboutIsArcStatusTitle: loadTimeData.getBoolean('aboutIsArcEnabled'),
+            arc_label: this.versionInfo_.arcVersion,
+            isEnterpriseManagedTitle: loadTimeData.getBoolean('aboutEnterpriseManaged'),
+            aboutIsDeveloperModeTitle: loadTimeData.getBoolean('aboutIsDeveloperMode'),
         };
         const entries = [];
         for (const key in buildInfo) {
@@ -32324,7 +32324,7 @@ class SettingsDriveConfirmationDialogElement extends PolymerElement {
      */
     onDialogClose_(e) {
         e.stopPropagation();
-        const closeEvent = new CustomEvent('close', { bubbles: true, composed: true, detail: { 'accept': this.accept_ } });
+        const closeEvent = new CustomEvent('close', { bubbles: true, composed: true, detail: { accept: this.accept_ } });
         this.dispatchEvent(closeEvent);
     }
 }
@@ -35242,7 +35242,7 @@ class OsSettingsEditDictionaryPageElement extends OsSettingsEditDictionaryPageEl
 customElements.define(OsSettingsEditDictionaryPageElement.is, OsSettingsEditDictionaryPageElement);
 
 function getTemplate$g() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex">h2{padding-inline-start:var(--cr-section-padding)}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}cr-policy-pref-indicator+cr-icon-button{margin-inline-start:0}.bottom-margin{margin-bottom:var(--cr-section-vertical-margin)}.explain-selected{color:var(--cros-text-color-positive);font-weight:initial;margin-top:4px}.icon-external{margin-inline-end:0}.name-with-error[disabled]{pointer-events:none}.name-with-error{padding:14px 0}.name-with-error div{color:var(--cros-text-color-alert);margin-top:8px}iron-icon[icon='cr:error']{--iron-icon-fill-color:var(--cros-icon-color-alert);height:var(--cr-icon-size);margin-inline-end:4px;width:var(--cr-icon-size)}iron-icon[icon='cr20:domain']{margin-inline-end:10px}iron-icon+span{vertical-align:middle}.selected[actionable]{cursor:auto}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection .list-frame{padding-inline-end:0;padding-inline-start:40px}#spellCheckLanguagesListV2>.cr-row,.subsection>cr-link-row,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}.subsection>cr-link-row:not(:first-of-type),.subsection>settings-toggle-button:not(:first-of-type){border-top:var(--cr-separator-line)}.external-wrapper,.internal-wrapper{display:flex}#addInputMethod,#addSpellcheckLanguages{--iron-icon-fill-color:var(--cr-link-color);margin-top:16px}cr-button[disabled] iron-icon{--iron-icon-fill-color:var(--cros-button-icon-color-primary-disabled)}paper-spinner-lite{height:14px;width:14px;--paper-spinner-stroke-width:2px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex">h2{padding-inline-start:var(--cr-section-padding)}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}cr-policy-pref-indicator+cr-icon-button{margin-inline-start:0}.bottom-margin{margin-bottom:var(--cr-section-vertical-margin)}.explain-selected,.language-packs-error{font-weight:initial;margin-top:4px}.explain-selected{color:var(--cros-text-color-positive)}.language-packs-error{color:var(--cros-text-color-alert)}.icon-external{margin-inline-end:0}.name-with-error[disabled]{pointer-events:none}.name-with-error{padding:14px 0}.name-with-error div{color:var(--cros-text-color-alert);margin-top:8px}iron-icon[icon='cr:error'],iron-icon[icon='os-settings:multidevice-error']{--iron-icon-fill-color:var(--cros-icon-color-alert);margin-inline-end:4px}iron-icon[icon='cr:error']{height:var(--cr-icon-size);width:var(--cr-icon-size)}iron-icon[icon='os-settings:multidevice-error']{height:16px;width:16px}iron-icon[icon='cr20:domain']{margin-inline-end:10px}iron-icon+span{vertical-align:middle}.selected[actionable]{cursor:auto}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection .list-frame{padding-inline-end:0;padding-inline-start:40px}#spellCheckLanguagesListV2>.cr-row,.subsection>cr-link-row,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}.subsection>cr-link-row:not(:first-of-type),.subsection>settings-toggle-button:not(:first-of-type){border-top:var(--cr-separator-line)}.external-wrapper,.internal-wrapper{display:flex}#addInputMethod,#addSpellcheckLanguages{--iron-icon-fill-color:var(--cr-link-color);margin-top:16px}cr-button[disabled] iron-icon{--iron-icon-fill-color:var(--cros-button-icon-color-primary-disabled)}paper-spinner-lite{height:14px;width:14px;--paper-spinner-stroke-width:2px}</style>
 
 <template is="dom-if" if="[[shouldShowLanguagePacksNotice_]]">
   <div class="cr-row first bottom-margin">
@@ -35278,6 +35278,18 @@ function getTemplate$g() {
                   item.id, languages.inputMethods.currentId)]]">
             $i18n{inputMethodEnabled}
           </div>
+          <template is="dom-if" if="[[shouldShowLanguagePackError_(
+                  item.id, languagePacksInSettingsEnabled_,
+                  languages.inputMethods.imeLanguagePackStatus.*)]]">
+            <div class="language-packs-error">
+              <iron-icon id="failure-icon" icon="os-settings:multidevice-error">
+              </iron-icon>
+              <span>
+                [[getLanguagePacksErrorMessage_(item.id,
+                    languages.inputMethods.imeLanguagePackStatus.*)]]
+              </span>
+            </div>
+          </template>
         </div>
         <template is="dom-if" if="[[shouldShowSpinner_(item.id, languagePacksInSettingsEnabled_,
                   languages.inputMethods.imeLanguagePackStatus.*)]]">
@@ -35380,8 +35392,7 @@ function getTemplate$g() {
     <h2>$i18n{suggestionsTitle}</h2>
     <div class="subsection">
       <template is="dom-if" if="[[allowOrca_]]">
-        
-        <settings-toggle-button id="orcaToggle" pref="{{prefs.assistive_input.orca_enabled}}" label="$i18n{orcaTitle}" sub-label="$i18n{orcaDescription}" aria-label="$i18n{orcaTitle}" deep-link-focus-id$="[[Setting.kShowOrca]]">
+        <settings-toggle-button id="orcaToggle" pref="{{prefs.assistive_input.orca_enabled}}" label="$i18n{orcaTitle}" sub-label="$i18n{orcaDescription}" aria-label="$i18n{orcaTitle}" deep-link-focus-id$="[[Setting.kShowOrca]]" learn-more-url="$i18n{orcaLearnMoreUrl}">
         </settings-toggle-button>
       </template>
 
@@ -35935,6 +35946,28 @@ class OsSettingsInputPageElement extends OsSettingsInputPageElementBase {
         return this.languagePacksInSettingsEnabled_ &&
             this.languageHelper.getImeLanguagePackStatus(imeId) ===
                 chrome.inputMethodPrivate.LanguagePackStatus.IN_PROGRESS;
+    }
+    shouldShowLanguagePackError_(imeId) {
+        if (!this.languagePacksInSettingsEnabled_) {
+            return false;
+        }
+        const status = this.languageHelper.getImeLanguagePackStatus(imeId);
+        return status ===
+            chrome.inputMethodPrivate.LanguagePackStatus.ERROR_OTHER ||
+            status ===
+                chrome.inputMethodPrivate.LanguagePackStatus.ERROR_NEEDS_REBOOT;
+    }
+    getLanguagePacksErrorMessage_(imeId) {
+        const status = this.languageHelper.getImeLanguagePackStatus(imeId);
+        switch (status) {
+            case chrome.inputMethodPrivate.LanguagePackStatus.ERROR_NEEDS_REBOOT:
+                return this.i18n('inputMethodLanguagePacksNeedsRebootError');
+            case chrome.inputMethodPrivate.LanguagePackStatus.ERROR_OTHER:
+                return this.i18n('inputMethodLanguagePacksGeneralError');
+            default:
+                console.error('Invalid status:', status);
+                return '';
+        }
     }
 }
 customElements.define(OsSettingsInputPageElement.is, OsSettingsInputPageElement);
@@ -37685,7 +37718,7 @@ function getTemplate$6() {
     </cr-icon-button>
   </div>
   <div id="dropdownContainer" class="text-field-container">
-    <select id="remappingActionDropdown" class="md-select" on-change="onSelectChange_" disabled="[[isDropdownDisabled_(isBeingDragged_)]]">
+    <select id="remappingActionDropdown" class="md-select" on-change="onSelectChange_" disabled="[[isDropdownDisabled_(isBeingDragged_)]]" aria-label="[[getDropdownAriaLabel_(buttonRemappingName_, fakePref_.*)]]">
       <template is="dom-repeat" items="[[buttonMapTargets_]]" as="buttonMapping">
         <option value$="[[buttonMapping.value]]">
           [[buttonMapping.name]]
@@ -37945,7 +37978,6 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             },
             actionList: {
                 type: Array,
-                observer: 'setUpButtonMapTargets_',
             },
             removeTopBorder: {
                 type: Boolean,
@@ -37993,7 +38025,8 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     static get observers() {
         return [
             'onSettingsChanged(fakePref_.*)',
-            'initializeCustomizeKey(buttonRemappingList.*, remappingIndex)',
+            'initializeCustomizeKey(buttonRemappingList.*, remappingIndex, ' +
+                'actionList)',
         ];
     }
     connectedCallback() {
@@ -38024,6 +38057,7 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             dropdown.value =
                 option === undefined ? NO_REMAPPING_OPTION_VALUE : originalAction;
             this.prevChoice_ = dropdown.value;
+            dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
         });
     }
     /**
@@ -38097,6 +38131,7 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
                 this.i18n('keyCombinationOptionLabel');
             microTask.run(() => {
                 dropdown.value = KEY_COMBINATION_OPTION_VALUE;
+                dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
                 this.prevChoice_ = dropdown.value;
             });
         }
@@ -38110,6 +38145,7 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             this.set('fakePref_.value', NO_REMAPPING_OPTION_VALUE);
             microTask.run(() => {
                 dropdown.value = NO_REMAPPING_OPTION_VALUE;
+                dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
                 this.prevChoice_ = dropdown.value;
             });
         }
@@ -38276,6 +38312,16 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     isDropdownDisabled_() {
         return this.isBeingDragged_;
     }
+    getDropdownAriaLabel_() {
+        const select = this.$.remappingActionDropdown;
+        const optionLabel = select.options[select.selectedIndex] ?
+            select.options[select.selectedIndex].text :
+            this.i18n('noRemappingOptionLabel');
+        if (!this.buttonRemappingName_) {
+            return optionLabel;
+        }
+        return this.i18n('buttonRemappingDropdownAriaLabel', this.buttonRemappingName_, optionLabel);
+    }
 }
 customElements.define(CustomizeButtonRowElement.is, CustomizeButtonRowElement);
 
@@ -38435,8 +38481,7 @@ function getTemplate$4() {
         </cr-button>
       </div>
       <div>
-        <cr-button id="saveButton" class="action-button" on-click="saveRenamingDialogClicked_" disabled$="[[isSaveDisabled_(buttonRemappingList,
-                actionList, selectedButtonName_)]]">
+        <cr-button id="saveButton" class="action-button" on-click="saveRenamingDialogClicked_" disabled="[[isSaveButtonDisabled_]]">
           $i18n{buttonRemappingDialogSaveLabel}
         </cr-button>
       </div>
@@ -38515,6 +38560,10 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
                 value: false,
                 reflectToAttribute: true,
             },
+            isSaveButtonDisabled_: {
+                type: Boolean,
+                value: false,
+            },
         };
     }
     connectedCallback() {
@@ -38531,6 +38580,7 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
         this.selectedButton_ = this.buttonRemappingList[this.selectedButtonIndex_];
         this.selectedButtonName_ = this.selectedButton_.name;
         this.buttonNameInvalid_ = false;
+        this.isSaveButtonDisabled_ = false;
         this.shouldShowRenamingDialog_ = true;
     }
     /**
@@ -38551,7 +38601,7 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
         this.shouldShowRenamingDialog_ = false;
     }
     saveRenamingDialogClicked_() {
-        if (!this.isSaveDisabled_()) {
+        if (!this.isSaveButtonDisabled_) {
             this.updateButtonName_();
             this.shouldShowRenamingDialog_ = false;
         }
@@ -38571,6 +38621,7 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
         // Truncate the name to maxInputLength.
         this.selectedButtonName_ =
             this.selectedButtonName_.substring(0, MAX_BUTTON_NAME_INPUT_LENGTH);
+        this.isSaveButtonDisabled_ = this.selectedButtonName_ === '';
     }
     updateButtonName_() {
         if (!!this.selectedButtonName_ &&
@@ -38582,15 +38633,6 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
             }));
         }
         this.selectedButtonName_ = '';
-    }
-    isSaveDisabled_() {
-        if (this.selectedButtonName_ === this.selectedButton_.name) {
-            return true;
-        }
-        if (!this.selectedButtonName_.length) {
-            return true;
-        }
-        return false;
     }
 }
 customElements.define(CustomizeButtonsSubsectionElement.is, CustomizeButtonsSubsectionElement);

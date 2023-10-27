@@ -207,13 +207,13 @@ class UserAgentMetadataDataView {
     return data_->wow64;
   }
   inline void GetFormFactorDataView(
-      mojo::StringDataView* output);
+      mojo::ArrayDataView<mojo::StringDataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadFormFactor(UserType* output) {
     
     auto* pointer = data_->form_factor.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
  private:
@@ -447,10 +447,12 @@ struct Serializer<::blink::mojom::UserAgentMetadataDataView, MaybeConstUserType>
     fragment->wow64 = Traits::wow64(input);
     decltype(Traits::form_factor(input)) in_form_factor = Traits::form_factor(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->form_factor)::BaseType> form_factor_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_form_factor, form_factor_fragment);
+        typename decltype(fragment->form_factor)::BaseType>
+        form_factor_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& form_factor_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        in_form_factor, form_factor_fragment, &form_factor_validate_params);
     fragment->form_factor.Set(
         form_factor_fragment.is_null() ? nullptr : form_factor_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -579,9 +581,9 @@ inline void UserAgentMetadataDataView::GetBitnessDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void UserAgentMetadataDataView::GetFormFactorDataView(
-    mojo::StringDataView* output) {
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->form_factor.Get();
-  *output = mojo::StringDataView(pointer, message_);
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
 
 

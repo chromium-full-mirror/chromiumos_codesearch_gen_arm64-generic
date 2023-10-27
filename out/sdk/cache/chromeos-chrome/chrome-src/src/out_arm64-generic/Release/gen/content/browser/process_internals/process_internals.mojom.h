@@ -536,6 +536,7 @@ class  SiteInstanceInfo {
   SiteInstanceInfo(
       int32_t id,
       int32_t site_instance_group_id,
+      int32_t browsing_instance_id,
       bool locked,
       const absl::optional<::GURL>& site_url,
       const absl::optional<::GURL>& process_lock_url,
@@ -624,6 +625,8 @@ class  SiteInstanceInfo {
   int32_t id;
   
   int32_t site_instance_group_id;
+  
+  int32_t browsing_instance_id;
   
   bool locked;
   
@@ -1024,6 +1027,7 @@ SiteInstanceInfoPtr SiteInstanceInfo::Clone() const {
   return New(
       mojo::Clone(id),
       mojo::Clone(site_instance_group_id),
+      mojo::Clone(browsing_instance_id),
       mojo::Clone(locked),
       mojo::Clone(site_url),
       mojo::Clone(process_lock_url),
@@ -1040,6 +1044,8 @@ bool SiteInstanceInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->id, other_struct.id))
     return false;
   if (!mojo::Equals(this->site_instance_group_id, other_struct.site_instance_group_id))
+    return false;
+  if (!mojo::Equals(this->browsing_instance_id, other_struct.browsing_instance_id))
     return false;
   if (!mojo::Equals(this->locked, other_struct.locked))
     return false;
@@ -1069,6 +1075,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.site_instance_group_id < rhs.site_instance_group_id)
     return true;
   if (rhs.site_instance_group_id < lhs.site_instance_group_id)
+    return false;
+  if (lhs.browsing_instance_id < rhs.browsing_instance_id)
+    return true;
+  if (rhs.browsing_instance_id < lhs.browsing_instance_id)
     return false;
   if (lhs.locked < rhs.locked)
     return true;
@@ -1286,6 +1296,11 @@ struct  StructTraits<::mojom::SiteInstanceInfo::DataView,
   static decltype(::mojom::SiteInstanceInfo::site_instance_group_id) site_instance_group_id(
       const ::mojom::SiteInstanceInfoPtr& input) {
     return input->site_instance_group_id;
+  }
+
+  static decltype(::mojom::SiteInstanceInfo::browsing_instance_id) browsing_instance_id(
+      const ::mojom::SiteInstanceInfoPtr& input) {
+    return input->browsing_instance_id;
   }
 
   static decltype(::mojom::SiteInstanceInfo::locked) locked(

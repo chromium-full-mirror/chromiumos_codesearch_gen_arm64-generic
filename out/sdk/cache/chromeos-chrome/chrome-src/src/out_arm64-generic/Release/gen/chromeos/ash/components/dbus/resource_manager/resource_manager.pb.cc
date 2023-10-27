@@ -37,7 +37,8 @@ PROTOBUF_CONSTEXPR ReportBrowserProcesses_Process::ReportBrowserProcesses_Proces
     ::_pbi::ConstantInitialized)
   : pid_(0)
   , protected__(false)
-  , visible_(false){}
+  , visible_(false)
+  , focused_(false){}
 struct ReportBrowserProcesses_ProcessDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ReportBrowserProcesses_ProcessDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -399,16 +400,16 @@ ReportBrowserProcesses_Process::ReportBrowserProcesses_Process(const ReportBrows
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&pid_, &from.pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&visible_) -
-    reinterpret_cast<char*>(&pid_)) + sizeof(visible_));
+    static_cast<size_t>(reinterpret_cast<char*>(&focused_) -
+    reinterpret_cast<char*>(&pid_)) + sizeof(focused_));
   // @@protoc_insertion_point(copy_constructor:resource_manager.ReportBrowserProcesses.Process)
 }
 
 inline void ReportBrowserProcesses_Process::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&pid_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&visible_) -
-    reinterpret_cast<char*>(&pid_)) + sizeof(visible_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&focused_) -
+    reinterpret_cast<char*>(&pid_)) + sizeof(focused_));
 }
 
 ReportBrowserProcesses_Process::~ReportBrowserProcesses_Process() {
@@ -435,8 +436,8 @@ void ReportBrowserProcesses_Process::Clear() {
   (void) cached_has_bits;
 
   ::memset(&pid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&visible_) -
-      reinterpret_cast<char*>(&pid_)) + sizeof(visible_));
+      reinterpret_cast<char*>(&focused_) -
+      reinterpret_cast<char*>(&pid_)) + sizeof(focused_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -466,6 +467,14 @@ const char* ReportBrowserProcesses_Process::_InternalParse(const char* ptr, ::_p
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           visible_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool focused = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          focused_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -517,6 +526,12 @@ uint8_t* ReportBrowserProcesses_Process::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_visible(), target);
   }
 
+  // bool focused = 4;
+  if (this->_internal_focused() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_focused(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -545,6 +560,11 @@ size_t ReportBrowserProcesses_Process::ByteSizeLong() const {
 
   // bool visible = 3;
   if (this->_internal_visible() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool focused = 4;
+  if (this->_internal_focused() != 0) {
     total_size += 1 + 1;
   }
 
@@ -577,6 +597,9 @@ void ReportBrowserProcesses_Process::MergeFrom(const ReportBrowserProcesses_Proc
   if (from._internal_visible() != 0) {
     _internal_set_visible(from._internal_visible());
   }
+  if (from._internal_focused() != 0) {
+    _internal_set_focused(from._internal_focused());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -595,8 +618,8 @@ void ReportBrowserProcesses_Process::InternalSwap(ReportBrowserProcesses_Process
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ReportBrowserProcesses_Process, visible_)
-      + sizeof(ReportBrowserProcesses_Process::visible_)
+      PROTOBUF_FIELD_OFFSET(ReportBrowserProcesses_Process, focused_)
+      + sizeof(ReportBrowserProcesses_Process::focused_)
       - PROTOBUF_FIELD_OFFSET(ReportBrowserProcesses_Process, pid_)>(
           reinterpret_cast<char*>(&pid_),
           reinterpret_cast<char*>(&other->pid_));

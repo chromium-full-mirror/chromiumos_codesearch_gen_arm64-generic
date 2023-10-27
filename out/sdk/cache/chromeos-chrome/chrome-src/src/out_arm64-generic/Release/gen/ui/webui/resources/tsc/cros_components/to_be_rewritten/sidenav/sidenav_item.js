@@ -80,8 +80,7 @@ export class SidenavItem extends LitElement {
       width: 100%;
     }
 
-    #tree-row-button,
-    .md-ripple {
+    #tree-row-button {
       align-items: center;
       background: none;
       border: none;
@@ -334,13 +333,6 @@ export class SidenavItem extends LitElement {
     }
     get iconSlotElement() {
         return castExists(this.renderRoot.querySelector('slot[name="icon"]'));
-    }
-    get ripple() {
-        // We can't use async / await here as js does not support async getters
-        // and setters.
-        return this.updateComplete.then(() => {
-            return this.renderRoot.querySelector('md-ripple');
-        });
     }
     constructor() {
         super();

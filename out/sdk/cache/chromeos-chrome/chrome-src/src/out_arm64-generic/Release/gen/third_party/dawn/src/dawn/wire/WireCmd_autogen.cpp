@@ -11,7 +11,7 @@
 #include <cstring>
 #include <limits>
 
-#ifdef __GNUC__
+#if defined(__GNUC__) || defined(__clang__)
 // error: 'offsetof' within non-standard-layout type 'wgpu::XXX' is conditionally-supported
 #pragma GCC diagnostic ignored "-Winvalid-offsetof"
 #endif
@@ -2825,7 +2825,6 @@ struct WGPUQuerySetDescriptorTransfer {
     bool has_label;
     WGPUQueryType type;
     uint32_t count;
-    uint64_t pipelineStatisticCount;
 };
 
 
@@ -2838,12 +2837,6 @@ DAWN_DECLARE_UNUSED size_t WGPUQuerySetDescriptorGetExtraRequiredSize(const WGPU
     }
     if (record.label != nullptr) {
         result += Align(std::strlen(record.label), kWireBufferAlignment);
-    }
-    {
-        auto memberLength = record.pipelineStatisticCount;
-        auto size = WireAlignSizeofN<WGPUPipelineStatisticName>(memberLength);
-        DAWN_ASSERT(size);
-        result += *size;
     }
     return result;
 }
@@ -2866,7 +2859,6 @@ DAWN_DECLARE_UNUSED WireResult WGPUQuerySetDescriptorSerialize(
 
     transfer->type = record.type;
     transfer->count = record.count;
-    transfer->pipelineStatisticCount = record.pipelineStatisticCount;
     bool has_label = record.label != nullptr;
     transfer->has_label = has_label;
     if (has_label) {
@@ -2875,16 +2867,6 @@ DAWN_DECLARE_UNUSED WireResult WGPUQuerySetDescriptorSerialize(
         char* stringInBuffer;
         WIRE_TRY(buffer->NextN(transfer->labelStrlen, &stringInBuffer));
         memcpy(stringInBuffer, record.label, transfer->labelStrlen);
-    }
-    {
-        auto memberLength = record.pipelineStatisticCount;
-
-        WGPUPipelineStatisticName* memberBuffer;
-        WIRE_TRY(buffer->NextN(memberLength, &memberBuffer));
-
-        memcpy(
-            memberBuffer, record.pipelineStatistics,
-            sizeof(WGPUPipelineStatisticName) * memberLength);
     }
 
     return WireResult::Success;
@@ -2908,8 +2890,6 @@ DAWN_DECLARE_UNUSED WireResult WGPUQuerySetDescriptorDeserialize(
     record->type = transfer->type;
     static_assert(sizeof(record->count) >= sizeof(transfer->count), "Deserialize assignment may not narrow.");
     record->count = transfer->count;
-    if (transfer->pipelineStatisticCount > std::numeric_limits<size_t>::max()) return WireResult::FatalError;
-    record->pipelineStatisticCount = checked_cast<size_t>(transfer->pipelineStatisticCount);
     bool has_label = transfer->has_label;
     record->label = nullptr;
     if (has_label) {
@@ -2927,20 +2907,6 @@ DAWN_DECLARE_UNUSED WireResult WGPUQuerySetDescriptorDeserialize(
         memcpy(copiedString, const_cast<const char*>(stringInBuffer), stringLength);
         copiedString[stringLength] = '\0';
         record->label = copiedString;
-    }
-    {
-        auto memberLength = record->pipelineStatisticCount;
-        const volatile WGPUPipelineStatisticName* memberBuffer;
-        WIRE_TRY(deserializeBuffer->ReadN(memberLength, &memberBuffer));
-
-        WGPUPipelineStatisticName* copiedMembers;
-        WIRE_TRY(GetSpace(allocator, memberLength, &copiedMembers));
-        record->pipelineStatistics = copiedMembers;
-
-        memcpy(
-            copiedMembers,
-            const_cast<const WGPUPipelineStatisticName*>(memberBuffer),
-           sizeof(WGPUPipelineStatisticName) * memberLength);
     }
 
     return WireResult::Success;

@@ -50,17 +50,6 @@ return dictionary;
 
 
 
-void GPUQuerySetDescriptor::setPipelineStatistics(const Vector<V8GPUPipelineStatisticName>& value) {
-  member_pipeline_statistics_ = value;
-}
-
-void GPUQuerySetDescriptor::setPipelineStatistics(Vector<V8GPUPipelineStatisticName>&& value) {
-  member_pipeline_statistics_ = std::move(value);
-}
-
-
-
-
 
 
 
@@ -68,7 +57,6 @@ void GPUQuerySetDescriptor::setPipelineStatistics(Vector<V8GPUPipelineStatisticN
 
 void GPUQuerySetDescriptor::Trace(Visitor* visitor) const {
   TraceIfNeeded<uint32_t>::Trace(visitor, member_count_);
-TraceIfNeeded<Vector<V8GPUPipelineStatisticName>>::Trace(visitor, member_pipeline_statistics_);
 TraceIfNeeded<V8GPUQueryType>::Trace(visitor, member_type_);
 GPUObjectDescriptorBase::Trace(visitor);
 }
@@ -91,19 +79,11 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].G
   return false;
 }
 }
-if (hasPipelineStatistics()) {
-  if (!ToV8Traits<IDLSequence<V8GPUPipelineStatisticName>>::ToV8(script_state, member_pipeline_statistics_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
 if (hasType()) {
   if (!ToV8Traits<V8GPUQueryType>::ToV8(script_state, member_type_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -127,13 +107,8 @@ v8::TryCatch try_block(isolate);
 if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongEnforceRange, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_count_, try_block, exception_state)) {
   return;
 }
-exception_context_scope.ChangePropertyNameAsOptimizationHack("pipelineStatistics");
-constexpr bool is_optional = false;
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<V8GPUPipelineStatisticName>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_pipeline_statistics_, try_block, exception_state)) {
-  return;
-}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("type");
-if (!bindings::GetDictionaryMemberFromV8Object<V8GPUQueryType, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_type_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8GPUQueryType, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_type_, try_block, exception_state)) {
   return;
 }
 }
@@ -141,7 +116,6 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8GPUQueryType, is_required>(isol
 const base::span<const v8::Eternal<v8::Name>> GPUQuerySetDescriptor::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
 "count",
-"pipelineStatistics",
 "type",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);

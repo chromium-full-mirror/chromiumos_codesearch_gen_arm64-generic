@@ -9,7 +9,8 @@
 // --guard_prefix=CRYPTOHOME_FLATBUFFER_SCHEMAS_STRUCTURES
 // --header_include_paths libhwsec/structures/signature_sealed_data.h
 // --flatbuffer_header_include_paths cryptohome/flatbuffer_schemas/structures.h
-// --flatbuffer_header_include_paths cryptohome/structures_generated.h
+// --flatbuffer_header_include_paths
+// cryptohome/flatbuffer_schemas/structures_generated.h
 // --flatbuffer_header_include_paths
 // libhwsec/structures/signature_sealed_data_flatbuffer.h
 // --flatbuffer_header_include_paths

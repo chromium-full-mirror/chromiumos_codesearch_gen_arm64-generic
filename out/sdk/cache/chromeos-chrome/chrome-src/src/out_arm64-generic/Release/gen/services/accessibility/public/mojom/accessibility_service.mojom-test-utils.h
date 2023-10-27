@@ -54,6 +54,7 @@ class  AccessibilityServiceAsyncWaiter {
 class  AccessibilityServiceClientInterceptorForTesting : public AccessibilityServiceClient {
   virtual AccessibilityServiceClient* GetForwardingInterface() = 0;
   void BindAutomation(::mojo::PendingAssociatedRemote<::ax::mojom::Automation> automation, ::mojo::PendingReceiver<::ax::mojom::AutomationClient> automation_client) override;
+  void BindAutoclickClient(::mojo::PendingReceiver<::ax::mojom::AutoclickClient> autoclick_client) override;
   void BindSpeechRecognition(::mojo::PendingReceiver<::ax::mojom::SpeechRecognition> sr_receiver) override;
   void BindTts(::mojo::PendingReceiver<::ax::mojom::Tts> tts_receiver) override;
   void BindUserInterface(::mojo::PendingReceiver<::ax::mojom::UserInterface> user_interface_receiver) override;

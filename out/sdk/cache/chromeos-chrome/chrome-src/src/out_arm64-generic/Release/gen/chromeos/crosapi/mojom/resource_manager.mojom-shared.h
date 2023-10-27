@@ -151,6 +151,11 @@ class PageProcessDataView {
   bool host_visible_page() const {
     return data_->host_visible_page;
   }
+  bool host_focused_page() const {
+    if (data_->header_.version < 1)
+      return bool{};
+    return data_->host_focused_page;
+  }
  private:
   internal::PageProcess_Data* data_ = nullptr;
 };
@@ -237,6 +242,7 @@ struct Serializer<::crosapi::mojom::PageProcessDataView, MaybeConstUserType> {
     fragment->pid = Traits::pid(input);
     fragment->host_protected_page = Traits::host_protected_page(input);
     fragment->host_visible_page = Traits::host_visible_page(input);
+    fragment->host_focused_page = Traits::host_focused_page(input);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::PageProcess_Data* input,

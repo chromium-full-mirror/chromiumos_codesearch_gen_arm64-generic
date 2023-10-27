@@ -11,7 +11,7 @@ import { getTemplate } from './file_type_select.html.js';
  * 'file-type-select' displays the available file types in a dropdown.
  */
 const FileTypeSelectElementBase = I18nMixin(PolymerElement);
-class FileTypeSelectElement extends FileTypeSelectElementBase {
+export class FileTypeSelectElement extends FileTypeSelectElementBase {
     static get is() {
         return 'file-type-select';
     }

@@ -695,19 +695,19 @@ export const LogoutRpsRequestSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const WalletProviderSpec =
+export const DigitalCredentialProviderSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const WalletSelectorSpec =
+export const DigitalCredentialSelectorSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const WalletFieldRequirementSpec =
+export const DigitalCredentialFieldRequirementSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -885,8 +885,8 @@ export class LogoutRpsRequest {
 
 
 mojo.internal.Struct(
-    WalletProviderSpec.$,
-    'WalletProvider',
+    DigitalCredentialProviderSpec.$,
+    'DigitalCredentialProvider',
     [
       mojo.internal.StructField(
         'params', 0,
@@ -899,7 +899,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'selector', 8,
         0,
-        WalletSelectorSpec.$,
+        DigitalCredentialSelectorSpec.$,
         null,
         false /* nullable */,
         0,
@@ -912,11 +912,11 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class WalletProvider {
+export class DigitalCredentialProvider {
   constructor() {
     /** @type { !Object<!string, !string> } */
     this.params;
-    /** @type { !WalletSelector } */
+    /** @type { !DigitalCredentialSelector } */
     this.selector;
   }
 }
@@ -924,8 +924,8 @@ export class WalletProvider {
 
 
 mojo.internal.Struct(
-    WalletSelectorSpec.$,
-    'WalletSelector',
+    DigitalCredentialSelectorSpec.$,
+    'DigitalCredentialSelector',
     [
       mojo.internal.StructField(
         'format', 0,
@@ -946,7 +946,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'fields', 16,
         0,
-        mojo.internal.Array(WalletFieldRequirementSpec.$, false),
+        mojo.internal.Array(DigitalCredentialFieldRequirementSpec.$, false),
         null,
         false /* nullable */,
         0,
@@ -959,13 +959,13 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class WalletSelector {
+export class DigitalCredentialSelector {
   constructor() {
     /** @type { !Array<!string> } */
     this.format;
     /** @type { (string|undefined) } */
     this.doctype;
-    /** @type { !Array<!WalletFieldRequirement> } */
+    /** @type { !Array<!DigitalCredentialFieldRequirement> } */
     this.fields;
   }
 }
@@ -973,8 +973,8 @@ export class WalletSelector {
 
 
 mojo.internal.Struct(
-    WalletFieldRequirementSpec.$,
-    'WalletFieldRequirement',
+    DigitalCredentialFieldRequirementSpec.$,
+    'DigitalCredentialFieldRequirement',
     [
       mojo.internal.StructField(
         'name', 0,
@@ -1000,7 +1000,7 @@ mojo.internal.Struct(
 /**
  * @record
  */
-export class WalletFieldRequirement {
+export class DigitalCredentialFieldRequirement {
   constructor() {
     /** @type { !string } */
     this.name;
@@ -1787,14 +1787,14 @@ mojo.internal.Union(
       },
       'holder': {
         'ordinal': 1,
-        'type': WalletProviderSpec.$,
+        'type': DigitalCredentialProviderSpec.$,
       },
     });
 
 /**
  * @typedef { {
  *   federated: (!IdentityProviderConfig|undefined),
- *   holder: (!WalletProvider|undefined),
+ *   holder: (!DigitalCredentialProvider|undefined),
  * } }
  */
 export const IdentityProvider = {};

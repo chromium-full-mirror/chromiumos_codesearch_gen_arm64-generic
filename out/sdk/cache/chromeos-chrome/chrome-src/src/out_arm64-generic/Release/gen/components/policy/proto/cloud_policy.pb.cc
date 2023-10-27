@@ -116,7 +116,8 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , ipv6reachabilityoverrideenabled_(nullptr)
   , userfeedbackwithlowleveldebugdataallowed_(nullptr)
   , microsoftonedriveaccountrestrictions_(nullptr)
-  , sitesearchsettings_(nullptr){}
+  , sitesearchsettings_(nullptr)
+  , privatenetworkaccessrestrictionsenabled_(nullptr){}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -814,6 +815,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_screensaverlockscreenimages(HasBits* has_bits) {
     (*has_bits)[0] |= 16384u;
   }
+  static const ::enterprise_management::BooleanPolicyProto& privatenetworkaccessrestrictionsenabled(const CloudPolicySubProto1* msg);
+  static void set_has_privatenetworkaccessrestrictionsenabled(HasBits* has_bits) {
+    (*has_bits)[3] |= 2u;
+  }
   static const ::enterprise_management::IntegerPolicyProto& reportappusagecollectionratems(const CloudPolicySubProto1* msg);
   static void set_has_reportappusagecollectionratems(HasBits* has_bits) {
     (*has_bits)[1] |= 4096u;
@@ -1204,6 +1209,10 @@ const ::enterprise_management::StringListPolicyProto&
 CloudPolicySubProto1::_Internal::screensaverlockscreenimages(const CloudPolicySubProto1* msg) {
   return *msg->screensaverlockscreenimages_;
 }
+const ::enterprise_management::BooleanPolicyProto&
+CloudPolicySubProto1::_Internal::privatenetworkaccessrestrictionsenabled(const CloudPolicySubProto1* msg) {
+  return *msg->privatenetworkaccessrestrictionsenabled_;
+}
 const ::enterprise_management::IntegerPolicyProto&
 CloudPolicySubProto1::_Internal::reportappusagecollectionratems(const CloudPolicySubProto1* msg) {
   return *msg->reportappusagecollectionratems_;
@@ -1591,6 +1600,10 @@ void CloudPolicySubProto1::clear_screensaverlockscreenimagedisplayintervalsecond
 void CloudPolicySubProto1::clear_screensaverlockscreenimages() {
   if (screensaverlockscreenimages_ != nullptr) screensaverlockscreenimages_->Clear();
   _has_bits_[0] &= ~0x00004000u;
+}
+void CloudPolicySubProto1::clear_privatenetworkaccessrestrictionsenabled() {
+  if (privatenetworkaccessrestrictionsenabled_ != nullptr) privatenetworkaccessrestrictionsenabled_->Clear();
+  _has_bits_[3] &= ~0x00000002u;
 }
 void CloudPolicySubProto1::clear_reportappusagecollectionratems() {
   if (reportappusagecollectionratems_ != nullptr) reportappusagecollectionratems_->Clear();
@@ -2347,14 +2360,19 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   } else {
     sitesearchsettings_ = nullptr;
   }
+  if (from._internal_has_privatenetworkaccessrestrictionsenabled()) {
+    privatenetworkaccessrestrictionsenabled_ = new ::enterprise_management::BooleanPolicyProto(*from.privatenetworkaccessrestrictionsenabled_);
+  } else {
+    privatenetworkaccessrestrictionsenabled_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
 inline void CloudPolicySubProto1::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&sitesearchsettings_) -
-    reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_)) + sizeof(sitesearchsettings_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&privatenetworkaccessrestrictionsenabled_) -
+    reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_)) + sizeof(privatenetworkaccessrestrictionsenabled_));
 }
 
 CloudPolicySubProto1::~CloudPolicySubProto1() {
@@ -2465,6 +2483,7 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete userfeedbackwithlowleveldebugdataallowed_;
   if (this != internal_default_instance()) delete microsoftonedriveaccountrestrictions_;
   if (this != internal_default_instance()) delete sitesearchsettings_;
+  if (this != internal_default_instance()) delete privatenetworkaccessrestrictionsenabled_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -2889,9 +2908,15 @@ void CloudPolicySubProto1::Clear() {
     }
   }
   cached_has_bits = _has_bits_[3];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(sitesearchsettings_ != nullptr);
-    sitesearchsettings_->Clear();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(sitesearchsettings_ != nullptr);
+      sitesearchsettings_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(privatenetworkaccessrestrictionsenabled_ != nullptr);
+      privatenetworkaccessrestrictionsenabled_->Clear();
+    }
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -3679,6 +3704,14 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 137;
+      case 137:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_privatenetworkaccessrestrictionsenabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -4389,6 +4422,13 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(136, _Internal::sitesearchsettings(this),
         _Internal::sitesearchsettings(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 137;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(137, _Internal::privatenetworkaccessrestrictionsenabled(this),
+        _Internal::privatenetworkaccessrestrictionsenabled(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5106,14 +5146,23 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
     }
 
   }
-  // optional .enterprise_management.StringPolicyProto SiteSearchSettings = 136;
   cached_has_bits = _has_bits_[3];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *sitesearchsettings_);
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional .enterprise_management.StringPolicyProto SiteSearchSettings = 136;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *sitesearchsettings_);
+    }
 
+    // optional .enterprise_management.BooleanPolicyProto PrivateNetworkAccessRestrictionsEnabled = 137;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *privatenetworkaccessrestrictionsenabled_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -5449,8 +5498,14 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
       _internal_mutable_microsoftonedriveaccountrestrictions()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_microsoftonedriveaccountrestrictions());
     }
   }
-  if (from._internal_has_sitesearchsettings()) {
-    _internal_mutable_sitesearchsettings()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_sitesearchsettings());
+  cached_has_bits = from._has_bits_[3];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_mutable_sitesearchsettings()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_sitesearchsettings());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_mutable_privatenetworkaccessrestrictionsenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(from._internal_privatenetworkaccessrestrictionsenabled());
+    }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -5474,8 +5529,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_has_bits_[2], other->_has_bits_[2]);
   swap(_has_bits_[3], other->_has_bits_[3]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, sitesearchsettings_)
-      + sizeof(CloudPolicySubProto1::sitesearchsettings_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, privatenetworkaccessrestrictionsenabled_)
+      + sizeof(CloudPolicySubProto1::privatenetworkaccessrestrictionsenabled_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, newbaseurlinheritancebehaviorallowed_)>(
           reinterpret_cast<char*>(&newbaseurlinheritancebehaviorallowed_),
           reinterpret_cast<char*>(&other->newbaseurlinheritancebehaviorallowed_));

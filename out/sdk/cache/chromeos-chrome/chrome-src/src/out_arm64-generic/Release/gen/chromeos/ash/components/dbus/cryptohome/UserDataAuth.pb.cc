@@ -75,7 +75,8 @@ struct EvictDeviceKeyReplyDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EvictDeviceKeyReplyDefaultTypeInternal _EvictDeviceKeyReply_default_instance_;
 PROTOBUF_CONSTEXPR EvictDeviceKeyRequest::EvictDeviceKeyRequest(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized)
+  : eviction_id_(int64_t{0}){}
 struct EvictDeviceKeyRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EvictDeviceKeyRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -163,34 +164,6 @@ struct RemoveReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RemoveReplyDefaultTypeInternal _RemoveReply_default_instance_;
-PROTOBUF_CONSTEXPR ListKeysRequest::ListKeysRequest(
-    ::_pbi::ConstantInitialized)
-  : account_id_(nullptr)
-  , authorization_request_(nullptr){}
-struct ListKeysRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ListKeysRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ListKeysRequestDefaultTypeInternal() {}
-  union {
-    ListKeysRequest _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListKeysRequestDefaultTypeInternal _ListKeysRequest_default_instance_;
-PROTOBUF_CONSTEXPR ListKeysReply::ListKeysReply(
-    ::_pbi::ConstantInitialized)
-  : labels_()
-  , error_info_(nullptr)
-  , error_(0)
-{}
-struct ListKeysReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ListKeysReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ListKeysReplyDefaultTypeInternal() {}
-  union {
-    ListKeysReply _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListKeysReplyDefaultTypeInternal _ListKeysReply_default_instance_;
 PROTOBUF_CONSTEXPR CheckKeyRequest::CheckKeyRequest(
     ::_pbi::ConstantInitialized)
   : account_id_(nullptr)
@@ -1936,7 +1909,8 @@ struct AuthenticateAuthFactorCompletedDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateAuthFactorCompletedDefaultTypeInternal _AuthenticateAuthFactorCompleted_default_instance_;
 PROTOBUF_CONSTEXPR EvictedKeyRestored::EvictedKeyRestored(
     ::_pbi::ConstantInitialized)
-  : done_(false){}
+  : eviction_id_(int64_t{0})
+  , done_(false){}
 struct EvictedKeyRestoredDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EvictedKeyRestoredDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3782,10 +3756,12 @@ EvictDeviceKeyRequest::EvictDeviceKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* are
 EvictDeviceKeyRequest::EvictDeviceKeyRequest(const EvictDeviceKeyRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  eviction_id_ = from.eviction_id_;
   // @@protoc_insertion_point(copy_constructor:user_data_auth.EvictDeviceKeyRequest)
 }
 
 inline void EvictDeviceKeyRequest::SharedCtor() {
+eviction_id_ = int64_t{0};
 }
 
 EvictDeviceKeyRequest::~EvictDeviceKeyRequest() {
@@ -3811,6 +3787,7 @@ void EvictDeviceKeyRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  eviction_id_ = int64_t{0};
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3819,6 +3796,19 @@ const char* EvictDeviceKeyRequest::_InternalParse(const char* ptr, ::_pbi::Parse
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int64 eviction_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          eviction_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -3844,6 +3834,12 @@ uint8_t* EvictDeviceKeyRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int64 eviction_id = 1;
+  if (this->_internal_eviction_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_eviction_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3859,6 +3855,11 @@ size_t EvictDeviceKeyRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // int64 eviction_id = 1;
+  if (this->_internal_eviction_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_eviction_id());
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -3880,6 +3881,9 @@ void EvictDeviceKeyRequest::MergeFrom(const EvictDeviceKeyRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from._internal_eviction_id() != 0) {
+    _internal_set_eviction_id(from._internal_eviction_id());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -3897,6 +3901,7 @@ bool EvictDeviceKeyRequest::IsInitialized() const {
 void EvictDeviceKeyRequest::InternalSwap(EvictDeviceKeyRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(eviction_id_, other->eviction_id_);
 }
 
 std::string EvictDeviceKeyRequest::GetTypeName() const {
@@ -5117,507 +5122,6 @@ void RemoveReply::InternalSwap(RemoveReply* other) {
 
 std::string RemoveReply::GetTypeName() const {
   return "user_data_auth.RemoveReply";
-}
-
-
-// ===================================================================
-
-class ListKeysRequest::_Internal {
- public:
-  static const ::cryptohome::AccountIdentifier& account_id(const ListKeysRequest* msg);
-  static const ::cryptohome::AuthorizationRequest& authorization_request(const ListKeysRequest* msg);
-};
-
-const ::cryptohome::AccountIdentifier&
-ListKeysRequest::_Internal::account_id(const ListKeysRequest* msg) {
-  return *msg->account_id_;
-}
-const ::cryptohome::AuthorizationRequest&
-ListKeysRequest::_Internal::authorization_request(const ListKeysRequest* msg) {
-  return *msg->authorization_request_;
-}
-void ListKeysRequest::clear_account_id() {
-  if (GetArenaForAllocation() == nullptr && account_id_ != nullptr) {
-    delete account_id_;
-  }
-  account_id_ = nullptr;
-}
-void ListKeysRequest::clear_authorization_request() {
-  if (GetArenaForAllocation() == nullptr && authorization_request_ != nullptr) {
-    delete authorization_request_;
-  }
-  authorization_request_ = nullptr;
-}
-ListKeysRequest::ListKeysRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:user_data_auth.ListKeysRequest)
-}
-ListKeysRequest::ListKeysRequest(const ListKeysRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_account_id()) {
-    account_id_ = new ::cryptohome::AccountIdentifier(*from.account_id_);
-  } else {
-    account_id_ = nullptr;
-  }
-  if (from._internal_has_authorization_request()) {
-    authorization_request_ = new ::cryptohome::AuthorizationRequest(*from.authorization_request_);
-  } else {
-    authorization_request_ = nullptr;
-  }
-  // @@protoc_insertion_point(copy_constructor:user_data_auth.ListKeysRequest)
-}
-
-inline void ListKeysRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&account_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&authorization_request_) -
-    reinterpret_cast<char*>(&account_id_)) + sizeof(authorization_request_));
-}
-
-ListKeysRequest::~ListKeysRequest() {
-  // @@protoc_insertion_point(destructor:user_data_auth.ListKeysRequest)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void ListKeysRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete account_id_;
-  if (this != internal_default_instance()) delete authorization_request_;
-}
-
-void ListKeysRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ListKeysRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:user_data_auth.ListKeysRequest)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  if (GetArenaForAllocation() == nullptr && account_id_ != nullptr) {
-    delete account_id_;
-  }
-  account_id_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && authorization_request_ != nullptr) {
-    delete authorization_request_;
-  }
-  authorization_request_ = nullptr;
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* ListKeysRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .cryptohome.AccountIdentifier account_id = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_account_id(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .cryptohome.AuthorizationRequest authorization_request = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_authorization_request(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* ListKeysRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.ListKeysRequest)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .cryptohome.AccountIdentifier account_id = 1;
-  if (this->_internal_has_account_id()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::account_id(this),
-        _Internal::account_id(this).GetCachedSize(), target, stream);
-  }
-
-  // .cryptohome.AuthorizationRequest authorization_request = 2;
-  if (this->_internal_has_authorization_request()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::authorization_request(this),
-        _Internal::authorization_request(this).GetCachedSize(), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.ListKeysRequest)
-  return target;
-}
-
-size_t ListKeysRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:user_data_auth.ListKeysRequest)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .cryptohome.AccountIdentifier account_id = 1;
-  if (this->_internal_has_account_id()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *account_id_);
-  }
-
-  // .cryptohome.AuthorizationRequest authorization_request = 2;
-  if (this->_internal_has_authorization_request()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *authorization_request_);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void ListKeysRequest::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const ListKeysRequest*>(
-      &from));
-}
-
-void ListKeysRequest::MergeFrom(const ListKeysRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.ListKeysRequest)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_has_account_id()) {
-    _internal_mutable_account_id()->::cryptohome::AccountIdentifier::MergeFrom(from._internal_account_id());
-  }
-  if (from._internal_has_authorization_request()) {
-    _internal_mutable_authorization_request()->::cryptohome::AuthorizationRequest::MergeFrom(from._internal_authorization_request());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void ListKeysRequest::CopyFrom(const ListKeysRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.ListKeysRequest)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool ListKeysRequest::IsInitialized() const {
-  return true;
-}
-
-void ListKeysRequest::InternalSwap(ListKeysRequest* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ListKeysRequest, authorization_request_)
-      + sizeof(ListKeysRequest::authorization_request_)
-      - PROTOBUF_FIELD_OFFSET(ListKeysRequest, account_id_)>(
-          reinterpret_cast<char*>(&account_id_),
-          reinterpret_cast<char*>(&other->account_id_));
-}
-
-std::string ListKeysRequest::GetTypeName() const {
-  return "user_data_auth.ListKeysRequest";
-}
-
-
-// ===================================================================
-
-class ListKeysReply::_Internal {
- public:
-  static const ::user_data_auth::CryptohomeErrorInfo& error_info(const ListKeysReply* msg);
-};
-
-const ::user_data_auth::CryptohomeErrorInfo&
-ListKeysReply::_Internal::error_info(const ListKeysReply* msg) {
-  return *msg->error_info_;
-}
-ListKeysReply::ListKeysReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  labels_(arena) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:user_data_auth.ListKeysReply)
-}
-ListKeysReply::ListKeysReply(const ListKeysReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      labels_(from.labels_) {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_error_info()) {
-    error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from.error_info_);
-  } else {
-    error_info_ = nullptr;
-  }
-  error_ = from.error_;
-  // @@protoc_insertion_point(copy_constructor:user_data_auth.ListKeysReply)
-}
-
-inline void ListKeysReply::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&error_info_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&error_info_)) + sizeof(error_));
-}
-
-ListKeysReply::~ListKeysReply() {
-  // @@protoc_insertion_point(destructor:user_data_auth.ListKeysReply)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void ListKeysReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete error_info_;
-}
-
-void ListKeysReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ListKeysReply::Clear() {
-// @@protoc_insertion_point(message_clear_start:user_data_auth.ListKeysReply)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  labels_.Clear();
-  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
-    delete error_info_;
-  }
-  error_info_ = nullptr;
-  error_ = 0;
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* ListKeysReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .user_data_auth.CryptohomeErrorCode error = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated string labels = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_labels();
-            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            CHK_(::_pbi::VerifyUTF8(str, nullptr));
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // .user_data_auth.CryptohomeErrorInfo error_info = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* ListKeysReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.ListKeysReply)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  if (this->_internal_error() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
-  }
-
-  // repeated string labels = 2;
-  for (int i = 0, n = this->_internal_labels_size(); i < n; i++) {
-    const auto& s = this->_internal_labels(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "user_data_auth.ListKeysReply.labels");
-    target = stream->WriteString(2, s, target);
-  }
-
-  // .user_data_auth.CryptohomeErrorInfo error_info = 3;
-  if (this->_internal_has_error_info()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::error_info(this),
-        _Internal::error_info(this).GetCachedSize(), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.ListKeysReply)
-  return target;
-}
-
-size_t ListKeysReply::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:user_data_auth.ListKeysReply)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated string labels = 2;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(labels_.size());
-  for (int i = 0, n = labels_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      labels_.Get(i));
-  }
-
-  // .user_data_auth.CryptohomeErrorInfo error_info = 3;
-  if (this->_internal_has_error_info()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *error_info_);
-  }
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  if (this->_internal_error() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void ListKeysReply::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const ListKeysReply*>(
-      &from));
-}
-
-void ListKeysReply::MergeFrom(const ListKeysReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.ListKeysReply)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  labels_.MergeFrom(from.labels_);
-  if (from._internal_has_error_info()) {
-    _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
-  }
-  if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void ListKeysReply::CopyFrom(const ListKeysReply& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.ListKeysReply)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool ListKeysReply::IsInitialized() const {
-  return true;
-}
-
-void ListKeysReply::InternalSwap(ListKeysReply* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  labels_.InternalSwap(&other->labels_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ListKeysReply, error_)
-      + sizeof(ListKeysReply::error_)
-      - PROTOBUF_FIELD_OFFSET(ListKeysReply, error_info_)>(
-          reinterpret_cast<char*>(&error_info_),
-          reinterpret_cast<char*>(&other->error_info_));
-}
-
-std::string ListKeysReply::GetTypeName() const {
-  return "user_data_auth.ListKeysReply";
 }
 
 
@@ -34162,12 +33666,17 @@ EvictedKeyRestored::EvictedKeyRestored(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 EvictedKeyRestored::EvictedKeyRestored(const EvictedKeyRestored& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  done_ = from.done_;
+  ::memcpy(&eviction_id_, &from.eviction_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&done_) -
+    reinterpret_cast<char*>(&eviction_id_)) + sizeof(done_));
   // @@protoc_insertion_point(copy_constructor:user_data_auth.EvictedKeyRestored)
 }
 
 inline void EvictedKeyRestored::SharedCtor() {
-done_ = false;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&eviction_id_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&done_) -
+    reinterpret_cast<char*>(&eviction_id_)) + sizeof(done_));
 }
 
 EvictedKeyRestored::~EvictedKeyRestored() {
@@ -34193,7 +33702,9 @@ void EvictedKeyRestored::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  done_ = false;
+  ::memset(&eviction_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&done_) -
+      reinterpret_cast<char*>(&eviction_id_)) + sizeof(done_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -34207,6 +33718,14 @@ const char* EvictedKeyRestored::_InternalParse(const char* ptr, ::_pbi::ParseCon
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           done_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 eviction_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          eviction_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -34246,6 +33765,12 @@ uint8_t* EvictedKeyRestored::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_done(), target);
   }
 
+  // int64 eviction_id = 2;
+  if (this->_internal_eviction_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_eviction_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -34261,6 +33786,11 @@ size_t EvictedKeyRestored::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // int64 eviction_id = 2;
+  if (this->_internal_eviction_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_eviction_id());
+  }
 
   // bool done = 1;
   if (this->_internal_done() != 0) {
@@ -34287,6 +33817,9 @@ void EvictedKeyRestored::MergeFrom(const EvictedKeyRestored& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from._internal_eviction_id() != 0) {
+    _internal_set_eviction_id(from._internal_eviction_id());
+  }
   if (from._internal_done() != 0) {
     _internal_set_done(from._internal_done());
   }
@@ -34307,7 +33840,12 @@ bool EvictedKeyRestored::IsInitialized() const {
 void EvictedKeyRestored::InternalSwap(EvictedKeyRestored* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(done_, other->done_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(EvictedKeyRestored, done_)
+      + sizeof(EvictedKeyRestored::done_)
+      - PROTOBUF_FIELD_OFFSET(EvictedKeyRestored, eviction_id_)>(
+          reinterpret_cast<char*>(&eviction_id_),
+          reinterpret_cast<char*>(&other->eviction_id_));
 }
 
 std::string EvictedKeyRestored::GetTypeName() const {
@@ -34361,14 +33899,6 @@ Arena::CreateMaybeMessage< ::user_data_auth::RemoveRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::user_data_auth::RemoveReply*
 Arena::CreateMaybeMessage< ::user_data_auth::RemoveReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::RemoveReply >(arena);
-}
-template<> PROTOBUF_NOINLINE ::user_data_auth::ListKeysRequest*
-Arena::CreateMaybeMessage< ::user_data_auth::ListKeysRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::user_data_auth::ListKeysRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::user_data_auth::ListKeysReply*
-Arena::CreateMaybeMessage< ::user_data_auth::ListKeysReply >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::user_data_auth::ListKeysReply >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::CheckKeyRequest*
 Arena::CreateMaybeMessage< ::user_data_auth::CheckKeyRequest >(Arena* arena) {

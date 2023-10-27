@@ -32,6 +32,7 @@ import * as Host from '../../core/host/host.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as Platform from '../../core/platform/platform.js';
 import * as Root from '../../core/root/root.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import * as Adorners from '../components/adorners/adorners.js';
 import * as IconButton from '../components/icon_button/icon_button.js';
 import { ActionRegistry } from './ActionRegistry.js';
@@ -73,6 +74,7 @@ export class Toolbar {
         this.element = (parentElement ? parentElement.createChild('div') : document.createElement('div'));
         this.element.className = className;
         this.element.classList.add('toolbar');
+        this.element.setAttribute('jslog', `${VisualLogging.toolbar()}`);
         this.enabled = true;
         this.shadowRoot =
             Utils.createShadowRootWithCoreStyles(this.element, { cssFile: toolbarStyles, delegatesFocus: undefined });
@@ -203,6 +205,9 @@ export class Toolbar {
                 Host.userMetrics.actionTaken(actionCode);
                 void action.execute();
             };
+        }
+        if (options.jslog) {
+            button.element.setAttribute('jslog', options.jslog);
         }
         button.addEventListener(ToolbarButton.Events.Click, handler, action);
         action.addEventListener("Enabled" /* ActionEvents.Enabled */, enabledChanged);
@@ -351,12 +356,12 @@ export class Toolbar {
         });
         const filtered = extensions.filter(e => e.location === location);
         const items = await Promise.all(filtered.map(extension => {
-            const { separator, actionId, showLabel, label, loadItem } = extension;
+            const { separator, actionId, showLabel, label, loadItem, jslog } = extension;
             if (separator) {
                 return new ToolbarSeparator();
             }
             if (actionId) {
-                return Toolbar.createActionButtonForId(actionId, { label, showLabel: Boolean(showLabel), userActionCode: undefined });
+                return Toolbar.createActionButtonForId(actionId, { label, showLabel: Boolean(showLabel), userActionCode: undefined, jslog });
             }
             // TODO(crbug.com/1134103) constratint the case checked with this if using TS type definitions once UI is TS-authored.
             if (!loadItem) {
@@ -920,6 +925,7 @@ export class ToolbarCheckbox extends ToolbarItem {
 export class ToolbarSettingCheckbox extends ToolbarCheckbox {
     constructor(setting, tooltip, alternateTitle) {
         super(alternateTitle || setting.title() || '', tooltip);
+        this.inputElement.setAttribute('jslog', `${VisualLogging.toggle().track({ click: true }).context(setting.name)}`);
         bindCheckbox(this.inputElement, setting);
     }
 }

@@ -10,7 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
-#include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/file.mojom-shared-internal.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
@@ -26,8 +26,36 @@ class ValidationContext;
 
 namespace on_device_model::mojom {
 namespace internal {
-class LoadModelParams_Data;
+class ModelAssets_Data;
 class LoadModelResult_Data;
+
+struct PerformanceClass_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 #pragma pack(push, 1)
 
@@ -82,36 +110,38 @@ class  LoadModelResult_Data {
 };
 static_assert(sizeof(LoadModelResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(LoadModelResult_Data)");
-class  LoadModelParams_Data {
+class  ModelAssets_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::FilePath_Data> path;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::File_Data> sp_model;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::File_Data> model;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::File_Data> weights;
 
  private:
-  friend class mojo::internal::MessageFragment<LoadModelParams_Data>;
+  friend class mojo::internal::MessageFragment<ModelAssets_Data>;
 
-  LoadModelParams_Data();
-  ~LoadModelParams_Data() = delete;
+  ModelAssets_Data();
+  ~ModelAssets_Data() = delete;
 };
-static_assert(sizeof(LoadModelParams_Data) == 16,
-              "Bad sizeof(LoadModelParams_Data)");
-// Used by LoadModelParams::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(ModelAssets_Data) == 32,
+              "Bad sizeof(ModelAssets_Data)");
+// Used by ModelAssets::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct LoadModelParams_UnserializedMessageContext
+struct ModelAssets_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  LoadModelParams_UnserializedMessageContext(
+  ModelAssets_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~LoadModelParams_UnserializedMessageContext() override = default;
+  ~ModelAssets_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -120,7 +150,7 @@ struct LoadModelParams_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<LoadModelParams_Data> fragment(message);
+    mojo::internal::MessageFragment<ModelAssets_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -129,7 +159,7 @@ struct LoadModelParams_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    LoadModelParams_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    ModelAssets_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

@@ -104,6 +104,7 @@ bool ProcessCountInfo::Validate(
 SiteInstanceInfo::SiteInstanceInfo()
     : id(),
       site_instance_group_id(),
+      browsing_instance_id(),
       locked(),
       site_url(),
       process_lock_url(),
@@ -116,6 +117,7 @@ SiteInstanceInfo::SiteInstanceInfo()
 SiteInstanceInfo::SiteInstanceInfo(
     int32_t id_in,
     int32_t site_instance_group_id_in,
+    int32_t browsing_instance_id_in,
     bool locked_in,
     const absl::optional<::GURL>& site_url_in,
     const absl::optional<::GURL>& process_lock_url_in,
@@ -126,6 +128,7 @@ SiteInstanceInfo::SiteInstanceInfo(
     const absl::optional<std::string>& storage_partition_in)
     : id(std::move(id_in)),
       site_instance_group_id(std::move(site_instance_group_id_in)),
+      browsing_instance_id(std::move(browsing_instance_id_in)),
       locked(std::move(locked_in)),
       site_url(std::move(site_url_in)),
       process_lock_url(std::move(process_lock_url_in)),
@@ -152,6 +155,15 @@ void SiteInstanceInfo::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "site_instance_group_id"), this->site_instance_group_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "browsing_instance_id"), this->browsing_instance_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type int32_t>"
 #else
@@ -1915,6 +1927,8 @@ bool StructTraits<::mojom::SiteInstanceInfo::DataView, ::mojom::SiteInstanceInfo
         result->id = input.id();
       if (success)
         result->site_instance_group_id = input.site_instance_group_id();
+      if (success)
+        result->browsing_instance_id = input.browsing_instance_id();
       if (success)
         result->locked = input.locked();
       if (success && !input.ReadSiteUrl(&result->site_url))

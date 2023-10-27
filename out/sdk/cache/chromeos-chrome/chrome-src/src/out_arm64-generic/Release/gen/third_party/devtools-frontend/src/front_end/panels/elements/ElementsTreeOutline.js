@@ -41,6 +41,7 @@ import * as CodeHighlighter from '../../ui/components/code_highlighter/code_high
 import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as IssueCounter from '../../ui/components/issue_counter/issue_counter.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import { IssuesPane } from '../issues/IssuesPane.js';
 import * as ElementsComponents from './components/components.js';
 import { ElementsPanel } from './ElementsPanel.js';
@@ -141,6 +142,7 @@ export class ElementsTreeOutline extends Common.ObjectWrapper.eventMixin(UI.Tree
         this.elementInternal.addEventListener('keydown', this.onKeyDown.bind(this), false);
         outlineDisclosureElement.appendChild(this.elementInternal);
         this.element = shadowContainer;
+        this.element.setAttribute('jslog', `${VisualLogging.elementsTreeOutline()}`);
         this.includeRootDOMNode = !omitRootDOMNode;
         this.selectEnabled = selectEnabled;
         this.rootDOMNodeInternal = null;

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-lang", "name": "go", "version": "1.20.5", "revision": 1, "fullname": "dev-lang/go", "fullnamerev": "dev-lang/go-1.20.5-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["http://golang.org/"], "skip": false, "tainted": false, "ebuild_path": null}

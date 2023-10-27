@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.026" timestamp="2023-10-27T00:18:25.537" name="AllTests">
+  <testsuite name="SoftvolCurveTest" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.011" timestamp="2023-10-27T00:18:25.549">
+    <testcase name="ScalerDecibelConvert" file="cras/src/tests/softvol_curve_unittest.cc" line="14" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:25.549" classname="SoftvolCurveTest" />
+    <testcase name="InputNodeGainToScaler" file="cras/src/tests/softvol_curve_unittest.cc" line="26" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:18:25.554" classname="SoftvolCurveTest" />
+    <testcase name="SoftvolGetScalerDefault" file="cras/src/tests/softvol_curve_unittest.cc" line="34" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:25.560" classname="SoftvolCurveTest" />
+  </testsuite>
+  <testsuite name="SoftvolCurveTestSuite" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2023-10-27T00:18:25.562">
+    <testcase name="SoftvolGetScaler" file="cras/src/tests/softvol_curve_unittest.cc" line="62" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:18:25.562" classname="SoftvolCurveTestSuite" />
+  </testsuite>
+</testsuites>

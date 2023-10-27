@@ -17,7 +17,7 @@ const DEFAULT_COLOR_MODE = ColorMode.kColor;
  * 'color-mode-select' displays the available scanner color modes in a dropdown.
  */
 const ColorModeSelectElementBase = SelectMixin(I18nMixin(PolymerElement));
-class ColorModeSelectElement extends ColorModeSelectElementBase {
+export class ColorModeSelectElement extends ColorModeSelectElementBase {
     static get is() {
         return 'color-mode-select';
     }

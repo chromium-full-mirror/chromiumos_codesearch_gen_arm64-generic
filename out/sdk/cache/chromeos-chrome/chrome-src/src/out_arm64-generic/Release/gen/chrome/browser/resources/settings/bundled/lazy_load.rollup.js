@@ -2174,26 +2174,38 @@ class SettingsCreditCardListEntryElement extends SettingsCreditCardListEntryElem
         }
         return this.creditCard.metadata.summaryLabel;
     }
+    getCardExpiryDate_() {
+        assert(this.creditCard.expirationMonth);
+        assert(this.creditCard.expirationYear);
+        // Truncate the year down to two digits (eg. 2023 to 23).
+        return this.creditCard.expirationMonth + '/' +
+            this.creditCard.expirationYear.toString().substring(2);
+    }
     getCardSublabelType() {
-        return this.isVirtualCardEnrolled_() ?
-            0 /* CardSummarySublabelType.VIRTUAL_CARD */ :
-            1 /* CardSummarySublabelType.EXPIRATION_DATE */;
+        if (this.isVirtualCardEnrolled_()) {
+            return 0 /* CardSummarySublabelType.VIRTUAL_CARD */;
+        }
+        if (loadTimeData.getBoolean('cvcStorageAvailable') &&
+            !!this.creditCard.cvc) {
+            return 2 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */;
+        }
+        return 1 /* CardSummarySublabelType.EXPIRATION_DATE */;
     }
     /**
      * Returns virtual card metadata if the card is eligible for enrollment or has
-     * already enrolled, or expiration date (MM/YY) otherwise.
-     * E.g., 11/23, or Virtual card turned on
+     * already enrolled, or expiration date (MM/YY) or expiration date (MM/YY)
+     * with the `CVC saved` tag otherwise.
+     * E.g., 11/23, or Virtual card turned on, or 11/23 | CVC saved
      */
     getSummarySublabel_() {
         switch (this.getCardSublabelType()) {
             case 0 /* CardSummarySublabelType.VIRTUAL_CARD */:
                 return this.i18n('virtualCardTurnedOn');
+            case 2 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
+                return this.getCardExpiryDate_() + ' | ' +
+                    this.i18n('cvcTagForCreditCardListEntry');
             case 1 /* CardSummarySublabelType.EXPIRATION_DATE */:
-                assert(this.creditCard.expirationMonth);
-                assert(this.creditCard.expirationYear);
-                // Convert string (e.g. '06') to number (e.g. 6).
-                return this.creditCard.expirationMonth + '/' +
-                    this.creditCard.expirationYear.toString().substring(2);
+                return this.getCardExpiryDate_();
             default:
                 assertNotReached();
         }
@@ -2202,6 +2214,7 @@ class SettingsCreditCardListEntryElement extends SettingsCreditCardListEntryElem
         switch (this.getCardSublabelType()) {
             case 0 /* CardSummarySublabelType.VIRTUAL_CARD */:
                 return this.getSummarySublabel_();
+            case 2 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
             case 1 /* CardSummarySublabelType.EXPIRATION_DATE */:
                 return this.i18n('creditCardExpDateA11yLabeled', this.getSummarySublabel_());
             default:
@@ -2551,7 +2564,7 @@ function getTemplate$1n() {
 </settings-toggle-button>
 
 <template is="dom-if" if="[[cvcStorageAvailable_]]">
-  <settings-toggle-button id="cvcStorageToggle" no-extension-indicator label="$i18n{enableCvcStorageLabel}" sub-label-with-link="$i18n{enableCvcStorageDeleteDataSublabel}" disabled="[[!prefs.autofill.credit_card_enabled.value]]" on-sub-label-link-clicked="onBulkRemoveCvcClick_" pref="{{prefs.autofill.payment_cvc_storage}}">
+  <settings-toggle-button id="cvcStorageToggle" no-extension-indicator label="$i18n{enableCvcStorageLabel}" sub-label-with-link="[[getCvcStorageSublabel_(creditCards)]]" disabled="[[!prefs.autofill.credit_card_enabled.value]]" on-sub-label-link-clicked="onBulkRemoveCvcClick_" pref="{{prefs.autofill.payment_cvc_storage}}">
     </settings-toggle-button>
 </template>
 <settings-toggle-button id="canMakePaymentToggle" aria-label="$i18n{canMakePaymentToggleLabel}" label="$i18n{canMakePaymentToggleLabel}" pref="{{prefs.payments.can_make_payment_enabled}}" on-settings-boolean-control-change="onCanMakePaymentChange_">
@@ -3128,6 +3141,17 @@ class SettingsPaymentsSectionElement extends SettingsPaymentsSectionElementBase 
     onShowBulkRemoveCvcConfirmationDialogClose_() {
         assert(this.cvcStorageAvailable_);
         this.showBulkRemoveCvcConfirmationDialog_ = false;
+    }
+    /**
+     * Method to return the correct sublabel for the cvc storage toggle.
+     * If any card from the list has a cvc, the sublabel with bulk delete
+     * hyperlink is returned else return the regular sublabel.
+     * @returns Cvc storage toggle sublabel string.
+     */
+    getCvcStorageSublabel_() {
+        const card = this.creditCards.find(cc => !!cc.cvc);
+        return this.i18nAdvanced(card === undefined ? 'enableCvcStorageSublabel' :
+            'enableCvcStorageDeleteDataSublabel');
     }
 }
 customElements.define(SettingsPaymentsSectionElement.is, SettingsPaymentsSectionElement);
@@ -18318,7 +18342,8 @@ function getTemplate$9() {
       </div>
       <div>
         <div class="bullet-row">
-          <iron-icon icon="settings:visibility-off"></iron-icon>
+          <iron-icon icon="settings:visibility-off" aria-hidden="true">
+          </iron-icon>
           <div>
             $i18n{trackingProtectionBulletOne}
             <div class="secondary">
@@ -18327,7 +18352,8 @@ function getTemplate$9() {
           </div>
         </div>
         <div class="bullet-row">
-          <iron-icon icon="settings:domain-verification"></iron-icon>
+          <iron-icon icon="settings:domain-verification" aria-hidden="true">
+          </iron-icon>
           <div>
             $i18n{trackingProtectionBulletTwo}
             <div class="secondary">

@@ -164,7 +164,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x0ca77466,  // Media.VideoCapture.Windows.NumberOfRetriesNeededForMFGetAvailableDeviceMediaType
   0x0cb3714b,  // Apps.ScrollableShelf.Drag.PresentationTime.ClamshellMode.LauncherHidden
   0x0cb4c706,  // V8.WasmTierUpModuleMicroSeconds
-  0x0cd59136,  // Discover.Search.SearchStatus
   0x0cfe5ee8,  // Enterprise.CBCMPolicyInvalidations
   0x0d0875a2,  // HeapProfiling.InProcess.AndroidNonChromeFrames.Browser
   0x0d0ab877,  // Net.URLLoaderThrottleDeferTime.WillRedirectRequest
@@ -438,7 +437,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x271d76ce,  // Prerender.NetworkBytesWasted
   0x272ba027,  // V8.MemoryExternalFragmentationOldSpace
   0x27471ecb,  // Memory.OOMKill.Extensions.MemGraphicsMB
-  0x2754bddd,  // DomDistiller.PageHasDistilledData
   0x2758420a,  // FirstRun.IOSFirebaseConfigured
   0x275d9bb3,  // WebFont.DownloadTime.3.100KBTo1MB
   0x2765a964,  // Platform.Storage.Flash.BadBlocks.Postbootloader-B
@@ -1353,7 +1351,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x81f9f385,  // Media.Controls.Show.Video
   0x81fe44b2,  // MachineLearningService.smart_dim_model_20190521_v3.LoadModelResult.TotalMemoryDeltaKb
   0x820e2016,  // Blink.ImageDecoders.Jpeg.Area
-  0x823f88aa,  // Media.Engagement.SignificantPlayers.PlayerNotAdded.AfterFirstTime
   0x824519b3,  // OfflinePages.PageSize.async_loading
   0x82569d83,  // Prerender.websame_NoStatePrefetchResponseTypes
   0x828b375a,  // PLT.PT_StartToCommit_FromGWS_Experiment10
@@ -1455,7 +1452,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x8b66e812,  // Extensions.WebUi.LoadCompletedInMainFrame{ExtensionWebUiPageType}
   0x8baa850c,  // Layout.ScrollAnchor.TimeToRestoreAnchor
   0x8bcc906a,  // Media.CrosGlobalMediaControls.RepeatUsageInQuickSetting
-  0x8c18d8b1,  // Media.Engagement.ScoreAtPlayback
   0x8c1fe814,  // Media.CrosGlobalMediaControls.QuickSettingUserAction
   0x8c42ab19,  // OSX.Fullscreen.Enter.Source
   0x8c676749,  // WebRTC.Stun.BatchSuccessPercent.SymNAT.1ms.1
@@ -1562,7 +1558,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x96c660c4,  // Media.MediaRecorder.VEAUsed
   0x9715bacf,  // Arc.Session.MojoDisconnection.RobotAccount
   0x97452c90,  // Cryptohome.TimeToPerformEphemeralMount
-  0x974635cf,  // Media.Engagement.SignificantPlayers.PlayerNotAdded.FirstTime
   0x976b3a9b,  // WebRTC.Stun.ResponseLatency.UnknownNAT
   0x9771e99b,  // Power.DarkResumeWakeDurationMs.Other
   0x9774c635,  // Net.QuicSession.RstStreamErrorCodeServer
@@ -2292,7 +2287,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xdf9eba0f,  // Search.QueryTiles.NTP.Tile.Clicked.IsTopLevel
   0xdfaf5559,  // Media.TotalMBytes
   0xdfce7179,  // WebRTC.BWE.RampUpTimeTo500kbpsInMs
-  0xdfdd9d89,  // Media.Engagement.SignificantPlayers.PlayerRemoved
   0xe02695ab,  // OfflinePages.Background.ImmediateStart.AvailableRequestCount
   0xe029a9ff,  // NavigationSuggestion.Event2
   0xe06b7e18,  // WebCore.HTMLDocumentParser.PreloadScannerAppCacheDelayTime.MainFrame

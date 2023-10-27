@@ -136,13 +136,14 @@ mojo.internal.Struct(ProcessCountInfoSpec.$, 'ProcessCountInfo', [
 mojo.internal.Struct(SiteInstanceInfoSpec.$, 'SiteInstanceInfo', [
     mojo.internal.StructField('id', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
     mojo.internal.StructField('siteInstanceGroupId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('locked', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('browsingInstanceId', 8, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('locked', 12, 0, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('siteUrl', 16, 0, url_mojom_UrlSpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('processLockUrl', 24, 0, url_mojom_UrlSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('requiresOriginKeyedProcess', 8, 1, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('isSandboxForIframes', 8, 2, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('isGuest', 8, 3, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('isPdf', 8, 4, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('requiresOriginKeyedProcess', 12, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('isSandboxForIframes', 12, 2, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('isGuest', 12, 3, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('isPdf', 12, 4, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('storagePartition', 32, 0, mojo.internal.String, null, true /* nullable */, 0),
 ], [[0, 48],]);
 export const FrameInfo_TypeSpec = { $: mojo.internal.Enum() };

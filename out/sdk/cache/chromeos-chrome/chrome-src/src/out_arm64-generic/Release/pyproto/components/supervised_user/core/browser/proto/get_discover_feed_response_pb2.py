@@ -11,9 +11,10 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import discover_feed_pb2 as discover__feed__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n get_discover_feed_response.proto\x12\x0fsupervised_user\"\x19\n\x17GetDiscoverFeedResponseB\x02H\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n get_discover_feed_response.proto\x12\x0fsupervised_user\x1a\x13\x64iscover_feed.proto\"O\n\x17GetDiscoverFeedResponse\x12\x34\n\rdiscover_feed\x18\x02 \x01(\x0b\x32\x1d.supervised_user.DiscoverFeedB\x02H\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'get_discover_feed_response_pb2', globals())
@@ -21,6 +22,6 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
-  _GETDISCOVERFEEDRESPONSE._serialized_start=53
-  _GETDISCOVERFEEDRESPONSE._serialized_end=78
+  _GETDISCOVERFEEDRESPONSE._serialized_start=74
+  _GETDISCOVERFEEDRESPONSE._serialized_end=153
 # @@protoc_insertion_point(module_scope)

@@ -290,6 +290,93 @@ bool PaddingMode_Data::Validate(
   }
 }
 // static
+bool Activation_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const Activation_Data* object = static_cast<const Activation_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case Activation_Tag::kClamp: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_clamp, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_clamp, validation_context))
+        return false;
+      return true;
+    }
+    case Activation_Tag::kRelu: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_relu, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_relu, validation_context))
+        return false;
+      return true;
+    }
+    case Activation_Tag::kSigmoid: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_sigmoid, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_sigmoid, validation_context))
+        return false;
+      return true;
+    }
+    case Activation_Tag::kSoftmax: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_softmax, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_softmax, validation_context))
+        return false;
+      return true;
+    }
+    case Activation_Tag::kTanh: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_tanh, 5, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_tanh, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in Activation");
+      return false;
+    }
+  }
+}
+// static
 bool Operation_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
@@ -426,10 +513,20 @@ bool Operation_Data::Validate(
         return false;
       return true;
     }
+    case Operation_Tag::kSigmoid: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_sigmoid, 12, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_sigmoid, validation_context))
+        return false;
+      return true;
+    }
     case Operation_Tag::kSlice: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_slice, 12, validation_context)) {
+              object->data.f_slice, 13, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_slice, validation_context))
@@ -439,7 +536,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSoftmax: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_softmax, 13, validation_context)) {
+              object->data.f_softmax, 14, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_softmax, validation_context))
@@ -449,17 +546,27 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSplit: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_split, 14, validation_context)) {
+              object->data.f_split, 15, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_split, validation_context))
         return false;
       return true;
     }
+    case Operation_Tag::kTanh: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_tanh, 16, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_tanh, validation_context))
+        return false;
+      return true;
+    }
     case Operation_Tag::kTranspose: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_transpose, 15, validation_context)) {
+              object->data.f_transpose, 17, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_transpose, validation_context))
@@ -1081,6 +1188,29 @@ Reshape_Data::Reshape_Data()
 
 
 // static
+bool Sigmoid_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Sigmoid_Data* object =
+      static_cast<const Sigmoid_Data*>(data);
+
+  return true;
+}
+
+Sigmoid_Data::Sigmoid_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Softmax_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1134,6 +1264,29 @@ bool Split_Data::Validate(
 }
 
 Split_Data::Split_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Tanh_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Tanh_Data* object =
+      static_cast<const Tanh_Data*>(data);
+
+  return true;
+}
+
+Tanh_Data::Tanh_Data()
     : header_({sizeof(*this), 0}) {}
 
 

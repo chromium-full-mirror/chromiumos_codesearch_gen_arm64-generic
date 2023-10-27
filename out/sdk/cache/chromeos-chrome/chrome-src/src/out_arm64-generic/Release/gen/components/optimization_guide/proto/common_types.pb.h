@@ -84,11 +84,12 @@ enum RequestContext : int {
   CONTEXT_BOOKMARKS = 7,
   CONTEXT_JOURNEYS = 8,
   CONTEXT_NEW_TAB_PAGE = 9,
-  CONTEXT_PAGE_INSIGHTS_HUB = 11
+  CONTEXT_PAGE_INSIGHTS_HUB = 11,
+  CONTEXT_NON_PERSONALIZED_PAGE_INSIGHTS_HUB = 12
 };
 bool RequestContext_IsValid(int value);
 constexpr RequestContext RequestContext_MIN = CONTEXT_UNSPECIFIED;
-constexpr RequestContext RequestContext_MAX = CONTEXT_PAGE_INSIGHTS_HUB;
+constexpr RequestContext RequestContext_MAX = CONTEXT_NON_PERSONALIZED_PAGE_INSIGHTS_HUB;
 constexpr int RequestContext_ARRAYSIZE = RequestContext_MAX + 1;
 
 const std::string& RequestContext_Name(RequestContext value);

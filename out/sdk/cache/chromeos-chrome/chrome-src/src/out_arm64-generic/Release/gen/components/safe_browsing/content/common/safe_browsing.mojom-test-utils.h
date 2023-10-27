@@ -79,7 +79,8 @@ class  PhishingDetectorAsyncWaiter {
 
 class  PhishingModelSetterInterceptorForTesting : public PhishingModelSetter {
   virtual PhishingModelSetter* GetForwardingInterface() = 0;
-  void SetImageEmbeddingAndPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model, ::base::File image_embedding_model_) override;
+  void SetImageEmbeddingAndPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model, ::base::File image_embedding_model) override;
+  void AttachImageEmbeddingModel(::base::File image_embedding_model) override;
   void SetPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model) override;
   void ClearScorer() override;
   void SetTestObserver(::mojo::PendingRemote<PhishingModelSetterTestObserver> observer, SetTestObserverCallback callback) override;

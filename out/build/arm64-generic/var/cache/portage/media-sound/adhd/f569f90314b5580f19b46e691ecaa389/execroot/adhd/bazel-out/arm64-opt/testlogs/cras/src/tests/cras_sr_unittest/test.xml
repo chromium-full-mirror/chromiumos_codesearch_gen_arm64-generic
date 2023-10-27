@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="6" failures="0" disabled="0" errors="0" time="0.066" timestamp="2023-10-27T00:18:07.138" name="AllTests">
+  <testsuite name="BtSrTestSuite" tests="6" failures="0" disabled="0" skipped="0" errors="0" time="0.05" timestamp="2023-10-27T00:18:07.152">
+    <testcase name="HasPaddedZeros" file="cras/src/tests/cras_sr_unittest.cc" line="102" status="run" result="completed" time="0.024" timestamp="2023-10-27T00:18:07.153" classname="BtSrTestSuite" />
+    <testcase name="NumOutputsMoreThanNumFramesPerRun" file="cras/src/tests/cras_sr_unittest.cc" line="139" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:18:07.179" classname="BtSrTestSuite" />
+    <testcase name="CachedInInternalBuffer" file="cras/src/tests/cras_sr_unittest.cc" line="157" status="run" result="completed" time="0.007" timestamp="2023-10-27T00:18:07.185" classname="BtSrTestSuite" />
+    <testcase name="OutputBufReachEnd" file="cras/src/tests/cras_sr_unittest.cc" line="205" status="run" result="completed" time="0.005" timestamp="2023-10-27T00:18:07.194" classname="BtSrTestSuite" />
+    <testcase name="FramesRatio" file="cras/src/tests/cras_sr_unittest.cc" line="232" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:18:07.200" classname="BtSrTestSuite" />
+    <testcase name="NumFramesPerRun" file="cras/src/tests/cras_sr_unittest.cc" line="236" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:07.201" classname="BtSrTestSuite" />
+  </testsuite>
+</testsuites>

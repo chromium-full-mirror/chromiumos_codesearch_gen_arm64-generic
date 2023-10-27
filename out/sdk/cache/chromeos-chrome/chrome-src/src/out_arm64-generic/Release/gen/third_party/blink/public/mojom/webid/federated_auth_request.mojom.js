@@ -274,24 +274,24 @@
     encoder.encodeStructPointer(url$.Url, val.url);
     encoder.encodeStruct(codec.String, val.accountId);
   };
-  function WalletProvider(values) {
+  function DigitalCredentialProvider(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  WalletProvider.prototype.initDefaults_ = function() {
+  DigitalCredentialProvider.prototype.initDefaults_ = function() {
     this.params = null;
     this.selector = null;
   };
-  WalletProvider.prototype.initFields_ = function(fields) {
+  DigitalCredentialProvider.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  WalletProvider.validate = function(messageValidator, offset) {
+  DigitalCredentialProvider.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -305,60 +305,60 @@
         return err;
 
 
-    // validate WalletProvider.params
+    // validate DigitalCredentialProvider.params
     err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 0, false, codec.String, codec.String, false);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate WalletProvider.selector
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, WalletSelector, false);
+    // validate DigitalCredentialProvider.selector
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, DigitalCredentialSelector, false);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  WalletProvider.encodedSize = codec.kStructHeaderSize + 16;
+  DigitalCredentialProvider.encodedSize = codec.kStructHeaderSize + 16;
 
-  WalletProvider.decode = function(decoder) {
+  DigitalCredentialProvider.decode = function(decoder) {
     var packed;
-    var val = new WalletProvider();
+    var val = new DigitalCredentialProvider();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.params =
         decoder.decodeMapPointer(codec.String, codec.String);
     val.selector =
-        decoder.decodeStructPointer(WalletSelector);
+        decoder.decodeStructPointer(DigitalCredentialSelector);
     return val;
   };
 
-  WalletProvider.encode = function(encoder, val) {
+  DigitalCredentialProvider.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(WalletProvider.encodedSize);
+    encoder.writeUint32(DigitalCredentialProvider.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeMapPointer(codec.String, codec.String, val.params);
-    encoder.encodeStructPointer(WalletSelector, val.selector);
+    encoder.encodeStructPointer(DigitalCredentialSelector, val.selector);
   };
-  function WalletSelector(values) {
+  function DigitalCredentialSelector(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  WalletSelector.prototype.initDefaults_ = function() {
+  DigitalCredentialSelector.prototype.initDefaults_ = function() {
     this.format = null;
     this.doctype = null;
     this.fields = null;
   };
-  WalletSelector.prototype.initFields_ = function(fields) {
+  DigitalCredentialSelector.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  WalletSelector.validate = function(messageValidator, offset) {
+  DigitalCredentialSelector.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -372,31 +372,31 @@
         return err;
 
 
-    // validate WalletSelector.format
+    // validate DigitalCredentialSelector.format
     err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate WalletSelector.doctype
+    // validate DigitalCredentialSelector.doctype
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate WalletSelector.fields
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.PointerTo(WalletFieldRequirement), false, [0], 0);
+    // validate DigitalCredentialSelector.fields
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 16, 8, new codec.PointerTo(DigitalCredentialFieldRequirement), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  WalletSelector.encodedSize = codec.kStructHeaderSize + 24;
+  DigitalCredentialSelector.encodedSize = codec.kStructHeaderSize + 24;
 
-  WalletSelector.decode = function(decoder) {
+  DigitalCredentialSelector.decode = function(decoder) {
     var packed;
-    var val = new WalletSelector();
+    var val = new DigitalCredentialSelector();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.format =
@@ -404,36 +404,36 @@
     val.doctype =
         decoder.decodeStruct(codec.NullableString);
     val.fields =
-        decoder.decodeArrayPointer(new codec.PointerTo(WalletFieldRequirement));
+        decoder.decodeArrayPointer(new codec.PointerTo(DigitalCredentialFieldRequirement));
     return val;
   };
 
-  WalletSelector.encode = function(encoder, val) {
+  DigitalCredentialSelector.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(WalletSelector.encodedSize);
+    encoder.writeUint32(DigitalCredentialSelector.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeArrayPointer(codec.String, val.format);
     encoder.encodeStruct(codec.NullableString, val.doctype);
-    encoder.encodeArrayPointer(new codec.PointerTo(WalletFieldRequirement), val.fields);
+    encoder.encodeArrayPointer(new codec.PointerTo(DigitalCredentialFieldRequirement), val.fields);
   };
-  function WalletFieldRequirement(values) {
+  function DigitalCredentialFieldRequirement(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  WalletFieldRequirement.prototype.initDefaults_ = function() {
+  DigitalCredentialFieldRequirement.prototype.initDefaults_ = function() {
     this.name = null;
     this.equals = null;
   };
-  WalletFieldRequirement.prototype.initFields_ = function(fields) {
+  DigitalCredentialFieldRequirement.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  WalletFieldRequirement.validate = function(messageValidator, offset) {
+  DigitalCredentialFieldRequirement.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -447,13 +447,13 @@
         return err;
 
 
-    // validate WalletFieldRequirement.name
+    // validate DigitalCredentialFieldRequirement.name
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
     if (err !== validator.validationError.NONE)
         return err;
 
 
-    // validate WalletFieldRequirement.equals
+    // validate DigitalCredentialFieldRequirement.equals
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, true)
     if (err !== validator.validationError.NONE)
         return err;
@@ -461,11 +461,11 @@
     return validator.validationError.NONE;
   };
 
-  WalletFieldRequirement.encodedSize = codec.kStructHeaderSize + 16;
+  DigitalCredentialFieldRequirement.encodedSize = codec.kStructHeaderSize + 16;
 
-  WalletFieldRequirement.decode = function(decoder) {
+  DigitalCredentialFieldRequirement.decode = function(decoder) {
     var packed;
-    var val = new WalletFieldRequirement();
+    var val = new DigitalCredentialFieldRequirement();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.name =
@@ -475,9 +475,9 @@
     return val;
   };
 
-  WalletFieldRequirement.encode = function(encoder, val) {
+  DigitalCredentialFieldRequirement.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(WalletFieldRequirement.encodedSize);
+    encoder.writeUint32(DigitalCredentialFieldRequirement.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.name);
     encoder.encodeStruct(codec.NullableString, val.equals);
@@ -1976,7 +1976,7 @@
           encoder.encodeStructPointer(IdentityProviderConfig, val.federated);
           break;
         case IdentityProvider.Tags.holder:
-          encoder.encodeStructPointer(WalletProvider, val.holder);
+          encoder.encodeStructPointer(DigitalCredentialProvider, val.holder);
           break;
       }
       encoder.align();
@@ -1998,7 +1998,7 @@
           result.federated = decoder.decodeStructPointer(IdentityProviderConfig);
           break;
         case IdentityProvider.Tags.holder:
-          result.holder = decoder.decodeStructPointer(WalletProvider);
+          result.holder = decoder.decodeStructPointer(DigitalCredentialProvider);
           break;
       }
       decoder.align();
@@ -2029,7 +2029,7 @@
           
 
     // validate IdentityProvider.holder
-    err = messageValidator.validateStructPointer(data_offset, WalletProvider, false);
+    err = messageValidator.validateStructPointer(data_offset, DigitalCredentialProvider, false);
     if (err !== validator.validationError.NONE)
         return err;
           break;
@@ -2573,9 +2573,9 @@
   exports.RpContext = RpContext;
   exports.RpMode = RpMode;
   exports.LogoutRpsRequest = LogoutRpsRequest;
-  exports.WalletProvider = WalletProvider;
-  exports.WalletSelector = WalletSelector;
-  exports.WalletFieldRequirement = WalletFieldRequirement;
+  exports.DigitalCredentialProvider = DigitalCredentialProvider;
+  exports.DigitalCredentialSelector = DigitalCredentialSelector;
+  exports.DigitalCredentialFieldRequirement = DigitalCredentialFieldRequirement;
   exports.IdentityProviderConfig = IdentityProviderConfig;
   exports.IdentityUserInfo = IdentityUserInfo;
   exports.IdentityProviderGetParameters = IdentityProviderGetParameters;

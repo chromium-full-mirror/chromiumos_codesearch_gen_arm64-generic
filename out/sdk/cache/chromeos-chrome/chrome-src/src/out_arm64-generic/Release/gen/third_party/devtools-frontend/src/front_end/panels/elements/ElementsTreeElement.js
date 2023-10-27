@@ -43,6 +43,7 @@ import * as IconButton from '../../ui/components/icon_button/icon_button.js';
 import * as TextEditor from '../../ui/components/text_editor/text_editor.js';
 import * as Components from '../../ui/legacy/components/utils/utils.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import * as Emulation from '../emulation/emulation.js';
 import * as ElementsComponents from './components/components.js';
 import { canGetJSPath, cssPath, jsPath, xPath } from './DOMPath.js';
@@ -227,6 +228,7 @@ export class ElementsTreeElement extends UI.TreeOutline.TreeElement {
         super();
         this.nodeInternal = node;
         this.treeOutline = null;
+        this.listItemElement.setAttribute('jslog', `${VisualLogging.treeItem().track({ click: true }).context('disclosureTriangle').parent('elementsTreeOutline')}`);
         this.contentElement = this.listItemElement.createChild('div');
         this.gutterContainer = this.contentElement.createChild('div', 'gutter-container');
         this.gutterContainer.addEventListener('click', this.showContextMenu.bind(this));
@@ -2046,4 +2048,11 @@ export function adornerComparator(adornerA, adornerB) {
     }
     return compareCategories;
 }
+// As a privacy measure we are logging elements tree outline as a flat list where every tree item is a
+// child of a tree outline.
+function loggingParentProvider(e) {
+    const treeElement = UI.TreeOutline.TreeElement.getTreeElementBylistItemNode(e);
+    return treeElement?.treeOutline?.element;
+}
+VisualLogging.registerParentProvider('elementsTreeOutline', loggingParentProvider);
 //# sourceMappingURL=ElementsTreeElement.js.map

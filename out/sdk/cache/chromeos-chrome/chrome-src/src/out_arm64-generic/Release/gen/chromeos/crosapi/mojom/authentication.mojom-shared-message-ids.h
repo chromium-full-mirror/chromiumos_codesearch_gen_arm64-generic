@@ -14,8 +14,8 @@ namespace crosapi::mojom {
 namespace internal {
 
 
-constexpr uint32_t kAuthentication_CreateQuickUnlockPrivateTokenInfo_Name = 0;
-constexpr uint32_t kAuthentication_IsOsReauthAllowedForActiveUserProfile_Name = 1;
+constexpr uint32_t kAuthenticationDeprecated_REMOVED_0_Name = 0;
+constexpr uint32_t kAuthenticationDeprecated_REMOVED_1_Name = 1;
 
 }  // namespace internal
 

@@ -188,11 +188,12 @@ enum Study_FormFactor : int {
   Study_FormFactor_KIOSK = 3,
   Study_FormFactor_MEET_DEVICE = 4,
   Study_FormFactor_TV = 5,
-  Study_FormFactor_AUTOMOTIVE = 6
+  Study_FormFactor_AUTOMOTIVE = 6,
+  Study_FormFactor_FOLDABLE = 7
 };
 bool Study_FormFactor_IsValid(int value);
 constexpr Study_FormFactor Study_FormFactor_FormFactor_MIN = Study_FormFactor_DESKTOP;
-constexpr Study_FormFactor Study_FormFactor_FormFactor_MAX = Study_FormFactor_AUTOMOTIVE;
+constexpr Study_FormFactor Study_FormFactor_FormFactor_MAX = Study_FormFactor_FOLDABLE;
 constexpr int Study_FormFactor_FormFactor_ARRAYSIZE = Study_FormFactor_FormFactor_MAX + 1;
 
 const std::string& Study_FormFactor_Name(Study_FormFactor value);
@@ -2043,6 +2044,8 @@ class Study final :
     Study_FormFactor_TV;
   static constexpr FormFactor AUTOMOTIVE =
     Study_FormFactor_AUTOMOTIVE;
+  static constexpr FormFactor FOLDABLE =
+    Study_FormFactor_FOLDABLE;
   static inline bool FormFactor_IsValid(int value) {
     return Study_FormFactor_IsValid(value);
   }

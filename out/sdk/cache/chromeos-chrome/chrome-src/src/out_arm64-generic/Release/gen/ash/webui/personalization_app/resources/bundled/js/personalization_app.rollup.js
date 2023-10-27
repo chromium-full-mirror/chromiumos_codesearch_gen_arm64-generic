@@ -10746,7 +10746,7 @@ styleMod$2.appendChild(html `
 styleMod$2.register('md-select');
 
 function getTemplate$P() {
-    return html `<!--_html_template_start_--><style include="common md-select">.ambient-subpage-element-title{margin-bottom:0}.md-select{margin:20px 8px 0 0}</style>
+    return html `<!--_html_template_start_--><style include="common md-select">.ambient-subpage-element-title{margin-bottom:0}.md-select{margin-block-start:20px;margin-inline-end:8px}</style>
 <div class="ambient-toggle-row">
   <h3 class="ambient-subpage-element-title">
     $i18n{ambientModeDurationTitle}

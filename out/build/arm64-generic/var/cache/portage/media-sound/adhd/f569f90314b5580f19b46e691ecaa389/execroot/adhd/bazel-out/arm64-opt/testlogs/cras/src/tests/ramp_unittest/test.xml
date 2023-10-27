@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="16" failures="0" disabled="0" errors="0" time="0.023" timestamp="2023-10-27T00:17:20.791" name="AllTests">
+  <testsuite name="RampTestSuite" tests="16" failures="0" disabled="0" skipped="0" errors="0" time="0.011" timestamp="2023-10-27T00:17:20.803">
+    <testcase name="Init" file="cras/src/tests/ramp_unittest.cc" line="22" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:17:20.804" classname="RampTestSuite" />
+    <testcase name="RampUpInitialIncrement" file="cras/src/tests/ramp_unittest.cc" line="39" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.807" classname="RampTestSuite" />
+    <testcase name="RampUpUpdateRampedFrames" file="cras/src/tests/ramp_unittest.cc" line="62" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.808" classname="RampTestSuite" />
+    <testcase name="RampUpPassedRamp" file="cras/src/tests/ramp_unittest.cc" line="91" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.808" classname="RampTestSuite" />
+    <testcase name="RampUpWhileHalfWayRampDown" file="cras/src/tests/ramp_unittest.cc" line="118" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.809" classname="RampTestSuite" />
+    <testcase name="RampUpWhileHalfWayRampUp" file="cras/src/tests/ramp_unittest.cc" line="159" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.809" classname="RampTestSuite" />
+    <testcase name="RampDownInitialIncrement" file="cras/src/tests/ramp_unittest.cc" line="196" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.810" classname="RampTestSuite" />
+    <testcase name="RampDownUpdateRampedFrames" file="cras/src/tests/ramp_unittest.cc" line="219" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.810" classname="RampTestSuite" />
+    <testcase name="RampDownPassedRamp" file="cras/src/tests/ramp_unittest.cc" line="248" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.810" classname="RampTestSuite" />
+    <testcase name="RampDownWhileHalfWayRampUp" file="cras/src/tests/ramp_unittest.cc" line="275" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.811" classname="RampTestSuite" />
+    <testcase name="NullWontCrash" file="cras/src/tests/ramp_unittest.cc" line="318" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.811" classname="RampTestSuite" />
+    <testcase name="RampDownWhileHalfWayRampDown" file="cras/src/tests/ramp_unittest.cc" line="334" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.812" classname="RampTestSuite" />
+    <testcase name="MuteRamp" file="cras/src/tests/ramp_unittest.cc" line="373" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.812" classname="RampTestSuite" />
+    <testcase name="PartialRamp" file="cras/src/tests/ramp_unittest.cc" line="395" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.813" classname="RampTestSuite" />
+    <testcase name="RampUpPassedRampCallback" file="cras/src/tests/ramp_unittest.cc" line="446" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.814" classname="RampTestSuite" />
+    <testcase name="RampDownPassedRampCallback" file="cras/src/tests/ramp_unittest.cc" line="476" status="run" result="completed" time="0." timestamp="2023-10-27T00:17:20.814" classname="RampTestSuite" />
+  </testsuite>
+</testsuites>

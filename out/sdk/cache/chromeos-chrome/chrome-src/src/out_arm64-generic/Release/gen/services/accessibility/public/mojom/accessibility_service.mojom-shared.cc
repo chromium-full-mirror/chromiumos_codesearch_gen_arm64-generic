@@ -212,6 +212,38 @@ AccessibilityServiceClient_BindAutomation_Params_Data::AccessibilityServiceClien
 
 
 // static
+bool AccessibilityServiceClient_BindAutoclickClient_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AccessibilityServiceClient_BindAutoclickClient_Params_Data* object =
+      static_cast<const AccessibilityServiceClient_BindAutoclickClient_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->autoclick_client, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->autoclick_client,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+AccessibilityServiceClient_BindAutoclickClient_Params_Data::AccessibilityServiceClient_BindAutoclickClient_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AccessibilityServiceClient_BindSpeechRecognition_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

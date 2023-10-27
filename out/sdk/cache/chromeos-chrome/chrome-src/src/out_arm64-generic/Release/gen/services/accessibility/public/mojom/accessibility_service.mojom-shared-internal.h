@@ -18,6 +18,7 @@
 #include "services/accessibility/public/mojom/user_interface.mojom-shared-internal.h"
 #include "services/accessibility/public/mojom/assistive_technology_type.mojom-shared-internal.h"
 #include "services/accessibility/public/mojom/file_loader.mojom-shared-internal.h"
+#include "services/accessibility/public/mojom/autoclick.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

@@ -522,13 +522,39 @@ bool PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data
   if (!mojo::internal::ValidateStruct(object->tflite_model, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->image_embedding_model_, validation_context))
+  if (!mojo::internal::ValidateStruct(object->image_embedding_model, validation_context))
     return false;
 
   return true;
 }
 
 PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data::PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PhishingModelSetter_AttachImageEmbeddingModel_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PhishingModelSetter_AttachImageEmbeddingModel_Params_Data* object =
+      static_cast<const PhishingModelSetter_AttachImageEmbeddingModel_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->image_embedding_model, validation_context))
+    return false;
+
+  return true;
+}
+
+PhishingModelSetter_AttachImageEmbeddingModel_Params_Data::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

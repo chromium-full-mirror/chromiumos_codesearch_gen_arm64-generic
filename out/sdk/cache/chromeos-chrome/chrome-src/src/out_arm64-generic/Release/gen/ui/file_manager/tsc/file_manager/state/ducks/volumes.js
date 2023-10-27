@@ -4,7 +4,7 @@
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { isOneDriveId, isSameEntry, isVolumeEntry, sortEntries } from '../../common/js/entry_utils.js';
 import { VolumeEntry } from '../../common/js/files_app_entry_types.js';
-import { isGuestOsEnabled } from '../../common/js/flags.js';
+import { isGuestOsEnabled, isSinglePartitionFormatEnabled } from '../../common/js/flags.js';
 import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
 import '../../externs/files_app_entry_interfaces.js';
 import { PropStatus } from '../../externs/ts/state.js';
@@ -25,7 +25,13 @@ export const drivePlaceHolderKey = `fake-entry://${VolumeManagerCommon.RootType.
 export const recentRootKey = `fake-entry://${VolumeManagerCommon.RootType.RECENT}/all`;
 export const trashRootKey = `fake-entry://${VolumeManagerCommon.RootType.TRASH}`;
 export const driveRootEntryListKey = `entry-list://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
-export const makeRemovableParentKey = (volume) => `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}/${volume.devicePath}`;
+export const makeRemovableParentKey = (volume) => {
+    // Should be consistent with EntryList's toURL() method.
+    if (volume.devicePath) {
+        return `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}/${volume.devicePath}`;
+    }
+    return `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}`;
+};
 export const removableGroupKey = (volume) => `${volume.devicePath}/${volume.driveLabel}`;
 export function getVolumeTypesNestedInMyFiles() {
     const myFilesNestedVolumeTypes = new Set([
@@ -144,8 +150,15 @@ function addVolumeReducer(currentState, payload) {
                 }
                 return false;
             });
+            // At this point the current `volume` is not in the above `volumes`, we
+            // need to update the prefixKey separately.
             volume.prefixKey =
-                volumesInSameGroup.length > 0 ? groupParentEntry?.toURL() : undefined;
+                volumesInSameGroup.length > 0 ? groupParentEntry.toURL() : undefined;
+        }
+        if (isSinglePartitionFormatEnabled()) {
+            // If the flag is on, we always group removable volume even if there is
+            // only one, hence always adding the prefixKey here.
+            volume.prefixKey = parentKey;
         }
     }
     return {
@@ -165,8 +178,11 @@ function removeVolumeReducer(currentState, payload) {
     currentState.volumes = {
         ...currentState.volumes,
     };
-    // We also need to check if the removed volume is a child of My files.
+    // We also need to check if the removed volume is a child of My files and if
+    // the volume is a grouped removable device.
     const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
+    const isGroupedRemovable = volumeToRemove.volumeType === VolumeManagerCommon.VolumeType.REMOVABLE &&
+        volumeToRemove.prefixKey;
     if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
         const { myFilesEntry } = getMyFiles(currentState);
         const children = myFilesEntry.getUIChildren();
@@ -198,6 +214,23 @@ function removeVolumeReducer(currentState, payload) {
                     ...fileData,
                     children: newChildren,
                 };
+            }
+        }
+    }
+    else if (isGroupedRemovable) {
+        const fileData = getFileData(currentState, volumeToRemove.prefixKey);
+        if (fileData) {
+            // Remove it from the parent UI entry's UI children.
+            fileData.entry.removeChildEntry(volumeEntry);
+            // Remove it from the parent UI entry's file data.
+            const newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
+            currentState.allEntries[volumeToRemove.prefixKey] = {
+                ...fileData,
+                children: newChildren,
+            };
+            // If this is the last child, remove the parent UI entry.
+            if (newChildren.length === 0) {
+                currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== volumeToRemove.prefixKey);
             }
         }
     }

@@ -52,7 +52,8 @@ class  OnDeviceModelAsyncWaiter {
 
 class  OnDeviceModelServiceInterceptorForTesting : public OnDeviceModelService {
   virtual OnDeviceModelService* GetForwardingInterface() = 0;
-  void LoadModel(LoadModelParamsPtr params, LoadModelCallback callback) override;
+  void LoadModel(on_device_model::ModelAssets assets, LoadModelCallback callback) override;
+  void GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) override;
 };
 class  OnDeviceModelServiceAsyncWaiter {
  public:
@@ -63,8 +64,11 @@ class  OnDeviceModelServiceAsyncWaiter {
 
   ~OnDeviceModelServiceAsyncWaiter();
   void LoadModel(
-      LoadModelParamsPtr params, LoadModelResultPtr* out_result);
-  LoadModelResultPtr LoadModel(LoadModelParamsPtr params);
+      on_device_model::ModelAssets assets, LoadModelResultPtr* out_result);
+  LoadModelResultPtr LoadModel(on_device_model::ModelAssets assets);
+  void GetEstimatedPerformanceClass(
+      PerformanceClass* out_performance_class);
+  PerformanceClass GetEstimatedPerformanceClass();
 
  private:
   OnDeviceModelService* const proxy_;

@@ -76,14 +76,14 @@ void setBrands(HeapVector<Member<NavigatorUABrandVersion>>&& value);
 bool hasFormFactor() const {
   return has_form_factor_;
 }
-const String& formFactor() const {
+const Vector<String>& formFactor() const {
   DCHECK(hasFormFactor());
 return member_form_factor_;
 }
-String getFormFactorOr(const String& fallback_value) const;
-String getFormFactorOr(String&& fallback_value) const;
-void setFormFactor(const String& value);
-void setFormFactor(String&& value);
+Vector<String> getFormFactorOr(const Vector<String>& fallback_value) const;
+Vector<String> getFormFactorOr(Vector<String>&& fallback_value) const;
+void setFormFactor(const Vector<String>& value);
+void setFormFactor(Vector<String>&& value);
 
 bool hasFullVersionList() const {
   return has_full_version_list_;
@@ -211,7 +211,7 @@ bool has_wow_64_ = false;
 String member_architecture_;
 String member_bitness_;
 HeapVector<Member<NavigatorUABrandVersion>> member_brands_;
-String member_form_factor_;
+Vector<String> member_form_factor_;
 HeapVector<Member<NavigatorUABrandVersion>> member_full_version_list_;
 bool member_mobile_;
 String member_model_;

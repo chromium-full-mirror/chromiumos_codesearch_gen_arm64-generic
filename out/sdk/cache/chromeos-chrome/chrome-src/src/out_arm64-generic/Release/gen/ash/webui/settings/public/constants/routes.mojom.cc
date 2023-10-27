@@ -121,6 +121,7 @@ const char kFingerprintSubpagePathV2[] = "osPrivacy/lockScreen/fingerprint";
 const char kSmartPrivacySubpagePath[] = "osPrivacy/smartPrivacy";
 const char kPrivacyHubSubpagePath[] = "osPrivacy/privacyHub";
 const char kPrivacyHubMicrophoneSubpagePath[] = "osPrivacy/privacyHub/microphone";
+const char kPrivacyHubGeolocationSubpagePath[] = "osPrivacy/privacyHub/geolocation";
 const char kLanguagesAndInputSectionPath[] = "osLanguages";
 const char kInputMethodOptionsSubpagePath[] = "osLanguages/inputMethodOptions";
 const char kLanguagesSubpagePath[] = "osLanguages/languages";

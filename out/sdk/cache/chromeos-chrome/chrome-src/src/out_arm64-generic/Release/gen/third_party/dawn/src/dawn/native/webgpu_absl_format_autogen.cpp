@@ -988,9 +988,6 @@ namespace wgpu {
             case FeatureName::TimestampQuery:
                 s->Append("TimestampQuery");
                 break;
-            case FeatureName::ChromiumExperimentalPipelineStatisticsQuery:
-                s->Append("ChromiumExperimentalPipelineStatisticsQuery");
-                break;
             case FeatureName::TextureCompressionBC:
                 s->Append("TextureCompressionBC");
                 break;
@@ -1256,34 +1253,6 @@ namespace wgpu {
         return {true};
     }
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
-    AbslFormatConvert(PipelineStatisticName value,
-                      const absl::FormatConversionSpec& spec,
-                      absl::FormatSink* s) {
-        if (spec.conversion_char() == absl::FormatConversionChar::s) {
-            s->Append("PipelineStatisticName::");
-            switch (value) {
-            case PipelineStatisticName::VertexShaderInvocations:
-                s->Append("VertexShaderInvocations");
-                break;
-            case PipelineStatisticName::ClipperInvocations:
-                s->Append("ClipperInvocations");
-                break;
-            case PipelineStatisticName::ClipperPrimitivesOut:
-                s->Append("ClipperPrimitivesOut");
-                break;
-            case PipelineStatisticName::FragmentShaderInvocations:
-                s->Append("FragmentShaderInvocations");
-                break;
-            case PipelineStatisticName::ComputeShaderInvocations:
-                s->Append("ComputeShaderInvocations");
-                break;
-            }
-        } else {
-            s->Append(absl::StrFormat("%u", static_cast<typename std::underlying_type<PipelineStatisticName>::type>(value)));
-        }
-        return {true};
-    }
-    absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
     AbslFormatConvert(PowerPreference value,
                       const absl::FormatConversionSpec& spec,
                       absl::FormatSink* s) {
@@ -1364,9 +1333,6 @@ namespace wgpu {
             switch (value) {
             case QueryType::Occlusion:
                 s->Append("Occlusion");
-                break;
-            case QueryType::PipelineStatistics:
-                s->Append("PipelineStatistics");
                 break;
             case QueryType::Timestamp:
                 s->Append("Timestamp");

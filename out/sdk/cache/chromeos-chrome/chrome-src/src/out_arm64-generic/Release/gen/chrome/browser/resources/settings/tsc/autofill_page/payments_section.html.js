@@ -5,7 +5,7 @@ export function getTemplate() {
 </settings-toggle-button>
 
 <template is="dom-if" if="[[cvcStorageAvailable_]]">
-  <settings-toggle-button id="cvcStorageToggle" no-extension-indicator label="$i18n{enableCvcStorageLabel}" sub-label-with-link="$i18n{enableCvcStorageDeleteDataSublabel}" disabled="[[!prefs.autofill.credit_card_enabled.value]]" on-sub-label-link-clicked="onBulkRemoveCvcClick_" pref="{{prefs.autofill.payment_cvc_storage}}">
+  <settings-toggle-button id="cvcStorageToggle" no-extension-indicator label="$i18n{enableCvcStorageLabel}" sub-label-with-link="[[getCvcStorageSublabel_(creditCards)]]" disabled="[[!prefs.autofill.credit_card_enabled.value]]" on-sub-label-link-clicked="onBulkRemoveCvcClick_" pref="{{prefs.autofill.payment_cvc_storage}}">
     </settings-toggle-button>
 </template>
 <settings-toggle-button id="canMakePaymentToggle" aria-label="$i18n{canMakePaymentToggleLabel}" label="$i18n{canMakePaymentToggleLabel}" pref="{{prefs.payments.can_make_payment_enabled}}" on-settings-boolean-control-change="onCanMakePaymentChange_">

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="17" failures="0" disabled="0" errors="0" time="0.083" timestamp="2023-10-27T00:16:43.789" name="AllTests">
+  <testsuite name="PcmIodev" tests="9" failures="0" disabled="0" skipped="0" errors="0" time="0.064" timestamp="2023-10-27T00:16:43.800">
+    <testcase name="CreateDestroyA2dpPcmIodev" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="139" status="run" result="completed" time="0.023" timestamp="2023-10-27T00:16:43.801" classname="PcmIodev" />
+    <testcase name="OpenCloseA2dpPcmIodev" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="162" status="run" result="completed" time="0.018" timestamp="2023-10-27T00:16:43.827" classname="PcmIodev" />
+    <testcase name="CreateDestroyHfpPcmIodev" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="186" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:43.846" classname="PcmIodev" />
+    <testcase name="TestHfpReadNotStarted" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="228" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:43.848" classname="PcmIodev" />
+    <testcase name="TestHfpReadStarted" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="249" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:43.850" classname="PcmIodev" />
+    <testcase name="TestHfpWriteNotStarted" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="300" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:43.852" classname="PcmIodev" />
+    <testcase name="TestHfpWriteStarted" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="324" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:16:43.853" classname="PcmIodev" />
+    <testcase name="TestHfpCb" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="392" status="run" result="completed" time="0.004" timestamp="2023-10-27T00:16:43.856" classname="PcmIodev" />
+    <testcase name="TestHfpCbWithSr" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="438" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:16:43.860" classname="PcmIodev" />
+  </testsuite>
+  <testsuite name="PcmIodevWithSrTest" tests="8" failures="0" disabled="0" skipped="0" errors="0" time="0.006" timestamp="2023-10-27T00:16:43.866">
+    <testcase name="CreateDestroyHfpPcmIodev/0" value_param="24-byte object &lt;00-00 50-05 01-00 00-00 01-00 00-00 00-00 00-00 40-1F 00-00 00-00 00-00&gt;" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="514" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:43.866" classname="PcmIodevWithSrTest" />
+    <testcase name="CreateDestroyHfpPcmIodev/1" value_param="24-byte object &lt;00-76 61-72 01-00 00-00 00-00 00-00 6F-72 74-61 40-1F 00-00 00-00 00-00&gt;" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="514" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:43.868" classname="PcmIodevWithSrTest" />
+    <testcase name="CreateDestroyHfpPcmIodev/2" value_param="24-byte object &lt;00-73 6F-75 02-00 00-00 01-00 00-00 66-35 36-39 80-3E 00-00 00-00 00-00&gt;" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="514" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:43.869" classname="PcmIodevWithSrTest" />
+    <testcase name="CreateDestroyHfpPcmIodev/3" value_param="24-byte object &lt;00-38 30-66 02-00 00-00 00-00 00-00 31-65 63-61 80-3E 00-00 00-00 00-00&gt;" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="514" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:43.869" classname="PcmIodevWithSrTest" />
+    <testcase name="CreateDestroyHfpPcmIodev/4" value_param="24-byte object &lt;01-72 6F-6F 01-00 00-00 01-00 00-00 61-7A 65-6C C0-5D 00-00 00-00 00-00&gt;" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="514" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:43.869" classname="PcmIodevWithSrTest" />
+    <testcase name="CreateDestroyHfpPcmIodev/5" value_param="24-byte object &lt;01-34 2D-6F 01-00 00-00 00-00 00-00 6F-67 73-2F 40-1F 00-00 00-00 00-00&gt;" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="514" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:43.870" classname="PcmIodevWithSrTest" />
+    <testcase name="CreateDestroyHfpPcmIodev/6" value_param="24-byte object &lt;01-74 65-73 02-00 00-00 01-00 00-00 6D-5F 69-6F C0-5D 00-00 00-00 00-00&gt;" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="514" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:43.871" classname="PcmIodevWithSrTest" />
+    <testcase name="CreateDestroyHfpPcmIodev/7" value_param="24-byte object &lt;01-65 73-74 02-00 00-00 00-00 00-00 6C-00 00-00 80-3E 00-00 00-00 00-00&gt;" file="cras/src/tests/fl_pcm_iodev_unittest.cc" line="514" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:43.872" classname="PcmIodevWithSrTest" />
+  </testsuite>
+</testsuites>

@@ -28,6 +28,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include "discover_feed.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_get_5fdiscover_5ffeed_5fresponse_2eproto
@@ -162,6 +163,27 @@ class GetDiscoverFeedResponse final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kDiscoverFeedFieldNumber = 2,
+  };
+  // optional .supervised_user.DiscoverFeed discover_feed = 2;
+  bool has_discover_feed() const;
+  private:
+  bool _internal_has_discover_feed() const;
+  public:
+  void clear_discover_feed();
+  const ::supervised_user::DiscoverFeed& discover_feed() const;
+  PROTOBUF_NODISCARD ::supervised_user::DiscoverFeed* release_discover_feed();
+  ::supervised_user::DiscoverFeed* mutable_discover_feed();
+  void set_allocated_discover_feed(::supervised_user::DiscoverFeed* discover_feed);
+  private:
+  const ::supervised_user::DiscoverFeed& _internal_discover_feed() const;
+  ::supervised_user::DiscoverFeed* _internal_mutable_discover_feed();
+  public:
+  void unsafe_arena_set_allocated_discover_feed(
+      ::supervised_user::DiscoverFeed* discover_feed);
+  ::supervised_user::DiscoverFeed* unsafe_arena_release_discover_feed();
+
   // @@protoc_insertion_point(class_scope:supervised_user.GetDiscoverFeedResponse)
  private:
   class _Internal;
@@ -169,7 +191,9 @@ class GetDiscoverFeedResponse final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::supervised_user::DiscoverFeed* discover_feed_;
   friend struct ::TableStruct_get_5fdiscover_5ffeed_5fresponse_2eproto;
 };
 // ===================================================================
@@ -182,6 +206,93 @@ class GetDiscoverFeedResponse final :
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
 // GetDiscoverFeedResponse
+
+// optional .supervised_user.DiscoverFeed discover_feed = 2;
+inline bool GetDiscoverFeedResponse::_internal_has_discover_feed() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || discover_feed_ != nullptr);
+  return value;
+}
+inline bool GetDiscoverFeedResponse::has_discover_feed() const {
+  return _internal_has_discover_feed();
+}
+inline const ::supervised_user::DiscoverFeed& GetDiscoverFeedResponse::_internal_discover_feed() const {
+  const ::supervised_user::DiscoverFeed* p = discover_feed_;
+  return p != nullptr ? *p : reinterpret_cast<const ::supervised_user::DiscoverFeed&>(
+      ::supervised_user::_DiscoverFeed_default_instance_);
+}
+inline const ::supervised_user::DiscoverFeed& GetDiscoverFeedResponse::discover_feed() const {
+  // @@protoc_insertion_point(field_get:supervised_user.GetDiscoverFeedResponse.discover_feed)
+  return _internal_discover_feed();
+}
+inline void GetDiscoverFeedResponse::unsafe_arena_set_allocated_discover_feed(
+    ::supervised_user::DiscoverFeed* discover_feed) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(discover_feed_);
+  }
+  discover_feed_ = discover_feed;
+  if (discover_feed) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:supervised_user.GetDiscoverFeedResponse.discover_feed)
+}
+inline ::supervised_user::DiscoverFeed* GetDiscoverFeedResponse::release_discover_feed() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::supervised_user::DiscoverFeed* temp = discover_feed_;
+  discover_feed_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::supervised_user::DiscoverFeed* GetDiscoverFeedResponse::unsafe_arena_release_discover_feed() {
+  // @@protoc_insertion_point(field_release:supervised_user.GetDiscoverFeedResponse.discover_feed)
+  _has_bits_[0] &= ~0x00000001u;
+  ::supervised_user::DiscoverFeed* temp = discover_feed_;
+  discover_feed_ = nullptr;
+  return temp;
+}
+inline ::supervised_user::DiscoverFeed* GetDiscoverFeedResponse::_internal_mutable_discover_feed() {
+  _has_bits_[0] |= 0x00000001u;
+  if (discover_feed_ == nullptr) {
+    auto* p = CreateMaybeMessage<::supervised_user::DiscoverFeed>(GetArenaForAllocation());
+    discover_feed_ = p;
+  }
+  return discover_feed_;
+}
+inline ::supervised_user::DiscoverFeed* GetDiscoverFeedResponse::mutable_discover_feed() {
+  ::supervised_user::DiscoverFeed* _msg = _internal_mutable_discover_feed();
+  // @@protoc_insertion_point(field_mutable:supervised_user.GetDiscoverFeedResponse.discover_feed)
+  return _msg;
+}
+inline void GetDiscoverFeedResponse::set_allocated_discover_feed(::supervised_user::DiscoverFeed* discover_feed) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(discover_feed_);
+  }
+  if (discover_feed) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(discover_feed));
+    if (message_arena != submessage_arena) {
+      discover_feed = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, discover_feed, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  discover_feed_ = discover_feed;
+  // @@protoc_insertion_point(field_set_allocated:supervised_user.GetDiscoverFeedResponse.discover_feed)
+}
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop

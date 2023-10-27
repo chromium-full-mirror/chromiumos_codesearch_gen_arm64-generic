@@ -1223,6 +1223,14 @@ inline void SpeculationCandidatesUpdated(Document& param_document, const HeapVec
   SpeculationCandidatesUpdatedImpl(param_document, candidates);
 }
 
+CORE_EXPORT void DidInitializeFrameWidgetImpl(LocalFrame*);
+inline void DidInitializeFrameWidget(LocalFrame* document) {
+  if (!CoreProbeSink::HasAgentsGlobal(CoreProbeSink::kInspectorOverlayAgent))
+    return;
+
+  DidInitializeFrameWidgetImpl(document);
+}
+
 } // namespace probe
 } // namespace blink
 

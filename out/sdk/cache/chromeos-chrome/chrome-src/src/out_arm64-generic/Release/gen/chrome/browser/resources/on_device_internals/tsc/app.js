@@ -8,7 +8,23 @@ import '//resources/cr_elements/cr_shared_vars.css.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './app.html.js';
 import { BrowserProxy } from './browser_proxy.js';
-import { StreamingResponderCallbackRouter } from './on_device_model.mojom-webui.js';
+import { PerformanceClass, StreamingResponderCallbackRouter } from './on_device_model.mojom-webui.js';
+function getPerformanceClassText(performanceClass) {
+    switch (performanceClass) {
+        case PerformanceClass.kVeryLow:
+            return 'Very Low';
+        case PerformanceClass.kLow:
+            return 'Low';
+        case PerformanceClass.kMedium:
+            return 'Medium';
+        case PerformanceClass.kHigh:
+            return 'High';
+        case PerformanceClass.kVeryHigh:
+            return 'Very High';
+        default:
+            return 'Error';
+    }
+}
 class OnDeviceInternalsAppElement extends PolymerElement {
     constructor() {
         super(...arguments);
@@ -44,12 +60,24 @@ class OnDeviceInternalsAppElement extends PolymerElement {
                 type: Object,
                 value: null,
             },
+            performanceClassText_: {
+                type: String,
+                value: 'Loading...',
+            },
         };
     }
     static get observers() {
         return [
             'onModelOrErrorChanged_(model_, error_)',
         ];
+    }
+    ready() {
+        super.ready();
+        this.getPerformanceClass_();
+    }
+    async getPerformanceClass_() {
+        this.performanceClassText_ = getPerformanceClassText((await this.proxy_.handler.getEstimatedPerformanceClass())
+            .performanceClass);
     }
     onModelOrErrorChanged_() {
         if (this.model_ !== null) {
@@ -70,7 +98,7 @@ class OnDeviceInternalsAppElement extends PolymerElement {
         // 
         const processedPath = modelPath;
         // 
-        const { result } = await this.proxy_.handler.loadModel({ path: { path: processedPath } });
+        const { result } = await this.proxy_.handler.loadModel({ path: processedPath });
         if (result.error) {
             this.error_ = result.error;
         }

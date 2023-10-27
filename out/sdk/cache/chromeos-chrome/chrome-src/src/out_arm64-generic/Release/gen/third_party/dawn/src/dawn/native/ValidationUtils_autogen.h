@@ -35,7 +35,6 @@ namespace dawn::native {
     MaybeError ValidateLoadOp(wgpu::LoadOp value);
     MaybeError ValidateLoggingType(wgpu::LoggingType value);
     MaybeError ValidateMipmapFilterMode(wgpu::MipmapFilterMode value);
-    MaybeError ValidatePipelineStatisticName(wgpu::PipelineStatisticName value);
     MaybeError ValidatePowerPreference(wgpu::PowerPreference value);
     MaybeError ValidatePresentMode(wgpu::PresentMode value);
     MaybeError ValidatePrimitiveTopology(wgpu::PrimitiveTopology value);

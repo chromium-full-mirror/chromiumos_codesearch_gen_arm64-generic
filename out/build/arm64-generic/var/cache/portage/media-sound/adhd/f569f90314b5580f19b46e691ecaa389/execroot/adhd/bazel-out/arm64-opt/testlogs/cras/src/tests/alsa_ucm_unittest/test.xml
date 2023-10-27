@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="52" failures="0" disabled="0" errors="0" time="0.137" timestamp="2023-10-27T00:16:57.309" name="AllTests">
+  <testsuite name="AlsaUcm" tests="51" failures="0" disabled="0" skipped="0" errors="0" time="0.122" timestamp="2023-10-27T00:16:57.323">
+    <testcase name="CreateFailInvalidCard" file="cras/src/tests/alsa_ucm_unittest.cc" line="98" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:16:57.324" classname="AlsaUcm" />
+    <testcase name="CreateFailCardNotFound" file="cras/src/tests/alsa_ucm_unittest.cc" line="104" status="run" result="completed" time="0.015" timestamp="2023-10-27T00:16:57.328" classname="AlsaUcm" />
+    <testcase name="CreateFailNoHiFi" file="cras/src/tests/alsa_ucm_unittest.cc" line="111" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:16:57.344" classname="AlsaUcm" />
+    <testcase name="CreateSuccess" file="cras/src/tests/alsa_ucm_unittest.cc" line="120" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.347" classname="AlsaUcm" />
+    <testcase name="CheckEnabledEmptyList" file="cras/src/tests/alsa_ucm_unittest.cc" line="136" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.349" classname="AlsaUcm" />
+    <testcase name="CheckEnabledAlready" file="cras/src/tests/alsa_ucm_unittest.cc" line="153" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.351" classname="AlsaUcm" />
+    <testcase name="GetEdidForDev" file="cras/src/tests/alsa_ucm_unittest.cc" line="168" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:16:57.353" classname="AlsaUcm" />
+    <testcase name="GetCapControlForDev" file="cras/src/tests/alsa_ucm_unittest.cc" line="187" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.355" classname="AlsaUcm" />
+    <testcase name="GetOverrideType" file="cras/src/tests/alsa_ucm_unittest.cc" line="206" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.357" classname="AlsaUcm" />
+    <testcase name="GetSectionsForVar" file="cras/src/tests/alsa_ucm_unittest.cc" line="225" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:16:57.359" classname="AlsaUcm" />
+    <testcase name="GetDevForJack" file="cras/src/tests/alsa_ucm_unittest.cc" line="266" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:16:57.361" classname="AlsaUcm" />
+    <testcase name="GetDevForHeadphoneJack" file="cras/src/tests/alsa_ucm_unittest.cc" line="293" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.363" classname="AlsaUcm" />
+    <testcase name="GetDevForMicJack" file="cras/src/tests/alsa_ucm_unittest.cc" line="319" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.365" classname="AlsaUcm" />
+    <testcase name="GetDevForMixer" file="cras/src/tests/alsa_ucm_unittest.cc" line="345" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:16:57.366" classname="AlsaUcm" />
+    <testcase name="GetAlsaDeviceIndexForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="375" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:16:57.368" classname="AlsaUcm" />
+    <testcase name="GetDeviceRateForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="416" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.372" classname="AlsaUcm" />
+    <testcase name="GetDeviceChannelsForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="444" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.374" classname="AlsaUcm" />
+    <testcase name="GetCaptureChannelMapForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="476" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.375" classname="AlsaUcm" />
+    <testcase name="GetEchoReferenceDev" file="cras/src/tests/alsa_ucm_unittest.cc" line="506" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.377" classname="AlsaUcm" />
+    <testcase name="GetHotwordModels" file="cras/src/tests/alsa_ucm_unittest.cc" line="524" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.378" classname="AlsaUcm" />
+    <testcase name="SetHotwordModel" file="cras/src/tests/alsa_ucm_unittest.cc" line="542" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:16:57.379" classname="AlsaUcm" />
+    <testcase name="DisableAllHotwordModels" file="cras/src/tests/alsa_ucm_unittest.cc" line="582" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.381" classname="AlsaUcm" />
+    <testcase name="EnableHotwordModel" file="cras/src/tests/alsa_ucm_unittest.cc" line="603" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.383" classname="AlsaUcm" />
+    <testcase name="SwapModeExists" file="cras/src/tests/alsa_ucm_unittest.cc" line="626" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.385" classname="AlsaUcm" />
+    <testcase name="EnableSwapMode" file="cras/src/tests/alsa_ucm_unittest.cc" line="649" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.386" classname="AlsaUcm" />
+    <testcase name="DisableSwapMode" file="cras/src/tests/alsa_ucm_unittest.cc" line="670" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.387" classname="AlsaUcm" />
+    <testcase name="NoiseCancellationExists" file="cras/src/tests/alsa_ucm_unittest.cc" line="691" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.388" classname="AlsaUcm" />
+    <testcase name="EnableDisableNoiseCancellation" file="cras/src/tests/alsa_ucm_unittest.cc" line="714" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:16:57.390" classname="AlsaUcm" />
+    <testcase name="ModifierEnabled" file="cras/src/tests/alsa_ucm_unittest.cc" line="786" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.394" classname="AlsaUcm" />
+    <testcase name="SetModifierEnabled" file="cras/src/tests/alsa_ucm_unittest.cc" line="804" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.395" classname="AlsaUcm" />
+    <testcase name="EndWithSuffix" file="cras/src/tests/alsa_ucm_unittest.cc" line="819" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.395" classname="AlsaUcm" />
+    <testcase name="SectionExistsWithSuffix" file="cras/src/tests/alsa_ucm_unittest.cc" line="825" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.396" classname="AlsaUcm" />
+    <testcase name="DisableSoftwareVolume" file="cras/src/tests/alsa_ucm_unittest.cc" line="839" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.397" classname="AlsaUcm" />
+    <testcase name="GetCoupledMixersForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="856" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.397" classname="AlsaUcm" />
+    <testcase name="FreeMixerNames" file="cras/src/tests/alsa_ucm_unittest.cc" line="890" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.400" classname="AlsaUcm" />
+    <testcase name="DefaultNodeGain" file="cras/src/tests/alsa_ucm_unittest.cc" line="914" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.401" classname="AlsaUcm" />
+    <testcase name="IntrinsicSensitivity" file="cras/src/tests/alsa_ucm_unittest.cc" line="939" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.402" classname="AlsaUcm" />
+    <testcase name="UseFullySpecifiedUCMConfig" file="cras/src/tests/alsa_ucm_unittest.cc" line="964" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.403" classname="AlsaUcm" />
+    <testcase name="GetMixerNameForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="986" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.403" classname="AlsaUcm" />
+    <testcase name="GetMainVolumeMixerName" file="cras/src/tests/alsa_ucm_unittest.cc" line="1012" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.405" classname="AlsaUcm" />
+    <testcase name="ListSectionsByDeviceNameOutput" file="cras/src/tests/alsa_ucm_unittest.cc" line="1044" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.405" classname="AlsaUcm" />
+    <testcase name="ListSectionsByDeviceNameInput" file="cras/src/tests/alsa_ucm_unittest.cc" line="1067" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.408" classname="AlsaUcm" />
+    <testcase name="GetJackDevForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="1090" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.410" classname="AlsaUcm" />
+    <testcase name="GetJackControlForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="1114" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.411" classname="AlsaUcm" />
+    <testcase name="GetPeriodFramesForDevice" file="cras/src/tests/alsa_ucm_unittest.cc" line="1138" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.412" classname="AlsaUcm" />
+    <testcase name="UcmSection" file="cras/src/tests/alsa_ucm_unittest.cc" line="1166" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:16:57.414" classname="AlsaUcm" />
+    <testcase name="GetSections" file="cras/src/tests/alsa_ucm_unittest.cc" line="1236" status="run" result="completed" time="0.017" timestamp="2023-10-27T00:16:57.418" classname="AlsaUcm" />
+    <testcase name="GetSectionsMissingPCM" file="cras/src/tests/alsa_ucm_unittest.cc" line="1392" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.436" classname="AlsaUcm" />
+    <testcase name="CheckUseCaseVerbs" file="cras/src/tests/alsa_ucm_unittest.cc" line="1418" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.439" classname="AlsaUcm" />
+    <testcase name="GetAvailUseCases" file="cras/src/tests/alsa_ucm_unittest.cc" line="1430" status="run" result="completed" time="0.001" timestamp="2023-10-27T00:16:57.439" classname="AlsaUcm" />
+    <testcase name="SetAndEnableUseCase" file="cras/src/tests/alsa_ucm_unittest.cc" line="1460" status="run" result="completed" time="0.002" timestamp="2023-10-27T00:16:57.441" classname="AlsaUcm" />
+  </testsuite>
+  <testsuite name="AlsaFlag" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2023-10-27T00:16:57.446">
+    <testcase name="GetFlag" file="cras/src/tests/alsa_ucm_unittest.cc" line="767" status="run" result="completed" time="0." timestamp="2023-10-27T00:16:57.446" classname="AlsaFlag" />
+  </testsuite>
+</testsuites>

@@ -22,7 +22,7 @@ class ValidationContext;
 
 namespace crosapi::mojom {
 namespace internal {
-class  Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data {
+class  AuthenticationDeprecated_REMOVED_0_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -31,30 +31,30 @@ class  Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> password;
 
  private:
-  friend class mojo::internal::MessageFragment<Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data>;
+  friend class mojo::internal::MessageFragment<AuthenticationDeprecated_REMOVED_0_Params_Data>;
 
-  Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data();
-  ~Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data() = delete;
+  AuthenticationDeprecated_REMOVED_0_Params_Data();
+  ~AuthenticationDeprecated_REMOVED_0_Params_Data() = delete;
 };
-static_assert(sizeof(Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data) == 16,
-              "Bad sizeof(Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data)");
-class  Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data {
+static_assert(sizeof(AuthenticationDeprecated_REMOVED_0_Params_Data) == 16,
+              "Bad sizeof(AuthenticationDeprecated_REMOVED_0_Params_Data)");
+class  AuthenticationDeprecated_REMOVED_0_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  internal::CreateQuickUnlockPrivateTokenInfoResult_Data result;
+  internal::CreateQuickUnlockPrivateTokenInfoResultDeprecated_Data result;
 
  private:
-  friend class mojo::internal::MessageFragment<Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<AuthenticationDeprecated_REMOVED_0_ResponseParams_Data>;
 
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data();
-  ~Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data() = delete;
+  AuthenticationDeprecated_REMOVED_0_ResponseParams_Data();
+  ~AuthenticationDeprecated_REMOVED_0_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data) == 24,
-              "Bad sizeof(Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data)");
-class  Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data {
+static_assert(sizeof(AuthenticationDeprecated_REMOVED_0_ResponseParams_Data) == 24,
+              "Bad sizeof(AuthenticationDeprecated_REMOVED_0_ResponseParams_Data)");
+class  AuthenticationDeprecated_REMOVED_1_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -63,14 +63,14 @@ class  Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> auth_token_lifetime;
 
  private:
-  friend class mojo::internal::MessageFragment<Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data>;
+  friend class mojo::internal::MessageFragment<AuthenticationDeprecated_REMOVED_1_Params_Data>;
 
-  Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data();
-  ~Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data() = delete;
+  AuthenticationDeprecated_REMOVED_1_Params_Data();
+  ~AuthenticationDeprecated_REMOVED_1_Params_Data() = delete;
 };
-static_assert(sizeof(Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data) == 16,
-              "Bad sizeof(Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data)");
-class  Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data {
+static_assert(sizeof(AuthenticationDeprecated_REMOVED_1_Params_Data) == 16,
+              "Bad sizeof(AuthenticationDeprecated_REMOVED_1_Params_Data)");
+class  AuthenticationDeprecated_REMOVED_1_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -80,23 +80,23 @@ class  Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data 
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<AuthenticationDeprecated_REMOVED_1_ResponseParams_Data>;
 
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data();
-  ~Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data() = delete;
+  AuthenticationDeprecated_REMOVED_1_ResponseParams_Data();
+  ~AuthenticationDeprecated_REMOVED_1_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data) == 16,
-              "Bad sizeof(Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data)");
+static_assert(sizeof(AuthenticationDeprecated_REMOVED_1_ResponseParams_Data) == 16,
+              "Bad sizeof(AuthenticationDeprecated_REMOVED_1_ResponseParams_Data)");
 
 }  // namespace internal
 
 
-class Authentication_CreateQuickUnlockPrivateTokenInfo_ParamsDataView {
+class AuthenticationDeprecated_REMOVED_0_ParamsDataView {
  public:
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ParamsDataView() = default;
+  AuthenticationDeprecated_REMOVED_0_ParamsDataView() = default;
 
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ParamsDataView(
-      internal::Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data* data,
+  AuthenticationDeprecated_REMOVED_0_ParamsDataView(
+      internal::AuthenticationDeprecated_REMOVED_0_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -112,43 +112,43 @@ class Authentication_CreateQuickUnlockPrivateTokenInfo_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::Authentication_CreateQuickUnlockPrivateTokenInfo_Params_Data* data_ = nullptr;
+  internal::AuthenticationDeprecated_REMOVED_0_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParamsDataView {
+class AuthenticationDeprecated_REMOVED_0_ResponseParamsDataView {
  public:
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParamsDataView() = default;
+  AuthenticationDeprecated_REMOVED_0_ResponseParamsDataView() = default;
 
-  Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParamsDataView(
-      internal::Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data* data,
+  AuthenticationDeprecated_REMOVED_0_ResponseParamsDataView(
+      internal::AuthenticationDeprecated_REMOVED_0_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
   inline void GetResultDataView(
-      CreateQuickUnlockPrivateTokenInfoResultDataView* output);
+      CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResult(UserType* output) {
     
     auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
-    return mojo::internal::Deserialize<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDataView>(
+    return mojo::internal::Deserialize<::crosapi::mojom::CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView>(
         pointer, output, message_);
   }
  private:
-  internal::Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParams_Data* data_ = nullptr;
+  internal::AuthenticationDeprecated_REMOVED_0_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class Authentication_IsOsReauthAllowedForActiveUserProfile_ParamsDataView {
+class AuthenticationDeprecated_REMOVED_1_ParamsDataView {
  public:
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ParamsDataView() = default;
+  AuthenticationDeprecated_REMOVED_1_ParamsDataView() = default;
 
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ParamsDataView(
-      internal::Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data* data,
+  AuthenticationDeprecated_REMOVED_1_ParamsDataView(
+      internal::AuthenticationDeprecated_REMOVED_1_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -164,17 +164,17 @@ class Authentication_IsOsReauthAllowedForActiveUserProfile_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::Authentication_IsOsReauthAllowedForActiveUserProfile_Params_Data* data_ = nullptr;
+  internal::AuthenticationDeprecated_REMOVED_1_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParamsDataView {
+class AuthenticationDeprecated_REMOVED_1_ResponseParamsDataView {
  public:
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParamsDataView() = default;
+  AuthenticationDeprecated_REMOVED_1_ResponseParamsDataView() = default;
 
-  Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParamsDataView(
-      internal::Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data* data,
+  AuthenticationDeprecated_REMOVED_1_ResponseParamsDataView(
+      internal::AuthenticationDeprecated_REMOVED_1_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -183,24 +183,24 @@ class Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParamsDataVie
     return data_->allowed;
   }
  private:
-  internal::Authentication_IsOsReauthAllowedForActiveUserProfile_ResponseParams_Data* data_ = nullptr;
+  internal::AuthenticationDeprecated_REMOVED_1_ResponseParams_Data* data_ = nullptr;
 };
 
-inline void Authentication_CreateQuickUnlockPrivateTokenInfo_ParamsDataView::GetPasswordDataView(
+inline void AuthenticationDeprecated_REMOVED_0_ParamsDataView::GetPasswordDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->password.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 
 
-inline void Authentication_CreateQuickUnlockPrivateTokenInfo_ResponseParamsDataView::GetResultDataView(
-    CreateQuickUnlockPrivateTokenInfoResultDataView* output) {
+inline void AuthenticationDeprecated_REMOVED_0_ResponseParamsDataView::GetResultDataView(
+    CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView* output) {
   auto pointer = &data_->result;
-  *output = CreateQuickUnlockPrivateTokenInfoResultDataView(pointer, message_);
+  *output = CreateQuickUnlockPrivateTokenInfoResultDeprecatedDataView(pointer, message_);
 }
 
 
-inline void Authentication_IsOsReauthAllowedForActiveUserProfile_ParamsDataView::GetAuthTokenLifetimeDataView(
+inline void AuthenticationDeprecated_REMOVED_1_ParamsDataView::GetAuthTokenLifetimeDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->auth_token_lifetime.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);

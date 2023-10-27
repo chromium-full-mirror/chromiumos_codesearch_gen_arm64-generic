@@ -3,7 +3,19 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
-import { FilePathSpec as mojoBase_mojom_FilePathSpec } from '//resources/mojo/mojo/public/mojom/base/file_path.mojom-webui.js';
+import { FileSpec as mojoBase_mojom_FileSpec } from '//resources/mojo/mojo/public/mojom/base/file.mojom-webui.js';
+export const PerformanceClassSpec = { $: mojo.internal.Enum() };
+export var PerformanceClass;
+(function (PerformanceClass) {
+    PerformanceClass[PerformanceClass["MIN_VALUE"] = 0] = "MIN_VALUE";
+    PerformanceClass[PerformanceClass["MAX_VALUE"] = 5] = "MAX_VALUE";
+    PerformanceClass[PerformanceClass["kError"] = 0] = "kError";
+    PerformanceClass[PerformanceClass["kVeryLow"] = 1] = "kVeryLow";
+    PerformanceClass[PerformanceClass["kLow"] = 2] = "kLow";
+    PerformanceClass[PerformanceClass["kMedium"] = 3] = "kMedium";
+    PerformanceClass[PerformanceClass["kHigh"] = 4] = "kHigh";
+    PerformanceClass[PerformanceClass["kVeryHigh"] = 5] = "kVeryHigh";
+})(PerformanceClass || (PerformanceClass = {}));
 export class StreamingResponderPendingReceiver {
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
@@ -175,10 +187,13 @@ export class OnDeviceModelServiceRemote {
         this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
         this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
     }
-    loadModel(params) {
+    loadModel(assets) {
         return this.proxy.sendMessage(0, OnDeviceModelService_LoadModel_ParamsSpec.$, OnDeviceModelService_LoadModel_ResponseParamsSpec.$, [
-            params
+            assets
         ]);
+    }
+    getEstimatedPerformanceClass() {
+        return this.proxy.sendMessage(1, OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec.$, OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec.$, []);
     }
 }
 ;
@@ -192,6 +207,7 @@ export class OnDeviceModelServiceReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OnDeviceModelServiceRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, OnDeviceModelService_LoadModel_ParamsSpec.$, OnDeviceModelService_LoadModel_ResponseParamsSpec.$, impl.loadModel.bind(impl));
+        this.helper_internal_.registerHandler(1, OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec.$, OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec.$, impl.getEstimatedPerformanceClass.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -224,6 +240,9 @@ export class OnDeviceModelServiceCallbackRouter {
         this.loadModel =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, OnDeviceModelService_LoadModel_ParamsSpec.$, OnDeviceModelService_LoadModel_ResponseParamsSpec.$, this.loadModel.createReceiverHandler(true /* expectsResponse */));
+        this.getEstimatedPerformanceClass =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec.$, OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec.$, this.getEstimatedPerformanceClass.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -234,16 +253,20 @@ export class OnDeviceModelServiceCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
-export const LoadModelParamsSpec = { $: {} };
+export const ModelAssetsSpec = { $: {} };
 export const StreamingResponder_OnResponse_ParamsSpec = { $: {} };
 export const StreamingResponder_OnComplete_ParamsSpec = { $: {} };
 export const OnDeviceModel_Execute_ParamsSpec = { $: {} };
 export const OnDeviceModelService_LoadModel_ParamsSpec = { $: {} };
 export const OnDeviceModelService_LoadModel_ResponseParamsSpec = { $: {} };
+export const OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec = { $: {} };
+export const OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec = { $: {} };
 export const LoadModelResultSpec = { $: {} };
-mojo.internal.Struct(LoadModelParamsSpec.$, 'LoadModelParams', [
-    mojo.internal.StructField('path', 0, 0, mojoBase_mojom_FilePathSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
+mojo.internal.Struct(ModelAssetsSpec.$, 'ModelAssets', [
+    mojo.internal.StructField('spModel', 0, 0, mojoBase_mojom_FileSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('model', 8, 0, mojoBase_mojom_FileSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('weights', 16, 0, mojoBase_mojom_FileSpec.$, null, true /* nullable */, 0),
+], [[0, 32],]);
 mojo.internal.Struct(StreamingResponder_OnResponse_ParamsSpec.$, 'StreamingResponder_OnResponse_Params', [
     mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -253,11 +276,15 @@ mojo.internal.Struct(OnDeviceModel_Execute_ParamsSpec.$, 'OnDeviceModel_Execute_
     mojo.internal.StructField('response', 8, 0, mojo.internal.InterfaceProxy(StreamingResponderRemote), null, false /* nullable */, 0),
 ], [[0, 24],]);
 mojo.internal.Struct(OnDeviceModelService_LoadModel_ParamsSpec.$, 'OnDeviceModelService_LoadModel_Params', [
-    mojo.internal.StructField('params', 0, 0, LoadModelParamsSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('assets', 0, 0, ModelAssetsSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(OnDeviceModelService_LoadModel_ResponseParamsSpec.$, 'OnDeviceModelService_LoadModel_ResponseParams', [
     mojo.internal.StructField('result', 0, 0, LoadModelResultSpec.$, null, false /* nullable */, 0),
 ], [[0, 24],]);
+mojo.internal.Struct(OnDeviceModelService_GetEstimatedPerformanceClass_ParamsSpec.$, 'OnDeviceModelService_GetEstimatedPerformanceClass_Params', [], [[0, 8],]);
+mojo.internal.Struct(OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsSpec.$, 'OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams', [
+    mojo.internal.StructField('performanceClass', 0, 0, PerformanceClassSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Union(LoadModelResultSpec.$, 'LoadModelResult', {
     'model': {
         'ordinal': 0,

@@ -76,7 +76,7 @@ class  OnDeviceModelService_LoadModel_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::LoadModelParams_Data> params;
+  mojo::internal::Pointer<internal::ModelAssets_Data> assets;
 
  private:
   friend class mojo::internal::MessageFragment<OnDeviceModelService_LoadModel_Params_Data>;
@@ -102,6 +102,38 @@ class  OnDeviceModelService_LoadModel_ResponseParams_Data {
 };
 static_assert(sizeof(OnDeviceModelService_LoadModel_ResponseParams_Data) == 24,
               "Bad sizeof(OnDeviceModelService_LoadModel_ResponseParams_Data)");
+class  OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data>;
+
+  OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data();
+  ~OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data() = delete;
+};
+static_assert(sizeof(OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data) == 8,
+              "Bad sizeof(OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data)");
+class  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t performance_class;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data>;
+
+  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data();
+  ~OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data) == 16,
+              "Bad sizeof(OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -192,14 +224,14 @@ class OnDeviceModelService_LoadModel_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetParamsDataView(
-      LoadModelParamsDataView* output);
+  inline void GetAssetsDataView(
+      ModelAssetsDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadParams(UserType* output) {
+  [[nodiscard]] bool ReadAssets(UserType* output) {
     
-    auto* pointer = data_->params.Get();
-    return mojo::internal::Deserialize<::on_device_model::mojom::LoadModelParamsDataView>(
+    auto* pointer = data_->assets.Get();
+    return mojo::internal::Deserialize<::on_device_model::mojom::ModelAssetsDataView>(
         pointer, output, message_);
   }
  private:
@@ -233,6 +265,46 @@ class OnDeviceModelService_LoadModel_ResponseParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView {
+ public:
+  OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView() = default;
+
+  OnDeviceModelService_GetEstimatedPerformanceClass_ParamsDataView(
+      internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::OnDeviceModelService_GetEstimatedPerformanceClass_Params_Data* data_ = nullptr;
+};
+
+
+class OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView {
+ public:
+  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView() = default;
+
+  OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParamsDataView(
+      internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadPerformanceClass(UserType* output) const {
+    auto data_value = data_->performance_class;
+    return mojo::internal::Deserialize<::on_device_model::mojom::PerformanceClass>(
+        data_value, output);
+  }
+  PerformanceClass performance_class() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::on_device_model::mojom::PerformanceClass>(data_->performance_class));
+  }
+ private:
+  internal::OnDeviceModelService_GetEstimatedPerformanceClass_ResponseParams_Data* data_ = nullptr;
+};
+
 inline void StreamingResponder_OnResponse_ParamsDataView::GetTextDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->text.Get();
@@ -249,10 +321,10 @@ inline void OnDeviceModel_Execute_ParamsDataView::GetInputDataView(
 }
 
 
-inline void OnDeviceModelService_LoadModel_ParamsDataView::GetParamsDataView(
-    LoadModelParamsDataView* output) {
-  auto pointer = data_->params.Get();
-  *output = LoadModelParamsDataView(pointer, message_);
+inline void OnDeviceModelService_LoadModel_ParamsDataView::GetAssetsDataView(
+    ModelAssetsDataView* output) {
+  auto pointer = data_->assets.Get();
+  *output = ModelAssetsDataView(pointer, message_);
 }
 
 
@@ -261,6 +333,10 @@ inline void OnDeviceModelService_LoadModel_ResponseParamsDataView::GetResultData
   auto pointer = &data_->result;
   *output = LoadModelResultDataView(pointer, message_);
 }
+
+
+
+
 
 
 

@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as Common from '../../core/common/common.js';
+import * as i18n from '../../core/i18n/i18n.js';
 import * as Root from '../../core/root/root.js';
 import * as UI from '../../ui/legacy/legacy.js';
-import * as i18n from '../../core/i18n/i18n.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 const UIStrings = {
     /**
      *@description Title of an action in the emulation tool to toggle device mode
@@ -176,6 +177,7 @@ UI.Toolbar.registerToolbarItem({
     showLabel: undefined,
     loadItem: undefined,
     separator: undefined,
+    jslog: `${VisualLogging.toggleDeviceMode().track({ click: true })}`,
 });
 Common.AppProvider.registerAppProvider({
     async loadAppProvider() {

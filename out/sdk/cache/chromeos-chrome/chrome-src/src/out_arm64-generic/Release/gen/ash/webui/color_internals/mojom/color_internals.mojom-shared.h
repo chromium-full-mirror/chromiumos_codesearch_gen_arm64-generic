@@ -88,16 +88,6 @@ class WallpaperCalculatedColorsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetProminentColorsDataView(
-      mojo::ArrayDataView<::skia::mojom::SkColorDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadProminentColors(UserType* output) {
-    
-    auto* pointer = data_->prominent_colors.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::skia::mojom::SkColorDataView>>(
-        pointer, output, message_);
-  }
   inline void GetMeanColorDataView(
       ::skia::mojom::SkColorDataView* output);
 
@@ -105,6 +95,16 @@ class WallpaperCalculatedColorsDataView {
   [[nodiscard]] bool ReadMeanColor(UserType* output) {
     
     auto* pointer = data_->k_mean_color.Get();
+    return mojo::internal::Deserialize<::skia::mojom::SkColorDataView>(
+        pointer, output, message_);
+  }
+  inline void GetCelebiColorDataView(
+      ::skia::mojom::SkColorDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCelebiColor(UserType* output) {
+    
+    auto* pointer = data_->celebi_color.Get();
     return mojo::internal::Deserialize<::skia::mojom::SkColorDataView>(
         pointer, output, message_);
   }
@@ -136,20 +136,6 @@ struct Serializer<::ash::color_internals::mojom::WallpaperCalculatedColorsDataVi
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::prominent_colors(input)) in_prominent_colors = Traits::prominent_colors(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->prominent_colors)::BaseType>
-        prominent_colors_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& prominent_colors_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::skia::mojom::SkColorDataView>>(
-        in_prominent_colors, prominent_colors_fragment, &prominent_colors_validate_params);
-    fragment->prominent_colors.Set(
-        prominent_colors_fragment.is_null() ? nullptr : prominent_colors_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->prominent_colors.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null prominent_colors in WallpaperCalculatedColors struct");
     decltype(Traits::k_mean_color(input)) in_k_mean_color = Traits::k_mean_color(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->k_mean_color)::BaseType> k_mean_color_fragment(
@@ -162,6 +148,18 @@ struct Serializer<::ash::color_internals::mojom::WallpaperCalculatedColorsDataVi
         fragment->k_mean_color.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null k_mean_color in WallpaperCalculatedColors struct");
+    decltype(Traits::celebi_color(input)) in_celebi_color = Traits::celebi_color(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->celebi_color)::BaseType> celebi_color_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::skia::mojom::SkColorDataView>(
+        in_celebi_color, celebi_color_fragment);
+    fragment->celebi_color.Set(
+        celebi_color_fragment.is_null() ? nullptr : celebi_color_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->celebi_color.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null celebi_color in WallpaperCalculatedColors struct");
   }
 
   static bool Deserialize(::ash::color_internals::mojom::internal::WallpaperCalculatedColors_Data* input,
@@ -182,14 +180,14 @@ struct Serializer<::ash::color_internals::mojom::WallpaperCalculatedColorsDataVi
 
 namespace ash::color_internals::mojom {
 
-inline void WallpaperCalculatedColorsDataView::GetProminentColorsDataView(
-    mojo::ArrayDataView<::skia::mojom::SkColorDataView>* output) {
-  auto pointer = data_->prominent_colors.Get();
-  *output = mojo::ArrayDataView<::skia::mojom::SkColorDataView>(pointer, message_);
-}
 inline void WallpaperCalculatedColorsDataView::GetMeanColorDataView(
     ::skia::mojom::SkColorDataView* output) {
   auto pointer = data_->k_mean_color.Get();
+  *output = ::skia::mojom::SkColorDataView(pointer, message_);
+}
+inline void WallpaperCalculatedColorsDataView::GetCelebiColorDataView(
+    ::skia::mojom::SkColorDataView* output) {
+  auto pointer = data_->celebi_color.Get();
   *output = ::skia::mojom::SkColorDataView(pointer, message_);
 }
 

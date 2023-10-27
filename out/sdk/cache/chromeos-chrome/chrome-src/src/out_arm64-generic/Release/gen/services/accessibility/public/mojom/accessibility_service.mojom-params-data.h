@@ -107,6 +107,23 @@ class  AccessibilityServiceClient_BindAutomation_Params_Data {
 };
 static_assert(sizeof(AccessibilityServiceClient_BindAutomation_Params_Data) == 24,
               "Bad sizeof(AccessibilityServiceClient_BindAutomation_Params_Data)");
+class  AccessibilityServiceClient_BindAutoclickClient_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data autoclick_client;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<AccessibilityServiceClient_BindAutoclickClient_Params_Data>;
+
+  AccessibilityServiceClient_BindAutoclickClient_Params_Data();
+  ~AccessibilityServiceClient_BindAutoclickClient_Params_Data() = delete;
+};
+static_assert(sizeof(AccessibilityServiceClient_BindAutoclickClient_Params_Data) == 16,
+              "Bad sizeof(AccessibilityServiceClient_BindAutoclickClient_Params_Data)");
 class  AccessibilityServiceClient_BindSpeechRecognition_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -334,6 +351,31 @@ class AccessibilityServiceClient_BindAutomation_ParamsDataView {
 };
 
 
+class AccessibilityServiceClient_BindAutoclickClient_ParamsDataView {
+ public:
+  AccessibilityServiceClient_BindAutoclickClient_ParamsDataView() = default;
+
+  AccessibilityServiceClient_BindAutoclickClient_ParamsDataView(
+      internal::AccessibilityServiceClient_BindAutoclickClient_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeAutoclickClient() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ax::mojom::AutoclickClientInterfaceBase>>(
+            &data_->autoclick_client, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::AccessibilityServiceClient_BindAutoclickClient_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class AccessibilityServiceClient_BindSpeechRecognition_ParamsDataView {
  public:
   AccessibilityServiceClient_BindSpeechRecognition_ParamsDataView() = default;
@@ -447,6 +489,8 @@ inline void AccessibilityService_BindAssistiveTechnologyController_ParamsDataVie
   auto pointer = data_->enabled_features.Get();
   *output = mojo::ArrayDataView<::ax::mojom::AssistiveTechnologyType>(pointer, message_);
 }
+
+
 
 
 

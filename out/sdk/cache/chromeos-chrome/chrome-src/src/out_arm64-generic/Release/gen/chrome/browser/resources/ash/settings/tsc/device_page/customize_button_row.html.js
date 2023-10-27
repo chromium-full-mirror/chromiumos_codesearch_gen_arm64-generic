@@ -14,7 +14,7 @@ export function getTemplate() {
     </cr-icon-button>
   </div>
   <div id="dropdownContainer" class="text-field-container">
-    <select id="remappingActionDropdown" class="md-select" on-change="onSelectChange_" disabled="[[isDropdownDisabled_(isBeingDragged_)]]">
+    <select id="remappingActionDropdown" class="md-select" on-change="onSelectChange_" disabled="[[isDropdownDisabled_(isBeingDragged_)]]" aria-label="[[getDropdownAriaLabel_(buttonRemappingName_, fakePref_.*)]]">
       <template is="dom-repeat" items="[[buttonMapTargets_]]" as="buttonMapping">
         <option value$="[[buttonMapping.value]]">
           [[buttonMapping.name]]

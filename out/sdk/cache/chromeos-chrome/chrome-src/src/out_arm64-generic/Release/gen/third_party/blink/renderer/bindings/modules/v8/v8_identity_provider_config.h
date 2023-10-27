@@ -20,8 +20,8 @@
 
 namespace blink {
 
+class DigitalCredentialProvider;
 class ExceptionState;
-class WalletProvider;
 
 class MODULES_EXPORT IdentityProviderConfig : public bindings::DictionaryBase {
   
@@ -64,17 +64,17 @@ void setConfigURL(String&& value);
 bool hasHolder() const {
   return has_holder_;
 }
-WalletProvider* holder() const {
+DigitalCredentialProvider* holder() const {
   DCHECK(hasHolder());
 return member_holder_.Get();
 }
-WalletProvider* getHolderOr(WalletProvider* fallback_value) const {
+DigitalCredentialProvider* getHolderOr(DigitalCredentialProvider* fallback_value) const {
   if (!hasHolder()) {
   return fallback_value;
 }
 return member_holder_.Get();
 }
-void setHolder(WalletProvider* value) {
+void setHolder(DigitalCredentialProvider* value) {
   member_holder_ = value;
 has_holder_ = true;
 DCHECK(member_holder_);
@@ -179,7 +179,7 @@ bool has_scope_ = false;
 
 String member_client_id_;
 String member_config_url_;
-Member<WalletProvider> member_holder_;
+Member<DigitalCredentialProvider> member_holder_;
 String member_hosted_domain_;
 String member_login_hint_;
 String member_nonce_;

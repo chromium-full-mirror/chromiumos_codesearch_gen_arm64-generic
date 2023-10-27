@@ -127,6 +127,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_client_hints_meta_http_equiv_accept_ch_enabled_;
     bool is_client_hint_third_party_delegation_enabled_;
     bool is_clipboard_custom_formats_enabled_;
+    bool is_clipboard_supported_types_enabled_;
     bool is_clipboard_svg_enabled_;
     bool is_clipboard_unsanitized_content_enabled_;
     bool is_clipboard_well_formed_html_sanitization_write_enabled_;
@@ -273,6 +274,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_;
     bool is_disable_third_party_storage_partitioning_enabled_;
     bool is_display_cutout_api_enabled_;
+    bool is_document_base_uri_fix_enabled_;
     bool is_document_cookie_enabled_;
     bool is_document_domain_enabled_;
     bool is_document_open_origin_alias_removal_enabled_;
@@ -697,6 +699,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_unowned_animations_skip_css_events_enabled_;
     bool is_unrestricted_measure_user_agent_specific_memory_enabled_;
     bool is_unrestricted_shared_array_buffer_enabled_;
+    bool is_url_attribute_fix_enabled_;
     bool is_url_can_parse_enabled_;
     bool is_url_pattern_compare_component_enabled_;
     bool is_url_search_params_has_and_delete_multiple_args_enabled_;
@@ -1215,6 +1218,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool ClipboardCustomFormatsEnabled(const FeatureContext*) { return ClipboardCustomFormatsEnabled(); }
+
+  static bool ClipboardSupportedTypesEnabled() {
+    return is_clipboard_supported_types_enabled_;
+  }
+
+  static bool ClipboardSupportedTypesEnabled(const FeatureContext*) { return ClipboardSupportedTypesEnabled(); }
 
   static bool ClipboardSvgEnabled() {
     return is_clipboard_svg_enabled_;
@@ -2041,6 +2050,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool DisplayCutoutAPIEnabled(const FeatureContext*) { return DisplayCutoutAPIEnabled(); }
+
+  static bool DocumentBaseURIFixEnabled() {
+    return is_document_base_uri_fix_enabled_;
+  }
+
+  static bool DocumentBaseURIFixEnabled(const FeatureContext*) { return DocumentBaseURIFixEnabled(); }
 
   static bool DocumentCookieEnabled() {
     return is_document_cookie_enabled_;
@@ -4196,6 +4211,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
 
   static bool UnrestrictedMeasureUserAgentSpecificMemoryEnabled(const FeatureContext*) { return UnrestrictedMeasureUserAgentSpecificMemoryEnabled(); }
 
+  static bool URLAttributeFixEnabled() {
+    return is_url_attribute_fix_enabled_;
+  }
+
+  static bool URLAttributeFixEnabled(const FeatureContext*) { return URLAttributeFixEnabled(); }
+
   static bool URLCanParseEnabled() {
     return is_url_can_parse_enabled_;
   }
@@ -5131,6 +5152,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetClientHintsMetaHTTPEquivAcceptCHEnabled(bool enabled) { is_client_hints_meta_http_equiv_accept_ch_enabled_ = enabled; }
   static void SetClientHintThirdPartyDelegationEnabled(bool enabled) { is_client_hint_third_party_delegation_enabled_ = enabled; }
   static void SetClipboardCustomFormatsEnabled(bool enabled) { is_clipboard_custom_formats_enabled_ = enabled; }
+  static void SetClipboardSupportedTypesEnabled(bool enabled) { is_clipboard_supported_types_enabled_ = enabled; }
   static void SetClipboardSvgEnabled(bool enabled) { is_clipboard_svg_enabled_ = enabled; }
   static void SetClipboardUnsanitizedContentEnabled(bool enabled) { is_clipboard_unsanitized_content_enabled_ = enabled; }
   static void SetClipboardWellFormedHtmlSanitizationWriteEnabled(bool enabled) { is_clipboard_well_formed_html_sanitization_write_enabled_ = enabled; }
@@ -5277,6 +5299,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioningEnabled(bool enabled) { is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_ = enabled; }
   static void SetDisableThirdPartyStoragePartitioningEnabled(bool enabled) { is_disable_third_party_storage_partitioning_enabled_ = enabled; }
   static void SetDisplayCutoutAPIEnabled(bool enabled) { is_display_cutout_api_enabled_ = enabled; }
+  static void SetDocumentBaseURIFixEnabled(bool enabled) { is_document_base_uri_fix_enabled_ = enabled; }
   static void SetDocumentCookieEnabled(bool enabled) { is_document_cookie_enabled_ = enabled; }
   static void SetDocumentDomainEnabled(bool enabled) { is_document_domain_enabled_ = enabled; }
   static void SetDocumentOpenOriginAliasRemovalEnabled(bool enabled) { is_document_open_origin_alias_removal_enabled_ = enabled; }
@@ -5701,6 +5724,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetUnownedAnimationsSkipCSSEventsEnabled(bool enabled) { is_unowned_animations_skip_css_events_enabled_ = enabled; }
   static void SetUnrestrictedMeasureUserAgentSpecificMemoryEnabled(bool enabled) { is_unrestricted_measure_user_agent_specific_memory_enabled_ = enabled; }
   static void SetUnrestrictedSharedArrayBufferEnabled(bool enabled) { is_unrestricted_shared_array_buffer_enabled_ = enabled; }
+  static void SetURLAttributeFixEnabled(bool enabled) { is_url_attribute_fix_enabled_ = enabled; }
   static void SetURLCanParseEnabled(bool enabled) { is_url_can_parse_enabled_ = enabled; }
   static void SetURLPatternCompareComponentEnabled(bool enabled) { is_url_pattern_compare_component_enabled_ = enabled; }
   static void SetURLSearchParamsHasAndDeleteMultipleArgsEnabled(bool enabled) { is_url_search_params_has_and_delete_multiple_args_enabled_ = enabled; }
@@ -5876,6 +5900,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_client_hints_meta_http_equiv_accept_ch_enabled_;
   static bool is_client_hint_third_party_delegation_enabled_;
   static bool is_clipboard_custom_formats_enabled_;
+  static bool is_clipboard_supported_types_enabled_;
   static bool is_clipboard_svg_enabled_;
   static bool is_clipboard_unsanitized_content_enabled_;
   static bool is_clipboard_well_formed_html_sanitization_write_enabled_;
@@ -6022,6 +6047,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_disable_third_party_session_storage_partitioning_after_general_partitioning_enabled_;
   static bool is_disable_third_party_storage_partitioning_enabled_;
   static bool is_display_cutout_api_enabled_;
+  static bool is_document_base_uri_fix_enabled_;
   static bool is_document_cookie_enabled_;
   static bool is_document_domain_enabled_;
   static bool is_document_open_origin_alias_removal_enabled_;
@@ -6446,6 +6472,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_unowned_animations_skip_css_events_enabled_;
   static bool is_unrestricted_measure_user_agent_specific_memory_enabled_;
   static bool is_unrestricted_shared_array_buffer_enabled_;
+  static bool is_url_attribute_fix_enabled_;
   static bool is_url_can_parse_enabled_;
   static bool is_url_pattern_compare_component_enabled_;
   static bool is_url_search_params_has_and_delete_multiple_args_enabled_;

@@ -103,11 +103,17 @@ using ReluPtr = mojo::InlinedStructPtr<Relu>;
 class Reshape;
 using ReshapePtr = mojo::InlinedStructPtr<Reshape>;
 
+class Sigmoid;
+using SigmoidPtr = mojo::InlinedStructPtr<Sigmoid>;
+
 class Softmax;
 using SoftmaxPtr = mojo::InlinedStructPtr<Softmax>;
 
 class Split;
 using SplitPtr = mojo::StructPtr<Split>;
+
+class Tanh;
+using TanhPtr = mojo::InlinedStructPtr<Tanh>;
 
 class Transpose;
 using TransposePtr = mojo::StructPtr<Transpose>;
@@ -121,6 +127,10 @@ using GraphInfoPtr = mojo::StructPtr<GraphInfo>;
 class PaddingMode;
 
 using PaddingModePtr = mojo::StructPtr<PaddingMode>;
+
+class Activation;
+
+using ActivationPtr = mojo::StructPtr<Activation>;
 
 class Operation;
 

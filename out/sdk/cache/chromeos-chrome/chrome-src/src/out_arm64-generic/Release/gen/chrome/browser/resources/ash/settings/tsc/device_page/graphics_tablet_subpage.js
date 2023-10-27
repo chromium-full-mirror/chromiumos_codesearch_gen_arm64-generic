@@ -51,7 +51,7 @@ export class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTablet
         const customizeTabletButton = cast(e.target, CrLinkRowElement);
         const closestTablet = castExists(customizeTabletButton.closest('.device'));
         return new URLSearchParams({
-            'graphicsTabletId': encodeURIComponent(closestTablet.getAttribute('data-evdev-id')),
+            graphicsTabletId: encodeURIComponent(closestTablet.getAttribute('data-evdev-id')),
         });
     }
 }

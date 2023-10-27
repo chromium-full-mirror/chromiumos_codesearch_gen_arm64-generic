@@ -18,6 +18,7 @@ constexpr uint32_t kStreamingResponder_OnResponse_Name = 0;
 constexpr uint32_t kStreamingResponder_OnComplete_Name = 1;
 constexpr uint32_t kOnDeviceModel_Execute_Name = 0;
 constexpr uint32_t kOnDeviceModelService_LoadModel_Name = 0;
+constexpr uint32_t kOnDeviceModelService_GetEstimatedPerformanceClass_Name = 1;
 
 }  // namespace internal
 

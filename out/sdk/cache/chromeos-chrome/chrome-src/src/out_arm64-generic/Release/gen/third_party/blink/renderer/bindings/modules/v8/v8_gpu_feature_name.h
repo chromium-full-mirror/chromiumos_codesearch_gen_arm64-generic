@@ -23,9 +23,9 @@ class MODULES_EXPORT V8GPUFeatureName final : public bindings::EnumerationBase {
   
   public:
 enum class Enum : enum_int_t {
-kDepthClipControl, kDepth32FloatStencil8, kTextureCompressionBc, kTextureCompressionEtc2, kTextureCompressionAstc, kTimestampQuery, kIndirectFirstInstance, kShaderF16, kRg11B10UfloatRenderable, kBgra8UnormStorage, kFloat32Filterable, kChromiumExperimentalPipelineStatisticsQuery, kChromiumExperimentalTimestampQueryInsidePasses, kChromiumExperimentalDp4A, kChromiumExperimentalReadWriteStorageTexture, kChromiumExperimentalSubgroups, kChromiumExperimentalSubgroupUniformControlFlow
+kDepthClipControl, kDepth32FloatStencil8, kTextureCompressionBc, kTextureCompressionEtc2, kTextureCompressionAstc, kTimestampQuery, kIndirectFirstInstance, kShaderF16, kRg11B10UfloatRenderable, kBgra8UnormStorage, kFloat32Filterable, kChromiumExperimentalTimestampQueryInsidePasses, kChromiumExperimentalDp4A, kChromiumExperimentalReadWriteStorageTexture, kChromiumExperimentalSubgroups, kChromiumExperimentalSubgroupUniformControlFlow
 };
-static constexpr size_t kEnumSize = 17;
+static constexpr size_t kEnumSize = 16;
 
 static V8GPUFeatureName Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state);
 static absl::optional<V8GPUFeatureName> Create(const String& value);

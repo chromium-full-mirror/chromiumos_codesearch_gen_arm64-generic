@@ -890,15 +890,17 @@ bool OmniboxEventProto_Feature_IsValid(int value) {
     case 8:
     case 9:
     case 10:
+    case 11:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OmniboxEventProto_Feature_strings[10] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OmniboxEventProto_Feature_strings[11] = {};
 
 static const char OmniboxEventProto_Feature_names[] =
+  "COMPANY_ENTITY_ADJUSTMENT"
   "DOMAIN_SUGGESTIONS"
   "FUZZY_URL_SUGGESTIONS"
   "HISTORY_CLUSTER_SUGGESTION"
@@ -911,29 +913,31 @@ static const char OmniboxEventProto_Feature_names[] =
   "SHORT_BOOKMARK_SUGGESTIONS_BY_TOTAL_INPUT_LENGTH";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OmniboxEventProto_Feature_entries[] = {
-  { {OmniboxEventProto_Feature_names + 0, 18}, 5 },
-  { {OmniboxEventProto_Feature_names + 18, 21}, 3 },
-  { {OmniboxEventProto_Feature_names + 39, 26}, 4 },
-  { {OmniboxEventProto_Feature_names + 65, 14}, 10 },
-  { {OmniboxEventProto_Feature_names + 79, 21}, 6 },
-  { {OmniboxEventProto_Feature_names + 100, 29}, 9 },
-  { {OmniboxEventProto_Feature_names + 129, 27}, 7 },
-  { {OmniboxEventProto_Feature_names + 156, 19}, 0 },
-  { {OmniboxEventProto_Feature_names + 175, 14}, 8 },
-  { {OmniboxEventProto_Feature_names + 189, 48}, 2 },
+  { {OmniboxEventProto_Feature_names + 0, 25}, 11 },
+  { {OmniboxEventProto_Feature_names + 25, 18}, 5 },
+  { {OmniboxEventProto_Feature_names + 43, 21}, 3 },
+  { {OmniboxEventProto_Feature_names + 64, 26}, 4 },
+  { {OmniboxEventProto_Feature_names + 90, 14}, 10 },
+  { {OmniboxEventProto_Feature_names + 104, 21}, 6 },
+  { {OmniboxEventProto_Feature_names + 125, 29}, 9 },
+  { {OmniboxEventProto_Feature_names + 154, 27}, 7 },
+  { {OmniboxEventProto_Feature_names + 181, 19}, 0 },
+  { {OmniboxEventProto_Feature_names + 200, 14}, 8 },
+  { {OmniboxEventProto_Feature_names + 214, 48}, 2 },
 };
 
 static const int OmniboxEventProto_Feature_entries_by_number[] = {
-  7, // 0 -> RICH_AUTOCOMPLETION
-  9, // 2 -> SHORT_BOOKMARK_SUGGESTIONS_BY_TOTAL_INPUT_LENGTH
-  1, // 3 -> FUZZY_URL_SUGGESTIONS
-  2, // 4 -> HISTORY_CLUSTER_SUGGESTION
-  0, // 5 -> DOMAIN_SUGGESTIONS
-  4, // 6 -> REMOTE_SEARCH_FEATURE
-  6, // 7 -> REMOTE_ZERO_SUGGEST_FEATURE
-  8, // 8 -> SHORTCUT_BOOST
-  5, // 9 -> REMOTE_SECONDARY_ZERO_SUGGEST
-  3, // 10 -> ML_URL_SCORING
+  8, // 0 -> RICH_AUTOCOMPLETION
+  10, // 2 -> SHORT_BOOKMARK_SUGGESTIONS_BY_TOTAL_INPUT_LENGTH
+  2, // 3 -> FUZZY_URL_SUGGESTIONS
+  3, // 4 -> HISTORY_CLUSTER_SUGGESTION
+  1, // 5 -> DOMAIN_SUGGESTIONS
+  5, // 6 -> REMOTE_SEARCH_FEATURE
+  7, // 7 -> REMOTE_ZERO_SUGGEST_FEATURE
+  9, // 8 -> SHORTCUT_BOOST
+  6, // 9 -> REMOTE_SECONDARY_ZERO_SUGGEST
+  4, // 10 -> ML_URL_SCORING
+  0, // 11 -> COMPANY_ENTITY_ADJUSTMENT
 };
 
 const std::string& OmniboxEventProto_Feature_Name(
@@ -942,12 +946,12 @@ const std::string& OmniboxEventProto_Feature_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           OmniboxEventProto_Feature_entries,
           OmniboxEventProto_Feature_entries_by_number,
-          10, OmniboxEventProto_Feature_strings);
+          11, OmniboxEventProto_Feature_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       OmniboxEventProto_Feature_entries,
       OmniboxEventProto_Feature_entries_by_number,
-      10, value);
+      11, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      OmniboxEventProto_Feature_strings[idx].get();
 }
@@ -955,7 +959,7 @@ bool OmniboxEventProto_Feature_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OmniboxEventProto_Feature* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      OmniboxEventProto_Feature_entries, 10, name, &int_value);
+      OmniboxEventProto_Feature_entries, 11, name, &int_value);
   if (success) {
     *value = static_cast<OmniboxEventProto_Feature>(int_value);
   }
@@ -972,6 +976,7 @@ constexpr OmniboxEventProto_Feature OmniboxEventProto::REMOTE_ZERO_SUGGEST_FEATU
 constexpr OmniboxEventProto_Feature OmniboxEventProto::SHORTCUT_BOOST;
 constexpr OmniboxEventProto_Feature OmniboxEventProto::REMOTE_SECONDARY_ZERO_SUGGEST;
 constexpr OmniboxEventProto_Feature OmniboxEventProto::ML_URL_SCORING;
+constexpr OmniboxEventProto_Feature OmniboxEventProto::COMPANY_ENTITY_ADJUSTMENT;
 constexpr OmniboxEventProto_Feature OmniboxEventProto::Feature_MIN;
 constexpr OmniboxEventProto_Feature OmniboxEventProto::Feature_MAX;
 constexpr int OmniboxEventProto::Feature_ARRAYSIZE;

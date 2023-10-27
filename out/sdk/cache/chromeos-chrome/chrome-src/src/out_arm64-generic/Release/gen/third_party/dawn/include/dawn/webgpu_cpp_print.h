@@ -478,9 +478,6 @@ namespace wgpu {
       case FeatureName::TimestampQuery:
         o << "FeatureName::TimestampQuery";
         break;
-      case FeatureName::ChromiumExperimentalPipelineStatisticsQuery:
-        o << "FeatureName::ChromiumExperimentalPipelineStatisticsQuery";
-        break;
       case FeatureName::TextureCompressionBC:
         o << "FeatureName::TextureCompressionBC";
         break;
@@ -715,29 +712,6 @@ namespace wgpu {
       return o;
   }
   template <typename CharT, typename Traits>
-  std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, PipelineStatisticName value) {
-      switch (value) {
-      case PipelineStatisticName::VertexShaderInvocations:
-        o << "PipelineStatisticName::VertexShaderInvocations";
-        break;
-      case PipelineStatisticName::ClipperInvocations:
-        o << "PipelineStatisticName::ClipperInvocations";
-        break;
-      case PipelineStatisticName::ClipperPrimitivesOut:
-        o << "PipelineStatisticName::ClipperPrimitivesOut";
-        break;
-      case PipelineStatisticName::FragmentShaderInvocations:
-        o << "PipelineStatisticName::FragmentShaderInvocations";
-        break;
-      case PipelineStatisticName::ComputeShaderInvocations:
-        o << "PipelineStatisticName::ComputeShaderInvocations";
-        break;
-          default:
-            o << "PipelineStatisticName::" << std::showbase << std::hex << std::setfill('0') << std::setw(4) << static_cast<typename std::underlying_type<PipelineStatisticName>::type>(value);
-      }
-      return o;
-  }
-  template <typename CharT, typename Traits>
   std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& o, PowerPreference value) {
       switch (value) {
       case PowerPreference::Undefined:
@@ -799,9 +773,6 @@ namespace wgpu {
       switch (value) {
       case QueryType::Occlusion:
         o << "QueryType::Occlusion";
-        break;
-      case QueryType::PipelineStatistics:
-        o << "QueryType::PipelineStatistics";
         break;
       case QueryType::Timestamp:
         o << "QueryType::Timestamp";

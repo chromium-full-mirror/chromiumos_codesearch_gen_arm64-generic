@@ -76,13 +76,15 @@
 }
 
 body {
+  --default-font-family: ".SFNSDisplay-Regular", "Helvetica Neue", "Lucida Grande", sans-serif;
+
   height: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;
   margin: 0;
   cursor: default;
-  font-family: ".SFNSDisplay-Regular", "Helvetica Neue", "Lucida Grande", sans-serif;
+  font-family: var(--default-font-family);
   font-size: 12px;
   tab-size: 4;
   user-select: none;
@@ -92,22 +94,15 @@ body {
 
 /* Default fonts */
 .platform-linux {
-  font-family: Roboto, Ubuntu, Arial, sans-serif;
+  --default-font-family: roboto, ubuntu, arial, sans-serif;
 }
 
 .platform-mac {
-  font-family: ".SFNSDisplay-Regular", "Helvetica Neue", "Lucida Grande", sans-serif;
-}
-
-.platform-mac,
-.platform-linux {
-  --override-text-color: rgb(48 57 66);
-
-  color: var(--override-text-color);
+  --default-font-family: ".SFNSDisplay-Regular", "Helvetica Neue", "Lucida Grande", sans-serif;
 }
 
 .platform-windows {
-  font-family: "Segoe UI", Tahoma, sans-serif;
+  --default-font-family: "Segoe UI", tahoma, sans-serif;
 }
 
 :focus {
@@ -137,13 +132,6 @@ body {
   --monospace-font-family: dejavu sans mono, monospace;
   --source-code-font-size: 11px;
   --source-code-font-family: dejavu sans mono, monospace;
-}
-
-.-theme-with-dark-background .platform-linux,
-.-theme-with-dark-background .platform-mac,
-:host-context(.-theme-with-dark-background) .platform-linux,
-:host-context(.-theme-with-dark-background) .platform-mac {
-  --override-text-color: rgb(189 198 207);
 }
 
 .monospace {

@@ -39,12 +39,12 @@ function writeRgbaText() {
 }
 function handleWallpaperColorChanged(colors) {
     document.getElementById('wallpaper-block').setAttribute('loading', '');
-    const prominentContainer = document.getElementById('wallpaper-prominent-colors-container');
-    rmChildren(prominentContainer);
-    colors.prominentColors.map(createRow).forEach(row => prominentContainer.appendChild(row));
     const kMeanContainer = document.getElementById('wallpaper-k-mean-color-container');
     rmChildren(kMeanContainer);
     kMeanContainer.appendChild(createRow(colors.kMeanColor));
+    const celebiContainer = document.getElementById('wallpaper-celebi-color-container');
+    rmChildren(celebiContainer);
+    celebiContainer.appendChild(createRow(colors.celebiColor));
     writeRgbaText();
     document.getElementById('wallpaper-block').removeAttribute('loading');
 }

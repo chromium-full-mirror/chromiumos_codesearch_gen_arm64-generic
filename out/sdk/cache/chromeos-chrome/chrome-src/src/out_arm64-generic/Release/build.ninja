@@ -282,8 +282,8 @@ build aecm_core: phony obj/third_party/webrtc/modules/audio_processing/aecm/liba
 build affiliation: phony obj/components/password_manager/core/browser/affiliation/affiliation.stamp
 build affiliation_fetching: phony obj/components/password_manager/core/browser/affiliation/affiliation_fetching.stamp
 build affiliation_fetching_unittests: phony obj/components/password_manager/core/browser/affiliation/affiliation_fetching_unittests.stamp
-build affiliation_proto: phony obj/components/password_manager/core/browser/libaffiliation_proto.a
-build affiliation_proto_gen: phony obj/components/password_manager/core/browser/affiliation_proto_gen.stamp
+build affiliation_proto: phony obj/components/password_manager/core/browser/affiliation/libaffiliation_proto.a
+build affiliation_proto_gen: phony obj/components/password_manager/core/browser/affiliation/affiliation_proto_gen.stamp
 build agc: phony obj/third_party/webrtc/modules/audio_processing/agc/libagc.a
 build agent: phony obj/third_party/openscreen/src/cast/receiver/agent.stamp
 build aggregatable_report_proto: phony obj/content/browser/aggregation_service/proto/libaggregatable_report_proto.a
@@ -468,6 +468,7 @@ build app_discovery_service: phony obj/chrome/browser/apps/app_discovery_service
 build app_downloading: phony obj/chrome/browser/resources/chromeos/login/screens/common/app_downloading.stamp
 build app_file_handling: phony obj/components/services/app_service/public/cpp/app_file_handling.stamp
 build app_icon_info: phony obj/components/services/app_service/public/cpp/app_icon_info.stamp
+build app_install_service: phony obj/chrome/browser/apps/app_service/app_install/app_install_service.stamp
 build app_launch_splash: phony obj/chrome/browser/resources/chromeos/login/screens/common/app_launch_splash.stamp
 build app_list: phony obj/ash/app_list/app_list.stamp
 build app_list_model: phony obj/ash/app_list/model/libapp_list_model.a
@@ -1139,6 +1140,10 @@ build breakpad_unittests__runner: phony obj/third_party/breakpad/breakpad_unitte
 build breakpoints-typescript: phony obj/third_party/devtools-frontend/src/front_end/models/breakpoints/breakpoints-typescript.stamp
 build bridge_ice_controller: phony obj/third_party/webrtc_overrides/bridge_ice_controller.stamp
 build bridge_ice_controller_tests: phony obj/third_party/blink/renderer/platform/bridge_ice_controller_tests.stamp
+build bridge_rust_side: phony obj/skia/bridge_rust_side.stamp
+build bridge_rust_side__rlib: phony ./libbridge_rust_side.rlib
+build bridge_rust_side_cxx_generated: phony obj/skia/libbridge_rust_side_cxx_generated.a
+build bridge_rust_side_cxx_generated_gen: phony obj/skia/bridge_rust_side_cxx_generated_gen.stamp
 build broadcastchannel: phony obj/third_party/blink/renderer/modules/broadcastchannel/libbroadcastchannel.a
 build brotli_fuzzer: phony obj/third_party/brotli/brotli_fuzzer.stamp
 build browser_accessibility_fuzzer: phony obj/content/test/fuzzer/browser_accessibility_fuzzer.stamp
@@ -2147,7 +2152,7 @@ build credentials: phony obj/chromeos/ash/components/nearby/presence/credentials
 build critical_error_page: phony obj/ash/webui/shimless_rma/resources/critical_error_page.stamp
 build critical_error_page_test: phony obj/chrome/test/data/webui/chromeos/shimless_rma/critical_error_page_test.stamp
 build criticalsection: phony obj/third_party/webrtc/rtc_base/libcriticalsection.a
-build cronet: phony ./libcronet.120.0.6087.0.so.TOC
+build cronet: phony ./libcronet.120.0.6089.0.so.TOC
 build cronet_common: phony obj/components/cronet/cronet_common.stamp
 build cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
 build cronet_native_headers: phony obj/components/cronet/native/cronet_native_headers.stamp
@@ -3911,6 +3916,8 @@ build harness: phony obj/components/exo/wayland/fuzzer/harness.stamp
 build harness_cc_tmpl: phony obj/components/exo/wayland/fuzzer/harness_cc_tmpl.stamp
 build harness_h_tmpl: phony obj/components/exo/wayland/fuzzer/harness_h_tmpl.stamp
 build has_absl_stringify_test: phony obj/third_party/abseil-cpp/absl/strings/has_absl_stringify_test.stamp
+build has_ostream_operator: phony obj/third_party/abseil-cpp/absl/strings/has_ostream_operator.stamp
+build has_ostream_operator_test: phony obj/third_party/abseil-cpp/absl/strings/has_ostream_operator_test.stamp
 build hash: phony obj/third_party/abseil-cpp/absl/hash/hash.stamp
 build hash_function_defaults: phony obj/third_party/abseil-cpp/absl/container/hash_function_defaults.stamp
 build hash_fuzzer: phony obj/testing/libfuzzer/fuzzers/hash_fuzzer.stamp
@@ -6843,11 +6850,13 @@ build password_protection_metrics_util: phony obj/components/safe_browsing/core/
 build password_protection_unittest: phony obj/components/safe_browsing/content/browser/password_protection/password_protection_unittest.stamp
 build password_reuse_detection_manager_client: phony obj/components/safe_browsing/core/browser/password_protection/password_reuse_detection_manager_client.stamp
 build password_selection: phony obj/chrome/browser/resources/chromeos/login/screens/common/password_selection.stamp
+build password_store_impl: phony obj/components/password_manager/core/browser/password_store_impl.stamp
 build password_store_interface: phony obj/components/password_manager/core/browser/password_store_interface.stamp
 build patch_impl: phony obj/components/update_client/patch_impl.stamp
 build patchpanel: phony obj/chromeos/ash/components/dbus/patchpanel/libpatchpanel.a
 build patchpanel_proto: phony obj/chromeos/ash/components/dbus/patchpanel/libpatchpanel_proto.a
 build patchpanel_proto_gen: phony obj/chromeos/ash/components/dbus/patchpanel/patchpanel_proto_gen.stamp
+build path_bridge: phony obj/skia/path_bridge.stamp
 build path_component: phony obj/ui/file_manager/file_manager/foreground/js/path_component.stamp
 build path_component_unittest: phony obj/ui/file_manager/file_manager/foreground/js/path_component_unittest.stamp
 build path_parser: phony obj/chrome/browser/policy/path_parser.stamp
@@ -8587,6 +8596,9 @@ build srtp_session: phony obj/third_party/webrtc/pc/srtp_session.stamp
 build srtp_transport: phony obj/third_party/webrtc/pc/srtp_transport.stamp
 build ssl: phony obj/third_party/webrtc/rtc_base/libssl.a
 build ssl_errors: phony obj/components/ssl_errors/libssl_errors.a
+build stability_report: phony obj/components/stability_report/libstability_report.a
+build stability_report_proto: phony obj/components/stability_report/libstability_report_proto.a
+build stability_report_proto_gen: phony obj/components/stability_report/stability_report_proto_gen.stamp
 build stable: phony ./libppapi_example_video_decode.so.TOC
 build stable_target_rate_experiment: phony obj/third_party/webrtc/rtc_base/experiments/libstable_target_rate_experiment.a
 build stable_video_decoder: phony obj/media/mojo/mojom/stable/stable_video_decoder.stamp
@@ -13220,6 +13232,10 @@ build chrome/browser/apps/app_service: phony obj/chrome/browser/apps/app_service
 build chrome/browser/apps/app_service$:constants: phony obj/chrome/browser/apps/app_service/constants.stamp
 build chrome/browser/apps/app_service$:test_support: phony obj/chrome/browser/apps/app_service/test_support.stamp
 build chrome/browser/apps/app_service$:unit_tests: phony obj/chrome/browser/apps/app_service/unit_tests.stamp
+build chrome/browser/apps/app_service/app_install$:app_install_service: phony obj/chrome/browser/apps/app_service/app_install/app_install_service.stamp
+build chrome/browser/apps/app_service/app_install$:proto: phony obj/chrome/browser/apps/app_service/app_install/libproto.a
+build chrome/browser/apps/app_service/app_install$:proto_gen: phony obj/chrome/browser/apps/app_service/app_install/proto_gen.stamp
+build chrome/browser/apps/app_service/app_install$:unit_tests: phony obj/chrome/browser/apps/app_service/app_install/unit_tests.stamp
 build chrome/browser/apps/app_service/promise_apps/proto$:proto: phony obj/chrome/browser/apps/app_service/promise_apps/proto/libproto.a
 build chrome/browser/apps/app_service/promise_apps/proto: phony obj/chrome/browser/apps/app_service/promise_apps/proto/libproto.a
 build chrome/browser/apps/app_service/promise_apps/proto$:proto_gen: phony obj/chrome/browser/apps/app_service/promise_apps/proto/proto_gen.stamp
@@ -16232,6 +16248,24 @@ build chrome/browser/ui/webui/omnibox$:mojo_bindings_shared: phony obj/chrome/br
 build chrome/browser/ui/webui/omnibox$:mojo_bindings_shared__generator: phony obj/chrome/browser/ui/webui/omnibox/mojo_bindings_shared__generator.stamp
 build chrome/browser/ui/webui/omnibox$:mojo_bindings_shared_cpp_sources: phony obj/chrome/browser/ui/webui/omnibox/mojo_bindings_shared_cpp_sources.stamp
 build chrome/browser/ui/webui/omnibox$:mojo_bindings_ts__generator: phony obj/chrome/browser/ui/webui/omnibox/mojo_bindings_ts__generator.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom: phony obj/chrome/browser/ui/webui/on_device_internals/mojom.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom__check_deps_are_all_mojom: phony obj/chrome/browser/ui/webui/on_device_internals/mojom__check_deps_are_all_mojom.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom__generate_message_ids: phony obj/chrome/browser/ui/webui/on_device_internals/mojom__generate_message_ids.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom__generator: phony obj/chrome/browser/ui/webui/on_device_internals/mojom__generator.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom__is_mojom: phony obj/chrome/browser/ui/webui/on_device_internals/mojom__is_mojom.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom__parser: phony obj/chrome/browser/ui/webui/on_device_internals/mojom__parser.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom__type_mappings: phony obj/chrome/browser/ui/webui/on_device_internals/mojom__type_mappings.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom__type_mappings__validator: phony obj/chrome/browser/ui/webui/on_device_internals/mojom__type_mappings__validator.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_blink: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_blink.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_blink__generator: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_blink__generator.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_blink__type_mappings: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_blink__type_mappings.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_blink__type_mappings__validator: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_blink__type_mappings__validator.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_blink_headers: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_blink_headers.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_headers: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_headers.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_shared: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_shared.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_shared__generator: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_shared__generator.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_shared_cpp_sources: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_shared_cpp_sources.stamp
+build chrome/browser/ui/webui/on_device_internals$:mojom_ts__generator: phony obj/chrome/browser/ui/webui/on_device_internals/mojom_ts__generator.stamp
 build chrome/browser/ui/webui/reset_password$:mojo_bindings: phony obj/chrome/browser/ui/webui/reset_password/mojo_bindings.stamp
 build chrome/browser/ui/webui/reset_password$:mojo_bindings__check_deps_are_all_mojom: phony obj/chrome/browser/ui/webui/reset_password/mojo_bindings__check_deps_are_all_mojom.stamp
 build chrome/browser/ui/webui/reset_password$:mojo_bindings__generate_message_ids: phony obj/chrome/browser/ui/webui/reset_password/mojo_bindings__generate_message_ids.stamp
@@ -20339,8 +20373,8 @@ build components/crash/core/common$:crash_key: phony obj/components/crash/core/c
 build components/crash/core/common$:crash_key_lib: phony obj/components/crash/core/common/libcrash_key_lib.a
 build components/crash/core/common$:crash_key_utils: phony obj/components/crash/core/common/libcrash_key_utils.a
 build components/crash/core/common$:unit_tests: phony obj/components/crash/core/common/unit_tests.stamp
-build components/cronet$:cronet: phony ./libcronet.120.0.6087.0.so.TOC
-build components/cronet: phony ./libcronet.120.0.6087.0.so.TOC
+build components/cronet$:cronet: phony ./libcronet.120.0.6089.0.so.TOC
+build components/cronet: phony ./libcronet.120.0.6089.0.so.TOC
 build components/cronet$:cronet_buildflags: phony obj/components/cronet/cronet_buildflags.stamp
 build components/cronet$:cronet_common: phony obj/components/cronet/cronet_common.stamp
 build components/cronet$:cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
@@ -22132,8 +22166,6 @@ build components/password_manager/content/browser$:test_support: phony obj/compo
 build components/password_manager/content/browser$:unit_tests: phony obj/components/password_manager/content/browser/unit_tests.stamp
 build components/password_manager/content/common$:common: phony obj/components/password_manager/content/common/libcommon.a
 build components/password_manager/content/common: phony obj/components/password_manager/content/common/libcommon.a
-build components/password_manager/core/browser$:affiliation_proto: phony obj/components/password_manager/core/browser/libaffiliation_proto.a
-build components/password_manager/core/browser$:affiliation_proto_gen: phony obj/components/password_manager/core/browser/affiliation_proto_gen.stamp
 build components/password_manager/core/browser$:browser: phony obj/components/password_manager/core/browser/libbrowser.a
 build components/password_manager/core/browser: phony obj/components/password_manager/core/browser/libbrowser.a
 build components/password_manager/core/browser$:hash_password_manager: phony obj/components/password_manager/core/browser/libhash_password_manager.a
@@ -22141,6 +22173,7 @@ build components/password_manager/core/browser$:metrics_util: phony obj/componen
 build components/password_manager/core/browser$:passkey_credential: phony obj/components/password_manager/core/browser/passkey_credential.stamp
 build components/password_manager/core/browser$:password_form: phony obj/components/password_manager/core/browser/password_form.stamp
 build components/password_manager/core/browser$:password_hash_data: phony obj/components/password_manager/core/browser/libpassword_hash_data.a
+build components/password_manager/core/browser$:password_store_impl: phony obj/components/password_manager/core/browser/password_store_impl.stamp
 build components/password_manager/core/browser$:password_store_interface: phony obj/components/password_manager/core/browser/password_store_interface.stamp
 build components/password_manager/core/browser$:sql_builder: phony obj/components/password_manager/core/browser/sql_builder.stamp
 build components/password_manager/core/browser$:test_support: phony obj/components/password_manager/core/browser/libtest_support.a
@@ -22149,6 +22182,8 @@ build components/password_manager/core/browser/affiliation$:affiliation: phony o
 build components/password_manager/core/browser/affiliation: phony obj/components/password_manager/core/browser/affiliation/affiliation.stamp
 build components/password_manager/core/browser/affiliation$:affiliation_fetching: phony obj/components/password_manager/core/browser/affiliation/affiliation_fetching.stamp
 build components/password_manager/core/browser/affiliation$:affiliation_fetching_unittests: phony obj/components/password_manager/core/browser/affiliation/affiliation_fetching_unittests.stamp
+build components/password_manager/core/browser/affiliation$:affiliation_proto: phony obj/components/password_manager/core/browser/affiliation/libaffiliation_proto.a
+build components/password_manager/core/browser/affiliation$:affiliation_proto_gen: phony obj/components/password_manager/core/browser/affiliation/affiliation_proto_gen.stamp
 build components/password_manager/core/browser/affiliation$:test_support: phony obj/components/password_manager/core/browser/affiliation/test_support.stamp
 build components/password_manager/core/browser/affiliation$:unit_tests: phony obj/components/password_manager/core/browser/affiliation/unit_tests.stamp
 build components/password_manager/core/browser/export$:export: phony obj/components/password_manager/core/browser/export/export.stamp
@@ -23482,6 +23517,11 @@ build components/sqlite_proto$:unit_tests: phony obj/components/sqlite_proto/uni
 build components/ssl_errors$:ssl_errors: phony obj/components/ssl_errors/libssl_errors.a
 build components/ssl_errors: phony obj/components/ssl_errors/libssl_errors.a
 build components/ssl_errors$:unit_tests: phony obj/components/ssl_errors/unit_tests.stamp
+build components/stability_report$:stability_report: phony obj/components/stability_report/libstability_report.a
+build components/stability_report: phony obj/components/stability_report/libstability_report.a
+build components/stability_report$:stability_report_proto: phony obj/components/stability_report/libstability_report_proto.a
+build components/stability_report$:stability_report_proto_gen: phony obj/components/stability_report/stability_report_proto_gen.stamp
+build components/stability_report$:unit_tests: phony obj/components/stability_report/unit_tests.stamp
 build components/startup_metric_utils$:startup_metric_utils: phony obj/components/startup_metric_utils/startup_metric_utils.stamp
 build components/startup_metric_utils: phony obj/components/startup_metric_utils/startup_metric_utils.stamp
 build components/startup_metric_utils/browser$:browser: phony obj/components/startup_metric_utils/browser/browser.stamp
@@ -29421,10 +29461,15 @@ build services/webnn/public/mojom$:mojom_js_library_for_compile: phony obj/servi
 build services/webnn/public/mojom$:mojom_shared: phony obj/services/webnn/public/mojom/mojom_shared.stamp
 build services/webnn/public/mojom$:mojom_shared__generator: phony obj/services/webnn/public/mojom/mojom_shared__generator.stamp
 build services/webnn/public/mojom$:mojom_shared_cpp_sources: phony obj/services/webnn/public/mojom/mojom_shared_cpp_sources.stamp
+build skia$:bridge_rust_side: phony obj/skia/bridge_rust_side.stamp
+build skia$:bridge_rust_side__rlib: phony ./libbridge_rust_side.rlib
+build skia$:bridge_rust_side_cxx_generated: phony obj/skia/libbridge_rust_side_cxx_generated.a
+build skia$:bridge_rust_side_cxx_generated_gen: phony obj/skia/bridge_rust_side_cxx_generated_gen.stamp
 build skia$:buildflags: phony obj/skia/buildflags.stamp
 build skia$:filter_fuzz_stub: phony ./filter_fuzz_stub
 build skia$:fuzzers: phony obj/skia/fuzzers.stamp
 build skia$:image_operations_bench: phony ./image_operations_bench
+build skia$:path_bridge: phony obj/skia/path_bridge.stamp
 build skia$:skcms: phony obj/skia/skcms.stamp
 build skia$:skia: phony obj/skia/libskia.a
 build skia$:skia_core_and_effects: phony obj/skia/skia_core_and_effects.stamp
@@ -29901,6 +29946,8 @@ build third_party/abseil-cpp/absl/strings$:cordz_update_tracker: phony obj/third
 build third_party/abseil-cpp/absl/strings$:cordz_update_tracker_test: phony obj/third_party/abseil-cpp/absl/strings/cordz_update_tracker_test.stamp
 build third_party/abseil-cpp/absl/strings$:damerau_levenshtein_distance_test: phony obj/third_party/abseil-cpp/absl/strings/damerau_levenshtein_distance_test.stamp
 build third_party/abseil-cpp/absl/strings$:has_absl_stringify_test: phony obj/third_party/abseil-cpp/absl/strings/has_absl_stringify_test.stamp
+build third_party/abseil-cpp/absl/strings$:has_ostream_operator: phony obj/third_party/abseil-cpp/absl/strings/has_ostream_operator.stamp
+build third_party/abseil-cpp/absl/strings$:has_ostream_operator_test: phony obj/third_party/abseil-cpp/absl/strings/has_ostream_operator_test.stamp
 build third_party/abseil-cpp/absl/strings$:internal: phony obj/third_party/abseil-cpp/absl/strings/internal.stamp
 build third_party/abseil-cpp/absl/strings$:match_test: phony obj/third_party/abseil-cpp/absl/strings/match_test.stamp
 build third_party/abseil-cpp/absl/strings$:pow10_helper: phony obj/third_party/abseil-cpp/absl/strings/pow10_helper.stamp
@@ -32424,6 +32471,7 @@ build third_party/devtools-frontend/src/front_end/panels/event_listeners$:event_
 build third_party/devtools-frontend/src/front_end/panels/event_listeners: phony obj/third_party/devtools-frontend/src/front_end/panels/event_listeners/event_listeners.stamp
 build third_party/devtools-frontend/src/front_end/panels/event_listeners$:event_listeners-typescript: phony obj/third_party/devtools-frontend/src/front_end/panels/event_listeners/event_listeners-typescript.stamp
 build third_party/devtools-frontend/src/front_end/panels/explain$:bundle: phony obj/third_party/devtools-frontend/src/front_end/panels/explain/bundle.stamp
+build third_party/devtools-frontend/src/front_end/panels/explain$:css_files: phony obj/third_party/devtools-frontend/src/front_end/panels/explain/css_files.stamp
 build third_party/devtools-frontend/src/front_end/panels/explain$:devtools_entrypoint-bundle-bundle: phony obj/third_party/devtools-frontend/src/front_end/panels/explain/devtools_entrypoint-bundle-bundle.stamp
 build third_party/devtools-frontend/src/front_end/panels/explain$:devtools_entrypoint-bundle-copy: phony obj/third_party/devtools-frontend/src/front_end/panels/explain/devtools_entrypoint-bundle-copy.stamp
 build third_party/devtools-frontend/src/front_end/panels/explain$:devtools_entrypoint-bundle-generate-declaration: phony obj/third_party/devtools-frontend/src/front_end/panels/explain/devtools_entrypoint-bundle-generate-declaration.stamp
@@ -35475,6 +35523,8 @@ build third_party/rust/cxx/v1$:cxx_lib_v1_build_script_output: phony obj/third_p
 build third_party/rust/cxx/v1$:lib: phony obj/third_party/rust/cxx/v1/lib.stamp
 build third_party/rust/cxx/v1$:lib__rlib: phony obj/third_party/rust/cxx/v1/lib/libcxx-cxx-1.rlib
 build third_party/rust/cxxbridge_macro/v1$:lib: phony obj/third_party/rust/cxxbridge_macro/v1/lib.stamp
+build third_party/rust/font_types/v0_4$:lib: phony obj/third_party/rust/font_types/v0_4/lib.stamp
+build third_party/rust/font_types/v0_4$:lib__rlib: phony obj/third_party/rust/font_types/v0_4/lib/libfont_types-font_types-0.4.rlib
 build third_party/rust/itoa/v1$:lib: phony obj/third_party/rust/itoa/v1/lib.stamp
 build third_party/rust/itoa/v1$:lib__rlib: phony obj/third_party/rust/itoa/v1/lib/libitoa-itoa-1.rlib
 build third_party/rust/link_cplusplus/v1$:lib: phony obj/third_party/rust/link_cplusplus/v1/lib.stamp
@@ -35482,6 +35532,8 @@ build third_party/rust/link_cplusplus/v1$:lib__rlib: phony obj/third_party/rust/
 build third_party/rust/link_cplusplus/v1$:link_cplusplus_lib_v1_build_script_output: phony obj/third_party/rust/link_cplusplus/v1/link_cplusplus_lib_v1_build_script_output.stamp
 build third_party/rust/qr_code/v2$:lib: phony obj/third_party/rust/qr_code/v2/lib.stamp
 build third_party/rust/qr_code/v2$:lib__rlib: phony obj/third_party/rust/qr_code/v2/lib/libqr_code-qr_code-2.rlib
+build third_party/rust/read_fonts/v0_11$:lib: phony obj/third_party/rust/read_fonts/v0_11/lib.stamp
+build third_party/rust/read_fonts/v0_11$:lib__rlib: phony obj/third_party/rust/read_fonts/v0_11/lib/libread_fonts-read_fonts-0.11.rlib
 build third_party/rust/ryu/v1$:lib: phony obj/third_party/rust/ryu/v1/lib.stamp
 build third_party/rust/ryu/v1$:lib__rlib: phony obj/third_party/rust/ryu/v1/lib/libryu-ryu-1.rlib
 build third_party/rust/ryu/v1$:ryu_lib_v1_build_script_output: phony obj/third_party/rust/ryu/v1/ryu_lib_v1_build_script_output.stamp
@@ -35492,6 +35544,8 @@ build third_party/rust/serde_derive/v1$:lib: phony obj/third_party/rust/serde_de
 build third_party/rust/serde_json_lenient/v0_1$:lib: phony obj/third_party/rust/serde_json_lenient/v0_1/lib.stamp
 build third_party/rust/serde_json_lenient/v0_1$:lib__rlib: phony obj/third_party/rust/serde_json_lenient/v0_1/lib/libserde_json_lenient-serde_json_lenient-0.1.rlib
 build third_party/rust/serde_json_lenient/v0_1$:serde_json_lenient_lib_v0_1_build_script_output: phony obj/third_party/rust/serde_json_lenient/v0_1/serde_json_lenient_lib_v0_1_build_script_output.stamp
+build third_party/rust/skrifa/v0_10$:lib: phony obj/third_party/rust/skrifa/v0_10/lib.stamp
+build third_party/rust/skrifa/v0_10$:lib__rlib: phony obj/third_party/rust/skrifa/v0_10/lib/libskrifa-skrifa-0.10.rlib
 build third_party/rust/small_ctor/v0_1$:lib: phony obj/third_party/rust/small_ctor/v0_1/lib.stamp
 build third_party/rust/small_ctor/v0_1$:test_support: phony obj/third_party/rust/small_ctor/v0_1/test_support.stamp
 build third_party/ruy$:ruy: phony obj/third_party/ruy/ruy.stamp
@@ -41111,6 +41165,10 @@ build all: phony $
     obj/chrome/browser/apps/app_service/constants.stamp $
     obj/chrome/browser/apps/app_service/test_support.stamp $
     obj/chrome/browser/apps/app_service/unit_tests.stamp $
+    obj/chrome/browser/apps/app_service/app_install/app_install_service.stamp $
+    obj/chrome/browser/apps/app_service/app_install/libproto.a $
+    obj/chrome/browser/apps/app_service/app_install/proto_gen.stamp $
+    obj/chrome/browser/apps/app_service/app_install/unit_tests.stamp $
     obj/chrome/browser/apps/app_service/promise_apps/proto/libproto.a $
     obj/chrome/browser/apps/app_service/promise_apps/proto/proto_gen.stamp $
     obj/chrome/browser/apps/link_capturing/link_capturing.stamp $
@@ -43987,6 +44045,24 @@ build all: phony $
     obj/chrome/browser/ui/webui/omnibox/mojo_bindings_shared__generator.stamp $
     obj/chrome/browser/ui/webui/omnibox/mojo_bindings_shared_cpp_sources.stamp $
     obj/chrome/browser/ui/webui/omnibox/mojo_bindings_ts__generator.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom__check_deps_are_all_mojom.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom__generate_message_ids.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom__generator.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom__is_mojom.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom__parser.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom__type_mappings.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom__type_mappings__validator.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_blink.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_blink__generator.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_blink__type_mappings.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_blink__type_mappings__validator.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_blink_headers.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_headers.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_shared.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_shared__generator.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_shared_cpp_sources.stamp $
+    obj/chrome/browser/ui/webui/on_device_internals/mojom_ts__generator.stamp $
     obj/chrome/browser/ui/webui/reset_password/mojo_bindings.stamp $
     obj/chrome/browser/ui/webui/reset_password/mojo_bindings__check_deps_are_all_mojom.stamp $
     obj/chrome/browser/ui/webui/reset_password/mojo_bindings__generate_message_ids.stamp $
@@ -47677,7 +47753,7 @@ build all: phony $
     obj/components/crash/core/common/libcrash_key_lib.a $
     obj/components/crash/core/common/libcrash_key_utils.a $
     obj/components/crash/core/common/unit_tests.stamp $
-    ./libcronet.120.0.6087.0.so.TOC $
+    ./libcronet.120.0.6089.0.so.TOC $
     obj/components/cronet/cronet_buildflags.stamp $
     obj/components/cronet/cronet_common.stamp $
     obj/components/cronet/cronet_common_unittests.stamp $
@@ -49258,14 +49334,13 @@ build all: phony $
     obj/components/password_manager/content/browser/test_support.stamp $
     obj/components/password_manager/content/browser/unit_tests.stamp $
     obj/components/password_manager/content/common/libcommon.a $
-    obj/components/password_manager/core/browser/libaffiliation_proto.a $
-    obj/components/password_manager/core/browser/affiliation_proto_gen.stamp $
     obj/components/password_manager/core/browser/libbrowser.a $
     obj/components/password_manager/core/browser/libhash_password_manager.a $
     obj/components/password_manager/core/browser/metrics_util.stamp $
     obj/components/password_manager/core/browser/passkey_credential.stamp $
     obj/components/password_manager/core/browser/password_form.stamp $
     obj/components/password_manager/core/browser/libpassword_hash_data.a $
+    obj/components/password_manager/core/browser/password_store_impl.stamp $
     obj/components/password_manager/core/browser/password_store_interface.stamp $
     obj/components/password_manager/core/browser/sql_builder.stamp $
     obj/components/password_manager/core/browser/libtest_support.a $
@@ -49273,6 +49348,8 @@ build all: phony $
     obj/components/password_manager/core/browser/affiliation/affiliation.stamp $
     obj/components/password_manager/core/browser/affiliation/affiliation_fetching.stamp $
     obj/components/password_manager/core/browser/affiliation/affiliation_fetching_unittests.stamp $
+    obj/components/password_manager/core/browser/affiliation/libaffiliation_proto.a $
+    obj/components/password_manager/core/browser/affiliation/affiliation_proto_gen.stamp $
     obj/components/password_manager/core/browser/affiliation/test_support.stamp $
     obj/components/password_manager/core/browser/affiliation/unit_tests.stamp $
     obj/components/password_manager/core/browser/export/export.stamp $
@@ -50456,6 +50533,10 @@ build all: phony $
     obj/components/sqlite_proto/unit_tests.stamp $
     obj/components/ssl_errors/libssl_errors.a $
     obj/components/ssl_errors/unit_tests.stamp $
+    obj/components/stability_report/libstability_report.a $
+    obj/components/stability_report/libstability_report_proto.a $
+    obj/components/stability_report/stability_report_proto_gen.stamp $
+    obj/components/stability_report/unit_tests.stamp $
     obj/components/startup_metric_utils/startup_metric_utils.stamp $
     obj/components/startup_metric_utils/browser/browser.stamp $
     obj/components/startup_metric_utils/common/common.stamp $
@@ -55963,10 +56044,15 @@ build all: phony $
     obj/services/webnn/public/mojom/mojom_shared.stamp $
     obj/services/webnn/public/mojom/mojom_shared__generator.stamp $
     obj/services/webnn/public/mojom/mojom_shared_cpp_sources.stamp $
+    obj/skia/bridge_rust_side.stamp $
+    ./libbridge_rust_side.rlib $
+    obj/skia/libbridge_rust_side_cxx_generated.a $
+    obj/skia/bridge_rust_side_cxx_generated_gen.stamp $
     obj/skia/buildflags.stamp $
     ./filter_fuzz_stub $
     obj/skia/fuzzers.stamp $
     ./image_operations_bench $
+    obj/skia/path_bridge.stamp $
     obj/skia/skcms.stamp $
     obj/skia/libskia.a $
     obj/skia/skia_core_and_effects.stamp $
@@ -56424,6 +56510,8 @@ build all: phony $
     obj/third_party/abseil-cpp/absl/strings/cordz_update_tracker_test.stamp $
     obj/third_party/abseil-cpp/absl/strings/damerau_levenshtein_distance_test.stamp $
     obj/third_party/abseil-cpp/absl/strings/has_absl_stringify_test.stamp $
+    obj/third_party/abseil-cpp/absl/strings/has_ostream_operator.stamp $
+    obj/third_party/abseil-cpp/absl/strings/has_ostream_operator_test.stamp $
     obj/third_party/abseil-cpp/absl/strings/internal.stamp $
     obj/third_party/abseil-cpp/absl/strings/match_test.stamp $
     obj/third_party/abseil-cpp/absl/strings/pow10_helper.stamp $
@@ -58606,6 +58694,7 @@ build all: phony $
     obj/third_party/devtools-frontend/src/front_end/panels/event_listeners/event_listeners.stamp $
     obj/third_party/devtools-frontend/src/front_end/panels/event_listeners/event_listeners-typescript.stamp $
     obj/third_party/devtools-frontend/src/front_end/panels/explain/bundle.stamp $
+    obj/third_party/devtools-frontend/src/front_end/panels/explain/css_files.stamp $
     obj/third_party/devtools-frontend/src/front_end/panels/explain/devtools_entrypoint-bundle-bundle.stamp $
     obj/third_party/devtools-frontend/src/front_end/panels/explain/devtools_entrypoint-bundle-copy.stamp $
     obj/third_party/devtools-frontend/src/front_end/panels/explain/devtools_entrypoint-bundle-generate-declaration.stamp $
@@ -61133,6 +61222,8 @@ build all: phony $
     obj/third_party/rust/cxx/v1/lib.stamp $
     obj/third_party/rust/cxx/v1/lib/libcxx-cxx-1.rlib $
     obj/third_party/rust/cxxbridge_macro/v1/lib.stamp $
+    obj/third_party/rust/font_types/v0_4/lib.stamp $
+    obj/third_party/rust/font_types/v0_4/lib/libfont_types-font_types-0.4.rlib $
     obj/third_party/rust/itoa/v1/lib.stamp $
     obj/third_party/rust/itoa/v1/lib/libitoa-itoa-1.rlib $
     obj/third_party/rust/link_cplusplus/v1/lib.stamp $
@@ -61140,6 +61231,8 @@ build all: phony $
     obj/third_party/rust/link_cplusplus/v1/link_cplusplus_lib_v1_build_script_output.stamp $
     obj/third_party/rust/qr_code/v2/lib.stamp $
     obj/third_party/rust/qr_code/v2/lib/libqr_code-qr_code-2.rlib $
+    obj/third_party/rust/read_fonts/v0_11/lib.stamp $
+    obj/third_party/rust/read_fonts/v0_11/lib/libread_fonts-read_fonts-0.11.rlib $
     obj/third_party/rust/ryu/v1/lib.stamp $
     obj/third_party/rust/ryu/v1/lib/libryu-ryu-1.rlib $
     obj/third_party/rust/ryu/v1/ryu_lib_v1_build_script_output.stamp $
@@ -61150,6 +61243,8 @@ build all: phony $
     obj/third_party/rust/serde_json_lenient/v0_1/lib.stamp $
     obj/third_party/rust/serde_json_lenient/v0_1/lib/libserde_json_lenient-serde_json_lenient-0.1.rlib $
     obj/third_party/rust/serde_json_lenient/v0_1/serde_json_lenient_lib_v0_1_build_script_output.stamp $
+    obj/third_party/rust/skrifa/v0_10/lib.stamp $
+    obj/third_party/rust/skrifa/v0_10/lib/libskrifa-skrifa-0.10.rlib $
     obj/third_party/rust/small_ctor/v0_1/lib.stamp $
     obj/third_party/rust/small_ctor/v0_1/test_support.stamp $
     obj/third_party/ruy/ruy.stamp $

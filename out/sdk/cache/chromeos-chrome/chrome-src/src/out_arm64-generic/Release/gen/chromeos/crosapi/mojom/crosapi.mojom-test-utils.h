@@ -17,7 +17,7 @@ class  CrosapiInterceptorForTesting : public Crosapi {
   virtual Crosapi* GetForwardingInterface() = 0;
   void BindAutomationDeprecated(::mojo::PendingReceiver<::crosapi::mojom::Automation> receiver) override;
   void BindAudioService(::mojo::PendingReceiver<::crosapi::mojom::AudioService> receiver) override;
-  void BindAuthentication(::mojo::PendingReceiver<::crosapi::mojom::Authentication> receiver) override;
+  void REMOVED_62(::mojo::PendingReceiver<::crosapi::mojom::AuthenticationDeprecated> receiver) override;
   void BindAutomationFactory(::mojo::PendingReceiver<::crosapi::mojom::AutomationFactory> receiver) override;
   void BindAccountManager(::mojo::PendingReceiver<::crosapi::mojom::AccountManager> receiver) override;
   void BindAppServiceProxy(::mojo::PendingReceiver<::crosapi::mojom::AppServiceProxy> receiver) override;

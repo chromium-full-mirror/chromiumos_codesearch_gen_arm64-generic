@@ -71,80 +71,17 @@ class QuickStartDecoder
   using RequestValidator_ = QuickStartDecoderRequestValidator;
   using ResponseValidator_ = QuickStartDecoderResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kDecodeBootstrapConfigurationsMinVersion = 0,
-    kDecodeWifiCredentialsResponseMinVersion = 0,
-    kDecodeNotifySourceOfUpdateResponseMinVersion = 0,
-    kDecodeGetAssertionResponseMinVersion = 0,
-    kDecodeUserVerificationMethodMinVersion = 0,
-    kDecodeUserVerificationRequestedMinVersion = 0,
-    kDecodeUserVerificationResultMinVersion = 0,
     kDecodeQuickStartMessageMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct DecodeBootstrapConfigurations_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct DecodeWifiCredentialsResponse_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct DecodeNotifySourceOfUpdateResponse_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct DecodeGetAssertionResponse_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct DecodeUserVerificationMethod_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct DecodeUserVerificationRequested_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct DecodeUserVerificationResult_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct DecodeQuickStartMessage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~QuickStartDecoder() = default;
-
-
-  using DecodeBootstrapConfigurationsCallback = base::OnceCallback<void(::ash::quick_start::mojom::BootstrapConfigurationsPtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
-  
-  virtual void DecodeBootstrapConfigurations(const absl::optional<std::vector<uint8_t>>& data, DecodeBootstrapConfigurationsCallback callback) = 0;
-
-
-  using DecodeWifiCredentialsResponseCallback = base::OnceCallback<void(::ash::quick_start::mojom::WifiCredentialsPtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
-  
-  virtual void DecodeWifiCredentialsResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeWifiCredentialsResponseCallback callback) = 0;
-
-
-  using DecodeNotifySourceOfUpdateResponseCallback = base::OnceCallback<void(::ash::quick_start::mojom::NotifySourceOfUpdateResponsePtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
-  
-  virtual void DecodeNotifySourceOfUpdateResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeNotifySourceOfUpdateResponseCallback callback) = 0;
-
-
-  using DecodeGetAssertionResponseCallback = base::OnceCallback<void(::ash::quick_start::mojom::FidoAssertionResponsePtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
-  
-  virtual void DecodeGetAssertionResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeGetAssertionResponseCallback callback) = 0;
-
-
-  using DecodeUserVerificationMethodCallback = base::OnceCallback<void(::ash::quick_start::mojom::UserVerificationMethodPtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
-  
-  virtual void DecodeUserVerificationMethod(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationMethodCallback callback) = 0;
-
-
-  using DecodeUserVerificationRequestedCallback = base::OnceCallback<void(::ash::quick_start::mojom::UserVerificationRequestedPtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
-  
-  virtual void DecodeUserVerificationRequested(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationRequestedCallback callback) = 0;
-
-
-  using DecodeUserVerificationResultCallback = base::OnceCallback<void(::ash::quick_start::mojom::UserVerificationResponsePtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
-  
-  virtual void DecodeUserVerificationResult(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationResultCallback callback) = 0;
 
 
   using DecodeQuickStartMessageCallback = base::OnceCallback<void(::ash::quick_start::mojom::QuickStartMessagePtr, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>)>;
@@ -160,20 +97,6 @@ class  QuickStartDecoderProxy
   using InterfaceType = QuickStartDecoder;
 
   explicit QuickStartDecoderProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void DecodeBootstrapConfigurations(const absl::optional<std::vector<uint8_t>>& data, DecodeBootstrapConfigurationsCallback callback) final;
-  
-  void DecodeWifiCredentialsResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeWifiCredentialsResponseCallback callback) final;
-  
-  void DecodeNotifySourceOfUpdateResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeNotifySourceOfUpdateResponseCallback callback) final;
-  
-  void DecodeGetAssertionResponse(const absl::optional<std::vector<uint8_t>>& data, DecodeGetAssertionResponseCallback callback) final;
-  
-  void DecodeUserVerificationMethod(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationMethodCallback callback) final;
-  
-  void DecodeUserVerificationRequested(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationRequestedCallback callback) final;
-  
-  void DecodeUserVerificationResult(const absl::optional<std::vector<uint8_t>>& data, DecodeUserVerificationResultCallback callback) final;
   
   void DecodeQuickStartMessage(const absl::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) final;
 

@@ -96,7 +96,7 @@ build host/obj/base/anchor_functions_buildflags.stamp: host_stamp host/gen/base/
 subninja host/obj/base/base.ninja
 subninja host/obj/base/base_static.ninja
 rule __base_build_date___build_toolchain_cros_host__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py host/gen/base/generated_build_date.h 1698159868
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py host/gen/base/generated_build_date.h 1698246237
   description = ACTION //base:build_date(//build/toolchain/cros:host)
   restat = 1
   pool = build_toolchain_action_pool
@@ -1033,6 +1033,20 @@ subninja host/obj/net/tools/root_store_tool/root_store_tool.ninja
 subninja host/obj/net/tools/transport_security_state_generator/transport_security_state_generator.ninja
 subninja host/obj/net/tools/transport_security_state_generator/transport_security_state_generator_sources.ninja
 subninja host/obj/net/traffic_annotation/traffic_annotation.ninja
+build host/obj/skia/bridge_rust_side.stamp: host_stamp host/libbridge_rust_side.rlib host/obj/skia/libbridge_rust_side_cxx_generated.a host/obj/build/rust/libcxx_cppdeps.a
+subninja host/obj/skia/bridge_rust_side__rlib.ninja
+subninja host/obj/skia/bridge_rust_side_cxx_generated.ninja
+rule __skia_bridge_rust_side_cxx_generated_gen___build_toolchain_cros_host__rule
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust/cxx/chromium_integration/run_cxxbridge.py --exe host_for_rust_host_build_tools/cxxbridge --header ${source_gen_dir}/${source_file_part}.h --cc ${source_gen_dir}/${source_file_part}.cc ${in} --
+  description = ACTION //skia:bridge_rust_side_cxx_generated_gen(//build/toolchain/cros:host)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build host/gen/third_party/skia/src/ports/fontations/src/ffi.rs.h host/gen/third_party/skia/src/ports/fontations/src/ffi.rs.cc: __skia_bridge_rust_side_cxx_generated_gen___build_toolchain_cros_host__rule ../../../../../../../home/chrome-bot/chrome_root/src/third_party/skia/src/ports/fontations/src/ffi.rs | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust/cxx/chromium_integration/run_cxxbridge.py host_for_rust_host_build_tools/cxxbridge ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust/cxx/chromium_integration/run_cxxbridge.py host_for_rust_host_build_tools/obj/third_party/rust/cxxbridge_cmd/v1/cxxbridge.stamp
+  source_file_part = ffi.rs
+  source_gen_dir = host/gen/third_party/skia/src/ports/fontations/src
+
+build host/obj/skia/bridge_rust_side_cxx_generated_gen.stamp: host_stamp host/gen/third_party/skia/src/ports/fontations/src/ffi.rs.h host/gen/third_party/skia/src/ports/fontations/src/ffi.rs.cc
 rule __skia_buildflags___build_toolchain_cros_host__rule
   rspfile = __skia_buildflags___build_toolchain_cros_host__rule.rsp
   rspfile_content = --flags SKIA_SUPPORT_SKOTTIE=true SKIA_USE_DAWN=false SKIA_USE_METAL=false
@@ -1044,6 +1058,7 @@ rule __skia_buildflags___build_toolchain_cros_host__rule
 build host/gen/skia/buildflags.h: __skia_buildflags___build_toolchain_cros_host__rule | ../../../../../../../home/chrome-bot/chrome_root/src/build/write_buildflag_header.py host/obj/build/buildflag_header_h.stamp
 
 build host/obj/skia/buildflags.stamp: host_stamp host/gen/skia/buildflags.h
+subninja host/obj/skia/path_bridge.ninja
 subninja host/obj/skia/skcms.ninja
 subninja host/obj/skia/skia.ninja
 subninja host/obj/skia/skia_core_and_effects.ninja
@@ -1055,7 +1070,7 @@ subninja host/obj/skia/skia_opts_hsw.ninja
 subninja host/obj/third_party/freetype_harfbuzz.ninja
 build host/obj/third_party/jpeg.stamp: host_stamp host/obj/third_party/libjpeg_turbo/libjpeg.a
 subninja host/obj/third_party/abseil-cpp/absl.ninja
-build host/obj/third_party/abseil-cpp/absl_component_deps.stamp: host_stamp host/obj/third_party/abseil-cpp/absl/algorithm/container.stamp host/obj/third_party/abseil-cpp/absl/base/base.stamp host/obj/third_party/abseil-cpp/absl/base/config.stamp host/obj/third_party/abseil-cpp/absl/base/core_headers.stamp host/obj/third_party/abseil-cpp/absl/base/nullability.stamp host/obj/third_party/abseil-cpp/absl/base/prefetch.stamp host/obj/third_party/abseil-cpp/absl/cleanup/cleanup.stamp host/obj/third_party/abseil-cpp/absl/container/btree.stamp host/obj/third_party/abseil-cpp/absl/container/fixed_array.stamp host/obj/third_party/abseil-cpp/absl/container/flat_hash_map.stamp host/obj/third_party/abseil-cpp/absl/container/flat_hash_set.stamp host/obj/third_party/abseil-cpp/absl/container/inlined_vector.stamp host/obj/third_party/abseil-cpp/absl/container/node_hash_map.stamp host/obj/third_party/abseil-cpp/absl/container/node_hash_set.stamp host/obj/third_party/abseil-cpp/absl/debugging/failure_signal_handler.stamp host/obj/third_party/abseil-cpp/absl/debugging/stacktrace.stamp host/obj/third_party/abseil-cpp/absl/debugging/symbolize.stamp host/obj/third_party/abseil-cpp/absl/functional/any_invocable.stamp host/obj/third_party/abseil-cpp/absl/functional/bind_front.stamp host/obj/third_party/abseil-cpp/absl/functional/function_ref.stamp host/obj/third_party/abseil-cpp/absl/functional/overload.stamp host/obj/third_party/abseil-cpp/absl/hash/hash.stamp host/obj/third_party/abseil-cpp/absl/log/absl_check.stamp host/obj/third_party/abseil-cpp/absl/log/absl_log.stamp host/obj/third_party/abseil-cpp/absl/log/die_if_null.stamp host/obj/third_party/abseil-cpp/absl/memory/memory.stamp host/obj/third_party/abseil-cpp/absl/meta/type_traits.stamp host/obj/third_party/abseil-cpp/absl/numeric/bits.stamp host/obj/third_party/abseil-cpp/absl/numeric/int128.stamp host/obj/third_party/abseil-cpp/absl/random/random.stamp host/obj/third_party/abseil-cpp/absl/random/distributions.stamp host/obj/third_party/abseil-cpp/absl/status/status.stamp host/obj/third_party/abseil-cpp/absl/status/statusor.stamp host/obj/third_party/abseil-cpp/absl/strings/strings.stamp host/obj/third_party/abseil-cpp/absl/strings/cord.stamp host/obj/third_party/abseil-cpp/absl/strings/str_format.stamp host/obj/third_party/abseil-cpp/absl/strings/string_view.stamp host/obj/third_party/abseil-cpp/absl/synchronization/synchronization.stamp host/obj/third_party/abseil-cpp/absl/time/time.stamp host/obj/third_party/abseil-cpp/absl/types/optional.stamp host/obj/third_party/abseil-cpp/absl/types/span.stamp host/obj/third_party/abseil-cpp/absl/types/variant.stamp host/obj/third_party/abseil-cpp/absl/utility/utility.stamp
+build host/obj/third_party/abseil-cpp/absl_component_deps.stamp: host_stamp host/obj/third_party/abseil-cpp/absl/algorithm/container.stamp host/obj/third_party/abseil-cpp/absl/base/base.stamp host/obj/third_party/abseil-cpp/absl/base/config.stamp host/obj/third_party/abseil-cpp/absl/base/core_headers.stamp host/obj/third_party/abseil-cpp/absl/base/nullability.stamp host/obj/third_party/abseil-cpp/absl/base/prefetch.stamp host/obj/third_party/abseil-cpp/absl/cleanup/cleanup.stamp host/obj/third_party/abseil-cpp/absl/container/btree.stamp host/obj/third_party/abseil-cpp/absl/container/fixed_array.stamp host/obj/third_party/abseil-cpp/absl/container/flat_hash_map.stamp host/obj/third_party/abseil-cpp/absl/container/flat_hash_set.stamp host/obj/third_party/abseil-cpp/absl/container/inlined_vector.stamp host/obj/third_party/abseil-cpp/absl/container/node_hash_map.stamp host/obj/third_party/abseil-cpp/absl/container/node_hash_set.stamp host/obj/third_party/abseil-cpp/absl/debugging/failure_signal_handler.stamp host/obj/third_party/abseil-cpp/absl/debugging/stacktrace.stamp host/obj/third_party/abseil-cpp/absl/debugging/symbolize.stamp host/obj/third_party/abseil-cpp/absl/functional/any_invocable.stamp host/obj/third_party/abseil-cpp/absl/functional/bind_front.stamp host/obj/third_party/abseil-cpp/absl/functional/function_ref.stamp host/obj/third_party/abseil-cpp/absl/functional/overload.stamp host/obj/third_party/abseil-cpp/absl/hash/hash.stamp host/obj/third_party/abseil-cpp/absl/log/absl_check.stamp host/obj/third_party/abseil-cpp/absl/log/absl_log.stamp host/obj/third_party/abseil-cpp/absl/log/die_if_null.stamp host/obj/third_party/abseil-cpp/absl/memory/memory.stamp host/obj/third_party/abseil-cpp/absl/meta/type_traits.stamp host/obj/third_party/abseil-cpp/absl/numeric/bits.stamp host/obj/third_party/abseil-cpp/absl/numeric/int128.stamp host/obj/third_party/abseil-cpp/absl/random/random.stamp host/obj/third_party/abseil-cpp/absl/random/distributions.stamp host/obj/third_party/abseil-cpp/absl/status/status.stamp host/obj/third_party/abseil-cpp/absl/status/statusor.stamp host/obj/third_party/abseil-cpp/absl/strings/strings.stamp host/obj/third_party/abseil-cpp/absl/strings/cord.stamp host/obj/third_party/abseil-cpp/absl/strings/has_ostream_operator.stamp host/obj/third_party/abseil-cpp/absl/strings/str_format.stamp host/obj/third_party/abseil-cpp/absl/strings/string_view.stamp host/obj/third_party/abseil-cpp/absl/synchronization/synchronization.stamp host/obj/third_party/abseil-cpp/absl/time/time.stamp host/obj/third_party/abseil-cpp/absl/types/optional.stamp host/obj/third_party/abseil-cpp/absl/types/span.stamp host/obj/third_party/abseil-cpp/absl/types/variant.stamp host/obj/third_party/abseil-cpp/absl/utility/utility.stamp
 subninja host/obj/third_party/abseil-cpp/absl/algorithm/algorithm.ninja
 subninja host/obj/third_party/abseil-cpp/absl/algorithm/container.ninja
 subninja host/obj/third_party/abseil-cpp/absl/base/atomic_hook.ninja
@@ -1181,6 +1196,7 @@ subninja host/obj/third_party/abseil-cpp/absl/strings/cordz_info.ninja
 subninja host/obj/third_party/abseil-cpp/absl/strings/cordz_statistics.ninja
 subninja host/obj/third_party/abseil-cpp/absl/strings/cordz_update_scope.ninja
 subninja host/obj/third_party/abseil-cpp/absl/strings/cordz_update_tracker.ninja
+subninja host/obj/third_party/abseil-cpp/absl/strings/has_ostream_operator.ninja
 subninja host/obj/third_party/abseil-cpp/absl/strings/internal.ninja
 subninja host/obj/third_party/abseil-cpp/absl/strings/str_format.ninja
 subninja host/obj/third_party/abseil-cpp/absl/strings/str_format_internal.ninja
@@ -2059,6 +2075,8 @@ build host/obj/third_party/rust/cxx/v1/cxx_lib_v1_build_script_output.stamp: hos
 build host/obj/third_party/rust/cxx/v1/lib.stamp: host_stamp host/obj/third_party/rust/cxx/v1/lib/libcxx-cxx-1.rlib host/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host/obj/third_party/rust/cxx/v1/lib__rlib.ninja
 build host/obj/third_party/rust/cxxbridge_macro/v1/lib.stamp: host_stamp host_for_rust_host_build_tools/libcxxbridge_macro.so
+build host/obj/third_party/rust/font_types/v0_4/lib.stamp: host_stamp host/obj/third_party/rust/font_types/v0_4/lib/libfont_types-font_types-0.4.rlib host/obj/build/rust/std/stdlib_for_clang.stamp
+subninja host/obj/third_party/rust/font_types/v0_4/lib__rlib.ninja
 build host/obj/third_party/rust/link_cplusplus/v1/lib.stamp: host_stamp host/obj/third_party/rust/link_cplusplus/v1/lib/liblink_cplusplus-link_cplusplus-1.rlib host/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host/obj/third_party/rust/link_cplusplus/v1/lib__rlib.ninja
 rule __third_party_rust_link_cplusplus_v1_link_cplusplus_lib_v1_build_script_output___build_toolchain_cros_host__rule
@@ -2070,10 +2088,14 @@ rule __third_party_rust_link_cplusplus_v1_link_cplusplus_lib_v1_build_script_out
 build host/gen/third_party/rust/link_cplusplus/v1/lib/cargo_flags.rs: __third_party_rust_link_cplusplus_v1_link_cplusplus_lib_v1_build_script_output___build_toolchain_cros_host__rule | ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/run_build_script.py host_for_rust_host_build_tools/link_cplusplus_lib_v1_build_script host_for_rust_host_build_tools/obj/third_party/rust/link_cplusplus/v1/link_cplusplus_lib_v1_build_script.stamp
 
 build host/obj/third_party/rust/link_cplusplus/v1/link_cplusplus_lib_v1_build_script_output.stamp: host_stamp host/gen/third_party/rust/link_cplusplus/v1/lib/cargo_flags.rs
+build host/obj/third_party/rust/read_fonts/v0_11/lib.stamp: host_stamp host/obj/third_party/rust/read_fonts/v0_11/lib/libread_fonts-read_fonts-0.11.rlib host/obj/build/rust/std/stdlib_for_clang.stamp
+subninja host/obj/third_party/rust/read_fonts/v0_11/lib__rlib.ninja
 build host/obj/third_party/rust/rustc_demangle/v0_1/lib.stamp: host_stamp host/obj/third_party/rust/rustc_demangle/v0_1/lib/librustc_demangle-rustc_demangle-0.1.rlib host/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host/obj/third_party/rust/rustc_demangle/v0_1/lib__rlib.ninja
 build host/obj/third_party/rust/rustc_demangle_capi/v0_1/lib.stamp: host_stamp host/obj/third_party/rust/rustc_demangle_capi/v0_1/lib/librustc_demangle_capi-rustc_demangle_capi-0.1.rlib host/obj/build/rust/std/stdlib_for_clang.stamp
 subninja host/obj/third_party/rust/rustc_demangle_capi/v0_1/lib__rlib.ninja
+build host/obj/third_party/rust/skrifa/v0_10/lib.stamp: host_stamp host/obj/third_party/rust/skrifa/v0_10/lib/libskrifa-skrifa-0.10.rlib host/obj/build/rust/std/stdlib_for_clang.stamp
+subninja host/obj/third_party/rust/skrifa/v0_10/lib__rlib.ninja
 subninja host/obj/third_party/wayland/wayland_scanner.ninja
 subninja host/obj/third_party/wayland/wayland_util.ninja
 subninja host/obj/third_party/wuffs/wuffs.ninja

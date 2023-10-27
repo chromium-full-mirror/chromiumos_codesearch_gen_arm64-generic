@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "cross-x86_64-cros-linux-gnu", "name": "go", "version": "1.20.5", "revision": 1, "fullname": "cross-x86_64-cros-linux-gnu/go", "fullnamerev": "cross-x86_64-cros-linux-gnu/go-1.20.5-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["http://golang.org/"], "skip": false, "tainted": false, "ebuild_path": null}

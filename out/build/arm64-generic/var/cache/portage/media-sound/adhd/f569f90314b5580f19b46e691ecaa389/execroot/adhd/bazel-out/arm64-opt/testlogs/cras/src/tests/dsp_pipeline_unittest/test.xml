@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.105" timestamp="2023-10-27T00:17:32.375" name="AllTests">
+  <testsuite name="DspPipelineTestSuite" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0.09" timestamp="2023-10-27T00:17:32.388">
+    <testcase name="Simple" file="cras/src/tests/cras_dsp_pipeline_unittest.cc" line="258" status="run" result="completed" time="0.065" timestamp="2023-10-27T00:17:32.389" classname="DspPipelineTestSuite" />
+    <testcase name="Complex" file="cras/src/tests/cras_dsp_pipeline_unittest.cc" line="376" status="run" result="completed" time="0.022" timestamp="2023-10-27T00:17:32.456" classname="DspPipelineTestSuite" />
+  </testsuite>
+</testsuites>

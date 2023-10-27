@@ -8,7 +8,8 @@
 // --output_dir=/build/arm64-generic/var/cache/portage/chromeos-base/cryptohome-dev-utils/out/Default/gen/include/cryptohome/flatbuffer_schemas
 // --guard_prefix=CRYPTOHOME_FLATBUFFER_SCHEMAS --header_include_paths
 // cryptohome/flatbuffer_schemas/auth_block_state.h
-// --flatbuffer_header_include_paths cryptohome/auth_factor_generated.h
+// --flatbuffer_header_include_paths
+// cryptohome/flatbuffer_schemas/auth_factor_generated.h
 // --flatbuffer_header_include_paths cryptohome/flatbuffer_schemas/auth_factor.h
 // --flatbuffer_header_include_paths
 // cryptohome/flatbuffer_schemas/auth_block_state_flatbuffer.h
@@ -37,9 +38,9 @@
 #include <brillo/secure_blob.h>
 #include <flatbuffers/flatbuffers.h>
 
-#include "cryptohome/auth_factor_generated.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state_flatbuffer.h"
 #include "cryptohome/flatbuffer_schemas/auth_factor.h"
+#include "cryptohome/flatbuffer_schemas/auth_factor_generated.h"
 #include "libhwsec-foundation/flatbuffers/basic_objects.h"
 
 namespace hwsec_foundation {

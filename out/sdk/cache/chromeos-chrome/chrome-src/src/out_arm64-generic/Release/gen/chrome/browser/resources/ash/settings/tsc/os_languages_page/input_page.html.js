@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex">h2{padding-inline-start:var(--cr-section-padding)}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}cr-policy-pref-indicator+cr-icon-button{margin-inline-start:0}.bottom-margin{margin-bottom:var(--cr-section-vertical-margin)}.explain-selected{color:var(--cros-text-color-positive);font-weight:initial;margin-top:4px}.icon-external{margin-inline-end:0}.name-with-error[disabled]{pointer-events:none}.name-with-error{padding:14px 0}.name-with-error div{color:var(--cros-text-color-alert);margin-top:8px}iron-icon[icon='cr:error']{--iron-icon-fill-color:var(--cros-icon-color-alert);height:var(--cr-icon-size);margin-inline-end:4px;width:var(--cr-icon-size)}iron-icon[icon='cr20:domain']{margin-inline-end:10px}iron-icon+span{vertical-align:middle}.selected[actionable]{cursor:auto}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection .list-frame{padding-inline-end:0;padding-inline-start:40px}#spellCheckLanguagesListV2>.cr-row,.subsection>cr-link-row,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}.subsection>cr-link-row:not(:first-of-type),.subsection>settings-toggle-button:not(:first-of-type){border-top:var(--cr-separator-line)}.external-wrapper,.internal-wrapper{display:flex}#addInputMethod,#addSpellcheckLanguages{--iron-icon-fill-color:var(--cr-link-color);margin-top:16px}cr-button[disabled] iron-icon{--iron-icon-fill-color:var(--cros-button-icon-color-primary-disabled)}paper-spinner-lite{height:14px;width:14px;--paper-spinner-stroke-width:2px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex">h2{padding-inline-start:var(--cr-section-padding)}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}cr-policy-pref-indicator+cr-icon-button{margin-inline-start:0}.bottom-margin{margin-bottom:var(--cr-section-vertical-margin)}.explain-selected,.language-packs-error{font-weight:initial;margin-top:4px}.explain-selected{color:var(--cros-text-color-positive)}.language-packs-error{color:var(--cros-text-color-alert)}.icon-external{margin-inline-end:0}.name-with-error[disabled]{pointer-events:none}.name-with-error{padding:14px 0}.name-with-error div{color:var(--cros-text-color-alert);margin-top:8px}iron-icon[icon='cr:error'],iron-icon[icon='os-settings:multidevice-error']{--iron-icon-fill-color:var(--cros-icon-color-alert);margin-inline-end:4px}iron-icon[icon='cr:error']{height:var(--cr-icon-size);width:var(--cr-icon-size)}iron-icon[icon='os-settings:multidevice-error']{height:16px;width:16px}iron-icon[icon='cr20:domain']{margin-inline-end:10px}iron-icon+span{vertical-align:middle}.selected[actionable]{cursor:auto}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection .list-frame{padding-inline-end:0;padding-inline-start:40px}#spellCheckLanguagesListV2>.cr-row,.subsection>cr-link-row,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}.subsection>cr-link-row:not(:first-of-type),.subsection>settings-toggle-button:not(:first-of-type){border-top:var(--cr-separator-line)}.external-wrapper,.internal-wrapper{display:flex}#addInputMethod,#addSpellcheckLanguages{--iron-icon-fill-color:var(--cr-link-color);margin-top:16px}cr-button[disabled] iron-icon{--iron-icon-fill-color:var(--cros-button-icon-color-primary-disabled)}paper-spinner-lite{height:14px;width:14px;--paper-spinner-stroke-width:2px}</style>
 
 <template is="dom-if" if="[[shouldShowLanguagePacksNotice_]]">
   <div class="cr-row first bottom-margin">
@@ -36,6 +36,18 @@ export function getTemplate() {
                   item.id, languages.inputMethods.currentId)]]">
             $i18n{inputMethodEnabled}
           </div>
+          <template is="dom-if" if="[[shouldShowLanguagePackError_(
+                  item.id, languagePacksInSettingsEnabled_,
+                  languages.inputMethods.imeLanguagePackStatus.*)]]">
+            <div class="language-packs-error">
+              <iron-icon id="failure-icon" icon="os-settings:multidevice-error">
+              </iron-icon>
+              <span>
+                [[getLanguagePacksErrorMessage_(item.id,
+                    languages.inputMethods.imeLanguagePackStatus.*)]]
+              </span>
+            </div>
+          </template>
         </div>
         <template is="dom-if" if="[[shouldShowSpinner_(item.id, languagePacksInSettingsEnabled_,
                   languages.inputMethods.imeLanguagePackStatus.*)]]">
@@ -138,8 +150,7 @@ export function getTemplate() {
     <h2>$i18n{suggestionsTitle}</h2>
     <div class="subsection">
       <template is="dom-if" if="[[allowOrca_]]">
-        
-        <settings-toggle-button id="orcaToggle" pref="{{prefs.assistive_input.orca_enabled}}" label="$i18n{orcaTitle}" sub-label="$i18n{orcaDescription}" aria-label="$i18n{orcaTitle}" deep-link-focus-id$="[[Setting.kShowOrca]]">
+        <settings-toggle-button id="orcaToggle" pref="{{prefs.assistive_input.orca_enabled}}" label="$i18n{orcaTitle}" sub-label="$i18n{orcaDescription}" aria-label="$i18n{orcaTitle}" deep-link-focus-id$="[[Setting.kShowOrca]]" learn-more-url="$i18n{orcaLearnMoreUrl}">
         </settings-toggle-button>
       </template>
 

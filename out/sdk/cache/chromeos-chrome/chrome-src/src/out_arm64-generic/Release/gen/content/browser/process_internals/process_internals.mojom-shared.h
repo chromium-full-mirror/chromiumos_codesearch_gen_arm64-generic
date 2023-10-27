@@ -162,6 +162,9 @@ class SiteInstanceInfoDataView {
   int32_t site_instance_group_id() const {
     return data_->site_instance_group_id;
   }
+  int32_t browsing_instance_id() const {
+    return data_->browsing_instance_id;
+  }
   bool locked() const {
     return data_->locked;
   }
@@ -490,6 +493,7 @@ struct Serializer<::mojom::SiteInstanceInfoDataView, MaybeConstUserType> {
     fragment.Allocate();
     fragment->id = Traits::id(input);
     fragment->site_instance_group_id = Traits::site_instance_group_id(input);
+    fragment->browsing_instance_id = Traits::browsing_instance_id(input);
     fragment->locked = Traits::locked(input);
     decltype(Traits::site_url(input)) in_site_url = Traits::site_url(input);
     mojo::internal::MessageFragment<

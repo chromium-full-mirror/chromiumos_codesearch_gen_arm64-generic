@@ -49,10 +49,10 @@ export class AppManagementPluginVmDetailViewElement extends AppManagementPluginV
         this.updateFromStore();
     }
     onSharedPathsClick_() {
-        Router.getInstance().navigateTo(routes.APP_MANAGEMENT_PLUGIN_VM_SHARED_PATHS, new URLSearchParams({ 'id': this.app_.id }));
+        Router.getInstance().navigateTo(routes.APP_MANAGEMENT_PLUGIN_VM_SHARED_PATHS, new URLSearchParams({ id: this.app_.id }));
     }
     onSharedUsbDevicesClick_() {
-        Router.getInstance().navigateTo(routes.APP_MANAGEMENT_PLUGIN_VM_SHARED_USB_DEVICES, new URLSearchParams({ 'id': this.app_.id }));
+        Router.getInstance().navigateTo(routes.APP_MANAGEMENT_PLUGIN_VM_SHARED_USB_DEVICES, new URLSearchParams({ id: this.app_.id }));
     }
     async onPermissionChanged_(e) {
         this.pendingPermissionItem_ =

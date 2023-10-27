@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="2" failures="0" disabled="0" errors="0" time="0.034" timestamp="2023-10-26T11:40:15.221" name="AllTests">
-  <testsuite name="InvalidFrequencyTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.014" timestamp="2023-10-26T11:40:15.237">
-    <testcase name="All" file="cras/src/tests/biquad_unittest.cc" line="13" status="run" result="completed" time="0.011" timestamp="2023-10-26T11:40:15.237" classname="InvalidFrequencyTest" />
-  </testsuite>
-  <testsuite name="InvalidQTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2023-10-26T11:40:15.253">
-    <testcase name="All" file="cras/src/tests/biquad_unittest.cc" line="163" status="run" result="completed" time="0.002" timestamp="2023-10-26T11:40:15.253" classname="InvalidQTest" />
-  </testsuite>
-</testsuites>

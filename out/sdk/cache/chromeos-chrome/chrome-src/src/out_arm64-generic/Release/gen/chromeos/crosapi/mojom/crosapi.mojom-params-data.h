@@ -56,7 +56,7 @@ class  Crosapi_BindAudioService_Params_Data {
 };
 static_assert(sizeof(Crosapi_BindAudioService_Params_Data) == 16,
               "Bad sizeof(Crosapi_BindAudioService_Params_Data)");
-class  Crosapi_BindAuthentication_Params_Data {
+class  Crosapi_REMOVED_62_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -66,13 +66,13 @@ class  Crosapi_BindAuthentication_Params_Data {
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<Crosapi_BindAuthentication_Params_Data>;
+  friend class mojo::internal::MessageFragment<Crosapi_REMOVED_62_Params_Data>;
 
-  Crosapi_BindAuthentication_Params_Data();
-  ~Crosapi_BindAuthentication_Params_Data() = delete;
+  Crosapi_REMOVED_62_Params_Data();
+  ~Crosapi_REMOVED_62_Params_Data() = delete;
 };
-static_assert(sizeof(Crosapi_BindAuthentication_Params_Data) == 16,
-              "Bad sizeof(Crosapi_BindAuthentication_Params_Data)");
+static_assert(sizeof(Crosapi_REMOVED_62_Params_Data) == 16,
+              "Bad sizeof(Crosapi_REMOVED_62_Params_Data)");
 class  Crosapi_BindAutomationFactory_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2699,12 +2699,12 @@ class Crosapi_BindAudioService_ParamsDataView {
 };
 
 
-class Crosapi_BindAuthentication_ParamsDataView {
+class Crosapi_REMOVED_62_ParamsDataView {
  public:
-  Crosapi_BindAuthentication_ParamsDataView() = default;
+  Crosapi_REMOVED_62_ParamsDataView() = default;
 
-  Crosapi_BindAuthentication_ParamsDataView(
-      internal::Crosapi_BindAuthentication_Params_Data* data,
+  Crosapi_REMOVED_62_ParamsDataView(
+      internal::Crosapi_REMOVED_62_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -2713,13 +2713,13 @@ class Crosapi_BindAuthentication_ParamsDataView {
   UserType TakeReceiver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::AuthenticationInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::crosapi::mojom::AuthenticationDeprecatedInterfaceBase>>(
             &data_->receiver, &result, message_);
     DCHECK(ret);
     return result;
   }
  private:
-  internal::Crosapi_BindAuthentication_Params_Data* data_ = nullptr;
+  internal::Crosapi_REMOVED_62_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 

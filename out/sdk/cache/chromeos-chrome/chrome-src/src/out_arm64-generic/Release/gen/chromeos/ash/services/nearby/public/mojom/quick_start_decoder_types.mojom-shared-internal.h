@@ -157,6 +157,8 @@ class  QuickStartMessage_Data {
     kUserVerificationRequested,
     
     kUserVerificationResponse,
+    
+    kUserVerificationMethod,
   };
 
   // A note on layout:
@@ -170,6 +172,7 @@ class  QuickStartMessage_Data {
     mojo::internal::Pointer<internal::FidoAssertionResponse_Data> f_fido_assertion_response;
     mojo::internal::Pointer<internal::UserVerificationRequested_Data> f_user_verification_requested;
     mojo::internal::Pointer<internal::UserVerificationResponse_Data> f_user_verification_response;
+    mojo::internal::Pointer<internal::UserVerificationMethod_Data> f_user_verification_method;
     uint64_t unknown;
   };
 

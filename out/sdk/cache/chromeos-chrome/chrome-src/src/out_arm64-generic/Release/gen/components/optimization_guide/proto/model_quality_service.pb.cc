@@ -428,6 +428,7 @@ class AiLoggingData::_Internal {
  public:
   static const ::optimization_guide::proto::LoggingMetadata& logging_metadata(const AiLoggingData* msg);
   static const ::optimization_guide::proto::ModelExecutionInfo& model_execution_info(const AiLoggingData* msg);
+  static const ::optimization_guide::proto::ComposeAiLoggingData& compose(const AiLoggingData* msg);
   static const ::optimization_guide::proto::DefaultFeatureAiLoggingData& default_(const AiLoggingData* msg);
 };
 
@@ -438,6 +439,10 @@ AiLoggingData::_Internal::logging_metadata(const AiLoggingData* msg) {
 const ::optimization_guide::proto::ModelExecutionInfo&
 AiLoggingData::_Internal::model_execution_info(const AiLoggingData* msg) {
   return *msg->model_execution_info_;
+}
+const ::optimization_guide::proto::ComposeAiLoggingData&
+AiLoggingData::_Internal::compose(const AiLoggingData* msg) {
+  return *msg->feature_.compose_;
 }
 const ::optimization_guide::proto::DefaultFeatureAiLoggingData&
 AiLoggingData::_Internal::default_(const AiLoggingData* msg) {
@@ -454,6 +459,30 @@ void AiLoggingData::clear_model_execution_info() {
     delete model_execution_info_;
   }
   model_execution_info_ = nullptr;
+}
+void AiLoggingData::set_allocated_compose(::optimization_guide::proto::ComposeAiLoggingData* compose) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_feature();
+  if (compose) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(compose));
+    if (message_arena != submessage_arena) {
+      compose = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, compose, submessage_arena);
+    }
+    set_has_compose();
+    feature_.compose_ = compose;
+  }
+  // @@protoc_insertion_point(field_set_allocated:optimization_guide.proto.AiLoggingData.compose)
+}
+void AiLoggingData::clear_compose() {
+  if (_internal_has_compose()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete feature_.compose_;
+    }
+    clear_has_feature();
+  }
 }
 void AiLoggingData::set_allocated_default_(::optimization_guide::proto::DefaultFeatureAiLoggingData* default_) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -500,6 +529,10 @@ AiLoggingData::AiLoggingData(const AiLoggingData& from)
   }
   clear_has_feature();
   switch (from.feature_case()) {
+    case kCompose: {
+      _internal_mutable_compose()->::optimization_guide::proto::ComposeAiLoggingData::MergeFrom(from._internal_compose());
+      break;
+    }
     case kDefault: {
       _internal_mutable_default_()->::optimization_guide::proto::DefaultFeatureAiLoggingData::MergeFrom(from._internal_default_());
       break;
@@ -544,6 +577,12 @@ void AiLoggingData::SetCachedSize(int size) const {
 void AiLoggingData::clear_feature() {
 // @@protoc_insertion_point(one_of_clear_start:optimization_guide.proto.AiLoggingData)
   switch (feature_case()) {
+    case kCompose: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete feature_.compose_;
+      }
+      break;
+    }
     case kDefault: {
       if (GetArenaForAllocation() == nullptr) {
         delete feature_.default__;
@@ -594,6 +633,14 @@ const char* AiLoggingData::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_model_execution_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .optimization_guide.proto.ComposeAiLoggingData compose = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_compose(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -649,6 +696,13 @@ uint8_t* AiLoggingData::_InternalSerialize(
         _Internal::model_execution_info(this).GetCachedSize(), target, stream);
   }
 
+  // .optimization_guide.proto.ComposeAiLoggingData compose = 3;
+  if (_internal_has_compose()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::compose(this),
+        _Internal::compose(this).GetCachedSize(), target, stream);
+  }
+
   // .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;
   if (_internal_has_default_()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -687,6 +741,13 @@ size_t AiLoggingData::ByteSizeLong() const {
   }
 
   switch (feature_case()) {
+    // .optimization_guide.proto.ComposeAiLoggingData compose = 3;
+    case kCompose: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *feature_.compose_);
+      break;
+    }
     // .optimization_guide.proto.DefaultFeatureAiLoggingData default = 1000;
     case kDefault: {
       total_size += 2 +
@@ -725,6 +786,10 @@ void AiLoggingData::MergeFrom(const AiLoggingData& from) {
     _internal_mutable_model_execution_info()->::optimization_guide::proto::ModelExecutionInfo::MergeFrom(from._internal_model_execution_info());
   }
   switch (from.feature_case()) {
+    case kCompose: {
+      _internal_mutable_compose()->::optimization_guide::proto::ComposeAiLoggingData::MergeFrom(from._internal_compose());
+      break;
+    }
     case kDefault: {
       _internal_mutable_default_()->::optimization_guide::proto::DefaultFeatureAiLoggingData::MergeFrom(from._internal_default_());
       break;

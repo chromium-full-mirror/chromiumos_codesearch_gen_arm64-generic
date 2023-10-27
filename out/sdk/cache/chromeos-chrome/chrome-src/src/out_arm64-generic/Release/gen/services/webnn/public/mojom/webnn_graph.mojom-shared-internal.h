@@ -44,12 +44,15 @@ class Gemm_Data;
 class Prelu_Data;
 class Relu_Data;
 class Reshape_Data;
+class Sigmoid_Data;
 class Softmax_Data;
 class Split_Data;
+class Tanh_Data;
 class Transpose_Data;
 class Resample2d_Data;
 class GraphInfo_Data;
 class PaddingMode_Data;
+class Activation_Data;
 class Operation_Data;
 
 struct InputOperandLayout_Data {
@@ -292,6 +295,67 @@ static_assert(sizeof(PaddingMode_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(PaddingMode_Data)");
 
 
+class  Activation_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  Activation_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~Activation_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<Activation_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class Activation_Tag : uint32_t {
+
+    
+    kClamp,
+    
+    kRelu,
+    
+    kSigmoid,
+    
+    kSoftmax,
+    
+    kTanh,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::Clamp_Data> f_clamp;
+    mojo::internal::Pointer<internal::Relu_Data> f_relu;
+    mojo::internal::Pointer<internal::Sigmoid_Data> f_sigmoid;
+    mojo::internal::Pointer<internal::Softmax_Data> f_softmax;
+    mojo::internal::Pointer<internal::Tanh_Data> f_tanh;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  Activation_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(Activation_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(Activation_Data)");
+
+
 class  Operation_Data {
  public:
   // Used to identify Mojom Union Data Classes.
@@ -343,11 +407,15 @@ class  Operation_Data {
     
     kReshape,
     
+    kSigmoid,
+    
     kSlice,
     
     kSoftmax,
     
     kSplit,
+    
+    kTanh,
     
     kTranspose,
   };
@@ -368,9 +436,11 @@ class  Operation_Data {
     mojo::internal::Pointer<internal::Relu_Data> f_relu;
     mojo::internal::Pointer<internal::Resample2d_Data> f_resample2d;
     mojo::internal::Pointer<internal::Reshape_Data> f_reshape;
+    mojo::internal::Pointer<internal::Sigmoid_Data> f_sigmoid;
     mojo::internal::Pointer<internal::Slice_Data> f_slice;
     mojo::internal::Pointer<internal::Softmax_Data> f_softmax;
     mojo::internal::Pointer<internal::Split_Data> f_split;
+    mojo::internal::Pointer<internal::Tanh_Data> f_tanh;
     mojo::internal::Pointer<internal::Transpose_Data> f_transpose;
     uint64_t unknown;
   };
@@ -649,7 +719,7 @@ class  Conv2d_Data {
   uint8_t bias_operand_id_$flag : 1;
   uint8_t pad8_[7];
   uint64_t bias_operand_id_$value;
-  internal::Operation_Data activation;
+  internal::Activation_Data activation;
 
  private:
   friend class mojo::internal::MessageFragment<Conv2d_Data>;
@@ -1345,6 +1415,55 @@ struct Reshape_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Reshape_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Sigmoid_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<Sigmoid_Data>;
+
+  Sigmoid_Data();
+  ~Sigmoid_Data() = delete;
+};
+static_assert(sizeof(Sigmoid_Data) == 24,
+              "Bad sizeof(Sigmoid_Data)");
+// Used by Sigmoid::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Sigmoid_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Sigmoid_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Sigmoid_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Sigmoid_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Sigmoid_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Softmax_Data {
  public:
   static bool Validate(const void* data,
@@ -1445,6 +1564,55 @@ struct Split_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Split_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Tanh_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<Tanh_Data>;
+
+  Tanh_Data();
+  ~Tanh_Data() = delete;
+};
+static_assert(sizeof(Tanh_Data) == 24,
+              "Bad sizeof(Tanh_Data)");
+// Used by Tanh::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Tanh_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Tanh_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Tanh_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Tanh_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Tanh_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Transpose_Data {
  public:
   static bool Validate(const void* data,

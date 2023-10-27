@@ -130,26 +130,26 @@ has_brands_ = true;
 
 
 
-String UADataValues::getFormFactorOr(const String& fallback_value) const {
+Vector<String> UADataValues::getFormFactorOr(const Vector<String>& fallback_value) const {
   if (!hasFormFactor()) {
   return fallback_value;
 }
 return member_form_factor_;
 }
 
-String UADataValues::getFormFactorOr(String&& fallback_value) const {
+Vector<String> UADataValues::getFormFactorOr(Vector<String>&& fallback_value) const {
   if (!hasFormFactor()) {
   return std::move(fallback_value);
 }
 return member_form_factor_;
 }
 
-void UADataValues::setFormFactor(const String& value) {
+void UADataValues::setFormFactor(const Vector<String>& value) {
   member_form_factor_ = value;
 has_form_factor_ = true;
 }
 
-void UADataValues::setFormFactor(String&& value) {
+void UADataValues::setFormFactor(Vector<String>&& value) {
   member_form_factor_ = std::move(value);
 has_form_factor_ = true;
 }
@@ -310,7 +310,7 @@ void UADataValues::Trace(Visitor* visitor) const {
   TraceIfNeeded<String>::Trace(visitor, member_architecture_);
 TraceIfNeeded<String>::Trace(visitor, member_bitness_);
 TraceIfNeeded<HeapVector<Member<NavigatorUABrandVersion>>>::Trace(visitor, member_brands_);
-TraceIfNeeded<String>::Trace(visitor, member_form_factor_);
+TraceIfNeeded<Vector<String>>::Trace(visitor, member_form_factor_);
 TraceIfNeeded<HeapVector<Member<NavigatorUABrandVersion>>>::Trace(visitor, member_full_version_list_);
 TraceIfNeeded<bool>::Trace(visitor, member_mobile_);
 TraceIfNeeded<String>::Trace(visitor, member_model_);
@@ -352,7 +352,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].G
 }
 }
 if (hasFormFactor()) {
-  if (!ToV8Traits<IDLString>::ToV8(script_state, member_form_factor_).ToLocal(&v8_value)) {
+  if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_form_factor_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
@@ -438,7 +438,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<NavigatorUABrandVersi
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("formFactor");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_form_factor_, member_form_factor_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_form_factor_, member_form_factor_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("fullVersionList");

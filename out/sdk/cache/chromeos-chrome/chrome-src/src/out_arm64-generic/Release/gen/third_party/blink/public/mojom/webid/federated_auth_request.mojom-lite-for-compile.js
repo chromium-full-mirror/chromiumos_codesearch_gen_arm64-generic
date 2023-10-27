@@ -737,28 +737,28 @@ goog.provide('blink.mojom.LogoutRpsRequestSpec');
 blink.mojom.LogoutRpsRequestSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('blink.mojom.WalletProviderSpec');
+goog.provide('blink.mojom.DigitalCredentialProviderSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.WalletProviderSpec =
+blink.mojom.DigitalCredentialProviderSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('blink.mojom.WalletSelectorSpec');
+goog.provide('blink.mojom.DigitalCredentialSelectorSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.WalletSelectorSpec =
+blink.mojom.DigitalCredentialSelectorSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('blink.mojom.WalletFieldRequirementSpec');
+goog.provide('blink.mojom.DigitalCredentialFieldRequirementSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.WalletFieldRequirementSpec =
+blink.mojom.DigitalCredentialFieldRequirementSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('blink.mojom.IdentityProviderConfigSpec');
@@ -980,8 +980,8 @@ blink.mojom.LogoutRpsRequest = class {
 
 
 mojo.internal.Struct(
-    blink.mojom.WalletProviderSpec.$,
-    'WalletProvider',
+    blink.mojom.DigitalCredentialProviderSpec.$,
+    'DigitalCredentialProvider',
     [
       mojo.internal.StructField(
         'params', 0,
@@ -994,7 +994,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'selector', 8,
         0,
-        blink.mojom.WalletSelectorSpec.$,
+        blink.mojom.DigitalCredentialSelectorSpec.$,
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -1004,14 +1004,14 @@ mojo.internal.Struct(
 
 
 
-goog.provide('blink.mojom.WalletProvider');
+goog.provide('blink.mojom.DigitalCredentialProvider');
 
 /** @record */
-blink.mojom.WalletProvider = class {
+blink.mojom.DigitalCredentialProvider = class {
   constructor() {
     /** @export { !Object<!string, !string> } */
     this.params;
-    /** @export { !blink.mojom.WalletSelector } */
+    /** @export { !blink.mojom.DigitalCredentialSelector } */
     this.selector;
   }
 };
@@ -1019,8 +1019,8 @@ blink.mojom.WalletProvider = class {
 
 
 mojo.internal.Struct(
-    blink.mojom.WalletSelectorSpec.$,
-    'WalletSelector',
+    blink.mojom.DigitalCredentialSelectorSpec.$,
+    'DigitalCredentialSelector',
     [
       mojo.internal.StructField(
         'format', 0,
@@ -1041,7 +1041,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'fields', 16,
         0,
-        mojo.internal.Array(blink.mojom.WalletFieldRequirementSpec.$, false),
+        mojo.internal.Array(blink.mojom.DigitalCredentialFieldRequirementSpec.$, false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -1051,16 +1051,16 @@ mojo.internal.Struct(
 
 
 
-goog.provide('blink.mojom.WalletSelector');
+goog.provide('blink.mojom.DigitalCredentialSelector');
 
 /** @record */
-blink.mojom.WalletSelector = class {
+blink.mojom.DigitalCredentialSelector = class {
   constructor() {
     /** @export { !Array<!string> } */
     this.format;
     /** @export { (string|undefined) } */
     this.doctype;
-    /** @export { !Array<!blink.mojom.WalletFieldRequirement> } */
+    /** @export { !Array<!blink.mojom.DigitalCredentialFieldRequirement> } */
     this.fields;
   }
 };
@@ -1068,8 +1068,8 @@ blink.mojom.WalletSelector = class {
 
 
 mojo.internal.Struct(
-    blink.mojom.WalletFieldRequirementSpec.$,
-    'WalletFieldRequirement',
+    blink.mojom.DigitalCredentialFieldRequirementSpec.$,
+    'DigitalCredentialFieldRequirement',
     [
       mojo.internal.StructField(
         'name', 0,
@@ -1092,10 +1092,10 @@ mojo.internal.Struct(
 
 
 
-goog.provide('blink.mojom.WalletFieldRequirement');
+goog.provide('blink.mojom.DigitalCredentialFieldRequirement');
 
 /** @record */
-blink.mojom.WalletFieldRequirement = class {
+blink.mojom.DigitalCredentialFieldRequirement = class {
   constructor() {
     /** @export { !string } */
     this.name;
@@ -1885,14 +1885,14 @@ mojo.internal.Union(
       },
       'holder': {
         'ordinal': 1,
-        'type': blink.mojom.WalletProviderSpec.$,
+        'type': blink.mojom.DigitalCredentialProviderSpec.$,
       },
     });
 
 /**
  * @typedef { {
  *   federated: (!blink.mojom.IdentityProviderConfig|undefined),
- *   holder: (!blink.mojom.WalletProvider|undefined),
+ *   holder: (!blink.mojom.DigitalCredentialProvider|undefined),
  * } }
  */
 blink.mojom.IdentityProvider;

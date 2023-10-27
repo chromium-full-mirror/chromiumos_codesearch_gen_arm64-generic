@@ -111,13 +111,14 @@ bool RequestContext_IsValid(int value) {
     case 8:
     case 9:
     case 11:
+    case 12:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RequestContext_strings[9] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RequestContext_strings[10] = {};
 
 static const char RequestContext_names[] =
   "CONTEXT_BATCH_UPDATE_ACTIVE_TABS"
@@ -126,6 +127,7 @@ static const char RequestContext_names[] =
   "CONTEXT_BOOKMARKS"
   "CONTEXT_JOURNEYS"
   "CONTEXT_NEW_TAB_PAGE"
+  "CONTEXT_NON_PERSONALIZED_PAGE_INSIGHTS_HUB"
   "CONTEXT_PAGE_INSIGHTS_HUB"
   "CONTEXT_PAGE_NAVIGATION"
   "CONTEXT_UNSPECIFIED";
@@ -137,21 +139,23 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RequestContext_entries
   { {RequestContext_names + 90, 17}, 7 },
   { {RequestContext_names + 107, 16}, 8 },
   { {RequestContext_names + 123, 20}, 9 },
-  { {RequestContext_names + 143, 25}, 11 },
-  { {RequestContext_names + 168, 23}, 2 },
-  { {RequestContext_names + 191, 19}, 0 },
+  { {RequestContext_names + 143, 42}, 12 },
+  { {RequestContext_names + 185, 25}, 11 },
+  { {RequestContext_names + 210, 23}, 2 },
+  { {RequestContext_names + 233, 19}, 0 },
 };
 
 static const int RequestContext_entries_by_number[] = {
-  8, // 0 -> CONTEXT_UNSPECIFIED
-  7, // 2 -> CONTEXT_PAGE_NAVIGATION
+  9, // 0 -> CONTEXT_UNSPECIFIED
+  8, // 2 -> CONTEXT_PAGE_NAVIGATION
   1, // 4 -> CONTEXT_BATCH_UPDATE_GOOGLE_SRP
   0, // 5 -> CONTEXT_BATCH_UPDATE_ACTIVE_TABS
   2, // 6 -> CONTEXT_BATCH_UPDATE_MODELS
   3, // 7 -> CONTEXT_BOOKMARKS
   4, // 8 -> CONTEXT_JOURNEYS
   5, // 9 -> CONTEXT_NEW_TAB_PAGE
-  6, // 11 -> CONTEXT_PAGE_INSIGHTS_HUB
+  7, // 11 -> CONTEXT_PAGE_INSIGHTS_HUB
+  6, // 12 -> CONTEXT_NON_PERSONALIZED_PAGE_INSIGHTS_HUB
 };
 
 const std::string& RequestContext_Name(
@@ -160,12 +164,12 @@ const std::string& RequestContext_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RequestContext_entries,
           RequestContext_entries_by_number,
-          9, RequestContext_strings);
+          10, RequestContext_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RequestContext_entries,
       RequestContext_entries_by_number,
-      9, value);
+      10, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RequestContext_strings[idx].get();
 }
@@ -173,7 +177,7 @@ bool RequestContext_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RequestContext* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RequestContext_entries, 9, name, &int_value);
+      RequestContext_entries, 10, name, &int_value);
   if (success) {
     *value = static_cast<RequestContext>(int_value);
   }

@@ -101,7 +101,6 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             },
             actionList: {
                 type: Array,
-                observer: 'setUpButtonMapTargets_',
             },
             removeTopBorder: {
                 type: Boolean,
@@ -149,7 +148,8 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     static get observers() {
         return [
             'onSettingsChanged(fakePref_.*)',
-            'initializeCustomizeKey(buttonRemappingList.*, remappingIndex)',
+            'initializeCustomizeKey(buttonRemappingList.*, remappingIndex, ' +
+                'actionList)',
         ];
     }
     connectedCallback() {
@@ -180,6 +180,7 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             dropdown.value =
                 option === undefined ? NO_REMAPPING_OPTION_VALUE : originalAction;
             this.prevChoice_ = dropdown.value;
+            dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
         });
     }
     /**
@@ -253,6 +254,7 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
                 this.i18n('keyCombinationOptionLabel');
             microTask.run(() => {
                 dropdown.value = KEY_COMBINATION_OPTION_VALUE;
+                dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
                 this.prevChoice_ = dropdown.value;
             });
         }
@@ -266,6 +268,7 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             this.set('fakePref_.value', NO_REMAPPING_OPTION_VALUE);
             microTask.run(() => {
                 dropdown.value = NO_REMAPPING_OPTION_VALUE;
+                dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
                 this.prevChoice_ = dropdown.value;
             });
         }
@@ -431,6 +434,16 @@ export class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     }
     isDropdownDisabled_() {
         return this.isBeingDragged_;
+    }
+    getDropdownAriaLabel_() {
+        const select = this.$.remappingActionDropdown;
+        const optionLabel = select.options[select.selectedIndex] ?
+            select.options[select.selectedIndex].text :
+            this.i18n('noRemappingOptionLabel');
+        if (!this.buttonRemappingName_) {
+            return optionLabel;
+        }
+        return this.i18n('buttonRemappingDropdownAriaLabel', this.buttonRemappingName_, optionLabel);
     }
 }
 customElements.define(CustomizeButtonRowElement.is, CustomizeButtonRowElement);

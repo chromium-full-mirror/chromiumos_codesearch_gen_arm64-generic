@@ -32,6 +32,7 @@
 #include "services/accessibility/public/mojom/user_interface.mojom-shared.h"
 #include "services/accessibility/public/mojom/assistive_technology_type.mojom-shared.h"
 #include "services/accessibility/public/mojom/file_loader.mojom-shared.h"
+#include "services/accessibility/public/mojom/autoclick.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

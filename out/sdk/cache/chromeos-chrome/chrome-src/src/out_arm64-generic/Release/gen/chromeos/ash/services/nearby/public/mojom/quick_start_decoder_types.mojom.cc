@@ -419,6 +419,17 @@ void QuickStartMessage::set_user_verification_response(
         std::move(user_verification_response));
   }
 }
+void QuickStartMessage::set_user_verification_method(
+    UserVerificationMethodPtr user_verification_method) {
+  if (tag_ == Tag::kUserVerificationMethod) {
+    *(data_.user_verification_method) = std::move(user_verification_method);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUserVerificationMethod;
+    data_.user_verification_method = new UserVerificationMethodPtr(
+        std::move(user_verification_method));
+  }
+}
 
 void QuickStartMessage::DestroyActive() {
   switch (tag_) {
@@ -446,6 +457,10 @@ void QuickStartMessage::DestroyActive() {
     case Tag::kUserVerificationResponse:
 
       delete data_.user_verification_response;
+      break;
+    case Tag::kUserVerificationMethod:
+
+      delete data_.user_verification_method;
       break;
   }
 }
@@ -634,6 +649,15 @@ bool UnionTraits<::ash::quick_start::mojom::QuickStartMessage::DataView, ::ash::
 
       *output = UnionType::NewUserVerificationResponse(
           std::move(result_user_verification_response));
+      break;
+    }
+    case Tag::kUserVerificationMethod: {
+      ::ash::quick_start::mojom::UserVerificationMethodPtr result_user_verification_method;
+      if (!input.ReadUserVerificationMethod(&result_user_verification_method))
+        return false;
+
+      *output = UnionType::NewUserVerificationMethod(
+          std::move(result_user_verification_method));
       break;
     }
     default:

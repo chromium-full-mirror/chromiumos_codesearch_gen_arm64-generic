@@ -44,14 +44,14 @@
 
 namespace ash::color_internals::mojom {
 WallpaperCalculatedColors::WallpaperCalculatedColors()
-    : prominent_colors(),
-      k_mean_color() {}
+    : k_mean_color(),
+      celebi_color() {}
 
 WallpaperCalculatedColors::WallpaperCalculatedColors(
-    std::vector<::SkColor> prominent_colors_in,
-    ::SkColor k_mean_color_in)
-    : prominent_colors(std::move(prominent_colors_in)),
-      k_mean_color(std::move(k_mean_color_in)) {}
+    ::SkColor k_mean_color_in,
+    ::SkColor celebi_color_in)
+    : k_mean_color(std::move(k_mean_color_in)),
+      celebi_color(std::move(celebi_color_in)) {}
 
 WallpaperCalculatedColors::~WallpaperCalculatedColors() = default;
 
@@ -60,16 +60,16 @@ void WallpaperCalculatedColors::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "prominent_colors"), this->prominent_colors,
+      "k_mean_color"), this->k_mean_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<::SkColor>&>"
+      "<value of type ::SkColor>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "k_mean_color"), this->k_mean_color,
+      "celebi_color"), this->celebi_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::SkColor>"
 #else
@@ -433,9 +433,9 @@ bool StructTraits<::ash::color_internals::mojom::WallpaperCalculatedColors::Data
   bool success = true;
   ::ash::color_internals::mojom::WallpaperCalculatedColorsPtr result(::ash::color_internals::mojom::WallpaperCalculatedColors::New());
   
-      if (success && !input.ReadProminentColors(&result->prominent_colors))
-        success = false;
       if (success && !input.ReadMeanColor(&result->k_mean_color))
+        success = false;
+      if (success && !input.ReadCelebiColor(&result->celebi_color))
         success = false;
   *output = std::move(result);
   return success;

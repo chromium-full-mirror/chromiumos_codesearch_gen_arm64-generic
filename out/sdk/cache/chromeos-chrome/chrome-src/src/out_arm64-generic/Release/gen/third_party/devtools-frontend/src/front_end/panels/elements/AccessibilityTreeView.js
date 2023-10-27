@@ -4,6 +4,7 @@
 import * as SDK from '../../core/sdk/sdk.js';
 import * as TreeOutline from '../../ui/components/tree_outline/tree_outline.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
 import * as AccessibilityTreeUtils from './AccessibilityTreeUtils.js';
 import accessibilityTreeViewStyles from './accessibilityTreeView.css.js';
 import { ElementsPanel } from './ElementsPanel.js';
@@ -20,6 +21,7 @@ export class AccessibilityTreeView extends UI.Widget.VBox {
         this.accessibilityTreeComponent = accessibilityTreeComponent;
         const container = this.contentElement.createChild('div');
         container.classList.add('accessibility-tree-view-container');
+        container.setAttribute('jslog', `${VisualLogging.fullAccessibilityTree()}`);
         container.appendChild(this.toggleButton);
         container.appendChild(this.accessibilityTreeComponent);
         SDK.TargetManager.TargetManager.instance().observeModels(SDK.AccessibilityModel.AccessibilityModel, this, { scoped: true });

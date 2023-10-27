@@ -115,12 +115,13 @@ class  SiteInstanceInfo_Data {
   mojo::internal::StructHeader header_;
   int32_t id;
   int32_t site_instance_group_id;
+  int32_t browsing_instance_id;
   uint8_t locked : 1;
   uint8_t requires_origin_keyed_process : 1;
   uint8_t is_sandbox_for_iframes : 1;
   uint8_t is_guest : 1;
   uint8_t is_pdf : 1;
-  uint8_t pad6_[7];
+  uint8_t pad7_[3];
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> site_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> process_lock_url;
   mojo::internal::Pointer<mojo::internal::String_Data> storage_partition;

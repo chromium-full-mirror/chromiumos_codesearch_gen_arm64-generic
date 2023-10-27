@@ -1381,6 +1381,9 @@ PhishingModelSetter::IPCStableHashFunction PhishingModelSetter::MessageToMethodI
     case internal::kPhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Name: {
       return &PhishingModelSetter::SetImageEmbeddingAndPhishingFlatBufferModel_Sym::IPCStableHash;
     }
+    case internal::kPhishingModelSetter_AttachImageEmbeddingModel_Name: {
+      return &PhishingModelSetter::AttachImageEmbeddingModel_Sym::IPCStableHash;
+    }
     case internal::kPhishingModelSetter_SetPhishingFlatBufferModel_Name: {
       return &PhishingModelSetter::SetPhishingFlatBufferModel_Sym::IPCStableHash;
     }
@@ -1403,6 +1406,8 @@ const char* PhishingModelSetter::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kPhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Name:
             return "Receive safe_browsing::mojom::PhishingModelSetter::SetImageEmbeddingAndPhishingFlatBufferModel";
+      case internal::kPhishingModelSetter_AttachImageEmbeddingModel_Name:
+            return "Receive safe_browsing::mojom::PhishingModelSetter::AttachImageEmbeddingModel";
       case internal::kPhishingModelSetter_SetPhishingFlatBufferModel_Name:
             return "Receive safe_browsing::mojom::PhishingModelSetter::SetPhishingFlatBufferModel";
       case internal::kPhishingModelSetter_ClearScorer_Name:
@@ -1414,6 +1419,8 @@ const char* PhishingModelSetter::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kPhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Name:
             return "Receive reply safe_browsing::mojom::PhishingModelSetter::SetImageEmbeddingAndPhishingFlatBufferModel";
+      case internal::kPhishingModelSetter_AttachImageEmbeddingModel_Name:
+            return "Receive reply safe_browsing::mojom::PhishingModelSetter::AttachImageEmbeddingModel";
       case internal::kPhishingModelSetter_SetPhishingFlatBufferModel_Name:
             return "Receive reply safe_browsing::mojom::PhishingModelSetter::SetPhishingFlatBufferModel";
       case internal::kPhishingModelSetter_ClearScorer_Name:
@@ -1443,6 +1450,19 @@ uint32_t PhishingModelSetter::SetImageEmbeddingAndPhishingFlatBufferModel_Sym::I
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)safe_browsing::mojom::PhishingModelSetter::SetImageEmbeddingAndPhishingFlatBufferModel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PhishingModelSetter::AttachImageEmbeddingModel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)safe_browsing::mojom::PhishingModelSetter::AttachImageEmbeddingModel");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1509,7 +1529,7 @@ PhishingModelSetterProxy::PhishingModelSetterProxy(mojo::MessageReceiverWithResp
 }
 
 void PhishingModelSetterProxy::SetImageEmbeddingAndPhishingFlatBufferModel(
-    ::base::ReadOnlySharedMemoryRegion in_region, ::base::File in_tflite_model, ::base::File in_image_embedding_model_) {
+    ::base::ReadOnlySharedMemoryRegion in_region, ::base::File in_tflite_model, ::base::File in_image_embedding_model) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send safe_browsing::mojom::PhishingModelSetter::SetImageEmbeddingAndPhishingFlatBufferModel", "input_parameters",
@@ -1522,7 +1542,7 @@ void PhishingModelSetterProxy::SetImageEmbeddingAndPhishingFlatBufferModel(
            dict.AddItem("tflite_model"), in_tflite_model,
                         "<value of type ::base::File>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("image_embedding_model_"), in_image_embedding_model_,
+           dict.AddItem("image_embedding_model"), in_image_embedding_model,
                         "<value of type ::base::File>");
    });
 #endif
@@ -1560,16 +1580,60 @@ void PhishingModelSetterProxy::SetImageEmbeddingAndPhishingFlatBufferModel(
   params->tflite_model.Set(
       tflite_model_fragment.is_null() ? nullptr : tflite_model_fragment.data());
   mojo::internal::MessageFragment<
-      typename decltype(params->image_embedding_model_)::BaseType> image_embedding_model__fragment(
+      typename decltype(params->image_embedding_model)::BaseType> image_embedding_model_fragment(
           params.message());
   mojo::internal::Serialize<::mojo_base::mojom::ReadOnlyFileDataView>(
-      in_image_embedding_model_, image_embedding_model__fragment);
-  params->image_embedding_model_.Set(
-      image_embedding_model__fragment.is_null() ? nullptr : image_embedding_model__fragment.data());
+      in_image_embedding_model, image_embedding_model_fragment);
+  params->image_embedding_model.Set(
+      image_embedding_model_fragment.is_null() ? nullptr : image_embedding_model_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PhishingModelSetter::Name_);
   message.set_method_name("SetImageEmbeddingAndPhishingFlatBufferModel");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PhishingModelSetterProxy::AttachImageEmbeddingModel(
+    ::base::File in_image_embedding_model) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send safe_browsing::mojom::PhishingModelSetter::AttachImageEmbeddingModel", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("image_embedding_model"), in_image_embedding_model,
+                        "<value of type ::base::File>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kPhishingModelSetter_AttachImageEmbeddingModel_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::safe_browsing::mojom::internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->image_embedding_model)::BaseType> image_embedding_model_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::ReadOnlyFileDataView>(
+      in_image_embedding_model, image_embedding_model_fragment);
+  params->image_embedding_model.Set(
+      image_embedding_model_fragment.is_null() ? nullptr : image_embedding_model_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PhishingModelSetter::Name_);
+  message.set_method_name("AttachImageEmbeddingModel");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1768,7 +1832,7 @@ bool PhishingModelSetter_SetTestObserver_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PhishingModelSetter::Name_, 3, true);
+        PhishingModelSetter::Name_, 4, true);
     return false;
   }
   if (!callback_.is_null())
@@ -1825,14 +1889,14 @@ bool PhishingModelSetterStubDispatch::Accept(
       bool success = true;
       ::base::ReadOnlySharedMemoryRegion p_region{};
       ::base::File p_tflite_model{};
-      ::base::File p_image_embedding_model_{};
+      ::base::File p_image_embedding_model{};
       PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRegion(&p_region))
         success = false;
       if (success && !input_data_view.ReadTfliteModel(&p_tflite_model))
         success = false;
-      if (success && !input_data_view.ReadImageEmbeddingModel(&p_image_embedding_model_))
+      if (success && !input_data_view.ReadImageEmbeddingModel(&p_image_embedding_model))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -1846,7 +1910,33 @@ bool PhishingModelSetterStubDispatch::Accept(
       impl->SetImageEmbeddingAndPhishingFlatBufferModel(
 std::move(p_region), 
 std::move(p_tflite_model), 
-std::move(p_image_embedding_model_));
+std::move(p_image_embedding_model));
+      return true;
+    }
+    case internal::kPhishingModelSetter_AttachImageEmbeddingModel_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data* params =
+          reinterpret_cast<internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::base::File p_image_embedding_model{};
+      PhishingModelSetter_AttachImageEmbeddingModel_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadImageEmbeddingModel(&p_image_embedding_model))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PhishingModelSetter::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->AttachImageEmbeddingModel(
+std::move(p_image_embedding_model));
       return true;
     }
     case internal::kPhishingModelSetter_SetPhishingFlatBufferModel_Name: {
@@ -1869,7 +1959,7 @@ std::move(p_image_embedding_model_));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PhishingModelSetter::Name_, 1, false);
+            PhishingModelSetter::Name_, 2, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1893,7 +1983,7 @@ std::move(p_tflite_model));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PhishingModelSetter::Name_, 2, false);
+            PhishingModelSetter::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1918,6 +2008,9 @@ bool PhishingModelSetterStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kPhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Name: {
+      break;
+    }
+    case internal::kPhishingModelSetter_AttachImageEmbeddingModel_Name: {
       break;
     }
     case internal::kPhishingModelSetter_SetPhishingFlatBufferModel_Name: {
@@ -1945,7 +2038,7 @@ bool PhishingModelSetterStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PhishingModelSetter::Name_, 3, false);
+            PhishingModelSetter::Name_, 4, false);
         return false;
       }
       PhishingModelSetter::SetTestObserverCallback callback =
@@ -1964,6 +2057,8 @@ std::move(p_observer), std::move(callback));
 
 static const mojo::internal::GenericValidationInfo kPhishingModelSetterValidationInfo[] = {
     {&internal::PhishingModelSetter_SetImageEmbeddingAndPhishingFlatBufferModel_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::PhishingModelSetter_AttachImageEmbeddingModel_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::PhishingModelSetter_SetPhishingFlatBufferModel_Params_Data::Validate,
      nullptr /* no response */},
@@ -2923,8 +3018,11 @@ void PhishingDetectorAsyncWaiter::StartPhishingDetection(
 
 
 
-void PhishingModelSetterInterceptorForTesting::SetImageEmbeddingAndPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model, ::base::File image_embedding_model_) {
-  GetForwardingInterface()->SetImageEmbeddingAndPhishingFlatBufferModel(std::move(region), std::move(tflite_model), std::move(image_embedding_model_));
+void PhishingModelSetterInterceptorForTesting::SetImageEmbeddingAndPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model, ::base::File image_embedding_model) {
+  GetForwardingInterface()->SetImageEmbeddingAndPhishingFlatBufferModel(std::move(region), std::move(tflite_model), std::move(image_embedding_model));
+}
+void PhishingModelSetterInterceptorForTesting::AttachImageEmbeddingModel(::base::File image_embedding_model) {
+  GetForwardingInterface()->AttachImageEmbeddingModel(std::move(image_embedding_model));
 }
 void PhishingModelSetterInterceptorForTesting::SetPhishingFlatBufferModel(::base::ReadOnlySharedMemoryRegion region, ::base::File tflite_model) {
   GetForwardingInterface()->SetPhishingFlatBufferModel(std::move(region), std::move(tflite_model));

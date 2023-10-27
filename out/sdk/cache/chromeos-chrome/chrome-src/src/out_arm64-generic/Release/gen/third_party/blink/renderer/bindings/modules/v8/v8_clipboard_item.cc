@@ -16,6 +16,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
+#include "third_party/blink/renderer/core/frame/web_feature.h"
 #include "third_party/blink/renderer/modules/clipboard/clipboard_item.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/idl_member_installer.h"
@@ -23,6 +24,7 @@
 #include "third_party/blink/renderer/platform/bindings/v8_binding.h"
 #include "third_party/blink/renderer/platform/bindings/v8_object_constructor.h"
 #include "third_party/blink/renderer/platform/bindings/wrapper_type_info.h"
+#include "third_party/blink/renderer/platform/instrumentation/use_counter.h"
 
 namespace blink {
 
@@ -178,6 +180,47 @@ if (UNLIKELY(exception_state.HadException())) {
 bindings::V8SetReturnValue(info, return_value);
 }
 
+void SupportsStaticOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ClipboardItem_supports");
+BLINK_BINDINGS_TRACE_EVENT("ClipboardItem.supports");
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
+// [Measure], [MeasureAs]
+UseCounter::Count(current_execution_context, WebFeature::kV8ClipboardItem_Supports_Method);
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "ClipboardItem";
+const char* const property_name = "supports";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_type;
+if (LIKELY(info[0]->IsString())) {
+  arg1_type.Init(info[0].As<v8::String>());
+} else {
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "ClipboardItem";
+const char* const property_name = "supports";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+}
+auto&& return_value = ClipboardItem::supports(arg1_type);
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
 
 }  // namespace v8_clipboard_item
 
@@ -204,6 +247,7 @@ interface_function_template->SetLength(1);
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
+InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8ClipboardItem::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -233,6 +277,24 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
+void V8ClipboardItem::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+if (RuntimeEnabledFeatures::ClipboardSupportedTypesEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"supports", SupportsStaticOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+
+
+}
 
 
 
