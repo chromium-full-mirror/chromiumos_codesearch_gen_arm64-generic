@@ -1,16 +1,16 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_CELLULAR=true -DUSE_IWLWIFI_DUMP=false
-include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3790/work/debugd-0.0.1 -I/build/arm64-generic/usr/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -pthread -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/user_data_auth-client -pthread
-cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fvisibility=default -flto=thin -fsanitize=cfi-derived-cast -fsanitize=cfi-icall -fsanitize=cfi-vcall -fsanitize=cfi-unrelated-cast -fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3789/files/cfi-ignore.txt -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fvisibility=default -flto=thin -fsanitize=cfi-derived-cast -fsanitize=cfi-icall -fsanitize=cfi-vcall -fsanitize=cfi-unrelated-cast -fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3790/files/cfi-ignore.txt -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = icmp
 
-build obj/debugd/src/helpers/icmp.icmp.o: cxx ../../../../../../../../../mnt/host/source/src/platform2/debugd/src/helpers/icmp.cc
+build obj/debugd/src/helpers/icmp.icmp.o: cxx ../../../../../../../tmp/portage/chromeos-base/debugd-0.0.1-r3790/work/debugd-0.0.1/debugd/src/helpers/icmp.cc
   source_file_part = icmp.cc
   source_name_part = icmp
 
 build ./icmp: link obj/debugd/src/helpers/icmp.icmp.o || obj/debugd/_icmp-install_config.stamp
-  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -fvisibility=default -flto=thin -fsanitize=cfi-derived-cast -fsanitize=cfi-icall -fsanitize=cfi-vcall -fsanitize=cfi-unrelated-cast -fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3789/files/cfi-ignore.txt -Wl,--lto-O0 -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -L/build/arm64-generic/usr/lib64
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,--fix-cortex-a53-843419 -Wl,--gc-sections -Wl,--icf=all -fvisibility=default -flto=thin -fsanitize=cfi-derived-cast -fsanitize=cfi-icall -fsanitize=cfi-vcall -fsanitize=cfi-unrelated-cast -fsanitize-ignorelist=/build/arm64-generic/tmp/portage/chromeos-base/debugd-0.0.1-r3790/files/cfi-ignore.txt -Wl,--lto-O0 -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed --sysroot=/build/arm64-generic -pie -pthread -L/build/arm64-generic/usr/lib64
   libs = -ldbus-1 -lbrillo -lbase -lpthread -llzma -lmetrics -lminijail -lvboot_host -ldl -lre2
   frameworks =
   swiftmodules =

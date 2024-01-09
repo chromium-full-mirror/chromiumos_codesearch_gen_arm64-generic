@@ -1,50 +1,50 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_DBUS=true -DUSE_RTTI_FOR_TYPE_TAGS=1 -DUSE_ENTERPRISE_ROLLBACK_REVEN=false
-include_dirs = -Igen/include -I../../../../../../../mnt/host/source/src/platform2 -I../../../../../../../mnt/host/source/src/platform2/libbrillo
+include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1 -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include
 cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libbrillo-dbus
 
-build obj/libbrillo/brillo/libbrillo-dbus.any.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/any.cc
+build obj/libbrillo/brillo/libbrillo-dbus.any.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/any.cc
   source_file_part = any.cc
   source_name_part = any
-build obj/libbrillo/brillo/daemons/libbrillo-dbus.dbus_daemon.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/daemons/dbus_daemon.cc
+build obj/libbrillo/brillo/daemons/libbrillo-dbus.dbus_daemon.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/daemons/dbus_daemon.cc
   source_file_part = dbus_daemon.cc
   source_name_part = dbus_daemon
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.async_event_sequencer.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/async_event_sequencer.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.async_event_sequencer.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/async_event_sequencer.cc
   source_file_part = async_event_sequencer.cc
   source_name_part = async_event_sequencer
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.data_serialization.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/data_serialization.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.data_serialization.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/data_serialization.cc
   source_file_part = data_serialization.cc
   source_name_part = data_serialization
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_connection.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/dbus_connection.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_connection.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/dbus_connection.cc
   source_file_part = dbus_connection.cc
   source_name_part = dbus_connection
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_method_invoker.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/dbus_method_invoker.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_method_invoker.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/dbus_method_invoker.cc
   source_file_part = dbus_method_invoker.cc
   source_name_part = dbus_method_invoker
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_method_response.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/dbus_method_response.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_method_response.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/dbus_method_response.cc
   source_file_part = dbus_method_response.cc
   source_name_part = dbus_method_response
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_object.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/dbus_object.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_object.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/dbus_object.cc
   source_file_part = dbus_object.cc
   source_name_part = dbus_object
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_proxy_util.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/dbus_proxy_util.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_proxy_util.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/dbus_proxy_util.cc
   source_file_part = dbus_proxy_util.cc
   source_name_part = dbus_proxy_util
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_service_watcher.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/dbus_service_watcher.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_service_watcher.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/dbus_service_watcher.cc
   source_file_part = dbus_service_watcher.cc
   source_name_part = dbus_service_watcher
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_signal.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/dbus_signal.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.dbus_signal.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/dbus_signal.cc
   source_file_part = dbus_signal.cc
   source_name_part = dbus_signal
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.exported_object_manager.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/exported_object_manager.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.exported_object_manager.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/exported_object_manager.cc
   source_file_part = exported_object_manager.cc
   source_name_part = exported_object_manager
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.exported_property_set.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/exported_property_set.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.exported_property_set.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/exported_property_set.cc
   source_file_part = exported_property_set.cc
   source_name_part = exported_property_set
-build obj/libbrillo/brillo/dbus/libbrillo-dbus.utils.o: cxx ../../../../../../../mnt/host/source/src/platform2/libbrillo/brillo/dbus/utils.cc
+build obj/libbrillo/brillo/dbus/libbrillo-dbus.utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/dbus/utils.cc
   source_file_part = utils.cc
   source_name_part = utils
 

@@ -38,11 +38,11 @@ build obj/device_management/_device_management_client-install_config.stamp: stam
 build obj/device_management/_device_managementd-install_config.stamp: stamp
 build obj/device_management/all.stamp: stamp ./device_management_client ./device_managementd obj/device_management/install_init.stamp obj/device_management/install_minijail_conf.stamp obj/device_management/install_policy.stamp obj/device_management/install_systemd.stamp obj/device_management/install_tmpfiles_config.stamp
 rule __device_management_device_management_adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/device_management/out/Default/gen/include/device_management/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/device_management/dbus_bindings/dbus-service-config-device_management.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r194/work/device_management-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/device_management/out/Default/gen/include/device_management/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/device_management-0.0.1-r194/work/device_management-0.0.1/device_management/dbus_bindings/dbus-service-config-device_management.json ${in}
   description = ACTION //device_management:device_management_adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/device_management/dbus_adaptors/org.chromium.DeviceManagement.h: __device_management_device_management_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/device_management/dbus_bindings/org.chromium.DeviceManagement.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+build gen/include/device_management/dbus_adaptors/org.chromium.DeviceManagement.h: __device_management_device_management_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r194/work/device_management-0.0.1/device_management/dbus_bindings/org.chromium.DeviceManagement.xml | ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r194/work/device_management-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.DeviceManagement
 
 build obj/device_management/device_management_adaptors.stamp: stamp gen/include/device_management/dbus_adaptors/org.chromium.DeviceManagement.h
@@ -55,11 +55,11 @@ build obj/device_management/install_policy.stamp: stamp
 build obj/device_management/install_systemd.stamp: stamp
 build obj/device_management/install_tmpfiles_config.stamp: stamp
 rule __device_management_print_proto_library___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/proto_print.py --subdir common --proto-include device_management/proto_bindings --output-dir /build/arm64-generic/var/cache/portage/chromeos-base/device_management/out/Default/gen/device_management/common /build/arm64-generic/usr/include/chromeos/dbus/device_management/device_management_interface.proto
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r194/work/device_management-0.0.1/libhwsec-foundation/utility/proto_print.py --subdir common --proto-include device_management/proto_bindings --output-dir /build/arm64-generic/var/cache/portage/chromeos-base/device_management/out/Default/gen/device_management/common /build/arm64-generic/usr/include/chromeos/dbus/device_management/device_management_interface.proto
   description = ACTION //device_management:print_proto_library(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/device_management/common/print_device_management_interface_proto.cc: __device_management_print_proto_library___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/utility/proto_print.py ../../../../../../../usr/include/chromeos/dbus/device_management/device_management_interface.proto
+build gen/device_management/common/print_device_management_interface_proto.cc: __device_management_print_proto_library___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r194/work/device_management-0.0.1/libhwsec-foundation/utility/proto_print.py ../../../../../../../usr/include/chromeos/dbus/device_management/device_management_interface.proto
 
 build obj/device_management/print_proto_library.stamp: stamp gen/device_management/common/print_device_management_interface_proto.cc
 subninja obj/device_management/proto_library.ninja

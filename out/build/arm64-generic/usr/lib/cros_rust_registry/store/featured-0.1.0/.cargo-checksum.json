@@ -1,16 +1,16 @@
 {
 	"package": "bdf17c61015a20ae6083830ca59bad95f81d5aa8db9ebb8b5cbf890741302629",
 	"files": {
-		"build_bindings.sh": "c85a31a383064acc8f438ef2a449b902e88a4b9f2addcf493245fe8211602a4c",
-		"Cargo.lock": "06e6baaa6786eb3a0b6f0f08c4b51d772e3764f5dd5c999045aba1bda8af6e54",
-		"Cargo.toml.orig": "0ef7361b4c24f6a5184c55da47151c3386c1f3ca2514b53a2ccc0b0bb9e6baa0",
-		"OWNERS": "5472cb43b9bc646ebe2a48a6a81dd82346c91de78084c561fa8aa6566d61f07c",
 		"build.rs": "8c0972725e5df16c91d58342eb9d971a7ccafe11c02bf090d9746a6895c50f23",
+		"examples/fake_feature_check.rs": "3a631ee1fb2571a43b2826eadf6e2348ac84842fdf75e1f63f0ec604a492598f",
+		"examples/feature_check.rs": "6f3356e0cb14514000dd16223a1748ef6a6366e45863f4f45b10722e2c693024",
+		"README.md": "6aef8a01717b508f095c9e6508f8954bc914ce7a4014379f85b3819eb9051514",
+		"build_bindings.sh": "c85a31a383064acc8f438ef2a449b902e88a4b9f2addcf493245fe8211602a4c",
+		"Cargo.toml.orig": "0ef7361b4c24f6a5184c55da47151c3386c1f3ca2514b53a2ccc0b0bb9e6baa0",
 		"src/bindings.rs": "3722edf5280f2ce1d688280c35bba8afab639e0619b4f710506d12ba6002efc5",
 		"src/lib.rs": "c62eebaf9cbe74b598cc3440325860a45628657041efd11b71a1954b2942fb76",
-		"README.md": "6aef8a01717b508f095c9e6508f8954bc914ce7a4014379f85b3819eb9051514",
 		"Cargo.toml": "aaa2516bd1b2cfe8921f8a6f0e2a7af3da522f7d3d5875654ec332ccfe7e71ac",
-		"examples/fake_feature_check.rs": "3a631ee1fb2571a43b2826eadf6e2348ac84842fdf75e1f63f0ec604a492598f",
-		"examples/feature_check.rs": "6f3356e0cb14514000dd16223a1748ef6a6366e45863f4f45b10722e2c693024"
+		"OWNERS": "5472cb43b9bc646ebe2a48a6a81dd82346c91de78084c561fa8aa6566d61f07c",
+		"Cargo.lock": "06e6baaa6786eb3a0b6f0f08c4b51d772e3764f5dd5c999045aba1bda8af6e54"
 	}
 }

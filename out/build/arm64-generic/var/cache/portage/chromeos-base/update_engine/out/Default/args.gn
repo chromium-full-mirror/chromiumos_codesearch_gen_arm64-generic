@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/update_engine"
-platform2_root = "/mnt/host/source/src/platform2"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/update_engine-0.0.3-r4920/work/update_engine-0.0.3"
 libbase_ver = "1241304"
 enable_exceptions = false
 external_cflags = [

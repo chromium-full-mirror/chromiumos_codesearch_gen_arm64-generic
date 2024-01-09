@@ -43,11 +43,11 @@ build obj/dlcservice/all.stamp: stamp ./dlc_metadata_util ./dlcservice obj/dlcse
 subninja obj/dlcservice/dlc_metadata_util.ninja
 subninja obj/dlcservice/dlcservice.ninja
 rule __dlcservice_dlcservice_adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/dlcservice/out/Default/gen/include/dlcservice/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/dlcservice/dbus_adaptors/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1175/work/dlcservice-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/dlcservice/out/Default/gen/include/dlcservice/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/dlcservice-0.0.1-r1175/work/dlcservice-0.0.1/dlcservice/dbus_adaptors/dbus-service-config.json ${in}
   description = ACTION //dlcservice:dlcservice_adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/dlcservice/dbus_adaptors/org.chromium.DlcServiceInterface.h: __dlcservice_dlcservice_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/dlcservice/dbus_adaptors/org.chromium.DlcServiceInterface.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+build gen/include/dlcservice/dbus_adaptors/org.chromium.DlcServiceInterface.h: __dlcservice_dlcservice_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1175/work/dlcservice-0.0.1/dlcservice/dbus_adaptors/org.chromium.DlcServiceInterface.xml | ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1175/work/dlcservice-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.DlcServiceInterface
 
 build obj/dlcservice/dlcservice_adaptors.stamp: stamp gen/include/dlcservice/dbus_adaptors/org.chromium.DlcServiceInterface.h

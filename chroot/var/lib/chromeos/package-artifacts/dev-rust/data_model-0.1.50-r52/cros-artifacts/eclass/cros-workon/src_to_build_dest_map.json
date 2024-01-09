@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/../platform/crosvm",
-      "build_dest_path": "/var/tmp/portage/dev-rust/data_model-0.1.50-r52/work/data_model-0.1.50"
-    }
-  ]
-}

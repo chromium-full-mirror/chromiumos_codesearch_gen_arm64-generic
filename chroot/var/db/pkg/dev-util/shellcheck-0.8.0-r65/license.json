@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-util", "name": "shellcheck", "version": "0.8.0", "revision": 65, "fullname": "dev-util/shellcheck", "fullnamerev": "dev-util/shellcheck-0.8.0-r65", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://www.shellcheck.net/"], "skip": false, "tainted": false, "ebuild_path": null}

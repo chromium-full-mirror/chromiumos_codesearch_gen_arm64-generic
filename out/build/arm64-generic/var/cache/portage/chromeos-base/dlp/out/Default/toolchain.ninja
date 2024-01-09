@@ -38,20 +38,20 @@ build obj/dlp/_dlp-install_config.stamp: stamp
 build obj/dlp/_dlp_init-install_config.stamp: stamp
 build obj/dlp/all.stamp: stamp obj/dlp/dbus_adaptors_generator.stamp obj/dlp/dbus_proxies_generator.stamp ./dlp ./dlp_init obj/dlp/install_init.stamp obj/dlp/install_seccomp_policy.stamp obj/dlp/install_system-services.stamp obj/dlp/install_systemd.stamp
 rule __dlp_dbus_adaptors_generator___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/dlp/out/Default/gen/include/dlp/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/dlp/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/dlp/out/Default/gen/include/dlp/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/dlp/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //dlp:dbus_adaptors_generator(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/dlp/org.chromium.Dlp.h: __dlp_dbus_adaptors_generator___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/dlp/dbus_bindings/org.chromium.Dlp.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+build gen/include/dlp/org.chromium.Dlp.h: __dlp_dbus_adaptors_generator___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/dlp/dbus_bindings/org.chromium.Dlp.xml | ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.Dlp
 
 build obj/dlp/dbus_adaptors_generator.stamp: stamp gen/include/dlp/org.chromium.Dlp.h
 rule __dlp_dbus_proxies_generator___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/dlp/out/Default/gen/include/dlp/dbus-proxies.h -mock=/build/arm64-generic/var/cache/portage/chromeos-base/dlp/out/Default/gen/include/dlp/dbus-proxy-mocks.h ../../../../../../../../../mnt/host/source/src/platform2/dlp/dbus_bindings/org.chromium.DlpFilesPolicyService.xml
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/dlp/out/Default/gen/include/dlp/dbus-proxies.h -mock=/build/arm64-generic/var/cache/portage/chromeos-base/dlp/out/Default/gen/include/dlp/dbus-proxy-mocks.h ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/dlp/dbus_bindings/org.chromium.DlpFilesPolicyService.xml
   description = ACTION //dlp:dbus_proxies_generator(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/dlp/dbus-proxies.h gen/include/dlp/dbus-proxy-mocks.h: __dlp_dbus_proxies_generator___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/dlp/dbus_bindings/org.chromium.DlpFilesPolicyService.xml
+build gen/include/dlp/dbus-proxies.h gen/include/dlp/dbus-proxy-mocks.h: __dlp_dbus_proxies_generator___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/dlp/dbus_bindings/org.chromium.DlpFilesPolicyService.xml
 
 build obj/dlp/dbus_proxies_generator.stamp: stamp gen/include/dlp/dbus-proxies.h gen/include/dlp/dbus-proxy-mocks.h
 subninja obj/dlp/dlp.ninja
@@ -64,11 +64,11 @@ subninja obj/dlp/libdlp_static.ninja
 build obj/featured/all.stamp: stamp ./featured ./lib/libc_fake_feature_library.so ./lib/libfake_platform_features.so ./lib/libfeatures.so ./lib/libfeatures_c.so ./libstore_impl.a
 subninja obj/featured/featured.ninja
 rule __featured_featured-adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/dlp/out/Default/gen/include/featured/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/featured/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/dlp/out/Default/gen/include/featured/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/featured/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //featured:featured-adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/featured/dbus_adaptors/org.chromium.featured.h: __featured_featured-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/featured/dbus_bindings/org.chromium.featured.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+build gen/include/featured/dbus_adaptors/org.chromium.featured.h: __featured_featured-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/featured/dbus_bindings/org.chromium.featured.xml | ../../../../../../../tmp/portage/chromeos-base/dlp-0.0.1-r569/work/dlp-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.featured
 
 build obj/featured/featured-adaptors.stamp: stamp gen/include/featured/dbus_adaptors/org.chromium.featured.h

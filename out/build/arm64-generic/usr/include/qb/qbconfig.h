@@ -36,7 +36,7 @@
    but that was only introduced after v1.0.2 */
 #define QB_VER_MAJOR 2
 #define QB_VER_MINOR 0
-#define QB_VER_MICRO 4
+#define QB_VER_MICRO 8
 #define QB_VER_REST ""
 
 #define QB_VER_STR   \

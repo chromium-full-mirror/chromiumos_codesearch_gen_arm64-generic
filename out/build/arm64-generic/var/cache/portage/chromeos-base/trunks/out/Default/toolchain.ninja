@@ -41,29 +41,29 @@ build obj/trunks/install_tmpfiles_config.stamp: stamp
 build obj/trunks/install_trunksd_conf.stamp: stamp
 subninja obj/trunks/interface_proto.ninja
 rule __trunks_interface_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc trunks_interface.proto --proto_path /mnt/host/source/src/platform2/trunks --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/trunks/out/Default/gen/include/trunks
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/common-mk/file_generator_wrapper.py protoc trunks_interface.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/trunks --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/trunks/out/Default/gen/include/trunks
   description = ACTION //trunks:interface_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/trunks/trunks_interface.pb.cc gen/include/trunks/trunks_interface.pb.h: __trunks_interface_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/trunks/trunks_interface.proto
+build gen/include/trunks/trunks_interface.pb.cc gen/include/trunks/trunks_interface.pb.h: __trunks_interface_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/trunks/trunks_interface.proto
 
 build obj/trunks/interface_proto_gen.stamp: stamp gen/include/trunks/trunks_interface.pb.cc gen/include/trunks/trunks_interface.pb.h
 rule __trunks_libtrunks___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/trunks/out/Default/obj/trunks/libtrunks.pc --name=libtrunks --description=Trunks\$ shared\$ library --version=0.0.1 --libs=-ltrunks --cflags=-I/usr/include/trunks
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/trunks/out/Default/obj/trunks/libtrunks.pc --name=libtrunks --description=Trunks\$ shared\$ library --version=0.0.1 --libs=-ltrunks --cflags=-I/usr/include/trunks
   description = ACTION //trunks:libtrunks(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/trunks/libtrunks.pc: __trunks_libtrunks___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py
+build obj/trunks/libtrunks.pc: __trunks_libtrunks___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/common-mk/generate-pc.py
 
 build obj/trunks/libtrunks.stamp: stamp obj/trunks/libtrunks.pc
 subninja obj/trunks/pinweaver_client.ninja
 subninja obj/trunks/pinweaver_proto.ninja
 rule __trunks_pinweaver_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc pinweaver.proto --proto_path /mnt/host/source/src/platform2/trunks --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/trunks/out/Default/gen/include/trunks
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/common-mk/file_generator_wrapper.py protoc pinweaver.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/trunks --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/trunks/out/Default/gen/include/trunks
   description = ACTION //trunks:pinweaver_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/trunks/pinweaver.pb.cc gen/include/trunks/pinweaver.pb.h: __trunks_pinweaver_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/trunks/pinweaver.proto
+build gen/include/trunks/pinweaver.pb.cc gen/include/trunks/pinweaver.pb.h: __trunks_pinweaver_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3724/work/trunks-0.0.1/trunks/pinweaver.proto
 
 build obj/trunks/pinweaver_proto_gen.stamp: stamp gen/include/trunks/pinweaver.pb.cc gen/include/trunks/pinweaver.pb.h
 subninja obj/trunks/trunks.ninja
